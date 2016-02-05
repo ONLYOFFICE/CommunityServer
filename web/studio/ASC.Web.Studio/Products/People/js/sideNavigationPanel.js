@@ -27,6 +27,7 @@
 ;
 (function($) {
     var productTitle = document.title;
+    var clip = null;
     // binds
     function onButtonClick(evt) {
         var $this = jq(this);
@@ -103,7 +104,7 @@
             }
 
             jq(window).one("onOpenSideNavOtherActions", function (event, switcherObj, dropdownItem) {
-                var clip = new window.ZeroClipboard.Client();
+                clip = new window.ZeroClipboard.Client();
                 clip.addEventListener("mouseDown",
                     function () {
                         var url = jq("#shareInviteUserLink").val();

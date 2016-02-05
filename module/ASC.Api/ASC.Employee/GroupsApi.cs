@@ -125,7 +125,7 @@ namespace ASC.Api.Employee
             SecurityContext.DemandPermissions(Core.Users.Constants.Action_EditGroups, Core.Users.Constants.Action_AddRemoveUser);
 
             var group = CoreContext.UserManager.SaveGroupInfo(new GroupInfo {Name = groupName});
-
+            
             TransferUserToDepartment(groupManager, @group, true);
             if (members != null)
             {
@@ -137,7 +137,7 @@ namespace ASC.Api.Employee
 
             MessageService.Send(Request, MessageAction.GroupCreated, group.Name);
 
-            return GetById(group.ID);
+            return new GroupWrapperFull(group, true);
         }
 
         /// <summary>

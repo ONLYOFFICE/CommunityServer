@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -24,12 +24,8 @@
 */
 
 
-using System.Web.Configuration;
 using ASC.Api.Interfaces;
-using ASC.Common.Data;
-using ASC.Files.Core;
 using ASC.Projects.Engine;
-using ASC.Web.Files.Api;
 using ASC.Web.Core.Calendars;
 
 namespace ASC.Api.Projects
@@ -38,8 +34,7 @@ namespace ASC.Api.Projects
     {
         public void Configure()
         {
-            FilesIntegration.RegisterFileSecurityProvider("projects", "project", new SecurityAdapterProvider());
-
+            FileEngine.RegisterFileSecurityProvider();
             //Register prodjects' calendar events
             CalendarManager.Instance.RegistryCalendarProvider(ProjectApi.GetUserCalendars);
         }

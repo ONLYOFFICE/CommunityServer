@@ -83,7 +83,7 @@ namespace ASC.Web.Projects
         {
             InitView();
 
-            Manager = Global.EngineFactory.GetParticipantEngine().GetByID(Project.Responsible).UserInfo;
+            Manager = EngineFactory.ParticipantEngine.GetByID(Project.Responsible).UserInfo;
             ManagerName = Manager.DisplayUserName();
             ManagerAvatar = Manager.GetBigPhotoURL();
             ManagerProfileUrl = Manager.GetUserProfilePageURL();

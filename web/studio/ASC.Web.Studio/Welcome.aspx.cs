@@ -34,6 +34,8 @@ using ASC.Web.Core.Files;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.Core.HelpCenter;
 using ASC.Web.Studio.Masters;
+using System.IO;
+using ASC.Web.Studio.Core;
 
 namespace ASC.Web.Studio
 {
@@ -63,7 +65,7 @@ namespace ASC.Web.Studio
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-          //  Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/firsttime/js/start.js"));
+          //  Page.RegisterBodyScripts("~/usercontrols/firsttime/js/start.js");
             AjaxPro.Utility.RegisterTypeForAjax(typeof(UserVideoSettings));
 
             UserHelpTourHelper.IsNewUser = true;
@@ -103,6 +105,23 @@ namespace ASC.Web.Studio
             showProjects = items.Contains(projects);
             showCRM = items.Contains(crm);
      //       docsScript = WebConfigurationManager.AppSettings["files.docservice.url.preloader"];
+
+
+            #region third-party scripts
+
+            var WelcomeScriptLocation = "~/UserControls/Common/ThirdPartyScripts/WelcomeScript.ascx";
+            if (File.Exists(HttpContext.Current.Server.MapPath(WelcomeScriptLocation)) &&
+                !CoreContext.Configuration.Standalone && !CoreContext.Configuration.Personal && SetupInfo.CustomScripts.Length != 0)
+            {
+                WelcomeScriptPlaceHolder.Controls.Add(LoadControl(WelcomeScriptLocation));
+            }
+            else
+            {
+                WelcomeScriptPlaceHolder.Visible = false;
+            }
+
+            #endregion
+
         }
     }
 }

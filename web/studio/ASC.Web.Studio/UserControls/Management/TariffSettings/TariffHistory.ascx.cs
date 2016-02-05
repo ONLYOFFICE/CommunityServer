@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -43,7 +43,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/tariffsettings/css/tariffhistory.less"));
+            Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tariffhistory.less");
 
             PaymentsRepeater.DataSource = Payments;
             PaymentsRepeater.DataBind();

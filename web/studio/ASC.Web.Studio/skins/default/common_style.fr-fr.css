@@ -28,46 +28,44 @@ div.poll_variantDiv input.textEdit{width:79% !important;}
 
 .ui-datepicker { min-width: 20em;}
 
-@media all and (max-width: 1030px) {
-    .menuAction.menuChangeStatus  {
-        display: none;
-    }
 
-    .menuAction.otherFunctions li.menuChangeStatus  {
-        display: block;
-    }
+
+body.media-width-0-1030 .menuAction.menuChangeStatus  {
+    display: none;
 }
 
-@media all and (max-width: 1300px) {
-    .menuAction.menuSendInvite {
-        display: none;
-    }
-
-    .menuAction.otherFunctions li.menuSendInvite {
-        display: block;
-    }
+body.media-width-0-1030 .menuAction.otherFunctions li.menuChangeStatus  {
+    display: block;
 }
 
-@media all and (max-width: 1410px) {
-    .menuAction.menuWriteLetter  {
-        display: none;
-    }
 
-    .menuAction.otherFunctions li.menuWriteLetter  {
-        display: block;
-    }
+body.media-width-0-1300 .menuAction.menuSendInvite {
+    display: none;
 }
 
-@media all and (max-width: 1470px) {
-    .menuAction.otherFunctions {
-        display: block;
-    }
+body.media-width-0-1300 .menuAction.otherFunctions li.menuSendInvite {
+    display: block;
+}
 
-    .menuAction.menuRemoveUsers {
-        display: none;
-    }
 
-    .menuAction.otherFunctions li.menuRemoveUsers {
-        display: block;
-    }
+
+body.media-width-0-1410 .menuAction.menuWriteLetter  {
+    display: none;
+}
+
+body.media-width-0-1410 .menuAction.otherFunctions li.menuWriteLetter  {
+    display: block;
+}
+
+
+body.media-width-0-1470 .menuAction.otherFunctions {
+    display: block;
+}
+
+body.media-width-0-1470 .menuAction.menuRemoveUsers {
+    display: none;
+}
+
+body.media-width-0-1470 .menuAction.otherFunctions li.menuRemoveUsers {
+    display: block;
 }

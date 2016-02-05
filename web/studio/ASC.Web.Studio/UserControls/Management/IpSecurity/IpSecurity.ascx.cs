@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -38,14 +38,21 @@ namespace ASC.Web.Studio.UserControls.Management.IpSecurity
     {
         public const string Location = "~/UserControls/Management/IpSecurity/IpSecurity.ascx";
 
+        protected bool Enabled
+        {
+            get { return SetupInfo.IsVisibleSettings("IpSecurity"); }
+        }
+
         protected IPRestrictionsSettings RestrictionsSettings = SettingsManager.Instance.LoadSettings<IPRestrictionsSettings>(TenantProvider.CurrentTenantID);
 
         protected bool TenantAccessAnyone;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/ipsecurity/js/ipsecurity.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/ipsecurity/css/ipsecurity.less"));
+            if (!Enabled) return;
+
+            Page.RegisterBodyScripts("~/usercontrols/management/ipsecurity/js/ipsecurity.js");
+            Page.RegisterStyle("~/usercontrols/management/ipsecurity/css/ipsecurity.less");
 
             var managementPage = Page as Studio.Management;
             TenantAccessAnyone = managementPage != null ?

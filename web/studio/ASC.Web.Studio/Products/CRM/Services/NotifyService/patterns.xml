@@ -9,7 +9,7 @@
   <pattern id="ExportCompleted" sender="messanger.sender">
     <subject resource="|subject_ExportCompleted|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
-${EntityRelativeURL}
+        ${EntityRelativeURL}
     </body>
   </pattern>
 
@@ -33,7 +33,10 @@ ${EntityRelativeURL}
   <pattern id="TaskReminder" sender="messanger.sender">
     <subject resource="|subject_TaskReminder|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
+      #if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
+
       $AdditionalData.get_item("TaskDescription")
+      #end
 
       ${__VirtualRootPath}/products/crm/tasks.aspx
     </body>
@@ -47,9 +50,12 @@ ${EntityRelativeURL}
   <pattern id="ResponsibleForTask" sender="messanger.sender">
     <subject resource="|subject_ResponsibleForTask|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
-    $AdditionalData.get_item("TaskDescription")
+      #if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
 
-    ${__VirtualRootPath}/products/crm/tasks.aspx
+      $AdditionalData.get_item("TaskDescription")
+      #end
+
+      ${__VirtualRootPath}/products/crm/tasks.aspx
     </body>
   </pattern>
 
@@ -62,7 +68,10 @@ ${EntityRelativeURL}
   <pattern id="ResponsibleForOpportunity" sender="messanger.sender">
     <subject resource="|subject_ResponsibleForOpportunity|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
+      #if($AdditionalData.get_item("OpportunityDescription")&amp;&amp;$AdditionalData.get_item("OpportunityDescription")!="")
+
       $AdditionalData.get_item("OpportunityDescription")
+      #end
 
       ${__VirtualRootPath}/products/crm/deals.aspx?id=$EntityID
     </body>
@@ -103,7 +112,7 @@ ${EntityRelativeURL}
   <pattern id="SetAccess" sender="messanger.sender">
     <subject resource="|subject_SetAccess|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
-$EntityTitle
+        ${__VirtualRootPath}/${EntityRelativeURL}
     </body>
   </pattern>
 
@@ -115,7 +124,7 @@ $EntityTitle
   <pattern id="CreateNewContact" sender="messanger.sender">
     <subject resource="|subject_CreateNewContact|ASC.Web.CRM.Services.NotifyService.CRMPatternResource,ASC.Web.CRM" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
-$EntityTitle
+        ${__VirtualRootPath}/products/crm/default.aspx?id=$EntityID
     </body>
   </pattern>
 

@@ -1,7 +1,6 @@
 ﻿#region Import
 
 using System.Reflection;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 #endregion
@@ -11,7 +10,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ascensio System SIA")]
 [assembly: AssemblyProduct("ASC.Api.CRM")]
-[assembly: AssemblyCopyright("Ascensio System SIA 2013")]
+[assembly: AssemblyCopyright("Ascensio System SIA 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -32,8 +32,8 @@ namespace ASC.Collections
 {
     public abstract class CachedDictionaryBase<T>
     {
-        protected string _baseKey;
-        protected Func<T, bool> _cacheCodition;
+        protected string baseKey;
+        protected Func<T, bool> condition;
 
         public T this[string key]
         {
@@ -49,7 +49,7 @@ namespace ASC.Collections
 
         public void Clear()
         {
-            InsertRootKey(_baseKey);
+            InsertRootKey(baseKey);
         }
 
         public void Clear(string rootKey)
@@ -89,7 +89,7 @@ namespace ASC.Collections
 
         protected string BuildKey(string key, string rootkey)
         {
-            return string.Format("{0}-{1}-{2}", _baseKey, rootkey, key);
+            return string.Format("{0}-{1}-{2}", baseKey, rootkey, key);
         }
 
         protected abstract object GetObjectFromCache(string fullKey);
@@ -115,18 +115,14 @@ namespace ASC.Collections
             object objectCache = GetObjectFromCache(fullKey);
             if (FitsCondition(objectCache))
             {
-#if (DEBUG)
                 OnHit(fullKey);
-#endif
                 return ReturnCached(objectCache);
             }
             if (defaults != null)
             {
-#if (DEBUG)
                 OnMiss(fullKey);
-#endif
                 T newValue = defaults();
-                if (_cacheCodition == null || _cacheCodition(newValue))
+                if (condition == null || condition(newValue))
                 {
                     Add(rootkey, key, newValue);
                 }
@@ -140,11 +136,13 @@ namespace ASC.Collections
             return (T)objectCache;
         }
 
+        [Conditional("DEBUG")]
         protected virtual void OnHit(string fullKey)
         {
             Debug.Print("cache hit:{0}", fullKey);
         }
 
+        [Conditional("DEBUG")]
         protected virtual void OnMiss(string fullKey)
         {
             Debug.Print("cache miss:{0}", fullKey);

@@ -24,6 +24,7 @@
 */
 
 
+using ASC.Common.Caching;
 using ASC.Core.Tenants;
 using System;
 using System.Collections;
@@ -37,6 +38,7 @@ namespace ASC.Core.Caching
         private const string KEY = "tenants";
         private readonly ITenantService service;
         private readonly ICache cache;
+        private readonly ICacheNotify cacheNotify;
 
 
         public TimeSpan CacheExpiration
@@ -57,10 +59,19 @@ namespace ASC.Core.Caching
             if (service == null) throw new ArgumentNullException("service");
 
             this.service = service;
-            cache = AscCache.Default;
-
+            cache = AscCache.Memory;
             CacheExpiration = TimeSpan.FromMinutes(2);
             SettingsExpiration = TimeSpan.FromMinutes(2);
+            cacheNotify = AscCache.Notify;
+            cacheNotify.Subscribe<Tenant>((t, a) =>
+            {
+                var tenants = GetTenantStore();
+                tenants.Remove(t.TenantId);
+            });
+            cacheNotify.Subscribe<TenantSetting>((s, a) =>
+            {
+                cache.Remove(s.Key);
+            });
         }
 
 
@@ -112,22 +123,14 @@ namespace ASC.Core.Caching
         public Tenant SaveTenant(Tenant tenant)
         {
             tenant = service.SaveTenant(tenant);
-            var tenants = cache.Get(KEY) as TenantStore;
-            if (tenants != null)
-            {
-                tenants.Insert(tenant);
-            }
+            cacheNotify.Publish(new Tenant() { TenantId = tenant.TenantId }, CacheNotifyAction.InsertOrUpdate);
             return tenant;
         }
 
         public void RemoveTenant(int id)
         {
             service.RemoveTenant(id);
-            var tenants = cache.Get(KEY) as TenantStore;
-            if (tenants != null)
-            {
-                tenants.Remove(id);
-            }
+            cacheNotify.Publish(new Tenant() { TenantId = id }, CacheNotifyAction.InsertOrUpdate);
         }
 
         public IEnumerable<TenantVersion> GetTenantVersions()
@@ -138,7 +141,7 @@ namespace ASC.Core.Caching
         public byte[] GetTenantSettings(int tenant, string key)
         {
             var cacheKey = string.Format("settings/{0}/{1}", tenant, key);
-            var data = cache.Get(cacheKey) as byte[] ?? service.GetTenantSettings(tenant, key);
+            var data = cache.Get<byte[]>(cacheKey) ?? service.GetTenantSettings(tenant, key);
             cache.Insert(cacheKey, data ?? new byte[0], DateTime.UtcNow + SettingsExpiration);
             return data == null ? null : data.Length == 0 ? null : data;
         }
@@ -146,13 +149,14 @@ namespace ASC.Core.Caching
         public void SetTenantSettings(int tenant, string key, byte[] data)
         {
             service.SetTenantSettings(tenant, key, data);
-            cache.Insert(string.Format("settings/{0}/{1}", tenant, key), data ?? new byte[0], DateTime.UtcNow + SettingsExpiration);
+            var cacheKey = string.Format("settings/{0}/{1}", tenant, key);
+            cacheNotify.Publish(new TenantSetting { Key = cacheKey }, CacheNotifyAction.Any);
         }
 
 
         private TenantStore GetTenantStore()
         {
-            var store = cache.Get(KEY) as TenantStore;
+            var store = cache.Get<TenantStore>(KEY);
             if (store == null)
             {
                 cache.Insert(KEY, store = new TenantStore(), DateTime.UtcNow.Add(CacheExpiration));
@@ -161,7 +165,14 @@ namespace ASC.Core.Caching
         }
 
 
-        private class TenantStore
+        [Serializable]
+        class TenantSetting
+        {
+            public string Key { get; set; }
+        }
+
+
+        class TenantStore
         {
             private readonly Dictionary<int, Tenant> byId = new Dictionary<int, Tenant>();
             private readonly Dictionary<string, Tenant> byDomain = new Dictionary<string, Tenant>();

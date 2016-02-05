@@ -26,28 +26,47 @@
 
 (function($) {
 
-    function onGetMailFolders() {
+    $(function() {
+        TMMail.init();
+
+        window.MailResource = ASC.Mail.Resources.MailResource;
+        window.MailScriptResource = ASC.Mail.Resources.MailScriptResource;
+        window.MailAttachmentsResource = ASC.Mail.Resources.MailAttachmentsResource;
+        window.MailActionCompleteResource = ASC.Mail.Resources.MailActionCompleteResource;
+        window.MailAdministrationResource = ASC.Mail.Resources.MailAdministrationResource;
+        window.MailApiErrorsResource = ASC.Mail.Resources.MailApiErrorsResource;
+
+        folderPanel.init();
+
+        blankPages.init();
+        popup.init();
+
+        MailFilter.init();
+        tagsManager.init();
+        accountsManager.init();
+        settingsPanel.init();
+        helpPanel.init();
+        helpPage.init();
+        accountsPanel.init();
+        administrationManager.init();
+
         filterCache.init();
         mailBox.init();
         folderFilter.init();
         contactsPage.init();
         contactsPanel.init();
         contactsManager.init();
-        CrmLinkPopup.init();
 
         accountsPage.setDefaultAccountIfItDoesNotExist();
 
-        var currentAnchor = ASC.Controls.AnchorController.getAnchor();
-        ASC.Controls.AnchorController.move(currentAnchor);
-
-        $('#createNewMailBtn').click(function(e) {
+        $('#createNewMailBtn').click(function (e) {
             if (e.isPropagationStopped()) {
                 return;
             }
             createNewMail();
         });
 
-        $('#check_email_btn').click(function(e) {
+        $('#check_email_btn').click(function (e) {
             if (e.isPropagationStopped()) {
                 return;
             }
@@ -60,11 +79,11 @@
                 mailBox.unmarkAllPanels();
                 ASC.Controls.AnchorController.move(TMMail.sysfolders.inbox.name);
             }
-            serviceManager.updateFolders(ASC.Resources.Master.Resource.LoadingProcessing);
+            serviceManager.updateFolders({}, {}, ASC.Resources.Master.Resource.LoadingProcessing);
             mailAlerts.check();
         });
 
-        $('#settingsLabel').click(function() {
+        $('#settingsLabel').click(function () {
             var $settingsPanel = $(this).parents('.menu-item.sub-list');
             if ($settingsPanel.hasClass('open')) {
                 $settingsPanel.removeClass('open');
@@ -91,47 +110,16 @@
 
         mailBox.groupButtonsMenuHandlers();
 
-        if (accountsManager.getAccountList().length > 0 && window.blankModal != undefined) {
-            window.blankModal.close();
+        if (accountsManager.getAccountList().length > 0) {
+            trustedAddresses.init();
+
+            if (window.blankModal)
+                window.blankModal.close();
+
+        } else {
+            if (window.blankModal)
+                window.blankModal.show();
         }
-    }
-
-    $(function() {
-        folderPanel.init();
-
-        TMMail.checkAnchor();
-
-        TMMail.init(crm_available, tl_available);
-        window.MailResource = ASC.Mail.Resources.MailResource;
-        window.MailScriptResource = ASC.Mail.Resources.MailScriptResource;
-        window.MailAttachmentsResource = ASC.Mail.Resources.MailAttachmentsResource;
-        window.MailActionCompleteResource = ASC.Mail.Resources.MailActionCompleteResource;
-        window.MailAdministrationResource = ASC.Mail.Resources.MailAdministrationResource;
-        window.MailApiErrorsResource = ASC.Mail.Resources.MailApiErrorsResource;
-
-        blankPages.init();
-        popup.init();
-
-        MailFilter.init();
-        tagsManager.init();
-        accountsManager.init();
-        settingsPanel.init();
-        helpPanel.init();
-        helpPage.init();
-        accountsPanel.init();
-        administrationManager.init();
-        trustedAddresses.init();
-
-        window.Teamlab.getMailTags();
-
-        window.Teamlab.getMailFolders({}, TMMail.messages_modify_date, {
-            success: onGetMailFolders,
-            error: function() {
-                window.toastr.error(TMMail.getErrorMessage([window.MailScriptResource.ErrorNotification]));
-            }
-        });
-
-        mailAlerts.check();
     });
 
     var createNewMail = function() {

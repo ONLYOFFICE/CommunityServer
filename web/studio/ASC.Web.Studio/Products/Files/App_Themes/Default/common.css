@@ -71,27 +71,35 @@ body .may-drop-to {
 }
 
 /*******************************************************************************
-    Banner App
+    Banner
 *******************************************************************************/
+.banner-link {
+    background: no-repeat 0 0 transparent;
+    border: 1px solid #d1d1d1;
+    display: block;
+    height: 54px;
+    margin: 20px 0 0;
+    outline: medium none;
+    padding: 5px 5px 5px 60px;
+    text-decoration: none;
+
+    border-radius: 3px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+}
+.banner-link:active {
+    text-decoration: none;
+}
 .mobile-app-banner {
-    background: url("images/app/documents_appstore.png") no-repeat 0 0 transparent;
-    display: inline-block;
-    height: 66px;
-    margin-top: 20px;
-    outline: none;
-    width: 240px;
+    background-image: url("images/documents_appstore.png");
+    height: 45px;
+    padding-top: 14px;
+    width: 173px;
+    overflow: hidden;
 }
-.mobile-app-banner.de-DE {
-    background-image: url("images/app/documents_appstore_de.png");
-}
-.mobile-app-banner.es-ES {
-    background-image: url("images/app/documents_appstore_es.png");
-}
-.mobile-app-banner.fr-FR {
-    background-image: url("images/app/documents_appstore_fr.png");
-}
-.mobile-app-banner.ru-RU {
-    background-image: url("images/app/documents_appstore_ru.png");
+.mobile-app-banner span {
+    font-size: 14px;
+    font-weight: 600;
 }
 
 /*******************************************************************************

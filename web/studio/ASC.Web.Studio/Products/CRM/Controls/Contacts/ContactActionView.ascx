@@ -69,17 +69,6 @@
                 </tr>
                 </tbody>
                 </table>
-                
-                <% if (IsCrunchBaseSearchEnabled) %> 
-                <% { %>
-                <a onclick="ASC.CRM.SocialMedia.FindContacts(false);" class="findInSocialMediaButton_Enabled baseLinkAction"
-                    <%= TargetContact == null ? "style='display:none;'" : ""%> >
-                    <%= CRMSocialMediaResource.FindInSocialMedia%></a>
-
-                <a class="findInSocialMediaButton_Disabled baseLinkAction"
-                    <%= TargetContact != null ? "style='display:none;'" : ""%> >
-                    <%= CRMSocialMediaResource.FindInSocialMedia%></a>
-                <% } %>
             </div>
             <% } else { %>
                 <div class="info_for_company headerPanelSmall-splitter clearFix">
@@ -89,17 +78,6 @@
                         <input type="text" class="textEdit generalField" name="baseInfo_companyName" maxlength="100"
                             value="<%= GetCompanyName()%>" />
                     </div>
-                    
-                    <% if (IsCrunchBaseSearchEnabled) %>
-                    <% { %>
-                    <a onclick="ASC.CRM.SocialMedia.FindContacts(true);" class="findInSocialMediaButton_Enabled baseLinkAction"
-                            style="margin-top: 8px;<%= TargetContact == null ? "display:none;" : "" %>" >
-                        <%= CRMSocialMediaResource.FindInSocialMedia %></a>
-
-                    <a class="findInSocialMediaButton_Disabled baseLinkAction"
-                            style="margin-top: 8px;<%= TargetContact != null ? "display:none;" : "" %>" >
-                        <%= CRMSocialMediaResource.FindInSocialMedia %></a>
-                    <% } %>
                 </div>
             <% } %>
 

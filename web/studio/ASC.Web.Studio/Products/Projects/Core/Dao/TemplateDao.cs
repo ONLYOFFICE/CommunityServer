@@ -37,11 +37,12 @@ namespace ASC.Projects.Data.DAO
     class TemplateDao : BaseDao, ITemplateDao
     {
         private readonly string[] templateColumns = new[] { "id", "title", "description", "create_by", "create_on" };
+        private readonly Converter<object[], Template> converter;
 
         public TemplateDao(string dbId, int tenant)
             : base(dbId, tenant)
         {
-
+            converter = ToTemplate;
         }
 
         public List<Template> GetAll()
@@ -50,7 +51,7 @@ namespace ASC.Projects.Data.DAO
 
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(q).ConvertAll(ToTemplate);
+                return db.ExecuteList(q).ConvertAll(converter);
             }
         }
 
@@ -69,7 +70,7 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 var query = Query(TemplatesTable + " p").Select(templateColumns).Where("p.id", id);
-                return db.ExecuteList(query).ConvertAll(ToTemplate).SingleOrDefault();
+                return db.ExecuteList(query).ConvertAll(converter).SingleOrDefault();
             }
         }
 

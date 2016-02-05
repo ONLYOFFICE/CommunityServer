@@ -29,6 +29,7 @@ window.ASC.Files.FileSelector = (function () {
     var fileSelectorTree = {};
     var isFolderSelector = false;
     var filesFilter = ASC.Files.Constants.FilterType.None;
+    var filesFilterText = "";
 
     var onInit = function () {
     };
@@ -58,26 +59,34 @@ window.ASC.Files.FileSelector = (function () {
 
             jq("#fileSelectorDialog").on("click", "#submitFileSelector:not(.disable)", function () {
                 if (isFolderSelector) {
-                    ASC.Files.FileSelector.onSubmit(ASC.Files.FileSelector.fileSelectorTree.selectedFolderId);
+                    var result = ASC.Files.FileSelector.onSubmit(ASC.Files.FileSelector.fileSelectorTree.selectedFolderId);
                 } else {
                     var files = jq("#filesMainContent .file-row:not(.folder-row):has(.checkbox input:checked)").map(function () {
                         return ASC.Files.UI.getObjectData(this);
                     });
-                    ASC.Files.FileSelector.onSubmit(files);
+                    result = ASC.Files.FileSelector.onSubmit(files);
                 }
 
-                PopupKeyUpActionProvider.CloseDialog();
+                if (result !== false) {
+                    PopupKeyUpActionProvider.CloseDialog();
+                }
             });
 
             jq("#pageNavigatorHolder a").click(function () {
                 selectFolder(ASC.Files.FileSelector.fileSelectorTree.selectedFolderId, true);
             });
 
+            jq("#mainContent").scroll(function () {
+                if (jq("#filesMainContent").height() - jq("#fileSelectorDialog").height() <= jq("#mainContent").scrollTop()) {
+                    selectFolder(ASC.Files.FileSelector.fileSelectorTree.selectedFolderId, true);
+                }
+
+                return true;
+            });
+
             jq("#filesMainContent").on("click", ".folder-row:not(.error-entry) .entry-title .name a, .folder-row:not(.error-entry) .thumb-folder", function () {
                 var folderId = ASC.Files.UI.getObjectData(this).id;
-                if (folderId != 0) {
-                    selectFolder(folderId, false, true);
-                }
+                selectFolder(folderId, false, true);
                 return false;
             });
             
@@ -105,6 +114,18 @@ window.ASC.Files.FileSelector = (function () {
     };
 
     var selectFolder = function (folderId, isAppend, expandTree) {
+        if ((folderId || 0) == 0) {
+            return;
+        }
+
+        if (isAppend
+            && (jq("#pageNavigatorHolder:visible").length == 0
+                || jq("#pageNavigatorHolder a").text() == ASC.Files.FilesJSResources.ButtonShowMoreLoad)) {
+            return;
+        }
+
+        jq("#pageNavigatorHolder a").text(ASC.Files.FilesJSResources.ButtonShowMoreLoad);
+
         jq("#submitFileSelector").addClass("disable");
         var filterSettings =
             {
@@ -112,7 +133,7 @@ window.ASC.Files.FileSelector = (function () {
                     is_asc: false,
                     property: "DateAndTime"
                 },
-                text: "",
+                text: ASC.Files.FileSelector.filesFilterText,
                 filter: ASC.Files.FileSelector.filesFilter,
                 subject: ""
             };
@@ -141,7 +162,7 @@ window.ASC.Files.FileSelector = (function () {
     };
 
     var openDialog = function (folderId, onlyFolder, thirdParty) {
-        isFolderSelector = jq("#mainContent").length && onlyFolder;
+        isFolderSelector = !jq("#mainContent").length || onlyFolder;
 
         ASC.Files.FileSelector.fileSelectorTree.clickOnFolder = isFolderSelector ? checkFolder : selectFolder;
 
@@ -218,6 +239,7 @@ window.ASC.Files.FileSelector = (function () {
 
         fileSelectorTree: fileSelectorTree,
         filesFilter: filesFilter,
+        filesFilterText: filesFilterText,
 
         onInit: onInit,
         onSubmit: onSubmit,

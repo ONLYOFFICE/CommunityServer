@@ -47,9 +47,8 @@ namespace ASC.Web.Mail.Controls
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/uploader/jquery.fileupload.js"));
-
-        Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/usercontrols/common/ckeditor/ckeditor-connector.js"));
+        Page.RegisterBodyScripts("~/js/uploader/jquery.fileupload.js");
+        Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
 
         AjaxPro.Utility.RegisterTypeForAjax(this.GetType());
 

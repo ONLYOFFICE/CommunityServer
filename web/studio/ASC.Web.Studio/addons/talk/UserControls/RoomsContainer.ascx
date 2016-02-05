@@ -20,8 +20,8 @@
         <div class="button-container search-next-message" title="<%=TalkResource.HintSearchNextMessage%>" unselectable="on">
           <div class="button-talk search-next-message" unselectable="on"></div>
         </div>
-        <div class="custom-select filtering-menu" data-value="0" unselectable="on">
-          <div class="title filter-value" title="<%=TalkResource.HistoryFilterLastDay%>" unselectable="on"><%=TalkResource.HistoryFilterLastDay%></div>
+        <div class="custom-select filtering-menu" data-value="2" unselectable="on">
+          <div class="title filter-value" title="<%=TalkResource.HistoryFilterLastMonth%>" unselectable="on"><%=TalkResource.HistoryFilterLastMonth%></div>
           <div class="helper" unselectable="on">
             <ul class="options" unselectable="on">
               <li class="option filter-option" data-id="0" title="<%=TalkResource.HistoryFilterLastDay%>" unselectable="on"><%=TalkResource.HistoryFilterLastDay%></li>

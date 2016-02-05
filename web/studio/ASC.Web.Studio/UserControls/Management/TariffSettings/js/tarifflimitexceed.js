@@ -24,10 +24,6 @@
 */
 
 
-/*
-Copyright (c) Ascensio System SIA 2013. All rights reserved.
-http://www.teamlab.com
-*/
 window.TariffLimitExceed = (function () {
     var showLimitExceedUsers = function () {
         StudioBlockUIManager.blockUI("#tariffLimitExceedUsersPanel", 500, 300, 0);

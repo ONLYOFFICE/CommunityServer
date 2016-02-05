@@ -38,7 +38,7 @@ namespace ASC.Mail.Aggregator
     {
         #region structures defines
 
-        public struct MailFolderInfo
+        public class MailFolderInfo
         {
             public int id;
             public int unread;
@@ -50,7 +50,7 @@ namespace ASC.Mail.Aggregator
 
         #region public methods
 
-        public List<MailFolderInfo> GetFoldersList(int tenant, string user, bool isConversation)
+        public List<MailFolderInfo> GetFolders(int tenant, string user, bool isConversation)
         {
             using (var db = GetDb())
             {
@@ -86,37 +86,6 @@ namespace ASC.Mail.Aggregator
                 RecalculateFolders(db, tenant, user, !isConversation);
 
                 return RecalculateFolders(db, tenant, user, isConversation);
-            }
-        }
-
-        public DateTime GetMessagesModifyDate(int tenant, string user)
-        {
-            using (var db = GetDb())
-            {
-                var query = new SqlQuery(FolderTable.name)
-                    .SelectMax(FolderTable.Columns.time_modified)
-                    .Where(GetUserWhere(user, tenant));
-
-                var dateString = db.ExecuteScalar<string>(query);
-
-                DateTime dateTime;
-                return DateTime.TryParse(dateString, out dateTime) ? dateTime.ToUniversalTime() : DateTime.MinValue;
-            }
-        }
-
-        public DateTime GetFolderModifyDate(int tenant, string user, int folder)
-        {
-            using (var db = GetDb())
-            {
-                var query = new SqlQuery(FolderTable.name)
-                    .Select(FolderTable.Columns.time_modified)
-                    .Where(GetUserWhere(user, tenant))
-                    .Where(FolderTable.Columns.folder, folder);
-
-                var dateString = db.ExecuteScalar<string>(query);
-
-                DateTime dateTime;
-                return DateTime.TryParse(dateString, out dateTime) ? dateTime.ToUniversalTime() : DateTime.MinValue;
             }
         }
 

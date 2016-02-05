@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -78,11 +78,10 @@ namespace ASC.Web.Community.Blogs
 
         protected void RenderScripts()
         {
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/products/community/modules/blogs/js/blogs.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/asc/plugins/tagsautocompletebox.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/products/community/modules/blogs/app_themes/default/blogstyle.css"));
-
-            var script = @"
+            Page.RegisterBodyScripts("~/products/community/modules/blogs/js/blogs.js");
+            Page.RegisterBodyScripts("~/js/asc/plugins/tagsautocompletebox.js");
+            Page.RegisterStyle("~/products/community/modules/blogs/app_themes/default/blogstyle.css");
+            Page.RegisterInlineScript(@"
 function createSearchHelper() {
 
 	var ForumTagSearchHelper = new SearchHelper(
@@ -98,9 +97,7 @@ function createSearchHelper() {
 		false
 	);
 }
-";
-
-            Page.ClientScript.RegisterClientScriptBlock(typeof (string), "blogsTagsAutocompleteInitScript", script, true);
+");
         }
     }
 }

@@ -333,3 +333,9 @@ img:-moz-user-disabled {
     max-width: 550px;
     vertical-align: top;
 }
+
+#BookmarkToRemoveFromFavouriteName {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

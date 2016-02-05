@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddonDescriptionResourceKey" xml:space="preserve">
     <value>The corporate blog</value>
@@ -123,17 +123,8 @@
   <data name="AddonName" xml:space="preserve">
     <value>Blogs</value>
   </data>
-  <data name="AddTagMessage" xml:space="preserve">
-    <value>You may tag only your own blog posts</value>
-  </data>
-  <data name="AllBlogs" xml:space="preserve">
-    <value>All Blogs</value>
-  </data>
-  <data name="BackLink" xml:space="preserve">
-    <value>Back</value>
-  </data>
-  <data name="BlogOfTitle" xml:space="preserve">
-    <value>Blog</value>
+  <data name="AllRecordsOfTheAutor" xml:space="preserve">
+    <value>All records of the author</value>
   </data>
   <data name="Blogs" xml:space="preserve">
     <value>Blogs</value>
@@ -146,6 +137,9 @@
   </data>
   <data name="CancelButton" xml:space="preserve">
     <value>Cancel</value>
+  </data>
+  <data name="CommentsAddButtonTitle" xml:space="preserve">
+    <value>Write a comment</value>
   </data>
   <data name="CommentsTitle" xml:space="preserve">
     <value>Comments</value>
@@ -177,15 +171,6 @@
   <data name="EnterTagsMessage" xml:space="preserve">
     <value>Enter the needed tags separating them with commas</value>
   </data>
-  <data name="ErrorAccessDenied" xml:space="preserve">
-    <value>Access denied</value>
-  </data>
-  <data name="ErrorNotCorrectMaxBlogsSettings" xml:space="preserve">
-    <value>Invalid number of posts</value>
-  </data>
-  <data name="GroupTitle" xml:space="preserve">
-    <value>Where to post:</value>
-  </data>
   <data name="HideButton" xml:space="preserve">
     <value>Close</value>
   </data>
@@ -195,47 +180,8 @@
   <data name="InPersonalBlogLabel" xml:space="preserve">
     <value>personal blog</value>
   </data>
-  <data name="ListBlogsPageName" xml:space="preserve">
-    <value>Title Page</value>
-  </data>
-  <data name="LiveBroadcastTitle" xml:space="preserve">
-    <value>Recent Activity</value>
-  </data>
-  <data name="MarksToolTipText" xml:space="preserve">
-    <value>Tags</value>
-  </data>
-  <data name="MaxPostsCountSettingsTitle" xml:space="preserve">
-    <value>Number of posts to display (1 to 30)</value>
-  </data>
-  <data name="MenuItems" xml:space="preserve">
-    <value>All;Corporate;Personal</value>
-  </data>
-  <data name="MenuItemsTargets" xml:space="preserve">
-    <value>default.aspx;default.aspx?mode=corporate;default.aspx?mode=personal</value>
-  </data>
-  <data name="MyBlogsProfile" xml:space="preserve">
-    <value>My profile in blogs</value>
-  </data>
-  <data name="NewPoll" xml:space="preserve">
-    <value>New Poll</value>
-  </data>
   <data name="NewPost" xml:space="preserve">
     <value>Add new post</value>
-  </data>
-  <data name="NoBlogsWidgetMessage" xml:space="preserve">
-    <value>There are no posts in blogs.</value>
-  </data>
-  <data name="NoBlogsWidgetTitle" xml:space="preserve">
-    <value>Click here to {0}Add new post{1}</value>
-  </data>
-  <data name="NoGroupItem" xml:space="preserve">
-    <value>Personal blog</value>
-  </data>
-  <data name="NotFoundMessage" xml:space="preserve">
-    <value>Nothing has been found.</value>
-  </data>
-  <data name="PleaseWaitMessage" xml:space="preserve">
-    <value>Please wait...</value>
   </data>
   <data name="PostButton" xml:space="preserve">
     <value>Publish</value>
@@ -243,26 +189,17 @@
   <data name="PostedTitle" xml:space="preserve">
     <value>Author</value>
   </data>
-  <data name="PostsTitle" xml:space="preserve">
-    <value>Posts</value>
-  </data>
   <data name="PreviewButton" xml:space="preserve">
     <value>Preview</value>
-  </data>
-  <data name="RatingsMenuTitle" xml:space="preserve">
-    <value>Ratings</value>
   </data>
   <data name="ReadMoreLink" xml:space="preserve">
     <value>Read more</value>
   </data>
-  <data name="SaveButton" xml:space="preserve">
-    <value>Save</value>
-  </data>
   <data name="SearchDefaultString" xml:space="preserve">
     <value>Search in blogs</value>
   </data>
-  <data name="SubmitButton" xml:space="preserve">
-    <value>Send</value>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Show on page</value>
   </data>
   <data name="SubscribeOnAuthorAction" xml:space="preserve">
     <value>Subscribe to all user's posts </value>
@@ -291,11 +228,17 @@
   <data name="SubscribeOnNewPostTitle" xml:space="preserve">
     <value>Subscription to all posts</value>
   </data>
-  <data name="TagCloudTitle" xml:space="preserve">
-    <value>Tag Cloud</value>
-  </data>
   <data name="TagsTitle" xml:space="preserve">
     <value>Tags</value>
+  </data>
+  <data name="TeamlabCutText" xml:space="preserve">
+    <value>Select the main part with the mouse and click "ONLYOFFICE Cut" so that only a short snippet of the post was shown at the discussion list and feed pages.</value>
+  </data>
+  <data name="TeamlabCutTitle" xml:space="preserve">
+    <value>TeamLab Cut</value>
+  </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Total</value>
   </data>
   <data name="UnSubscribeOnAuthorAction" xml:space="preserve">
     <value>Unsubscribe from user's posts</value>
@@ -305,53 +248,5 @@
   </data>
   <data name="UnSubscribeOnNewPostAction" xml:space="preserve">
     <value>Unsubscribe from all posts</value>
-  </data>
-  <data name="UserActivity_AddComment" xml:space="preserve">
-    <value>comment added</value>
-  </data>
-  <data name="UserActivity_AddPost" xml:space="preserve">
-    <value>post created</value>
-  </data>
-  <data name="UserActivity_AddPullPost" xml:space="preserve">
-    <value>poll created</value>
-  </data>
-  <data name="UserActivity_DeleteComment" xml:space="preserve">
-    <value>comment deleted</value>
-  </data>
-  <data name="UserActivity_DeletePost" xml:space="preserve">
-    <value>post deleted</value>
-  </data>
-  <data name="UserActivity_EditComment" xml:space="preserve">
-    <value>comment edited</value>
-  </data>
-  <data name="UserActivity_EditPost" xml:space="preserve">
-    <value>post edited</value>
-  </data>
-  <data name="UserActivity_Vote" xml:space="preserve">
-    <value>vote added</value>
-  </data>
-  <data name="ViewsTitle" xml:space="preserve">
-    <value>View</value>
-  </data>
-  <data name="WidgetDescriptionResourceKey" xml:space="preserve">
-    <value>shows the latest posts in blog</value>
-  </data>
-  <data name="AllRecordsOfTheAutor" xml:space="preserve">
-    <value>All records of the author</value>
-  </data>
-  <data name="ShowOnPage" xml:space="preserve">
-    <value>Show on page</value>
-  </data>
-  <data name="TotalPages" xml:space="preserve">
-    <value>Total</value>
-  </data>
-  <data name="TeamlabCutTitle" xml:space="preserve">
-    <value>TeamLab Cut</value>
-  </data>
-  <data name="TeamlabCutText" xml:space="preserve">
-    <value>Select the main part with the mouse and click "ONLYOFFICE Cut" so that only a short snippet of the post was shown at the discussion list and feed pages.</value>
-  </data>
-  <data name="CommentsAddButtonTitle" xml:space="preserve">
-    <value>Write a comment</value>
   </data>
 </root>

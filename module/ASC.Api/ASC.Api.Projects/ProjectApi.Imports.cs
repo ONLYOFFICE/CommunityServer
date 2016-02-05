@@ -95,7 +95,7 @@ namespace ASC.Api.Projects
         [Create(@"import/projects")]
         public IEnumerable<ObjectWrapperBase> GetProjectsForImport(string url, string userName, string password)
         {
-            return ImportQueue.GetProjects(url, userName, password).Select(x => new ObjectWrapperBase {Id = x.ID, Title = x.Title, Status = (int)x.Status, Responsible = new EmployeeWraperFull()}).ToSmartList();
+            return ImportQueue.GetProjects(url, userName, password).Select(x => new ObjectWrapperBase {Id = x.ID, Title = x.Title, Status = (int)x.Status, Responsible = new EmployeeWraperFull()});
         }
 
         ///<summary>

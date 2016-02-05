@@ -54,7 +54,7 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/Management/SmsControls/js/SmsValidation.js"));
+            Page.RegisterBodyScripts("~/usercontrols/Management/SmsControls/js/SmsValidation.js");
 
             SmsEnable = StudioSmsNotificationSettings.IsVisibleSettings;
 

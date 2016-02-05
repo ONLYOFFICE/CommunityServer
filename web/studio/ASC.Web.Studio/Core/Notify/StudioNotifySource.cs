@@ -75,7 +75,14 @@ namespace ASC.Web.Studio.Core.Notify
 
                     Constants.ActionSmsBalance,
                     Constants.ActionVoipWarning,
-                    Constants.ActionVoipBlocked
+                    Constants.ActionVoipBlocked,
+
+                    Constants.ActionCongratulationsFreeCloud,
+                    Constants.ActionYouAddedAfterInviteFreeCloud,
+                    Constants.ActionYouAddedLikeGuestFreeCloud,
+                    Constants.ActionActivateUsersFreeCloud,
+                    Constants.ActionActivateGuestsFreeCloud
+                   
                 );
         }
 

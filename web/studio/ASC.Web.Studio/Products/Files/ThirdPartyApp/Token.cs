@@ -32,6 +32,7 @@ using ASC.Common.Data.Sql;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.FederatedLogin;
+using ASC.FederatedLogin.Helpers;
 using ASC.Files.Core;
 using ASC.Security.Cryptography;
 using ASC.Web.Files.Classes;
@@ -43,15 +44,10 @@ namespace ASC.Web.Files.ThirdPartyApp
     {
         public String App { get; private set; }
 
-        public Token(OAuth20Token oAuth20Token)
+        public Token(OAuth20Token oAuth20Token, string app)
             : base(oAuth20Token)
         {
-        }
-
-        public static Token FromJson(string app, string json)
-        {
-            var token = FromJson(json);
-            return token == null ? null : new Token(token) { App = app };
+            App = app;
         }
 
         public override string ToString()
@@ -66,7 +62,11 @@ namespace ASC.Web.Files.ThirdPartyApp
                 var app = ThirdPartySelector.GetApp(App);
                 try
                 {
-                    var refreshed = app.RefreshToken(RefreshToken);
+                    Global.Logger.Debug("Refresh token for app: " + App);
+
+                    var refreshUrl = app.GetRefreshUrl();
+
+                    var refreshed = OAuth20TokenHelper.RefreshToken(refreshUrl, this);
 
                     if (refreshed != null)
                     {
@@ -74,6 +74,8 @@ namespace ASC.Web.Files.ThirdPartyApp
                         RefreshToken = refreshed.RefreshToken;
                         ExpiresIn = refreshed.ExpiresIn;
                         Timestamp = DateTime.UtcNow;
+
+                        SaveToken(this);
                     }
                 }
                 catch (Exception ex)
@@ -118,7 +120,7 @@ namespace ASC.Web.Files.ThirdPartyApp
 
                 var oAuth20Token = db.ExecuteList(querySelect).ConvertAll(r => DecryptToken(r[0] as string)).FirstOrDefault();
 
-                return new Token(oAuth20Token) {App = app};
+                return new Token(oAuth20Token, app);
             }
         }
 

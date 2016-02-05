@@ -27,4 +27,4 @@
 
 <script type="text/javascript" src="<%=ResolveUrl("~/js/third-party/async.js") %>"></script>
 <script type="text/javascript" src="<%=ResolveUrl("~/js/third-party/modernizr.js") %>"></script>
-<script type="text/javascript" src="<%= ResolveUrl("~/js/third-party/zeroclipboard.js") %>"></script>
+<script type="text/javascript" src="<%=ResolveUrl("~/js/third-party/zeroclipboard.js") %>"></script>

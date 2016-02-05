@@ -33,14 +33,15 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
-using System.Threading;
 using System.Web.Configuration;
-using System.Xml;
-using ASC.CRM.Core;
-using ASC.Web.CRM.Resources;
-using log4net;
-using System.Security.Principal;
 using System.Xml.Linq;
+
+using ASC.Core;
+using ASC.CRM.Core;
+using ASC.Web.Core.Client;
+using ASC.Web.CRM.Resources;
+
+using log4net;
 
 #endregion
 
@@ -181,8 +182,11 @@ namespace ASC.Web.CRM.Classes
             return _exchangeRates == null || (DateTime.UtcNow.Date.Subtract(_publisherDate.Date).Days > 0);
         }
 
-        private static string GetExchangesTempPath() {
-            return Path.Combine(Path.GetTempPath(), Path.Combine("onlyoffice", "exchanges"));
+        private static string GetExchangesTempPath()
+        {
+            return CoreContext.Configuration.Standalone ?
+                Path.GetDirectoryName(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ClientSettings.StorePath.Trim('/') + "/exchanges/")) : 
+                Path.Combine(Path.GetTempPath(), Path.Combine("onlyoffice", "exchanges"));
         }
 
         private static Dictionary<String, Decimal> GetExchangeRates()
@@ -201,7 +205,7 @@ namespace ASC.Web.CRM.Classes
 
                             TryToReadPublisherDate(tmppath);
 
-                            var regex = new Regex("= (?<Currency>([\\s\\.\\d]*))");
+                            var regex = new Regex("= (?<Currency>([\\s\\.\\,\\d]*))");
                             var updateEnable = WebConfigurationManager.AppSettings["crm.update.currency.info.enable"] != "false";
                             foreach (var ci in _currencies.Values.Where(c => c.IsConvertable))
                             {
@@ -218,21 +222,30 @@ namespace ASC.Web.CRM.Classes
                                 }
 
                                 var currencyXml = XDocument.Load(filepath);
+                                if (currencyXml.Root == null) continue;
 
                                 var channel = currencyXml.Root.Element("channel");
-                                if (channel == null) continue;
+                                if (channel == null || channel.Element("lastBuildDate") == null) continue;
 
                                 var lastBuildDate = channel.Element("lastBuildDate").Value.Trim();
                                 var items = channel.Elements("item").ToList();
 
                                 _publisherDate = new RSSDateTimeParser().Parse(lastBuildDate);
-                                foreach (var item in items) {
-                                    var currency = regex.Match(item.Element("description").Value.Trim()).Groups["Currency"].Value.Trim();
-                                    _exchangeRates.Add(item.Element("title").Value.Trim(), Convert.ToDecimal(currency, CultureInfo.InvariantCulture.NumberFormat));
+                                foreach (var item in items)
+                                {
+                                    var title = item.Element("title");
+                                    var description = item.Element("description");
+                                    if (title == null || description == null) continue;
+
+                                    var currency = regex.Match(description.Value.Trim()).Groups["Currency"].Value.Trim();
+                                    _exchangeRates.Add(title.Value.Trim(), Convert.ToDecimal(currency, CultureInfo.InvariantCulture.NumberFormat));
                                 }
                             }
 
-                            WritePublisherDate(tmppath);
+                            if (updateEnable)
+                            {
+                                WritePublisherDate(tmppath);
+                            }
 
                         }
                         catch (Exception error)

@@ -22,6 +22,7 @@ using System.Collections.Specialized;
 using System.Security.Cryptography.Pkcs;
 #endif
 using System;
+using System.Text;
 
 namespace ActiveUp.Net.Mail 
 {
@@ -158,7 +159,7 @@ namespace ActiveUp.Net.Mail
 
         public string GetCidReference()
         {
-            return "cid:" + ContentId.Trim('<','>');
+            return string.Format("cid:{0}", ContentId.Trim('<','>'));
         }
 
         /// <summary>
@@ -178,7 +179,7 @@ namespace ActiveUp.Net.Mail
         /// <returns></returns>
         public string ToMimeString()
         {
-            string content = string.Empty;
+            var content = new StringBuilder();
 
             if (this.ContentType.Type.Equals("multipart"))
                 //|| this.ContentType.Type.Equals("image")
@@ -191,26 +192,25 @@ namespace ActiveUp.Net.Mail
                     || this.ContentType.Parameters["boundary"].Length < 1)
                 {
                     string unique = Codec.GetUniqueString();
-                    boundary = "---AU_MimePart_" + unique;
+                    boundary = string.Format("---AU_MimePart_{0}", unique);
                     this.ContentType.Parameters.Add("boundary", boundary);
                 }
                 else boundary = this.ContentType.Parameters["boundary"];
 
                 // Add the header.
-                content += this.GetHeaderString();
+                content.Append(this.GetHeaderString());
 
                 // Add the subparts.
                 foreach (MimePart subpart in this.SubParts)
                 {
-                    content += "\r\n\r\n--" + boundary + "\r\n";
-                    content += subpart.ToMimeString();
+                    content.AppendFormat("\r\n\r\n--{0}\r\n", boundary);
+                    content.Append(subpart.ToMimeString());
                 }
                 //content += this.TextContentTransferEncoded;
 
                 // Close the packet.
-                content += "\r\n\r\n" + "--" + boundary + "--" +"\r\n";
-
-                return content;
+                content.AppendFormat("\r\n\r\n--{0}--\r\n", boundary);
+                return content.ToString();
             }
             
             // Modified by PMENGAL
@@ -225,9 +225,12 @@ namespace ActiveUp.Net.Mail
                 else if (this.ContentType.MimeType.ToLower().IndexOf("message/") != -1) content = this.TextContent;
                 else content = Codec.Wrap(System.Convert.ToBase64String(this.BinaryContent), 77);
             }*/
-            content = this.TextContentTransferEncoded;
-            
-            return this.GetHeaderString() + "\r\n" + content;
+            content
+                .Append(this.GetHeaderString())
+                .Append("\r\n")
+                .Append(this.TextContentTransferEncoded);
+
+            return content.ToString();
         }
 #if !PocketPC
         public static MimePart GetSignaturePart(SignedCms cms)
@@ -249,24 +252,24 @@ namespace ActiveUp.Net.Mail
 #endif
         public string GetHeaderString()
         {
-            string str = string.Empty;
+            var str = new StringBuilder();
 
             // Add the content-type. Default is text/plain.
-            str += this.ContentType.ToString() + "\r\n";
+            str.Append(this.ContentType.ToString()).Append("\r\n");
 
             // Add the content-disposition if specified.
             if (this.ContentDisposition.Disposition.Length > 0) 
-                str += this.ContentDisposition.ToString() + "\r\n";
+                str.Append(this.ContentDisposition.ToString()).Append("\r\n");
             
             // Add other header fields.
             foreach (string key in this.HeaderFields.AllKeys)
             {
                 // We already have content-type and disposition.
                 if (!key.Equals("content-type") && !key.Equals("content-disposition"))
-                    str += Codec.GetFieldName(key) + ": " + this.HeaderFields[key] + "\r\n";
+                    str.AppendFormat("{0}: {1}\r\n", Codec.GetFieldName(key), this.HeaderFields[key]);
             }
-            
-            return str.Trim('\r', '\n') + "\r\n";
+
+            return string.Format("{0}\r\n", str.ToString().Trim('\r', '\n'));
         }
 
         #endregion
@@ -358,13 +361,13 @@ namespace ActiveUp.Net.Mail
         {
             get
             {
-                if (this.HeaderFields["content-id"] != null) return "<" + this.HeaderFields.GetValues("content-id")[0].Trim('<', '>') + ">";
+                if (this.HeaderFields["content-id"] != null) return string.Format("<{0}>", this.HeaderFields.GetValues("content-id")[0].Trim('<', '>'));
                 else return null;
             }
             set
             {
-                if (this.HeaderFields["content-id"] != null) this.HeaderFields["content-id"] = "<" + value.Trim('<', '>') + ">";
-                else this.HeaderFields.Add("content-id","<" + value.Trim('<', '>') + ">");
+                if (this.HeaderFields["content-id"] != null) this.HeaderFields["content-id"] = string.Format("<{0}>", value.Trim('<', '>'));
+                else this.HeaderFields.Add("content-id", string.Format("<{0}>", value.Trim('<', '>')));
             }
         }
 
@@ -372,7 +375,7 @@ namespace ActiveUp.Net.Mail
         {
             get
             {
-                if (EmbeddedObjectContentId != null) return "cid:" + EmbeddedObjectContentId;
+                if (EmbeddedObjectContentId != null) return string.Format("cid:{0}", EmbeddedObjectContentId);
                 else return null;
             }
         }

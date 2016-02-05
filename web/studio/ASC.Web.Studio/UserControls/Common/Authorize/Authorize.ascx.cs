@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -24,8 +24,8 @@
 */
 
 
+using ASC.Common.Caching;
 using ASC.Core;
-using ASC.Core.Caching;
 using ASC.Core.Users;
 using ASC.FederatedLogin.Profile;
 using ASC.IPSecurity;
@@ -51,7 +51,7 @@ namespace ASC.Web.Studio.UserControls.Common
     {
         protected string LoginMessage;
         private string _errorMessage;
-        private readonly ICache cache = AscCache.Default;
+        private readonly ICache cache = AscCache.Memory;
         protected bool EnableLdap = ActiveDirectoryUserImporter.LdapIsEnable;
         protected bool EnableSso = SsoImporter.SsoIsEnable;
         protected bool IsSaml = SsoImporter.IsSaml;
@@ -82,23 +82,25 @@ namespace ASC.Web.Studio.UserControls.Common
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/common/authorize/css/authorize.less"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/common/authorize/js/authorize.js"));
+            Page.RegisterStyle("~/usercontrols/common/authorize/css/authorize.less");
+            Page.RegisterBodyScripts("~/usercontrols/common/authorize/js/authorize.js");
 
             Login = "";
             Password = "";
             HashId = "";
 
             //Account link control
-            AccountLinkControl accountLink = null;
+            bool withAccountLink = false;
 
             if (SetupInfo.ThirdPartyAuthEnabled && AccountLinkControl.IsNotEmpty)
             {
-                accountLink = (AccountLinkControl)LoadControl(AccountLinkControl.Location);
+                var accountLink = (AccountLinkControl) LoadControl(AccountLinkControl.Location);
                 accountLink.Visible = true;
                 accountLink.ClientCallback = "authCallback";
                 accountLink.SettingsView = false;
                 signInPlaceholder.Controls.Add(accountLink);
+
+                withAccountLink = true;
             }
 
             //top panel
@@ -128,165 +130,187 @@ namespace ASC.Web.Studio.UserControls.Common
             var thirdPartyProfile = Request.Url.GetProfile();
             if ((IsPostBack || thirdPartyProfile != null) && !SecurityContext.IsAuthenticated)
             {
-                var tryByHash = false;
-                var smsLoginUrl = string.Empty;
-                try
-                {
-                    if (thirdPartyProfile != null)
-                    {
-                        if (string.IsNullOrEmpty(thirdPartyProfile.AuthorizationError))
-                        {
-                            HashId = thirdPartyProfile.HashId;
-                        }
-                        else
-                        {
-                            // ignore cancellation
-                            if (thirdPartyProfile.AuthorizationError != "Canceled at provider")
-                            {
-                                ErrorMessage = thirdPartyProfile.AuthorizationError;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        if (!string.IsNullOrEmpty(Request["__EVENTARGUMENT"]) && Request["__EVENTTARGET"] == "signInLogin" && accountLink != null)
-                        {
-                            HashId = ASC.Common.Utils.Signature.Read<string>(Request["__EVENTARGUMENT"]);
-                        }
-                    }
+                if (!AuthProcess(thirdPartyProfile, withAccountLink)) return;
 
-                    if (!string.IsNullOrEmpty(Request["login"]))
-                    {
-                        Login = Request["login"].Trim();
-                    }
-                    else if (string.IsNullOrEmpty(HashId))
-                    {
-                        throw new InvalidCredentialException("login");
-                    }
-
-                    if (!string.IsNullOrEmpty(Request["pwd"]))
-                    {
-                        Password = Request["pwd"];
-                    }
-                    else if (string.IsNullOrEmpty(HashId))
-                    {
-                        throw new InvalidCredentialException("password");
-                    }
-
-                    if (string.IsNullOrEmpty(HashId))
-                    {
-                        // защита от перебора: на 5-ый неправильный ввод делать Sleep
-                        var counter = (int)(cache.Get("loginsec/" + Login) ?? 0);
-                        if (++counter % 5 == 0)
-                        {
-                            Thread.Sleep(TimeSpan.FromSeconds(10));
-                        }
-                        cache.Insert("loginsec/" + Login, counter, DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
-                    }
-
-                    if (!ActiveDirectoryUserImporter.TryLdapAuth(Login, Password))
-                    {
-                        smsLoginUrl = SmsLoginUrl();
-                        if (string.IsNullOrEmpty(smsLoginUrl))
-                        {
-                            var session = string.IsNullOrEmpty(Request["remember"]);
-
-                            if (string.IsNullOrEmpty(HashId))
-                            {
-                                var cookiesKey = SecurityContext.AuthenticateMe(Login, Password);
-                                CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey, session);
-                                MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccess);
-                            }
-                            else
-                            {
-                                Guid userId;
-                                tryByHash = LoginWithThirdParty.TryGetUserByHash(HashId, out userId);
-                                var cookiesKey = SecurityContext.AuthenticateMe(userId);
-                                CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey, session);
-                                MessageService.Send(HttpContext.Current.Request, MessageAction.LoginSuccessViaSocialAccount);
-                            }
-                        }
-                    }
-                }
-                catch(InvalidCredentialException)
-                {
-                    Auth.ProcessLogout();
-                    ErrorMessage = tryByHash ? Resource.LoginWithAccountNotFound : Resource.InvalidUsernameOrPassword;
-
-                    var loginName = tryByHash && !string.IsNullOrWhiteSpace(HashId)
-                                        ? HashId
-                                        : string.IsNullOrWhiteSpace(Login) ? AuditResource.EmailNotSpecified : Login;
-                    var messageAction = tryByHash ? MessageAction.LoginFailSocialAccountNotFound : MessageAction.LoginFailInvalidCombination;
-
-                    MessageService.Send(HttpContext.Current.Request, loginName, messageAction);
-
-                    return;
-                }
-                catch(System.Security.SecurityException)
-                {
-                    Auth.ProcessLogout();
-                    ErrorMessage = Resource.ErrorDisabledProfile;
-                    MessageService.Send(HttpContext.Current.Request, Login, MessageAction.LoginFailDisabledProfile);
-                    return;
-                }
-                catch(IPSecurityException)
-                {
-                    Auth.ProcessLogout();
-                    ErrorMessage = Resource.ErrorIpSecurity;
-                    MessageService.Send(HttpContext.Current.Request, Login, MessageAction.LoginFailIpSecurity);
-                    return;
-                }
-                catch(Exception ex)
-                {
-                    Auth.ProcessLogout();
-                    ErrorMessage = ex.Message;
-                    MessageService.Send(HttpContext.Current.Request, Login, MessageAction.LoginFail);
-                    return;
-                }
-
-                if (!string.IsNullOrEmpty(smsLoginUrl))
-                {
-                    Response.Redirect(smsLoginUrl);
-                }
-
-                var refererURL = (string)Session["refererURL"];
+                var refererURL = (string) Session["refererURL"];
                 if (string.IsNullOrEmpty(refererURL))
                 {
-                    Response.Redirect(CommonLinkUtility.GetDefault());
+                    Response.Redirect(CommonLinkUtility.GetDefault(), true);
                 }
                 else
                 {
                     Session["refererURL"] = null;
-                    Response.Redirect(refererURL);
+                    Response.Redirect(refererURL, true);
                 }
             }
             ProcessConfirmedEmailCondition();
         }
 
-        private string SmsLoginUrl()
+        private bool AuthProcess(LoginProfile thirdPartyProfile, bool withAccountLink)
         {
-            if (!StudioSmsNotificationSettings.IsVisibleSettings
-                || !StudioSmsNotificationSettings.Enable)
-                return string.Empty;
-
-            UserInfo user;
-
-            if (string.IsNullOrEmpty(HashId))
+            var authMethod = AuthMethod.Login;
+            var smsLoginUrl = string.Empty;
+            try
             {
-                user = CoreContext.UserManager.GetUsers(TenantProvider.CurrentTenantID, Login, Hasher.Base64Hash(Password, HashAlg.SHA256));
+                if (thirdPartyProfile != null)
+                {
+                    if (string.IsNullOrEmpty(thirdPartyProfile.AuthorizationError))
+                    {
+                        HashId = thirdPartyProfile.HashId;
+                        Login = thirdPartyProfile.EMail;
+                    }
+                    else
+                    {
+                        // ignore cancellation
+                        if (thirdPartyProfile.AuthorizationError != "Canceled at provider")
+                        {
+                            ErrorMessage = thirdPartyProfile.AuthorizationError;
+                        }
+                    }
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(Request["__EVENTARGUMENT"]) && Request["__EVENTTARGET"] == "signInLogin" && withAccountLink)
+                    {
+                        HashId = ASC.Common.Utils.Signature.Read<string>(Request["__EVENTARGUMENT"]);
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(Request["login"]))
+                {
+                    Login = Request["login"].Trim();
+                }
+                else if (string.IsNullOrEmpty(HashId))
+                {
+                    throw new InvalidCredentialException("login");
+                }
+
+                if (!IPSecurity.IPSecurity.Verify(TenantProvider.CurrentTenantID))
+                {
+                    throw new IPSecurityException();
+                }
+
+                if (!string.IsNullOrEmpty(Request["pwd"]))
+                {
+                    Password = Request["pwd"];
+                }
+                else if (string.IsNullOrEmpty(HashId))
+                {
+                    throw new InvalidCredentialException("password");
+                }
+
+                if (string.IsNullOrEmpty(HashId))
+                {
+                    // защита от перебора: на 5-ый неправильный ввод делать Sleep
+                    int counter;
+
+                    int.TryParse(cache.Get<String>("loginsec/" + Login), out counter);
+
+                    if (++counter%5 == 0)
+                    {
+                        Thread.Sleep(TimeSpan.FromSeconds(10));
+                    }
+                    cache.Insert("loginsec/" + Login, counter, DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
+                }
+
+                var userInfo = GetUser(out authMethod);
+                if (!CoreContext.UserManager.UserExists(userInfo.ID))
+                {
+                    throw new InvalidCredentialException();
+                }
+
+                if (StudioSmsNotificationSettings.IsVisibleSettings
+                    && StudioSmsNotificationSettings.Enable)
+                {
+                    smsLoginUrl = Studio.Confirm.SmsConfirmUrl(userInfo);
+                }
+                else
+                {
+                    var session = string.IsNullOrEmpty(Request["remember"]);
+
+                    var cookiesKey = SecurityContext.AuthenticateMe(userInfo.ID);
+                    CookiesManager.SetCookies(CookiesType.AuthKey, cookiesKey, session);
+                    MessageService.Send(HttpContext.Current.Request,
+                                        authMethod == AuthMethod.ThirdParty
+                                            ? MessageAction.LoginSuccessViaSocialAccount
+                                            : MessageAction.LoginSuccess
+                        );
+                }
             }
-            else
+            catch (InvalidCredentialException)
             {
-                Guid userId;
-                LoginWithThirdParty.TryGetUserByHash(HashId, out userId);
-                user = CoreContext.UserManager.GetUsers(userId);
+                Auth.ProcessLogout();
+                ErrorMessage = authMethod == AuthMethod.ThirdParty ? Resource.LoginWithAccountNotFound : Resource.InvalidUsernameOrPassword;
+
+                var loginName = !string.IsNullOrWhiteSpace(Login)
+                                    ? Login
+                                    : authMethod == AuthMethod.ThirdParty && !string.IsNullOrWhiteSpace(HashId)
+                                          ? HashId
+                                          : AuditResource.EmailNotSpecified;
+
+                var messageAction = authMethod == AuthMethod.ThirdParty
+                                        ? MessageAction.LoginFailSocialAccountNotFound
+                                        : MessageAction.LoginFailInvalidCombination;
+
+                MessageService.Send(HttpContext.Current.Request, loginName, messageAction);
+
+                if (authMethod == AuthMethod.ThirdParty && thirdPartyProfile != null) Response.Redirect("~/auth.aspx?m=" + HttpUtility.UrlEncode(_errorMessage), true);
+                return false;
+            }
+            catch (System.Security.SecurityException)
+            {
+                Auth.ProcessLogout();
+                ErrorMessage = Resource.ErrorDisabledProfile;
+                MessageService.Send(HttpContext.Current.Request, Login, MessageAction.LoginFailDisabledProfile);
+                return false;
+            }
+            catch (IPSecurityException)
+            {
+                Auth.ProcessLogout();
+                ErrorMessage = Resource.ErrorIpSecurity;
+                MessageService.Send(HttpContext.Current.Request, Login, MessageAction.LoginFailIpSecurity);
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Auth.ProcessLogout();
+                ErrorMessage = ex.Message;
+                MessageService.Send(HttpContext.Current.Request, Login, MessageAction.LoginFail);
+                return false;
             }
 
-            if (Constants.LostUser.Equals(user))
+            if (!string.IsNullOrEmpty(smsLoginUrl))
             {
-                throw new InvalidCredentialException();
+                Response.Redirect(smsLoginUrl, true);
             }
-            return Studio.Confirm.SmsConfirmUrl(user);
+            return true;
+        }
+
+        private enum AuthMethod
+        {
+            Login,
+            ThirdParty,
+            Ldap
+        }
+
+        private UserInfo GetUser(out AuthMethod method)
+        {
+            UserInfo userInfo;
+            if (ActiveDirectoryUserImporter.TryGetLdapUserInfo(Login, Password, out userInfo))
+            {
+                method = AuthMethod.Ldap;
+                return userInfo;
+            }
+
+            Guid userId;
+            if (LoginWithThirdParty.TryGetUserByHash(HashId, out userId))
+            {
+                method = AuthMethod.ThirdParty;
+                return CoreContext.UserManager.GetUsers(userId);
+            }
+
+            method = AuthMethod.Login;
+            return CoreContext.UserManager.GetUsers(TenantProvider.CurrentTenantID, Login, Hasher.Base64Hash(Password, HashAlg.SHA256));
         }
 
         private void ProcessConfirmedEmailCondition()

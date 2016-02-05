@@ -24,28 +24,27 @@
 */
 
 
+using ASC.Bookmarking.Business.Subscriptions;
+using ASC.Bookmarking.Common;
+using ASC.Bookmarking.Common.Util;
+using ASC.Bookmarking.Dao;
+using ASC.Bookmarking.Pojo;
+using ASC.Common.Caching;
+using ASC.Core;
+using ASC.Core.Common.Notify;
+using ASC.Core.Users;
+using ASC.Notify;
+using ASC.Notify.Model;
+using ASC.Notify.Patterns;
+using ASC.Notify.Recipients;
+using ASC.Web.Core.Users;
+using ASC.Web.Studio.Utility;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using ASC.Bookmarking.Common;
-using ASC.Bookmarking.Dao;
-using ASC.Bookmarking.Pojo;
-using ASC.Core.Caching;
-using ASC.Core.Common.Notify;
-using ASC.Core.Users;
-using ASC.Bookmarking.Business.Subscriptions;
-using ASC.Notify.Patterns;
-using ASC.Notify.Recipients;
-using ASC.Core;
-using ASC.Notify;
-using ASC.Notify.Model;
-using ASC.Bookmarking.Common.Util;
-using System.Web;
 using System.Linq;
-using ASC.Web.Studio.Utility;
+using System.Web;
 using Tag = ASC.Bookmarking.Pojo.Tag;
-using ASC.Web.Core.Users;
-using ASC.Web.Studio.Core.Notify;
 
 namespace ASC.Bookmarking.Business
 {
@@ -71,6 +70,7 @@ namespace ASC.Bookmarking.Business
         public BookmarkingService(BookmarkingHibernateDao dao)
         {
             this.dao = dao;
+            BookmarkingService.UpdateCurrentInstanse(this);
         }
 
         #endregion
@@ -160,8 +160,8 @@ namespace ASC.Bookmarking.Business
 			SubscribeOnBookmarkComments(b);
 			return b;
 		}
-		
-        #endregion
+
+	    #endregion
 
 		#region Update Bookmark
 		
@@ -186,11 +186,11 @@ namespace ASC.Bookmarking.Business
 		
         public static string DeletedBookmarkUrl { get; set; }
 
-		public Bookmark RemoveBookmarkFromFavourite(long bookmarkID)
+		public Bookmark RemoveBookmarkFromFavourite(long bookmarkID, Guid? userID = null)
 		{
 			var b = Dao.GetBookmarkByID(bookmarkID);
 			var comments = GetBookmarkComments(b);
-			var result = Dao.RemoveBookmarkFromFavourite(bookmarkID);
+			var result = Dao.RemoveBookmarkFromFavourite(bookmarkID, userID);
 			if (b != null)
 			{
 				DeletedBookmarkUrl = b.URL;
@@ -424,8 +424,15 @@ namespace ASC.Bookmarking.Business
 
 		private static IRecipient GetCurrentRecipient()
 		{
-			return new DirectRecipient(SecurityContext.CurrentAccount.ID.ToString(), SecurityContext.CurrentAccount.Name);
+			return GetRecipient(SecurityContext.CurrentAccount.ID);
 		}
+
+		private static IRecipient GetRecipient(Guid userID)
+		{
+		    var user = CoreContext.UserManager.GetUsers(userID);
+            return new DirectRecipient(user.ID.ToString(), user.ToString());
+		}
+
 		#endregion
 
 		#region Subscriptions
@@ -442,10 +449,10 @@ namespace ASC.Bookmarking.Business
 			return isSubscribed;
 		}
 
-		public void UnSubscribe(string objectID, INotifyAction notifyAction)
+		public void UnSubscribe(string objectID, INotifyAction notifyAction, Guid? userID = null)
 		{
 			var provider = BookmarkingNotifySource.Instance.GetSubscriptionProvider();
-			provider.UnSubscribe(notifyAction, objectID, GetCurrentRecipient());
+            provider.UnSubscribe(notifyAction, objectID, GetRecipient(userID ?? SecurityContext.CurrentAccount.ID));
 		}
 
 		private void SubscribeOnBookmarkComments(Bookmark b)

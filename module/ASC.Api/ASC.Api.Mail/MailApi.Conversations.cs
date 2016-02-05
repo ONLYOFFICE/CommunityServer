@@ -53,7 +53,6 @@ namespace ASC.Api.Mail
         /// <param optional="true" name="tags">Messages tags. Id of tags linked with target messages.</param>
         /// <param optional="true" name="search">Text to search in messages body and subject.</param>
         /// <param optional="true" name="page_size">Count on messages on page</param>
-        /// <param optional="true" name="last_check_date">Last messages request date</param>
         /// <param name="sortorder">Sort order by date. String parameter: "ascending" - ascended, "descending" - descended.</param> 
         /// <param optional="true" name="from_date">Date from wich conversations search performed</param>
         /// <param optional="true" name="from_message">Message from wich conversations search performed</param>
@@ -62,7 +61,7 @@ namespace ASC.Api.Mail
         /// <short>Gets filtered conversations</short>
         /// <category>Conversations</category>
         [Read(@"conversations")]
-        public IEnumerable<MailMessageItem> GetFilteredConversations(int? folder,
+        public IEnumerable<MailMessage> GetFilteredConversations(int? folder,
             bool? unread,
             bool? attachments,
             long? period_from,
@@ -73,7 +72,6 @@ namespace ASC.Api.Mail
             IEnumerable<int> tags,
             string search,
             int? page_size,
-            ApiDateTime last_check_date,
             string sortorder,
             ApiDateTime from_date,
             int? from_message,
@@ -95,22 +93,6 @@ namespace ASC.Api.Mail
                 PageSize = page_size.GetValueOrDefault(25),
                 SortOrder = sortorder
             };
-
-            if (null != last_check_date)
-            {
-                var dateTime = MailBoxManager.GetFolderModifyDate(TenantId, Username, filter.PrimaryFolder);
-                var apiDate = new ApiDateTime(dateTime);
-
-                var compareRes = apiDate.CompareTo(last_check_date);
-
-                switch (compareRes)
-                {
-                    case 0:
-                        return null;
-                    case -1:
-                        return new List<MailMessageItem>();
-                }
-            }
 
             bool hasMore;
             var conversations = MailBoxManager.GetConversations(
@@ -138,7 +120,7 @@ namespace ASC.Api.Mail
         /// <category>Conversations</category>
         /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
         [Read(@"conversation/{id:[0-9]+}")]
-        public IEnumerable<MailMessageItem> GetConversation(int id, bool? load_all_content, bool? mark_read)
+        public IEnumerable<MailMessage> GetConversation(int id, bool? load_all_content, bool? mark_read)
         {
             if (id <= 0)
                 throw new ArgumentException(@"id must be positive integer", "id");
@@ -352,20 +334,12 @@ namespace ASC.Api.Mail
         [Update(@"conversations/crm/link")]
         public void LinkConversationToCrm(int id_message, IEnumerable<CrmContactEntity> crm_contact_ids)
         {
-            try
-            {
-                if (id_message < 0)
-                    throw new ArgumentException(@"Invalid message id", "id_message");
-                if (crm_contact_ids == null)
-                    throw new ArgumentException(@"Invalid contact ids list", "crm_contact_ids");
+            if (id_message < 0)
+                throw new ArgumentException(@"Invalid message id", "id_message");
+            if (crm_contact_ids == null)
+                throw new ArgumentException(@"Invalid contact ids list", "crm_contact_ids");
 
-                MailBoxManager.LinkChainToCrm(id_message, TenantId, Username, crm_contact_ids.ToList());
-            }
-            catch (Exception ex)
-            {
-                MailBoxManager.CreateCrmOperationFailureAlert(TenantId, Username, id_message, MailBoxManager.AlertTypes.LinkFailure);
-                Logger.Error(ex, "Issue with link to crm message_id: {0}, crm_contacts_id {1}", new object[] { id_message, crm_contact_ids });
-            }
+            MailBoxManager.LinkChainToCrm(id_message, TenantId, Username, crm_contact_ids.ToList());
         }
 
         /// <summary>
@@ -381,20 +355,12 @@ namespace ASC.Api.Mail
         [Update(@"conversations/crm/mark")]
         public void MarkConversationAsCrmLinked(int id_message, IEnumerable<CrmContactEntity> crm_contact_ids)
         {
-            try
-            {
-                if (id_message < 0)
-                    throw new ArgumentException(@"Invalid message id", "id_message");
-                if (crm_contact_ids == null)
-                    throw new ArgumentException(@"Invalid contact ids list", "crm_contact_ids");
+            if (id_message < 0)
+                throw new ArgumentException(@"Invalid message id", "id_message");
+            if (crm_contact_ids == null)
+                throw new ArgumentException(@"Invalid contact ids list", "crm_contact_ids");
 
-                MailBoxManager.MarkChainAsCrmLinked(id_message, TenantId, Username, crm_contact_ids.ToList());
-            }
-            catch (Exception ex)
-            {
-                MailBoxManager.CreateCrmOperationFailureAlert(TenantId, Username, id_message, MailBoxManager.AlertTypes.LinkFailure);
-                Logger.Error(ex, "Issue with link to crm message_id: {0}, crm_contacts_id {1}", new object[] { id_message, crm_contact_ids });
-            }
+            MailBoxManager.MarkChainAsCrmLinked(id_message, TenantId, Username, crm_contact_ids.ToList());
         }
 
         /// <summary>

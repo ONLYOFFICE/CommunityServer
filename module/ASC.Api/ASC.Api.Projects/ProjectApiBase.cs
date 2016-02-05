@@ -42,19 +42,7 @@ namespace ASC.Api.Projects
 
         protected EngineFactory EngineFactory
         {
-            get
-            {
-                if (_engineFactory == null)
-                {
-                    _engineFactory = new EngineFactory(DbId, TenantId);
-                }
-                //NOTE: don't sure if it's need to be here since remoting is gone
-                if (CallContext.GetData("CURRENT_ACCOUNT") == null && SecurityContext.IsAuthenticated)
-                {
-                    CallContext.SetData("CURRENT_ACCOUNT", SecurityContext.CurrentAccount.ID);
-                }
-                return _engineFactory;
-            }
+            get { return _engineFactory ?? (_engineFactory = new EngineFactory(DbId, TenantId)); }
         }
 
         protected DaoFactory CrmDaoFactory

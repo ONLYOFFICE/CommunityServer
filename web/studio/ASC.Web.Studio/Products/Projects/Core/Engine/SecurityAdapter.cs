@@ -35,7 +35,6 @@ namespace ASC.Web.Projects.Classes
 {
     public class SecurityAdapter : IFileSecurity
     {
-        private readonly ASC.Projects.Core.DataInterfaces.IProjectDao dao;
         private readonly int projectId;
 
         private Project project;
@@ -48,16 +47,15 @@ namespace ASC.Web.Projects.Classes
             {
                 if (interval.Expired)
                 {
-                    project = dao.GetById(projectId);
+                    project = Global.EngineFactory.ProjectEngine.GetByID(projectId, false);
                     interval.Start(timeout);
                 }
                 return project;
             }
         }
 
-        public SecurityAdapter(ASC.Projects.Core.DataInterfaces.IDaoFactory factory, int projectId)
+        public SecurityAdapter(int projectId)
         {
-            dao = factory.GetProjectDao();
             this.projectId = projectId;
         }
 
@@ -87,17 +85,21 @@ namespace ASC.Web.Projects.Classes
 
             if (ProjectSecurity.IsAdministrator(userId)) return true;
             if (fileEntry == null || Project == null) return false;
-            if (fileEntry is Folder && ((Folder) fileEntry).FolderType == FolderType.DEFAULT && fileEntry.CreateBy == userId) return true;
-            if (fileEntry is File && fileEntry.CreateBy == userId) return true;
+
+            var folder = fileEntry as Folder;
+            if (folder != null && folder.FolderType == FolderType.DEFAULT && folder.CreateBy == userId) return true;
+
+            var file = fileEntry as File;
+            if (file != null && file.CreateBy == userId) return true;
 
             switch (action)
             {
                 case SecurityAction.Read:
-                    return !Project.Private || dao.IsInTeam(Project.ID, userId);
+                    return !Project.Private || Global.EngineFactory.ProjectEngine.IsInTeam(Project.ID, userId);
                 case SecurityAction.Create:
                 case SecurityAction.Edit:
-                    return dao.IsInTeam(Project.ID, userId)
-                           && (!ProjectSecurity.IsVisitor(userId) || fileEntry is Folder && ((Folder) fileEntry).FolderType == FolderType.BUNCH);
+                    return Global.EngineFactory.ProjectEngine.IsInTeam(Project.ID, userId)
+                           && (!ProjectSecurity.IsVisitor(userId) || folder != null && folder.FolderType == FolderType.BUNCH);
                 case SecurityAction.Delete:
                     return !ProjectSecurity.IsVisitor(userId) && Project.Responsible == userId;
                 default:

@@ -46,7 +46,7 @@ namespace ASC.Web.Studio.UserControls.Users
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/users/resendinvitescontrol/js/resendinvitescontrol.js"));
+            Page.RegisterBodyScripts("~/usercontrols/users/resendinvitescontrol/js/resendinvitescontrol.js");
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
             _invitesResenderContainer.Options.IsPopup = true;

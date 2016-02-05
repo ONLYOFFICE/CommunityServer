@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -90,9 +90,9 @@ namespace ASC.Web.Studio.UserControls.Management
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
             Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/uploader/jquery.fileupload.js"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/uploadhttps/js/uploadhttps.js"));
+            Page.RegisterBodyScripts("~/usercontrols/management/uploadhttps/js/uploadhttps.js");
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/uploadhttps/css/uploadhttps.less"));
+            Page.RegisterStyle("~/usercontrols/management/uploadhttps/css/uploadhttps.less");
         }
 
         [AjaxMethod]

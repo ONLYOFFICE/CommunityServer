@@ -35,10 +35,8 @@ using System.IO;
 using System.Linq;
 using System.Resources;
 using System.Text;
-using System.Threading;
 using System.Web;
 using System.Web.UI;
-using TMResourceData;
 
 namespace ASC.Web.Core.Client.HttpHandlers
 {
@@ -68,6 +66,8 @@ namespace ASC.Web.Core.Client.HttpHandlers
             var store = GetClientVariables(context);
             if (store != null)
             {
+                var compiler = new JqTemplateCompiler();
+
                 foreach (var clientObject in store)
                 {
                     var resourceSet = clientObject.Value as ClinetResourceSet;
@@ -80,7 +80,7 @@ namespace ASC.Web.Core.Client.HttpHandlers
                     var templateSet = clientObject.Value as ClientTemplateSet;
                     if (templateSet != null)
                     {
-                        builder.AppendFormat("{0}{1}", Environment.NewLine, templateSet.GetClientTemplates());
+                        builder.AppendFormat("{0}{1}", Environment.NewLine, templateSet.GetClientTemplates(compiler));
                         continue;
                     }
 
@@ -110,43 +110,41 @@ namespace ASC.Web.Core.Client.HttpHandlers
 
         protected KeyValuePair<string, object> RegisterClientTemplatesPath(string virtualPathToControl, HttpContext context)
         {
-            var page = new Page();
-            page.Controls.Add(page.LoadControl(virtualPathToControl));
+            using (var page = new Page())
+            using (var output = new StringWriter())
+            {
+                page.Controls.Add(page.LoadControl(virtualPathToControl));
+                context.Server.Execute(page, output, false);
 
-            var output = new StringWriter();
-            context.Server.Execute(page, output, false);
+                var doc = new HtmlDocument();
+                doc.LoadHtml(output.GetStringBuilder().ToString());
+                var nodes = doc.DocumentNode.SelectNodes("/script[@type='text/x-jquery-tmpl']");
+                var templates = nodes.ToDictionary(x => x.Attributes["id"].Value, y => y.InnerHtml);
 
-            var doc = new HtmlDocument();
-            doc.LoadHtml(output.GetStringBuilder().ToString());
-
-            var nodes = doc.DocumentNode.SelectNodes("//script[@type='text/x-jquery-tmpl']");
-            var templates = nodes.ToDictionary(x => x.Attributes["id"].Value, y => y.InnerHtml);
-            return new KeyValuePair<string, object>(Guid.NewGuid().ToString(), new ClientTemplateSet(() => templates));
+                return new KeyValuePair<string, object>(Guid.NewGuid().ToString(), new ClientTemplateSet(() => templates));
+            }
         }
 
 
         class ClientTemplateSet
         {
-            private static readonly JqTemplateCompiler compiler = new JqTemplateCompiler();
             private readonly Func<Dictionary<string, string>> getTemplates;
-
 
             public ClientTemplateSet(Func<Dictionary<string, string>> clientTemplates)
             {
                 getTemplates = clientTemplates;
             }
 
-            public string GetClientTemplates()
+            public string GetClientTemplates(JqTemplateCompiler compiler)
             {
                 var result = new StringBuilder();
-                lock (compiler)
+
+                foreach (var template in getTemplates())
                 {
-                    foreach (var template in getTemplates())
-                    {
-                        // only for jqTmpl for now
-                        result.AppendFormat("jQuery.template('{0}', {1});{2}", template.Key, compiler.GetCompiledCode(template.Value), Environment.NewLine);
-                    }
+                    // only for jqTmpl for now
+                    result.AppendFormat("jQuery.template('{0}', {1});{2}", template.Key, compiler.GetCompiledCode(template.Value), Environment.NewLine);
                 }
+
                 return result.ToString();
             }
         }
@@ -162,24 +160,10 @@ namespace ASC.Web.Core.Client.HttpHandlers
 
             public IDictionary<string, string> GetResources()
             {
-                var baseFromDbSet = manager.GetResourceSet(CultureInfo.InvariantCulture, true, true);
-
-                var dbManager = manager as DBResourceManager;
-                var baseNeutral = baseFromDbSet;
-
-                if (dbManager != null)
-                {
-                    baseNeutral = dbManager.GetBaseNeutralResourceSet();
-                }
-                var set = manager.GetResourceSet(Thread.CurrentThread.CurrentCulture, true, true);
-                var result = new Dictionary<string, string>();
-                foreach (DictionaryEntry entry in baseNeutral)
-                {
-                    var value = set.GetString((string)entry.Key) ?? baseFromDbSet.GetString((string)entry.Key) ?? baseNeutral.GetString((string)entry.Key) ?? string.Empty;
-                    result.Add(entry.Key.ToString(), value);
-                }
-
-                return result;
+                return manager.GetResourceSet(CultureInfo.InvariantCulture, true, true)
+                    .Cast<DictionaryEntry>()
+                    .Select(e => (string)e.Key)
+                    .ToDictionary(k => k, k => manager.GetString(k));
             }
         }
     }

@@ -31,6 +31,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
     var basePath = "";
     var baseSortBy = "";
     var baseFilter = true;
+    var filter;
     var massNameFilters = { 
         team_member: "team_member",
         me_team_member: "me_team_member",
@@ -108,9 +109,8 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
     var isinit = false;
     var obj;
     var onMovedHash = function () {
-        if (!self.hashFilterChanged) {
-            if (!self.firstload)
-                setFilterByUrl();
+        if (!self.hashFilterChanged && !self.firstload) {
+            setFilterByUrl();
         } 
         self.hashFilterChanged = false;
     };
@@ -131,20 +131,19 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
     };
     var init = function (objct) {
         self = this;
-        ASC.Projects.Common.clearAdvansedFilter();
+        clear();
         initialisation(objct);
-        
         self.filter = jq('#ProjectsAdvansedFilter').advansedFilter(
-           {
-               store: true,
-               anykey: true,
-               colcount: objct.colCount,
-               anykeytimeout: 1000,
-               filters: objct.filters,
-               sorters: objct.sorters
-           }
-       ).bind('setfilter', self.onSetFilter)
-        .bind('resetfilter', self.onResetFilter);
+                {
+                    store: true,
+                    anykey: true,
+                    colcount: objct.colCount,
+                    anykeytimeout: 1000,
+                    filters: objct.filters,
+                    sorters: objct.sorters
+                }
+            ).bind('setfilter', self.onSetFilter)
+            .bind('resetfilter', self.onResetFilter);
         return self.filter;
     };
 
@@ -185,7 +184,6 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
     };
 
     var setFilterByUrl = function() {
-
         var hash = ASC.Controls.AnchorController.getAnchor();
         if (hash == "") {
             location.hash = basePath;
@@ -438,7 +436,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
             sorters.push({ type: "sorter", id: sortBy, selected: true, sortOrder: sortOrder });
         }
 
-        jq("#ProjectsAdvansedFilter").advansedFilter({ filters: filters, sorters: sorters });
+        self.filter.advansedFilter({ filters: filters, sorters: sorters });
     };
 
     var makeData = function($container, type) {
@@ -624,7 +622,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
     };
 
     var visibleFilterItem = function(type, filterId, visible) {
-        jq("#ProjectsAdvansedFilter").advansedFilter({ filters: [{ type: type, id: filterId, visible: visible}] });
+        self.filter.advansedFilter({ filters: [{ type: type, id: filterId, visible: visible }] });
     };
 
     var getMilestonesForFilter = function() {
@@ -641,15 +639,17 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
     };
 
     var getTagsForFilter = function () {
-        return ASC.Projects.Master.Tags.map(function (item) {
-            return { 'value': item.id, 'title': item.title };
-        });
+        return ASC.Projects.Master.Tags;
     };
 
     var getTeamForFilter = function() {
         return ASC.Projects.Master.Team.map(function (item) {
             return { 'value': item.id, 'title': item.displayName };
         });
+    };
+
+    var resize = function() {
+        self.filter.advansedFilter("resize");
     };
 
     var onSetFilter = function (evt, $container) {
@@ -666,7 +666,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
         if (self.firstload) {
             self.firstload = false;
         } else {
-            self.obj.currentPage = 0;
+            ASC.Projects.PageNavigator.currentPage = 0;
         }
 
         self.obj.currentFilter = self.makeData($container, 'data');
@@ -678,7 +678,7 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
     };
 
     var onResetFilter = function (evt, $container) {
-        self.obj.currentPage = 0;
+        ASC.Projects.PageNavigator.currentPage = 0;
         var path = self.makeData($container, 'anchor');
         self.hashFilterChanged = true;
         ASC.Controls.AnchorController.move(path);
@@ -686,7 +686,37 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
         self.obj.getData();
     };
 
+    var hide = function () {
+        self.filter.hide();
+    };
+
+    var show = function () {
+        self.filter.show();
+        resize();
+    };
+
+    var clear = function () {
+        self.firstload = true;
+        delete window.userSelector;
+
+        if (typeof self.filter == "undefined") return;
+        self.filter.empty();
+        self.filter.removeAttr("class");
+    };
+
+    var bindEvents = function() {
+        jq("body").on("click.filter", ".clearFilterButton", function () {
+            self.filter.advansedFilter(null);
+            return false;
+        });
+    };
+
+    var unbindEvents = function() {
+        jq("body").off("click.filter");
+    };
+
     return {
+        filter: filter,
         obj: obj,
         getUrlParam: getUrlParam,
         basePath: basePath,
@@ -707,6 +737,14 @@ ASC.Projects.ProjectsAdvansedFilter = (function() {
         visibleFilterItem: visibleFilterItem,
 
         onSetFilter: onSetFilter,
-        onResetFilter: onResetFilter
+        onResetFilter: onResetFilter,
+
+        resize: resize,
+
+        show: show,
+        hide: hide,
+
+        bindEvents: bindEvents,
+        unbindEvents: unbindEvents
     };
-})(jQuery);
+})();

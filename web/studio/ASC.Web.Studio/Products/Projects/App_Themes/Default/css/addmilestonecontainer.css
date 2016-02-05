@@ -114,66 +114,64 @@
 	width: 75%;
 }
 
-@media all and (max-width: 1500px) {
-    #addMilestoneContainer div:first-child {
-        width: 94%;
-    }
 
-    #addTaskContainer div:first-child {
-        width: 93%;
-    }
-
-    #addMilestoneContainer #newMilestoneTitle {
-        width: 65%;
-    }
-
-    #addTaskContainer #newTaskTitle {
-	    width: 75%;
-    }
+body.media-width-0-1500:not(.media-width-0-1300) #addMilestoneContainer div:first-child {
+    width: 94%;
 }
 
-@media all and (max-width: 1300px) {
-    #addMilestoneContainer div:first-child {
-        width: 93%;    
-    }
-    #addTaskContainer div:first-child {
-        width: 92%;    
-    }
-    #addMilestoneContainer #newMilestoneTitle {
-        width: 60%;
-    }
-    #addTaskContainer #newTaskTitle {
-	    width: 70%;
-    }
+body.media-width-0-1500:not(.media-width-0-1300) #addTaskContainer div:first-child {
+    width: 93%;
 }
-@media all and (max-width: 1200px) {
-    #addMilestoneContainer div:first-child {
-        width: 92%;    
-    }
-    #addTaskContainer div:first-child {
-        width: 91%;    
-    }
-    #addMilestoneContainer #newMilestoneTitle {
-        width: 55%;
-    }
-    #addTaskContainer #newTaskTitle {
-	    width: 65%;
-    }
+
+body.media-width-0-1500:not(.media-width-0-1300) #addMilestoneContainer #newMilestoneTitle {
+    width: 65%;
 }
-@media all and (max-width: 1100px) {
-    #addMilestoneContainer div:first-child {
-        width: 91%;    
-    }
-    #addTaskContainer div:first-child {
-        width: 90%;    
-    }
-    #addMilestoneContainer #newMilestoneTitle {
-        width: 45%;
-    }
-    #addTaskContainer #newTaskTitle {
-	    width: 60%;
-    }
+
+body.media-width-0-1500:not(.media-width-0-1300) #addTaskContainer #newTaskTitle {
+	width: 75%;
 }
+
+
+body.media-width-0-1300:not(.media-width-0-1200) #addMilestoneContainer div:first-child {
+    width: 93%;    
+}
+body.media-width-0-1300:not(.media-width-0-1200) #addTaskContainer div:first-child {
+    width: 92%;    
+}
+body.media-width-0-1300:not(.media-width-0-1200) #addMilestoneContainer #newMilestoneTitle {
+    width: 60%;
+}
+body.media-width-0-1300:not(.media-width-0-1200) #addTaskContainer #newTaskTitle {
+	width: 70%;
+}
+
+
+body.media-width-0-1200:not(.media-width-0-1100) #addMilestoneContainer div:first-child {
+    width: 92%;    
+}
+body.media-width-0-1200:not(.media-width-0-1100) #addTaskContainer div:first-child {
+    width: 91%;    
+}
+body.media-width-0-1200:not(.media-width-0-1100) #addMilestoneContainer #newMilestoneTitle {
+    width: 55%;
+}
+body.media-width-0-1200:not(.media-width-0-1100) #addTaskContainer #newTaskTitle {
+	width: 65%;
+}
+
+body.media-width-0-1100 #addMilestoneContainer div:first-child {
+    width: 91%;    
+}
+body.media-width-0-1100 #addTaskContainer div:first-child {
+    width: 90%;    
+}
+body.media-width-0-1100 #addMilestoneContainer #newMilestoneTitle {
+    width: 45%;
+}
+body.media-width-0-1100 #addTaskContainer #newTaskTitle {
+	width: 60%;
+}
+
 
 /*----list milestones-----*/
 #listAddedMilestone {
@@ -250,14 +248,13 @@
 	border-bottom: 1px dotted #333;
 	cursor: pointer;
 }
-@media all and (max-width: 1200px)
+
+body.media-width-0-1200 .milestone .mainInfo .title,
+body.media-width-0-1200 .task .title
 {
-    .milestone .mainInfo .title,
-    .task .title
-    {
-        max-width: 400px;
-    }
+    max-width: 400px;
 }
+
 /*--list tasks--*/
 .milestoneTasksContainer{ display: none;}
 

@@ -57,9 +57,6 @@
     <!-- Messaging system -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.MessagingSystem\ASC.MessagingSystem.csproj"/>
 
-    <!-- Audit Trail -->
-    <ProjectToBuild Include="$(ASCDir)module\ASC.AuditTrail\ASC.AuditTrail.csproj" Condition=" Exists( '$(ASCDir)module\ASC.AuditTrail\ASC.AuditTrail.csproj' ) " />
-
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Specific\ASC.Specific.csproj"/>
 
@@ -72,6 +69,9 @@
     <!-- Files -->
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Files.Thirdparty\ASC.Files.Thirdparty.csproj"/>
+
+    <!-- Audit Trail -->
+    <ProjectToBuild Include="$(ASCDir)module\ASC.AuditTrail\ASC.AuditTrail.csproj" Condition=" Exists( '$(ASCDir)module\ASC.AuditTrail\ASC.AuditTrail.csproj' ) " />
 
     <!-- Backup -->
     <ProjectToBuild Include="$(ASCDir)common\ASC.Data.Backup\ASC.Data.Backup.csproj" Condition=" Exists( '$(ASCDir)common\ASC.Data.Backup\' ) "/>
@@ -91,9 +91,6 @@
     <!-- People-->
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\People\ASC.Web.People.csproj"/>
 
-    <!-- Tools -->
-    <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\Tools\ASC.Web.Tools.csproj" Condition=" Exists( '$(ASCDir)web\studio\ASC.Web.Studio\Products\Tools\' ) "/>
-    <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\Tools\Modules\FoodManagement\ASC.Web.Tools.FoodManagement.csproj" Condition=" Exists( '$(ASCDir)web\studio\ASC.Web.Studio\Products\Tools\' ) "/>
 
     <!-- Mail ActiveUp -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Dns\ActiveUp.Net.Dns.csproj"/>
@@ -162,6 +159,9 @@
 
     <!-- SignalR service -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.SignalR.Base\ASC.SignalR.Base.csproj" Condition=" Exists( '$(ASCDir)module\ASC.SignalR.Base\ASC.SignalR.Base.csproj' ) "/>
+
+    <!-- HealthCheck service -->
+    <ProjectToBuild Include="$(ASCDir)module\ASC.HealthCheck\ASC.HealthCheck\ASC.HealthCheck.csproj" Condition=" Exists( '$(ASCDir)module\ASC.HealthCheck\ASC.HealthCheck\ASC.HealthCheck.csproj' ) "/>
 
     <ProjectSitesToBuild Include="$(ASCDir)module\ASC.CRM\ASC.CRM.DatabaseSync\ASC.CRM.DatabaseSync.csproj" Condition="$(DeploySites)==1" />
     <ProjectSitesToBuild Include="$(ASCDir)web\Thumb\Thumb.csproj" Condition="$(DeploySites)==1" />

@@ -26,8 +26,6 @@
 
 using System;
 using System.Linq;
-using System.Web;
-using System.Collections;
 using System.Collections.Generic;
 
 using ASC.Core;
@@ -38,84 +36,86 @@ namespace ASC.Web.Projects.Classes
 {
     public class RequestContext
     {
-        static Project Projectctx { get { return Hash["_projectctx"] as Project; } set { Hash["_projectctx"] = value; } }
-        static int? ProjectId { get { return Hash["_projectId"] as int?; } set { Hash["_projectId"] = value; } }
-        static int? ProjectsCount { get { return Hash["_projectsCount"] as int?; } set { Hash["_projectsCount"] = value; } }
+        public bool IsInConcreteProject { get; private set; }
+        public bool IsInConcreteProjectModule { get; private set; }
+        private readonly EngineFactory engineFactory;
+        private Project currentProject;
 
-        static List<Project> UserProjects { get { return Hash["_userProjects"] as List<Project>; } set { Hash["_userProjects"] = value; } }
+        private IEnumerable<Project> currentUserProjects;
+        public IEnumerable<Project> CurrentUserProjects
+        {
+            get
+            {
+                return currentUserProjects ??
+                       (currentUserProjects =
+                           engineFactory.ProjectEngine.GetByParticipant(SecurityContext.CurrentAccount.ID));
+            }
+        }
+
+        private int? allProjectsCount;
+        public int AllProjectsCount
+        {
+            get
+            {
+                if (!allProjectsCount.HasValue)
+                {
+                    allProjectsCount = engineFactory.ProjectEngine.CountOpen();
+                }
+
+                return allProjectsCount.Value;
+            }
+        }
+
+        private int? allTasksCount;
+        public int AllTasksCount
+        {
+            get
+            {
+                if (!allTasksCount.HasValue)
+                {
+                    allTasksCount = engineFactory.TaskEngine.GetByFilterCount(new TaskFilter());
+                }
+
+                return allTasksCount.Value;
+            }
+        }
 
         #region Project
 
-        public static bool IsInConcreteProject
+        public RequestContext(EngineFactory engineFactory)
         {
-            get { return !String.IsNullOrEmpty(UrlParameters.ProjectID); }
+            IsInConcreteProject = UrlParameters.ProjectID >= 0;
+            IsInConcreteProjectModule = IsInConcreteProject && UrlParameters.EntityID >= 0;
+            this.engineFactory = engineFactory;
         }
 
-        public static bool IsInConcreteProjectModule
+        public Project GetCurrentProject(bool isthrow = true)
         {
-            get { return IsInConcreteProject && !String.IsNullOrEmpty(UrlParameters.EntityID); }
-        }
+            if (currentProject != null) return currentProject;
 
-        public static Project GetCurrentProject(bool isthrow = true)
-        {
-            if (Projectctx == null)
+            currentProject = engineFactory.ProjectEngine.GetByID(GetCurrentProjectId(isthrow));
+
+            if (currentProject != null || !isthrow)
             {
-                var project = Global.EngineFactory.GetProjectEngine().GetByID(GetCurrentProjectId(isthrow));
-
-                if (project == null)
-                {
-                    if (isthrow) throw new ApplicationException("ProjectFat not finded");
-                }
-                else
-                    Projectctx = project;
+                return currentProject;
             }
 
-            return Projectctx;
+            throw new ApplicationException("ProjectFat not finded");
         }
 
-        public static int GetCurrentProjectId(bool isthrow = true)
+        public int GetCurrentProjectId(bool isthrow = true)
         {
-            if (!ProjectId.HasValue)
-            {
-                int pid;
-                if (!Int32.TryParse(UrlParameters.ProjectID, out pid))
-                {
-                    if (isthrow)
-                        throw new ApplicationException("ProjectFat Id parameter invalid");
-                }
-                else
-                    ProjectId = pid;
-            }
-            return ProjectId.HasValue ? ProjectId.Value : -1;
+            var pid = UrlParameters.ProjectID;
+
+            if (pid >= 0 || !isthrow)
+                return pid;
+
+            throw new ApplicationException("ProjectFat Id parameter invalid");
         }
 
         #endregion
 
-        #region Projects
-
-        public static int AllProjectsCount
-        {
-            get
-            {
-                if (!ProjectsCount.HasValue)
-                    ProjectsCount = Global.EngineFactory.GetProjectEngine().GetAll().Count();
-                return ProjectsCount.Value;
-            }
-        }
-
-        public static List<Project> CurrentUserProjects
-        {
-            get
-            {
-                return UserProjects ??
-                       (UserProjects =
-                        Global.EngineFactory.GetProjectEngine().GetByParticipant(SecurityContext.CurrentAccount.ID));
-            }
-        }
-
-        #endregion
-
-        private static bool CanCreate(Func<Project, bool> canCreate, bool checkConreteProject)
+        private bool CanCreate(Func<Project, bool> canCreate, bool checkConreteProject)
         {
             if (checkConreteProject && IsInConcreteProject)
             {
@@ -128,53 +128,31 @@ namespace ASC.Web.Projects.Classes
                        : CurrentUserProjects.Any(canCreate);
         }
 
-        public static bool CanCreateTask(bool checkConreteProject = false)
+        public bool CanCreateTask(bool checkConreteProject = false)
         {
             return CanCreate(ProjectSecurity.CanCreateTask, checkConreteProject);
         }
 
-        public static bool CanCreateMilestone(bool checkConreteProject = false)
+        public bool CanCreateMilestone(bool checkConreteProject = false)
         {
             return CanCreate(ProjectSecurity.CanCreateMilestone, checkConreteProject);   
         }
 
-        public static bool CanCreateDiscussion(bool checkConreteProject = false)
+        public bool CanCreateDiscussion(bool checkConreteProject = false)
         {
             return CanCreate(ProjectSecurity.CanCreateMessage, checkConreteProject);
         }
 
-        public static bool CanCreateTime(bool checkConreteProject = false)
+        public bool CanCreateTime(bool checkConreteProject = false)
         {
             if (checkConreteProject && IsInConcreteProject)
             {
                 var project = GetCurrentProject();
-                var taskCount = Global.EngineFactory.GetProjectEngine().GetTaskCount(project.ID, null);
+                var taskCount = engineFactory.ProjectEngine.GetTaskCount(project.ID, null);
                 return taskCount > 0 && ProjectSecurity.CanCreateTimeSpend(project);
             }
 
-            return CanCreate(ProjectSecurity.CanCreateTimeSpend, false) && Global.EngineFactory.GetTaskEngine().GetByFilterCount(new TaskFilter()) > 0;
+            return CanCreate(ProjectSecurity.CanCreateTimeSpend, false) && AllTasksCount > 0;
         }
-
-        #region internal
-
-        const string storageKey = "PROJECT_REQ_CTX";
-
-        static Hashtable Hash
-        {
-            get
-            {
-                if (HttpContext.Current == null) throw new ApplicationException("Not in http request");
-
-                var hash = (Hashtable)HttpContext.Current.Items[storageKey];
-                if (hash == null)
-                {
-                    hash = new Hashtable();
-                    HttpContext.Current.Items[storageKey] = hash;
-                }
-                return hash;
-            }
-        }
-
-        #endregion
     }
 }

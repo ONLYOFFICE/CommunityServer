@@ -58,7 +58,7 @@ window.ASC.Files.Mouse = (function () {
             return true;
         }
 
-        e = ASC.Files.Common.fixEvent(e);
+        e = jq.fixEvent(e);
         jq(this).toggleClass("row-hover", e.type == "mouseenter");
 
         return true;
@@ -128,7 +128,7 @@ window.ASC.Files.Mouse = (function () {
     };
 
     var beginSelecting = function (e) {
-        e = ASC.Files.Common.fixEvent(e);
+        e = jq.fixEvent(e);
         ASC.Files.Mouse.mouseBtn = e.target.nodeName != "HTML";
 
         if (!(e.button == 0 || (jq.browser.msie && e.button == 1))) {
@@ -163,7 +163,7 @@ window.ASC.Files.Mouse = (function () {
     };
 
     var continueSelecting = function (event) {
-        event = ASC.Files.Common.fixEvent(event);
+        event = jq.fixEvent(event);
 
         var targetMove = event.target || event.srcElement;
         if (typeof targetMove == "undefined") {
@@ -282,7 +282,7 @@ window.ASC.Files.Mouse = (function () {
     };
 
     var getOverFolderId = function (e, entry, addCssClass) {
-        e = ASC.Files.Common.fixEvent(e);
+        e = jq.fixEvent(e);
         if (e.type == "mouseleave") {
             jq("." + addCssClass).removeClass(addCssClass);
             return null;
@@ -312,7 +312,7 @@ window.ASC.Files.Mouse = (function () {
     };
 
     var preparingMoveTo = function (event) {
-        var e = ASC.Files.Common.fixEvent(event);
+        var e = jq.fixEvent(event);
 
         if (!(e.button == 0 || (jq.browser.msie && e.button == 1))) {
             return false;
@@ -340,7 +340,7 @@ window.ASC.Files.Mouse = (function () {
     };
 
     var beginMoveTo = function (e) {
-        e = ASC.Files.Common.fixEvent(e);
+        e = jq.fixEvent(e);
 
         if (!(e.button == 0 || (jq.browser.msie && e.button == 1))
             || ASC.Files.Mouse.mouseBtn == false) {
@@ -371,7 +371,7 @@ window.ASC.Files.Mouse = (function () {
     };
 
     var continueMoveTo = function (e) {
-        e = ASC.Files.Common.fixEvent(e);
+        e = jq.fixEvent(e);
 
         if (ASC.Files.Mouse.mouseBtn == false) {
             ASC.Files.Mouse.finishMoveTo(e);
@@ -440,7 +440,7 @@ window.ASC.Files.Mouse = (function () {
     };
 
     var finishMoveTo = function (e) {
-        e = ASC.Files.Common.fixEvent(e);
+        e = jq.fixEvent(e);
 
         jq(".row-to").removeClass("row-to");
         jq(".may-row-to").removeClass("may-row-to");

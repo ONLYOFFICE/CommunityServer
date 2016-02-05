@@ -8,11 +8,11 @@ using ASC.Web.Talk.Addon;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("ASC.Web.Talk")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("ASC.Web.Talk library")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ascensio System SIA")]
 [assembly: AssemblyProduct("ASC.Web.Talk")]
-[assembly: AssemblyCopyright("Ascensio System SIA 2013")]
+[assembly: AssemblyCopyright("Ascensio System SIA 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

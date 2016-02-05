@@ -46,7 +46,7 @@ window.ASC.Files.Converter = (function () {
             return true;
         }
 
-        if (!ASC.Files.Utility.MustConvert(fileTitle)) {
+        if (!ASC.Files.Utility.MustConvert(fileTitle) || forEdit == false) {
             if (forEdit == false) {
                 var url = ASC.Files.Utility.GetFileWebViewerUrl(fileId, version);
                 window.open(url, "_blank");

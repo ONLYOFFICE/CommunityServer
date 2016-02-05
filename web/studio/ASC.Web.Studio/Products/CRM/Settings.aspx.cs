@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -42,7 +42,7 @@ namespace ASC.Web.CRM
             if (!CRMSecurity.IsAdmin)
                 Response.Redirect(PathProvider.StartURL());
 
-            Page.RegisterBodyScripts(LoadControl(VirtualPathUtility.ToAbsolute("~/products/crm/masters/SettingsBodyScripts.ascx")));
+            Page.RegisterBodyScriptsControl("~/products/crm/masters/SettingsBodyScripts.ascx");
 
             var typeValue = (HttpContext.Current.Request["type"] ?? "common").ToLower();
             ListItemView listItemViewControl;

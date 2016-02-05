@@ -84,16 +84,19 @@ namespace ASC.Projects.Data.DAO
 
     class MilestoneDao : BaseDao, IMilestoneDao
     {
+        private readonly Converter<object[], Milestone> converter;
+
         public MilestoneDao(string dbId, int tenant)
             : base(dbId, tenant)
         {
+            converter = ToMilestone;
         }
 
         public List<Milestone> GetAll()
         {
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(CreateQuery()).ConvertAll(ToMilestone);
+                return db.ExecuteList(CreateQuery()).ConvertAll(converter);
             }
         }
 
@@ -102,7 +105,7 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 return db.ExecuteList(CreateQuery().Where("t.project_id", projectId))
-                    .ConvertAll(ToMilestone);
+                    .ConvertAll(converter);
             }
         }
 
@@ -135,7 +138,7 @@ namespace ASC.Projects.Data.DAO
 
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(query).ConvertAll(ToMilestone);
+                return db.ExecuteList(query).ConvertAll(converter);
             }
         }
 
@@ -162,7 +165,7 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 return db.ExecuteList(CreateQuery().Where("t.project_id", projectId).Where("t.status", milestoneStatus))
-                    .ConvertAll(ToMilestone);
+                    .ConvertAll(converter);
             }
         }
 
@@ -182,27 +185,25 @@ namespace ASC.Projects.Data.DAO
 
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(query).ConvertAll(ToMilestone);
+                return db.ExecuteList(query).ConvertAll(converter);
             }
         }
 
-        public List<Milestone> GetLateMilestones(int offset, int max, params int[] projects)
+        public List<Milestone> GetLateMilestones(int offset, int max)
         {
+            var now = TenantUtil.DateTimeNow();
+            var yesterday = now.Date.AddDays(-1);
             var query = CreateQuery()
                 .SetFirstResult(offset)
                 .Where("p.status", ProjectStatus.Open)
                 .Where(!Exp.Eq("t.status", MilestoneStatus.Closed))
-                .Where(Exp.Le("t.deadline", TenantUtil.DateTimeNow().Date.AddDays(-1)))
+                .Where(Exp.Le("t.deadline", yesterday))
                 .SetMaxResults(max)
                 .OrderBy("t.deadline", true);
-            if (projects != null && 0 < projects.Length)
-            {
-                query.Where(Exp.In("p.id", projects.Take(0 < max ? max : projects.Length).ToArray()));
-            }
 
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(query).ConvertAll(ToMilestone);
+                return db.ExecuteList(query).ConvertAll(converter);
             }
         }
 
@@ -211,7 +212,7 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 return db.ExecuteList(CreateQuery().Where("t.deadline", deadline.Date).OrderBy("t.deadline", true))
-                    .ConvertAll(ToMilestone);
+                    .ConvertAll(converter);
             }
         }
 
@@ -220,7 +221,7 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 return db.ExecuteList(CreateQuery().Where("t.id", id))
-                    .ConvertAll(ToMilestone)
+                    .ConvertAll(converter)
                     .SingleOrDefault();
             }
         }
@@ -230,7 +231,7 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 return db.ExecuteList(CreateQuery().Where(Exp.In("t.id", id)))
-                    .ConvertAll(ToMilestone);
+                    .ConvertAll(converter);
             }
         }
 
@@ -245,9 +246,10 @@ namespace ASC.Projects.Data.DAO
 
         public List<object[]> GetInfoForReminder(DateTime deadline)
         {
+            var deadlineDate = deadline.Date;
             var q = new SqlQuery(MilestonesTable)
                 .Select("tenant_id", "id", "deadline")
-                .Where(Exp.Between("deadline", deadline.Date.AddDays(-1), deadline.Date.AddDays(1)))
+                .Where(Exp.Between("deadline", deadlineDate.AddDays(-1), deadlineDate.AddDays(1)))
                 .Where("status", MilestoneStatus.Open)
                 .Where("is_notify", 1);
 
@@ -393,7 +395,7 @@ namespace ASC.Projects.Data.DAO
 
             if (!string.IsNullOrEmpty(filter.SearchText))
             {
-                if (FullTextSearch.SupportModule(FullTextSearch.ProjectsModule, FullTextSearch.ProjectsCommentsModule))
+                if (FullTextSearch.SupportModule(FullTextSearch.ProjectsMilestonesModule))
                 {
                     var mIds = FullTextSearch.Search(FullTextSearch.ProjectsMilestonesModule.Match(filter.SearchText));
                     query.Where(Exp.In("t.id", mIds));
@@ -436,7 +438,7 @@ namespace ASC.Projects.Data.DAO
         {
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(CreateQuery().Where(where)).ConvertAll(ToMilestone);
+                return db.ExecuteList(CreateQuery().Where(where)).ConvertAll(converter);
             }
         }
 

@@ -131,7 +131,7 @@ namespace ActiveUp.Net.Security
 
             }
 
-            return sb.ToString().TrimEnd('\r','\n') + "\r\n";
+            return string.Format("{0}\r\n", sb.ToString().TrimEnd('\r','\n'));
         }
         public static bool Verify(byte[] emailData, Signature signature)
         {
@@ -144,7 +144,7 @@ namespace ActiveUp.Net.Security
             StringBuilder sb = new StringBuilder();
             while (sr.Peek() != -1)
                 sb.Append(string.Concat(Canonicalizer.Canonicalize(sr.ReadLine(), signature.CanonicalizationAlgorithm),Tokenizer.NewLine));
-            byte[] canonicalized = Encoding.ASCII.GetBytes(header + sb.ToString().TrimEnd('\r', '\n') + "\r\n");
+            byte[] canonicalized = Encoding.ASCII.GetBytes(string.Format("{0}{1}\r\n", header, sb.ToString().TrimEnd('\r', '\n')));
 
             SHA1Managed sha = new SHA1Managed();
             byte[] hash = sha.ComputeHash(canonicalized);
@@ -175,7 +175,7 @@ namespace ActiveUp.Net.Security
         }
         public SendingDomainPolicy GetSendingDomainPolicy()
         {
-            byte[] data = Validator.GetTxtRecords("._domainkey." + this.Domain);
+            byte[] data = Validator.GetTxtRecords(string.Format("._domainkey.{0}",this.Domain));
             return SendingDomainPolicy.Parse(Encoding.ASCII.GetString(data,0,data.Length));
         }
         public bool Verify()

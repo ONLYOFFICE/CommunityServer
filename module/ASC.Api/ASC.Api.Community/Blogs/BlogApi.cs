@@ -38,6 +38,12 @@ using ASC.Blogs.Core.Domain;
 using ASC.Core;
 using ASC.Web.Community.Product;
 using SecurityContext = ASC.Core.SecurityContext;
+using ASC.Web.Studio.UserControls.Common.Comments;
+using ASC.Web.Core.Users;
+using ASC.Web.Studio.Utility;
+using ASC.Web.Community.Blogs;
+using ASC.Web.Studio.Utility.HtmlUtility;
+using ASC.Web.Studio.Controls.Common;
 
 namespace ASC.Api.Community
 {
@@ -301,6 +307,164 @@ namespace ASC.Api.Community
                 newComment.ParentId = parentId;
             BlogEngine.SaveComment(newComment, post);
             return new BlogPostCommentWrapper(newComment);
+        }
+
+
+        /// <summary>
+        /// Get comment preview with the content specified in the request
+        /// </summary>
+        /// <short>Get comment preview</short>
+        /// <section>Comments</section>
+        /// <param name="commentid">Comment ID</param>
+        /// <param name="htmltext">Comment content</param>
+        /// <returns>Comment info</returns>
+        /// <category>Blogs</category>
+        [Create("blog/comment/preview")]
+        public CommentInfo GetBlogCommentPreview(string commentid, string htmltext)
+        {
+            var comment = new Comment
+            {
+                Datetime = ASC.Core.Tenants.TenantUtil.DateTimeNow(),
+                UserID = SecurityContext.CurrentAccount.ID
+            };
+
+            if (!String.IsNullOrEmpty(commentid))
+            {
+                comment = BlogEngine.GetCommentById(new Guid(commentid));
+            }
+            comment.Content = htmltext;
+
+            return GetCommentInfo(comment, true);
+        }
+
+
+        /// <summary>
+        ///Remove comment with the id specified in the request
+        /// </summary>
+        /// <short>Remove comment</short>
+        /// <section>Comments</section>
+        /// <param name="commentid">Comment ID</param>
+        /// <returns>Comment id</returns>
+        /// <category>Blogs</category>
+        [Delete("blog/comment/{commentid}")]
+        public string RemoveBlogComment(string commentid)
+        {
+            Guid? id = null;
+            try
+            {
+                if (!String.IsNullOrEmpty(commentid))
+                    id = new Guid(commentid);
+            }
+            catch
+            {
+                return commentid;
+            }
+
+            var comment = BlogEngine.GetCommentById(id.Value);
+            if (comment == null)
+                throw new ApplicationException("Comment not found");
+
+            CommunitySecurity.DemandPermissions(comment, ASC.Blogs.Core.Constants.Action_EditRemoveComment);
+
+            comment.Inactive = true;
+
+            var post = BlogEngine.GetPostById(comment.PostId);
+            BlogEngine.RemoveComment(comment, post);
+
+            return commentid;
+        }
+
+
+
+        /// <category>Blogs</category>
+        [Create("blog/comment")]
+        public CommentInfo AddBlogComment(string parentcommentid, string entityid, string content)
+        {
+            Guid postId;
+            Guid? parentId = null;
+
+            postId = new Guid(entityid);
+            if (!String.IsNullOrEmpty(parentcommentid))
+                parentId = new Guid(parentcommentid);
+
+
+            var post = BlogEngine.GetPostById(postId);
+
+            if (post == null)
+            {
+                throw new Exception("postDeleted");
+            }
+
+            CommunitySecurity.DemandPermissions(post, ASC.Blogs.Core.Constants.Action_AddComment);
+
+            var newComment = new Comment
+            {
+                PostId = postId,
+                Content = content,
+                Datetime = ASC.Core.Tenants.TenantUtil.DateTimeNow(),
+                UserID = SecurityContext.CurrentAccount.ID
+            };
+
+            if (parentId.HasValue)
+                newComment.ParentId = parentId.Value;
+
+            BlogEngine.SaveComment(newComment, post);
+
+            //mark post as seen for the current user
+            BlogEngine.SavePostReview(post, SecurityContext.CurrentAccount.ID);
+
+            return GetCommentInfo(newComment, false);
+        }
+
+        /// <category>Blogs</category>
+        [Update("blog/comment/{commentid}")]
+        public string UpdateBlogComment(string commentid, string content)
+        {
+            Guid? id = null;
+            if (!String.IsNullOrEmpty(commentid))
+                id = new Guid(commentid);
+
+            var comment = BlogEngine.GetCommentById(id.Value);
+            if (comment == null)
+                throw new Exception("Comment not found");
+
+            CommunitySecurity.DemandPermissions(comment, ASC.Blogs.Core.Constants.Action_EditRemoveComment);
+
+            comment.Content = content;
+
+            var post = BlogEngine.GetPostById(comment.PostId);
+            BlogEngine.UpdateComment(comment, post);
+
+            return HtmlUtility.GetFull(content);
+        }
+
+
+
+        private static CommentInfo GetCommentInfo(Comment comment, bool isPreview)
+        {
+            var info = new CommentInfo
+            {
+                CommentID = comment.ID.ToString(),
+                UserID = comment.UserID,
+                TimeStamp = comment.Datetime,
+                TimeStampStr = comment.Datetime.Ago(),
+                IsRead = true,
+                Inactive = comment.Inactive,
+                CommentBody = comment.Content,
+                UserFullName = DisplayUserSettings.GetFullUserName(comment.UserID),
+                UserProfileLink = CommonLinkUtility.GetUserProfile(comment.UserID),
+                UserAvatarPath = UserPhotoManager.GetBigPhotoURL(comment.UserID),
+                UserPost = CoreContext.UserManager.GetUsers(comment.UserID).Title
+            };
+
+            if (!isPreview)
+            {
+                info.IsEditPermissions = CommunitySecurity.CheckPermissions(comment, ASC.Blogs.Core.Constants.Action_EditRemoveComment);
+
+                info.IsResponsePermissions = CommunitySecurity.CheckPermissions(comment.Post, ASC.Blogs.Core.Constants.Action_AddComment);
+            }
+
+            return info;
         }
 
         private PostsQuery GetQuery()

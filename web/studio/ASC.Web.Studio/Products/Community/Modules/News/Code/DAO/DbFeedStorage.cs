@@ -24,19 +24,14 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
+using ASC.Common.Caching;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
-using ASC.Core.Caching;
 using ASC.Core.Common.Notify;
 using ASC.Core.Tenants;
 using ASC.FullTextIndex;
-using ASC.FullTextIndex.Service;
 using ASC.Notify;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
@@ -44,7 +39,10 @@ using ASC.Web.Community.News.Code.Module;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.Utility.HtmlUtility;
-using ASC.Web.Studio.Core.Notify;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace ASC.Web.Community.News.Code.DAO
 {

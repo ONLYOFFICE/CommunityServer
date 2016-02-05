@@ -199,16 +199,7 @@ namespace ASC.Api.Calendar.Notification
 
         private static string PerformUrl(string url)
         {
-            string port = string.Empty;
-            if (HttpContext.Current != null && HttpContext.Current.Request != null)
-                port = HttpContext.Current.Request.GetUrlRewriter().IsDefaultPort ? string.Empty : ":" + HttpContext.Current.Request.GetUrlRewriter().Port;
-
-            var result = string.Format("{0}://{1}{2}",
-                   (HttpContext.Current != null && HttpContext.Current.Request != null) ? HttpContext.Current.Request.GetUrlRewriter().Scheme : Uri.UriSchemeHttp,
-                   CoreContext.TenantManager.GetCurrentTenant().TenantDomain,
-                   port) + ("/" + url).Replace("//", "/");
-
-            return result;
+            return CommonLinkUtility.GetFullAbsolutePath(url);
         }
     }
 

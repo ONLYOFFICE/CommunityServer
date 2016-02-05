@@ -27,7 +27,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 using System.Web;
 using ASC.Core.Tenants;
@@ -240,7 +239,7 @@ namespace ASC.Web.UserControls.Wiki.UC
 
                 if (!isPageNew)
                 {
-                    txtPageName.Text = page.PageName;
+                    txtPageName.Value = page.PageName;
                     if (PageSection < 0)
                     {
                         SetWikiFCKEditorValue(page.PageName, page.Body);
@@ -248,14 +247,14 @@ namespace ASC.Web.UserControls.Wiki.UC
                     else
                     {
                         SetWikiFCKEditorValue(page.PageName, HtmlWikiUtil.GetWikiSectionBySectionNumber(page.Body, PageSection));
-                        txtPageName.ReadOnly = true;
-                        txtPageName.Text += string.Format(WikiUCResource.wikiPageEditSectionCaptionFormat, HtmlWikiUtil.GetWikiSectionNameBySectionNumber(page.Body, PageSection));
+                        txtPageName.Attributes["readonly"] = "readonly";
+                        txtPageName.Value += string.Format(WikiUCResource.wikiPageEditSectionCaptionFormat, HtmlWikiUtil.GetWikiSectionNameBySectionNumber(page.Body, PageSection));
                     }
 
                     //Check for 'help' and 'main' page
                     if (IsStandartName(page))
                     {
-                        txtPageName.ReadOnly = true;
+                        txtPageName.Attributes["readonly"] = "readonly";
                     }
                     PageVersion = page.Version;
 
@@ -266,14 +265,14 @@ namespace ASC.Web.UserControls.Wiki.UC
                 }
                 else if (!string.IsNullOrEmpty(PageName))
                 {
-                    txtPageName.Text = PageNameUtil.Decode(PageName);
+                    txtPageName.Value = PageNameUtil.Decode(PageName);
                     if (IsSpecialName)
                     {
-                        txtPageName.ReadOnly = true;
+                        txtPageName.Attributes["readonly"] = "readonly";
                     }
                 }
 
-                phPageName.Visible = !txtPageName.ReadOnly;
+                phPageName.Visible = txtPageName.Attributes["readonly"] == null;
             }
 
             hfFCKLastState.Value = (!IsWysiwygDefault).ToString().ToLower();
@@ -305,7 +304,7 @@ namespace ASC.Web.UserControls.Wiki.UC
                 }
 
                 Page page;
-                var currentPageName = txtPageName.Text.Trim();
+                var currentPageName = txtPageName.Value.Trim();
                 if (currentPageName.Length > 240) currentPageName = currentPageName.Substring(0, 240).Trim();
                 currentPageName = PageNameUtil.Clean(currentPageName);
                 if (PageSection >= 0)
@@ -317,7 +316,7 @@ namespace ASC.Web.UserControls.Wiki.UC
                 var isPageRename = pageName != PageNameUtil.Decode(PageName) && !string.IsNullOrEmpty(PageName);
                 var oldPageName = PageName;
 
-                if (currentPageName.Equals(string.Empty) && !txtPageName.ReadOnly)
+                if (currentPageName.Equals(string.Empty) && txtPageName.Attributes["readonly"] == null)
                 {
                     SetWikiFCKEditorValue(currentPageName, Wiki_FCKEditor.Value);
                     return SaveResult.PageNameIsEmpty;
@@ -409,7 +408,7 @@ namespace ASC.Web.UserControls.Wiki.UC
             }
             catch (Exception)
             {
-                pageName = txtPageName.Text.Trim();
+                pageName = txtPageName.Value.Trim();
                 return SaveResult.Error;
             }
         }

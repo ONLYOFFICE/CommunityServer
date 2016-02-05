@@ -35,14 +35,19 @@ namespace ASC.Xmpp.Host
     {
         private ServiceHost host;
         private XmppServer xmppServer;
+        private XmppServerCleaner cleaner;
 
         public void Start()
         {
             xmppServer = new XmppServer();
             JabberConfiguration.Configure(xmppServer);
             xmppServer.StartListen();
+
             host = new ServiceHost(new JabberService(xmppServer));
             host.Open();
+
+            cleaner = new XmppServerCleaner();
+            cleaner.Start();
         }
 
         public void Stop()
@@ -57,6 +62,10 @@ namespace ASC.Xmpp.Host
             {
                 host.Close();
                 host = null;
+            }
+            if (cleaner != null)
+            {
+                cleaner.Stop();
             }
         }
     }

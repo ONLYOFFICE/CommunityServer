@@ -24,8 +24,7 @@
 */
 
 
-using ASC.Core;
-using ASC.Core.Caching;
+using ASC.Common.Caching;
 using ASC.Thrdparty.Configuration;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Utility;
@@ -66,7 +65,10 @@ namespace ASC.Web.Studio.Core.SMS
                 throw new Exception(Resource.SmsNotPaidError);
             }
 
-            var count = Convert.ToInt32(PhoneCache.Get(number) ?? 0);
+            var count = 0;
+
+            int.TryParse(PhoneCache.Get<string>(number), out count);
+
             if (count >= 5)
             {
                 throw new Exception(Resource.SmsTooMuchError);

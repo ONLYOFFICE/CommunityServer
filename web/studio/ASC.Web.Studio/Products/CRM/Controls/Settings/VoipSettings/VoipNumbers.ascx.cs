@@ -46,7 +46,7 @@ namespace ASC.Web.CRM.Controls.Settings
                 Response.Redirect(PathProvider.StartURL() + "settings.aspx");
             }
 
-            Page.RegisterBodyScripts(ResolveUrl("~/js/uploader/jquery.fileupload.js"));
+            Page.RegisterBodyScripts("~/js/uploader/jquery.fileupload.js");
             Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("voip.numbers.js"));
 
             quickSettingsHolder.Controls.Add(Page.LoadControl(VoipQuick.Location));

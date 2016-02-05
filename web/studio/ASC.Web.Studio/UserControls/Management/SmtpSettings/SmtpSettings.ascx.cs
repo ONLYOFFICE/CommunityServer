@@ -30,10 +30,12 @@ using System.Net.Mail;
 using System.Web;
 using System.Web.UI;
 using ASC.Core;
+using ASC.Core.Billing;
 using ASC.Data.Storage;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 using AjaxPro;
+using Resources;
 using SmtpSettingsConfig = ASC.Core.Configuration.SmtpSettings;
 
 namespace ASC.Web.Studio.UserControls.Management
@@ -56,22 +58,34 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!SetupInfo.IsVisibleSettings(ManagementType.SmtpSettings.ToString()))
+            {
+                Response.Redirect(CommonLinkUtility.GetDefault(), true);
+                return;
+            }
+
             AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
             Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/smtpsettings/js/smtpsettings.js"));
             Page.ClientScript.RegisterClientScriptBlock(GetType(), "smtpsettings_style", "<link rel=\"stylesheet\" type=\"text/css\" href=\"" + WebPath.GetPath("usercontrols/management/smtpsettings/css/smtpsettings.css") + "\">", false);
         }
 
         [AjaxMethod]
-        public void Save(SmtpSettingsModel settings)
+        public SmtpSettingsModel Save(SmtpSettingsModel settings)
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
-            CoreContext.Configuration.SmtpSettings = ToSmtpSettingsConfig(settings);
+
+            var smtpSettings = ToSmtpSettingsConfig(settings);
+            CoreContext.Configuration.SmtpSettings = smtpSettings;
+            return ToSmtpSettingsModel(smtpSettings);
         }
 
         [AjaxMethod]
         public void Test(SmtpSettingsModel settings)
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            if (!SetupInfo.IsVisibleSettings(ManagementType.SmtpSettings.ToString()))
+                throw new BillingException(Resource.ErrorNotAllowedOption, "Smtp");
 
             var config = ToSmtpSettingsConfig(settings);
 
@@ -101,16 +115,20 @@ namespace ASC.Web.Studio.UserControls.Management
         }
 
         [AjaxMethod]
-        public void RestoreDefaults()
+        public SmtpSettingsModel RestoreDefaults()
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
             CoreContext.Configuration.SmtpSettings = null; // this should set settings only for current tenant!
+            return new SmtpSettingsModel();
         }
 
         private static SmtpSettingsConfig ToSmtpSettingsConfig(SmtpSettingsModel settingsModel)
         {
-            var settingsConfig = new SmtpSettingsConfig(settingsModel.Host, settingsModel.Port ?? SmtpSettingsConfig.DefaultSmtpPort,
-                                                        settingsModel.SenderAddress, settingsModel.SenderDisplayName)
+            var settingsConfig = new SmtpSettingsConfig(
+                settingsModel.Host,
+                settingsModel.Port ?? SmtpSettingsConfig.DefaultSmtpPort,
+                settingsModel.SenderAddress,
+                settingsModel.SenderDisplayName)
                 {
                     EnableSSL = settingsModel.EnableSSL
                 };
@@ -119,7 +137,7 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 settingsConfig.SetCredentials(settingsModel.CredentialsUserName, settingsModel.CredentialsUserPassword);
             }
-            
+
             return settingsConfig;
         }
 

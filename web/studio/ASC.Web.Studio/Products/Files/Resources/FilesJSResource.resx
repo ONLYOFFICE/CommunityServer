@@ -183,9 +183,6 @@
   <data name="InfoFolderMoveError" xml:space="preserve">
     <value>You cannot move the folder to its subfolder</value>
   </data>
-  <data name="FileVersionRecovery" xml:space="preserve">
-    <value>The version of the file {0} was successfully restored</value>
-  </data>
   <data name="FileAlreadyExist" xml:space="preserve">
     <value>The file with the name {0} already exists in the folder {1}.</value>
   </data>
@@ -311,6 +308,9 @@
   </data>
   <data name="ErrorMassage_FileSize" xml:space="preserve">
     <value>The maximum file size is exceeded</value>
+  </data>
+  <data name="ErrorMassage_StorageSize" xml:space="preserve">
+    <value>The portal storage has run out of free space. You cannot upload files larger than {0}.</value>
   </data>
   <data name="TasksOperationBulkdownload" xml:space="preserve">
     <value>Data Archiving</value>
@@ -501,12 +501,6 @@
   <data name="HelpContentShareFiles" xml:space="preserve">
     <value>Share your files with other portal users or make them available to people outside your portal setting the appropriate access rights.</value>
   </data>
-  <data name="HelpContentSwitchModules" xml:space="preserve">
-    <value>Use the drop-down list to go to another TeamLab module or tool.</value>
-  </data>
-  <data name="HelpContentSwitchModulesAd" xml:space="preserve">
-    <value>Use the drop-down list to go to another TeamLab module or tool, or select People to add more users to your portal.</value>
-  </data>
   <data name="HelpContentViewFiles" xml:space="preserve">
     <value>Click the file name to view the document, or use the pencil icon to open it for editing. For faster processing your file will be converted to the Office Open XML format.</value>
   </data>
@@ -518,9 +512,6 @@
   </data>
   <data name="HelpTitleShareFiles" xml:space="preserve">
     <value>Share Your Files</value>
-  </data>
-  <data name="HelpTitleSwitchModules" xml:space="preserve">
-    <value>Switch between Modules</value>
   </data>
   <data name="HelpTitleViewFiles" xml:space="preserve">
     <value>View &amp; Edit Your Files</value>
@@ -578,5 +569,8 @@
   </data>
   <data name="TypeTitleYandex" xml:space="preserve">
     <value>yandex.com</value>
+  </data>
+  <data name="ConfirmThirdPartyMoveMessage" xml:space="preserve">
+    <value>You are about to move elements from the {1} directory. In such a case, they will be deleted from your {1} account and will no longer be accessible to other users, if these elements have previously been shared. {0}Are you sure you want to move the elements?</value>
   </data>
 </root>

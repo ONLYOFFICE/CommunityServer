@@ -39,7 +39,7 @@ namespace ASC.Core.Billing
 
         IEnumerable<PaymentInfo> GetPayments(int tenantId, DateTime from, DateTime to);
 
-        Uri GetShoppingUri(int tenant, int plan);
+        Uri GetShoppingUri(int? tenant, int plan, string affiliateId);
 
         Invoice GetInvoice(string paymentId);
 

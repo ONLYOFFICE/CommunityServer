@@ -26,7 +26,7 @@
           padding-bottom: 20px;
       }
       #wrapper {
-          background: url("http://cdn.teamlab.com/cloudftlogo.png") center 0 no-repeat;
+          background: url("http://cdn.onlyoffice.com/cloudftlogo.png") center 0 no-repeat;
           width: 100%;
           height: 310px;
           padding: 315px 0 0;

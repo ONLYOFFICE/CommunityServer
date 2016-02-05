@@ -123,9 +123,6 @@
   <data name="AddMilestoneTitle" xml:space="preserve">
     <value>Add Milestone Title</value>
   </data>
-  <data name="AddNoAssignTask" xml:space="preserve">
-    <value>Add Task not assigned to any Milestone</value>
-  </data>
   <data name="AddTask" xml:space="preserve">
     <value>Add Task</value>
   </data>
@@ -138,26 +135,11 @@
   <data name="CreateProject" xml:space="preserve">
     <value>Create Project</value>
   </data>
-  <data name="CreateProjFromTmpl" xml:space="preserve">
-    <value>Create project from template</value>
-  </data>
   <data name="CreateProjTmpl" xml:space="preserve">
     <value>Create Project Template</value>
   </data>
-  <data name="CreateTmpl" xml:space="preserve">
-    <value>Create Template</value>
-  </data>
-  <data name="Days" xml:space="preserve">
-    <value>days</value>
-  </data>
-  <data name="DefinePM" xml:space="preserve">
-    <value>Project Manager</value>
-  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete</value>
-  </data>
-  <data name="Description" xml:space="preserve">
-    <value>Description</value>
   </data>
   <data name="Edit" xml:space="preserve">
     <value>Edit</value>
@@ -168,20 +150,8 @@
   <data name="EditProjTmpl" xml:space="preserve">
     <value>Edit Project Template</value>
   </data>
-  <data name="EditTmplStructure" xml:space="preserve">
-    <value>Edit Template Structure</value>
-  </data>
-  <data name="MenageTeam" xml:space="preserve">
-    <value>Menage Team</value>
-  </data>
   <data name="Milestones" xml:space="preserve">
     <value>milestones</value>
-  </data>
-  <data name="NotifyPM" xml:space="preserve">
-    <value>Notify</value>
-  </data>
-  <data name="ProjectLeader" xml:space="preserve">
-    <value>Project Manager</value>
   </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Save Changes</value>
@@ -195,26 +165,11 @@
   <data name="TasksWithoutMilestone" xml:space="preserve">
     <value>Tasks without milestone</value>
   </data>
-  <data name="TemplateStructure" xml:space="preserve">
-    <value>Fill Template Structure</value>
-  </data>
   <data name="TemplateTitle" xml:space="preserve">
     <value>Title</value>
   </data>
-  <data name="AddTeamMembers" xml:space="preserve">
-    <value>Add Team members</value>
-  </data>
   <data name="ChooseResponsible" xml:space="preserve">
     <value>Choose Responsible</value>
-  </data>
-  <data name="DefineTeam" xml:space="preserve">
-    <value>Team</value>
-  </data>
-  <data name="ErrorManager" xml:space="preserve">
-    <value>Each project must have a manager</value>
-  </data>
-  <data name="TitleErrorProject" xml:space="preserve">
-    <value>Each project must have a title</value>
   </data>
   <data name="TitleErrorTemplate" xml:space="preserve">
     <value>Each template must have a title</value>
@@ -249,19 +204,7 @@
   <data name="TaskError" xml:space="preserve">
     <value>Task have to be named!</value>
   </data>
-  <data name="NotifyResponsibles" xml:space="preserve">
-    <value>Notify responsibles about tasks and milestones creation</value>
-  </data>
   <data name="SaveAndCreateProjFromTmpl" xml:space="preserve">
     <value>Save &amp; Create project </value>
-  </data>
-  <data name="NewProjTemplate" xml:space="preserve">
-    <value>New project template</value>
-  </data>
-  <data name="AttantionUnsavedData" xml:space="preserve">
-    <value>Attention, page contain unsaved data.</value>
-  </data>
-  <data name="ProjTmplContinue" xml:space="preserve">
-    <value>Continue</value>
   </data>
 </root>

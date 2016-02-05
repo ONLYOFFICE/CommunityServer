@@ -116,6 +116,10 @@ a.linkAction.button.blue:visited {
     text-decoration: none;
 }
 
+#sideNavInviteLink {
+    position: relative;
+}
+
 #peopleFilter {
     margin-top: 16px;
 }
@@ -138,7 +142,7 @@ a.linkAction.button.blue:visited {
 #totalUsers {
     margin-right: 20px;
 }
-@media all and (max-width: 1200px) {
+body.media-width-0-1200 {
     .page-nav-info {
         display: block;
     }
@@ -284,8 +288,7 @@ table.table-list tbody tr:hover .link.dotted {
         white-space: nowrap;
     }
 }
-
-@media all and (max-width: 1450px) {
+body.media-width-0-1450 {
     #peopleData .info .btn.email,
     #peopleData .info .email .email{
         max-width: 150px;
@@ -295,7 +298,7 @@ table.table-list tbody tr:hover .link.dotted {
     }
 }
 
-@media all and (max-width: 1200px) {
+body.media-width-0-1200 {
     #peopleData td.name,
     #peopleData td.group,
     #peopleData td.location
@@ -304,7 +307,7 @@ table.table-list tbody tr:hover .link.dotted {
     }
 }
 
-@media all and (max-width: 1100px) {
+body.media-width-0-1100 {
     #peopleData .info .btn.email,
     #peopleData .info .email .email{
         max-width: 120px;
@@ -435,6 +438,7 @@ header menu elements for group operations
         display: none;
     }
 }
+
 /*******************************************************************************
         Banner for the import people
 *******************************************************************************/

@@ -24,17 +24,17 @@
 */
 
 
-using System.Security;
+using ASC.Common.Caching;
 using ASC.Common.Security;
 using ASC.Common.Security.Authorizing;
 using ASC.Core;
-using ASC.Core.Caching;
 using ASC.Core.Users;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security;
 using SecurityAction = ASC.Common.Security.Authorizing.Action;
 using SecurityContext = ASC.Core.SecurityContext;
 
@@ -43,16 +43,15 @@ namespace ASC.Web.Core
     public static class WebItemSecurity
     {
         private static readonly SecurityAction Read = new SecurityAction(new Guid("77777777-32ae-425f-99b5-83176061d1ae"), "ReadWebItem", false, true);
+        private static readonly ICache cache = AscCache.Memory;
 
-        private static readonly ICache cache = AscCache.Default;
-
-
+                
         public static bool IsAvailableForUser(string id, Guid @for)
         {
             var result = false;
 
-            var key = "/webitemsecurity/" + TenantProvider.CurrentTenantID;
-            var dic = cache.Get(key) as Dictionary<string, bool>;
+            var key = GetCacheKey();
+            var dic = cache.Get<Dictionary<string, bool>>(key);
             if (dic == null)
             {
                 cache.Insert(key, dic = new Dictionary<string, bool>(), DateTime.UtcNow.Add(TimeSpan.FromMinutes(1)));
@@ -116,7 +115,7 @@ namespace ASC.Web.Core
                 }
             }
 
-            dic = cache.Get(key) as Dictionary<string, bool>;
+            dic = cache.Get<Dictionary<string, bool>>(key);
             if (dic != null)
             {
                 lock (dic)
@@ -263,9 +262,13 @@ namespace ASC.Web.Core
 
         public static void ClearCache()
         {
-            cache.Remove("/webitemsecurity/" + TenantProvider.CurrentTenantID);
+            cache.Remove(GetCacheKey());
         }
 
+        private static string GetCacheKey()
+        {
+            return string.Format("{0}:{1}", TenantProvider.CurrentTenantID, "webitemsecurity");
+        }
 
         private class WebItemSecurityObject : ISecurityObject
         {

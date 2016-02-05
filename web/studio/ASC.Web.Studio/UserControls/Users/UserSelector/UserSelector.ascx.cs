@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -94,8 +94,8 @@ namespace ASC.Web.Studio.UserControls.Users
 
             _jsObjName = String.IsNullOrEmpty(BehaviorID) ? "__userSelector" + UniqueID : BehaviorID;
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/users/userselector/css/userselector.less"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/users/userselector/js/userselector.js"));
+            Page.RegisterStyle("~/usercontrols/users/userselector/css/userselector.less");
+            Page.RegisterBodyScripts("~/usercontrols/users/userselector/js/userselector.js");
 
             var script = new StringBuilder();
             script.AppendFormat("var {0} = new ASC.Studio.UserSelector.UserSelectorPrototype('{1}', '{0}', {2});\n", _jsObjName, _selectorID, MobileDetector.IsMobile.ToString().ToLower());

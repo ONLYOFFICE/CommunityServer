@@ -69,7 +69,14 @@ namespace ASC.FederatedLogin.LoginProviders
         {
             if (!Providers.Keys.Contains(providerType)) throw new ArgumentException("Unknown provider type", "providerType");
 
-            return Providers[providerType].GetLoginProfile(accessToken);
+            try
+            {
+                return Providers[providerType].GetLoginProfile(accessToken);
+            }
+            catch (Exception ex)
+            {
+                return LoginProfile.FromError(ex);
+            }
         }
     }
 }

@@ -24,16 +24,16 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using ASC.Collections;
 using ASC.Xmpp.Server.Storage.Interface;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace ASC.Xmpp.Server.Storage
 {
     public class StorageManager : IDisposable
     {
-        private IDictionary<string, object> storages = new SynchronizedDictionary<string, object>();
+        private IDictionary<string, object> storages = new ConcurrentDictionary<string, object>();
 
         public IOfflineStore OfflineStorage
         {
@@ -65,20 +65,16 @@ namespace ASC.Xmpp.Server.Storage
             get { return GetStorage<IUserStore>("users"); }
         }
 
-        public object this[string storageName]
-        {
-            get { return storages.ContainsKey(storageName) ? storages[storageName] : null; }
-            set { storages[storageName] = value; }
-        }
-
         public T GetStorage<T>(string storageName)
         {
-            return (T)this[storageName];
+            object storage;
+            storages.TryGetValue(storageName, out storage);
+            return (T)storage;
         }
 
         public void SetStorage(string storageName, object storage)
         {
-            this[storageName] = storage;
+            storages[storageName] = storage;
         }
 
         public void Dispose()

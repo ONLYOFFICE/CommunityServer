@@ -44,7 +44,7 @@ namespace ASC.Projects.Core.DataInterfaces
 
         List<Milestone> GetUpcomingMilestones(int offset, int max, params int[] projects);
 
-        List<Milestone> GetLateMilestones(int offset, int max, params int[] projects);
+        List<Milestone> GetLateMilestones(int offset, int max);
 
         List<Milestone> GetByDeadLine(DateTime deadline);
 

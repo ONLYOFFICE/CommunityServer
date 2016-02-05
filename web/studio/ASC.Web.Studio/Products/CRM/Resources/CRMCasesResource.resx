@@ -117,14 +117,8 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CreateNewCase" xml:space="preserve">
-    <value>Create new case</value>
-  </data>
-  <data name="CreateFirstCase" xml:space="preserve">
-    <value>Create the first case</value>
-  </data>
-  <data name="CreateThisCaseButton" xml:space="preserve">
-    <value>Создать это мероприятие</value>
+  <data name="AddThisAndCreateCaseButton" xml:space="preserve">
+    <value>Добавить и Создать мероприятие</value>
   </data>
   <data name="AllCases" xml:space="preserve">
     <value>Все мероприятия</value>
@@ -132,77 +126,17 @@
   <data name="Case" xml:space="preserve">
     <value>Мероприятие</value>
   </data>
-  <data name="CaseTitle" xml:space="preserve">
-    <value>Название мероприятия</value>
-  </data>
-  <data name="DeleteThisCase" xml:space="preserve">
-    <value>Удалить это мероприятие</value>
-  </data>
-  <data name="EditCase" xml:space="preserve">
-    <value>Редактировать мероприятие</value>
-  </data>
-  <data name="EditCaseHeader" xml:space="preserve">
-    <value>Отредактировать мероприятие «{0}»</value>
-  </data>
-  <data name="EmptyContentCasesHeader" xml:space="preserve">
-    <value>The case list is empty</value>
-  </data>
-  <data name="PrivateCaseLabelTex" xml:space="preserve">
-    <value>Да, я понимаю. Добавить мероприятие как приватное.</value>
-  </data>
-  <data name="PrivateCaseTitle" xml:space="preserve">
-    <value>Приватное мероприятие</value>
-  </data>
-  <data name="SaveChanges" xml:space="preserve">
-    <value>Сохранить изменения</value>
-  </data>
-  <data name="EmptyPeopleInCaseContent" xml:space="preserve">
-    <value>The participant list is empty</value>
-  </data>
-  <data name="EmptyPeopleInCaseDescript" xml:space="preserve">
-    <value>Add participants to your case from the list of companies or persons. After this is done you will know who is going to take part in the upcoming events associated with this case.</value>
-  </data>
-  <data name="CaseStatus" xml:space="preserve">
-    <value>Статус</value>
+  <data name="CasesAccessRightsLimit" xml:space="preserve">
+    <value>Права будут установлены только на те мероприятия, для которых вы являетесь автором</value>
   </data>
   <data name="CasesByStatus" xml:space="preserve">
     <value>По статусу</value>
   </data>
-  <data name="CreateCaseProggress" xml:space="preserve">
-    <value>Создание мероприятия...</value>
+  <data name="CasesParticipant" xml:space="preserve">
+    <value>Cases Participant</value>
   </data>
-  <data name="PrivateCaseUserListText" xml:space="preserve">
-    <value>Пользователи, имеющие доступ к мероприятию</value>
-  </data>
-  <data name="EmptyContentCasesFilterHeader" xml:space="preserve">
-    <value>No cases to be displayed for this filter here</value>
-  </data>
-  <data name="EmptyContentCasesDescribe" xml:space="preserve">
-    <value>Cases allow you to keep in one and the same place all the correspondence history, assign tasks, upload documents for the contacts who take part in a common event. For instance, it can be a team training or exhibition organization.</value>
-  </data>
-  <data name="MembersCase" xml:space="preserve">
-    <value>Участники мероприятия</value>
-  </data>
-  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
-    <value>Ограничить доступ к мероприятию</value>
-  </data>
-  <data name="AddThisAndCreateCaseButton" xml:space="preserve">
-    <value>Добавить и Создать мероприятие</value>
-  </data>
-  <data name="PeopleInCase" xml:space="preserve">
-    <value>Участники</value>
-  </data>
-  <data name="EmptyContentCasesFilterDescribe" xml:space="preserve">
-    <value>No cases matching your filter can be displayed in this section. Please select other filter options or clear filter to view all the cases in this section. Or you can create the case if it is absent from the list.</value>
-  </data>
-  <data name="CloseCase" xml:space="preserve">
-    <value>Close case</value>
-  </data>
-  <data name="OpenCase" xml:space="preserve">
-    <value>Open a case</value>
-  </data>
-  <data name="TotalCases" xml:space="preserve">
-    <value>Total cases</value>
+  <data name="CasesParticipants" xml:space="preserve">
+    <value>Cases Participants</value>
   </data>
   <data name="CasesTag" xml:space="preserve">
     <value>Cases Tag</value>
@@ -210,14 +144,59 @@
   <data name="CasesTagList" xml:space="preserve">
     <value>Cases Tag List</value>
   </data>
+  <data name="CaseStatus" xml:space="preserve">
+    <value>Статус</value>
+  </data>
+  <data name="CaseTitle" xml:space="preserve">
+    <value>Название мероприятия</value>
+  </data>
+  <data name="CloseCase" xml:space="preserve">
+    <value>Close case</value>
+  </data>
+  <data name="CreateCaseProggress" xml:space="preserve">
+    <value>Создание мероприятия...</value>
+  </data>
+  <data name="CreateFirstCase" xml:space="preserve">
+    <value>Create the first case</value>
+  </data>
+  <data name="CreateNewCase" xml:space="preserve">
+    <value>Create new case</value>
+  </data>
+  <data name="CreateThisCaseButton" xml:space="preserve">
+    <value>Создать это мероприятие</value>
+  </data>
+  <data name="DeleteThisCase" xml:space="preserve">
+    <value>Удалить это мероприятие</value>
+  </data>
+  <data name="DeletingCases" xml:space="preserve">
+    <value>Deleting cases</value>
+  </data>
+  <data name="EditCase" xml:space="preserve">
+    <value>Редактировать мероприятие</value>
+  </data>
+  <data name="EditCaseHeader" xml:space="preserve">
+    <value>Отредактировать мероприятие «{0}»</value>
+  </data>
+  <data name="EmptyContentCasesDescribe" xml:space="preserve">
+    <value>Cases allow you to keep in one and the same place all the correspondence history, assign tasks, upload documents for the contacts who take part in a common event. For instance, it can be a team training or exhibition organization.</value>
+  </data>
+  <data name="EmptyContentCasesFilterDescribe" xml:space="preserve">
+    <value>No cases matching your filter can be displayed in this section. Please select other filter options or clear filter to view all the cases in this section. Or you can create the case if it is absent from the list.</value>
+  </data>
+  <data name="EmptyContentCasesFilterHeader" xml:space="preserve">
+    <value>No cases to be displayed for this filter here</value>
+  </data>
+  <data name="EmptyContentCasesHeader" xml:space="preserve">
+    <value>The case list is empty</value>
+  </data>
+  <data name="EmptyPeopleInCaseContent" xml:space="preserve">
+    <value>The participant list is empty</value>
+  </data>
+  <data name="EmptyPeopleInCaseDescript" xml:space="preserve">
+    <value>Add participants to your case from the list of companies or persons. After this is done you will know who is going to take part in the upcoming events associated with this case.</value>
+  </data>
   <data name="ImportCases" xml:space="preserve">
     <value>Import cases</value>
-  </data>
-  <data name="CasesParticipant" xml:space="preserve">
-    <value>Cases Participant</value>
-  </data>
-  <data name="CasesParticipants" xml:space="preserve">
-    <value>Cases Participants</value>
   </data>
   <data name="ImportFromCSVStepOneDescription" xml:space="preserve">
     <value>Необходимо выбрать правильно оформленный CSV-файл на жёстком диске Вашего компьютера. Он должен содержать поля или столбцы, разделённые запятой, которые будут использоваться для импорта мероприятий.  Файлы, содержащие более {0} строк, следует разделить на меньшие части для правильного импортирования. Убедитесь, что Вы выбрали только тех пользователей портала, которым необходимо иметь доступ к этой импортируемой информации, иначе данные из CSV-файла станут доступны всем пользователям портала.</value>
@@ -240,37 +219,31 @@
   <data name="ImportStartingPanelHeader" xml:space="preserve">
     <value>Import started</value>
   </data>
-  <data name="StartImport" xml:space="preserve">
-    <value>Start Import</value>
+  <data name="MembersCase" xml:space="preserve">
+    <value>Участники мероприятия</value>
   </data>
-  <data name="DeletingCases" xml:space="preserve">
-    <value>Deleting cases</value>
+  <data name="OpenCase" xml:space="preserve">
+    <value>Open a case</value>
+  </data>
+  <data name="PeopleInCase" xml:space="preserve">
+    <value>Участники</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Ограничить доступ к мероприятию</value>
+  </data>
+  <data name="SaveChanges" xml:space="preserve">
+    <value>Сохранить изменения</value>
   </data>
   <data name="ShowCaseProfile" xml:space="preserve">
     <value>Перейти в профиль</value>
   </data>
-  <data name="MakePublicPanelCheckBoxLabelForCase" xml:space="preserve">
-    <value>Allow access to the case for all CRM users</value>
-  </data>
-  <data name="MakePublicPanelDescrForCase" xml:space="preserve">
-    <value>The access is granted only to case managers. To allow access to this case for all users check the box below</value>
-  </data>
-  <data name="MakePublicPanelTitleForCase" xml:space="preserve">
-    <value>Make this case public</value>
-  </data>
-  <data name="SelectCaseManagerError" xml:space="preserve">
-    <value>Select case manager</value>
-  </data>
-  <data name="NotifyCaseManager" xml:space="preserve">
-    <value>Notyfy case manager by email</value>
-  </data>
-  <data name="AssignCaseManager" xml:space="preserve">
-    <value>Assign manager to case</value>
-  </data>
-  <data name="CasesAccessRightsLimit" xml:space="preserve">
-    <value>Права будут установлены только на те мероприятия, для которых вы являетесь автором</value>
-  </data>
   <data name="ShowCaseProfileNewTab" xml:space="preserve">
     <value>Открыть в новой вкладке</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Start Import</value>
+  </data>
+  <data name="TotalCases" xml:space="preserve">
+    <value>Total cases</value>
   </data>
 </root>

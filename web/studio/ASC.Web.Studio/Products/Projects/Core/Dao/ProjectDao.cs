@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -35,7 +35,6 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
 using ASC.FullTextIndex;
-using ASC.FullTextIndex.Service;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 
@@ -98,14 +97,15 @@ namespace ASC.Projects.Data.DAO
     {
         public static readonly string[] ProjectColumns = new[] { "id", "title", "description", "status", "responsible_id", "private", "create_by", "create_on", "last_modified_by", "last_modified_on" };
 
-        private static readonly HttpRequestDictionary<TeamCacheItem> TeamCache = new HttpRequestDictionary<TeamCacheItem>("ProjectDao-TeamCacheItem");
-        private static readonly HttpRequestDictionary<List<Guid>> FollowCache = new HttpRequestDictionary<List<Guid>>("ProjectDao-FollowCache");
-
+        private static readonly HttpRequestDictionary<TeamCacheItem> teamCache = new HttpRequestDictionary<TeamCacheItem>("ProjectDao-TeamCacheItem");
+        private static readonly HttpRequestDictionary<List<Guid>> followCache = new HttpRequestDictionary<List<Guid>>("ProjectDao-FollowCache");
+        private readonly Converter<object[], Project> converter;
 
 
         public ProjectDao(string dbId, int tenantId)
             : base(dbId, tenantId)
         {
+            converter = ToProject;
         }
 
 
@@ -119,7 +119,7 @@ namespace ASC.Projects.Data.DAO
 
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(query).ConvertAll(ToProject).ToList();
+                return db.ExecuteList(query).ConvertAll(converter);
             }
         }
 
@@ -134,7 +134,7 @@ namespace ASC.Projects.Data.DAO
 
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(query).ConvertAll(ToProject).ToList();
+                return db.ExecuteList(query).ConvertAll(converter);
             }
         }
 
@@ -156,7 +156,7 @@ namespace ASC.Projects.Data.DAO
             }
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(query).ConvertAll(ToProject).ToList();
+                return db.ExecuteList(query).ConvertAll(converter);
             }
         }
 
@@ -193,7 +193,7 @@ namespace ASC.Projects.Data.DAO
 
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(query).ConvertAll(ToProject).ToList();
+                return db.ExecuteList(query).ConvertAll(converter);
             }
         }
 
@@ -232,7 +232,7 @@ namespace ASC.Projects.Data.DAO
 
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(query).ConvertAll(ToProjectFull).ToList();
+                return db.ExecuteList(query).ConvertAll(ToProjectFull);
             }
         }
 
@@ -260,7 +260,7 @@ namespace ASC.Projects.Data.DAO
                 query.Where("ptag.tag_id", filter.TagId);
             }
 
-            if (filter.HasUserId || (filter.ParticipantId.HasValue && filter.ParticipantId != Guid.Empty))
+            if (filter.HasUserId || (filter.ParticipantId.HasValue && !filter.ParticipantId.Equals(Guid.Empty)))
             {
                 var existParticipant = new SqlQuery(ParticipantTable + " ppp").Select("ppp.participant_id").Where(Exp.EqColumns("p.id", "ppp.project_id") & Exp.Eq("ppp.removed", false) & Exp.Eq("ppp.tenant", Tenant));
 
@@ -270,7 +270,7 @@ namespace ASC.Projects.Data.DAO
                     existParticipant.Where("cug.groupid", filter.DepartmentId);
                 }
 
-                if (filter.ParticipantId.HasValue && filter.ParticipantId != Guid.Empty)
+                if (filter.ParticipantId.HasValue && !filter.ParticipantId.Equals(Guid.Empty))
                 {
                     existParticipant.Where(Exp.Eq("ppp.participant_id", filter.ParticipantId.ToString()));
                 }
@@ -333,7 +333,7 @@ namespace ASC.Projects.Data.DAO
 
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(query).ConvertAll(ToProject).ToList();
+                return db.ExecuteList(query).ConvertAll(converter);
             }
         }
 
@@ -341,12 +341,12 @@ namespace ASC.Projects.Data.DAO
         {
             using (var db = new DbManager(DatabaseId))
             {
-                var users = FollowCache[projectId.ToString(CultureInfo.InvariantCulture)];
+                var users = followCache[projectId.ToString(CultureInfo.InvariantCulture)];
                 if (users == null)
                 {
                     var q = new SqlQuery(FollowingProjectTable).Select("participant_id").Where("project_id", projectId);
                     users = db.ExecuteList(q).ConvertAll(r => new Guid((string) r[0]));
-                    FollowCache.Add(projectId.ToString(CultureInfo.InvariantCulture), users);
+                    followCache.Add(projectId.ToString(CultureInfo.InvariantCulture), users);
                 }
 
                 return users.Contains(participantId);
@@ -358,7 +358,7 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 return db.ExecuteList(Query(ProjectsTable).Select(ProjectColumns).Where("id", projectId))
-                    .ConvertAll(ToProject)
+                    .ConvertAll(converter)
                     .SingleOrDefault();
             }
         }
@@ -383,8 +383,7 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 return db.ExecuteList(Query(ProjectsTable).Select(ProjectColumns).Where(Exp.In("id", projectIDs)))
-                    .ConvertAll(ToProject)
-                    .ToList();
+                    .ConvertAll(converter);
             }
         }
 
@@ -426,8 +425,7 @@ namespace ASC.Projects.Data.DAO
                                     prj.ParticipantCount = Convert.ToInt32(r[12]);
                                     return prj;
                                 }
-                    )
-                    .ToList();
+                    ).ToList();
             }
         }
 
@@ -464,9 +462,9 @@ namespace ASC.Projects.Data.DAO
                 .Where("t.tenant_id", Tenant)
                 .GroupBy("t.project_id");
 
-            if (taskStatus != null)
+            if (taskStatus.HasValue)
             {
-                if (taskStatus == TaskStatus.Open)
+                if (taskStatus.Value == TaskStatus.Open)
                     query.Where(!Exp.Eq("t.status", TaskStatus.Closed));
                 else
                     query.Where("t.status", TaskStatus.Closed);
@@ -522,7 +520,7 @@ namespace ASC.Projects.Data.DAO
             var query = Query(MilestonesTable)
                 .SelectCount()
                 .Where("project_id", projectId);
-            if (statuses != null && 0 < statuses.Length)
+            if (statuses.Any())
             {
                 query.Where(Exp.In("status", statuses));
             }
@@ -625,10 +623,10 @@ namespace ASC.Projects.Data.DAO
 
             UpdateLastModified(projectId);
 
-            lock (TeamCache)
+            lock (teamCache)
             {
                 var key = string.Format("{0}|{1}", projectId, participantId);
-                var item = TeamCache.Get(key, () => new TeamCacheItem(true, ProjectTeamSecurity.None));
+                var item = teamCache.Get(key, () => new TeamCacheItem(true, ProjectTeamSecurity.None));
                 if (item != null) item.InTeam = true;
             }
         }
@@ -648,10 +646,10 @@ namespace ASC.Projects.Data.DAO
 
             UpdateLastModified(projectId);
 
-            lock (TeamCache)
+            lock (teamCache)
             {
                 var key = string.Format("{0}|{1}", projectId, participantId);
-                var item = TeamCache.Get(key, () => new TeamCacheItem(true, ProjectTeamSecurity.None));
+                var item = teamCache.Get(key, () => new TeamCacheItem(true, ProjectTeamSecurity.None));
                 if (item != null) item.InTeam = false;
             }
         }
@@ -661,35 +659,37 @@ namespace ASC.Projects.Data.DAO
             return GetTeamItemFromCacheOrLoad(projectId, participantId).InTeam;
         }
 
-        public List<Participant> GetTeam(int projectId)
+        public List<Participant> GetTeam(Project project)
         {
+            if(project == null) return new List<Participant>();
+
             using (var db = new DbManager(DatabaseId))
             {
                 return db.ExecuteList(
-                    new SqlQuery(ParticipantTable)
-                        .Select("participant_id, security")
-                        .Where("tenant", Tenant)
-                        .Where("project_id", projectId)
-                        .Where("removed", false))
-                    .ConvertAll(r =>new Participant(new Guid((string) r[0]), (ProjectTeamSecurity) Convert.ToInt32(r[1])));
+                    new SqlQuery(ParticipantTable + " pp")
+                        .InnerJoin(ProjectsTable + " pt", Exp.EqColumns("pp.tenant", "pt.tenant_id") & Exp.EqColumns("pp.project_id", "pt.id"))
+                        .Select("pp.participant_id, pp.security, pp.project_id")
+                        .Select(Exp.EqColumns("pp.project_id", "pt.id"))
+                        .Where("pp.tenant", Tenant)
+                        .Where("pp.project_id", project.ID)
+                        .Where("pp.removed", false))
+                    .ConvertAll(ToParticipant);
             }
         }
 
-        public List<Participant> GetTeam(List<int> projectIds)
+        public List<Participant> GetTeam(IEnumerable<Project> projects)
         {
             using (var db = new DbManager(DatabaseId))
             {
                 return db.ExecuteList(
-                    new SqlQuery(ParticipantTable)
-                        .Select("distinct participant_id, security, project_id")
-                        .Where("tenant", Tenant)
-                        .Where(Exp.In("project_id", projectIds))
-                        .Where("removed", false))
-                    .ConvertAll( r =>
-                        new Participant(new Guid((string) r[0]), (ProjectTeamSecurity) Convert.ToInt32(r[1]))
-                            {
-                                ProjectID = Convert.ToInt32(r[2])
-                            });
+                    new SqlQuery(ParticipantTable + " pp")
+                        .InnerJoin(ProjectsTable + " pt", Exp.EqColumns("pp.tenant", "pt.tenant_id") & Exp.EqColumns("pp.project_id", "pt.id"))
+                        .Select("distinct pp.participant_id, pp.security, pp.project_id")
+                        .Select(Exp.EqColumns("pp.project_id", "pt.id"))
+                        .Where("pp.tenant", Tenant)
+                        .Where(Exp.In("pp.project_id", projects.Select(r => r.ID).ToArray()))
+                        .Where("pp.removed", false))
+                    .ConvertAll(ToParticipant);
             }
         }
 
@@ -703,7 +703,7 @@ namespace ASC.Projects.Data.DAO
                     .LeftOuterJoin("projects_project_participant pp", Exp.EqColumns("pp.project_id", "p.id"))
                     .Where(Exp.Between("pp.created", from, to) | Exp.Between("pp.updated", from, to));
 
-                return db.ExecuteList(query).Select(ToParticipantFull).ToList();
+                return db.ExecuteList(query).ConvertAll(ToParticipantFull);
             }
         }
 
@@ -730,11 +730,11 @@ namespace ASC.Projects.Data.DAO
                         .Where("participant_id", participantId.ToString()));
             }
 
-            lock (TeamCache)
+            lock (teamCache)
             {
                 var key = string.Format("{0}|{1}", projectId, participantId);
-                var item = TeamCache.Get(key);
-                if (item != null) TeamCache[key].Security = teamSecurity;
+                var item = teamCache.Get(key);
+                if (item != null) teamCache[key].Security = teamSecurity;
             }
         }
 
@@ -747,43 +747,43 @@ namespace ASC.Projects.Data.DAO
         {
             var key = string.Format("{0}|{1}", projectId, participantId);
 
-            lock (TeamCache)
+            lock (teamCache)
             {
-                var item = TeamCache.Get(key);
+                var item = teamCache.Get(key);
                 if (item != null) return item;
 
-                item = TeamCache.Get(string.Format("{0}|{1}", 0, participantId));
+                item = teamCache.Get(string.Format("{0}|{1}", 0, participantId));
                 if (item != null) return new TeamCacheItem(false, ProjectTeamSecurity.None);
-            }
 
-            List<object[]> projectList;
-            
-            using (var db = new DbManager(DatabaseId))
-            {
-                projectList = db.ExecuteList(
-                    new SqlQuery(ParticipantTable)
-                        .Select("project_id", "security")
-                        .Where("tenant", Tenant)
-                        .Where("participant_id", participantId.ToString())
-                        .Where("removed", false));
-            }
-           
-            lock (TeamCache)
-            {
+                List<object[]> projectList;
+
+                using (var db = new DbManager(DatabaseId))
+                {
+                    projectList = db.ExecuteList(
+                        new SqlQuery(ParticipantTable)
+                            .Select("project_id", "security")
+                            .Where("tenant", Tenant)
+                            .Where("participant_id", participantId.ToString())
+                            .Where("removed", false));
+                }
+
                 var teamCacheItem = new TeamCacheItem(true, ProjectTeamSecurity.None);
-                TeamCache.Add(string.Format("{0}|{1}", 0, participantId), teamCacheItem);
+                teamCache.Add(string.Format("{0}|{1}", 0, participantId), teamCacheItem);
 
                 foreach (var prj in projectList)
                 {
-                    teamCacheItem = new TeamCacheItem(true, (ProjectTeamSecurity)Convert.ToInt32(prj[1]));
+                    teamCacheItem = new TeamCacheItem(true, (ProjectTeamSecurity) Convert.ToInt32(prj[1]));
                     key = string.Format("{0}|{1}", prj[0], participantId);
-                    TeamCache.Add(key, teamCacheItem);
+                    teamCache.Add(key, teamCacheItem);
                 }
 
                 var currentProject = projectList.Find(r => Convert.ToInt32(r[0]) == projectId);
-                teamCacheItem = new TeamCacheItem(currentProject != null, currentProject != null ? (ProjectTeamSecurity)Convert.ToInt32(currentProject[1]) : ProjectTeamSecurity.None);
+                teamCacheItem = new TeamCacheItem(currentProject != null,
+                                                  currentProject != null
+                                                      ? (ProjectTeamSecurity) Convert.ToInt32(currentProject[1])
+                                                      : ProjectTeamSecurity.None);
                 key = string.Format("{0}|{1}", projectId, participantId);
-                TeamCache.Add(key, teamCacheItem);
+                teamCache.Add(key, teamCacheItem);
                 return teamCacheItem;
             }
         }
@@ -853,6 +853,15 @@ namespace ASC.Projects.Data.DAO
             return project;
         }
 
+        public static Participant ToParticipant(object[] r)
+        {
+            return new Participant(new Guid((string)r[0]), (ProjectTeamSecurity)Convert.ToInt32(r[1]))
+                   {
+                       ProjectID = Convert.ToInt32(r[2]),
+                       IsManager = Convert.ToBoolean(r[3])
+                   };
+        }
+
         private class TeamCacheItem
         {
             public bool InTeam { get; set; }
@@ -867,11 +876,11 @@ namespace ASC.Projects.Data.DAO
         }
 
 
-        internal List<Project> GetProjects(Exp where)
+        internal IEnumerable<Project> GetProjects(Exp where)
         {
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(Query(ProjectsTable + " p").Select(ProjectColumns).Where(where)).ConvertAll(ToProject);
+                return db.ExecuteList(Query(ProjectsTable + " p").Select(ProjectColumns).Where(where)).ConvertAll(converter);
             }
         }
     }

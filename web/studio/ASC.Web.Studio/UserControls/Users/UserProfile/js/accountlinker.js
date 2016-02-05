@@ -24,13 +24,29 @@
 */
 
 
-jq(function() {
+jq(function () {
+    if (window.AccountLinkControl_SettingsView === true) {
+        jq(".account-links").html(jq.tmpl("template-accountLinkCtrl", { infos: window.AccountLinkControl_Providers }));
+    }
+
     jq(".account-links").delegate('.popup', 'click', function () {
         var obj = jq(this);
         if (obj.hasClass('linked')) {
             //unlink
-            var res = AccountLinkControl.UnlinkAccount(obj.attr('id'));
-            jq(".account-links").html(res.value.rs1);
+            Teamlab.thirdPartyUnLinkAccount({ provider: obj.attr('id') }, { provider: obj.attr('id') }, {
+                success: function (params, response) {
+                    for (var i = 0, n = window.AccountLinkControl_Providers.length; i < n; i++) {
+                        if (window.AccountLinkControl_Providers[i].Provider == params.provider) {
+                            window.AccountLinkControl_Providers[i].Linked = false;
+                            break;
+                        }
+                    }
+                    jq(".account-links").html(jq.tmpl("template-accountLinkCtrl", { infos: window.AccountLinkControl_Providers }));
+                },
+                error: function (params, errors) {
+                    toastr.error(errors[0]);
+                }
+            });
         }
         else {
             var link = obj.attr('href');
@@ -40,15 +56,21 @@ jq(function() {
     });
 });
 
-function loginCallback (profile) {
-    var res = AccountLinkControl.LinkAccount(profile.Serialized);
-    if (res.error) {
-        if (res.error.Message) {
-            toastr.error(res.error.Message);
+function loginCallback(profile) {
+    Teamlab.thirdPartyLinkAccount({provider: profile.Provider}, { serializedProfile: profile.Serialized }, {
+        success: function (params, response) {
+            for (var i = 0, n = window.AccountLinkControl_Providers.length; i < n; i++) {
+                if (window.AccountLinkControl_Providers[i].Provider == params.provider) {
+                    window.AccountLinkControl_Providers[i].Linked = true;
+                    break;
+                }
+            }
+            jq(".account-links").html(jq.tmpl("template-accountLinkCtrl", { infos: window.AccountLinkControl_Providers }));
+        },
+        error: function (params, errors) {
+            toastr.error(errors[0]);
         }
-    } else {
-        jq(".account-links").html(res.value.rs1);
-    }
+    });
 }
 
 function authCallback(profile) {

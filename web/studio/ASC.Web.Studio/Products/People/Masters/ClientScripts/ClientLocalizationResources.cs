@@ -23,11 +23,12 @@
  *
 */
 
-
-using System.Collections.Generic;
+using System;
 using System.Web;
+using System.Collections.Generic;
 using ASC.Web.People.Resources;
 using ASC.Web.Core.Client.HttpHandlers;
+using ASC.Web.Studio.Core.Users;
 
 namespace ASC.Web.People.Masters.ClientScripts
 {
@@ -41,6 +42,22 @@ namespace ASC.Web.People.Masters.ClientScripts
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
             yield return RegisterResourceSet("PeopleJSResource", PeopleJSResource.ResourceManager);
+            yield return RegisterResourceSet("PeopleResource", PeopleResource.ResourceManager);
+        }
+    }
+
+
+    public class ClientCustomResources : ClientScriptCustom
+    {
+        protected override string BaseNamespace
+        {
+            get { return "ASC.People.Resources"; }
+        }
+
+        protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
+        {
+            yield return RegisterObject("AddDepartmentDlgTitle", CustomNamingPeople.Substitute<PeopleResource>("AddDepartmentDlgTitle").HtmlEncode());
+            yield return RegisterObject("DepartmentMaster", CustomNamingPeople.Substitute<PeopleResource>("DepartmentMaster").HtmlEncode());
         }
     }
 }

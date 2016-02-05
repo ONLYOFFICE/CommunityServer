@@ -8,21 +8,21 @@
 <div id="restoreBlock" class="clearFix <%= isFree ? "disable" : "" %>">
     <div class="settings-block restore-setting_block ">
         <div class="header-base"><%= Resource.RestoreTitle %></div>
-        <p class="restore-setting_desc"><%= Resource.RestoreDesc %></p>
+        <p class="restore-setting_desc"><%: Resource.RestoreDesc %></p>
         <div class="restore-settings_title"><%= Resource.Source %>:</div>
         <ul class="restore-settings_places clearFix">
             <li>
                 <input id="restoreDocsTeamlab" checked type="radio" name="restoreStorageVariants" value="0"/>
-                <label for="restoreDocsTeamlab"><%= Resource.BackupDocsTeamlab %></label>
+                <label for="restoreDocsTeamlab"><%: Resource.BackupDocsTeamlab %></label>
             </li>
-            <li class="third-party-storage disabled" title="<%= String.Format(Resource.BackupNotAvailableThirdServices, "\n").HtmlEncode() %>" >
+            <li class="thirdPartyStorageSelectorBox third-party-storage disabled" title="<%: String.Format(Resource.BackupNotAvailableThirdServices, "\n") %>" >
                 <input disabled id="restoreThirdStorage" type="radio" name="restoreStorageVariants" value="1"/>
                 <label for="restoreThirdStorage">
                     <span id="helpRestoreThirdStorageDisable" class="HelpCenterSwitcher expl"></span>
                     DropBox, Box.com, OneDrive, Google Drive...
                 </label>
                 <div class="popup_helper" id="restoreThirdStorageDisable">
-                    <p><%= Resource.BackupThirdStorageDisable %></p>
+                    <p><%: Resource.BackupThirdStorageDisable %></p>
                     <div class="cornerHelpBlock pos_top"></div>
                 </div>
             </li>
@@ -65,7 +65,7 @@
         </div>
         <div class="restore-settings_warnings">
             <h3 class="header-base red-text"><%= Resource.Warning %></h3>
-            <p><%= Resource.RestoreWarningText %></p>
+            <p><%: Resource.RestoreWarningText %></p>
         </div>
         <div class="middle-button-container">
             <a id="startRestoreBtn" class="button blue middle"><%= Resource.RestoreBtn %></a>
@@ -73,7 +73,7 @@
     </div>
 
     <div class="settings-help-block">
-        <p><% = String.Format(Resource.RestoreHelp, "<b>", "</b>") %></p>
+        <p><% = String.Format(Resource.RestoreHelp.HtmlEncode(), "<b>", "</b>") %></p>
          <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
            { %>
         <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#CreatingBackup_block" %>" target="_blank"><%= Resource.LearnMore %></a>
@@ -91,8 +91,8 @@
                    
                     </table>
                 </div>
-                <div class="loader-text-block"><%= FeedResource.LoadingMsg %></div>
-                <div id="emptyListRestore" class="restore-backup-empty-list"><%= Resource.RestoreEmptyList %></div>
+                <div class="loader-text-block"><%: FeedResource.LoadingMsg %></div>
+                <div id="emptyListRestore" class="restore-backup-empty-list"><%: Resource.RestoreEmptyList %></div>
                 <div class="middle-button-container">
                     <button type="button" class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();"><%= Resource.CloseButton %></button>
                 </div>

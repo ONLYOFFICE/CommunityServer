@@ -33,7 +33,7 @@ namespace ASC.Web.Talk.UserControls
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/talk.tabscontainer.js"));
+            Page.RegisterBodyScripts("~/addons/talk/js/talk.tabscontainer.js");
             Page.RegisterInlineScript("ASC.TMTalk.tabsContainer.init();");
         }
     }

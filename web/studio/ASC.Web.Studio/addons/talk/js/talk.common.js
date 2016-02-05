@@ -1,9 +1,4 @@
-﻿/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
-
-String.prototype.format = function () {
+﻿String.prototype.format = function () {
   if (arguments.length === 0) {
     return '';
   }

@@ -82,7 +82,7 @@ namespace ASC.Web.Community.Blogs
 
         private void InitScript()
         {
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/usercontrols/common/ckeditor/ckeditor-connector.js"));
+            Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
 
             //Page.RegisterInlineScript("ckeditorConnector.onReady(function () {BlogsManager.blogsEditor = jq('#ckEditor').ckeditor({ toolbar : 'ComBlog', filebrowserUploadUrl: '" + RenderRedirectUpload() + @"'}).editor;});");
             Page.RegisterInlineScript("ckeditorConnector.onReady(function () {" +

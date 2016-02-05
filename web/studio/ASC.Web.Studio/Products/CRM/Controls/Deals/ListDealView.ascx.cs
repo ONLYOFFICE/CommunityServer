@@ -141,7 +141,7 @@ namespace ASC.Web.CRM.Controls.Deals
                     {
                         var filterObj = JObject.Parse(filterItem);
 
-                        var filterParam = JObject.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(filterObj.Value<string>("params"))));
+                        JObject filterParam = Global.JObjectParseWithDateAsString(Encoding.UTF8.GetString(Convert.FromBase64String(filterObj.Value<string>("params"))));
 
                         switch (filterObj.Value<string>("id"))
                         {
@@ -176,14 +176,14 @@ namespace ASC.Web.CRM.Controls.Deals
                                 if (fromToArray.Count != 2) continue;
                                 result.FromDateString = fromToArray[0];
                                 result.ToDateString = fromToArray[1];
-                                result.FromDate = UrlParameters.ApiDateTimeParse(result.FromDateString);
-                                result.ToDate = UrlParameters.ApiDateTimeParse(result.ToDateString);
+                                result.FromDate = Global.ApiDateTimeParse(result.FromDateString);
+                                result.ToDate = Global.ApiDateTimeParse(result.ToDateString);
                                 break;
                             case "fromToDate":
                                 result.FromDateString = filterParam.Value<string>("from");
                                 result.ToDateString = filterParam.Value<string>("to");
-                                result.FromDate = UrlParameters.ApiDateTimeParse(result.FromDateString);
-                                result.ToDate = UrlParameters.ApiDateTimeParse(result.ToDateString);
+                                result.FromDate = Global.ApiDateTimeParse(result.FromDateString);
+                                result.ToDate = Global.ApiDateTimeParse(result.ToDateString);
                                 break;
 
                             case "participantID":

@@ -328,7 +328,7 @@ namespace ASC.Web.Projects.Classes
 
         public override IEnumerable<object[]> BuildReport(TaskFilter filter)
         {
-            return Global.EngineFactory.GetMilestoneEngine()
+            return Global.EngineFactory.MilestoneEngine
                          .GetByFilter(filter)
                          .OrderBy(r => r.Project.Title)
                          .Select(r => new object[]
@@ -447,7 +447,7 @@ namespace ASC.Web.Projects.Classes
             filter.SortBy = "title";
             filter.SortOrder = true;
 
-            var result = Global.EngineFactory.GetProjectEngine()
+            var result = Global.EngineFactory.ProjectEngine
                                .GetByFilter(filter)
                                .Select(r => new object[]
                                                 {
@@ -588,7 +588,7 @@ namespace ASC.Web.Projects.Classes
             filter.SortBy = "deadline";
             filter.SortOrder = true;
 
-            var tasks = Global.EngineFactory.GetTaskEngine().GetByFilter(filter).FilterResult.OrderBy(r => r.Project.Title).ToList();
+            var tasks = Global.EngineFactory.TaskEngine.GetByFilter(filter).FilterResult.OrderBy(r => r.Project.Title).ToList();
 
             filter.FromDate = createdFrom;
             filter.ToDate = createdTo;
@@ -709,7 +709,7 @@ namespace ASC.Web.Projects.Classes
             filter.ToDate = TenantUtil.DateTimeNow();
             filter.TaskStatuses.Add(TaskStatus.Open);
 
-            var tasks = Global.EngineFactory.GetTaskEngine().GetByFilter(filter).FilterResult.OrderBy(r => r.Project.Title).ToList();
+            var tasks = Global.EngineFactory.TaskEngine.GetByFilter(filter).FilterResult.OrderBy(r => r.Project.Title).ToList();
 
             var result = tasks.Select(r => new object[]
                                                {
@@ -787,10 +787,10 @@ namespace ASC.Web.Projects.Classes
         {
             if (filter.ProjectIds.Count == 0)
             {
-                filter.ProjectIds = Global.EngineFactory.GetTagEngine().GetTagProjects(filter.TagId).ToList();
+                filter.ProjectIds = Global.EngineFactory.TagEngine.GetTagProjects(filter.TagId).ToList();
             }
 
-            var result = Global.EngineFactory.GetReportEngine().BuildUsersWithoutActiveTasks(filter);
+            var result = Global.EngineFactory.ReportEngine.BuildUsersWithoutActiveTasks(filter);
             result = AddUserInfo(result, 0).ToList();
             result = result.OrderBy(r => CoreContext.UserManager.GetUsers((Guid)r[0]), UserInfoComparer.Default).ToList();
 
@@ -842,10 +842,10 @@ namespace ASC.Web.Projects.Classes
 
             if (filter.TagId != 0 && filter.ProjectIds.Count == 0)
             {
-                filter.ProjectIds = Global.EngineFactory.GetTagEngine().GetTagProjects(filter.TagId).ToList();
+                filter.ProjectIds = Global.EngineFactory.TagEngine.GetTagProjects(filter.TagId).ToList();
             }
 
-            var result = Global.EngineFactory.GetReportEngine().BuildUsersWorkload(filter);
+            var result = Global.EngineFactory.ReportEngine.BuildUsersWorkload(filter);
 
             result = AddUserInfo(result, 0).ToList();
             result = result.OrderBy(r => CoreContext.UserManager.GetUsers((Guid)r[0]), UserInfoComparer.Default).ToList();
@@ -898,7 +898,7 @@ namespace ASC.Web.Projects.Classes
             filter.FromDate = filter.GetFromDate(true);
             filter.ToDate = filter.GetToDate(true);
 
-            var taskTime = Global.EngineFactory.GetTimeTrackingEngine().GetByFilter(filter).Select(r => new object[] { r.Person, r.Task.Project.ID, r.Task.Project.Title, r.Task.ID, r.Task.Title, r.Hours, 0, r.PaymentStatus });
+            var taskTime = Global.EngineFactory.TimeTrackingEngine.GetByFilter(filter).Select(r => new object[] { r.Person, r.Task.Project.ID, r.Task.Project.Title, r.Task.ID, r.Task.Title, r.Hours, 0, r.PaymentStatus });
 
             if (filter.ViewType == 0)
             {
@@ -967,7 +967,7 @@ namespace ASC.Web.Projects.Classes
 
         public override IEnumerable<object[]> BuildReport(TaskFilter filter)
         {
-            var result = Global.EngineFactory.GetReportEngine().BuildUsersActivityReport(filter);
+            var result = Global.EngineFactory.ReportEngine.BuildUsersActivityReport(filter);
             result = AddUserInfo(result, 0).ToList();
             return result
                 .OrderBy(r => CoreContext.UserManager.GetUsers((Guid)r[0]), UserInfoComparer.Default)

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -46,7 +46,7 @@ namespace ASC.Web.Studio.UserControls.Statistics
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/statistics/productquotes/css/productquotes_style.less"));
+            Page.RegisterStyle("~/usercontrols/statistics/productquotes/css/productquotes_style.less");
 
             var data = new List<object>();
             foreach (var item in WebItemManager.Instance.GetItems(Web.Core.WebZones.WebZoneType.All, ItemAvailableState.All))

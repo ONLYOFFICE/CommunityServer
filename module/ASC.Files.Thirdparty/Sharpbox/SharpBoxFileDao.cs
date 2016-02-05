@@ -29,7 +29,9 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Core;
 using ASC.Files.Core;
+using ASC.Web.Core.Files;
 using ASC.Web.Studio.Core;
 using AppLimit.CloudComputing.SharpBox;
 using File = ASC.Files.Core.File;
@@ -71,6 +73,81 @@ namespace ASC.Files.Thirdparty.Sharpbox
         public List<File> GetFiles(object[] fileIds)
         {
             return fileIds.Select(fileId => ToFile(GetFileById(fileId))).ToList();
+        }
+
+        public List<object> GetFiles(object parentId, bool withSubfolders)
+        {
+            var folder = GetFolderById(parentId).AsEnumerable();
+            if (!withSubfolders)
+            {
+                folder = folder.Where(x => !(x is ICloudDirectoryEntry));
+            }
+            return folder.Select(x => (object)MakeId(x)).ToList();
+        }
+
+        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        {
+            return new List<File>();
+        }
+
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false)
+        {
+            //Get only files
+            var files = GetFolderById(parentId).Where(x => !(x is ICloudDirectoryEntry)).Select(x => ToFile(x));
+            //Filter
+            switch (filterType)
+            {
+                case FilterType.ByUser:
+                    files = files.Where(x => x.CreateBy == subjectID);
+                    break;
+                case FilterType.ByDepartment:
+                    files = files.Where(x => CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID));
+                    break;
+                case FilterType.FoldersOnly:
+                    return new List<File>();
+                case FilterType.DocumentsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Document);
+                    break;
+                case FilterType.PresentationsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Presentation);
+                    break;
+                case FilterType.SpreadsheetsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Spreadsheet);
+                    break;
+                case FilterType.ImagesOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Image);
+                    break;
+                case FilterType.ArchiveOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Archive);
+                    break;
+                case FilterType.ByExtension:
+                    if (!string.IsNullOrEmpty(searchText))
+                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Contains(searchText));
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(searchText))
+                files = files.Where(x => x.Title.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) != -1);
+
+            if (orderBy == null) orderBy = new OrderBy(SortedByType.DateAndTime, false);
+
+            switch (orderBy.SortedBy)
+            {
+                case SortedByType.Author:
+                    files = orderBy.IsAsc ? files.OrderBy(x => x.CreateBy) : files.OrderByDescending(x => x.CreateBy);
+                    break;
+                case SortedByType.AZ:
+                    files = orderBy.IsAsc ? files.OrderBy(x => x.Title) : files.OrderByDescending(x => x.Title);
+                    break;
+                case SortedByType.DateAndTime:
+                    files = orderBy.IsAsc ? files.OrderBy(x => x.CreateOn) : files.OrderByDescending(x => x.CreateOn);
+                    break;
+                default:
+                    files = orderBy.IsAsc ? files.OrderBy(x => x.Title) : files.OrderByDescending(x => x.Title);
+                    break;
+            }
+
+            return files.ToList();
         }
 
         public Stream GetFileStream(File file, long offset)
@@ -141,17 +218,18 @@ namespace ASC.Files.Thirdparty.Sharpbox
             var file = GetFileById(fileId);
             var id = MakeId(file);
 
-            using (var tx = DbManager.BeginTransaction())
+            using (var db = GetDb())
+            using (var tx = db.BeginTransaction())
             {
-                var hashIDs = DbManager.ExecuteList(Query("files_thirdparty_id_mapping")
+                var hashIDs = db.ExecuteList(Query("files_thirdparty_id_mapping")
                                                         .Select("hash_id")
                                                         .Where(Exp.Like("id", id, SqlLike.StartWith)))
                                        .ConvertAll(x => x[0]);
 
-                DbManager.ExecuteNonQuery(Delete("files_tag_link").Where(Exp.In("entry_id", hashIDs)));
-                DbManager.ExecuteNonQuery(Delete("files_tag").Where(Exp.EqColumns("0", Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))));
-                DbManager.ExecuteNonQuery(Delete("files_security").Where(Exp.In("entry_id", hashIDs)));
-                DbManager.ExecuteNonQuery(Delete("files_thirdparty_id_mapping").Where(Exp.In("hash_id", hashIDs)));
+                db.ExecuteNonQuery(Delete("files_tag_link").Where(Exp.In("entry_id", hashIDs)));
+                db.ExecuteNonQuery(Delete("files_tag").Where(Exp.EqColumns("0", Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))));
+                db.ExecuteNonQuery(Delete("files_security").Where(Exp.In("entry_id", hashIDs)));
+                db.ExecuteNonQuery(Delete("files_thirdparty_id_mapping").Where(Exp.In("hash_id", hashIDs)));
 
                 tx.Commit();
             }
@@ -201,19 +279,22 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return ToFile(GetFolderById(toFolderId).FirstOrDefault(x => x.Name == file.Title));
         }
 
-        public object FileRename(object fileId, string newTitle)
+        public object FileRename(File file, string newTitle)
         {
-            var file = GetFileById(fileId);
+            var entry = GetFileById(file.ID);
 
-            var oldFileId = MakeId(file);
+            var oldFileId = MakeId(entry);
             var newFileId = oldFileId;
 
-            if (SharpBoxProviderInfo.Storage.RenameFileSystemEntry(file, newTitle))
+            var folder = GetFolderById(file.FolderID);
+            newTitle = GetAvailableTitle(newTitle, folder, IsExist);
+
+            if (SharpBoxProviderInfo.Storage.RenameFileSystemEntry(entry, newTitle))
             {
                 //File data must be already updated by provider
                 //We can't search google files by title because root can have multiple folders with the same name
                 //var newFile = SharpBoxProviderInfo.Storage.GetFileSystemObject(newTitle, file.Parent);
-                newFileId = MakeId(file);
+                newFileId = MakeId(entry);
             }
 
             UpdatePathInDB(oldFileId, newFileId);
@@ -248,6 +329,8 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
             var uploadSession = new ChunkedUploadSession(file, contentLength);
 
+            var isNewFile = false;
+
             ICloudFileSystemEntry sharpboxFile;
             if (file.ID != null)
             {
@@ -257,12 +340,14 @@ namespace ASC.Files.Thirdparty.Sharpbox
             {
                 var folder = GetFolderById(file.FolderID);
                 sharpboxFile = SharpBoxProviderInfo.Storage.CreateFile(folder, GetAvailableTitle(file.Title, folder, IsExist));
+                isNewFile = true;
             }
 
             var sharpboxSession = sharpboxFile.GetDataTransferAccessor().CreateResumableSession(contentLength);
             if (sharpboxSession != null)
             {
                 uploadSession.Items["SharpboxSession"] = sharpboxSession;
+                uploadSession.Items["IsNewFile"] = isNewFile;
             }
             else
             {
@@ -287,8 +372,16 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
             if (uploadSession.Items.ContainsKey("SharpboxSession"))
             {
-                var sharpboxSession = uploadSession.GetItemOrDefault<IResumableUploadSession>("SharpboxSession");
-                sharpboxSession.File.GetDataTransferAccessor().Transfer(sharpboxSession, stream, chunkLength);
+                var sharpboxSession =
+                    uploadSession.GetItemOrDefault<AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects.ResumableUploadSession>("SharpboxSession");
+
+                var isNewFile = uploadSession.Items.ContainsKey("IsNewFile") && uploadSession.GetItemOrDefault<bool>("IsNewFile");
+                var sharpboxFile =
+                    isNewFile
+                        ? SharpBoxProviderInfo.Storage.CreateFile(GetFolderById(sharpboxSession.ParentId), sharpboxSession.FileName)
+                        : GetFileById(sharpboxSession.FileId);
+
+                sharpboxFile.GetDataTransferAccessor().Transfer(sharpboxSession, stream, chunkLength);
             }
             else
             {
@@ -315,8 +408,9 @@ namespace ASC.Files.Thirdparty.Sharpbox
         {
             if (uploadSession.Items.ContainsKey("SharpboxSession"))
             {
-                var sharpboxSession = uploadSession.GetItemOrDefault<IResumableUploadSession>("SharpboxSession");
-                return ToFile(sharpboxSession.File);
+                var sharpboxSession =
+                    uploadSession.GetItemOrDefault<AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects.ResumableUploadSession>("SharpboxSession");
+                return ToFile(GetFileById(sharpboxSession.FileId));
             }
 
             using (var fs = new FileStream(uploadSession.GetItemOrDefault<string>("TempPath"), FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose))
@@ -329,8 +423,15 @@ namespace ASC.Files.Thirdparty.Sharpbox
         {
             if (uploadSession.Items.ContainsKey("SharpboxSession"))
             {
-                var sharpboxSession = uploadSession.GetItemOrDefault<IResumableUploadSession>("SharpboxSession");
-                sharpboxSession.File.GetDataTransferAccessor().AbortResumableSession(sharpboxSession);
+                var sharpboxSession =
+                    uploadSession.GetItemOrDefault<AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects.ResumableUploadSession>("SharpboxSession");
+
+                var isNewFile = uploadSession.Items.ContainsKey("IsNewFile") && uploadSession.GetItemOrDefault<bool>("IsNewFile");
+                var sharpboxFile =
+                    isNewFile
+                        ? SharpBoxProviderInfo.Storage.CreateFile(GetFolderById(sharpboxSession.ParentId), sharpboxSession.FileName)
+                        : GetFileById(sharpboxSession.FileId);
+                sharpboxFile.GetDataTransferAccessor().AbortResumableSession(sharpboxSession);
             }
             else if (uploadSession.Items.ContainsKey("TempPath"))
             {
@@ -383,7 +484,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return null;
         }
 
-        public string GetDifferenceUrl(File file)
+        public Stream GetDifferenceStream(File file)
         {
             return null;
         }

@@ -24,15 +24,18 @@
 */
 
 
-using System.Collections.Generic;
+using ASC.Bookmarking;
+using ASC.Bookmarking.Common;
 using ASC.Bookmarking.Pojo;
+using ASC.Web.Community.Bookmarking.UserControls;
 using ASC.Web.Community.Bookmarking.Util;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Bookmarking;
 using ASC.Web.UserControls.Bookmarking.Common;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;
-using ASC.Web.Community.Bookmarking.UserControls;
 using ASC.Web.UserControls.Bookmarking.Resources;
+using System.Collections.Generic;
+using System.Web;
 
 namespace ASC.Web.Community.Bookmarking
 {
@@ -42,7 +45,7 @@ namespace ASC.Web.Community.Bookmarking
 
         protected override void PageLoad()
         {
-            ServiceHelper.DisplayMode = BookmarkingServiceHelper.BookmarkDisplayMode.SelectedBookmark;
+            BookmarkingBusinessFactory.UpdateObjectInCookies("BookmarkDisplayMode", BookmarkDisplayMode.SelectedBookmark.ToString());
 
             var c = LoadControl(BookmarkUserControlPath.BookmarkInfoUserControlPath) as BookmarkInfoUserControl;
             InitBookmarkInfoUserControl(c);
@@ -56,6 +59,8 @@ namespace ASC.Web.Community.Bookmarking
 
             var b = LoadControl(BookmarkUserControlPath.BookmarkHeaderPageControlPath) as BookmarkHeaderPageControl;
             b.Title = ServiceHelper.BookmarkToAdd.Name;
+            b.BookmarkID = ServiceHelper.BookmarkToAdd.ID;
+            b.Author = ServiceHelper.BookmarkToAdd.UserCreatorID;
             BookmarkingPageContent.Controls.Add(b);
 
             BookmarkingPageContent.Controls.Add(bookmarkingUserControl);

@@ -28,7 +28,7 @@
         </div>
     </div>
     <div class="settings-help-block">
-        <p><%= String.Format(Resource.HelpAnswerGreetingSettings, "<br />","<b>","</b>")%></p>
+        <p><%= String.Format(Resource.HelpAnswerGreetingSettings.HtmlEncode(), "<br />","<b>","</b>")%></p>
     </div>
 </div>
 

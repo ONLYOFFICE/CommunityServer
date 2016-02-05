@@ -102,6 +102,7 @@ namespace ASC.Data.Storage
 
         public abstract void Delete(string domain, string path);
         public abstract void DeleteFiles(string domain, string folderPath, string pattern, bool recursive);
+        public abstract void DeleteFiles(string domain, List<string> paths);
         public abstract void MoveDirectory(string srcdomain, string srcdir, string newdomain, string newdir);
         public abstract Uri Move(string srcdomain, string srcpath, string newdomain, string newpath);
         public abstract Uri SaveTemp(string domain, out string assignedPath, Stream stream);

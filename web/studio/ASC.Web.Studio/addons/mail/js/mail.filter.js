@@ -330,7 +330,7 @@ window.MailFilter = (function($) {
             prevFlagParam = TMMail.getParamsValue(params, /prev=([^\/]+)/);
         }
 
-        var itemId = TMMail.GetSysFolderIdByName(folderParam, TMMail.sysfolders.inbox.id);
+        var itemId = TMMail.getSysFolderIdByName(folderParam, TMMail.sysfolders.inbox.id);
         setFolder(itemId);
 
         if (toParam) {
@@ -403,7 +403,7 @@ window.MailFilter = (function($) {
         }
 
         if (fromDateParam) {
-            setFromDate(new Date(fromDateParam));
+            setFromDate(new Date(decodeURI(fromDateParam)));
         } else {
             setFromDate(undefined);
         }

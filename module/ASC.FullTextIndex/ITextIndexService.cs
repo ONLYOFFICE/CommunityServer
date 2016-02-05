@@ -37,7 +37,7 @@ namespace ASC.FullTextIndex
         bool SupportModule(string[] modules);
 
         [OperationContract]
-        Dictionary<string, IEnumerable<int>> Search(IEnumerable<ModuleInfo> modules);
+        Dictionary<string, IEnumerable<int>> Search(IEnumerable<ModuleInfo> modules, int tenantID);
 
         [OperationContract]
         bool CheckState();

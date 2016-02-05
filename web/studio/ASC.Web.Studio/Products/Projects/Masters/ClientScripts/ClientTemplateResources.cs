@@ -39,21 +39,22 @@ namespace ASC.Web.Projects.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ListProjectsTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ListMilestonesTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/TimeTrackingTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ProjectsTmplTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ListTasksTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/TaskDescriptionTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/SubtaskTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ListDiscussionsTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ActionPanelsTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/PopupContentTemplates.ascx", context);
-
-            //from CRM
-            yield return RegisterClientTemplatesPath("~/products/crm/templates/SimpleContactListTemplate.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/crm/templates/ContactSelectorTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/crm/templates/ContactInfoCardTemplate.ascx", context);
+            return new List<KeyValuePair<string, object>>(13)
+                         {
+                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ListProjectsTemplates.ascx", context),
+                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ListMilestonesTemplates.ascx", context),
+                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/TimeTrackingTemplates.ascx", context),
+                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ProjectsTmplTemplates.ascx", context),
+                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ListTasksTemplates.ascx", context),
+                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/TaskDescriptionTemplates.ascx", context),
+                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/SubtaskTemplates.ascx", context),
+                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ListDiscussionsTemplates.ascx", context),
+                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ActionPanelsTemplates.ascx", context),
+                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/PopupContentTemplates.ascx", context),
+                             RegisterClientTemplatesPath("~/products/crm/templates/SimpleContactListTemplate.ascx", context),
+                             RegisterClientTemplatesPath("~/products/crm/templates/ContactSelectorTemplates.ascx", context),
+                             RegisterClientTemplatesPath("~/products/crm/templates/ContactInfoCardTemplate.ascx", context)
+                         };
         }
     }
 }

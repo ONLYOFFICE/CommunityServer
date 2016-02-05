@@ -24,7 +24,7 @@
 */
 
 
-using ASC.Core.Caching;
+using ASC.Common.Caching;
 using ASC.Data.Storage;
 using ASC.Web.Core.Client;
 using log4net;
@@ -57,7 +57,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
     public class HelpCenterStorage
     {
         private static readonly string Filepath = ClientSettings.StorePath.Trim('/') + "/helpcenter/helpcenter.html";
-        private static readonly ICache cache = AscCache.Default;
+        private static readonly ICache cache = AscCache.Memory;
         private static readonly TimeSpan ExpirationTimeout = TimeSpan.FromDays(1);
         private const string CacheKey = "helpcenter";
 
@@ -125,7 +125,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
         private static Dictionary<string, HelpCenterData> FromCache()
         {
-            return cache.Get(CacheKey) as Dictionary<string, HelpCenterData>;
+            return cache.Get<Dictionary<string, HelpCenterData>>(CacheKey);
         }
     }
 }

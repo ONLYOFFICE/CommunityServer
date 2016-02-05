@@ -50,9 +50,44 @@ window.ServiceManager = (function(helper) {
             options
         );
     };
+    
     /* </common> */
 
     /* <people> */
+    
+    var remindPwd = function(eventname, params, email, options) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'people/remindpwd.json',
+            {email: email},
+            options
+        );
+    };
+    
+    var thirdPartyLinkAccount = function(eventname, params, data, options) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'people/thirdparty/linkaccount.json',
+            data,
+            options
+        );
+    };
+    
+    var thirdPartyUnLinkAccount = function(eventname, params, data, options) {
+        return helper.request(
+            eventname,
+            params,
+            REMOVE,
+            'people/thirdparty/unlinkaccount.json',
+            data,
+            options
+        );
+    };
+
     var addProfile = function(eventname, params, data, options) {
         helper.request(
             eventname,
@@ -247,6 +282,7 @@ window.ServiceManager = (function(helper) {
             options
         );
     };
+
     var getUserGroups = function (eventname, params, id, options) {
         return helper.request(
             eventname,
@@ -257,6 +293,30 @@ window.ServiceManager = (function(helper) {
             options
         );
     };
+    
+    var removeSelf = function (eventname, params, options) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'people/self/delete.json',
+            null,
+            options
+        );
+    };
+    
+    var joinAffiliate = function (eventname, params, options) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'people/self/joinaffiliate.json',
+            null,
+            options
+        );
+    };
+
+
     /* </people> */
 
     /* <community> */
@@ -478,6 +538,18 @@ window.ServiceManager = (function(helper) {
             null,
             options
         );
+    };
+
+    var subscribeCmtEventComment = function(eventname, params, id, data, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'community/event/' + id + '/subscribe.json',
+            data,
+            options
+        );
+        return true;
     };
 
     var addCmtBookmarkComment = function(eventname, params, id, data, options) {
@@ -1315,37 +1387,6 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var updatePrjComment = function(eventname, params, id, data, options) {
-        if (!data.parentid) {
-            data.parentid = '00000000-0000-0000-0000-000000000000';
-        }
-        if (!data.hasOwnProperty('text') && data.hasOwnProperty('content')) {
-            data.text = data.content;
-        }
-
-        helper.request(
-            eventname,
-            params,
-            UPDATE,
-            'project/comment/' + id + '.json',
-            data,
-            options
-        );
-        return true;
-    };
-
-    var removePrjComment = function(eventname, params, id, options) {
-        helper.request(
-            eventname,
-            params,
-            REMOVE,
-            'project/comment/' + id + '.json',
-            null,
-            options
-        );
-        return true;
-    };
-
     var addPrjTaskComment = function(eventname, params, id, data, options) {
         if (!data.parentid) {
             data.parentid = '00000000-0000-0000-0000-000000000000';
@@ -1399,6 +1440,300 @@ window.ServiceManager = (function(helper) {
             options
         );
     };
+    
+    var getPrjDiscussionPreview = function(eventname, params, htmltext, options) {
+        return helper.request(
+            eventname,
+            params,
+            ADD,
+            'project/message/discussion/preview.json',
+            {htmltext: htmltext},
+            options
+        );
+    };
+    
+    var getPrjCommentPreview = function(eventname, params, commentid, htmltext, options) {
+        return helper.request(
+            eventname,
+            params,
+            ADD,
+            'project/comment/preview.json',
+            {commentid: commentid, htmltext: htmltext},
+            options
+        );
+    };
+    var getWikiCommentPreview = function(eventname, params, commentid, htmltext, options) {
+        return helper.request(
+            eventname,
+            params,
+            ADD,
+            'community/wiki/comment/preview.json',
+            {commentid: commentid, htmltext: htmltext},
+            options
+        );
+    };
+
+    var getBlogCommentPreview = function(eventname, params, commentid, htmltext, options) {
+        return helper.request(
+            eventname,
+            params,
+            ADD,
+            'community/blog/comment/preview.json',
+            {commentid: commentid, htmltext: htmltext},
+            options
+        );
+    };
+    var getNewsCommentPreview = function(eventname, params, commentid, htmltext, options) {
+        return helper.request(
+            eventname,
+            params,
+            ADD,
+            'community/event/comment/preview.json',
+            {commentid: commentid, htmltext: htmltext},
+            options
+        );
+    };
+    var getBookmarksCommentPreview = function(eventname, params, commentid, htmltext, options) {
+        return helper.request(
+            eventname,
+            params,
+            ADD,
+            'community/bookmark/comment/preview.json',
+            {commentid: commentid, htmltext: htmltext},
+            options
+        );
+    };
+
+        
+    var removePrjComment = function(eventname, params, id, options) {
+        helper.request(
+            eventname,
+            params,
+            REMOVE,
+            'project/comment/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+    
+    var removeWikiComment = function(eventname, params, id, options) {
+        helper.request(
+            eventname,
+            params,
+            REMOVE,
+            'community/wiki/comment/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+    
+    var removeBlogComment = function(eventname, params, id, options) {
+        helper.request(
+            eventname,
+            params,
+            REMOVE,
+            'community/blog/comment/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+    
+    var removeNewsComment = function(eventname, params, id, options) {
+        helper.request(
+            eventname,
+            params,
+            REMOVE,
+            'community/event/comment/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+    
+    var removeBookmarksComment = function(eventname, params, id, options) {
+        helper.request(
+            eventname,
+            params,
+            REMOVE,
+            'community/bookmark/comment/' + id + '.json',
+            null,
+            options
+        );
+        return true;
+    };
+    
+    var addPrjComment = function(eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'project/comment.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var addWikiComment = function(eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'community/wiki/comment.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var addBlogComment = function(eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'community/blog/comment.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var addNewsComment = function(eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'community/event/comment.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var addBookmarksComment = function(eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'community/bookmark/comment.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    
+    var updatePrjComment = function(eventname, params, commentid, data, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'project/comment/' + commentid + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var updateWikiComment = function(eventname, params, commentid, data, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'community/wiki/comment/' + commentid + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var updateBlogComment = function(eventname, params, commentid, data, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'community/blog/comment/' + commentid + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var updateNewsComment = function(eventname, params, commentid, data, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'community/event/comment/' + commentid + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var updateBookmarksComment = function(eventname, params, commentid, data, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'community/bookmark/comment/' + commentid + '.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var fckeRemoveCommentComplete = function(eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'portal/fcke/comment/removecomplete.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var fckeCancelCommentComplete = function(eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'portal/fcke/comment/cancelcomplete.json',
+            data,
+            options
+        );
+        return true;
+    };
+    
+    var fckeEditCommentComplete = function(eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'portal/fcke/comment/editcomplete.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+    var updatePortalName = function (eventname, params, alias, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'portal/portalrename.json',
+            { alias: alias },
+            options
+        );
+        return true;
+    };
+
 
     var addPrjProjectTeamPerson = function(eventname, params, id, data, options) {
         helper.request(
@@ -1863,6 +2198,22 @@ window.ServiceManager = (function(helper) {
             GET,
             'files/file/' + id + '/presigned.json',
             null,
+            options
+        );
+    };
+
+    var saveDocServiceUrl = function (eventname, docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, options) {
+        return helper.request(
+            eventname,
+            null,
+            GET,
+            'files/savedocservice.json',
+            {
+                docServiceUrlApi: docServiceUrlApi,
+                docServiceUrlCommand: docServiceUrlCommand,
+                docServiceUrlStorage: docServiceUrlStorage,
+                docServiceUrlConverter: docServiceUrlConverter
+            },
             options
         );
     };
@@ -2549,8 +2900,11 @@ window.ServiceManager = (function(helper) {
         return true;
     };
 
-    var removeCrmListItem = function(eventname, params, type, id, options) {
-        var path = "";
+    var removeCrmListItem = function(eventname, params, type, id, toid, options) {
+        var path = "",
+            data = {
+                newcategoryid : toid
+            };
         switch (type) {
             case 1:
                 //ContactStatus
@@ -2577,7 +2931,7 @@ window.ServiceManager = (function(helper) {
             params,
             REMOVE,
             path,
-            null,
+            data,
             options
         );
         return true;
@@ -3915,17 +4269,6 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var getCrmContactLinkedinProfiles = function(eventname, params, firstName, lastName, options) {
-        return helper.request(
-            eventname,
-            params,
-            GET,
-            'crm/contact/linkedinprofile.json',
-            {firstName: firstName, lastName: lastName},
-            options
-        );
-    };
-
     var removeCrmContactAvatar = function(eventname, params, contactid, data, options) {
         return helper.request(
             eventname,
@@ -3955,17 +4298,6 @@ window.ServiceManager = (function(helper) {
             ADD,
             'crm/contact/socialmediaavatar.json',
             {socialNetworks: data},
-            options
-        );
-    };
-
-    var getCrmContactInCruchBase = function(eventname, params, data, options) {
-        return helper.request(
-            eventname,
-            params,
-            GET,
-            'crm/contact/crunchbase.json',
-            data,
             options
         );
     };
@@ -4344,34 +4676,12 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var getMailFolders = function(eventname, params, last_check_time, options) {
+    var getMailFolders = function(eventname, params, options) {
         return helper.request(
             eventname,
             params,
             GET,
             'mail/folders.json',
-            last_check_time != undefined ? { last_check_time: last_check_time } : null,
-            options
-        );
-    };
-
-    var getMailMessagesModifyDate = function(eventname, params, options) {
-        return helper.request(
-            eventname,
-            params,
-            GET,
-            'mail/messages/modify_date.json',
-            null,
-            options
-        );
-    };
-
-    var getMailFolderModifyDate = function(eventname, params, folder_id, options) {
-        return helper.request(
-            eventname,
-            params,
-            GET,
-            'mail/folders/' + folder_id + '/modify_date.json',
             null,
             options
         );
@@ -4432,16 +4742,17 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var getLinkedCrmEntitiesInfo = function (eventname, params, data, options) {
+    var getLinkedCrmEntitiesInfo = function(eventname, params, data, options) {
         return helper.request(
-      eventname,
-      params,
-      GET,
-      'mail/crm/linked/entities.json',
-      data,
-      options
-    );
+            eventname,
+            params,
+            GET,
+            'mail/crm/linked/entities.json',
+            data,
+            options
+        );
     };
+
     var getNextMailMessageId = function(eventname, params, id, filter_data, options) {
         return helper.request(
             eventname,
@@ -4503,17 +4814,6 @@ window.ServiceManager = (function(helper) {
             params,
             GET,
             'mail/messages/template.json',
-            null,
-            options
-        );
-    };
-
-    var getMailRandomGuid = function(eventname, params, options) {
-        return helper.request(
-            eventname,
-            params,
-            GET,
-            'mail/random_guid.json',
             null,
             options
         );
@@ -4662,27 +4962,24 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var removeMailMailbox = function(eventname, params, email, options) {
+    var removeMailMailbox = function (eventname, params, email, options) {
         return helper.request(
             eventname,
             params,
             REMOVE,
-            'mail/accounts/' + encodeURIComponent(email) + '.json',
-            null,
+            'mail/accounts.json',
+            { email: email },
             options
         );
     };
 
     var getMailDefaultMailboxSettings = function(eventname, params, email, options) {
-        var data = {
-            action: params.action
-        };
         return helper.request(
             eventname,
             params,
             GET,
-            'mail/accounts/' + encodeURIComponent(email) + '/default.json',
-            data,
+            'mail/accounts/setups.json',
+            { email: email, action: params.action },
             options
         );
     };
@@ -4692,18 +4989,20 @@ window.ServiceManager = (function(helper) {
             eventname,
             params,
             GET,
-            'mail/accounts/' + encodeURIComponent(email) + '.json',
-            null,
+            'mail/accounts/single.json',
+            { email: email },
             options
         );
     };
 
-    var setDefaultAccount = function (eventname, params, setDefault, email) {
+    var setDefaultAccount = function (eventname, params, isDefault, email, options) {
         return helper.request(
             eventname,
             params,
             UPDATE,
-            'mail/accounts/' + encodeURIComponent(email) + "/set-default/" + setDefault
+            'mail/accounts/default.json',
+            { email: email, isDefault: isDefault },
+            options
         );
     };
 
@@ -4799,8 +5098,8 @@ window.ServiceManager = (function(helper) {
             eventname,
             params,
             UPDATE,
-            'mail/accounts/' + encodeURIComponent(email) + '/state.json',
-            { state: state },
+            'mail/accounts/state.json',
+            { email: email, state: state },
             options
         );
     };
@@ -4816,7 +5115,8 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var sendMailMessage = function (eventname, params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, fileLinksShareMode, options) {
+    var sendMailMessage = function (eventname, params, id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags, body, attachments,
+                                    fileLinksShareMode, options) {
         return helper.request(
             eventname,
             params,
@@ -4825,24 +5125,22 @@ window.ServiceManager = (function(helper) {
             {
                 id: id,
                 from: from,
-                subject: subject,
                 to: to,
                 cc: cc,
                 bcc: bcc,
-                body: body,
-                attachments: attachments,
-                streamId: streamId,
-                mimeMessageId: mimeMessageId,
                 mimeReplyToId: mimeReplyToId,
                 importance: importance,
+                subject: subject,
                 tags: tags,
+                body: body,
+                attachments: attachments,
                 fileLinksShareMode: fileLinksShareMode
             },
             options
         );
     };
 
-    var saveMailMessage = function (eventname, params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, options) {
+    var saveMailMessage = function (eventname, params, id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags, body, attachments, options) {
         return helper.request(
             eventname,
             params,
@@ -4851,17 +5149,15 @@ window.ServiceManager = (function(helper) {
             {
                 id: id,
                 from: from,
-                subject: subject,
                 to: to,
                 cc: cc,
                 bcc: bcc,
-                body: body,
-                attachments: attachments,
-                streamId: streamId,
-                mimeMessageId: mimeMessageId,
                 mimeReplyToId: mimeReplyToId,
                 importance: importance,
-                tags: tags
+                subject: subject,
+                tags: tags,
+                body: body,
+                attachments: attachments,
             },
             options
         );
@@ -4877,8 +5173,6 @@ window.ServiceManager = (function(helper) {
             options
         );
     };
-
-
 
     var getMailAlerts = function(eventname, params, options) {
         return helper.request(
@@ -5075,7 +5369,7 @@ window.ServiceManager = (function(helper) {
             eventname,
             params,
             UPDATE,
-            'mail/attachments/mydocuments/export.json',
+            'mail/messages/attachments/export.json',
             {
                 id_message: message_id
             },
@@ -5088,21 +5382,22 @@ window.ServiceManager = (function(helper) {
             eventname,
             params,
             UPDATE,
-            'mail/attachment/mydocuments/export.json',
+            'mail/messages/attachment/export.json',
             {
                 id_attachment: attachment_id
             },
             options
         );
     };
-    
-    var setEMailInFolder = function (eventname, params, id_account, email_in_folder, options) {
+
+    var setEMailInFolder = function (eventname, params, mailbox_id, email_in_folder, options) {
         return helper.request(
             eventname,
             params,
             UPDATE,
-            'mail/accounts/' + id_account + '/emailinfolder.json',
+            'mail/accounts/emailinfolder.json',
             {
+                mailbox_id: mailbox_id,
                 email_in_folder: email_in_folder
             },
             options
@@ -5340,6 +5635,28 @@ window.ServiceManager = (function(helper) {
         );
     };
 
+    var createNotificationAddress = function (eventname, params, address_username, password, domain_id, options) {
+        return helper.request(
+            eventname,
+            params,
+            ADD,
+            'mailserver/notification/address/add.json',
+            { name: address_username, password: password, domain_id: domain_id },
+            options
+        );
+    };
+    
+    var removeNotificationAddress = function (eventname, params, address, options) {
+        return helper.request(
+            eventname,
+            params,
+            REMOVE,
+            'mailserver/notification/address/remove.json',
+            { address: address },
+            options
+        );
+    };
+
     /* </mail> */
 
     /* <settings> */
@@ -5473,6 +5790,40 @@ window.ServiceManager = (function(helper) {
             options
         );
     };
+    
+    var closeWelcomePopup = function () {
+        return helper.request(
+            null,
+            null,
+            UPDATE,
+            'settings/welcome/close.json',
+            null,
+            null
+        );
+    };
+    
+     var setColorTheme = function (eventname, params, theme, options) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'settings/colortheme.json',
+            {theme : theme},
+            options
+        );
+     };
+
+    var setDefaultpage = function (eventname, params, defaultProductID, options) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'settings/defaultpage.json',
+            {defaultProductID : defaultProductID},
+            options
+        );  
+        
+    };
 
     /* </settings> */
     
@@ -5500,7 +5851,7 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var createLoginHistoryReport = function(eventname, params, id, options) {
+    var createLoginHistoryReport = function(eventname, params, options) {
         return helper.request(
             eventname,
             params,
@@ -5511,7 +5862,7 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var createAuditTrailReport = function(eventname, params, id, options) {
+    var createAuditTrailReport = function(eventname, params, options) {
         return helper.request(
             eventname,
             params,
@@ -5548,6 +5899,30 @@ window.ServiceManager = (function(helper) {
         return true;
     };
 
+	var saveWhiteLabelSettings = function (eventname, params, data, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            'settings/whitelabel/save.json',
+            data,
+            options
+        );
+        return true;
+    };
+
+	var restoreWhiteLabelSettings = function (eventname, params, options) {
+        helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'settings/whitelabel/restore.json',
+            null,
+            options
+        );
+        return true;
+    };
+
 
     return {
         test: helper.test,
@@ -5561,6 +5936,9 @@ window.ServiceManager = (function(helper) {
 
         getQuotas: getQuotas,
 
+        remindPwd: remindPwd,
+        thirdPartyLinkAccount: thirdPartyLinkAccount,
+        thirdPartyUnLinkAccount: thirdPartyUnLinkAccount,
         addProfile: addProfile,
         getProfile: getProfile,
         getProfiles: getProfiles,
@@ -5578,6 +5956,8 @@ window.ServiceManager = (function(helper) {
         sendInvite: sendInvite,
         removeUsers: removeUsers,
         getUserGroups: getUserGroups,
+        removeSelf: removeSelf,
+        joinAffiliate: joinAffiliate,
 
         addCmtBlog: addCmtBlog,
         getCmtBlog: getCmtBlog,
@@ -5599,6 +5979,7 @@ window.ServiceManager = (function(helper) {
         getCmtBlogComments: getCmtBlogComments,
         addCmtEventComment: addCmtEventComment,
         getCmtEventComments: getCmtEventComments,
+        subscribeCmtEventComment: subscribeCmtEventComment,
         addCmtBookmarkComment: addCmtBookmarkComment,
         getCmtBookmarkComments: getCmtBookmarkComments,
 
@@ -5667,13 +6048,40 @@ window.ServiceManager = (function(helper) {
         changePaymentStatus: changePaymentStatus,
 
         addPrjTaskComment: addPrjTaskComment,
-        updatePrjTaskComment: updatePrjComment,
-        removePrjTaskComment: removePrjComment,
+
         getPrjTaskComments: getPrjTaskComments,
         addPrjDiscussionComment: addPrjDiscussionComment,
-        updatePrjDiscussionComment: updatePrjComment,
-        removePrjDiscussionComment: removePrjComment,
         getPrjDiscussionComments: getPrjDiscussionComments,
+
+        getPrjDiscussionPreview: getPrjDiscussionPreview,
+        getPrjCommentPreview: getPrjCommentPreview,
+        getWikiCommentPreview: getWikiCommentPreview,
+        getBlogCommentPreview: getBlogCommentPreview,
+        getNewsCommentPreview: getNewsCommentPreview,
+        getBookmarksCommentPreview: getBookmarksCommentPreview,
+
+        removePrjComment: removePrjComment,
+        removeWikiComment: removeWikiComment,
+        removeBlogComment: removeBlogComment,
+        removeNewsComment: removeNewsComment,
+        removeBookmarksComment: removeBookmarksComment,
+
+        addPrjComment: addPrjComment,
+        addWikiComment: addWikiComment,
+        addBlogComment: addBlogComment,
+        addNewsComment: addNewsComment,
+        addBookmarksComment: addBookmarksComment,
+
+        updatePrjComment: updatePrjComment,
+        updateWikiComment: updateWikiComment,
+        updateBlogComment: updateBlogComment,
+        updateNewsComment: updateNewsComment,
+        updateBookmarksComment: updateBookmarksComment,
+
+        fckeRemoveCommentComplete: fckeRemoveCommentComplete,
+        fckeCancelCommentComplete: fckeCancelCommentComplete,
+        fckeEditCommentComplete: fckeEditCommentComplete,
+        updatePortalName: updatePortalName,
 
         getPrjTeam: getPrjTeam,
         updatePrjTeam: updatePrjTeam,
@@ -5714,6 +6122,7 @@ window.ServiceManager = (function(helper) {
         copyBatchItems: copyBatchItems,
         getOperationStatuses: getOperationStatuses,
         getPresignedUri: getPresignedUri,
+        saveDocServiceUrl: saveDocServiceUrl,
 
         createCrmUploadFile: createCrmUploadFile,
 
@@ -5892,11 +6301,9 @@ window.ServiceManager = (function(helper) {
         getCrmContactTweets: getCrmContactTweets,
         getCrmContactTwitterProfiles: getCrmContactTwitterProfiles,
         getCrmContactFacebookProfiles: getCrmContactFacebookProfiles,
-        getCrmContactLinkedinProfiles: getCrmContactLinkedinProfiles,
         removeCrmContactAvatar: removeCrmContactAvatar,
         updateCrmContactAvatar: updateCrmContactAvatar,
         getCrmContactSocialMediaAvatar: getCrmContactSocialMediaAvatar,
-        getCrmContactInCruchBase: getCrmContactInCruchBase,
         startCrmImportFromCSV: startCrmImportFromCSV,
         getStatusCrmImportFromCSV: getStatusCrmImportFromCSV,
         getCrmImportFromCSVSampleRow: getCrmImportFromCSVSampleRow,
@@ -5931,8 +6338,6 @@ window.ServiceManager = (function(helper) {
 
         getMailFilteredMessages: getMailFilteredMessages,
         getMailFolders: getMailFolders,
-        getMailMessagesModifyDate: getMailMessagesModifyDate,
-        getMailFolderModifyDate: getMailFolderModifyDate,
         getAccounts: getAccounts,
         getMailTags: getMailTags,
         getMailMessage: getMailMessage,
@@ -5942,7 +6347,6 @@ window.ServiceManager = (function(helper) {
         getNextMailConversationId: getNextMailConversationId,
         getPrevMailConversationId: getPrevMailConversationId,
         getMailMessageTemplate: getMailMessageTemplate,
-        getMailRandomGuid: getMailRandomGuid,
         removeMailFolderMessages: removeMailFolderMessages,
         restoreMailMessages: restoreMailMessages,
         moveMailMessages: moveMailMessages,
@@ -6012,6 +6416,8 @@ window.ServiceManager = (function(helper) {
         isDomainExists: isDomainExists,
         checkDomainOwnership: checkDomainOwnership,
         getDomainDnsSettings: getDomainDnsSettings,
+        createNotificationAddress: createNotificationAddress,
+        removeNotificationAddress: removeNotificationAddress,
 
         getWebItemSecurityInfo: getWebItemSecurityInfo,
         setWebItemSecurity: setWebItemSecurity,
@@ -6025,6 +6431,9 @@ window.ServiceManager = (function(helper) {
         updateIpRestrictionsSettings: updateIpRestrictionsSettings,
         updateTipsSettings: updateTipsSettings,
         smsValidationSettings: smsValidationSettings,
+        closeWelcomePopup: closeWelcomePopup,
+        setColorTheme: setColorTheme,
+        setDefaultpage: setDefaultpage,
 
         getLoginEvents: getLoginEvents,
         getAuditEvents: getAuditEvents,
@@ -6032,6 +6441,8 @@ window.ServiceManager = (function(helper) {
         createAuditTrailReport: createAuditTrailReport,
 
         getTalkUnreadMessages: getTalkUnreadMessages,
-        registerUserOnPersonal: registerUserOnPersonal
+        registerUserOnPersonal: registerUserOnPersonal,
+        saveWhiteLabelSettings: saveWhiteLabelSettings,
+        restoreWhiteLabelSettings: restoreWhiteLabelSettings
     };
 })(ServiceHelper);

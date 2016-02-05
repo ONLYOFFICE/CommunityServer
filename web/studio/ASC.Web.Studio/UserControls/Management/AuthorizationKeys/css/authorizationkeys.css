@@ -26,6 +26,7 @@
 
 #authKeysContainer {
     margin-bottom: 45px;
+    max-width: 770px;
 }
 
 .auth-service-text {
@@ -39,6 +40,7 @@
 
 .auth-service-item {
     float: left;
+    height: 82px;
     margin: 0 58px 43px 0;
 }
 .auth-service-name {
@@ -62,11 +64,9 @@
     float: left;
 }
 
-@media all and (max-width: 1200px) {
-    .auth-service-block {        
-        width: 690px;
-    }
-    .auth-service-key {      
-        width: 280px;
-    }
+body.media-width-0-1200 .auth-service-block {        
+    width: 690px;
+}
+body.media-width-0-1200 .auth-service-key {      
+    width: 280px;
 }

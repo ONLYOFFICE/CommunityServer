@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -34,16 +34,12 @@ using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Studio.Core;
-using AjaxPro;
 using System.Collections.Generic;
 
 namespace ASC.Web.Studio
 {
-    [AjaxNamespace("StudioDefault")]
     public partial class _Default : MainPage
     {
-        public bool ShowWelcomePopupForCollaborator { get; set; }
-
         protected Product _showDocs;
 
         protected UserInfo CurrentUser;
@@ -63,7 +59,7 @@ namespace ASC.Web.Studio
         {
             CurrentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/skins/page_default.less"));
+            Page.RegisterStyle("~/skins/page_default.less");
 
             var defaultPageSettings = SettingsManager.Instance.LoadSettings<StudioDefaultPageSettings>(TenantProvider.CurrentTenantID);
             if (defaultPageSettings != null && defaultPageSettings.DefaultProductID != Guid.Empty)
@@ -87,7 +83,7 @@ namespace ASC.Web.Studio
 
             Master.DisabledSidePanel = true;
 
-            Title = Resources.Resource.MainPageTitle;
+            Title = Resources.Resource.MainPageTitle.HtmlEncode();
             defaultListProducts = WebItemManager.Instance.GetItems(Web.Core.WebZones.WebZoneType.StartProductList);
             _showDocs = (Product)defaultListProducts.Find(r => r.ID == WebItemManager.DocumentsProductID);
             if (_showDocs != null)
@@ -113,21 +109,6 @@ namespace ASC.Web.Studio
 
             defaultListProducts = defaultListProducts.OrderBy(p => (priority.Keys.Contains(p.ID) ? priority[p.ID] : 10)).ToList();
 
-
-
-            var collaboratorPopupSettings = SettingsManager.Instance.LoadSettingsFor<CollaboratorSettings>(CurrentUser.ID);
-
-            if (CurrentUser.IsVisitor() && collaboratorPopupSettings.FirstVisit && !CurrentUser.IsOutsider())
-            {
-                AjaxPro.Utility.RegisterTypeForAjax(GetType());
-
-                ShowWelcomePopupForCollaborator = true;
-                _welcomePopupForCollaborators.Visible = true;
-                _welcomeCollaboratorContainer.Options.IsPopup = true;
-
-                Page.RegisterInlineScript("StudioBlockUIManager.blockUI('#studio_welcomeCollaboratorContainer', 500, 400, 0);");
-            }
-
             if (CoreContext.Configuration.PartnerHosted)
             {
                 IsAutorizePartner = false;
@@ -138,14 +119,6 @@ namespace ASC.Web.Studio
                     Partner = partner;
                 }
             }
-        }
-
-        [AjaxMethod]
-        public void CloseWelcomePopup()
-        {
-            var collaboratorPopupSettings = SettingsManager.Instance.LoadSettingsFor<CollaboratorSettings>(SecurityContext.CurrentAccount.ID);
-            collaboratorPopupSettings.FirstVisit = false;
-            SettingsManager.Instance.SaveSettingsFor(collaboratorPopupSettings, SecurityContext.CurrentAccount.ID);
         }
     }
 }

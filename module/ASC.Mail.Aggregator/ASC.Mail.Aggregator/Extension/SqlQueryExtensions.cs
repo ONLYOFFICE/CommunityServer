@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -25,10 +25,12 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.FullTextIndex;
-using ASC.Common.Data.Sql;
+using ASC.FullTextIndex.Service;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Dal.DbSchema;
 using ASC.Mail.Aggregator.Filter;
@@ -37,24 +39,24 @@ namespace ASC.Mail.Aggregator.Extension
 {
     internal static class SqlQueryExtensions
     {
-        public static SqlQuery ApplyFilter(this SqlQuery query, MailFilter filter)
+        public static SqlQuery ApplyFilter(this SqlQuery query, MailFilter filter, string alias)
         {
-            return ApplyFilter(query, filter, false);
+            return ApplyFilter(query, filter, alias, false);
         }
 
-        public static SqlUpdate ApplyFilter(this SqlUpdate query, MailFilter filter)
+        public static SqlUpdate ApplyFilter(this SqlUpdate query, MailFilter filter, string alias)
         {
-            return ApplyFilter(query, filter, false);
+            return ApplyFilter(query, filter, alias, false);
         }
 
-        public static SqlDelete ApplyFilter(this SqlDelete query, MailFilter filter)
+        public static SqlDelete ApplyFilter(this SqlDelete query, MailFilter filter, string alias)
         {
-            return ApplyFilter(query, filter, false);
+            return ApplyFilter(query, filter, alias, false);
         }
 
-        private static SqlQuery ApplyFilter(this SqlQuery query, MailFilter filter, bool skipFolder)
+        private static SqlQuery ApplyFilter(this SqlQuery query, MailFilter filter, string alias, bool skipFolder)
         {
-            var conditions = GetMailFilterConditions(filter, skipFolder, string.Empty);
+            var conditions = GetMailFilterConditions(filter, skipFolder, alias);
 
             if (conditions != null)
                 query.Where(conditions);
@@ -62,9 +64,9 @@ namespace ASC.Mail.Aggregator.Extension
             return query;
         }
 
-        private static SqlUpdate ApplyFilter(this SqlUpdate query, MailFilter filter, bool skipFolder)
+        private static SqlUpdate ApplyFilter(this SqlUpdate query, MailFilter filter, string alias, bool skipFolder)
         {
-            var conditions = GetMailFilterConditions(filter, skipFolder, string.Empty);
+            var conditions = GetMailFilterConditions(filter, skipFolder, alias);
 
             if (conditions != null)
                 query.Where(conditions);
@@ -72,9 +74,9 @@ namespace ASC.Mail.Aggregator.Extension
             return query;
         }
 
-        private static SqlDelete ApplyFilter(this SqlDelete query, MailFilter filter, bool skipFolder)
+        private static SqlDelete ApplyFilter(this SqlDelete query, MailFilter filter, string alias, bool skipFolder)
         {
-            var conditions = GetMailFilterConditions(filter, skipFolder, string.Empty);
+            var conditions = GetMailFilterConditions(filter, skipFolder, alias);
 
             if (conditions != null)
                 query.Where(conditions);
@@ -91,17 +93,6 @@ namespace ASC.Mail.Aggregator.Extension
 
             if (!skipFolder)
                 conditions = Exp.Eq(alias + MailTable.Columns.folder, filter.PrimaryFolder);
-
-            if (filter.CustomLabels != null && filter.CustomLabels.Count > 0)
-            {
-                var idsWithAllTagsQuery = new SqlQuery(TagMailTable.name)
-                    .Select(TagMailTable.Columns.id_mail)
-                    .Where(Exp.In(TagMailTable.Columns.id_tag, filter.CustomLabels))
-                    .GroupBy(1)
-                    .Having(Exp.Eq("count(" + TagMailTable.Columns.id_mail + ")", filter.CustomLabels.Count()));
-
-                conditions &= Exp.In(alias + MailTable.Columns.id, idsWithAllTagsQuery);
-            }
 
             if (filter.Unread.HasValue)
             {
@@ -126,10 +117,23 @@ namespace ASC.Mail.Aggregator.Extension
 
             if (!string.IsNullOrEmpty(filter.FindAddress))
             {
-                if (filter.PrimaryFolder == MailFolder.Ids.sent || filter.PrimaryFolder == MailFolder.Ids.drafts)
-                    conditions &= Exp.Like(alias + MailTable.Columns.to, filter.FindAddress, SqlLike.AnyWhere);
+                if (FullTextSearch.SupportModule(FullTextSearch.MailModule))
+                {
+                    List<int> ids;
+                    if (filter.PrimaryFolder == MailFolder.Ids.sent || filter.PrimaryFolder == MailFolder.Ids.drafts)
+                        ids = FullTextSearch.Search(FullTextSearch.MailModule.Match(filter.FindAddress, MailTable.Columns.to));
+                    else
+                        ids = FullTextSearch.Search(FullTextSearch.MailModule.Match(filter.FindAddress, MailTable.Columns.from));
+                    
+                    conditions &= Exp.In(alias + MailTable.Columns.id, ids.Take(MailBoxManager.FULLTEXTSEARCH_IDS_COUNT).ToList());
+                }
                 else
-                    conditions &= Exp.Like(alias + MailTable.Columns.from, filter.FindAddress, SqlLike.AnyWhere);
+                {
+                    if (filter.PrimaryFolder == MailFolder.Ids.sent || filter.PrimaryFolder == MailFolder.Ids.drafts)
+                        conditions &= Exp.Like(alias + MailTable.Columns.to, filter.FindAddress, SqlLike.AnyWhere);
+                    else
+                        conditions &= Exp.Like(alias + MailTable.Columns.from, filter.FindAddress, SqlLike.AnyWhere);
+                }
             }
 
             if (filter.MailboxId.HasValue)
@@ -141,7 +145,18 @@ namespace ASC.Mail.Aggregator.Extension
             {
                 if (FullTextSearch.SupportModule(FullTextSearch.MailModule))
                 {
-                    var ids = FullTextSearch.Search(FullTextSearch.MailModule.Match(filter.SearchFilter));
+                    var mailModule = FullTextSearch.MailModule.Match(filter.SearchFilter).OrderBy(MailTable.Columns.date_sent, filter.SortOrder == "ascending");
+
+                    if (filter.PrimaryFolder != 1 && filter.PrimaryFolder != 2)
+                    {
+                        mailModule.AddAttribute("folder", filter.PrimaryFolder);
+                    }
+                    else
+                    {
+                        mailModule.AddAttribute("folder", new[] {1, 2});
+                    }
+
+                    var ids = FullTextSearch.Search(mailModule);
 
                     conditions &= Exp.In(alias + MailTable.Columns.id, ids.Take(MailBoxManager.FULLTEXTSEARCH_IDS_COUNT).ToList());
                 }

@@ -24,21 +24,24 @@
 */
 
 
-#region Usings
-
 using System;
-
-#endregion
 
 namespace ASC.Projects.Core.Domain
 {
     public abstract class DomainObject<TID> where TID : struct
     {
+        public abstract EntityType EntityType { get; }
+
         public TID ID { get; set; }
 
         public virtual string UniqID
         {
             get { return DoUniqId(GetType(), ID); }
+        }
+
+        public virtual string ItemPath
+        {
+            get { return ""; }
         }
 
         internal static string DoUniqId(Type type, TID id)

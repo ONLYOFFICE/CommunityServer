@@ -27,6 +27,7 @@
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Net;
 using System.Net.Sockets;
@@ -37,11 +38,13 @@ namespace ASC.Xmpp.Server.Gateway
 	class TcpXmppListener : XmppListenerBase
 	{
 		private IPEndPoint bindEndPoint = new IPEndPoint(IPAddress.Any, 5222);
-		private X509Certificate2 certificate;
 		private TcpListener tcpListener;
 
 		private static readonly ILog log = LogManager.GetLogger(typeof(TcpXmppListener));
         private long maxPacket = 1048576; //1024 kb
+
+        public X509Certificate2 Certificate { get; private set; }
+        public XmppStartTlsOption StartTls { get; private set; }
 
 	    public override void Configure(IDictionary<string, string> properties)
 		{
@@ -55,18 +58,27 @@ namespace ASC.Xmpp.Server.Gateway
 				{
 					if (File.Exists(properties["certificate"]))
 					{
-						try
-						{
-                            certificate = new X509Certificate2(properties["certificate"], "111111");
-						}
-						catch
-                        {
-                        }
-					}
+                        Certificate = !properties.ContainsKey("certificatePassword") ?
+                            new X509Certificate2(properties["certificate"]) :
+                            new X509Certificate2(properties["certificate"], properties["certificatePassword"]);
+                    }
 				}
+                StartTls = XmppStartTlsOption.None;
+                if (properties.ContainsKey("startTls"))
+                {
+                    StartTls = String.Equals(properties["startTls"], "optional", StringComparison.OrdinalIgnoreCase) ?
+                        XmppStartTlsOption.Optional : (String.Equals(properties["startTls"], "required", StringComparison.OrdinalIgnoreCase) ?
+                        XmppStartTlsOption.Required : XmppStartTlsOption.None);
+                }
+                if (StartTls != XmppStartTlsOption.None && Certificate == null)
+                {
+                    throw new ConfigurationErrorsException(
+                        "Wrong configuration of TcpXmppListener! StartTls is Optional or Required but Certificate is null.");
+                }
                 if (properties.ContainsKey("maxpacket"))
+                {
                     long.TryParse(properties["maxpacket"], out maxPacket);
-
+                }
 				log.InfoFormat("Configure listener '{0}' on {1}", Name, bindEndPoint);
 			}
 			catch (Exception e)
@@ -98,7 +110,8 @@ namespace ASC.Xmpp.Server.Gateway
 				tcpListener.BeginAcceptSocket(BeginAcceptCallback, null);
 
 				var socket = tcpListener.EndAcceptSocket(asyncResult);
-				AddNewXmppConnection(certificate == null ? new TcpXmppConnection(socket,maxPacket) : new TcpSslXmppConnection(socket, maxPacket, certificate));
+                AddNewXmppConnection(Certificate == null || StartTls != XmppStartTlsOption.None ?
+                    new TcpXmppConnection(socket, maxPacket) : new TcpSslXmppConnection(socket, maxPacket, Certificate));
 			}
 			catch (ObjectDisposedException) { return; }
 			catch (Exception e)
@@ -106,5 +119,5 @@ namespace ASC.Xmpp.Server.Gateway
 				log.ErrorFormat("Error listener '{0}' on AcceptCallback: {1}", Name, e);
 			}
 		}
-	}
+    }
 }

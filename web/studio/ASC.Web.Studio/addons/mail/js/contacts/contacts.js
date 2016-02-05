@@ -24,10 +24,6 @@
 */
 
 
-/*
-Copyright (c) Ascensio System SIA 2013. All rights reserved.
-http://www.teamlab.com
-*/
 window.contactsManager = (function() {
     var initFlag = false,
         teamlabContacts = [];

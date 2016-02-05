@@ -24,8 +24,8 @@
 */
 
 
+using ASC.Common.Caching;
 using ASC.Core;
-using ASC.Core.Caching;
 using log4net;
 using System;
 using System.Configuration;
@@ -44,7 +44,7 @@ namespace ASC.Web.Core.Mobile
         private static readonly DateTime lastMobileDate;
         private static readonly string MobileAddress;
 
-        private static readonly ICache cache = AscCache.Default;
+        private static readonly ICache cache = AscCache.Memory;
 
 
         public static bool IsMobile
@@ -96,7 +96,12 @@ namespace ASC.Web.Core.Mobile
             if (!string.IsNullOrEmpty(ua) && regex != null)
             {
                 var key = "mobileDetetor/" + ua.GetHashCode();
-                result = cache.Get(key) as bool?;
+
+                bool fromCache;
+
+                if (bool.TryParse(cache.Get<string>(key), out fromCache))
+                    result = fromCache;
+
                 if (result == null)
                 {
                     cache.Insert(key, result = regex.IsMatch(ua), TimeSpan.FromMinutes(10));

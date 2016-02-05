@@ -31,7 +31,7 @@ using ASC.Mail.Server.Administration.Interfaces;
 
 namespace ASC.Api.MailServer.Extensions
 {
-    public static class DataContractsExtensions
+    static class DataContractsExtensions
     {
         public static WebDomainData ToWebDomainData(this IWebDomain domain, DnsData dnsData = null)
         {
@@ -104,6 +104,20 @@ namespace ASC.Api.MailServer.Extensions
                             Name = dns.DomainCheckRecordName,
                             Value = dns.DomainCheckRecord
                         }
+                };
+        }
+
+        public static NotificationAddressData ToNotificationAddressData(this INotificationAddress address)
+        {
+            return new NotificationAddressData
+                {
+                    Email = address.Email,
+                    SmptEncryptionType = address.SmptEncryptionType,
+                    SmtpAccount = address.SmtpAccount,
+                    SmtpAuth = address.SmtpAuth,
+                    SmtpAuthenticationType = address.SmtpAuthenticationType,
+                    SmtpPort = address.SmtpPort,
+                    SmtpServer = address.SmtpServer
                 };
         }
     }

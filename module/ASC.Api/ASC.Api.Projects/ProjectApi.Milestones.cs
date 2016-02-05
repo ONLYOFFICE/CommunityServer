@@ -54,9 +54,7 @@ namespace ASC.Api.Projects
         [Read(@"milestone")]
         public IEnumerable<MilestoneWrapper> GetMilestones()
         {
-            var milestones = EngineFactory.GetMilestoneEngine().GetUpcomingMilestones((int)_context.Count);
-            _context.SetDataPaginated();
-            return milestones.Select(x => new MilestoneWrapper(x)).ToSmartList();
+            return EngineFactory.MilestoneEngine.GetUpcomingMilestones((int)Count).Select(x => new MilestoneWrapper(x));
         }
 
         ///<summary>
@@ -88,23 +86,16 @@ namespace ASC.Api.Projects
             bool myProjects,
             Guid milestoneResponsible)
         {
-            var milestoneEngine = EngineFactory.GetMilestoneEngine();
+            var milestoneEngine = EngineFactory.MilestoneEngine;
 
-            var filter = new TaskFilter
-                {
-                    UserId = milestoneResponsible,
-                    ParticipantId = taskResponsible,
-                    TagId = tag,
-                    FromDate = deadlineStart,
-                    ToDate = deadlineStop,
-                    SortBy = _context.SortBy,
-                    SortOrder = !_context.SortDescending,
-                    SearchText = _context.FilterValue,
-                    Offset = _context.StartIndex,
-                    Max = _context.Count,
-                    LastId = lastId,
-                    MyProjects = myProjects
-                };
+            var filter = CreateFilter();
+            filter.UserId = milestoneResponsible;
+            filter.ParticipantId = taskResponsible;
+            filter.TagId = tag;
+            filter.FromDate = deadlineStart;
+            filter.ToDate = deadlineStop;
+            filter.LastId = lastId;
+            filter.MyProjects = myProjects;
 
             if (projectid != 0)
             {
@@ -116,12 +107,9 @@ namespace ASC.Api.Projects
                 filter.MilestoneStatuses.Add((MilestoneStatus)status);
             }
 
-            _context.SetDataPaginated();
-            _context.SetDataFiltered();
-            _context.SetDataSorted();
-            _context.TotalCount = milestoneEngine.GetByFilterCount(filter);
+            SetTotalCount(milestoneEngine.GetByFilterCount(filter));
 
-            return milestoneEngine.GetByFilter(filter).NotFoundIfNull().Select(r => new MilestoneWrapper(r)).ToSmartList();
+            return milestoneEngine.GetByFilter(filter).NotFoundIfNull().Select(r => new MilestoneWrapper(r));
         }
 
         ///<summary>
@@ -135,9 +123,7 @@ namespace ASC.Api.Projects
         [Read(@"milestone/late")]
         public IEnumerable<MilestoneWrapper> GetLateMilestones()
         {
-            var milestones = EngineFactory.GetMilestoneEngine().GetLateMilestones((int)_context.Count);
-            _context.SetDataPaginated();
-            return milestones.Select(x => new MilestoneWrapper(x)).ToSmartList();
+            return EngineFactory.MilestoneEngine.GetLateMilestones((int)Count).ConvertAll(x => new MilestoneWrapper(x));
         }
 
         ///<summary>
@@ -154,8 +140,8 @@ namespace ASC.Api.Projects
         [Read(@"milestone/{year}/{month}/{day}")]
         public IEnumerable<MilestoneWrapper> GetMilestonesByDeadLineFull(int year, int month, int day)
         {
-            var milestones = EngineFactory.GetMilestoneEngine().GetByDeadLine(new DateTime(year, month, day));
-            return milestones.Select(x => new MilestoneWrapper(x)).ToSmartList();
+            var milestones = EngineFactory.MilestoneEngine.GetByDeadLine(new DateTime(year, month, day));
+            return milestones.Select(x => new MilestoneWrapper(x));
         }
 
         ///<summary>
@@ -171,8 +157,8 @@ namespace ASC.Api.Projects
         [Read(@"milestone/{year}/{month}")]
         public IEnumerable<MilestoneWrapper> GetMilestonesByDeadLineMonth(int year, int month)
         {
-            var milestones = EngineFactory.GetMilestoneEngine().GetByDeadLine(new DateTime(year, month, DateTime.DaysInMonth(year, month)));
-            return milestones.Select(x => new MilestoneWrapper(x)).ToSmartList();
+            var milestones = EngineFactory.MilestoneEngine.GetByDeadLine(new DateTime(year, month, DateTime.DaysInMonth(year, month)));
+            return milestones.Select(x => new MilestoneWrapper(x));
         }
 
         ///<summary>
@@ -188,7 +174,7 @@ namespace ASC.Api.Projects
         [Read(@"milestone/{id:[0-9]+}")]
         public MilestoneWrapper GetMilestoneById(int id)
         {
-            var milestoneEngine = EngineFactory.GetMilestoneEngine();
+            var milestoneEngine = EngineFactory.MilestoneEngine;
             if (!milestoneEngine.IsExists(id)) throw new ItemNotFoundException();
             return new MilestoneWrapper(milestoneEngine.GetByID(id));
         }
@@ -206,8 +192,8 @@ namespace ASC.Api.Projects
         [Read(@"milestone/{id:[0-9]+}/task")]
         public IEnumerable<TaskWrapper> GetMilestoneTasks(int id)
         {
-            if (!EngineFactory.GetMilestoneEngine().IsExists(id)) throw new ItemNotFoundException();
-            return EngineFactory.GetTaskEngine().GetMilestoneTasks(id).Select(x => new TaskWrapper(x)).ToSmartList();
+            if (!EngineFactory.MilestoneEngine.IsExists(id)) throw new ItemNotFoundException();
+            return EngineFactory.TaskEngine.GetMilestoneTasks(id).Select(x => new TaskWrapper(x));
         }
 
         ///<summary>
@@ -245,7 +231,7 @@ namespace ASC.Api.Projects
         [Update(@"milestone/{id:[0-9]+}")]
         public MilestoneWrapper UpdateMilestone(int id, string title, ApiDateTime deadline, bool? isKey, MilestoneStatus status, bool? isNotify, string description, int projectID, Guid responsible, bool notifyResponsible)
         {
-            var milestoneEngine = EngineFactory.GetMilestoneEngine();
+            var milestoneEngine = EngineFactory.MilestoneEngine;
 
             var milestone = milestoneEngine.GetByID(id).NotFoundIfNull();
             ProjectSecurity.DemandEdit(milestone);
@@ -263,11 +249,11 @@ namespace ASC.Api.Projects
             
             if (projectID != 0)
             {
-                var project = EngineFactory.GetProjectEngine().GetByID(projectID).NotFoundIfNull();
+                var project = EngineFactory.ProjectEngine.GetByID(projectID).NotFoundIfNull();
                 milestone.Project = project;
             }
 
-            milestone = milestoneEngine.SaveOrUpdate(milestone, notifyResponsible);
+            milestoneEngine.SaveOrUpdate(milestone, notifyResponsible);
             MessageService.Send(Request, MessageAction.MilestoneUpdated, milestone.Project.Title, milestone.Title);
 
             return new MilestoneWrapper(milestone);
@@ -297,11 +283,11 @@ namespace ASC.Api.Projects
         [Update(@"milestone/{id:[0-9]+}/status")]
         public MilestoneWrapper UpdateMilestone(int id, MilestoneStatus status)
         {
-            var milestoneEngine = EngineFactory.GetMilestoneEngine();
+            var milestoneEngine = EngineFactory.MilestoneEngine;
 
             var milestone = milestoneEngine.GetByID(id).NotFoundIfNull();
 
-            milestone = milestoneEngine.ChangeStatus(milestone, status);
+            milestoneEngine.ChangeStatus(milestone, status);
             MessageService.Send(Request, MessageAction.MilestoneUpdatedStatus, milestone.Project.Title, milestone.Title, LocalizedEnumConverter.ConvertToString(milestone.Status));
 
             return new MilestoneWrapper(milestone);
@@ -320,7 +306,7 @@ namespace ASC.Api.Projects
         [Delete(@"milestone/{id:[0-9]+}")]
         public MilestoneWrapper DeleteMilestone(int id)
         {
-            var milestoneEngine = EngineFactory.GetMilestoneEngine();
+            var milestoneEngine = EngineFactory.MilestoneEngine;
 
             var milestone = milestoneEngine.GetByID(id).NotFoundIfNull();
 

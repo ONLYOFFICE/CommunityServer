@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -46,7 +46,7 @@ namespace ASC.Web.Files.Controls
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("eventhandler.js"));
-            Page.RegisterStyleControl(FilesLinkUtility.FilesBaseAbsolutePath + "controls/contentlist/contentlist.css");
+            Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/contentlist/contentlist.css");
 
             var emptyFolder = (EmptyFolder)LoadControl(EmptyFolder.Location);
             emptyFolder.AllContainers = FolderIDCurrentRoot == null;

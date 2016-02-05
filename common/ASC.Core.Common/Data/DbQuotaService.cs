@@ -162,7 +162,7 @@ namespace ASC.Core.Data
         }
 
 
-        private long GetInBytes(long bytes)
+        private static long GetInBytes(long bytes)
         {
             const long MB = 1024 * 1024;
             return bytes < MB ? bytes * MB : bytes;

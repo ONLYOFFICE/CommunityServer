@@ -76,14 +76,14 @@ namespace ASC.Mail.Aggregator.Common
 
             try
             {
-                client.SendTimeout = Convert.ToInt32(WebConfigurationManager.AppSettings["mail.send-tcp-timeout"] ?? "30000");
-                client.ReceiveTimeout = Convert.ToInt32(WebConfigurationManager.AppSettings["mail.recieve-tcp-timeout"] ?? "30000");
+                client.TcpSendTimeout = Convert.ToInt32(WebConfigurationManager.AppSettings["mail.send-tcp-timeout"] ?? "30000");
+                client.TcpReceiveTimeout = Convert.ToInt32(WebConfigurationManager.AppSettings["mail.recieve-tcp-timeout"] ?? "30000");
                 client.CertificatePermit = Convert.ToBoolean(WebConfigurationManager.AppSettings["mail.certificate-permit"] ?? "false");
             }
             catch (Exception e)
             {
-                client.ReceiveTimeout = 30000;
-                client.SendTimeout = 30000;
+                client.TcpReceiveTimeout = 30000;
+                client.TcpSendTimeout = 30000;
                 client.CertificatePermit = false;
 
                 var logger = LogManager.GetLogger("MailBoxManager");

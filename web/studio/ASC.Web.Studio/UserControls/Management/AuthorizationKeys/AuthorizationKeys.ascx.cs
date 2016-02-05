@@ -26,14 +26,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web;
-using System.Web.Configuration;
-using System.Web.Hosting;
 using System.Web.UI;
 using ASC.Core;
 using ASC.Data.Storage;
+using ASC.MessagingSystem;
 using ASC.Thrdparty.Configuration;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
@@ -57,7 +55,7 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/AuthorizationKeys/js/authorizationkeys.js"));
+            Page.RegisterBodyScripts("~/usercontrols/management/AuthorizationKeys/js/authorizationkeys.js");
             Page.ClientScript.RegisterClientScriptBlock(GetType(), "authorizationkeys_style", "<link rel=\"stylesheet\" type=\"text/css\" href=\"" + WebPath.GetPath("usercontrols/management/authorizationkeys/css/authorizationkeys.css") + "\">", false);
         }
 
@@ -92,6 +90,8 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 KeyStorage.Set(authKey.Name, authKey.Value);
             }
+
+            MessageService.Send(HttpContext.Current.Request, MessageAction.AuthorizationKeysSetting);
         }
 
         #endregion

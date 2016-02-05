@@ -15,19 +15,19 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
+using System.Text;
 using System.Text.RegularExpressions;
+using ActiveUp.Net.Security;
+using HtmlAgilityPack;
 #if !PocketPC
 using System.Security.Cryptography.Pkcs;
 #endif
-using System;
-using System.Text;
-using ActiveUp.Net.Security;
-using System.IO;
-using System.Collections.Specialized;
-using HtmlAgilityPack;
-using Ude;
 
 // ReSharper disable CheckNamespace
 namespace ActiveUp.Net.Mail
@@ -168,10 +168,23 @@ namespace ActiveUp.Net.Mail
 
             while (parammatch.Success)
             {
-                field.Parameters.Add(
-                    FormatFieldName(
-                        parammatch.Value.Substring(0, parammatch.Value.IndexOf('='))).ToLower(),
-                    parammatch.Value.Substring(parammatch.Value.IndexOf('=') + 1).Replace("\"", "").Trim('\r', '\n'));
+                var name = FormatFieldName(parammatch.Value.Substring(0, parammatch.Value.IndexOf('='))).ToLower();
+                var value = parammatch.Value.Substring(parammatch.Value.IndexOf('=') + 1).Trim('\r', '\n').Trim();
+
+                if (!string.IsNullOrEmpty(value))
+                {
+                    if (value[0] == '\"')
+                    {
+                        var i = value.LastIndexOf('\"');
+
+                        if (i > 1)
+                            value = value.Substring(1, i - 1);
+                    }
+
+                    value = value.Replace("\"", "");
+                }
+
+                field.Parameters.Add(name, value);
 
                 parammatch = parammatch.NextMatch();
             }
@@ -192,12 +205,23 @@ namespace ActiveUp.Net.Mail
             field.Disposition = _regxMimeDisposition.Match(input).Value;
 
             var parammatch = _regxMimeDispositionParams.Match(input);
-            
-            for (; parammatch.Success; parammatch = parammatch.NextMatch()) 
-                field.Parameters.Add(
-                    FormatFieldName(
-                    parammatch.Value.Substring(0, parammatch.Value.IndexOf('='))), 
-                    parammatch.Value.Substring(parammatch.Value.IndexOf('=') + 1).Replace("\"", "").Trim('\r', '\n'));
+
+            for (; parammatch.Success; parammatch = parammatch.NextMatch())
+            {
+                var name = parammatch.Value.Substring(0, parammatch.Value.IndexOf('='));
+                var value = parammatch.Value.Substring(parammatch.Value.IndexOf('=') + 1)
+                    .Replace("\"", "")
+                    .Trim('\r', '\n');
+
+                if (name.EndsWith("*")) // RFC 5987 Extended notation
+                {
+                    value = Codec.RFC5987Decode(value);
+                    name = name.Remove(name.Length - 1);
+                    value = Codec.RFC2047Encode(value);
+                }
+
+                field.Parameters.Add(FormatFieldName(name), value);
+            }
 
             return field;
         }
@@ -208,21 +232,46 @@ namespace ActiveUp.Net.Mail
         /// <param name="part">The part.</param>
         /// <param name="original_content"></param>
         /// <param name="message">The message.</param>
-        private static void ParseSubParts(ref MimePart part, ref string original_content, Message message)
+        private static void ParseSubParts(ref MimePart part, ref string original_content, int start, int length)
         {
             var boundary = part.ContentType.Parameters["boundary"];
-            Logger.AddEntry("boundary : " + boundary);
-            var arrpart = Regex.Split(original_content, @"\r?\n?" + Regex.Escape("--" + boundary));
-            for (var i = 1; i < arrpart.Length; i++)
+            Logger.AddEntry(string.Format("boundary : {0}", boundary));
+            
+            var regex = new Regex(string.Format("\r?\n?--{0}", Regex.Escape(boundary)));
+
+            var partIndexes = new Dictionary<int, int>();
+
+            var m = regex.Match(original_content, start, length);
+
+            while (m.Success)
             {
-                var strpart = arrpart[i];
-                if (!strpart.StartsWith("--") && !string.IsNullOrEmpty(strpart))
+                partIndexes.Add(m.Index, m.Length);
+                m = m.NextMatch();
+            }
+
+            var list = partIndexes.ToList();
+
+            for (var i = 0; i < list.Count; i++)
+            {
+                var partStart = list[i].Key + list[i].Value;
+
+                int partLength;
+
+                if (i + 1 != list.Count)
                 {
-                    var newpart = ParseMimePart(ref strpart, message);
-                    //newpart.ParentMessage = message;
-                    newpart.Container = part;
-                    part.SubParts.Add(newpart);
+                    partLength = list[i + 1].Key - partStart;
                 }
+                else
+                {
+                    partLength = start + length - partStart;
+                }
+
+                if (partLength == 0 || original_content.Substring(partStart, 2) == "--")
+                    continue;
+
+                var newpart = ParseMimePart(ref original_content, partStart, partLength);
+                newpart.Container = part;
+                part.SubParts.Add(newpart);
             }
         }
 
@@ -274,6 +323,11 @@ namespace ActiveUp.Net.Mail
                         message.BodyHtml.Charset = part.Charset;
                         message.BodyHtml.Text = part.TextContent;
                     }
+                    else if (part.ContentType.SubType.ToLower().Equals("calendar"))
+                    {
+                        message.BodyCalendar.Charset = part.Charset;
+                        message.BodyCalendar.Text = part.TextContent;
+                    }
 
                     if (_parentContentType != null)
                         message.ContentType = _parentContentType;
@@ -298,14 +352,19 @@ namespace ActiveUp.Net.Mail
                 else if (part.ContentType.MimeType.ToLower().Equals("message/rfc822"))
                 {
                     var msg = part.TextContent;
-                    message.SubMessages.Add(ParseMessage(ref msg)); //.BinaryContent));
+                    var embeddedMessage = ParseMessage(ref msg);
+                    message.SubMessages.Add(embeddedMessage);
+                    var filename = string.IsNullOrEmpty(part.Filename)
+                        ? embeddedMessage.Subject + ".eml"
+                        : part.Filename;
+                    message.AddAttachmentFromString(filename, msg);
                 }
 
                 else if (part.ContentType.MimeType.ToLower().Equals("application/pkcs7-signature")
                     || part.ContentType.MimeType.ToLower().Equals("application/x-pkcs7-signature"))
                 {
                     var to_digest = part.Container.TextContent;
-                    to_digest = Regex.Split(to_digest, "\r\n--" + part.Container.ContentType.Parameters["boundary"])[1];
+                    to_digest = Regex.Split(to_digest, string.Format("\r\n--{0}", part.Container.ContentType.Parameters["boundary"]))[1];
                     to_digest = to_digest.TrimStart('\r', '\n');
                     //Match endDelimiter = Regex.Match(toDigest, "(?<=[^\r\n]\r\n)\r\n", RegexOptions.RightToLeft);
                     //int lastNonNewLine = Regex.Match(toDigest, "[^\r\n]", RegexOptions.RightToLeft).Index;
@@ -331,89 +390,141 @@ namespace ActiveUp.Net.Mail
             }
         }
 
+        private static bool IsAttachment(ref MimePart part)
+        {
+            var isAttach = false;
+
+            if (part.ContentDisposition.Disposition.ToLower().Equals("attachment"))
+            {
+                isAttach = true;
+            }
+            // If this part has to be displayed at the same time as the main body, add it to the appropriate collection.
+            else if (!part.ContentType.Type.ToLower().Equals("text") && part.ContentDisposition.Disposition.ToLower().Equals("inline"))
+            {
+                isAttach = true;
+            }
+            // If we have image isn't marked as "Content-Disposition: inline", we will add it to EmbededObjects
+            else if (part.ContentType.Type.ToLower().Equals("image"))
+            {
+                isAttach = true;
+            }
+
+            return isAttach;
+        }
+
+        private static Encoding DetectPartEncodingAndCharset(ref MimePart part, byte[] bytes)
+        {
+            Encoding encoding;
+            var charset = (!string.IsNullOrEmpty(part.Charset) ? part.Charset : "iso-8859-1");
+
+            var detectedCharset = Codec.DetectCharset(bytes) ?? charset;
+
+            if (string.IsNullOrEmpty(part.Charset) || part.Charset != detectedCharset)
+            {
+                try
+                {
+                    encoding = Encoding.GetEncoding(detectedCharset);
+                    part.Charset = detectedCharset;
+                }
+                catch (NotSupportedException)
+                {
+                    encoding = Codec.GetEncoding(charset);
+                    part.Charset = encoding.EncodingName;
+                }
+            }
+            else
+            {
+                encoding = Codec.GetEncoding(charset);
+            }
+
+            return encoding;
+        }
+
         /// <summary>
         /// Decodes the part body.
         /// </summary>
         /// <param name="part">The part.</param>
-        private static void DecodePartBody(ref MimePart part)
+        /// <param name="data"></param>
+        /// <param name="start"></param>
+        /// <param name="length"></param>
+        private static void DecodePartBody(ref MimePart part, ref string data, int start, int length)
         {
             if (part.ContentType.Type.ToLower().Equals("multipart") && part.Charset == null)
                 return;
-            
+
             // Let's see if a charset is specified. Otherwise we default to "iso-8859-1".
             var charset = (!string.IsNullOrEmpty(part.Charset) ? part.Charset : "iso-8859-1");
 
-#if PocketPC
-            if (charset.ToLower() == "iso-8859-1")
-                charset = "windows-1252";
-#endif
-            // This is a Base64 encoded part body.
-            if (part.ContentTransferEncoding.Equals(ContentTransferEncoding.Base64))
+            var skipDecode = false;
+
+            byte[] bytes;
+
+            var rawText = data.Substring(start, length);
+            Encoding encoding;
+
+            switch (part.ContentTransferEncoding)
             {
-                var skip_decode = false;
-                var text = RemoveNewLines(RemoveWhiteSpaces(part.TextContent));
-#if !PocketPC
-                try
-                {
-#endif
-                    //We have the Base64 string so we can decode it.
-                    part.BinaryContent = Convert.FromBase64String(text);
-#if !PocketPC
-                }
-                catch (FormatException)
-                {
-                     // remove whitespaces and new lines
-                    /*sText = sText.Replace("=", "");
-                    sText = sText.Replace("\0", "");
-                    sText += "==";
+                case ContentTransferEncoding.Base64:
+                    try
+                    {
+                        bytes = Converter.FromBase64String(data, start, length);
+                    }
+                    catch (FormatException)
+                    {
+                        bytes = Encoding.GetEncoding(charset).GetBytes(rawText);
+                        skipDecode = true;
+                    }
 
-                    part.TextContent = 
-                        regx_base64.Replace(sText, new MatchEvaluator(m =>
-                        {
+                    if (IsAttachment(ref part))
+                        part.BinaryContent = bytes;
+                    else
+                    {
+                        encoding = DetectPartEncodingAndCharset(ref part, bytes);
 
-                            try
-                            {
-                                var bytes = Convert.FromBase64String(m.Value);
+                        part.TextContent = !skipDecode
+                            ? encoding.GetString(bytes, 0, bytes.Length)
+                            : rawText;
+                    }
+                    break;
 
-                                return System.Text.Encoding.GetEncoding(charset).GetString(bytes, 0, bytes.Length);
-                            }
-                            catch (Exception)
-                            {
-                                return m.Value;
-                            }
-                        }));*/
+                case ContentTransferEncoding.QuotedPrintable:
+                    try
+                    {
+                        bytes = Converter.FromQuotedPrintableString(rawText);
+                    }
+                    catch (Exception)
+                    {
+                        bytes = Encoding.GetEncoding(charset).GetBytes(rawText);
+                        skipDecode = true;
+                    }
 
-                    part.BinaryContent = Encoding.GetEncoding(charset).GetBytes(part.TextContent);
+                    if (IsAttachment(ref part))
+                    {
+                        part.BinaryContent = bytes;
+                    }
+                    else
+                    {
+                        encoding = DetectPartEncodingAndCharset(ref part, bytes);
 
-                    skip_decode = true;
-                }
-#endif
+                        part.TextContent = !skipDecode
+                            ? encoding.GetString(bytes, 0, bytes.Length).TrimEnd('=')
+                            : rawText;
+                    }
 
-                if (part.ContentDisposition != ContentDisposition.Attachment && !skip_decode)
-                    part.TextContent = Encoding.GetEncoding(charset).GetString(part.BinaryContent, 0, part.BinaryContent.Length);
+                    break;
+                default:
+                    bytes = Encoding.GetEncoding("iso-8859-1").GetBytes(rawText);
+
+                    if (IsAttachment(ref part))
+                        part.BinaryContent = bytes;
+                    else
+                    {
+                        encoding = DetectPartEncodingAndCharset(ref part, bytes);
+                        part.TextContent = encoding.GetString(bytes);
+                    }
+                    break;
             }
-            // This is a quoted-printable encoded part body.
-            else if (part.ContentTransferEncoding.Equals(ContentTransferEncoding.QuotedPrintable))
-            {
-                // Let's decode.
-                part.TextContent = Codec.FromQuotedPrintable(part.TextContent, charset);
-                // Knowing the charset, we can provide a binary version of this body data.
-                part.BinaryContent = Encoding.GetEncoding(charset).GetBytes(part.TextContent);
-            }
-            // Otherwise, this is an unencoded part body and we keep the text version as it is.
-            else
-            {
-                // Knowing the charset, we can provide a binary version of this body data.
-                part.BinaryContent = Encoding.GetEncoding("iso-8859-1").GetBytes(part.TextContent);
 
-                var charset_detector = new CharsetDetector();
-                charset_detector.Feed(part.BinaryContent, 0, part.BinaryContent.Length);
-                charset_detector.DataEnd();
-                charset = charset_detector.Charset ?? charset;
-
-                var encoding = Encoding.GetEncoding(charset);
-                part.TextContent = encoding.GetString(part.BinaryContent);
-            }
         }
 
         /// <summary>
@@ -493,14 +604,15 @@ namespace ActiveUp.Net.Mail
         {
             var sb = new StringBuilder();
             var separated = input.Split(' ');
-            var templine = string.Empty;
+            var templine = new StringBuilder();
             foreach (var t in separated)
             {
-                if (templine.Length + t.Length < 77) templine += t + " ";
+                if (templine.Length + t.Length < 77) 
+                    templine.AppendFormat("{0} ", t);
                 else
                 {
-                    sb.Append(templine + "\r\n ");
-                    templine = string.Empty;
+                    sb.Append(templine).Append("\r\n ");
+                    templine.Clear();
                 }
             }
             sb.Append(templine);
@@ -522,24 +634,14 @@ namespace ActiveUp.Net.Mail
         #region Mime part parsing
 
         /// <summary>
-        /// Delegate for body parsed event.
-        /// </summary>
-        /// <param name="sender">The sender object.</param>
-        /// <param name="message">The message object.</param>
-        public delegate void OnBodyParsedEvent(Object sender, Message message);
-
-        /// <summary>
-        /// Event handler for body parsed.
-        /// </summary>
-        public static event OnBodyParsedEvent BodyParsed;
-
-        /// <summary>
         /// Parses the MIME part.
         /// </summary>
         /// <param name="data">The data.</param>
+        /// <param name="length"></param>
         /// <param name="message">The message.</param>
+        /// <param name="start"></param>
         /// <returns></returns>
-        public static MimePart ParseMimePart(ref string data, Message message)
+        public static MimePart ParseMimePart(ref string data, int start, int length)
         {
             var part = new MimePart();
             //part.ParentMessage = message;
@@ -548,29 +650,23 @@ namespace ActiveUp.Net.Mail
             try
             {
                 // Separate header and body.
-                var headerEnd = _regxHeaderEnd.Match(data).Index + 1;
-                var bodyStart = _regxBodyStart.Match(data).Index; 
+                var mH = _regxHeaderEnd.Match(data, start, length);
 
-                //TODO: remove this workaround
-                if (bodyStart == 0)
-                {
-                    //bodyStart = data.IndexOf("\r\n\r\n");
-                    // Fix for a bug - the bodyStart was -1 (Invalid), MCALADO: 04/07/2008
-                    var indexBody = data.IndexOf("\r\n\r\n", StringComparison.Ordinal);
-                    if (indexBody > 0)
-                    {
-                        bodyStart = indexBody;
-                    }
-                }
+                if (!mH.Success)
+                    throw new ParsingException("MimePart header not found.");
 
-                if (data.Length >= headerEnd)
+                var headerEnd = mH.Index + 1;
+
+                var mB = _regxBodyStart.Match(data, start, length);
+
+                if (start + length >= headerEnd)
                 {
-                    var header = data.Substring(0, headerEnd);
+                    var header = data.Substring(start, headerEnd - start);
 
                     header = Unfold(header);
 
                     // Parse header fields and their parameters.
-                    var m = _regxHeaderFieldsParams.Match(header); 
+                    var m = _regxHeaderFieldsParams.Match(header);
                     while (m.Success)
                     {
                         if (m.Value.ToLower().StartsWith("content-type:"))
@@ -587,7 +683,8 @@ namespace ActiveUp.Net.Mail
 
                         var commaIndex = m.Value.IndexOf(':');
                         var name = FormatFieldName(m.Value.Substring(0, commaIndex));
-                        var value = Codec.RFC2047Decode(m.Value.Substring(commaIndex + 1).Trim(' ', '\r', '\n')).Trim('\n');
+                        var value =
+                            Codec.RFC2047Decode(m.Value.Substring(commaIndex + 1).Trim(' ', '\r', '\n')).Trim('\n');
 
                         part.HeaderFields.Add(name, value);
                         part.HeaderFieldNames.Add(name, value);
@@ -597,49 +694,31 @@ namespace ActiveUp.Net.Mail
 
                     var isMultipart = part.ContentType.Type.ToLower().Equals("multipart");
 
-                    // Store the (maybe still encoded) body.
-                    part.TextContent = isMultipart ? 
-                        string.Empty :
-                        (bodyStart < data.Length ? data.Substring(bodyStart) : string.Empty);
+                    if (!mB.Success)
+                        return part;
 
-                    // Build the part tree.
+                    var bodyStart = mB.Index;
 
                     // This is a container part.
                     if (isMultipart)
                     {
-                        ParseSubParts(ref part, ref data, message);
+                        ParseSubParts(ref part, ref data, bodyStart, start + length - bodyStart);
                     }
                     // This is a nested message.
                     else if (part.ContentType.Type.ToLower().Equals("message"))
                     {
                         // TODO
                     }
-                    // This is a leaf of the part tree
-                    // Check necessary for single part emails (fix from alex294 on CodePlex)
-                    // Why would we consider the body only to the first string?  Doesn't make sense - and fails
-                    //else if (part.ContentType.Type.ToLower().Equals("text"))
-                    //{
-                    //    int BodyEnd = body.IndexOf(' ');
-                    //    if (BodyEnd > 0)
-                    //    {
-                    //        part.TextContent = body.Substring(0, BodyEnd);
-                    //    }
-                    //}
 
-                    if (!isMultipart) 
-                        DecodePartBody(ref part);
+                    if (!isMultipart)
+                        DecodePartBody(ref part, ref data, bodyStart, start + length - bodyStart);
 
-                    try
-                    {
-                        if (BodyParsed != null)
-                            BodyParsed(null, message);
-                    }
-                    catch (Exception)
-                    {
-                        // event is not supported.
-                    }
                 }
 
+            }
+            catch (ParsingException)
+            {
+                throw;
             }
             catch (Exception ex)
             {
@@ -1008,6 +1087,7 @@ namespace ActiveUp.Net.Mail
         /// Parses a Message from a string formatted accordingly to the RFC822.
         /// </summary>
         /// <param name="msg">The string containing the message data to be parsed.</param>
+        /// <param name="loadOriginalMessage">Need load original eml in Message</param>
         /// <returns>The parsed message as a Message object.</returns>
         /// <example>
         /// <code>
@@ -1030,14 +1110,14 @@ namespace ActiveUp.Net.Mail
         /// var subject:string = message.Subject;
         /// </code>
         /// </example>
-        public static Message ParseMessage(ref string msg)
+        public static Message ParseMessage(ref string msg, bool loadOriginalMessage = false)
         {
             var message = new Message();
 
             try
             {
                 // Build a part tree and get all headers. 
-                var part = ParseMimePart(ref msg, message);
+                var part = ParseMimePart(ref msg, 0, msg.Length);
                 // Fill a new message object with the new information.
                 //message.OriginalData = data;
                 message.HeaderFields = part.HeaderFields;
@@ -1049,18 +1129,18 @@ namespace ActiveUp.Net.Mail
                     var name = key;
                     var value = message.HeaderFields[key];
                     // TODO : Fix trace
-                    if (name.Equals("received")) message.Trace.Add(ParseTrace(key + ": " + value));
+                    if (name.Equals("received")) message.Trace.Add(ParseTrace(string.Format("{0}:{1}", key, value)));
                     else if (name.Equals("to")) message.To = ParseAddresses(value);
                     else if (name.Equals("cc")) message.Cc = ParseAddresses(value);
                     else if (name.Equals("bcc")) message.Bcc = ParseAddresses(value);
                     else if (name.Equals("reply-to")) message.ReplyTo = ParseAddress(value);
                     else if (name.Equals("from")) message.From = ParseAddress(value);
                     else if (name.Equals("sender")) message.Sender = ParseAddress(value);
-                    else if (name.Equals("content-type")) message.ContentType = GetContentType(key + ": " + value);
+                    else if (name.Equals("content-type")) message.ContentType = GetContentType(string.Format("{0}:{1}", key, value));
                     else if (name.Equals("content-disposition"))
-                        message.ContentDisposition = GetContentDisposition(key + ": " + value);
+                        message.ContentDisposition = GetContentDisposition(string.Format("{0}:{1}", key, value));
                     else if (name.Equals("domainkey-signature"))
-                        message.Signatures.DomainKeys = Signature.Parse(key + ": " + value, message);
+                        message.Signatures.DomainKeys = Signature.Parse(string.Format("{0}:{1}", key, value), message);
                 }
 
                 if (message.ContentType.MimeType.Equals("application/pkcs7-mime")
@@ -1089,10 +1169,7 @@ namespace ActiveUp.Net.Mail
                     message.IsMultipartReport = true;
                 }
 
-                // Keep a reference to the part tree within the new Message object.
-                message.PartTreeRoot = part;
-                // Dispatch the part tree content to the appropriate collections and properties.
-                DispatchParts(ref message);
+                DispatchPart(part, ref message);
 
                 // Check message for text limit
                 const int message_limit = 500000; // 500kb
@@ -1105,7 +1182,7 @@ namespace ActiveUp.Net.Mail
 
                         message.AddAttachmentFromString("original_message.html",
                                                         string.Format(
-                                                            "<html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset={0}\"></head><body>{1}</body><html>",
+                                                            "<!DOCTYPE html><html><head><meta http-equiv=\"Content-Type\" content=\"text/html; charset={0}\" /></head><body>{1}</body><html>",
                                                             charset,
                                                             message.BodyHtml.Text),
                                                         Encoding.GetEncoding(charset));
@@ -1122,16 +1199,16 @@ namespace ActiveUp.Net.Mail
                     var charset = (!string.IsNullOrEmpty(message.BodyHtml.Charset) ? message.BodyHtml.Charset : "iso-8859-1");
 
                     message.AddAttachmentFromString("original_message.txt", message.BodyText.Text, Encoding.GetEncoding(charset));
-                    
+
                     // To long message's text body.
-                    var text_view = message.BodyText.Text.Substring(0, message_limit);
 
-                    text_view += "\r\n...\r\n[The received email shown incompletely. The complete text was saved into a separate file and attached to this email.]";
-
-                    message.BodyText.Text = text_view;
+                    message.BodyText.Text =
+                        string.Format(
+                            "{0}\r\n...\r\n[The received email shown incompletely. The complete text was saved into a separate file and attached to this email.]",
+                            message.BodyText.Text.Substring(0, message_limit));
                 }
 
-                message.OriginalData = Encoding.GetEncoding("iso-8859-1").GetBytes(msg);
+                message.OriginalData = loadOriginalMessage ? Encoding.GetEncoding("iso-8859-1").GetBytes(msg) : null;
             }
             catch (Exception ex)
             {
@@ -1294,7 +1371,7 @@ namespace ActiveUp.Net.Mail
                         address.Email = match.Value.TrimStart('<').TrimEnd('>');
                     }
 
-                    address.Name = input.Replace("<" + address.Email + ">", "");
+                    address.Name = input.Replace(string.Format("<{0}>", address.Email), "");
                     address.Email = Clean(RemoveWhiteSpaces(address.Email));
                     if (address.Name.IndexOf("\"", StringComparison.Ordinal) == -1) address.Name = Clean(address.Name);
                     address.Name = address.Name.Trim(new[] {' ', '\"'});
@@ -1393,7 +1470,7 @@ namespace ActiveUp.Net.Mail
 
                 if (input.IndexOf(",", StringComparison.Ordinal) != -1)
                 {
-                    input = input.Replace(input.Split(',')[0] + ", ", "");
+                    input = input.Replace(string.Format("{0}, ", input.Split(',')[0]), "");
                 }
 
                 DateTime date;

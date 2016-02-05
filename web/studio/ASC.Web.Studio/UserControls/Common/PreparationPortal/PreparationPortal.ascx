@@ -2,7 +2,7 @@
 
     <div id="wrapper">
         <div id="container">
-            <img src="~/TenantLogo.ashx?logotype=2&defifnoco=true" id="logo" alt="" title="" />
+            <img src="/TenantLogo.ashx?logotype=2&defifnoco=true" id="logo" alt="" title="" />
             <div id="content">
                 <p><%= HeaderPage %></p>
                 <div id="progressbar_container">

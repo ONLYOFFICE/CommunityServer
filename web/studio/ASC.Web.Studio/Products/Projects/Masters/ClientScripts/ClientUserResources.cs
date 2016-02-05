@@ -48,8 +48,11 @@ namespace ASC.Web.Projects.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterObject("EntryCountOnPage", Global.EntryCountOnPage);
-            yield return RegisterObject("VisiblePageCount", Global.VisiblePageCount);
+            var result = new List<KeyValuePair<string, object>>(5)
+                         {
+                             RegisterObject("EntryCountOnPage", Global.EntryCountOnPage),
+                             RegisterObject("VisiblePageCount", Global.VisiblePageCount)
+                         };
 
             var filter = new TaskFilter
                 {
@@ -58,7 +61,7 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                     ProjectStatuses = new List<ProjectStatus> {ProjectStatus.Open}
                 };
 
-            var projects = Global.EngineFactory.GetProjectEngine().GetByFilter(filter)
+            var projects = Global.EngineFactory.ProjectEngine.GetByFilter(filter)
                                  .Select(pr => new
                                      {
                                          id = pr.ID,
@@ -82,10 +85,10 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                                          status = pr.Status
                                      });
 
-            var tags = Global.EngineFactory.GetTagEngine().GetTags().Select(r => new {id = r.Key, title = r.Value.HtmlEncode()});
+            var tags = Global.EngineFactory.TagEngine.GetTags().Select(r => new {value = r.Key, title = r.Value.HtmlEncode()});
 
-            yield return RegisterObject("Projects", new {response = projects});
-            yield return RegisterObject("Tags", new {response = tags});
+            result.Add(RegisterObject("Projects", new {response = projects}));
+            result.Add(RegisterObject("Tags", new {response = tags}));
 
 
             if (context.Request.UrlReferrer != null && string.IsNullOrEmpty(HttpUtility.ParseQueryString(context.Request.GetUrlRewriter().Query)["prjID"]) && string.IsNullOrEmpty(HttpUtility.ParseQueryString(context.Request.UrlReferrer.Query)["prjID"]))
@@ -97,7 +100,7 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                         MilestoneStatuses = new List<MilestoneStatus> {MilestoneStatus.Open}
                     };
 
-                var milestones = Global.EngineFactory.GetMilestoneEngine().GetByFilter(filter)
+                var milestones = Global.EngineFactory.MilestoneEngine.GetByFilter(filter)
                                        .Select(m => new
                                            {
                                                id = m.ID,
@@ -106,8 +109,10 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                                                projectOwner = new {id = m.Project.ID}
                                            });
 
-                yield return RegisterObject("Milestones", new {response = milestones});
+                result.Add(RegisterObject("Milestones", new {response = milestones}));
             }
+
+            return result;
         }
 
         public static string SetDate(DateTime value, TimeZoneInfo timeZone)
@@ -135,10 +140,10 @@ namespace ASC.Web.Projects.Masters.ClientScripts
 
         protected override string GetCacheHash()
         {
-            var currentUserId = SecurityContext.CurrentAccount.ID;
+            var currentUserId = SecurityContext.CurrentAccount.ID.ToString();
             var userLastModified = CoreContext.UserManager.GetMaxUsersLastModified().Ticks.ToString(CultureInfo.InvariantCulture);
-            var projectMaxLastModified = Global.EngineFactory.GetProjectEngine().GetMaxLastModified().ToString(CultureInfo.InvariantCulture);
-            var milestoneMaxLastModified = Global.EngineFactory.GetMilestoneEngine().GetLastModified();
+            var projectMaxLastModified = Global.EngineFactory.ProjectEngine.GetMaxLastModified().ToString(CultureInfo.InvariantCulture);
+            var milestoneMaxLastModified = Global.EngineFactory.MilestoneEngine.GetLastModified();
             return string.Format("{0}|{1}|{2}|{3}", currentUserId, userLastModified, projectMaxLastModified, milestoneMaxLastModified);
         }
     }
@@ -172,7 +177,7 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                     ProjectIds = new List<int> {Convert.ToInt32(currentProject)}
                 };
 
-            var milestones = Global.EngineFactory.GetMilestoneEngine().GetByFilter(filter)
+            var milestones = Global.EngineFactory.MilestoneEngine.GetByFilter(filter)
                                    .Select(m => new
                                        {
                                            id = m.ID,
@@ -181,7 +186,7 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                                            projectOwner = new {id = m.Project.ID}
                                        });
 
-            var team = Global.EngineFactory.GetProjectEngine().GetTeam(Convert.ToInt32(currentProject))
+            var team = Global.EngineFactory.ProjectEngine.GetTeam(Convert.ToInt32(currentProject))
                              .Select(r => new
                                  {
                                      id = r.UserInfo.ID,
@@ -198,6 +203,7 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                                      isVisitor = r.UserInfo.IsVisitor(),
                                      isAdmin = r.UserInfo.IsAdmin(),
                                      isOwner = r.UserInfo.IsOwner(),
+                                     isManager = r.IsManager,
                                      canReadFiles = r.CanReadFiles,
                                      canReadMilestones = r.CanReadMilestones,
                                      canReadMessages = r.CanReadMessages,
@@ -208,8 +214,11 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                                      profileUrl = r.UserInfo.GetUserProfilePageURL()
                                  }).OrderBy(r => r.displayName).ToList();
 
-            yield return RegisterObject("Milestones", new {response = milestones});
-            yield return RegisterObject("Team", new {response = team});
+            return new List<KeyValuePair<string, object>>(2)
+                   {
+                       RegisterObject("Milestones", new {response = milestones}),
+                       RegisterObject("Team", new {response = team})
+                   };
         }
 
         protected override string GetCacheHash()
@@ -231,9 +240,9 @@ namespace ASC.Web.Projects.Masters.ClientScripts
             var teamMaxLastModified = DateTime.UtcNow;
             teamMaxLastModified = teamMaxLastModified.AddSeconds(-teamMaxLastModified.Second);
 
-            var milestoneMaxLastModified = Global.EngineFactory.GetMilestoneEngine().GetLastModified();
+            var milestoneMaxLastModified = Global.EngineFactory.MilestoneEngine.GetLastModified();
 
-            return string.Format("{0}|{1}|{2}|{3}", currentUserId, currentProject, teamMaxLastModified, milestoneMaxLastModified);
+            return string.Format("{0}|{1}|{2}|{3}", currentUserId.ToString(), currentProject, teamMaxLastModified, milestoneMaxLastModified);
         }
     }
 
@@ -246,12 +255,15 @@ namespace ASC.Web.Projects.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterObject("IsModuleAdmin", CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, EngineFactory.ProductId));
+            return new List<KeyValuePair<string, object>>
+                   {
+                       RegisterObject("IsModuleAdmin", CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, EngineFactory.ProductId))
+                   };
         }
 
         protected override string GetCacheHash()
         {
-            return SecurityContext.CurrentAccount.ID +
+            return SecurityContext.CurrentAccount.ID.ToString() +
                    CoreContext.UserManager.GetMaxUsersLastModified().Ticks.ToString(CultureInfo.InvariantCulture) +
                    CoreContext.UserManager.GetMaxGroupsLastModified().Ticks.ToString(CultureInfo.InvariantCulture);
         }

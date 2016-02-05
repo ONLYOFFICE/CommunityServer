@@ -366,7 +366,7 @@ namespace ActiveUp.Net.Mail
         /// <returns>An array of integers containing uids of messages matching the query.</returns>
         public int[] UidSearch(string query)
         {
-            var response = SourceClient.Command("UID SEARCH " + query);
+            var response = SourceClient.Command(string.Format("UID SEARCH {0}", query));
             var parts = new List<string>(response.Substring(0, response.IndexOf("\r\n", StringComparison.Ordinal)).Split(' '));
             parts.Remove("");
             var messageOrdinals = new int[parts.Count - 2];
@@ -538,7 +538,7 @@ namespace ActiveUp.Net.Mail
         /// </example>
         public string AddFlags(int messageOrdinal, IFlagCollection flags)
         {
-            return this.SourceClient.Command("store " + messageOrdinal.ToString() + " +flags " + ((FlagCollection)flags).Merged);
+            return this.SourceClient.Command(string.Format("store {0} +flags {1}", messageOrdinal.ToString(), ((FlagCollection)flags).Merged));
         }
 
         private delegate string DelegateAddFlags(int messageOrdinal, IFlagCollection flags);
@@ -557,7 +557,7 @@ namespace ActiveUp.Net.Mail
 
         public string UidAddFlags(int uid, IFlagCollection flags)
         {
-            return this.SourceClient.Command("uid store " + uid.ToString() + " +flags " + ((FlagCollection)flags).Merged);
+            return this.SourceClient.Command(string.Format("uid store {0} +flags {1}", uid.ToString(), ((FlagCollection)flags).Merged));
         }
 
         private delegate string DelegateUidAddFlags(int uid, IFlagCollection flags);
@@ -621,7 +621,7 @@ namespace ActiveUp.Net.Mail
         /// </example>
         public string RemoveFlags(int messageOrdinal, IFlagCollection flags)
         {
-            return this.SourceClient.Command("store " + messageOrdinal.ToString() + " -flags " + ((FlagCollection)flags).Merged);
+            return this.SourceClient.Command(string.Format("store {0} -flags {1}", messageOrdinal.ToString(), ((FlagCollection)flags).Merged));
         }
 
         private delegate string DelegateRemoveFlags(int messageOrdinal, IFlagCollection flags);
@@ -640,7 +640,7 @@ namespace ActiveUp.Net.Mail
 
         public string UidRemoveFlags(int uid, ActiveUp.Net.Mail.IFlagCollection flags)
         {
-            return this.SourceClient.Command("uid store " + uid.ToString() + " -flags " + ((FlagCollection)flags).Merged);
+            return this.SourceClient.Command(string.Format("uid store {0} -flags {1}", uid.ToString(), ((FlagCollection)flags).Merged));
         }
 
         private delegate string DelegateUidRemoveFlags(int uid, IFlagCollection flags);
@@ -706,7 +706,7 @@ namespace ActiveUp.Net.Mail
         /// </example>
         public string SetFlags(int messageOrdinal, IFlagCollection flags)
         {
-            return this.SourceClient.Command("store " + messageOrdinal.ToString() + " flags " + ((FlagCollection)flags).Merged);
+            return this.SourceClient.Command(string.Format("store {0} flags {1}", messageOrdinal.ToString(), ((FlagCollection)flags).Merged));
         }
 
         private delegate string DelegateSetFlags(int messageOrdinal, IFlagCollection flags);
@@ -725,7 +725,7 @@ namespace ActiveUp.Net.Mail
 
         public string UidSetFlags(int uid, ActiveUp.Net.Mail.IFlagCollection flags)
         {
-            return this.SourceClient.Command("uid store " + uid.ToString() + " flags " + ((FlagCollection)flags).Merged);
+            return this.SourceClient.Command(string.Format("uid store {0} flags ", uid.ToString(), ((FlagCollection)flags).Merged));
         }
 
         private delegate string DelegateUidSetFlags(int uid, IFlagCollection flags);
@@ -750,7 +750,7 @@ namespace ActiveUp.Net.Mail
         /// <example><see cref="Mailbox.AddFlags"/></example>
         public void AddFlagsSilent(int messageOrdinal, IFlagCollection flags)
         {
-            this.SourceClient.Command("store " + messageOrdinal.ToString() + " +flags.silent " + ((FlagCollection)flags).Merged);
+            this.SourceClient.Command(string.Format("store {0} +flags.silent {1}", messageOrdinal.ToString(), ((FlagCollection)flags).Merged));
         }
 
         private delegate void DelegateAddFlagsSilent(int messageOrdinal, IFlagCollection flags);
@@ -769,7 +769,7 @@ namespace ActiveUp.Net.Mail
 
         public void UidAddFlagsSilent(int uid, IFlagCollection flags)
         {
-            this.SourceClient.Command("uid store " + uid.ToString() + " +flags.silent " + ((FlagCollection)flags).Merged);
+            this.SourceClient.Command(string.Format("uid store {0} +flags.silent {1}", uid.ToString(), ((FlagCollection)flags).Merged));
         }
 
         private delegate void DelegateUidAddFlagsSilent(int uid, IFlagCollection flags);
@@ -794,7 +794,7 @@ namespace ActiveUp.Net.Mail
         /// <example><see cref="Mailbox.RemoveFlags"/></example>
         public void RemoveFlagsSilent(int messageOrdinal, ActiveUp.Net.Mail.IFlagCollection flags)
         {
-            this.SourceClient.Command("store " + messageOrdinal.ToString() + " -flags.silent " + ((FlagCollection)flags).Merged);
+            this.SourceClient.Command(string.Format("store {0} -flags.silent {1}", messageOrdinal.ToString(), ((FlagCollection)flags).Merged));
         }
 
         private delegate void DelegateRemoveFlagsSilent(int messageOrdinal, IFlagCollection flags);
@@ -813,7 +813,7 @@ namespace ActiveUp.Net.Mail
 
         public void UidRemoveFlagsSilent(int uid, ActiveUp.Net.Mail.IFlagCollection flags)
         {
-            this.SourceClient.Command("uid store " + uid.ToString() + " -flags.silent " + ((FlagCollection)flags).Merged);
+            this.SourceClient.Command(string.Format("uid store {0} -flags.silent {1}", uid.ToString(), ((FlagCollection)flags).Merged));
         }
 
         private delegate void DelegateUidRemoveFlagsSilent(int uid, IFlagCollection flags);
@@ -838,7 +838,7 @@ namespace ActiveUp.Net.Mail
         /// <example><see cref="Mailbox.SetFlags"/></example>
         public void SetFlagsSilent(int messageOrdinal, ActiveUp.Net.Mail.IFlagCollection flags)
         {
-            this.SourceClient.Command("store " + messageOrdinal.ToString() + " flags.silent " + ((FlagCollection)flags).Merged);
+            this.SourceClient.Command(string.Format("store {0} flags.silent {1}", messageOrdinal.ToString(), ((FlagCollection)flags).Merged));
         }
 
         private delegate void DelegateSetFlagsSilent(int messageOrdinal, IFlagCollection flags);
@@ -857,7 +857,7 @@ namespace ActiveUp.Net.Mail
 
         public void UidSetFlagsSilent(int uid, ActiveUp.Net.Mail.IFlagCollection flags)
         {
-            this.SourceClient.Command("uid store " + uid.ToString() + " flags.silent " + ((FlagCollection)flags).Merged);
+            this.SourceClient.Command(string.Format("uid store {0} flags.silent {1}", uid.ToString(), ((FlagCollection)flags).Merged));
         }
 
         private delegate void DelegateUidSetFlagsSilent(int uid, IFlagCollection flags);
@@ -1019,8 +1019,8 @@ namespace ActiveUp.Net.Mail
         /// <param name="flags">Flags to be set for the message.</param>
         public string Append(string messageLiteral, IFlagCollection flags)
         {
-            string firststamp = System.DateTime.Now.ToString("yyMMddhhmmss"+System.DateTime.Now.Millisecond.ToString());
-            this.SourceClient.Command("APPEND \"" + this.Name + "\" " + ((FlagCollection)flags).Merged + " {" + (messageLiteral.Length) + "}", firststamp);
+            string firststamp = System.DateTime.Now.ToString("yyMMddhhmmssfff");
+            this.SourceClient.Command(string.Format("APPEND \"{0}\" {1} {{{2}}}", this.Name, ((FlagCollection)flags).Merged, (messageLiteral.Length)), firststamp);
             return this.SourceClient.Command(messageLiteral,"",firststamp);
         }
 
@@ -1041,8 +1041,8 @@ namespace ActiveUp.Net.Mail
         /// <param name="dateTime">The internal date to be set for the message.</param>
         public string Append(string messageLiteral, IFlagCollection flags, DateTime dateTime)
         {
-            string firststamp = System.DateTime.Now.ToString("yyMMddhhmmss"+System.DateTime.Now.Millisecond.ToString());
-            this.SourceClient.Command("APPEND \"" + this.Name + "\" " + ((FlagCollection)flags).Merged + " " + dateTime.ToString("r") + " {" + (messageLiteral.Length) + "}", firststamp);
+            string firststamp = System.DateTime.Now.ToString("yyMMddhhmmssfff");
+            this.SourceClient.Command(string.Format("APPEND \"{0}\" {1} {2} {{{3}}}", this.Name, ((FlagCollection)flags).Merged, dateTime.ToString("r"), (messageLiteral.Length)), firststamp);
             return this.SourceClient.Command(messageLiteral,"",firststamp);
         }
 

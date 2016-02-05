@@ -585,6 +585,11 @@ namespace AjaxPro
                 return HttpRuntime.Cache.Get(type.FullName).ToString();
 
             var path = type.FullName + "," + type.Assembly.FullName.Split(',')[0];
+            if (type.Assembly.GetName().Name.StartsWith("App_Web"))
+            {
+                var baseType = type.BaseType;
+                path = baseType.FullName + "," + baseType.Assembly.FullName.Split(',')[0];
+            }
             if (Settings.UseAssemblyQualifiedName) path = type.AssemblyQualifiedName;
 
             if (Settings != null && Settings.UrlNamespaceMappings.ContainsValue(path))

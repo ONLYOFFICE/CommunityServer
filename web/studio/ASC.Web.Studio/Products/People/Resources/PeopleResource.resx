@@ -117,38 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChangePwd" xml:space="preserve">
-    <value>Change Password</value>
-  </data>
   <data name="DeleteButton" xml:space="preserve">
     <value>Delete</value>
   </data>
   <data name="DisableUserButton" xml:space="preserve">
     <value>Disable</value>
   </data>
-  <data name="DisableUserHelp" xml:space="preserve">
-    <value>The {!user} will not be displayed in the list of active {!users}</value>
-  </data>
-  <data name="EditButton" xml:space="preserve">
-    <value>Edit</value>
-  </data>
   <data name="EnableUserButton" xml:space="preserve">
     <value>Enable</value>
-  </data>
-  <data name="EnableUserHelp" xml:space="preserve">
-    <value>The {!user} will be displayed as active again</value>
-  </data>
-  <data name="LblBirthdate" xml:space="preserve">
-    <value>Birthdate</value>
-  </data>
-  <data name="LblByGroup" xml:space="preserve">
-    <value>By group</value>
-  </data>
-  <data name="LblByName" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="LblByType" xml:space="preserve">
-    <value>By type</value>
   </data>
   <data name="LblCancelButton" xml:space="preserve">
     <value>Cancel</value>
@@ -159,161 +135,29 @@
   <data name="LblChangePassword" xml:space="preserve">
     <value>Change password</value>
   </data>
-  <data name="LblChangeSelfPwd" xml:space="preserve">
-    <value>Change My Password</value>
-  </data>
-  <data name="LblCloseButton" xml:space="preserve">
-    <value>Close</value>
-  </data>
-  <data name="LblComment" xml:space="preserve">
-    <value>Comment</value>
-  </data>
-  <data name="LblContactInformation" xml:space="preserve">
-    <value>Contact Information</value>
-  </data>
-  <data name="LblCopyToClipboard" xml:space="preserve">
-    <value>Copy to clipboard</value>
-  </data>
   <data name="LblCreateNew" xml:space="preserve">
     <value>Create New</value>
-  </data>
-  <data name="LblCustomization" xml:space="preserve">
-    <value>Customization</value>
-  </data>
-  <data name="LblDeleteProfileInfo" xml:space="preserve">
-    <value>Send the profile delete instructions to the email</value>
-  </data>
-  <data name="LblDeleteProfileTitle" xml:space="preserve">
-    <value>Delete profile dialog</value>
   </data>
   <data name="LblDeleteProfile" xml:space="preserve">
     <value>Delete profile</value>
   </data>
-  <data name="LblDisabledEmployeeTitle" xml:space="preserve">
-    <value>Disabled</value>
-  </data>
   <data name="LblEdit" xml:space="preserve">
     <value>Edit</value>
-  </data>
-  <data name="LblEditSelfProfile" xml:space="preserve">
-    <value>Edit My Profile</value>
   </data>
   <data name="LblSendActivation" xml:space="preserve">
     <value>Send activation again</value>
   </data>
-  <data name="LblEmailActivationDescription" xml:space="preserve">
-    <value>The activation instructions will be sent to the entered email</value>
-  </data>
-  <data name="LblEmailActivationTitle" xml:space="preserve">
-    <value>Email activation</value>
-  </data>
-  <data name="LblEmailChangeDescription" xml:space="preserve">
-    <value>The activation instructions will be sent to the entered email</value>
-  </data>
-  <data name="LblEmailChangeTitle" xml:space="preserve">
-    <value>Email change</value>
-  </data>
-  <data name="LblEnterEmail" xml:space="preserve">
-    <value>Enter a new email address</value>
-  </data>
-  <data name="LblFemaleSexStatus" xml:space="preserve">
-    <value>Female</value>
-  </data>
   <data name="LblImportAccounts" xml:space="preserve">
     <value>Import accounts</value>
   </data>
-  <data name="LblLocation" xml:space="preserve">
-    <value>Location</value>
-  </data>
-  <data name="LblLoginSocialNetworks" xml:space="preserve">
-    <value>Login via Social Networks</value>
-  </data>
-  <data name="LblMaleSexStatus" xml:space="preserve">
-    <value>Male</value>
-  </data>
-  <data name="LblMessageReSendInviteInstructionsOnEmail" xml:space="preserve">
-    <value>Send the email invite instructions to the {0} email address</value>
-  </data>
-  <data name="LblMessageSendEmailActivationInstructionsOnEmail" xml:space="preserve">
-    <value>Send the email activation instructions to the {0} email address</value>
-  </data>
-  <data name="LblMessageSendEmailChangeInstructionsOnEmail" xml:space="preserve">
-    <value>Send the email change instructions to the {0} email address</value>
-  </data>
-  <data name="LblMobilePhone" xml:space="preserve">
-    <value>Primary Mobile Phone</value>
-  </data>
-  <data name="LblMobilePhoneChange" xml:space="preserve">
-    <value>Change phone number</value>
-  </data>
-  <data name="LblMobilePhoneChangeDescription" xml:space="preserve">
-    <value>The instruction to change your mobile number will be sent to your email address</value>
-  </data>
-  <data name="LblMobilePhoneChangeSent" xml:space="preserve">
-    <value>Sent</value>
-  </data>
-  <data name="LblMobilePhoneChangeTitle" xml:space="preserve">
-    <value>Change mobile phone</value>
-  </data>
-  <data name="LblMobilePhoneErase" xml:space="preserve">
-    <value>Erase user phone</value>
-  </data>
-  <data name="LblMobilePhoneEraseDescription" xml:space="preserve">
-    <value>The user phone will be erased and the instruction to change user mobile number will be sent to email address</value>
-  </data>
-  <data name="LblOffline" xml:space="preserve">
-    <value>Offline</value>
-  </data>
-  <data name="LblOnline" xml:space="preserve">
-    <value>Online</value>
-  </data>
-  <data name="LblPassword" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="LblPending" xml:space="preserve">
-    <value>Pending</value>
-  </data>
-  <data name="LblPendingTitle" xml:space="preserve">
-    <value>Pending</value>
-  </data>
-  <data name="LblPleaseWaitMessage" xml:space="preserve">
-    <value>Please wait...</value>
-  </data>
-  <data name="LblProfile" xml:space="preserve">
-    <value>Profile</value>
-  </data>
-  <data name="LblRecentActivity" xml:space="preserve">
-    <value>Recent Activity</value>
-  </data>
-  <data name="LblResendInviteDescription" xml:space="preserve">
-    <value>The invite will be sent to the entered email</value>
-  </data>
   <data name="LblResendInvites" xml:space="preserve">
     <value>Resend invites</value>
-  </data>
-  <data name="LblResendInviteTitle" xml:space="preserve">
-    <value>Resend invite</value>
-  </data>
-  <data name="LblOther" xml:space="preserve">
-    <value>Other</value>
-  </data>
-  <data name="LblSendButton" xml:space="preserve">
-    <value>Send</value>
   </data>
   <data name="LblSendEmail" xml:space="preserve">
     <value>Send email</value>
   </data>
   <data name="LblSendMessage" xml:space="preserve">
     <value>Send message</value>
-  </data>
-  <data name="LblSex" xml:space="preserve">
-    <value>Sex</value>
-  </data>
-  <data name="LblSocialProfiles" xml:space="preserve">
-    <value>Social Profiles</value>
-  </data>
-  <data name="LblStatus" xml:space="preserve">
-    <value>Status</value>
   </data>
   <data name="LblSubscriptions" xml:space="preserve">
     <value>Subscriptions</value>
@@ -326,15 +170,6 @@
   </data>
   <data name="ProductName" xml:space="preserve">
     <value>People</value>
-  </data>
-  <data name="SuccessfullyDeleteUserInfoMessage" xml:space="preserve">
-    <value>User has been successfully deleted</value>
-  </data>
-  <data name="SuccessfullySentNotificationDeleteUserInfoMessage" xml:space="preserve">
-    <value>Instructions to delete your profile has been sent to email address</value>
-  </data>
-  <data name="TitleThumbnailPhoto" xml:space="preserve">
-    <value>Change Thumbnails</value>
   </data>
   <data name="NotFoundDescription" xml:space="preserve">
     <value>No people matching your filter can be displayed in this section. Please select other filter options or clear filter to view all the people in this section.</value>
@@ -372,38 +207,8 @@
   <data name="LblActive" xml:space="preserve">
     <value>Active</value>
   </data>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="FirstName" xml:space="preserve">
-    <value>First Name</value>
-  </data>
-  <data name="EditProfile" xml:space="preserve">
-    <value>Edit Profile</value>
-  </data>
-  <data name="Female" xml:space="preserve">
-    <value>Female</value>
-  </data>
-  <data name="Male" xml:space="preserve">
-    <value>Male</value>
-  </data>
-  <data name="SocialProfiles" xml:space="preserve">
-    <value>Social Profiles</value>
-  </data>
-  <data name="AddImage" xml:space="preserve">
-    <value>Add Image</value>
-  </data>
-  <data name="CreateNewProfile" xml:space="preserve">
-    <value>Create New User</value>
-  </data>
-  <data name="EditImage" xml:space="preserve">
-    <value>Edit Image</value>
-  </data>
   <data name="AddButton" xml:space="preserve">
     <value>Add</value>
-  </data>
-  <data name="SaveButton" xml:space="preserve">
-    <value>Save</value>
   </data>
   <data name="ChangeStatus" xml:space="preserve">
     <value>Change status</value>
@@ -416,9 +221,6 @@
   </data>
   <data name="SelectAll" xml:space="preserve">
     <value>Select all</value>
-  </data>
-  <data name="SelectedCount" xml:space="preserve">
-    <value>{0} selected</value>
   </data>
   <data name="ChangeStatusDialogConstraint" xml:space="preserve">
     <value>Upgrade your plan and repeat the operation or other users status will not be changed.</value>
@@ -464,9 +266,6 @@
   </data>
   <data name="ShowSelectedUserList" xml:space="preserve">
     <value>View the selected users list</value>
-  </data>
-  <data name="TariffActiveUserLimit" xml:space="preserve">
-    <value>Your current pricing plan allows you to add {0}{1} active users{2}.</value>
   </data>
   <data name="OnTop" xml:space="preserve">
     <value>On top</value>

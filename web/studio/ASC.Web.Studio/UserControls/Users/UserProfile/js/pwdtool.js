@@ -60,23 +60,23 @@ var PasswordTool = new function () {
     };
 
     this.RemindPwd = function () {
-        AjaxPro.onLoading = function (b) {
-            if (b) {
-                LoadingBanner.showLoaderBtn("#studio_pwdReminderDialog");
-            } else {
-                LoadingBanner.hideLoaderBtn("#studio_pwdReminderDialog");
-            }
-        };
+        Teamlab.remindPwd({}, jq("#studio_emailPwdReminder").val().trim(),
+            {
+                before: function (params) {
+                    LoadingBanner.showLoaderBtn("#studio_pwdReminderDialog");
+                },
+                after: function (params) {
+                    LoadingBanner.hideLoaderBtn("#studio_pwdReminderDialog");
+                },
+                success: function(params, response) {
+                    jq.unblockUI();
+                    toastr.success(response);
+                },
+                error: function (params, errors) {
+                    toastr.error(errors[0]);
+                }
+            });
 
-        PwdTool.RemindPwd(jq("#studio_emailPwdReminder").val().trim(), function (result) {
-            var res = result.value;
-            if (res.rs1 == "1") {
-                jq.unblockUI();
-                toastr.success(res.rs2);
-            } else {
-                toastr.error(res.rs2);
-            }
-        });
         PopupKeyUpActionProvider.ClearActions();
     };
 };

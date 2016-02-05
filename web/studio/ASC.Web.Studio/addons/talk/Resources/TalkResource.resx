@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="BtnAccept" xml:space="preserve">
     <value>Accept</value>
@@ -165,9 +165,6 @@
   <data name="FullDateFormat" xml:space="preserve">
     <value>%H:%M:%S %d %b %y</value>
   </data>
-  <data name="HintChangeState" xml:space="preserve">
-    <value>Change status</value>
-  </data>
   <data name="HintClientConnecting" xml:space="preserve">
     <value>Connecting...</value>
   </data>
@@ -186,17 +183,8 @@
   <data name="HintCtrlEnterSender" xml:space="preserve">
     <value>Use Ctrl+Enter to send messages, Enter to start a new paragraph </value>
   </data>
-  <data name="HintDisableSounds" xml:space="preserve">
-    <value>Disable sounds</value>
-  </data>
   <data name="HintEmotions" xml:space="preserve">
     <value>Smileys</value>
-  </data>
-  <data name="HintEnableSounds" xml:space="preserve">
-    <value>Enable sounds</value>
-  </data>
-  <data name="HintEnterSender" xml:space="preserve">
-    <value>Use Enter to send messages, Ctrl+Enter to start new paragraph</value>
   </data>
   <data name="HintFilter" xml:space="preserve">
     <value>Enable/Disable filter</value>
@@ -206,12 +194,6 @@
   </data>
   <data name="HintGroups" xml:space="preserve">
     <value>Show/Hide groups</value>
-  </data>
-  <data name="HintHideGroups" xml:space="preserve">
-    <value>Hide groups</value>
-  </data>
-  <data name="HintHideOfflineContacts" xml:space="preserve">
-    <value>Hide OFFLINE contacts</value>
   </data>
   <data name="HintHistory" xml:space="preserve">
     <value>Message history</value>
@@ -240,9 +222,6 @@
   <data name="HintSelectContact" xml:space="preserve">
     <value>Select a person from the contact list to start a talk </value>
   </data>
-  <data name="HintSendAddition" xml:space="preserve">
-    <value>Advanced</value>
-  </data>
   <data name="HintSendFile" xml:space="preserve">
     <value>Send File</value>
   </data>
@@ -252,23 +231,14 @@
   <data name="HintSendMessage" xml:space="preserve">
     <value>Send message</value>
   </data>
-  <data name="HintShowGroups" xml:space="preserve">
-    <value>Show groups</value>
-  </data>
   <data name="HintShowLeftTab" xml:space="preserve">
     <value>Show tab on the left</value>
-  </data>
-  <data name="HintShowOfflineContacts" xml:space="preserve">
-    <value>Show OFFLINE contacts</value>
   </data>
   <data name="HintShowRightTab" xml:space="preserve">
     <value>Show tab on the right</value>
   </data>
   <data name="HintSounds" xml:space="preserve">
     <value>Enable/Disable sounds</value>
-  </data>
-  <data name="HintToggleSender" xml:space="preserve">
-    <value>Switch Enter mode</value>
   </data>
   <data name="HintUnreadMessages" xml:space="preserve">
     <value>read</value>
@@ -291,9 +261,6 @@
   <data name="LabelConferenceSplash" xml:space="preserve">
     <value>Drag a contact here to add a recipient</value>
   </data>
-  <data name="LabelConnectionBlock" xml:space="preserve">
-    <value>Current status:</value>
-  </data>
   <data name="LabelCurrentStatus" xml:space="preserve">
     <value>Current Status</value>
   </data>
@@ -302,9 +269,6 @@
   </data>
   <data name="LabelFirstSplash" xml:space="preserve">
     <value>first choose user{0}from list to start chat</value>
-  </data>
-  <data name="LabelFrom" xml:space="preserve">
-    <value>From</value>
   </data>
   <data name="LabelKickOccupant" xml:space="preserve">
     <value>Do you really want to remove this user from chat?</value>
@@ -315,9 +279,6 @@
   <data name="LabelNewMessage" xml:space="preserve">
     <value>New message</value>
   </data>
-  <data name="LabelReason" xml:space="preserve">
-    <value>Reason</value>
-  </data>
   <data name="LabelRecvInvite" xml:space="preserve">
     <value>has invited you</value>
   </data>
@@ -327,17 +288,8 @@
   <data name="LabelSend" xml:space="preserve">
     <value>Send</value>
   </data>
-  <data name="LabelSendToCurrent" xml:space="preserve">
-    <value>Current</value>
-  </data>
-  <data name="LabelSendToSelection" xml:space="preserve">
-    <value>Select</value>
-  </data>
   <data name="LabelStatus" xml:space="preserve">
     <value>Status</value>
-  </data>
-  <data name="LabelTemporaryMailing" xml:space="preserve">
-    <value>Temporary mailing</value>
   </data>
   <data name="LabelTemporaryRoom" xml:space="preserve">
     <value>Temporary room (will be deleted when all users leave it)</value>
@@ -345,20 +297,11 @@
   <data name="LabelTopic" xml:space="preserve">
     <value>Topic</value>
   </data>
-  <data name="LabelUnreadMessages" xml:space="preserve">
-    <value>Not read</value>
-  </data>
   <data name="LabelValidSymbols" xml:space="preserve">
     <value>Valid symbols</value>
   </data>
-  <data name="LastSelectedGroupTitle" xml:space="preserve">
-    <value>Last selected</value>
-  </data>
   <data name="MailingsGroupName" xml:space="preserve">
     <value>Mailings</value>
-  </data>
-  <data name="NoneGroupTitle" xml:space="preserve">
-    <value>No group</value>
   </data>
   <data name="ProductName" xml:space="preserve">
     <value>Talk</value>
@@ -375,12 +318,6 @@
   <data name="StatusAway" xml:space="preserve">
     <value>Away</value>
   </data>
-  <data name="StatusBusy" xml:space="preserve">
-    <value>Busy</value>
-  </data>
-  <data name="StatusFree" xml:space="preserve">
-    <value>Free to talk</value>
-  </data>
   <data name="StatusNA" xml:space="preserve">
     <value>Not available</value>
   </data>
@@ -389,9 +326,6 @@
   </data>
   <data name="StatusOnline" xml:space="preserve">
     <value>Available</value>
-  </data>
-  <data name="TabsGroupTitle" xml:space="preserve">
-    <value>Open tabs</value>
   </data>
   <data name="TalkDescription" xml:space="preserve">
     <value>Chat with colleagues in real time. Get contact list automatically updated. Receive "what’s new" notifications.</value>

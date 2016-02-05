@@ -50,7 +50,7 @@ namespace ASC.Web.UserControls.Forum
             errorMessage = "";
             var settingsID = new Guid(additionalParams.Split(',')[0]);
             int idQuestion = Convert.ToInt32(additionalParams.Split(',')[1]);
-            var _forumManager = ForumManager.GetForumManager(settingsID);
+            var _forumManager = Community.Forum.ForumManager.Settings.ForumManager;
                     
 
             var variantIDs = new List<int>(0);
@@ -101,8 +101,8 @@ namespace ASC.Web.UserControls.Forum
         private ForumManager _forumManager;
 
         protected void Page_Load(object sender, EventArgs e)
-        {            
-            _settings = ForumManager.GetSettings(SettingsID);
+        {
+            _settings = Community.Forum.ForumManager.Settings;
             _forumManager = _settings.ForumManager;
             PostPageSize = string.IsNullOrEmpty(Request["size"]) ? 20 : Convert.ToInt32(Request["size"]);
 

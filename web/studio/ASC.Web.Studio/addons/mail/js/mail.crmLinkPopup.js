@@ -24,124 +24,16 @@
 */
 
 
-window.CrmLinkPopup = (function($) {
-    // CONSTANTS
+window.crmLinkPopup = (function($) {
     var contactType = 1;
-    var caseType = 2;
-    var opportunityType = 3;
-
-    //variables
-    var selectedContactIds = [];
-    var newAddedContactIds = [];
-    var onDeleteContactIds = [];
-    var linkedCount = 0;
-    var addedRows = 0;
-    var exportMessageId = -1;
-
-    function init() {
-        serviceManager.bind(window.Teamlab.events.getLinkedCrmEntitiesInfo, onGetLinkedCrmEntitiesInfo);
-        serviceManager.bind(window.Teamlab.events.exportMessageToCrm, onExportMessageToCrm);
-        serviceManager.bind(window.Teamlab.events.linkChainToCrm, onLinkChainToCrm);
-        serviceManager.bind(window.Teamlab.events.unmarkChainAsCrmLinked, onUnmarkChainAsCrmLinked);
-    }
-
-    function getCrmLinkControl(hasLinked) {
-        var html = $.tmpl('crmLinkPopupTmpl');
-
-        selectedContactIds = [];
-        newAddedContactIds = [];
-        onDeleteContactIds = [];
+        caseType = 2,
+        opportunityType = 3,
+        selectedContactIds = [],
+        needAddContactIds = [],
+        needDeleteContactIds = [],
+        linkedCount = 0,
+        addedRows = 0,
         exportMessageId = -1;
-
-        addAutocomplete(html, false);
-
-        serviceManager.getLinkedCrmEntitiesInfo(getMessageId());
-
-        html.find('.buttons .link_btn').unbind('click').bind('click', function() {
-            var messageId;
-            if (newAddedContactIds.length > 0) {
-                window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.buttonClick, "link_chain_with_crm");
-                messageId = getMessageId();
-                serviceManager.linkChainToCrm(messageId, newAddedContactIds, {}, ASC.Resources.Master.Resource.LoadingProcessing);
-
-                selectedContactIds = [];
-                newAddedContactIds = [];
-                $('.header-crm-link').show();
-                messagePage.setHasLinked(true);
-                window.LoadingBanner.displayLoading(true, true);
-            }
-            if (onDeleteContactIds.length > 0) {
-                messageId = getMessageId();
-                serviceManager.unmarkChainAsCrmLinked(messageId, onDeleteContactIds, {}, ASC.Resources.Master.Resource.LoadingProcessing);
-                if (newAddedContactIds.length == 0 && selectedContactIds.length == onDeleteContactIds.length) {
-                    $('.header-crm-link').hide();
-                    messagePage.setHasLinked(false);
-                }
-                onDeleteContactIds = [];
-                window.LoadingBanner.displayLoading(true, true);
-            }
-
-            popup.hide();
-            return false;
-        });
-
-        html.find('.buttons .link_btn').prop('disabled', true).addClass('disable');
-        html.find('.buttons .unlink_all').prop('disabled', true).addClass('disable');
-
-        html.find('.buttons .unlink_all').unbind('click').bind('click', function() {
-            var htmlTmpl = $.tmpl('crmUnlinkAllPopupTmpl');
-            htmlTmpl.find('.buttons .unlink').bind('click', function() {
-                if (selectedContactIds.length > 0) {
-                    window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.buttonClick, "unlink_chain_with_crm");
-
-                    var messageId = getMessageId();
-                    serviceManager.unmarkChainAsCrmLinked(messageId, selectedContactIds, {}, ASC.Resources.Master.Resource.LoadingProcessing);
-                    $('.header-crm-link').hide();
-                    messagePage.setHasLinked(false);
-                }
-                popup.hide();
-                return false;
-            });
-
-            popup.addBig(window.MailScriptResource.UnlinkFromCRMPopupHeader, htmlTmpl);
-            popup.hide();
-        });
-
-        if (hasLinked == undefined || hasLinked == false) {
-            hideLoader(html);
-        }
-
-        $('.crm_popup .linked_table_parent').hide().find('.linked_contacts_table .linked_entity_row').remove();
-
-        return html;
-    }
-
-    function getCrmExportControl(messageId) {
-        var html = $.tmpl('crmExportPopupTmpl');
-        //Export popup initialization
-        selectedContactIds = [];
-        newAddedContactIds = [];
-        onDeleteContactIds = [];
-
-        if (messageId != undefined) {
-            exportMessageId = messageId;
-        }
-
-        addAutocomplete(html, true);
-
-        html.find('.buttons .link_btn').unbind('click').bind('click', function() {
-            window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.buttonClick, "export_mail_to_crm");
-            serviceManager.exportMessageToCrm(getMessageId(), newAddedContactIds, {}, ASC.Resources.Master.Resource.LoadingProcessing);
-            newAddedContactIds = [];
-            exportMessageId = -1;
-            window.LoadingBanner.displayLoading(true, true);
-            popup.hide();
-            return false;
-        });
-
-        html.find('.buttons .link_btn').prop('disabled', true).addClass('disable');
-        return html;
-    }
 
     function getMessageId() {
         var messageId = mailBox.currentMessageId;
@@ -216,7 +108,7 @@ window.CrmLinkPopup = (function($) {
                 linkedTableRow.find('.unlink_entity').unbind('click').bind('click', function() {
                     var data = exportAndLinkUnlinkWorkflow($(this));
                     if (data.delete_from_new_status == false || data.delete_from_new_status == undefined) {
-                        onDeleteContactIds.push(data.data);
+                        needDeleteContactIds.push(data.data);
                     }
                 });
             }
@@ -255,10 +147,10 @@ window.CrmLinkPopup = (function($) {
     }
 
     function deleteElementFromNewAdded(data) {
-        var index = findEntityIn(newAddedContactIds, data);
+        var index = findEntityIn(needAddContactIds, data);
         var status = false;
         if (index > -1) {
-            newAddedContactIds.splice(index, 1);
+            needAddContactIds.splice(index, 1);
             status = true;
         }
 
@@ -364,8 +256,6 @@ window.CrmLinkPopup = (function($) {
         return $('.crm_popup #entity-type').val();
     }
 
-    ;
-
     function getAlreadyLinkedContacts() {
         var ids = {};
         $('.crm_popup .linked_entity_row').each(function(i, val) {
@@ -444,7 +334,7 @@ window.CrmLinkPopup = (function($) {
             appendTo: html.find(input).parent(),
             select: function(event, ui) {
                 addLinkedTableRow(ui.item, isExport);
-                newAddedContactIds.push({ "Id": ui.item.entity_id, "Type": getSelectedEntityType() });
+                needAddContactIds.push({ "Id": ui.item.entity_id, "Type": getSelectedEntityType() });
                 $(input).val('');
                 return false;
             },
@@ -505,9 +395,138 @@ window.CrmLinkPopup = (function($) {
         window.toastr.success(window.MailScriptResource.ExportMessageText);
     }
 
+    function showCrmLinkConversationPopup(hasLinked) {
+        var html = $.tmpl('crmLinkPopupTmpl');
+
+        selectedContactIds = [];
+        needAddContactIds = [];
+        needDeleteContactIds = [];
+        exportMessageId = -1;
+
+        addAutocomplete(html, false);
+
+        serviceManager.getLinkedCrmEntitiesInfo(getMessageId(), {}, {
+            success: onGetLinkedCrmEntitiesInfo,
+            error: function(params, error) {
+                window.LoadingBanner.hideLoading();
+            }
+        });
+
+        html.find('.buttons .link_btn').unbind('click').bind('click', function() {
+            var messageId;
+            if (needAddContactIds.length > 0) {
+                window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.buttonClick, "link_chain_with_crm");
+                messageId = getMessageId();
+
+                serviceManager.linkChainToCrm(messageId, needAddContactIds, {},
+                {
+                    success: onLinkChainToCrm,
+                    error: function(params, error) {
+                        window.LoadingBanner.hideLoading();
+                        window.toastr.error(window.MailScriptResource.LinkFailurePopupText);
+                    }
+                }, ASC.Resources.Master.Resource.LoadingProcessing);
+
+                selectedContactIds = [];
+                needAddContactIds = [];
+                $('.header-crm-link').show();
+                messagePage.setHasLinked(true);
+                window.LoadingBanner.displayLoading(true, true);
+            }
+            if (needDeleteContactIds.length > 0) {
+                messageId = getMessageId();
+
+                serviceManager.unmarkChainAsCrmLinked(messageId, needDeleteContactIds, {},
+                {
+                    success: onUnmarkChainAsCrmLinked,
+                    error: function(params, error) {
+                        window.LoadingBanner.hideLoading();
+                    }
+                }, ASC.Resources.Master.Resource.LoadingProcessing);
+
+                if (needAddContactIds.length == 0 && selectedContactIds.length == needDeleteContactIds.length) {
+                    $('.header-crm-link').hide();
+                    messagePage.setHasLinked(false);
+                }
+                needDeleteContactIds = [];
+                window.LoadingBanner.displayLoading(true, true);
+            }
+
+            popup.hide();
+            return false;
+        });
+
+        html.find('.buttons .link_btn').prop('disabled', true).addClass('disable');
+        html.find('.buttons .unlink_all').prop('disabled', true).addClass('disable');
+
+        html.find('.buttons .unlink_all').unbind('click').bind('click', function() {
+            var htmlTmpl = $.tmpl('crmUnlinkAllPopupTmpl');
+            htmlTmpl.find('.buttons .unlink').bind('click', function() {
+                if (selectedContactIds.length > 0) {
+                    window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.buttonClick, "unlink_chain_with_crm");
+
+                    var messageId = getMessageId();
+                    serviceManager.unmarkChainAsCrmLinked(messageId, selectedContactIds, {}, ASC.Resources.Master.Resource.LoadingProcessing);
+                    $('.header-crm-link').hide();
+                    messagePage.setHasLinked(false);
+                }
+                popup.hide();
+                return false;
+            });
+
+            popup.addBig(window.MailScriptResource.UnlinkFromCRMPopupHeader, htmlTmpl);
+            popup.hide();
+        });
+
+        if (hasLinked == undefined || hasLinked == false) {
+            hideLoader(html);
+        }
+
+        $('.crm_popup .linked_table_parent').hide().find('.linked_contacts_table .linked_entity_row').remove();
+
+        window.popup.init();
+        window.popup.addBig(window.MailScriptResource.LinkConversationPopupHeader, html);
+    }
+
+    function showCrmExportMessagePopup(messageId) {
+        var html = $.tmpl('crmExportPopupTmpl');
+        //Export popup initialization
+        selectedContactIds = [];
+        needAddContactIds = [];
+        needDeleteContactIds = [];
+
+        if (messageId != undefined) {
+            exportMessageId = messageId;
+        }
+
+        addAutocomplete(html, true);
+
+        html.find('.buttons .link_btn').unbind('click').bind('click', function () {
+            window.ASC.Mail.ga_track(ga_Categories.message, ga_Actions.buttonClick, "export_mail_to_crm");
+            serviceManager.exportMessageToCrm(getMessageId(), needAddContactIds, {},
+            {
+                success: onExportMessageToCrm,
+                error: function () {
+                    window.LoadingBanner.hideLoading();
+                    window.toastr.error(window.MailScriptResource.ExportFailurePopupText);
+                }
+            }, ASC.Resources.Master.Resource.LoadingProcessing);
+            needAddContactIds = [];
+            exportMessageId = -1;
+            window.LoadingBanner.displayLoading(true, true);
+            popup.hide();
+            return false;
+        });
+
+        html.find('.buttons .link_btn').prop('disabled', true).addClass('disable');
+
+        window.popup.init();
+        window.popup.addBig(window.MailScriptResource.ExportConversationPopupHeader, html);
+    }
+
     return {
-        init: init,
-        getCrmLinkControl: getCrmLinkControl,
-        getCrmExportControl: getCrmExportControl
+        showCrmLinkConversationPopup: showCrmLinkConversationPopup,
+        showCrmExportMessagePopup: showCrmExportMessagePopup
+
     };
 })(jQuery)

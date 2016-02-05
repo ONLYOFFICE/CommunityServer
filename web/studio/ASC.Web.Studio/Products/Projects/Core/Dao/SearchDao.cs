@@ -25,13 +25,13 @@
 
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 using ASC.Common.Data.Sql.Expressions;
 using ASC.FullTextIndex;
 using ASC.Projects.Core.DataInterfaces;
+using ASC.Projects.Core.Domain;
 
 namespace ASC.Projects.Data.DAO
 {
@@ -42,17 +42,19 @@ namespace ASC.Projects.Data.DAO
         {
         }
 
-        public ICollection Search(String text, int projectId)
+        public IEnumerable<DomainObject<int>> Search(String text, int projectId)
         {
-            var result = new ArrayList();
+            var result = new List<DomainObject<int>>();
             result.AddRange(GetProjects(text, projectId));
-            result.AddRange(GetMilestones(text, projectId));
             result.AddRange(GetTasks(text, projectId));
+            result.AddRange(GetSubtasks(text));
+            result.AddRange(GetMilestones(text, projectId));
             result.AddRange(GetMessages(text, projectId));
+            result.AddRange(GetComments(text));
             return result;
         }
 
-        private ICollection GetProjects(String text, int projectId)
+        private IEnumerable<DomainObject<int>> GetProjects(String text, int projectId)
         {
             Exp projWhere;
 
@@ -69,7 +71,7 @@ namespace ASC.Projects.Data.DAO
             return new ProjectDao(DatabaseId, Tenant).GetProjects(projWhere);
         }
 
-        private ICollection GetMilestones(String text, int projectId)
+        private IEnumerable<DomainObject<int>> GetMilestones(String text, int projectId)
         {
             Exp mileWhere;
 
@@ -86,15 +88,14 @@ namespace ASC.Projects.Data.DAO
             return new MilestoneDao(DatabaseId, Tenant).GetMilestones(mileWhere);
         }
 
-        private ICollection GetTasks(String text, int projectId)
+        private IEnumerable<DomainObject<int>> GetTasks(String text, int projectId)
         {
             Exp taskWhere;
 
-            if (FullTextSearch.SupportModule(FullTextSearch.ProjectsTasksModule, FullTextSearch.ProjectsCommentsModule))
+            if (FullTextSearch.SupportModule(FullTextSearch.ProjectsTasksModule))
             {
-                var taskIds = FullTextSearch.Search(
-                    FullTextSearch.ProjectsTasksModule.Match(text),
-                    FullTextSearch.ProjectsCommentsModule.Match(text, "content").Select("target_uniq_id").Match("Task_*", "target_uniq_id"));
+                var taskIds = FullTextSearch.Search(FullTextSearch.ProjectsTasksModule.Match(text));
+
                 taskWhere = Exp.In("t.id", taskIds);
             }
             else
@@ -105,15 +106,14 @@ namespace ASC.Projects.Data.DAO
             return new TaskDao(DatabaseId, Tenant).GetTasks(taskWhere);
         }
 
-        private ICollection GetMessages(String text, int projectId)
+        private IEnumerable<DomainObject<int>> GetMessages(String text, int projectId)
         {
             Exp messWhere;
 
-            if (FullTextSearch.SupportModule(FullTextSearch.ProjectsMessagesModule, FullTextSearch.ProjectsCommentsModule))
+            if (FullTextSearch.SupportModule(FullTextSearch.ProjectsMessagesModule))
             {
-                var messIds = FullTextSearch.Search(
-                    FullTextSearch.ProjectsMessagesModule.Match(text),
-                    FullTextSearch.ProjectsCommentsModule.Match(text, "content").Select("target_uniq_id").Match("Message_*", "target_uniq_id"));
+                var messIds = FullTextSearch.Search(FullTextSearch.ProjectsMessagesModule.Match(text));
+
                 messWhere = Exp.In("t.id", messIds);
             }
             else
@@ -124,7 +124,43 @@ namespace ASC.Projects.Data.DAO
             return new MessageDao(DatabaseId, Tenant).GetMessages(messWhere);
         }
 
-        private static Exp BuildLike(string[] columns, string text, int projectId)
+        private IEnumerable<DomainObject<int>> GetComments(String text)
+        {
+            Exp commentsWhere;
+
+            if (FullTextSearch.SupportModule(FullTextSearch.ProjectsCommentsModule))
+            {
+                var commentIds = FullTextSearch.Search(FullTextSearch.ProjectsCommentsModule.Match(text));
+
+                commentsWhere = Exp.In("comment_id", commentIds);
+            }
+            else
+            {
+                commentsWhere = BuildLike(new[] { "content" }, text);
+            }
+
+            return new CommentDao(DatabaseId, Tenant).GetComments(commentsWhere);
+        }
+
+        private IEnumerable<DomainObject<int>> GetSubtasks(String text)
+        {
+            Exp subtasksWhere;
+
+            if (FullTextSearch.SupportModule(FullTextSearch.ProjectsSubtasksModule))
+            {
+                var subtaskIds = FullTextSearch.Search(FullTextSearch.ProjectsSubtasksModule.Match(text));
+
+                subtasksWhere = Exp.In("id", subtaskIds);
+            }
+            else
+            {
+                subtasksWhere = BuildLike(new[] { "title" }, text);
+            }
+
+            return new SubtaskDao(DatabaseId, Tenant).GetSubtasks(subtasksWhere);
+        }
+
+        private static Exp BuildLike(string[] columns, string text, int projectId = 0)
         {
             var projIdWhere = 0 < projectId ? Exp.Eq("p.id", projectId) : Exp.Empty;
             var keywords = GetKeywords(text);
@@ -135,7 +171,7 @@ namespace ASC.Projects.Data.DAO
                 var keywordLike = Exp.Empty;
                 foreach (var column in columns)
                 {
-                    keywordLike = keywordLike | Exp.Like(column, keyword, SqlLike.StartWith) | Exp.Like(column, ' ' + keyword);
+                    keywordLike = keywordLike | Exp.Like(column, keyword, SqlLike.AnyWhere);
                 }
                 like = like & keywordLike;
             }

@@ -126,18 +126,6 @@
   <data name="MessageTitle" xml:space="preserve">
     <value>Title</value>
   </data>
-  <data name="NewMessage" xml:space="preserve">
-    <value>New Discussion</value>
-  </data>
-  <data name="AttachedFiles" xml:space="preserve">
-    <value>Attached Files</value>
-  </data>
-  <data name="From" xml:space="preserve">
-    <value>Author</value>
-  </data>
-  <data name="PostNewComment" xml:space="preserve">
-    <value>Leave comment</value>
-  </data>
   <data name="Comments" xml:space="preserve">
     <value>Comments</value>
   </data>
@@ -150,12 +138,6 @@
   <data name="Message" xml:space="preserve">
     <value>Discussion</value>
   </data>
-  <data name="EmptyScreenHeaderContent" xml:space="preserve">
-    <value>Start the first discussion in this project</value>
-  </data>
-  <data name="EmptyScreenHeaderDescribe" xml:space="preserve">
-    <value>Exchange text messages within the project.</value>
-  </data>
   <data name="CreateMessage" xml:space="preserve">
     <value>Start discussion</value>
   </data>
@@ -167,54 +149,6 @@
   </data>
   <data name="SubscribePeopleInfoComment" xml:space="preserve">
     <value>The people you select will be informed about the message and the comments to it.</value>
-  </data>
-  <data name="PostThisMessage" xml:space="preserve">
-    <value>Add This Message</value>
-  </data>
-  <data name="SubscribePeopleInfoEdit" xml:space="preserve">
-    <value>Notify the selected users about the change of this message?</value>
-  </data>
-  <data name="SeeMore" xml:space="preserve">
-    <value>Read more</value>
-  </data>
-  <data name="SavingMessage" xml:space="preserve">
-    <value>Saving message...</value>
-  </data>
-  <data name="MessageNotFound_Body" xml:space="preserve">
-    <value>Probably it has been deleted, or there are no messages with such ID in the project</value>
-  </data>
-  <data name="MessageNotFound_Header" xml:space="preserve">
-    <value>Message not found</value>
-  </data>
-  <data name="MessageNotFound_RedirectTitle" xml:space="preserve">
-    <value>Go to the message list</value>
-  </data>
-  <data name="SubscribeAnotherPeopleInfo" xml:space="preserve">
-    <value>Inform other people as well</value>
-  </data>
-  <data name="ManageSubscribers" xml:space="preserve">
-    <value>Manage Subscribers</value>
-  </data>
-  <data name="SelectUsers" xml:space="preserve">
-    <value>Select Users</value>
-  </data>
-  <data name="EmptyScreenMessageTemplate" xml:space="preserve">
-    <value>Start the first discussion in this project template</value>
-  </data>
-  <data name="EmptyScreenMessageTemplateDescription" xml:space="preserve">
-    <value>Add a welcome message, post answers to common questions or publish an important document for each project you create.</value>
-  </data>
-  <data name="NotifyMorePeopleOutOfTheProject" xml:space="preserve">
-    <value>Notify people out of the project</value>
-  </data>
-  <data name="NoDiscussions" xml:space="preserve">
-    <value>There are no discussions in this project</value>
-  </data>
-  <data name="OtherPeople" xml:space="preserve">
-    <value>Other people in the discussion</value>
-  </data>
-  <data name="ProjectParticipants" xml:space="preserve">
-    <value>Project participants in the discussion</value>
   </data>
   <data name="DiscussionParticipants" xml:space="preserve">
     <value>Discussion's participants</value>
@@ -230,12 +164,6 @@
   </data>
   <data name="StartFirstDiscussion" xml:space="preserve">
     <value>Start the first discussion</value>
-  </data>
-  <data name="ShowDiscussionsForProjects" xml:space="preserve">
-    <value>Show discussions for the projects</value>
-  </data>
-  <data name="CommentsEmptyListDescription" xml:space="preserve">
-    <value>Add comments to the discussion to facilitate group work on the project and tasks within it, clarify some issues, discuss project documents, unite your efforts to form a plan for the project successfull completion.</value>
   </data>
   <data name="DescrEmptyListMilFilter" xml:space="preserve">
     <value>No discussions matching your filter can be displayed in this section.</value>
@@ -257,9 +185,6 @@
   </data>
   <data name="ReadMore" xml:space="preserve">
     <value>Read more</value>
-  </data>
-  <data name="AddProjectsParticipant" xml:space="preserve">
-    <value>Add participants of this project</value>
   </data>
   <data name="CreateTaskOnDiscussion" xml:space="preserve">
     <value>Create task on discussion</value>

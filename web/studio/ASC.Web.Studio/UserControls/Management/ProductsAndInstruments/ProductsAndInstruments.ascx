@@ -56,7 +56,7 @@
         </div>
         <div class="settings-help-block">
             <p>
-                <%=Resources.Resource.ProductsAndInstruments_Info%>
+                <%: Resources.Resource.ProductsAndInstruments_Info %>
             </p>
         </div>
     </div>

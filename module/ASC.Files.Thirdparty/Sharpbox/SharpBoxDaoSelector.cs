@@ -136,7 +136,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
         public void RenameProvider(SharpBoxProviderInfo sharpBoxProviderInfo, string newTitle)
         {
-            using (var dbDao = new ProviderAccountDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, FileConstant.DatabaseId))
+            using (var dbDao = new CachedProviderAccountDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, FileConstant.DatabaseId))
             {
                 dbDao.UpdateProviderInfo(sharpBoxProviderInfo.ID, newTitle, sharpBoxProviderInfo.RootFolderType);
                 sharpBoxProviderInfo.UpdateTitle(newTitle); //This will update cached version too

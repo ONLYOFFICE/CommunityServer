@@ -193,6 +193,7 @@ dt.confirm-remove-files {
     right: 0;
     bottom: 0;
     position: fixed;
+    top: auto !important;
     width: 500px;
     z-index: 300;
 }
@@ -274,7 +275,8 @@ dt.confirm-remove-files {
     width: auto;
 }
 #filesNewsList {
-    width: 260px;
+    padding: 0 12px;
+    width: 285px;
 }
 
 #filesNewsList .file-row {
@@ -282,7 +284,7 @@ dt.confirm-remove-files {
 }
 #filesNewsList .thumb-file,
 #filesNewsList .thumb-folder {
-    margin: 0 12px;
+    margin: 0 12px 0 0;
 }
 #filesNewsMarkRead {
     display: inline-block;

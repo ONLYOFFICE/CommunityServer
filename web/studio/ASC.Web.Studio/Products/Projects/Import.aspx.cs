@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -53,7 +53,7 @@ namespace ASC.Web.Projects
 
         public void InitPage()
         {
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/tariffsettings/css/default/tarifflimitexceed.less"));
+            Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tarifflimitexceed.less");
             Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("import.js"));
             Title = HeaderStringHelper.GetPageTitle(ImportResource.ImportFromBasecamp);
 

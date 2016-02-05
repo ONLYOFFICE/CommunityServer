@@ -24,8 +24,6 @@
 */
 
 
-using System;
-using System.ServiceModel;
 using ASC.Common.Data;
 using ASC.Common.Module;
 using ASC.Notify.Config;
@@ -34,6 +32,8 @@ using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Utility;
 using log4net;
 using log4net.Config;
+using System;
+using System.ServiceModel;
 using TMResourceData;
 
 namespace ASC.Notify
@@ -42,6 +42,7 @@ namespace ASC.Notify
     {
         private ServiceHost serviceHost;
         private NotifyService service;
+        private NotifyCleaner cleaner;
 
 
         public void Start()
@@ -58,6 +59,9 @@ namespace ASC.Notify
             {
                 InitializeNotifySchedulers();
             }
+
+            cleaner = new NotifyCleaner();
+            cleaner.Start();
         }
 
         public void Stop()
@@ -69,6 +73,10 @@ namespace ASC.Notify
             if (serviceHost != null)
             {
                 serviceHost.Close();
+            }
+            if (cleaner != null)
+            {
+                cleaner.Stop();
             }
         }
 
@@ -88,8 +96,7 @@ namespace ASC.Notify
 
         private void InitializeDbResources()
         {
-            AssemblyWork.UploadResourceData(AppDomain.CurrentDomain.GetAssemblies());
-            AppDomain.CurrentDomain.AssemblyLoad += (sender, args) => AssemblyWork.UploadResourceData(AppDomain.CurrentDomain.GetAssemblies());
+            DBResourceManager.PatchAssemblies();
         }
     }
 }

@@ -34,7 +34,7 @@ namespace ASC.Web.Core.Client.Bundling
     {
         public static readonly string CopyrigthText = @"/*
     Copyright (c) Ascensio System SIA " + DateTime.UtcNow.Year + @". All rights reserved.
-    http://www.teamlab.com
+    http://www.onlyoffice.com
 */
 ";
         public void Process(BundleContext context, BundleResponse response)

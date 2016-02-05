@@ -1,9 +1,4 @@
-﻿/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
-
-window.ASC = window.ASC || {};
+﻿window.ASC = window.ASC || {};
 
 window.ASC.TMTalk = window.ASC.TMTalk || {};
 
@@ -186,9 +181,8 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
             case 'table' :
               var childContent = trimN(arguments.callee(child));
               content += (i !== 0 ? '\n' : '') + childContent;
-              if (childContent) {
-                content += isNonblockNode(child.nextSibling) ? '\n' : '';
-              }
+              break;
+            case 'style':
               break;
             default :
               content += arguments.callee(child);
@@ -249,7 +243,7 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
         selectionRange.deleteContents();
         selectionRange.insertNode(el);
 
-        // fucking webkit
+        // hack for webkit
         if (browser.webkit && fin !== true && el.previousSibling && el.previousSibling.nodeType === 3 && (!el.nextSibling || !el.nextSibling.data)) {
           try {insertNewLineToTextarea(wnd, true)} catch (err) {}
         }
@@ -360,7 +354,7 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
       };
     }
     return function (wnd) {
-      return wnd.document.body.innerHTML.replace(/\n/g, '');
+      return wnd.document.body.innerHTML.replace(/\s+/g, ' ');
     };
   })();
 

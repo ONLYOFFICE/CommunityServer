@@ -117,29 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ChooseUser" xml:space="preserve">
-    <value>Choose user</value>
-  </data>
-  <data name="ErrorMessage_NotImageSupportFormat" xml:space="preserve">
-    <value>Image format is not supported</value>
-  </data>
-  <data name="ErrorMessage_SaveImageError" xml:space="preserve">
-    <value>An error occurred while uploading the image to the server</value>
-  </data>
   <data name="HelpContentAccessRights" xml:space="preserve">
     <value>Open the portal Settings page if you need to restrict the access to the People module and give some users administrator privileges.</value>
   </data>
   <data name="HelpContentAddMore" xml:space="preserve">
     <value>Add several users at once using the contact information from Google, Yahoo, Windows Live, from a CSV file or an email client contact book.</value>
   </data>
-  <data name="HelpContentAddNew" xml:space="preserve">
-    <value>Click this button, select the User option and fill in the form if you have access to the user's detailed information.</value>
-  </data>
   <data name="HelpContentEditProfile" xml:space="preserve">
     <value>Modify your personal information, change your email and password, select a portal language, manage your subscriptions.</value>
-  </data>
-  <data name="HelpContentSwitchModules" xml:space="preserve">
-    <value>Use the drop-down list to go to another TeamLab module or tool.</value>
   </data>
   <data name="HelpContentViewUser" xml:space="preserve">
     <value>Click the user you wish to view the personal information: first name, last name, email, location etc.</value>
@@ -150,14 +135,8 @@
   <data name="HelpTitleAddMore" xml:space="preserve">
     <value>Add More Users at Once</value>
   </data>
-  <data name="HelpTitleAddNew" xml:space="preserve">
-    <value>Add New User Manually</value>
-  </data>
   <data name="HelpTitleEditProfile" xml:space="preserve">
     <value>Edit Your Profile</value>
-  </data>
-  <data name="HelpTitleSwitchModules" xml:space="preserve">
-    <value>Switch between Modules</value>
   </data>
   <data name="HelpTitleViewUser" xml:space="preserve">
     <value>View User's Profile</value>

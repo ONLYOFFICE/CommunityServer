@@ -44,7 +44,7 @@ namespace ASC.Web.Studio.Core.Backup
                 return Error("No files.");
             }
 
-            if (!TenantExtra.GetTenantQuota().HasBackup)
+            if (BackupHelper.ExceedsMaxAvailableSize)
             {
                 return Error("Backup not allowed.");
             }

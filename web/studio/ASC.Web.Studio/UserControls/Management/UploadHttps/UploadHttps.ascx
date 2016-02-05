@@ -31,7 +31,7 @@
     </div>
   </div>
   <div class="settings-help-block">
-      <p><%= String.Format(Resource.UploadHttpsHelp, "<b>", "</b>") %></p>
+      <p><%= String.Format(Resource.UploadHttpsHelp.HtmlEncode(), "<b>", "</b>") %></p>
  </div>  
 </div>
 

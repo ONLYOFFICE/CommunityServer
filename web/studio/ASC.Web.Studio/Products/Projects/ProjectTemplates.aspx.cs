@@ -24,7 +24,6 @@
 */
 
 
-using System;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Resources;
@@ -37,9 +36,11 @@ namespace ASC.Web.Projects
 
         protected override void PageLoad()
         {
-            if (!String.IsNullOrEmpty(UrlParameters.EntityID))
+            var action = UrlParameters.ActionType;
+
+            if (UrlParameters.EntityID >= 0)
             {
-                if (string.Compare(UrlParameters.ActionType, "edit", StringComparison.OrdinalIgnoreCase) == 0)
+                if (action.HasValue && action.Value == UrlAction.Edit)
                 {
                     _content.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Templates/EditTemplate.ascx")));
                     return;
@@ -47,7 +48,7 @@ namespace ASC.Web.Projects
             }
             else
             {
-                if (string.Compare(UrlParameters.ActionType, "add", StringComparison.OrdinalIgnoreCase) == 0)
+                if (action.HasValue && action.Value == UrlAction.Add)
                 {
                     _content.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Templates/EditTemplate.ascx")));
                     return;

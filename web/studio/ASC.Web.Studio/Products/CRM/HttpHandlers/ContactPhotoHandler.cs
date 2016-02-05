@@ -24,8 +24,12 @@
 */
 
 
+using ASC.Core;
+using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.MessagingSystem;
+using ASC.Web.CRM.Configuration;
+using ASC.Web.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility;
 using ASC.Web.CRM.Resources;
@@ -41,6 +45,18 @@ namespace ASC.Web.CRM.Classes
     {
         public FileUploadResult ProcessUpload(HttpContext context)
         {
+            if (!WebItemSecurity.IsAvailableForUser(ProductEntryPoint.ID.ToString(), SecurityContext.CurrentAccount.ID))
+                throw CRMSecurity.CreateSecurityException();
+
+            var contactId = Convert.ToInt32(context.Request["contactID"]);
+            Contact contact = null;
+            if (contactId != 0)
+            {
+                contact = Global.DaoFactory.GetContactDao().GetByID(contactId);
+                if (!CRMSecurity.CanAccessTo(contact))
+                    throw CRMSecurity.CreateSecurityException();
+            }
+
             var fileUploadResult = new FileUploadResult();
 
             if (!FileToUpload.HasFilesToUpload(context)) return fileUploadResult;
@@ -64,13 +80,12 @@ namespace ASC.Web.CRM.Classes
                 return fileUploadResult;
             }
 
-            var contactId = Convert.ToInt32(context.Request["contactID"]);
             var uploadOnly = Convert.ToBoolean(context.Request["uploadOnly"]);
             var tmpDirName = Convert.ToString(context.Request["tmpDirName"]);
-            string photoUri;
 
             try
             {
+                string photoUri;
                 if (contactId != 0)
                 {
                     photoUri = ContactPhotoManager.UploadPhoto(file.InputStream, contactId, uploadOnly);
@@ -94,7 +109,6 @@ namespace ASC.Web.CRM.Classes
                 return fileUploadResult;
             }
 
-            var contact = Global.DaoFactory.GetContactDao().GetByID(contactId);
             if (contact != null)
             {
                 var messageAction = contact is Company ? MessageAction.CompanyUpdatedPhoto : MessageAction.PersonUpdatedPhoto;
@@ -104,5 +118,4 @@ namespace ASC.Web.CRM.Classes
             return fileUploadResult;
         }
     }
-
 }

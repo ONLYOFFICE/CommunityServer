@@ -133,10 +133,11 @@ namespace ASC.Web.CRM.Controls.Deals
 
             var currencyInfo = CurrencyProvider.Get(TargetDeal.BidCurrency);
 
-            return String.Format("{2}{0:N} {1} <br/> <span>{3}</span>", TargetDeal.BidValue,
-                                 currencyInfo.Abbreviation, currencyInfo.Symbol,
-                                 RenderExpectedValue());
-
+            return String.Format("{2}{0:N} {1} <br/> <span>{3}</span>",
+                                TargetDeal.BidValue,
+                                currencyInfo.Abbreviation,
+                                String.Equals(currencyInfo.Abbreviation, "RUB", StringComparison.OrdinalIgnoreCase) ? "<span class='rub'>Р</span>" : currencyInfo.Symbol,
+                                RenderExpectedValue());
         }
 
         private void RegisterScript()

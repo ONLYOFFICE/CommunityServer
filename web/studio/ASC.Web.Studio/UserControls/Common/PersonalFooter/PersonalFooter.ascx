@@ -15,7 +15,7 @@
             </div>
             <div id="AuthFormLanguagesPanel" class="studio-action-panel">
                 <ul class="personal-languages_list dropdown-content">
-                    <% foreach (var ci in SetupInfo.EnabledCultures)
+                    <% foreach (var ci in SetupInfo.EnabledCulturesPersonal)
                        { %>
                     <li class="dropdown-item <%= ci.Name %>">
                         <a href="<%= Request.Path %>?lang=<%= ci.TwoLetterISOLanguageName %>"><%= ci.DisplayName %></a>
@@ -26,7 +26,7 @@
         </div>
         <% } %>
         <ul class="personal-footer-links">
-            <li><a href="<%= CommonLinkUtility.ToAbsolute("~/terms.aspx?lang=" + CultureInfo.CurrentUICulture.TwoLetterISOLanguageName) %>"><%=Resource.AuthTermsService %></a></li>
+            <li><a href="<%= CommonLinkUtility.ToAbsolute("~/terms.aspx?lang=" + CultureInfo.CurrentUICulture.TwoLetterISOLanguageName) %>" target="_blank"><%=Resource.AuthTermsService %></a></li>
             <li><a href="<%= CommonLinkUtility.ToAbsolute("~/about.aspx?lang=" + CultureInfo.CurrentUICulture.TwoLetterISOLanguageName) %>"><%=Resource.AboutTitle %></a></li>
             <li><a href="https://www.onlyoffice.com" target="blank"><%=Resource.CorporateUse %></a></li>
         </ul>

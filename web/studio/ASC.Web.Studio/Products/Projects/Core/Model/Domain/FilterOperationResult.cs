@@ -42,7 +42,7 @@ namespace ASC.Projects.Core.Domain
 
     public class TaskFilterOperationResult
     {
-        public List<Task> FilterResult { get; set; }
+        public IEnumerable<Task> FilterResult { get; set; }
         
         public TaskFilterCountOperationResult FilterCount { get; set; }
 
@@ -56,7 +56,7 @@ namespace ASC.Projects.Core.Domain
         {
         }
 
-        public TaskFilterOperationResult(List<Task> tasks, TaskFilterCountOperationResult count)
+        public TaskFilterOperationResult(IEnumerable<Task> tasks, TaskFilterCountOperationResult count)
         {
             FilterResult = tasks;
             FilterCount = count;

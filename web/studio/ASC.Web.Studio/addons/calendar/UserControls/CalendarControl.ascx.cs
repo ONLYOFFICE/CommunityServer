@@ -51,21 +51,21 @@ namespace ASC.Web.Calendar.UserControls
 
         private void InitScripts()
         {
-            Page.RegisterStyleControl("~/addons/calendar/app_themes/<theme_folder>/calendar.less", true);
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/addons/calendar/usercontrols/popup/css/popup.css"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/addons/calendar/usercontrols/fullcalendar/css/asc-dialog/jquery-ui-1.8.14.custom.css"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/addons/calendar/usercontrols/fullcalendar/css/asc-datepicker/jquery-ui-1.8.14.custom.css"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/addons/calendar/usercontrols/css/jquery.jscrollpane.css"));
+            Page.RegisterStyle("~/addons/calendar/app_themes/<theme_folder>/calendar.less");
+            Page.RegisterStyle("~/addons/calendar/usercontrols/popup/css/popup.css");
+            Page.RegisterStyle("~/addons/calendar/usercontrols/fullcalendar/css/asc-dialog/jquery-ui-1.8.14.custom.css");
+            Page.RegisterStyle("~/addons/calendar/usercontrols/fullcalendar/css/asc-datepicker/jquery-ui-1.8.14.custom.css");
+            Page.RegisterStyle("~/addons/calendar/usercontrols/css/jquery.jscrollpane.css");
 
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/uploader/ajaxupload.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/calendar/usercontrols/popup/popup.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/calendar/usercontrols/js/calendar_controller.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/calendar/usercontrols/js/recurrence_rule.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/calendar/usercontrols/js/jquery.jscrollpane.min.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/calendar/usercontrols/js/jquery.mousewheel.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/calendar/usercontrols/js/jquery.cookie.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/calendar/usercontrols/js/jquery.jscrollpane.min.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/calendar/usercontrols/fullcalendar/fullcalendar.js"));
+            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js");
+            Page.RegisterBodyScripts("~/addons/calendar/usercontrols/popup/popup.js");
+            Page.RegisterBodyScripts("~/addons/calendar/usercontrols/js/calendar_controller.js");
+            Page.RegisterBodyScripts("~/addons/calendar/usercontrols/js/recurrence_rule.js");
+            Page.RegisterBodyScripts("~/addons/calendar/usercontrols/js/jquery.jscrollpane.min.js");
+            Page.RegisterBodyScripts("~/addons/calendar/usercontrols/js/jquery.mousewheel.js");
+            Page.RegisterBodyScripts("~/addons/calendar/usercontrols/js/jquery.cookie.js");
+            Page.RegisterBodyScripts("~/addons/calendar/usercontrols/js/jquery.jscrollpane.min.js");
+            Page.RegisterBodyScripts("~/addons/calendar/usercontrols/fullcalendar/fullcalendar.js");
 
 
             Page.ClientScript.RegisterClientScriptBlock(GetType(), "calendar_full_screen",

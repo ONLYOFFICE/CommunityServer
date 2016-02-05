@@ -36,10 +36,8 @@
 
     <div class="middle-button-container">
         <span id="docServiceButtonSave" class="button blue"><%= Resource.SaveButton %></span>
-        <span class="splitter-buttons"></span>
-        <span id="docServiceButtonTest" class="button gray"><%= Resource.TestButton %></span>
     </div>
 </div>
 <div class="settings-help-block">
-    <p><%=String.Format(Resource.DocServiceUrlHelp, "<br />","<b>","</b>")%></p>
+    <p><%=String.Format(Resource.DocServiceUrlHelp.HtmlEncode(), "<br />","<b>","</b>")%></p>
 </div>

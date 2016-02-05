@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TransferPortal.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.TransferPortal" %>
 <%@ Import Namespace="ASC.Core" %>
-<%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
@@ -8,7 +7,7 @@
 
 <% if (IsVisibleMigration)
    { %>
-<div id="migrationPortal" class="clearFix <%= EnableMigration ? "" : "disable" %>">
+<div id="migrationPortal" class="clearFix <%= PaidMigration && OwnerMigration ? "" : "disable" %>">
     <div class="settings-block transfer-portal">
         <div class="header-base">
             <%= Resource.TransferPortalTitle %>
@@ -35,17 +34,16 @@
         <div class="clearFix notify-migration">
             <div>
                 <input id="migrationMail" type="checkbox" />
-                <label for="migrationMail">
-                    <%= Resource.IsMailMigration %></label>
+                <label for="migrationMail"><%: Resource.IsMailMigration %></label>
             </div>
             <div>
                 <input id="notifyAboutMigration" type="checkbox" checked="checked" />
                 <label for="notifyAboutMigration">
-                    <%= Resource.NotifyPortalMigration %></label>
+                    <%: Resource.NotifyPortalMigration %></label>
             </div>
         </div>
         <div class="header-base red-text"><%= Resource.Warning %></div>
-        <div><%= Resource.TransferPortalWarning %></div>
+        <div><%: Resource.TransferPortalWarning %></div>
         <div class="middle-button-container">
             <a id="transfer_button" class="button blue disable" href="javascript:void(0);">
                 <%= Resource.TransferPortalButton %></a>
@@ -56,9 +54,9 @@
         </div>
     </div>
     <div class="settings-help-block">
-        <% if (EnableMigration)
+        <% if (PaidMigration && OwnerMigration)
            { %>
-        <p><%= String.Format(Resource.HelpAnswerTransferPortal, "<br />", "<b>", "</b>") %></p>
+        <p><%= String.Format(Resource.HelpAnswerTransferPortal.HtmlEncode(), "<br />", "<b>", "</b>") %></p>
          <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
              { %>
         <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#CustomizingPortal_block" %>" target="_blank"><%= Resource.LearnMore %></a>
@@ -66,22 +64,22 @@
         <% }
            else
            { %>
-            <p><%= String.Format(Resource.MigrationNotAvailable, "<b>", "</b>") %></p>
+            <p><%= String.Format(PaidMigration ? Resource.MigrationNotAvailableOwner : Resource.MigrationNotAvailable , "<b>", "</b>") %></p>
         <% } %>
     </div>
 </div>
 <div id="popupTransferStart" class="display-none">
     <sc:Container runat="server" id="popupTransferStart">
         <Header>
-        <div><% = Resource.TransferPortalTitlePopup%></div>
+            <div><%: Resource.TransferPortalTitlePopup%></div>
         </Header>
         <Body>
-          <% = String.Format(Resource.TransferPortalContentPopup, "<p>","</p>")%>
-    <div class="big-button-container">
-        <a class="button blue middle"><% = Resource.ContinueButton %></a>
-        <span class="splitter-buttons"></span>
-         <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();"><%= Resource.CancelButton %></a>
-    </div>
+            <%= String.Format(Resource.TransferPortalContentPopup.HtmlEncode(), "<p>","</p>")%>
+            <div class="big-button-container">
+                <a class="button blue middle"><% = Resource.ContinueButton %></a>
+                <span class="splitter-buttons"></span>
+                <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();"><%= Resource.CancelButton %></a>
+            </div>
         </Body>
     </sc:Container>
 </div>

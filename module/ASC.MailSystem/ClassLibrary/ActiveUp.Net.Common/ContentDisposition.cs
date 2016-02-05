@@ -47,14 +47,14 @@ namespace ActiveUp.Net.Mail
         {
             get
             {
-                if (this.Parameters["filename"] != null) return "\"" + this.Parameters["filename"].Trim('"') + "\"";
+                if (this.Parameters["filename"] != null) return string.Format("\"{0}\"", this.Parameters["filename"].Trim('"'));
                 else if (this.Parameters["\tfilename"] != null) return this.Parameters["\tfilename"].Trim('"').Trim('\t');
                 else return null;
             }
             set
             {
-                if (this.Parameters["filename"] != null) this.Parameters["filename"] = "\"" + value.Trim('"') + "\"";
-                else this.Parameters.Add("filename", "\"" + value.Trim('"') + "\"");
+                if (this.Parameters["filename"] != null) this.Parameters["filename"] = string.Format("\"{0}\"", value.Trim('"'));
+                else this.Parameters.Add("filename", string.Format("\"{0}\"", value.Trim('"')));
             }
         }
         /// <summary>
@@ -80,10 +80,17 @@ namespace ActiveUp.Net.Mail
         /// </returns>
         public override string ToString()
         {
-            string str = string.Empty;
-            str += "Content-Disposition: " + this.Disposition;
-            foreach (string key in this.Parameters.AllKeys) str += ";\r\n\t" + key + "=" + this.Parameters[key];
-            return str;
+            var sb = new StringBuilder();
+
+            sb.Append("Content-Disposition: ")
+                .Append(this.Disposition);
+
+            foreach (var key in this.Parameters.AllKeys)
+            {
+                sb.Append(";\r\n\t").Append(key).Append("=").Append(this.Parameters[key]);
+            }
+
+            return sb.ToString();
         }
 
         public static bool operator ==(ContentDisposition t1, int t2)

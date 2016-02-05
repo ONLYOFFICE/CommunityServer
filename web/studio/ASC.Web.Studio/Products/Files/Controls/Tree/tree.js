@@ -77,7 +77,7 @@ window.ASC.Files.TreePrototype = function (root, rootId) {
             folderId = getFolderId(treeNode);
         }
 
-        if (treeNode.length) {
+        if (treeNode.length && folderId != ASC.Files.Constants.FOLDER_ID_TRASH) {
             if (treeNode.is(":has(ul)")) {
                 treeNode.toggleClass("jstree-closed", open != null ? !open : null).toggleClass("jstree-open", open);
             } else {

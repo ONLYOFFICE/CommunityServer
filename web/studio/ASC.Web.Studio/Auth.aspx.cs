@@ -31,10 +31,9 @@ using ASC.Core;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
-using ASC.Web.Core.CoBranding;
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Core.Import;
-using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls;
 using ASC.Web.Studio.UserControls.Common;
 using ASC.Web.Studio.UserControls.Common.AuthorizeDocs;
@@ -45,7 +44,7 @@ namespace ASC.Web.Studio
     public partial class Auth : MainPage
     {
         protected string LogoPath {
-            get { return String.Format("~/TenantLogo.ashx?logotype={0}&general={1}", (int)CoBrandingLogoTypeEnum.Dark, (!TenantLogoManager.IsRetina(Request)).ToString().ToLower()); }
+            get { return String.Format("/TenantLogo.ashx?logotype={0}&general={1}", (int)WhiteLabelLogoTypeEnum.Dark, (!TenantLogoManager.IsRetina(Request)).ToString().ToLower()); }
         }
 
         protected bool withHelpBlock { get; set; }
@@ -55,6 +54,8 @@ namespace ASC.Web.Studio
         protected override bool MayNotPaid { get { return true; } }
 
         protected override bool MayPhoneNotActivate { get { return true; } }
+
+        protected override bool RedirectToStartup { get { return false; } }
 
         protected bool? IsAutorizePartner { get; set; }
         protected Partner Partner { get; set; }
@@ -69,7 +70,8 @@ namespace ASC.Web.Studio
                 {
                     if (CoreContext.Configuration.Standalone)
                     {
-                        var cookie = SecurityContext.AuthenticateMe(UserManagerWrapper.AdminID);
+                        var admin = CoreContext.UserManager.GetUserByUserName("administrator");
+                        var cookie = SecurityContext.AuthenticateMe(admin.ID);
                         CookiesManager.SetCookies(CookiesType.AuthKey, cookie);
                         Response.Redirect(CommonLinkUtility.GetDefault(), true);
                     }

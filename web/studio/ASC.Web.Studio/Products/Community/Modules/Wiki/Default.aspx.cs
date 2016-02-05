@@ -49,6 +49,7 @@ using ASC.Web.UserControls.Wiki.Handlers;
 using ASC.Web.UserControls.Wiki.Resources;
 using ASC.Web.UserControls.Wiki.UC;
 using ASC.Common.Security.Authorizing;
+using Newtonsoft.Json;
 
 namespace ASC.Web.Community.Wiki
 {
@@ -935,7 +936,6 @@ namespace ASC.Web.Community.Wiki
             commentList.Items = GetCommentsList(pageName, out totalCount);
             ConfigureComments(commentList, pageName);
             commentList.TotalCount = totalCount;
-            commentList.CommentsCountTitle = commentList.TotalCount.ToString(CultureInfo.CurrentCulture);
         }
 
         private IList<CommentInfo> GetCommentsList(string pageName, out int totalCount)
@@ -972,32 +972,14 @@ namespace ASC.Web.Community.Wiki
         {
             CommonControlsConfigurer.CommentsConfigure(commentList);
 
-            commentList.Simple = false;
             commentList.BehaviorID = "_commentsWikiObj";
 
             commentList.IsShowAddCommentBtn = CommunitySecurity.CheckPermissions(Common.Constants.Action_AddComment);
 
-            commentList.JavaScriptAddCommentFunctionName = "_Default.AddComment";
-            commentList.JavaScriptPreviewCommentFunctionName = "_Default.GetPreview";
-            commentList.JavaScriptRemoveCommentFunctionName = "_Default.RemoveComment";
-            commentList.JavaScriptUpdateCommentFunctionName = "_Default.UpdateComment";
-            commentList.JavaScriptLoadBBcodeCommentFunctionName = "_Default.LoadCommentText";
+            commentList.ModuleName = "wiki";
             commentList.FckDomainName = "wiki_comments";
 
             commentList.ObjectID = pageName.HtmlEncode();
-        }
-
-        public CommentInfo GetPrevHTMLComment(string text, string commentId)
-        {
-            var comment = !string.IsNullOrEmpty(commentId) ? Wiki.GetComment(new Guid(commentId)) : new Comment();
-            comment.Date = TenantUtil.DateTimeNow();
-            comment.UserId = SecurityContext.CurrentAccount.ID;
-            comment.Body = text;
-
-            var info = GetCommentInfo(comment);
-            info.IsEditPermissions = false;
-            info.IsResponsePermissions = false;
-            return info;
         }
 
         public CommentInfo GetCommentInfo(Comment comment)
@@ -1012,7 +994,8 @@ namespace ASC.Web.Community.Wiki
                     Inactive = comment.Inactive,
                     CommentBody = comment.Body,
                     UserFullName = DisplayUserSettings.GetFullUserName(comment.UserId),
-                    UserAvatar = GetHtmlImgUserAvatar(comment.UserId),
+                    UserProfileLink = CommonLinkUtility.GetUserProfile(comment.UserId),
+                    UserAvatarPath = UserPhotoManager.GetBigPhotoURL(comment.UserId),
                     IsEditPermissions = CommunitySecurity.CheckPermissions(new WikiObjectsSecurityObject(comment), Common.Constants.Action_EditRemoveComment),
                     IsResponsePermissions = CommunitySecurity.CheckPermissions(Common.Constants.Action_AddComment),
                     UserPost = CoreContext.UserManager.GetUsers(comment.UserId).Title
@@ -1021,92 +1004,7 @@ namespace ASC.Web.Community.Wiki
             return info;
         }
 
-        public static string GetHtmlImgUserAvatar(Guid userId)
-        {
-            var imgPath = UserPhotoManager.GetBigPhotoURL(userId);
-            if (imgPath != null)
-                return "<img class=\"userMiniPhoto\" src=\"" + imgPath + "\"/>";
-
-            return "";
-        }
-
         #region Ajax functions for comments management
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public string RemoveComment(string commentId, string pid)
-        {
-            try
-            {
-                Wiki.DeleteComment(new Guid(commentId));
-            }
-            catch (AuthorizingException)
-            {
-                return null;
-            }
-            return commentId;
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public string GetPreview(string text, string commentID)
-        {
-            var info = GetPrevHTMLComment(text, commentID);
-            var defComment = new CommentsList();
-            ConfigureComments(defComment, null);
-
-            return CommentsHelper.GetOneCommentHtmlWithContainer(defComment, info, true, false);
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public AjaxResponse AddComment(string parentCommentId, string pageName, string text, string pid)
-        {
-            CommunitySecurity.DemandPermissions(Common.Constants.Action_AddComment);
-
-            var resp = new AjaxResponse();
-            resp.rs1 = parentCommentId;
-
-            var parentIdGuid = String.IsNullOrEmpty(parentCommentId) ? Guid.Empty : new Guid(parentCommentId);
-            var newComment = Wiki.CreateComment(new Comment { Body = text, PageName = pageName, ParentId = parentIdGuid });
-
-            var info = GetCommentInfo(newComment);
-
-            var defComment = new CommentsList();
-            ConfigureComments(defComment, pageName);
-
-            var visibleCommentsCount = Wiki.GetComments(pageName).Count;
-
-            resp.rs2 = CommentsHelper.GetOneCommentHtmlWithContainer(
-                defComment,
-                info,
-                string.IsNullOrEmpty(parentCommentId),
-                visibleCommentsCount%2 == 1);
-
-            return resp;
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public AjaxResponse UpdateComment(string commentId, string text, string pid)
-        {
-            var resp = new AjaxResponse();
-            if (text == null) return resp;
-
-            try
-            {
-                Wiki.UpdateComment(new Comment { Id = new Guid(commentId), Body = text });
-                resp.rs1 = commentId;
-                resp.rs2 = HtmlUtility.GetFull(text);
-            }
-            catch (AuthorizingException)
-            {
-            }
-            return resp;
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public string LoadCommentText(string commentId, string pid)
-        {
-            var comment = Wiki.GetComment(new Guid(commentId));
-            return comment != null ? comment.Body : string.Empty;
-        }
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public string ConvertWikiToHtml(string pageName, string wikiValue, string appRelativeCurrentExecutionFilePath,

@@ -22,7 +22,7 @@
         <br />
         <br />
         <span class="describe-text">
-            <%= String.Format(ImportFromCSVStepOneDescriptionLabel, ASC.Web.CRM.Classes.ImportFromCSV.GetQuotas())%></span>
+            <%= String.Format(ImportFromCSVStepOneDescriptionLabel.HtmlEncode(), ASC.Web.CRM.Classes.ImportFromCSV.GetQuotas())%></span>
         <div class="content-info-import">
             <br />
             <span style="display: none; margin-right: 14px;"></span><a id="uploadCSVFile" class="import_button link dotline">
@@ -39,10 +39,8 @@
                         <option selected="selected" value="<%=(int)","[0] %>"> <%= CRMCommonResource.Comma%></option>
                         <option value="<%= (int)";"[0] %>"> <%= CRMCommonResource.Semicolon%></option>
                         <option value="<%= (int)":"[0] %>"> <%= CRMCommonResource.Colon%></option>
-                        <option value="<%= (int)"\t"[0] %>" >
-                            <%= CRMCommonResource.Tabulation%></option>
-                        <option value="<%= (int)" "[0] %>">
-                            <%= CRMCommonResource.Space%></option>
+                        <option value="<%= (int)"\t"[0] %>" ><%= CRMCommonResource.Tabulation%></option>
+                        <option value="<%= (int)" "[0] %>"><%= CRMCommonResource.Space%></option>
                     </select>
                 </div>
                 <div>
@@ -66,20 +64,17 @@
                 </div>
                 <div>
                     <span><%= CRMCommonResource.ImportFromCSV_ReadFileSettings_QuoteCharacter%></span>:
-                      <select id="quoteCharacterSelect">
-                           <option selected="selected" value="<%= (int)"\""[0] %>"> <%= CRMCommonResource.DoubleQuote%></option>
-                           <option value="<%= (int)"'"[0] %>"> <%= CRMCommonResource.SingleQuote%></option>
+                    <select id="quoteCharacterSelect">
+                        <option selected="selected" value="<%= (int)"\""[0] %>"> <%= CRMCommonResource.DoubleQuote%></option>
+                        <option value="<%= (int)"'"[0] %>"> <%= CRMCommonResource.SingleQuote%></option>
                     </select>
                 </div>
             </div>
             <div id="removingDuplicatesBehaviorPanel" style="display: none;">
                  <br />
-                <span style="font-weight: bold;">
-                    <%= CRMCommonResource.DuplicateRecords %>:</span>
+                <span style="font-weight: bold;"><%= CRMCommonResource.DuplicateRecords %>:</span>
                 <br />
-                <span class="describe-text">
-                    <%= CRMCommonResource.ImportFromCSV_DublicateBehavior_Description%>
-                </span>
+                <span class="describe-text"><%: CRMCommonResource.ImportFromCSV_DublicateBehavior_Description%></span>
                 <br />
                 <br />
                 <label>
@@ -90,7 +85,7 @@
                     class="HelpCenterSwitcher">
                 </div>
                 <div id="SkipDescription" class="popup_helper">
-                    <%= CRMCommonResource.ImportFromCSV_DublicateBehavior_SkipDescription%>
+                    <%: CRMCommonResource.ImportFromCSV_DublicateBehavior_SkipDescription%>
                     <div class="pos_top">
                     </div>
                 </div>
@@ -103,7 +98,7 @@
                     class="HelpCenterSwitcher">
                 </div>
                 <div id="OverwriteDescription" class="popup_helper">
-                    <%= CRMCommonResource.ImportFromCSV_DublicateBehavior_OverwriteDescription%>
+                    <%: CRMCommonResource.ImportFromCSV_DublicateBehavior_OverwriteDescription%>
                     <div class="pos_top">
                     </div>
                 </div>
@@ -116,7 +111,7 @@
                     class="HelpCenterSwitcher">
                 </div>
                 <div id="CloneDescription" class="popup_helper">
-                    <%= CRMCommonResource.ImportFromCSV_DublicateBehavior_CloneDescription%>
+                    <%: CRMCommonResource.ImportFromCSV_DublicateBehavior_CloneDescription%>
                     <div class="pos_top">
                     </div>
                 </div>
@@ -163,22 +158,22 @@
     <dt style="display: none">2</dt>
     <dd style="display: none">
         <span class="header-base">
-            <%= ImportFromCSVStepTwoHeaderLabel %></span><br />
+            <%: ImportFromCSVStepTwoHeaderLabel %></span><br />
         <span class="describe-text">
-            <%= String.Format(ImportFromCSVStepTwoDescriptionLabel, System.DateTimeExtension.DateFormatPattern)%></span>
+            <%= String.Format(ImportFromCSVStepTwoDescriptionLabel.HtmlEncode(), System.DateTimeExtension.DateFormatPattern)%></span>
         <table id="columnMapping" cellspacing="0" cellpadding="10" class="tableBase">
             <thead>
                 <tr>
                     <td style="width: 20%">
-                        <%= CRMCommonResource.Column %>:
+                        <%: CRMCommonResource.Column %>:
                     </td>
                     <td style="width: 20%">
-                        <%= CRMCommonResource.AssignedField %>:
+                        <%: CRMCommonResource.AssignedField %>:
                     </td>
                     <td style="width: 60%">
                        <div>
                         <span style="float: left;">
-                            <%= CRMCommonResource.SampleValues %>:
+                            <%: CRMCommonResource.SampleValues %>:
                         </span>
                            <span style="float: right;">
                                <a id="prevSample" class="link dotline" href="javascript:void(0)" onclick="javascript:ASC.CRM.ImportEntities.getPrevSampleRow();"
@@ -187,7 +182,7 @@
                                </a>
                             <span class="splitter" style="display: none;">|</span>
                                <a id="nextSample" class="link dotline" href="javascript:void(0)" onclick="javascript:ASC.CRM.ImportEntities.getNextSampleRow();">
-                                   <%=CRMCommonResource.NextSample%>
+                                   <%= CRMCommonResource.NextSample %>
                                </a>
                            </span>
                        </div>
@@ -199,7 +194,7 @@
         </table>
         <div class="middle-button-container">
             <a class="button blue middle" href="javascript:void(0)" onclick="ASC.CRM.ImportEntities.startImport()">
-                <%= StartImportLabel %>
+                <%: StartImportLabel %>
             </a>
             <span class="splitter-buttons"></span>
             <a onclick="ASC.CRM.ImportEntities.prevStep(0)" class="button gray middle">
@@ -228,10 +223,10 @@
                 </td>
                 <td>
                     <span class="header-base">
-                        <%= ImportStartingPanelHeaderLabel%>
+                        <%: ImportStartingPanelHeaderLabel%>
                     </span>
                     <p class="header-base-small">
-                        <%= ImportStartingPanelDescriptionLabel %>
+                        <%: ImportStartingPanelDescriptionLabel %>
                     </p>
                     <div class="clearFix progress-container">
                         <div class="percent">0%</div>

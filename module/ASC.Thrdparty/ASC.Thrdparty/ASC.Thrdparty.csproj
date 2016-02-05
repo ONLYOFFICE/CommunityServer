@@ -68,8 +68,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\ConsumerConfigurationSection.cs" />
-    <Compile Include="Configuration\KeyStorage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ProviderConstants.cs" />
     <Compile Include="TokenHolder.cs" />

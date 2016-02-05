@@ -24,13 +24,15 @@
 */
 
 
+using ASC.Common.Data.Sql.Expressions;
+using ASC.Core;
+using ASC.Files.Core;
+using ASC.Web.Core.Files;
+using ASC.Web.Studio.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ASC.Common.Data.Sql.Expressions;
-using ASC.Files.Core;
-using ASC.Web.Studio.Core;
 using File = ASC.Files.Core.File;
 
 namespace ASC.Files.Thirdparty.GoogleDrive
@@ -72,6 +74,76 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         public List<File> GetFiles(object[] fileIds)
         {
             return fileIds.Select(GetDriveEntry).Select(ToFile).ToList();
+        }
+
+        public List<object> GetFiles(object parentId, bool withSubfolders)
+        {
+            return GetDriveEntries(parentId, false).Select(entry => (object)MakeId(entry.Id)).ToList();
+        }
+
+        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        {
+            return new List<File>();
+        }
+
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false)
+        {
+            //Get only files
+            var files = GetDriveEntries(parentId, false).Select(ToFile);
+            //Filter
+            switch (filterType)
+            {
+                case FilterType.ByUser:
+                    files = files.Where(x => x.CreateBy == subjectID);
+                    break;
+                case FilterType.ByDepartment:
+                    files = files.Where(x => CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID));
+                    break;
+                case FilterType.FoldersOnly:
+                    return new List<File>();
+                case FilterType.DocumentsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Document);
+                    break;
+                case FilterType.PresentationsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Presentation);
+                    break;
+                case FilterType.SpreadsheetsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Spreadsheet);
+                    break;
+                case FilterType.ImagesOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Image);
+                    break;
+                case FilterType.ArchiveOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Archive);
+                    break;
+                case FilterType.ByExtension:
+                    if (!string.IsNullOrEmpty(searchText))
+                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Contains(searchText));
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(searchText))
+                files = files.Where(x => x.Title.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) != -1);
+
+            if (orderBy == null) orderBy = new OrderBy(SortedByType.DateAndTime, false);
+
+            switch (orderBy.SortedBy)
+            {
+                case SortedByType.Author:
+                    files = orderBy.IsAsc ? files.OrderBy(x => x.CreateBy) : files.OrderByDescending(x => x.CreateBy);
+                    break;
+                case SortedByType.AZ:
+                    files = orderBy.IsAsc ? files.OrderBy(x => x.Title) : files.OrderByDescending(x => x.Title);
+                    break;
+                case SortedByType.DateAndTime:
+                    files = orderBy.IsAsc ? files.OrderBy(x => x.CreateOn) : files.OrderByDescending(x => x.CreateOn);
+                    break;
+                default:
+                    files = orderBy.IsAsc ? files.OrderBy(x => x.Title) : files.OrderByDescending(x => x.Title);
+                    break;
+            }
+
+            return files.ToList();
         }
 
         public Stream GetFileStream(File file)
@@ -136,17 +208,18 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             var driveFile = GetDriveEntry(fileId);
             var id = MakeId(driveFile.Id);
 
-            using (var tx = DbManager.BeginTransaction())
+            using (var db = GetDb())
+            using (var tx = db.BeginTransaction())
             {
-                var hashIDs = DbManager.ExecuteList(Query("files_thirdparty_id_mapping")
+                var hashIDs = db.ExecuteList(Query("files_thirdparty_id_mapping")
                                                         .Select("hash_id")
                                                         .Where(Exp.Like("id", id, SqlLike.StartWith)))
                                        .ConvertAll(x => x[0]);
 
-                DbManager.ExecuteNonQuery(Delete("files_tag_link").Where(Exp.In("entry_id", hashIDs)));
-                DbManager.ExecuteNonQuery(Delete("files_tag").Where(Exp.EqColumns("0", Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))));
-                DbManager.ExecuteNonQuery(Delete("files_security").Where(Exp.In("entry_id", hashIDs)));
-                DbManager.ExecuteNonQuery(Delete("files_thirdparty_id_mapping").Where(Exp.In("hash_id", hashIDs)));
+                db.ExecuteNonQuery(Delete("files_tag_link").Where(Exp.In("entry_id", hashIDs)));
+                db.ExecuteNonQuery(Delete("files_tag").Where(Exp.EqColumns("0", Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))));
+                db.ExecuteNonQuery(Delete("files_security").Where(Exp.In("entry_id", hashIDs)));
+                db.ExecuteNonQuery(Delete("files_thirdparty_id_mapping").Where(Exp.In("hash_id", hashIDs)));
 
                 tx.Commit();
             }
@@ -204,9 +277,9 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return ToFile(newDriveFile);
         }
 
-        public object FileRename(object fileId, string newTitle)
+        public object FileRename(File file, string newTitle)
         {
-            var driveFile = GetDriveEntry(fileId);
+            var driveFile = GetDriveEntry(file.ID);
             driveFile.Title = newTitle;
 
             driveFile = GoogleDriveProviderInfo.Storage.UpdateEntry(driveFile);
@@ -327,11 +400,11 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             {
                 var googleDriveSession = uploadSession.GetItemOrDefault<ResumableUploadSession>("GoogleDriveSession");
 
-                CacheInsert(googleDriveSession.File);
-                var parentDriveId = GetParentDriveId(googleDriveSession.File);
+                CacheReset(googleDriveSession.FileId);
+                var parentDriveId = googleDriveSession.FolderId;
                 if (parentDriveId != null) CacheReset(parentDriveId, false);
 
-                return ToFile(googleDriveSession.File);
+                return ToFile(GetDriveEntry(googleDriveSession.FileId));
             }
 
             using (var fs = new FileStream(uploadSession.GetItemOrDefault<string>("TempPath"), FileMode.Open, FileAccess.Read, FileShare.None, 4096, FileOptions.DeleteOnClose))
@@ -392,7 +465,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return null;
         }
 
-        public string GetDifferenceUrl(File file)
+        public Stream GetDifferenceStream(File file)
         {
             return null;
         }

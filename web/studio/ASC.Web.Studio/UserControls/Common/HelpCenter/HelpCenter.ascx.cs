@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -56,7 +56,7 @@ namespace ASC.Web.Studio.UserControls.Common.HelpCenter
                 return;
             }
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/common/helpcenter/css/help-center.less"));
+            Page.RegisterStyle("~/usercontrols/common/helpcenter/css/help-center.less");
 
             string module;
             string mainLink;

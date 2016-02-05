@@ -72,7 +72,7 @@
 </div>
 
 <div id="accessRightsContainer_Admin" class="accessRights-content accessRightsTable">
-    <table id="adminTable" class="tableBase" cellpadding="4" cellspacing="0">
+    <table id="adminTable" class="tableBase display-none" cellpadding="4" cellspacing="0">
         <thead>
             <tr>
                 <th></th>
@@ -98,7 +98,6 @@
     <div id="adminAdvancedSelector" class="advanced-selector-select">
           <%=Resources.Resource.ChooseUser %>
      </div>
-   <%-- <sa:AdvancedUserSelector runat="server" ID="adminSelector"></sa:AdvancedUserSelector>--%>
     <div>
         <div id="full_panelQuestion" class="popup_helper">
             <% for (var i = 0; i < FullAccessOpportunities.Length; i++) %>
@@ -124,15 +123,5 @@
                 </div>
             <% } %>
         <% } %>
-
     </div>
 </div>
-
-<% if (AdvancedRightsEnabled)
-   { %>
-    <asp:Repeater runat="server" ID="rptProducts">
-        <ItemTemplate>
-            <asp:PlaceHolder ID="phProductItem" runat="server"></asp:PlaceHolder>
-        </ItemTemplate>
-    </asp:Repeater>
-<% } %>

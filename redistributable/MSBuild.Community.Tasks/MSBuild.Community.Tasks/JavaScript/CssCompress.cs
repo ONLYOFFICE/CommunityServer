@@ -39,7 +39,7 @@ using System.Text.RegularExpressions;
 
 
 
-namespace MSBuild.Community.Tasks.JavaScript
+namespace MSBuild.Community.Tasks
 {
     /// <summary>
     /// MSBuild task to minimize the size of a css file.
@@ -209,8 +209,10 @@ namespace MSBuild.Community.Tasks.JavaScript
         {
             string body = source;
 
-            body = body.Replace("  ", string.Empty);
+            //body = body.Replace("  ", string.Empty);
             body = body.Replace(Environment.NewLine, string.Empty);
+            body = body.Replace("\n", string.Empty);
+            body = body.Replace("\r", string.Empty);
             body = body.Replace("\t", string.Empty);
             body = body.Replace(" {", "{");
             body = body.Replace(" :", ":");
@@ -218,7 +220,7 @@ namespace MSBuild.Community.Tasks.JavaScript
             body = body.Replace(", ", ",");
             body = body.Replace("; ", ";");
             body = body.Replace(";}", "}");
-            body = Regex.Replace(body, @"/\*[^\*]*\*+([^/\*]*\*+)*/", "$1");
+            body = Regex.Replace(body, @"/\*[^\*]*\*+([^/\*]*\*+)*/", string.Empty);
             body = Regex.Replace(body, @"(?<=[>])\s{2,}(?=[<])|(?<=[>])\s{2,}(?=&nbsp;)|(?<=&ndsp;)\s{2,}(?=[<])", string.Empty);
 
             return body;

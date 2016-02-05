@@ -90,8 +90,8 @@ namespace ASC.Core.Data
             if (string.IsNullOrEmpty(domain)) throw new ArgumentNullException("domain");
 
             return GetTenants(Exp.Eq("alias", domain.ToLowerInvariant()) | Exp.Eq("mappeddomain", domain.ToLowerInvariant()))
-                .OrderBy(a => a.Status)
-                .ThenByDescending(a => a.TenantId)
+                .OrderBy(a => a.Status == TenantStatus.Restoring ? TenantStatus.Active : a.Status)
+                .ThenByDescending(a => a.Status == TenantStatus.Restoring ? 0 : a.TenantId)
                 .FirstOrDefault();
         }
 
@@ -172,7 +172,7 @@ namespace ASC.Core.Data
                     db.ExecuteNonQuery(u);
                 }
 
-                if (string.IsNullOrEmpty(t.PartnerId))
+                if (string.IsNullOrEmpty(t.PartnerId) && string.IsNullOrEmpty(t.AffiliateId))
                 {
                     var d = new SqlDelete("tenants_partners").Where("tenant_id", t.TenantId);
                     db.ExecuteNonQuery(d);
@@ -181,7 +181,8 @@ namespace ASC.Core.Data
                 {
                     var i = new SqlInsert("tenants_partners", true)
                         .InColumnValue("tenant_id", t.TenantId)
-                        .InColumnValue("partner_id", t.PartnerId);
+                        .InColumnValue("partner_id", t.PartnerId)
+                        .InColumnValue("affiliate_id", t.AffiliateId);
                     db.ExecuteNonQuery(i);
                 }
 
@@ -245,7 +246,7 @@ namespace ASC.Core.Data
             return new SqlQuery("tenants_tenants t")
                 .Select("t.id", "t.alias", "t.mappeddomain", "t.version", "t.version_changed", "t.name", "t.language", "t.timezone", "t.owner_id")
                 .Select("t.trusteddomains", "t.trusteddomainsenabled", "t.creationdatetime", "t.status", "t.statuschanged", "t.payment_id", "t.last_modified")
-                .Select("p.partner_id")
+                .Select("p.partner_id", "p.affiliate_id")
                 .Select("t.industry")
                 .LeftOuterJoin("tenants_partners p", Exp.EqColumns("t.id", "p.tenant_id"))
                 .Where(where);
@@ -269,7 +270,8 @@ namespace ASC.Core.Data
                 PaymentId = (string)r[14],
                 LastModified = (DateTime)r[15],
                 PartnerId = (string)r[16],
-                Industry = r[17] != null ? (TenantIndustry)Convert.ToInt32(r[17]) : TenantIndustry.Other
+                AffiliateId = (string)r[17],
+                Industry = r[18] != null ? (TenantIndustry)Convert.ToInt32(r[18]) : TenantIndustry.Other
             };
             tenant.SetTrustedDomains((string)r[9]);
 
@@ -337,7 +339,7 @@ namespace ASC.Core.Data
             if (!exists)
             {
                 exists = 0 < db.ExecuteScalar<int>(new SqlQuery("tenants_tenants").SelectCount()
-                    .Where(Exp.Eq("mappeddomain", domain) & !Exp.Eq("id", tenantId) & !Exp.Eq("status", (int)TenantStatus.RemovePending)));
+                    .Where(Exp.Eq("mappeddomain", domain) & !Exp.Eq("id", tenantId) & !Exp.In("status", new []{(int)TenantStatus.RemovePending, (int) TenantStatus.Restoring})));
             }
             if (exists)
             {

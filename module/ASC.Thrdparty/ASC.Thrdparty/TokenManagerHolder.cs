@@ -24,13 +24,11 @@
 */
 
 
-using System;
-using System.Configuration;
-using System.Web;
-using System.Web.Caching;
+using ASC.Common.Caching;
 using ASC.Thrdparty.Configuration;
 using ASC.Thrdparty.TokenManagers;
-using DotNetOpenAuth.OAuth.ChannelElements;
+using System;
+using System.Configuration;
 
 namespace ASC.Thrdparty
 {
@@ -65,14 +63,13 @@ namespace ASC.Thrdparty
 
         public static IAssociatedTokenManager Get(string providerKey, string consumerKey, string consumerSecret)
         {
-            var tokenManager = (IAssociatedTokenManager)HttpRuntime.Cache.Get(providerKey);
+            var tokenManager = AscCache.Default.Get<IAssociatedTokenManager>(providerKey);
             if (tokenManager == null)
             {
                 if (!string.IsNullOrEmpty(consumerKey))
                 {
                     tokenManager = GetTokenManager(KeyStorage.Get(consumerKey), KeyStorage.Get(consumerSecret));
-                    HttpRuntime.Cache.Add(providerKey, tokenManager, null, Cache.NoAbsoluteExpiration,
-                                          Cache.NoSlidingExpiration, CacheItemPriority.NotRemovable, null);
+                    AscCache.Default.Insert(providerKey, tokenManager, DateTime.MaxValue);
                 }
             }
             return tokenManager;

@@ -92,7 +92,7 @@
                     <div title="Select color" class="square"></div>
                     <input id="createnewtag" type="text" class="textEdit tagname" placeholder="<%=MailResource.TagNamePlaceholder%>" maxlength="20"/>
                 </div>
-                <button class="entertag_button button blue"><%=MailScriptResource.OkBtnLabel%></button>
+                <button class="entertag_button button blue" type="button"><%=MailScriptResource.OkBtnLabel%></button>
             </div>
         </div>
     </div>

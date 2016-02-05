@@ -323,14 +323,29 @@ namespace ASC.Api.CRM
 
             if (isNotify)
             {
-                string taskContact = null;
+                Contact taskContact = null;
+                Cases taskCase = null;
+                Deal taskDeal = null;
 
                 if (task.ContactID > 0)
                 {
-                    taskContact = DaoFactory.GetContactDao().GetByID(task.ContactID).GetTitle();
+                    taskContact = DaoFactory.GetContactDao().GetByID(task.ContactID);
                 }
 
-                NotifyClient.Instance.SendAboutResponsibleByTask(task, listItem.Title, taskContact, null);
+                if (task.EntityID > 0)
+                {
+                    switch (task.EntityType)
+                    {
+                        case EntityType.Case:
+                            taskCase = DaoFactory.GetCasesDao().GetByID(task.EntityID);
+                            break;
+                        case EntityType.Opportunity:
+                            taskDeal = DaoFactory.GetDealDao().GetByID(task.EntityID);
+                            break;
+                    }
+                }
+
+                NotifyClient.Instance.SendAboutResponsibleByTask(task, listItem.Title, taskContact, taskCase, taskDeal, null);
             }
 
             MessageService.Send(Request, MessageAction.CrmTaskCreated, task.Title);
@@ -413,8 +428,29 @@ namespace ASC.Api.CRM
             {
                 if (!isNotify) continue;
 
-                var taskContact = DaoFactory.GetContactDao().GetByID(tasks[i].ContactID).GetTitle();
-                NotifyClient.Instance.SendAboutResponsibleByTask(tasks[i], taskCategory, taskContact, null);
+                Contact taskContact = null;
+                Cases taskCase = null;
+                Deal taskDeal = null;
+
+                if (tasks[i].ContactID > 0)
+                {
+                    taskContact = DaoFactory.GetContactDao().GetByID(tasks[i].ContactID);
+                }
+
+                if (tasks[i].EntityID > 0)
+                {
+                    switch (tasks[i].EntityType)
+                    {
+                        case EntityType.Case:
+                            taskCase = DaoFactory.GetCasesDao().GetByID(tasks[i].EntityID);
+                            break;
+                        case EntityType.Opportunity:
+                            taskDeal = DaoFactory.GetDealDao().GetByID(tasks[i].EntityID);
+                            break;
+                    }
+                }
+
+                NotifyClient.Instance.SendAboutResponsibleByTask(tasks[i], taskCategory, taskContact, taskCase, taskDeal, null);
             }
 
             if (tasks.Any())
@@ -487,13 +523,29 @@ namespace ASC.Api.CRM
 
             if (isNotify)
             {
-                string taskContact = null;
+                Contact taskContact = null;
+                Cases taskCase = null;
+                Deal taskDeal = null;
+
                 if (task.ContactID > 0)
                 {
-                    taskContact = DaoFactory.GetContactDao().GetByID(task.ContactID).GetTitle();
+                    taskContact = DaoFactory.GetContactDao().GetByID(task.ContactID);
                 }
 
-                NotifyClient.Instance.SendAboutResponsibleByTask(task, listItem.Title, taskContact, null);
+                if (task.EntityID > 0)
+                {
+                    switch (task.EntityType)
+                    {
+                        case EntityType.Case:
+                            taskCase = DaoFactory.GetCasesDao().GetByID(task.EntityID);
+                            break;
+                        case EntityType.Opportunity:
+                            taskDeal = DaoFactory.GetDealDao().GetByID(task.EntityID);
+                            break;
+                    }
+                }
+
+                NotifyClient.Instance.SendAboutResponsibleByTask(task, listItem.Title, taskContact, taskCase, taskDeal, null);
             }
 
             MessageService.Send(Request, MessageAction.CrmTaskUpdated, task.Title);

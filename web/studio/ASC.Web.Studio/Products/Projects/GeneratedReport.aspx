@@ -27,7 +27,7 @@
                         <%=ReportResource.ExportToCSV%>
                     </Header>
                     <Body>
-                        <p><%= ReportResource.ExportToCSVNote%></p>
+                        <p><%: ReportResource.ExportToCSVNote%></p>
                         <div class="neverShowContainer clearFix">
                             <input id="neverShowPopup" type="checkbox" />
                             <label for="neverShowPopup"><%=ReportResource.ExportToCSVCheckboxLabel %></label>

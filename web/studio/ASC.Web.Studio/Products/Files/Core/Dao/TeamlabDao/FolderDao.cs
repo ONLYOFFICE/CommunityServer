@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -45,44 +45,6 @@ using System.Web.Caching;
 
 namespace ASC.Files.Core.Data
 {
-    internal class CachedFolderDao : FolderDao
-    {
-        #region Constructor
-
-        public CachedFolderDao(int tenantID, String storageKey)
-            : base(tenantID, storageKey)
-        {
-
-
-        }
-
-        #endregion
-
-        #region Override Methods
-
-        public override object GetFolderID(string module, string bunch, string data, bool createIfNotExists)
-        {
-            var cachedKey = String.Format("{0}/{1}/{2}/{3}", TenantID, module, bunch, data);
-
-            var folderId = _cache[cachedKey];
-
-            if (folderId != null && !folderId.Equals(0))
-                return folderId;
-
-            folderId = base.GetFolderID(module, bunch, data, createIfNotExists);
-
-            if (!folderId.Equals(0))
-            {
-                _cache.Remove(cachedKey);
-                _cache.Insert(cachedKey, folderId, null, Cache.NoAbsoluteExpiration,
-                              TimeSpan.FromMinutes(15));
-            }
-            return folderId;
-        }
-
-        #endregion
-    }
-
     public class FolderDao : AbstractDao, IFolderDao
     {
         private const string my = "my";
@@ -140,7 +102,7 @@ namespace ASC.Files.Core.Data
         {
             var subq = Query("files_file")
                 .Select("folder_id")
-                .Where("id", fileId)
+                .Where(Exp.Eq("id", fileId) & Exp.Eq("current_version", true))
                 .Distinct();
 
             var q = new SqlQuery("files_folder_tree")
@@ -163,13 +125,24 @@ namespace ASC.Files.Core.Data
             return GetFolders(parentId, default(OrderBy), default(FilterType), default(Guid), string.Empty);
         }
 
-        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText)
+        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false)
         {
-            if (filterType == FilterType.FilesOnly) return new List<Folder>();
+            if (filterType == FilterType.FilesOnly || filterType == FilterType.ByExtension) return new List<Folder>();
 
             if (orderBy == null) orderBy = new OrderBy(SortedByType.DateAndTime, false);
 
             var q = GetFolderQuery(Exp.Eq("parent_id", parentId));
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                if (searchSubfolders)
+                {
+                    q = GetFolderQuery(Exp.Eq("fft.parent_id", parentId) & !Exp.Eq("fft.level", 0))
+                        .InnerJoin("files_folder_tree fft", Exp.EqColumns("fft.folder_id", "f.id"));
+                }
+
+                q.Where(Exp.Like("lower(title)", searchText.ToLower().Trim()));
+            }
             switch (orderBy.SortedBy)
             {
                 case SortedByType.Author:
@@ -185,9 +158,6 @@ namespace ASC.Files.Core.Data
                     q.OrderBy("title", true);
                     break;
             }
-
-            if (!string.IsNullOrEmpty(searchText))
-                q.Where(Exp.Like("lower(title)", searchText.ToLower().Trim()));
 
             if (filterType == FilterType.ByDepartment || filterType == FilterType.ByUser ||
                 filterType == FilterType.DocumentsOnly || filterType == FilterType.ImagesOnly ||
@@ -227,9 +197,23 @@ namespace ASC.Files.Core.Data
             }
         }
 
-        public List<Folder> GetFolders(object[] folderIds)
+        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false)
         {
             var q = GetFolderQuery(Exp.In("id", folderIds));
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                var likeExp = Exp.Like("lower(title)", searchText.ToLower().Trim());
+                if (searchSubfolders)
+                {
+                    q = GetFolderQuery(Exp.In("fft.parent_id", folderIds))
+                        .InnerJoin("files_folder_tree fft", Exp.EqColumns("fft.folder_id", "f.id"));
+                    likeExp = likeExp | Exp.Eq("level", 0);
+                }
+
+                q.Where(likeExp);
+            }
+
             using (var dbManager = GetDb())
             {
                 return dbManager
@@ -370,9 +354,9 @@ namespace ASC.Files.Core.Data
 
                 db.ExecuteNonQuery(Delete("files_folder").Where(Exp.In("id", subfolders)));
                 db.ExecuteNonQuery(new SqlDelete("files_folder_tree").Where(Exp.In("folder_id", subfolders)));
-                db.ExecuteNonQuery(Delete("files_tag_link").Where(Exp.In("entry_id", subfolders)).Where("entry_type", FileEntryType.Folder));
+                db.ExecuteNonQuery(Delete("files_tag_link").Where(Exp.In("entry_id", subfolders)).Where("entry_type", (int)FileEntryType.Folder));
                 db.ExecuteNonQuery(Delete("files_tag").Where(Exp.EqColumns("0", Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))));
-                db.ExecuteNonQuery(Delete("files_security").Where(Exp.In("entry_id", subfolders)).Where("entry_type", FileEntryType.Folder));
+                db.ExecuteNonQuery(Delete("files_security").Where(Exp.In("entry_id", subfolders)).Where("entry_type", (int)FileEntryType.Folder));
 
                 tx.Commit();
 
@@ -495,7 +479,7 @@ namespace ASC.Files.Core.Data
             return result;
         }
 
-        public object RenameFolder(object folderId, string title)
+        public object RenameFolder(Folder folder, string title)
         {
             using (var dbManager = GetDb())
             {
@@ -504,77 +488,9 @@ namespace ASC.Files.Core.Data
                         .Set("title", Global.ReplaceInvalidCharsAndTruncate(title))
                         .Set("modified_on", DateTime.UtcNow)
                         .Set("modified_by", SecurityContext.CurrentAccount.ID.ToString())
-                        .Where("id", folderId));
+                        .Where("id", folder.ID));
             }
-            return folderId;
-        }
-
-        public List<object> GetFiles(object parentId, bool withSubfolders)
-        {
-            using (var dbManager = GetDb())
-            {
-                return dbManager.ExecuteList(
-                    Query("files_file")
-                        .Select("id")
-                        .Where(Exp.Eq("folder_id", parentId) & Exp.Eq("current_version", true)))
-                                .ConvertAll(r => r[0]);
-            }
-        }
-
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filter, Guid subjectId, string searchText)
-        {
-            if (filter == FilterType.FoldersOnly) return new List<File>();
-
-            if (orderBy == null) orderBy = new OrderBy(SortedByType.DateAndTime, false);
-
-            var q = GetFileQuery(Exp.Eq("current_version", true) & Exp.Eq("folder_id", parentId));
-
-            switch (orderBy.SortedBy)
-            {
-                case SortedByType.Author:
-                    q.OrderBy("create_by", orderBy.IsAsc);
-                    break;
-                case SortedByType.Size:
-                    q.OrderBy("content_length", orderBy.IsAsc);
-                    break;
-                case SortedByType.AZ:
-                    q.OrderBy("title", orderBy.IsAsc);
-                    break;
-                case SortedByType.DateAndTime:
-                    q.OrderBy("create_on", orderBy.IsAsc);
-                    break;
-                default:
-                    q.OrderBy("title", true);
-                    break;
-            }
-
-            if (!string.IsNullOrEmpty(searchText))
-                q.Where(Exp.Like("lower(title)", searchText.ToLower().Trim()));
-
-            switch (filter)
-            {
-                case FilterType.DocumentsOnly:
-                case FilterType.ImagesOnly:
-                case FilterType.PresentationsOnly:
-                case FilterType.SpreadsheetsOnly:
-                case FilterType.ArchiveOnly:
-                    q.Where("category", (int)filter);
-                    break;
-                case FilterType.ByUser:
-                    q.Where("create_by", subjectId.ToString());
-                    break;
-                case FilterType.ByDepartment:
-                    var users = CoreContext.UserManager.GetUsersByGroup(subjectId).Select(u => u.ID.ToString()).ToArray();
-                    q.Where(Exp.In("create_by", users));
-                    break;
-            }
-
-            using (var dbManager = GetDb())
-            {
-                return dbManager
-                    .ExecuteList(q)
-                    .ConvertAll(ToFile);
-            }
+            return folder.ID;
         }
 
         public int GetItemsCount(object folderId, bool withSubfoldes)
@@ -885,7 +801,7 @@ namespace ASC.Files.Core.Data
 
             var cacheKey = "documents/folders/" + folderID.ToString();
 
-            var projectTitle = Convert.ToString(_cache.Get(cacheKey));
+            var projectTitle = Convert.ToString(cache.Get<string>(cacheKey));
 
             if (!String.IsNullOrEmpty(projectTitle)) return projectTitle;
 
@@ -923,9 +839,7 @@ namespace ASC.Files.Core.Data
             }
             if (!String.IsNullOrEmpty(projectTitle))
             {
-                _cache.Remove(cacheKey);
-                _cache.Insert(cacheKey, projectTitle, null, Cache.NoAbsoluteExpiration,
-                              TimeSpan.FromMinutes(15));
+                cache.Insert(cacheKey, projectTitle, TimeSpan.FromMinutes(15));
             }
             return projectTitle;
         }

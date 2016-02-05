@@ -24,10 +24,6 @@
 */
 
 
-/*
-    Copyright (c) Ascensio System SIA 2015. All rights reserved.
-    https://www.onlyoffice.com
-*/
 window.accountsPage = (function($) {
     var isInit = false,
         $page,
@@ -80,6 +76,56 @@ window.accountsPage = (function($) {
             accountsRows.remove();
         }
     }
+
+    var refreshAccount = function (accountName, isActivate) {
+        var account = accountsManager.getAccountByAddress(accountName);
+        if (!account)
+            return;
+
+        var accountListLength = accountsManager.getAccountList().length,
+            showSetDefaultIcon = accountListLength > 1,
+            tmplName = 'mailboxItemTmpl';
+
+        if (account.is_alias)
+            tmplName = 'aliasItemTmpl';
+        else if (account.is_group)
+            return;
+
+        var html = $.tmpl(tmplName,
+            {
+                email: account.email,
+                enabled: isActivate,
+                isDefault: account.is_default,
+                oAuthConnection: account.oauth,
+                isTeamlabMailbox: account.is_teamlab,
+                aliases: [],
+                mailboxId: account.mailbox_id
+            }, { showSetDefaultIcon: showSetDefaultIcon }),
+            $html = $(html);
+
+        $html.actionMenu('accountActionMenu', buttons, pretreatment);
+
+        var accountDiv = $page.find('tr[data_id="' + accountName + '"]');
+        if (!accountDiv)
+            return;
+
+        accountDiv.replaceWith($html);
+
+        $html.find('.default_account_icon_block').on("click", setDefaultButtonClickEvent);
+
+        if (showSetDefaultIcon) {
+            $('.accounts_list .item-row').each(function() {
+                var $this = $(this),
+                    html = $.tmpl('setDefaultIconItemTmpl', { isDefault: false });
+                if (!$this.children(":first").hasClass('default_account_button_column')) {
+                    $this.prepend(html);
+                    $(html).find('.set_as_default_account_icon').on("click", setDefaultButtonClickEvent);
+                    setDefaultAccountIfItDoesNotExist();
+                }
+            });
+        }
+
+    };
 
     var addAccount = function (accountName, enabled, oauth, isTeamlab) {
         accountName = accountName.toLowerCase();
@@ -135,13 +181,7 @@ window.accountsPage = (function($) {
     };
 
     var activateAccount = function(accountName, isActivate) {
-        var accountDiv = $page.find('tr[data_id="' + accountName + '"]');
-
-        if (isActivate) {
-            accountDiv.removeClass('disabled');
-        } else {
-            accountDiv.toggleClass('disabled', true);
-        }
+        refreshAccount(accountName, isActivate);
     };
 
     var pretreatment = function(id) {
@@ -249,7 +289,21 @@ window.accountsPage = (function($) {
     };
 
     function setDefaultButtonClickEvent() {
-        setDefaultButtonClick($(this));
+        var $this = $(this),
+            accountName = $this.parent().parent().attr('data_id'),
+            account = accountsManager.getAccountByAddress(accountName);
+
+        if (!account)
+            return;
+
+        if (!account.enabled) {
+            function setDefailt() {
+                $('#id_accounts_page .accounts_list .row[data_id="' + accountName + '"] .set_as_default_account_icon').click();
+            }
+
+            accountsModal.activateAccount(accountName, true, setDefailt);
+        } else
+            setDefaultButtonClick($this);
     }
 
     function setDefaultButtonClick($defaultAccountIcon) {
@@ -266,6 +320,7 @@ window.accountsPage = (function($) {
             $this.removeClass('set_as_default_account_icon');
             accountsModal.setDefaultAccount(accountName, true);
             accountsManager.setDefaultAccount(accountName, true);
+            toastr.success(MailScriptResource.DefaultAccountText + " <b>{0}</b>".format(accountName));
         }
     }
 

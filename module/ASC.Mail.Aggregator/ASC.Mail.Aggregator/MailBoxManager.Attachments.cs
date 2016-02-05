@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -27,8 +27,15 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Text;
+using ActiveUp.Net.Mail;
+using ASC.Common.Data;
+using ASC.Common.Data.Sql;
+using ASC.Common.Data.Sql.Expressions;
+using ASC.Common.Web;
+using ASC.Data.Storage;
 using ASC.Data.Storage.S3;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Extension;
@@ -38,15 +45,9 @@ using ASC.Mail.Aggregator.DataStorage;
 using ASC.Mail.Aggregator.Exceptions;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Api;
-using ASC.Common.Data.Sql;
-using ASC.Common.Data.Sql.Expressions;
-using System.IO;
-using ASC.Common.Data;
 using ASC.Web.Files.Utils;
-using ASC.Data.Storage;
-using ActiveUp.Net.Mail;
 using HtmlAgilityPack;
-using MimeMapping = ASC.Common.Web.MimeMapping;
+using File = ASC.Files.Core.File;
 
 namespace ASC.Mail.Aggregator
 {
@@ -65,13 +66,13 @@ namespace ASC.Mail.Aggregator
         #region public methods
 
         public MailAttachment AttachFileFromDocuments(int tenant, string user, int messageId, string fileId,
-                                                          string version, string shareLink, string streamId)
+                                                          string version, string shareLink)
         {
             MailAttachment result;
 
             using (var fileDao = FilesIntegration.GetFileDao())
             {
-                Files.Core.File file;
+                File file;
                 var checkLink = FileShareLink.Check(shareLink, true, fileDao, out file);
                 if (!checkLink && file == null)
                     file = String.IsNullOrEmpty(version)
@@ -144,7 +145,7 @@ namespace ASC.Mail.Aggregator
                         using (var memStream = new MemoryStream())
                         {
                             readStream.StreamCopyTo(memStream);
-                            result = AttachFile(tenant, user, messageId, fileName, memStream, streamId);
+                            result = AttachFile(tenant, user, messageId, fileName, memStream);
                             _log.Info("Attached attachment: ID - {0}, Name - {1}, StoredUrl - {2}", result.fileName,result.fileName, result.storedFileUrl);
                         }
                     }
@@ -156,7 +157,7 @@ namespace ASC.Mail.Aggregator
                         if (readStream == null)
                             throw new AttachmentsException(AttachmentsException.Types.DocumentAccessDenied,"Access denied.");
 
-                        result = AttachFile(tenant, user, messageId, file.Title, readStream, streamId);
+                        result = AttachFile(tenant, user, messageId, file.Title, readStream);
                        _log.Info("Attached attachment: ID - {0}, Name - {1}, StoredUrl - {2}", result.fileName, result.fileName, result.storedFileUrl);
                     }
                 }
@@ -166,9 +167,9 @@ namespace ASC.Mail.Aggregator
         }
 
         public MailAttachment AttachFile(int tenant, string user, int messageId,
-            string name, Stream inputStream, string streamId)
+            string name, Stream inputStream)
         {
-            if (messageId < 0)
+            if (messageId < 1)
                 throw new AttachmentsException(AttachmentsException.Types.BadParams, "Field 'id_message' must have non-negative value.");
 
             if (tenant < 0)
@@ -180,13 +181,16 @@ namespace ASC.Mail.Aggregator
             if (inputStream.Length == 0)
                 throw new AttachmentsException(AttachmentsException.Types.EmptyFile, "Empty files not supported.");
 
-            if (string.IsNullOrEmpty(streamId))
-                throw new AttachmentsException(AttachmentsException.Types.MessageNotFound, "Message not found.");
-
             var message = GetMailInfo(tenant, user, messageId, false, false);
 
-            if(message == null || streamId != message.StreamId)
+            if(message == null)
                 throw new AttachmentsException(AttachmentsException.Types.MessageNotFound, "Message not found.");
+
+            if (message.Folder != MailFolder.Ids.drafts)
+                throw new AttachmentsException(AttachmentsException.Types.BadParams, "Message is not a draft.");
+
+            if (string.IsNullOrEmpty(message.StreamId))
+                throw new AttachmentsException(AttachmentsException.Types.MessageNotFound, "StreamId is empty.");
 
             var totalSize = GetAttachmentsTotalSize(messageId) + inputStream.Length;
 
@@ -201,8 +205,8 @@ namespace ASC.Mail.Aggregator
                 contentType = MimeMapping.GetMimeMapping(name),
                 fileNumber = fileNumber,
                 size = inputStream.Length,
-                data = inputStream.GetCorrectBuffer(),
-                streamId = streamId,
+                data = inputStream.ReadToEnd(),
+                streamId = message.StreamId,
                 tenant = tenant,
                 user = user,
                 mailboxId = message.MailboxId
@@ -307,7 +311,7 @@ namespace ASC.Mail.Aggregator
 
                 var ext = Path.GetExtension(attachment.fileName);
 
-                attachment.storedName = CreateNewStreamId();
+                attachment.storedName = CreateStreamId();
 
                 if (!string.IsNullOrEmpty(ext))
                     attachment.storedName = Path.ChangeExtension(attachment.storedName, ext);
@@ -466,7 +470,7 @@ namespace ASC.Mail.Aggregator
             return id;
         }
 
-        public string StoreMailBody(int tenant, string user, MailMessageItem messageItem)
+        public string StoreMailBody(int tenant, string user, MailMessage messageItem)
         {
             if (string.IsNullOrEmpty(messageItem.HtmlBody))
             {
@@ -528,6 +532,9 @@ namespace ASC.Mail.Aggregator
 
         public string StoreMailEml(int tenant, string user, string streamId, Message message)
         {
+            if (message.OriginalData == null || !message.OriginalData.Any())
+                return string.Empty;
+
             // Using id_user as domain in S3 Storage - allows not to add quota to tenant.
             var savePath = MailStoragePathCombiner.GetEmlKey(user, streamId);
             var storage = MailDataStore.GetDataStore(tenant);
@@ -728,7 +735,7 @@ namespace ASC.Mail.Aggregator
             return AttachmentManager.GetAttachmentStream(attachment);
         }
 
-        public static string ReplaceEmbeddedImages(MailMessageItem m, ILogger log = null)
+        public static string ReplaceEmbeddedImages(MailMessage m, ILogger log = null)
         {
             try
             {
@@ -854,7 +861,8 @@ namespace ASC.Mail.Aggregator
             }
             catch (Exception ex)
             {
-                _log.Error(ex, "QuotaUsedAdd with params: tenant={0}, used_quota={1}", tenant, usedQuota);
+                _log.Error(string.Format("QuotaUsedAdd with params: tenant={0}, used_quota={1}", tenant, usedQuota), ex);
+
                 throw;
             }
         }
@@ -868,7 +876,8 @@ namespace ASC.Mail.Aggregator
             }
             catch (Exception ex)
             {
-                _log.Error(ex, "QuotaUsedDelete with params: tenant={0}, used_quota={1}", tenant, usedQuota);
+                _log.Error(string.Format("QuotaUsedDelete with params: tenant={0}, used_quota={1}", tenant, usedQuota), ex);
+
                 throw;
             }
         }

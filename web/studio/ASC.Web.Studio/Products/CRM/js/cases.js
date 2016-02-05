@@ -550,13 +550,15 @@ ASC.CRM.ListCasesView = (function() {
 
 
         jq("#caseTable").unbind("contextmenu").bind("contextmenu", function(event) {
-            event.preventDefault();
+            var e = jq.fixEvent(event);
 
-            var e = ASC.CRM.Common.fixEvent(event),
-                target = jq(e.srcElement || e.target),
+            if (typeof e == "undefined" || !e) {
+                return true;
+            }
+            var target = jq(e.srcElement || e.target),
                 caseId = parseInt(target.closest("tr.with-entity-menu").attr("id").split('_')[1]);
             if (!caseId) {
-                return false;
+                return true;
             }
             _showActionMenu(caseId);
             jq("#caseTable .entity-menu.active").removeClass("active");
@@ -579,7 +581,7 @@ ASC.CRM.ListCasesView = (function() {
                 });
             }
             $dropdownItem.show();
-            return true;
+            return false;
         });
 
     };

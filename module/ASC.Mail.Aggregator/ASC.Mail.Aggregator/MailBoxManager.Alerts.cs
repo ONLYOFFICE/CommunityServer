@@ -163,9 +163,10 @@ namespace ASC.Mail.Aggregator
             return CreateUniqueAlert(db, tenant, user, mailboxId, AlertTypes.TooManyAuthError);
         }
 
-        public int CreateQuotaErrorWarningAlert(IDbManager db, int tenant, string user)
+        public int CreateQuotaErrorWarningAlert(int tenant, string user, IDbManager db = null)
         {
-            return CreateUniqueAlert(db, tenant, user, -1, AlertTypes.QuotaError);
+            return db == null? CreateUniqueAlert(tenant, user, -1, AlertTypes.QuotaError): 
+                CreateUniqueAlert(db, tenant, user, -1, AlertTypes.QuotaError);
         }
 
         public void DeleteAlert(int tenant, string user, long alertId)

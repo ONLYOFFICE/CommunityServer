@@ -24,6 +24,7 @@
 */
 
 
+using System;
 using System.Configuration;
 
 namespace ASC.FullTextIndex.Service.Config
@@ -48,6 +49,12 @@ namespace ASC.FullTextIndex.Service.Config
             get { return (string)base["removedCron"]; }
         }
 
+        [ConfigurationProperty("mergeCron", IsRequired = true)]
+        public string MergeCron
+        {
+            get { return (string)base["mergeCron"]; }
+        }
+
         [ConfigurationProperty("indexPath", DefaultValue = "../../Data/Index")]
         public string DataPath
         {
@@ -58,6 +65,20 @@ namespace ASC.FullTextIndex.Service.Config
         public TextIndexCfgModuleCollection Modules
         {
             get { return (TextIndexCfgModuleCollection)base["modules"]; }
+        }
+
+        [ConfigurationProperty("chunks", DefaultValue = 1)]
+        public int Chunks
+        {
+            get { return Convert.ToInt32(this["chunks"]); }
+            set { this["chunks"] = value; }
+        }
+
+        [ConfigurationProperty("dimension", DefaultValue = 10000)]
+        public int Dimension
+        {
+            get { return Convert.ToInt32(this["dimension"]); }
+            set { this["dimension"] = value; }
         }
     }
 }

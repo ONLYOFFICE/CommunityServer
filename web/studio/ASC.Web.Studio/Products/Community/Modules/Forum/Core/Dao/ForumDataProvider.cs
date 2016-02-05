@@ -24,6 +24,15 @@
 */
 
 
+using ASC.Common.Caching;
+using ASC.Common.Data;
+using ASC.Common.Data.Sql;
+using ASC.Common.Data.Sql.Expressions;
+using ASC.Core;
+using ASC.Core.Tenants;
+using ASC.FullTextIndex;
+using ASC.Web.Community.Product;
+using ASC.Web.Studio.Utility;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -32,15 +41,6 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Web;
-using ASC.Common.Data;
-using ASC.Common.Data.Sql;
-using ASC.Common.Data.Sql.Expressions;
-using ASC.Core;
-using ASC.Core.Caching;
-using ASC.Core.Tenants;
-using ASC.FullTextIndex;
-using ASC.Web.Community.Product;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Forum
 {
@@ -86,11 +86,11 @@ namespace ASC.Forum
                 if (hash == null)
                 {
                     hash = Hashtable.Synchronized(new Hashtable());
-                    HttpContext.Current.Session.Add(key, hash);
                     foreach (var f in ForumDataProvider.InitFirstVisit())
                     {
                         hash[UserKeys.StringThreadKey + f.ThreadID.ToString(CultureInfo.InvariantCulture)] = f;
                     }
+                    HttpContext.Current.Session.Add(key, hash);
                 }
 
                 var threadKey = UserKeys.StringThreadKey + threadID.ToString(CultureInfo.InvariantCulture);
@@ -102,6 +102,7 @@ namespace ASC.Forum
                 else
                 {
                     hash[threadKey] = tvi;
+                    HttpContext.Current.Session[key] = hash;
                 }
 
                 return tvi;

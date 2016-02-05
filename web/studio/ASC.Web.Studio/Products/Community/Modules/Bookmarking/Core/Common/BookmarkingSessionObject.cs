@@ -36,5 +36,10 @@ namespace ASC.Bookmarking.Common
 		{
 			return BookmarkingBusinessFactory.GetObjectFromSession<T>();
 		}
+
+        public static void UpdateCurrentInstanse(T obj)
+        {
+            BookmarkingBusinessFactory.UpdateObjectInSession<T>(obj);
+        }
 	}
 }

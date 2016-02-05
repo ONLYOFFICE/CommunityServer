@@ -129,8 +129,23 @@
   <data name="AdvansedFilterInfoText" xml:space="preserve">
     <value>Use the {0}?{1} and {0}*{1} symbols to perform a single/multiple-character search. For example, to search for all the words beginning with {0}O{1}, use the  {0}O*{1} query. To search for the terms similar in spelling use the {0}~{1} symbol at the end of a word.{2}Learn more...{3}</value>
   </data>
+  <data name="BackupMakeCopySuccess" xml:space="preserve">
+    <value>The backup copy has been successfully created.</value>
+  </data>
+  <data name="BusyStatus" xml:space="preserve">
+    <value>Busy</value>
+  </data>
+  <data name="BuyNumberSuccessMsg" xml:space="preserve">
+    <value>Покупка номера успешно завершена</value>
+  </data>
   <data name="CancelConfirmMessage" xml:space="preserve">
     <value>All the data you entered will be lost. Are you sure you want to continue?</value>
+  </data>
+  <data name="ChangesApplied" xml:space="preserve">
+    <value>Changes are applied</value>
+  </data>
+  <data name="ChangesSuccessfullyAppliedMsg" xml:space="preserve">
+    <value>Изменения успешно применены.</value>
   </data>
   <data name="ChooseOwner" xml:space="preserve">
     <value>Choose owner</value>
@@ -143,6 +158,9 @@
   </data>
   <data name="CloseButton" xml:space="preserve">
     <value>Close</value>
+  </data>
+  <data name="CommonJSErrorMsg" xml:space="preserve">
+    <value>Упс... Ошибочка вышла. Обратитесь к администратору.</value>
   </data>
   <data name="ConfirmMessage" xml:space="preserve">
     <value>Do you want to continue?</value>
@@ -168,17 +186,26 @@
   <data name="CreateButton" xml:space="preserve">
     <value>Create</value>
   </data>
+  <data name="CreateReportError" xml:space="preserve">
+    <value>Error while generating report</value>
+  </data>
   <data name="EditButton" xml:space="preserve">
     <value>Edit</value>
   </data>
   <data name="Empty" xml:space="preserve">
     <value>Empty</value>
   </data>
+  <data name="ErrorEmptyField" xml:space="preserve">
+    <value>Please enter field</value>
+  </data>
+  <data name="EmptyCommentErrorMessage" xml:space="preserve">
+    <value>Comment cannot be empty</value>
+  </data>
+  <data name="ErrorEmptyEmail" xml:space="preserve">
+    <value>Enter the email</value>
+  </data>
   <data name="ErrorEmptyGroupTitle" xml:space="preserve">
     <value>Enter the group title</value>
-  </data>
-  <data name="ErrorEmptyTitleTag" xml:space="preserve">
-    <value>Enter the tag title</value>
   </data>
   <data name="ErrorEmptyUserFirstName" xml:space="preserve">
     <value>Enter the first name</value>
@@ -198,20 +225,23 @@
   <data name="ErrorMesLongField64" xml:space="preserve">
     <value>64 chars maximum</value>
   </data>
+  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
+    <value>Registration date must be later than birth date</value>
+  </data>
   <data name="ErrorMessageContactsDuplicated" xml:space="preserve">
     <value>Cannot add the same account and contact twice.</value>
   </data>
   <data name="ErrorMessageLongField64" xml:space="preserve">
     <value>You can only enter up to 64 characters for this field.</value>
   </data>
-  <data name="ErrorMessage_InvalidDate" xml:space="preserve">
-    <value>Registration date must be later than birth date</value>
-  </data>
   <data name="ErrorNotCorrectEmail" xml:space="preserve">
     <value>Invalid email</value>
   </data>
   <data name="FinishImportUserTitle" xml:space="preserve">
     <value>The users have been successfully added.</value>
+  </data>
+  <data name="GreetingRingtones" xml:space="preserve">
+    <value>Мелодии приветствия</value>
   </data>
   <data name="GroupSelectorAddSuccess" xml:space="preserve">
     <value>Group {0} was created successfully.</value>
@@ -228,8 +258,17 @@
   <data name="ImportContactsIncorrectFields" xml:space="preserve">
     <value>Make sure that all user fields including first name, last name and email address are filled correctly</value>
   </data>
+  <data name="ImportUserOverlimitHeader" xml:space="preserve">
+    <value>Your pricing plan does not allow you to add any more users</value>
+  </data>
+  <data name="IncorrectIPAddressFormatError" xml:space="preserve">
+    <value>Неверный формат IP-адреса</value>
+  </data>
   <data name="InviteButton" xml:space="preserve">
     <value>Invite</value>
+  </data>
+  <data name="IPRestrictionsSettingsSuccessfullyUpdated" xml:space="preserve">
+    <value>Settings have been successfully updated</value>
   </data>
   <data name="LdapSettingsEmptyField" xml:space="preserve">
     <value>Empty field</value>
@@ -291,7 +330,13 @@
   <data name="Offline" xml:space="preserve">
     <value>Offline</value>
   </data>
+  <data name="OfflineStatus" xml:space="preserve">
+    <value>Offline</value>
+  </data>
   <data name="Online" xml:space="preserve">
+    <value>Online</value>
+  </data>
+  <data name="OnlineStatus" xml:space="preserve">
     <value>Online</value>
   </data>
   <data name="People" xml:space="preserve">
@@ -317,6 +362,21 @@
   </data>
   <data name="ProjectSelectorNotPersonError" xml:space="preserve">
     <value>No such person</value>
+  </data>
+  <data name="QueueRingtones" xml:space="preserve">
+    <value>Мелодии очереди</value>
+  </data>
+  <data name="SameIPRestrictionError" xml:space="preserve">
+    <value>Одинаковые ограничения</value>
+  </data>
+  <data name="SavedTitle" xml:space="preserve">
+    <value>Сохранено</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Select file</value>
+  </data>
+  <data name="SelectFolder" xml:space="preserve">
+    <value>Select folder</value>
   </data>
   <data name="SelectorCompany" xml:space="preserve">
     <value>Company</value>
@@ -384,101 +444,14 @@
   <data name="SuccessfullySaveSettingsMessage" xml:space="preserve">
     <value>Settings have been successfully updated</value>
   </data>
-  <data name="TransferPortalCompleted" xml:space="preserve">
-    <value>The portal migration is successfully completed. Your portal is now available at</value>
-  </data>
   <data name="UnsubscribeProductMessage" xml:space="preserve">
     <value>You are about to unsubscribe from all notifications of the "{0}" module. Are you sure you want to continue?</value>
-  </data>
-  <data name="UserSelectorAddSuccess" xml:space="preserve">
-    <value>User {0} was created successfully</value>
-  </data>
-  <data name="UserSelectorAddText" xml:space="preserve">
-    <value>Create new user</value>
-  </data>
-  <data name="UserSelectorEmptyList" xml:space="preserve">
-    <value>No users in this list</value>
-  </data>
-  <data name="UserSelectorNoGroups" xml:space="preserve">
-    <value>No groups have been created at the portal so far. Go to the People module to group users.</value>
-  </data>
-  <data name="UserSelectorNoItems" xml:space="preserve">
-    <value>No users in this group</value>
-  </data>
-  <data name="UserSelectorNoResults" xml:space="preserve">
-    <value>No such user</value>
-  </data>
-  <data name="WarningMessageBeforeUnload" xml:space="preserve">
-    <value>If you leave now all the entered or unsaved data will be lost.</value>
-  </data>
-  <data name="WizardCancelConfirmMessage" xml:space="preserve">
-    <value>You haven't set up any password. You will be able to do it later using the 'Forgot your password?' link at the portal login page. Are you sure you want to continue?</value>
-  </data>
-  <data name="ChangesApplied" xml:space="preserve">
-    <value>Changes are applied</value>
-  </data>
-  <data name="EmptyCommentErrorMessage" xml:space="preserve">
-    <value>Comment cannot be empty</value>
-  </data>
-  <data name="ImportUserOverlimitHeader" xml:space="preserve">
-    <value>Your pricing plan does not allow you to add any more users</value>
-  </data>
-  <data name="SavedTitle" xml:space="preserve">
-    <value>Сохранено</value>
-  </data>
-  <data name="UserSelectorErrorLimitUsers" xml:space="preserve">
-    <value>Exceeds the maximum active users</value>
-  </data>
-  <data name="CreateReportError" xml:space="preserve">
-    <value>Error while generating report</value>
   </data>
   <data name="UploadHttpsFileTypeError" xml:space="preserve">
     <value>File extension error</value>
   </data>
-  <data name="IPRestrictionSuccessfullyAdded" xml:space="preserve">
-    <value>Ограничение успешно добавлено</value>
-  </data>
-  <data name="IPRestrictionSuccessfullyDeleted" xml:space="preserve">
-    <value>Ограничение успешно удалено</value>
-  </data>
-  <data name="IPRestrictionSuccessfullyUpdated" xml:space="preserve">
-    <value>Ограничение успешно изменено</value>
-  </data>
-  <data name="SelectFile" xml:space="preserve">
-    <value>Select file</value>
-  </data>
-  <data name="SelectFolder" xml:space="preserve">
-    <value>Select folder</value>
-  </data>
-  <data name="ChangesSuccessfullyAppliedMsg" xml:space="preserve">
-    <value>Изменения успешно применены.</value>
-  </data>
-  <data name="CommonJSErrorMsg" xml:space="preserve">
-    <value>Упс... Ошибочка вышла. Обратитесь к администратору.</value>
-  </data>
-  <data name="GreetingRingtones" xml:space="preserve">
-    <value>Мелодии приветствия</value>
-  </data>
-  <data name="QueueRingtones" xml:space="preserve">
-    <value>Мелодии очереди</value>
-  </data>
-  <data name="VoicemailRingtones" xml:space="preserve">
-    <value>Мелодии голосовой почты</value>
-  </data>
-  <data name="WaitingRingtones" xml:space="preserve">
-    <value>Мелодии ожидания</value>
-  </data>
-  <data name="BuyNumberSuccessMsg" xml:space="preserve">
-    <value>Покупка номера успешно завершена</value>
-  </data>
-  <data name="BusyStatus" xml:space="preserve">
-    <value>Busy</value>
-  </data>
-  <data name="OfflineStatus" xml:space="preserve">
-    <value>Offline</value>
-  </data>
-  <data name="OnlineStatus" xml:space="preserve">
-    <value>Online</value>
+  <data name="UploadVoipRingtoneEmptyFileErrorMsg" xml:space="preserve">
+    <value>Empty file</value>
   </data>
   <data name="UploadVoipRingtoneFileErrorMsg" xml:space="preserve">
     <value>Ошибка при загрузке файла</value>
@@ -489,28 +462,100 @@
   <data name="UploadVoipRingtoneFileSizeErrorMsg" xml:space="preserve">
     <value>Размер файла не должен превышать 5MB </value>
   </data>
-  <data name="ErrorEmptyEmail" xml:space="preserve">
-    <value>Enter the email</value>
+  <data name="UserSelectorAddSuccess" xml:space="preserve">
+    <value>User {0} was created successfully</value>
   </data>
-  <data name="BackupMakeCopySuccess" xml:space="preserve">
-    <value>The backup copy has been successfully created.</value>
+  <data name="UserSelectorAddText" xml:space="preserve">
+    <value>Create new user</value>
   </data>
-  <data name="IncorrectIPAddressFormatError" xml:space="preserve">
-    <value>Неверный формат IP-адреса</value>
+  <data name="UserSelectorEmptyList" xml:space="preserve">
+    <value>No users in this list</value>
   </data>
-  <data name="SameIPRestrictionError" xml:space="preserve">
-    <value>Одинаковые ограничения</value>
+  <data name="UserSelectorErrorLimitUsers" xml:space="preserve">
+    <value>Exceeds the maximum active users</value>
   </data>
-  <data name="IPRestrictionsSettingsSuccessfullyUpdated" xml:space="preserve">
-    <value>Settings have been successfully updated</value>
+  <data name="UserSelectorNoGroups" xml:space="preserve">
+    <value>No groups have been created at the portal so far. Go to the People module to group users.</value>
   </data>
-  <data name="UploadVoipRingtoneEmptyFileErrorMsg" xml:space="preserve">
-    <value>Empty file</value>
+  <data name="UserSelectorNoItems" xml:space="preserve">
+    <value>No users in this group</value>
+  </data>
+  <data name="UserSelectorNoResults" xml:space="preserve">
+    <value>No such user</value>
+  </data>
+  <data name="VoicemailRingtones" xml:space="preserve">
+    <value>Мелодии голосовой почты</value>
+  </data>
+  <data name="WaitingRingtones" xml:space="preserve">
+    <value>Мелодии ожидания</value>
+  </data>
+  <data name="WarningMessageBeforeUnload" xml:space="preserve">
+    <value>If you leave now all the entered or unsaved data will be lost.</value>
+  </data>
+  <data name="WizardCancelConfirmMessage" xml:space="preserve">
+    <value>You haven't set up any password. You will be able to do it later using the 'Forgot your password?' link at the portal login page. Are you sure you want to continue?</value>
   </data>
   <data name="LinkCopySuccess" xml:space="preserve">
     <value>Link has been copied to the clipboard</value>
   </data>
   <data name="ShareInviteLinkDscr" xml:space="preserve">
     <value>I created my own web-office. Join me here: {0} #ONLYOFFICE #WebOffice</value>
+  </data>
+  <data name="ErrorPortalNameExist" xml:space="preserve">
+    <value>Portal name is already busy</value>
+  </data>
+  <data name="ErrorPortalNameIncorrect" xml:space="preserve">
+    <value>Unallowable symbols in portal name</value>
+  </data>
+  <data name="ErrorPortalNameTooShort" xml:space="preserve">
+    <value>Portal name too short</value>
+  </data>
+  <data name="ErrorPortalNameWasNotChanged" xml:space="preserve">
+    <value>Portal name was not changed</value>
+  </data>
+  <data name="CancelButton" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="ContinueButton" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="PortalRenameConfirmationPopup" xml:space="preserve">
+    <value>{0}You are about to rename your portal.{1}{0}Are you sure you want to continue?{1}</value>
+  </data>
+  <data name="PortalRenameConfirmationTitle" xml:space="preserve">
+    <value>Portal renaming confirmation</value>
+  </data>
+  <data name="WelcomeCollaboratorCan" xml:space="preserve">
+    <value>{0}This means that you can: {1}view portal content open for all portal users,{2}leave comments,{3}attach and download files.{4}</value>
+  </data>
+  <data name="WelcomeCollaboratorOtherActions" xml:space="preserve">
+    <value>In case you need some additional rights please contact your portal administrator.</value>
+  </data>
+  <data name="WelcomeCollaboratorPopupHeader" xml:space="preserve">
+    <value>Welcome to TeamLab</value>
+  </data>
+  <data name="WelcomeCollaboratorRole" xml:space="preserve">
+    <value>The portal administrator invited you as guest user to the portal.</value>
+  </data>
+  <data name="WelcomeCollaboratorStartWork" xml:space="preserve">
+    <value>Start work</value>
+  </data>
+  <data name="WelcomeToTeamlab" xml:space="preserve">
+    <value>Welcome to Teamlab!</value>
+  </data>
+  <data name="OperationFailedMsg" xml:space="preserve">
+    <value>Ошибка при выполнении операции.</value>
+  </data>
+  <data name="OperationSuccededMsg" xml:space="preserve">
+    <value>Операция успешно выполнена.</value>
+  </data>
+  <data name="SendTariffRequest" xml:space="preserve">
+    <value>Request was sent</value>
+  </data>
+  <data name="LicenseKeyError" xml:space="preserve">
+    <value>License not correct</value>
+  </data>
+  <data name="LicenseAgreementsError" xml:space="preserve">
+    <value>You need read and agree License Agreement</value>
   </data>
 </root>

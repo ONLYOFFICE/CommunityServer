@@ -33,15 +33,7 @@ namespace ASC.Web.Core.Client.Bundling
     {
         public static void Configure()
         {
-            var scriptProvider = new ClientScriptVirtualPathProvider();
-            if (ClientSettings.BundlingEnabled)
-            {
-                BundleTable.VirtualPathProvider = scriptProvider;
-            }
-            else
-            {
-                RouteTable.Routes.Add(new Route(BundleHelper.CLIENT_SCRIPT_VPATH.TrimStart('/') + "{path}.js", scriptProvider));
-            }
+            RouteTable.Routes.Add(new Route(BundleHelper.CLIENT_SCRIPT_VPATH.TrimStart('/') + "{path}.js", new ClientScriptRouteHandler()));
             BundleTable.Bundles.UseCdn = ClientSettings.StoreBundles;
             BundleTable.EnableOptimizations = true;
             PreApplicationStartCode.Start();

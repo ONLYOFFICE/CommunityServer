@@ -25,14 +25,9 @@
 
 
 using System;
-using System.IO;
-using System.Net;
-using System.Runtime.Serialization.Json;
-using System.Text;
 using System.Threading;
 using System.Web;
 using ASC.FederatedLogin.LoginProviders;
-using ASC.Thrdparty.Configuration;
 
 namespace ASC.Thrdparty.Web.Google
 {
@@ -42,17 +37,16 @@ namespace ASC.Thrdparty.Web.Google
         {
             try
             {
-                var scope = KeyStorage.Get("mail.googleScopes");
-                var token = GoogleLoginProvider.Auth(HttpContext.Current, scope);
+                var token = GoogleLoginProvider.Auth(HttpContext.Current, string.Concat(GoogleLoginProvider.GoogleScopeMail, " ", GoogleLoginProvider.GoogleScopeProfile));
 
-                var email = GetEmail(token.AccessToken);
+                var loginProfile = new GoogleLoginProvider().GetLoginProfile(token == null ? null : token.AccessToken);
 
-                var emailInfo = new EmailAccessInfo
+                var emailInfo = ToJson(new
                     {
-                        Email = email,
+                        Email = loginProfile.EMail,
                         RefreshToken = token.RefreshToken
-                    };
-                SubmitEmailInfo(emailInfo);
+                    });
+                SubmitData(emailInfo);
             }
             catch (ThreadAbortException)
             {
@@ -61,50 +55,6 @@ namespace ASC.Thrdparty.Web.Google
             catch (Exception ex)
             {
                 SubmitError(ex.Message);
-            }
-        }
-
-        protected string GetEmail(string accessToken)
-        {
-            var email = "";
-
-            if (!string.IsNullOrEmpty(accessToken))
-            {
-                var url = String.Format("https://www.googleapis.com/oauth2/v1/userinfo?access_token={0}", accessToken);
-
-                var requestUserInfo = (HttpWebRequest)WebRequest.Create(url);
-                var responseUserInfo = (HttpWebResponse)requestUserInfo.GetResponse();
-                if (responseUserInfo.StatusCode == HttpStatusCode.OK)
-                {
-                    using (var receiveStream = responseUserInfo.GetResponseStream())
-                    {
-                        var encode = Encoding.GetEncoding("utf-8");
-                        if (receiveStream != null)
-                            using (var readStream = new StreamReader(receiveStream, encode))
-                            {
-                                var userInfo = Deserialise<GoogleUserInfo>(readStream.ReadToEnd());
-                                responseUserInfo.Close();
-                                readStream.Close();
-
-                                if (!string.IsNullOrEmpty(userInfo.email)) email = userInfo.email;
-                            }
-                    }
-                }
-                else
-                {
-                    responseUserInfo.Close();
-                }
-            }
-
-            return email;
-        }
-
-        public static T Deserialise<T>(string json)
-        {
-            using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(json)))
-            {
-                var serialiser = new DataContractJsonSerializer(typeof(T));
-                return (T)serialiser.ReadObject(ms);
             }
         }
     }

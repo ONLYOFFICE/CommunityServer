@@ -36,12 +36,6 @@ namespace ASC.Web.CRM.SocialMedia
 
         public const string ConfigKeyFacebookDefaultAccessToken = "facebookAccessToken_Default";
 
-        public const string ConfigKeyLinkedInDefaultAccessToken = "linkedInAccessToken_Default";
-        public const string ConfigKeyLinkedInDefaultAccessTokenSecret = "linkedInAccessTokenSecret_Default";
-
-        public const string ConfigKeyLinkedInConsumerKey = "linkedInKey";
-        public const string ConfigKeyLinkedInConsumerSecretKey = "linkedInSecret";
-
         public const string LoggerName = "ASC.SocialMedia.Web";
     }
 }

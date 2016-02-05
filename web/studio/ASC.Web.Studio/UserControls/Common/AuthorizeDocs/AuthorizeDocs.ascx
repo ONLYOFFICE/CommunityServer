@@ -8,10 +8,10 @@
 <div>
     <div class="auth-form-head_w <%= Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName %>">
         <div class="auth-form-head">
-            <h1 class="auth-form-header"><%= String.Format(Resource.AuthDocsTitle, "<br />") %></h1>
+            <h1 class="auth-form-header"><%= String.Format(Resource.AuthDocsTitle.HtmlEncode(), "<br />") %></h1>
             <div class="auth-form-with_try clearFix">
                 <p class="auth-form-with_try_formats"><%= Resource.AuthDocsEditText %>
-                    <span id="chromebookText"><%= String.Format(Resource.AuthDocsChromebook, "<span class=\"chromebook\">", "</span>") %></span>
+                    <span id="chromebookText"><%= String.Format(Resource.AuthDocsChromebook.HtmlEncode(), "<span class=\"chromebook\">", "</span>") %></span>
                 </p>
             </div>
             <div class="auth-form-with_sign-up">
@@ -70,9 +70,9 @@
 <div id="sendEmailSuccessPopup" class="default-personal-popup">
     <div class="default-personal-popup_cnt">
         <div class="default-personal-popup_closer">&times</div>
-        <div class="default-personal-popup_text"><%=Resource.AuthDocsThanksRegistration %></div>
+        <div class="default-personal-popup_text"><%: Resource.AuthDocsThanksRegistration %></div>
         <div class="default-personal-popup_text"><%= Resource.AuthDocsSendActivationEmail %> '<span id="activationEmail"></span>'</div>
-        <div class="default-personal-popup_strong-text"><%=Resource.AuthDocsCheckEmail %></div>
+        <div class="default-personal-popup_strong-text"><%= Resource.AuthDocsCheckEmail %></div>
     </div>
 </div>
 

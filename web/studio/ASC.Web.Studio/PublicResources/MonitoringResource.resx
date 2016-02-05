@@ -117,57 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LogsText" xml:space="preserve">
-    <value>Download all the logs</value>
-  </data>
-  <data name="LogsTitle" xml:space="preserve">
-    <value>Logs</value>
-  </data>
-  <data name="PortsText" xml:space="preserve">
-    <value>All following ports must be open</value>
-  </data>
-  <data name="PortsTitle" xml:space="preserve">
-    <value>Ports</value>
-  </data>
-  <data name="ServiceStatusNotFound" xml:space="preserve">
-    <value>Not found</value>
-  </data>
-  <data name="ServiceStatusRunning" xml:space="preserve">
-    <value>Running</value>
-  </data>
-  <data name="ServiceStatusStartPending" xml:space="preserve">
-    <value>Start pending</value>
-  </data>
-  <data name="ServiceStatusStopped" xml:space="preserve">
-    <value>Stopped</value>
-  </data>
-  <data name="ServiceStatusStopPending" xml:space="preserve">
-    <value>Stop pending</value>
-  </data>
-  <data name="ServicesText" xml:space="preserve">
-    <value>Teamlab services and their current states</value>
-  </data>
-  <data name="ServicesTitle" xml:space="preserve">
-    <value>Services</value>
-  </data>
-  <data name="LogsDateInterval" xml:space="preserve">
-    <value>Period</value>
-  </data>
-  <data name="LogsHelpText" xml:space="preserve">
-    <value>The &lt;b&gt;Logs&lt;/b&gt; section allows you to download all the portal logs for a selected period of time archived to a .zip file. Select the period start and end time and click the &lt;b&gt;Download&lt;/b&gt; button to get the logs.</value>
-  </data>
-  <data name="PortsHelpText" xml:space="preserve">
-    <value>The &lt;b&gt;Ports&lt;/b&gt; section contains the list of all ports necessary for Teamlab portal correct work and their status (open or closed). For your Teamlab server to operate properly these ports must have the &lt;b&gt;Open&lt;/b&gt; status. Please note, that some ports require only either incoming or outgoing connections to be allowed, while other will need both connection types.</value>
-  </data>
-  <data name="ServicesHelpText" xml:space="preserve">
-    <value>The &lt;b&gt;Services&lt;/b&gt; section displays the list of all available Teamlab services and their status (running or stopped). You can restart the running services or start the stopped ones using the appropriate action button to the right of the service status.</value>
-  </data>
-  <data name="PortStatusClosed" xml:space="preserve">
-    <value>Closed</value>
-  </data>
-  <data name="PortStatusOpen" xml:space="preserve">
-    <value>Open</value>
-  </data>
   <data name="CacheClearBtnText" xml:space="preserve">
     <value>Clear the cache</value>
   </data>
@@ -183,10 +132,40 @@
   <data name="ContactUsText" xml:space="preserve">
     <value>Check our {0}FAQ page{1} if you have any questions or email us at {2}support@teamlab.com{3}</value>
   </data>
+  <data name="ContactUsText2" xml:space="preserve">
+    <value>If you have any questions or email us at {0}support@teamlab.com{1}</value>
+  </data>
   <data name="ContactUsTitle" xml:space="preserve">
     <value>Contact Us</value>
   </data>
-  <data name="ContactUsText2" xml:space="preserve">
-    <value>If you have any questions or email us at {0}support@teamlab.com{1}</value>
+  <data name="LogsDateInterval" xml:space="preserve">
+    <value>Period</value>
+  </data>
+  <data name="LogsHelpText" xml:space="preserve">
+    <value>The &lt;b&gt;Logs&lt;/b&gt; section allows you to download all the portal logs for a selected period of time archived to a .zip file. Select the period start and end time and click the &lt;b&gt;Download&lt;/b&gt; button to get the logs.</value>
+  </data>
+  <data name="LogsText" xml:space="preserve">
+    <value>Download all the logs</value>
+  </data>
+  <data name="LogsTitle" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="PortsHelpText" xml:space="preserve">
+    <value>The &lt;b&gt;Ports&lt;/b&gt; section contains the list of all ports necessary for Teamlab portal correct work and their status (open or closed). For your Teamlab server to operate properly these ports must have the &lt;b&gt;Open&lt;/b&gt; status. Please note, that some ports require only either incoming or outgoing connections to be allowed, while other will need both connection types.</value>
+  </data>
+  <data name="PortsText" xml:space="preserve">
+    <value>All following ports must be open</value>
+  </data>
+  <data name="PortsTitle" xml:space="preserve">
+    <value>Ports</value>
+  </data>
+  <data name="ServicesHelpText" xml:space="preserve">
+    <value>The &lt;b&gt;Services&lt;/b&gt; section displays the list of all available Teamlab services and their status (running or stopped). You can restart the running services or start the stopped ones using the appropriate action button to the right of the service status.</value>
+  </data>
+  <data name="ServicesText" xml:space="preserve">
+    <value>Teamlab services and their current states</value>
+  </data>
+  <data name="ServicesTitle" xml:space="preserve">
+    <value>Services</value>
   </data>
 </root>

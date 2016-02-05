@@ -65,7 +65,7 @@ namespace ASC.Bookmarking.Business
 
 
 
-		Bookmark RemoveBookmarkFromFavourite(long bookmarkID);
+		Bookmark RemoveBookmarkFromFavourite(long bookmarkID, Guid? userID = null);
 
 		IList<Bookmark> GetFavouriteBookmarksSortedByRaiting(int firstResult, int maxResults);
 		IList<Bookmark> GetFavouriteBookmarksSortedByDate(int firstResult, int maxResults);
@@ -109,7 +109,7 @@ namespace ASC.Bookmarking.Business
 
 		bool IsSubscribed(string objectID, INotifyAction notifyAction);
 
-		void UnSubscribe(string objectID, INotifyAction notifyAction);
+		void UnSubscribe(string objectID, INotifyAction notifyAction, Guid? userID = null);
 
 		#region Search
 		

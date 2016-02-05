@@ -135,7 +135,8 @@ namespace ASC.Mail.Server.MockAdministration
 
         #region .Mailboxes
 
-        protected override MailboxBase _CreateMailbox(string login, string password, string localpart, string domain)
+        protected override MailboxBase _CreateMailbox(string login, string password, string localpart, string domain, bool enableImap = true,
+                                                      bool enablePop = true)
         {
             var resultMailbox = new MailboxBase(new MailAccountBase(login),
                                    new MailAddressBase(localpart, new WebDomainBase(domain)),
@@ -205,6 +206,20 @@ namespace ASC.Mail.Server.MockAdministration
         protected override ICollection<MailGroupBase> _GetMailGroups(ICollection<string> mailgroupsAddresses)
         {
             return _serverData.Groups.FindAll(g => mailgroupsAddresses.Contains(g.Address.ToString()));
+        }
+
+        #endregion
+
+        #region .Notification
+
+        protected override MailboxBase _CreateNotificationAddress(string login, string password, string localpart, string domain)
+        {
+            return _CreateMailbox(login, password, localpart, domain);
+        }
+
+        protected override void _DeleteNotificationAddress(string address)
+        {
+            _serverData.Mailboxes.Remove(_GetMailbox(address));
         }
 
         #endregion

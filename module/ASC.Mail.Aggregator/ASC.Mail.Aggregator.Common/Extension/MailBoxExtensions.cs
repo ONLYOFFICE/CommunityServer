@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -25,31 +25,49 @@
 
 
 using System;
+using System.Security.Authentication;
 using ASC.Core;
+using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.Data.Storage;
 using ASC.Mail.Aggregator.Common.Logging;
+using ASC.Mail.Aggregator.Common.Utils;
 
 namespace ASC.Mail.Aggregator.Common.Extension
 {
     public static class MailBoxExtensions
     {
-        public static bool HasTerminatedUser(this MailBox mailbox)
+        public static bool IsUserTerminated(this MailBox mailbox)
         {
-            var userTerminated = false;
             try
             {
                 CoreContext.TenantManager.SetCurrentTenant(mailbox.TenantId);
+
                 var user = CoreContext.UserManager.GetUsers(new Guid(mailbox.UserId));
-                if (user.Status == EmployeeStatus.Terminated)
-                {
-                    userTerminated = true;
-                }
+
+                return user.Status == EmployeeStatus.Terminated;
             }
             catch (Exception)
             {
+                return false;
             }
+        }
 
-            return userTerminated;
+        public static bool IsUserRemoved(this MailBox mailbox)
+        {
+            try
+            {
+                CoreContext.TenantManager.SetCurrentTenant(mailbox.TenantId);
+                Guid user;
+                if (!Guid.TryParse(mailbox.UserId, out user))
+                    return true;
+
+                return !CoreContext.UserManager.UserExists(user) || CoreContext.UserManager.IsSystemUser(user);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
 
         public static UserInfo GetUserInfo(this MailBox mailbox)
@@ -63,9 +81,8 @@ namespace ASC.Mail.Aggregator.Common.Extension
             }
             catch (Exception)
             {
+                return null;
             }
-
-            return null;
         }
 
         public static Defines.TariffType GetTenantStatus(this MailBox mailbox, int tenantOverdueDays, ILogger log = null)
@@ -80,7 +97,17 @@ namespace ASC.Mail.Aggregator.Common.Extension
 
                 var tenantInfo = CoreContext.TenantManager.GetCurrentTenant();
 
-                SecurityContext.AuthenticateMe(tenantInfo.OwnerId);
+                if (tenantInfo.Status == TenantStatus.RemovePending)
+                    return Defines.TariffType.LongDead;
+
+                try
+                {
+                    SecurityContext.AuthenticateMe(tenantInfo.OwnerId);
+                }
+                catch (InvalidCredentialException)
+                {
+                    SecurityContext.AuthenticateMe(mailbox.UserId);
+                }
 
                 type = ApiHelper.GetTenantTariff(tenantOverdueDays);
 
@@ -92,6 +119,28 @@ namespace ASC.Mail.Aggregator.Common.Extension
             }
 
             return type;
+        }
+
+        public static bool IsTenantQuotaEnded(this MailBox mailbox, long minBalance, ILogger log = null)
+        {
+            var result = false;
+            log = log ?? new NullLogger();
+
+            try
+            {
+                var quotaController = new TennantQuotaController(mailbox.TenantId);
+                var quota = CoreContext.TenantManager.GetTenantQuota(mailbox.TenantId);
+                var usedQuota = quotaController.QuotaCurrentGet();
+                log.Debug("Tenant = {0}. Tenant quota = {1}Mb ({2}), used quota = {3}Mb ({4})", mailbox.TenantId,
+                    MailUtil.BytesToMegabytes(quota.MaxTotalSize), quota.MaxTotalSize, MailUtil.BytesToMegabytes(usedQuota), usedQuota);
+                result = quota.MaxTotalSize - usedQuota < minBalance;
+            }
+            catch (Exception ex)
+            {
+                log.Error("IsQuotaExhausted with param tenant={0} Exception:\r\n{0}\r\n", mailbox.TenantId, ex.ToString());
+            }
+
+            return result;
         }
     }
 }

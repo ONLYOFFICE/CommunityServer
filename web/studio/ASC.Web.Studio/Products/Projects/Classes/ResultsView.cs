@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -66,24 +66,30 @@ namespace ASC.Web.Projects.Classes
                 writer.Write(HtmlUtil.SearchTextHighlight(Text, srGroup.Name.HtmlEncode()));
                 writer.RenderEndTag();
 
-                writer.WriteBreak();
-
                 if ((EntityType)(Enum.Parse(typeof(EntityType), (srGroup.Additional["Type"]).ToString())) == EntityType.Project)
                 {
-                    writer.AddAttribute(HtmlTextWriterAttribute.Class, "describe-text");
-                    writer.RenderBeginTag(HtmlTextWriterTag.Span);
-                    writer.Write(CheckEmptyValue(HttpUtility.HtmlEncode(HtmlUtil.GetText(srGroup.Description, 100))));
-                    writer.RenderEndTag();
+                    if (!string.IsNullOrEmpty(srGroup.Description))
+                    {
+                        writer.WriteBreak();
+                        writer.AddAttribute(HtmlTextWriterAttribute.Class, "describe-text");
+                        writer.RenderBeginTag(HtmlTextWriterTag.Span);
+                        writer.Write(CheckEmptyValue(HttpUtility.HtmlEncode(HtmlUtil.GetText(srGroup.Description, 100))));
+                        writer.RenderEndTag();
+                    }
                 }
                 else
                 {
+                    writer.WriteBreak();
                     writer.AddAttribute(HtmlTextWriterAttribute.Class, "describe-text");
                     writer.RenderBeginTag(HtmlTextWriterTag.Span);
-                    writer.Write(Resources.ProjectsCommonResource.InProject);
+                    writer.Write(srGroup.Additional["ContainerTitle"].ToString());
                     writer.RenderEndTag();
                     writer.Write("&nbsp;");
-                    writer.RenderBeginTag(HtmlTextWriterTag.Span);
-                    writer.Write(srGroup.Additional["ProjectName"].ToString().HtmlEncode());
+
+                    writer.AddAttribute(HtmlTextWriterAttribute.Href, srGroup.Additional["ContainerPath"].ToString());
+                    writer.AddAttribute(HtmlTextWriterAttribute.Class, "link");
+                    writer.RenderBeginTag(HtmlTextWriterTag.A);
+                    writer.Write(srGroup.Additional["ContainerValue"].ToString().HtmlEncode());
                     writer.RenderEndTag();
                 }
 
@@ -93,13 +99,14 @@ namespace ASC.Web.Projects.Classes
                 writer.RenderBeginTag(HtmlTextWriterTag.Td);
                 if (srGroup.Date.HasValue)
                 {
-                    writer.AddAttribute(HtmlTextWriterAttribute.Title, srGroup.Date.Value.ToShortDateString());
+                    var srGroupDate = srGroup.Date.Value;
+                    writer.AddAttribute(HtmlTextWriterAttribute.Title, srGroupDate.ToShortDateString());
                     writer.RenderBeginTag(HtmlTextWriterTag.Div);
-                    writer.Write(srGroup.Date.Value.ToShortDateString());
+                    writer.Write(srGroupDate.ToShortDateString());
                     writer.RenderEndTag();
                 }
-                writer.RenderEndTag();
 
+                writer.RenderEndTag();
                 writer.RenderEndTag();
             }
 

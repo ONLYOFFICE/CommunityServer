@@ -24,9 +24,9 @@
 */
 
 
-using ASC.Collections;
 using ASC.Data.Storage.Configuration;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -40,7 +40,7 @@ namespace ASC.Data.Storage
     public static class WebPath
     {
         private static readonly IEnumerable<AppenderConfigurationElement> Appenders;
-        private static readonly IDictionary<string, bool> Existing = new SynchronizedDictionary<string, bool>();
+        private static readonly IDictionary<string, bool> Existing = new ConcurrentDictionary<string, bool>();
 
 
         static WebPath()

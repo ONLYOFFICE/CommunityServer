@@ -33,8 +33,9 @@ using ASC.Common.Data;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Tenants;
-using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Logging;
+using ASC.Security.Cryptography;
+using MailMessage = ASC.Mail.Aggregator.Common.MailMessage;
 
 namespace ASC.Mail.Aggregator
 {
@@ -42,9 +43,7 @@ namespace ASC.Mail.Aggregator
     {
         #region -- Global Values --
 
-        public const string CONNECTION_STRING_NAME = "mail";
-
-        public const string MAIL_DAEMON_EMAIL = "mail-daemon@teamlab.com";
+        public const string ConnectionStringName = "mail";
 
         private readonly ILogger _log;
 
@@ -54,7 +53,6 @@ namespace ASC.Mail.Aggregator
         private const string DATA_TAG = "666ceac1-4532-4f8c-9cba-8f510eca2fd1";
 
         private const string GOOGLE_HOST = "gmail.com";
-
 
         public TimeSpan AuthErrorWarningTimeout
         {
@@ -72,9 +70,48 @@ namespace ASC.Mail.Aggregator
         {
             get
             {
-                var saveFlag = ConfigurationManager.AppSettings["mail.SaveOriginalMessage"];
+                var saveFlag = ConfigurationManager.AppSettings["mail.save-original-message"];
                 return saveFlag != null && Convert.ToBoolean(saveFlag);
             }
+        }
+
+        public string MailDaemonEmail
+        {
+            get { return ConfigurationManager.AppSettings["mail.daemon-email"] ?? "mail-daemon@onlyoffice.com"; }
+        }
+
+        public Dictionary<string, string> MxToDomainBusinessVendorsList
+        {
+            get
+            {
+                var list = new Dictionary<string, string>
+                {
+                    {".outlook.", "office365.com"},
+                    {".google.", "gmail.com"},
+                    {".yandex.", "yandex.ru"},
+                    {".mail.ru", "mail.ru"},
+                    {".yahoodns.", "yahoo.com"}
+                };
+
+                try
+                {
+                    if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["mail.busines-vendors-mx-domains"]))
+                        // ".outlook.:office365.com|.google.:gmail.com|.yandex.:yandex.ru|.mail.ru:mail.ru|.yahoodns.:yahoo.com"
+                    {
+                        list = ConfigurationManager.AppSettings["mail.busines-vendors-mx-domains"]
+                            .Split('|')
+                            .Select(s => s.Split(':'))
+                            .ToDictionary(s => s[0], s => s[1]);
+                    }
+                }
+                catch
+                {
+                    //ignore
+                }
+
+                return list;
+            }
+
         }
 
         #endregion
@@ -103,17 +140,17 @@ namespace ASC.Mail.Aggregator
 
         private DbManager GetDb()
         {
-            return new DbManager(CONNECTION_STRING_NAME);
+            return new DbManager(ConnectionStringName);
         }
 
         private string EncryptPassword(string password)
         {
-            return Security.Cryptography.InstanceCrypto.Encrypt(password);
+            return InstanceCrypto.Encrypt(password);
         }
 
         private string DecryptPassword(string password)
         {
-            return Security.Cryptography.InstanceCrypto.Decrypt(password);
+            return InstanceCrypto.Decrypt(password);
         }
 
         private bool TryDecryptPassword(string encryptedPassword, out string password)
@@ -130,14 +167,14 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        private static MailMessageItem ConvertToMailMessageItem(object[] r, int tenant)
+        private static MailMessage ConvertToMailMessageItem(object[] r, int tenant)
         {
             var now = TenantUtil.DateTimeFromUtc(CoreContext.TenantManager.GetTenant(tenant).TimeZone, DateTime.UtcNow);
             var date = TenantUtil.DateTimeFromUtc(CoreContext.TenantManager.GetTenant(tenant).TimeZone, (DateTime)r[7]);
             var isToday = (now.Year == date.Year && now.Date == date.Date);
             var isYesterday = (now.Year == date.Year && now.Date == date.Date.AddDays(1));
 
-            return new MailMessageItem
+            return new MailMessage
                 {
                 Id              = Convert.ToInt64(r[0]),
                 From            = (string)r[1],

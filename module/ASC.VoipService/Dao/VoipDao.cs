@@ -24,79 +24,30 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
-using ASC.Core.Caching;
 using ASC.Core.Tenants;
 using ASC.Thrdparty.Configuration;
 using ASC.VoipService.Twilio;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ASC.VoipService.Dao
 {
-    public class CachedVoipDao : VoipDao
-    {
-        private readonly AscCache cache = new AscCache();
-        private static readonly TimeSpan ExpirationTimeout = TimeSpan.FromDays(1);
-
-        public CachedVoipDao(int tenantID, string storageKey)
-            : base(tenantID, storageKey)
-        {
-        }
-
-        public override VoipPhone SaveOrUpdateNumber(VoipPhone phone)
-        {
-            ResetCache();
-            return base.SaveOrUpdateNumber(phone);
-        }
-
-        public override void DeleteNumber(VoipPhone phone)
-        {
-            ResetCache();
-            base.DeleteNumber(phone);
-        }
-
-        public override IEnumerable<VoipPhone> GetNumbers(params object[] ids)
-        {
-            var numbers = cache.Get(TenantID.ToString(CultureInfo.InvariantCulture)) as IEnumerable<VoipPhone>;
-            if (numbers == null)
-            {
-                numbers = base.GetNumbers();
-                cache.Insert(TenantID.ToString(CultureInfo.InvariantCulture), numbers, DateTime.UtcNow.Add(ExpirationTimeout));
-            }
-
-            return ids.Any() ? numbers.Where(r => ids.Contains(r.Id) || ids.Contains(r.Number)) : numbers;
-        }
-
-        private void ResetCache()
-        {
-            cache.Remove(TenantID.ToString(CultureInfo.InvariantCulture));
-        }
-    }
-
     public class VoipDao : AbstractDao
     {
-        private const string numberTable = "crm_voip_number";
-        private const string callsTable = "crm_voip_calls";
-        private const string callsHistoryTable = "crm_voip_calls_history";
-        private const string contactsTable = "crm_contact";
-
-
         public VoipDao(int tenantID, string storageKey)
             : base(tenantID, storageKey)
         {
         }
 
-        #region Numbers
 
         public virtual VoipPhone SaveOrUpdateNumber(VoipPhone phone)
         {
             using (var db = GetDb())
             {
-                var insert = Insert(numberTable)
+                var insert = Insert("crm_voip_number")
                     .InColumnValue("id", phone.Id)
                     .InColumnValue("number", phone.Number)
                     .InColumnValue("alias", phone.Alias);
@@ -115,7 +66,7 @@ namespace ASC.VoipService.Dao
         {
             using (var db = GetDb())
             {
-                db.ExecuteNonQuery(Delete(numberTable).Where("id", phone.Id));
+                db.ExecuteNonQuery(Delete("crm_voip_number").Where("id", phone.Id));
             }
         }
 
@@ -123,7 +74,7 @@ namespace ASC.VoipService.Dao
         {
             using (var db = GetDb())
             {
-                var query = Query(numberTable)
+                var query = Query("crm_voip_number")
                     .Select("id", "number", "alias", "settings");
 
                 if (ids.Any())
@@ -145,15 +96,12 @@ namespace ASC.VoipService.Dao
             return GetNumbers().FirstOrDefault(r => r.Caller != null);
         }
 
-        #endregion
-
-        #region Calls
 
         public VoipCall SaveOrUpdateCall(VoipCall call)
         {
             using (var db = GetDb())
             {
-                var query = Insert(callsTable)
+                var query = Insert("crm_voip_calls")
                     .InColumnValue("id", call.Id)
                     .InColumnValue("number_from", call.From)
                     .InColumnValue("number_to", call.To)
@@ -187,7 +135,7 @@ namespace ASC.VoipService.Dao
         {
             using (var db = GetDb())
             {
-                var query = Insert(callsHistoryTable)
+                var query = Insert("crm_voip_calls_history")
                     .InColumnValue("id", callHistory.ID)
                     .InColumnValue("parent_call_id", callHistory.ParentID)
                     .InColumnValue("answered_by", callHistory.AnsweredBy)
@@ -208,7 +156,7 @@ namespace ASC.VoipService.Dao
         {
             using (var db = GetDb())
             {
-                var query = Update(callsHistoryTable)
+                var query = Update("crm_voip_calls_history")
                     .Set("id", callHistory.ID)
                     .Where(Exp.Eq("id", callHistory.ParentID));
 
@@ -266,7 +214,7 @@ namespace ASC.VoipService.Dao
             {
                 var query = GetCallsQuery(new VoipCallFilter { Agent = agent, SortBy = "date", SortOrder = true, Type = "missed" });
 
-                var subQuery = new SqlQuery(callsTable + " tmp")
+                var subQuery = new SqlQuery("crm_voip_calls tmp")
                     .SelectMax("tmp.dial_date")
                     .Where(Exp.EqColumns("ca.tenant_id", "tmp.tenant_id"))
                     .Where(Exp.EqColumns("ca.number_from", "tmp.number_from") | Exp.EqColumns("ca.number_from", "tmp.number_to"))
@@ -282,10 +230,10 @@ namespace ASC.VoipService.Dao
 
         private SqlQuery GetCallsQuery(VoipCallFilter filter)
         {
-            var query = Query(callsTable + " ca")
+            var query = Query("crm_voip_calls ca")
                 .Select("ca.id", "ca.number_from", "ca.number_to", "ca.answered_by", "ca.dial_date", "ca.price")
                 .Select("ca.status", "ca.contact_id")
-                .LeftOuterJoin(contactsTable + " co", Exp.EqColumns("ca.contact_id", "co.id"))
+                .LeftOuterJoin("crm_contact co", Exp.EqColumns("ca.contact_id", "co.id"))
                 .Select("co.is_company", "co.company_name", "co.first_name", "co.last_name");
 
             if (filter.Ids != null && filter.Ids.Any())
@@ -330,7 +278,7 @@ namespace ASC.VoipService.Dao
         {
             using (var db = GetDb())
             {
-                var query = Query(callsHistoryTable)
+                var query = Query("crm_voip_calls_history")
                     .Select("id", "parent_call_id", "answered_by", "queue_date", "answer_date", "end_dial_date", "record_url", "record_duration", "price")
                     .Where(Exp.In("parent_call_id", parentId.ToList()));
 
@@ -342,15 +290,13 @@ namespace ASC.VoipService.Dao
         {
             using (var db = GetDb())
             {
-                var query = Query(callsHistoryTable)
+                var query = Query("crm_voip_calls_history")
                     .Select("id", "parent_call_id", "answered_by", "queue_date", "answer_date", "end_dial_date", "record_url", "record_duration", "price")
                     .Where(Exp.Eq("id", callId) & Exp.Eq("parent_call_id", parentId));
 
                 return db.ExecuteList(query).ConvertAll(ToCallHistory).FirstOrDefault();
             }
         }
-
-        #endregion
 
         #region Converters
 

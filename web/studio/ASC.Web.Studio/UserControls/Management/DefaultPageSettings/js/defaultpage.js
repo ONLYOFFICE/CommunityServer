@@ -26,19 +26,17 @@
 
 var DefaultPage = new function() {
     this.SaveSettings = function() {
-
-        AjaxPro.onLoading = function(b) {
-            if (b)
-                LoadingBanner.showLoaderBtn("#studio_defaultPageSettings");
-            else
-                LoadingBanner.hideLoaderBtn("#studio_defaultPageSettings");
-        };
-
         var selectedProductID = jq("input[name='defaultPage']:checked").val();
         
-        DefaultPageController.SaveSettings(selectedProductID, function(result) {
-            var res = result.value;
-            LoadingBanner.showMesInfoBtn("#studio_defaultPageSettings", res.Message, res.Status == 1 ? "success" : "error");
+        Teamlab.setDefaultpage({}, selectedProductID, {
+            bafore: function (params) { LoadingBanner.showLoaderBtn("#studio_defaultPageSettings"); },
+            after: function (params) { LoadingBanner.hideLoaderBtn("#studio_defaultPageSettings"); },
+            success: function (params, response) {
+                LoadingBanner.showMesInfoBtn("#studio_defaultPageSettings", ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage, "success");
+            },
+            error: function (params, errors) {
+                LoadingBanner.showMesInfoBtn("#studio_defaultPageSettings", errors[0], "error");
+            }
         });
     }
 }

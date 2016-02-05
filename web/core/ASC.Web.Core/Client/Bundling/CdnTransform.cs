@@ -142,17 +142,23 @@ namespace ASC.Web.Core.Client.Bundling
 
                             var cdnpath = GetCdnPath(item.Bundle.Path);
                             var key = new Uri(cdnpath).PathAndQuery.TrimStart('/');
-                            var contentMD5 = Hasher.Base64Hash(item.Response.Content, HashAlg.MD5);
-                            var compressed = new MemoryStream();
+                            var content = Encoding.UTF8.GetBytes(item.Response.Content);
+                            var inputStream = new MemoryStream();
 
                             if (ClientSettings.GZipEnabled)
                             {
-                                using (var compression = new GZipStream(compressed, CompressionMode.Compress, true))
+                                using (var zip = new GZipStream(inputStream, CompressionMode.Compress, true))
                                 {
-                                    new MemoryStream(Encoding.UTF8.GetBytes(item.Response.Content)).CopyTo(compression);
+                                    zip.Write(content, 0, content.Length);
+                                    zip.Flush();
                                 }
-                                contentMD5 = Hasher.Base64Hash(compressed.GetCorrectBuffer(), HashAlg.MD5);
                             }
+                            else
+                            {
+                                inputStream.Write(content, 0, content.Length);
+                            }
+                            inputStream.Position = 0;
+                            var checksum = AmazonS3Util.GenerateChecksumForContent(item.Response.Content, true);
 
                             var config = new AmazonS3Config
                             {
@@ -165,12 +171,12 @@ namespace ASC.Web.Core.Client.Bundling
                                 try
                                 {
                                     var request = new GetObjectMetadataRequest
-                                        {
+                                    {
                                         BucketName = s3bucket,
-                                        Key = key
+                                        Key = key,
                                     };
                                     var response = s3.GetObjectMetadata(request);
-                                    upload = !string.Equals(contentMD5, response.Metadata["x-amz-meta-etag"], StringComparison.InvariantCultureIgnoreCase);
+                                    upload = !string.Equals(checksum, response.Metadata["x-amz-meta-etag"], StringComparison.InvariantCultureIgnoreCase);
                                 }
                                 catch (AmazonS3Exception ex)
                                 {
@@ -194,22 +200,16 @@ namespace ASC.Web.Core.Client.Bundling
                                         ContentType = AmazonS3Util.MimeTypeFromExtension(Path.GetExtension(key).ToLowerInvariant())
                                     };
 
+                                    request.InputStream = inputStream;
                                     if (ClientSettings.GZipEnabled)
                                     {
-                                        request.InputStream = compressed;
                                         request.Headers.ContentEncoding = "gzip";
-                                    }
-                                    else
-                                    {
-                                        request.ContentBody = item.Response.Content;
                                     }
 
                                     var cache = TimeSpan.FromDays(365);
-                                    request.Headers.CacheControl = string.Format("public, maxage={0}", (int) cache.TotalSeconds);
+                                    request.Headers.CacheControl = string.Format("public, maxage={0}", (int)cache.TotalSeconds);
                                     request.Headers.Expires = DateTime.UtcNow.Add(cache);
-                                    request.Headers.ContentMD5 = contentMD5;
-                                    request.Headers["x-amz-meta-etag"] = contentMD5;
-                                    //request.AddHeader("Last-Modified", DateTime.UtcNow.ToString("R"));
+                                    request.Headers["x-amz-meta-etag"] = checksum;
 
                                     s3.PutObject(request);
                                 }

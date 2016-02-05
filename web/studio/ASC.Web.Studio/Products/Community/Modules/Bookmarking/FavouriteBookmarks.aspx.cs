@@ -30,6 +30,8 @@ using ASC.Web.UserControls.Bookmarking.Common;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;
 using ASC.Web.UserControls.Bookmarking.Resources;
+using ASC.Bookmarking.Common;
+using ASC.Bookmarking;
 
 namespace ASC.Web.Community.Bookmarking
 {
@@ -37,8 +39,7 @@ namespace ASC.Web.Community.Bookmarking
     {
         protected override void PageLoad()
         {
-            ServiceHelper.DisplayMode = BookmarkingServiceHelper.BookmarkDisplayMode.Favourites;
-
+            BookmarkingBusinessFactory.UpdateObjectInCookies("BookmarkDisplayMode", BookmarkDisplayMode.Favourites.ToString());
             var c = LoadControl(BookmarkUserControlPath.BookmarkingUserControlPath);
 
             BookmarkingPageContent.Controls.Add(c);

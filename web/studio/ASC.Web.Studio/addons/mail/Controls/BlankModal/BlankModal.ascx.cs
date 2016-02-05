@@ -37,7 +37,7 @@ namespace ASC.Web.Mail.Controls
         public static string Location { get { return "~/addons/mail/Controls/BlankModal/BlankModal.ascx"; } }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(ResolveUrl("~/addons/mail/controls/blankmodal/js/blankmodal.js"));
+            Page.RegisterBodyScripts("~/addons/mail/controls/blankmodal/js/blankmodal.js");
         }
 
         public bool IsAdmin()

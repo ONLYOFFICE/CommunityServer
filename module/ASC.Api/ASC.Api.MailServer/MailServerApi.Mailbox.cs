@@ -101,9 +101,8 @@ namespace ASC.Api.MailServer
             var account = MailServerFactory.CreateMailAccount(teamlabAccount, login);
 
             var mailbox = MailServer.CreateMailbox(mailboxName, password, domain, account, MailServerFactory);
-
+            
             return mailbox.ToMailboxData();
-
         }
 
         /// <summary>
@@ -153,8 +152,10 @@ namespace ASC.Api.MailServer
 
             var mailbox = MailServer.CreateMailbox(mailboxName, password, domain, account, MailServerFactory);
 
-            return mailbox.ToMailboxData();
+            if (IsSignalRAvailable)
+                MailBoxManager.UpdateUserActivity(TenantId, UserId);
 
+            return mailbox.ToMailboxData();
         }
 
         /// <summary>

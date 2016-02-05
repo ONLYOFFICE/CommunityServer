@@ -40,7 +40,7 @@ namespace ASC.Common.Threading.Progress
         {
         }
 
-        
+
         public ProgressQueue(int workerCount, TimeSpan waitInterval, bool removeAfterCompleted)
             : base(workerCount, waitInterval, 0, false)
         {
@@ -79,16 +79,16 @@ namespace ASC.Common.Threading.Progress
             lock (SynchRoot)
             {
                 var item = GetItems().Where(x => Equals(x.Id, id)).SingleOrDefault();
-                 
-                 if (item != null)
-                 {
-                      item.IsCompleted = true;
-                     
-                      if (removeAfterCompleted)
-                      {
-                          Remove(item); 
-                      }
-                 }
+
+                if (item != null)
+                {
+                    item.IsCompleted = true;
+
+                    if (removeAfterCompleted)
+                    {
+                        Remove(item);
+                    }
+                }
             }
         }
 
@@ -102,7 +102,6 @@ namespace ASC.Common.Threading.Progress
 
         protected override void PostComplete(WorkItem<IProgressItem> item)
         {
-            item.Completed = DateTime.UtcNow;
             item.IsCompleted = true;
         }
 
@@ -110,7 +109,7 @@ namespace ASC.Common.Threading.Progress
         {
             PostComplete(item);
         }
-        
+
         protected override void Error(WorkItem<IProgressItem> workItem, Exception exception)
         {
             workItem.Item.Error = exception;

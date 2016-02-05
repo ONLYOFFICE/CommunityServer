@@ -117,41 +117,56 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="CreateCategoryInProgressing" xml:space="preserve">
-    <value>Creating category</value>
+  <data name="AbortExport" xml:space="preserve">
+    <value>Abort export</value>
   </data>
-  <data name="CreateContactStageInProgressing" xml:space="preserve">
-    <value>Создание стадии теплоты</value>
+  <data name="AccessRightsAndTags" xml:space="preserve">
+    <value>Access rights &amp; Tags</value>
   </data>
-  <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
-    <value>Creating a stage</value>
+  <data name="AccessRightsAndTagsDescription" xml:space="preserve">
+    <value>Select the users which will be notified when adding contact using the form, otherwise all CRM users will see new contacts, and create tags which will be marked new clients in the list with.</value>
   </data>
-  <data name="CreateFieldInProgressing" xml:space="preserve">
-    <value>Creating field</value>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Portal. Access Rights.</value>
   </data>
-  <data name="CreateNewCategory" xml:space="preserve">
-    <value>Create new category</value>
+  <data name="AddNewTaskTemplate" xml:space="preserve">
+    <value>Добавить новый шаблон задачи</value>
   </data>
-  <data name="CreateNewDealMilestone" xml:space="preserve">
-    <value>Create new stage</value>
-  </data>
-  <data name="CreateNewField" xml:space="preserve">
-    <value>Create new field</value>
-  </data>
-  <data name="CreateNewStage" xml:space="preserve">
-    <value>Создать новую стадию теплоты</value>
-  </data>
-  <data name="CreateNewTag" xml:space="preserve">
-    <value>Create new tag</value>
+  <data name="AddNewTaskTemplateContainer" xml:space="preserve">
+    <value>Добавить новый контейнер шаблонов задач</value>
   </data>
   <data name="AddOption" xml:space="preserve">
     <value>Add an Option</value>
   </data>
-  <data name="CreateTagInProgressing" xml:space="preserve">
-    <value>Creating tag</value>
+  <data name="Address" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="AddTag" xml:space="preserve">
+    <value>Add tag</value>
+  </data>
+  <data name="AddTagInProgressing" xml:space="preserve">
+    <value>Adding tag</value>
+  </data>
+  <data name="AddTagWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Не показывать диалог учета связи</value>
+  </data>
+  <data name="AddTaskTemplate" xml:space="preserve">
+    <value>Добавить шаблон задачи</value>
+  </data>
+  <data name="AddTaskTemplateContainer" xml:space="preserve">
+    <value>Добавить контейнер шаблонов задач</value>
+  </data>
+  <data name="AddTaskTemplateContainerInProgressing" xml:space="preserve">
+    <value>Добавление контейнера шаблонов задач</value>
+  </data>
+  <data name="AddTaskTemplateInProgressing" xml:space="preserve">
+    <value>Добавление шаблона задачи</value>
   </data>
   <data name="AddThisCategory" xml:space="preserve">
     <value>Add This Category</value>
+  </data>
+  <data name="AddThisContactType" xml:space="preserve">
+    <value>Добавить этот тип</value>
   </data>
   <data name="AddThisDealMilestone" xml:space="preserve">
     <value>Add This Stage</value>
@@ -165,14 +180,35 @@
   <data name="AddThisTag" xml:space="preserve">
     <value>Add this tag</value>
   </data>
+  <data name="AddThisTaskTemplate" xml:space="preserve">
+    <value>Добавить этот шаблон задачи</value>
+  </data>
+  <data name="AddThisTaskTemplateContainer" xml:space="preserve">
+    <value>Добавить этот контейнер шаблонов задач</value>
+  </data>
+  <data name="Authentication" xml:space="preserve">
+    <value>Authentication</value>
+  </data>
+  <data name="BasicInformation" xml:space="preserve">
+    <value>Basic Information</value>
+  </data>
   <data name="BothPersonAndCompany" xml:space="preserve">
     <value>Both Person &amp; Company</value>
   </data>
   <data name="ChangeColor" xml:space="preserve">
     <value>Изменить цвет</value>
   </data>
+  <data name="ChangeContactStatusWithoutAskingSettingsLabel" xml:space="preserve">
+    <value>Не показывать диалог учета связи</value>
+  </data>
+  <data name="ChangeDefaultCurrencyConfText" xml:space="preserve">
+    <value>Are you sure you want to change the default currency?</value>
+  </data>
   <data name="ChangeIcon" xml:space="preserve">
     <value>Change icon</value>
+  </data>
+  <data name="ChangeLogo" xml:space="preserve">
+    <value>Change Logo</value>
   </data>
   <data name="CheckBox" xml:space="preserve">
     <value>Checkbox</value>
@@ -183,17 +219,95 @@
   <data name="CommonSettings" xml:space="preserve">
     <value>Common Settings</value>
   </data>
+  <data name="ConfigureTheSMTP" xml:space="preserve">
+    <value>Configure the SMTP</value>
+  </data>
+  <data name="ConfigureTheSMTPInfo" xml:space="preserve">
+    <value>SMTP server is not configured. Fill in the fields and click Save. Change the data you can in the Settings section.</value>
+  </data>
+  <data name="ContactTypes" xml:space="preserve">
+    <value>Типы контакта</value>
+  </data>
+  <data name="CreateCategoryInProgressing" xml:space="preserve">
+    <value>Creating category</value>
+  </data>
+  <data name="CreateContactStageInProgressing" xml:space="preserve">
+    <value>Создание стадии теплоты</value>
+  </data>
+  <data name="CreateContactTypeInProgressing" xml:space="preserve">
+    <value>Создание типа контакта</value>
+  </data>
+  <data name="CreateCustomField" xml:space="preserve">
+    <value>Create user field</value>
+  </data>
+  <data name="CreateDealMilestoneInProgressing" xml:space="preserve">
+    <value>Creating a stage</value>
+  </data>
   <data name="CreateField" xml:space="preserve">
     <value>Create field</value>
   </data>
-  <data name="CustomFieldList" xml:space="preserve">
-    <value>User field list</value>
+  <data name="CreateFieldInProgressing" xml:space="preserve">
+    <value>Creating field</value>
+  </data>
+  <data name="CreateNewCategory" xml:space="preserve">
+    <value>Create new category</value>
+  </data>
+  <data name="CreateNewCategoryListButton" xml:space="preserve">
+    <value>Create new category</value>
+  </data>
+  <data name="CreateNewContactType" xml:space="preserve">
+    <value>Создать новый тип контакта</value>
+  </data>
+  <data name="CreateNewContactTypeListButton" xml:space="preserve">
+    <value>Создать новый тип контакта</value>
+  </data>
+  <data name="CreateNewDealMilestone" xml:space="preserve">
+    <value>Create new stage</value>
+  </data>
+  <data name="CreateNewDealMilestoneListButton" xml:space="preserve">
+    <value>Create new stage</value>
+  </data>
+  <data name="CreateNewField" xml:space="preserve">
+    <value>Create new field</value>
+  </data>
+  <data name="CreateNewFieldListButton" xml:space="preserve">
+    <value>Create new field</value>
+  </data>
+  <data name="CreateNewStage" xml:space="preserve">
+    <value>Создать новую стадию теплоты</value>
+  </data>
+  <data name="CreateNewStageListButton" xml:space="preserve">
+    <value>Создать новую стадию теплоты</value>
+  </data>
+  <data name="CreateNewTag" xml:space="preserve">
+    <value>Create new tag</value>
+  </data>
+  <data name="CreateNewTagListButton" xml:space="preserve">
+    <value>Create new tag</value>
+  </data>
+  <data name="CreateTestLetter" xml:space="preserve">
+    <value>Create test letter</value>
+  </data>
+  <data name="CurrencySettings" xml:space="preserve">
+    <value>Currency Settings</value>
+  </data>
+  <data name="CurrencySettingsDescription" xml:space="preserve">
+    <value>Set up the default currency which will be used to calculate the 'Sum total' for all the opportunities present in the CRM module of your portal. The conversion rates are available for currencies from the list only and are taken from the 'The Money Converter.com' web site.</value>
+  </data>
+  <data name="CurrencySettingsInvoiceDescription" xml:space="preserve">
+    <value>This currency will although be the currency for your Products &amp; Services catalog which is used to make out invoices.</value>
   </data>
   <data name="CustomFields" xml:space="preserve">
     <value>User Fields</value>
   </data>
   <data name="Date" xml:space="preserve">
     <value>Date</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndLost" xml:space="preserve">
+    <value>Closes opportunity unsuccessfully.</value>
+  </data>
+  <data name="DealMilestoneStatusDescription_ClosedAndWon" xml:space="preserve">
+    <value>Closes opportunity successfully.</value>
   </data>
   <data name="DefaultCurrency" xml:space="preserve">
     <value>Default currency</value>
@@ -204,8 +318,14 @@
   <data name="DeleteContactStage" xml:space="preserve">
     <value>Удалить категорию теплоты</value>
   </data>
+  <data name="DeleteContactType" xml:space="preserve">
+    <value>Удалить тип контакта</value>
+  </data>
   <data name="DeleteCustomField" xml:space="preserve">
     <value>Delete field</value>
+  </data>
+  <data name="DeleteCustomFieldConfirmationText" xml:space="preserve">
+    <value>Are you sure?</value>
   </data>
   <data name="DeleteDealMilestone" xml:space="preserve">
     <value>Delete stage</value>
@@ -213,25 +333,29 @@
   <data name="DeleteTag" xml:space="preserve">
     <value>Delete tag</value>
   </data>
+  <data name="DeleteTaskTemplate" xml:space="preserve">
+    <value>Удалить шаблон задачи</value>
+  </data>
+  <data name="DeleteTaskTemplateContainer" xml:space="preserve">
+    <value>Удалить контейнер шаблонов задач</value>
+  </data>
   <data name="DeleteUnusedTags" xml:space="preserve">
     <value>Delete unused tags</value>
   </data>
   <data name="Description" xml:space="preserve">
     <value>Description</value>
   </data>
-  <data name="DescriptionTextTaskCategory" xml:space="preserve">
-    <value>Task categories let you divide your tasks into groups depending on the goals you intend to achieve. For instance, a task category can be "Appointment", "Phone
-
-call" or "Expression of gratitude".</value>
-  </data>
-  <data name="DescriptionTextTaskCategoryEditDelete" xml:space="preserve">
-    <value>You can edit or delete the task category stage only in case there are no tasks with this category.</value>
-  </data>
   <data name="DescriptionTextContactStage" xml:space="preserve">
     <value>Стадии теплоты контакта let you characterize your potential buyers in a certain way. For instance, стадия теплоты can be "Cold", "Hot", "Warm", which will mean the contact's willingness to buy your product.</value>
   </data>
   <data name="DescriptionTextContactStageEditDelete" xml:space="preserve">
     <value>You can edit or delete стадию теплоты контакта only in case there are no contacts of этого типа.</value>
+  </data>
+  <data name="DescriptionTextContactType" xml:space="preserve">
+    <value>Типы контактов... (ОПИСАНИЕ!!!)</value>
+  </data>
+  <data name="DescriptionTextContactTypeEditDelete" xml:space="preserve">
+    <value>Описание удаления-редактирования типов контакта!!!???</value>
   </data>
   <data name="DescriptionTextDealMilestone" xml:space="preserve">
     <value>Opportunity stages let you determine steps necessary to complete the deal. For instance, you can add opportunity stages "Commercial offer", "Prepayment", "Execution". Set
@@ -241,8 +365,22 @@ the necessary order for the opportunity stages dragging them.</value>
   <data name="DescriptionTextDealMilestoneEditDelete" xml:space="preserve">
     <value>You can edit or delete the opportunity stage only in case there are no opportunities at this stage.</value>
   </data>
-  <data name="DomainName" xml:space="preserve">
-    <value>Domain name</value>
+  <data name="DescriptionTextHistoryCategory" xml:space="preserve">
+    <value>Категории событий истории предоставляют вам возможность разбить ваши события истории на группы. Стандартные категории событий истории - это почта, заметка, звонок, встреча. Чтобы иметь возможность редактировать их, требуются права администратора.</value>
+  </data>
+  <data name="DescriptionTextHistoryCategoryEditDelete" xml:space="preserve">
+    <value>Редактировать или удалять категорию событий истории можно только в случае отсутствия событий истории с данной категорией.</value>
+  </data>
+  <data name="DescriptionTextTaskCategory" xml:space="preserve">
+    <value>Task categories let you divide your tasks into groups depending on the goals you intend to achieve. For instance, a task category can be "Appointment", "Phone
+
+call" or "Expression of gratitude".</value>
+  </data>
+  <data name="DescriptionTextTaskCategoryEditDelete" xml:space="preserve">
+    <value>You can edit the task category stage only in case there are no tasks with this category.</value>
+  </data>
+  <data name="DisplacementInDays" xml:space="preserve">
+    <value>Смещение в днях</value>
   </data>
   <data name="DownloadAllDataInZipArchive" xml:space="preserve">
     <value>Download all data in one ZIP-archive</value>
@@ -250,11 +388,17 @@ the necessary order for the opportunity stages dragging them.</value>
   <data name="DownloadingAllDataInZipArchive" xml:space="preserve">
     <value>ZIP archive generation was started</value>
   </data>
+  <data name="DownloadLinkText" xml:space="preserve">
+    <value>Link to download the ZIP archive</value>
+  </data>
   <data name="EditCategory" xml:space="preserve">
     <value>Update category</value>
   </data>
   <data name="EditContactStage" xml:space="preserve">
     <value>Обновить категорию теплоты</value>
+  </data>
+  <data name="EditContactType" xml:space="preserve">
+    <value>Обновить тип контакта</value>
   </data>
   <data name="EditCustomField" xml:space="preserve">
     <value>Update field</value>
@@ -268,14 +412,23 @@ the necessary order for the opportunity stages dragging them.</value>
   <data name="EditSelectedContactStage" xml:space="preserve">
     <value>Обновить категорию «{0}» теплоты контакта</value>
   </data>
+  <data name="EditSelectedContactType" xml:space="preserve">
+    <value>Обновить тип "{0}" контакта</value>
+  </data>
   <data name="EditSelectedDealMilestone" xml:space="preserve">
     <value>Update «{0}» opportunity stage</value>
   </data>
-  <data name="EmailNotification" xml:space="preserve">
-    <value>Email notification</value>
+  <data name="EditSelectedTaskTemplate" xml:space="preserve">
+    <value>Редактировать «{0}» шаблон задачи</value>
   </data>
-  <data name="EmailNotificationDescription" xml:space="preserve">
-    <value>Select the users which will be notified when adding a new contact using the form</value>
+  <data name="EditSelectedTaskTemplateContainer" xml:space="preserve">
+    <value>Редактировать «{0}» контейнер шаблонов задач</value>
+  </data>
+  <data name="EditTaskTemplate" xml:space="preserve">
+    <value>Редактировать шаблон задачи</value>
+  </data>
+  <data name="EditTaskTemplateContainer" xml:space="preserve">
+    <value>Редактировать контейнер шаблонов задач</value>
   </data>
   <data name="EmptyContentCustomFields" xml:space="preserve">
     <value>The user field list is empty</value>
@@ -283,29 +436,41 @@ the necessary order for the opportunity stages dragging them.</value>
   <data name="EmptyContentCustomFieldsDescript" xml:space="preserve">
     <value>User fields let you determine additional information about the client, opportunity or case. For instance, you can add the 'Source' field to specify where the user came from: advertisement, direct sale, etc. You can edit or delete the user field only in case there are no contacts or opportunities with this field value.</value>
   </data>
-  <data name="CreateCustomField" xml:space="preserve">
-    <value>Create user field</value>
-  </data>
   <data name="EmptyContentTags" xml:space="preserve">
     <value>The tag list is empty</value>
   </data>
   <data name="EmptyContentTagsDescript" xml:space="preserve">
     <value>The tags can be used to describe and group contacts (both companies and persons), opportunities and cases which have something similar in them. For instance, you can tag all the persons from different companies but from the same sphere of business with a common tag for a better sorting. You can edit or delete the tag only in case there are no contacts, opportunities or cases with this tag.</value>
   </data>
-  <data name="AddTag" xml:space="preserve">
-    <value>Add tag</value>
+  <data name="EmptyContentTaskTemplates" xml:space="preserve">
+    <value>Список шаблонов задач пуст</value>
+  </data>
+  <data name="EmptyContentTaskTemplatesDescript" xml:space="preserve">
+    <value>Шаблоны задач - это новая мега фича. Если лень каждый раз набивать однотипные задачи внутри какой либо сущности просто жмакни шишкой для выбора контейнера шаблонов задач. По каждому из имеющихся в контейнере шаблонов создастся задача с конкретными данными.</value>
   </data>
   <data name="EmptyField" xml:space="preserve">
     <value>This field must be filled correctly</value>
   </data>
-  <data name="EmptyTaskCategory" xml:space="preserve">
-    <value>Task category list is empty</value>
+  <data name="EmptyLabelError" xml:space="preserve">
+    <value>Every field must have a title</value>
+  </data>
+  <data name="EmptyTitleError" xml:space="preserve">
+    <value>The title field cannot be empty</value>
+  </data>
+  <data name="EnableSSL" xml:space="preserve">
+    <value>Enable SSL</value>
+  </data>
+  <data name="Export" xml:space="preserve">
+    <value>Export</value>
   </data>
   <data name="ExportData" xml:space="preserve">
     <value>Export of all Data</value>
   </data>
   <data name="ExportDataSettingsInfo" xml:space="preserve">
     <value>The export function generates a ZIP-archive containing CSV files with all your CRM data (contacts, opportunities, cases, history, etc.) The email with the link to the created archive will be sent to your email address.</value>
+  </data>
+  <data name="ExportInvoiceItemsEmptyError" xml:space="preserve">
+    <value>No products&amp;services to be exported for this filter</value>
   </data>
   <data name="ExternalClient" xml:space="preserve">
     <value>External client</value>
@@ -343,17 +508,20 @@ the necessary order for the opportunity stages dragging them.</value>
   <data name="Heading" xml:space="preserve">
     <value>Title</value>
   </data>
+  <data name="HistoryCategories" xml:space="preserve">
+    <value>History Events Categories</value>
+  </data>
   <data name="Host" xml:space="preserve">
     <value>Host</value>
   </data>
+  <data name="HostLogin" xml:space="preserve">
+    <value>Host Login</value>
+  </data>
+  <data name="HostPassword" xml:space="preserve">
+    <value>Host Password</value>
+  </data>
   <data name="InternalSMTP" xml:space="preserve">
     <value>Internal SMTP ({0} email recipients maximum)</value>
-  </data>
-  <data name="InvalidDomainName" xml:space="preserve">
-    <value>Incorrect domain name</value>
-  </data>
-  <data name="InvalidReturnURL" xml:space="preserve">
-    <value>Incorrect redirection URL</value>
   </data>
   <data name="JustForCompany" xml:space="preserve">
     <value>Just for company</value>
@@ -364,11 +532,32 @@ the necessary order for the opportunity stages dragging them.</value>
   <data name="Label" xml:space="preserve">
     <value>Label</value>
   </data>
+  <data name="LearnMore" xml:space="preserve">
+    <value>Learn more...</value>
+  </data>
   <data name="Likelihood" xml:space="preserve">
     <value>Success probability</value>
   </data>
-  <data name="HostPassword" xml:space="preserve">
-    <value>Host Password</value>
+  <data name="NotifyUsers" xml:space="preserve">
+    <value>Оповещение {!users}</value>
+  </data>
+  <data name="NotifyUsersDescription" xml:space="preserve">
+    <value>Выберите {!users}, которые будут получать оповещения при добавление нового контакта через "Website Contact Form"</value>
+  </data>
+  <data name="OffsetFromThePreviousTask" xml:space="preserve">
+    <value>Отсчитывать от предыдущей задачи</value>
+  </data>
+  <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
+    <value>Отсчитывать от старта контейнера</value>
+  </data>
+  <data name="OrganisationLogo" xml:space="preserve">
+    <value>Invoice logo</value>
+  </data>
+  <data name="OtherFields" xml:space="preserve">
+    <value>Other fields</value>
+  </data>
+  <data name="pattern_TestMailSMTPMainBody" xml:space="preserve">
+    <value>Это тестовое письмо, которое было создано автоматически порталом Teamlab для проверки работы функции email-рассылки.\nНа это письмо не нужно отвечать.\n\nПросим прощения за возможные неудобства.\nС уважением,\nАдминистрация портала {0}</value>
   </data>
   <data name="Port" xml:space="preserve">
     <value>Port</value>
@@ -376,8 +565,14 @@ the necessary order for the opportunity stages dragging them.</value>
   <data name="RemoveOption" xml:space="preserve">
     <value>Delete option</value>
   </data>
+  <data name="RestoreLogoToDeafult" xml:space="preserve">
+    <value>Restore to Deafult</value>
+  </data>
   <data name="ReturnURL" xml:space="preserve">
     <value>Redirection URL</value>
+  </data>
+  <data name="ReturnURLDescription" xml:space="preserve">
+    <value>Адрес страницы вашего сайта куда пользователь будет перенаправлен после отправки данных формы.</value>
   </data>
   <data name="Rows" xml:space="preserve">
     <value>Lines</value>
@@ -391,17 +586,27 @@ the necessary order for the opportunity stages dragging them.</value>
   <data name="SelectOptions" xml:space="preserve">
     <value>Choices</value>
   </data>
-  <data name="SendData" xml:space="preserve">
-    <value>Send data</value>
+  <data name="SenderDisplayName" xml:space="preserve">
+    <value>Sender Display Name</value>
+  </data>
+  <data name="SenderEmailAddress" xml:space="preserve">
+    <value>Sender Email Address</value>
+  </data>
+  <data name="SendTestMail" xml:space="preserve">
+    <value>Send test mail</value>
   </data>
   <data name="SettingCustomFields" xml:space="preserve">
     <value>Customize user fields</value>
   </data>
-  <data name="SettingDealMilestone" xml:space="preserve">
-    <value>Customize opportunities stages</value>
-  </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="SettingsCompanyAddressHelp" xml:space="preserve">
+    <value>Set your organization billing address which will be placed to all your invoices. Select the {0}Country{1} from the list and fill in the fields with the {0}Address{1}, {0}City{1}, {0}State{1} and {0}Zip Code{1}.</value>
+  </data>
+  <data name="SettingsCompanyLogoHelp" xml:space="preserve">
+    <value>The default {0}logo{1} of your organisation will be displayed on your {0}Invoices{1}.{3}
+To replace the logo click the Change Logo link and select the image stored on your computer to load it to your portal. Please, keep in mind that you can upload an image not larger than {0}{4}x{5} pixels{1}, otherwise resizing will take place. The maximum image size cannot exceed  {0}{2}{1}.</value>
   </data>
   <data name="Size" xml:space="preserve">
     <value>Size</value>
@@ -409,14 +614,20 @@ the necessary order for the opportunity stages dragging them.</value>
   <data name="SMTPSettings" xml:space="preserve">
     <value>SMTP Settings</value>
   </data>
-  <data name="StartExportData" xml:space="preserve">
-    <value>Start data export</value>
+  <data name="SMTPSettingsDescription" xml:space="preserve">
+    <value>The SMTP settings are needed to set up an email account which will be used to send emails to the clients from the CRM client database. Please fill in all the fields and click the 'Save' button to enable to be able to send emails right from the portal.</value>
+  </data>
+  <data name="SMTPSettingsHelp" xml:space="preserve">
+    <value>If you use a Gmail account for SMTP server, you will not be able to send mail until you do the following: sign in to the Gmail account you use via its standard web interface and confirm any verification questions about the TeamLab access attempt to the account, in case there are some.{0}We recommend using ports 587 or 25 for the email messages to be sent, as other values might prevent the SMTP from the correct work.</value>
   </data>
   <data name="SubmitFormData" xml:space="preserve">
     <value>Отправить данные</value>
   </data>
-  <data name="TagList" xml:space="preserve">
-    <value>Список тэгов</value>
+  <data name="TagAlreadyExistsError" xml:space="preserve">
+    <value>Tag with this title already exists</value>
+  </data>
+  <data name="TaskTemplates" xml:space="preserve">
+    <value>Шаблоны задач</value>
   </data>
   <data name="TextArea" xml:space="preserve">
     <value>Text area</value>
@@ -430,275 +641,25 @@ the necessary order for the opportunity stages dragging them.</value>
   <data name="Type" xml:space="preserve">
     <value>Type</value>
   </data>
-  <data name="HostLogin" xml:space="preserve">
-    <value>Host Login</value>
-  </data>
   <data name="WebFormKey" xml:space="preserve">
     <value>Web Form Key</value>
-  </data>
-  <data name="WebToLeadsForm" xml:space="preserve">
-    <value>Website Contact Form</value>
-  </data>
-  <data name="WebToLeadsFormDescription" xml:space="preserve">
-    <value>Use the form shown below to embed in your site</value>
-  </data>
-  <data name="WebToLeadsFormHeader" xml:space="preserve">
-    <value>Use the Website Contact Form functionality to build a form that you can publish on your site allowing you to capture new contacts automatically. Define the form properties, select the necessary fields and generate the code to create your own web form</value>
-  </data>
-  <data name="WebToLeadsForm_InvalidKeyException" xml:space="preserve">
-    <value>Невалидный ключ формы</value>
-  </data>
-  <data name="YesNo" xml:space="preserve">
-    <value>Yes/No</value>
-  </data>
-  <data name="CurrencySettings" xml:space="preserve">
-    <value>Currency Settings</value>
-  </data>
-  <data name="EnableSSL" xml:space="preserve">
-    <value>Enable SSL</value>
-  </data>
-  <data name="Export" xml:space="preserve">
-    <value>Export</value>
-  </data>
-  <data name="SenderEmailAddress" xml:space="preserve">
-    <value>Sender Email Address</value>
-  </data>
-  <data name="SenderDisplayName" xml:space="preserve">
-    <value>Sender Display Name</value>
-  </data>
-  <data name="ConfigureTheSMTP" xml:space="preserve">
-    <value>Configure the SMTP</value>
-  </data>
-  <data name="ConfigureTheSMTPInfo" xml:space="preserve">
-    <value>SMTP server is not configured. Fill in the fields and click Save. Change the data you can in the Settings section.</value>
-  </data>
-  <data name="Authentication" xml:space="preserve">
-    <value>Authentication</value>
-  </data>
-  <data name="CurrencySettingsDescription" xml:space="preserve">
-    <value>Set up the default currency which will be used to calculate the 'Sum total' for all the opportunities present in the CRM module of your portal. The conversion rates are available for currencies from the list only and are taken from the 'The Money Converter.com' web site.</value>
-  </data>
-  <data name="SMTPSettingsDescription" xml:space="preserve">
-    <value>The SMTP settings are needed to set up an email account which will be used to send emails to the clients from the CRM client database. Please fill in all the fields and click the 'Save' button to enable to be able to send emails right from the portal.</value>
-  </data>
-  <data name="DownloadLinkText" xml:space="preserve">
-    <value>Link to download the ZIP archive</value>
-  </data>
-  <data name="AccessRightsAndTags" xml:space="preserve">
-    <value>Access rights &amp; Tags</value>
-  </data>
-  <data name="AccessRightsAndTagsDescription" xml:space="preserve">
-    <value>Select the users which will be notified when adding contact using the form, otherwise all CRM users will see new contacts, and create tags which will be marked new clients in the list with.</value>
-  </data>
-  <data name="ReturnURLDescription" xml:space="preserve">
-    <value>Адрес страницы вашего сайта куда пользователь будет перенаправлен после отправки данных формы.</value>
   </data>
   <data name="WebFormKeyDescription" xml:space="preserve">
     <value>Уникальный ключ служит для проверки подлинности формы с которой были отправлены данные. Отсутствие ключа при отправки данных формы приводит к возникновению исключения. В случае обновления ключа, существующие формы, сгенерированные со старым ключом,  перестают работать.</value>
   </data>
-  <data name="AbortExport" xml:space="preserve">
-    <value>Abort export</value>
+  <data name="WebToLeadsForm" xml:space="preserve">
+    <value>Website Contact Form</value>
   </data>
-  <data name="EmptyLabelError" xml:space="preserve">
-    <value>Every field must have a title</value>
+  <data name="WebToLeadsForm_InvalidKeyException" xml:space="preserve">
+    <value>Невалидный ключ формы</value>
   </data>
-  <data name="EmptyTitleError" xml:space="preserve">
-    <value>The title field cannot be empty</value>
+  <data name="WebToLeadsFormHeader" xml:space="preserve">
+    <value>Use the Website Contact Form functionality to build a form that you can publish on your site allowing you to capture new contacts automatically. Define the form properties, select the necessary fields and generate the code to create your own web form</value>
   </data>
-  <data name="NotifyUsers" xml:space="preserve">
-    <value>Оповещение {!users}</value>
+  <data name="DeleteTaskCategoryConfirmation" xml:space="preserve">
+    <value>Delete category confirmation</value>
   </data>
-  <data name="NotifyUsersDescription" xml:space="preserve">
-    <value>Выберите {!users}, которые будут получать оповещения при добавление нового контакта через "Website Contact Form"</value>
-  </data>
-  <data name="OtherFields" xml:space="preserve">
-    <value>Other fields</value>
-  </data>
-  <data name="AddNewTaskTemplate" xml:space="preserve">
-    <value>Добавить новый шаблон задачи</value>
-  </data>
-  <data name="AddTaskTemplate" xml:space="preserve">
-    <value>Добавить шаблон задачи</value>
-  </data>
-  <data name="AddTaskTemplateInProgressing" xml:space="preserve">
-    <value>Добавление шаблона задачи</value>
-  </data>
-  <data name="AddThisTaskTemplate" xml:space="preserve">
-    <value>Добавить этот шаблон задачи</value>
-  </data>
-  <data name="DeleteTaskTemplate" xml:space="preserve">
-    <value>Удалить шаблон задачи</value>
-  </data>
-  <data name="EmptyContentTaskTemplates" xml:space="preserve">
-    <value>Список шаблонов задач пуст</value>
-  </data>
-  <data name="EmptyContentTaskTemplatesDescript" xml:space="preserve">
-    <value>Шаблоны задач - это новая мега фича. Если лень каждый раз набивать однотипные задачи внутри какой либо сущности просто жмакни шишкой для выбора контейнера шаблонов задач. По каждому из имеющихся в контейнере шаблонов создастся задача с конкретными данными.</value>
-  </data>
-  <data name="TaskTemplates" xml:space="preserve">
-    <value>Шаблоны задач</value>
-  </data>
-  <data name="EditTaskTemplate" xml:space="preserve">
-    <value>Редактировать шаблон задачи</value>
-  </data>
-  <data name="AddNewTaskTemplateContainer" xml:space="preserve">
-    <value>Добавить новый контейнер шаблонов задач</value>
-  </data>
-  <data name="AddTaskTemplateContainer" xml:space="preserve">
-    <value>Добавить контейнер шаблонов задач</value>
-  </data>
-  <data name="AddTaskTemplateContainerInProgressing" xml:space="preserve">
-    <value>Добавление контейнера шаблонов задач</value>
-  </data>
-  <data name="AddThisTaskTemplateContainer" xml:space="preserve">
-    <value>Добавить этот контейнер шаблонов задач</value>
-  </data>
-  <data name="DeleteTaskTemplateContainer" xml:space="preserve">
-    <value>Удалить контейнер шаблонов задач</value>
-  </data>
-  <data name="EditSelectedTaskTemplate" xml:space="preserve">
-    <value>Редактировать «{0}» шаблон задачи</value>
-  </data>
-  <data name="EditSelectedTaskTemplateContainer" xml:space="preserve">
-    <value>Редактировать «{0}» контейнер шаблонов задач</value>
-  </data>
-  <data name="EditTaskTemplateContainer" xml:space="preserve">
-    <value>Редактировать контейнер шаблонов задач</value>
-  </data>
-  <data name="DescriptionTextHistoryCategory" xml:space="preserve">
-    <value>Категории событий истории предоставляют вам возможность разбить ваши события истории на группы. Стандартные категории событий истории - это почта, заметка, звонок, встреча. Чтобы иметь возможность редактировать их, требуются права администратора.</value>
-  </data>
-  <data name="DescriptionTextHistoryCategoryEditDelete" xml:space="preserve">
-    <value>Редактировать или удалять категорию событий истории можно только в случае отсутствия событий истории с данной категорией.</value>
-  </data>
-  <data name="HistoryCategories" xml:space="preserve">
-    <value>History Events Categories</value>
-  </data>
-  <data name="DisplacementInDays" xml:space="preserve">
-    <value>Смещение в днях</value>
-  </data>
-  <data name="OffsetFromThePreviousTask" xml:space="preserve">
-    <value>Отсчитывать от предыдущей задачи</value>
-  </data>
-  <data name="OffsetFromTheStartOfContainer" xml:space="preserve">
-    <value>Отсчитывать от старта контейнера</value>
-  </data>
-  <data name="DealMilestoneStatusDescription_ClosedAndLost" xml:space="preserve">
-    <value>Closes opportunity unsuccessfully.</value>
-  </data>
-  <data name="DealMilestoneStatusDescription_ClosedAndWon" xml:space="preserve">
-    <value>Closes opportunity successfully.</value>
-  </data>
-  <data name="AddTagInProgressing" xml:space="preserve">
-    <value>Adding tag</value>
-  </data>
-  <data name="AccessRightsSettings" xml:space="preserve">
-    <value>Portal. Access Rights.</value>
-  </data>
-  <data name="CreateNewCategoryListButton" xml:space="preserve">
-    <value>Create new category</value>
-  </data>
-  <data name="CreateNewDealMilestoneListButton" xml:space="preserve">
-    <value>Create new stage</value>
-  </data>
-  <data name="CreateNewFieldListButton" xml:space="preserve">
-    <value>Create new field</value>
-  </data>
-  <data name="CreateNewStageListButton" xml:space="preserve">
-    <value>Создать новую стадию теплоты</value>
-  </data>
-  <data name="CreateNewTagListButton" xml:space="preserve">
-    <value>Create new tag</value>
-  </data>
-  <data name="LearnMore" xml:space="preserve">
-    <value>Learn more...</value>
-  </data>
-  <data name="SMTPSettingsHelp" xml:space="preserve">
-    <value>If you use a Gmail account for SMTP server, you will not be able to send mail until you do the following: sign in to the Gmail account you use via its standard web interface and confirm any verification questions about the TeamLab access attempt to the account, in case there are some.{0}We recommend using ports 587 or 25 for the email messages to be sent, as other values might prevent the SMTP from the correct work.</value>
-  </data>
-  <data name="SendTestMail" xml:space="preserve">
-    <value>Send test mail</value>
-  </data>
-  <data name="CreateTestLetter" xml:space="preserve">
-    <value>Create test letter</value>
-  </data>
-  <data name="pattern_TestMailSMTPMainBody" xml:space="preserve">
-    <value>Это тестовое письмо, которое было создано автоматически порталом Teamlab для проверки работы функции email-рассылки.\nНа это письмо не нужно отвечать.\n\nПросим прощения за возможные неудобства.\nС уважением,\nАдминистрация портала {0}</value>
-  </data>
-  <data name="TagAlreadyExistsError" xml:space="preserve">
-    <value>Tag with this title already exists</value>
-  </data>
-  <data name="ChangeContactStatusWithoutAskingSettingsLabel" xml:space="preserve">
-    <value>Не показывать диалог учета связи</value>
-  </data>
-  <data name="AddThisContactType" xml:space="preserve">
-    <value>Добавить этот тип</value>
-  </data>
-  <data name="ContactTypes" xml:space="preserve">
-    <value>Типы контакта</value>
-  </data>
-  <data name="CreateContactTypeInProgressing" xml:space="preserve">
-    <value>Создание типа контакта</value>
-  </data>
-  <data name="CreateNewContactType" xml:space="preserve">
-    <value>Создать новый тип контакта</value>
-  </data>
-  <data name="CreateNewContactTypeListButton" xml:space="preserve">
-    <value>Создать новый тип контакта</value>
-  </data>
-  <data name="DeleteContactType" xml:space="preserve">
-    <value>Удалить тип контакта</value>
-  </data>
-  <data name="DescriptionTextContactType" xml:space="preserve">
-    <value>Типы контактов... (ОПИСАНИЕ!!!)</value>
-  </data>
-  <data name="DescriptionTextContactTypeEditDelete" xml:space="preserve">
-    <value>Описание удаления-редактирования типов контакта!!!???</value>
-  </data>
-  <data name="EditContactType" xml:space="preserve">
-    <value>Обновить тип контакта</value>
-  </data>
-  <data name="EditSelectedContactType" xml:space="preserve">
-    <value>Обновить тип "{0}" контакта</value>
-  </data>
-  <data name="AddTagWithoutAskingSettingsLabel" xml:space="preserve">
-    <value>Не показывать диалог учета связи</value>
-  </data>
-  <data name="CurrencySettingsInvoiceDescription" xml:space="preserve">
-    <value>This currency will although be the currency for your Products &amp; Services catalog which is used to make out invoices.</value>
-  </data>
-  <data name="ExportInvoiceItemsEmptyError" xml:space="preserve">
-    <value>No products&amp;services to be exported for this filter</value>
-  </data>
-  <data name="Address" xml:space="preserve">
-    <value>Address</value>
-  </data>
-  <data name="BasicInformation" xml:space="preserve">
-    <value>Basic Information</value>
-  </data>
-  <data name="Logo" xml:space="preserve">
-    <value>Logo</value>
-  </data>
-  <data name="SettingsCompanyLogoHelp" xml:space="preserve">
-    <value>The default {0}logo{1} of your organisation will be displayed on your {0}Invoices{1}.{3}
-To replace the logo click the Change Logo link and select the image stored on your computer to load it to your portal. Please, keep in mind that you can upload an image not larger than {0}{4}x{5} pixels{1}, otherwise resizing will take place. The maximum image size cannot exceed  {0}{2}{1}.</value>
-  </data>
-  <data name="SettingsCompanyAddressHelp" xml:space="preserve">
-    <value>Set your organization billing address which will be placed to all your invoices. Select the {0}Country{1} from the list and fill in the fields with the {0}Address{1}, {0}City{1}, {0}State{1} and {0}Zip Code{1}.</value>
-  </data>
-  <data name="ChangeLogo" xml:space="preserve">
-    <value>Change Logo</value>
-  </data>
-  <data name="OrganisationLogo" xml:space="preserve">
-    <value>Invoice logo</value>
-  </data>
-  <data name="RestoreLogoToDeafult" xml:space="preserve">
-    <value>Restore to Deafult</value>
-  </data>
-  <data name="ChangeDefaultCurrencyConfText" xml:space="preserve">
-    <value>Are you sure you want to change the default currency?</value>
-  </data>
-  <data name="DeleteCustomFieldConfirmationText" xml:space="preserve">
-    <value>Are you sure?</value>
+  <data name="SelectTaskCategoryForReplace" xml:space="preserve">
+    <value>Please select category stage to replace in tasks with current category</value>
   </data>
 </root>

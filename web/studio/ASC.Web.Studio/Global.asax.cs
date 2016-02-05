@@ -31,10 +31,10 @@ using ASC.Web.Core.Client;
 using ASC.Web.Core.Helpers;
 using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Backup;
 using ASC.Web.Studio.Utility;
-using log4net;
 using System;
 using System.Configuration;
 using System.Globalization;
@@ -60,7 +60,7 @@ namespace ASC.Web.Studio
                     if (!applicationStarted)
                     {
                         applicationStarted = true;
-                        Startup.Configure(this);
+                        Startup.Configure();
                     }
                 }
             }
@@ -75,6 +75,7 @@ namespace ASC.Web.Studio
             ResolveUserCulture();
 
             BlockIPSecurityPortal(tenant);
+            ApplyWhiteLableSettings(tenant);
         }
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)
@@ -136,10 +137,14 @@ namespace ASC.Web.Studio
                     case "theme":
                         value = ColorThemesSettings.GetColorThemesSettings();
                         break;
+                    case "whitelabel":
+                        var whiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+                        value = whiteLabelSettings.LogoText ?? string.Empty;
+                        break;
                 }
 
                 if (!(String.Compare(value.ToLower(), subkey, StringComparison.Ordinal) == 0
-                      || String.IsNullOrEmpty(subkey))) break;
+                      || String.IsNullOrEmpty(subkey))) continue;
 
                 result += "|" + value;
 
@@ -256,7 +261,7 @@ namespace ASC.Web.Studio
             var handlerType = typeof(BackupAjaxHandler);
             var backupHandler = handlerType.FullName + "," + handlerType.Assembly.GetName().Name + ".ashx";
 
-            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", backupHandler, "PreparationPortal.aspx" };
+            var passthroughtRequestEndings = new[] { ".js", ".css", ".less", backupHandler, "PreparationPortal.aspx", "portal/getrestoreprogress.json",  };
             if (passthroughtRequestEndings.Any(path => Request.Url.AbsolutePath.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)))
             {
                 return;
@@ -282,6 +287,15 @@ namespace ASC.Web.Studio
             {
                 Auth.ProcessLogout();
                 Response.Redirect("~/auth.aspx?error=ipsecurity", true);
+            }
+        }
+
+        private void ApplyWhiteLableSettings(Tenant tenant)
+        {
+            if (ConfigurationManager.AppSettings["resources.from-db"] == "true")
+            {
+                var whiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(tenant.TenantId);
+                whiteLabelSettings.SetNewLogoText();
             }
         }
     }

@@ -24,25 +24,29 @@
 */
 
 
-using System;
 using ASC.Common.Security;
 using ASC.Common.Security.Authorizing;
+using System;
 
 namespace ASC.Core
 {
     [Serializable]
     public class AzRecord
     {
-        public Guid SubjectId { get; private set; }
+        public Guid SubjectId { get; set; }
 
-        public Guid ActionId { get; private set; }
+        public Guid ActionId { get; set; }
 
-        public string ObjectId { get; private set; }
+        public string ObjectId { get; set; }
 
-        public AceType Reaction { get; private set; }
+        public AceType Reaction { get; set; }
 
         public int Tenant { get; set; }
 
+        
+        public AzRecord()
+        {
+        }
 
         public AzRecord(Guid subjectId, Guid actionId, AceType reaction)
             : this(subjectId, actionId, reaction, default(string))
@@ -62,6 +66,7 @@ namespace ASC.Core
             Reaction = reaction;
             ObjectId = objectId;
         }
+
 
         public override bool Equals(object obj)
         {

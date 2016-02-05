@@ -25,9 +25,9 @@
 
 
 using System;
-using System.Collections.Generic;
+using ASC.FederatedLogin;
+using ASC.FederatedLogin.Helpers;
 using ASC.Mail.Aggregator.Common.Logging;
-using DotNetOpenAuth.OAuth2;
 
 namespace ASC.Mail.Aggregator.Common.Authorization
 {
@@ -38,52 +38,33 @@ namespace ASC.Mail.Aggregator.Common.Authorization
         public string ClientId { get; protected set; }
         public string ClientSecret { get; protected set; }
         public string RedirectUrl { get; protected set; }
-        public AuthorizationServerDescription ServerDescription { get; protected set; }
-        public List<string> Scope { get; protected set; }
+        public string RefreshUrl { get; protected set; }
 
         public BaseOAuth2Authorization(ILogger log)
         {
-            if(null == log)
+            if (null == log)
                 throw new ArgumentNullException("log");
 
             this.log = log;
         }
 
-        private IAuthorizationState PrepareAuthorizationState(string refreshToken)
+        public OAuth20Token RequestAccessToken(string refreshToken)
         {
-            return new AuthorizationState(Scope)
-            {
-                RefreshToken = refreshToken,
-                Callback = new Uri(RedirectUrl),
-            };
-
-        }
-
-        public IAuthorizationState RequestAccessToken(string refreshToken)
-        {
-            {
-                WebServerClient consumer = new WebServerClient(ServerDescription, ClientId, ClientSecret)
+            var token = new OAuth20Token
                 {
-                    AuthorizationTracker = new AuthorizationTracker(Scope)
+                    ClientID = ClientId,
+                    ClientSecret = ClientSecret,
+                    RedirectUri = RedirectUrl,
+                    RefreshToken = refreshToken,
                 };
 
-                IAuthorizationState grantedAccess = PrepareAuthorizationState(refreshToken);
-
-                if (grantedAccess != null)
-                {
-                    try
-                    {
-                        consumer.ClientCredentialApplicator = ClientCredentialApplicator.PostParameter(ClientSecret);
-                        consumer.RefreshAuthorization(grantedAccess);
-
-                        return grantedAccess;
-                    }
-                    catch (Exception ex)
-                    {
-                        log.Error("RefreshAuthorization() Exception:\r\n{0}\r\n", ex.ToString());
-                    }
-                }
-
+            try
+            {
+                return OAuth20TokenHelper.RefreshToken(RefreshUrl, token);
+            }
+            catch (Exception ex)
+            {
+                log.Error("RequestAccessToken() Exception:\r\n{0}\r\n", ex.ToString());
                 return null;
             }
         }

@@ -97,7 +97,81 @@ ListInvoiceView.ascx
         padding: 0 8px;
         .text-overflow-nowrap;
     }
+    .invoiceContact .crm-peopleInfoCardLink, .invoiceContact .crm-companyInfoCardLink {
+        max-width: 300px;
+    }
 }
+
+
+body.media-width-0-1400 {
+    #invoiceTable {
+        .invoiceNumber {
+            max-width: 260px;
+        }
+        .invoiceContact .crm-peopleInfoCardLink, .invoiceContact .crm-companyInfoCardLink {
+            max-width: 220px;
+        }
+        .invoiceSum div {
+            max-width: 140px;
+        }
+    }
+}
+body.media-width-0-1350 {
+    #invoiceTable {
+        .invoiceNumber {
+            max-width: 250px;
+        }
+        .invoiceContact .crm-peopleInfoCardLink, .invoiceContact .crm-companyInfoCardLink {
+            max-width: 210px;
+        }
+        .invoiceSum div {
+            max-width: 130px;
+        }
+    }
+}
+body.media-width-0-1300 {
+   #invoiceTable {
+        .invoiceNumber {
+            max-width: 230px;
+        }
+        .invoiceContact .crm-peopleInfoCardLink, .invoiceContact .crm-companyInfoCardLink {
+            max-width: 190px;
+        }
+        .invoiceSum div {
+            max-width: 120px;
+        }
+    }
+}
+body.media-width-0-1250 {
+    #invoiceTable {
+        .invoiceNumber {
+            max-width: 200px;
+        }
+        .invoiceContact .crm-peopleInfoCardLink, .invoiceContact .crm-companyInfoCardLink {
+            max-width: 170px;
+        }
+        .invoiceSum div {
+            max-width: 110px;
+        }
+    }
+}
+body.media-width-0-1200,
+body.media-width-min {
+    #invoiceTable {
+        .invoiceNumber {
+            max-width: 180px;
+        }
+        .invoiceContact .crm-peopleInfoCardLink, .invoiceContact .crm-companyInfoCardLink {
+            max-width: 150px;
+        }
+        .invoiceSum div {
+            max-width: 100px;
+        }
+    }
+}
+
+
+
 
 /*******************************************************************************
 ListInvoiceView: custom contactSelector filter
@@ -562,6 +636,11 @@ ListActionView.ascx
 ListDetailsView.ascx
 *******************************************************************************/
 
+.invoice-container,
+.invoice-container * {
+    font-family: Arial;
+} 
+
 .invoice-container
 {
     margin-top: 20px;
@@ -572,42 +651,44 @@ ListDetailsView.ascx
     .boxShadow;
 }
 
-@media screen and (min-width: 1145px) {
+body.media-width-1145-0 {
  .invoice-container {
     padding: 19mm 14mm 19mm 28mm;
  }
 }
-@media screen and (max-width: 1144px) {
+body.media-width-0-1144 {
  .invoice-container {
     padding: 19mm 10mm 19mm 24mm;
  }
 }
-@media screen and (max-width: 1120px) {
+body.media-width-0-1120 {
  .invoice-container {
     padding: 19mm 9mm 19mm 19mm;
  }
 }
-@media screen and (max-width: 1096px) {
+body.media-width-0-1096 {
  .invoice-container {
     padding: 19mm 8mm 19mm 15mm;
  }
 }
-@media screen and (max-width: 1072px) {
+body.media-width-0-1072 {
  .invoice-container {
     padding: 19mm 7mm 19mm 11mm;
  }
 }
-@media screen and (max-width: 1048px) {
+body.media-width-0-1048 {
  .invoice-container {
     padding: 19mm 6mm 19mm 7mm;
  }
 }
-@media screen and (max-width: 1024px) {
+body.media-width-0-1024,
+body.media-width-min {
  .invoice-container {
     padding: 19mm 5mm 19mm 5mm;
  }
 }
-@media all and (max-width: 1200px) {
+body.media-width-0-1200,
+body.media-width-min {
     #crm_invoiceMakerDialog .invoice_info {
         width: 670px;
     }
@@ -660,14 +741,12 @@ ListDetailsView.ascx
 {
     background-color: #FFFFFF;
     font-size: 10pt;
-    font-family: 'Open Sans',sans-serif;
     color: #333;
 
     table
     {
         border-collapse: collapse;
         font-size: 10pt;
-        font-family: 'Open Sans',sans-serif;
         color: #333;
         width: 100%;
 

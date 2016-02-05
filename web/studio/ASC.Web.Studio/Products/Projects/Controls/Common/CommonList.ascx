@@ -47,12 +47,14 @@
                 <span class="gray-text"><%= ProjectsCommonResource.Total%> : </span>
                 <span class="gray-text" style="margin-right: 20px;" id="totalCount"></span>
                 <span class="gray-text"><%= ProjectsCommonResource.ShowOnPage%> : </span>
-                <select id="countOfRows" class="top-align">
+                <select id="countOfRowsSmall" class="display-none top-align">
                     <option value="10">10</option>
                     <option value="20">20</option>
-                    <option value="25">25</option>
                     <option value="30">30</option>
                     <option value="40">40</option>
+                </select> 
+                <select id="countOfRowsBig" class="display-none top-align">
+                    <option value="25">25</option>
                     <option value="50">50</option>
                     <option value="75">75</option>
                     <option value="100">100</option>

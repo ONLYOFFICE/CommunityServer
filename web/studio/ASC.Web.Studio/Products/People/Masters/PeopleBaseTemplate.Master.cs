@@ -43,19 +43,18 @@ namespace ASC.Web.People.Masters
             _sidepanelHolder.Controls.Add(LoadControl(SideNavigationPanel.Location));
 
             //UserMaker.AddOnlyOne(Page, ControlHolder);
-            ControlHolder.Controls.Add(LoadControl(DepartmentAdd.Location));
             ControlHolder.Controls.Add(new ImportUsersWebControl());
             ControlHolder.Controls.Add(LoadControl(ResendInvitesControl.Location));
 
             Page.RegisterClientScript(typeof(ClientScripts.ClientTemplateResources));
-
+            Page.RegisterClientScript(typeof(ClientScripts.ClientCustomResources));
             Page.RegisterClientLocalizationScript(typeof(ClientScripts.ClientLocalizationResources));
         }
 
         private void InitScripts()
         {
-            Page.RegisterStyleControl(LoadControl(VirtualPathUtility.ToAbsolute("~/products/people/masters/Styles.ascx")));
-            Page.RegisterBodyScripts(LoadControl(VirtualPathUtility.ToAbsolute("~/products/people/masters/CommonBodyScripts.ascx")));
+            Page.RegisterStyleControl("~/products/people/masters/Styles.ascx");
+            Page.RegisterBodyScriptsControl("~/products/people/masters/CommonBodyScripts.ascx");
             Page.RegisterInlineScript("jQuery(document.body).children('form').bind('submit', function() { return false; });");
         }
     }

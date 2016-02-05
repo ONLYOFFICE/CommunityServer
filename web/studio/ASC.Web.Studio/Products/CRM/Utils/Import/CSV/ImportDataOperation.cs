@@ -24,6 +24,7 @@
 */
 
 
+using ASC.Common.Caching;
 using ASC.Common.Security.Authentication;
 using ASC.Common.Threading.Progress;
 using ASC.Common.Web;
@@ -36,13 +37,59 @@ using ASC.Web.CRM.Services.NotifyService;
 using ASC.Web.Studio.Utility;
 using log4net;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web;
 
 namespace ASC.Web.CRM.Classes
 {
+    class ImportDataCache
+    {
+        public static readonly ICache Cache = AscCache.Default;
+
+        public static String GetStateCacheKey(EntityType entityType)
+        {
+            return String.Format("{0}:crm:queue:importtocsv:{1}", TenantProvider.CurrentTenantID.ToString(), entityType.ToString());
+        }
+
+        public static String GetCancelCacheKey(EntityType entityType)
+        {
+            return String.Format("{0}:crm:queue:importtocsv:{1}:cancel", TenantProvider.CurrentTenantID.ToString(), entityType.ToString());
+        }
+
+        public static ImportDataOperation Get(EntityType entityType)
+        {
+            return Cache.Get<ImportDataOperation>(GetStateCacheKey(entityType));
+        }
+
+        public static void Insert(EntityType entityType,ImportDataOperation data)
+        {
+            Cache.Insert(GetStateCacheKey(entityType), data, TimeSpan.FromMinutes(1));
+        }
+
+        public static bool CheckCancelFlag(EntityType entityType)
+        {
+            var fromCache = Cache.Get<String>(GetCancelCacheKey(entityType));
+
+            if (!String.IsNullOrEmpty(fromCache))
+                return true;
+
+            return false;
+
+        }
+
+        public static void SetCancelFlag(EntityType entityType)
+        {
+            Cache.Insert(GetCancelCacheKey(entityType), true, TimeSpan.FromMinutes(1));
+        }
+
+        public static void ResetAll(EntityType entityType)
+        {
+            Cache.Remove(GetStateCacheKey(entityType));
+            Cache.Remove(GetCancelCacheKey(entityType));
+        }
+    }
+
     public partial class ImportDataOperation : IProgressItem
     {
         #region Constructor
@@ -163,6 +210,8 @@ namespace ASC.Web.CRM.Classes
             _log.Debug("Import is completed");
 
             _notifyClient.SendAboutImportCompleted(_author.ID, _entityType);
+                       
+            ImportDataCache.Insert(_entityType, (ImportDataOperation)Clone());
         }
 
         public void RunJob()
@@ -178,6 +227,8 @@ namespace ASC.Web.CRM.Classes
 
             //Fake http context allows fearlessly use shared DbManager.
             bool fakeContext = HttpContext.Current == null;
+
+            ImportDataCache.Insert(_entityType,(ImportDataOperation)Clone());
 
             try
             {
@@ -206,8 +257,14 @@ namespace ASC.Web.CRM.Classes
                         throw new ArgumentException(CRMErrorsResource.EntityTypeUnknown);
                 }
             }
+            catch (OperationCanceledException)
+            {
+                _log.Debug("Queue canceled");
+            }
             finally
             {
+                ImportDataCache.ResetAll(_entityType);
+
                 if (fakeContext && HttpContext.Current != null)
                 {
                     new DisposableHttpContext(HttpContext.Current).Dispose();

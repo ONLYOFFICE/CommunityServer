@@ -47,7 +47,7 @@
             line-height: @message-head-row-height;
             padding-right: @message-spliter-width;
 
-            .menu {
+            .menu-small {
                 margin-left: 0;
             }
 
@@ -171,17 +171,14 @@
         }
 
         .header-crm-link{
-            height: 16px;
-            width: 16px;
-            background: url("@{base-icon-sprite-url}") -40px 0 no-repeat;
-            display: inline-block;
-            margin-left: 8px;
-            position: relative;
+            cursor: pointer;
+            height: 22px;
+            width: 22px;
+            margin-right: 5px;
+        }
 
-            &:hover{
-                background-position: -40px -20px;
-                cursor: pointer;
-            }
+        .header-crm-link * {
+            margin: 3px 0 0 1px;
         }
     }
 
@@ -293,24 +290,16 @@
             }
 
             .row {
-                .menu {
-                    background-color: transparent;
-                    background: url("@{base-icon-sprite-url}") no-repeat 0 -90px;
-                    width: 24px;
-                    height: 24px;
+                .menu-small {
                     float: right;
                     right: 0px;
-                    cursor: pointer;
-                    float: right;
                     line-height: 30px;
-                    margin-top: 6px;
-                    margin-left: 20px;
-                    display: inline-block;
+                    margin: 8px 2px 0 0;
                 }
             }
-            &:hover .menu,
-            .menu.active {
-                background-position: -30px -90px;
+            &:hover .menu-small,
+            .menu-small.active {
+                background-position: center bottom;
             }
         }
     }
@@ -337,6 +326,13 @@
             font-size: 100%;
             vertical-align: baseline;
         }
+    }
+
+    .body.body-error {
+        width: 550px;
+        margin: 0 auto;
+        padding-top: 52px;
+        padding-bottom: 16px;
     }
 
     div.pages-navigation {
@@ -570,19 +566,9 @@
             padding-right: 9px;
             width: @message-head-row-height;
 
-            .menu {
-                background-color: transparent;
-                background: url("@{base-icon-sprite-url}") no-repeat 0 -90px;
-                width: 24px;
-                height: 24px;
-                float: right;
-                cursor: pointer;
-                display: inline-block;
+            .menu-small {
+                margin: 0 0 0 6px;
             }
-
-                .menu.active {
-                    background-position: -30px -90px;
-                }
         }
 
         &:hover {
@@ -595,8 +581,8 @@
 
         &:hover,
         &.selected {
-            .menu {
-                background-position: -30px -90px;
+            .menu-small {
+                background-position: center bottom;
             }
 
             .file-name {
@@ -618,12 +604,4 @@
             }
         }
     }
-}
-
-.body-error
-{
-    width: 550px;
-    margin: 0 auto;
-    padding-top: 52px;
-    padding-bottom: 16px;
 }

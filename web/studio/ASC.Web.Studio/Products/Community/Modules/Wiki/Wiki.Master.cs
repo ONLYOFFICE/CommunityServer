@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -68,7 +68,7 @@ namespace ASC.Web.Community.Wiki
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/products/community/modules/wiki/app_themes/default/css/wikicss.css"));
+            Page.RegisterStyle("~/products/community/modules/wiki/app_themes/default/css/wikicss.css");
             Utility.RegisterTypeForAjax(GetType(), Page);
         }
 

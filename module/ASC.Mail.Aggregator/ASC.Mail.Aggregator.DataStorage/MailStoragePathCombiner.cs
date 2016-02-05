@@ -98,12 +98,15 @@ namespace ASC.Mail.Aggregator.DataStorage
 
         public static string GetStoredUrl(Uri uri)
         {
+            var url = uri.ToString();
+
             if (WorkContext.IsMono && uri.Scheme == Uri.UriSchemeFile)
             {
-                return GetStoredUrl(CommonLinkUtility.GetFullAbsolutePath(uri.ToString()));
+                if (url.StartsWith("file://"))
+                    url = url.Substring(7);
             }
 
-            return GetStoredUrl(!uri.IsAbsoluteUri ? CommonLinkUtility.GetFullAbsolutePath(uri.ToString()) : uri.ToString());
+            return GetStoredUrl(url);
         }
 
         private static string GetStoredUrl(string fullUrl)
@@ -154,6 +157,16 @@ namespace ASC.Mail.Aggregator.DataStorage
         public static string GetUserMailsDirectory(string user)
         {
             return String.Format("{0}", user);
+        }
+
+        public static string GetEditorSmileBaseUrl()
+        {
+             return "/usercontrols/common/ckeditor/plugins/smiley/teamlab_images";
+        }
+
+        public static string GetEditorImagesBaseUrl()
+        {
+            return "/usercontrols/common/ckeditor/plugins/filetype/images";
         }
     }
 }

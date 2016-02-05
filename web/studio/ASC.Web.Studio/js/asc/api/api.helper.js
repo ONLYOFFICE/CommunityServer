@@ -37,7 +37,7 @@
       cmdRequestId = '__',
       cmdSeparator = '/',
       observerHandler = 0,
-      observerTimeout = 500,
+      observerTimeout = 50,
       maxRequestAttempts = 3,
       requestTimeout = 60 * 1000,
       myProfile = null,
@@ -238,11 +238,20 @@
     }
 
     function execExtention(req, nonetrigger) {
+        var e;
         if (typeof req.__errorcallback === 'function') {
-            req.__errorcallback(req.__params, req.__errors);
+            try {
+                req.__errorcallback(req.__params, req.__errors);
+            } catch (e) {
+                console.log(e);
+            }
         }
         if (nonetrigger !== true) {
-            exec('extention', this, [req.__eventname, req.__params, req.__errors]);
+            try {
+                exec('extention', this, [req.__eventname, req.__params, req.__errors]);
+            } catch (e) {
+                console.log(e);
+            }
         }
     }
 
@@ -289,7 +298,6 @@
           isInvalidRequest = false,
           isUnauthenticationRequest = false,
           response = null;
-
 
         switch (textStatus) {
             case 'error':
@@ -346,7 +354,7 @@
                 }
             }
         }
-
+        
         if (!isInvalidRequest) {
             if (response && response.status != 0) {
                 isInvalidRequest = true;
@@ -369,7 +377,7 @@
                     req.__errors.push(response.error);
                 }
             }
-            if (req.__errors.length > 0) {
+            //if (req.__errors.length > 0) {
                 if (isUnauthenticationRequest) exec('unauthenticated', this, [req.__params]);
 
                 if (req.hasOwnProperty("__jointrequests") && req.__jointrequests) {
@@ -385,12 +393,13 @@
                 for (var requestInd = 0, requestCnt = batchrequests.length; requestInd < requestCnt; requestInd++) {
                     var name = batchrequests[requestInd].Name,
                         request = getRequestById(name);
-                    if (request) removeRequestById(request.__id);
+                    if (request) {
+                        removeRequestById(request.__id);
+                    }
                 }
-
                 req.__processing = false;
 
-            }
+            //}
             delete req;
             return false;
         }
@@ -519,16 +528,26 @@
                 onGetSettings(req.__params, obj);
             }
 
+            //TODO: Replace to execSuccess.call(this, req, [req.__params, obj]); // when we give up of -> this.__responses[0];
+
             var needexec = true;
             if (typeof req.__successcallback === 'function') {
-                if (req.__successcallback(req.__params, obj) === false) {
-                    needexec = false;
+                try {
+                    if (req.__successcallback(req.__params, obj) === false) {
+                        needexec = false;
+                    }
+                } catch (e) {
+                    console.log(e);
                 }
             }
             if (needexec === true) {
-                exec(null, this, [req.__params, obj]);
-                if (req.__eventname) {
-                    exec(req.__eventname, this, [req.__params, obj]);
+                try {
+                    exec(null, this, [req.__params, obj]);
+                    if (req.__eventname) {
+                        exec(req.__eventname, this, [req.__params, obj]);
+                    }
+                } catch (e) {
+                    console.log(e);
                 }
             }
         }
@@ -539,7 +558,7 @@
             for (var par in paramses) {
                 if (paramses.hasOwnProperty(par)) {
                     var paramForPush = {};
-                    var currentParam = paramses[par]
+                    var currentParam = paramses[par];
                     for (var fld in currentParam) {
                         if (currentParam.hasOwnProperty(fld)) {
                             paramForPush['__' + fld] = currentParam[fld];
@@ -555,22 +574,34 @@
                 args.push(obj);
             }
             if (IsValidData) {
-                var needexec = true;
-                if (typeof req.__successcallback === 'function') {
-                    if (req.__successcallback.apply(this, args) === false) {
-                        needexec = false;
-                    }
-                }
-                if (needexec === true) {
-                    exec(null, this, args);
-                    if (req.__eventname) {
-                        exec(req.__eventname, this, args);
-                    }
-                }
+                execSuccess.call(this, req, args);
             }
         }
 
         removeRequestById(req.__id);
+    }
+
+    function execSuccess(req, args) {
+        var needexec = true;
+        if (typeof req.__successcallback === 'function') {
+            try {
+                if (req.__successcallback.apply(this, args) === false) {
+                    needexec = false;
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        if (needexec === true) {
+            try {
+                exec(null, this, args);
+                if (req.__eventname) {
+                    exec(req.__eventname, this, args);
+                }
+            } catch (e) {
+                console.log(e);
+            }
+        }
     }
 
     function requestComplete(jqXHR, textStatus) {
@@ -698,7 +729,7 @@
                 paramses.push({ count: resp.count, startIndex: resp.startIndex, nextIndex: resp.nextIndex || undefined, total: resp.total || undefined });
             }
 
-            if (req && resp) {
+            if (req && resp && req.url && resp.response) {
                 req.__urls.push(req.url);
                 req.__methods.push(req.type);
                 req.__responses.push(resp.response);
@@ -963,6 +994,8 @@
     }
 
     function sendAjaxRequest(req) {
+        //console.timeEnd("test");
+
         req.__processing = true;
         req.url += (req.url.indexOf('?') === -1 ? '?' : '&') + cmdRequestId + '=' + req.__id;
         jQuery.ajax(req);

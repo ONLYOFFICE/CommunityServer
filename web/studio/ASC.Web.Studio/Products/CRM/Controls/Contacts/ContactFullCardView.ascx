@@ -106,7 +106,9 @@
                         <tr>
                             <td class="describe-text" style="white-space:nowrap;"><%= CRMCommonResource.Currency %>:</td>
                             <td></td>
-                            <td><%= String.Format("{0} - {1}", cur.Symbol, cur.Abbreviation) %></td>
+                            <td><%= String.Format("{0} - {1}",
+                                String.Equals(cur.Abbreviation, "RUB", StringComparison.OrdinalIgnoreCase) ? "<span class='rub'>Р</span>" : cur.Symbol,
+                                cur.Abbreviation) %></td>
                         </tr>
                         <% }
                     } %>

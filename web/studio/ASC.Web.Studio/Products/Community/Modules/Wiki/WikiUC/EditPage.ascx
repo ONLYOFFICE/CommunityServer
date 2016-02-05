@@ -203,7 +203,7 @@
                     <b><%=WikiUCResource.editWiki_PageName%>:</b>
                 </div>
                 <div>
-                    <asp:TextBox ID="txtPageName" MaxLength="240" CssClass="textEdit" runat="Server" Style="width:100%;" />
+                    <input type="text" ID="txtPageName" maxlength="240" class="textEdit" runat="Server" style="width:100%;" />
                 </div>
             </div>
         </asp:PlaceHolder>

@@ -26,7 +26,14 @@
 
 window.ASC.Controls.LoadPhotoImage = function () {
 
-    var showPhotoDialog = function () {
+    var showPhotoDialog = function (curPhotoSrc) {
+        var defaultPhotoSrc = jq("#divLoadPhotoWindow .default-image").attr("data-src");
+        if (curPhotoSrc.indexOf(defaultPhotoSrc) == 0) {
+            jq("#divLoadPhotoWindow .divLoadPhotoDefault").addClass("display-none");
+        } else {
+            jq("#divLoadPhotoWindow .divLoadPhotoDefault").removeClass("display-none");
+        }
+
         StudioBlockUIManager.blockUI("#divLoadPhotoWindow", 520, 550, 0);
     }
     var setDefaultPhoto = function (userId) {       

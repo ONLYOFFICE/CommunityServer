@@ -32,6 +32,7 @@ using ASC.Bookmarking.Pojo;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.UserControls.Bookmarking.Common.Util
 {
@@ -72,7 +73,8 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Util
                     Inactive = comment.Inactive,
                     CommentBody = comment.Content,
                     UserFullName = DisplayUserSettings.GetFullUserName(userID),
-                    UserAvatar = BookmarkingServiceHelper.GetHTMLUserAvatar(userID),
+                    UserProfileLink = CommonLinkUtility.GetUserProfile(userID),
+                    UserAvatarPath = UserPhotoManager.GetBigPhotoURL(userID),
                     IsEditPermissions = BookmarkingPermissionsCheck.PermissionCheckEditComment(comment),
                     IsResponsePermissions = BookmarkingPermissionsCheck.PermissionCheckCreateComment(),
                     UserPost = BookmarkingServiceHelper.GetUserInfo(userID).Title

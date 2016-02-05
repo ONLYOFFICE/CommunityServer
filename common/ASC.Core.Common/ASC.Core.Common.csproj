@@ -44,7 +44,16 @@
       <HintPath>..\..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="StackExchange.Redis">
+      <HintPath>..\..\redistributable\StackExchange.Redis\StackExchange.Redis.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="StackExchange.Redis.Extensions.Core">
+      <HintPath>..\..\packages\StackExchange.Redis.Extensions.Core.1.1.12.0\lib\net45\StackExchange.Redis.Extensions.Core.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -70,6 +79,8 @@
   <ItemGroup>
     <Compile Include="Billing\BillingClient.cs" />
     <Compile Include="Billing\ITariffSyncService.cs" />
+    <Compile Include="Billing\License\LicenseClient.cs" />
+    <Compile Include="Billing\License\LicenseReader.cs" />
     <Compile Include="Billing\TariffSyncClient.cs" />
     <Compile Include="Billing\TariffSyncServiceSection.cs" />
     <Compile Include="Billing\Invoice.cs" />
@@ -80,12 +91,10 @@
     <Compile Include="Billing\Tariff.cs" />
     <Compile Include="Billing\TariffState.cs" />
     <Compile Include="Billing\TariffSyncService.cs" />
-    <Compile Include="Caching\AscCache.cs" />
     <Compile Include="Caching\AzRecordStore.cs" />
     <Compile Include="Caching\CachedAzService.cs" />
     <Compile Include="Caching\CachedQuotaService.cs" />
     <Compile Include="Caching\CachedSubscriptionService.cs" />
-    <Compile Include="Caching\ICache.cs" />
     <Compile Include="Caching\ICachedService.cs" />
     <Compile Include="Caching\TrustInterval.cs" />
     <Compile Include="Caching\UserGroupRefStore.cs" />
@@ -93,6 +102,8 @@
     <Compile Include="Configuration\ConnectionStringNameTypeConverter.cs" />
     <Compile Include="Configuration\AmiPublicDnsSyncService.cs" />
     <Compile Include="Billing\ITariffService.cs" />
+    <Compile Include="Configuration\ConsumerConfigurationSection.cs" />
+    <Compile Include="Configuration\KeyStorage.cs" />
     <Compile Include="Context\Impl\AuthManager.cs" />
     <Compile Include="Context\Impl\AuthorizationManager.cs" />
     <Compile Include="Context\Impl\CoreConfiguration.cs" />
@@ -103,11 +114,13 @@
     <Compile Include="Contracts\BackupServiceClient.cs" />
     <Compile Include="Contracts\BackupServiceModel.cs" />
     <Compile Include="Contracts\IBackupService.cs" />
+    <Compile Include="Core\AzRecord.cs" />
     <Compile Include="Core\Partner.cs" />
     <Compile Include="Core\PartnerDisplayType.cs" />
     <Compile Include="Core\PartnerPaymentMethod.cs" />
     <Compile Include="Core\PartnerStatus.cs" />
     <Compile Include="Core\PartnerType.cs" />
+    <Compile Include="Core\DBResourceManager.cs" />
     <Compile Include="MultiRegionHostedSolution.cs" />
     <Compile Include="Core\EmployeeType.cs" />
     <Compile Include="Core\EmployeeActivationStatus.cs" />
@@ -203,7 +216,6 @@
     <Compile Include="Tests\TopSubscriptionProviderTest.cs" />
     <Compile Include="Tests\UserManagerTest.cs" />
     <Compile Include="Users\DisplayUserNameFormat.cs" />
-    <Compile Include="Core\AzRecord.cs" />
     <Compile Include="Core\EmployeeStatus.cs" />
     <Compile Include="Security\UserSecurityProvider.cs" />
     <Compile Include="Core\IncludeType.cs" />

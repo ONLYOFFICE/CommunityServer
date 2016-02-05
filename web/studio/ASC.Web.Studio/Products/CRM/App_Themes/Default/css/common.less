@@ -1360,7 +1360,9 @@ Import From CSV
     }
 }
 
-@media all and (max-width: 1200px) {
+
+body.media-width-0-1200,
+body.media-width-min {
     #importFromCSVSteps .content-info-import {
         width:650px;
     }
@@ -1465,16 +1467,19 @@ div[id^=notifyPanel] {
 /*******************************************************************************
    Styles for min-width 1024px
 *******************************************************************************/
-@media all and (max-width: 1200px) {
-    #contactTable .main-info-contact .contactTitle {
-        max-width:450px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
+body.media-width-0-1200,
+body.media-width-min {
+    #contactTable {
+        .main-info-contact .contactTitle {
+            max-width: 450px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-    #contactTable .contact-info-contact {
-        max-width: 150px;
-        overflow: hidden;
-        text-overflow: ellipsis;
+        .contact-info-contact {
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     }
 }

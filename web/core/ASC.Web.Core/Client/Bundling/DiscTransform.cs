@@ -23,13 +23,9 @@
  *
 */
 
-
 using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
-using System.IO.Compression;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -39,133 +35,71 @@ using System.Web.Optimization;
 using ASC.Core.Tenants;
 using ASC.Data.Storage;
 using log4net;
-using Newtonsoft.Json;
 
 namespace ASC.Web.Core.Client.Bundling
 {
-    internal class DiscTransform : IBundleTransform
+    class DiscTransform : IBundleTransform
     {
         private static readonly ILog log = LogManager.GetLogger("ASC.Web.Bundle.DiscTransform");
-        private static readonly ConcurrentQueue<CdnItem> queue = new ConcurrentQueue<CdnItem>();
-        private static readonly ConcurrentDictionary<String, String> cacheUri = new ConcurrentDictionary<String, String>();
-        private static int work;
-        private static readonly String pathToCacheFile;
-        private static IDataStore StaticDataStorage
-        {
-            get
-            {
-                return StorageFactory.GetStorage(Tenant.DEFAULT_TENANT.ToString(CultureInfo.InvariantCulture), "common_static");
-            }
-        }
 
-        static DiscTransform()
-        {
-            var hashResetKey = HttpServerUtility.UrlTokenEncode(MD5.Create()
-                .ComputeHash(Encoding.UTF8.GetBytes(ClientSettings.ResetCacheKey)))
-                .Replace("/", "_");
-            var fileName = string.Format("info_{0}.txt", hashResetKey);
-
-            var bundleDirPath = HttpContext.Current.Server.MapPath("~/" + ClientSettings.StorePath.Trim('/') + "/bundle/");
-            if (!Directory.Exists(bundleDirPath))
-            {
-                Directory.CreateDirectory(bundleDirPath);
-            }
-            pathToCacheFile = Path.Combine(bundleDirPath, fileName);
-
-            if (File.Exists(pathToCacheFile))
-            {
-                var jsonString = File.ReadAllText(pathToCacheFile);
-                cacheUri = new ConcurrentDictionary<string, string>(JsonConvert.DeserializeObject<Dictionary<String, String>>(jsonString));
-            }
-        }
+        private static readonly IDataStore storage = StorageFactory.GetStorage(Tenant.DEFAULT_TENANT.ToString(CultureInfo.InvariantCulture), "bundle");
 
         public void Process(BundleContext context, BundleResponse response)
         {
-            if (BundleTable.Bundles.UseCdn)
-            {
-                try
-                {
-                    var bundle = context.BundleCollection.GetBundleFor(context.BundleVirtualPath);
-                    if (bundle != null)
-                    {
-                        queue.Enqueue(new CdnItem { Bundle = bundle, Response = response });
-                        Action<HttpContextBase> upload = UploadToDisc;
-                        upload.BeginInvoke(context.HttpContext, null, null);
-                    }
-                }
-                catch (Exception fatal)
-                {
-                    log.Fatal(fatal);
-                    throw;
-                }
-            }
-        }
-
-        private static void UploadToDisc(HttpContextBase context)
-        {
+            if (!BundleTable.Bundles.UseCdn) return;
+            
             try
             {
-                // one thread only
-                if (Interlocked.CompareExchange(ref work, 1, 0) == 0)
+                var bundle = context.BundleCollection.GetBundleFor(context.BundleVirtualPath);
+                if (bundle != null)
                 {
-                    var @continue = false;
-                    try
-                    {
-                        CdnItem item;
-                        if (queue.TryDequeue(out item))
-                        {
-                            @continue = true;
-
-                            var u = context.Request.GetUrlRewriter();
-                            var path = GetStorePath(item);
-
-                            if (!BundleExist(path))
-                            {
-                                SaveStream(path, item.Response.Content);
-                            }
-
-                            var uriBuilder = new UriBuilder(u.Scheme, u.Host, u.Port, path);
-                            item.Bundle.CdnPath = uriBuilder.ToString();
-                        }
-                    }
-                    catch (Exception err)
-                    {
-                        log.Error(err);
-                    }
-                    finally
-                    {
-                        work = 0;
-                        if (@continue)
-                        {
-                            Action<HttpContextBase> upload = UploadToDisc;
-                            upload.BeginInvoke(context, null, null);
-                        }
-                    }
+                    UploadToDisc(new CdnItem { Bundle = bundle, Response = response });
                 }
             }
             catch (Exception fatal)
             {
                 log.Fatal(fatal);
+                throw;
             }
         }
 
-        private static String GetStorePath(CdnItem item)
+        private static void UploadToDisc(CdnItem item)
         {
-            var filePath = GetFullFileName(item.Bundle.Path, item.Response.ContentType);
+            try
+            {
+                var filePath = GetFullFileName(item.Bundle.Path, item.Response.ContentType).TrimStart('/');
 
-            var cacheKey = item.Bundle.Path;
+                using (var mutex = new Mutex(true, filePath))
+                {
+                    mutex.WaitOne();
 
-            if (cacheUri.ContainsKey(cacheKey))
-                return cacheUri[cacheKey];
+                    if (!storage.IsFile("", filePath))
+                    {
+                        using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(item.Response.Content)))
+                        {
+                            item.Bundle.CdnPath = storage.Save(filePath, stream).ToString();
+                        }
+                    }
+                    else
+                    {
+                        item.Bundle.CdnPath = GetUri(item.Bundle.Path, item.Response.ContentType);
+                    }
 
-            cacheUri.TryAdd(cacheKey, filePath);
-
-            File.WriteAllText(pathToCacheFile, JsonConvert.SerializeObject(cacheUri));
-
-            return filePath;
+                    mutex.ReleaseMutex();
+                }
+            }
+            catch (Exception err)
+            {
+                log.Error(err);
+            }
         }
 
-        internal static String GetFullFileName(String path, string contentType)
+        internal static string GetUri(string path, string contentType)
+        {
+            return storage.GetUri(GetFullFileName(path, contentType)).ToString();
+        }
+
+        internal static string GetFullFileName(string path, string contentType)
         {
             var href = Path.GetFileNameWithoutExtension(path);
             var category = GetCategoryFromPath(path);
@@ -175,16 +109,16 @@ namespace ASC.Web.Core.Client.Bundling
             if (Uri.IsWellFormedUriString(href, UriKind.Relative))
                 hrefTokenSource = (SecureHelper.IsSecure() ? "https" : "http") + href;
 
-            var hrefToken = String.Concat(HttpServerUtility.UrlTokenEncode(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(hrefTokenSource))));
+            var hrefToken = string.Concat(HttpServerUtility.UrlTokenEncode(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(hrefTokenSource))));
 
-            if (String.Compare(contentType, "text/css", StringComparison.OrdinalIgnoreCase) == 0)
-                return "/" + ClientSettings.StorePath.Trim('/') + String.Format("/bundle/{0}/css/{1}.css", category, hrefToken);
+            if (string.Compare(contentType, "text/css", StringComparison.OrdinalIgnoreCase) == 0)
+                return string.Format("/{0}/css/{1}.css", category, hrefToken);
 
-            return "/" + ClientSettings.StorePath.Trim('/') + String.Format("/bundle/{0}/javascript/{1}.js", category, hrefToken);
+            return string.Format("/{0}/javascript/{1}.js", category, hrefToken);
         }
 
 
-        private static String GetCategoryFromPath(String controlPath)
+        private static string GetCategoryFromPath(string controlPath)
         {
             var result = "common";
 
@@ -195,19 +129,6 @@ namespace ASC.Web.Core.Client.Bundling
                 result = matches.Groups[2].Value;
 
             return result;
-        }
-
-        private static void SaveStream(string filePath, string content)
-        {
-            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(content)))
-            {
-                StaticDataStorage.Save(filePath.TrimStart('/'), stream);
-            }
-        }
-
-        internal static bool BundleExist(string path)
-        {
-            return StaticDataStorage.IsFile("", path.TrimStart('/'));
         }
     }
 }

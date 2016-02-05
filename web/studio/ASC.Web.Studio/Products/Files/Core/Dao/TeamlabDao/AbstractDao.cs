@@ -35,6 +35,7 @@ using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Security.Cryptography;
+using ASC.Common.Caching;
 
 namespace ASC.Files.Core.Data
 {
@@ -45,7 +46,7 @@ namespace ASC.Files.Core.Data
 
         protected int TenantID { get; private set; }
 
-        protected readonly Cache _cache = HttpRuntime.Cache;
+        protected readonly ICache cache = AscCache.Default;
 
 
         protected AbstractDao(int tenantID, String storageKey)
@@ -142,31 +143,6 @@ namespace ASC.Files.Core.Data
                 .Select("converted_type")
                 .Select("f.comment")
                 .Where(where);
-        }
-
-        protected File ToFile(object[] r)
-        {
-            var result = new File
-                {
-                    ID = Convert.ToInt32(r[0]),
-                    Title = (String)r[1],
-                    FolderID = Convert.ToInt32(r[2]),
-                    CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[3])),
-                    CreateBy = new Guid((string)r[4]),
-                    Version = Convert.ToInt32(r[5]),
-                    VersionGroup = Convert.ToInt32(r[6]),
-                    ContentLength = Convert.ToInt64(r[7]),
-                    ModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[8])),
-                    ModifiedBy = new Guid((string)r[9]),
-                    RootFolderType = ParseRootFolderType(r[10]),
-                    RootFolderCreator = ParseRootFolderCreator(r[10]),
-                    RootFolderId = ParseRootFolderId(r[10]),
-                    SharedByMe = Convert.ToBoolean(r[11]),
-                    ConvertedType = (string)r[12],
-                    Comment = (string)r[13],
-                };
-
-            return result;
         }
 
         protected SqlQuery GetRootFolderType(string parentFolderColumnName)

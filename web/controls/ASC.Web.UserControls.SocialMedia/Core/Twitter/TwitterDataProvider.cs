@@ -67,7 +67,6 @@ namespace ASC.SocialMedia.Twitter
             }
         }
 
-        private static readonly ILog log = LogManager.GetLogger(typeof(TwitterDataProvider));
         private readonly TwitterApiInfo _apiInfo;
 
         public enum ImageSize
@@ -126,23 +125,13 @@ namespace ASC.SocialMedia.Twitter
 
          private DateTime ParseTweetDateTime(String dateTimeAsText)
          {
-             var dayOfWeek = dateTimeAsText.Substring(0, 3).Trim();
-
              var month = dateTimeAsText.Substring(4, 3).Trim();
-
              var dayInMonth = dateTimeAsText.Substring(8, 2).Trim();
-
              var time = dateTimeAsText.Substring(11, 9).Trim();
-
-             var offset = dateTimeAsText.Substring(20, 5).Trim();
-
              var year = dateTimeAsText.Substring(25, 5).Trim();
 
              var dateTime = string.Format("{0}-{1}-{2} {3}", dayInMonth, month, year, time);
-
-             var ret = DateTime.Parse(dateTime, CultureInfo.InvariantCulture);
-
-             return ret;
+             return DateTime.Parse(dateTime, CultureInfo.InvariantCulture);
          }
 
 

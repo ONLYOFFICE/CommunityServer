@@ -27,13 +27,18 @@
 window.folderPanel = (function($) {
     var isInit = false,
         wndQuestion = undefined,
-        clearFolderId = -1;
+        clearFolderId = -1,
+        folders = [];
 
     function init() {
         if (isInit === false) {
             isInit = true;
 
             serviceManager.bind(window.Teamlab.events.getMailFolders, onGetMailFolders);
+            
+            if (ASC.Mail.Presets.Folders) {
+                onGetMailFolders({}, ASC.Mail.Presets.Folders);
+            }
 
             wndQuestion = $('#removeQuestionWnd');
             wndQuestion.find('.buttons .cancel').bind('click', function() {
@@ -64,8 +69,12 @@ window.folderPanel = (function($) {
         }
     }
 
-    function showQuestionBox(folderId, questionText) {
+    function showQuestionBox(folderId) {
         clearFolderId = folderId;
+        var questionText = (folderId === TMMail.sysfolders.trash.id
+                            ? window.MailScriptResource.RemoveTrashQuestion
+                            : window.MailScriptResource.RemoveSpamQuestion);
+
         wndQuestion.find('.mail-confirmationAction p.questionText').text(questionText);
         wndQuestion.find('div.containerHeaderBlock:first td:first').html(window.MailScriptResource.Delete);
 
@@ -111,15 +120,19 @@ window.folderPanel = (function($) {
     function initFolders() {
         $('#foldersContainer').children().each(function() {
             var $this = $(this);
-            $this.find('a').attr('href', '#' + TMMail.GetSysFolderNameById($this.attr('folderid')));
-        });
+            var folder = parseInt($this.attr('folderid'));
+            $this.find('a').attr('href', '#' + TMMail.getSysFolderNameById(folder));
+            if (folder === TMMail.sysfolders.trash.id ||
+                folder === TMMail.sysfolders.spam.id) {
 
-        $('#foldersContainer').children('[folderid=' + TMMail.sysfolders.trash.id + ']').find('.delete_mails').bind('click', function() {
-            showQuestionBox(TMMail.sysfolders.trash.id, window.MailScriptResource.RemoveTrashQuestion);
-        });
+                var deleteTrash = $this.find('.delete_mails');
+                if (deleteTrash.length > 0) {
+                    deleteTrash.unbind('click').bind('click', { folder: folder }, function (e) {
+                        showQuestionBox(e.data.folder);
+                    });
+                }
+            }
 
-        $('#foldersContainer').children('[folderid=' + TMMail.sysfolders.spam.id + ']').find('.delete_mails').bind('click', function() {
-            showQuestionBox(TMMail.sysfolders.spam.id, window.MailScriptResource.RemoveSpamQuestion);
         });
     }
 
@@ -132,25 +145,72 @@ window.folderPanel = (function($) {
         return $('#foldersContainer').children('.active').attr('folderid');
     }
 
-    function onGetMailFolders(params, folders) {
-        if (undefined == folders.length) {
+    function searchFolderById(collection, id) {
+        var pos = -1;
+        var i, len = collection.length;
+        for (i = 0; i < len; i++) {
+            var folder = collection[i];
+            if (folder.id == id) {
+                pos = i;
+                break;
+            }
+        }
+        return pos;
+    }
+
+    function onGetMailFolders(params, newFolders) {
+        if (undefined == newFolders || undefined == newFolders.length) {
             return;
         }
 
         var marked = getMarkedFolder() || -1; // -1 if no folder selected
 
-        var html = $.tmpl('foldersTmpl', folders, { marked: marked });
+        if (folders.length != 0) {
+            var i, len = newFolders.length, changedFolders = [], pos;
+
+            for (i = 0; i < len; i++) {
+                var newFolder = newFolders[i];
+                pos = searchFolderById(folders, newFolder.id);
+                if (pos > -1) {
+                    var oldFolder = folders[pos];
+                    if (oldFolder.unread !== newFolder.unread ||
+                        oldFolder.total_count !== newFolder.total_count ||
+                        oldFolder.time_modified !== newFolder.time_modified) {
+                        changedFolders.push(newFolder);
+                        mailBox.markFolderAsChanged(newFolder.id);
+                    }
+                } else {
+                    changedFolders.push(newFolder);
+                    mailBox.markFolderAsChanged(newFolder.id);
+                }
+            }
+
+            if (changedFolders.length === 0) {
+                return;
+            }
+
+            if (params.check_conversations_on_changes) {
+                var currentFolder = MailFilter.getFolder();
+                pos = searchFolderById(changedFolders, currentFolder);
+                if (pos > -1)
+                    serviceManager.getMailFilteredConversations();
+            }
+        }
+
+        folders = newFolders;
+
+        var html = $.tmpl('foldersTmpl', newFolders, { marked: marked });
         $('#foldersContainer').html(html);
 
         initFolders();
 
-        if (TMMail.pageIs('sysfolders')) {
-            marked = TMMail.ExtractFolderIdFromAnchor();
+        if (TMMail.pageIs('sysfolders') && marked > -1) {
+            marked = TMMail.extractFolderIdFromAnchor();
             TMMail.setPageHeaderFolderName(marked);
         }
 
         // sets unread count from inbox to top panel mail icon
-        $.each(folders, function(index, value) {
+        $.each(newFolders, function (index, value) {
             if (value.id == TMMail.sysfolders.inbox.id) {
                 setTpUnreadMessagesCount(value.unread);
             }
@@ -167,15 +227,28 @@ window.folderPanel = (function($) {
     }
 
     function decrementUnreadCount(folderId) {
-        var unread = $('#foldersContainer').children('[folderid=' + folderId + ']').attr('unread');
+        var folderEl = getFolderEl(folderId);
+        var unread = folderEl.attr('unread');
         unread = unread - 1 > 0 ? unread - 1 : 0;
-        $('#foldersContainer').children('[folderid=' + folderId + ']').attr('unread', unread);
-        unread = unread ? unread : "";
-        $('#foldersContainer').children('[folderid=' + folderId + ']').find('.unread').text(unread);
+        setCount(folderEl, unread);
 
         if (folderId == TMMail.sysfolders.inbox.id) {
             setTpUnreadMessagesCount(unread);
         }
+    }
+
+    function setCount(folderEl, count) {
+        folderEl.attr('unread', count);
+        var countText = count ? count : "";
+        folderEl.find('.unread').text(countText);
+    }
+
+    function getFolderEl(folderId) {
+        return $('#foldersContainer').children('[folderid=' + folderId + ']');
+    }
+
+    function getFolders() {
+        return folders;
     }
 
     return {
@@ -184,6 +257,7 @@ window.folderPanel = (function($) {
         getMarkedFolder: getMarkedFolder,
 
         unmarkFolders: unmarkFolders,
-        decrementUnreadCount: decrementUnreadCount
+        decrementUnreadCount: decrementUnreadCount,
+        getFolders: getFolders
     };
 })(jQuery);

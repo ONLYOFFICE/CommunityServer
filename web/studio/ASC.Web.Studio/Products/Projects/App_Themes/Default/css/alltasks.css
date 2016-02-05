@@ -96,36 +96,26 @@
   text-overflow: ellipsis;
   max-width: 840px;
 }
-@media all and (max-width: 1650px) {
-    #CommonListContainer .taskList .task .taskName {
-        max-width: 660px;
-    }
+
+body.media-width-0-1650:not(.media-width-0-1500) #CommonListContainer .taskList .task .taskName {
+    max-width: 660px;
 }
-@media all and (max-width: 1500px) {
-    #CommonListContainer .taskList .task .taskName {
-        max-width: 560px;
-    }
+body.media-width-0-1500:not(.media-width-0-1400) #CommonListContainer .taskList .task .taskName {
+    max-width: 560px;
 }
-@media all and (max-width: 1400px) {
-    #CommonListContainer .taskList .task .taskName {
-        max-width: 460px;
-    }
+body.media-width-0-1400:not(.media-width-0-1300) #CommonListContainer .taskList .task .taskName {
+    max-width: 460px;
 }
-@media all and (max-width: 1300px) {
-    #CommonListContainer .taskList .task .taskName {
-        max-width: 360px;
-    }
+body.media-width-0-1300:not(.media-width-0-1200) #CommonListContainer .taskList .task .taskName {
+    max-width: 360px;
 }
-@media all and (max-width: 1200px) {
-    #CommonListContainer .taskList .task .taskName {
-        max-width: 260px;
-    }
+body.media-width-0-1200:not(.media-width-0-1100) #CommonListContainer .taskList .task .taskName {
+    max-width: 260px;
 }
-@media all and (max-width: 1100px) {
-    #CommonListContainer .taskList .task .taskName {
-        max-width: 160px;
-    }
+body.media-width-0-1100 #CommonListContainer .taskList .task .taskName {
+    max-width: 160px;
 }
+
 #CommonListContainer .taskList .task .taskName a {
  color: #333333;
  font-weight:bold;

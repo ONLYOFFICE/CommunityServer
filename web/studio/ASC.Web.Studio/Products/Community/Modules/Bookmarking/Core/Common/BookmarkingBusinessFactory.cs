@@ -24,7 +24,6 @@
 */
 
 
-using System;
 using System.Web;
 
 namespace ASC.Bookmarking.Common
@@ -41,7 +40,7 @@ namespace ASC.Bookmarking.Common
                 obj = (T) HttpContext.Current.Session[key];
                 if (obj == null)
                 {
-                    obj = Activator.CreateInstance<T>();
+                    obj = new T();
                     HttpContext.Current.Session[key] = obj;
                 }
             }
@@ -50,11 +49,36 @@ namespace ASC.Bookmarking.Common
                 obj = (T)HttpContext.Current.Items[key];
                 if (obj == null)
                 {
-                    obj = Activator.CreateInstance<T>();
+                    obj = new T();
                     HttpContext.Current.Items[key] = obj;
                 }
             }
 		    return obj;
 		}
+
+        public static void UpdateObjectInSession<T>(T obj) where T : class, new()
+        {
+            var key = typeof(T).ToString();
+            if (HttpContext.Current.Session != null)
+            {
+                HttpContext.Current.Session[key] = obj;
+            }
+            else
+            {
+                HttpContext.Current.Items[key] = obj;
+            }
+        }
+
+        public static void UpdateObjectInCookies(string key, string obj)
+        {
+            HttpContext.Current.Request.Cookies.Remove(key);
+            HttpContext.Current.Request.Cookies.Add(new HttpCookie(key, obj));
+        }
+
+        public static string GetObjectFromCookies(string key)
+        {
+            HttpCookie cookie = HttpContext.Current.Request.Cookies[key];
+            return cookie != null ? cookie.Value : null;
+        }
 	}
 }

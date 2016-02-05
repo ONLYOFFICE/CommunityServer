@@ -210,7 +210,7 @@ ASC.Projects.TaskDescroptionPage = (function() {
         jq(document).on('click', "#btnCancel , #cancel_comment_btn", function() {
             commentIsEdit = false;
         });
-        jq(document).on('click', "#btnAddComment", function() {
+        Teamlab.bind(Teamlab.events.addPrjComment, function () {
             if (!commentIsEdit) {
                 if (CommentsManagerObj.editorInstance.getData()) {
                     changeCountInTab('add', "commentsTab");
@@ -222,7 +222,7 @@ ASC.Projects.TaskDescroptionPage = (function() {
             }
         });
 
-        jq(document).on('click', "#mainContainer div[id^='container_'] a[id^='edit_']", function() {
+        jq(document).on('click', "#mainCommentsContainer div[id^='container_'] a[id^='edit_']", function () {
             commentIsEdit = true;
         });
 
@@ -367,8 +367,8 @@ ASC.Projects.TaskDescroptionPage = (function() {
 
     var initCommentsBlock = function() {
         jq("#commentsTitle").remove();
-        jq("#commentContainer #mainContainer").css("width", 100 + "%");
-        var count = jq("#commentContainer #mainContainer div[id^='container_']").length;
+        jq("#commentContainer #mainCommentsContainer").css("width", 100 + "%");
+        var count = jq("#commentContainer #mainCommentsContainer div[id^='container_']").length;
         if (count != 0) {
             changeCountInTab(count, "commentsTab");
             jq("#switcherTaskCommentsButton").show();
@@ -937,7 +937,7 @@ ASC.Projects.TaskDescroptionPage = (function() {
         jq("body").css("cursor", "default");
         var headerStatus = jq(".project-total-info .header-status");
         if (task.status == 2) {
-            headerStatus.text(headerStatus.attr("data-text"));
+            headerStatus.text("(" + ASC.Projects.Resources.TasksResource.Closed.toLowerCase() + ")");
             headerStatus.show();
             jq("#taskActions #editTaskAction").parent("li").hide();
             if (task.subtasks.length == 0) {
@@ -1002,11 +1002,11 @@ ASC.Projects.TaskDescroptionPage = (function() {
 
     var onDeleteComment = function () {
         changeCountInTab('delete', "commentsTab");
-        var count = jq("#commentContainer #mainContainer div[id^='container_']").length;
+        var count = jq("#commentContainer #mainCommentsContainer div[id^='container_']").length;
         if (count - 1 == 0) {
-            jq("#commentContainer #mainContainer").attr('style', '');
-            jq("#commentContainer #mainContainer").empty();
-            jq("#commentContainer #mainContainer").hide();
+            jq("#commentContainer #mainCommentsContainer").attr('style', '');
+            jq("#commentContainer #mainCommentsContainer").empty();
+            jq("#commentContainer #mainCommentsContainer").hide();
 
             jq("#switcherTaskCommentsButton").hide();
         }
@@ -1038,7 +1038,7 @@ ASC.Projects.TaskDescroptionPage = (function() {
     };
 
     var showEmptyCommentsPanel = function() {
-        if (jq("#commentContainer #mainContainer div[id^='container_']").length == 0) {
+        if (jq("#commentContainer #mainCommentsContainer div[id^='container_']").length == 0) {
         }
     };
 

@@ -36,8 +36,6 @@ namespace ASC.MessagingSystem.DbSender
     {
         private const string messagesDbId = "core";
 
-        private const string loginEventsTable = "login_events";
-        private const string auditEventsTable = "audit_events";
 
         public static void Add(EventMessage message)
         {
@@ -57,7 +55,7 @@ namespace ASC.MessagingSystem.DbSender
         {
             using (var db = new DbManager(messagesDbId))
             {
-                var i = new SqlInsert(loginEventsTable)
+                var i = new SqlInsert("login_events")
                     .InColumnValue("ip", message.IP)
                     .InColumnValue("login", message.Initiator)
                     .InColumnValue("browser", message.Browser)
@@ -84,7 +82,7 @@ namespace ASC.MessagingSystem.DbSender
         {
             using (var db = new DbManager(messagesDbId))
             {
-                var i = new SqlInsert(auditEventsTable)
+                var i = new SqlInsert("audit_events")
                     .InColumnValue("ip", message.IP)
                     .InColumnValue("initiator", message.Initiator)
                     .InColumnValue("browser", message.Browser)

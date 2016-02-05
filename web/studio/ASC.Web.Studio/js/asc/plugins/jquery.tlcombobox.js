@@ -1,7 +1,3 @@
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 // tl combobox
 (function ($, win, doc, body) {
   function converText (str) {
@@ -381,11 +377,11 @@
   }
 
   function bindComboboxEvents ($select, $combobox) {
-    setTimeout((function ($select) {
-      return function () {
-        $select.unbind('focus', onSelectFocus).bind('focus', onSelectFocus);
-      };
-    })($select), 500);
+    //setTimeout((function ($select) {
+    //  return function () {
+    //    $select.unbind('focus', onSelectFocus).bind('focus', onSelectFocus);
+    //  };
+    //})($select), 500);
 
     $select
       //.blur(onSelectBlur)

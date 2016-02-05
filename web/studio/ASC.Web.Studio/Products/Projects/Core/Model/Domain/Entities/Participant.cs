@@ -57,6 +57,8 @@ namespace ASC.Projects.Core.Domain
 
         public bool IsAdmin { get; set; }
 
+        public bool IsManager { get; set; }
+
         public Participant(Guid userID)
         {
             ID = userID;

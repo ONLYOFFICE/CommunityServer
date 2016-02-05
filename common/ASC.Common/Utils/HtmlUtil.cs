@@ -142,14 +142,15 @@ namespace ASC.Common.Utils
         /// </summary>
         /// <param name="searchText">the space separated string</param>
         /// <param name="htmlText">html for highlight</param>
+        /// <param name="withoutLink"></param>
         /// <returns>highlighted html</returns>
-        public static string SearchTextHighlight(string searchText, string htmlText)
+        public static string SearchTextHighlight(string searchText, string htmlText, bool withoutLink = false)
         {
             if (string.IsNullOrEmpty(searchText) || string.IsNullOrEmpty(htmlText)) return htmlText;
 
             var regexpstr = Worder.Matches(searchText).Cast<Match>().Select(m => m.Value).Distinct().Aggregate((r, n) => r + "|" + n);
             var wordsFinder = new Regex(Regex.Escape(regexpstr), RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Multiline);
-            return wordsFinder.Replace(htmlText, m => string.Format("<span class='searchTextHighlight'>{0}</span>", m.Value));
+            return wordsFinder.Replace(htmlText, m => string.Format("<span class='searchTextHighlight{1}'>{0}</span>", m.Value, withoutLink ? " bold" : string.Empty));
         }
     }
 }

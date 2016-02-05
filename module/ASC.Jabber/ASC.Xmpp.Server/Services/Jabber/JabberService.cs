@@ -41,7 +41,7 @@ namespace ASC.Xmpp.Server.Services.Jabber
 
         public override Vcard Vcard
         {
-            get { return new Vcard() { Fullname = Name, Description = "© 2008-2014 Assensio System SIA", Url = "http://onlyoffice.com" }; }
+            get { return new Vcard() { Fullname = Name, Description = "© 2008-2015 Assensio System SIA", Url = "http://onlyoffice.com" }; }
         }
 
         public override void Configure(IDictionary<string, string> properties)
@@ -50,6 +50,7 @@ namespace ASC.Xmpp.Server.Services.Jabber
             lock (Handlers)
             {
                 Handlers.Add(new ClientNamespaceHandler());
+                Handlers.Add(new StartTlsHandler());
                 Handlers.Add(new AuthHandler());
                 Handlers.Add(new AuthTMTokenHandler());
                 Handlers.Add(new BindSessionHandler());

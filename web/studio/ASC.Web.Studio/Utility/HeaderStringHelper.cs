@@ -43,7 +43,7 @@ namespace ASC.Web.Studio.Utility
             if (product != null)
                 productName = product.Name;
 
-            productName = String.IsNullOrEmpty(productName) ? Resources.Resource.WebStudioName : productName;
+            productName = String.IsNullOrEmpty(productName) ? Resources.Resource.WebStudioName.HtmlEncode() : productName;
 
             return
                 string.IsNullOrEmpty(pageTitle)

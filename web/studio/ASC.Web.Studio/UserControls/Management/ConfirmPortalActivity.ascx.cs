@@ -35,6 +35,7 @@ using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using AjaxPro;
 using Newtonsoft.Json;
+using log4net;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -167,6 +168,11 @@ namespace ASC.Web.Studio.UserControls.Management
                         MessageService.Send(HttpContext.Current.Request, messageAction);
                     }
                 }
+                catch(Exception err)
+                {
+                    _successMessage = err.Message;
+                    LogManager.GetLogger("ASC.Web.Confirm").Error(err);
+                }
                 finally
                 {
                     if (authed) SecurityContext.Logout();
@@ -194,6 +200,7 @@ namespace ASC.Web.Studio.UserControls.Management
         public string PortalRemove()
         {
             var curTenant = CoreContext.TenantManager.GetCurrentTenant();
+            var tariff = CoreContext.TenantManager.GetTenantQuota(curTenant.TenantId);
 
             CoreContext.TenantManager.RemoveTenant(curTenant.TenantId);
            
@@ -224,7 +231,7 @@ namespace ASC.Web.Studio.UserControls.Management
             _successMessage = string.Format(Resources.Resource.DeletePortalSuccessMessage, "<br/>", "<a href=\"{0}\">", "</a>");
             _successMessage = string.Format(_successMessage, redirectLink);
 
-            StudioNotifyService.Instance.SendMsgPortalDeletionSuccess(curTenant, redirectLink);
+            StudioNotifyService.Instance.SendMsgPortalDeletionSuccess(curTenant, tariff, redirectLink);
 
             return JsonConvert.SerializeObject(
                 new {
@@ -244,7 +251,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
         private static string GetTenantBasePath(string alias)
         {
-            return String.Format("http://{0}.{1}", alias, SetupInfo.BaseDomain);
+            return String.Format("http://{0}.{1}", alias, CoreContext.Configuration.BaseDomain);
         }
 
         private static string GetTenantBasePath(Tenant tenant)

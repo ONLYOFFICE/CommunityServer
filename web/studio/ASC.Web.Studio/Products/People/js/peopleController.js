@@ -267,17 +267,6 @@ ASC.People.PeopleController = (function() {
         jq(document.body).trigger('click');
     };
 
-    var fixEvent = function (e) {
-        e = e || window.event;
-        if (e.pageX == null && e.clientX != null) {
-            var html = document.documentElement,
-                body = document.body;
-            e.pageX = e.clientX + (html && html.scrollLeft || body && body.scrollLeft || 0) - (html.clientLeft || 0);
-            e.pageY = e.clientY + (html && html.scrollTop || body && body.scrollTop || 0) - (html.clientTop || 0);
-        }
-        return e;
-    };
-
     function onGetProfiles(params, profiles) {
         profiles = performProfiles(profiles);
         if (profiles != null && profiles.length > 0) {
@@ -521,8 +510,112 @@ ASC.People.PeopleController = (function() {
         }
     };
 
-   
+    function renderPopups() {
+        jq.tmpl("template-blockUIPanel", {
+            id: "confirmationDeleteDepartmentPanel",
+            headerTest: ASC.People.Resources.PeopleResource.Confirmation,
+            innerHtmlText: "<div class=\"confirmationAction\"></div>",
+            OKBtn: ASC.People.Resources.PeopleResource.LblOKButton,
+            CancelBtn: ASC.People.Resources.PeopleResource.LblCancelButton
+        }).insertAfter("#peopleActionMenu");
+
+
+
+        jq.tmpl("template-blockUIPanel", {
+            id: "studio_deleteProfileDialog",
+            headerTest: jq("#studio_deleteProfileDialogBody").attr("data-header")
+        }).insertAfter("#studio_deleteProfileDialogBody");
+        jq("#studio_deleteProfileDialog .containerBodyBlock:first")
+            .replaceWith(jq("#studio_deleteProfileDialogBody").removeClass("display-none").addClass("containerBodyBlock"));
+
+
+
+        if (Teamlab.profile.isAdmin === true) {
+
+            if (jq("#changeTypeDialogBody").length == 1) {
+                jq.tmpl("template-blockUIPanel", {
+                    id: "changeTypeDialog",
+                    headerTest: ASC.People.Resources.PeopleResource.ChangeTypeDialogHeader
+                })
+                .insertAfter("#changeTypeDialogBody");
+                jq("#changeTypeDialog .containerBodyBlock:first")
+                    .replaceWith(jq("#changeTypeDialogBody").removeClass("display-none").addClass("containerBodyBlock"));
+            }
+
+            if (jq("#changeStatusDialogBody").length == 1) {
+                jq.tmpl("template-blockUIPanel", {
+                    id: "changeStatusDialog",
+                    headerTest: ASC.People.Resources.PeopleResource.ChangeStatusDialogHeader
+                })
+                .insertAfter("#changeStatusDialogBody");
+                jq("#changeStatusDialog .containerBodyBlock:first")
+                    .replaceWith(jq("#changeStatusDialogBody").removeClass("display-none").addClass("containerBodyBlock"));
+            }
+
+            jq.tmpl("template-blockUIPanel", {
+                id: "deleteUsersDialog",
+                headerTest: ASC.People.Resources.PeopleResource.DeleteUserProfiles,
+                innerHtmlText: ["<div>",
+                                    ASC.People.Resources.PeopleResource.DeleteUsersDescription,
+                                "</div>",
+                                "<a class=\"link dotline showBtn\">",
+                                    ASC.People.Resources.PeopleResource.ShowSelectedUserList,
+                                "</a>",
+                                "<a class=\"link dotline hideBtn display-none\">",
+                                    ASC.People.Resources.PeopleResource.HideSelectedUserList,
+                                "</a>",
+                                "<div class=\"user-list-for-group-operation display-none\"></div>",
+                                "<div class=\"error-popup display-none\"></div>"
+                                ].join(''),
+                OKBtn: ASC.People.Resources.PeopleResource.LblOKButton,
+                CancelBtn: ASC.People.Resources.PeopleResource.LblCancelButton
+            })
+            .insertAfter("#changeTypePanel");
+
+
+            jq.tmpl("template-blockUIPanel", {
+                id: "resendInviteDialog",
+                headerTest: ASC.People.Resources.PeopleResource.ResendInviteDialogHeader,
+                innerHtmlText: ["<div>",
+                                    ASC.People.Resources.PeopleResource.ResendInviteDialogTargetUsers,
+                                "</div>",
+                                "<div>",
+                                    ASC.People.Resources.PeopleResource.ResendInviteDialogAfterActivation,
+                            "</div>",
+                            "<a class=\"link dotline showBtn\">",
+                               ASC.People.Resources.PeopleResource.ShowSelectedUserList,
+                            "</a>",
+                            "<a class=\"link dotline hideBtn display-none\">",
+                                ASC.People.Resources.PeopleResource.HideSelectedUserList,
+                            "</a>",
+                            "<div class=\"user-list-for-group-operation display-none\"></div>",
+                            "<div class=\"error-popup display-none\"></div>"
+                ].join(''),
+                OKBtn: ASC.People.Resources.PeopleResource.LblOKButton,
+                OKBtnID: "resentInviteOkBtn",
+                CancelBtn: ASC.People.Resources.PeopleResource.LblCancelButton,
+                CancelBtnID:"resentInviteCancelBtn"
+            })
+           .insertAfter("#changeTypePanel");
+        }
+    };
     
+    function renderEmptyScreen() {
+        //init emptyScreen for filter
+        jq.tmpl("template-emptyScreen",
+            {
+                ID: "emptyContentForPeopleFilter",
+                ImgSrc: window.emptyScreenPeopleFilter,
+                Header: ASC.People.Resources.PeopleResource.NotFoundTitle,
+                Describe: ASC.People.Resources.PeopleResource.NotFoundDescription,
+                ButtonHTML: ["<a class='clearFilterButton link dotline' href='javascript:void(0);'",
+                    "onclick='ASC.People.PeopleController.resetAllFilters();'>",
+                    ASC.People.Resources.PeopleResource.ClearButton,
+                    "</a>"].join(''),
+                CssClass: "display-none"
+            }).insertAfter("#peopleContent");
+    };
+
     var init = function () {
         
         if (isInit !== false) {
@@ -531,11 +624,14 @@ ASC.People.PeopleController = (function() {
         isInit = true;
 
         showFirstLoader();
+        renderEmptyScreen();
         initAdvansedFilter();
+        renderPopups();  
         initTenantQuota();
         initScrolledGroupMenu();
         initButtonsEvents();
         initPeopleActionMenu();
+
         ASC.Controls.AnchorController.bind(onAnchChange);
 
     };
@@ -1762,14 +1858,15 @@ ASC.People.PeopleController = (function() {
         // right mouse button click
          {
              jq("#peopleData").unbind("contextmenu").bind("contextmenu", function(event) {
+                 var e = jq.fixEvent(event);
 
+                 if (typeof e == "undefined" || !e) {
+                     return true;
+                 }
 
-                 var e = fixEvent(event),
-                     target = jq(e.srcElement || e.target),
+                 var target = jq(e.srcElement || e.target),
                      userField = target.closest("tr.with-entity-menu");
                  if (userField.length) {
-                     event.preventDefault();
-
                      var userId = userField.attr("id").split('_')[1];
                      showUserActionMenu(userId);
                      jq("#peopleData .entity-menu.active").removeClass("active");
@@ -1794,6 +1891,7 @@ ASC.People.PeopleController = (function() {
                          });
                      }
                      $dropdownItem.show();
+                     return false;
                  }
                  return true;
              });

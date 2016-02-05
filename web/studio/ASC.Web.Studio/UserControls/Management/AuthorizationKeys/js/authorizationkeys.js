@@ -48,7 +48,10 @@ AuthorizationKeysManager = new function () {
         AuthorizationKeys.SaveAuthKeys(authKeys, function(result) {
             if (result.error != null) {
                 toastr.error(result.error.Message);
+            } else {
+                LoadingBanner.showMesInfoBtn("#authKeysContainer", ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage, "success");
             }
+
             jq('#authKeysContainer').unblock();
         });
     };

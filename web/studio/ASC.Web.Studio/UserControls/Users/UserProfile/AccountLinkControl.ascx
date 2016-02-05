@@ -2,25 +2,7 @@
 <%@ Import Namespace="ASC.Web.Core.Mobile" %>
 
 <% if (SettingsView) { %>
-    <div class="account-links tabs-content">
-        <ul class="clearFix">
-        <% foreach (var acc in Infos) { %>
-            <li class="<%=acc.Provider%><%=acc.Linked ? " connected" : ""%><%=SettingsView ? "" : " float-left"%>">
-                <span class="label"></span>
-                <span class="<%=acc.Linked ? "linked" : ""%>">
-                    <%= acc.Linked
-                        ? Resources.Resource.AssociateAccountConnected
-                        : Resources.Resource.AssociateAccountNotConnected%>.
-                </span> 
-                <a href="<%=acc.Url%>" class="popup <%=acc.Linked ? "linked" : ""%>" id="<%=acc.Provider%>">
-                    <%= acc.Linked
-                        ? Resources.Resource.AssociateAccountDisconnect
-                        : Resources.Resource.AssociateAccountConnect%>
-                </a>
-            </li>
-        <% } %>
-        </ul>
-    </div>
+    <div class="account-links tabs-content"></div>
 
 <% } else if(InviteView) {%>
 
@@ -47,7 +29,8 @@
     <div class="account-links">
         <ul class="clearFix">
             <% foreach (var acc in Infos) { %>
-                <li><a href="<%=acc.Url %>" class="<%= !MobileDetector.IsMobile ? "popup " : "" %> <%=acc.Provider%> <%=acc.Linked?" linked":""%>" id="<%=acc.Provider%>"></a>
+                <li>
+                    <a href="<%=acc.Url %>" class="<%= !MobileDetector.IsMobile ? "popup " : "" %> <%=acc.Provider%> <%=acc.Linked?" linked":""%>" id="<%=acc.Provider%>"></a>
                 </li>
             <% } %>
         </ul>

@@ -24,11 +24,11 @@
 */
 
 
+using ASC.Files.Core;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using ASC.Files.Core;
 using File = ASC.Files.Core.File;
 
 namespace ASC.Files.Thirdparty.ProviderDao
@@ -101,6 +101,46 @@ namespace ASC.Files.Thirdparty.ProviderDao
             }
 
             return result.ToList();
+        }
+
+        public List<object> GetFiles(object parentId, bool withSubfolders)
+        {
+            var selector = GetSelector(parentId);
+            return selector.GetFileDao(parentId).GetFiles(selector.ConvertId(parentId), withSubfolders);
+        }
+
+        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        {
+            var result = Enumerable.Empty<File>();
+
+            foreach (var selector in GetSelectors())
+            {
+                var selectorLocal = selector;
+                var mathedIds = parentIds.Where(selectorLocal.IsMatch);
+
+                if (!mathedIds.Any()) continue;
+
+                result = result.Concat(mathedIds.GroupBy(selectorLocal.GetIdCode)
+                                                .SelectMany(y => selectorLocal.GetFileDao(y.FirstOrDefault())
+                                                                              .GetFiles(y.Select(selectorLocal.ConvertId).ToArray(), searchText, searchSubfolders)));
+            }
+
+            return result.Distinct().ToList();
+        }
+
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false)
+        {
+            var selector = GetSelector(parentId);
+            var result = selector.GetFileDao(parentId).GetFiles(selector.ConvertId(parentId), orderBy, filterType, subjectID, searchText, searchSubfolders);
+
+            if (!result.Any()) return new List<File>();
+
+            if (!Default.IsMatch(parentId))
+            {
+                SetSharedByMeProperty(result);
+            }
+
+            return result;
         }
 
         public Stream GetFileStream(File file)
@@ -217,10 +257,10 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return selector.GetFileDao(fileId).CopyFile(selector.ConvertId(fileId), selector.ConvertId(toFolderId));
         }
 
-        public object FileRename(object fileId, string newTitle)
+        public object FileRename(File file, string newTitle)
         {
-            var selector = GetSelector(fileId);
-            return selector.GetFileDao(fileId).FileRename(selector.ConvertId(fileId), newTitle);
+            var selector = GetSelector(file.ID);
+            return selector.GetFileDao(file.ID).FileRename(ConvertId(file), newTitle);
         }
 
         public string UpdateComment(object fileId, int fileVersion, string comment)
@@ -337,14 +377,14 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return selector.GetFileDao(fileId).GetEditHistory(selector.ConvertId(fileId), fileVersion);
         }
 
-        public string GetDifferenceUrl(File file)
+        public Stream GetDifferenceStream(File file)
         {
             var fileId = file.ID;
             var selector = GetSelector(fileId);
             file.ID = selector.ConvertId(fileId);
-            var url = selector.GetFileDao(fileId).GetDifferenceUrl(file);
+            var stream = selector.GetFileDao(fileId).GetDifferenceStream(file);
             file.ID = fileId; //Restore
-            return url;
+            return stream;
         }
 
         #endregion

@@ -38,12 +38,21 @@ namespace ASC.FederatedLogin.LoginProviders
 {
     public class GoogleLoginProvider : ILoginProvider
     {
-        private const string GoogleProfileUrl = "https://www.googleapis.com/plus/v1/people/";
-        private const string GoogleProfileScope = "https://www.googleapis.com/auth/userinfo.email";
-
-        private const string GoogleOauthUrl = "https://accounts.google.com/o/oauth2/";
-        public const string GoogleOauthCodeUrl = GoogleOauthUrl + "auth";
+        public const string GoogleOauthCodeUrl = "https://accounts.google.com/o/oauth2/auth";
         public const string GoogleOauthTokenUrl = "https://www.googleapis.com/oauth2/v3/token";
+
+        public const string GoogleScopeContacts = "https://www.googleapis.com/auth/contacts.readonly";
+        public const string GoogleScopeDrive = "https://www.googleapis.com/auth/drive";
+        public const string GoogleScopeMail = "https://mail.google.com/";
+        public const string GoogleScopeProfile = "https://www.googleapis.com/auth/userinfo.email";
+
+        public const string GoogleUrlContacts = "https://www.google.com/m8/feeds/contacts/default/full/";
+        public const string GoogleUrlFile = "https://www.googleapis.com/drive/v2/files/";
+        public const string GoogleUrlFileUpload = "https://www.googleapis.com/upload/drive/v2/files";
+        public const string GoogleUrlProfile = "https://www.googleapis.com/plus/v1/people/";
+
+        public static readonly string[] GoogleDriveExt = new[] { ".gdoc", ".gsheet", ".gslides" };
+        public static string GoogleDriveMimeTypeFolder = "application/vnd.google-apps.folder";
 
 
         public static string GoogleOAuth20ClientId
@@ -65,10 +74,9 @@ namespace ASC.FederatedLogin.LoginProviders
         {
             try
             {
-                var token = Auth(context, GoogleProfileScope);
-                return token == null
-                           ? LoginProfile.FromError(new Exception("Login failed"))
-                           : RequestProfile(token.AccessToken);
+                var token = Auth(context, GoogleScopeProfile);
+
+                return GetLoginProfile(token == null ? null : token.AccessToken);
             }
             catch (ThreadAbortException)
             {
@@ -82,18 +90,10 @@ namespace ASC.FederatedLogin.LoginProviders
 
         public LoginProfile GetLoginProfile(string accessToken)
         {
-            try
-            {
-                return RequestProfile(accessToken);
-            }
-            catch (ThreadAbortException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                return LoginProfile.FromError(ex);
-            }
+            if (string.IsNullOrEmpty(accessToken))
+                throw new Exception("Login failed");
+
+            return RequestProfile(accessToken);
         }
 
         public static OAuth20Token Auth(HttpContext context, string scopes)
@@ -114,10 +114,10 @@ namespace ASC.FederatedLogin.LoginProviders
                 var additionalArgs =
                     (context.Request["access_type"] ?? "") == "offline"
                         ? new Dictionary<string, string>
-                        {
-                            { "access_type", "offline" },
-                            { "approval_prompt", "force" }
-                        }
+                            {
+                                {"access_type", "offline"},
+                                {"approval_prompt", "force"}
+                            }
                         : null;
 
                 OAuth20TokenHelper.RequestCode(HttpContext.Current,
@@ -139,7 +139,7 @@ namespace ASC.FederatedLogin.LoginProviders
 
         private static LoginProfile RequestProfile(string accessToken)
         {
-            var googleProfile = RequestHelper.PerformRequest(GoogleProfileUrl + "me", headers: new Dictionary<string, string> { { "Authorization", "Bearer " + accessToken } });
+            var googleProfile = RequestHelper.PerformRequest(GoogleUrlProfile + "me", headers: new Dictionary<string, string> { { "Authorization", "Bearer " + accessToken } });
             var loginProfile = ProfileFromGoogle(googleProfile);
             return loginProfile;
         }

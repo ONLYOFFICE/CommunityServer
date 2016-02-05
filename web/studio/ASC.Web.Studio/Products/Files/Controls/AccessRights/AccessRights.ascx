@@ -5,6 +5,7 @@
 <%@ Import Namespace="ASC.Files.Core.Security" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
+<%@ Import Namespace="Resources" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <asp:PlaceHolder ID="_sharingContainer" runat="server"></asp:PlaceHolder>
@@ -121,6 +122,15 @@
             <a id="embeddedCopy" class="button middle gray"><span><%= FilesUCResource.CopyToClipboard %></span></a>
         </div>
         <% } %>
+
+        <div class="middle-button-container clearFix">
+            <a class="sharing-notchanged-buttons sharing-cancel-button button middle gray"><%= Resource.CloseButton %></a>
+            <div class="sharing-changed-buttons">
+                <a class="sharing-save-button button blue middle"><%= Resource.SaveButton %></a>
+                <span class="splitter-buttons"></span>
+                <a class="sharing-cancel-button button middle gray"><%= Resource.CancelButton %></a>
+            </div>
+        </div>
     </div>
 </div>
 

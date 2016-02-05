@@ -34,6 +34,7 @@ using ASC.CRM.Core.Entities;
 using ASC.Web.CRM.Resources;
 using LumenWorks.Framework.IO.Csv;
 using Newtonsoft.Json.Linq;
+using ASC.Common.Threading.Progress;
 
 #endregion
 
@@ -150,6 +151,15 @@ namespace ASC.Web.CRM.Classes
 
                 Percentage = 62.5;
 
+                if (ImportDataCache.CheckCancelFlag(EntityType.Case))
+                {
+                    ImportDataCache.ResetAll(EntityType.Case);
+
+                    throw new OperationCanceledException();
+                }
+
+                ImportDataCache.Insert(EntityType.Case, (ImportDataOperation)Clone());
+                              
                 var newIDs = casesDao.SaveCasesList(findedCases);
                 findedCases.ForEach(d => d.ID = newIDs[d.ID]);
 
@@ -159,12 +169,31 @@ namespace ASC.Web.CRM.Classes
 
                 Percentage += 12.5;
 
+                if (ImportDataCache.CheckCancelFlag(EntityType.Case))
+                {
+                    ImportDataCache.ResetAll(EntityType.Case);
+
+                    throw new OperationCanceledException();
+                }
+
+                ImportDataCache.Insert(EntityType.Case, (ImportDataOperation)Clone());               
+
                 foreach (var findedCasesMemberKey in findedCasesMembers.Keys)
                 {
                     _daoFactory.GetDealDao().SetMembers(newIDs[findedCasesMemberKey], findedCasesMembers[findedCasesMemberKey].ToArray());
                 }
 
                 Percentage += 12.5;
+
+                if (ImportDataCache.CheckCancelFlag(EntityType.Case))
+                {
+                    ImportDataCache.ResetAll(EntityType.Case);
+
+                    throw new OperationCanceledException();
+                }
+
+                ImportDataCache.Insert(EntityType.Case, (ImportDataOperation)Clone());               
+
 
                 foreach (var findedTagKey in findedTags.Keys)
                 {
@@ -176,6 +205,16 @@ namespace ASC.Web.CRM.Classes
 
 
                 Percentage += 12.5;
+
+                if (ImportDataCache.CheckCancelFlag(EntityType.Case))
+                {
+                    ImportDataCache.ResetAll(EntityType.Case);
+
+                    throw new OperationCanceledException();
+                }
+
+                ImportDataCache.Insert(EntityType.Case,(ImportDataOperation)Clone());               
+
             }
 
             Complete();

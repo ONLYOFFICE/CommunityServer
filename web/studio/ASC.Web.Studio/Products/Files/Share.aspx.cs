@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Net;
 using System.Text;
 using System.Web;
 using ASC.Files.Core;
@@ -57,11 +58,10 @@ namespace ASC.Web.Files
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Master.Master.DisabledHelpTour = true;
             Master.Master.DisabledSidePanel = true;
             Master.Master.DisabledTopStudioPanel = true;
 
-            var accessRights = (AccessRights)LoadControl(AccessRights.Location);
+            var accessRights = (AccessRights) LoadControl(AccessRights.Location);
             accessRights.IsPopup = false;
             CommonContainerHolder.Controls.Add(accessRights);
 
@@ -70,8 +70,8 @@ namespace ASC.Web.Files
 
         private void InitScript()
         {
-            Page.RegisterStyleControl(FilesLinkUtility.FilesBaseAbsolutePath + "controls/accessrights/accessrights.css");
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/third-party/zeroclipboard.js"));
+            Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/accessrights/accessrights.css");
+            Page.RegisterBodyScripts("~/js/third-party/zeroclipboard.js");
             Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("common.js"));
             Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("templatemanager.js"));
             Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("servicemanager.js"));
@@ -82,6 +82,17 @@ namespace ASC.Web.Files
             using (var fileDao = Classes.Global.DaoFactory.GetFileDao())
             {
                 file = fileDao.GetFile(fileId);
+            }
+
+            if (file == null)
+            {
+                Response.StatusCode = (int) HttpStatusCode.NotFound;
+                return;
+            }
+            if (!Classes.Global.GetFilesSecurity().CanRead(file))
+            {
+                Response.StatusCode = (int) HttpStatusCode.Forbidden;
+                return;
             }
 
             var script = new StringBuilder();

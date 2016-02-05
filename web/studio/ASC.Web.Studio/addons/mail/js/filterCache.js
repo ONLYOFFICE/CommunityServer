@@ -25,11 +25,6 @@
 
 
 /*
-Copyright (c) Ascensio System SIA 2013. All rights reserved.
-http://www.teamlab.com
-*/
-
-/*
  Caches information about filtered messageses list such as first and last messages ids and etc.
  Usefull for detecting message position and prev next displaing.
 */

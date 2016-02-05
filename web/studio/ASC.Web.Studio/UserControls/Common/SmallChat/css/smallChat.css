@@ -34,7 +34,7 @@
     background-color: white;
     bottom: 0;
     top: auto;
-    z-index: 1;
+    z-index: 100;
     outline: none;
 }
 
@@ -147,8 +147,11 @@
 }
 
 .small_chat_top_panel {
-     margin-bottom: 5px;
-     overflow: visible;
+    width: 100%;
+    margin-bottom: 5px;
+    overflow: visible;
+    border-collapse: separate;
+    border-spacing: 2px;
 }
 
 .small_chat_image_status {
@@ -198,7 +201,7 @@
     right: 0;
     top: 22px;
     width: 0;
-    margin-right: 3px;
+    margin-right: 5px;
 }
 
 .user_list li:hover {
@@ -243,7 +246,7 @@
     width: 98px;
     overflow: visible !important;
     top: 35px;
-    left: 118px;
+    right: 14px;
 }
 
 .image_online {
@@ -269,20 +272,26 @@
     height: 11px;
     margin: 6px 5px 0 0;
 }
-
+.small_chat_search_field_container {
+    position: relative;
+    padding: 0 32px 0 0;
+}
+.small_chat_status_menu_container {
+    width: 1%;
+    padding: 0;
+}
 .small_chat_search_field {
     float: left;
     height: 25px !important;
-    width: 125px;
+    width: 100%;
     padding: 0 25px 0 5px;
     -webkit-appearance: none;
     -moz-appearance: none;
 }
 
 .small_chat_status_menu {
-    float: right;
     height: 25px;
-    width: 79px;
+    width: 80px;
     border: solid 1px #d1d1d1;
 }
 
@@ -364,7 +373,8 @@
 .icon_ch_size {
     position: absolute;
     top: 3px;
-    left: 112px;
+    left: 50%;
+    margin-left: -6px;
     width: 12px;
     height: 8px;
     background: url(images/icon_ch-size.png) no-repeat transparent;
@@ -422,7 +432,8 @@
 .search_icon {
     cursor: pointer;
     position: absolute;
-    left: 128px;
+    top: 0;
+    right: 0;
     width: 28px;
     height: 28px;
 }

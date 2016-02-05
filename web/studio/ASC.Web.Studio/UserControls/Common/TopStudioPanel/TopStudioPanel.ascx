@@ -1,22 +1,18 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TopStudioPanel.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.TopStudioPanel" %>
 
 <%@ Import Namespace="ASC.Core" %>
-<%@ Import Namespace="ASC.Core.Tenants" %>
 <%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Core" %>
-<%@ Import Namespace="ASC.Web.Core.Files" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.UserControls.Statistics" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
-<%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
-
 <div class="studio-top-panel mainPageLayout  <% if (CoreContext.Configuration.Personal)
                                                 { %>try-welcome-top<% } %>">
     <ul>
         <li class="studio-top-logo ">
-            <a class="top-logo" title="<%= Resource.TeamLabOfficeTitle %>" href="<%= CommonLinkUtility.GetDefault() %>">
+            <a class="top-logo" title="<%: Resource.TeamLabOfficeTitle %>" href="<%= CommonLinkUtility.GetDefault() %>">
                 <img alt="" src="<%= GetAbsoluteCompanyTopLogoPath() %>" />
                 <% if (IsAuthorizedPartner.HasValue)
                    { %>
@@ -38,7 +34,7 @@
             <li class="product-menu with-subitem">
                 <span class="active-icon <%= CurrentProductClassName %>"></span>
                 <a class="product-cur-link" title="<%= CurrentProductName %>">
-                    <%= CurrentProductName.HtmlEncode() %>
+                    <%: CurrentProductName %>
                 </a>
             </li>
         <% } %>
@@ -78,14 +74,13 @@
             </li>
         <% } %>
 
-        <% if (!DisableTariff && !CoreContext.Configuration.Standalone)
+        <% if (!DisableTariff)
            { %>
-            <li class="top-item-box tariffs <% if (DisplayTrialCountDays)
-                                               { %>has-led<% } %>">
+            <li class="top-item-box tariffs <%= DisplayTrialCountDays ? "has-led" : "" %>">
                 <a class="inner-text" href="<%= TenantExtra.GetTariffPageLink() %>" title="<%= Resource.TariffSettings %>">
                     <% if (DisplayTrialCountDays)
                        { %>
-                        <span class="inner-label">trial <%= TrialCountDays %></span>
+                        <span class="inner-label">trial <%= TariffDays %></span>
                     <% } %>
                 </a>
             </li>
@@ -130,7 +125,7 @@
                         <li class="dropdown-item-seporator"></li>
                         <li class="settings"><a href="<%= CommonLinkUtility.GetAdministration(ManagementType.Customization) %>" title="<%= Resource.Administration %>" class="dropdown-item menu-products-item"><%= Resource.Administration %></a></li>
                     <% } %>
-                    <% if (!DisableTariff && !CoreContext.Configuration.Standalone)
+                    <% if (!DisableTariff)
                        { %>
                         <li class="tarrifs"><a href="<%= TenantExtra.GetTariffPageLink() %>" title="<%= Resource.TariffSettings %>" class="dropdown-item menu-products-item"><%= Resource.TariffSettings %></a></li>
                     <% } %>
@@ -177,155 +172,64 @@
                 <% } %>
 
                 <li>
-                    <span class="dropdown-item" onclick=" StudioBlockUIManager.blockUI('#aboutCompanyPopup', 680, 600);jq('.studio-action-panel').hide(); "><%= Resource.AboutCompanyTitle %> </span>
-                    <div id="aboutCompanyPopup" class="confirmation-popup" style="display: none;">
-                        <sc:Container ID="aboutCompanyPopupContainer" runat="server">
-                            <Header>
-                                <span><%= Resource.AboutCompanyTitle %></span>
-                            </Header>
-                            <Body>
-                                <img class="confirmation-popup_logo" src="<%= ConfirmationLogo %>" />                                                               
-                                <div class="confirmation-popup_version gray-text">
-                                    <%= string.IsNullOrEmpty(VersionNumber) ? "" : Resource.AboutCompanyVersion + " " + VersionNumber %>
-                                </div>
-                                <div class="confirmation-popup_licensor"><%= Resource.AboutCompanyLicensor %></div>
-                                <div class="confirmation-popup_name">Ascensio System SIA</div>
-                                <ul class="confirmation-popup_info">
+                    <span class="dropdown-item dropdown-about-btn"><%= Resource.AboutCompanyTitle %> </span>
+
+                    <div id="aboutCompanyPopupBody" class="display-none">
+                        <img class="confirmation-popup_logo" src="<%= ConfirmationLogo %>" />                                                               
+                        <div class="confirmation-popup_version gray-text">
+                            <%= string.IsNullOrEmpty(VersionNumber) ? "" : Resource.AboutCompanyVersion + " " + VersionNumber %>
+                        </div>
+                        <div class="confirmation-popup_licensor"><%= Resource.AboutCompanyLicensor %></div>
+                        <div class="confirmation-popup_name">Ascensio System SIA</div>
+                        <ul class="confirmation-popup_info">
+                            <li><span class="gray-text"><%= Resource.AboutCompanyAddressTitle %>: 
+                                </span>Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021</li>
+                            <li><span class="gray-text"><%= Resource.AboutCompanyEmailTitle %>: 
+                                </span><a href="mailto:support@onlyoffice.com" class="link">support@onlyoffice.com</a></li>
+                            <li><span class="gray-text"><%= Resource.AboutCompanyTelTitle %>: 
+                                </span>+371 660-16425</li>
+                            <li><a href="http://www.onlyoffice.com" target="_blank" class="link">www.onlyoffice.com</a></li>
+                        </ul>
+
+                        <% if (IsAuthorizedPartner.HasValue && IsAuthorizedPartner.Value && Partner != null)
+                            { %>
+                            <br />
+                            <div class="confirmation-popup_licensor"><%= Resource.AboutCompanySublicensee %></div>
+                            <div class="confirmation-popup_name"><%= (Partner.DisplayName ?? Partner.CompanyName).HtmlEncode() %></div>
+                            <ul class="confirmation-popup_info">
+                                <% if (!string.IsNullOrEmpty(Partner.Address))
+                                    { %>
                                     <li><span class="gray-text"><%= Resource.AboutCompanyAddressTitle %>: 
-                                        </span>Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021</li>
+                                        </span><%= Partner.Address.HtmlEncode() %></li>
+                                <% } %>
+                                <% if (!string.IsNullOrEmpty(Partner.SupportEmail))
+                                    { %>
                                     <li><span class="gray-text"><%= Resource.AboutCompanyEmailTitle %>: 
-                                        </span><a href="mailto:support@onlyoffice.com" class="link">support@onlyoffice.com</a></li>
+                                        </span><a href="mailto:<%= Partner.SupportEmail %>" class="link"><%= Partner.SupportEmail %></a></li>
+                                <% }
+                                    else if (!string.IsNullOrEmpty(Partner.Email))
+                                    { %>
+                                    <li><span class="gray-text"><%= Resource.AboutCompanyEmailTitle %>: 
+                                        </span><a href="mailto:<%= Partner.Email %>" class="link"><%= Partner.Email %></a></li>
+                                <% } %>
+                                <% if (!string.IsNullOrEmpty(Partner.Phone))
+                                    { %>
                                     <li><span class="gray-text"><%= Resource.AboutCompanyTelTitle %>: 
-                                        </span>+371 660-16425</li>
-                                    <li><a href="http://www.onlyoffice.com" target="_blank" class="link">www.onlyoffice.com</a></li>
-                                </ul>
-
-                                <% if (IsAuthorizedPartner.HasValue && IsAuthorizedPartner.Value && Partner != null)
-                                   { %>
-                                    <br />
-                                    <div class="confirmation-popup_licensor"><%= Resource.AboutCompanySublicensee %></div>
-                                    <div class="confirmation-popup_name"><%= (Partner.DisplayName ?? Partner.CompanyName).HtmlEncode() %></div>
-                                    <ul class="confirmation-popup_info">
-                                        <% if (!string.IsNullOrEmpty(Partner.Address))
-                                           { %>
-                                            <li><span class="gray-text"><%= Resource.AboutCompanyAddressTitle %>: 
-                                                </span><%= Partner.Address.HtmlEncode() %></li>
-                                        <% } %>
-                                        <% if (!string.IsNullOrEmpty(Partner.SupportEmail))
-                                           { %>
-                                            <li><span class="gray-text"><%= Resource.AboutCompanyEmailTitle %>: 
-                                                </span><a href="mailto:<%= Partner.SupportEmail %>" class="link"><%= Partner.SupportEmail %></a></li>
-                                        <% }
-                                           else if (!string.IsNullOrEmpty(Partner.Email))
-                                           { %>
-                                            <li><span class="gray-text"><%= Resource.AboutCompanyEmailTitle %>: 
-                                                </span><a href="mailto:<%= Partner.Email %>" class="link"><%= Partner.Email %></a></li>
-                                        <% } %>
-                                        <% if (!string.IsNullOrEmpty(Partner.Phone))
-                                           { %>
-                                            <li><span class="gray-text"><%= Resource.AboutCompanyTelTitle %>: 
-                                                </span><%= Partner.Phone.HtmlEncode() %></li>
-                                        <% } %>
-                                        <% if (!string.IsNullOrEmpty(Partner.Url))
-                                           { %>
-                                            <li><a href="<%= Partner.Url.StartsWith("http:") || Partner.Url.StartsWith("https:") ? Partner.Url : string.Concat("http://", Partner.Url) %>" target="_blank" class="link"><%= Partner.Url %></a></li>
-                                        <% } %>
-                                    </ul>
+                                        </span><%= Partner.Phone.HtmlEncode() %></li>
                                 <% } %>
-
-                                <% if (CoreContext.Configuration.Standalone && false)
-                                   { %>
-                                    <br />
-                                    <div class="confirmation-popup_licensor"><%= Resource.AboutCompanyLicensee %></div>
-                                    <% var license = LicenseReader.GetLicense();
-                                       if (license != null)
-                                       { %>
-                                        <% if (!string.IsNullOrEmpty(license.getCustomerLogo()))
-                                           { %>
-                                            <br />
-                                            <br />
-                                            <img alt="" src="<%= license.getCustomerLogo() %>"/>
-                                        <% } %>
-                                        <div class="confirmation-popup_name"><%= license.getCustomer() %></div>
-                                        <ul class="confirmation-popup_info">
-                                            <% if (!string.IsNullOrEmpty(license.getCustomerAddr()))
-                                               { %>
-                                                <li>
-                                                    <span class="gray-text"><%= Resource.AboutCompanyAddressTitle %>: </span>
-                                                    <%= license.getCustomerAddr() %>
-                                                </li>
-                                            <% } %>
-                                            <% if (!string.IsNullOrEmpty(license.getCustomerMail()))
-                                               { %>
-                                                <li>
-                                                    <span class="gray-text"><%= Resource.AboutCompanyEmailTitle %>: </span>
-                                                    <a href="mailto:<%= license.getCustomerMail() %>" class="link"><%= license.getCustomerMail() %></a>
-                                                </li>
-                                            <% } %>
-                                            <% if (!string.IsNullOrEmpty(license.getCustomerWww()))
-                                               { %>
-                                                <li>
-                                                    <a href="<%= license.getCustomerWww() %>" target="_blank" class="link"><%= license.getCustomerWww() %></a>
-                                                </li>
-                                            <% } %>
-                                            <% if (!string.IsNullOrEmpty(license.getCustomerInfo()))
-                                               { %>
-                                                <li>
-                                                    <%= license.getCustomerInfo() %>
-                                                </li>
-                                            <% } %>
-                                            <% if (license.getUserQuota() > 0)
-                                               { %>
-                                                <li>
-                                                    <span class="gray-text"><%= Resource.AboutCompanyUserTitle %>: </span>
-                                                    <%= license.getUserQuota() %>
-                                                </li>
-                                            <% } %>
-                                            <li>
-                                                <% if (license.getEndDate() >= DateTime.UtcNow)
-                                                   { %>
-                                                    <span class="bold"><%= string.Format(Resource.AboutCompanyValidDate,
-                                                                                         TenantUtil.DateTimeFromUtc(license.getStartDate()).ToShortDateString(),
-                                                                                         TenantUtil.DateTimeFromUtc(license.getEndDate()).ToShortDateString()) %></span>
-                                                <% }
-                                                   else
-                                                   { %>
-                                                    <span class="bold red-text"><%= string.Format(Resource.AboutCompanyOverduedDate, TenantUtil.DateTimeFromUtc(license.getEndDate()).ToShortDateString()) %></span>
-                                                <% } %>
-                                            </li>
-                                        </ul>
-                                    <% }
-                                       else
-                                       { %>
-                                        <div class="confirmation-popup_name red-text"><%= UserControlsCommonResource.TariffLicenseOver %></div>
-                                    <% } %>
+                                <% if (!string.IsNullOrEmpty(Partner.Url))
+                                    { %>
+                                    <li><a href="<%= Partner.Url.StartsWith("http:") || Partner.Url.StartsWith("https:") ? Partner.Url : string.Concat("http://", Partner.Url) %>" target="_blank" class="link"><%= Partner.Url %></a></li>
                                 <% } %>
-                            </Body>
-                        </sc:Container>
+                            </ul>
+                        <% } %>
                     </div>
                 </li>
                 <% if (DebugInfo.ShowDebugInfo) %>
-                <%
-                   { %>
+                <% { %>
                     <li>
-                        <span class="dropdown-item" onclick=" StudioBlockUIManager.blockUI('#debugInfoPopUp', 1000, 300, -300);jq('.studio-action-panel').hide(); ">
-                            Debug Info
-                        </span>
-                        <div id="debugInfoPopUp" style="display: none">
-                            <sc:Container ID="debugInfoPopUpContainer" runat="server">
-                                <Header>
-                                    <span>Debug Info</span>
-                                </Header>
-                                <Body>
-                                    <div style="height: 500px; overflow-y: scroll;">
-                                        <%= DebugInfo.DebugString.HtmlEncode().Replace("\n\r", "<br/>").Replace("\n", "<br/>") %>
-                                    </div>
-                                    <div class="middle-button-container">
-                                        <a class="button blue middle" href="javascript:void(0)" onclick=" jq.unblockUI(); ">Ok</a>
-                                    </div>
-                                </Body>
-                            </sc:Container>
-                        </div>
+                        <span class="dropdown-item dropdown-debuginfo-btn">Debug Info</span>
+                        <input id="debugInfoPopUpBody" type="hidden" value="<%: DebugInfo.DebugString %>">
                     </li>
                 <% } %>
 

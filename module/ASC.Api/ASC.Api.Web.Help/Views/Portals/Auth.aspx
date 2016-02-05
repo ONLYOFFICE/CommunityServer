@@ -16,7 +16,7 @@
         <span class="hdr">How to pass authentication?</span>
     </h1>
     <p>One needs to perform several easy steps to pass authentication:</p>
-    <p>1. Send POST request, containing two parameters: <b>userName</b> and <b>password</b>, to the <a href="<%=Url.DocUrl("authentication", null, "post", "api/2.0/authentication", "portals")%>">api/2.0/authentication</a> address</p>
+    <p>1. Send POST request, containing two parameters: <b>userName</b> and <b>password</b>, to the <a href="<%= Url.DocUrl("authentication", null, "post", "api/2.0/authentication", "portals") %>">api/2.0/authentication</a> address</p>
     <div class="header-gray">Request</div>
     <pre>POST /api/2.0/authentication.json HTTP/1.1
 Host: portal.onlyoffice.com

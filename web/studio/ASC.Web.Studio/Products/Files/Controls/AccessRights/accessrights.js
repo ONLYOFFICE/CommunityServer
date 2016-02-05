@@ -124,9 +124,9 @@ window.ASC.Files.Share = (function () {
         var linkPanel = jq("#shareViaSocPanel");
         var link = encodeURIComponent(url);
 
-        linkPanel.find(".google").attr("href", ASC.Files.Constants.URL_SHARE_GOOGLE_PLUS.format(link));
-        linkPanel.find(".facebook").attr("href", ASC.Files.Constants.URL_SHARE_FACEBOOK.format(link, objectTitle, "", ""));
-        linkPanel.find(".twitter").attr("href", ASC.Files.Constants.URL_SHARE_TWITTER.format(link));
+        linkPanel.find(".google").attr("href", ASC.Resources.Master.UrlShareGooglePlus.format(link));
+        linkPanel.find(".facebook").attr("href", ASC.Resources.Master.UrlShareFacebook.format(link, objectTitle, "", ""));
+        linkPanel.find(".twitter").attr("href", ASC.Resources.Master.UrlShareTwitter.format(link));
     };
 
     var addShareMail = function () {
@@ -235,6 +235,9 @@ window.ASC.Files.Share = (function () {
     };
 
     var changeShareLinkAce = function (event) {
+        if (event) {
+            needUpdate = true;
+        }
         var url = shareLink;
 
         if (shortenLink != "") {
@@ -287,8 +290,8 @@ window.ASC.Files.Share = (function () {
                     return false;
                 });
             }
-            jq("#shareLinkPanel").on(jq.browser.webkit ? "keydown" : "keypress", "#shareLink", function () {
-                return false;
+            jq("#shareLinkPanel").on(jq.browser.webkit ? "keydown" : "keypress", "#shareLink", function (e) {
+                return e.ctrlKey && (e.charCode === 99 || e.keyCode === ASC.Files.Common.keyCode.insertKey);
             });
 
             jq("#shareSideEmbedded").on("click", showEmbeddedPanel);
@@ -310,7 +313,7 @@ window.ASC.Files.Share = (function () {
                 return false;
             });
 
-            jq("#chareLinkOpen").on("click", openShareLinkAce);
+            jq(".sharing-link-items").on("click", "#chareLinkOpen:not(.checked)", openShareLinkAce);
             jq(".link-share-opt").on("change", changeShareLinkAce);
             jq("#sharingSettingsItems").on("scroll", updateClip);
         }
@@ -467,8 +470,16 @@ window.ASC.Files.Share = (function () {
 
     var getSharedInfo = function (dataIds, objTitle, asFlat, rootFolderType) {
         objectID = dataIds;
+        if (typeof objectID == "object" && objectID.length == 1) {
+            objectID = objectID[0];
+            if (!objTitle) {
+                var itemId = ASC.Files.UI.parseItemId(objectID);
+                objTitle = ASC.Files.UI.getEntryTitle(itemId.entryType, itemId.entryId);
+            }
+        }
+
         objectTitle = (typeof objectID == "object"
-            ? ASC.Files.FilesJSResources.SharingSettingsCount.format(dataIds.length)
+            ? ASC.Files.FilesJSResources.SharingSettingsCount.format(objectID.length)
             : objTitle);
 
         Encoder.EncodeType = "!entity";
@@ -540,8 +551,9 @@ window.ASC.Files.Share = (function () {
             }
         });
 
-        needUpdate = aceWrapperList.length;
-        if (!needUpdate) {
+        if (aceWrapperList.length) {
+            needUpdate = true;
+        } else {
             return;
         }
 
@@ -766,7 +778,7 @@ window.ASC.Files.Share = (function () {
         }
 
         sharingManager.ShowDialog(width, params.asFlat);
-        PopupKeyUpActionProvider.EnterAction = "jq('#sharingSettingsSaveButton:visible, #shareSendLinkToEmail:visible').click();";
+        PopupKeyUpActionProvider.EnterAction = "jq('#shareSendLinkToEmail:visible').click();";
         if (params.asFlat) {
             PopupKeyUpActionProvider.CloseDialogAction = "ASC.Files.Share.updateForParent();";
         }

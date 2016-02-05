@@ -25,47 +25,11 @@
 
 
 if (typeof window.serviceManager === 'undefined') {
-    var xmlEncode = function(s) {
-        return s.replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;');
-    };
 
-    window.serviceManager = (function($) {
+    window.serviceManager = (function ($) {
         var isInit = false;
 
-        var getNodeContent = function(o) {
-            if (!o || typeof o !== 'object') {
-                return '';
-            }
-            return o.text || o.textContent || (function() {
-                var result = '',
-                    childrens = o.childNodes;
-                if (!childrens) {
-                    return result;
-                }
-                for (var i = 0, n = childrens.length; i < n; i++) {
-                    var child = childrens.item(i);
-                    switch (child.nodeType) {
-                        case 1:
-                        case 5:
-                            result += arguments.callee(child);
-                            break;
-                        case 3:
-                        case 2:
-                        case 4:
-                            result += child.nodeValue;
-                            break;
-                        default:
-                            break;
-                    }
-                }
-                return result;
-            })(o);
-        };
-
-        var init = function(timeoutMs) {
+        function init() {
             if (true === isInit) {
                 return;
             }
@@ -73,74 +37,68 @@ if (typeof window.serviceManager === 'undefined') {
             isInit = true;
             if (!ASC.Resources.Master.Hub.Url) {
                 setInterval(function() {
-                    updateFolders(undefined, TMMail.messages_modify_date, TMMail.GetFolderModifyDate(MailFilter.getFolder()));
-                }, timeoutMs);
+                    getMailFolders({ check_conversations_on_changes: true });
+                }, ASC.Mail.Constants.CHECK_NEWS_TIMEOUT);
                 setInterval(function () {
                     getAccounts();
-                }, timeoutMs * 10);
+                }, ASC.Mail.Constants.CHECK_NEWS_TIMEOUT * 10);
             }
-        };
+        }
 
-        var bind = function(event, handler) {
+        function bind(event, handler) {
             return window.Teamlab.bind(event, handler);
-        };
+        }
 
-        var unbind = function() {
+        function unbind() {
             return window.Teamlab.unbind.apply(this, arguments);
-        };
+        }
 
-        var hideCallback = function() {
+        function hideCallback() {
             window.LoadingBanner.hideLoading();
-        };
+        }
 
-        var wrapHideCallback = function(orig) {
+        function errorCallback() {
+        }
+
+        function wrapHideCallback(orig) {
             return function() {
                 window.LoadingBanner.hideLoading();
                 orig.apply(this, arguments);
             };
-        };
+        }
 
-        var wrapper = function(paramsCount, orig) {
+        function wrapper(paramsCount, orig) {
             return function() {
                 var loadingMessage = arguments.length > paramsCount ? arguments[arguments.length - 1] : undefined;
-
+                var options;
                 if (loadingMessage) {
                     window.LoadingBanner.strLoading = loadingMessage;
                     window.LoadingBanner.displayMailLoading(true, true);
-
-                    var options = arguments[arguments.length - 2] || {};
-                    options.success = options.hasOwnProperty('success') && typeof options.success === 'function' ? wrapHideCallback(options.success) : hideCallback;
+                    options = arguments[arguments.length - 2] || {};
+                    options.success = options.hasOwnProperty('success') && typeof options.success === 'function' ?
+                        wrapHideCallback(options.success) : hideCallback;
                     options.error = options.hasOwnProperty('error') && typeof options.error === 'function' ? wrapHideCallback(options.error) : hideCallback;
+                } else {
+                    options = arguments[arguments.length - 1] || {};
+                    options.error = options.hasOwnProperty('error') && typeof options.error === 'function' ? options.error : errorCallback;
                 }
+
                 return orig.apply(this, arguments);
             };
-        };
+        }
 
-        var updateFolders = function(loadingMessage, messagesModifyDate, folderModifyDate) {
-            var options = {};
-            if (loadingMessage) {
-                window.LoadingBanner.strLoading = loadingMessage;
-                window.LoadingBanner.displayMailLoading(true, true);
-
-                options.success = hideCallback;
-                options.error = hideCallback;
+        function checkNew(params, options) {
+            window.Teamlab.getMailFilteredConversations({ folder_id: MailFilter.getFolder() }, MailFilter.toData(), {});
+            if (options)
+                window.Teamlab.getMailFolders(params, options);
+            else {
+                window.Teamlab.getMailFolders();
             }
+        }
 
-            if (!messagesModifyDate) {
-                messagesModifyDate = new Date(0);
-            }
-
-            if (!folderModifyDate) {
-                folderModifyDate = new Date(0);
-            }
-
-            window.Teamlab.getMailFilteredConversations({ folder_id: MailFilter.getFolder() },
-                $.extend({}, MailFilter.toData(), { last_check_date: folderModifyDate }),
-                {});
-            window.Teamlab.getMailFolders({}, messagesModifyDate, {});
-            window.Teamlab.getMailMessagesModifyDate({}, {});
-            window.Teamlab.getMailFolderModifyDate({ folder_id: MailFilter.getFolder() }, MailFilter.getFolder(), options);
-        };
+        var updateFolders = wrapper(2, function (params, options) {
+            checkNew(params, options);
+        });
 
         var getTags = wrapper(2, function(params, options) {
             window.Teamlab.getMailTags(params, options);
@@ -179,8 +137,8 @@ if (typeof window.serviceManager === 'undefined') {
         });
 
         var createBox = wrapper(19, function(name, email, pop3Account, pop3Password, pop3Port, pop3Server,
-                                             smtpAccount, smtpPassword, smtpPort, smtpServer, smtpAuth, imap, restrict, incomingEncyptionType,
-                                             outcomingEncryptionType, authTypeIn, authTypeSmtp, params, options) {
+            smtpAccount, smtpPassword, smtpPort, smtpServer, smtpAuth, imap, restrict, incomingEncyptionType,
+            outcomingEncryptionType, authTypeIn, authTypeSmtp, params, options) {
             window.Teamlab.createMailMailbox(params, name, email, pop3Account, pop3Password, pop3Port, pop3Server,
                 smtpAccount, smtpPassword, smtpPort, smtpServer, smtpAuth, imap, restrict, incomingEncyptionType,
                 outcomingEncryptionType, authTypeIn, authTypeSmtp, options);
@@ -199,8 +157,8 @@ if (typeof window.serviceManager === 'undefined') {
         });
 
         var updateBox = wrapper(19, function(name, email, pop3Account, pop3Password, pop3Port, pop3Server,
-                                             smtpAccount, smtpPassword, smtpPort, smtpServer, smtpAuth, beginDate, incomingEncyptionType,
-                                             outcomingEncryptionType, authTypeIn, authTypeSmtp, params, options) {
+            smtpAccount, smtpPassword, smtpPort, smtpServer, smtpAuth, beginDate, incomingEncyptionType,
+            outcomingEncryptionType, authTypeIn, authTypeSmtp, params, options) {
             window.Teamlab.updateMailMailbox(params, name, email, pop3Account, pop3Password, pop3Port, pop3Server,
                 smtpAccount, smtpPassword, smtpPort, smtpServer, smtpAuth, beginDate, incomingEncyptionType,
                 outcomingEncryptionType, authTypeIn, authTypeSmtp, options);
@@ -218,12 +176,16 @@ if (typeof window.serviceManager === 'undefined') {
             window.Teamlab.getMailMailbox(params, email, options);
         });
 
-        var setDefaultAccount = wrapper(3, function(email, setDefault, params) {
-            window.Teamlab.setDefaultAccount(params, setDefault, email);
+        var setDefaultAccount = wrapper(4, function (email, setDefault, params, options) {
+            window.Teamlab.setDefaultAccount(params, setDefault, email, options);
         });
 
         var getMailFolders = wrapper(2, function(params, options) {
-            window.Teamlab.getMailFolders(params, new Date(0), options);
+            window.Teamlab.getMailFolders(params, options);
+        });
+
+        var getMailFilteredConversations = wrapper(2, function(params, options) {
+            window.Teamlab.getMailFilteredConversations({ folder_id: MailFilter.getFolder() }, MailFilter.toData(), {});
         });
 
         var getMessage = wrapper(5, function(id, unblocked, isNeedToSanitizeHtml, params, options) {
@@ -253,7 +215,6 @@ if (typeof window.serviceManager === 'undefined') {
             window.Teamlab.getMailConversation(params, id, data, options);
         });
 
-
         var getNextMessageId = wrapper(3, function(prevMessageId, params, options) {
             Teamlab.getNextMailMessageId(params, prevMessageId, MailFilter.toData(), options);
         });
@@ -261,7 +222,6 @@ if (typeof window.serviceManager === 'undefined') {
         var getPrevMessageId = wrapper(3, function(nextMessageId, params, options) {
             Teamlab.getPrevMailMessageId(params, nextMessageId, MailFilter.toData(), options);
         });
-
 
         var getNextConversationId = wrapper(3, function(prevMessageId, params, options) {
             Teamlab.getNextMailConversationId(params, prevMessageId, MailFilter.toData(), options);
@@ -271,23 +231,19 @@ if (typeof window.serviceManager === 'undefined') {
             Teamlab.getPrevMailConversationId(params, nextMessageId, MailFilter.toData(), options);
         });
 
-
         var getMessageTemplate = wrapper(2, function(params, options) {
             window.Teamlab.getMailMessageTemplate(params, options);
         });
 
-        var generateGuid = wrapper(2, function(params, options) {
-            window.Teamlab.getMailRandomGuid(params, options);
+        var sendMessage = wrapper(14, function (id, from, to, cc, bcc, mimeReplyToId, importance, 
+            subject, tags, body, attachments, fileLinksShareMode, params, options) {
+            window.Teamlab.sendMailMessage(params, id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags, body, attachments,
+                fileLinksShareMode, options);
         });
 
-        var sendMessage = wrapper(15, function(id, from, subject, to, cc, bcc, body, attachments,
-                                               streamId, mimeMessageId, mimeReplyToId, importance, tags, fileLinksShareMode, params, options) {
-            window.Teamlab.sendMailMessage(params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, fileLinksShareMode, options);
-        });
-
-        var saveMessage = wrapper(15, function(id, from, subject, to, cc, bcc, body, attachments,
-                                               streamId, mimeMessageId, mimeReplyToId, importance, tags, params, options) {
-            window.Teamlab.saveMailMessage(params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, options);
+        var saveMessage = wrapper(13, function (id, from, to, cc, bcc, mimeReplyToId, importance, 
+            subject, tags, body, attachments, params, options) {
+            window.Teamlab.saveMailMessage(params, id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags, body, attachments, options);
         });
 
         // possible 'status' values: read/unread/important/normal
@@ -501,7 +457,7 @@ if (typeof window.serviceManager === 'undefined') {
             init: init,
             bind: bind,
             unbind: unbind,
-            getNodeContent: getNodeContent,
+
             getAccounts: getAccounts,
             createBox: createBox,
             createMinBox: createMinBox,
@@ -517,10 +473,8 @@ if (typeof window.serviceManager === 'undefined') {
             getConversation: getConversation,
             getNextMessageId: getNextMessageId,
             getPrevMessageId: getPrevMessageId,
-
             getNextConversationId: getNextConversationId,
             getPrevConversationId: getPrevConversationId,
-
             sendMessage: sendMessage,
             saveMessage: saveMessage,
             markMessages: markMessages,
@@ -543,7 +497,6 @@ if (typeof window.serviceManager === 'undefined') {
             updateTag: updateTag,
             removeMailFolderMessages: removeMailFolderMessages,
             updateFolders: updateFolders,
-            generateGuid: generateGuid,
             attachDocuments: attachDocuments,
             getAlerts: getAlerts,
             deleteAlert: deleteAlert,
@@ -586,7 +539,8 @@ if (typeof window.serviceManager === 'undefined') {
             removeMailGroup: removeMailGroup,
             isDomainExists: isDomainExists,
             checkDomainOwnership: checkDomainOwnership,
-            getDomainDnsSettings: getDomainDnsSettings
+            getDomainDnsSettings: getDomainDnsSettings,
+            getMailFilteredConversations: getMailFilteredConversations
         };
     })(jQuery);
 }

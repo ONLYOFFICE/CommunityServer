@@ -24,14 +24,13 @@
 */
 
 
+using ASC.Core;
+using ASC.Web.Studio.Utility;
+using ASC.Web.Talk.Addon;
 using System;
 using System.Linq;
 using System.Web;
 using System.Web.Configuration;
-using ASC.Core;
-using ASC.Web.Studio.Utility;
-using ASC.Web.Talk.Addon;
-using log4net;
 
 namespace ASC.Web.Talk
 {
@@ -176,19 +175,13 @@ namespace ASC.Web.Talk
                 var q = replaceSetting.Split(new[] { "->" }, StringSplitOptions.RemoveEmptyEntries).Select(s => s.Trim().ToLowerInvariant());
                 ReplaceFromDomain = q.ElementAt(0);
                 ReplaceToDomain = q.ElementAt(1);
-            } 
-
-            ServerAddress = CoreContext.TenantManager.GetCurrentTenant().TenantDomain;
-            if (ReplaceDomain && ServerAddress != null && ServerAddress.EndsWith(ReplaceToDomain))
-            {
-                int place = ServerAddress.LastIndexOf(ReplaceToDomain);
-                if (place >= 0)
-                {
-                    ServerAddress = ServerAddress.Remove(place, ReplaceToDomain.Length).Insert(place, ReplaceFromDomain);
-                }
             }
-            ServerName = ServerAddress;
-            ServerPort = WebConfigurationManager.AppSettings["JabberPort"] ?? 5222.ToString();
+
+            ServerAddress = new Uri(CommonLinkUtility.ServerRootPath).Host;
+            ServerAddress = ReplaceToOldDomain(ServerAddress);
+            ServerName = CoreContext.TenantManager.GetCurrentTenant().TenantDomain;
+            ServerName = ReplaceToOldDomain(ServerName);
+            ServerPort = WebConfigurationManager.AppSettings["JabberPort"] ?? "5222";
             BoshUri = WebConfigurationManager.AppSettings["BoshPath"] ?? "http://localhost:5280/http-poll/";
             if (RequestTransportType == "handler")
             {
@@ -217,10 +210,24 @@ namespace ASC.Web.Talk
             EnabledMassend = (WebConfigurationManager.AppSettings["Massend"] ?? "on") == "on";
             EnabledConferences = (WebConfigurationManager.AppSettings["Conferences"] ?? "on") == "on";
             EnabledFirebugLite = (WebConfigurationManager.AppSettings["FirebugLite"] ?? "off") == "on";
-            ValidSymbols = WebConfigurationManager.AppSettings["ValidSymbols"] ?? "äöüßña-žа-я";
-            HistoryLength = WebConfigurationManager.AppSettings["HistoryLength"] ?? "10";
+            ValidSymbols = WebConfigurationManager.AppSettings["ValidSymbols"] ?? "äöüßña-žа-яё";
+            HistoryLength = WebConfigurationManager.AppSettings["HistoryLength"] ?? "20";
             ResourcePriority = WebConfigurationManager.AppSettings["ResourcePriority"] ?? "60";
             ClientInactivity = WebConfigurationManager.AppSettings["ClientInactivity"] ?? "90";
+        }
+
+
+        private string ReplaceToOldDomain(string orig)
+        {
+            if (ReplaceDomain && orig != null && orig.EndsWith(ReplaceToDomain))
+            {
+                var place = orig.LastIndexOf(ReplaceToDomain);
+                if (place >= 0)
+                {
+                    return orig.Remove(place, ReplaceToDomain.Length).Insert(place, ReplaceFromDomain);
+                }
+            }
+            return orig;
         }
     }
 }

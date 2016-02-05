@@ -36,6 +36,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Configuration
         public const string configuration_property_newmessagespersession = "maxnew";
         public const string configuration_property_concurentthreads = "threads";
         public const string configuration_property_overdueaccountdelay = "overdue_delay";
+        public const string configuration_property_quota_ended_delay = "quota_ended_delay";
         public const string configuration_property_overdue_days = "overdue_days";
         public const string configuration_property_tenant_caching_period = "tenant_caching_period";
         public const string configuration_property_inactive_ratio = "inactive_ratio";

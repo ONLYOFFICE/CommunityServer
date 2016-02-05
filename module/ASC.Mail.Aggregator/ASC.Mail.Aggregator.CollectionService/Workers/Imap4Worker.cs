@@ -25,25 +25,29 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using ActiveUp.Net.Common;
+using ActiveUp.Net.Mail;
 using ASC.Core.Tenants;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Common.Imap;
 using ASC.Mail.Aggregator.Common.Logging;
 using ASC.Mail.Aggregator.Exceptions;
-using ActiveUp.Net.Common;
-using ActiveUp.Net.Mail;
 
 namespace ASC.Mail.Aggregator.CollectionService.Workers
 {
     public class Imap4Worker: BaseWorker
     {
-        public Imap4Worker(MailBoxManager mailBoxManager, MailBox mailBox, TasksConfig tasksConfig, CancellationToken cancelToken, ILogger log = null)
+        public bool LoadOriginalEmlData { get; set; }
+
+        public Imap4Worker(MailBoxManager mailBoxManager, MailBox mailBox, TasksConfig tasksConfig, CancellationToken cancelToken, bool loadOriginalEml, ILogger log = null)
             : base(mailBoxManager, mailBox, tasksConfig, cancelToken, log)
         {
+            LoadOriginalEmlData = loadOriginalEml;
         }
 
         protected override BaseProtocolClient Connect()
@@ -53,6 +57,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Workers
                 var imap = MailClientBuilder.Imap();
                 imap.Authenticated += OnAuthenticated;
                 imap.AuthenticateImap(Account, log);
+                imap.LoadOriginalData = LoadOriginalEmlData;
 
                 return imap;
             }
@@ -65,8 +70,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Workers
             }
             finally
             {
-                var expires = DateTime.UtcNow.AddSeconds(Account.ServerLoginDelay);
-                mailBoxManager.SetEmailLoginDelayExpires(Account.EMail.ToString(), expires);
+                mailBoxManager.SetEmailLoginDelayExpires(Account.EMail.ToString(), Account.ServerLoginDelay);
             }
         }
 
@@ -90,7 +94,9 @@ namespace ASC.Mail.Aggregator.CollectionService.Workers
 
             ImapFolderUids folderUids;
             if (!Account.ImapIntervals.TryGetValue(mb.Name, out folderUids))
-                folderUids = new ImapFolderUids(); // by default - mailbox never was processed before
+            {
+                folderUids = new ImapFolderUids(new List<int> {1, int.MaxValue}, 1); // by default - mailbox never was processed before
+            }
 
             var imapIntervals = new ImapIntervals(folderUids.UnhandledUidIntervals);
             var beginDateUid = folderUids.BeginDateUid;
@@ -155,9 +161,12 @@ namespace ASC.Mail.Aggregator.CollectionService.Workers
                         //Peek method didn't set \Seen flag on mail
                         var message = mb.Fetch.UidMessageObjectPeek(uid);
 
-                        if (message.HasParseError)
+                        if (message.ParseException != null)
                         {
-                            log.Error("ActiveUp: message parsed with some errors. MailboxId = {0} Message UID = {1}", Account.MailBoxId, uid);
+                            log.Error(
+                                "ActiveUp: message parsed with some errors. MailboxId = {0} Message UID = {1} Error: {2}",
+                                Account.MailBoxId, uid, message.ParseException.ToString());
+
                             hasParseError = true;
                         }
 
@@ -260,7 +269,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Workers
             var client = (Imap4Client)baseProtocolClient;
             
             var mailboxes =
-                     client.GetImapMailboxes(Account.Server, MailQueueItemSettings.SpecialDomainFolders,
+                     client.GetImapMailboxes(Account.Server, MailQueueItemSettings.DefaultFolders, MailQueueItemSettings.SpecialDomainFolders,
                                            MailQueueItemSettings.SkipImapFlags, MailQueueItemSettings.ImapFlags)
                          .Reverse()
                          .OrderBy(m => m.folder_id)

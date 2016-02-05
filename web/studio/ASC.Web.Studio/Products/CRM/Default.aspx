@@ -16,11 +16,11 @@
     <asp:PlaceHolder ID="CommonContainerHolder" runat="server"></asp:PlaceHolder>
     <asp:HiddenField ID="_ctrlContactID" runat="server" />
     <div id="files_hintTypesPanel" class="hintDescriptionPanel">
-        <%=CRMContactResource.TooltipTypes%>
+        <%: CRMContactResource.TooltipTypes %>
         <a href="http://www.onlyoffice.com/help/tipstricks/contact-types.aspx" target="_blank"><%=CRMCommonResource.ButtonLearnMore%></a>
     </div>
     <div id="files_hintCsvPanel" class="hintDescriptionPanel">
-        <%=CRMContactResource.TooltipCsv%>
+        <%: CRMContactResource.TooltipCsv %>
         <a href="http://www.onlyoffice.com/help/guides/create-CSV-file.aspx" target="_blank"><%=CRMCommonResource.ButtonLearnMore%></a>
     </div>
 </asp:Content>

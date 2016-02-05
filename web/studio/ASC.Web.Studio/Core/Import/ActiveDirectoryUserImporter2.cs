@@ -24,18 +24,20 @@
 */
 
 
+using ASC.Core;
+using ASC.Core.Users;
+
 namespace ASC.Web.Studio.Core.Import
 {
     public static class ActiveDirectoryUserImporter
     {
-        public static bool TryLdapAuth(string login, string password)
-        {
-            return false;
-        }
+        public static bool LdapIsEnable { get { return false; } }
 
-        public static bool LdapIsEnable
+
+        public static bool TryGetLdapUserInfo(string login, string password, out UserInfo userInfo)
         {
-            get { return false; }
+            userInfo = null;
+            return false;
         }
     }
 }

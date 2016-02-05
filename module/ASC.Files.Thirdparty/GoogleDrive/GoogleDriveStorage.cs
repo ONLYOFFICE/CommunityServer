@@ -34,6 +34,8 @@ using System.Text;
 using ASC.FederatedLogin;
 using ASC.FederatedLogin.Helpers;
 using ASC.Common.Web;
+using ASC.FederatedLogin.LoginProviders;
+using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Core;
 using Google.Apis.Auth.OAuth2;
@@ -42,7 +44,6 @@ using Google.Apis.Auth.OAuth2.Responses;
 using Google.Apis.Drive.v2;
 using Google.Apis.Drive.v2.Data;
 using Google.Apis.Services;
-using Google.Apis.Upload;
 using Newtonsoft.Json.Linq;
 using File = Google.Apis.Drive.v2.Data.File;
 
@@ -57,24 +58,12 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             get
             {
                 if (_token == null) throw new Exception("Cannot create GoogleDrive session with given token");
-                if (_token.IsExpired) _token = OAuth20TokenHelper.RefreshToken(GoogleUrlToken, _token);
+                if (_token.IsExpired) _token = OAuth20TokenHelper.RefreshToken(GoogleLoginProvider.GoogleOauthTokenUrl, _token);
                 return _token.AccessToken;
             }
         }
 
         private DriveService _driveService;
-
-        public static string GoogleFolderMimeType = "application/vnd.google-apps.folder";
-
-        public static Dictionary<string, Tuple<string, string>> GoogleFilesMimeTypes = new Dictionary<string, Tuple<string, string>>
-            {
-                { "application/vnd.google-apps.document", new Tuple<string, string>(".gdoc", "application/vnd.openxmlformats-officedocument.wordprocessingml.document") },
-                { "application/vnd.google-apps.spreadsheet", new Tuple<string, string>(".gsheet", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") },
-                { "application/vnd.google-apps.presentation", new Tuple<string, string>(".gslides", "application/vnd.openxmlformats-officedocument.presentationml.presentation") }
-            };
-
-        public const string GoogleUrlToken = "https://www.googleapis.com/oauth2/v3/token";
-        public const string GoogleUrlUpload = "https://www.googleapis.com/upload/drive/v2/files";
 
         public bool IsOpened { get; private set; }
 
@@ -93,7 +82,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                 return;
 
             if (token == null) throw new UnauthorizedAccessException("Cannot create GoogleDrive session with given token");
-            if (token.IsExpired) token = OAuth20TokenHelper.RefreshToken(GoogleUrlToken, token);
+            if (token.IsExpired) token = OAuth20TokenHelper.RefreshToken(GoogleLoginProvider.GoogleOauthTokenUrl, token);
             _token = token;
 
             var tokenResponse = new TokenResponse
@@ -147,11 +136,11 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         {
             var request = _driveService.Files.List();
 
-            var query = "'" + folderId + "' in parents";
+            var query = "'" + folderId + "' in parents and trashed=false";
 
             if (folders.HasValue)
             {
-                query += " and mimeType " + (folders.Value ? "" : "!") + "= '" + GoogleFolderMimeType + "'";
+                query += " and mimeType " + (folders.Value ? "" : "!") + "= '" + GoogleLoginProvider.GoogleDriveMimeTypeFolder + "'";
             }
 
             request.Q = query;
@@ -187,10 +176,25 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                     return null;
                 }
 
-                Tuple<string, string> mimeData;
-                if (GoogleFilesMimeTypes.TryGetValue(file.MimeType, out mimeData))
+                var ext = MimeMapping.GetExtention(file.MimeType);
+                if (GoogleLoginProvider.GoogleDriveExt.Contains(ext))
                 {
-                    downloadUrl = file.ExportLinks[mimeData.Item2];
+                    var type = FileUtility.GetFileTypeByExtention(ext);
+
+                    var exportFormat = string.Empty;
+                    switch (type)
+                    {
+                        case FileType.Document:
+                            exportFormat = ".docx";
+                            break;
+                        case FileType.Spreadsheet:
+                            exportFormat = ".xlsx";
+                            break;
+                        case FileType.Presentation:
+                            exportFormat = ".pptx";
+                            break;
+                    }
+                    downloadUrl = file.ExportLinks[MimeMapping.GetMimeMapping(exportFormat)];
                 }
                 else
                 {
@@ -236,7 +240,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public File InsertEntry(Stream fileStream, string title, string parentId, bool folder = false)
         {
-            var mimeType = folder ? GoogleFolderMimeType : MimeMapping.GetMimeMapping(title);
+            var mimeType = folder ? GoogleLoginProvider.GoogleDriveMimeTypeFolder : MimeMapping.GetMimeMapping(title);
 
             var body = FileConstructor(title, mimeType, parentId);
 
@@ -294,8 +298,8 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public File SaveStream(string fileId, Stream fileStream, string fileTitle)
         {
-            var file = FileConstructor();
             var mimeType = MimeMapping.GetMimeMapping(fileTitle);
+            var file = FileConstructor(fileTitle, mimeType);
 
             var request = _driveService.Files.Update(file, fileId, fileStream, mimeType);
             request.NewRevision = false;
@@ -342,6 +346,9 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             var fileId = string.Empty;
             var method = "POST";
             var body = string.Empty;
+            var parents = driveFile.Parents.FirstOrDefault();
+            var folderId = parents != null ? parents.Id : null;
+
             if (driveFile.Id != null)
             {
                 fileId = "/" + driveFile.Id;
@@ -349,16 +356,13 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             }
             else
             {
-                var parents = driveFile.Parents.FirstOrDefault();
-                var folderId = parents != null ? parents.Id : null;
-
                 var titleData = !string.IsNullOrEmpty(driveFile.Title) ? string.Format("\"title\":\"{0}\"", driveFile.Title) : "";
                 var parentData = !string.IsNullOrEmpty(folderId) ? string.Format(",\"parents\":[{{\"id\":\"{0}\"}}]", folderId) : "";
 
                 body = !string.IsNullOrEmpty(titleData + parentData) ? string.Format("{{{0}{1}}}", titleData, parentData) : "";
             }
 
-            var request = WebRequest.Create(GoogleUrlUpload + fileId + "?uploadType=resumable&conver=false");
+            var request = WebRequest.Create(GoogleLoginProvider.GoogleUrlFileUpload + fileId + "?uploadType=resumable&conver=false");
             request.Method = method;
 
             var bytes = Encoding.UTF8.GetBytes(body);
@@ -370,7 +374,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
             request.GetRequestStream().Write(bytes, 0, bytes.Length);
 
-            var uploadSession = new ResumableUploadSession(driveFile, contentLength);
+            var uploadSession = new ResumableUploadSession(driveFile.Id, folderId, contentLength);
             using (var response = request.GetResponse())
             {
                 uploadSession.Location = response.Headers["Location"];
@@ -439,15 +443,8 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                     if (responseStream == null) return;
 
                     var respFile = FileFromString(new StreamReader(responseStream).ReadToEnd());
-                    var initFile = googleDriveSession.File;
 
-                    initFile.Id = respFile.Id;
-                    initFile.Title = respFile.Title;
-                    initFile.MimeType = respFile.MimeType;
-                    initFile.FileSize = respFile.FileSize;
-                    initFile.CreatedDate = respFile.CreatedDate;
-                    initFile.ModifiedDate = respFile.ModifiedDate;
-                    initFile.Parents = respFile.Parents;
+                    googleDriveSession.FileId = respFile.Id;
                 }
             }
 
@@ -463,28 +460,25 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         Aborted
     }
 
+    [Serializable]
     internal class ResumableUploadSession
     {
-        private readonly DateTime _createdOn = DateTime.UtcNow;
-
         public long BytesToTransfer { get; set; }
 
         public long BytesTransfered { get; set; }
 
-        public File File { get; set; }
+        public string FileId { get; set; }
+
+        public string FolderId { get; set; }
 
         public ResumableUploadSessionStatus Status { get; set; }
 
-        public DateTime CreatedOn
-        {
-            get { return _createdOn; }
-        }
-
         public string Location { get; set; }
 
-        public ResumableUploadSession(File file, long bytesToTransfer)
+        public ResumableUploadSession(string fileId, string folderId, long bytesToTransfer)
         {
-            File = file;
+            FileId = fileId;
+            FolderId = folderId;
             BytesToTransfer = bytesToTransfer;
             Status = ResumableUploadSessionStatus.None;
         }

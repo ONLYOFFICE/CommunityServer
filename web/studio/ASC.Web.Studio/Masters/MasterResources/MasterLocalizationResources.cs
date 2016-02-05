@@ -62,34 +62,33 @@ namespace ASC.Web.Studio.Masters.MasterResources
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterResourceSet("Resource", ResourceJS.ResourceManager);
-            yield return RegisterResourceSet("FeedResource", FeedResource.ResourceManager);
-            yield return RegisterResourceSet("ChatResource", ChatResource.ResourceManager);
-
             var dateTimeFormat = Thread.CurrentThread.CurrentCulture.DateTimeFormat;
-            yield return RegisterObject("DatePattern", dateTimeFormat.ShortDatePattern);
-            yield return RegisterObject("TimePattern", dateTimeFormat.ShortTimePattern);
-            yield return RegisterObject("DateTimePattern", dateTimeFormat.FullDateTimePattern);
-            yield return RegisterObject("DatePatternJQ", DateTimeExtension.DateMaskForJQuery); //.Replace(" ", string.Empty) -  remove because, crash date in datepicker on czech language (bug 21954)
 
-            yield return RegisterObject("DatepickerDatePattern", GetDatepikerDateFormat(dateTimeFormat.ShortDatePattern));
-            yield return RegisterObject("DatepickerTimePattern", GetDatepikerDateFormat(dateTimeFormat.ShortTimePattern));
-            yield return RegisterObject("DatepickerDateTimePattern", GetDatepikerDateFormat(dateTimeFormat.FullDateTimePattern));
-
-            yield return RegisterObject("FirstDay", (int)dateTimeFormat.FirstDayOfWeek);
-            yield return RegisterObject("DayNames", dateTimeFormat.AbbreviatedDayNames);
-            yield return RegisterObject("DayNamesFull", dateTimeFormat.DayNames);
-            yield return RegisterObject("MonthNames", Thread.CurrentThread.CurrentUICulture.DateTimeFormat.AbbreviatedMonthGenitiveNames);
-            yield return RegisterObject("MonthNamesFull", Thread.CurrentThread.CurrentUICulture.DateTimeFormat.MonthNames);
-
-            yield return RegisterObject("TwoLetterISOLanguageName", Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName);
-            yield return RegisterObject("CurrentCultureName", Thread.CurrentThread.CurrentCulture.Name.ToLowerInvariant());
-            yield return RegisterObject("CurrentCulture", CultureInfo.CurrentCulture.Name);
-
-            yield return RegisterObject("FileSizePostfix", Resource.FileSizePostfix);
-            yield return RegisterObject("AccessRightsAccessToProduct", Resource.AccessRightsAccessToProduct);
-            yield return RegisterObject("AccessRightsDisabledProduct", Resource.AccessRightsDisabledProduct);
-
+            return new List<KeyValuePair<string, object>>(22)
+                   {
+                       RegisterResourceSet("Resource", ResourceJS.ResourceManager),
+                       RegisterResourceSet("FeedResource", FeedResource.ResourceManager),
+                       RegisterResourceSet("ChatResource", ChatResource.ResourceManager),
+                       RegisterResourceSet("UserControlsCommonResource", UserControlsCommonResource.ResourceManager),
+                       RegisterObject("DatePattern", dateTimeFormat.ShortDatePattern),
+                       RegisterObject("TimePattern", dateTimeFormat.ShortTimePattern),
+                       RegisterObject("DateTimePattern", dateTimeFormat.FullDateTimePattern),
+                       RegisterObject("DatePatternJQ", DateTimeExtension.DateMaskForJQuery), //.Replace(" ", string.Empty) -  remove because, crash date in datepicker on czech language (bug 21954)
+                       RegisterObject("DatepickerDatePattern", GetDatepikerDateFormat(dateTimeFormat.ShortDatePattern)),
+                       RegisterObject("DatepickerTimePattern", GetDatepikerDateFormat(dateTimeFormat.ShortTimePattern)),
+                       RegisterObject("DatepickerDateTimePattern", GetDatepikerDateFormat(dateTimeFormat.FullDateTimePattern)),
+                       RegisterObject("FirstDay", (int)dateTimeFormat.FirstDayOfWeek),
+                       RegisterObject("DayNames", dateTimeFormat.AbbreviatedDayNames),
+                       RegisterObject("DayNamesFull", dateTimeFormat.DayNames),
+                       RegisterObject("MonthNames", Thread.CurrentThread.CurrentUICulture.DateTimeFormat.AbbreviatedMonthGenitiveNames),
+                       RegisterObject("MonthNamesFull", Thread.CurrentThread.CurrentUICulture.DateTimeFormat.MonthNames),
+                       RegisterObject("TwoLetterISOLanguageName", Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName),
+                       RegisterObject("CurrentCultureName", Thread.CurrentThread.CurrentCulture.Name.ToLowerInvariant()),
+                       RegisterObject("CurrentCulture", CultureInfo.CurrentCulture.Name),
+                       RegisterObject("FileSizePostfix", Resource.FileSizePostfix),
+                       RegisterObject("AccessRightsAccessToProduct", Resource.AccessRightsAccessToProduct),
+                       RegisterObject("AccessRightsDisabledProduct", Resource.AccessRightsDisabledProduct)
+                   };
         }
     }
 
@@ -102,18 +101,21 @@ namespace ASC.Web.Studio.Masters.MasterResources
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterObject("Admin", CustomNamingPeople.Substitute<Resource>("Administrator"));
-            yield return RegisterObject("User", CustomNamingPeople.Substitute<Resource>("User"));
-            yield return RegisterObject("Guest", CustomNamingPeople.Substitute<Resource>("Guest"));
-            yield return RegisterObject("Department", CustomNamingPeople.Substitute<Resource>("Department"));
-            yield return RegisterObject("ConfirmRemoveUser", CustomNamingPeople.Substitute<Resource>("ConfirmRemoveUser").HtmlEncode());
-            yield return RegisterObject("ConfirmRemoveDepartment", CustomNamingPeople.Substitute<Resource>("DeleteDepartmentConfirmation").HtmlEncode());
-            yield return RegisterObject("AddDepartmentHeader", CustomNamingPeople.Substitute<Resource>("AddDepartmentDlgTitle").HtmlEncode());
-            yield return RegisterObject("EditDepartmentHeader", CustomNamingPeople.Substitute<Resource>("DepEditHeader").HtmlEncode());
-            yield return RegisterObject("EmployeeAllDepartments", CustomNamingPeople.Substitute<Resource>("EmployeeAllDepartments").HtmlEncode());
-            yield return RegisterObject("AddEmployees", CustomNamingPeople.Substitute<UserControlsCommonResource>("AddEmployees").HtmlEncode());
-            yield return RegisterObject("AccessRightsAddUser", CustomNamingPeople.Substitute<Resources.Resource>("AccessRightsAddUser").HtmlEncode());
-            yield return RegisterObject("AccessRightsAddGroup", CustomNamingPeople.Substitute<Resources.Resource>("AccessRightsAddGroup").HtmlEncode());
+            return new List<KeyValuePair<string, object>>(12)
+                   {
+                       RegisterObject("Admin", CustomNamingPeople.Substitute<Resource>("Administrator")),
+                       RegisterObject("User", CustomNamingPeople.Substitute<Resource>("User")),
+                       RegisterObject("Guest", CustomNamingPeople.Substitute<Resource>("Guest")),
+                       RegisterObject("Department", CustomNamingPeople.Substitute<Resource>("Department")),
+                       RegisterObject("ConfirmRemoveUser", CustomNamingPeople.Substitute<Resource>("ConfirmRemoveUser").HtmlEncode()),
+                       RegisterObject("ConfirmRemoveDepartment", CustomNamingPeople.Substitute<Resource>("DeleteDepartmentConfirmation").HtmlEncode()),
+                       RegisterObject("AddDepartmentHeader", CustomNamingPeople.Substitute<Resource>("AddDepartmentDlgTitle").HtmlEncode()),
+                       RegisterObject("EditDepartmentHeader", CustomNamingPeople.Substitute<Resource>("DepEditHeader").HtmlEncode()),
+                       RegisterObject("EmployeeAllDepartments", CustomNamingPeople.Substitute<Resource>("EmployeeAllDepartments").HtmlEncode()),
+                       RegisterObject("AddEmployees", CustomNamingPeople.Substitute<UserControlsCommonResource>("AddEmployees").HtmlEncode()),
+                       RegisterObject("AccessRightsAddUser", CustomNamingPeople.Substitute<Resources.Resource>("AccessRightsAddUser").HtmlEncode()),
+                       RegisterObject("AccessRightsAddGroup", CustomNamingPeople.Substitute<Resources.Resource>("AccessRightsAddGroup").HtmlEncode())
+                   };
         }
     }
 }

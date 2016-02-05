@@ -56,7 +56,14 @@ namespace ASC.Core
             thisCompAddresses.Add("localhost");
             thisCompAddresses.Add(Dns.GetHostName().ToLowerInvariant());
             thisCompAddresses.AddRange(Dns.GetHostAddresses("localhost").Select(a => a.ToString()));
-            thisCompAddresses.AddRange(Dns.GetHostAddresses(Dns.GetHostName()).Select(a => a.ToString()));
+            try
+            {
+                thisCompAddresses.AddRange(Dns.GetHostAddresses(Dns.GetHostName()).Select(a => a.ToString()));
+            }
+            catch
+            {
+                // ignore
+            }
         }
 
 
@@ -81,8 +88,8 @@ namespace ASC.Core
             }
             if (t == null)
             {
-                var baseUrl = ConfigurationManager.AppSettings["core.base-domain"];
-                if (baseUrl != null && domain.EndsWith("." + baseUrl, StringComparison.InvariantCultureIgnoreCase))
+                var baseUrl = CoreContext.Configuration.BaseDomain;
+                if (!String.IsNullOrEmpty(baseUrl) && domain.EndsWith("." + baseUrl, StringComparison.InvariantCultureIgnoreCase))
                 {
                     t = tenantService.GetTenant(domain.Substring(0, domain.Length - baseUrl.Length - 1));
                 }
@@ -198,7 +205,7 @@ namespace ASC.Core
 
         public TenantQuota GetTenantQuota(int tenant)
         {
-            // ���� � tenants_quota ���� ������, � ������ ��������������� �������, �� � �������� ����� ������� ������ ���
+            // если в tenants_quota есть строка, с данным идентификатором портала, то в качестве квоты берется именно она
             var q = quotaService.GetTenantQuota(tenant) ?? quotaService.GetTenantQuota(Tenant.DEFAULT_TENANT) ?? TenantQuota.Default;
             if (q.Id != tenant && tariffService != null)
             {
@@ -209,6 +216,14 @@ namespace ASC.Core
                 }
             }
             return q;
+        }
+
+        public TenantQuota SaveTenantQuota(TenantQuota quota)
+        {
+            if (!CoreContext.Configuration.Standalone) throw new NotImplementedException();
+
+            quota = quotaService.SaveTenantQuota(quota);
+            return quota;
         }
 
         public void SetTenantQuotaRow(TenantQuotaRow row, bool exchange)

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -31,6 +31,7 @@ using ASC.Web.UserControls.Bookmarking.Common.Presentation;
 using ASC.Web.Community.Product;
 using ASC.Bookmarking.Common;
 using ASC.Web.UserControls.Bookmarking.Resources;
+using ASC.Bookmarking;
 
 namespace ASC.Web.Community.Bookmarking.Util
 {
@@ -46,9 +47,9 @@ namespace ASC.Web.Community.Bookmarking.Util
         {
             BookmarkingBusinessConstants.CommunityProductID = CommunityProduct.ID;
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/products/community/modules/bookmarking/app_themes/default/css/bookmarkingstyle.css"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/products/community/modules/bookmarking/js/bookmarking.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/asc/plugins/tagsautocompletebox.js"));
+            Page.RegisterStyle("~/products/community/modules/bookmarking/app_themes/default/css/bookmarkingstyle.css");
+            Page.RegisterBodyScripts("~/products/community/modules/bookmarking/js/bookmarking.js");
+            Page.RegisterBodyScripts("~/js/asc/plugins/tagsautocompletebox.js");
 
             ServiceHelper = BookmarkingServiceHelper.GetCurrentInstanse();
 
@@ -62,16 +63,17 @@ namespace ASC.Web.Community.Bookmarking.Util
             var searchText = ServiceHelper.GetSearchText();
             if (!String.IsNullOrEmpty(searchText))
             {
-                ServiceHelper.DisplayMode = BookmarkingServiceHelper.BookmarkDisplayMode.SearchBookmarks;
+                BookmarkingBusinessFactory.UpdateObjectInCookies("BookmarkDisplayMode", BookmarkDisplayMode.SearchBookmarks.ToString());
+                BookmarkingServiceHelper.UpdateCurrentInstanse(ServiceHelper);
                 return;
             }
 
             searchText = ServiceHelper.GetSearchTag();
             if (!String.IsNullOrEmpty(searchText))
             {
-                ServiceHelper.DisplayMode = BookmarkingServiceHelper.BookmarkDisplayMode.SearchByTag;
+                BookmarkingBusinessFactory.UpdateObjectInCookies("BookmarkDisplayMode", BookmarkDisplayMode.SearchByTag.ToString());
+                BookmarkingServiceHelper.UpdateCurrentInstanse(ServiceHelper);
                 var searchResults = String.Format("{0} {1}", BookmarkingUCResource.TagBookmarks, searchText);
-
                 Title = searchResults;
             }
         }

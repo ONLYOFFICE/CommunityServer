@@ -81,7 +81,7 @@ namespace ActiveUp.Net.Mail
                         {
                             //smtp.MailFrom("postmaster@"+System.Net.Dns.GetHostName());
                             //smtp.MailFrom("postmaster@evolution-internet.com");
-                            smtp.MailFrom("postmaster@" + domain);
+                            smtp.MailFrom(string.Format("postmaster@{0}", domain));
                             smtp.RcptTo(address);
                             result = true;
                         }
@@ -182,7 +182,7 @@ namespace ActiveUp.Net.Mail
                     {
                         //smtp.MailFrom("postmaster@"+System.Net.Dns.GetHostName());
                         //smtp.MailFrom("postmaster@evolution-internet.com");
-                        smtp.MailFrom("postmaster@" + domain);
+                        smtp.MailFrom(string.Format("postmaster@{0}", domain));
                         smtp.RcptTo(address);
                         result = true;
                     }
@@ -348,7 +348,7 @@ namespace ActiveUp.Net.Mail
                             {
                                 //smtp.MailFrom("postmaster@"+System.Net.Dns.GetHostName());
                                 //smtp.MailFrom("postmaster@evolution-internet.com");
-                                smtp.MailFrom("postmaster@" + currentDomain);
+                                smtp.MailFrom(string.Format("postmaster@{0}", currentDomain));
                                 smtp.RcptTo(address);
                             }
                             catch
@@ -456,7 +456,7 @@ namespace ActiveUp.Net.Mail
 
                                 //smtp.MailFrom("postmaster@"+System.Net.Dns.GetHostName());
                                 //smtp.MailFrom("postmaster@evolution-internet.com");
-                                smtp.MailFrom("postmaster@" + currentDomain);
+                                smtp.MailFrom(string.Format("postmaster@{0}", currentDomain));
                                 smtp.RcptTo(address);
                                 valids1.Add((ActiveUp.Net.Mail.Address)adds.GetValue(i));
                             }
@@ -565,7 +565,7 @@ namespace ActiveUp.Net.Mail
                             {
                                 //smtp.MailFrom("postmaster@"+System.Net.Dns.GetHostName());
                                 //smtp.MailFrom("postmaster@evolution-internet.com");
-                                smtp.MailFrom("postmaster@" + currentDomain);
+                                smtp.MailFrom(string.Format("postmaster@{0}", currentDomain));
                                 smtp.RcptTo(address);
                             }
                             catch
@@ -678,7 +678,7 @@ namespace ActiveUp.Net.Mail
                             {
                                 //smtp.MailFrom("postmaster@"+System.Net.Dns.GetHostName());
                                 //smtp.MailFrom("postmaster@evolution-internet.com");
-                                smtp.MailFrom("postmaster@" + currentDomain);
+                                smtp.MailFrom(string.Format("postmaster@{0}", currentDomain));
                                 smtp.RcptTo(address);
                                 valids1.Add((ActiveUp.Net.Mail.Address)adds.GetValue(i));
                             }

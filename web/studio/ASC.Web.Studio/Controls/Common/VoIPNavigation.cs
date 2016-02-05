@@ -43,8 +43,8 @@ namespace ASC.Web.Studio.Controls.Common
         {
             if (!VoipEnabled) return string.Empty;
 
-            page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/asc/core/voip.countries.js"));
-            page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/asc/core/voip.phone.js"));
+            page.RegisterBodyScripts("~/js/asc/core/voip.countries.js");
+            page.RegisterBodyScripts("~/js/asc/core/voip.phone.js");
             page.RegisterClientScript(typeof(VoipNumberData));
 
             return

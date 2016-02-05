@@ -70,7 +70,7 @@
         <div class="desc">
             <%= String.Format(ASC.Web.Studio.Core.Users.CustomNamingPeople.Substitute<Resource>("ImportContactsDescription"),"<span class=\"starStyle\">*</span>")%>
         </div>
-        <div class="smallDesc"><span class="starStyle">*</span> <%= Resource.ImportContactsSmallDescription %></div>
+        <div class="smallDesc"><span class="starStyle">*</span> <%= Resource.ImportContactsSmallDescription.HtmlEncode() %></div>
         <div class="clearFix importUsers" id="panel">
             <div class="frame <%= MobileDetector.IsMobile ? "framePad" : "" %>">
                 <iframe src="<%= SetupInfo.GetImportServiceUrl() %>" style="border: none; width: <%= MobileDetector.IsMobile ? "100%" : "505px" %>; height: 50px; overflow: hidden; filter: alpha(opacity=100);" frameborder="0" id="ifr"></iframe>
@@ -165,7 +165,7 @@
                 </div>
                 <div class="popup_helper" id="answerForHelpInviteGuests">
                     <p>
-                        <%=string.Format(Resource.NoteForInviteCollaborator, "<b>","</b>")%>
+                        <%=string.Format(Resource.NoteForInviteCollaborator.HtmlEncode(), "<b>","</b>")%>
                          <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
                             { %>
                         <a href="<%= CommonLinkUtility.GetHelpLink(true) %>" target="_blank">
@@ -195,15 +195,15 @@
         <Body>
             <div class="tariff-limitexceed-users">
                 <div id="importUserLimitHeader" class="header-base-medium">
-                    <%=PeopleLimit > 0 ? String.Format(Resource.ImportUserLimitHeader, PeopleLimit) : Resource.ImportUserOverlimitHeader%>
+                    <%= PeopleLimit > 0 ? String.Format(Resource.ImportUserLimitHeader.HtmlEncode(), PeopleLimit) : Resource.ImportUserOverlimitHeader.HtmlEncode()%>
                 </div>
                 <br/>
                 <div>
-                    <%=FreeTariff ?
-                        string.Format(Resource.ImportUserOpenPortalLimitReason,
+                    <%= FreeTariff ?
+                        string.Format(Resource.ImportUserOpenPortalLimitReason.HtmlEncode(),
                             "<br/><a class='link underline' href='http://helpcenter.onlyoffice.com/gettingstarted/configuration.aspx#PublicPortals' target='_blank'>",
                             "</a>") :
-                        Resource.ImportUserLimitReason%>
+                        Resource.ImportUserLimitReason.HtmlEncode() %>
                 </div>
             </div>
             <div class="middle-button-container">
@@ -226,7 +226,7 @@
     <tr>
         <td class="fistable">
             <div class="desc">
-                <%= Resource.ImportContactsFirstable %>
+                <%= Resource.ImportContactsFirstable.HtmlEncode() %>
             </div>
         </td>
     </tr>

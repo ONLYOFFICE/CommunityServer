@@ -117,11 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Portal. Acess rights.</value>
+  </data>
   <data name="Announcement" xml:space="preserve">
     <value>Announcement</value>
   </data>
   <data name="Announcements" xml:space="preserve">
     <value>Announcements</value>
+  </data>
+  <data name="Birthdays" xml:space="preserve">
+    <value>Дни рождения</value>
   </data>
   <data name="Blogs" xml:space="preserve">
     <value>Blogs</value>
@@ -131,9 +137,6 @@
   </data>
   <data name="BlogsModuleLink1" xml:space="preserve">
     <value>Add post</value>
-  </data>
-  <data name="BlogsModuleLink2" xml:space="preserve">
-    <value>Start forum</value>
   </data>
   <data name="BlogsModuleSecondLine" xml:space="preserve">
     <value>Read and comment the thoughts of other users</value>
@@ -147,34 +150,28 @@
   <data name="Bookmarks" xml:space="preserve">
     <value>Bookmarks</value>
   </data>
-  <data name="BtnAddContent" xml:space="preserve">
-    <value>Add Content</value>
-  </data>
-  <data name="BtnCustomizeWidgets" xml:space="preserve">
-    <value>Customize Widgets</value>
-  </data>
   <data name="Categories" xml:space="preserve">
     <value>Categories</value>
-  </data>
-  <data name="CommunityActivityWidgetDescription" xml:space="preserve">
-    <value>shows your colleagues' recent actions</value>
-  </data>
-  <data name="CommunityActivityWidgetName" xml:space="preserve">
-    <value>What's New</value>
   </data>
   <data name="CreateNew" xml:space="preserve">
     <value>Create New</value>
   </data>
-  <data name="CustomizeDashboardLink" xml:space="preserve">
-    <value>Customize Widgets</value>
-  </data>
   <data name="DashboardTitle" xml:space="preserve">
     <value>Business Collaboration tools</value>
   </data>
-  <data name="Employees" xml:space="preserve">
-    <value>{!Users}</value>
-  </data>
   <data name="Events" xml:space="preserve">
+    <value>Events</value>
+  </data>
+  <data name="EventsModuleFirstLine" xml:space="preserve">
+    <value>Share the latest news and learn opinions of other users</value>
+  </data>
+  <data name="EventsModuleLink" xml:space="preserve">
+    <value>Add event</value>
+  </data>
+  <data name="EventsModuleSecondLine" xml:space="preserve">
+    <value>Post important announcements for your colleagues</value>
+  </data>
+  <data name="EventsModuleTitle" xml:space="preserve">
     <value>Events</value>
   </data>
   <data name="Favorites" xml:space="preserve">
@@ -191,9 +188,6 @@
   </data>
   <data name="Forums" xml:space="preserve">
     <value>Forums</value>
-  </data>
-  <data name="GreetingPrefix" xml:space="preserve">
-    <value>Welcome to {0}</value>
   </data>
   <data name="Help" xml:space="preserve">
     <value>Help</value>
@@ -216,29 +210,11 @@
   <data name="InForParentPage" xml:space="preserve">
     <value>in</value>
   </data>
-  <data name="Logout" xml:space="preserve">
-    <value>Exit</value>
-  </data>
-  <data name="MainPageTitle" xml:space="preserve">
-    <value>Community</value>
-  </data>
-  <data name="Messages" xml:space="preserve">
-    <value>Messages</value>
-  </data>
-  <data name="ModuleBetweenLinks" xml:space="preserve">
-    <value>or</value>
-  </data>
-  <data name="MyProfile" xml:space="preserve">
-    <value>My Profile</value>
-  </data>
   <data name="NewPages" xml:space="preserve">
     <value>New pages</value>
   </data>
   <data name="News" xml:space="preserve">
     <value>News</value>
-  </data>
-  <data name="Online" xml:space="preserve">
-    <value>Online</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Order</value>
@@ -273,50 +249,23 @@
   <data name="ProductUserOpportunities" xml:space="preserve">
     <value>Создавать и редактировать свой пост в блоге, вики-статью, сообщение на форуме и т.д.</value>
   </data>
-  <data name="QuickActions" xml:space="preserve">
-    <value>Quick action</value>
-  </data>
-  <data name="QuickActionsDescription" xml:space="preserve">
-    <value>Creating a blog, adding photos, creating a message</value>
-  </data>
   <data name="RecentlyEdited" xml:space="preserve">
     <value>Recently edited</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="Subscribed" xml:space="preserve">
     <value>subscribed</value>
   </data>
-  <data name="Tags" xml:space="preserve">
-    <value>Tags</value>
-  </data>
   <data name="Topic" xml:space="preserve">
     <value>Topic</value>
-  </data>
-  <data name="Unsubscribed" xml:space="preserve">
-    <value>Unsubscribed</value>
-  </data>
-  <data name="UsersModuleFirstLine" xml:space="preserve">
-    <value>Add new users manually or automatically</value>
-  </data>
-  <data name="UsersModuleLink" xml:space="preserve">
-    <value>Add users</value>
-  </data>
-  <data name="UsersModuleSecondLine" xml:space="preserve">
-    <value>Customize your group type and user roles</value>
-  </data>
-  <data name="UsersModuleTitle" xml:space="preserve">
-    <value>Users</value>
-  </data>
-  <data name="WidgetPanelTitle" xml:space="preserve">
-    <value>My Widgets</value>
   </data>
   <data name="Wiki" xml:space="preserve">
     <value>Wiki</value>
   </data>
   <data name="WikiModuleFirstLine" xml:space="preserve">
     <value>Create and store all your bookmarks in one place</value>
-  </data>
-  <data name="WikiModuleLink1" xml:space="preserve">
-    <value>Create page</value>
   </data>
   <data name="WikiModuleLink2" xml:space="preserve">
     <value>Add bookmark</value>
@@ -326,50 +275,5 @@
   </data>
   <data name="WikiModuleTitle" xml:space="preserve">
     <value>Bookmarks</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="Birthdays" xml:space="preserve">
-    <value>Дни рождения</value>
-  </data>
-  <data name="AccessRightsSettings" xml:space="preserve">
-    <value>Portal. Acess rights.</value>
-  </data>
-  <data name="HelpContentAddNew" xml:space="preserve">
-    <value>Click this button and select the content type you wish to share with other portal users.</value>
-  </data>
-  <data name="HelpContentNavigateRead" xml:space="preserve">
-    <value>Switch between the Community sections to read and comment the available information.</value>
-  </data>
-  <data name="HelpContentSettings" xml:space="preserve">
-    <value>Open the portal Settings page if you need to restrict the access to the Community module and select the tools you need for your social network.</value>
-  </data>
-  <data name="HelpContentSwitchModules" xml:space="preserve">
-    <value>Use the drop-down list to go to another TeamLab module or tool.</value>
-  </data>
-  <data name="HelpTitleAddNew" xml:space="preserve">
-    <value>Add New Content</value>
-  </data>
-  <data name="HelpTitleNavigateRead" xml:space="preserve">
-    <value>Navigate &amp; Read</value>
-  </data>
-  <data name="HelpTitleSettings" xml:space="preserve">
-    <value>Change Community Settings</value>
-  </data>
-  <data name="HelpTitleSwitchModules" xml:space="preserve">
-    <value>Switch between Modules</value>
-  </data>
-  <data name="EventsModuleFirstLine" xml:space="preserve">
-    <value>Share the latest news and learn opinions of other users</value>
-  </data>
-  <data name="EventsModuleLink" xml:space="preserve">
-    <value>Add event</value>
-  </data>
-  <data name="EventsModuleSecondLine" xml:space="preserve">
-    <value>Post important announcements for your colleagues</value>
-  </data>
-  <data name="EventsModuleTitle" xml:space="preserve">
-    <value>Events</value>
   </data>
 </root>

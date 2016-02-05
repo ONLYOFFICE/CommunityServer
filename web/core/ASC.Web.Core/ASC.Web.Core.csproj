@@ -58,13 +58,13 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxPro.2">
-      <HintPath>..\..\..\packages\AjaxPro.2.2.9.17.1\lib\net20\AjaxPro.2.dll</HintPath>
+      <HintPath>..\..\..\packages\AjaxPro.2.2.9.17.2\lib\net20\AjaxPro.2.dll</HintPath>
     </Reference>
     <Reference Include="AWSSDK">
       <HintPath>..\..\..\packages\AWSSDK.2.3.5.0\lib\net45\AWSSDK.dll</HintPath>
     </Reference>
     <Reference Include="dotless.Core">
-      <HintPath>..\..\..\packages\dotless.1.3.1.0\lib\dotless.Core.dll</HintPath>
+      <HintPath>..\..\..\packages\dotless.1.5.1\lib\dotless.Core.dll</HintPath>
     </Reference>
     <Reference Include="EcmaScript.NET">
       <HintPath>..\..\..\packages\EcmaScript.Net.1.0.1.0\lib\net20\EcmaScript.NET.dll</HintPath>
@@ -83,7 +83,7 @@
       <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -112,7 +112,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="Yahoo.Yui.Compressor">
-      <HintPath>..\..\..\packages\YUICompressor.NET.2.2.0.0\lib\NET20\Yahoo.Yui.Compressor.dll</HintPath>
+      <HintPath>..\..\..\packages\YUICompressor.NET.2.7.0.0\lib\NET20\Yahoo.Yui.Compressor.dll</HintPath>
       <Private>False</Private>
     </Reference>
   </ItemGroup>
@@ -128,8 +128,8 @@
     <Compile Include="Calendars\RecurrenceRule.cs" />
     <Compile Include="Calendars\SharingOptions.cs" />
     <Compile Include="Client\Bundling\BundleConfig.cs" />
+    <Compile Include="Client\Bundling\ClientScriptRouteHandler.cs" />
     <Compile Include="Client\Bundling\CopyrigthTransform.cs" />
-    <Compile Include="Client\Bundling\ClientScriptVirtualPathProvider.cs" />
     <Compile Include="Client\Bundling\CdnTransform.cs" />
     <Compile Include="Client\Bundling\DiscTransform.cs" />
     <Compile Include="Client\Bundling\NullOrderer.cs" />
@@ -144,10 +144,10 @@
     <Compile Include="Client\Bundling\ClientScriptReference.cs" />
     <Compile Include="Client\HttpHandlers\ClientScriptCustom.cs" />
     <Compile Include="Client\Templates\JqTemplateCompiler.cs" />
-    <Compile Include="CoBranding\CoBrandingLogoTypeEnum.cs" />
-    <Compile Include="CoBranding\TenantCoBrandingSettings.cs" />
-    <Compile Include="CoBranding\TenantInfoSettings.cs" />
-    <Compile Include="CoBranding\TenantLogoManager.cs" />
+    <Compile Include="WhiteLabel\WhiteLabelLogoTypeEnum.cs" />
+    <Compile Include="WhiteLabel\TenantWhiteLabelSettings.cs" />
+    <Compile Include="WhiteLabel\TenantInfoSettings.cs" />
+    <Compile Include="WhiteLabel\TenantLogoManager.cs" />
     <Compile Include="CookiesManager.cs" />
     <Compile Include="Client\HttpHandlers\ClientScript.cs" />
     <Compile Include="Files\ContentDispositionUtil.cs" />
@@ -257,10 +257,6 @@
     <ProjectReference Include="..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
       <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
       <Name>ASC.Data.Storage</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\common\TMResourceManager\ASC.Resource.Data\ASC.Resource.Data.csproj">
-      <Project>{826533d1-ae21-4d14-87ba-67eb9d81d03e}</Project>
-      <Name>ASC.Resource.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

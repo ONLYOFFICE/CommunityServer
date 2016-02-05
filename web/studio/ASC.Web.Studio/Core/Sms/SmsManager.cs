@@ -24,8 +24,8 @@
 */
 
 
+using ASC.Common.Caching;
 using ASC.Core;
-using ASC.Core.Caching;
 using ASC.Core.Users;
 using ASC.Web.Core;
 using Resources;
@@ -130,8 +130,10 @@ namespace ASC.Web.Studio.Core.SMS
 
             if (string.IsNullOrEmpty(code)) throw new Exception(Resource.ActivateMobilePhoneEmptyCode);
 
-            // защита от перебора: на 5-ый неправильный ввод делать Sleep
-            var counter = (int)(CodeCache.Get("loginsec/" + user.ID) ?? 0);
+            int counter = 0;
+
+            int.TryParse(CodeCache.Get<String>("loginsec/" + user.ID), out counter);
+
             if (++counter % 5 == 0)
             {
                 Thread.Sleep(TimeSpan.FromSeconds(10));

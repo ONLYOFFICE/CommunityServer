@@ -1,9 +1,4 @@
-﻿/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
-
-window.ASC = window.ASC || {};
+﻿window.ASC = window.ASC || {};
 
 window.ASC.TMTalk = window.ASC.TMTalk || {};
 

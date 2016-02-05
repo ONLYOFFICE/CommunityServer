@@ -24,28 +24,25 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Web;
 using ASC.Blogs.Core.Data;
 using ASC.Blogs.Core.Domain;
 using ASC.Blogs.Core.Security;
 using ASC.Blogs.Core.Service;
+using ASC.Common.Caching;
 using ASC.Common.Web;
 using ASC.Core;
-using ASC.Core.Caching;
 using ASC.Core.Common.Notify;
-using ASC.FullTextIndex.Service;
-using ASC.Notify;
 using ASC.FullTextIndex;
+using ASC.Notify;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
+using ASC.Web.Community.Product;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.Utility;
-using ASC.Web.Community.Product;
-using ASC.Web.Studio.Core.Notify;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace ASC.Blogs.Core
 {

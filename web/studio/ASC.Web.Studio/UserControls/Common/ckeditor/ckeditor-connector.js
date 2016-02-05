@@ -1,8 +1,4 @@
-﻿/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
-new function () {
+﻿new function () {
     if (window.CKEDITOR && window.CKEDITOR.dom)
         return;
 

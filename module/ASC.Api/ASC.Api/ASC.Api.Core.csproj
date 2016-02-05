@@ -73,7 +73,7 @@
       <HintPath>..\..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -105,7 +105,6 @@
     <Compile Include="Attributes\ApiAttribute.cs" />
     <Compile Include="Attributes\ApiCallFilter.cs" />
     <Compile Include="Attributes\CacheAttribute.cs" />
-    <Compile Include="Attributes\PollAttribute.cs" />
     <Compile Include="Batch\ApiBatchHttpHandler.cs" />
     <Compile Include="Batch\ApiBatchRequest.cs" />
     <Compile Include="Batch\ApiBatchResponse.cs" />
@@ -128,9 +127,7 @@
     <Compile Include="Impl\Constraints\ApiHttpMethodConstraint.cs" />
     <Compile Include="Impl\Routing\ApiAccessControlRouteRegistrator.cs" />
     <Compile Include="Impl\Routing\ApiBatchRouteRegitrator.cs" />
-    <Compile Include="Impl\Poll\ApiAsyncHttpHandler.cs" />
     <Compile Include="Impl\ApiRouteConfigurator.cs" />
-    <Compile Include="Impl\Routing\ApiPollRouteRegistrator.cs" />
     <Compile Include="Impl\Routing\ApiRouteRegistrator.cs" />
     <Compile Include="Impl\Routing\ApiRouteRegistratorBase.cs" />
     <Compile Include="Impl\Serializers\JsonStringConverter.cs" />
@@ -139,7 +136,6 @@
     <Compile Include="Interfaces\IApiSerializer.cs" />
     <Compile Include="Impl\Serializers\JsonNetSerializer.cs" />
     <Compile Include="Impl\Serializers\SerializerResponder.cs" />
-    <Compile Include="Interfaces\IApiAsyncHttpHandler.cs" />
     <Compile Include="Interfaces\IApiBootstrapper.cs" />
     <Compile Include="Interfaces\IApiDateTime.cs" />
     <Compile Include="Impl\ApiAllowAllAuthorization.cs" />
@@ -180,13 +176,6 @@
     <Compile Include="Logging\ILog.cs" />
     <Compile Include="Attributes\NoAutoRegistrationAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Publisher\ApiMethodCallData.cs" />
-    <Compile Include="Publisher\ApiPubSub.cs" />
-    <Compile Include="Publisher\AsyncHttpHandlerBase.cs" />
-    <Compile Include="Publisher\AsyncWaitRequestState.cs" />
-    <Compile Include="Publisher\DataHandler.cs" />
-    <Compile Include="Interfaces\IApiPubSub.cs" />
-    <Compile Include="Publisher\KeyHelper.cs" />
     <Compile Include="Utils\Binder.cs" />
     <Compile Include="Utils\ConvertUtils.cs" />
     <Compile Include="Utils\ErrorHttpHandler.cs" />

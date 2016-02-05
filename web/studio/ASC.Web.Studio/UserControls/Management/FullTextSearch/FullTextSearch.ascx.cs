@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -31,6 +31,7 @@ using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Data.Storage;
 using ASC.FullTextIndex;
+using ASC.MessagingSystem;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 using AjaxPro;
@@ -55,8 +56,8 @@ namespace ASC.Web.Studio.UserControls.Management
                 Response.Redirect("~/management.aspx");
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/fulltextsearch/js/fulltextsearch.js"));
-            Page.RegisterStyleControl(WebPath.GetPath("usercontrols/management/fulltextsearch/css/fulltextsearch.css"));
+            Page.RegisterBodyScripts("~/usercontrols/management/fulltextsearch/js/fulltextsearch.js");
+            Page.RegisterStyle("~/usercontrols/management/fulltextsearch/css/fulltextsearch.css");
         }
 
         [AjaxMethod]
@@ -64,6 +65,8 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
             CoreContext.Configuration.SaveSection(Tenant.DEFAULT_TENANT, settings);
+
+            MessageService.Send(HttpContext.Current.Request, MessageAction.FullTextSearchSetting);
         }
 
         [AjaxMethod]

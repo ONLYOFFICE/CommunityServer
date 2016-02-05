@@ -46,9 +46,6 @@ namespace ASC.Web.Studio
         {
             base.OnPreInit(e);
 
-            if (CoreContext.Configuration.Standalone)
-                Response.Redirect(CommonLinkUtility.GetDefault(), true);
-
             if (CoreContext.Configuration.Personal)
                 Context.Response.Redirect(FilesLinkUtility.FilesBaseAbsolutePath);
 
@@ -69,16 +66,23 @@ namespace ASC.Web.Studio
 
             Title = HeaderStringHelper.GetPageTitle(Resources.Resource.Tariffs);
 
-            pageContainer.Controls.Add(LoadControl(TariffUsage.Location));
-
-            var payments = CoreContext.PaymentManager.GetTariffPayments(TenantProvider.CurrentTenantID).ToList();
-            if (payments.Any()
-                && !TenantExtra.GetTenantQuota().Trial
-                && CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, ASC.Core.Users.Constants.GroupAdmin.ID))
+            if (CoreContext.Configuration.Standalone)
             {
-                var tariffHistory = (TariffHistory) LoadControl(TariffHistory.Location);
-                tariffHistory.Payments = payments;
-                pageContainer.Controls.Add(tariffHistory);
+                pageContainer.Controls.Add(LoadControl(TariffStandalone.Location));
+            }
+            else
+            {
+                pageContainer.Controls.Add(LoadControl(TariffUsage.Location));
+
+                var payments = CoreContext.PaymentManager.GetTariffPayments(TenantProvider.CurrentTenantID).ToList();
+                if (payments.Any()
+                    && !TenantExtra.GetTenantQuota().Trial
+                    && CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, ASC.Core.Users.Constants.GroupAdmin.ID))
+                {
+                    var tariffHistory = (TariffHistory) LoadControl(TariffHistory.Location);
+                    tariffHistory.Payments = payments;
+                    pageContainer.Controls.Add(tariffHistory);
+                }
             }
         }
     }

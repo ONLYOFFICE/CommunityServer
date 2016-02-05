@@ -1,9 +1,4 @@
-﻿/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
-
-window.ASC = window.ASC || {};
+﻿window.ASC = window.ASC || {};
 
 window.ASC.TMTalk = window.ASC.TMTalk || {};
 
@@ -2152,6 +2147,8 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
     if (ASC.TMTalk.dom.hasClass(selectedTargets[0], 'sub-panel')) {
       var
         fn = null,
+        currentJid,
+        userJid,
         currentRoomData = ASC.TMTalk.roomsManager.getRoomData(),
         itemid = currentRoomData !== null ? currentRoomData.id : '',
         itemtype = currentRoomData !== null ? currentRoomData.type : '',
@@ -2161,8 +2158,12 @@ window.ASC.TMTalk.contactsContainer = (function ($) {
         case 'conference' : fn = ASC.TMTalk.mucManager.sendInvite; break;
       }
       if (fn && itemid && contacts.length > 0) {
-        for (var i = 0, n = contacts.length; i < n; i++) {
-          fn(itemid, contacts[i].jid);
+          currentJid = ASC.TMTalk.connectionManager.getJid();
+          for (var i = 0, n = contacts.length; i < n; i++) {
+              userJid = contacts[i].jid;
+              if (currentJid != userJid) {
+                  fn(itemid, userJid);
+              }
         }
         if (itemtype === 'mailing') {
             ASC.TMTalk.msManager.storeMailingLists();

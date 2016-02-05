@@ -280,6 +280,26 @@ jQuery.extend({
             if (typeof (check) != "function" || check())
                 return ASC.Resources.Master.Resource.WarningMessageBeforeUnload;
         };
+    },
+
+    fixEvent: function (e) {
+        e = e || window.event;
+        if (!e) {
+            return {};
+        }
+
+        if (e.pageX == null && e.clientX != null) {
+            var html = document.documentElement,
+                body = document.body;
+            e.pageX = e.clientX + (html && html.scrollLeft || body && body.scrollLeft || 0) - (html.clientLeft || 0);
+            e.pageY = e.clientY + (html && html.scrollTop || body && body.scrollTop || 0) - (html.clientTop || 0);
+        }
+
+        if (!e.which && e.button) {
+            e.which = e.button & 1 ? 1 : (e.button & 2 ? 3 : (e.button & 4 ? 2 : 0));
+        }
+
+        return e;
     }
 });
 
@@ -350,17 +370,25 @@ var FCKCommentsController = new function () {
         if (text == null || text == undefined)
             text = "";
 
-        CommonControlsConfigurer.EditCommentComplete(commentID, domain, text, isEdit, this.CallbackHandler);
+        Teamlab.fckeEditCommentComplete({},
+            {commentid : commentID, domain: domain, html: text, isedit: isEdit},
+            this.CallbackHandler);
     };
 
     this.CancelCommentHandler = function (commentID, domain, isEdit, callback) {
         this.Callback = callback;
-        CommonControlsConfigurer.CancelCommentComplete(commentID, domain, isEdit, this.CallbackHandler);
+
+        Teamlab.fckeCancelCommentComplete({},
+            { commentid: commentID, domain: domain, isedit: isEdit },
+            this.CallbackHandler);
     };
 
     this.RemoveCommentHandler = function (commentID, domain, callback) {
         this.Callback = callback;
-        CommonControlsConfigurer.RemoveCommentComplete(commentID, domain, this.CallbackHandler);
+
+        Teamlab.fckeRemoveCommentComplete({},
+            { commentid: commentID, domain: domain },
+            this.CallbackHandler);
     };
 
     this.CallbackHandler = function (result) {
@@ -981,8 +1009,10 @@ LoadingBanner = function () {
             if (jq.browser.mobile)
                 jq(id).css("top", jq(window).scrollTop() + "px");
 
-            jq(id).animate({opacity: 0}, withoutDelay === true ? 0 : LoadingBanner.displayDelay, function () {
-                jq(id).animate({opacity: LoadingBanner.displayOpacity}, LoadingBanner.animateDelay);
+            if (withoutDelay) return;
+
+            jq(id).animate({ opacity: 0 }, LoadingBanner.displayDelay, function() {
+                jq(id).animate({ opacity: LoadingBanner.displayOpacity }, LoadingBanner.animateDelay);
             });
         },
 
@@ -1144,6 +1174,7 @@ var LeftMenuManager = new function () {
                 switcherSelector: ".without-separator",
                 dropdownID: "createNewButton",
                 noActiveSwitcherSelector: ".with-separator .white-combobox",
+                inPopup: true,
                 addTop: 4,
                 addLeft: 0
             });
@@ -1153,6 +1184,7 @@ var LeftMenuManager = new function () {
                 dropdownID: "createNewButton",
                 noActiveSwitcherSelector: ".without-separator",
                 position: "absolute",
+                inPopup: true,
                 addTop: 3,
                 addLeft: 0
             });
@@ -1169,6 +1201,7 @@ var LeftMenuManager = new function () {
             switcherSelector: "#menuOtherActionsButton",
             dropdownID: "otherActions",
             position: "absolute",
+            inPopup: true,
             addTop: 4,
             addLeft: 0,
             afterShowFunction: function (switcherObj, dropdownItem) {
@@ -1208,6 +1241,10 @@ var ScrolledGroupMenu = new function () {
         jq(window).resize(function () {
             resizeContentHeaderWidth(options.menuSelector);
         });
+
+        jq(window).bind("resizeWinTimerWithMaxDelay", function (event) {
+            resizeContentHeaderWidth(options.menuSelector);
+        });
     };
     var stickMenuToTheTop = function (options) {
         if (typeof(options) != "object" ||
@@ -1217,17 +1254,17 @@ var ScrolledGroupMenu = new function () {
             return;
         }
 
-        var $menuObj = jq(options.menuSelector);
-        var $boxTop = jq(options.menuAnchorSelector);
-        var $menuSpacerObj = jq(options.menuSpacerSelector);
+        var $menuObj = jq(options.menuSelector),
+            $boxTop = jq(options.menuAnchorSelector),
+            $menuSpacerObj = jq(options.menuSpacerSelector);
 
         if ($menuObj.length == 0 || $boxTop.length == 0 || $menuSpacerObj.length == 0) {
             return;
         }
 
-        var newTop = $boxTop.offset().top + $boxTop.outerHeight();
-        var winScrollTop = jq(window).scrollTop();
-        var tempTop = 0;
+        var newTop = $boxTop.offset().top + $boxTop.outerHeight(),
+            winScrollTop = jq(window).scrollTop(),
+            tempTop = 0;
 
         if ($menuSpacerObj.css("display") == "none") {
             tempTop += $menuObj.offset().top;
@@ -1235,7 +1272,7 @@ var ScrolledGroupMenu = new function () {
             tempTop += $menuSpacerObj.offset().top;
         }
 
-        if (winScrollTop >= tempTop) {
+        if (winScrollTop >= tempTop && !(winScrollTop == 0 && tempTop == 0)) {
             $menuSpacerObj.show();
 
             fixContentHeaderWidth(jq(options.menuSelector));
@@ -1287,8 +1324,15 @@ var ScrolledGroupMenu = new function () {
     };
 
     var fixContentHeaderWidth = function (header) {
+        var maxHeaderWidth = parseInt(jq(header).css("max-width")),
+            headerWidth = jq(header).parent().innerWidth();
+
+        if (maxHeaderWidth != 0 && headerWidth > maxHeaderWidth) {
+            headerWidth = maxHeaderWidth;
+        }
+
         jq(header).css("width",
-            jq(header).parent().innerWidth()
+                headerWidth
                 - parseInt(jq(header).css("margin-left"))
                 - parseInt(jq(header).css("margin-right"))
                 - parseInt(jq(header).css("padding-left"))

@@ -84,9 +84,9 @@ namespace ASC.Web.Projects.Controls.Projects
 
             CanEditProject = ProjectSecurity.CanEdit(Project);
             CanDeleteProject = ProjectSecurity.CanDelete(Project);
-            ProjectLeaderName = Global.EngineFactory.GetParticipantEngine().GetByID(Project.Responsible).UserInfo.DisplayUserName();
-            IsInTeam = Global.EngineFactory.GetProjectEngine().IsInTeam(Project.ID, Page.Participant.ID);
-            InConcreteProjectModule = RequestContext.IsInConcreteProjectModule;
+            ProjectLeaderName = Page.EngineFactory.ParticipantEngine.GetByID(Project.Responsible).UserInfo.DisplayUserName();
+            IsInTeam = Page.EngineFactory.ProjectEngine.IsInTeam(Project.ID, Page.Participant.ID);
+            InConcreteProjectModule = Page.RequestContext.IsInConcreteProjectModule;
         }
 
         private static bool CheckUpLink(Uri uri)

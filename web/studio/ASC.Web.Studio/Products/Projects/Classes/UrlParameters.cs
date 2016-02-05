@@ -24,77 +24,64 @@
 */
 
 
-#region Usings
-
 using System;
 using System.Web;
-
-#endregion
+using ASC.Projects.Core.Domain.Reports;
 
 namespace ASC.Web.Projects.Classes
 {
     public static class UrlParameters
     {
-        public static string ProjectsFilter
+        public static UrlAction? ActionType
         {
-            get { return HttpContext.Current.Request[UrlConstant.ProjectsFilter] ?? string.Empty; }
+            get
+            {
+                UrlAction result;
+                if (Enum.TryParse(HttpContext.Current.Request[UrlConstant.Action] ?? string.Empty, true, out result))
+                {
+                    return result;
+                }
+                return null;
+            }
         }
 
-        public static string ProjectsTag
-        {
-            get { return HttpContext.Current.Request[UrlConstant.ProjectsTag] ?? string.Empty; }
-        }
-
-        public static string ActionType
-        {
-            get { return HttpContext.Current.Request[UrlConstant.Action] ?? string.Empty; }
-        }
-
-        public static string Search
-        {
-            get { return HttpContext.Current.Request[UrlConstant.Search] ?? string.Empty; }
-        }
-
-        public static string EntityID
-        {
-            get { return HttpContext.Current.Request[UrlConstant.EntityID] ?? string.Empty; }
-        }
-
-        public static string ProjectID
-        {
-            get { return HttpContext.Current.Request[UrlConstant.ProjectID] ?? string.Empty; }
-        }
-
-        public static int PageNumber
+        public static int EntityID
         {
             get
             {
                 int result;
-                return int.TryParse(HttpContext.Current.Request[UrlConstant.PageNumber], out result) ? result : 1;
+                if (int.TryParse(HttpContext.Current.Request[UrlConstant.EntityID] ?? string.Empty, out result))
+                {
+                    return result;
+                }
+                return -1;
             }
         }
 
-        public static Guid UserID
+        public static int ProjectID
         {
             get
             {
-                var result = HttpContext.Current.Request[UrlConstant.UserID];
-                if (!string.IsNullOrEmpty(result))
+                int result;
+                if (int.TryParse(HttpContext.Current.Request[UrlConstant.ProjectID] ?? string.Empty, out result))
                 {
-                    try
-                    {
-                        return new Guid(result);
-                    }
-                    catch (OverflowException) { }
-                    catch (FormatException) { }
+                    return result;
                 }
-                return Guid.Empty;
+                return -1;
             }
         }
 
-        public static String ReportType
+        public static ReportType ReportType
         {
-            get { return HttpContext.Current.Request[UrlConstant.ReportType] ?? string.Empty; }
+            get
+            {
+                ReportType result;
+                if (Enum.TryParse(HttpContext.Current.Request[UrlConstant.ReportType] ?? string.Empty, out result))
+                {
+                    return result;
+                }
+                return ReportType.EmptyReport;
+            }
         }
     }
 }

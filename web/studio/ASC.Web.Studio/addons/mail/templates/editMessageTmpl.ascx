@@ -49,8 +49,8 @@
                         </span>
 
                         <span id="newmessageFromWarning" style="display:none; margin-left: 16px;" class="red-text">
-                            <%: MailResource.MessageFromWarning %>&nbsp;
-                            <a class="link dotline red-text" onclick="javascript:accountsModal.activateSelectedAccount(true);"><%: MailResource.ActivateAccountLabel %></a>
+                            <%: MailResource.AccountDisableForSending %>&nbsp;
+                            <a class="link dotline red-text" onclick="javascript:accountsModal.activateSelectedAccount(true);"><%: MailResource.TurnOnAccountLabel %></a>
                         </span>
                     </div>
                 </div>
@@ -64,7 +64,7 @@
                     <div class="value with-right">
                         <textarea id="newmessageTo" class="to" spellcheck="false" 
                             <% if (!CoreContext.Configuration.Personal) {%>  
-                                placeholder="<%= MailResource.SearchInToCcBccFieldsPlaceHolderLabel %>" 
+                                placeholder="<%: MailResource.SearchInToCcBccFieldsPlaceHolderLabel %>" 
                             <%} %> style="resize: none;" tabindex="1">{{if $item.action!='forward'}}${to}{{/if}}</textarea>
                     </div>
                 </div>
@@ -175,7 +175,7 @@
             </a>
             <span class="fullSizeLabel" {{if size == 0}} style="display:none;" {{/if}}>(${$item.fileSizeToStr(size)})</span>
         </td>
-        
+
         <td class="delete_icon">
             {{if operation == 0 && !attachedAsLink}}
             <div class="delete_attachment" onclick="AttachmentManager.RemoveAttachment(${orderNumber});" />
@@ -224,10 +224,10 @@
                 </div>
             </div>
         </td>
-        
+
         <td class="menu_column">
             {{if operation == 0 && !attachedAsLink}}
-            <div class="menu" data_id="${orderNumber}" name="${fileName}" title="<%: MailScriptResource.Actions %>" />
+            <div class="menu-small" data_id="${orderNumber}" name="${fileName}" title="<%: MailScriptResource.Actions %>" />
             {{/if}}
         </td>
     </tr>
@@ -237,7 +237,7 @@
     <div id="editMessagePage">
         <div id="editMessagePageHeader">{{tmpl($item.data, { fileSizeToStr: $item.GetSizeString }) "editMessageHeaderTmpl"}}</div>
         <div id="WYSIWYGEditor" class="mail_wysiwyg_editor">
-            <textarea id="ckMailEditor"></textarea>
+            <textarea id="ckMailEditor" style="width: 100%;" autocomplete="off" class="cke_contents cke_reset"></textarea>
         </div>
         <div id="editMessagePageFooter">{{tmpl($item.data, { fileSizeToStr: $item.GetSizeString }) "editMessageFooterTmpl"}}</div>
     </div>

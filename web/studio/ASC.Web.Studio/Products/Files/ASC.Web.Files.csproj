@@ -3,6 +3,7 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -48,7 +49,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AppLimit.CloudComputing.SharpBox">
-      <HintPath>..\..\..\..\..\packages\AppLimit.CloudComputing.SharpBox.1.1.0.440\lib\net45\AppLimit.CloudComputing.SharpBox.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\AppLimit.CloudComputing.SharpBox.1.1.0.442\lib\net45\AppLimit.CloudComputing.SharpBox.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\..\..\..\..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
@@ -70,7 +71,7 @@
       <HintPath>..\..\..\..\..\packages\Unity.3.0.1304.0\lib\Net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -130,6 +131,13 @@
     <Compile Include="Controls\MoreFeatures\MoreFeatures.ascx.designer.cs">
       <DependentUpon>MoreFeatures.ascx</DependentUpon>
     </Compile>
+    <Compile Include="MailMerge.aspx.cs">
+      <DependentUpon>MailMerge.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MailMerge.aspx.designer.cs">
+      <DependentUpon>MailMerge.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Core\ResponseStream.cs" />
     <Compile Include="FileChoice.aspx.cs">
       <DependentUpon>FileChoice.aspx</DependentUpon>
@@ -140,6 +148,7 @@
     </Compile>
     <Compile Include="Helpers\FilesMessageService.cs" />
     <Compile Include="Services\WCFService\FileExceptionFilterAttribute.cs" />
+    <Compile Include="Services\WCFService\FileOperations\FileOperationsManager.cs" />
     <Compile Include="Services\WCFService\FileStorageServiceController.cs" />
     <Compile Include="ThirdPartyApp\BoxApp.cs" />
     <Compile Include="ThirdPartyApp\IThirdPartyApp.cs" />
@@ -204,11 +213,8 @@
     </Compile>
     <Compile Include="Masters\ClientScripts\FilesLocalizationResources.cs" />
     <Compile Include="Masters\ClientScripts\FilesConstantsResources.cs" />
-    <Content Include="App_Themes\Default\Images\app\documents_appstore.png" />
-    <Content Include="App_Themes\Default\Images\app\documents_appstore_de.png" />
-    <Content Include="App_Themes\Default\Images\app\documents_appstore_es.png" />
-    <Content Include="App_Themes\Default\Images\app\documents_appstore_fr.png" />
-    <Content Include="App_Themes\Default\Images\app\documents_appstore_ru.png" />
+    <Content Include="App_Themes\Default\mailmerge.css" />
+    <Content Include="App_Themes\Default\Images\documents_appstore.png" />
     <Content Include="Controls\ChunkUploadDialog\chunkuploadmanager.js" />
     <Content Include="Controls\ChunkUploadDialog\Images\mainmenu_upload.png" />
     <Content Include="Controls\ContentList\ContentList.ascx" />
@@ -216,6 +222,7 @@
     <Content Include="Controls\ContentList\Images\lock.png" />
     <Content Include="Controls\ContentList\Images\throbber.gif" />
     <Content Include="Controls\ContentList\Images\version_operation.png" />
+    <Content Include="Controls\YandexScript.js" />
     <Content Include="Controls\FileSelector\fileselector.js" />
     <Content Include="Controls\FileSelector\FileSelector.ascx" />
     <Content Include="Controls\FileSelector\fileselector.css" />
@@ -223,6 +230,9 @@
     <Content Include="Controls\MoreFeatures\css\img\logo_flat.png" />
     <Content Include="Controls\MoreFeatures\css\morefeatures.css" />
     <Content Include="Controls\MoreFeatures\MoreFeatures.ascx" />
+    <Content Include="Controls\GoogleConversionScript.ascx" />
+    <Content Include="js\mailmerge.js" />
+    <Content Include="MailMerge.aspx" />
     <Content Include="FileChoice.aspx" />
     <Content Include="js\filechoice.js" />
     <Content Include="Masters\EditorScripts.ascx" />
@@ -450,6 +460,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Utils\ChunkedUploadSessionHolder.cs" />
+    <Compile Include="Utils\MailMergeTask.cs" />
     <Compile Include="Utils\FileMarker.cs" />
     <Compile Include="Utils\FileShareLink.cs" />
     <Compile Include="Utils\FileConverter.cs" />
@@ -525,7 +536,6 @@
     <Content Include="js\servicemanager.js" />
     <Content Include="js\templatemanager.js" />
     <Content Include="js\ui.js" />
-    <Content Include="js\xsltmanager.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\bright-blue\leftmenu.less" />
@@ -555,7 +565,6 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">
-      <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
       <Name>ASC.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">

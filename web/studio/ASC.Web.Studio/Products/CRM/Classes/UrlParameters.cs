@@ -39,28 +39,6 @@ namespace ASC.Web.CRM.Classes
 
     public static class UrlParameters
     {
-        private static readonly string[] Formats = new[]
-                                                       {
-                                                           "o",
-                                                           "yyyy'-'MM'-'dd'T'HH'-'mm'-'ss'.'fffK",
-                                                           "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK",
-                                                           "yyyy-MM-ddTHH:mm:ss"
-                                                       };
-
-        public static DateTime ApiDateTimeParse(string data)
-        {
-            if (string.IsNullOrEmpty(data)) throw new ArgumentNullException("data");
-
-            if (data.Length < 7) throw new ArgumentException(CRMErrorsResource.DateTimeFormatInvalid);
-
-            DateTime dateTime;
-            if (DateTime.TryParseExact(data, Formats, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out dateTime))
-            {
-                return new DateTime(dateTime.Ticks, DateTimeKind.Unspecified);
-            }
-            throw new ArgumentException(CRMErrorsResource.DateTimeFormatInvalid);
-        }
-
         public static String Filter
         {
             get

@@ -278,6 +278,27 @@
         </body>
     </sc:Container>
 </div>
+<div id="confirmMoveThirParty" class="popup-modal">
+    <sc:Container id="ConfirmMoveThirPartyDialog" runat="server">
+        <header><%= FilesUCResource.ConfirmThirdPartyMove %></header>
+        <body>
+            <div id="moveThirdPartyMessage"></div>
+            <div class="middle-button-container">
+                <a id="buttonMoveThirdParty" class="button blue middle">
+                    <%= FilesUCResource.ButtonMoveTo %>
+                </a>
+                <span class="splitter-buttons"></span>
+                <a id="buttonCopyThirdParty" class="button gray middle">
+                    <%= FilesUCResource.ButtonCopyTo %>
+                </a>
+                <span class="splitter-buttons"></span>
+                <a id="buttonCancelMoveThirdParty" class="button gray middle">
+                    <%= FilesUCResource.ButtonCancel %>
+                </a>
+            </div>
+        </body>
+    </sc:Container>
+</div>
 <%-- progress --%>
 <div id="bottomLoaderPanel" class="progress-dialog-container">
     <div id="progressTemplate" class="progress-dialog">

@@ -60,7 +60,7 @@ namespace ASC.Web.Projects.Controls.Reports
 
             if (Report.Filter.TagId != 0 && Report.Filter.ProjectIds.Count == 0)
             {
-                projectIds = Global.EngineFactory.GetTagEngine().GetTagProjects(Report.Filter.TagId).ToList();
+                projectIds = Page.EngineFactory.TagEngine.GetTagProjects(Report.Filter.TagId).ToList();
             }
 
             UserInfo[] users;
@@ -71,7 +71,7 @@ namespace ASC.Web.Projects.Controls.Reports
             }
             else if (projectIds.Any())
             {
-                users = Global.EngineFactory.GetProjectEngine().GetTeam(projectIds).Select(r => r.UserInfo).ToArray();
+                users = Page.EngineFactory.ProjectEngine.GetTeam(projectIds).Select(r => r.UserInfo).ToArray();
             }
             else
             {
@@ -88,12 +88,12 @@ namespace ASC.Web.Projects.Controls.Reports
 
         public string InitProjectsDdl()
         {
-            var projectEngine = Global.EngineFactory.GetProjectEngine();
+            var projectEngine = Page.EngineFactory.ProjectEngine;
             var projectIds = new List<int>();
 
             if (Report.Filter.TagId != 0)
             {
-                projectIds = Global.EngineFactory.GetTagEngine().GetTagProjects(Report.Filter.TagId).ToList();
+                projectIds = Page.EngineFactory.TagEngine.GetTagProjects(Report.Filter.TagId).ToList();
             }
 
             var projects = projectIds.Any() ? projectEngine.GetByID(projectIds) : projectEngine.GetAll();
@@ -134,7 +134,7 @@ namespace ASC.Web.Projects.Controls.Reports
         {
             var sb = new StringBuilder() .AppendFormat("<option value='-1' id='ddlTag'>{0}</option>", ProjectsCommonResource.All);
             
-            Global.EngineFactory.GetTagEngine().GetTags().ToList()
+            Page.EngineFactory.TagEngine.GetTags().ToList()
                 .ForEach(tag => sb.AppendFormat("<option value='{1}' id='ddlTag{1}' {2}>{0}</option>", tag.Value.HtmlEncode(), tag.Key, tag.Key == Report.Filter.TagId ? "selected='selected'" : "")); 
 
             return sb.ToString();

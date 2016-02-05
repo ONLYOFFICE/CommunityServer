@@ -24,15 +24,15 @@
 */
 
 
-using System;
-using ASC.Core.Caching;
+using ASC.Common.Caching;
 using ASC.Core.Common.Notify.Push;
+using System;
 
 namespace ASC.Web.Core.Mobile
 {
     public class CachedMobileAppInstallRegistrator : IMobileAppInstallRegistrator
     {
-        private readonly AscCache cache = new AscCache();
+        private readonly ICache cache = AscCache.Memory;
         private readonly TimeSpan cacheExpiration;
         private readonly IMobileAppInstallRegistrator registrator;
 
@@ -62,10 +62,14 @@ namespace ASC.Web.Core.Mobile
         public bool IsInstallRegistered(string userEmail, MobileAppType? appType)
         {
             if (string.IsNullOrEmpty(userEmail)) return false;
-            object cachedValue = cache.Get(GetCacheKey(userEmail, appType));
-            if (cachedValue != null)
+
+            String fromCache = cache.Get<String>(GetCacheKey(userEmail, appType));
+
+            bool cachedValue;
+
+            if (bool.TryParse(fromCache, out cachedValue))
             {
-                return (bool)cachedValue;
+                return cachedValue;
             }
 
             var isRegistered = registrator.IsInstallRegistered(userEmail, appType);
@@ -75,7 +79,9 @@ namespace ASC.Web.Core.Mobile
 
         private string GetCacheKey(string userEmail, MobileAppType? appType)
         {
-            return appType.HasValue ? userEmail + "/" + appType.ToString() : userEmail;
+            var cacheKey = appType.HasValue ? userEmail + "/" + appType.ToString() : userEmail;
+            
+            return String.Format("{0}:mobile:{1}", ASC.Core.CoreContext.TenantManager.GetCurrentTenant().TenantId, cacheKey);
         }
     }
 }

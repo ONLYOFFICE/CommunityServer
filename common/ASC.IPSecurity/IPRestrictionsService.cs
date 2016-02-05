@@ -24,50 +24,33 @@
 */
 
 
+using ASC.Common.Caching;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using ASC.Core.Caching;
-using System.Linq;
 
 namespace ASC.IPSecurity
 {
     public class IPRestrictionsService
     {
-        private const string cacheKey = "/iprestrictions";
-        private static readonly ICache cache;
+        private const string cacheKey = "iprestrictions";
+        private static readonly ICache cache = AscCache.Memory;
+        private static readonly ICacheNotify notify = AscCache.Notify;
+        private static readonly TimeSpan timeout = TimeSpan.FromMinutes(5);
 
-        private static readonly TimeSpan cacheExpiration = TimeSpan.FromMinutes(5);
-
-        private static readonly ConcurrentDictionary<string, object> locks = new ConcurrentDictionary<string, object>();
 
         static IPRestrictionsService()
         {
-            cache = AscCache.Default;
+            notify.Subscribe<IPRestriction>((r, a) => cache.Remove(GetCacheKey(r.TenantId)));
         }
+
 
         public static IEnumerable<IPRestriction> Get(int tenant)
         {
             var key = GetCacheKey(tenant);
-            var restrictions = cache.Get(key) as List<IPRestriction>;
+            var restrictions = cache.Get<List<IPRestriction>>(key);
             if (restrictions == null)
             {
-                var lck = locks.GetOrAdd(key, k => new object());
-                lock (lck)
-                {
-                    restrictions = cache.Get(key) as List<IPRestriction>;
-                    if (restrictions == null)
-                    {
-                        restrictions = IPRestrictionsRepository.Get(tenant).ToList();
-                        cache.Insert(key, restrictions, cacheExpiration);
-                    }
-
-                    object temp;
-                    if (locks.TryGetValue(key, out temp) && (temp == lck))
-                    {
-                        locks.TryRemove(key, out temp);
-                    }
-                }
+                cache.Insert(key, restrictions = IPRestrictionsRepository.Get(tenant), timeout);
             }
             return restrictions;
         }
@@ -75,8 +58,7 @@ namespace ASC.IPSecurity
         public static IEnumerable<string> Save(IEnumerable<string> ips, int tenant)
         {
             var restrictions = IPRestrictionsRepository.Save(ips, tenant);
-            cache.Insert(GetCacheKey(tenant), IPRestrictionsRepository.Get(tenant), cacheExpiration);
-
+            notify.Publish(new IPRestriction { TenantId = tenant }, CacheNotifyAction.InsertOrUpdate);
             return restrictions;
         }
 

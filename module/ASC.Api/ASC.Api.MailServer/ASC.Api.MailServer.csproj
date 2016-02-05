@@ -31,8 +31,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ASC.ActiveUp.Net.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.ActiveUp.Net.Common.dll</HintPath>
+    </Reference>
     <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Api.dll</HintPath>
@@ -66,6 +71,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContracts\AddressData.cs" />
+    <Compile Include="DataContracts\NotificationAddressData.cs" />
     <Compile Include="DataContracts\FullServerData.cs" />
     <Compile Include="DataContracts\DnsData.cs" />
     <Compile Include="DataContracts\MailGroupData.cs" />
@@ -76,6 +82,7 @@
     <Compile Include="MailServerApi.cs" />
     <Compile Include="MailServerApi.Mailbox.cs" />
     <Compile Include="MailServerApi.MailGroup.cs" />
+    <Compile Include="MailServerApi.Notification.cs" />
     <Compile Include="MailServerApi.Server.cs" />
     <Compile Include="MailServerApi.WebDomain.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -88,6 +95,10 @@
     <ProjectReference Include="..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Common\ASC.Mail.Aggregator.Common.csproj">
       <Project>{26222fc6-1f6d-44e9-a82b-36bb8355220e}</Project>
       <Name>ASC.Mail.Aggregator.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
+      <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
+      <Name>ASC.Mail.Aggregator</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.Mail.Server\Administration\AdministrationModel\AdministrationModel.csproj">
       <Project>{5733df9d-daca-43f4-85b0-18c1c9a89953}</Project>

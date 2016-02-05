@@ -63,7 +63,7 @@ namespace ASC.Web.Projects.Controls.Common
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            MyProjects = RequestContext.CurrentUserProjects;
+            MyProjects = Page.RequestContext.CurrentUserProjects.ToList();
 
             InitControls();
 
@@ -74,10 +74,10 @@ namespace ASC.Web.Projects.Controls.Common
             ParticipantSecurityInfo = new Dictionary<string, bool>
                                           {
                                               {"Project", IsProjectAdmin},
-                                              {"Milestone", RequestContext.CanCreateMilestone()},
-                                              {"Task", RequestContext.CanCreateTask()},
-                                              {"Discussion", RequestContext.CanCreateDiscussion()},
-                                              {"Time", RequestContext.CanCreateTime()},
+                                              {"Milestone", Page.RequestContext.CanCreateMilestone()},
+                                              {"Task", Page.RequestContext.CanCreateTask()},
+                                              {"Discussion", Page.RequestContext.CanCreateDiscussion()},
+                                              {"Time", Page.RequestContext.CanCreateTime()},
                                               {"ProjectTemplate", IsProjectAdmin}
                                           };
 

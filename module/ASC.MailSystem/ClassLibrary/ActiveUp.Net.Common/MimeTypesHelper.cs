@@ -242,6 +242,11 @@ namespace ActiveUp.Net.Mail
                     return "text/plain";
                 case "RTX":
                     return "text/richtext";
+                case "ICS":
+                case "ICAL":
+                case "IFB":
+                case "ICALENDAR":
+                    return "text/calendar";
                 case "TSV":
                     return "text/tab-separated-values";
                 case "ETX":
@@ -273,7 +278,8 @@ namespace ActiveUp.Net.Mail
                     return "x-world/x-vrml";
                 case "VRT":
                     return "x-world/x-vrt";
-                    //case "BIN":
+                case "EML":
+                    return "message/rfc822";
                 default:
                     return "application/octet-stream";
             }

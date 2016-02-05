@@ -24,13 +24,9 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using ASC.Common.Caching;
 using ASC.Common.Data;
-using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
-using ASC.Core.Caching;
 using ASC.Core.Users;
 using ASC.Web.Community.Product;
 using ASC.Web.Core;
@@ -38,6 +34,9 @@ using ASC.Web.Studio;
 using ASC.Web.Studio.UserControls.EmptyScreens;
 using ASC.Web.Studio.UserControls.Users;
 using ASC.Web.Studio.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ASC.Web.Community
 {
@@ -51,7 +50,7 @@ namespace ASC.Web.Community
             {
                 return false;
             }
-            if (showEmptyScreen.Get("communityScreen" + TenantProvider.CurrentTenantID) != null)
+            if (showEmptyScreen.Get<object>("communityScreen" + TenantProvider.CurrentTenantID) != null)
             {
                 return false;
             }

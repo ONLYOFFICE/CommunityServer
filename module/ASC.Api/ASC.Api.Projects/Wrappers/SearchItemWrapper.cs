@@ -24,15 +24,10 @@
 */
 
 
-#region Usings
-
-using System;
 using System.Runtime.Serialization;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Specific;
-
-#endregion
 
 namespace ASC.Api.Projects.Wrappers
 {

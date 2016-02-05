@@ -24,9 +24,9 @@
 */
 
 
+using ASC.Common.Caching;
 using System;
 using System.Collections.Generic;
-using ASC.Core.Common.Caching;
 
 namespace ASC.Core.Caching
 {
@@ -34,23 +34,29 @@ namespace ASC.Core.Caching
     {
         private readonly IAzService service;
         private readonly ICache cache;
+        private readonly ICacheNotify cacheNotify;
+
 
         public TimeSpan CacheExpiration { get; set; }
+
 
         public CachedAzService(IAzService service)
         {
             if (service == null) throw new ArgumentNullException("service");
 
             this.service = service;
-            this.cache = AscCache.Default;
-
+            cache = AscCache.Memory;
             CacheExpiration = TimeSpan.FromMinutes(10);
+
+            cacheNotify = AscCache.Notify;
+            cacheNotify.Subscribe<AzRecord>((r, a) => UpdateCache(r.Tenant, r, a == CacheNotifyAction.Remove));
         }
+
 
         public IEnumerable<AzRecord> GetAces(int tenant, DateTime from)
         {
             var key = GetKey(tenant);
-            var aces = cache.Get(key) as AzRecordStore;
+            var aces = cache.Get<AzRecordStore>(key);
             if (aces == null)
             {
                 var records = service.GetAces(tenant, default(DateTime));
@@ -62,34 +68,39 @@ namespace ASC.Core.Caching
         public AzRecord SaveAce(int tenant, AzRecord r)
         {
             r = service.SaveAce(tenant, r);
-            var aces = cache.Get(GetKey(tenant)) as AzRecordStore;
-            if (aces != null)
-            {
-                lock (aces)
-                {
-                    aces.Add(r);
-                }
-            }
+            cacheNotify.Publish(r, CacheNotifyAction.InsertOrUpdate);
             return r;
         }
 
         public void RemoveAce(int tenant, AzRecord r)
         {
             service.RemoveAce(tenant, r);
-            var aces = cache.Get(GetKey(tenant)) as AzRecordStore;
-            if (aces != null)
-            {
-                lock (aces)
-                {
-                    aces.Remove(r);
-                }
-            }
+            cacheNotify.Publish(r, CacheNotifyAction.Remove);
         }
 
 
         private string GetKey(int tenant)
         {
             return "acl" + tenant.ToString();
+        }
+
+        private void UpdateCache(int tenant, AzRecord r, bool remove)
+        {
+            var aces = cache.Get<AzRecordStore>(GetKey(r.Tenant));
+            if (aces != null)
+            {
+                lock (aces)
+                {
+                    if (remove)
+                    {
+                        aces.Remove(r);
+                    }
+                    else
+                    {
+                        aces.Add(r);
+                    }
+                }
+            }
         }
     }
 }

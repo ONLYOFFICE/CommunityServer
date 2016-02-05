@@ -1,12 +1,3 @@
-// // --------------------------------------------------------------------------------------------------------------------
-// // <copyright company="Ascensio System Limited" file="AssemblyInfo.cs">
-// //   
-// // </copyright>
-// // <summary>
-// //   (c) Copyright Ascensio System Limited 2008-2012
-// // </summary>
-// // --------------------------------------------------------------------------------------------------------------------
-
 #region using
 
 using System.Reflection;
@@ -25,7 +16,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ascensio System SIA")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("Ascensio System SIA 2013")]
+[assembly: AssemblyCopyright("Ascensio System SIA 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

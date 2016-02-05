@@ -100,6 +100,11 @@ namespace ASC.Data.Storage
 
         #endregion
 
+        public long QuotaCurrentGet()
+        {
+            return currentSize;
+        }
+
         private void SetTenantQuotaRow(string module, string domain, long size, string dataTag, bool exchange)
         {
             CoreContext.TenantManager.SetTenantQuotaRow(

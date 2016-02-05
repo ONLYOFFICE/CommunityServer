@@ -47,7 +47,7 @@ namespace ASC.Api.Projects
         [Read(@"tag")]
         public IEnumerable<ObjectWrapperBase> GetAllTags()
         {
-            return EngineFactory.GetTagEngine().GetTags().Select(x => new ObjectWrapperBase {Id = x.Key, Title = x.Value}).ToSmartList();
+            return EngineFactory.TagEngine.GetTags().Select(x => new ObjectWrapperBase {Id = x.Key, Title = x.Value});
         }
 
         ///<summary>
@@ -62,8 +62,8 @@ namespace ASC.Api.Projects
         [Read(@"tag/{tag}")]
         public IEnumerable<ProjectWrapper> GetProjectsByTags(string tag)
         {
-            var projectsTagged = EngineFactory.GetTagEngine().GetTagProjects(tag);
-            return EngineFactory.GetProjectEngine().GetByID(projectsTagged).Select(x => new ProjectWrapper(x)).ToSmartList();
+            var projectsTagged = EngineFactory.TagEngine.GetTagProjects(tag);
+            return EngineFactory.ProjectEngine.GetByID(projectsTagged).Select(x => new ProjectWrapper(x));
         }
 
 
@@ -80,7 +80,7 @@ namespace ASC.Api.Projects
         public string[] GetTagsByName(string tagName)
         {
             return !string.IsNullOrEmpty(tagName) && tagName.Trim() != string.Empty
-                       ? EngineFactory.GetTagEngine().GetTags(tagName.Trim()).Select(r => r.Value).ToArray()
+                       ? EngineFactory.TagEngine.GetTags(tagName.Trim()).Select(r => r.Value).ToArray()
                        : new string[0];
         }
 

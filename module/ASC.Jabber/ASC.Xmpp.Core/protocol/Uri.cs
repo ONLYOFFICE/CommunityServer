@@ -100,6 +100,10 @@ namespace ASC.Xmpp.Core.protocol
         public const string FEATURE_IQ_REGISTER = "http://jabber.org/features/iq-register";
 
         /// <summary>
+        /// </summary>
+        public const string FEATURE_IQ_AUTH = "http://jabber.org/features/iq-auth";
+
+        /// <summary>
         ///   JEP-0020: Feature Negotiation http://jabber.org/protocol/feature-neg
         /// </summary>
         public const string FEATURE_NEG = "http://jabber.org/protocol/feature-neg";

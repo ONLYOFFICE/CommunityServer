@@ -22,6 +22,7 @@ using ActiveUp.Net.Security;
 using ActiveUp.Net.Mail;
 using System.Collections.Generic;
 using System.Net;
+using System.Text;
 using ActiveUp.Net.Dns;
 
 namespace ActiveUp.Net.Mail
@@ -133,13 +134,13 @@ namespace ActiveUp.Net.Mail
         internal void OnTcpWriting(ActiveUp.Net.Mail.TcpWritingEventArgs e)
         {
             if (TcpWriting != null) TcpWriting(this, e);
-            ActiveUp.Net.Mail.Logger.AddEntry("Sending " + e.Command + "...", 1);
+            ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Sending {0}", e.Command), 1);
         }
 
         internal void OnTcpWritten(ActiveUp.Net.Mail.TcpWrittenEventArgs e)
         {
             if (TcpWritten != null) TcpWritten(this, e);
-            ActiveUp.Net.Mail.Logger.AddEntry("Sent " + e.Command + ".", 1);
+            ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Sent {0}", e.Command), 1);
         }
 
         internal void OnTcpReading()
@@ -151,7 +152,7 @@ namespace ActiveUp.Net.Mail
         internal void OnTcpRead(ActiveUp.Net.Mail.TcpReadEventArgs e)
         {
             if (TcpRead != null) TcpRead(this, e);
-            ActiveUp.Net.Mail.Logger.AddEntry("Read " + e.Response + ".", 1);
+            ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Read {0}", e.Response), 1);
         }
 
         internal void OnDisconnecting()
@@ -175,31 +176,31 @@ namespace ActiveUp.Net.Mail
         internal void OnConnected(ActiveUp.Net.Mail.ConnectedEventArgs e)
         {
             if (Connected != null) Connected(this, e);
-            ActiveUp.Net.Mail.Logger.AddEntry("Connected. Server replied : " + e.ServerResponse + "...", 2);
+            ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Connected. Server replied : {0}", e.ServerResponse), 2);
         }
 
         internal void OnAuthenticating(ActiveUp.Net.Mail.AuthenticatingEventArgs e)
         {
             if (Authenticating != null) Authenticating(this, e);
-            ActiveUp.Net.Mail.Logger.AddEntry("Authenticating as " + e.Username + " on " + e.Host + "...", 2);
+            ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Authenticating as {0} on {1}", e.Username, e.Host), 2);
         }
 
         internal void OnAuthenticated(ActiveUp.Net.Mail.AuthenticatedEventArgs e)
         {
             if (Authenticated != null) Authenticated(this, e);
-            ActiveUp.Net.Mail.Logger.AddEntry("Authenticated as " + e.Username + " on " + e.Host + ".", 2);
+            ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Authenticated as {0} on {1}", e.Username, e.Host), 2);
         }
 
         internal void OnMessageSending(ActiveUp.Net.Mail.MessageSendingEventArgs e)
         {
             if (MessageSending != null) MessageSending(this, e);
-            ActiveUp.Net.Mail.Logger.AddEntry("Sending message with subject : " + e.Message.Subject + "...", 2);
+            ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Sending message with subject : {0}", e.Message.Subject), 2);
         }
 
         internal void OnMessageSent(ActiveUp.Net.Mail.MessageSentEventArgs e)
         {
             if (MessageSent != null) MessageSent(this, e);
-            ActiveUp.Net.Mail.Logger.AddEntry("Sent message with subject : " + e.Message.Subject + "...", 2);
+            ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Sent message with subject : {0}", e.Message.Subject), 2);
         }
 
         #endregion
@@ -495,8 +496,8 @@ namespace ActiveUp.Net.Mail
             string response =
                 this.Command(
                     System.Convert.ToBase64String(
-                        System.Text.Encoding.ASCII.GetBytes(username + " " +
-                                                            ActiveUp.Net.Mail.Crypto.HMACMD5Digest(password, digest))),
+                        System.Text.Encoding.ASCII.GetBytes(string.Format("{0} {1}", username,
+                                                            ActiveUp.Net.Mail.Crypto.HMACMD5Digest(password, digest)))),
                     235);
             this.OnAuthenticated(new ActiveUp.Net.Mail.AuthenticatedEventArgs(username, password, response));
             return response;
@@ -505,9 +506,9 @@ namespace ActiveUp.Net.Mail
         private string _LoginOAuth2(string username, string accessToken)
         {
             this.OnAuthenticating(new ActiveUp.Net.Mail.AuthenticatingEventArgs(username, accessToken));
-            string formatResponse = "user=" + username + "\u0001auth=Bearer " + accessToken + "\u0001\u0001";
+            string formatResponse = string.Format("user={0}\u0001auth=Bearer {1}\u0001\u0001", username, accessToken);
             string authResponse = System.Convert.ToBase64String(System.Text.ASCIIEncoding.ASCII.GetBytes(formatResponse));
-            string response = this.Command("AUTH XOAUTH2 " + authResponse, 235);
+            string response = this.Command(string.Format("AUTH XOAUTH2 {0}", authResponse), 235);
             this.OnAuthenticated(new ActiveUp.Net.Mail.AuthenticatedEventArgs(username, accessToken, response));
             return response;
         }
@@ -518,10 +519,9 @@ namespace ActiveUp.Net.Mail
 
             string response;
 
-            using (var sr = new System.IO.StreamReader(GetStream(), System.Text.Encoding.ASCII, false,
+            using (var sr = new System.IO.StreamReader(GetStream(), Encoding.ASCII, false,
                                                        Client.ReceiveBufferSize, true))
             {
-                sr.BaseStream.ReadTimeout = Client.ReceiveTimeout;
                 response = sr.ReadLine();
             }
 
@@ -601,6 +601,8 @@ namespace ActiveUp.Net.Mail
             this.host = host;
             this.OnConnecting();
             base.Connect(host, port);
+            base.SendTimeout = TcpSendTimeout;
+            base.ReceiveTimeout = TcpReceiveTimeout;
             var response = this.ReadLine();
             this.OnConnected(new ActiveUp.Net.Mail.ConnectedEventArgs(response));
             return base.Connected ? "+OK" : "-Connection failure";
@@ -616,6 +618,8 @@ namespace ActiveUp.Net.Mail
         {
             this.OnConnecting();
             base.Connect(addr, port);
+            base.SendTimeout = TcpSendTimeout;
+            base.ReceiveTimeout = TcpReceiveTimeout;
             string response = this.ReadLine();
             this.OnConnected(new ActiveUp.Net.Mail.ConnectedEventArgs(response));
             return response;
@@ -638,7 +642,8 @@ namespace ActiveUp.Net.Mail
                                 base.Connect(addresses[0], port);
                             }
 #endif
-            //string response = "";
+            base.SendTimeout = TcpSendTimeout;
+            base.ReceiveTimeout = TcpReceiveTimeout;
             string response = this.ReadLine();
             this.OnConnected(new ActiveUp.Net.Mail.ConnectedEventArgs(response));
             return response;
@@ -714,6 +719,8 @@ namespace ActiveUp.Net.Mail
             this.host = host;
             this.OnConnecting();
             base.Connect(host, port);
+            base.SendTimeout = TcpSendTimeout;
+            base.ReceiveTimeout = TcpReceiveTimeout;
             this.DoSslHandShake(sslHandShake);
             string response = this.ReadLine();
             try
@@ -739,6 +746,8 @@ namespace ActiveUp.Net.Mail
         {
             this.OnConnecting();
             base.Connect(addr, port);
+            base.SendTimeout = TcpSendTimeout;
+            base.ReceiveTimeout = TcpReceiveTimeout;
             this.DoSslHandShake(sslHandShake);
             string response = this.ReadLine();
             this.OnConnected(new ActiveUp.Net.Mail.ConnectedEventArgs(response));
@@ -758,6 +767,8 @@ namespace ActiveUp.Net.Mail
         {
             this.OnConnecting();
             base.Connect(addresses, port);
+            base.SendTimeout = TcpSendTimeout;
+            base.ReceiveTimeout = TcpReceiveTimeout;
             this.DoSslHandShake(sslHandShake);
             string response = this.ReadLine();
             this.OnConnected(new ActiveUp.Net.Mail.ConnectedEventArgs(response));
@@ -1067,7 +1078,7 @@ namespace ActiveUp.Net.Mail
         public string Data(string data)
         {
             this.Command("DATA", 354);
-            return this.Command(data + "\r\n.", 250);
+            return this.Command(string.Format("{0}\r\n.", data), 250);
         }
 
         public IAsyncResult BeginData(string data, AsyncCallback callback)
@@ -1612,7 +1623,7 @@ namespace ActiveUp.Net.Mail
         /// </example>
         public string MailFrom(string address)
         {
-            return this.Command("mail from: <" + address + ">", 250);
+            return this.Command(string.Format("mail from: <{0}>", address), 250);
         }
 
         public IAsyncResult BeginMailFrom(string address, AsyncCallback callback)
@@ -1848,7 +1859,7 @@ namespace ActiveUp.Net.Mail
         /// </example>
         public string RcptTo(string address)
         {
-            return this.Command("rcpt to: <" + address + ">", 250);
+            return this.Command(string.Format("rcpt to: <{0}>", address), 250);
         }
 
         public IAsyncResult BeginRcptTo(string address, AsyncCallback callback)
@@ -2090,7 +2101,7 @@ namespace ActiveUp.Net.Mail
         {
             try
             {
-                string rep = this.Command("vrfy " + address, 250);
+                string rep = this.Command(string.Format("vrfy {0}", address), 250);
                 return true;
             }
             catch
@@ -2507,7 +2518,7 @@ namespace ActiveUp.Net.Mail
             System.Array.Sort(domains, adds, null);
             string currentDomain = "";
             string address = "";
-            string buf = "";
+            var buf = new StringBuilder();
             ActiveUp.Net.Mail.SmtpClient smtp = new ActiveUp.Net.Mail.SmtpClient();
             for (int j = 0; j < adds.Length; j++)
             {
@@ -2532,7 +2543,7 @@ namespace ActiveUp.Net.Mail
                         smtp = new ActiveUp.Net.Mail.SmtpClient();
                     }
                     currentDomain = (string) domains.GetValue(j);
-                    buf += currentDomain + "|";
+                    buf.Append(currentDomain).Append("|");
 
                     if (dnsServers == null || dnsServers.Count == 0)
                     {
@@ -2547,8 +2558,10 @@ namespace ActiveUp.Net.Mail
                                                                                                         dnsServers);
                     if (mxs != null && mxs.Count > 0) smtp.Connect(mxs.GetPrefered().Exchange);
                     else
-                        throw new ActiveUp.Net.Mail.SmtpException("No MX record found for the domain \"" + currentDomain +
-                                                                  "\". Check that the domain is correct and exists or specify a DNS server.");
+                        throw new ActiveUp.Net.Mail.SmtpException(
+                            string.Format(
+                                "No MX record found for the domain \"{0}\". Check that the domain is correct and exists or specify a DNS server.",
+                                currentDomain));
                     try
                     {
                         smtp.Ehlo(System.Net.Dns.GetHostName());
@@ -2569,7 +2582,7 @@ namespace ActiveUp.Net.Mail
                 //}
                 //catch(ActiveUp.Net.Mail.SmtpException ex) { throw ex; }
             }
-            return buf;
+            return buf.ToString();
         }
 
         public static IAsyncResult BeginDirectSend(Message message, ServerCollection dnsServers, AsyncCallback callback)
@@ -3075,33 +3088,35 @@ namespace ActiveUp.Net.Mail
             if (_UIDcounter > 99999)
                 _UIDcounter = 0;
 
-            string UID = System.DateTime.Now.ToString("yyMMddhhmmss") + System.DateTime.Now.Millisecond.ToString() +
-                         _UIDcounter.ToString().PadLeft(5, '0');
+            string UID = string.Format("{0}{1}", System.DateTime.Now.ToString("yyMMddhhmmssfff"),
+                _UIDcounter.ToString().PadLeft(5, '0'));
 
-            ActiveUp.Net.Mail.Logger.AddEntry("UID Created for filename: '" + UID + "'", 0);
+            ActiveUp.Net.Mail.Logger.AddEntry(string.Format("UID Created for filename: '{0}'", UID), 0);
 
             switch (queuingService)
             {
                 case ActiveUp.Net.Mail.QueuingService.MicrosoftSmtp:
                 case ActiveUp.Net.Mail.QueuingService.ActiveQ:
-                    message.StoreToFile(spoolDirectory.TrimEnd('\\') + "\\" + UID + ".eml", true);
+                    message.StoreToFile(string.Format("{0}\\{1}.eml", spoolDirectory.TrimEnd('\\'), UID), true);
                     break;
                 case ActiveUp.Net.Mail.QueuingService.IpSwitchIMail:
-                    string imailQueued = spoolDirectory.TrimEnd('\\') + "\\" + "D" + UID + ".SMD";
-                    string imailSpec = spoolDirectory.TrimEnd('\\') + "\\" + "Q" + UID + ".SMD";
+                    string imailQueued = string.Format("{0}\\D{1}.SMD", spoolDirectory.TrimEnd('\\'), UID);
+                    string imailSpec = string.Format("{0}\\Q{1}.SMD", spoolDirectory.TrimEnd('\\'), UID);
                     System.Text.StringBuilder imailDef = new System.Text.StringBuilder();
-                    imailDef.Append("Q" + imailQueued + "\n");
-                    imailDef.Append("H" + message.From.Email.Split('@')[1]);
-                    imailDef.Append("S" + message.From.Email);
+                    imailDef.Append("Q").Append(imailQueued).Append("\n");
+                    imailDef.Append("H").Append(message.From.Email.Split('@')[1]);
+                    imailDef.Append("S").Append(message.From.Email);
                     foreach (ActiveUp.Net.Mail.Address address in message.To)
-                        imailDef.Append("R" + address.Email);
+                        imailDef.Append("R").Append(address.Email);
                     foreach (ActiveUp.Net.Mail.Address address in message.Cc)
-                        imailDef.Append("R" + address.Email);
+                        imailDef.Append("R").Append(address.Email);
                     foreach (ActiveUp.Net.Mail.Address address in message.Bcc)
-                        imailDef.Append("R" + address.Email);
-                    System.IO.StreamWriter sw = System.IO.File.CreateText(imailSpec);
-                    sw.Write(imailDef);
-                    sw.Close();
+                        imailDef.Append("R").Append(address.Email);
+                    using (System.IO.StreamWriter sw = System.IO.File.CreateText(imailSpec))
+                    {
+                        sw.Write(imailDef);
+                        sw.Close();
+                    }
                     message.StoreToFile(imailQueued, true);
                     break;
             }
@@ -3468,7 +3483,7 @@ namespace ActiveUp.Net.Mail
                     ConnectPlain(host, port);
                     break;
                 default:
-                    throw new ArgumentException("Incompatible EncriptionType with SendSSL: " + enc_type);
+                    throw new ArgumentException(string.Format("Incompatible EncriptionType with SendSSL: {0}", enc_type));
             }
 
             SendEhloHelo();
@@ -3719,7 +3734,7 @@ namespace ActiveUp.Net.Mail
                     ConnectPlain(host, port);
                     break;
                 default:
-                    throw new ArgumentException("Incompatible EncriptionType with SendSSL: " + enc_type);
+                    throw new ArgumentException(string.Format("Incompatible EncriptionType with SendSSL: {0}", enc_type));
             }
 
             SendEhloHelo();

@@ -38,14 +38,11 @@ namespace ASC.Thrdparty.Web.Google
 {
     public partial class GoogleImportContacts : BaseImportPage
     {
-        private const string GoogleContactsUrl = "https://www.google.com/m8/feeds/contacts/default/full/";
-        private const string GoogleContactsScope = "https://www.googleapis.com/auth/contacts.readonly";
-
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                var token = GoogleLoginProvider.Auth(HttpContext.Current, GoogleContactsScope);
+                var token = GoogleLoginProvider.Auth(HttpContext.Current, GoogleLoginProvider.GoogleScopeContacts);
 
                 ImportContacts(token);
                 SubmitContacts();
@@ -81,7 +78,7 @@ namespace ASC.Thrdparty.Web.Google
 
         public XDocument RequestContacts(OAuth20Token token)
         {
-            var response = RequestHelper.PerformRequest(GoogleContactsUrl, headers: new Dictionary<string, string> { { "Authorization", "Bearer " + token.AccessToken } });
+            var response = RequestHelper.PerformRequest(GoogleLoginProvider.GoogleUrlContacts, headers: new Dictionary<string, string> { { "Authorization", "Bearer " + token.AccessToken } });
 
             return XDocument.Parse(response);
         }

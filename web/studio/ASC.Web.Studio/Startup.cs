@@ -24,7 +24,12 @@
 */
 
 
-using AjaxPro.Security;
+using System;
+using System.Configuration;
+using System.Linq;
+using System.Reflection;
+using System.Web;
+
 using ASC.Common.Data;
 using ASC.Core;
 using ASC.Core.Configuration;
@@ -34,53 +39,66 @@ using ASC.Web.Core;
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Security;
 using ASC.Web.Core.Utility;
+using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.SearchHandlers;
-using log4net.Config;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Linq;
-using System.Reflection;
-using System.Web;
+using ASC.Web.Studio.Utility;
 using TMResourceData;
+
+using AjaxPro.Security;
+using log4net.Config;
+using RedisSessionProvider.Config;
+using StackExchange.Redis;
+using System.Collections.Generic;
+using StackExchange.Redis.Extensions.Core.Configuration;
 
 namespace ASC.Web.Studio
 {
     public partial class Startup
     {
-        public static void Configure(HttpApplication application)
+        public static void Configure()
         {
             XmlConfigurator.Configure();
-            
+
             DbRegistry.Configure();
+
+            PrepareRedisSessionProvider();
+
+            if (HttpContext.Current != null && HttpContext.Current.Request != null)
+            {
+                var url = HttpContext.Current.Request.GetUrlRewriter();
+                CommonLinkUtility.Initialize(new UriBuilder(url.Scheme, url.Host, url.Port).Uri.ToString());
+            }
 
             ConfigureWebApi();
 
             if (ConfigurationManager.AppSettings["resources.from-db"] == "true")
             {
-                AssemblyWork.UploadResourceData(AppDomain.CurrentDomain.GetAssemblies());
-                AppDomain.CurrentDomain.AssemblyLoad += (sender, args) => AssemblyWork.UploadResourceData(AppDomain.CurrentDomain.GetAssemblies());
+                DBResourceManager.PatchAssemblies();
             }
 
             AjaxSecurityChecker.Instance.CheckMethodPermissions += AjaxCheckMethodPermissions;
-            
+
             try
             {
                 AmiPublicDnsSyncService.Synchronize();
             }
             catch { }
-            
+
             NotifyConfiguration.Configure();
-            
+
             WebItemManager.Instance.LoadItems();
-            
+
             SearchHandlerManager.Registry(new StudioSearchHandler());
 
             StorageFactory.InitializeHttpHandlers();
             (new S3UploadGuard()).DeleteExpiredUploads(TimeSpan.FromDays(1));
-            
+
             BundleConfig.Configure();
+
+            if (CoreContext.Configuration.Standalone)
+                WarmUp.Instance.Start();
         }
 
 
@@ -98,6 +116,24 @@ namespace ASC.Web.Studio
                 }
             }
             return authorized;
+        }
+
+        private static void PrepareRedisSessionProvider()
+        {
+            var configuration = RedisCachingSectionHandler.GetConfig();
+            if (configuration != null)
+            {
+                RedisConnectionConfig.GetSERedisServerConfig = (HttpContextBase context) =>
+                {
+                    if (configuration.RedisHosts != null && configuration.RedisHosts.Count > 0)
+                    {
+                        var host = configuration.RedisHosts[0];
+                        return new KeyValuePair<string, ConfigurationOptions>("DefaultConnection",
+                            ConfigurationOptions.Parse(String.Concat(host.Host, ":", host.CachePort)));
+                    }
+                    return new KeyValuePair<string, ConfigurationOptions>();
+                };
+            }
         }
     }
 }

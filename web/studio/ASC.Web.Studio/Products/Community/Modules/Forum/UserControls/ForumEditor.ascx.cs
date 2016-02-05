@@ -524,23 +524,24 @@ namespace ASC.Web.Community.Forum
 
             List<Thread> threads;
             var category = ForumDataProvider.GetCategoryByID(TenantProvider.CurrentTenantID, id, out threads);
-
-            if (category == null ||
-                !ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.GetAccessForumEditor, null))
+            if (category == null)
+            {
+                resp.rs1 = "1";
+                return resp;
+            }
+            if (!ForumManager.Instance.ValidateAccessSecurityAction(ForumAction.GetAccessForumEditor, null))
             {
                 resp.rs1 = "0";
                 resp.rs3 = Resources.ForumResource.ErrorAccessDenied;
+                return resp;
             }
 
             try
             {
                 List<int> removedPostIDs;
                 ForumDataProvider.RemoveThreadCategory(TenantProvider.CurrentTenantID, category.ID, out removedPostIDs);
-
                 ForumManager.Instance.RemoveAttachments(category);
-
                 removedPostIDs.ForEach(idPost => CommonControlsConfigurer.FCKUploadsRemoveForItem(ForumManager.Settings.FileStoreModuleID, idPost.ToString()));
-
                 resp.rs1 = "1";
             }
             catch (Exception ex)

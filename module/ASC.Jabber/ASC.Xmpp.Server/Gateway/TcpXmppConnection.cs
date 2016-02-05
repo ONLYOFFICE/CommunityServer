@@ -24,52 +24,66 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Net.Sockets;
-using System.Text;
 using ASC.Xmpp.Core.utils.Xml;
 using ASC.Xmpp.Core.utils.Xml.Dom;
 using ASC.Xmpp.Server.Statistics;
 using ASC.Xmpp.Server.Utils;
 using log4net;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Net.Security;
+using System.Net.Sockets;
+using System.Security.Authentication;
+using System.Security.Cryptography.X509Certificates;
+using System.Text;
+using System.Threading;
 
 namespace ASC.Xmpp.Server.Gateway
 {
     class TcpXmppConnection : IXmppConnection
     {
-        private readonly long _maxPacket;
-        protected Stream sendStream;
-
-        protected Stream recieveStream;
-
-        private byte[] buffer;
-        private long packetSize = 0;
-
-        private StreamParser streamParser;
-
-        private bool streamEndFired;
-
-        private bool closed;
-
         private static readonly ILog log = LogManager.GetLogger(typeof(TcpXmppConnection));
 
-        private EndPoint remoteEndPoint;
+        private readonly StreamParser streamParser;
+        private readonly byte[] buffer;
 
-        private ICollection<Node> notSendedBuffer = new List<Node>();
+        private readonly long maxPacket;
+        private long packetSize;
 
+        private int streamEndFired;
+        private int closed;
+
+        private readonly EndPoint remoteEndPoint;
+
+        private readonly ConcurrentQueue<Tuple<byte[], Node>> sendingQueue = new ConcurrentQueue<Tuple<byte[], Node>>();
+
+        private int sending;
+
+        protected Stream sendStream;
+
+        protected Stream receiveStream;
+
+        public string Id
+        {
+            get;
+            private set;
+        }
+
+        public bool TlsStarted
+        {
+            get
+            {
+                return receiveStream is SslStream;
+            }
+        }
 
         public TcpXmppConnection(Socket socket, long maxPacket)
         {
-            _maxPacket = maxPacket;
             if (socket == null) throw new ArgumentNullException("socket");
-
             Id = UniqueId.CreateNewId();
-            streamEndFired = false;
-            closed = false;
 
             streamParser = new StreamParser();
             streamParser.Reset();
@@ -80,17 +94,19 @@ namespace ASC.Xmpp.Server.Gateway
             buffer = new byte[socket.ReceiveBufferSize];
             remoteEndPoint = socket.RemoteEndPoint;
 
-            sendStream = recieveStream = new NetworkStream(socket, true);
+            sendStream = receiveStream = new NetworkStream(socket, true);
+            this.maxPacket = maxPacket;
 
             log.DebugFormat("Create new connection {0} with {1}", Id, remoteEndPoint);
         }
 
-        #region IXmppConnection Members
-
-        public string Id
+        public void StartTls(X509Certificate2 certificate)
         {
-            get;
-            private set;
+            receiveStream.Flush();
+            sendStream = receiveStream = new SslStream(receiveStream, false);
+            ((SslStream)receiveStream).AuthenticateAsServer(certificate, false,
+                SslProtocols.Ssl3 | SslProtocols.Tls | SslProtocols.Tls11 | SslProtocols.Tls12, false);
+            Reset();
         }
 
         public void Reset()
@@ -100,31 +116,37 @@ namespace ASC.Xmpp.Server.Gateway
 
         public void Close()
         {
-            lock (this)
+            if (Interlocked.CompareExchange(ref closed, 1, 0) == 0)
             {
-                if (closed) return;
-                closed = true;
-
                 try
                 {
                     OnStreamEnd();
                 }
-                catch { }
+                catch (Exception error)
+                {
+                    LogError(error, "Close");
+                }
                 try
                 {
                     var handler = Closed;
                     if (handler != null) handler(this, new XmppConnectionCloseEventArgs());
                 }
-                catch { }
+                catch (Exception error)
+                {
+                    LogError(error, "Close");
+                }
 
                 try
                 {
                     sendStream.Close();
                     sendStream = null;
-                    recieveStream.Close();
-                    recieveStream = null;
+                    receiveStream.Close();
+                    receiveStream = null;
                 }
-                catch { }
+                catch (Exception error)
+                {
+                    LogError(error, "Close");
+                }
 
                 log.DebugFormat("Close connection {0} with {1}", Id, remoteEndPoint);
             }
@@ -134,6 +156,7 @@ namespace ASC.Xmpp.Server.Gateway
         {
             if (node == null) throw new ArgumentNullException("node");
             if (encoding == null) throw new ArgumentNullException("encoding");
+
             Send(encoding.GetBytes(node.ToString(encoding)), node);
         }
 
@@ -149,9 +172,9 @@ namespace ASC.Xmpp.Server.Gateway
         {
             try
             {
-                if (recieveStream != null && recieveStream.CanRead)
+                if (receiveStream != null && receiveStream.CanRead)
                 {
-                    recieveStream.BeginRead(buffer, 0, buffer.Length, BeginReadCallback, recieveStream);
+                    receiveStream.BeginRead(buffer, 0, buffer.Length, ReadCallback, receiveStream);
                 }
             }
             catch (ObjectDisposedException) { }
@@ -164,23 +187,21 @@ namespace ASC.Xmpp.Server.Gateway
         public event EventHandler<XmppStreamEventArgs> XmppStreamElement;
 
         public event EventHandler<XmppConnectionCloseEventArgs> Closed;
-
-        #endregion
-
-
-        private void BeginReadCallback(IAsyncResult asyncResult)
+        
+        private void ReadCallback(IAsyncResult asyncResult)
         {
             try
             {
                 var stream = (Stream)asyncResult.AsyncState;
                 int readed = stream.EndRead(asyncResult);
+                
                 if (0 < readed)
                 {
                     streamParser.Push(buffer, 0, readed);
                     BeginReceive();
                     NetStatistics.ReadBytes(readed);
                     packetSize += readed;
-                    if (packetSize > _maxPacket)
+                    if (packetSize > maxPacket)
                     {
                         throw new ArgumentException("request-too-large");
                     }
@@ -192,36 +213,65 @@ namespace ASC.Xmpp.Server.Gateway
             }
             catch (Exception e)
             {
-                LogErrorAndCloseConnection(e, "BeginReadCallback");
+                LogErrorAndCloseConnection(e, "ReadCallback");
             }
         }
 
         private void Send(byte[] buffer, Node node)
         {
-            NetStatistics.WriteBytes(buffer.Length);
-            sendStream.BeginWrite(buffer, 0, buffer.Length, BeginWriteCallback, new object[] { sendStream, node });
+            if (buffer == null)
+            {
+                return;
+            }
+
+            sendingQueue.Enqueue(Tuple.Create(buffer, node));
+            if (sendStream != null)
+            {
+                Send(sendStream);
+            }
         }
 
-        private void BeginWriteCallback(IAsyncResult asyncResult)
+        private void Send(Stream stream)
         {
-            var array = (object[])asyncResult.AsyncState;
-            var stream = (Stream)array[0];
-            var node = array[1] as Node;
+            if (Interlocked.CompareExchange(ref sending, 1, 0) == 0)
+            {
+                Tuple<byte[], Node> item;
+                try
+                {
+                    if (sendingQueue.TryDequeue(out item))
+                    {
+                        NetStatistics.WriteBytes(item.Item1.Length);
+                        stream.BeginWrite(item.Item1, 0, item.Item1.Length, WriteCallback, stream);
+                    }
+                    else
+                    {
+                        Volatile.Write(ref sending, 0);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Volatile.Write(ref sending, 0);
+                    LogErrorAndCloseConnection(e, "Send");
+                }
+            }
+        }
+
+        private void WriteCallback(IAsyncResult asyncResult)
+        {
+            var stream = (Stream)asyncResult.AsyncState;
             try
             {
                 stream.EndWrite(asyncResult);
             }
             catch (Exception e)
             {
-                if (node != null)
-                {
-                    lock (notSendedBuffer)
-                    {
-                        notSendedBuffer.Add(node);
-                    }
-                }
-                LogErrorAndCloseConnection(e, "BeginWriteCallback");
+                LogErrorAndCloseConnection(e, "WriteCallback");
             }
+            finally
+            {
+                Volatile.Write(ref sending, 0);
+            }
+            Send(stream);
         }
 
         private void StreamParserOnStreamStart(object sender, Node e, string streamNamespace)
@@ -246,30 +296,35 @@ namespace ASC.Xmpp.Server.Gateway
 
         private void OnStreamEnd()
         {
-            if (streamEndFired) return;
-
-            streamEndFired = true;
-            var handler = XmppStreamEnd;
-            try
+            if (Interlocked.CompareExchange(ref streamEndFired, 1, 0) == 0)
             {
-                ICollection<Node> notSendedBufferClone;
-                lock (notSendedBuffer)
+                var handler = XmppStreamEnd;
+                if (handler != null)
                 {
-                    notSendedBufferClone = notSendedBuffer.ToList(); 
-                }
-                if (handler != null) handler(this, new XmppStreamEndEventArgs(Id, notSendedBufferClone));
-            }
-            finally
-            {
-                lock (notSendedBuffer)
-                {
-                    notSendedBuffer.Clear();
+                    List<Node> notSended = new List<Node>();
+                    Tuple<byte[], Node> tuple;
+                    while (!sendingQueue.IsEmpty)
+                    {
+                        if (sendingQueue.TryDequeue(out tuple))
+                        {
+                            if (tuple.Item2 != null)
+                            {
+                                notSended.Add(tuple.Item2);
+                            }
+                        }
+                    }
+                    handler(this, new XmppStreamEndEventArgs(Id, notSended));
                 }
             }
         }
 
-
         private void LogErrorAndCloseConnection(Exception error, string method)
+        {
+            LogError(error, method);
+            Close();
+        }
+
+        private void LogError(Exception error, string method)
         {
             if (error is ObjectDisposedException ||
                 error.InnerException is ObjectDisposedException ||
@@ -281,7 +336,6 @@ namespace ASC.Xmpp.Server.Gateway
             {
                 log.ErrorFormat("Error {0} connection {1} with {2}: {3}", method, Id, remoteEndPoint, error);
             }
-            Close();
         }
     }
 }

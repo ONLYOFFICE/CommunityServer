@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -84,8 +84,9 @@ namespace ASC.Web.CRM.Controls.Contacts
             if (TargetContact is Company)
                 ExecPeopleContainerView();
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/products/projects/app_themes/default/css/allprojects.css"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/products/projects/js/projects.js"));
+            Page.RegisterStyle("~/products/projects/app_themes/default/css/allprojects.css");
+            Page.RegisterBodyScripts("~/products/projects/js/base.js");
+            Page.RegisterBodyScripts("~/products/projects/js/projects.js");
             RegisterScript();
         }
 

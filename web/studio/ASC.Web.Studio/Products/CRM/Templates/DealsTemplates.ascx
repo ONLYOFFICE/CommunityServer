@@ -54,7 +54,7 @@
         </span>
     </div>
 
-    <div id="addTagDealsDialog" class="studio-action-panel addTagDialog">
+    <div id="addTagDealsDialog" class="studio-action-panel group-actions addTagDialog">
         <ul class="dropdown-content mobile-overflow"></ul>
         <div class="h_line">&nbsp;</div>
         <div style="padding: 0 12px;">

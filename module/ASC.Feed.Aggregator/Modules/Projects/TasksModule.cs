@@ -234,7 +234,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
             {
                 p.Comment = new Comment
                     {
-                        ID = new Guid(Convert.ToString(r[26])),
+                        OldGuidId = new Guid(Convert.ToString(r[26])),
                         Content = Convert.ToString(r[27]),
                         CreateBy = new Guid(Convert.ToString(r[28])),
                         CreateOn = Convert.ToDateTime(r[29]),

@@ -25,14 +25,7 @@
 
 
 extern alias ionic;
-
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using ASC.Core.Tenants;
+using ASC.Common.Security.Authentication;
 using ASC.Data.Storage;
 using ASC.Files.Core;
 using ASC.MessagingSystem;
@@ -43,38 +36,36 @@ using ASC.Web.Files.Resources;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading;
 using File = ASC.Files.Core.File;
 
 namespace ASC.Web.Files.Services.WCFService.FileOperations
 {
-    internal class FileDownloadOperation : FileOperation
+    class FileDownloadOperation : FileOperation
     {
-        private readonly Dictionary<object, string> _files;
+        private readonly Dictionary<object, string> files;
+        private readonly Dictionary<string, string> headers;
+        private readonly bool quotaDocsEdition;
 
-        private readonly bool _quotaDocsEdition;
-
-        private readonly Dictionary<string, string> httpRequestHeaders;
-
-        protected override FileOperationType OperationType
+        public override FileOperationType OperationType
         {
             get { return FileOperationType.Download; }
         }
 
-        public FileDownloadOperation(Tenant tenant, Dictionary<object, string> folders, Dictionary<object, string> files)
-            : base(tenant, folders.Select(f => f.Key).ToList(), files.Select(f => f.Key).ToList())
+
+        public FileDownloadOperation(Dictionary<object, string> folders, Dictionary<object, string> files, Dictionary<string, string> headers)
+            : base(folders.Select(f => f.Key).ToList(), files.Select(f => f.Key).ToList())
         {
-            Id = Owner.ToString() + OperationType.ToString(); //one download per user
-
-            _files = files;
-
-            _quotaDocsEdition = TenantExtra.GetTenantQuota().DocsEdition;
+            this.files = files;
+            this.headers = headers;
+            quotaDocsEdition = TenantExtra.GetTenantQuota().DocsEdition;
         }
 
-        public FileDownloadOperation(Tenant tenant, Dictionary<object, string> folders, Dictionary<object, string> files, Dictionary<string, string> httpRequestHeaders)
-            : this(tenant, folders, files)
-        {
-            this.httpRequestHeaders = httpRequestHeaders;
-        }
 
         protected override void Do()
         {
@@ -97,7 +88,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                     var store = Global.GetStore();
                     store.Save(
                         FileConstant.StorageDomainTmp,
-                        string.Format(@"{0}\{1}", Owner, fileName),
+                        string.Format(@"{0}\{1}", ((IAccount)Thread.CurrentPrincipal.Identity).ID, fileName),
                         stream,
                         "application/zip",
                         "attachment; filename=\"" + fileName + "\"");
@@ -112,11 +103,11 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
             var title = file.Title;
 
-            if (_files.ContainsKey(file.ID.ToString()))
+            if (files.ContainsKey(file.ID.ToString()))
             {
                 var convertToExt = string.Empty;
-                if (_quotaDocsEdition || FileUtility.InternalExtension.Values.Contains(convertToExt))
-                    convertToExt = _files[file.ID.ToString()];
+                if (quotaDocsEdition || FileUtility.InternalExtension.Values.Contains(convertToExt))
+                    convertToExt = files[file.ID.ToString()];
 
                 if (!string.IsNullOrEmpty(convertToExt))
                 {
@@ -145,7 +136,6 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                              .ForEach(FileMarker.RemoveMarkAsNew);
 
                 var filesInFolder = GetFilesInFolders(Folders, string.Empty);
-                if (filesInFolder == null) return null;
                 entriesPathId.Add(filesInFolder);
             }
             return entriesPathId;
@@ -153,7 +143,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
         private ItemNameValueCollection GetFilesInFolders(IEnumerable<object> folderIds, string path)
         {
-            if (Canceled) return null;
+            CancellationToken.ThrowIfCancellationRequested();
 
             var entriesPathId = new ItemNameValueCollection();
             foreach (var folderId in folderIds)
@@ -162,7 +152,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 if (folder == null || !FilesSecurity.CanRead(folder)) continue;
                 var folderPath = path + folder.Title + "/";
 
-                var files = FolderDao.GetFiles(folder.ID, null, FilterType.None, Guid.Empty, string.Empty);
+                var files = FileDao.GetFiles(folder.ID, null, FilterType.None, Guid.Empty, string.Empty);
                 files = FilesSecurity.FilterRead(files).ToList();
                 files.ForEach(file => entriesPathId.Add(ExecPathFromFile(file, folderPath)));
 
@@ -176,7 +166,6 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 }
 
                 var filesInFolder = GetFilesInFolders(nestedFolders.ConvertAll(f => f.ID), folderPath);
-                if (filesInFolder == null) return null;
                 entriesPathId.Add(filesInFolder);
             }
             return entriesPathId;
@@ -193,11 +182,11 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
                 foreach (var path in entriesPathId.AllKeys)
                 {
-                    if (Canceled)
+                    if (CancellationToken.IsCancellationRequested)
                     {
                         zip.Dispose();
                         stream.Dispose();
-                        return null;
+                        CancellationToken.ThrowIfCancellationRequested();
                     }
 
                     var counter = 0;
@@ -219,11 +208,12 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                 continue;
                             }
 
-                            if (_files.ContainsKey(file.ID.ToString()))
+                            if (files.ContainsKey(file.ID.ToString()))
                             {
-                                if (_quotaDocsEdition)
-                                    convertToExt = _files[file.ID.ToString()];
-
+                                if (quotaDocsEdition)
+                                {
+                                    convertToExt = files[file.ID.ToString()];
+                                }
                                 if (!string.IsNullOrEmpty(convertToExt))
                                 {
                                     newtitle = FileUtility.ReplaceFileExtension(path, convertToExt);
@@ -237,9 +227,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
                             if (!string.IsNullOrEmpty(entryId))
                             {
-                                newtitle = 0 < newtitle.IndexOf('.')
-                                               ? newtitle.Insert(newtitle.LastIndexOf('.'), suffix)
-                                               : newtitle + suffix;
+                                newtitle = 0 < newtitle.IndexOf('.') ? newtitle.Insert(newtitle.LastIndexOf('.'), suffix) : newtitle + suffix;
                             }
                             else
                             {
@@ -251,33 +239,30 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
                         if (!string.IsNullOrEmpty(entryId) && file != null)
                         {
-                            if (file.ConvertedType != null || !string.IsNullOrEmpty(convertToExt))
+                            if (FileConverter.EnableConvert(file, convertToExt))
                             {
                                 //Take from converter
                                 try
                                 {
-                                    using (var readStream = !string.IsNullOrEmpty(convertToExt)
-                                                                ? FileConverter.Exec(file, convertToExt)
-                                                                : FileConverter.Exec(file))
+                                    using (var readStream = !string.IsNullOrEmpty(convertToExt) ? FileConverter.Exec(file, convertToExt) : FileConverter.Exec(file))
                                     {
                                         if (readStream != null)
                                         {
                                             readStream.StreamCopyTo(zip);
                                             if (!string.IsNullOrEmpty(convertToExt))
                                             {
-                                                FilesMessageService.Send(file, httpRequestHeaders, MessageAction.FileDownloadedAs, file.Title, convertToExt);
+                                                FilesMessageService.Send(file, headers, MessageAction.FileDownloadedAs, file.Title, convertToExt);
                                             }
                                             else
                                             {
-                                                FilesMessageService.Send(file, httpRequestHeaders, MessageAction.FileDownloaded, file.Title);
+                                                FilesMessageService.Send(file, headers, MessageAction.FileDownloaded, file.Title);
                                             }
                                         }
                                     }
                                 }
-                                catch(Exception ex)
+                                catch (Exception ex)
                                 {
                                     Error = ex.Message;
-
                                     Logger.Error(Error, ex);
                                 }
                             }
@@ -286,7 +271,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                 using (var readStream = FileDao.GetFileStream(file))
                                 {
                                     readStream.StreamCopyTo(zip);
-                                    FilesMessageService.Send(file, httpRequestHeaders, MessageAction.FileDownloaded, file.Title);
+                                    FilesMessageService.Send(file, headers, MessageAction.FileDownloaded, file.Title);
                                 }
                             }
                         }
@@ -295,8 +280,8 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
                     ProgressStep();
                 }
-                return stream;
             }
+            return stream;
         }
 
         private static void ReplaceLongPath(ItemNameValueCollection entriesPathId)
@@ -314,62 +299,58 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
         }
 
 
-        private class ItemNameValueCollection
+        class ItemNameValueCollection
         {
-            private readonly Dictionary<string, List<string>> _dictionaryName;
+            private readonly Dictionary<string, List<string>> dic = new Dictionary<string, List<string>>();
 
-            internal ItemNameValueCollection()
-            {
-                _dictionaryName = new Dictionary<string, List<string>>();
-            }
 
             public IEnumerable<string> AllKeys
             {
-                get { return _dictionaryName.Keys.ToArray(); }
+                get { return dic.Keys; }
             }
 
             public IEnumerable<string> this[string name]
             {
-                get { return _dictionaryName[name].ToArray(); }
+                get { return dic[name].ToArray(); }
             }
 
             public int Count
             {
-                get { return _dictionaryName.Keys.Count; }
+                get { return dic.Count; }
             }
 
             public void Add(string name, string value)
             {
-                if (!_dictionaryName.ContainsKey(name))
+                if (!dic.ContainsKey(name))
                 {
-                    _dictionaryName.Add(name, new List<string>());
+                    dic.Add(name, new List<string>());
                 }
-                _dictionaryName[name].Add(value);
+                dic[name].Add(value);
             }
 
-            public void Add(ItemNameValueCollection itemNameValueCollection)
+            public void Add(ItemNameValueCollection collection)
             {
-                foreach (var key in itemNameValueCollection.AllKeys)
+                foreach (var key in collection.AllKeys)
                 {
-                    foreach (var value in itemNameValueCollection[key])
+                    foreach (var value in collection[key])
                     {
                         Add(key, value);
                     }
                 }
             }
 
-            internal void Add(string name, IEnumerable<string> values)
+            public void Add(string name, IEnumerable<string> values)
             {
-                if (!_dictionaryName.ContainsKey(name))
+                if (!dic.ContainsKey(name))
                 {
-                    _dictionaryName.Add(name, new List<string>());
+                    dic.Add(name, new List<string>());
                 }
-                _dictionaryName[name].AddRange(values);
+                dic[name].AddRange(values);
             }
 
             public void Remove(string name)
             {
-                _dictionaryName.Remove(name);
+                dic.Remove(name);
             }
         }
     }

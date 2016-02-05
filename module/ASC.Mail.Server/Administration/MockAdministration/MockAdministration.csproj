@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MockNotificationAddress.cs" />
     <Compile Include="MockAccount.cs" />
     <Compile Include="MockAddress.cs" />
     <Compile Include="MockDnsSettings.cs" />

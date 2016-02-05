@@ -44,8 +44,8 @@ namespace ASC.Collections
 
         public HttpRequestDictionary(string baseKey)
         {
-            _cacheCodition = (T) => true;
-            _baseKey = baseKey;
+            condition = (T) => true;
+            this.baseKey = baseKey;
         }
 
         protected override void InsertRootKey(string rootKey)

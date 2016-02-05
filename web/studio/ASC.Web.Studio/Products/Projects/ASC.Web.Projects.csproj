@@ -48,10 +48,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxPro.2">
-      <HintPath>..\..\..\..\..\packages\AjaxPro.2.2.9.17.1\lib\net20\AjaxPro.2.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="BasecampRestAPI">
       <HintPath>..\..\..\..\..\packages\BasecampRestAPI.1.0.0.0\lib\net35\BasecampRestAPI.dll</HintPath>
       <Private>True</Private>
@@ -64,6 +60,10 @@
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\..\..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -98,10 +98,13 @@
     <Content Include="Controls\Templates\EditTemplate.ascx" />
     <Content Include="Core\Model\Services\NotifyService\patterns.xml" />
     <Content Include="js\addmilestonecontainer.js" />
+    <Content Include="js\base.js" />
     <Content Include="js\common.js" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\FileEngine2.cs" />
+    <Compile Include="Classes\BaseCommentControl.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Classes\NotifyHelper.cs" />
     <Compile Include="Classes\ResultsView.cs" />
     <Compile Include="Classes\ReportHelper.cs" />
@@ -110,6 +113,7 @@
     <Compile Include="Classes\ReportInfo.cs" />
     <Compile Include="Classes\ReportTransformer.cs" />
     <Compile Include="Classes\RequestContext.cs" />
+    <Compile Include="Classes\UrlAction.cs" />
     <Compile Include="Classes\UrlConstant.cs" />
     <Compile Include="Classes\UrlParameters.cs" />
     <Compile Include="Classes\BasePage.cs">
@@ -283,7 +287,6 @@
     <Compile Include="Core\Model\DataInterfaces\ITimeSpendDao.cs" />
     <Compile Include="Core\Model\Domain\DomainObject.cs" />
     <Compile Include="Core\Model\Domain\Entities\Comment.cs" />
-    <Compile Include="Core\Model\Domain\Entities\CommentUpdates.cs" />
     <Compile Include="Core\Model\Domain\Entities\Enums\EntityTypeEnum.cs" />
     <Compile Include="Core\Model\Domain\Entities\Enums\LocalizedEnumConverter.cs" />
     <Compile Include="Core\Model\Domain\Entities\Enums\MilestoneStatusEnum.cs" />
@@ -305,7 +308,6 @@
     <Compile Include="Core\Model\Domain\Entities\TaskLink.cs" />
     <Compile Include="Core\Model\Domain\Entities\Template.cs" />
     <Compile Include="Core\Model\Domain\Entities\TimeSpend.cs" />
-    <Compile Include="Core\Model\Domain\EntityList.cs" />
     <Compile Include="Core\Model\Domain\FilterOperationResult.cs" />
     <Compile Include="Core\Model\Domain\ProjectEntity.cs" />
     <Compile Include="Core\Model\Domain\Reports\ReportFilter.cs" />
@@ -535,12 +537,6 @@
     <Content Include="App_Themes\Default\Images\empty_screen_persons.png" />
     <Content Include="App_Themes\Default\Images\empty_screen_tasks.png" />
     <Content Include="App_Themes\Default\Images\empty_screen_time_tracking.png" />
-    <Content Include="App_Themes\Default\Images\filetype\discussion.png" />
-    <Content Include="App_Themes\Default\Images\filetype\employee.png" />
-    <Content Include="App_Themes\Default\Images\filetype\milestone.png" />
-    <Content Include="App_Themes\Default\Images\filetype\project.png" />
-    <Content Include="App_Themes\Default\Images\filetype\projectfile.png" />
-    <Content Include="App_Themes\Default\Images\filetype\task.png" />
     <Content Include="App_Themes\Default\Images\gantt-icons.png" />
     <Content Include="App_Themes\Default\Images\icon-discussion.png" />
     <Content Include="App_Themes\Default\Images\icon-document.png" />

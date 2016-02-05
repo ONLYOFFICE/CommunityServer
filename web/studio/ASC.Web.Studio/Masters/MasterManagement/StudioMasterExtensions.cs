@@ -33,23 +33,23 @@ namespace System.Web
     {
         #region Style
 
-        public static void RegisterStyleControl(this Page page, string lessPath, bool theme = false)
+        public static void RegisterStyle(this Page page, string absoluteLessPath)
         {
             if (page == null) throw new ArgumentNullException("page");
             var master = GetStudioMaster(page);
             if (master != null)
             {
-                master.AddStyles(lessPath, theme);
+                master.AddStyles(VirtualPathUtility.ToAbsolute(absoluteLessPath));
             }
         }
 
-        public static void RegisterStyleControl(this Page page, Control control, bool theme = false)
+        public static void RegisterStyleControl(this Page page, string absoluteControlPath)
         {
             if (page == null) throw new ArgumentNullException("page");
             var master = GetStudioMaster(page);
             if (master != null)
             {
-                master.AddStyles(control, theme);
+                master.AddStyles(page.LoadControl(VirtualPathUtility.ToAbsolute(absoluteControlPath)));
             }
         }
 
@@ -63,17 +63,17 @@ namespace System.Web
             var master = GetStudioMaster(page);
             if (master != null)
             {
-                master.AddBodyScripts(scriptPath);
+                master.AddBodyScripts(VirtualPathUtility.ToAbsolute(scriptPath));
             }
         }
 
-        public static void RegisterBodyScripts(this Page page, Control control)
+        public static void RegisterBodyScriptsControl(this Page page, string control)
         {
             if (page == null) throw new ArgumentNullException("page");
             var master = GetStudioMaster(page);
             if (master != null)
             {
-                master.AddBodyScripts(control);
+                master.AddBodyScripts(page.LoadControl(VirtualPathUtility.ToAbsolute(control)));
             }
         }
 

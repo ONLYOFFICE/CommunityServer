@@ -32,19 +32,17 @@ namespace ASC.Mail.Aggregator.Common.Imap
 {
     public class ImapFolderUids
     {
-        public ImapFolderUids()
-        {
-            UnhandledUidIntervals = new List<int> { 1, int.MaxValue };
-            BeginDateUid = 1;
-        }
-
         public ImapFolderUids(IEnumerable<int> uidIntervals, int beginDateUid)
         {
+            if (uidIntervals == null)
+                uidIntervals = new List<int>();
+
             UnhandledUidIntervals = new List<int>(uidIntervals);
             BeginDateUid = beginDateUid;
         }
 
         public int BeginDateUid { get; set; }
+
         public List<int> UnhandledUidIntervals { get; set; }
 
         public static bool operator ==(ImapFolderUids a, ImapFolderUids b)

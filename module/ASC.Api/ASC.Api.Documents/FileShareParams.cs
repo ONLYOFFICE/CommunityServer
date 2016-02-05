@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Runtime.Serialization;
 using ASC.Files.Core.Security;
 using ASC.Web.Files.Services.WCFService;
 
@@ -32,14 +33,17 @@ namespace ASC.Api.Documents
 {
     /// <summary>
     /// </summary>
+    [DataContract(Name = "share", Namespace = "")]
     public class FileShareParams
     {
         /// <summary>
         /// </summary>
+        [DataMember(Name = "shareTo", Order = 0)]
         public Guid ShareTo { get; set; }
         
         /// <summary>
         /// </summary>
+        [DataMember(Name = "access", Order = 1)]
         public FileShare Access { get; set; }
 
         /// <summary>

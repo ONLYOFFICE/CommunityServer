@@ -41,6 +41,7 @@ using ASC.FullTextIndex;
 using ASC.Web.CRM.Core.Enums;
 using ASC.Web.Files.Api;
 using OrderBy = ASC.CRM.Core.Entities.OrderBy;
+using System.Text.RegularExpressions;
 
 namespace ASC.CRM.Core.Dao
 {
@@ -211,7 +212,7 @@ namespace ASC.CRM.Core.Dao
             if (toDate != DateTime.MinValue)
                 cacheKey += toDate.ToString();
 
-            var fromCache = _cache.Get(cacheKey);
+            var fromCache = _cache.Get<string>(cacheKey);
 
             if (fromCache != null) return Convert.ToInt32(fromCache);
 
@@ -327,8 +328,9 @@ namespace ASC.CRM.Core.Dao
                 }
             }
             if (result > 0)
-                _cache.Insert(cacheKey, result, new CacheDependency(null, new[] { _contactCacheKey }), Cache.NoAbsoluteExpiration,
-                                      TimeSpan.FromMinutes(1));
+            {
+                _cache.Insert(cacheKey, result, TimeSpan.FromMinutes(1));
+            }
 
             return result;
         }
@@ -570,13 +572,17 @@ namespace ASC.CRM.Core.Dao
                     if (full_text_ids.Count == 0) return null;
                     if (ids.Count != 0)
                     {
-                        ids = ids.Where(i => full_text_ids.Contains(i)).ToList();
+                        ids = ids.Where(full_text_ids.Contains).ToList();
                     }
                     else
                     {
                         ids = full_text_ids;
                     }
 
+                    if (contactListView == ContactListViewType.All || contactListView == ContactListViewType.Person)
+                    {
+                        ids.AddRange(GetContactIDsByCompanyIds(ids));
+                    }
                 }
             }
 
@@ -1065,8 +1071,7 @@ namespace ASC.CRM.Core.Dao
                    .Where(Exp.Eq("id", contact.ID)));
 
             // Delete relative  keys
-            _cache.Remove(_contactCacheKey);
-            _cache.Insert(_contactCacheKey, String.Empty);
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
         }
 
         public void UpdateContactStatus(IEnumerable<int> contactid, int statusid)
@@ -1079,8 +1084,7 @@ namespace ASC.CRM.Core.Dao
                        .Where(Exp.In("id", contactid.ToArray())));
             }
             // Delete relative  keys
-            _cache.Remove(_contactCacheKey);
-            _cache.Insert(_contactCacheKey, String.Empty);
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
         }
 
         public List<Object[]> FindDuplicateByEmail(List<ContactInfo> items)
@@ -1150,8 +1154,7 @@ namespace ASC.CRM.Core.Dao
                 tx.Commit();
 
                 // Delete relative  keys
-                _cache.Remove(_contactCacheKey);
-                _cache.Insert(_contactCacheKey, String.Empty);
+                _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
 
                 return result;
             }
@@ -1175,8 +1178,7 @@ namespace ASC.CRM.Core.Dao
                 tx.Commit();
 
                 // Delete relative  keys
-                _cache.Remove(_contactCacheKey);
-                _cache.Insert(_contactCacheKey, String.Empty);
+                _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
             }
         }
 
@@ -1201,8 +1203,7 @@ namespace ASC.CRM.Core.Dao
             {
                 var result = SaveContact(contact, db);
                 // Delete relative  keys
-                _cache.Remove(_contactCacheKey);
-                _cache.Insert(_contactCacheKey, String.Empty);
+                _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
                 return result;
             }
         }
@@ -1405,8 +1406,7 @@ namespace ASC.CRM.Core.Dao
             if (!contacts.Any()) return contacts;
 
             // Delete relative  keys
-            _cache.Remove(_contactCacheKey);
-            _cache.Insert(_contactCacheKey, String.Empty);
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
 
             DeleteBatchContactsExecute(contacts);
 
@@ -1419,8 +1419,7 @@ namespace ASC.CRM.Core.Dao
             if (!contacts.Any()) return contacts;
 
             // Delete relative  keys
-            _cache.Remove(_contactCacheKey);
-            _cache.Insert(_contactCacheKey, String.Empty);
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
 
             DeleteBatchContactsExecute(contacts);
 
@@ -1439,8 +1438,7 @@ namespace ASC.CRM.Core.Dao
             DeleteBatchContactsExecute(new List<Contact>() { contact });
 
             // Delete relative  keys
-            _cache.Remove(_contactCacheKey);
-            _cache.Insert(_invoiceCacheKey, String.Empty);
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
 
             return contact;
         }
@@ -1713,6 +1711,17 @@ namespace ASC.CRM.Core.Dao
             CoreContext.AuthorizationManager.RemoveAllAces(fromContact);
         }
 
+        public List<int> GetContactIDsByCompanyIds(List<int> companyIDs)
+        {
+            using (var db = GetDb())
+            {
+                return db.ExecuteList(new SqlQuery("crm_contact").Select("id")
+                                                     .Distinct()
+                                                     .Where(Exp.In("company_id", companyIDs) & Exp.Eq("is_company", false)))
+                                                     .ConvertAll(row => Convert.ToInt32(row[0]));
+            }
+        }
+
         public List<int> GetContactIDsByContactInfo(ContactInfoType infoType, String data, int? category, bool? isPrimary)
         {
             var ids = new List<int>();
@@ -1819,13 +1828,15 @@ namespace ASC.CRM.Core.Dao
             if (!String.IsNullOrEmpty(alias))
             {
                 sqlQuery = new SqlQuery(String.Concat("crm_contact ", alias))
-                           .Where(Exp.Eq(alias + ".tenant_id", TenantID));
+                           .Where(alias + ".tenant_id", TenantID);
                 sqlQuery.Select(GetContactColumnsTable(alias));
 
             }
             else
+            {
                 sqlQuery.Select(GetContactColumnsTable(String.Empty));
-
+                sqlQuery.Where("tenant_id", TenantID);
+            }
 
             if (where != null)
                 sqlQuery.Where(where);

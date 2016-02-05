@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -34,24 +34,25 @@ using log4net;
 
 namespace ASC.FullTextIndex.Service
 {
-    [Flags]
     enum TextIndexAction
     {
-        None = 0,
-        Index = 1,
-        Merge = 2,
-        Remove = 4,
+        None,
+        Index,
+        Merge,
+        Remove
     }
 
     class TextIndexerParams
     {
         public TextIndexAction Action { get; private set; }
         public TimeSpan Period { get; private set; }
+        public DateTime LastIndexDate { get; private set; }
 
         public TextIndexerParams(TextIndexAction action, TimeSpan period)
         {
             Action = action;
             Period = period;
+            LastIndexDate = DateTime.UtcNow;
         }
 
         public void InitNext()
@@ -59,12 +60,32 @@ namespace ASC.FullTextIndex.Service
             var now = DateTime.UtcNow;
             var indexDateTime = TextIndexCfg.ChangedCron.GetTimeAfter(now) ?? DateTime.MaxValue;
             var removeDateTime = TextIndexCfg.RemovedCron.GetTimeAfter(now) ?? DateTime.MaxValue;
+            var mergeDateTime = TextIndexCfg.MergeCron.GetTimeAfter(now) ?? DateTime.MaxValue;
 
             Action = TextIndexAction.None;
-            if (indexDateTime < removeDateTime) Action = TextIndexAction.Index;
-            if (indexDateTime > removeDateTime) Action = TextIndexAction.Remove;
+            DateTime period;
+            if (indexDateTime < mergeDateTime)
+            {
+                Action = TextIndexAction.Index;
+                period = indexDateTime;
+                LastIndexDate = period;
+            }
+            else
+            {
+                if (mergeDateTime < removeDateTime)
+                {
+                    Action = TextIndexAction.Merge;
+                    period = mergeDateTime;
+                }
+                else
+                {
+                    Action = TextIndexAction.Remove;
+                    period = removeDateTime;
+                }
+            }
 
-            Period = ((indexDateTime < removeDateTime ? indexDateTime : removeDateTime) - now).Add(TimeSpan.FromSeconds(1));
+            Period = (period - now).Add(TimeSpan.FromSeconds(1));
+
         }
     }
 
@@ -114,11 +135,12 @@ namespace ASC.FullTextIndex.Service
                         return;
                     }
 
+
                     DoIndex(parameters);
 
-                    parameters.InitNext();
-
                     TextSearcher.Instance.Start();
+
+                    parameters.InitNext();
 
                     log.DebugFormat("Next action '{0}' over {1}", parameters.Action, parameters.Period);
                 }
@@ -145,15 +167,15 @@ namespace ASC.FullTextIndex.Service
                     return;
                 }
                 
-                var indexer = new TextIndexer(module);
+                var indexer = TextIndexCfg.Chunks > 1 ? new TextIndexerDistributed(module) : new TextIndexer(module);
 
                 try
                 {
                     if (TextIndexAction.None == parameters.Action  && !indexed.Contains(module.Main) ||
-                        TextIndexAction.Remove == (parameters.Action & TextIndexAction.Remove))
+                        TextIndexAction.Remove == parameters.Action)
                     {
-                        indexer.FirstTimeIndex();
-                        continue;
+                        indexer.RotateMain();
+                        DbProvider.UpdateLastIndexDate(module.Main, DateTime.UtcNow);
                     }
                 }
                 catch (Exception ex)
@@ -163,14 +185,26 @@ namespace ASC.FullTextIndex.Service
 
                 try
                 {
-                    if (TextIndexAction.Index == (parameters.Action & TextIndexAction.Index))
+                    if (TextIndexAction.Merge == parameters.Action)
                     {
-                        indexer.Rotate();
+                        var exitCode = indexer.Merge();
+                        if (exitCode == 0)
+                            DbProvider.UpdateLastIndexDate(module.Delta, parameters.LastIndexDate);
                     }
+
                 }
                 catch (Exception ex)
                 {
                     log.ErrorFormat("Error rotate {0}, module {1}", ex, module.Name);
+                }
+
+                try
+                {
+                    indexer.RotateDelta();
+                }
+                catch (Exception ex)
+                {
+                    log.ErrorFormat("Error rotate delta {0}, module {1}", ex, module.Name);
                 }
             }
         }

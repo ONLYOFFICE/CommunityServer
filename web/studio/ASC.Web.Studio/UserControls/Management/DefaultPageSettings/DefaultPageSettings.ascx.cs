@@ -29,7 +29,6 @@ using System.Web;
 using System.Web.UI;
 using ASC.Core;
 using ASC.MessagingSystem;
-using AjaxPro;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
@@ -39,7 +38,6 @@ using System.Collections.Generic;
 namespace ASC.Web.Studio.UserControls.Management
 {
     [ManagementControl(ManagementType.ProductsAndInstruments, Location, SortOrder = 100)]
-    [AjaxNamespace("DefaultPageController")]
     public partial class DefaultPageSettings : UserControl
     {
         public const string Location = "~/UserControls/Management/DefaultPageSettings/DefaultPageSettings.ascx";
@@ -49,8 +47,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/defaultpagesettings/js/defaultpage.js"));
+            Page.RegisterBodyScripts("~/usercontrols/management/defaultpagesettings/js/defaultpage.js");
 
             DefaultPages = new List<DefaultStartPageWrapper>();
 
@@ -86,33 +83,6 @@ namespace ASC.Web.Studio.UserControls.Management
                     ProductName = string.Empty,
                     IsSelected = DefaultProductID.Equals(Guid.Empty)
                 });
-        }
-
-        [AjaxMethod]
-        public object SaveSettings(string defaultProductID)
-        {
-            try
-            {
-                SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
-
-                var defaultPageSettingsObj = new StudioDefaultPageSettings
-                    {
-                        DefaultProductID = new Guid(defaultProductID)
-                    };
-                SettingsManager.Instance.SaveSettings(defaultPageSettingsObj, TenantProvider.CurrentTenantID);
-
-                MessageService.Send(HttpContext.Current.Request, MessageAction.DefaultStartPageSettingsUpdated);
-
-                return new
-                    {
-                        Status = 1,
-                        Message = Resources.Resource.SuccessfullySaveSettingsMessage
-                    };
-            }
-            catch(Exception e)
-            {
-                return new {Status = 0, Message = e.Message.HtmlEncode()};
-            }
         }
     }
 

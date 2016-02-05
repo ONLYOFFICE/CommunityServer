@@ -52,6 +52,31 @@ function callbackRemove(result)
     }
 }
 
+
+var SubscribeOnComments = function(btn, feedId, subscribeText, unsubscribeText) {
+
+    Teamlab.subscribeCmtEventComment({}, feedId, {feedid: feedId, isSubscribe: jq(btn).hasClass("subscribed")},
+    {
+        before: function(params) {
+            LoadingBanner.displayLoading();
+            jq('#eventsActionsMenuPanel').hide();
+            jq('.menu-small').removeClass('active');
+
+        },
+        after: function(params) { LoadingBanner.hideLoading(); },
+        success: function(params, result) {
+            if(!result){
+                jq('#statusSubscribe').removeClass('subscribed').addClass('unsubscribed');
+                jq('#statusSubscribe').attr('title', subscribeText);
+            } else {
+                jq('#statusSubscribe').removeClass('unsubscribed').addClass('subscribed');
+                jq('#statusSubscribe').attr('title', unsubscribeText);
+            }
+        }
+    });
+ 
+};
+
 function callbackRemoveFromTable(result)
 {
     if (result.value.rs1!="0")

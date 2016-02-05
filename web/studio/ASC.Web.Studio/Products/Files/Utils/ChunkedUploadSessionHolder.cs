@@ -24,51 +24,62 @@
 */
 
 
-using System;
-using System.Web;
-using System.Web.Caching;
-using ASC.Core;
 using ASC.Files.Core;
 using ASC.Web.Files.Classes;
+using System;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace ASC.Web.Files.Utils
 {
-    internal static class ChunkedUploadSessionHolder
+    static class ChunkedUploadSessionHolder
     {
-        private static readonly DateTime AbsoluteExpiration = Cache.NoAbsoluteExpiration;
         public static readonly TimeSpan SlidingExpiration = TimeSpan.FromHours(12);
 
-        public static void StoreSession(ChunkedUploadSession uploadSession)
+        static ChunkedUploadSessionHolder()
         {
-            HttpRuntime.Cache.Remove(uploadSession.Id);
-            HttpRuntime.Cache.Insert(uploadSession.Id, uploadSession, null, AbsoluteExpiration, SlidingExpiration, OnCacheItemRemoved);
+            // clear old sessions
+            try
+            {
+                Global.GetStore(false).DeleteExpired(FileConstant.StorageDomainTmp, "sessions", SlidingExpiration);
+            }
+            catch (Exception err)
+            {
+                Global.Logger.Error(err);
+            }
         }
 
-        public static void RemoveSession(ChunkedUploadSession uploadSession)
+        public static void StoreSession(ChunkedUploadSession s)
         {
-            HttpRuntime.Cache.Remove(uploadSession.Id);
+            using (var stream = Serialize(s))
+            {
+                Global.GetStore(false).SavePrivate(FileConstant.StorageDomainTmp, Path.Combine("sessions", s.Id + ".session"), stream, s.Expired);
+            }
+        }
+
+        public static void RemoveSession(ChunkedUploadSession s)
+        {
+            Global.GetStore(false).Delete(FileConstant.StorageDomainTmp, Path.Combine("sessions", s.Id + ".session"));
         }
 
         public static ChunkedUploadSession GetSession(string sessionId)
         {
-            return HttpRuntime.Cache.Get(sessionId) as ChunkedUploadSession;
+            using (var stream = Global.GetStore(false).GetReadStream(FileConstant.StorageDomainTmp, Path.Combine("sessions", sessionId + ".session")))
+            {
+                return Deserialize(stream);
+            }
         }
 
-        private static void OnCacheItemRemoved(string key, CacheItemUpdateReason reason, out object obj, out CacheDependency dependency, out DateTime absoluteExpiration, out TimeSpan slidingExpiration)
+        private static Stream Serialize(ChunkedUploadSession s)
         {
-            var uploadSession = GetSession(key);
-            
-            CoreContext.TenantManager.SetCurrentTenant(uploadSession.TenantId);
-            
-            using (var dao = Global.DaoFactory.GetFileDao())
-            {
-                dao.AbortUploadSession(uploadSession);
-            }
+            var stream = new MemoryStream();
+            new BinaryFormatter().Serialize(stream, s);
+            return stream;
+        }
 
-            obj = null;
-            dependency = null;
-            absoluteExpiration = AbsoluteExpiration;
-            slidingExpiration = SlidingExpiration;
+        private static ChunkedUploadSession Deserialize(Stream stream)
+        {
+            return (ChunkedUploadSession) new BinaryFormatter().Deserialize(stream);
         }
     }
 }

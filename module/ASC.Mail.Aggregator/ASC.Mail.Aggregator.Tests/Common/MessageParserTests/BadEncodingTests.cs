@@ -56,7 +56,7 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
         [Ignore("This text need for right answers generation")]
         public void RecerateRight_ParsingResult()
         {
-            var eml_file = "groupon_incorrect_quoted_decoding.eml";
+            var eml_file = "must_create_original_message.html.eml";
             var eml_message = Parser.ParseMessageFromFile(TestFolderPath + eml_file);
             CreateRightResult(eml_message, RightParserResultsPath + eml_file.Replace(".eml", ".xml"));
         }
@@ -138,6 +138,18 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
         public void ContentTransferEncodingInUpperCaseTest()
         {
             Test("Your app status is In Review.eml");
+        }
+
+        [Test]
+        public void ShouldContainsOriginaMessageHtml()
+        {
+            Test("must_create_original_message.html.eml");
+        }
+
+        [Test]
+        public void ShouldParseEmptyTextBodyWithHeader()
+        {
+            Test("empty_text_body_lingua_leo.eml");
         }
     }
 }

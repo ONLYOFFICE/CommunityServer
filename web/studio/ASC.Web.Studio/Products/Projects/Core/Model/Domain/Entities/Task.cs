@@ -24,20 +24,18 @@
 */
 
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-
-#endregion
 
 namespace ASC.Projects.Core.Domain
 {
     [DebuggerDisplay("Task: ID = {ID}, Title = {Title}, Status = {Status}")]
     public class Task : ProjectEntity
     {
-        public string Description { get; set; }
+        public override EntityType EntityType { get{ return EntityType.Task;} }
+
+        public override string ItemPath { get { return "{0}tasks.aspx?prjID={1}&ID={2}"; } }
 
         public TaskPriority Priority { get; set; }
 

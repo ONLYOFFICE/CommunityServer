@@ -53,17 +53,17 @@ window.administrationError = (function() {
         }
 
         switch (error[1].hresult) {
-            case ASC.Mail.ErrorConstants.COR_E_SECURITY:
+            case ASC.Mail.Constants.Errors.COR_E_SECURITY:
                 return MailApiErrorsResource.ErrorAccessDenied;
-            case ASC.Mail.ErrorConstants.COR_E_ARGUMENT:
+            case ASC.Mail.Constants.Errors.COR_E_ARGUMENT:
                 return argumentExceptionProcessing(header);
-            case ASC.Mail.ErrorConstants.COR_E_ARGUMENTOUTOFRANGE:
+            case ASC.Mail.Constants.Errors.COR_E_ARGUMENTOUTOFRANGE:
                 return argumentOutOfRangeProcessing(header);
-            case ASC.Mail.ErrorConstants.COR_E_INVALIDDATA:
+            case ASC.Mail.Constants.Errors.COR_E_INVALIDDATA:
                 return invalidDataProcessing(header);
-            case ASC.Mail.ErrorConstants.COR_E_DUPLICATENANE:
+            case ASC.Mail.Constants.Errors.COR_E_DUPLICATENANE:
                 return duplicateNameProcessing(header);
-            case ASC.Mail.ErrorConstants.COR_E_INVALIDOPERATION:
+            case ASC.Mail.Constants.Errors.COR_E_INVALIDOPERATION:
                 return invalidOperationProcessing(header);
             default:
                 return MailApiErrorsResource.ErrorInternalServer;

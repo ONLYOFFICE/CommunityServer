@@ -29,18 +29,66 @@ using System.Diagnostics;
 using ASC.Core;
 using ASC.FederatedLogin;
 using ASC.Files.Core;
+using ASC.Common.Caching;
+using System.Web;
+using ASC.Common.Web;
 
 namespace ASC.Files.Thirdparty.GoogleDrive
 {
     [DebuggerDisplay("{CustomerTitle}")]
     public class GoogleDriveProviderInfo : IProviderInfo
     {
-        public int ID { get; set; }
-        public Guid Owner { get; private set; }
-
         private readonly OAuth20Token _token;
         private readonly FolderType _rootFolderType;
         private readonly DateTime _createOn;
+        private string _driveRootId;
+
+        internal GoogleDriveStorage Storage
+        {
+            get
+            {
+                if (HttpContext.Current != null)
+                {
+                    var key = "__GOOGLE_STORAGE" + ID;
+                    var wrapper = (StorageDisposableWrapper)DisposableHttpContext.Current[key];
+                    if (wrapper == null || !wrapper.Storage.IsOpened)
+                    {
+                        wrapper = new StorageDisposableWrapper(CreateStorage());
+                        DisposableHttpContext.Current[key] = wrapper;
+                    }
+                    return wrapper.Storage;
+                }
+                return CreateStorage();
+            }
+        }
+
+        public int ID { get; set; }
+
+        public Guid Owner { get; private set; }
+
+        public string CustomerTitle { get; private set; }
+
+        public DateTime CreateOn { get { return _createOn; } }
+
+        public object RootFolderId { get { return "drive-" + ID; } }
+
+        public string ProviderKey { get; private set; }
+
+        public FolderType RootFolderType { get { return _rootFolderType; } }
+
+        public string DriveRootId
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(_driveRootId))
+                {
+                    _driveRootId = Storage.GetRootFolderId();
+                }
+                return _driveRootId;
+            }
+        }
+
+
 
         public GoogleDriveProviderInfo(int id, string providerKey, string customerTitle, string token, Guid owner, FolderType rootFolderType, DateTime createOn)
         {
@@ -57,42 +105,6 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             _createOn = createOn;
         }
 
-        private void CreateStorage()
-        {
-            _driveStorage = new GoogleDriveStorage();
-            _driveStorage.Open(_token);
-        }
-
-        private GoogleDriveStorage _driveStorage;
-
-        internal GoogleDriveStorage Storage
-        {
-            get
-            {
-                if (_driveStorage == null || !_driveStorage.IsOpened)
-                {
-                    CreateStorage();
-                }
-                return _driveStorage;
-            }
-        }
-
-        internal void UpdateTitle(string newtitle)
-        {
-            CustomerTitle = newtitle;
-        }
-
-        public string CustomerTitle { get; private set; }
-
-        public DateTime CreateOn
-        {
-            get { return _createOn; }
-        }
-
-        public object RootFolderId
-        {
-            get { return "drive-" + ID; }
-        }
 
         public bool CheckAccess()
         {
@@ -108,31 +120,43 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public void InvalidateStorage()
         {
-            if (_driveStorage != null)
+            if (HttpContext.Current != null)
             {
-                _driveStorage.Close();
-                _driveStorage = null;
+                var key = "__CLOUD_STORAGE" + ID;
+                var storage = (StorageDisposableWrapper)DisposableHttpContext.Current[key];
+                if (storage != null)
+                {
+                    storage.Dispose();
+                }
             }
         }
 
-        public string ProviderKey { get; private set; }
-
-        public FolderType RootFolderType
+        internal void UpdateTitle(string newtitle)
         {
-            get { return _rootFolderType; }
+            CustomerTitle = newtitle;
         }
 
-        private string _driveRootId;
-
-        public string DriveRootId
+        private GoogleDriveStorage CreateStorage()
         {
-            get
+            var driveStorage = new GoogleDriveStorage();
+            driveStorage.Open(_token);
+            return driveStorage;
+        }
+
+
+        class StorageDisposableWrapper : IDisposable
+        {
+            public GoogleDriveStorage Storage { get; private set; }
+
+
+            public StorageDisposableWrapper(GoogleDriveStorage storage)
             {
-                if (string.IsNullOrEmpty(_driveRootId))
-                {
-                    _driveRootId = Storage.GetRootFolderId();
-                }
-                return _driveRootId;
+                Storage = storage;
+            }
+
+            public void Dispose()
+            {
+                Storage.Close();
             }
         }
     }

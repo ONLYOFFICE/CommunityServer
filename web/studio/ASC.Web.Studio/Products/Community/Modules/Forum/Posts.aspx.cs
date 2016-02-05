@@ -50,7 +50,7 @@ namespace ASC.Web.Community.Forum
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            _forumManager = UserControls.Forum.Common.ForumManager.GetSettings(ForumManager.Settings.ID).ForumManager;
+            _forumManager = ForumManager.Settings.ForumManager;
 
             ForumManager.Instance.SetCurrentPage(ForumPage.PostList);
 
@@ -122,7 +122,7 @@ namespace ASC.Web.Community.Forum
             if (_forumManager.ValidateAccessSecurityAction(ForumAction.TopicEdit, Topic))
                 bitMask += 32;
 
-            var _settings = UserControls.Forum.Common.ForumManager.GetSettings(ForumManager.Settings.ID).LinkProvider;
+            var _settings = ForumManager.Settings.LinkProvider;
 
             if (bitMask > 0)
             {

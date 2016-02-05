@@ -66,7 +66,7 @@
             </td>
         {{/if}}
         <td class="menu_column">
-            <div class="menu" title="<%: MailScriptResource.Actions %>" data_id="{{if typeof(userName)!=='undefined'}}${userName}{{else}}${id}{{/if}}"></div>
+            <div class="menu menu-small" title="<%: MailScriptResource.Actions %>" data_id="{{if typeof(userName)!=='undefined'}}${userName}{{else}}${id}{{/if}}"></div>
         </td>
     </tr>
 </script>

@@ -117,9 +117,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="BrowserNotifications" xml:space="preserve">
-    <value>Browser notifications</value>
-  </data>
   <data name="ChatRoomInvite" xml:space="preserve">
     <value>Приглашение в чат-комнату</value>
   </data>
@@ -135,17 +132,11 @@
   <data name="CloseMessageWindowAltTitle" xml:space="preserve">
     <value>Close window</value>
   </data>
-  <data name="ConferenceGroupName" xml:space="preserve">
-    <value>Chat rooms</value>
-  </data>
   <data name="ExtendChatAltTitle" xml:space="preserve">
     <value>Extend mini-chat</value>
   </data>
   <data name="GoTalk" xml:space="preserve">
     <value>Пожалуйста перейдите в Talk.</value>
-  </data>
-  <data name="Groups" xml:space="preserve">
-    <value>Groups</value>
   </data>
   <data name="HintCtrlEnterSender" xml:space="preserve">
     <value>Use Ctrl+Enter to send messages</value>
@@ -153,17 +144,8 @@
   <data name="HintSounds" xml:space="preserve">
     <value>Enable sounds</value>
   </data>
-  <data name="InputNameOfChatRoom" xml:space="preserve">
-    <value>Please, input name of chat room:</value>
-  </data>
-  <data name="InputNameOfMailing" xml:space="preserve">
-    <value>Please, input name of mailing:</value>
-  </data>
   <data name="InputNotificationMessage" xml:space="preserve">
     <value>Enter your message..</value>
-  </data>
-  <data name="MailingsGroupName" xml:space="preserve">
-    <value>Mailings</value>
   </data>
   <data name="MinimizeAllWindows" xml:space="preserve">
     <value>Свернуть все окна</value>
@@ -177,9 +159,6 @@
   <data name="NewMessageLabel" xml:space="preserve">
     <value>New message</value>
   </data>
-  <data name="OfflineContacts" xml:space="preserve">
-    <value>Offline contacts</value>
-  </data>
   <data name="RestoreAllWindows" xml:space="preserve">
     <value>Развернуть все окна</value>
   </data>
@@ -191,9 +170,6 @@
   </data>
   <data name="ServerError" xml:space="preserve">
     <value>Внутренняя ошибка сервера.</value>
-  </data>
-  <data name="ShowChatFeatureList" xml:space="preserve">
-    <value>Chat and multiple list </value>
   </data>
   <data name="ShowHideChatAltTitle" xml:space="preserve">
     <value>Show/Hide mini-chat</value>
@@ -207,9 +183,6 @@
   <data name="SmileysAltTitle" xml:space="preserve">
     <value>Smileys</value>
   </data>
-  <data name="Sounds" xml:space="preserve">
-    <value>Sounds</value>
-  </data>
   <data name="StatusAway" xml:space="preserve">
     <value>Away</value>
   </data>
@@ -221,15 +194,6 @@
   </data>
   <data name="StatusOnline" xml:space="preserve">
     <value>Online</value>
-  </data>
-  <data name="TeamLabChat" xml:space="preserve">
-    <value>TeamLab Chat</value>
-  </data>
-  <data name="TitleCreateMassSend" xml:space="preserve">
-    <value>Send multiple</value>
-  </data>
-  <data name="TitleCreateRoom" xml:space="preserve">
-    <value>Create chat room</value>
   </data>
   <data name="TypingMessage" xml:space="preserve">
     <value>набирает сообщение...</value>

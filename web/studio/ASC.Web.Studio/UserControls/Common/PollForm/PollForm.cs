@@ -199,7 +199,7 @@ namespace ASC.Web.Studio.UserControls.Common.PollForm
             base.OnLoad(e);
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/common/pollform/js/pollform.js"));
+            Page.RegisterBodyScripts("~/usercontrols/common/pollform/js/pollform.js");
         }
 
         protected override void OnPreRender(EventArgs e)

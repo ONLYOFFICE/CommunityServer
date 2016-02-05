@@ -140,3 +140,42 @@
   </tr>
 {{/each}}
 </script>
+
+
+<script id="depAddPopupBodyTemplate" type="text/x-jquery-tmpl">
+     <div class="clearFix block-cnt-splitter requiredField" >
+        <span class="requiredErrorText"><%= PeopleResource.ErrorEmptyName %></span>
+        <div class="headerPanelSmall header-base-small">
+            <%= PeopleResource.Title %>:
+        </div>
+        <input type="text" id="studio_newDepName" class="textEdit" style="width: 99%;" maxlength="100" />
+    </div>
+    <div class="clearFix block-cnt-splitter">
+        <div class="headerPanelSmall header-base-small">
+            ${ASC.People.Resources.DepartmentMaster}:
+        </div>
+        <span id="headAdvancedSelector" class="link dotline plus">
+            <%= PeopleResource.ChooseUser %>
+        </span>
+        <div id="departmentManager" class="advanced-selector-select-result display-none">
+            <span class="result-name" data-id=""></span>
+            <span class="reset-icon"></span>
+        </div>
+
+    </div>
+    <div class="clearFix">
+        <div class="headerPanelSmall header-base-small" >
+            <%= PeopleResource.Members %>:
+        </div>
+        <span id="membersAdvancedSelector" class="link dotline plus"> <%= PeopleResource.AddMembers %>
+        </span>
+        <div class="members-dep-list">
+            <ul id="membersDepartmentList" class="advanced-selector-list-results"></ul>
+        </div>
+    </div>
+    <div id="depActionBtn" class="middle-button-container">
+        <a class="button blue middle"><%= PeopleResource.AddButton %></a>
+        <span class="splitter-buttons"></span>
+        <a class="button gray middle"><%= PeopleResource.CancelButton %></a>
+    </div>
+</script>

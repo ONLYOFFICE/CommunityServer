@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -40,10 +40,14 @@ namespace ASC.Projects.Data.DAO
 {
     class TimeSpendDao : BaseDao, ITimeSpendDao
     {
-        private readonly string[] columns = new[] { "id", "note", "date", "hours", "relative_task_id", "person_id", "project_id", "create_on", "create_by", 
+        private readonly string[] columns = { "id", "note", "date", "hours", "relative_task_id", "person_id", "project_id", "create_on", "create_by", 
             "payment_status", "status_changed" };
+        private readonly Converter<object[], TimeSpend> converter;
 
-        public TimeSpendDao(string dbId, int tenantID) : base(dbId, tenantID) { }
+        public TimeSpendDao(string dbId, int tenantID) : base(dbId, tenantID)
+        {
+            converter = ToTimeSpend;
+        }
 
         public List<TimeSpend> GetByFilter(TaskFilter filter, bool isAdmin, bool checkAccess)
         {
@@ -72,7 +76,7 @@ namespace ASC.Projects.Data.DAO
 
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(query).ConvertAll(ToTimeSpend);
+                return db.ExecuteList(query).ConvertAll(converter);
             }
         }
 
@@ -162,8 +166,11 @@ namespace ASC.Projects.Data.DAO
                 query.Where("cug.groupid", filter.DepartmentId);
             }
 
-            if (!filter.FromDate.Equals(DateTime.MinValue) && !filter.FromDate.Equals(DateTime.MaxValue) &&
-                !filter.ToDate.Equals(DateTime.MinValue) && !filter.ToDate.Equals(DateTime.MaxValue))
+            var minDate = DateTime.MinValue;
+            var maxDate = DateTime.MaxValue;
+
+            if (!filter.FromDate.Equals(minDate) && !filter.FromDate.Equals(maxDate) &&
+                !filter.ToDate.Equals(minDate) && !filter.ToDate.Equals(maxDate))
             {
                 query.Where(Exp.Between("t.date", filter.FromDate, filter.ToDate));
             }
@@ -213,7 +220,7 @@ namespace ASC.Projects.Data.DAO
         {
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(CreateQuery().Where("t.project_id", projectId).OrderBy("date", false)).ConvertAll(ToTimeSpend);
+                return db.ExecuteList(CreateQuery().Where("t.project_id", projectId).OrderBy("date", false)).ConvertAll(converter);
             }
         }
 
@@ -221,7 +228,7 @@ namespace ASC.Projects.Data.DAO
         {
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(CreateQuery().Where("t.relative_task_id", taskId).OrderBy("date", false)).ConvertAll(ToTimeSpend);
+                return db.ExecuteList(CreateQuery().Where("t.relative_task_id", taskId).OrderBy("date", false)).ConvertAll(converter);
             }
         }
 
@@ -230,7 +237,7 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 return db.ExecuteList(CreateQuery().Where("t.id", id))
-                                .ConvertAll(ToTimeSpend)
+                                .ConvertAll(converter)
                                 .SingleOrDefault();
             }
         }

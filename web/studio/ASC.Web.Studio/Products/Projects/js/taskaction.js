@@ -24,7 +24,7 @@
 */
 
 
-ASC.Projects.TaskAction = (function() {
+ASC.Projects.TaskAction = (function () {
     var isInit;
     var updateTaskFlag = false;
     var firstLoadFlag = true;
@@ -56,7 +56,6 @@ ASC.Projects.TaskAction = (function() {
     var currentUserId;
     var currentProjectId;
     var choosedProjectMilestones = [];
-    var choosedMilestone = null;
 
     var isInitData;
 
@@ -64,10 +63,7 @@ ASC.Projects.TaskAction = (function() {
     var projectItems = [];
     var milestonesItems = [];
     var noneMilestone = { id: 0, title: ASC.Projects.Resources.TasksResource.None, deadline: "" };
-    function mapPrj(item) {
-        return { id: item.value, title: item.title };
-    }
-    
+
     var init = function () {
         if (isInit) {
             return;
@@ -77,254 +73,10 @@ ASC.Projects.TaskAction = (function() {
 
         initTaskFormElementsAndConstants();
 
-        taskResponsiblesSelector.on('change', function (evt) {
-            var value = jq(this).val();
-            if (value == -1) {
-                jq(this).val('-1');
-                return;
-            }
-            var userName = jq(this).find('option[value="' + value + '"]').html();
-            if (!listTaskResponsibles.find("div[data-value='" + value + "']").length) {
-                listTaskResponsibles.show().append('<div data-value="' + value + '" class="user">' + userName + '</div>');
-                jq('.userAdd .combobox-container li.option-item[data-value="' + value + '"]').hide();
-                var addedUserCount = listTaskResponsibles.find(".user").length;
-                var usersCount = taskResponsiblesSelector.find("option").length - 1;
-                if (addedUserCount == usersCount) {
-                    taskResponsiblesSelector.tlcombobox(false);
-                }
-            }
-            jq(this).val('-1').change();
-            showOrHideNotifyCheckbox();
-            evt.stopPropagation();
-        });
-
-        taskPopup.on('click', '#fullFormUserList .user', function () {
-            value = jq(this).attr('data-value');
-            jq(this).remove();
-            taskResponsiblesSelector.tlcombobox(true);
-            jq('.userAdd .combobox-container li.option-item[data-value="' + value + '"]').show();
-            if (!listTaskResponsibles.find(".user").length) {
-                listTaskResponsibles.hide();
-            }
-            showOrHideNotifyCheckbox();
-        });
-
-        taskPopup.on('click', '.deadline_left', function () {
-            taskPopup.find('.deadline_left').css('border-bottom', '1px dotted').css('font-weight', 'normal');
-            jq(this).css('border-bottom', 'none').css('font-weight', 'bold');
-            var daysCount = parseInt(jq(this).attr('data-value'), 10);
-            var date = new Date();
-            date.setDate(date.getDate() + daysCount);
-            taskDeadlineDate.datepicker('setDate', date);
-        });
-
-        jq('#saveTaskAction, #createTaskAndCreateNew').on('click', function () {
-            if (jq(this).hasClass("disable")) return;
-            clearErrorMessages();
-            var data = {};
-            data.title = jq.trim(taskTitle.val());
-            data.description = taskDescription.val();
-            var responsibles = listTaskResponsibles.find(".user");
-            if (responsibles.length) {
-                data.responsibles = [];
-                responsibles.each(function () {
-                    data.responsibles.push(jq(this).attr('data-value'));
-                });
-            }
-
-            if (notifyCheckbox.is(':checked')) {
-                data.notify = true;
-            }
-
-            data.milestoneId = taskMilestoneSelector.attr("data-id");
-            data.priority = priorityCheckbox.is(':checked') ? 1 : 0;
-
-            var isError = false;
-            if (!data.title.length) {
-                taskPopup.find('.titlePanel').addClass('requiredFieldError');
-                taskPopup.find('.requiredErrorText.title').html(taskPopup.find('.requiredErrorText').attr('error'));
-                isError = true;
-            }
-
-            data.projectId = taskProjectSelector.attr("data-id");
-            if (!data.projectId && !updateTaskFlag) {
-                taskPopup.find('.requiredErrorText.project').show().html(taskPopup.find('.requiredErrorText.project').attr('error'));
-                isError = true;
-            }
-
-            if (compareTaskDatesAndShowError()) {
-                isError = true;
-            } else {
-                if (taskDeadlineDate.val().length) {
-                    data.deadline = taskDeadlineDate.datepicker('getDate');
-                    data.deadline.setHours(0);
-                    data.deadline.setMinutes(0);
-                    data.deadline = Teamlab.serializeTimestamp(data.deadline);
-                }
-
-                if (taskStartDate.val().length) {
-                    data.startDate = taskStartDate.datepicker('getDate');
-                    data.startDate.setHours(0);
-                    data.startDate.setMinutes(0);
-                    data.startDate = Teamlab.serializeTimestamp(data.startDate);
-                }
-            }
-
-            if (isError) {
-                return;
-            }
-
-            lockTaskForm();
-
-            var params = { saveAndView: false };
-            if (jq(this).attr("id") == "saveTaskAction") {
-                params.saveAndView = true;
-            }
-
-            if (updateTaskFlag) {
-                var block;
-                if ((currentTask.milestoneId || 0) != parseInt(data.milestoneId, 10)) {
-                    block = jq("#removeTaskLinksQuestionPopup");
-                }
-                
-                var endStartLinks;
-                
-                if (currentTask.links) {
-                    endStartLinks = currentTask.links.some(function (item) {
-                        return item.linkType == 2 && item.parentTaskId == currentTask.id;
-                    });
-                }
-
-                if (!data.deadline && endStartLinks) {
-                    block = jq("#removeTaskLinksQuestionPopupDeadLine");
-                }
-                
-                if (currentTask.links && block) {
-                    MoveTaskQuestionPopup.setParametrs("#addTaskPanel", currentTask.links,
-                        function() { updateTask({}, currentTask.id, data); },
-                        showTaskFormAfterQuestionPopup, block);
-                    MoveTaskQuestionPopup.showDialog();
-
-                } else {
-                    updateTask({}, currentTask.id, data);
-                }
-            } else {
-                var project = taskProjectSelector.attr("data-id");
-                addTask(params, project, data);
-            }
-        });
-
-        jq('#addTaskPanel #closeTaskAction').on('click', function () {
-            closeTaskForm();
-        });
-    };
-    
-    var initData = function () {
-        if (isInitData) {
-            return;
-        }
-
-        isInitData = true;
-        setProjectCombobox();
-        setMilestonesCombobox();
-        taskResponsiblesSelector.tlcombobox();
-        
-        if (currentProjectId) {
-            onGetTeam({}, ASC.Projects.Master.Team);
-            onGetMilestones({}, ASC.Projects.Master.Milestones);
-        }
-    };
-    
-    var setProjectCombobox = function () {
-        function sortPrj(item) {
-            return item.canCreateTask;
-        }
-        
-        projectItems = ASC.Projects.Common.getProjectsForFilter().filter(sortPrj).map(mapPrj);
-        
-        taskProjectSelector.projectadvancedSelector(
-           {
-               itemsChoose: projectItems,
-               onechosen: true,
-               inPopup: true,
-               sortMethod: function () { return 0; }
-           }
-       );
-
-        taskProjectSelector.on("showList", function (event, item) {
-            jq("#taskProject").attr("data-id", item.id).text(item.title).attr("title", item.title);
-            taskProjectSelectorOnChange(item);
-        });
-    };
-    
-    var setMilestonesCombobox = function () {
-        var selectorObj = {
-            onechosen: true,
-            inPopup: true,
-            sortMethod: ASC.Projects.Common.milestoneSort,
-            noresults: ASC.Resources.Master.Resource.MilestoneSelectorNoResult,
-            noitems: ASC.Resources.Master.Resource.MilestoneSelectorNoItems
-        };
-
-        taskMilestoneSelector.projectadvancedSelector(selectorObj);
-
-        taskMilestoneSelector.on("showList", function (event, item) {
-            taskMilestoneSelector.attr("data-id", item.id).text(item.title).attr("title", item.title);
-            taskMilestoneSelectorOnChange(item);
-        });
-    };
-    
-    // events handlers
-    var taskProjectSelectorOnChange =  function (item) {
-        var selectedPrjId = item.id;
-        if (selectedPrjId > 0) {
-            jq('.popupActionPanel').hide();
-            taskPopup.find('.requiredErrorText.project').hide();
-            jq('#pm-milestoneBlock').removeClass("display-none");
-            jq('#pm-respBlock').removeClass("display-none");
-
-            listTaskResponsibles.html('').hide();
-
-            jq(taskResponsiblesSelector).tlcombobox(false);
-
-            if (selectedPrjId == currentProjectId) {
-                onGetMilestones({}, ASC.Projects.Master.Milestones);
-                onGetTeam({}, ASC.Projects.Master.Team);
-            } else {
-                getMilestones({}, selectedPrjId);
-                getTeam({}, selectedPrjId);
-            }
-        }
-    };
-    
-    var taskMilestoneSelectorOnChange = function (item) {
-        var milestoneId = item.id;
-        if (milestoneId == "0") {
-            choosedMilestone = null;
-        } else {
-            var milestone = getMilestoneById(parseInt(milestoneId), 10);
-            choosedMilestone = milestone;
-        }
+        initEvents();
     };
 
-    var getCurrentPage = function() {
-        var url = document.location.href;
-        if (url.indexOf("tasks.aspx") > 0) {
-            currentPage = "tasks";
-            var projId = jq.getURLParam("prjID");
-            var id = jq.getURLParam("id");
-            if (projId && id)
-                currentPage = "taskdescription";
-        }
-
-        if (url.indexOf("milestones.aspx") > 0)
-            currentPage = "milestones";
-        
-        if (url.indexOf("ganttchart.aspx") > 0)
-            currentPage = "ganttchart";
-    };
-
-    var initTaskFormElementsAndConstants = function() {
+    function initTaskFormElementsAndConstants () {
 
         currentUserId = Teamlab.profile.id;
         currentProjectId = jq.getURLParam('prjID');
@@ -352,34 +104,227 @@ ASC.Projects.TaskAction = (function() {
         taskDescription.autosize();
         jq(taskProjectSelector, taskMilestoneSelector, taskResponsiblesSelector).css('max-width', 300);
 
-        taskStartDate.mask(ASC.Resources.Master.DatePatternJQ);
-        taskDeadlineDate.mask(ASC.Resources.Master.DatePatternJQ);
-        taskDeadlineDate.datepicker({ selectDefaultDate: false });
-        taskStartDate.datepicker({ selectDefaultDate: false });
+        if(jq.browser.mobile)
+            jq("#ui-datepicker-div").addClass("blockMsg");
 
-        jq(taskDeadlineDate).on("keydown", function (e) { if (e.keyCode == 13) {taskDeadlineDate.blur();}});
-        jq(taskDeadlineDate).on("change", function () { taskDeadlineDate.blur(); });
-        
-        jq(taskStartDate).on("keydown", function (e) { if (e.keyCode == 13) { taskStartDate.blur();}});
-        jq(taskStartDate).on("change", function (e) { taskStartDate.blur();});
+        var datePickers = jq(taskDeadlineDate).add(taskStartDate);
+        datePickers.mask(ASC.Resources.Master.DatePatternJQ);
+        datePickers.datepicker({ selectDefaultDate: false });
+        datePickers.on("keydown", onDatePickerKeyDown).on("change", onDatePickerChange);
 
         getCurrentPage();
     };
 
+    function onDatePickerKeyDown(e) {
+        if (e.keyCode === 13) {
+            jq(this).blur();
+        }
+    }
 
-    var compareTaskDatesAndShowError = function () {
-        var taskStartDateString = taskStartDate.val().trim();
-        var taskDeadlineDateString = taskDeadlineDate.val().trim();
+    function onDatePickerChange() {
+        jq(this).blur();
+    }
+
+    function getCurrentPage () {
+        var url = document.location.href;
+        if (url.indexOf("tasks.aspx") > 0) {
+            currentPage = "tasks";
+            var projId = jq.getURLParam("prjID");
+            var id = jq.getURLParam("id");
+            if (projId && id)
+                currentPage = "taskdescription";
+        }
+
+        if (url.indexOf("milestones.aspx") > 0)
+            currentPage = "milestones";
+
+        if (url.indexOf("ganttchart.aspx") > 0)
+            currentPage = "ganttchart";
+    };
+
+    function initEvents() {
+        taskResponsiblesSelector.on('change', function (evt) {
+            var self = jq(this);
+            var value = self.val();
+            if (value == -1) {
+                self.val('-1');
+                return;
+            }
+            var userName = self.find('option[value="' + value + '"]').html();
+            if (!listTaskResponsibles.find("div[data-value='" + value + "']").length) {
+                listTaskResponsibles.show().append('<div data-value="' + value + '" class="user">' + userName + '</div>');
+                jq('.userAdd .combobox-container li.option-item[data-value="' + value + '"]').hide();
+                var addedUserCount = listTaskResponsibles.find(".user").length;
+                var usersCount = taskResponsiblesSelector.find("option").length - 1;
+                if (addedUserCount == usersCount) {
+                    taskResponsiblesSelector.tlcombobox(false);
+                }
+            }
+            self.val('-1').change();
+            showOrHideNotifyCheckbox();
+            evt.stopPropagation();
+        });
+
+        taskPopup.on('click', '#fullFormUserList .user', function () {
+            var value = jq(this).attr('data-value');
+            jq(this).remove();
+            taskResponsiblesSelector.tlcombobox(true);
+            jq('.userAdd .combobox-container li.option-item[data-value="' + value + '"]').show();
+            if (!listTaskResponsibles.find(".user").length) {
+                listTaskResponsibles.hide();
+            }
+            showOrHideNotifyCheckbox();
+        });
+
+        taskPopup.on('click', '.deadline_left', function () {
+            taskPopup.find('.deadline_left').css('border-bottom', '1px dotted').css('font-weight', 'normal');
+            jq(this).css('border-bottom', 'none').css('font-weight', 'bold');
+            
+            var daysCount = parseInt(jq(this).attr('data-value'), 10);
+            var date = new Date();
+            date.setDate(date.getDate() + daysCount);
+            taskDeadlineDate.datepicker('setDate', date);
+        });
+
+        jq('#saveTaskAction, #createTaskAndCreateNew').on('click', function () {
+            if (jq(this).hasClass("disable")) return;
+
+            clearErrorMessages();
+            var data = getTaskData();
+            if (checkError(data)) {
+                return;
+            }
+
+            lockTaskForm();
+
+            var params = {
+                 saveAndView: jq(this).attr("id") == "saveTaskAction"
+            };
+
+            if (updateTaskFlag) {
+                var block;
+                if ((currentTask.milestoneId || 0) != parseInt(data.milestoneId, 10)) {
+                    block = jq("#removeTaskLinksQuestionPopup");
+                }
+
+                var endStartLinks;
+
+                if (currentTask.links) {
+                    endStartLinks = currentTask.links.some(function (item) {
+                        return item.linkType == 2 && item.parentTaskId == currentTask.id;
+                    });
+                }
+
+                if (!data.deadline && endStartLinks) {
+                    block = jq("#removeTaskLinksQuestionPopupDeadLine");
+                }
+
+                if (currentTask.links && block) {
+                    MoveTaskQuestionPopup.setParametrs("#addTaskPanel", currentTask.links,
+                        function () { updateTask({}, currentTask.id, data); },
+                        showTaskFormAfterQuestionPopup, block);
+                    MoveTaskQuestionPopup.showDialog();
+
+                } else {
+                    updateTask({}, currentTask.id, data);
+                }
+            } else {
+                var project = taskProjectSelector.attr("data-id");
+                addTask(params, project, data);
+            }
+        });
+
+        jq('#addTaskPanel #closeTaskAction').on('click', closeTaskForm);
+    };
+
+    function showOrHideNotifyCheckbox() {
+        var notifyCheckBox = taskPopup.find('.notify');
+        var usersCount = listTaskResponsibles.find(".user").length;
+        if (!usersCount || usersCount == listTaskResponsibles.find(".user[data-value=" + currentUserId + "]").length) {
+            notifyCheckBox.hide();
+            return;
+        }
+        notifyCheckBox.show();
+    };
+
+    function clearErrorMessages() {
+        taskPopup.find('.titlePanel').removeClass('requiredFieldError');
+        taskPopup.find('.requiredErrorText').html('');
+        taskPopup.find('.requiredErrorText.project').hide();
+        taskPopup.find(".startDate-error").hide();
+        taskStartDate.removeClass("red-border");
+        taskDeadlineDate.removeClass("red-border");
+    };
+
+    function getTaskData() {
+        var self = jq(this);
+        var data = {
+            title: jq.trim(taskTitle.val()),
+            description: taskDescription.val(),
+            notify: notifyCheckbox.is(':checked'),
+            milestoneId: taskMilestoneSelector.attr("data-id"),
+            priority: priorityCheckbox.is(':checked') ? 1 : 0,
+            projectId: taskProjectSelector.attr("data-id")
+        };
+
+        var responsibles = listTaskResponsibles.find(".user");
+        if (responsibles.length) {
+            data.responsibles = [];
+            responsibles.each(function () {
+                data.responsibles.push(jq(this).attr('data-value'));
+            });
+        }
+        try {
+            if (taskDeadlineDate.val().length) {
+                data.deadline = getTaskDataDate(taskDeadlineDate);
+            }
+
+            if (taskStartDate.val().length) {
+                data.startDate = getTaskDataDate(taskStartDate);
+            }
+        } catch(e) {
+
+        } 
+
+        return data;
+    };
+
+    function getTaskDataDate(datePicker) {
+        var result = datePicker.datepicker('getDate');
+        result.setHours(0);
+        result.setMinutes(0);
+        return Teamlab.serializeTimestamp(result);
+    }
+
+    function checkError(data) {
+        var isError = false;
+        if (!data.title.length) {
+            taskPopup.find('.titlePanel').addClass('requiredFieldError');
+            taskPopup.find('.requiredErrorText.title').html(taskPopup.find('.requiredErrorText').attr('error'));
+            isError = true;
+        }
+
+        if (!data.projectId && !updateTaskFlag) {
+            taskPopup.find('.requiredErrorText.project').show().html(taskPopup.find('.requiredErrorText.project').attr('error'));
+            isError = true;
+        }
+
+        if (compareTaskDatesAndShowError()) {
+            isError = true;
+        } 
+        
+        return isError;
+    };
+
+    function compareTaskDatesAndShowError() {
+        var taskStartDateString = taskStartDate.val().trim(),
+            taskDeadlineDateString = taskDeadlineDate.val().trim(),
+            startDate,
+            deadlineDate,
+            errorFlag = false;
         
         if (taskStartDateString == "" && taskDeadlineDateString == "") return false;
-
-        var startDate;
-        var deadlineDate;
-        var milestoneDeadline = choosedMilestone ? choosedMilestone.deadline : null;
-
-        var errorFlag = false;
-
-
+        
         if (taskStartDateString && !jq.isDateFormat(taskStartDateString)) {
             taskStartDate.addClass("red-border");
             errorFlag = true;
@@ -392,7 +337,7 @@ ASC.Projects.TaskAction = (function() {
         } else {
             deadlineDate = taskDeadlineDate.datepicker('getDate');
         }
-        
+
         if (startDate && deadlineDate && startDate > deadlineDate) {
             var errorStartDate = taskPopup.find(".startDate-error");
             errorStartDate.text(errorStartDate.attr("error"));
@@ -400,76 +345,120 @@ ASC.Projects.TaskAction = (function() {
             taskStartDate.addClass("red-border");
             errorFlag = true;
         }
-        
+
         return errorFlag;
     };
 
-    var clearErrorMessages = function() {
-        taskPopup.find('.titlePanel').removeClass('requiredFieldError');
-        taskPopup.find('.requiredErrorText').html('');
-        taskPopup.find('.requiredErrorText.project').hide();
-        taskPopup.find(".startDate-error").hide();
-        taskStartDate.removeClass("red-border");
-        taskDeadlineDate.removeClass("red-border");
-    };
-
-    var showOrHideNotifyCheckbox = function() {
-        var usersCount = listTaskResponsibles.find(".user").length;
-        if (!usersCount || usersCount == listTaskResponsibles.find(".user[data-value=" + currentUserId + "]").length) {
-            taskPopup.find('.notify').hide();
+    function initData() {
+        if (isInitData) {
             return;
         }
-        taskPopup.find('.notify').show();
+
+        isInitData = true;
+        setProjectCombobox();
+        setMilestonesCombobox();
+        taskResponsiblesSelector.tlcombobox();
+
+        if (currentProjectId) {
+            onGetTeam({}, ASC.Projects.Master.Team);
+            onGetMilestones({}, ASC.Projects.Master.Milestones);
+        }
     };
 
-    var lockTaskForm = function() {
-        taskTitle.attr("disabled", "disabled");
-        taskDescription.attr("disabled", "disabled");
-        taskStartDate.attr("disabled", "disabled");
-        taskDeadlineDate.attr("disabled", "disabled");
-        notifyCheckbox.attr("disabled", "disabled");
-        priorityCheckbox.attr("disabled", "disabled");
+    function setProjectCombobox() {
+        projectItems = ASC.Projects.Common.getProjectsForFilter().filter(sortPrj).map(mapPrj);
+
+        taskProjectSelector.projectadvancedSelector(
+           {
+               itemsChoose: projectItems,
+               onechosen: true,
+               inPopup: true,
+               sortMethod: function () { return 0; }
+           }
+       );
+
+        taskProjectSelector.on("showList", function (event, item) {
+            taskProjectSelector.attr("data-id", item.id).text(item.title).attr("title", item.title);
+            taskProjectSelectorOnChange(item);
+        });
+    };
+
+    function sortPrj(item) {
+        return item.canCreateTask;
+    }
+
+    function mapPrj(item) {
+        return { id: item.value, title: item.title };
+    }
+
+    function setMilestonesCombobox() {
+        var selectorObj = {
+            onechosen: true,
+            inPopup: true,
+            sortMethod: ASC.Projects.Common.milestoneSort,
+            noresults: ASC.Resources.Master.Resource.MilestoneSelectorNoResult,
+            noitems: ASC.Resources.Master.Resource.MilestoneSelectorNoItems
+        };
+
+        taskMilestoneSelector.projectadvancedSelector(selectorObj);
+
+        taskMilestoneSelector.on("showList", function (event, item) {
+            taskMilestoneSelector.attr("data-id", item.id).text(item.title).attr("title", item.title);
+        });
+    };
+    
+    function taskProjectSelectorOnChange(item) {
+        var selectedPrjId = item.id;
+        if (selectedPrjId > 0) {
+            jq('.popupActionPanel').hide();
+            taskPopup.find('.requiredErrorText.project').hide();
+            jq('#pm-milestoneBlock, #pm-respBlock').removeClass("display-none");
+
+            listTaskResponsibles.html('').hide();
+
+            jq(taskResponsiblesSelector).tlcombobox(false);
+
+            if (selectedPrjId == currentProjectId) {
+                onGetMilestones({}, ASC.Projects.Master.Milestones);
+                onGetTeam({}, ASC.Projects.Master.Team);
+            } else {
+                getMilestones({}, selectedPrjId);
+                getTeam({}, selectedPrjId);
+            }
+        }
+    };
+
+    function lockTaskForm() {
+        toggleDisabled([taskTitle, taskDescription, taskStartDate, taskDeadlineDate, notifyCheckbox, priorityCheckbox], true);
 
         jq(".success-popup, .error-popup").hide();
 
         LoadingBanner.showLoaderBtn("#addTaskPanel");
     };
 
-    var unlockTaskForm = function() {
-        taskTitle.removeAttr("disabled");
-        taskDescription.removeAttr("disabled");
-        taskStartDate.removeAttr("disabled");
-        taskDeadlineDate.removeAttr("disabled");
-        notifyCheckbox.removeAttr("disabled");
-        priorityCheckbox.removeAttr("disabled");
+    function unlockTaskForm() {
+        toggleDisabled([taskTitle, taskDescription, taskStartDate, taskDeadlineDate, notifyCheckbox, priorityCheckbox]);
 
-        
         LoadingBanner.hideLoaderBtn("#addTaskPanel");
     };
 
-    var addTask = function(params, projectId, data) {
+    function toggleDisabled(elements, lock) {
+        elements.forEach(function (item) {
+            if (lock) {
+                item.attr("disabled", "disabled");
+            } else {
+                item.removeAttr("disabled");
+            }
+        });
+    }
+
+    function addTask (params, projectId, data) {
         Teamlab.addPrjTask(params, projectId, data, { success: onAddTask, error: onTaskError });
     };
 
-    var updateTask = function (params, taskId, data) {
+    function onAddTask (params, task) {
         getCurrentPage();
-        var success;
-        switch (currentPage) {
-            case "tasks":
-                success = ASC.Projects.TasksManager.onUpdateTask;
-                break;
-            case "taskdescription":
-                success = ASC.Projects.TaskDescroptionPage.onUpdateTask;
-                break;
-            default:
-                success = null;
-        }
-        Teamlab.updatePrjTask(params, taskId, data, { success: success, error: onTaskError });
-    };
 
-    var onAddTask = function (params, task) {
-        getCurrentPage();
-        
         if (currentPage == "ganttchart") {
             ASC.Projects.GantChartPage.addTaskToChart(task, true, true);
         }
@@ -502,38 +491,51 @@ ASC.Projects.TaskAction = (function() {
         jq("#emptyListTimers .addFirstElement").removeClass("display-none");
     };
 
-    var onTaskError = function(params, error) {
+    function onTaskError (params, error) {
         var taskErrorBox = jq("#addTaskPanel .error-popup");
 
         LoadingBanner.hideLoaderBtn("#addTaskPanel");
         taskErrorBox.text(error[0]);
         taskErrorBox.show();
 
-        setTimeout(function() {
+        setTimeout(function () {
             taskErrorBox.hide();
         }, 3000);
         unlockTaskForm();
     };
 
-    var getMilestones = function(params, projectId) {
+    function updateTask (params, taskId, data) {
+        getCurrentPage();
+        var success;
+        switch (currentPage) {
+            case "tasks":
+                success = ASC.Projects.TasksManager.onUpdateTask;
+                break;
+            case "taskdescription":
+                success = ASC.Projects.TaskDescroptionPage.onUpdateTask;
+                break;
+            default:
+                success = null;
+        }
+        Teamlab.updatePrjTask(params, taskId, data, { success: success, error: onTaskError });
+    };
+
+
+    function getMilestones(params, projectId) {
         Teamlab.getPrjMilestones(params, null, { filter: { status: 'open', projectId: projectId }, success: onGetMilestones });
     };
 
-    var onGetMilestones = function (params, milestones) {
-        taskMilestoneSelector.projectadvancedSelector("reset");
-        
-        milestonesItems = milestones.map(function (item) {
-            return { id: item.id, title: '[' + item.displayDateDeadline + '] ' + item.title, deadline: item.deadline };
-        });
-
-        milestonesItems.unshift(noneMilestone);
+    function onGetMilestones(params, milestones) {
         choosedProjectMilestones = milestones;
-        
+
+        milestonesItems = milestones.map(mapMilestones);
+        milestonesItems.unshift(noneMilestone);
+
+        taskMilestoneSelector.projectadvancedSelector("reset");
         taskMilestoneSelector.projectadvancedSelector("rewriteItemList", milestonesItems, []);
-        
 
         if (currentTask) {
-            var taskMile = milestonesItems.find(function (item) {
+            var taskMile = milestonesItems.find(function(item) {
                 return item.id == currentTask.milestoneId;
             });
             taskMilestoneSelector.projectadvancedSelector("reset");
@@ -541,11 +543,16 @@ ASC.Projects.TaskAction = (function() {
         }
     };
 
-    var getTeam = function(params, projectId) {
+    function mapMilestones(item) {
+        return { id: item.id, title: '[' + item.displayDateDeadline + '] ' + item.title, deadline: item.deadline };
+    }
+
+    function getTeam(params, projectId) {
         Teamlab.getPrjTeam(params, projectId, { success: onGetTeam });
     };
 
-    var onGetTeam = function(params, team) {
+    function onGetTeam(params, team) {
+        var noActiveParticipantsTaskNote = jq("#noActiveParticipantsTaskNote");
         var teamWithoutVisitors = ASC.Projects.Common.excludeVisitors(team);
         teamWithoutVisitors = ASC.Projects.Common.removeBlockedUsersFromTeam(teamWithoutVisitors);
         var teamInd = teamWithoutVisitors ? teamWithoutVisitors.length : 0;
@@ -553,23 +560,26 @@ ASC.Projects.TaskAction = (function() {
         taskResponsiblesSelector.find('option[value!=0][value!=-1]').remove();
 
         if (teamInd != 0) {
-            jq("#noActiveParticipantsTaskNote").addClass("display-none");
+            noActiveParticipantsTaskNote.addClass("display-none");
 
             for (var i = 0; i < teamInd; i++) {
                 var user = teamWithoutVisitors[i];
                 taskResponsiblesSelector.append(jq('<option value="' + user.id + '"></option>').html(user.displayName));
             }
             taskResponsiblesSelector.tlcombobox();
+            taskResponsiblesSelector.tlcombobox(true);
             listTaskResponsibles.empty();
             setResponsibles();
         } else {
-            jq("#noActiveParticipantsTaskNote").removeClass("display-none");
+            noActiveParticipantsTaskNote.removeClass("display-none");
             taskResponsiblesSelector.tlcombobox();
             taskResponsiblesSelector.tlcombobox(false);
         }
     };
 
-    var setResponsibles = function() {
+    function setResponsibles() {
+        taskResponsiblesSelector.tlcombobox();
+        taskResponsiblesSelector.tlcombobox(true);
         if (currentTask && currentTask.responsibles.length) {
             listTaskResponsibles.empty();
             jQuery.each(currentTask.responsibles, function() {
@@ -588,41 +598,36 @@ ASC.Projects.TaskAction = (function() {
                 listTaskResponsibles.show();
             }
         }
-        if (currentTask && !currentTask.responsibles.length && updateTaskFlag){
+        if (currentTask && !currentTask.responsibles.length && updateTaskFlag) {
             listTaskResponsibles.empty();
         }
         showOrHideNotifyCheckbox();
     };
 
-    var getMilestoneById = function(id) {
-        var milestonesInd = choosedProjectMilestones ? choosedProjectMilestones.length : 0;
-        while (milestonesInd--) {
-            if (id == choosedProjectMilestones[milestonesInd].id) return choosedProjectMilestones[milestonesInd];
-        }
-    };
+    function getEmptyTask () {
+        var task = {
+            title: "",
+            description: "",
+            responsibles: [],
+            priority: null,
+            startDate: null,
+            deadline: null,
+            milestoneId: null
+        };
 
-    var getEmptyTask = function() {
-        var task = {};
-        task.title = "";
-        task.description = "";
         if (currentProjectId) {
             task.projectId = currentProjectId;
         }
-        task.responsibles = [];
-        task.priority = null;
-        task.startDate = null;
-        task.deadline = null;
-        task.milestoneId = null;
 
         return task;
     };
 
-    var isNeedChangeProject = function(projectId) {
-        if (projectId && (firstLoadFlag || taskProjectSelector.attr("data-id") != projectId.toString())) return true;
-        return false;
+    function isNeedChangeProject (projectId) {
+        return projectId && (firstLoadFlag || taskProjectSelector.attr("data-id") != projectId.toString());
     };
 
-    var renderTaskForm = function(task) {
+
+    function renderTaskForm (task) {
         clearErrorMessages();
         taskPopup.find('.success-popup, .error-popup').hide();
         // task body
@@ -641,14 +646,15 @@ ASC.Projects.TaskAction = (function() {
         } else {
             if (currentProjectId) {
                 onGetMilestones({}, ASC.Projects.Master.Milestones);
+                onGetTeam({}, ASC.Projects.Master.Team);
             }
 
             if (task.milestoneId) {
-				taskMilestoneSelector.projectadvancedSelector("reset");
-                var taskMile = milestonesItems.find(function(item) { return item.id == task.milestoneId; });
+                taskMilestoneSelector.projectadvancedSelector("reset");
+                var taskMile = milestonesItems.find(function (item) { return item.id == task.milestoneId; });
                 taskMilestoneSelector.projectadvancedSelector("selectBeforeShow", taskMile || noneMilestone);
             }
-            
+
             setResponsibles();
         }
 
@@ -657,14 +663,14 @@ ASC.Projects.TaskAction = (function() {
             var elemDurationDays = taskDeadlineDate.siblings('.dottedLink');
             elemDurationDays.css('border-bottom', '1px dotted');
             elemDurationDays.css('font-weight', 'normal');
-        }else{
-            if(updateTaskFlag) taskDeadlineDate.datepicker('setDate', null);
+        } else {
+            if (updateTaskFlag) taskDeadlineDate.datepicker('setDate', null);
         }
 
         if (task.startDate) {
             taskStartDate.datepicker('setDate', task.startDate);
-        }else{
-            if(updateTaskFlag) taskStartDate.datepicker('setDate', null);
+        } else {
+            if (updateTaskFlag) taskStartDate.datepicker('setDate', null);
         }
 
         if (task.priority) {
@@ -704,23 +710,23 @@ ASC.Projects.TaskAction = (function() {
         LoadingBanner.hideLoading();
     };
 
-    var showTaskForm = function(task) {
+    function showTaskForm(task) {
         currentTask = task;
         unlockTaskForm();
         renderTaskForm(task);
         StudioBlockUIManager.blockUI(jq("#addTaskPanel"), 550, 550, 0, "absolute");
     };
 
-    var showTaskFormAfterQuestionPopup = function () {
+    function showTaskFormAfterQuestionPopup () {
         unlockTaskForm();
         StudioBlockUIManager.blockUI(jq("#addTaskPanel"), 550, 550, 0, "absolute");
     };
 
-    var closeTaskForm = function() {
+    function closeTaskForm () {
         jq.unblockUI();
     };
 
-    var setDescriptionHeight = function() {
+    function setDescriptionHeight () {
         var description = jq("#addtask_description");
 
         //default
@@ -752,9 +758,10 @@ ASC.Projects.TaskAction = (function() {
         }
     };
 
+
     var showCreateNewTaskForm = function (taskParams) {
         initData();
-        
+
         updateTaskFlag = false;
 
         var task = getEmptyTask();
@@ -780,13 +787,13 @@ ASC.Projects.TaskAction = (function() {
         if (task) {
             showTaskForm(task);
         } else {
-            Teamlab.getPrjTask({}, taskId, function(params, targetTask) {
+            Teamlab.getPrjTask({}, taskId, function (params, targetTask) {
                 showTaskForm(targetTask);
             });
         }
     };
 
-    var onAddNewMileston = function(milestone) {
+    var onAddNewMileston = function (milestone) {
         if (taskProjectSelector.attr("data-id") == milestone.projectId) {
             milestonesItems.push({ id: milestone.id, title: '[' + milestone.displayDateDeadline + '] ' + milestone.title, deadline: milestone.deadline });
             taskMilestoneSelector.projectadvancedSelector("rewriteItemList", milestonesItems, []);
@@ -799,7 +806,7 @@ ASC.Projects.TaskAction = (function() {
         }
     };
 
-    var filterProjectsByIdInCombobox = function(ids) {  // only for gantt chart
+    var filterProjectsByIdInCombobox = function (ids) {  // only for gantt chart
         if (ids.length === filterProjectsIds.length) {
 
             var isEqual = true;

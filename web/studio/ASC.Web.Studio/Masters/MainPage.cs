@@ -33,6 +33,7 @@ using System.Web;
 using System.Web.UI;
 
 using ASC.Core;
+using ASC.Core.Billing;
 using ASC.Core.Users;
 using ASC.FederatedLogin.Profile;
 using ASC.Geolocation;
@@ -58,18 +59,25 @@ namespace ASC.Web.Studio
 
         protected virtual bool MayNotPaid { get; set; }
 
-        protected virtual bool CheckWizardCompleted { get { return !CoreContext.Configuration.Standalone || WarmUp.Instance.Completed; } }
+        protected virtual bool MayPhoneNotActivate { get; set; }
+
+        protected virtual bool CheckWizardCompleted
+        {
+            get
+            {
+                return !CoreContext.Configuration.Standalone || Request.QueryString["warmup"] != "true";
+            }
+        }
 
         protected virtual bool RedirectToStartup
         {
             get
             {
-                if(!CoreContext.Configuration.Standalone) return false;
-                return !WarmUp.Instance.Completed && Request.QueryString["warmup"] != "true";
+                if (!CoreContext.Configuration.Standalone) return false;
+                var settings = SettingsManager.Instance.LoadSettings<WarmUpSettings>(TenantProvider.CurrentTenantID);
+                return !(WarmUp.Instance.CheckCompleted() || settings.Completed || Request.QueryString["warmup"] == "true");
             }
         }
-
-        protected virtual bool MayPhoneNotActivate { get; set; }
 
         protected static ILog Log
         {
@@ -78,7 +86,7 @@ namespace ASC.Web.Studio
 
         protected void Page_PreInit(object sender, EventArgs e)
         {
-            if(RedirectToStartup)
+            if (RedirectToStartup)
             {
                 Response.Redirect("~/Startup.aspx");
             }
@@ -223,7 +231,7 @@ namespace ASC.Web.Studio
                 var ipGeolocationInfo = new GeolocationHelper("teamlabsite").GetIPGeolocationFromHttpContext();
                 if (checkIp && ipGeolocationInfo != null && !string.IsNullOrEmpty(ipGeolocationInfo.Key))
                 {
-                    var cultureInfo = SetupInfo.EnabledCultures.Find(c => String.Equals(c.TwoLetterISOLanguageName, ipGeolocationInfo.Key, StringComparison.InvariantCultureIgnoreCase));
+                    var cultureInfo = SetupInfo.EnabledCulturesPersonal.Find(c => String.Equals(c.TwoLetterISOLanguageName, ipGeolocationInfo.Key, StringComparison.InvariantCultureIgnoreCase));
                     if (cultureInfo != null)
                     {
 
@@ -247,7 +255,7 @@ namespace ASC.Web.Studio
                 if (!string.IsNullOrEmpty(lang))
                 {
                     lang = lang.Split(',')[0];
-                    var cultureInfo = SetupInfo.EnabledCultures.Find(c => String.Equals(c.TwoLetterISOLanguageName, lang, StringComparison.InvariantCultureIgnoreCase));
+                    var cultureInfo = SetupInfo.EnabledCulturesPersonal.Find(c => String.Equals(c.TwoLetterISOLanguageName, lang, StringComparison.InvariantCultureIgnoreCase));
                     if (cultureInfo != null)
                     {
                         Thread.CurrentThread.CurrentUICulture = cultureInfo;

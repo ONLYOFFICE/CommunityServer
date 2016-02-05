@@ -49,7 +49,7 @@ namespace ASC.Mail.Autoreply
         {
 
             _adressTemplate = (https ? Uri.UriSchemeHttps : Uri.UriSchemeHttp) + Uri.SchemeDelimiter + "{{0}}{0}/{{1}}";
-            var baseDomain = (ConfigurationManager.AppSettings["core.base-domain"] ?? string.Empty).TrimEnd('/');
+            var baseDomain = CoreContext.Configuration.BaseDomain.TrimEnd('/');
             if (baseDomain == "localhost")
             {
                 baseDomain = string.Empty;

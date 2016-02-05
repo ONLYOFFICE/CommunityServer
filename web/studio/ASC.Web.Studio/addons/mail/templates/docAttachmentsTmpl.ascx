@@ -13,7 +13,7 @@
                 <input type='checkbox' onclick='DocumentsPopup.selectFile("${id}");' version='${version}' access='${access}' id='${id}' size='${size}'/>
                 <label class='${exttype}'>${title}</label>
                 {{if access == ASC.Files.Constants.AceStatusEnum.None || access == ASC.Files.Constants.AceStatusEnum.ReadWrite }}
-                    <span class="pencil"></span>
+                    <span class="share-can"></span>
                 {{/if}}
             </li>
     {{/if}}
@@ -21,14 +21,12 @@
 
 <script id="messageFileLink" type="text/x-jquery-tmpl">
     <div dir="ltr">
-        &#8203;
-        <br/>
-        <div contenteditable="false" data-fileid="${id}" class="mailmessage-filelink" style="width: 350px; height: 25px; max-height: 25px; 
-            background-color: #f2f2f2; color: #333; font-family: arial; font-style:normal; font-weight: normal; font-size: 12px; cursor: default;">
+        <div contenteditable="false" data-fileid="${id}" class="mailmessage-filelink" style="width: 350px; height: 27px; max-height: 27px; 
+            background-color: #f2f2f2; color: #333; font-family: arial; font-style:normal; font-weight: normal; font-size: 12px; cursor: default; margin-bottom: 10px;">
             <a href="${webUrl}" title="${fileName + ext}" target="_blank" data-fileid="${id}" class="mailmessage-filelink-link" style="display: inline-block; 
-                overflow: hidden; text-overflow: ellipsis; white-space: nowrap;  text-decoration: none; border: none; width: 310px; 
+                overflow: hidden; text-overflow: ellipsis; white-space: nowrap; text-decoration: none; border: none; width: 310px; 
                 cursor: pointer; height: 25px; color: #333;">
-                <img style="vertical-align: bottom; border: none; cursor: pointer; margin-right: 3px;"
+                <img style="vertical-align: bottom; border: none; cursor: pointer; margin: 3px 0 0 3px; width: 21px; height: 21px; display: inline-block; float: left;"
                 {{if jq.inArray(ext, ASC.Files.Utility.FileExtensionLibrary.ArchiveExts) != -1 }}
                 src="<%= CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_archive_21.png") %>"
                 {{else jq.inArray(ext, ASC.Files.Utility.FileExtensionLibrary.AviExts) != -1 }}
@@ -103,7 +101,10 @@
                 src="<%= CommonLinkUtility.GetFullAbsolutePath("~/usercontrols/common/ckeditor/plugins/filetype/images/file_21.png") %>"
                 {{/if}}
                 ></img>
-                <span dir="ltr" style="text-decoration: none; vertical-align: bottom;">${fileName}${ext}</span>
+                <span style="display: inline-block; margin: 7px 0 0 3px;">
+                    <span style="max-width: 260px; text-decoration:none; display:inline-block;" class="file-name">${fileName}</span>
+                    <span style="text-decoration:none; color:#a2a2a2; margin-left:-3px; display:inline-block;">${ext}</span>
+                </span>
             </a>
             <div class="delete-btn"></div>
         </div>

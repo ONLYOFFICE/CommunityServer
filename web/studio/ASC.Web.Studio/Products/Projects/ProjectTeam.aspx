@@ -32,7 +32,7 @@
             <div class="simple-marker-list"><%= String.Format(ProjectResource.ClosedProjectTeamManagerPermissionArticleB, "<span id='PrivateProjectHelp' class='baseLinkAction'>", "</span>") %></div>
             <div class="simple-marker-list"><%= String.Format(ProjectResource.ClosedProjectTeamManagerPermissionArticleC, "<span id='RestrictAccessHelp' class='baseLinkAction'>", "</span>", "<br/>") %></div>
             <div class="popup_helper" id="AnswerForPrivateProjectTeam">
-                <p><%= String.Format(ProjectsCommonResource.HelpAnswerPrivateProjectTeam, "<br />", "<b>", "</b>") %>
+                <p><%= String.Format(ProjectsCommonResource.HelpAnswerPrivateProjectTeam.HtmlEncode(), "<br />", "<b>", "</b>") %>
                      <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
                        { %>
                 <a target="_blank" href="<%= CommonLinkUtility.GetHelpLink() + "gettingstarted/projects.aspx#ManagingYourTeam_block" %>"> <%= ProjectsCommonResource.LearnMoreLink %></a>
@@ -40,7 +40,7 @@
                 </p>
             </div> 
             <div class="popup_helper" id="AnswerForRestrictAccessTeam">
-                <p><%= String.Format(ProjectsCommonResource.HelpAnswerRestrictAccessTeam, "<br />", "<b>", "</b>") %>
+                <p><%: ProjectsCommonResource.HelpAnswerRestrictAccessTeam %>
                     <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
                        { %>
                 <a target="_blank" href="<%= CommonLinkUtility.GetHelpLink() + "gettingstarted/projects.aspx#ManagingYourTeam_block" %>"> <%= ProjectsCommonResource.LearnMoreLink %></a></p>

@@ -112,121 +112,19 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Author" xml:space="preserve">
-    <value>Author</value>
-  </data>
-  <data name="ChooseAFileToUpload" xml:space="preserve">
-    <value>Select a file to upload</value>
-  </data>
   <data name="Files" xml:space="preserve">
     <value>Files</value>
-  </data>
-  <data name="kb" xml:space="preserve">
-    <value>KB</value>
-  </data>
-  <data name="OtherVersions" xml:space="preserve">
-    <value>Previous versions</value>
-  </data>
-  <data name="Size" xml:space="preserve">
-    <value>Size</value>
-  </data>
-  <data name="SortedBy_Alphabet" xml:space="preserve">
-    <value>A - Z</value>
-  </data>
-  <data name="SortedBy_DateAndTime" xml:space="preserve">
-    <value>Date and time</value>
-  </data>
-  <data name="SortedBy_FileSize" xml:space="preserve">
-    <value>Size</value>
-  </data>
-  <data name="UpdateFileVersion" xml:space="preserve">
-    <value>Update file version «{0}»</value>
-  </data>
-  <data name="EmptyScreenHeaderContent" xml:space="preserve">
-    <value>Upload the first file to the project</value>
-  </data>
-  <data name="EmptyScreenHeaderDescribe" xml:space="preserve">
-    <value>Upload, download and exchange files within the project.</value>
-  </data>
-  <data name="AttachFiles" xml:space="preserve">
-    <value>Attach file</value>
   </data>
   <data name="B" xml:space="preserve">
     <value>B</value>
   </data>
-  <data name="MB" xml:space="preserve">
-    <value>Mb</value>
-  </data>
-  <data name="ConfirmDelete" xml:space="preserve">
-    <value>Are you sure you want to delete this file? Note: this action cannot be undone.</value>
-  </data>
-  <data name="UploadingFile" xml:space="preserve">
-    <value>Uploading file «{0}»....</value>
-  </data>
-  <data name="Accept" xml:space="preserve">
-    <value>Accept</value>
-  </data>
-  <data name="AddNewCategory" xml:space="preserve">
-    <value>Add New Category</value>
-  </data>
-  <data name="Categories" xml:space="preserve">
-    <value>Categories</value>
-  </data>
-  <data name="EditCategories" xml:space="preserve">
-    <value>Edit Categories</value>
-  </data>
-  <data name="FileNotFound" xml:space="preserve">
-    <value>Files Not Found</value>
-  </data>
-  <data name="GoToFilesPage" xml:space="preserve">
-    <value>Go to Files Page</value>
-  </data>
-  <data name="Category" xml:space="preserve">
-    <value>Category</value>
-  </data>
-  <data name="FilesInTheCategory" xml:space="preserve">
-    <value>Files in category «{0}»</value>
-  </data>
-  <data name="NoCategory" xml:space="preserve">
-    <value>Unsorted</value>
-  </data>
-  <data name="UploadToCategory" xml:space="preserve">
-    <value>Upload to Category</value>
-  </data>
-  <data name="AllFiles" xml:space="preserve">
-    <value>All Files</value>
-  </data>
-  <data name="FilesWillBeRemoved" xml:space="preserve">
-    <value>All the files of this category will be removed</value>
-  </data>
-  <data name="LastVersionPermanentLinkText" xml:space="preserve">
-    <value>Latest version link</value>
-  </data>
-  <data name="OverallProgress" xml:space="preserve">
-    <value>Overall progress</value>
-  </data>
-  <data name="OldFiles" xml:space="preserve">
-    <value>Old Files</value>
-  </data>
-  <data name="ReadOnlyMode" xml:space="preserve">
-    <value>Read only Mode</value>
-  </data>
   <data name="Documents" xml:space="preserve">
     <value>Documents</value>
-  </data>
-  <data name="Pictures" xml:space="preserve">
-    <value>Photos</value>
-  </data>
-  <data name="SwitchToNewInterface" xml:space="preserve">
-    <value>Switch to New Interface</value>
-  </data>
-  <data name="SwitchToOldInterface" xml:space="preserve">
-    <value>Switch to Old Interface</value>
   </data>
   <data name="ButtonUpload" xml:space="preserve">
     <value>Upload</value>

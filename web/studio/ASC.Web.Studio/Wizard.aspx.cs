@@ -24,16 +24,16 @@
 */
 
 
-using System;
-using System.Web;
-using ASC.Web.Core.Files;
-using ASC.Web.Studio.Core.Users;
-using ASC.Web.Studio.UserControls.FirstTime;
-using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Utility;
 using ASC.Core;
+using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Studio.Core;
+using ASC.Web.Studio.UserControls.FirstTime;
+using ASC.Web.Studio.Utility;
 using Resources;
+using System;
+using System.IO;
+using System.Web;
 
 namespace ASC.Web.Studio
 {
@@ -42,8 +42,13 @@ namespace ASC.Web.Studio
         protected override bool MayNotAuth
         {
             get { return true; }
-            set { }
         }
+
+        protected override bool MayNotPaid
+        {
+            get { return true; }
+        }
+
         protected override bool CheckWizardCompleted
         {
             get { return false; }
@@ -79,8 +84,8 @@ namespace ASC.Web.Studio
 
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            Page.RegisterBodyScripts(ResolveUrl("~/js/third-party/head.load.js"));
-            Page.RegisterBodyScripts(ResolveUrl("~/js/asc/core/asc.listscript.js"));
+            Page.RegisterBodyScripts("~/js/third-party/head.load.js");
+            Page.RegisterBodyScripts("~/js/asc/core/asc.listscript.js");
 
             Title = Resource.WizardPageTitle;
 
@@ -92,6 +97,21 @@ namespace ASC.Web.Studio
             Master.TopStudioPanel.DisableTariff = true;
 
             content.Controls.Add(LoadControl(StepContainer.Location));
+
+            #region third-party scripts
+
+            var WizardScriptLocation = "~/UserControls/Common/ThirdPartyScripts/WizardScript.ascx";
+            if (File.Exists(HttpContext.Current.Server.MapPath(WizardScriptLocation)) &&
+                !CoreContext.Configuration.Standalone && !CoreContext.Configuration.Personal && SetupInfo.CustomScripts.Length != 0)
+            {
+                WizardThirdPartyPlaceHolder.Controls.Add(LoadControl(WizardScriptLocation));
+            }
+            else
+            {
+                WizardThirdPartyPlaceHolder.Visible = false;
+            }
+
+            #endregion
         }
     }
 }

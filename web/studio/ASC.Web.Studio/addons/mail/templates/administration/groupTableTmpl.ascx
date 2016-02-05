@@ -25,7 +25,7 @@
                 </div>
             </td>
             <td class="menu_column">
-                <div class="menu" title="<%: MailScriptResource.Actions %>" data_id="${id}"></div>
+                <div class="menu menu-small" title="<%: MailScriptResource.Actions %>" data_id="${id}"></div>
             </td>
         </tr>
     </table>

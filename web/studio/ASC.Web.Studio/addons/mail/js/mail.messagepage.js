@@ -30,7 +30,6 @@ window.messagePage = (function($) {
         messageIsDirty = false,
         messageIsSending = false,
         isMessageRead = false,
-        randomGuid = '',
         sortConversationByAsc = true,
         maxConversationShow = 5,
         attachmentMenuItems,
@@ -51,7 +50,11 @@ window.messagePage = (function($) {
     };
 
     function setHasLinked(val) {
-        hasLinked = val;
+        if (hasLinked !== val) {
+            hasLinked = val;
+            mailCache.setHasLinked(mailBox.currentMessageId, hasLinked);
+            $('#itemContainer').find('.viewTitle').trigger("update");
+        }
     }
 
     function init() {
@@ -60,10 +63,8 @@ window.messagePage = (function($) {
             sortConversationByAsc = (TMMail.option('ConversationSortAsc') === 'true');
 
             serviceManager.bind(window.Teamlab.events.getMailMessageTemplate, onGetMailMessageTemplate);
-            serviceManager.bind(window.Teamlab.events.getMailRandomGuid, onGetMailRandomGuid);
             serviceManager.bind(window.Teamlab.events.sendMailMessage, onSendMessage);
             serviceManager.bind(window.Teamlab.events.saveMailMessage, onSaveMessage);
-            serviceManager.bind(window.Teamlab.events.isConversationLinkedWithCrm, onGetConversationLinkStatus);
             serviceManager.bind(window.Teamlab.events.exportAllAttachmentsToMyDocuments, onExportAttachmentsToMyDocuments);
             serviceManager.bind(window.Teamlab.events.exportAttachmentToMyDocuments, onExportAttachmentToMyDocuments);
             serviceManager.bind(window.Teamlab.events.markChainAsCrmLinked, onMarkChainAsCrmLinked);
@@ -101,9 +102,9 @@ window.messagePage = (function($) {
             { selector: "#messageActionMenu .alwaysHideImages", handler: alwaysHideImages }
         ];
 
-        if (TMMail.availability.CRM) {
-            singleMessageMenuItems.push({ selector: "#singleMessageActionMenu .exportMessageToCrm", handler: exportMessageToCrm });
-            messageMenuItems.push({ selector: "#messageActionMenu .exportMessageToCrm", handler: exportMessageToCrm });
+        if (ASC.Mail.Constants.CRM_AVAILABLE) {
+            singleMessageMenuItems.push({ selector: "#singleMessageActionMenu .exportMessageToCrm", handler: crmLinkPopup.showCrmExportMessagePopup });
+            messageMenuItems.push({ selector: "#messageActionMenu .exportMessageToCrm", handler: crmLinkPopup.showCrmExportMessagePopup });
         } else {
             $('.exportMessageToCrm.dropdown-item').hide();
         }
@@ -125,7 +126,20 @@ window.messagePage = (function($) {
             });
     }
 
+    function checkCrmLinked(id) {
+        if (ASC.Mail.Constants.CRM_AVAILABLE) {
+            serviceManager.isConversationLinkedWithCrm(id, { messageId: id },
+            {
+                success: function (params, status) {
+                    hasLinked = status;
+                }
+            });
+        }
+    }
+
     function view(id, noBlock) {
+        checkCrmLinked(id);
+
         serviceManager.getMessage(id, noBlock, false, { action: 'view' },
             {
                 success: onGetMailMessage,
@@ -134,16 +148,19 @@ window.messagePage = (function($) {
     }
 
     function conversation(id, loadAllContent) {
-        var content = seekRememberedContent(id);
-
+        var content = mailCache.get(id);
         if (!content) {
+            checkCrmLinked(id);
+
             serviceManager.getConversation(id, loadAllContent, { action: 'conversation', id: id },
                 {
                     success: onGetMailConversation,
                     error: onOpenMessageError
-                }, ASC.Resources.Master.Resource.LoadingProcessing);
+                },
+                ASC.Resources.Master.Resource.LoadingProcessing);
         } else {
-            onGetMailConversation({ action: 'conversation', id: id }, content);
+            hasLinked = content.hasLinked;
+            onGetMailConversation({ action: 'conversation', id: id, notRememberContent: true }, content.messages);
         }
     }
 
@@ -225,12 +242,6 @@ window.messagePage = (function($) {
         }
     }
 
-    function exportMessageToCrm(messageId) {
-        var html = CrmLinkPopup.getCrmExportControl(messageId);
-        window.popup.init();
-        window.popup.addBig(window.MailScriptResource.ExportConversationPopupHeader, html);
-    }
-
     function isContentBlocked(id) {
         var fullView = $('#itemContainer .full-view[message_id="' + id + '"]');
         var contentBlocked = (fullView.length == 0 ? true : fullView.attr('content_blocked') == "true");
@@ -238,7 +249,6 @@ window.messagePage = (function($) {
     }
 
     function reply(id) {
-        serviceManager.generateGuid();
         serviceManager.getMessage(id, !isContentBlocked(id), true, { action: 'reply' },
             {
                 success: onGetMailMessage,
@@ -247,7 +257,6 @@ window.messagePage = (function($) {
     }
 
     function replyAll(id) {
-        serviceManager.generateGuid();
         serviceManager.getMessage(id, !isContentBlocked(id), true, { action: 'replyAll' },
             {
                 success: onGetMailMessage,
@@ -256,7 +265,6 @@ window.messagePage = (function($) {
     }
 
     function forward(id) {
-        serviceManager.generateGuid();
         serviceManager.getMessage(id, !isContentBlocked(id), true, { action: 'forward' },
             {
                 success: onGetMailMessage,
@@ -284,11 +292,11 @@ window.messagePage = (function($) {
         savingLock = false;
         if (repeatSaveFlag) {
             repeatSaveFlag = false;
-            saveMessage();
+            saveMessage(false);
         }
     }
 
-    function saveMessage() {
+    function saveMessage(showLoader) {
         if (!obtainSavingLock()) {
             return;
         }
@@ -303,23 +311,23 @@ window.messagePage = (function($) {
 
         var data = prepareMessageData(false);
 
+        var loader = showLoader ? window.MailScriptResource.SavingMessage : undefined;
+
         if (data != undefined) {
             serviceManager.saveMessage(message_id,
                 data.From,
-                data.Subject,
                 data.To,
                 data.Cc,
                 data.Bcc,
-                data.HtmlBody,
-                data.Attachments,
-                data.StreamId,
-                data.MimeMessageId,
                 data.MimeReplyToId,
                 data.Important,
+                data.Subject,
                 data.Labels,
+                data.HtmlBody,
+                data.Attachments,
                 {},
                 { error: onErrorSendMessage },
-                window.MailScriptResource.SavingMessage);
+                loader);
 
             serviceManager.updateFolders();
         }
@@ -349,7 +357,7 @@ window.messagePage = (function($) {
 
         if (needCrmLink()) {
             messageIsSending = true;
-            saveMessage();
+            saveMessage(true);
             return;
         }
 
@@ -364,17 +372,15 @@ window.messagePage = (function($) {
             clearTimeout(saveTimeout);
             serviceManager.sendMessage(messageId,
                 data.From,
-                data.Subject,
                 data.To,
                 data.Cc,
                 data.Bcc,
-                data.HtmlBody,
-                data.Attachments,
-                data.StreamId,
-                data.MimeMessageId,
                 data.MimeReplyToId,
                 data.Important,
+                data.Subject,
                 data.Labels,
+                data.HtmlBody,
+                data.Attachments,
                 data.FileLinksShareMode,
                 {},
                 { error: onErrorSendMessage },
@@ -384,8 +390,8 @@ window.messagePage = (function($) {
             TMMail.disableButton($('#editMessagePage .btnSave'), false);
             if (messageId > 0) {
                 TMMail.disableButton($('#editMessagePage .btnDelete'), false);
+                TMMail.disableButton($('#editMessagePage .btnAddTag'), false);
             }
-            TMMail.disableButton($('#editMessagePage .btnAddTag'), false);
         }
     }
 
@@ -480,7 +486,7 @@ window.messagePage = (function($) {
         data.HtmlBody = body;
         data.StreamId = streamId;
         data.Attachments = AttachmentManager.GetAttachments();
-        data.FileLinksShareMode = $('#sharingSettingForFileLinksTmplBox input[name="shareFileLinksAccessSelector"]:checked').val();
+        data.FileLinksShareMode = $('#sharingSettingForFileLinksTmplBox input[name="shareFileLinksAccessSelector"]:checked').val() || ASC.Files.Constants.AceStatusEnum.Read;
 
         return data;
     }
@@ -496,23 +502,26 @@ window.messagePage = (function($) {
             errors.push(window.MailScriptResource.ErrorEmptyToField);
         }
 
-        $('#newmessageTo').css('border-color', errors.length > 0 ? '#c00' : 'null');
+        if (errors.length > 0)
+            $('#newmessageTo').addClass('invalidField');
+        else
+            $('#newmessageTo').removeClass('invalidField');
 
+        $('#newmessageCopy').removeClass('invalidField');
         if (!errors.length && ccStr.length) {
             parseResult = parseAddressesByRfc(ccStr);
             errors = parseResult.errors;
-            $('#newmessageCopy').css('border-color', parseResult.errors.length > 0 ? '#c00' : 'null');
-        } else {
-            $('#newmessageCopy').css('border-color', 'null');
+            if (parseResult.errors.length > 0)
+                $('#newmessageCopy').addClass('invalidField');
         }
 
+        $('#newmessageBCC').removeClass('invalidField');
         if (!errors.length && bccStr.length) {
             parseResult = parseAddressesByRfc(bccStr);
             errors = parseResult.errors;
-            $('#newmessageBCC').css('border-color', parseResult.errors.length > 0 ? '#c00' : 'null');
-        } else {
-            $('#newmessageBCC').css('border-color', 'null');
-        }
+            if (parseResult.errors.length > 0)
+                $('#newmessageBCC').addClass('invalidField');
+        } 
 
         if (errors.length > 0) {
             window.LoadingBanner.hideLoading();
@@ -529,7 +538,7 @@ window.messagePage = (function($) {
     function getMessageFileLinks() {
         var fileLinks = [];
         $($('<div/>').append(wysiwygEditor.getValue())).find('.mailmessage-filelink').each(function () {
-            fileLinks.push($(this).attr('data-fileid'));
+            fileLinks.push({ id: $(this).attr('data-fileid'), title: $(this).find('.mailmessage-filelink-link').attr('title') });
         });
 
         return fileLinks;
@@ -560,9 +569,8 @@ window.messagePage = (function($) {
 
     function updateMessageTag(messageId, tagId) {
         var tag = tagsManager.getTag(tagId);
-        if (tag != undefined) {
+        if (tag) {
             var tagsPanel = $('#itemContainer .head[message_id=' + messageId + '] .tags');
-
             if (tagsPanel) {
                 var html = $.tmpl('tagInMessageTmpl', tag, { htmlEncode: TMMail.htmlEncode });
                 var $html = $(html);
@@ -576,6 +584,8 @@ window.messagePage = (function($) {
                 });
 
                 tagsPanel.show(); // show tags panel
+
+                mailCache.setTag(messageId, tagId);
 
                 return true;
             }
@@ -606,8 +616,9 @@ window.messagePage = (function($) {
             } else {
                 tagsPanel.show();
             }
-
         }
+
+        mailCache.setTag(messageId, tagId, true);
     }
 
     function isMessageDirty() {
@@ -631,12 +642,22 @@ window.messagePage = (function($) {
         $messageBody.data('message', message);
         var html;
         if (message.isBodyCorrupted) {
-            html = $.tmpl('messageOpenErrorTmpl');
+            html = $.tmpl('errorBodyTmpl', {
+                errorBodyHeader: ASC.Mail.Resources.MailScriptResource.ErrorOpenMessage,
+                errorBody: $.trim($.tmpl("messageOpenErrorBodyTmpl").html())
+            });
+
             $messageBody.html(html);
+            $messageBody.toggleClass("body-error");
             TMMail.fixMailtoLinks($messageBody);
         } else if (message.hasParseError) {
-            html = $.tmpl('messageParseErrorTmpl');
+            html = $.tmpl('errorBodyTmpl', {
+                    errorBodyHeader: ASC.Mail.Resources.MailScriptResource.ErrorOpenMessage,
+                    errorBody: $.trim($.tmpl("messageParseErrorBodyTmpl").html())
+                });
+
             $messageBody.html(html);
+            $messageBody.toggleClass("body-error");
             TMMail.fixMailtoLinks($messageBody);
         } else {
             var iframeSupported = document.createElement("iframe");
@@ -684,7 +705,7 @@ window.messagePage = (function($) {
         $('#itemContainer').height('auto');
     }
 
-    function createBodyIFrame(message, showImages, bodyRenderedCallback, imagesLoadedCallback) {
+    function createBodyIFrame(message, showImages) {
         var $frame = $('<iframe id="message_body_frame_' + message.id +
             '" scrolling="auto" frameborder="0" width="100%" style="height:0;">An iframe capable browser is required to view this web site.</iframe>');
 
@@ -752,14 +773,24 @@ window.messagePage = (function($) {
             });
             $body.find("a[href*='mailto:']").removeAttr('target');
             updateIframeSize(message.id, true);
-            displayTrustedImages(message, showImages, imagesLoadedCallback);
-
-            if (bodyRenderedCallback) {
-                bodyRenderedCallback($frame);
-            }
+            displayTrustedImages(message, showImages);
         });
 
+        if (jq.browser.mobile) {
+
+            var $wrapper = $('<div style="display:inline-block;width: 100%;"></div>');
+            var $container = $('<div style="height:100%;width:100%;overflow:scroll;-webkit-overflow-scrolling: touch;"></div>');
+            $wrapper.append($container.append($frame.css("display", "inline-block")));
+
+            return $wrapper;
+        }
+
         return $frame;
+    }
+    
+    function getMessageIframeBody(messageId) {
+        var $iframe = $('#message_body_frame_' + messageId);
+        return $iframe.contents().find('body');
     }
 
     function insertBlockquoteBtn(element) {
@@ -832,8 +863,7 @@ window.messagePage = (function($) {
     }
 
     function activateUploader(attachments) {
-        var streamId = TMMail.translateSymbols($('#newMessage').attr('streamId'), false);
-        AttachmentManager.InitUploader(streamId, attachments);
+        AttachmentManager.InitUploader(attachments);
     }
 
     function updateFromSelected() {
@@ -898,10 +928,14 @@ window.messagePage = (function($) {
 
         if (mailBox.currentMessageId < 1) {
             TMMail.disableButton($('#editMessagePage .btnDelete'), true);
+            TMMail.disableButton($('#editMessagePage .btnAddTag'), true);
         }
 
         // Add tag
-        $('#editMessagePage .btnAddTag.unlockAction').unbind('click').click(function() {
+        $('#editMessagePage .btnAddTag.unlockAction').unbind('click').click(function () {
+            if ($(this).hasClass('disable')) {
+                return false;
+            }
             tagsDropdown.show($(this));
         });
 
@@ -997,30 +1031,30 @@ window.messagePage = (function($) {
 
             switch (folderId) {
                 case TMMail.sysfolders.inbox.id:
-                    if (window.mailPrintAvailable)
+                    if (ASC.Mail.Constants.PRINT_AVAILABLE)
                         buttons.push({ text: printBtnLabel, handler: moveToPrint });
                     buttons.push({ text: window.MailScriptResource.SpamLabel, handler: spamUnspamAction, spam: true });
                     buttons.push({ text: window.MailScriptResource.UnreadLabel, handler: readUnreadMessageAction });
-                    if (TMMail.availability.CRM) {
-                        buttons.push({ text: window.MailResource.LinkChainWithCRM, handler: showLinkChainPopup });
+                    if (ASC.Mail.Constants.CRM_AVAILABLE) {
+                        buttons.push({ text: window.MailResource.LinkChainWithCRM, handler: crmLinkPopup.showCrmLinkConversationPopup });
                     }
                     break;
                 case TMMail.sysfolders.sent.id:
-                    if (window.mailPrintAvailable)
+                    if (ASC.Mail.Constants.PRINT_AVAILABLE)
                         buttons.push({ text: printBtnLabel, handler: moveToPrint });
                     buttons.push({ text: window.MailScriptResource.UnreadLabel, handler: readUnreadMessageAction });
-                    if (TMMail.availability.CRM) {
-                        buttons.push({ text: window.MailResource.LinkChainWithCRM, handler: showLinkChainPopup });
+                    if (ASC.Mail.Constants.CRM_AVAILABLE) {
+                        buttons.push({ text: window.MailResource.LinkChainWithCRM, handler: crmLinkPopup.showCrmLinkConversationPopup });
                     }
                     break;
                 case TMMail.sysfolders.trash.id:
-                    if (window.mailPrintAvailable)
+                    if (ASC.Mail.Constants.PRINT_AVAILABLE)
                         buttons.push({ text: printBtnLabel, handler: moveToPrint });
                     buttons.push({ text: window.MailScriptResource.RestoreBtnLabel, handler: restoreMessageAction });
                     buttons.push({ text: window.MailScriptResource.UnreadLabel, handler: readUnreadMessageAction });
                     break;
                 case TMMail.sysfolders.spam.id:
-                    if (window.mailPrintAvailable)
+                    if (ASC.Mail.Constants.PRINT_AVAILABLE)
                         buttons.push({ text: printBtnLabel, handler: moveToPrint });
                     buttons.push({ text: window.MailScriptResource.NotSpamLabel, handler: spamUnspamAction, spam: false });
                     buttons.push({ text: window.MailScriptResource.UnreadLabel, handler: readUnreadMessageAction });
@@ -1038,15 +1072,12 @@ window.messagePage = (function($) {
         }
 
         // Add tag
-        $('.btnAddTag.unlockAction').unbind('click').click(function() {
+        $('.btnAddTag.unlockAction').unbind('click').click(function () {
+            if ($(this).hasClass('disable')) {
+                return false;
+            }
             tagsDropdown.show($(this));
         });
-    }
-
-    function showLinkChainPopup() {
-        var html = CrmLinkPopup.getCrmLinkControl(hasLinked);
-        window.popup.init();
-        window.popup.addBig(window.MailScriptResource.LinkConversationPopupHeader, html);
     }
 
     function setConversationViewActions() {
@@ -1140,7 +1171,7 @@ window.messagePage = (function($) {
         });
     }
 
-    function displayImages(messageId, cb) {
+    function displayImages(messageId) {
         var iframe = $('#message_body_frame_' + messageId);
         iframe.attr('scrolling', 'no');
         var messageBody = iframe.contents().find('body');
@@ -1182,17 +1213,11 @@ window.messagePage = (function($) {
                                 messageBody.append('<div class="temp" style="height: 1px"/>');
                                 messageBody.find('.temp').remove();
                             }
-
-                            if (cb) {
-                                cb();
-                            }
                         });
                     });
                 },
                 waitForAll: true
             });
-        } else if (cb) {
-            cb();
         }
     }
 
@@ -1252,7 +1277,7 @@ window.messagePage = (function($) {
         // Google Analytics
         window.ASC.Mail.ga_track(ga_Categories.createMail, ga_Actions.buttonClick, "save");
         TMMail.disableButton($('#editMessagePage .btnSave'), true);
-        saveMessage();
+        saveMessage(true);
         return false;
     }
 
@@ -1272,9 +1297,16 @@ window.messagePage = (function($) {
         }
 
         var fileLinks = getMessageFileLinks();
+
         if (!forcibly && fileLinks.length) {
-            window.popup.addBig(MailScriptResource.SharingSettingForFiles, $.tmpl('sharingSettingForFileLinksTmpl'));
-            return false;
+            var needShowShareDlg = $.grep(fileLinks, function(f) {
+                return ASC.Files.Utility.CanWebEdit(f.title, true) && ASC.Resources.Master.TenantTariffDocsEdition && !ASC.Files.Utility.MustConvert(f.title);
+            }).length > 0;
+
+            if (needShowShareDlg) {
+                window.popup.addBig(MailScriptResource.SharingSettingForFiles, $.tmpl('sharingSettingForFileLinksTmpl'));
+                return false;
+            }
         }
 
         //google analytics
@@ -1370,41 +1402,58 @@ window.messagePage = (function($) {
 
     function moveToConversationPrint(conversationId) {
         var simIds = [];
+        var squIds = [];
+        var sortAsc = isSortConversationByAsc();
+
         var fullView = $('#itemContainer .itemWrapper .full-view[loaded=true]');
         for (var i = 0, len = fullView.length; i < len; i++) {
             var messageId = $(fullView[i]).attr('message_id');
-            if ($(fullView[i]).find('#id_block_content_popup_' + messageId).length == 0)
+            if ($(fullView[i]).find('#id_block_content_popup_' + messageId).length == 0) {
                 simIds.push(messageId);
+            }
+
+            var $messageBody = getMessageIframeBody(messageId);
+            var $quote = $messageBody.find('div.gmail_quote:first, div.yahoo_quoted:first, blockquote:first, div:has(hr#stopSpelling):last');
+            if ($quote.is(':visible')) {
+                squIds.push(messageId);
+            }
         }
 
-        var html = "";
-        if (simIds.length != fullView.length)
+        var html = '';
+        if (simIds.length != fullView.length) {
             html = $.tmpl('imagesBlockedPopupTmpl', { text: MailScriptResource.ConversationImagesBlockedPopupBody });
-        else if ($('#itemContainer .itemWrapper .full-view[loaded!=true]').length != 0)
+        }
+        else if ($('#itemContainer .itemWrapper .full-view[loaded!=true]').length != 0) {
             html = $.tmpl('imagesBlockedPopupTmpl', { text: MailScriptResource.ConversationCollapsedBlockedPopupBody });
+        }
         
         if (html != "") {
-            $(html).find('.buttons .print').bind("click", function () {
-                TMMail.moveToConversationPrint(conversationId, simIds);
-                window.popup.hide();
-            });
-            window.popup.addBig(MailScriptResource.MessageImagesBlockedPopupHeader, html);
-        }
-        else
-            TMMail.moveToConversationPrint(conversationId, simIds);
-    }
-
-    function moveToMessagePrint(messageId) {
-        var $blockImagesBox = $('#id_block_content_popup_' + messageId);
-        if ($blockImagesBox.length) {
-            var html = $.tmpl('imagesBlockedPopupTmpl', { text: MailScriptResource.MessageImagesBlockedPopupBody });
-            $(html).find('.buttons .print').bind("click", function () {
-                TMMail.moveToMessagePrint(messageId, false);
+            $(html).find('.buttons .print').bind("click", function() {
+                TMMail.moveToConversationPrint(conversationId, simIds, squIds, sortAsc);
                 window.popup.hide();
             });
             window.popup.addBig(MailScriptResource.MessageImagesBlockedPopupHeader, html);
         } else {
-            TMMail.moveToMessagePrint(messageId, true);
+            TMMail.moveToConversationPrint(conversationId, simIds, squIds, sortAsc);
+        }
+    }
+
+    function moveToMessagePrint(messageId) {
+        var $blockImagesBox = $('#id_block_content_popup_' + messageId);
+
+        var $messageBody = getMessageIframeBody(messageId);
+        var $quote = $messageBody.find('div.gmail_quote:first, div.yahoo_quoted:first, blockquote:first, div:has(hr#stopSpelling):last');
+        var showQuotes = $quote.is(':visible');
+
+        if ($blockImagesBox.length) {
+            var html = $.tmpl('imagesBlockedPopupTmpl', { text: MailScriptResource.MessageImagesBlockedPopupBody });
+            $(html).find('.buttons .print').bind("click", function () {
+                TMMail.moveToMessagePrint(messageId, false, showQuotes);
+                window.popup.hide();
+            });
+            window.popup.addBig(MailScriptResource.MessageImagesBlockedPopupHeader, html);
+        } else {
+            TMMail.moveToMessagePrint(messageId, true, showQuotes);
         }
     }
 
@@ -1531,13 +1580,16 @@ window.messagePage = (function($) {
     }
 
     function onMessageChanged() {
-        clearTimeout(saveTimeout);
-        setDirtyMessage();
-        saveTimeout = setTimeout(function() {
-            if (messageIsDirty) {
-                saveMessage();
-            }
-        }, TMMail.saveMessageInterval);
+        if (TMMail.pageIs('writemessage')) {
+            $(this).removeClass('invalidField');
+            clearTimeout(saveTimeout);
+            setDirtyMessage();
+            saveTimeout = setTimeout(function() {
+                if (messageIsDirty) {
+                    saveMessage(false);
+                }
+            }, TMMail.saveMessageInterval);
+        }
     }
 
     function onLeaveMessage(e) {
@@ -1553,7 +1605,7 @@ window.messagePage = (function($) {
                     return false;
                 }
             } else if (isMessageDirty()) {
-                saveMessage();
+                saveMessage(true);
             }
         }
         return true;
@@ -1655,6 +1707,7 @@ window.messagePage = (function($) {
             $('#itemContainer .head[message_id]:visible').attr('message_id', message.id);
             mailBox.currentMessageId = message.id;
             TMMail.disableButton($('#editMessagePage .btnDelete'), false);
+            TMMail.disableButton($('#editMessagePage .btnAddTag'), false);
         }
 
         releaseSavingLock();
@@ -1758,10 +1811,6 @@ window.messagePage = (function($) {
         mailBox.stickActionMenuToTheTop();
     }
 
-    function onGetMailRandomGuid(params, guid) {
-        randomGuid = guid;
-    }
-
     function onGetMailMessage(params, message) {
         var originalMessage = $.extend({}, message); // Copy message
         message.conversation_message = params.conversation_message;
@@ -1823,11 +1872,13 @@ window.messagePage = (function($) {
                     htmlEncode: TMMail.htmlEncode,
                     asc: false,
                     action: params.action,
-                    crm_available: TMMail.availability.CRM,
-                    wordWrap: TMMail.wordWrap
+                    wordWrap: TMMail.wordWrap,
+                    hasLinked: hasLinked
                 });
 
                 $('#itemContainer').append(html);
+
+                $('#itemContainer').find('.viewTitle').dotdotdot({ wrap: 'letter', height: 20, watch: 'window' });
             } else {
                 var $messageBody = $('#itemContainer .itemWrapper .body[message_id=' + message.id + ']');
 
@@ -1863,35 +1914,11 @@ window.messagePage = (function($) {
             $('#itemContainer').find('.full-view .head').actionMenu('singleMessageActionMenu', singleMessageMenuItems, pretreatmentConversationMessage);
         }
 
+        $('.header-crm-link').unbind('click').bind('click', crmLinkPopup.showCrmLinkConversationPopup);
+
         tuneNextPrev();
 
         bindOnMessageChanged();
-    }
-
-    function onGetConversationLinkStatus(params, status) {
-        if (status) {
-            $('.header-crm-link').show();
-            hasLinked = true;
-        } else {
-            hasLinked = false;
-        }
-    }
-
-    function rememberContent(id, content) {
-        var $messageRow = $('#itemContainer .messages tr[data_id=' + id + ']');
-        if ($messageRow) {
-            var contentClone = $.extend(true, {}, { content: content });
-            $messageRow.data('content', contentClone);
-        }
-    }
-
-    function seekRememberedContent(id) {
-        var $messageRow = $('#itemContainer .messages tr[data_id=' + id + ']');
-        if ($messageRow && $messageRow.data('content')) {
-            return $messageRow.data('content').content;
-        }
-
-        return undefined;
     }
 
     function onGetMailConversation(params, messages) {
@@ -1899,6 +1926,7 @@ window.messagePage = (function($) {
         var folderId = TMMail.sysfolders.inbox.id;
         var lastMessage = null;
         var needRemember = true;
+
         $.each(messages, function(i, m) {
             if (isMessageExpanded(m) && m.isBodyCorrupted) {
                 needRemember = false;
@@ -1912,12 +1940,17 @@ window.messagePage = (function($) {
             }
         });
 
+        if (params.notRememberContent) {
+            needRemember = false;
+        }
+
         if (lastMessage == null) {
             return;
         }
 
         if (needRemember) {
-            rememberContent(params.id, messages);
+            var content = $.extend(true, {}, { messages: messages, hasLinked: hasLinked });
+            mailCache.set(params.id, content);
         }
 
         closeMessagePanel();
@@ -1955,11 +1988,12 @@ window.messagePage = (function($) {
             getFileNameWithoutExt: AttachmentManager.GetFileName,
             getFileExtension: AttachmentManager.GetFileExtension,
             htmlEncode: TMMail.htmlEncode,
-            crm_available: TMMail.availability.CRM,
-            wordWrap: TMMail.wordWrap
+            wordWrap: TMMail.wordWrap,
+            hasLinked: hasLinked
         });
 
-        $('#itemContainer').append(html);
+        $("#itemContainer").append(html);
+        $("#itemContainer").find(".viewTitle").dotdotdot({ wrap: "letter", height: 20, watch: 'window' });
 
         showMessagesCommon(messages, params.action);
 
@@ -1982,8 +2016,7 @@ window.messagePage = (function($) {
             $('#itemContainer').find('.full-view .head').actionMenu('messageActionMenu', messageMenuItems, pretreatmentConversationMessage);
         }
 
-        $('.header-crm-link').unbind('click').bind('click', showLinkChainPopup);
-        serviceManager.isConversationLinkedWithCrm(messages[0].id);
+        $('.header-crm-link').unbind('click').bind('click', crmLinkPopup.showCrmLinkConversationPopup);
         tuneNextPrev();
     }
 
@@ -1996,12 +2029,10 @@ window.messagePage = (function($) {
         $('#mail_attachments').actionMenu('attachmentEditActionMenu', attachmentEditMenuItems, pretreatmentAttachments);
     }
 
-    function displayTrustedImages(message, forcibly, cb) {
+    function displayTrustedImages(message, forcibly) {
         if (forcibly != undefined) {
             if (forcibly) {
-                displayImages(message.id, cb);
-            } else if (cb) {
-                cb();
+                displayImages(message.id);
             }
             return;
         }
@@ -2009,19 +2040,13 @@ window.messagePage = (function($) {
         if (message.contentIsBlocked) {
             var senderAddress = TMMail.parseEmailFromFullAddress(message.from);
             if (trustedAddresses.isTrusted(senderAddress)) {
-                message.contentIsBlocked = false;
-                displayImages(message.id, cb);
+                displayImages(message.id);
             } else if ($('#id_block_content_popup_' + message.id).length == 0) {
                 // Conversation sort algorithm: user has clicked the 'Display images' and #id_block_content_popup has been removed;
-                displayImages(message.id, cb);
+                displayImages(message.id);
             } else {
                 $('#id_block_content_popup_' + message.id).show();
-                if (cb) {
-                    cb();
-                }
             }
-        } else if (cb) {
-            cb();
         }
     }
 
@@ -2125,7 +2150,6 @@ window.messagePage = (function($) {
                 }
 
                 message.id = 0;
-                message.streamId = randomGuid;
             } else if (action = 'view') {
                 message.from = preprocessAddresses(message.from);
                 message.to = preprocessAddresses(message.to);
@@ -2386,7 +2410,7 @@ window.messagePage = (function($) {
                 return;
             }
             var el = $(e.target);
-            if (el.is('.menu') || el.is('.from') || el.is('.tag') || el.is('.tagDelete')
+            if (el.is('.menu-small') || el.is('.from') || el.is('.tag') || el.is('.tagDelete')
                 || el.is('.AddToCRMContacts') || el.parent().is('.AddToCRMContacts')) {
                 return;
             }
@@ -2514,7 +2538,7 @@ window.messagePage = (function($) {
         var deleteMenu = dropdownItem.find(".deleteAttachment");
         var saveToMyDocsMenu = dropdownItem.find(".saveAttachmentToMyDocs");
 
-        var menu = $('.menu[data_id="' + id + '"]');
+        var menu = $('.menu-small[data_id="' + id + '"]');
         var name = menu.attr('name');
 
         if (TMMail.pageIs('writemessage')) {
@@ -2587,7 +2611,7 @@ window.messagePage = (function($) {
             window.StudioBlockUIManager.blockUI("#tariffLimitDocsEditionPanel", 500, 300, 0);
             return;
         }
-        var name = $('.menu[data_id="' + id + '"]').attr('name');
+        var name = $('.menu-small[data_id="' + id + '"]').attr('name');
         if (ASC.Files.Utility.CanImageView(name)) {
             $('#itemContainer .row[data_id="' + id + '"] a').click();
         } else {
@@ -2769,7 +2793,6 @@ window.messagePage = (function($) {
         editDocumentAttachment: editDocumentAttachment,
         selectFromAccount: selectFromAccount,
         showMessageNotification: showMessageNotification,
-        createBodyIFrame: createBodyIFrame,
         preprocessMessages: preprocessMessages,
         sendAction: sendAction,
         updateFromAccountField: updateFromAccountField

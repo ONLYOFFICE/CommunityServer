@@ -115,6 +115,28 @@ window.Attachments = (function() {
                 jq("#emptyDocumentPanel .emptyScrBttnPnl").remove();
                 jq(".infoPanelAttachFile, .containerAction, .information-upload-panel").remove();
             }
+
+
+
+            jq.tmpl("template-blockUIPanel", {
+                id: "questionWindowAttachments",
+                headerTest: ASC.Resources.Master.UserControlsCommonResource.DeleteFile,
+                innerHtmlText: ["<p>",
+                                ASC.Resources.Master.UserControlsCommonResource.QuestionDeleteFile,
+                                "</p>",
+                                "<p>",
+                                ASC.Resources.Master.UserControlsCommonResource.NotBeUndone,
+                                "</p>",
+                                "<p>",
+                                    "<a class=\"button blue marginLikeButton\" id=\"okButton\">",
+                                        ASC.Resources.Master. UserControlsCommonResource.DeleteFile,
+                                    "</a>",
+                                    "<a id=\"noButton\" class=\"button gray\">",
+                                        ASC.Resources.Master.UserControlsCommonResource.CancelButton,
+                                    "</a>",
+                                "</p>"]
+                            .join('')
+            }).insertAfter("#popupDocumentUploader");
         }
 
         ASC.Controls.AnchorController.bind(/files/, initUploader);
@@ -294,6 +316,9 @@ window.Attachments = (function() {
         hideNewFileMenu();
 
         if (!ASC.Resources.Master.TenantTariffDocsEdition) {
+            if (!jq("#tariffLimitDocsEditionPanel").length) {
+                return;
+            }
             StudioBlockUIManager.blockUI("#tariffLimitDocsEditionPanel", 500, 300, 0);
             return;
         }
@@ -302,8 +327,12 @@ window.Attachments = (function() {
         jq("#attachmentsContainer tr.newDoc").remove();
 
         var tdClass = ASC.Files.Utility.getCssClassByFileTitle(type, true);
-        var tmpl = { tdclass: tdClass, type: type };
-        var htmlNewDoc = jq("#newFileTmpl").tmpl(tmpl);
+        var tmpl = {
+            tdclass: tdClass, type: type,
+            onCreateFile: "Attachments.createFile();",
+            onRemoveNewDocument: "Attachments.removeNewDocument();"
+        };
+        var htmlNewDoc = jq.tmpl("template-newFile", tmpl);
         jq("#attachmentsContainer tbody").prepend(htmlNewDoc);
         jq("#attachmentsContainer tr.newDoc").show();
         jq("#newDocTitle").focus().select();
@@ -428,7 +457,7 @@ window.Attachments = (function() {
     var appendToListAttachFiles = function (listFiles) {
         jq("#emptyDocumentPanel:not(.display-none)").addClass("display-none");
         jq(".containerAction").show();
-        jq("#attachmentsContainer tbody").prepend(jq("#fileAttachTmpl").tmpl(listFiles));
+        jq("#attachmentsContainer tbody").prepend(jq.tmpl("template-fileAttach", listFiles));
 
         jq("#attachmentsContainer tbody tr").show();
         initImageZoom();
@@ -445,7 +474,7 @@ window.Attachments = (function() {
                 listFileTempl.push(fileTmpl);
                 jq("#attachmentsContainer tr:has(#af_" + listFiles[i].id + ")").remove();
             }
-            jq("#attachmentsContainer tbody").prepend(jq("#fileAttachTmpl").tmpl(listFileTempl));
+            jq("#attachmentsContainer tbody").prepend(jq.tmpl("template-fileAttach", listFileTempl));
 
             jq("#attachmentsContainer tbody tr").show();
             initImageZoom();

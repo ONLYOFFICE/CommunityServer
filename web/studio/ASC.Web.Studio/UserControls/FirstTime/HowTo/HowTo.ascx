@@ -9,24 +9,24 @@
     </div>
     <div class="articles">
         <div class="title">
-            <%=Resources.Resource.HowToArticles %></div>
+            <%: Resources.Resource.HowToArticles %></div>
         <a href="http://www.onlyoffice.com/help/tipstricks/basecamp-import.aspx" target="_blank">
-            <%= Resources.Resource.HowToImportBaseCamp %></a><br />
+            <%: Resources.Resource.HowToImportBaseCamp %></a><br />
         <a href="http://www.onlyoffice.com/help/tipstricks/importing-files.aspx" target="_blank">
-            <%= Resources.Resource.HowToImportFiles %></a><br />
+            <%: Resources.Resource.HowToImportFiles %></a><br />
         <a href="http://www.onlyoffice.com/help/video/import-google-docs.aspx" target="_blank">
-            <%= Resources.Resource.HowToImportGoogle %></a><br />
+            <%: Resources.Resource.HowToImportGoogle %></a><br />
         <a href="http://www.onlyoffice.com/help/video/import-boxnet-docs.aspx" target="_blank">
-            <%= Resources.Resource.HowToImportBox %></a><br />
+            <%: Resources.Resource.HowToImportBox %></a><br />
         <a href="http://www.onlyoffice.com/help/video/import-zoho-docs.aspx" target="_blank">
-            <%= Resources.Resource.HowToImportZoho %></a><br />
+            <%: Resources.Resource.HowToImportZoho %></a><br />
         <a href="http://www.onlyoffice.com/help/administratorguides/import-contacts-from-web.aspx"
-            target="_blank">H<%= Resources.Resource.HowToImportWorld %></a><br />
+            target="_blank">H<%: Resources.Resource.HowToImportWorld %></a><br />
         <a href="http://www.onlyoffice.com/help/administratorguides/import-contacts-from-csv.aspx"
             target="_blank">
-            <%= Resources.Resource.HowToImportCSV %></a><br />
+            <%: Resources.Resource.HowToImportCSV %></a><br />
         <a href="http://www.onlyoffice.com/help/administratorguides/import-contacts-from-mail-client.aspx"
             target="_blank">
-            <%= Resources.Resource.HowToImportMailClient %></a><br />
+            <%: Resources.Resource.HowToImportMailClient %></a><br />
     </div>
 </div>

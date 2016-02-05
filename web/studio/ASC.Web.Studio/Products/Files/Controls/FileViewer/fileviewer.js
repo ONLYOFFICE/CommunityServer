@@ -461,8 +461,11 @@ window.ASC.Files.ImageViewer = (function () {
                 ASC.Files.ImageViewer.closeImageViewer();
                 return false;
             case keyCode.deleteKey:
-                ASC.Files.ImageViewer.deleteImage();
-                return false;
+                if (!e.shiftKey) {
+                    ASC.Files.ImageViewer.deleteImage();
+                    return false;
+                }
+                break;
             case keyCode.home:
             case keyCode.end:
             case keyCode.pageDown:

@@ -44,13 +44,16 @@
                             <%= UserControlsCommonResource.RemoveShareMessage %></a>
                     <textarea id="shareMessage"></textarea>
                 </div>
+                <% } %>
 
                 <% } %>
-                <% } %>
                 <div class="middle-button-container clearFix">
-                    <a id="sharingSettingsSaveButton" class="button blue middle"><%= Resource.SaveButton %></a>
-                    <span class="splitter-buttons"></span>
-                    <a class="sharing-cancel-button button middle gray"><%= Resource.CancelButton %></a>
+                    <a class="sharing-notchanged-buttons sharing-cancel-button button middle gray"><%= Resource.CloseButton %></a>
+                    <div class="sharing-changed-buttons">
+                        <a class="sharing-save-button button blue middle"><%= Resource.SaveButton %></a>
+                        <span class="splitter-buttons"></span>
+                        <a class="sharing-cancel-button button middle gray"><%= Resource.CancelButton %></a>
+                    </div>
                 </div>
             </div>
         </Body>

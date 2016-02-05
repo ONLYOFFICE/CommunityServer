@@ -10,7 +10,7 @@
     <subject resource="|subject_BirthdayReminder|ASC.Web.Community.Birthdays.Resources.BirthdayPatternResource,ASC.Web.Community" />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile">
 
-${__VirtualRootPath}/products/community/modules/birthdays
+${__VirtualRootPath}/products/community/modules/birthdays/
     </body>
   </pattern>
 

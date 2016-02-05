@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -108,16 +108,14 @@ namespace ASC.Web.Files
                 return;
             }
 
-            Master.Master.DisabledHelpTour = true;
             Master.Master.DisabledSidePanel = true;
-
             Master.Master.TopStudioPanel.DisableProductNavigation = true;
             Master.Master.TopStudioPanel.DisableUserInfo = true;
             Master.Master.TopStudioPanel.DisableSearch = true;
             Master.Master.TopStudioPanel.DisableSettings = true;
             Master.Master.TopStudioPanel.DisableTariff = true;
 
-            Page.RegisterStyleControl(PathProvider.GetFileStaticRelativePath("app.css"));
+            Page.RegisterStyle(PathProvider.GetFileStaticRelativePath("app.css"));
             Page.RegisterInlineScript(@"
 jq("".files-app-create"").trackEvent(""files_app"", ""action-click"", ""create"");
 jq("".files-app-convert"").trackEvent(""files_app"", ""action-click"", ""convert"");

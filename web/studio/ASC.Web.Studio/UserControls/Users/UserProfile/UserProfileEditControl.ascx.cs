@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -138,8 +138,8 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
                 Response.Redirect("~/products/people/", true);
             }
 
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/users/userprofile/js/userprofileeditcontrol.js"));
-            Page.RegisterStyleControl(ResolveUrl("~/usercontrols/users/userprofile/css/profileeditcontrol_style.less"));
+            Page.RegisterBodyScripts("~/usercontrols/users/userprofile/js/userprofileeditcontrol.js");
+            Page.RegisterStyle("~/usercontrols/users/userprofile/css/profileeditcontrol_style.less");
 
             CanAddUser = TenantStatisticsProvider.GetUsersCount() < TenantExtra.GetTenantQuota().ActiveUsers;
 

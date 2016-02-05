@@ -31,8 +31,14 @@
 //  </auto-generated>
 // ------------------------------------------------------------------------------
 
-using System.IO;
+using System;
+using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 
 namespace ASC.Mail.Aggregator.Common
 {
@@ -42,16 +48,16 @@ namespace ASC.Mail.Aggregator.Common
     {
 
 // ReSharper disable StaticFieldInGenericType
-        private static System.Xml.Serialization.XmlSerializer _serializer;
+        private static XmlSerializer _serializer;
 // ReSharper restore StaticFieldInGenericType
 
-        private static System.Xml.Serialization.XmlSerializer Serializer
+        private static XmlSerializer Serializer
         {
             get
             {
                 if ((_serializer == null))
                 {
-                    _serializer = new System.Xml.Serialization.XmlSerializer(typeof(T));
+                    _serializer = new XmlSerializer(typeof(T));
                 }
                 return _serializer;
             }
@@ -83,7 +89,7 @@ namespace ASC.Mail.Aggregator.Common
         /// <param name="fileName">full path of outupt xml file</param>
         /// <param name="exception">output Exception value if failed</param>
         /// <returns>true if can serialize and save into file; otherwise, false</returns>
-        public virtual bool SaveToFile(string fileName, out System.Exception exception)
+        public virtual bool SaveToFile(string fileName, out Exception exception)
         {
             exception = null;
             try
@@ -91,7 +97,7 @@ namespace ASC.Mail.Aggregator.Common
                 SaveToFile(fileName);
                 return true;
             }
-            catch (System.Exception e)
+            catch (Exception e)
             {
                 exception = e;
                 return false;
@@ -115,7 +121,7 @@ namespace ASC.Mail.Aggregator.Common
         /// <param name="obj">Output EntityBase object</param>
         /// <param name="exception">output Exception value if deserialize failed</param>
         /// <returns>true if this XmlSerializer can deserialize the object; otherwise, false</returns>
-        public static bool LoadFromFile(string fileName, out T obj, out System.Exception exception)
+        public static bool LoadFromFile(string fileName, out T obj, out Exception exception)
         {
             exception = null;
             obj = default(T);
@@ -124,7 +130,7 @@ namespace ASC.Mail.Aggregator.Common
                 obj = LoadFromFile(fileName);
                 return true;
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
                 exception = ex;
                 return false;
@@ -133,7 +139,7 @@ namespace ASC.Mail.Aggregator.Common
 
         public static bool LoadFromFile(string fileName, out T obj)
         {
-            System.Exception exception;
+            Exception exception;
             return LoadFromFile(fileName, out obj, out exception);
         }
 
@@ -143,7 +149,7 @@ namespace ASC.Mail.Aggregator.Common
             {
                 using (var sr = new StreamReader(file))
                 {
-                    return ((T) (Serializer.Deserialize(System.Xml.XmlReader.Create(sr))));
+                    return ((T) (Serializer.Deserialize(XmlReader.Create(sr))));
                 }
             }
         }
@@ -152,20 +158,20 @@ namespace ASC.Mail.Aggregator.Common
     }
     #endregion
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute]
-    [System.Diagnostics.DebuggerStepThroughAttribute]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    [System.Xml.Serialization.XmlRootAttribute("clientConfig", Namespace = "", IsNullable = false)]
+    [GeneratedCode("System.Xml", "2.0.50727.3082")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true)]
+    [XmlRoot("clientConfig", Namespace = "", IsNullable = false)]
     public class ClientConfig : EntityBase<ClientConfig>
     {
         private ClientConfigEmailProvider _emailProviderField;
 
-        [System.Xml.Serialization.XmlAttributeAttribute("version")]
+        [XmlAttribute("version")]
         public decimal Version { get; set; }
 
-        [System.Xml.Serialization.XmlIgnoreAttribute]
+        [XmlIgnore]
         public bool VersionSpecified { get; set; }
 
         /// <summary>
@@ -176,7 +182,7 @@ namespace ASC.Mail.Aggregator.Common
             _emailProviderField = new ClientConfigEmailProvider();
         }
 
-        [System.Xml.Serialization.XmlElementAttribute("emailProvider", Order = 0)]
+        [XmlElement("emailProvider", Order = 0)]
         public ClientConfigEmailProvider EmailProvider
         {
             get
@@ -190,12 +196,12 @@ namespace ASC.Mail.Aggregator.Common
         }
     }
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute]
-    [System.Diagnostics.DebuggerStepThroughAttribute]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    [System.Xml.Serialization.XmlRootAttribute("clientConfigEmailProvider")]
+    [GeneratedCode("System.Xml", "2.0.50727.3082")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true)]
+    [XmlRoot("clientConfigEmailProvider")]
     public class ClientConfigEmailProvider : EntityBase<ClientConfigEmailProvider>
     {
         private List<string> _domainField;
@@ -206,13 +212,13 @@ namespace ASC.Mail.Aggregator.Common
 
         private ClientConfigEmailProviderDocumentation _documentationField;
 
-        [System.Xml.Serialization.XmlElementAttribute("displayName", Order = 1)]
+        [XmlElement("displayName", Order = 1)]
         public string DisplayName { get; set; }
 
-        [System.Xml.Serialization.XmlElementAttribute("displayShortName", Order = 2)]
+        [XmlElement("displayShortName", Order = 2)]
         public string DisplayShortName { get; set; }
 
-        [System.Xml.Serialization.XmlAttributeAttribute("id")]
+        [XmlAttribute("id")]
         public string Id { get; set; }
 
 
@@ -227,7 +233,7 @@ namespace ASC.Mail.Aggregator.Common
             _domainField = new List<string>();
         }
 
-        [System.Xml.Serialization.XmlElementAttribute("domain", Order = 0)]
+        [XmlElement("domain", Order = 0)]
         public List<string> Domain
         {
             get
@@ -240,7 +246,7 @@ namespace ASC.Mail.Aggregator.Common
             }
         }
 
-        [System.Xml.Serialization.XmlElementAttribute("incomingServer", Order = 3)]
+        [XmlElement("incomingServer", Order = 3)]
         public List<ClientConfigEmailProviderIncomingServer> IncomingServer
         {
             get
@@ -253,7 +259,7 @@ namespace ASC.Mail.Aggregator.Common
             }
         }
 
-        [System.Xml.Serialization.XmlElementAttribute("outgoingServer", Order = 4)]
+        [XmlElement("outgoingServer", Order = 4)]
         public List<ClientConfigEmailProviderOutgoingServer> OutgoingServer
         {
             get
@@ -266,7 +272,7 @@ namespace ASC.Mail.Aggregator.Common
             }
         }
 
-        [System.Xml.Serialization.XmlElementAttribute("documentation", Order = 5)]
+        [XmlElement("documentation", Order = 5)]
         public ClientConfigEmailProviderDocumentation Documentation
         {
             get
@@ -280,69 +286,69 @@ namespace ASC.Mail.Aggregator.Common
         }
     }
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute]
-    [System.Diagnostics.DebuggerStepThroughAttribute]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    [System.Xml.Serialization.XmlRootAttribute("clientConfigEmailProviderIncomingServer")]
+    [GeneratedCode("System.Xml", "2.0.50727.3082")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true)]
+    [XmlRoot("clientConfigEmailProviderIncomingServer")]
     public class ClientConfigEmailProviderIncomingServer : EntityBase<ClientConfigEmailProviderIncomingServer>
     {
-        [System.Xml.Serialization.XmlElementAttribute("hostname", Order = 0)]
+        [XmlElement("hostname", Order = 0)]
         public string Hostname { get; set; }
 
-        [System.Xml.Serialization.XmlElementAttribute("port", Order = 1)]
+        [XmlElement("port", Order = 1)]
         public int Port { get; set; }
 
-        [System.Xml.Serialization.XmlElementAttribute("socketType", Order = 2)]
+        [XmlElement("socketType", Order = 2)]
         public string SocketType { get; set; }
 
-        [System.Xml.Serialization.XmlElementAttribute("authentication", Order = 3)]
+        [XmlElement("authentication", Order = 3)]
         public string Authentication { get; set; }
 
-        [System.Xml.Serialization.XmlElementAttribute("username", Order = 4)]
+        [XmlElement("username", Order = 4)]
         public string Username { get; set; }
 
-        [System.Xml.Serialization.XmlAttributeAttribute("type")]
+        [XmlAttribute("type")]
         public string Type { get; set; }
     }
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute]
-    [System.Diagnostics.DebuggerStepThroughAttribute]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    [System.Xml.Serialization.XmlRootAttribute("clientConfigEmailProviderOutgoingServer")]
+    [GeneratedCode("System.Xml", "2.0.50727.3082")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true)]
+    [XmlRoot("clientConfigEmailProviderOutgoingServer")]
     public class ClientConfigEmailProviderOutgoingServer : EntityBase<ClientConfigEmailProviderOutgoingServer>
     {
-        [System.Xml.Serialization.XmlElementAttribute("hostname", Order = 0)]
+        [XmlElement("hostname", Order = 0)]
         public string Hostname { get; set; }
 
-        [System.Xml.Serialization.XmlElementAttribute("port", Order = 1)]
+        [XmlElement("port", Order = 1)]
         public int Port { get; set; }
 
-        [System.Xml.Serialization.XmlElementAttribute("socketType", Order = 2)]
+        [XmlElement("socketType", Order = 2)]
         public string SocketType { get; set; }
 
-        [System.Xml.Serialization.XmlElementAttribute("authentication", Order = 3)]
+        [XmlElement("authentication", Order = 3)]
         public string Authentication { get; set; }
 
-        [System.Xml.Serialization.XmlElementAttribute("username", Order = 4)]
+        [XmlElement("username", Order = 4)]
         public string Username { get; set; }
 
-        [System.Xml.Serialization.XmlAttributeAttribute("type")]
+        [XmlAttribute("type")]
         public string Type { get; set; }
     }
 
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.3082")]
-    [System.SerializableAttribute]
-    [System.Diagnostics.DebuggerStepThroughAttribute]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true)]
-    [System.Xml.Serialization.XmlRootAttribute("clientConfigEmailProviderDocumentation")]
+    [GeneratedCode("System.Xml", "2.0.50727.3082")]
+    [Serializable]
+    [DebuggerStepThrough]
+    [DesignerCategory("code")]
+    [XmlType(AnonymousType = true)]
+    [XmlRoot("clientConfigEmailProviderDocumentation")]
     public class ClientConfigEmailProviderDocumentation : EntityBase<ClientConfigEmailProviderDocumentation>
     {
-        [System.Xml.Serialization.XmlAttributeAttribute("url")]
+        [XmlAttribute("url")]
         public string Url { get; set; }
     }
 }

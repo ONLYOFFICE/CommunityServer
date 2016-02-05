@@ -5,6 +5,9 @@
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
+<% if (TenantExtra.EnableTarrifSettings)
+   { %>
+
 <div id="tariffLimitExceedUsersPanel" style="display: none">
     <sc:Container runat="server" ID="tariffLimitExceedUsersDialog">
         <Header><%= UserControlsCommonResource.TariffUserLimitTitle %></Header>
@@ -91,27 +94,27 @@
 
 <div id="tariffLimitDocsEditionPanel" style="display: none">
     <sc:Container runat="server" ID="tariffLimitDocsEditionDialog">
-        <Header><%= UserControlsCommonResource.TariffDocsEditionLimitTitle %></Header>
+        <Header><%: UserControlsCommonResource.TariffDocsEditionLimitTitle %></Header>
         <Body>
             <% if (IsDefaultTariff)
                { %>
             <div class="tariff-limit-docsedition">
-                <span class="header-base-medium"><%= UserControlsCommonResource.TariffLicenseOver %></span>
+                <span class="header-base-medium"><%: UserControlsCommonResource.TariffLicenseOver %></span>
                 <br />
                 <br />
-                <%= UserControlsCommonResource.TariffDocsEditionLimitReasonLicense %>
+                <%: UserControlsCommonResource.TariffDocsEditionLimitReasonLicense %>
             </div>
             <% }
                else
                { %>
             <div class="tariff-limit-docsedition">
-                <span class="header-base-medium"><%= UserControlsCommonResource.TariffDocsEditionLimitHeader %></span>
+                <span class="header-base-medium"><%: UserControlsCommonResource.TariffDocsEditionLimitHeader %></span>
                 <br />
                 <br />
-                <%= UserControlsCommonResource.TariffDocsEditionLimitReason %>
+                <%: UserControlsCommonResource.TariffDocsEditionLimitReason %>
                 <br />
                 <br />
-                <%= UserControlsCommonResource.TariffLimitDecision %>
+                <%: UserControlsCommonResource.TariffLimitDecision %>
             </div>
             <% } %>
 
@@ -130,13 +133,13 @@
    { %>
 <div id="UnauthorizedPartnerPanel" style="display: none">
     <sc:Container runat="server" ID="UnauthorizedPartnerDialog">
-        <Header><%= UserControlsCommonResource.HostedUnauthorizedTitle %></Header>
+        <Header><%: UserControlsCommonResource.HostedUnauthorizedTitle %></Header>
         <Body>
             <div class="hosted-unauthorized">
-                <span class="header-base-medium"><%= UserControlsCommonResource.HostedUnauthorizedEditing %></span>
+                <span class="header-base-medium"><%: UserControlsCommonResource.HostedUnauthorizedEditing %></span>
                 <br />
                 <br />
-                <%= string.Format(UserControlsCommonResource.HostedUnauthorizedEditingReason,
+                <%= string.Format(UserControlsCommonResource.HostedUnauthorizedEditingReason.HtmlEncode(),
                 (HostedPartner == null || string.IsNullOrEmpty(HostedPartner.SupportEmail) ? "" : "<a href=\"mailto:" + HostedPartner.SupportEmail + "\">"),
                 (HostedPartner == null || string.IsNullOrEmpty(HostedPartner.SupportEmail) ? "" : "</a>")) %>
                 <br />
@@ -150,4 +153,6 @@
         </Body>
     </sc:Container>
 </div>
+<% } %>
+
 <% } %>

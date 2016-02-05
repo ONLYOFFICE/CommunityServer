@@ -1,0 +1,20 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+%:
+	dh $@
+
+override_dh_installinit:
+	dh_installinit --name=monoserve
+	dh_installinit --name=monoserve2
+	dh_installinit --name=onlyofficeFeed
+	dh_installinit --name=onlyofficeJabber
+	dh_installinit --name=onlyofficeIndex
+	dh_installinit --name=onlyofficeNotify
+	dh_installinit --name=onlyofficeBackup
+	dh_installinit --name=onlyofficeMailAggregator
+	dh_installinit --name=onlyofficeMailWatchdog
+	dh_installinit --name=god

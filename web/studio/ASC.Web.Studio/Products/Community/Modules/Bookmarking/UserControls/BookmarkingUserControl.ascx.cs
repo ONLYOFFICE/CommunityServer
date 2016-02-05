@@ -47,6 +47,7 @@ using ASC.Web.UserControls.Bookmarking.Resources;
 using ASC.Web.UserControls.Bookmarking.Util;
 using HtmlAgilityPack;
 using log4net;
+using ASC.Bookmarking;
 
 namespace ASC.Web.UserControls.Bookmarking
 {
@@ -76,7 +77,6 @@ namespace ASC.Web.UserControls.Bookmarking
 
             Utility.RegisterTypeForAjax(typeof(BookmarkingUserControl));
             Utility.RegisterTypeForAjax(typeof(SingleBookmarkUserControl));
-            Utility.RegisterTypeForAjax(typeof(CommentsUserControl));
 
             BookmarkPageCounter = string.IsNullOrEmpty(Request["size"]) ? 20 : Convert.ToInt32(Request["size"]);
 
@@ -107,7 +107,10 @@ namespace ASC.Web.UserControls.Bookmarking
                         Describe = BookmarkingUCResource.EmptyScreenText
                     };
 
-                if (_serviceHelper.DisplayMode.Equals(BookmarkingServiceHelper.BookmarkDisplayMode.SearchBookmarks))
+                BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                    BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+
+                if (displayMode.Equals(BookmarkDisplayMode.SearchBookmarks))
                 {
                     hidePanelsFlag = true;
 
@@ -162,7 +165,9 @@ namespace ASC.Web.UserControls.Bookmarking
 
         private void LoadBookmarks(IList<Bookmark> bookmarks)
         {
-            if (!BookmarkingServiceHelper.BookmarkDisplayMode.SelectedBookmark.Equals(_serviceHelper.DisplayMode))
+            BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+            if (!BookmarkDisplayMode.SelectedBookmark.Equals(displayMode))
             {
                 singleBookmark = false;
                 AddBookmarksListToPlaceHolder(bookmarks, BookmarksHolder);
@@ -211,14 +216,16 @@ namespace ASC.Web.UserControls.Bookmarking
         public object RemoveBookmarkFromFavourite(int userBookmarkID, string uniqueID)
         {
             var b = _serviceHelper.RemoveBookmarkFromFavourite(userBookmarkID);
+            BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
             if (b == null)
             {
-                return BookmarkingServiceHelper.BookmarkDisplayMode.SelectedBookmark == _serviceHelper.DisplayMode ? null : string.Empty;
+                return BookmarkDisplayMode.SelectedBookmark == displayMode ? null : string.Empty;
             }
             var userBookmarks = _serviceHelper.GetUserBookmarks(b);
             if (userBookmarks == null || userBookmarks.Count == 0)
             {
-                return BookmarkingServiceHelper.BookmarkDisplayMode.SelectedBookmark == _serviceHelper.DisplayMode ? null : string.Empty;
+                return BookmarkDisplayMode.SelectedBookmark == displayMode ? null : string.Empty;
             }
             return new { Bookmark = GetBookmarkAsString(b, new Guid(uniqueID)), ID = _serviceHelper.GetCurrentUserID() };
         }
@@ -266,9 +273,10 @@ namespace ASC.Web.UserControls.Bookmarking
             var b = _serviceHelper.AddBookmark(url, BookmarkName, BookmarkDescription, BookmarkTags);
 
             b = _serviceHelper.GetBookmarkWithUserBookmarks(url);
-
+            BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
             var bookmarkString = GetBookmarkAsString(b, new Guid(uniqueID));
-            if (BookmarkingServiceHelper.BookmarkDisplayMode.SelectedBookmark == _serviceHelper.DisplayMode)
+            if (BookmarkDisplayMode.SelectedBookmark == displayMode)
             {
                 var userImage = BookmarkingServiceHelper.GetHTMLUserAvatar();
                 var userPageLink = BookmarkingServiceHelper.GetUserPageLink();
@@ -282,6 +290,12 @@ namespace ASC.Web.UserControls.Bookmarking
                 return new { BookmarkString = bookmarkString, AddedBy = addedBy, DivID = divID };
             }
             return new { BookmarkString = bookmarkString, AddedBy = string.Empty };
+        }
+
+        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
+        public void RemoveBookmark(int userBookmarkID)
+        {
+            _serviceHelper.RemoveBookmark(userBookmarkID);
         }
 
         private static string UpdateURL(string URL)
@@ -521,9 +535,11 @@ namespace ASC.Web.UserControls.Bookmarking
         {
             try
             {
-                if (_serviceHelper.DisplayMode != BookmarkingServiceHelper.BookmarkDisplayMode.AllBookmarks
-                    && _serviceHelper.DisplayMode != BookmarkingServiceHelper.BookmarkDisplayMode.SelectedBookmark
-                    && _serviceHelper.DisplayMode != BookmarkingServiceHelper.BookmarkDisplayMode.Favourites)
+                BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+                if (displayMode != BookmarkDisplayMode.AllBookmarks
+                    && displayMode != BookmarkDisplayMode.SelectedBookmark
+                    && displayMode != BookmarkDisplayMode.Favourites)
                 {
                     return new { url = string.Empty, thumbnailUrl = string.Empty };
                 }
@@ -618,13 +634,15 @@ namespace ASC.Web.UserControls.Bookmarking
 
         public bool ShowCreateBookmarkLink()
         {
-            switch (_serviceHelper.DisplayMode)
+            BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+            switch (displayMode)
             {
-                case BookmarkingServiceHelper.BookmarkDisplayMode.AllBookmarks:
+                case BookmarkDisplayMode.AllBookmarks:
                     return true;
-                case BookmarkingServiceHelper.BookmarkDisplayMode.Favourites:
+                case BookmarkDisplayMode.Favourites:
                     return true;
-                case BookmarkingServiceHelper.BookmarkDisplayMode.SearchByTag:
+                case BookmarkDisplayMode.SearchByTag:
                     return true;
             }
             return false;

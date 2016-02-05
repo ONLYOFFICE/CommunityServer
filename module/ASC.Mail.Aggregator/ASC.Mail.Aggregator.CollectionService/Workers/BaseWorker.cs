@@ -25,15 +25,14 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
-using ASC.Core;
+using ActiveUp.Net.Common;
+using ActiveUp.Net.Mail;
 using ASC.Core.Notify.Signalr;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Logging;
-using ActiveUp.Net.Common;
-using ActiveUp.Net.Mail;
+using log4net;
 
 namespace ASC.Mail.Aggregator.CollectionService.Workers
 {
@@ -47,7 +46,6 @@ namespace ASC.Mail.Aggregator.CollectionService.Workers
         protected readonly ILogger log;
 
         private static SignalrServiceClient _signalrServiceClient;
-        // private static MemoryCache _signalrUsersMemCache;
         private DateTime _lastSignal;
         private bool _needSignal;
         
@@ -79,7 +77,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Workers
 
             if (tasksConfig.ShowActiveUpLogs)
             {
-                Logger.Log4NetLogger = log4net.LogManager.GetLogger(string.Format("Task_{0}->ActiveUp", Task.CurrentId));
+                Logger.Log4NetLogger = LogManager.GetLogger(string.Format("Task_{0}->ActiveUp", Task.CurrentId));
                 Logger.Disabled = false;
             }
             else
@@ -100,7 +98,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Workers
 
         protected virtual void RetrieveMessage(Message message, int folderId, string uidl, string md5Hash, bool hasParseError, bool unread = true, int[] tagsIds = null)
         {
-            MailMessageItem messageItem;
+            MailMessage messageItem;
             if (mailBoxManager.MailReceive(Account, message, folderId, uidl, md5Hash, hasParseError, unread, tagsIds, out messageItem) < 1)
                 throw new Exception("MailReceive() returned id < 1;");
 

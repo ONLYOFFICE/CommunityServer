@@ -40,10 +40,10 @@ namespace ASC.Web.UserControls.Forum.Common
 
         protected override void OnLoad(EventArgs e)
         {
-            Page.RegisterBodyScripts(ResolveUrl(Community.Forum.ForumManager.BaseVirtualPath + "/js/forum.js"));
+            Page.RegisterBodyScripts(Community.Forum.ForumManager.BaseVirtualPath + "/js/forum.js");
 
             if (RegistrySearchHelper)
-                Page.RegisterBodyScripts(ResolveUrl(Community.Forum.ForumManager.BaseVirtualPath + "/js/searchhelper.js"));
+                Page.RegisterBodyScripts(Community.Forum.ForumManager.BaseVirtualPath + "/js/searchhelper.js");
 
 
             var script = new StringBuilder();

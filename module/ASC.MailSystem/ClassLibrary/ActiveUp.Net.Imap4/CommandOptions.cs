@@ -12,5 +12,7 @@ namespace ActiveUp.Net.Mail
         {
             this.IsPlusCmdAllowed = true;
         }
+
+        public int BufferSize { get; set; } 
     }
 }

@@ -24,6 +24,11 @@
 */
 
 
+using ASC.Common.Caching;
+using ASC.Common.Data;
+using ASC.Common.Data.Sql;
+using ASC.Web.Studio.Utility;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,11 +36,6 @@ using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Json;
 using System.Text;
-using ASC.Common.Data;
-using ASC.Common.Data.Sql;
-using ASC.Core.Caching;
-using ASC.Web.Studio.Utility;
-using log4net;
 
 namespace ASC.Web.Core.Utility.Settings
 {
@@ -43,9 +43,11 @@ namespace ASC.Web.Core.Utility.Settings
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(SettingsManager));
 
-        private readonly ICache cache;
-        private readonly TimeSpan expirationTimeout;
-        private readonly IDictionary<Type, DataContractJsonSerializer> jsonSerializers;
+        private static readonly ICache cache = AscCache.Memory;
+        private static readonly ICacheNotify notify = AscCache.Notify;
+
+        private readonly TimeSpan expirationTimeout = TimeSpan.FromMinutes(5);
+        private readonly IDictionary<Type, DataContractJsonSerializer> jsonSerializers = new Dictionary<Type, DataContractJsonSerializer>();
         private readonly string dbId = "webstudio";
 
 
@@ -59,13 +61,7 @@ namespace ASC.Web.Core.Utility.Settings
         static SettingsManager()
         {
             Instance = new SettingsManager();
-        }
-
-        private SettingsManager()
-        {
-            cache = AscCache.Default;
-            expirationTimeout = TimeSpan.FromMinutes(5);
-            jsonSerializers = new Dictionary<Type, DataContractJsonSerializer>();
+            notify.Subscribe<SettingsCacheItem>((i, a) => cache.Remove(i.Key));
         }
 
 
@@ -95,9 +91,10 @@ namespace ASC.Web.Core.Utility.Settings
             if (settings == null) throw new ArgumentNullException("settings");
             try
             {
+                var key = settings.ID.ToString() + tenantID + userID;
+                var data = Serialize(settings);
                 using (var db = GetDbManager())
                 {
-                    var data = Serialize(settings);
                     var defaultData = Serialize(settings.GetDefault());
 
                     ISqlInstruction i;
@@ -117,9 +114,10 @@ namespace ASC.Web.Core.Utility.Settings
                             .InColumnValue("tenantid", tenantID)
                             .InColumnValue("data", data);
                     }
+                    notify.Publish(new SettingsCacheItem { Key = key }, CacheNotifyAction.Remove);
                     db.ExecuteNonQuery(i);
                 }
-                ToCache(tenantID, userID, settings);
+                cache.Insert(key, data, expirationTimeout);
                 return true;
             }
             catch (Exception ex)
@@ -132,56 +130,50 @@ namespace ASC.Web.Core.Utility.Settings
         private T LoadSettingsFor<T>(int tenantID, Guid userID) where T : ISettings
         {
             var settingsInstance = (ISettings)Activator.CreateInstance<T>();
-            var settings = FromCache(settingsInstance.ID, tenantID, userID);
-            
-            if (settings != null)
-            {
-                return (T)settings;
-            }
-
+            var settings = settingsInstance.GetDefault();
+            var key = settingsInstance.ID.ToString() + tenantID + userID;
             try
             {
-                using (var db = GetDbManager())
+                var data = cache.Get<byte[]>(key);
+                if (data == null)
                 {
-                    var q = new SqlQuery("webstudio_settings")
-                        .Select("data")
-                        .Where("id", settingsInstance.ID.ToString())
-                        .Where("tenantid", tenantID)
-                        .Where("userid", userID.ToString());
-                    
-                    var result = db.ExecuteScalar<object>(q);
-                    if (result != null)
+                    using (var db = GetDbManager())
                     {
-                        var data = result is string ? Encoding.UTF8.GetBytes((string)result) : (byte[])result;
-                        settings = Deserialize<T>(data);
+                        var q = new SqlQuery("webstudio_settings")
+                            .Select("data")
+                            .Where("id", settingsInstance.ID.ToString())
+                            .Where("tenantid", tenantID)
+                            .Where("userid", userID.ToString());
+
+                        var result = db.ExecuteScalar<object>(q);
+                        if (result != null)
+                        {
+                            data = result is string ? Encoding.UTF8.GetBytes((string)result) : (byte[])result;
+                        }
+                        else
+                        {
+                            data = Serialize(settings);
+                        }
                     }
+                    cache.Insert(key, data, expirationTimeout);
                 }
+                return Deserialize<T>(data);
             }
             catch (Exception ex)
             {
                 log.Error(ex);
             }
-            if (settings == null)
-            {
-                settings = settingsInstance.GetDefault();
-            }
-            if (settings == null)
-            {
-                throw new InvalidOperationException(string.Format("Default settings of type '{0}' can not be null.", typeof(T)));
-            }
-
-            ToCache(tenantID, userID, settings);
             return (T)settings;
         }
 
-        private ISettings Deserialize<T>(byte[] data)
+        private T Deserialize<T>(byte[] data)
         {
             using (var stream = new MemoryStream(data))
             {
                 var settings = data[0] == 0 ?
                     new BinaryFormatter().Deserialize(stream) :
                     GetJsonSerializer(typeof(T)).ReadObject(stream);
-                return (ISettings)settings;
+                return (T)settings;
             }
         }
 
@@ -192,18 +184,6 @@ namespace ASC.Web.Core.Utility.Settings
                 GetJsonSerializer(settings.GetType()).WriteObject(stream, settings);
                 return stream.ToArray();
             }
-        }
-
-        private void ToCache(int tenantID, Guid userID, ISettings settings)
-        {
-            var key = settings.ID.ToString() + tenantID.ToString() + userID.ToString();
-            cache.Insert(key, settings, DateTime.UtcNow.Add(expirationTimeout));
-        }
-
-        private ISettings FromCache(Guid settingsID, int tenantID, Guid userID)
-        {
-            var key = settingsID.ToString() + tenantID.ToString() + userID.ToString();
-            return cache.Get(key) as ISettings;
         }
 
         private DbManager GetDbManager()
@@ -221,6 +201,13 @@ namespace ASC.Web.Core.Utility.Settings
                 }
                 return jsonSerializers[type];
             }
+        }
+
+
+        [Serializable]
+        class SettingsCacheItem
+        {
+            public string Key { get; set; }
         }
     }
 }

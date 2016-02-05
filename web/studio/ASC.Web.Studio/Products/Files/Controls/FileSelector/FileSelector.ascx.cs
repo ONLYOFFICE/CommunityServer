@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -44,13 +44,14 @@ namespace ASC.Web.Files.Controls
 
         public bool OnlyFolder;
         public bool IsFlat;
+        public string SuccessButton = FilesUCResource.ButtonOk;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("ui.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/products/files/controls/fileselector/fileselector.js"));
+            Page.RegisterBodyScripts("~/products/files/controls/fileselector/fileselector.js");
 
-            Page.RegisterStyleControl(FilesLinkUtility.FilesBaseAbsolutePath + "controls/fileselector/fileselector.css");
+            Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/fileselector/fileselector.css");
 
             FileSelectorTemp.Options.IsPopup = !IsFlat;
             FileSelectorTemp.Options.OnCancelButtonClick = "ASC.Files.FileSelector.onCancel();";

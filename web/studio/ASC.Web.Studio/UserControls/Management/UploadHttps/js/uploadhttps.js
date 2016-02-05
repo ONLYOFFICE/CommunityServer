@@ -139,7 +139,8 @@ UploadHttpsCert = (function () {
         var inputObj = jq("<input/>")
             .attr("id", "fileupload")
             .attr("type", "file")
-            .css("display", "none");
+            .css("width", "0")
+            .css("height", "0");
 
         inputObj.appendTo(buttonObj.parent());
 

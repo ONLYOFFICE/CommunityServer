@@ -26,22 +26,26 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net.Mail;
+using System.Threading;
 using ASC.Api.Attributes;
 using ASC.Api.Exceptions;
-using ASC.Api.Mail.DAO;
 using ASC.Api.Mail.Extensions;
+using ASC.Api.Mail.Resources;
+using ASC.Core;
 using ASC.Files.Core.Security;
 using ASC.Mail.Aggregator;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Collection;
+using ASC.Mail.Aggregator.Dal;
 using ASC.Mail.Aggregator.Dal.DbSchema;
-using ASC.Mail.Aggregator.Filter;
-using ASC.Mail.Aggregator.Utils;
-using ASC.Specific;
 using ASC.Mail.Aggregator.Exceptions;
-using ASC.Api.Mail.Resources;
+using ASC.Mail.Aggregator.Filter;
+using ASC.Mail.Aggregator.Managers;
+using ASC.Mail.Aggregator.Utils;
+using MailMessage = ASC.Mail.Aggregator.Common.MailMessage;
 
 namespace ASC.Api.Mail
 {
@@ -62,14 +66,13 @@ namespace ASC.Api.Mail
         /// <param optional="true" name="search">Text to search in messages</param>
         /// <param optional="true" name="page">Page number</param>
         /// <param optional="true" name="page_size">Number of messages on page</param>
-        /// <param optional="true" name="last_check_date">Last message request date</param>
         /// <param name="sort">Sort</param>
         /// <param name="sortorder">Sort order</param>
         /// <returns>Messages list</returns>
         /// <short>Get filtered messages</short> 
         /// <category>Messages</category>
         [Read(@"messages")]
-        public IEnumerable<MailMessageItem> GetFilteredMessages(int? folder,
+        public IEnumerable<MailMessage> GetFilteredMessages(int? folder,
             bool? unread,
             bool? attachments,
             long? period_from,
@@ -81,7 +84,6 @@ namespace ASC.Api.Mail
             string search,
             int? page,
             int? page_size,
-            ApiDateTime last_check_date,
             string sort,
             string sortorder
             )
@@ -102,21 +104,8 @@ namespace ASC.Api.Mail
                 SortOrder = sortorder
             };
 
-            if (null != last_check_date)
-            {
-                var dateTime = MailBoxManager.GetFolderModifyDate(TenantId, Username, filter.PrimaryFolder);
-                var apiDate = new ApiDateTime(dateTime);
-
-                var compareRez = apiDate.CompareTo(last_check_date);
-
-                if (compareRez == 0) // equals
-                    return null;
-                if (compareRez == -1) // less
-                    return new List<MailMessageItem>();
-            }
-
             long totalMessages;
-            var messages = GetFilteredMessages(filter, filter.Page, filter.PageSize, out totalMessages);
+            var messages = MailBoxManager.GetSingleMailsFiltered(TenantId, Username, filter, out totalMessages);
             CorrectPageValue(filter, totalMessages);
             _context.SetTotalCount(totalMessages);
             return messages;
@@ -135,7 +124,7 @@ namespace ASC.Api.Mail
         /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
         /// <exception cref="ItemNotFoundException">Exception happens when message with specified id wasn't founded.</exception>
         [Read(@"messages/{id:[0-9]+}")]
-        public MailMessageItem GetMessage(int id, bool? unblocked, bool? is_need_to_sanitize_html, bool? mark_read)
+        public MailMessage GetMessage(int id, bool? unblocked, bool? is_need_to_sanitize_html, bool? mark_read)
         {
             if (id <= 0)
                 throw new ArgumentException(@"Invalid message id", "id");
@@ -312,66 +301,63 @@ namespace ASC.Api.Mail
         /// <summary>
         ///    Sends the message with the ID specified in the request
         /// </summary>
-        /// <param name="id">Massage id which will be sended.</param>
-        /// <param name="attachments">List of attachments represented as MailAttachment object.</param>
-        /// <param name="to">List of "to" emails. Format: Name&lt;name@domain&gt;. </param>
-        /// <param name="bcc">List of "bcc" emails. Format: Name&lt;name@domain&gt;. </param>
-        /// <param name="cc">List of "cc" emails. Format: Name&lt;name@domain&gt;. </param>
-        /// <param name="mimeMessageId">Mime message id which will be sended.</param>
-        /// <param name="mimeReplyToId">Mime message id to which the reply answer.</param>
-        /// <param name="from">From email. Format: Name&lt;name@domain&gt;.</param>
-        /// <param name="body">Message body as html string.</param>
-        /// <param name="importance">Importanse fla. Values: true - important, false - not important.</param>
+        /// <param name="id">Message id which will be saved or 0.</param>
+        /// <param name="from">From email. Format: Name&lt;name@domain&gt;</param>
+        /// <param name="to">List of "to" emails. Format: Name&lt;name@domain&gt; </param>
+        /// <param name="cc">List of "cc" emails. Format: Name&lt;name@domain&gt; </param>
+        /// <param name="bcc">List of "bcc" emails. Format: Name&lt;name@domain&gt; </param>
+        /// <param name="mimeReplyToId">Message id to which the reply answer</param>
+        /// <param name="importance">Importanse flag. Values: true - important, false - not important.</param>
+        /// <param name="subject">Message subject</param>
         /// <param name="tags">List of tags id added to message</param>
-        /// <param name="streamId">Stream id. Needed for correct attachment saving.</param>
-        /// <param name="subject">Sended message subject.</param>
+        /// <param name="body">Message body as html string.</param>
+        /// <param name="attachments">List of attachments represented as MailAttachment object</param>
         /// <param name="fileLinksShareMode">Share mode for attached file links</param>
         /// <returns>message id</returns>
         /// <short>Send message</short> 
         /// <category>Messages</category>
         [Update(@"messages/send")]
         public int SendMessage(int id,
-            IEnumerable<MailAttachment> attachments,
-            IEnumerable<string> to,
-            IEnumerable<string> bcc,
-            IEnumerable<string> cc,
-            string mimeMessageId,
-            string mimeReplyToId,
             string from,
-            string body,
+            List<string> to,
+            List<string> cc,
+            List<string> bcc,
+            string mimeReplyToId,
             bool importance,
-            IEnumerable<int> tags,
-            string streamId,
             string subject,
+            List<int> tags,
+            string body,
+            List<MailAttachment> attachments,
             FileShare fileLinksShareMode
             )
         {
-            var item = new MailSendItem
-                {
-                    Attachments = new List<MailAttachment>(attachments),
-                    Bcc = new List<string>(bcc),
-                    Cc = new List<string>(cc),
-                    MimeMessageId = string.IsNullOrEmpty(mimeMessageId) ? MailBoxManager.CreateMessageId() : mimeMessageId,
-                    MimeReplyToId = mimeReplyToId,
-                    From = from,
-                    HtmlBody = body,
-                    Important = importance,
-                    Labels = new List<int>(tags),
-                    StreamId = streamId,
-                    Subject = subject,
-                    To = new List<string>(to),
-                    FileLinksShareMode = fileLinksShareMode
-                };
+            if (id < 1)
+                id = 0;
 
+            if (string.IsNullOrEmpty(from))
+                throw new ArgumentNullException("from");
+
+            if (!to.Any())
+                throw new ArgumentNullException("to");
+
+            var mailAddress = new MailAddress(from);
             var accounts = MailBoxManager.GetAccountInfo(TenantId, Username).ToAddressData();
-            var mailAddress = new MailAddress(item.From);
             var account = accounts.FirstOrDefault(a => a.Email.ToLower().Equals(mailAddress.Address));
 
             if (account == null)
                 throw new ArgumentException("Mailbox not found");
 
-            if(account.IsGroup)
+            if (account.IsGroup)
                 throw new InvalidOperationException("Sending emails from a group address is forbidden");
+
+            var mbox = MailBoxManager.GetUnremovedMailBox(account.MailboxId);
+
+            if (mbox == null)
+                throw new ArgumentException("no such mailbox");
+
+            string mimeMessageId, streamId;
+
+            var previousMailboxId = mbox.MailBoxId;
 
             if (id > 0)
             {
@@ -381,66 +367,130 @@ namespace ASC.Api.Mail
                 {
                     throw new InvalidOperationException("Sending emails is permitted only in the Drafts folder");
                 }
+
+                mimeMessageId = message.MimeMessageId;
+
+                streamId = message.StreamId;
+
+                foreach (var attachment in attachments)
+                {
+                    attachment.streamId = streamId;
+                }
+
+                previousMailboxId = message.MailboxId;
+            }
+            else
+            {
+                mimeMessageId = MailBoxManager.CreateMessageId();
+                streamId = MailBoxManager.CreateStreamId();
             }
 
-            return SendQueue.Send(TenantId, Username, item, id, account.MailboxId);
+            var draft = new MailDraft(id, mbox, from, to, cc, bcc, subject, mimeMessageId, mimeReplyToId, importance,
+                                     tags, body, streamId, attachments)
+                {
+                    FileLinksShareMode = fileLinksShareMode,
+                    PreviousMailboxId = previousMailboxId
+                };
+
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = CurrentCulture;
+                Thread.CurrentThread.CurrentUICulture = CurrentCulture;
+
+                var daemonLabels =
+                    new DraftManager.DeliveryFailureMessageTranslates(
+                        MailDaemonEmail,
+                        MailApiResource.DeliveryFailureSubject,
+                        MailApiResource.DeliveryFailureAutomaticMessage,
+                        MailApiResource.DeliveryFailureMessageIdentificator,
+                        MailApiResource.DeliveryFailureRecipients,
+                        MailApiResource.DeliveryFailureRecommendations,
+                        MailApiResource.DeliveryFailureBtn,
+                        MailApiResource.DeliveryFailureFAQInformation,
+                        MailApiResource.DeliveryFailureReason);
+
+                var draftsManager = new DraftManager(MailBoxManager, Logger, daemonLabels);
+
+                return draftsManager.Send(draft);
+            }
+            catch (DraftException ex)
+            {
+                string fieldName;
+
+                switch (ex.FieldType)
+                {
+                    case DraftFieldTypes.From:
+                        fieldName = MailApiResource.FieldNameFrom;
+                        break;
+                    case DraftFieldTypes.To:
+                        fieldName = MailApiResource.FieldNameTo;
+                        break;
+                    case DraftFieldTypes.Cc:
+                        fieldName = MailApiResource.FieldNameCc;
+                        break;
+                    case DraftFieldTypes.Bcc:
+                        fieldName = MailApiResource.FieldNameBcc;
+                        break;
+                    default:
+                        fieldName = "";
+                        break;
+                }
+                switch (ex.ErrorType)
+                {
+                    case DraftException.ErrorTypes.IncorrectField:
+                        throw new ArgumentException(MailApiResource.ErrorIncorrectEmailAddress.Replace("%1", fieldName));
+                    case DraftException.ErrorTypes.EmptyField:
+                        throw new ArgumentException(MailApiResource.ErrorEmptyField.Replace("%1", fieldName));
+                    default:
+                        throw;
+                }
+            }
         }
 
         /// <summary>
         ///    Saves the message with the ID specified in the request
         /// </summary>
-        /// <param name="id">Mwssage id which will be saved.</param>
-        /// <param name="attachments">List of attachments represented as MailAttachment object</param>
-        /// <param name="to">List of "to" emails. Format: Name&lt;name@domain&gt; </param>
-        /// <param name="bcc">List of "bcc" emails. Format: Name&lt;name@domain&gt; </param>
-        /// <param name="cc">List of "cc" emails. Format: Name&lt;name@domain&gt; </param>
-        /// <param name="mimeMessageId">Mime message id which will be saved.</param>
-        /// <param name="mimeReplyToId">Message id to which the reply answer</param>
+        /// <param name="id">Message id which will be saved or 0.</param>
         /// <param name="from">From email. Format: Name&lt;name@domain&gt;</param>
-        /// <param name="body">Message body as html string.</param>
-        /// <param name="importance">Importanse fla. Values: true - important, false - not important.</param>
+        /// <param name="to">List of "to" emails. Format: Name&lt;name@domain&gt; </param>
+        /// <param name="cc">List of "cc" emails. Format: Name&lt;name@domain&gt; </param>
+        /// <param name="bcc">List of "bcc" emails. Format: Name&lt;name@domain&gt; </param>
+        /// <param name="mimeReplyToId">Message id to which the reply answer</param>
+        /// <param name="importance">Importanse flag. Values: true - important, false - not important.</param>
+        /// <param name="subject">Message subject</param>
         /// <param name="tags">List of tags id added to message</param>
-        /// <param name="streamId">Stream id. Needed for correct attachment saving.</param>
-        /// <param name="subject">Saved message subject</param>
+        /// <param name="body">Message body as html string.</param>
+        /// <param name="attachments">List of attachments represented as MailAttachment object</param>
         /// <returns>Saved message id</returns>
         /// <short>SaveToDraft message</short> 
         /// <category>Messages</category>
         [Update(@"messages/save")]
-        public MailMessageItem SaveMessage(int id,
-            IEnumerable<MailAttachment> attachments,
-            IEnumerable<string> to,
-            IEnumerable<string> bcc,
-            IEnumerable<string> cc,
-            string mimeMessageId,
-            string mimeReplyToId,
+        public MailMessage SaveMessage(int id,
             string from,
-            string body,
+            List<string> to,
+            List<string> cc,
+            List<string> bcc,
+            string mimeReplyToId,
             bool importance,
-            IEnumerable<int> tags,
-            string streamId,
-            string subject)
+            string subject,
+            List<int> tags,
+            string body,
+            List<MailAttachment> attachments
+            )
         {
             if (id < 1)
                 id = 0;
 
-            var item = new MailSendItem
-            {
-                Attachments = new List<MailAttachment>(attachments),
-                Bcc = new List<string>(bcc),
-                Cc = new List<string>(cc),
-                MimeReplyToId = mimeReplyToId,
-                MimeMessageId = string.IsNullOrEmpty(mimeMessageId) ? MailBoxManager.CreateMessageId() : mimeMessageId,
-                From = from,
-                HtmlBody = body,
-                Important = importance,
-                Labels = new List<int>(tags),
-                StreamId = streamId,
-                Subject = subject,
-                To = new List<string>(to)
-            };
+            if (string.IsNullOrEmpty(from))
+                throw new ArgumentNullException("from");
+
+            Thread.CurrentThread.CurrentCulture = CurrentCulture;
+            Thread.CurrentThread.CurrentUICulture = CurrentCulture;
+
+            var mailAddress = new MailAddress(from);
 
             var accounts = MailBoxManager.GetAccountInfo(TenantId, Username).ToAddressData();
-            var mailAddress = new MailAddress(item.From);
+            
             var account = accounts.FirstOrDefault(a => a.Email.ToLower().Equals(mailAddress.Address));
 
             if (account == null)
@@ -448,6 +498,15 @@ namespace ASC.Api.Mail
 
             if (account.IsGroup)
                 throw new InvalidOperationException("Saving emails from a group address is forbidden");
+
+            var mbox = MailBoxManager.GetUnremovedMailBox(account.MailboxId);
+
+            if (mbox == null)
+                throw new ArgumentException("no such mailbox");
+
+            string mimeMessageId, streamId;
+
+            var previousMailboxId = mbox.MailBoxId;
 
             if (id > 0)
             {
@@ -457,9 +516,60 @@ namespace ASC.Api.Mail
                 {
                     throw new InvalidOperationException("Saving emails is permitted only in the Drafts folder");
                 }
+
+                mimeMessageId = message.MimeMessageId;
+
+                streamId = message.StreamId;
+
+                foreach (var attachment in attachments)
+                {
+                    attachment.streamId = streamId;
+                }
+
+                previousMailboxId = message.MailboxId;
+            }
+            else
+            {
+                mimeMessageId = MailBoxManager.CreateMessageId();
+                streamId = MailBoxManager.CreateStreamId();
             }
 
-            return SendQueue.SaveToDraft(TenantId, Username, item, id, account.MailboxId);
+            var draft = new MailDraft(id, mbox, from, to, cc, bcc, subject, mimeMessageId, mimeReplyToId, importance,
+                                      tags, body, streamId, attachments)
+                {
+                    PreviousMailboxId = previousMailboxId
+                };
+
+            try
+            {
+                var draftsManager = new DraftManager(MailBoxManager, Logger);
+
+                return draftsManager.Save(draft);
+            }
+            catch (DraftException ex)
+            {
+                string fieldName;
+
+                switch (ex.FieldType)
+                {
+                    case DraftFieldTypes.From:
+                        fieldName = MailApiResource.FieldNameFrom;
+                        break;
+                    default:
+                        fieldName = "";
+                        break;
+                }
+                switch (ex.ErrorType)
+                {
+                    case DraftException.ErrorTypes.IncorrectField:
+                        throw new ArgumentException(MailApiResource.ErrorIncorrectEmailAddress.Replace("%1", fieldName));
+                    case DraftException.ErrorTypes.EmptyField:
+                        throw new ArgumentException(MailApiResource.ErrorEmptyField.Replace("%1", fieldName));
+                    default:
+                        throw;
+                }
+            }
+
         }
 
         /// <summary>
@@ -486,9 +596,9 @@ namespace ASC.Api.Mail
         /// <short>Get message template</short> 
         /// <category>Messages</category>
         [Read(@"messages/template")]
-        public MailMessageItem GetMessageTemplate()
+        public MailMessage GetMessageTemplate()
         {
-            var sendTemplate = new MailMessageItem
+            var sendTemplate = new MailMessage
             {
                 Attachments = new List<MailAttachment>(),
                 Bcc = "",
@@ -501,21 +611,9 @@ namespace ASC.Api.Mail
                 MimeMessageId = "",
                 MimeReplyToId = "",
                 To = "",
-                StreamId = MailBoxManager.CreateNewStreamId()
+                StreamId = MailBoxManager.CreateStreamId()
             };
             return sendTemplate;
-        }
-
-        /// <summary>
-        ///    Returns the modification date for the messages.
-        /// </summary>
-        /// <returns>DateTime for Message modify date</returns>
-        /// <short>Get message modify date</short>
-        /// <category>Messages</category>
-        [Read(@"messages/modify_date")]
-        public ApiDateTime GetMessagesModifyDate()
-        {
-            return new ApiDateTime(MailBoxManager.GetMessagesModifyDate(TenantId, Username));
         }
 
         ///  <summary>
@@ -525,17 +623,19 @@ namespace ASC.Api.Mail
         /// <param name="fileId">Teamlab document id.</param>
         /// <param name="version">Teamlab document version</param>
         /// <param name="shareLink">Teamlab document share link</param>
-        /// <param name="streamId">Message stream id</param>
         /// <returns>Attached document as MailAttachment object</returns>
         /// <short>Attach Teamlab document</short>
         /// <category>Messages</category>
         /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
         [Create(@"messages/{id:[0-9]+}/document")]
-        public MailAttachment AttachDocument(int id, string fileId, string version, string shareLink, string streamId)
+        public MailAttachment AttachDocument(int id, string fileId, string version, string shareLink)
         {
             try
             {
-                var attachment = MailBoxManager.AttachFileFromDocuments(TenantId, Username, id, fileId, version, shareLink, streamId);
+                Thread.CurrentThread.CurrentCulture = CurrentCulture;
+                Thread.CurrentThread.CurrentUICulture = CurrentCulture;
+
+                var attachment = MailBoxManager.AttachFileFromDocuments(TenantId, Username, id, fileId, version, shareLink);
                 return attachment;
             }
             catch (AttachmentsException e)
@@ -585,28 +685,18 @@ namespace ASC.Api.Mail
         [Update(@"messages/crm/export")]
         public void ExportMessageToCrm(int id_message, IEnumerable<CrmContactEntity> crm_contact_ids)
         {
-            try
-            {
-                if (id_message < 0)
-                    throw new ArgumentException(@"Invalid message id", "id_message");
-                if (crm_contact_ids == null)
-                    throw new ArgumentException(@"Invalid contact ids list", "crm_contact_ids");
+            if (id_message < 0)
+                throw new ArgumentException(@"Invalid message id", "id_message");
+            if (crm_contact_ids == null)
+                throw new ArgumentException(@"Invalid contact ids list", "crm_contact_ids");
 
-                var messageItem = MailBoxManager.GetMailInfo(TenantId, Username, id_message, true, true);
-                messageItem.LinkedCrmEntityIds = crm_contact_ids.ToList();
-                var crmDal = new ASC.Mail.Aggregator.Dal.CrmHistoryDal(TenantId, Username);
-                crmDal.AddRelationshipEvents(messageItem);
-            }
-            catch (Exception ex)
-            {
-                MailBoxManager.CreateCrmOperationFailureAlert(TenantId, Username, id_message, MailBoxManager.AlertTypes.ExportFailure);
-                Logger.Error(ex, "Issue with exort to crm message_id: {0}, crm_contacts_id {1}", new object[]{id_message, crm_contact_ids});
-            }
-        }
+            var messageItem = MailBoxManager.GetMailInfo(TenantId, Username, id_message, true, true);
 
-        private IEnumerable<MailMessageItem> GetFilteredMessages(MailFilter filter, int page, int pageSize, out long totalMessagesCount)
-        {
-            return MailBoxManager.GetMailsFiltered(TenantId, Username, filter, page, pageSize, out totalMessagesCount);
+            messageItem.LinkedCrmEntityIds = crm_contact_ids.ToList();
+
+            var crmDal = new CrmHistoryDal(TenantId, Username);
+
+            crmDal.AddRelationshipEvents(messageItem);
         }
 
         private void CorrectPageValue(MailFilter filter, long totalMessages)

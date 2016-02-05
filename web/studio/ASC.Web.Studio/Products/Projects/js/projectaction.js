@@ -25,14 +25,19 @@
 
 
 ASC.Projects.ProjectAction = (function() {
-    var projectId;
-    var activeTasksCount;
-    var activeMilestonesCount;
-    var opportunityId = undefined;
-    var contactId = undefined;
-    var projectTeam = new Array();
-    var currentUserId;
-    var projectResponsible;
+    var projectId,
+        activeTasksCount,
+        activeMilestonesCount,
+        opportunityId = undefined,
+        contactId = undefined,
+        projectTeam = new Array(),
+        currentUserId,
+        projectResponsible,
+        $projectManagerSelector,
+        $projectTeamSelector,
+        $projectStatusContainer;
+
+    var $projectStatus = jq("#projectStatus");
 
     var init = function() {
         currentUserId = Teamlab.profile.id;
@@ -46,6 +51,7 @@ ASC.Projects.ProjectAction = (function() {
         activeMilestonesCount = parseInt(jq('#activeMilestones').val()),
         $projectManagerSelector = jq("#projectManagerSelector"),
         $projectTeamSelector = jq("#projectTeamSelector");
+        $projectStatusContainer = jq("#projectStatusContainer");
 
         if (isProjectsCreatedFromCRM()) {
             ASC.CRM.ListContactView.removeMember = removeContactFromProject;
@@ -62,8 +68,9 @@ ASC.Projects.ProjectAction = (function() {
         }
         // onChoosePM
 
+        var selectedProjectManager = $projectManagerSelector.attr("data-id");
         $projectManagerSelector.useradvancedSelector({
-            itemsSelectedIds: projectId ? [$projectManagerSelector.attr("data-id")] : [],
+            itemsSelectedIds: selectedProjectManager.length ? [selectedProjectManager] : [],
             withGuests: false,
             showGroups: true,
             onechosen: true
@@ -123,11 +130,28 @@ ASC.Projects.ProjectAction = (function() {
             displayProjectTeam(items);
             return false;
         };
-        
-        //event handlers
-        jq('#projectStatus').change(function() {
-            showCloseQuestion();
-        });
+
+        if (projectId) {
+            var statuses = $projectStatus.attr("data-status").split(";").map(
+                function(item) {
+                    var keyValuePair = item.split(',');
+                    return { id: keyValuePair[0], title: keyValuePair[1] }
+                });
+
+            $projectStatus.advancedSelector({
+                itemsSelectedIds: $projectStatus.attr("data-id"),
+                onechosen: true,
+                showSearch: false,
+                itemsChoose: statuses,
+                sortMethod: function() {
+                    return 0;
+                }
+            }).on("showList", function(event, item) {
+                $projectStatusContainer.find(".selected-before").removeClass("selected-before");
+                $projectStatus.attr("data-id", item.id).text(item.title).attr("title", item.title);
+                showCloseQuestion(item.id);
+            });
+        }
 
         // tags
         jq('body').on('click', function(event) {
@@ -299,7 +323,7 @@ ASC.Projects.ProjectAction = (function() {
 
         var title = jq.trim(jq('[id$=projectTitle]').val()),
             responsibleid = jq("#projectManagerSelector").attr("data-id"),
-            status = jq('#projectStatus option:selected').val(),
+            status = $projectStatus.attr("data-id"),
             isError = false,
             scrollTo = '';
 
@@ -314,8 +338,8 @@ ASC.Projects.ProjectAction = (function() {
             isError = true;
             scrollTo = scrollTo || '#projectManagerContainer';
         }
-        if (projectId && status.trim() == 'closed' && showCloseQuestion()) {
-            jq('#projectStatusContainer').addClass('requiredFieldError');
+        if (projectId && status == 1 && showCloseQuestion(status)) {
+            $projectStatusContainer.addClass('requiredFieldError');
             isError = true;
             scrollTo = scrollTo || '#projectStatusContainer';
         }
@@ -344,7 +368,7 @@ ASC.Projects.ProjectAction = (function() {
         }
 
         if (jq.getURLParam("prjID")) {
-            project.status = jq('#projectStatus option:selected').val();
+            project.status = $projectStatus.attr("data-id");
         }
         if (jq('#projectParticipants').length != 0) {
             var participants = jq('#projectParticipants').attr('value'),
@@ -488,20 +512,20 @@ ASC.Projects.ProjectAction = (function() {
         }
     };
 
-    var showCloseQuestion = function() {
+    function showCloseQuestion(status) {
         var activeTasksCount = ASC.Projects.ProjectAction.getActiveTasksCount();
         var activeMilestonesCount = ASC.Projects.ProjectAction.getActiveMilestonesCount();
-        if (jq("#projectStatus").val().trim() == 'closed') {
+        if (status == 1) {
             if (activeTasksCount > 0) {
                 StudioBlockUIManager.blockUI(jq('#questionWindowActiveTasks'), 400, 400, 0, "absolute");
-                jq('#projectStatusContainer').addClass('requiredFieldError');
+                $projectStatusContainer.addClass('requiredFieldError');
             }
             else if (activeMilestonesCount > 0) {
                 StudioBlockUIManager.blockUI(jq('#questionWindowActiveMilestones'), 400, 400, 0, "absolute");
-                jq('#projectStatusContainer').addClass('requiredFieldError');
+                $projectStatusContainer.addClass('requiredFieldError');
             }
         } else {
-            jq('#projectStatusContainer').removeClass('requiredFieldError');
+            $projectStatusContainer.removeClass('requiredFieldError');
             return false;
         }
         return activeTasksCount > 0 || activeMilestonesCount > 0;

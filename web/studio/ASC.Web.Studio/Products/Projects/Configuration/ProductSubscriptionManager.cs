@@ -67,7 +67,7 @@ namespace ASC.Web.Projects.Configuration
             var objects = new List<string>(GetSubscriptions(NotifyConstants.Event_NewCommentForMessage));
             var subscriptionType = GetSubscriptionTypes().Find(item => item.ID == _newCommentForMessage);
             var filterProjectID = GetProjectIDByGroupID(moduleOrGroupID);
-            var messageEngine = Global.EngineFactory.GetMessageEngine();
+            var messageEngine = Global.EngineFactory.MessageEngine;
 
             foreach (var item in objects)
             {
@@ -124,7 +124,7 @@ namespace ASC.Web.Projects.Configuration
             var objects = new List<string>(GetSubscriptions(NotifyConstants.Event_NewCommentForTask));
             var subscriptionType = GetSubscriptionTypes().Find(item => item.ID == _newCommentForTask);
             var filterProjectID = GetProjectIDByGroupID(moduleOrGroupID);
-            var taskEngine = Global.EngineFactory.GetTaskEngine();
+            var taskEngine = Global.EngineFactory.TaskEngine;
             foreach (var item in objects)
             {
                 try
@@ -295,9 +295,9 @@ namespace ASC.Web.Projects.Configuration
             preparateData.AddRange(new List<string>(GetSubscriptions(NotifyConstants.Event_NewCommentForTask)));
             preparateData.AddRange(new List<string>(GetSubscriptions(NotifyConstants.Event_NewCommentForMessage)));
 
-            var projects = Global.EngineFactory.GetProjectEngine().GetAll().OrderBy(r=> r.Title).ToList();
-            var messages = Global.EngineFactory.GetMessageEngine().GetAll().ToList();
-            var tasks = Global.EngineFactory.GetTaskEngine().GetAll().ToList();
+            var projects = Global.EngineFactory.ProjectEngine.GetAll().OrderBy(r=> r.Title).ToList();
+            var messages = Global.EngineFactory.MessageEngine.GetAll().ToList();
+            var tasks = Global.EngineFactory.TaskEngine.GetAll().ToList();
 
             foreach (var item in preparateData)
             {

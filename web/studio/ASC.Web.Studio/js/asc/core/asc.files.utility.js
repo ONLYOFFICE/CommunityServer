@@ -278,6 +278,7 @@ ASC.Files.Utility.GetFileWebEditorUrl = function (fileId) {
     return ASC.Files.Utility.Resource.FileWebEditorUrlString.format(encodeURIComponent(fileId));
 };
 
-ASC.Files.Utility.GetFileWebEditorExternalUrl = function (fileUri, fileTitle) {
-    return ASC.Files.Utility.Resource.FileWebEditorExternalUrlString.format(encodeURIComponent(fileUri), encodeURIComponent(fileTitle || ""));
+ASC.Files.Utility.GetFileWebEditorExternalUrl = function (fileUri, fileTitle, folderId) {
+    return ASC.Files.Utility.Resource.FileWebEditorExternalUrlString.format(encodeURIComponent(fileUri), encodeURIComponent(fileTitle || "")) +
+        ((folderId || "") ? ("&folderid=" + folderId) : "");
 };

@@ -26,27 +26,46 @@
 
 using System;
 using System.Collections.Generic;
+using System.Net;
+using System.Web;
+
 using ASC.Core;
+using ASC.Core.Billing;
 using ASC.Core.Common.Configuration;
 using ASC.Core.Common.Contracts;
+using ASC.Core.Tenants;
+using ASC.Core.Users;
+using ASC.MessagingSystem;
 using ASC.Notify.Cron;
 using ASC.Web.Core.Security;
 using ASC.Web.Studio.Utility;
+using Resources;
+
 using AjaxPro;
 using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
-using Resources;
 
 namespace ASC.Web.Studio.Core.Backup
 {
     [AjaxNamespace("AjaxPro.Backup")]
     public class BackupAjaxHandler
     {
+        public BackupAjaxHandler()
+        {
+            if (WorkContext.IsMono)
+            {
+                ServicePointManager.ServerCertificateValidationCallback = (s, cert, c, p) => true;
+            }
+        }
+
+        #region backup
+
         [AjaxMethod]
         public BackupProgress StartBackup(BackupStorageType storageType, StorageParams storageParams, bool backupMail)
         {
-            DemandPermissions();
+            DemandPermissionsBackup();
+            DemandSize();
 
             var backupRequest = new StartBackupRequest
                 {
@@ -74,6 +93,8 @@ namespace ASC.Web.Studio.Core.Backup
                     break;
             }
 
+            MessageService.Send(HttpContext.Current.Request, MessageAction.StartBackupSetting);
+
             using (var service = new BackupServiceClient())
             {
                 return service.StartBackup(backupRequest);
@@ -84,6 +105,8 @@ namespace ASC.Web.Studio.Core.Backup
         [SecurityPassthrough]
         public BackupProgress GetBackupProgress()
         {
+            DemandPermissionsBackup();
+
             using (var service = new BackupServiceClient())
             {
                 return service.GetBackupProgress(GetCurrentTenantId());
@@ -93,7 +116,7 @@ namespace ASC.Web.Studio.Core.Backup
         [AjaxMethod]
         public void DeleteBackup(Guid id)
         {
-            DemandPermissions();
+            DemandPermissionsBackup();
 
             using (var service = new BackupServiceClient())
             {
@@ -104,7 +127,8 @@ namespace ASC.Web.Studio.Core.Backup
         [AjaxMethod]
         public void DeleteAllBackups()
         {
-            DemandPermissions();
+            DemandPermissionsBackup();
+
             using (var service = new BackupServiceClient())
             {
                 service.DeleteAllBackups(GetCurrentTenantId());
@@ -114,7 +138,7 @@ namespace ASC.Web.Studio.Core.Backup
         [AjaxMethod]
         public List<BackupHistoryRecord> GetBackupHistory()
         {
-            DemandPermissions();
+            DemandPermissionsBackup();
 
             using (var service = new BackupServiceClient())
             {
@@ -122,87 +146,15 @@ namespace ASC.Web.Studio.Core.Backup
             }
         }
 
-        [AjaxMethod]
-        public BackupProgress StartRestore(string backupId, BackupStorageType storageType, StorageParams storageParams, bool notify)
-        {
-            DemandPermissions();
-
-            var restoreRequest = new StartRestoreRequest
-                {
-                    TenantId = GetCurrentTenantId(),
-                    NotifyAfterCompletion = notify
-                };
-
-            Guid guidBackupId;
-            if (Guid.TryParse(backupId, out guidBackupId))
-            {
-                restoreRequest.BackupId = guidBackupId;
-            }
-            else
-            {
-                restoreRequest.StorageType = storageType;
-                restoreRequest.FilePathOrId = storageParams.FilePath;
-                if (storageType == BackupStorageType.CustomCloud)
-                {
-                    ValidateS3Settings(storageParams.AccessKeyId, storageParams.SecretAccessKey, storageParams.Bucket, storageParams.Region);
-                    CoreContext.Configuration.SaveSection(new AmazonS3Settings
-                        {
-                            AccessKeyId = storageParams.AccessKeyId,
-                            SecretAccessKey = storageParams.SecretAccessKey,
-                            Bucket = storageParams.Bucket,
-                            Region = storageParams.Region
-                        });
-                }
-            }
-
-            using (var service = new BackupServiceClient())
-            {
-                return service.StartRestore(restoreRequest);
-            }
-        }
-
-        [AjaxMethod]
-        [SecurityPassthrough]
-        public BackupProgress GetRestoreProgress()
-        {
-            using (var service = new BackupServiceClient())
-            {
-                return service.GetRestoreProgress(GetCurrentTenantId());
-            }
-        }
-
-        [AjaxMethod]
-        public BackupProgress StartTransfer(string targetRegion, bool notifyUsers, bool transferMail)
-        {
-            DemandPermissions();
-
-            using (var service = new BackupServiceClient())
-            {
-                return service.StartTransfer(
-                    new StartTransferRequest
-                        {
-                            TenantId = GetCurrentTenantId(),
-                            TargetRegion = targetRegion,
-                            BackupMail = transferMail,
-                            NotifyUsers = notifyUsers
-                        });
-            }
-        }
-
-        [AjaxMethod]
-        [SecurityPassthrough]
-        public BackupProgress GetTransferProgress()
-        {
-            using (var service = new BackupServiceClient())
-            {
-                return service.GetTransferProgress(GetCurrentTenantId());
-            }
-        }
 
         [AjaxMethod]
         public void CreateSchedule(BackupStorageType storageType, StorageParams storageParams, int backupsStored, CronParams cronParams, bool backupMail)
         {
-            DemandPermissions();
+            DemandPermissionsBackup();
+            DemandSize();
+
+            if (!SetupInfo.IsVisibleSettings("AutoBackup"))
+                throw new InvalidOperationException(Resource.ErrorNotAllowedOption);
 
             ValidateCronSettings(cronParams);
 
@@ -243,7 +195,7 @@ namespace ASC.Web.Studio.Core.Backup
         [AjaxMethod]
         public Schedule GetSchedule()
         {
-            DemandPermissions();
+            DemandPermissionsBackup();
 
             using (var service = new BackupServiceClient())
             {
@@ -283,7 +235,7 @@ namespace ASC.Web.Studio.Core.Backup
         [AjaxMethod]
         public void DeleteSchedule()
         {
-            DemandPermissions();
+            DemandPermissionsBackup();
 
             using (var service = new BackupServiceClient())
             {
@@ -291,12 +243,139 @@ namespace ASC.Web.Studio.Core.Backup
             }
         }
 
-        private static void DemandPermissions()
+        private static void DemandPermissionsBackup()
         {
-            if (!TenantExtra.GetTenantQuota().HasBackup)
-                throw new InvalidOperationException(Resource.ErrorNotAllowedOption);
-
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            if (!SetupInfo.IsVisibleSettings(ManagementType.Backup.ToString())
+                || !TenantExtra.GetTenantQuota().HasBackup)
+                throw new BillingException(Resource.ErrorNotAllowedOption, "Backup");
+        }
+
+        #endregion
+
+        #region restore
+
+        [AjaxMethod]
+        public BackupProgress StartRestore(string backupId, BackupStorageType storageType, StorageParams storageParams, bool notify)
+        {
+            DemandPermissionsRestore();
+
+            var restoreRequest = new StartRestoreRequest
+            {
+                TenantId = GetCurrentTenantId(),
+                NotifyAfterCompletion = notify
+            };
+
+            Guid guidBackupId;
+            if (Guid.TryParse(backupId, out guidBackupId))
+            {
+                restoreRequest.BackupId = guidBackupId;
+            }
+            else
+            {
+                restoreRequest.StorageType = storageType;
+                restoreRequest.FilePathOrId = storageParams.FilePath;
+                if (storageType == BackupStorageType.CustomCloud)
+                {
+                    ValidateS3Settings(storageParams.AccessKeyId, storageParams.SecretAccessKey, storageParams.Bucket, storageParams.Region);
+                    CoreContext.Configuration.SaveSection(new AmazonS3Settings
+                    {
+                        AccessKeyId = storageParams.AccessKeyId,
+                        SecretAccessKey = storageParams.SecretAccessKey,
+                        Bucket = storageParams.Bucket,
+                        Region = storageParams.Region
+                    });
+                }
+            }
+
+            using (var service = new BackupServiceClient())
+            {
+                return service.StartRestore(restoreRequest);
+            }
+        }
+
+        [AjaxMethod]
+        [SecurityPassthrough]
+        public BackupProgress GetRestoreProgress()
+        {
+            DemandPermissionsRestore();
+
+            BackupProgress result;
+
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
+            using (var service = new BackupServiceClient())
+            {
+                result = service.GetRestoreProgress(tenant.TenantId);
+            }
+
+            return result;
+        }
+
+        private static void DemandPermissionsRestore()
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            if (!SetupInfo.IsVisibleSettings("Restore")
+                || !TenantExtra.GetTenantQuota().HasBackup)
+                throw new BillingException(Resource.ErrorNotAllowedOption, "Restore");
+        }
+
+        #endregion
+
+        #region transfer
+
+        [AjaxMethod]
+        public BackupProgress StartTransfer(string targetRegion, bool notifyUsers, bool transferMail)
+        {
+            DemandPermissionsTransfer();
+            DemandSize();
+
+            MessageService.Send(HttpContext.Current.Request, MessageAction.StartTransferSetting);
+
+            using (var service = new BackupServiceClient())
+            {
+                return service.StartTransfer(
+                    new StartTransferRequest
+                    {
+                        TenantId = GetCurrentTenantId(),
+                        TargetRegion = targetRegion,
+                        BackupMail = transferMail,
+                        NotifyUsers = notifyUsers
+                    });
+            }
+        }
+
+        [AjaxMethod]
+        [SecurityPassthrough]
+        public BackupProgress GetTransferProgress()
+        {
+            using (var service = new BackupServiceClient())
+            {
+                return service.GetTransferProgress(GetCurrentTenantId());
+            }
+        }
+
+        private static void DemandPermissionsTransfer()
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+            if (!SetupInfo.IsVisibleSettings(ManagementType.Migration.ToString())
+                || !currentUser.IsOwner()
+                || !SetupInfo.IsSecretEmail(currentUser.Email) && !TenantExtra.GetTenantQuota().HasMigration)
+                throw new InvalidOperationException(Resource.ErrorNotAllowedOption);
+        }
+
+        #endregion
+
+        private static void DemandSize()
+        {
+            if (BackupHelper.ExceedsMaxAvailableSize)
+                throw new InvalidOperationException(string.Format(UserControlsCommonResource.BackupSpaceExceed,
+                    FileSizeComment.FilesSizeToString(BackupHelper.AvailableZipSize),
+                    "",
+                    ""));
         }
 
         private static void ValidateCronSettings(CronParams cronParams)
@@ -324,6 +403,7 @@ namespace ASC.Web.Studio.Core.Backup
             }
             try
             {
+      
                 using (var s3 = new AmazonS3Client(accessKeyId, secretAccessKey, new AmazonS3Config {RegionEndpoint = RegionEndpoint.GetBySystemName(region)}))
                 {
                     s3.GetBucketLocation(new GetBucketLocationRequest {BucketName = bucket});

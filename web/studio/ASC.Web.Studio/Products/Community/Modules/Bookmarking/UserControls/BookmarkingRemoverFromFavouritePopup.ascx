@@ -24,3 +24,24 @@
         </body>
     </sc:Container>
 </div>
+
+<div id="removeBookmarkDialog" style="display: none;">
+    <sc:Container runat="server" ID="BookmarkingRemoveContainer">
+        <header>
+            <%=BookmarkingUCResource.RemoveFromFavouriteTitle%>
+        </header>
+        <body>
+
+            <%--Are you sure you want to remove the bookmark?--%>
+            <div class="clearFix"><%=string.Format(BookmarkingUCResource.RemoveConfirmMessage, "<a href='javascript: void(0);' id='BookmarkToRemoveName'>&nbsp;</a>")%></div>
+
+            <div class="middle-button-container">
+                <ascbc:ActionButton ButtonID="BookmarkingRemoveLink" ID="BookmarkingRemoveLink" ButtonContainer="removeBookmarkDialog"
+                    ButtonCssClass="button blue middle" runat="server"></ascbc:ActionButton>
+                <span class="splitter-buttons"></span>
+                <a class="button gray middle" href="javascript:jq.unblockUI();">
+                    <%=BookmarkingUCResource.Cancel%></a>
+            </div>
+        </body>
+    </sc:Container>
+</div>

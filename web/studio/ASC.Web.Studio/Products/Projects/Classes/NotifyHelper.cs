@@ -71,7 +71,7 @@ namespace ASC.Web.Projects.Classes
                     {
                         CoreContext.TenantManager.SetCurrentTenant(tenant);
                         SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
-                        var t = Global.EngineFactory.GetTaskEngine().GetByID((int)r[1]);
+                        var t = Global.EngineFactory.TaskEngine.GetByID((int)r[1]);
                         if (t == null) continue;
 
                         foreach (var responsible in t.Responsibles)

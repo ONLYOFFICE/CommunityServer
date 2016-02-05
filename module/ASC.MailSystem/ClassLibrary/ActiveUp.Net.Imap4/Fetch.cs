@@ -19,6 +19,7 @@ using System;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using ActiveUp.Net.Common;
 using ActiveUp.Net.Mail;
 
 namespace ActiveUp.Net.Mail
@@ -53,16 +54,16 @@ namespace ActiveUp.Net.Mail
             };
         }
 
-        private string GetMessageFromImapFetchResponce(string response)
+        private string GetMessageFromImapFetchResponse(string response)
         {
-            //Sample responce:  1 FETCH (UID <uid> BODY[] {body_size} <mail body> ) UID OK SUCCESS
-            var first_char = response.IndexOf("}", StringComparison.Ordinal) + 3;
-            var body_size_starts = response.IndexOf("{", StringComparison.Ordinal);
-            var body_size_string = response.Substring(body_size_starts + 1, first_char - body_size_starts - 4);
-            var body_size = int.Parse(body_size_string);
-            //Sometimes body size larger then responce size. We handle it.
-            body_size = Math.Min(first_char + body_size, response.Length) - first_char;
-            return response.Substring(first_char, body_size);
+            //Sample response:  1 FETCH (UID <uid> BODY[] {body_size} <mail body> ) UID OK SUCCESS
+            var firstChar = response.IndexOf("}", StringComparison.Ordinal) + 3;
+            var bodySizeStarts = response.IndexOf("{", StringComparison.Ordinal);
+            var bodySizeString = response.Substring(bodySizeStarts + 1, firstChar - bodySizeStarts - 4);
+            var bodySize = int.Parse(bodySizeString);
+            //Sometimes body size larger then response size. We handle it.
+            bodySize = Math.Min(firstChar + bodySize, response.Length) - firstChar;
+            return response.Substring(firstChar, bodySize);
         }
 
         #endregion
@@ -131,7 +132,7 @@ namespace ActiveUp.Net.Mail
         public string UidBody(int uid)
         {
             this.ParentMailbox.SourceClient.SelectMailbox(this.ParentMailbox.Name);
-            string response = this.ParentMailbox.SourceClient.Command("uid fetch " + uid.ToString() + " body", getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} body", uid.ToString()), getFetchOptions());
             return response.Substring(response.IndexOf("}")+3,response.LastIndexOf(" UID")-response.IndexOf("}")-7);
         }
 
@@ -191,7 +192,7 @@ namespace ActiveUp.Net.Mail
         public string BodySection(int messageOrdinal, int section)
         {
             this.ParentMailbox.SourceClient.SelectMailbox(this.ParentMailbox.Name);
-            string response = this.ParentMailbox.SourceClient.Command("fetch " + messageOrdinal.ToString() + " body[" + section + "]", getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("fetch {0} body[{1}]", messageOrdinal.ToString(), section), getFetchOptions());
             return response.Substring(response.IndexOf("}")+3,response.LastIndexOf(" UID")-response.IndexOf("}")-7);
         }
 
@@ -212,7 +213,7 @@ namespace ActiveUp.Net.Mail
         public string UidBodySection(int uid, int section)
         {
             this.ParentMailbox.SourceClient.SelectMailbox(this.ParentMailbox.Name);
-            string response = this.ParentMailbox.SourceClient.Command("uid fetch " + uid.ToString() + " body[" + section + "]", getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} body[{1}]", uid.ToString(), section), getFetchOptions());
             return response.Substring(response.IndexOf("}")+3,response.LastIndexOf(" UID")-response.IndexOf("}")-7);
         }
 
@@ -271,7 +272,7 @@ namespace ActiveUp.Net.Mail
         public string BodyStructure(int messageOrdinal)
         {
             this.ParentMailbox.SourceClient.SelectMailbox(this.ParentMailbox.Name);
-            string response = this.ParentMailbox.SourceClient.Command("fetch " + messageOrdinal.ToString() + " bodystructure", getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("fetch {0} bodystructure", messageOrdinal.ToString()), getFetchOptions());
             return response.Substring(response.IndexOf("bodystructure")+13,response.LastIndexOf(" UID")-response.IndexOf("bodystructure")-13);
         }
 
@@ -292,7 +293,7 @@ namespace ActiveUp.Net.Mail
         public string UidBodyStructure(int uid)
         {
             this.ParentMailbox.SourceClient.SelectMailbox(this.ParentMailbox.Name);
-            string response = this.ParentMailbox.SourceClient.Command("uid fetch " + uid.ToString() + " bodystructure", getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} bodystructure", uid.ToString()), getFetchOptions());
             return response.Substring(response.IndexOf("bodystructure")+13,response.LastIndexOf(" UID")-response.IndexOf("bodystructure")-13);
         }
 
@@ -351,7 +352,7 @@ namespace ActiveUp.Net.Mail
         public string InternalDate(int messageOrdinal)
         {
             this.ParentMailbox.SourceClient.SelectMailbox(this.ParentMailbox.Name);
-            string response = this.ParentMailbox.SourceClient.Command("fetch " + messageOrdinal.ToString() + " internaldate", getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("fetch {0} internaldate", messageOrdinal.ToString()), getFetchOptions());
             return response.Split('\"')[1];
         }
 
@@ -372,7 +373,7 @@ namespace ActiveUp.Net.Mail
         public string UidInternalDate(int uid)
         {
             this.ParentMailbox.SourceClient.SelectMailbox(this.ParentMailbox.Name);
-            string response = this.ParentMailbox.SourceClient.Command("uid fetch " + uid.ToString() + " internaldate", getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} internaldate", uid.ToString()), getFetchOptions());
             return response.Split('\"')[1];
         }
 
@@ -432,7 +433,7 @@ namespace ActiveUp.Net.Mail
         {
             this.ParentMailbox.SourceClient.SelectMailbox(this.ParentMailbox.Name);
             ActiveUp.Net.Mail.FlagCollection flags = new ActiveUp.Net.Mail.FlagCollection();
-            string response = this.ParentMailbox.SourceClient.Command("fetch " + messageOrdinal.ToString() + " flags", getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("fetch {0} flags", messageOrdinal.ToString()), getFetchOptions());
             string flags_string = System.Text.RegularExpressions.Regex.Split(response.ToLower(),"flags ")[1].TrimStart('(').Split(')')[0];
             foreach(string str in flags_string.Split(' ')) if(str.StartsWith("\\")) flags.Add(str.Trim(new char[] {' ','\\',')','('}));
             return flags;
@@ -457,7 +458,7 @@ namespace ActiveUp.Net.Mail
             //this.ParentMailbox.SourceClient.SelectMailbox(this.ParentMailbox.Name);
             var flags = new FlagCollection();
 
-            var response = ParentMailbox.SourceClient.Command("uid fetch " + uid.ToString(CultureInfo.InvariantCulture) + " flags",
+            var response = ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} flags", uid.ToString(CultureInfo.InvariantCulture)),
                                                                    getFetchOptions());
             var flagsString =
                 System.Text.RegularExpressions.Regex.Split(response.ToLower(), "flags ")[1].TrimStart('(').Split(')')[0];
@@ -657,7 +658,7 @@ namespace ActiveUp.Net.Mail
         {
             this.ParentMailbox.SourceClient.SelectMailbox(this.ParentMailbox.Name);
             this.ParentMailbox.SourceClient.OnHeaderRetrieving(new ActiveUp.Net.Mail.HeaderRetrievingEventArgs(messageOrdinal));
-            string response = this.ParentMailbox.SourceClient.Command("fetch " + messageOrdinal.ToString() + " rfc822.header", getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("fetch {0} rfc822.header", messageOrdinal.ToString()), getFetchOptions());
             string header = response.Substring(response.IndexOf("}")+3,response.LastIndexOf(")")-response.IndexOf("}")-3);
             this.ParentMailbox.SourceClient.OnHeaderRetrieved(new ActiveUp.Net.Mail.HeaderRetrievedEventArgs(System.Text.Encoding.UTF8.GetBytes(header),messageOrdinal));
             return header;
@@ -685,14 +686,14 @@ namespace ActiveUp.Net.Mail
             {
                 this.ParentMailbox.SourceClient.SelectMailbox(this.ParentMailbox.Name);
                 this.ParentMailbox.SourceClient.OnHeaderRetrieving(new ActiveUp.Net.Mail.HeaderRetrievingEventArgs(uid));
-                response = this.ParentMailbox.SourceClient.Command("uid fetch " + uid.ToString() + " rfc822.header", getFetchOptions());
+                response = this.ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} rfc822.header", uid.ToString()), getFetchOptions());
                 string header = response.Substring(response.IndexOf("}") + 3, response.LastIndexOf(")") - response.IndexOf("}") - 3);
                 this.ParentMailbox.SourceClient.OnHeaderRetrieved(new ActiveUp.Net.Mail.HeaderRetrievedEventArgs(System.Text.Encoding.UTF8.GetBytes(header), uid));
                 return header;
             }
             catch (Exception ex)
             {
-                throw new Exception("Error retrieving header. Response: " + response, ex);
+                throw new Exception(string.Format("Error retrieving header. Response: {0}", response), ex);
             }
         }
 
@@ -763,8 +764,8 @@ namespace ActiveUp.Net.Mail
             string delimiters = string.Format("({0})", string.Join(" ", headerHeaders));
 
             string response = (this.ParentMailbox.SourceClient.ServerCapabilities.ToLower().IndexOf("imap4rev1") != -1) ?
-                this.ParentMailbox.SourceClient.Command("fetch " + messageOrdinal.ToString() + " body.peek[header.fields " + delimiters + "]", getFetchOptions()) :
-                this.ParentMailbox.SourceClient.Command("fetch " + messageOrdinal.ToString() + " rfc822.peek.header.GetStringRepresentation() " + delimiters, getFetchOptions());
+                this.ParentMailbox.SourceClient.Command(string.Format("fetch {0} body.peek[header.fields {1}]", messageOrdinal.ToString(), delimiters), getFetchOptions()) :
+                this.ParentMailbox.SourceClient.Command(string.Format("fetch {0} rfc822.peek.header.GetStringRepresentation() {1}", messageOrdinal.ToString(), delimiters), getFetchOptions());
 
             response = response.Substring(response.IndexOf("}") + 3, response.LastIndexOf("\r\n\r\n") - response.IndexOf("}") - 3);
             
@@ -796,8 +797,8 @@ namespace ActiveUp.Net.Mail
             foreach(string str in headerHeaders) delimiters += str+" ";
             delimiters = delimiters.Trim(' ')+")";
             string response = "";
-            if (this.ParentMailbox.SourceClient.ServerCapabilities.ToLower().IndexOf("imap4rev1") != -1) response = this.ParentMailbox.SourceClient.Command("uid fetch " + uid.ToString() + " body.peek[header.fields " + delimiters + "]", getFetchOptions());
-            else this.ParentMailbox.SourceClient.Command("uid fetch " + uid.ToString() + " rfc822.peek.header.GetStringRepresentation() " + delimiters, getFetchOptions());
+            if (this.ParentMailbox.SourceClient.ServerCapabilities.ToLower().IndexOf("imap4rev1") != -1) response = this.ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} body.peek[header.fields {1}]", uid.ToString(), delimiters), getFetchOptions());
+            else this.ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} rfc822.peek.header.GetStringRepresentation() {1}", uid.ToString(), delimiters), getFetchOptions());
             response = response.Substring(response.IndexOf("}")+3,response.LastIndexOf("\r\n\r\n")-response.IndexOf("}")-3);
             System.Collections.Specialized.NameValueCollection fieldcol = new System.Collections.Specialized.NameValueCollection();
             string[] fields = System.Text.RegularExpressions.Regex.Split(response,"\r\n");
@@ -833,8 +834,8 @@ namespace ActiveUp.Net.Mail
             foreach(string str in headerHeaders) delimiters += str+" ";
             delimiters = delimiters.Trim(' ')+")";
             string response = "";
-            if (this.ParentMailbox.SourceClient.ServerCapabilities.IndexOf("IMAP4rev1") != -1) response = this.ParentMailbox.SourceClient.Command("fetch " + messageOrdinal.ToString() + " body.peek[header.fields.not " + delimiters + "]", getFetchOptions());
-            else response = this.ParentMailbox.SourceClient.Command("fetch " + messageOrdinal.ToString() + " rfc822.peek.header.GetStringRepresentation().not " + delimiters, getFetchOptions());
+            if (this.ParentMailbox.SourceClient.ServerCapabilities.IndexOf("IMAP4rev1") != -1) response = this.ParentMailbox.SourceClient.Command(string.Format("fetch {0} body.peek[header.fields.not {1}]", messageOrdinal.ToString(), delimiters), getFetchOptions());
+            else response = this.ParentMailbox.SourceClient.Command(string.Format("fetch {0} rfc822.peek.header.GetStringRepresentation().not {1}", messageOrdinal.ToString(), delimiters), getFetchOptions());
             response = response.Substring(response.IndexOf("}")+3,response.LastIndexOf("\r\n\r\n")-response.IndexOf("}")-3);
             System.Collections.Specialized.NameValueCollection fieldcol = new System.Collections.Specialized.NameValueCollection();
             string[] fields = System.Text.RegularExpressions.Regex.Split(response,"\r\n");
@@ -863,8 +864,8 @@ namespace ActiveUp.Net.Mail
             foreach(string str in headerHeaders) delimiters += str+" ";
             delimiters = delimiters.Trim(' ')+")";
             string response = "";
-            if (this.ParentMailbox.SourceClient.ServerCapabilities.IndexOf("IMAP4rev1") != -1) response = this.ParentMailbox.SourceClient.Command("uid fetch " + uid.ToString() + " body.peek[header.fields.not " + delimiters + "]", getFetchOptions());
-            else response = this.ParentMailbox.SourceClient.Command("uid fetch " + uid.ToString() + " rfc822.peek.header.GetStringRepresentation().not " + delimiters, getFetchOptions());
+            if (this.ParentMailbox.SourceClient.ServerCapabilities.IndexOf("IMAP4rev1") != -1) response = this.ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} body.peek[header.fields.not {1}]", uid.ToString(), delimiters), getFetchOptions());
+            else response = this.ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} rfc822.peek.header.GetStringRepresentation().not {1}", uid.ToString(), delimiters), getFetchOptions());
             response = response.Substring(response.IndexOf("}")+3,response.LastIndexOf("\r\n\r\n")-response.IndexOf("}")-3);
             System.Collections.Specialized.NameValueCollection fieldcol = new System.Collections.Specialized.NameValueCollection();
             string[] fields = System.Text.RegularExpressions.Regex.Split(response,"\r\n");
@@ -971,8 +972,8 @@ namespace ActiveUp.Net.Mail
             foreach(string str in headerHeaders) delimiters += str+" ";
             delimiters = delimiters.Trim(' ')+")";
             string response = "";
-            if (this.ParentMailbox.SourceClient.ServerCapabilities.ToLower().IndexOf("imap4rev1") != -1) response = this.ParentMailbox.SourceClient.Command("uid fetch " + uid.ToString() + " body[header.fields " + delimiters + "]", getFetchOptions());
-            else this.ParentMailbox.SourceClient.Command("uid fetch " + uid.ToString() + " rfc822.header.GetStringRepresentation() " + delimiters, getFetchOptions());
+            if (this.ParentMailbox.SourceClient.ServerCapabilities.ToLower().IndexOf("imap4rev1") != -1) response = this.ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} body[header.fields {1}]", uid.ToString(), delimiters), getFetchOptions());
+            else this.ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} rfc822.header.GetStringRepresentation() {1}", uid.ToString(), delimiters), getFetchOptions());
             response = response.Substring(response.IndexOf("}")+3,response.LastIndexOf("\r\n\r\n")-response.IndexOf("}")-3);
             System.Collections.Specialized.NameValueCollection fieldcol = new System.Collections.Specialized.NameValueCollection();
             string[] fields = System.Text.RegularExpressions.Regex.Split(response,"\r\n");
@@ -1008,8 +1009,8 @@ namespace ActiveUp.Net.Mail
             foreach(string str in headerHeaders) delimiters += str+" ";
             delimiters = delimiters.Trim(' ')+")";
             string response = "";
-            if (this.ParentMailbox.SourceClient.ServerCapabilities.IndexOf("IMAP4rev1") != -1) response = this.ParentMailbox.SourceClient.Command("fetch " + messageOrdinal.ToString() + " body[header.fields.not " + delimiters + "]", getFetchOptions());
-            else response = this.ParentMailbox.SourceClient.Command("fetch " + messageOrdinal.ToString() + " rfc822.header.GetStringRepresentation().not " + delimiters, getFetchOptions());
+            if (this.ParentMailbox.SourceClient.ServerCapabilities.IndexOf("IMAP4rev1") != -1) response = this.ParentMailbox.SourceClient.Command(string.Format("fetch {0} body[header.fields.not {1}]", messageOrdinal.ToString(), delimiters), getFetchOptions());
+            else response = this.ParentMailbox.SourceClient.Command(string.Format("fetch {0} rfc822.header.GetStringRepresentation().not {1}", messageOrdinal.ToString(), delimiters), getFetchOptions());
             response = response.Substring(response.IndexOf("}")+3,response.LastIndexOf("\r\n\r\n")-response.IndexOf("}")-3);
             System.Collections.Specialized.NameValueCollection fieldcol = new System.Collections.Specialized.NameValueCollection();
             string[] fields = System.Text.RegularExpressions.Regex.Split(response,"\r\n");
@@ -1038,8 +1039,8 @@ namespace ActiveUp.Net.Mail
             foreach(string str in headerHeaders) delimiters += str+" ";
             delimiters = delimiters.Trim(' ')+")";
             string response = "";
-            if (this.ParentMailbox.SourceClient.ServerCapabilities.IndexOf("IMAP4rev1") != -1) response = this.ParentMailbox.SourceClient.Command("uid fetch " + uid.ToString() + " body[header.fields.not " + delimiters + "]", getFetchOptions());
-            else response = this.ParentMailbox.SourceClient.Command("uid fetch " + uid.ToString() + " rfc822.header.GetStringRepresentation().not " + delimiters, getFetchOptions());
+            if (this.ParentMailbox.SourceClient.ServerCapabilities.IndexOf("IMAP4rev1") != -1) response = this.ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} body[header.fields.not {1}]", uid.ToString(), delimiters), getFetchOptions());
+            else response = this.ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} rfc822.header.GetStringRepresentation().not {1}", uid.ToString(), delimiters), getFetchOptions());
             response = response.Substring(response.IndexOf("}")+3,response.LastIndexOf("\r\n\r\n")-response.IndexOf("}")-3);
             System.Collections.Specialized.NameValueCollection fieldcol = new System.Collections.Specialized.NameValueCollection();
             string[] fields = System.Text.RegularExpressions.Regex.Split(response,"\r\n");
@@ -1239,7 +1240,7 @@ namespace ActiveUp.Net.Mail
         {
             this.ParentMailbox.SourceClient.SelectMailbox(this.ParentMailbox.Name);
             this.ParentMailbox.SourceClient.OnMessageRetrieving(new ActiveUp.Net.Mail.MessageRetrievingEventArgs(messageOrdinal));
-            string response = this.ParentMailbox.SourceClient.Command("fetch " + messageOrdinal.ToString() + " rfc822", getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("fetch {0} rfc822", messageOrdinal.ToString()), getFetchOptions());
             ActiveUp.Net.Mail.Logger.AddEntry(response);
             string message = response.Substring(response.IndexOf("}")+3,response.LastIndexOf(")")-response.IndexOf("}")-3);
             this.ParentMailbox.SourceClient.OnMessageRetrieved(new ActiveUp.Net.Mail.MessageRetrievedEventArgs(System.Text.Encoding.UTF8.GetBytes(message),messageOrdinal));
@@ -1264,8 +1265,12 @@ namespace ActiveUp.Net.Mail
         {
             ParentMailbox.SourceClient.SelectMailbox(ParentMailbox.Name);
             ParentMailbox.SourceClient.OnMessageRetrieving(new MessageRetrievingEventArgs(uid));
-            var response = ParentMailbox.SourceClient.Command("uid fetch " + uid + " rfc822", getFetchOptions());
-            var message = GetMessageFromImapFetchResponce(response);
+            var response = ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} rfc822", uid), getFetchOptions());
+            if (response.IndexOf("}", StringComparison.Ordinal) == -1 ||
+                response.IndexOf("{", StringComparison.Ordinal) == -1) // Microsoft Exchange Server return "OK FETCH completed." first (no message);
+                response = ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} BODY.PEEK[]", uid), getFetchOptions());
+
+            var message = GetMessageFromImapFetchResponse(response);
             ParentMailbox.SourceClient.OnMessageRetrieved(new MessageRetrievedEventArgs(System.Text.Encoding.UTF8.GetBytes(message), uid));
             return message;
         }
@@ -1362,26 +1367,26 @@ namespace ActiveUp.Net.Mail
 
             try
             {
-                message = Parser.ParseMessage(ref msg);
+                message = Parser.ParseMessage(ref msg, this.ParentMailbox.SourceClient.LoadOriginalData);
             }
             catch (Exception ex)
             {
                 if (ex is ParsingException || ex is IndexOutOfRangeException)
                 {
-                    var header_string = UidHeaderString(uid);
+                    Logger.AddEntry(string.Format("IMAP ParseMessage Error : {0}", ex.ToString()));
+
+                    var headerString = UidHeaderString(uid);
 
                     Header header;
 
-                    if (!Parser.TryParseDefectiveHeader(header_string, out header))
+                    if (!Parser.TryParseDefectiveHeader(headerString, out header))
                         throw;
 
                     message = new Message(header);
 
                     message.AddAttachmentFromString("original_message.eml", msg);
 
-                    message.OriginalData = Encoding.GetEncoding("iso-8859-1").GetBytes(msg);
-
-                    message.HasParseError = true;
+                    message.ParseException = ex;
                 }
                 else
                     throw;
@@ -1461,8 +1466,8 @@ namespace ActiveUp.Net.Mail
             this.ParentMailbox.SourceClient.SelectMailbox(this.ParentMailbox.Name);
             this.ParentMailbox.SourceClient.OnMessageRetrieving(new ActiveUp.Net.Mail.MessageRetrievingEventArgs(messageOrdinal));
             string response = "";
-            if (this.ParentMailbox.SourceClient.ServerCapabilities.IndexOf("IMAP4rev1") != -1) response = this.ParentMailbox.SourceClient.Command("fetch " + messageOrdinal.ToString() + " body[mime]", getFetchOptions());
-            else response = this.ParentMailbox.SourceClient.Command("fetch " + messageOrdinal.ToString() + " rfc822.peek", getFetchOptions());
+            if (this.ParentMailbox.SourceClient.ServerCapabilities.IndexOf("IMAP4rev1") != -1) response = this.ParentMailbox.SourceClient.Command(string.Format("fetch {0} body[mime]", messageOrdinal.ToString()), getFetchOptions());
+            else response = this.ParentMailbox.SourceClient.Command(string.Format("fetch {0} rfc822.peek", messageOrdinal.ToString()), getFetchOptions());
             string message = response.Substring(response.IndexOf("}")+3,response.LastIndexOf(")")-response.IndexOf("}")-3);
             this.ParentMailbox.SourceClient.OnMessageRetrieved(new ActiveUp.Net.Mail.MessageRetrievedEventArgs(System.Text.Encoding.UTF8.GetBytes(message),messageOrdinal));
             return message;
@@ -1485,9 +1490,15 @@ namespace ActiveUp.Net.Mail
         public string UidMessageStringPeek(int uid)
         {
             // ParentMailbox.SourceClient.SelectMailbox(ParentMailbox.Name);
+            var option = new CommandOptions { BufferSize = BaseProtocolClient.MAX_RESPONSE_CAPACITY };
             ParentMailbox.SourceClient.OnMessageRetrieving(new MessageRetrievingEventArgs(uid));
-            var response = ParentMailbox.SourceClient.Command("uid fetch " + uid + " BODY.PEEK[]");
-            var message = GetMessageFromImapFetchResponce(response);
+            var response = ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} BODY.PEEK[]", uid), option);
+
+            if (response.IndexOf("}", StringComparison.Ordinal) == -1 ||
+                response.IndexOf("{", StringComparison.Ordinal) == -1) // Microsoft Exchange Server return "OK FETCH completed." first (no message);
+                response = ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} BODY.PEEK[]", uid), option);
+
+            var message = GetMessageFromImapFetchResponse(response);
             ParentMailbox.SourceClient.OnMessageRetrieved(new MessageRetrievedEventArgs(System.Text.Encoding.UTF8.GetBytes(message), uid));
             return message;
         }
@@ -1547,7 +1558,7 @@ namespace ActiveUp.Net.Mail
         public int Size(int messageOrdinal)
         {
             this.ParentMailbox.SourceClient.SelectMailbox(this.ParentMailbox.Name);
-            string response = this.ParentMailbox.SourceClient.Command("fetch " + messageOrdinal.ToString() + " rfc822.size", getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("fetch {0} rfc822.size", messageOrdinal.ToString()), getFetchOptions());
             return System.Convert.ToInt32(response.Substring(response.ToLower().IndexOf("rfc822.size")+12).Split(')')[0]);
         }
 
@@ -1568,8 +1579,10 @@ namespace ActiveUp.Net.Mail
         public int UidSize(int uid)
         {
             this.ParentMailbox.SourceClient.SelectMailbox(this.ParentMailbox.Name);
-            string response = this.ParentMailbox.SourceClient.Command("uid fetch " + uid.ToString() + " rfc822.size", getFetchOptions());
-            return System.Convert.ToInt32(response.Substring(response.ToLower().IndexOf("rfc822.size")+12).Split(')')[0]);
+            string response =
+                this.ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} rfc822.size", uid.ToString()),
+                    getFetchOptions());
+            return System.Convert.ToInt32(response.Substring(response.ToLower().IndexOf("rfc822.size")+12).Split(new [] {')', ' '})[0]);
         }
 
         private delegate int DelegateUidSize(int messageOrdinal);
@@ -1626,7 +1639,7 @@ namespace ActiveUp.Net.Mail
         /// </example>
         public string Text(int messageOrdinal)
         {
-            string response = this.ParentMailbox.SourceClient.Command("fetch " + messageOrdinal.ToString() + " rfc822.text", getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("fetch {0} rfc822.text", messageOrdinal.ToString()), getFetchOptions());
             return response.Substring(response.IndexOf("}")+3,response.LastIndexOf(")")-response.IndexOf("}")-3);
         }
 
@@ -1646,7 +1659,7 @@ namespace ActiveUp.Net.Mail
 
         public string UidText(int uid)
         {
-            string response = this.ParentMailbox.SourceClient.Command("uid fetch " + uid.ToString() + " rfc822.text", getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} rfc822.text", uid.ToString()), getFetchOptions());
             return response.Substring(response.IndexOf("}")+3,response.LastIndexOf(")")-response.IndexOf("}")-3);
         }
 
@@ -1695,7 +1708,7 @@ namespace ActiveUp.Net.Mail
         public string UidTextPeek(int uid)
         {
             string response = "";
-            if (this.ParentMailbox.SourceClient.ServerCapabilities.IndexOf("IMAP4rev1") != -1) response = this.ParentMailbox.SourceClient.Command("uid fetch " + uid.ToString() + " body[text]", getFetchOptions());
+            if (this.ParentMailbox.SourceClient.ServerCapabilities.IndexOf("IMAP4rev1") != -1) response = this.ParentMailbox.SourceClient.Command(string.Format("uid fetch {0} body[text]", uid.ToString()), getFetchOptions());
             else response = this.ParentMailbox.SourceClient.Command("uid fetch "+uid.ToString()+" rfc822.text.peek", getFetchOptions());
             return response.Substring(response.IndexOf("}")+3,response.LastIndexOf(")")-response.IndexOf("}")-3);
         }
@@ -1754,7 +1767,7 @@ namespace ActiveUp.Net.Mail
         /// </example>
         public int Uid(int messageOrdinal)
         {
-            string response = this.ParentMailbox.SourceClient.Command("fetch " + messageOrdinal.ToString() + " uid", getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("fetch {0} uid", messageOrdinal.ToString()), getFetchOptions());
             return System.Convert.ToInt32(response.Substring(response.ToLower().IndexOf("uid")+3).Split(')')[0]);
         }
 
@@ -1948,7 +1961,7 @@ namespace ActiveUp.Net.Mail
         /// <returns>The requested byte array converted to a string.</returns>
         public string PartialBodySectionString(int messageOrdinal, int section, int index, int count)
         {
-            string response = this.ParentMailbox.SourceClient.Command("partial " + messageOrdinal.ToString() + " body[" + section + "] " + index.ToString() + " " + count.ToString(), getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("partial {0} body[{1}] {2} {3}", messageOrdinal.ToString(), section, index.ToString(), count.ToString()), getFetchOptions());
             return response.Substring(response.IndexOf("}")+3,response.LastIndexOf("\r\n")-response.IndexOf("}")-3);
         }
 
@@ -1976,7 +1989,7 @@ namespace ActiveUp.Net.Mail
         /// <returns>The requested byte array converted to a string.</returns>
         public string PartialHeaderString(int messageOrdinal, int index, int count)
         {
-            string response = this.ParentMailbox.SourceClient.Command("partial " + messageOrdinal.ToString() + " rfc822.Header " + index.ToString() + " " + count.ToString(), getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("partial {0} rfc822.Header {1} {2}", messageOrdinal.ToString(), index.ToString(), count.ToString()), getFetchOptions());
             return response.Substring(response.IndexOf("}")+3,response.LastIndexOf("\r\n")-response.IndexOf("}")-3);
         }
 
@@ -2004,7 +2017,7 @@ namespace ActiveUp.Net.Mail
         /// <returns>The requested byte array converted to a string.</returns>
         public string PartialMessageString(int messageOrdinal, int index, int count)
         {
-            string response = this.ParentMailbox.SourceClient.Command("partial " + messageOrdinal.ToString() + " rfc822 " + index.ToString() + " " + count.ToString(), getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("partial {0} rfc822 {1} {2}", messageOrdinal.ToString(), index.ToString(), count.ToString()), getFetchOptions());
             return response.Substring(response.IndexOf("}")+3,response.LastIndexOf("\r\n")-response.IndexOf("}")-3);
         }
 
@@ -2033,7 +2046,7 @@ namespace ActiveUp.Net.Mail
         /// <returns>The requested byte array converted to a string.</returns>
         public string PartialMessageStringPeek(int messageOrdinal, int index, int count)
         {
-            string response = this.ParentMailbox.SourceClient.Command("partial " + messageOrdinal.ToString() + " rfc822.peek " + index.ToString() + " " + count.ToString(), getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("partial {0} rfc822.peek {1} {2}", messageOrdinal.ToString(), index.ToString(), count.ToString()), getFetchOptions());
             return response.Substring(response.IndexOf("}")+3,response.LastIndexOf("\r\n")-response.IndexOf("}")-3);
         }
 
@@ -2061,7 +2074,7 @@ namespace ActiveUp.Net.Mail
         /// <returns>The requested byte array converted to a string.</returns>
         public string PartialTextString(int messageOrdinal, int index, int count)
         {
-            string response = this.ParentMailbox.SourceClient.Command("partial " + messageOrdinal.ToString() + " rfc822.text " + index.ToString() + " " + count.ToString(), getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("partial {0} rfc822.text {1} {2}", messageOrdinal.ToString(), index.ToString(), count.ToString()), getFetchOptions());
             return response.Substring(response.IndexOf("}")+3,response.LastIndexOf("\r\n")-response.IndexOf("}")-3);
         }
 
@@ -2090,7 +2103,7 @@ namespace ActiveUp.Net.Mail
         /// <returns>The requested byte array converted to a string.</returns>
         public string PartialTextStringPeek(int messageOrdinal, int index, int count)
         {
-            string response = this.ParentMailbox.SourceClient.Command("partial " + messageOrdinal.ToString() + " rfc822.text.peek " + index.ToString() + " " + count.ToString(), getFetchOptions());
+            string response = this.ParentMailbox.SourceClient.Command(string.Format("partial {0} rfc822.text.peek {1} {2}", messageOrdinal.ToString(), index.ToString(), count.ToString()), getFetchOptions());
             return response.Substring(response.IndexOf("}")+3,response.LastIndexOf("\r\n")-response.IndexOf("}")-3);
         }
 

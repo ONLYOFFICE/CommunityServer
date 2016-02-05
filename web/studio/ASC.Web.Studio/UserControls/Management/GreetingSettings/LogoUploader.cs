@@ -24,17 +24,13 @@
 */
 
 
-using ASC.Web.Core.CoBranding;
+using ASC.Core;
 using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio.UserControls.Management.CoBranding.Resources;
 using Resources;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Web;
 
 namespace ASC.Web.Studio.UserControls.Management
@@ -48,13 +44,15 @@ namespace ASC.Web.Studio.UserControls.Management
             var result = new FileUploadResult();
             try
             {
+                SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
                 if (context.Request.Files.Count != 0)
                 {
                     var logo = context.Request.Files[0];
                     var data = new byte[logo.InputStream.Length];
 
                     var br = new BinaryReader(logo.InputStream);
-                    br.Read(data, 0, (int)logo.InputStream.Length);
+                    br.Read(data, 0, (int) logo.InputStream.Length);
                     br.Close();
 
                     var ap = UserPhotoManager.SaveTempPhoto(data, SetupInfo.MaxImageUploadSize, 250, 100);
@@ -68,17 +66,17 @@ namespace ASC.Web.Studio.UserControls.Management
                     result.Message = Resource.ErrorEmptyUploadFileSelected;
                 }
             }
-            catch(ImageWeightLimitException)
+            catch (ImageWeightLimitException)
             {
                 result.Success = false;
                 result.Message = Resource.ErrorImageWeightLimit;
             }
-            catch(ImageSizeLimitException)
+            catch (ImageSizeLimitException)
             {
                 result.Success = false;
                 result.Message = Resource.ErrorImageSizetLimit;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 result.Success = false;
                 result.Message = ex.Message.HtmlEncode();

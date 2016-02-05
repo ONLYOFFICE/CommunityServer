@@ -1,16 +1,11 @@
-﻿/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
-
-window.ASC = window.ASC || {};
+﻿window.ASC = window.ASC || {};
 
 window.ASC.TMTalk = window.ASC.TMTalk || {};
 
 window.ASC.TMTalk.mucManager = (function () {
   var
     isInit = false,
-    reValidSymbols = /^[äöüßña-žа-я\w\s\.-]+$/i,
+    reValidSymbols = /^[äöüßña-žа-яё\w\s\.-]+$/i,
     discoitems = [],
     openedRooms = {},
     configurationForms = {},

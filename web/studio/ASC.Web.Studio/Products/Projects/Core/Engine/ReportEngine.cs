@@ -26,47 +26,46 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
+using System.Security;
 using ASC.Core;
 using ASC.Core.Tenants;
-using ASC.Core.Users;
-using ASC.Projects.Core;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Domain.Reports;
+using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Projects.Engine
 {
     public class ReportEngine
     {
         private readonly IReportDao reportDao;
-        private readonly IProjectDao projectDao;
+        private readonly EngineFactory factory;
 
-        public ReportEngine(IDaoFactory daoFactory)
+        public ReportEngine(IDaoFactory daoFactory, EngineFactory factory)
         {
             reportDao = daoFactory.GetReportDao();
-            projectDao = daoFactory.GetProjectDao();
+            this.factory = factory;
         }
 
 
         public List<ReportTemplate> GetTemplates(Guid userId)
         {
-            if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new System.Security.SecurityException("Access denied.");
+            if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new SecurityException("Access denied.");
 
             return reportDao.GetTemplates(userId);
         }
 
         public List<ReportTemplate> GetAutoTemplates()
         {
-            if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new System.Security.SecurityException("Access denied.");
+            if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new SecurityException("Access denied.");
 
             return reportDao.GetAutoTemplates();
         }
 
         public ReportTemplate GetTemplate(int id)
         {
-            if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new System.Security.SecurityException("Access denied.");
+            if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new SecurityException("Access denied.");
 
             return reportDao.GetTemplate(id);
         }
@@ -75,7 +74,7 @@ namespace ASC.Projects.Engine
         {
             if (template == null) throw new ArgumentNullException("template");
 
-            if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new System.Security.SecurityException("Access denied.");
+            if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new SecurityException("Access denied.");
 
             if (template.CreateOn == default(DateTime)) template.CreateOn = TenantUtil.DateTimeNow();
             if (template.CreateBy.Equals(Guid.Empty)) template.CreateBy = SecurityContext.CurrentAccount.ID;
@@ -84,7 +83,7 @@ namespace ASC.Projects.Engine
 
         public void DeleteTemplate(int id)
         {
-            if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new System.Security.SecurityException("Access denied.");
+            if (ProjectSecurity.IsVisitor(SecurityContext.CurrentAccount.ID)) throw new SecurityException("Access denied.");
 
             reportDao.DeleteTemplate(id);
         }
@@ -102,7 +101,7 @@ namespace ASC.Projects.Engine
             }
             else if (filter.HasProjectIds)
             {
-                users.AddRange(projectDao.GetTeam(filter.ProjectIds).Select(r => r.ID));
+                users.AddRange(factory.ProjectEngine.GetTeam(filter.ProjectIds).Select(r => r.ID));
             }
             else if (!filter.HasProjectIds)
             {

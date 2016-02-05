@@ -195,6 +195,9 @@
   <data name="ErrorMassage_SecurityException_Auth" xml:space="preserve">
     <value>Can't authorize at {0} provider with given credentials.</value>
   </data>
+  <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
+    <value>The content of third party folder are not available. Try to reconnect the account.</value>
+  </data>
   <data name="IsNew" xml:space="preserve">
     <value>new</value>
   </data>
@@ -231,6 +234,9 @@
   <data name="Size" xml:space="preserve">
     <value>Size</value>
   </data>
+  <data name="Comment" xml:space="preserve">
+    <value>Comment</value>
+  </data>
   <data name="ErrorMassage_UpdateEditingFile" xml:space="preserve">
     <value>You cannot update a file which is opened for editing</value>
   </data>
@@ -257,9 +263,6 @@
   </data>
   <data name="ErrorMassage_PayTariffDocsEdition" xml:space="preserve">
     <value>To use the edit documents pay tariff Docs Edition</value>
-  </data>
-  <data name="ImportFromGoogle" xml:space="preserve">
-    <value>Import from Google Docs</value>
   </data>
   <data name="Author_Me" xml:space="preserve">
     <value>Me</value>
@@ -326,6 +329,9 @@
   </data>
   <data name="AceStatusEnum_Restrict" xml:space="preserve">
     <value>Deny Access</value>
+  </data>
+  <data name="AceShareLink" xml:space="preserve">
+    <value>Outside portal</value>
   </data>
   <data name="Admin" xml:space="preserve">
     <value>Admin</value>
@@ -399,11 +405,11 @@
   <data name="ErrorMassage_FileSizeConvert" xml:space="preserve">
     <value>File larger than {0} will not be converted</value>
   </data>
+  <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
+    <value>File larger than {0} will not be edited</value>
+  </data>
   <data name="ErrorMassage_DocServiceException" xml:space="preserve">
     <value>Error occurred in the Documents Service</value>
-  </data>
-  <data name="ErrorMassage_UnknownrProvider" xml:space="preserve">
-    <value>Unknown provider</value>
   </data>
   <data name="UnknownFirstName" xml:space="preserve">
     <value>FirstName</value>
@@ -438,7 +444,28 @@
   <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
     <value>This document is being edited</value>
   </data>
-  <data name="ErrorMassage_FileChangesNotFound" xml:space="preserve">
-    <value>File changes was not found</value>
+  <data name="ErrorMassage_EditingMobile" xml:space="preserve">
+    <value>{0} opened the file for editing in a mobile application</value>
+  </data>
+  <data name="ErrorMassage_MailAccountNotFound" xml:space="preserve">
+    <value>There are no available account to send a message. Go to the Mail and connect the mailbox.</value>
+  </data>
+  <data name="CommentUpload" xml:space="preserve">
+    <value>Uploaded</value>
+  </data>
+  <data name="CommentConvert" xml:space="preserve">
+    <value>Converted from {0}</value>
+  </data>
+  <data name="CommentCopy" xml:space="preserve">
+    <value>Copied</value>
+  </data>
+  <data name="CommentCreate" xml:space="preserve">
+    <value>Created</value>
+  </data>
+  <data name="CommentRevert" xml:space="preserve">
+    <value>Restored from revision of {0}</value>
+  </data>
+  <data name="CommentEdit" xml:space="preserve">
+    <value>Edited</value>
   </data>
 </root>

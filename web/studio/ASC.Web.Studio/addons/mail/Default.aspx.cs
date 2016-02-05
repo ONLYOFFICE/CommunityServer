@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -31,41 +31,43 @@ using System.IO;
 using System.Linq;
 using System.Security;
 using System.Security.Authentication;
+using System.Text;
 using System.Web;
 using System.Web.Configuration;
+using ASC.Api.Mail.DataContracts;
+using ASC.Api.Mail.Extensions;
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.FederatedLogin.LoginProviders;
 using ASC.Mail.Aggregator;
+using ASC.Mail.Aggregator.Common;
+using ASC.Web.Core;
+using ASC.Web.CRM.Configuration;
 using ASC.Web.Mail.Controls;
+using ASC.Web.Mail.Masters.ClientScripts;
+using ASC.Web.Mail.Resources;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Common.HelpCenter;
+using ASC.Web.Studio.UserControls.Common.InviteLink;
+using ASC.Web.Studio.UserControls.Common.LoaderPage;
 using ASC.Web.Studio.UserControls.Common.Support;
+using ASC.Web.Studio.UserControls.Common.UserForum;
 using ASC.Web.Studio.UserControls.Common.VideoGuides;
 using ASC.Web.Studio.Utility;
-using ASC.Web.Core;
-using ASC.Web.CRM.Configuration;
-using ASC.Web.Studio.UserControls.Common.LoaderPage;
 using Newtonsoft.Json;
+using MailBox = ASC.Web.Mail.Controls.MailBox;
 using SecurityContext = ASC.Core.SecurityContext;
-using ASC.Web.Studio.UserControls.Common.UserForum;
-using ASC.Api.Mail.Extensions;
-using ASC.Api.Mail.DataContracts;
-using System.Text;
-using Newtonsoft.Json.Serialization;
-using ASC.Web.Studio.UserControls.Common.InviteLink;
 
 namespace ASC.Web.Mail
 {
     public partial class MailPage : MainPage
     {
         protected List<MailAccountData> Accounts { get; set; }
-        protected MailAccountData DefaultAccount { get; set; }
-        protected List<MailAccountData> CommonAccounts { get; set; }
-        protected List<MailAccountData> ServerAccounts { get; set; }
-        protected List<MailAccountData> Aliases { get; set; }
-        protected List<MailAccountData> Groups { get; set; }
+        protected List<MailFolderData> Folders { get; set; }
+        protected List<MailTagData> Tags { get; set; }
+        protected List<string> DisplayImagesAddresses { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -73,22 +75,13 @@ namespace ASC.Web.Mail
             {
                 Response.Redirect("/");
             }
+
             Accounts = GetAccounts();
-            MailAccountData defaultAccount;
-            List<MailAccountData> commonAccounts;
-            List<MailAccountData> serverAccounts;
-            List<MailAccountData> aliases;
-            List<MailAccountData> groups;
-            Accounts.GetNeededAccounts(out defaultAccount, out commonAccounts, out serverAccounts, out aliases, out groups);
-            DefaultAccount = defaultAccount;
-            CommonAccounts = commonAccounts;
-            ServerAccounts = serverAccounts;
-            Aliases = aliases;
-            Groups = groups;
+
             _manageFieldPopup.Options.IsPopup = true;
             _commonPopup.Options.IsPopup = true;
 
-            Page.Title = HeaderStringHelper.GetPageTitle(Resources.MailResource.MailTitle);
+            Page.Title = HeaderStringHelper.GetPageTitle(MailResource.MailTitle);
 
             ProductEntryPoint.ConfigurePortal();
 
@@ -98,20 +91,16 @@ namespace ASC.Web.Mail
 
             MailControlContainer.Controls.Add(LoadControl(MailBox.Location));
 
-            var help_center = (HelpCenter)LoadControl(HelpCenter.Location);
-            help_center.IsSideBar = true;
-            sideHelpCenter.Controls.Add(help_center);
+            var helpCenter = (HelpCenter)LoadControl(HelpCenter.Location);
+            helpCenter.IsSideBar = true;
+            sideHelpCenter.Controls.Add(helpCenter);
 
             SupportHolder.Controls.Add(LoadControl(Support.Location));
             VideoGuides.Controls.Add(LoadControl(VideoGuidesControl.Location));
             UserForumHolder.Controls.Add(LoadControl(UserForum.Location));
             InviteUserHolder.Controls.Add(LoadControl(InviteLink.Location));
 
-            PeopleGroupLocalize.Text = CustomNamingPeople.Substitute<Resources.MailResource>("FilterByGroup");
-
-            // If user doesn't have any mailboxes this will showed.
-            var mail_box_manager = new ASC.Mail.Aggregator.MailBoxManager();
-            if (!mail_box_manager.HasMailboxes(TenantProvider.CurrentTenantID, SecurityContext.CurrentAccount.ID.ToString()))
+            if (!Accounts.Any())
                 BlankModalPH.Controls.Add(LoadControl(BlankModal.Location));
 
             if (!IsCrmAvailable())
@@ -124,36 +113,24 @@ namespace ASC.Web.Mail
                 tlContactsContainer.Visible = false;
             }
 
-            Page.RegisterBodyScripts(LoadControl(VirtualPathUtility.ToAbsolute("~/addons/mail/masters/BodyScripts.ascx")));
-            Page.RegisterStyleControl(LoadControl(VirtualPathUtility.ToAbsolute("~/addons/mail/masters/Styles.ascx")));
-            Page.RegisterClientLocalizationScript(typeof(Masters.ClientScripts.ClientLocalizationResources));
-            Page.RegisterClientLocalizationScript(typeof(Masters.ClientScripts.ClientTemplateResources));
+            Page.RegisterBodyScriptsControl("~/addons/mail/masters/BodyScripts.ascx");
+            Page.RegisterStyleControl("~/addons/mail/masters/Styles.ascx");
+            Page.RegisterClientLocalizationScript(typeof(ClientLocalizationResources));
+            Page.RegisterClientLocalizationScript(typeof(ClientTemplateResources));
 
-            Master.DisabledHelpTour = true;
-
-            Page.RegisterInlineScript(BuildErrorConstants());
-
-            Page.RegisterInlineScript(BuildAlertTypes());
+            Page.RegisterInlineScript(GetMailInitInlineScript(), true, false);
+            Page.RegisterInlineScript(GetMailConstantsAsInlineScript(), true, false);
+            Page.RegisterInlineScript(GetMailPresetsAsInlineScript(), true, false);
         }
 
-        public String GetServiceCheckTimeout()
-        {
-            return WebConfigurationManager.AppSettings["ServiceCheckTimeout"] ?? "30";
-        }
-
-        public String GetMailServicePath()
-        {
-            return VirtualPathUtility.ToAbsolute(WebConfigurationManager.AppSettings["ASCMailService"] ?? "~/addons/mail/Service.svc/");
-        }
-
-        public String GetApiBaseUrl()
-        {
-            return SetupInfo.WebApiBaseUrl;
-        }
+        #region .Presets
 
         protected bool IsAdministrator
         {
-            get { return CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Constants.GroupAdmin.ID); }
+            get
+            {
+                return CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Constants.GroupAdmin.ID);
+            }
         }
 
         protected bool IsPersonal
@@ -166,9 +143,16 @@ namespace ASC.Web.Mail
             get { return Request.QueryString["blankpage"] == "true"; }
         }
 
-        public String GetMailFaqUri()
+        public static int GetMailCheckNewsTimeout()
         {
-            return CommonLinkUtility.GetHelpLink() + "troubleshooting/mail.aspx";
+            return WebConfigurationManager.AppSettings["mail.check-news-timeout"] == null ? 30000 : Convert.ToInt32(WebConfigurationManager.AppSettings["ServiceCheckTimeout"]);
+        }
+
+        public static string GetMailFaqUri()
+        {
+            return !string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink())
+                ? CommonLinkUtility.GetHelpLink() + "troubleshooting/mail.aspx"
+                : "http://helpcenter.onlyoffice.com/troubleshooting/mail.aspx";
         }
 
         public static String GetMailSupportUri()
@@ -176,16 +160,17 @@ namespace ASC.Web.Mail
             return WebConfigurationManager.AppSettings["mail.support-url"] ?? "mailto:support@onlyoffice.com";
         }
 
-        public static String GetImportOAuthAccessUrl()
+        public static string GetImportOAuthAccessUrl()
         {
-            return WebConfigurationManager.AppSettings["mail.import-oauth-url"];
+            return WebConfigurationManager.AppSettings["mail.import-oauth-url"] ?? "";
         }
 
         public static bool IsTurnOnOAuth()
         {
-            var config_value = WebConfigurationManager.AppSettings["mail.googleOAuth"];
-            return (string.IsNullOrEmpty(config_value) || Convert.ToBoolean(config_value)) // default is true
-                   && !string.IsNullOrEmpty(GetImportOAuthAccessUrl());
+            return !(string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20ClientId)
+                     || string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20ClientSecret)
+                     || string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20RedirectUrl)
+                     || string.IsNullOrEmpty(GetImportOAuthAccessUrl()));
         }
 
         public static bool IsTurnOnServer()
@@ -195,94 +180,239 @@ namespace ASC.Web.Mail
 
         public static bool IsTurnOnAttachmentsGroupOperations()
         {
-            var config_value = WebConfigurationManager.AppSettings["mail.attachments-group-operations"];
-            return !string.IsNullOrEmpty(config_value) && Convert.ToBoolean(config_value); // default is false
+            return Convert.ToBoolean(WebConfigurationManager.AppSettings["mail.attachments-group-operations"] ?? "false");
         }
 
-        public bool IsCrmAvailable()
+        public static bool IsCrmAvailable()
         {
             return WebItemSecurity.IsAvailableForUser(WebItemManager.CRMProductID.ToString(), SecurityContext.CurrentAccount.ID);
         }
 
-        public bool IsPeopleAvailable()
+        public static bool IsPeopleAvailable()
         {
             return WebItemSecurity.IsAvailableForUser(WebItemManager.PeopleProductID.ToString(), SecurityContext.CurrentAccount.ID);
         }
 
-        public bool IsMailCommonDomainAvailable()
+        public static bool IsMailCommonDomainAvailable()
         {
             return SetupInfo.IsVisibleSettings<AdministrationPage>() && SetupInfo.IsVisibleSettings("MailCommonDomain") && !CoreContext.Configuration.Standalone;
         }
 
-        public bool IsMailPrintAvailable()
+        public static bool IsMailPrintAvailable()
         {
             return SetupInfo.IsVisibleSettings("MailPrint");
         }
 
-        public String GetMailDownloadHandlerUri()
+        public static string GetMailDownloadHandlerUri()
         {
             return WebConfigurationManager.AppSettings["mail.download-handler-url"] ?? "/addons/mail/httphandlers/download.ashx?attachid={0}";
         }
 
-        public String GetMailDownloadAllHandlerUri()
+        public static string GetMailDownloadAllHandlerUri()
         {
             return WebConfigurationManager.AppSettings["mail.download-all-handler-url"] ?? "/addons/mail/httphandlers/downloadall.ashx?messageid={0}";
         }
 
-        public String GetMailViewDocumentHandlerUri()
+        public static string GetMailViewDocumentHandlerUri()
         {
             return WebConfigurationManager.AppSettings["mail.view-document-handler-url"] ?? "/addons/mail/httphandlers/viewdocument.ashx?attachid={0}";
         }
 
-        public String GetMailEditDocumentHandlerUri()
+        public static string GetMailEditDocumentHandlerUri()
         {
             return WebConfigurationManager.AppSettings["mail.edit-document-handler-url"] ?? "/addons/mail/httphandlers/editdocument.ashx?attachid={0}";
         }
 
-        protected List<MailAccountData> GetAccounts()
+        public static string GetMailDaemonEmail()
         {
-            var mailBoxManager = new ASC.Mail.Aggregator.MailBoxManager();
-            return mailBoxManager.
-                GetAccountInfo(TenantProvider.CurrentTenantID, SecurityContext.CurrentAccount.ID.ToString()).
-                ToAddressData();
+            return WebConfigurationManager.AppSettings["mail.daemon-email"] ?? "mail-daemon@onlyoffice.com";
         }
 
-        protected string Serialize(List<MailAccountData> accounts)
+        protected MailBoxManager dataManager;
+
+        protected MailBoxManager DataManager
         {
-            var str = JsonConvert.SerializeObject(accounts, Formatting.Indented,
-                new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
-            return str;
+            get { return dataManager ?? (dataManager = new MailBoxManager()); }
         }
 
-        private string BuildErrorConstants()
+        public List<MailAccountData> GetAccounts()
         {
-            var error_constants = new
-                {
-                    COR_E_SECURITY = new SecurityException().HResult,
-                    COR_E_ARGUMENT = new ArgumentException().HResult,
-                    COR_E_ARGUMENTOUTOFRANGE = new ArgumentOutOfRangeException().HResult,
-                    COR_E_INVALIDCAST = new InvalidCastException().HResult,
-                    COR_E_ARGUMENTNULL = new ArgumentNullException().HResult,
-                    COR_E_INVALIDDATA = new InvalidDataException().HResult,
-                    COR_E_INVALIDOPERATION = new InvalidOperationException().HResult,
-                    COR_E_DUPLICATENANE = new DuplicateNameException().HResult,
-                    COR_E_AUTHENTICATION = new AuthenticationException().HResult
-                };
+            if (Accounts == null)
+                Accounts = new List<MailAccountData>();
 
-            var constants = JsonConvert.SerializeObject(error_constants);
+            if (!Accounts.Any())
+            {
+                Accounts =
+                    DataManager.GetAccountInfo(TenantProvider.CurrentTenantID,
+                        SecurityContext.CurrentAccount.ID.ToString()).
+                        ToAddressData();
+            }
 
-            return string.Format("\nASC.Mail.ErrorConstants = {0};", constants);
+            return Accounts;
         }
 
-        private string BuildAlertTypes()
+        protected List<MailFolderData> GetFolders()
         {
-            var type = typeof (MailBoxManager.AlertTypes);
+            if (Folders == null)
+                Folders = new List<MailFolderData>();
 
-            var obj = Enum.GetValues(type).Cast<int>().ToDictionary(e => Enum.GetName(type, e), e => e);
+            if (!Folders.Any())
+            {
+                Folders =
+                    DataManager.GetFolders(TenantProvider.CurrentTenantID,
+                        SecurityContext.CurrentAccount.ID.ToString(),
+                        true)
+                        .Where(f => f.id != MailFolder.Ids.temp)
+                        .ToList()
+                        .ToFolderData();
+            }
 
-            var constants = JsonConvert.SerializeObject(obj);
-
-            return string.Format("\nASC.Mail.AlertTypes = {0};", constants);
+            return Folders;
         }
+
+        protected List<MailTagData> GetTags()
+        {
+            if (Tags == null)
+                Tags = new List<MailTagData>();
+
+            if (!Tags.Any())
+            {
+                Tags =
+                    DataManager.GetTags(TenantProvider.CurrentTenantID, 
+                    SecurityContext.CurrentAccount.ID.ToString(),
+                        false)
+                        .ToList()
+                        .ToTagData();
+            }
+
+            return Tags;
+        }
+
+        protected List<string> GetDisplayImagesAddresses()
+        {
+            if (DisplayImagesAddresses == null)
+                DisplayImagesAddresses = new List<string>();
+
+            if (!DisplayImagesAddresses.Any())
+            {
+                DisplayImagesAddresses =
+                    DataManager.GetDisplayImagesAddresses(TenantProvider.CurrentTenantID,
+                    SecurityContext.CurrentAccount.ID.ToString())
+                        .ToList();
+            }
+
+            return DisplayImagesAddresses;
+        }
+
+        public static Dictionary<string, int> GetErrorConstants()
+        {
+            var errorConstants = new Dictionary<string, int>
+            {
+                {"COR_E_SECURITY", new SecurityException().HResult},
+                {"COR_E_ARGUMENT", new ArgumentException().HResult},
+                {"COR_E_ARGUMENTOUTOFRANGE", new ArgumentOutOfRangeException().HResult},
+                {"COR_E_INVALIDCAST", new InvalidCastException().HResult},
+                {"COR_E_ARGUMENTNULL", new ArgumentNullException().HResult},
+                {"COR_E_INVALIDDATA", new InvalidDataException().HResult},
+                {"COR_E_INVALIDOPERATION", new InvalidOperationException().HResult},
+                {"COR_E_DUPLICATENANE", new DuplicateNameException().HResult},
+                {"COR_E_AUTHENTICATION", new AuthenticationException().HResult},
+                {"COR_E_UNAUTHORIZED_ACCESS", new UnauthorizedAccessException().HResult}
+            };
+
+            return errorConstants;
+        }
+
+        public static Dictionary<string, int> GetAlerts()
+        {
+            var type = typeof(MailBoxManager.AlertTypes);
+            var types = Enum.GetValues(type).Cast<int>().ToDictionary(e => Enum.GetName(type, e), e => e);
+            return types;
+        }
+
+        protected string GetMailInitInlineScript()
+        {
+            var sbScript = new StringBuilder();
+            sbScript.AppendLine("if (typeof (ASC) === 'undefined') { ASC = {};}")
+                .AppendLine("if (typeof (ASC.Mail) === 'undefined') {ASC.Mail = {};}")
+                .AppendLine("if (typeof (ASC.Mail.Presets) === 'undefined') {ASC.Mail.Presets = {};}")
+                .AppendLine("if (typeof (ASC.Mail.Constants) === 'undefined') {ASC.Mail.Constants = {};}");
+
+            return sbScript.ToString();
+        }
+
+        protected string GetMailConstantsAsInlineScript()
+        {
+            var sbScript = new StringBuilder();
+            sbScript
+                .AppendFormat("ASC.Mail.Constants.CHECK_NEWS_TIMEOUT = {0};\r\n",
+                    JsonConvert.SerializeObject(GetMailCheckNewsTimeout()))
+                .AppendFormat("ASC.Mail.Constants.CRM_AVAILABLE = {0};\r\n",
+                    JsonConvert.SerializeObject(IsCrmAvailable()))
+                .AppendFormat("ASC.Mail.Constants.PEOPLE_AVAILABLE = {0};\r\n",
+                    JsonConvert.SerializeObject(IsPeopleAvailable()))
+                .AppendFormat("ASC.Mail.Constants.COMMON_DOMAIN_AVAILABLE = {0};\r\n",
+                    JsonConvert.SerializeObject(IsMailCommonDomainAvailable()))
+                .AppendFormat("ASC.Mail.Constants.PRINT_AVAILABLE = {0};\r\n",
+                    JsonConvert.SerializeObject(IsMailPrintAvailable()))
+                .AppendFormat("ASC.Mail.Constants.FAQ_URL = {0};\r\n",
+                    JsonConvert.SerializeObject(GetMailFaqUri()))
+                .AppendFormat("ASC.Mail.Constants.SUPPORT_URL = {0};\r\n",
+                    JsonConvert.SerializeObject(GetMailSupportUri()))
+                .AppendFormat("ASC.Mail.Constants.DOWNLOAD_HANDLER_URL = {0};\r\n",
+                    JsonConvert.SerializeObject(GetMailDownloadHandlerUri()))
+                .AppendFormat("ASC.Mail.Constants.DOWNLOAD_ALL_HANDLER_URL = {0};\r\n",
+                    JsonConvert.SerializeObject(GetMailDownloadAllHandlerUri()))
+                .AppendFormat("ASC.Mail.Constants.VIEW_DOCUMENT_HANDLER_URL = {0};\r\n",
+                    JsonConvert.SerializeObject(GetMailViewDocumentHandlerUri()))
+                .AppendFormat("ASC.Mail.Constants.EDIT_DOCUMENT_HANDLER_URL = {0};\r\n",
+                    JsonConvert.SerializeObject(GetMailEditDocumentHandlerUri()))
+                .AppendFormat("ASC.Mail.Constants.Errors = {0};\r\n",
+                    JsonConvert.SerializeObject(GetErrorConstants()))
+                .AppendFormat("ASC.Mail.Constants.Alerts = {0};\r\n",
+                    JsonConvert.SerializeObject(GetAlerts()))
+                .AppendFormat("ASC.Mail.Constants.MAIL_DAEMON_EMAIL = {0};\r\n",
+                    JsonConvert.SerializeObject(GetMailDaemonEmail()))
+                .AppendFormat("ASC.Mail.Constants.FiLTER_BY_GROUP_LOCALIZE = {0};\r\n",
+                    JsonConvert.SerializeObject(CustomNamingPeople.Substitute<Resources.MailResource>("FilterByGroup")));
+
+            return sbScript.ToString();
+        }
+
+        protected string GetMailPresetsAsInlineScript()
+        {
+            var sbScript = new StringBuilder();
+            sbScript
+                .AppendFormat("ASC.Mail.Presets.Accounts = {0};\r\n",
+                    JsonConvert.SerializeObject(GetAccounts(), new HtmlEncodeStringPropertiesConverter()))
+                .AppendFormat("ASC.Mail.Presets.Tags = {0};\r\n",
+                    JsonConvert.SerializeObject(GetTags(), new HtmlEncodeStringPropertiesConverter()))
+                .AppendFormat("ASC.Mail.Presets.Folders = {0};\r\n",
+                    JsonConvert.SerializeObject(GetFolders(), new HtmlEncodeStringPropertiesConverter()))
+                .AppendFormat("ASC.Mail.Presets.DisplayImagesAddresses = {0};\r\n",
+                    JsonConvert.SerializeObject(GetDisplayImagesAddresses(), new HtmlEncodeStringPropertiesConverter()));
+
+            return sbScript.ToString();
+        }
+
+        public class HtmlEncodeStringPropertiesConverter : JsonConverter
+        {
+            public override bool CanConvert(Type objectType)
+            {
+                return objectType == typeof(string);
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+            {
+                throw new NotImplementedException();
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                writer.WriteValue(HttpUtility.HtmlEncode(value.ToString()));
+            }
+        }
+
+        #endregion
     }
 }

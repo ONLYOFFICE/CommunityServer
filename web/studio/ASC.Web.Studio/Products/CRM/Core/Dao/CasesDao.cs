@@ -40,6 +40,7 @@ using ASC.Files.Core;
 using ASC.FullTextIndex;
 using ASC.Web.Files.Api;
 using OrderBy = ASC.CRM.Core.Entities.OrderBy;
+using System.Text.RegularExpressions;
 
 namespace ASC.CRM.Core.Dao
 {
@@ -128,8 +129,8 @@ namespace ASC.CRM.Core.Dao
             {
                 var result = items.Select(item => CreateCases(item.Title, db)).ToArray();
                 tx.Commit();
-                // Delete relative  keys
-                _cache.Insert(_caseCacheKey, String.Empty);
+                // Delete relative keys
+                _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "cases.*"));
                 return result;
             }
         }
@@ -184,8 +185,8 @@ namespace ASC.CRM.Core.Dao
             using (var db = GetDb())
             {
                 var result = CreateCases(title, db);
-                // Delete relative  keys
-                _cache.Insert(_caseCacheKey, String.Empty);
+                // Delete relative keys
+                _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "invoice.*"));
                 return result;
             }
         }
@@ -208,8 +209,8 @@ namespace ASC.CRM.Core.Dao
         {
             CRMSecurity.DemandEdit(cases);
 
-            // Delete relative  keys
-            _cache.Insert(_caseCacheKey, String.Empty);
+            // Delete relative keys
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "invoice.*"));
 
             using (var db = GetDb())
             {
@@ -234,7 +235,7 @@ namespace ASC.CRM.Core.Dao
             CRMSecurity.DemandDelete(cases);
 
             // Delete relative  keys
-            _cache.Insert(_caseCacheKey, String.Empty);
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "invoice.*"));
 
             DeleteBatchCases(new[] { casesID });
             return cases;
@@ -246,7 +247,7 @@ namespace ASC.CRM.Core.Dao
             if (!caseses.Any()) return caseses;
 
             // Delete relative  keys
-            _cache.Insert(_caseCacheKey, String.Empty);
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "invoice.*"));
 
             DeleteBatchCasesExecute(caseses);
 
@@ -261,7 +262,7 @@ namespace ASC.CRM.Core.Dao
             if (!cases.Any()) return cases;
 
             // Delete relative  keys
-            _cache.Insert(_caseCacheKey, String.Empty);
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "invoice.*"));
 
             DeleteBatchCasesExecute(cases);
 
@@ -336,7 +337,7 @@ namespace ASC.CRM.Core.Dao
             if (isClosed.HasValue)
                 cacheKey += isClosed.Value;
 
-            var fromCache = _cache.Get(cacheKey);
+            var fromCache = _cache.Get<string>(cacheKey);
 
             if (fromCache != null) return Convert.ToInt32(fromCache);
 
@@ -379,9 +380,7 @@ namespace ASC.CRM.Core.Dao
 
             if (result > 0)
             {
-                _cache.Remove(cacheKey);
-                _cache.Insert(cacheKey, result, new CacheDependency(null, new[] { _caseCacheKey }), Cache.NoAbsoluteExpiration,
-                                      TimeSpan.FromSeconds(30));
+                _cache.Insert(cacheKey, result, TimeSpan.FromSeconds(30));
             }
             return result;
         }

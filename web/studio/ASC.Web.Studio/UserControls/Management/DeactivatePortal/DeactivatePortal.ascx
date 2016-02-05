@@ -11,7 +11,7 @@
         <p id="deativate_sent" class="display-none"></p>
     </div>
     <div class="settings-help-block">
-        <p><%=String.Format(Resource.HelpAnswerAccountDeactivation, "<br />", "<b>", "</b>")%></p>
+        <p><%=String.Format(Resource.HelpAnswerAccountDeactivation.HtmlEncode(), "<br />", "<b>", "</b>")%></p>
     </div>
 </div>
 

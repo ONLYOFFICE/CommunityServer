@@ -42,20 +42,21 @@ namespace ASC.Web.Files.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/uploader/jquery.fileupload.js"));
+            Page.RegisterBodyScripts("~/js/uploader/jquery.fileupload.js");
             InitScripts();
         }
 
         protected void InitScripts()
         {
-            var inlineScript = new StringBuilder();
-
             var apiServer = new ASC.Api.ApiServer();
             var apiUrl = String.Format("{0}settings/quota.json", SetupInfo.WebApiBaseUrl);
-            var responseApi = Encoding.UTF8.GetString(Convert.FromBase64String(apiServer.GetApiResponse(apiUrl, "GET")));
+            var response = apiServer.GetApiResponse(apiUrl, "GET");
+            if (response == null) return;
 
+            var responseApi = Encoding.UTF8.GetString(Convert.FromBase64String(response));
+
+            var inlineScript = new StringBuilder();
             inlineScript.AppendFormat("ASC.Files.ChunkUploads.tenantQuota = {0}.response;ASC.Files.ChunkUploads.changeQuotaText();", responseApi);
-
             Page.RegisterInlineScript(inlineScript.ToString());
         }
     }

@@ -310,12 +310,36 @@ namespace ASC.Web.CRM.Services.NotifyService
                     Thread.CurrentThread.CurrentCulture = user.GetCulture();
                     Thread.CurrentThread.CurrentUICulture = user.GetCulture();
 
-                    var task = new DaoFactory(tenantId, CRMConstants.StorageModule).GetTaskDao().GetByID(taskId);
+                    var dao = new DaoFactory(tenantId, CRMConstants.StorageModule);
+                    var task = dao.GetTaskDao().GetByID(taskId);
 
-                     if (task == null) continue;
+                    if (task == null) continue;
 
-                    NotifyClient.Instance.SendTaskReminder(task);
+                    ASC.CRM.Core.Entities.Contact taskContact = null;
+                    ASC.CRM.Core.Entities.Cases taskCase = null;
+                    ASC.CRM.Core.Entities.Deal taskDeal = null;
 
+                    if (task.ContactID > 0)
+                    {
+                        taskContact = dao.GetContactDao().GetByID(task.ContactID);
+                    }
+
+                    if (task.EntityID > 0)
+                    {
+                        switch (task.EntityType)
+                        {
+                            case EntityType.Case:
+                                taskCase = dao.GetCasesDao().GetByID(task.EntityID);
+                                break;
+                            case EntityType.Opportunity:
+                                taskDeal = dao.GetDealDao().GetByID(task.EntityID);
+                                break;
+                        }
+                    }
+
+                    var listItem = dao.GetListItemDao().GetByID(task.CategoryID);
+
+                    NotifyClient.Instance.SendTaskReminder(task, listItem != null ? listItem.Title : string.Empty, taskContact, taskCase, taskDeal);
                 }
                 catch (Exception ex)
                 {
@@ -326,7 +350,7 @@ namespace ASC.Web.CRM.Services.NotifyService
             defaultDao.GetTaskDao().ExecAlert(execAlert);
         }
 
-        public void SendTaskReminder(Task task)
+        public void SendTaskReminder(Task task, String taskCategoryTitle, Contact taskContact, ASC.CRM.Core.Entities.Cases taskCase, ASC.CRM.Core.Entities.Deal taskDeal)
         {
             var recipient = ToRecipient(task.ResponsibleID);
 
@@ -335,6 +359,34 @@ namespace ASC.Web.CRM.Services.NotifyService
             var deadLineString = task.DeadLine.Hour == 0 && task.DeadLine.Minute == 0
                 ? task.DeadLine.ToShortDateString()
                 : task.DeadLine.ToString(CultureInfo.InvariantCulture);
+
+            string taskContactRelativeUrl = null;
+            string taskContactTitle = null;
+
+            string taskCaseRelativeUrl = null;
+            string taskCaseTitle = null;
+
+            string taskDealRelativeUrl = null;
+            string taskDealTitle = null;
+
+            if (taskContact != null)
+            {
+                taskContactRelativeUrl = String.Format("products/crm/default.aspx?id={0}{1}", taskContact.ID, taskContact is Person ? "&type=people" : "");
+                taskContactTitle = taskContact.GetTitle();
+            }
+
+            if (taskCase != null)
+            {
+                taskCaseRelativeUrl = String.Format("products/crm/cases.aspx?id={0}", taskCase.ID);
+                taskCaseTitle = taskCase.Title.HtmlEncode();
+            }
+
+            if (taskDeal != null)
+            {
+                taskDealRelativeUrl = String.Format("products/crm/deals.aspx?id={0}", taskDeal.ID);
+                taskDealTitle = taskDeal.Title.HtmlEncode();
+            }
+
 
             client.SendNoticeToAsync(
               NotifyConstants.Event_TaskReminder,
@@ -345,12 +397,23 @@ namespace ASC.Web.CRM.Services.NotifyService
               new TagValue(NotifyConstants.Tag_AdditionalData,
                  new Hashtable { 
                       { "TaskDescription", HttpUtility.HtmlEncode(task.Description) },
+                      { "TaskCategory", taskCategoryTitle },
+
+                      { "ContactRelativeUrl", taskContactRelativeUrl },
+                      { "ContactTitle", taskContactTitle },
+
+                      { "CaseRelativeUrl", taskCaseRelativeUrl },
+                      { "CaseTitle", taskCaseTitle },
+
+                      { "DealRelativeUrl", taskDealRelativeUrl },
+                      { "DealTitle", taskDealTitle },
+
                       { "DueDate", deadLineString }
                  })
             );
         }
 
-        public void SendAboutResponsibleByTask(Task task, String taskCategoryTitle, String taskContactName, Hashtable fileListInfoHashtable)
+        public void SendAboutResponsibleByTask(Task task, String taskCategoryTitle, Contact taskContact, ASC.CRM.Core.Entities.Cases taskCase, ASC.CRM.Core.Entities.Deal taskDeal, Hashtable fileListInfoHashtable)
         {
             var recipient = ToRecipient(task.ResponsibleID);
 
@@ -361,6 +424,34 @@ namespace ASC.Web.CRM.Services.NotifyService
                 ? task.DeadLine.ToShortDateString()
                 : task.DeadLine.ToString();
 
+
+            string taskContactRelativeUrl = null;
+            string taskContactTitle = null;
+
+            string taskCaseRelativeUrl = null;
+            string taskCaseTitle = null;
+
+            string taskDealRelativeUrl = null;
+            string taskDealTitle = null;
+
+            if (taskContact != null)
+            {
+                taskContactRelativeUrl = String.Format("products/crm/default.aspx?id={0}{1}", taskContact.ID, taskContact is Person ? "&type=people" : "");
+                taskContactTitle = taskContact.GetTitle();
+            }
+
+            if (taskCase != null)
+            {
+                taskCaseRelativeUrl = String.Format("products/crm/cases.aspx?id={0}", taskCase.ID);
+                taskCaseTitle = taskCase.Title.HtmlEncode();
+            }
+
+            if (taskDeal != null)
+            {
+                taskDealRelativeUrl = String.Format("products/crm/deals.aspx?id={0}", taskDeal.ID);
+                taskDealTitle = taskDeal.Title.HtmlEncode();
+            }
+           
             client.SendNoticeToAsync(
                NotifyConstants.Event_ResponsibleForTask,
                null,
@@ -372,7 +463,16 @@ namespace ASC.Web.CRM.Services.NotifyService
                       { "TaskDescription", HttpUtility.HtmlEncode(task.Description) },
                       { "Files", fileListInfoHashtable },
                       { "TaskCategory", taskCategoryTitle },
-                      { "LinkWithContact", taskContactName },
+
+                      { "ContactRelativeUrl", taskContactRelativeUrl },
+                      { "ContactTitle", taskContactTitle },
+
+                      { "CaseRelativeUrl", taskCaseRelativeUrl },
+                      { "CaseTitle", taskCaseTitle },
+
+                      { "DealRelativeUrl", taskDealRelativeUrl },
+                      { "DealTitle", taskDealTitle },
+
                       { "DueDate", deadLineString }
                  })
                );

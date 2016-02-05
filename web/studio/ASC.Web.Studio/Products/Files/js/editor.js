@@ -45,7 +45,6 @@ window.ASC.Files.Editor = (function () {
     var thirdPartyApp = false;
     var options = null;
     var openinigDate;
-    var newScheme = false;
     var doStartEdit = true;
 
     var init = function () {
@@ -59,17 +58,20 @@ window.ASC.Files.Editor = (function () {
 
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.TrackEditFile, completeTrack);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.CanEditFile, completeCanEdit);
-        ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.SaveEditing, completeSave);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.StartEdit, onStartEdit);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetEditHistory, completeGetEditHistory);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetDiffUrl, completeGetDiffUrl);
+        ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetMails, completeGetMails);
+        ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.StartMailMerge, completeStartMailMerge);
     };
 
     var createFrameEditor = function (serviceParams) {
 
         jq("#iframeEditor").parents().css("height", "100%");
 
-        checkDocVersion();
+        var eventsConfig = {
+            "onReady": ASC.Files.Editor.readyEditor,
+        };
 
         if (serviceParams) {
             var embedded = (serviceParams.type == "embedded");
@@ -81,34 +83,65 @@ window.ASC.Files.Editor = (function () {
                 key: serviceParams.key,
                 vkey: serviceParams.vkey,
                 options: ASC.Files.Editor.options,
+                info: {
+                    author: serviceParams.file.create_by,
+                    created: serviceParams.file.create_on,
+                },
+                permissions: {
+                    edit: serviceParams.canEdit,
+                },
             };
 
-            if (!embedded) {
-                documentConfig.info = {
-                    author: serviceParams.file.create_by,
-                    created: serviceParams.file.create_on
-                };
-                if (serviceParams.filePath.length) {
-                    documentConfig.info.folder = serviceParams.filePath;
-                }
-                if (serviceParams.sharingSettings.length) {
-                    documentConfig.info.sharingSettings = serviceParams.sharingSettings;
-                }
-
-                documentConfig.permissions = {
-                    edit: serviceParams.canEdit
-                };
+            if (serviceParams.filePath.length) {
+                documentConfig.info.folder = serviceParams.filePath;
+            }
+            if (serviceParams.sharingSettings.length) {
+                documentConfig.info.sharingSettings = serviceParams.sharingSettings;
             }
 
             var editorConfig = {
                 mode: serviceParams.mode,
                 lang: serviceParams.lang,
-                canAutosave: ASC.Files.Editor.newScheme || !serviceParams.file.provider_key,
-                branding: {
-                    logoUrl: ASC.Files.Editor.brandingLogoUrl || "",
-                    customerLogo: ASC.Files.Editor.brandingCustomerLogo || "",
+                customization: {
+                    logo: {
+                        image: ASC.Files.Editor.brandingLogoUrl || "",
+                        imageEmbedded: ASC.Files.Editor.brandingLogoEmbeddedUrl || "",
+                        url: "",
+                    },
+                    customer: {
+                        logo: ASC.Files.Editor.brandingCustomerLogo || "",
+                        name: ASC.Files.Editor.brandingCustomer || "",
+                    },
                 },
             };
+
+            if (ASC.Files.Editor.showAbout) {
+                editorConfig.customization.about = true;
+            }
+
+            if (ASC.Files.Editor.feedbackUrl) {
+                editorConfig.customization.feedback = {
+                    url: ASC.Files.Editor.feedbackUrl,
+                    visible: true,
+                };
+            }
+
+            if (ASC.Files.Editor.licenseUrl) {
+                editorConfig.licenseUrl = ASC.Files.Editor.licenseUrl;
+            }
+
+            if (ASC.Files.Editor.customerId) {
+                editorConfig.customerId = ASC.Files.Editor.customerId;
+            }
+
+            if (serviceParams.folderUrl.length > 0) {
+                editorConfig.customization.goback = {
+                    url: serviceParams.folderUrl
+                };
+
+                //todo: delete
+                eventsConfig.onBack = ASC.Files.Editor.backEditor;
+            }
 
             if (embedded) {
                 editorConfig.embedded = {
@@ -123,9 +156,24 @@ window.ASC.Files.Editor = (function () {
                     editorConfig.embedded.fullscreenUrl = serviceParams.embeddedUrl + "#" + keyFullscreen;
                 }
             } else {
-                editorConfig.canCoAuthoring = true;
                 if (ASC.Files.Constants.URL_HANDLER_CREATE) {
-                    editorConfig.createUrl = ASC.Files.Constants.URL_HANDLER_CREATE;
+                    editorConfig.createUrl = ASC.Files.Constants.URL_HANDLER_CREATE + "?action=create&doctype=" + serviceParams.documentType;
+
+                    editorConfig.templates =
+                        jq(serviceParams.templates).map(
+                            function (i, item) {
+                                return {
+                                    name: item.Key,
+                                    icon: item.Value,
+                                    url: ASC.Files.Constants.URL_HANDLER_CREATE
+                                        + "?action=create"
+                                        + "&doctype=" + serviceParams.documentType
+                                        + "&template=" + item.Key
+                                };
+                            }).toArray();
+
+                    //todo: delete
+                    eventsConfig.onCreateFile = ASC.Files.Editor.createFile;
                 }
 
                 if (serviceParams.sharingSettingsUrl) {
@@ -136,18 +184,16 @@ window.ASC.Files.Editor = (function () {
                     editorConfig.fileChoiceUrl = serviceParams.fileChoiceUrl;
                 }
 
-                editorConfig.templates =
-                    jq(serviceParams.templates).map(
-                        function (i, item) {
-                            return {
-                                name: item.Key,
-                                icon: item.Value
-                            };
-                        }).toArray();
+                if (serviceParams.mergeFolderUrl) {
+                    editorConfig.mergeFolderUrl = serviceParams.mergeFolderUrl;
+                }
 
                 editorConfig.user = {
-                    id: serviceParams.user.key,
-                    name: serviceParams.user.value
+                    id: serviceParams.user[0],
+                    firstname: serviceParams.user[1],
+                    lastname: serviceParams.user[2],
+                    //todo: delete
+                    name: serviceParams.user[3],
                 };
 
                 if (serviceParams.type != "embedded") {
@@ -160,32 +206,24 @@ window.ASC.Files.Editor = (function () {
 
             var typeConfig = serviceParams.type;
             var documentTypeConfig = serviceParams.documentType;
-        }
 
-        var eventsConfig = {
-            "onReady": ASC.Files.Editor.readyEditor,
-            "onDocumentStateChange": ASC.Files.Editor.documentStateChangeEditor,
-            "onRequestEditRights": ASC.Files.Editor.requestEditRightsEditor,
-            "onSave": ASC.Files.Editor.saveEditor,
-            "onError": ASC.Files.Editor.errorEditor,
-            "onOutdatedVersion": ASC.Files.Editor.outdatedVersion
-        };
+            eventsConfig.onDocumentStateChange = ASC.Files.Editor.documentStateChangeEditor;
+            eventsConfig.onRequestEditRights = ASC.Files.Editor.requestEditRightsEditor;
+            eventsConfig.onError = ASC.Files.Editor.errorEditor;
+            eventsConfig.onOutdatedVersion = ASC.Files.Editor.reloadPage;
+            eventsConfig.onInfo = ASC.Files.Editor.infoEditor;
+            eventsConfig.onRequestEmailAddresses = ASC.Files.Editor.getMails;
+            eventsConfig.onRequestStartMailMerge = ASC.Files.Editor.requestStartMailMerge;
 
-        if (serviceParams) {
-        if (serviceParams.folderUrl.length > 0) {
-            eventsConfig.onBack = ASC.Files.Editor.backEditor;
-        }
+            if (!serviceParams.file.provider_key
+                && !ASC.Files.Editor.editByUrl
+                && !ASC.Files.Editor.thirdPartyApp) {
 
-        if (ASC.Files.Editor.newScheme
-            && false
-            && !serviceParams.file.provider_key
-            && !ASC.Files.Editor.editByUrl
-            && !ASC.Files.Editor.thirdPartyApp) {
-
-            ASC.Files.Editor.canShowHistory = true;
-            eventsConfig.onRequestHistory = ASC.Files.Editor.requestHistory;
-            eventsConfig.onRequestHistoryData = ASC.Files.Editor.getDiffUrl;
-        }
+                ASC.Files.Editor.canShowHistory = true;
+                eventsConfig.onRequestHistory = ASC.Files.Editor.requestHistory;
+                eventsConfig.onRequestHistoryData = ASC.Files.Editor.getDiffUrl;
+                eventsConfig.onRequestHistoryClose = ASC.Files.Editor.reloadPage;
+            }
         }
 
         ASC.Files.Editor.docEditor = new DocsAPI.DocEditor("iframeEditor", {
@@ -209,15 +247,6 @@ window.ASC.Files.Editor = (function () {
         }
     };
 
-    var checkDocVersion = function () {
-        if (!ASC.Files.Editor.newScheme && DocsAPI.DocEditor.version) {
-            var version = DocsAPI.DocEditor.version();
-            if ((parseFloat(version) || 0) >= 3) {
-                ASC.Files.Editor.newScheme = true;
-            }
-        }
-    };
-
     var readyEditor = function () {
         if (ASC.Files.Editor.serverErrorMessage) {
             docEditorShowError(ASC.Files.Editor.serverErrorMessage);
@@ -235,12 +264,11 @@ window.ASC.Files.Editor = (function () {
     };
 
     var backEditor = function (event) {
-        clearTimeout(trackEditTimeout);
-        var href = ASC.Files.Editor.docServiceParams ? ASC.Files.Editor.docServiceParams.folderUrl : ASC.Files.Constants.URL_FILES_START;
         if (event && event.data) {
             window.open(href, "_blank");
         } else {
-            location.href = href;
+            clearTimeout(trackEditTimeout);
+            location.href = ASC.Files.Editor.docServiceParams.folderUrl;
         }
     };
 
@@ -250,70 +278,44 @@ window.ASC.Files.Editor = (function () {
             docIsChanged = event.data;
         }
 
-        if (doStartEdit && event.data) {
-            doStartEdit = false;
-            if (ASC.Files.Editor.newScheme) {
-                ASC.Files.ServiceManager.startEdit(ASC.Files.ServiceManager.events.StartEdit, {
-                    fileID: ASC.Files.Editor.docServiceParams.file.id,
-                    docKeyForTrack: ASC.Files.Editor.docServiceParams.key,
-                    asNew: ASC.Files.Editor.options.asNew,
-                    shareLinkKey: ASC.Files.Editor.shareLinkParam,
-                });
-            }
+        if (event.data) {
+            subscribeEdit(ASC.Files.ServiceManager.events.StartEdit);
         }
+    };
+
+    var subscribeEdit = function (event) {
+        if (doStartEdit) {
+            doStartEdit = false;
+
+            ASC.Files.ServiceManager.startEdit(event, {
+                fileID: ASC.Files.Editor.docServiceParams.file.id,
+                docKeyForTrack: ASC.Files.Editor.docServiceParams.key,
+                asNew: ASC.Files.Editor.options.asNew,
+                shareLinkKey: ASC.Files.Editor.shareLinkParam,
+            });
+
+            return true;
+        }
+        return false;
     };
 
     var errorEditor = function () {
         ASC.Files.Editor.finishEdit();
     };
 
-    var saveEditor = function (event) {
-        if (ASC.Files.Editor.newScheme) {
-            setTimeout(function () {
-                ASC.Files.Editor.documentStateChangeEditor({ data: false });
-                ASC.Files.Editor.docEditor.processSaveResult(true);
-            }, 1);
-            return true;
-        }
-
-        var urlSavedDoc = event.data;
-
-        if (ASC.Files.Editor.editByUrl) {
-
-            ASC.Files.Editor.docEditor.processSaveResult(true);
-
-            var urlRedirect = ASC.Files.Editor.FileWebEditorExternalUrlString
-                .format(encodeURIComponent(urlSavedDoc), encodeURIComponent(ASC.Files.Editor.docServiceParams.file.title));
-
-            location.href = urlRedirect + "&openfolder=true";
-            return false;
-
-        } else {
-
-            ASC.Files.ServiceManager.saveEditing(ASC.Files.ServiceManager.events.SaveEditing,
-                {
-                    fileID: ASC.Files.Editor.docServiceParams.file.id,
-                    version: ASC.Files.Editor.docServiceParams.file.version,
-                    tabId: ASC.Files.Editor.tabId,
-                    fileUri: urlSavedDoc,
-                    asNew: ASC.Files.Editor.options.asNew,
-                    shareLinkKey: ASC.Files.Editor.shareLinkParam
-                });
-
-            return false;
-        }
-    };
-
     var requestEditRightsEditor = function () {
-        if (ASC.Files.Editor.editByUrl || ASC.Files.Editor.newScheme) {
-            location.href = ASC.Files.Editor.docServiceParams.linkToEdit + ASC.Files.Editor.shareLinkParam;
-        } else {
-            ASC.Files.ServiceManager.canEditFile(ASC.Files.ServiceManager.events.CanEditFile,
-                {
-                    fileID: ASC.Files.Editor.docServiceParams.file.id,
-                    shareLinkParam: ASC.Files.Editor.shareLinkParam
-                });
-        }
+        location.href = ASC.Files.Editor.docServiceParams.linkToEdit + ASC.Files.Editor.shareLinkParam;
+
+        // Request for old scheme
+        //if (ASC.Files.Editor.editByUrl) {
+        //    location.href = ASC.Files.Editor.docServiceParams.linkToEdit + ASC.Files.Editor.shareLinkParam;
+        //} else {
+        //    ASC.Files.ServiceManager.canEditFile(ASC.Files.ServiceManager.events.CanEditFile,
+        //        {
+        //            fileID: ASC.Files.Editor.docServiceParams.file.id,
+        //            shareLinkParam: ASC.Files.Editor.shareLinkParam
+        //        });
+        //}
     };
 
     var requestHistory = function () {
@@ -328,7 +330,7 @@ window.ASC.Files.Editor = (function () {
             });
     };
 
-    var getDiffUrl = function (version) {
+    var getDiffUrl = function (versionData) {
         if (!ASC.Files.Editor.canShowHistory) {
             return;
         }
@@ -336,12 +338,33 @@ window.ASC.Files.Editor = (function () {
         ASC.Files.ServiceManager.getDiffUrl(ASC.Files.ServiceManager.events.GetDiffUrl,
             {
                 fileID: ASC.Files.Editor.docServiceParams.file.id,
-                version: version | 0,
+                version: versionData.data | 0,
                 shareLinkParam: ASC.Files.Editor.shareLinkParam
             });
     };
 
-    var outdatedVersion = function () {
+    var getMails = function () {
+        ASC.Files.ServiceManager.getMailAccounts(ASC.Files.ServiceManager.events.GetMails);
+    };
+
+    var requestStartMailMerge = function () {
+        if (!subscribeEdit(ASC.Files.ServiceManager.events.StartMailMerge)) {
+            completeStartMailMerge();
+        }
+    };
+
+    var infoEditor = function (event) {
+        if (event && event.data && event.data.mode == "view") {
+            clearTimeout(trackEditTimeout);
+        }
+    };
+
+    var createFile = function () {
+        var url = ASC.Files.Constants.URL_HANDLER_CREATE + "?action=create&doctype=" + ASC.Files.Editor.docServiceParams.documentType;
+        window.open(url, "_blank");
+    };
+
+    var reloadPage = function () {
         location.reload(true);
     };
 
@@ -350,7 +373,7 @@ window.ASC.Files.Editor = (function () {
         if (ASC.Files.Editor.editByUrl || ASC.Files.Editor.thirdPartyApp) {
             return;
         }
-        if (ASC.Files.Editor.newScheme && !doStartEdit) {
+        if (!doStartEdit) {
             return;
         }
 
@@ -365,7 +388,7 @@ window.ASC.Files.Editor = (function () {
     };
 
     var finishEdit = function () {
-        if (trackEditTimeout !== null && (!ASC.Files.Editor.newScheme || doStartEdit)) {
+        if (trackEditTimeout !== null && doStartEdit) {
             ASC.Files.ServiceManager.trackEditFile("FinishTrackEditFile",
                 {
                     fileID: ASC.Files.Editor.docServiceParams.file.id,
@@ -376,19 +399,6 @@ window.ASC.Files.Editor = (function () {
                     ajaxsync: true
                 });
         }
-    };
-
-    var completeSave = function (jsonData, params, errorMessage) {
-        if (typeof errorMessage != "undefined") {
-            var saveResult = false;
-        } else {
-            saveResult = true;
-            ASC.Files.Editor.fixedVersion = true;
-            ASC.Files.Editor.documentStateChangeEditor({ data: false });
-            ASC.Files.Editor.trackEdit();
-        }
-
-        ASC.Files.Editor.docEditor.processSaveResult(saveResult === true, errorMessage);
     };
 
     var completeTrack = function (jsonData, params, errorMessage) {
@@ -406,27 +416,36 @@ window.ASC.Files.Editor = (function () {
             trackEditTimeout = setTimeout(ASC.Files.Editor.trackEdit, 5000);
         } else {
             errorMessage = jsonData.value;
-            ASC.Files.Editor.docEditor.processRightsChange(false, errorMessage);
+            denyEditingRights(errorMessage);
         }
     };
 
     var onStartEdit = function (jsonData, params, errorMessage) {
         if (typeof errorMessage != "undefined") {
-            ASC.Files.Editor.docEditor.processRightsChange(false, errorMessage || "Connection is lost");
+            denyEditingRights(errorMessage);
             return;
         }
     };
 
+    var denyEditingRights = function (message) {
+        if (ASC.Files.Editor.docEditor.denyEditingRights) {
+            ASC.Files.Editor.docEditor.denyEditingRights(message || "Connection is lost");
+        } else if (ASC.Files.Editor.docEditor.processRightsChange) {
+            //todo: delete
+            ASC.Files.Editor.docEditor.processRightsChange(false, message || "Connection is lost");
+        }
+    };
+
     var docEditorShowError = function (message) {
-        ASC.Files.Editor.docEditor.showMessage("Teamlab Office", message, "error");
+        ASC.Files.Editor.docEditor.showMessage("ONLYOFFICE™", message, "error");
     };
 
     var docEditorShowWarning = function (message) {
-        ASC.Files.Editor.docEditor.showMessage("Teamlab Office", message, "warning");
+        ASC.Files.Editor.docEditor.showMessage("ONLYOFFICE™", message, "warning");
     };
 
     var docEditorShowInfo = function (message) {
-        ASC.Files.Editor.docEditor.showMessage("Teamlab Office", message, "info");
+        ASC.Files.Editor.docEditor.showMessage("ONLYOFFICE™", message, "info");
     };
 
     var checkMessageFromHash = function () {
@@ -514,45 +533,89 @@ window.ASC.Files.Editor = (function () {
         if (typeof ASC.Files.Editor.docEditor.refreshHistory != "function") {
             if (typeof errorMessage != "undefined") {
                 docEditorShowError(errorMessage || "Connection is lost");
-                return;
-            }
-        } else {
-            if (typeof errorMessage != "undefined") {
-                var data = {
-                    error: errorMessage || "Connection is lost"
-                };
             } else {
-                data = {
-                    currentVersion: ASC.Files.Editor.docServiceParams.file.version,
-                    history: jsonData
-                };
+                docEditorShowError("Function is not available");
             }
-
-            ASC.Files.Editor.docEditor.refreshHistory(data);
+            return;
         }
+
+        if (typeof errorMessage != "undefined") {
+            var data = {
+                error: errorMessage || "Connection is lost"
+            };
+        } else {
+            clearTimeout(trackEditTimeout);
+
+            data = {
+                currentVersion: ASC.Files.Editor.docServiceParams.file.version,
+                history: jsonData
+            };
+        }
+
+        ASC.Files.Editor.docEditor.refreshHistory(data);
     };
 
     var completeGetDiffUrl = function (jsonData, params, errorMessage) {
         if (typeof ASC.Files.Editor.docEditor.setHistoryData != "function") {
             if (typeof errorMessage != "undefined") {
                 docEditorShowError(errorMessage || "Connection is lost");
-                return;
-            }
-        } else {
-            if (typeof errorMessage != "undefined") {
-                var data = {
-                    error: errorMessage || "Connection is lost"
-                };
             } else {
-                data = {
-                    version: params.version,
-                    url: jsonData.key,
-                    urlDiff: jsonData.value
-                };
+                docEditorShowError("Function is not available");
             }
-
-            ASC.Files.Editor.docEditor.setHistoryData(data);
+            return;
         }
+
+        if (typeof errorMessage != "undefined") {
+            var data = {
+                error: errorMessage || "Connection is lost"
+            };
+        } else {
+            data = {
+                version: params.version,
+                url: jsonData.key,
+                urlDiff: jsonData.value
+            };
+        }
+
+        ASC.Files.Editor.docEditor.setHistoryData(data);
+    };
+
+    var completeGetMails = function (jsonData, params, errorMessage) {
+        if (typeof ASC.Files.Editor.docEditor.setEmailAddresses != "function") {
+            if (typeof errorMessage != "undefined") {
+                docEditorShowError(errorMessage || "Connection is lost");
+            } else {
+                docEditorShowError("Function is not available");
+            }
+            return;
+        }
+
+        if (typeof errorMessage != "undefined") {
+            var data = {
+                error: errorMessage || "Connection is lost",
+                createEmailAccountUrl: ASC.Files.Constants.URL_MAIL_ACCOUNTS,
+            };
+        } else {
+            data = {
+                emailAddresses: jsonData,
+                createEmailAccountUrl: ASC.Files.Constants.URL_MAIL_ACCOUNTS,
+            };
+        }
+
+        ASC.Files.Editor.docEditor.setEmailAddresses(data);
+    };
+
+    var completeStartMailMerge = function (jsonData, params, errorMessage) {
+        if (typeof ASC.Files.Editor.docEditor.processMailMerge != "function") {
+            if (typeof errorMessage != "undefined") {
+                docEditorShowError(errorMessage || "Connection is lost");
+            } else {
+                docEditorShowError("Function is not available");
+            }
+            return;
+        }
+
+        ASC.Files.Editor.docEditor.processMailMerge(typeof errorMessage == "undefined", errorMessage);
     };
 
     return {
@@ -573,7 +636,6 @@ window.ASC.Files.Editor = (function () {
         options: options,
         thirdPartyApp: thirdPartyApp,
         openinigDate: openinigDate,
-        newScheme: newScheme,
 
         trackEdit: trackEdit,
         finishEdit: finishEdit,
@@ -584,10 +646,13 @@ window.ASC.Files.Editor = (function () {
         documentStateChangeEditor: documentStateChangeEditor,
         requestEditRightsEditor: requestEditRightsEditor,
         errorEditor: errorEditor,
-        saveEditor: saveEditor,
-        outdatedVersion: outdatedVersion,
+        reloadPage: reloadPage,
         requestHistory: requestHistory,
         getDiffUrl: getDiffUrl,
+        getMails: getMails,
+        requestStartMailMerge: requestStartMailMerge,
+        infoEditor: infoEditor,
+        createFile: createFile,
 
         fixedVersion: fixedVersion,
         canShowHistory: canShowHistory,

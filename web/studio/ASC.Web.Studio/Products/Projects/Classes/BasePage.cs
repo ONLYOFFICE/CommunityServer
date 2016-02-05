@@ -43,6 +43,8 @@ namespace ASC.Web.Projects
 
         public Participant Participant { get; private set; }
 
+        public RequestContext RequestContext { get; private set; }
+
         public Project Project { get; set; }
 
         public string EssenceTitle { get; set; }
@@ -50,6 +52,8 @@ namespace ASC.Web.Projects
         public string EssenceStatus { get; set; }
 
         public bool IsSubcribed { get; set; }
+
+        public EngineFactory EngineFactory { get; private set; }
 
         protected virtual bool CheckSecurity { get { return true; } }
 
@@ -60,6 +64,8 @@ namespace ASC.Web.Projects
         protected BasePage()
         {
             PreInit += PagePreInit;
+            EngineFactory = Global.EngineFactory;
+            RequestContext = new RequestContext(EngineFactory);
         }
 
         protected void PagePreInit(object sender, EventArgs e)
@@ -71,7 +77,7 @@ namespace ASC.Web.Projects
 
             if (!SecurityContext.IsAuthenticated) return;
 
-            Participant = Global.EngineFactory.GetParticipantEngine().GetByID(SecurityContext.CurrentAccount.ID);
+            Participant = EngineFactory.ParticipantEngine.GetByID(SecurityContext.CurrentAccount.ID);
             Participant.IsAdmin = WebItemSecurity.IsProductAdministrator(EngineFactory.ProductId, SecurityContext.CurrentAccount.ID);
 
             if (RequestContext.IsInConcreteProject)
@@ -94,7 +100,7 @@ namespace ASC.Web.Projects
 
                 if (!RequestContext.IsInConcreteProjectModule)
                 {
-                    IsSubcribed = Global.EngineFactory.GetProjectEngine().IsFollow(Project.ID, Participant.ID);
+                    IsSubcribed = EngineFactory.ProjectEngine.IsFollow(Project.ID, Participant.ID);
                 }
             }
 

@@ -20,6 +20,7 @@
                         <td style="max-width: 380px; width: 416px;">
                             <div class="fileContainer">
                                 <img class="loader" src="<%= LoaderImgSrc %>"/>
+                                <div id="errorOpenFolder" style="display: none;"></div>
                                 <div id="emptyFileList" class="display-none">
                                     <asp:PlaceHolder runat="server" ID="_phEmptyDocView"></asp:PlaceHolder>
                                 </div>

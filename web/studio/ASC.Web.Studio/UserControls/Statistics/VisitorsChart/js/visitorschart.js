@@ -24,8 +24,8 @@
 */
 
 
-(function($) {
-    var 
+(function ($) {
+    var
     colors = {
         hits: '#EDC240',
         hosts: '#AFD8F8',
@@ -66,8 +66,7 @@
             $('#chartDownloadStatistics').addClass('disabled');
             $('#chartLegend').children('li.label:not(.default)').remove();
             VisitorsChart.GetVisitStatistics(from, to, showChart);
-        }
-        else {
+        } else {
             $('#visitorsChartCanvas').empty();
             $('#chartDownloadStatistics').addClass('disabled');
             $('#chartLegend').children('li.label:not(.default)').remove();
@@ -80,7 +79,7 @@
         }
         $('#visitorsChartCanvas').removeClass('loader32');
         if (typeof param === 'string' && (param = param.toLowerCase()).length > 0) {
-            var 
+            var
         from = new Date(),
         to = new Date();
             from = new Date(Date.UTC(from.getFullYear(), from.getMonth(), from.getDate()));
@@ -130,7 +129,7 @@
                 VisitorsChart.GetVisitStatistics(from, to, arguments.callee);
             }
         } else if (typeof param === 'object' && param.hasOwnProperty('value') && param.value) {
-            var 
+            var
         date = null,
         hits = [],
         hosts = [];
@@ -178,7 +177,7 @@
         {
             grid: { hoverable: true, clickable: true },
             legend: { show: false },
-            series: { lines: { show: true }, points: { show: true, radius: 2} },
+            series: { lines: { show: true }, points: { show: true, radius: 2 } },
             xaxis: { mode: 'time', timeformat: ASC.Resources.chartDateFormat, monthNames: ASC.Resources.chartMonthNames.split(/\s*,\s*/) },
             yaxis: { min: 0 }
         }
@@ -186,79 +185,96 @@
         }
     }
 
-    $(document).ready(function() {
-      $('#visitorsChartCanvas')
-        .bind("plothover", function(evt, pos, item) {
-          if (item) {
-            if (!displayDates.hasOwnProperty(item.datapoint[0])) {
-              return undefined;
-            }
-            var content =
-              '<h6 class="label">' + item.series.label + ' : ' + displayDates[item.datapoint[0]] + '</h6>' +
-              '<div class="info">' + item.datapoint[1] + ' visits' + '</div>';
-            ASC.Common.toolTip.show(content, function() {
-              var $this = $(this);
-              $this.css({
-                  left: item.pageX + 5,
-                  top: item.pageY - $this.outerHeight(true) - 5
-              });
-            });
-          } else {
-            ASC.Common.toolTip.hide();
-          }
-        });
+    $(document).ready(function () {
+        $('#visitorsChartCanvas')
+          .bind("plothover", function (evt, pos, item) {
+              if (item) {
+                  if (!displayDates.hasOwnProperty(item.datapoint[0])) {
+                      return undefined;
+                  }
+                  var content =
+                    '<h6 class="label">' + item.series.label + ' : ' + displayDates[item.datapoint[0]] + '</h6>' +
+                    '<div class="info">' + item.datapoint[1] + ' visits' + '</div>';
+                  ASC.Common.toolTip.show(content, function () {
+                      var $this = $(this);
+                      $this.css({
+                          left: item.pageX + 5,
+                          top: item.pageY - $this.outerHeight(true) - 5
+                      });
+                  });
+              } else {
+                  ASC.Common.toolTip.hide();
+              }
+          });
 
-      $("#studio_chart_FromDate, #studio_chart_ToDate").mask(jq('input[id$=jQueryDateMask]').val());
+        $("#studio_chart_FromDate, #studio_chart_ToDate").mask(jq('input[id$=jQueryDateMask]').val());
 
-      var
-        defaultFromDate = new Date(),
-        defaultToDate = new Date();
-      defaultFromDate.setMonth(defaultFromDate.getMonth() - 6);
+        var
+          defaultFromDate = new Date(),
+          defaultToDate = new Date();
+        defaultFromDate.setMonth(defaultFromDate.getMonth() - 6);
 
         var maxDate = new Date();
         maxDate.setDate(maxDate.getDate() - 1);
         var minDate = new Date();
         minDate.setMonth(minDate.getMonth() - 6);
         minDate.setDate(minDate.getDate() + 1);
-      
-      $("#studio_chart_FromDate")
-        .datepicker({
-          onSelect : function () {
-            var date = jq(this).datepicker("getDate");
-            date.setDate(date.getDate() + 1);
-            $("#studio_chart_ToDate").datepicker("option", "minDate", date || null);
-            changePeriod();
-          }
-        })
-        .datepicker("setDate", defaultFromDate)
-        .datepicker("option", "maxDate", maxDate);
 
-      $("#studio_chart_ToDate")
-        .datepicker({
-          onSelect : function () {
-            var date = jq(this).datepicker("getDate");
-            date.setDate(date.getDate() - 1);
-            $("#studio_chart_FromDate").datepicker("option", "maxDate", date || null);
-            changePeriod();
-          }
-        })
-        .datepicker("setDate", defaultToDate)
-        .datepicker("option", "minDate", minDate)
-        .datepicker("option", "maxDate", defaultToDate);
+        $("#studio_chart_FromDate")
+          .datepicker({
+              onSelect: function () {
+                  var date = jq(this).datepicker("getDate");
+                  date.setDate(date.getDate() + 1);
+                  $("#studio_chart_ToDate").datepicker("option", "minDate", date || null);
+                  changePeriod();
+              }
+          })
+          .datepicker("setDate", defaultFromDate)
+          .datepicker("option", "maxDate", maxDate);
 
-      $('#chartDownloadStatistics').click(function() {
-        return false;
-      });
+        $("#studio_chart_ToDate")
+          .datepicker({
+              onSelect: function () {
+                  var date = jq(this).datepicker("getDate");
+                  date.setDate(date.getDate() - 1);
+                  $("#studio_chart_FromDate").datepicker("option", "maxDate", date || null);
+                  changePeriod();
+              }
+          })
+          .datepicker("setDate", defaultToDate)
+          .datepicker("option", "minDate", minDate)
+          .datepicker("option", "maxDate", defaultToDate);
 
-      $('#visitorsFilter')
-        .css('visibility', 'visible')
-        .click(function(evt) {
-          var $target = $(evt.target);
-          if ($target.is('li.filter') && !$target.is('li.filter.selected')) {
-            showChart($target.attr('id'));
-          }
+        $('#chartDownloadStatistics').click(function () {
+            return false;
         });
 
-      showChart('filterbyweek');
+        $('#visitorsFilter')
+          .css('visibility', 'visible')
+          .click(function (evt) {
+              var $target = $(evt.target);
+              if ($target.is('li.filter') && !$target.is('li.filter.selected')) {
+                  showChart($target.attr('id'));
+              }
+          });
+
+        showChart('filterbyweek');
+
+        $(window).bind("resize resizeWinTimerWithMaxDelay", function (event) {
+            var plot = jq("#visitorsChartCanvas").data("plot");
+            if (typeof (plot) !== "undefined") {
+                try {
+                    var placeholder = plot.getPlaceholder();
+
+                    if (placeholder.width() == 0 || placeholder.height() == 0)
+                        return;
+
+                    plot.resize();
+                    plot.setupGrid();
+                    plot.draw();
+                }
+                catch (e) { console.log(e); }
+            }
+        });
     });
 })(jQuery);

@@ -89,7 +89,7 @@ namespace ASC.Api.Projects.Wrappers
                 ProjectOwner = new SimpleProjectWrapper(message.Project);
             }
             Title = message.Title;
-            Text = message.Content;
+            Text = message.Description;
             Created = (ApiDateTime)message.CreateOn;
             CreatedBy = new EmployeeWraperFull(CoreContext.UserManager.GetUsers(message.CreateBy));
             Updated = (ApiDateTime)message.LastModifiedOn;

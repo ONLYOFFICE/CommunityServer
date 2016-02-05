@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -26,6 +26,7 @@
 
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.Files.Core;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
@@ -46,6 +47,11 @@ namespace ASC.Web.Files
 
         protected bool DisplayAppsBanner;
 
+        protected bool Desktop
+        {
+            get { return !string.IsNullOrEmpty(Request["desktop"]); }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             LoadScripts();
@@ -65,34 +71,83 @@ namespace ASC.Web.Files
             {
                 PersonalProcess();
             }
+
+
+            #region third-party scripts
+
+            if (AddCustomScript && (string)Session["campaign"] == "personal")
+            {
+                Session["campaign"] = "";
+
+                var GoogleConversionScriptLocation = PathProvider.GetFileControlPath("GoogleConversionScript.ascx");
+                if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(GoogleConversionScriptLocation)))
+                {
+                    ThirdPartyScriptsPlaceHolder.Controls.Add(LoadControl(GoogleConversionScriptLocation));
+                }
+                else
+                {
+                    ThirdPartyScriptsPlaceHolder.Visible = false;
+                }
+            }
+            else
+            {
+                ThirdPartyScriptsPlaceHolder.Visible = false;
+            }
+
+            if (AddCustomScript) {
+                var YandexScriptLocation = PathProvider.GetFileControlPath("YandexScript.js");
+                if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(YandexScriptLocation)))
+                {
+                    var streamReader = new System.IO.StreamReader(HttpContext.Current.Server.MapPath(YandexScriptLocation));
+                    string yaScriptText = streamReader.ReadToEnd();
+                    streamReader.Close();
+
+                    Page.RegisterInlineScript(yaScriptText);
+                }
+            }
+
+            #endregion
         }
 
         private void LoadScripts()
         {
-            Page.RegisterStyleControl(LoadControl(VirtualPathUtility.ToAbsolute("~/products/files/masters/styles.ascx")));
-            Page.RegisterBodyScripts(LoadControl(VirtualPathUtility.ToAbsolute("~/products/files/masters/FilesScripts.ascx")));
+            Page.RegisterStyleControl("~/products/files/masters/styles.ascx");
+            Page.RegisterBodyScriptsControl("~/products/files/masters/FilesScripts.ascx");
         }
 
         private void LoadControls()
         {
-            CommonSideHolder.Controls.Add(LoadControl(MainMenu.Location));
+            if (Desktop)
+            {
+                Master.Master.DisabledTopStudioPanel = true;
+                Master.Master.EnabledWebChat = false;
+            }
+
+            var enableThirdParty = ImportConfiguration.SupportInclusion
+                                   && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()
+                                   && (Classes.Global.IsAdministrator
+                                       || FilesSettings.EnableThirdParty
+                                       || CoreContext.Configuration.Personal)
+                                   && !Desktop;
+
+            var mainMenu = (MainMenu) LoadControl(MainMenu.Location);
+            mainMenu.EnableThirdParty = enableThirdParty;
+            mainMenu.Desktop = Desktop;
+            CommonSideHolder.Controls.Add(mainMenu);
 
             var mainContent = (MainContent) LoadControl(MainContent.Location);
             mainContent.TitlePage = FilesCommonResource.TitlePage;
             CommonContainerHolder.Controls.Add(mainContent);
 
-            if (CoreContext.Configuration.Personal)
+            if (CoreContext.Configuration.Personal
+                && !Desktop)
                 CommonContainerHolder.Controls.Add(LoadControl(MoreFeatures.Location));
 
             CommonContainerHolder.Controls.Add(LoadControl(AccessRights.Location));
 
             loaderHolder.Controls.Add(LoadControl(LoaderPage.Location));
 
-            if (ImportConfiguration.SupportInclusion
-                && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()
-                && (Classes.Global.IsAdministrator
-                    || CoreContext.Configuration.Personal
-                    || FilesSettings.EnableThirdParty))
+            if (enableThirdParty)
             {
                 SettingPanelHolder.Controls.Add(LoadControl(ThirdParty.Location));
             }

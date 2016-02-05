@@ -109,7 +109,7 @@ namespace ASC.Web.Studio
                     ID = "emptyListCommunity",
                     ImgSrc = WebImageSupplier.GetAbsoluteWebPath("community150.png"),
                     Header = UserControlsCommonResource.FeedEmptyCommunityHeader,
-                    Describe = UserControlsCommonResource.FeedEmptyCommunityDescription,
+                    Describe = isVisitor ? string.Empty : UserControlsCommonResource.FeedEmptyCommunityDescription,
                     ButtonHTML = isVisitor
                                      ? string.Empty
                                      : string.Format("<a class='link underline plus' href='{0}'>{1}</a>" +
@@ -144,7 +144,7 @@ namespace ASC.Web.Studio
                 {
                     Header = UserControlsCommonResource.FeedEmptyListProjHeader,
                     ImgSrc = WebImageSupplier.GetAbsoluteWebPath("projects_logo.png", WebItemManager.ProjectsProductID),
-                    Describe = UserControlsCommonResource.FeedEmptyListProjDescribe,
+                    Describe = canCreateProjects ? UserControlsCommonResource.FeedEmptyListProjDescribe : string.Empty,
                     ID = "emptyListProjects",
                     ButtonHTML = canCreateProjects
                                      ? string.Format("<a href='{0}' class='link underline addFirstElement'>{1}<a>",
@@ -161,7 +161,7 @@ namespace ASC.Web.Studio
                     Describe = UserControlsCommonResource.FeedEmptyScreenDescrCorporate,
                     ButtonHTML = string.Format("<a href=\"{0}\" class=\"link underline up\">{1}</a>",
                                                VirtualPathUtility.ToAbsolute("~/products/files/"),
-                                               UserControlsCommonResource.FeedButtonGotoMy)
+                                               UserControlsCommonResource.FeedButtonGotoDocuments)
                 });
         }
 
@@ -171,7 +171,7 @@ namespace ASC.Web.Studio
         {
             if (CoreContext.Configuration.Personal) return string.Empty;
 
-            page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/asc/core/asc.feedreader.js"));
+            page.RegisterBodyScripts("~/js/asc/core/asc.feedreader.js");
 
             return
                 string.Format(@"<li class=""top-item-box feed"">

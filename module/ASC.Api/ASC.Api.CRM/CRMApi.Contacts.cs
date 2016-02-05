@@ -49,7 +49,6 @@ using ASC.SocialMedia;
 using ASC.Web.UserControls.SocialMedia.Resources;
 using ASC.SocialMedia.Facebook;
 using ASC.Web.CRM.SocialMedia;
-using ASC.SocialMedia.LinkedIn;
 using ASC.Common.Threading.Progress;
 using ASC.Web.CRM.Resources;
 
@@ -1124,7 +1123,7 @@ namespace ASC.Api.CRM
         /// </summary>
         /// <param name="contactid">Contact ID</param>
         /// <param  name="contactStatusid">Contact status ID</param>
-        /// <short>Update contact status</short> 
+        /// <short>Update status in contact by id</short> 
         /// <category>Contacts</category>
         /// <exception cref="ArgumentException"></exception>
         /// <exception cref="ItemNotFoundException"></exception>
@@ -1539,15 +1538,14 @@ namespace ASC.Api.CRM
         /// <summary>
         ///    Returns the list contacts in the CRM module with contact information
         /// </summary>
-        /// <param optional="false" name="infoType">infoType</param>
-        /// <param optional="false" name="data">data</param>
-        /// <param optional="true" name="category">category</param>
-        /// <param optional="true" name="isPrimary">isPrimary</param>
+        /// <param optional="false" name="infoType">Contact information type</param>
+        /// <param optional="false" name="data">Data</param>
+        /// <param optional="true" name="category">Category</param>
+        /// <param optional="true" name="isPrimary">Contact importance: primary or not</param>
         /// <category>Contacts</category>
         /// <returns>
         ///    Contact list
         /// </returns>
-        /// <visible>false</visible>
         [Read(@"contact/bycontactinfo")]
         public IEnumerable<ContactWrapper> GetContactsByContactInfo(ContactInfoType? infoType, String data, int? category, bool? isPrimary)
         {
@@ -1659,31 +1657,6 @@ namespace ASC.Api.CRM
             }
         }
 
-        [Read(@"contact/linkedinprofile")]
-        public List<LinkedInUserInfo> FindLinkedInProfiles(string firstName, string lastName)
-        {
-            try
-            {
-                var provider = LinkedInApiHelper.GetLinkedInDataProviderForCurrentUser();
-                if (provider == null)
-                    throw new SocialMediaAccountNotFound(SocialMediaResource.SocialMediaAccountNotFoundLinkedIn);
-
-                var users = provider.FindUsers(firstName, lastName);
-                var defaultImgAvatar = ContactPhotoManager.GetMediumSizePhoto(0, false);
-
-                foreach (var user in users)
-                {
-                    if (String.IsNullOrEmpty(user.ImageUrl))
-                        user.ImageUrl = defaultImgAvatar;
-                }
-                return users;
-            }
-            catch (Exception ex)
-            {
-                throw new SocialMediaUI().ProcessError(ex, "ASC.Api.CRM.CRMApi.FindLinkedInProfiles");
-            }
-        }
-
         [Delete(@"contact/{contactid:[0-9]+}/avatar")]
         public string DeleteContactAvatar(int contactId, string contactType, bool uploadOnly)
         {
@@ -1692,6 +1665,8 @@ namespace ASC.Api.CRM
             if (contactId != 0)
             {
                 var contact = Global.DaoFactory.GetContactDao().GetByID(contactId);
+                if (contact == null || !CRMSecurity.CanAccessTo(contact)) throw new ItemNotFoundException();
+
                 isCompany = contact is Company;
             }
             else
@@ -1721,15 +1696,13 @@ namespace ASC.Api.CRM
             }
             var twitter = new List<String>();
             var facebook = new List<String>();
-            var linkedin = new List<String>();
 
             foreach (var sn in socialNetworks) {
                 if (sn.InfoType == ContactInfoType.Twitter) twitter.Add(sn.Data);
                 if (sn.InfoType == ContactInfoType.Facebook) facebook.Add(sn.Data);
-                if (sn.InfoType == ContactInfoType.LinkedIn) linkedin.Add(sn.Data);
             }
 
-            return new SocialMediaUI().GetContactSMImages(twitter, facebook, linkedin);
+            return new SocialMediaUI().GetContactSMImages(twitter, facebook);
         }
 
         [Update(@"contact/{contactid:[0-9]+}/avatar")]
@@ -1737,6 +1710,12 @@ namespace ASC.Api.CRM
         {
             if (socialNetwork != SocialNetworks.Twitter && socialNetwork != SocialNetworks.Facebook && socialNetwork != SocialNetworks.LinkedIn)
                 throw new ArgumentException();
+
+            if (contactId != 0)
+            {
+                var contact = Global.DaoFactory.GetContactDao().GetByID(contactId);
+                if (contact == null || !CRMSecurity.CanAccessTo(contact)) throw new ItemNotFoundException();
+            }
 
             if (socialNetwork == SocialNetworks.Twitter)
             {
@@ -1751,20 +1730,7 @@ namespace ASC.Api.CRM
                 return UploadAvatar(contactId, imageUrl, uploadOnly);
             }
 
-            if (socialNetwork == SocialNetworks.LinkedIn)
-            {
-                LinkedInDataProvider provider = LinkedInApiHelper.GetLinkedInDataProviderForCurrentUser();
-                string imageUrl = provider.GetUrlOfUserImage(userIdentity);
-                return UploadAvatar(contactId, imageUrl, uploadOnly);
-            }
             return null;
-        }
-
-        /// <visible>false</visible>
-        [Read(@"contact/crunchbase")]
-        public string FindContactInCrunchBase(string searchUrl, string contactNamespace)
-        {
-            return new SocialMediaUI().FindContactByName(searchUrl, contactNamespace);
         }
 
         /// <visible>false</visible>

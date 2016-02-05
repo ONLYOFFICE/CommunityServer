@@ -86,7 +86,6 @@ window.Teamlab = (function() {
         getStatusExportToCSV: 'ongetstatusexporttocsv',
         cancelExportToCSV: 'oncancelexporttocsv',
         startCrmExportToCSV: 'onstartcrmexporttocsv',
-        getCrmContactInCruchBase: 'ongetcrmcontactincruchbase',
         startCrmImportFromCSV: 'onstartcrmimportfromcsv',
         getStatusCrmImportFromCSV: 'ongetstatuscrmimportfromcsv',
         getCrmImportFromCSVSampleRow: 'ongetcrmimportfromcsvsamplerow',
@@ -94,8 +93,6 @@ window.Teamlab = (function() {
 
         getMailFilteredMessages: 'ongetmailmessages',
         getMailFolders: 'ongetmailfolders',
-        getMailMessagesModifyDate: 'ongetmailmessagesmodifydate',
-        getMailFolderModifyDate: 'ongetmailfoldermodifydate',
         getAccounts: 'ongetmailaccounts',
         getMailTags: 'ongetmailtags',
         getMailConversation: 'ongetmailconversation',
@@ -105,7 +102,6 @@ window.Teamlab = (function() {
         getNextMailMessageId: 'ongetnextmailmessageid',
         getPrevMailMessageId: 'ongetprevmailmessageid',
         getMailMessageTemplate: 'ongetmailmessagetemplate',
-        getMailRandomGuid: 'ongetmailrandomguid',
         removeMailFolderMessages: 'onremovemailfoldermessages',
         restoreMailMessages: 'onrestoremailmessages',
         moveMailMessages: 'onmovemailmessages',
@@ -146,10 +142,10 @@ window.Teamlab = (function() {
         linkChainToCrm: 'onlinkchaintocrm',
         markChainAsCrmLinked: 'onmarkchainascrmlinked',
         unmarkChainAsCrmLinked: 'onunmarkchainascrmlinked',
-        isConversationLinkedWithCrm: "oncompleteconversationcheckforlinkingwithcrm",
-        exportMessageToCrm: "onexportmessagetocrm",
-        getMailboxSignature: "ongetmailboxsignature",
-        updateMailboxSignature: "onupdatemailboxsignature",
+        isConversationLinkedWithCrm: 'oncompleteconversationcheckforlinkingwithcrm',
+        exportMessageToCrm: 'onexportmessagetocrm',
+        getMailboxSignature: 'ongetmailboxsignature',
+        updateMailboxSignature: 'onupdatemailboxsignature',
         exportAllAttachmentsToMyDocuments: 'exportallattachmentstomydocuments',
         exportAttachmentToMyDocuments: 'exportattachmenttomydocuments',
         setEMailInFolder: 'onsetemailinfolder',
@@ -172,11 +168,15 @@ window.Teamlab = (function() {
         isDomainExists: 'isdomainexists',
         checkDomainOwnership: 'checkdomainownership',
         getDomainDnsSettings: 'getdomaindnssettings',
+        createNotificationAddress: 'createnotificationaddress',
+        removeNotificationAddress: 'removenotificationaddress',
 
         getFolderPath: 'ongetfolderpath',
 
-        getTalkUnreadMessages: "gettalkunreadmessages",
-        registerUserOnPersonal: "registeruseronpersonal",
+        getTalkUnreadMessages: 'gettalkunreadmessages',
+        registerUserOnPersonal: 'registeruseronpersonal',
+        saveWhiteLabelSettings: 'onsavewhitelabelsettings',
+        restoreWhiteLabelSettings: 'onrestorewhitelabelsettings'
     },
         customEventsHash = {},
         eventManager = new CustomEvent(customEvents);
@@ -275,9 +275,23 @@ window.Teamlab = (function() {
     var getQuotas = function(params, options) {
         return returnValue(ServiceManager.getQuotas(customEvents.getQuotas, params, options));
     };
+
     /* </Common> */
 
     /* <people> */
+    
+    var remindPwd = function(params, email, options) {
+        return returnValue(ServiceManager.remindPwd(customEvents.remindPwd, params, email, options));
+    };
+    
+    var thirdPartyLinkAccount = function(params, data, options) {
+        return returnValue(ServiceManager.thirdPartyLinkAccount(customEvents.thirdPartyLinkAccount, params, data, options));
+    };
+
+    var thirdPartyUnLinkAccount = function(params, data, options) {
+        return returnValue(ServiceManager.thirdPartyUnLinkAccount(customEvents.thirdPartyUnLinkAccount, params, data, options));
+    };
+
     var addProfile = function(params, data, options) {
         return returnValue(ServiceManager.addProfile(customEvents.addProfile, params, data, options));
     };
@@ -344,6 +358,15 @@ window.Teamlab = (function() {
     var getUserGroups = function (id, options) {
         return returnValue(ServiceManager.getUserGroups(customEvents.getUserGroups, null, id, options));
     };
+    
+    var removeSelf = function(params, options) {
+        return returnValue(ServiceManager.removeSelf(customEvents.removeSelf, params, options));
+    };
+
+    var joinAffiliate = function(params, options) {
+        return returnValue(ServiceManager.joinAffiliate(customEvents.joinAffiliate, params, options));
+    };
+    
     /* </people> */
 
     /* <community> */
@@ -428,7 +451,11 @@ window.Teamlab = (function() {
     var getCmtEventComments = function(params, id, options) {
         return returnValue(ServiceManager.getCmtEventComments(customEvents.getCmtEventComments, params, id, options));
     };
-
+    
+    var subscribeCmtEventComment = function(params, id, data, options) {
+        return returnValue(ServiceManager.subscribeCmtEventComment(customEvents.subscribeCmtEventComment, params, id, data, options));
+    };
+    
     var addCmtBookmarkComment = function(params, id, data, options) {
         return returnValue(ServiceManager.addCmtBookmarkComment(customEvents.addCmtBookmarkComment, params, id, data, options));
     };
@@ -464,45 +491,6 @@ window.Teamlab = (function() {
         return returnValue(ServiceManager.getPrjTagsByName(customEvents.getPrjTagsByName, params, name, data, options));
     };
 
-    var addPrjComment = function(params, type, id, data, options) {
-        var fn = null;
-        switch (type.toLowerCase()) {
-            case 'discussion':
-                fn = ServiceManager.addPrjDiscussionComment;
-                break;
-        }
-        if (typeof fn === 'function') {
-            return returnValue(fn(customEvents.addPrjComment, params, id, data, options));
-        }
-        return false;
-    };
-
-    var updatePrjComment = function(params, type, id, data, options) {
-        var fn = null;
-        switch (type.toLowerCase()) {
-            case 'discussion':
-                fn = ServiceManager.updatePrjDiscussionComment;
-                break;
-        }
-        if (typeof fn === 'function') {
-            return returnValue(fn(customEvents.updatePrjComment, params, id, data, options));
-        }
-        return false;
-    };
-
-    var removePrjComment = function(params, type, id, options) {
-        var fn = null;
-        switch (type.toLowerCase()) {
-            case 'discussion':
-                fn = ServiceManager.removePrjDiscussionComment;
-                break;
-        }
-        if (typeof fn === 'function') {
-            return returnValue(fn(customEvents.removePrjComment, params, id, options));
-        }
-        return false;
-    };
-
     var getPrjComments = function(params, type, id, options) {
         var fn = null;
         switch (type.toLowerCase()) {
@@ -524,10 +512,6 @@ window.Teamlab = (function() {
         return returnValue(ServiceManager.updatePrjTaskComment(customEvents.updatePrjTaskComment, params, id, data, options));
     };
 
-    var removePrjTaskComment = function(params, id, options) {
-        return returnValue(ServiceManager.removePrjTaskComment(customEvents.removePrjTaskComment, params, id, options));
-    };
-
     var getPrjTaskComments = function(params, id, options) {
         return returnValue(ServiceManager.getPrjTaskComments(customEvents.getPrjTaskComments, params, id, options));
     };
@@ -546,6 +530,107 @@ window.Teamlab = (function() {
 
     var getPrjDiscussionComments = function(params, id, options) {
         return returnValue(ServiceManager.getPrjDiscussionComments(customEvents.getPrjDiscussionComments, params, id, options));
+    };
+    
+    var getPrjDiscussionPreview = function(params, htmltext, options) {
+        return returnValue(ServiceManager.getPrjDiscussionPreview(customEvents.getPrjDiscussionPreview, params, htmltext, options));
+    };
+    
+    var getPrjCommentPreview = function(params, commentid, htmltext, options) {
+        return returnValue(ServiceManager.getPrjCommentPreview(customEvents.getPrjCommentPreview, params, commentid, htmltext, options));
+    };
+    
+    var getWikiCommentPreview = function(params, commentid, htmltext, options) {
+        return returnValue(ServiceManager.getWikiCommentPreview(customEvents.getWikiCommentPreview, params, commentid, htmltext, options));
+    };
+
+    var getBlogCommentPreview = function(params, commentid, htmltext, options) {
+        return returnValue(ServiceManager.getBlogCommentPreview(customEvents.getBlogCommentPreview, params, commentid, htmltext, options));
+    };
+
+    var getNewsCommentPreview = function(params, commentid, htmltext, options) {
+        return returnValue(ServiceManager.getNewsCommentPreview(customEvents.getNewsCommentPreview, params, commentid, htmltext, options));
+    };
+
+    var getBookmarksCommentPreview = function(params, commentid, htmltext, options) {
+        return returnValue(ServiceManager.getBookmarksCommentPreview(customEvents.getBookmarksCommentPreview, params, commentid, htmltext, options));
+    };
+    
+    var removePrjComment = function(params, id, options) {
+        return returnValue(ServiceManager.removePrjComment(customEvents.removePrjComment, params, id, options));
+    };
+    
+    var removeWikiComment = function(params, id, options) {
+        return returnValue(ServiceManager.removeWikiComment(customEvents.removeWikiComment, params, id, options));
+    };
+    
+    var removeBlogComment = function(params, id, options) {
+        return returnValue(ServiceManager.removeBlogComment(customEvents.removeBlogComment, params, id, options));
+    };
+    
+    var removeNewsComment = function(params, id, options) {
+        return returnValue(ServiceManager.removeNewsComment(customEvents.removeNewsComment, params, id, options));
+    };
+    
+    var removeBookmarksComment = function(params, id, options) {
+        return returnValue(ServiceManager.removeBookmarksComment(customEvents.removeBookmarksComment, params, id, options));
+    };
+
+    var addPrjComment = function(params, data, options) {
+        return returnValue(ServiceManager.addPrjComment(customEvents.addPrjComment, params, data, options));
+    };
+    
+    var addWikiComment = function(params, data, options) {
+        return returnValue(ServiceManager.addWikiComment(customEvents.addWikiComment, params, data, options));
+    };
+
+    var addBlogComment = function(params, data, options) {
+        return returnValue(ServiceManager.addBlogComment(customEvents.addBlogComment, params, data, options));
+    };
+
+    var addNewsComment = function(params, data, options) {
+        return returnValue(ServiceManager.addNewsComment(customEvents.addNewsComment, params, data, options));
+    };
+
+    var addBookmarksComment = function(params, data, options) {
+        return returnValue(ServiceManager.addBookmarksComment(customEvents.addBookmarksComment, params, data, options));
+    };
+    
+    
+    var updatePrjComment = function(params, commentid, data, options) {
+        return returnValue(ServiceManager.updatePrjComment(customEvents.updatePrjComment, params, commentid, data, options));
+    };
+    
+    var updateWikiComment = function(params, commentid, data, options) {
+        return returnValue(ServiceManager.updateWikiComment(customEvents.updateWikiComment, params, commentid, data, options));
+    };
+
+    var updateBlogComment = function(params, commentid, data, options) {
+        return returnValue(ServiceManager.updateBlogComment(customEvents.updateBlogComment, params, commentid, data, options));
+    };
+
+    var updateNewsComment = function(params, commentid, data, options) {
+        return returnValue(ServiceManager.updateNewsComment(customEvents.updateNewsComment, params, commentid, data, options));
+    };
+
+    var updateBookmarksComment = function(params, commentid, data, options) {
+        return returnValue(ServiceManager.updateBookmarksComment(customEvents.updateBookmarksComment, params, commentid, data, options));
+    };
+    
+    var fckeRemoveCommentComplete = function(params, data, options) {
+        return returnValue(ServiceManager.fckeRemoveCommentComplete(customEvents.fckeRemoveCommentComplete, params, data, options));
+    };
+    
+    var fckeCancelCommentComplete = function(params, data, options) {
+        return returnValue(ServiceManager.fckeCancelCommentComplete(customEvents.fckeCancelCommentComplete, params, data, options));
+    };
+
+    var fckeEditCommentComplete = function(params, data, options) {
+        return returnValue(ServiceManager.fckeEditCommentComplete(customEvents.fckeEditCommentComplete, params, data, options));
+    };
+
+    var updatePortalName = function (params, alias, options) {
+        return returnValue(ServiceManager.updatePortalName(customEvents.updatePortalName, params, alias, options));
     };
 
     var addPrjSubtask = function(params, taskid, data, options) {
@@ -914,6 +999,10 @@ window.Teamlab = (function() {
         return returnValue(ServiceManager.getPresignedUri(customEvents.getPresignedUri, fileId, options));
     };
 
+    var saveDocServiceUrl = function (docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, options) {
+        return returnValue(ServiceManager.saveDocServiceUrl(customEvents.saveDocServiceUrl, docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, options));
+    };
+
     /* </documents> */
 
     /* <crm> */
@@ -1124,8 +1213,8 @@ window.Teamlab = (function() {
         return returnValue(ServiceManager.updateCrmListItemIcon(customEvents.updateCrmListItemIcon, params, type, id, data, options));
     };
 
-    var removeCrmListItem = function(params, type, id, options) {
-        return returnValue(ServiceManager.removeCrmListItem(customEvents.removeCrmListItem, params, type, id, options));
+    var removeCrmListItem = function(params, type, id, toid, options) {
+        return returnValue(ServiceManager.removeCrmListItem(customEvents.removeCrmListItem, params, type, id, toid, options));
     };
 
     var reorderCrmListItems = function(params, type, titles, options) {
@@ -1442,10 +1531,6 @@ window.Teamlab = (function() {
         return returnValue(ServiceManager.getCrmContactFacebookProfiles(customEvents.getCrmContactFacebookProfiles, params, searchText, isUser, options));
     };
 
-    var getCrmContactLinkedinProfiles = function (params, firstName, lastName, options) {
-        return returnValue(ServiceManager.getCrmContactLinkedinProfiles(customEvents.getCrmContactLinkedinProfiles, params, firstName, lastName, options));
-    };
-
     var removeCrmContactAvatar = function (params, id, data, options) {
         return returnValue(ServiceManager.removeCrmContactAvatar(customEvents.removeCrmContactAvatar, params, id, data, options));
     };
@@ -1456,10 +1541,6 @@ window.Teamlab = (function() {
 
     var getCrmContactSocialMediaAvatar = function (params, data, options) {
         return returnValue(ServiceManager.getCrmContactSocialMediaAvatar(customEvents.getCrmContactSocialMediaAvatar, params, data, options));
-    };
-
-    var getCrmContactInCruchBase = function (params, data, options) {
-        return returnValue(ServiceManager.getCrmContactInCruchBase(customEvents.getCrmContactInCruchBase, params, data, options));
     };
 
     var startCrmImportFromCSV = function (params, data, options) {
@@ -1775,16 +1856,8 @@ window.Teamlab = (function() {
         return _single_sm_request('getMailFilteredMessages', params, filter_data, options);
     };
 
-    var getMailFolders = function(params, last_check_time, options) {
-        return _single_sm_request('getMailFolders', params, last_check_time, options);
-    };
-
-    var getMailMessagesModifyDate = function(params, options) {
-        return _single_sm_request('getMailMessagesModifyDate', params, options);
-    };
-
-    var getMailFolderModifyDate = function(params, folder_id, options) {
-        return _single_sm_request('getMailFolderModifyDate', params, folder_id, options);
+    var getMailFolders = function(params, options) {
+        return _single_sm_request('getMailFolders', params, options);
     };
 
     var getAccounts = function (params, options) {
@@ -1804,7 +1877,7 @@ window.Teamlab = (function() {
     };
     
     var updateMailboxSignature = function(params, id, data, options) {
-        return _single_sm_request('updateMailboxSignature', params, id, data, options)
+        return _single_sm_request('updateMailboxSignature', params, id, data, options);
     }
 
     var getLinkedCrmEntitiesInfo = function(params, data, options) {
@@ -1833,10 +1906,6 @@ window.Teamlab = (function() {
 
     var getMailMessageTemplate = function(params, options) {
         return _single_sm_request('getMailMessageTemplate', params, options);
-    };
-
-    var getMailRandomGuid = function(params, options) {
-        return _single_sm_request('getMailRandomGuid', params, options);
     };
 
     var removeMailFolderMessages = function(params, folder_id, options) {
@@ -1935,12 +2004,14 @@ window.Teamlab = (function() {
         return _single_sm_request('removeMailMessageAttachment', params, message_id, attachment_id, options);
     };
 
-    var sendMailMessage = function (params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, fileLinksShareMode, options) {
-        return _single_sm_request('sendMailMessage', params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, fileLinksShareMode, options);
+    var sendMailMessage = function (params, id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags, body, attachments,
+                                    fileLinksShareMode, options) {
+        return _single_sm_request('sendMailMessage', params, id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags, body, attachments,
+                                    fileLinksShareMode, options);
     };
 
-    var saveMailMessage = function(params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, options) {
-        return _single_sm_request('saveMailMessage', params, id, from, subject, to, cc, bcc, body, attachments, streamId, mimeMessageId, mimeReplyToId, importance, tags, options);
+    var saveMailMessage = function (params, id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags, body, attachments, options) {
+        return _single_sm_request('saveMailMessage', params, id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags, body, attachments, options);
     };
 
     var getMailContacts = function(params, term, options) {
@@ -2110,6 +2181,14 @@ window.Teamlab = (function() {
     var checkDomainDnsStatus = function (params, domain_id, options) {
         return _single_sm_request('checkDomainDnsStatus', params, domain_id, options);
     };
+
+    var createNotificationAddress = function (params, address_username, password, domain_id, options) {
+        return _single_sm_request('createNotificationAddress', params, address_username, password, domain_id, options);
+    };
+
+    var removeNotificationAddress = function (params, address, options) {
+        return _single_sm_request('removeNotificationAddress', params, address, options);
+    };
     /* </mail> */
 
     /* <settings> */
@@ -2152,12 +2231,12 @@ window.Teamlab = (function() {
         return returnValue(ServiceManager.getAuditEvents(customEvents.getAuditEvents, params, id, options));
     };
 
-    var createLoginHistoryReport = function(params, id, options) {
-        return returnValue(ServiceManager.createLoginHistoryReport(customEvents.createLoginHistoryReport, params, id, options));
+    var createLoginHistoryReport = function(params, options) {
+        return returnValue(ServiceManager.createLoginHistoryReport(customEvents.createLoginHistoryReport, params, options));
     };
     
-    var createAuditTrailReport = function(params, id, options) {
-        return returnValue(ServiceManager.createAuditTrailReport(customEvents.createAuditTrailReport, params, id, options));
+    var createAuditTrailReport = function(params, options) {
+        return returnValue(ServiceManager.createAuditTrailReport(customEvents.createAuditTrailReport, params, options));
     };
     
     var getIpRestrictions = function(options) {
@@ -2180,6 +2259,17 @@ window.Teamlab = (function() {
         return returnValue(ServiceManager.smsValidationSettings(enable, options));
     };
 
+    var closeWelcomePopup = function () {
+        return returnValue(ServiceManager.closeWelcomePopup());
+    };
+    
+    var setColorTheme = function(params, theme, options) {
+        return returnValue(ServiceManager.setColorTheme(customEvents.setColorTheme, params, theme, options));
+    };
+
+    var setDefaultpage = function (params, defaultProductID, options) {
+        return returnValue(ServiceManager.setDefaultpage(customEvents.setDefaultpage, params, defaultProductID, options));
+    };
     //#endregion
 
     var getTalkUnreadMessages = function(params, options) {
@@ -2188,6 +2278,14 @@ window.Teamlab = (function() {
 
     var registerUserOnPersonal = function (data, options) {
         return returnValue(ServiceManager.registerUserOnPersonal(customEvents.registerUserOnPersonal, data, options));
+    };
+
+    var saveWhiteLabelSettings = function (params, data, options) {
+        return returnValue(ServiceManager.saveWhiteLabelSettings(customEvents.saveWhiteLabelSettings, params, data, options));
+    };
+
+    var restoreWhiteLabelSettings = function (params, options) {
+        return returnValue(ServiceManager.restoreWhiteLabelSettings(customEvents.restoreWhiteLabelSettings, params, options));
     };
 
     return {
@@ -2221,6 +2319,10 @@ window.Teamlab = (function() {
 
         getQuotas: getQuotas,
 
+        remindPwd: remindPwd,
+        thirdPartyLinkAccount: thirdPartyLinkAccount,
+        thirdPartyUnLinkAccount: thirdPartyUnLinkAccount,
+
         addProfile: addProfile,
         getProfile: getProfile,
         getProfiles: getProfiles,
@@ -2238,6 +2340,8 @@ window.Teamlab = (function() {
         sendInvite: sendInvite,
         removeUsers: removeUsers,
         getUserGroups: getUserGroups,
+        removeSelf: removeSelf,
+        joinAffiliate: joinAffiliate,
 
         addCmtBlog: addCmtBlog,
         getCmtBlog: getCmtBlog,
@@ -2259,6 +2363,7 @@ window.Teamlab = (function() {
         getCmtBlogComments: getCmtBlogComments,
         addCmtEventComment: addCmtEventComment,
         getCmtEventComments: getCmtEventComments,
+        subscribeCmtEventComment: subscribeCmtEventComment,
         addCmtBookmarkComment: addCmtBookmarkComment,
         getCmtBookmarkComments: getCmtBookmarkComments,
 
@@ -2268,18 +2373,45 @@ window.Teamlab = (function() {
         readFeeds: readFeeds,
         getPrjTags: getPrjTags,
         getPrjTagsByName: getPrjTagsByName,
-        addPrjComment: addPrjComment,
-        updatePrjComment: updatePrjComment,
-        removePrjComment: removePrjComment,
+
         getPrjComments: getPrjComments,
         addPrjTaskComment: addPrjTaskComment,
         updatePrjTaskComment: updatePrjTaskComment,
-        removePrjTaskComment: removePrjTaskComment,
         getPrjTaskComments: getPrjTaskComments,
         addPrjDiscussionComment: addPrjDiscussionComment,
         updatePrjDiscussionComment: updatePrjDiscussionComment,
         removePrjDiscussionComment: removePrjDiscussionComment,
         getPrjDiscussionComments: getPrjDiscussionComments,
+
+        getPrjDiscussionPreview: getPrjDiscussionPreview,
+        getPrjCommentPreview: getPrjCommentPreview,
+        getWikiCommentPreview: getWikiCommentPreview,
+        getBlogCommentPreview: getBlogCommentPreview,
+        getNewsCommentPreview: getNewsCommentPreview,
+        getBookmarksCommentPreview:getBookmarksCommentPreview,
+
+        removePrjComment: removePrjComment,
+        removeWikiComment:removeWikiComment,
+        removeBlogComment: removeBlogComment,
+        removeNewsComment:removeNewsComment,
+        removeBookmarksComment: removeBookmarksComment,
+
+        addPrjComment: addPrjComment,
+        addWikiComment: addWikiComment,
+        addBlogComment: addBlogComment,
+        addNewsComment: addNewsComment,
+        addBookmarksComment: addBookmarksComment,
+
+        updatePrjComment: updatePrjComment,
+        updateWikiComment: updateWikiComment,
+        updateBlogComment: updateBlogComment,
+        updateNewsComment: updateNewsComment,
+        updateBookmarksComment: updateBookmarksComment,
+
+        fckeRemoveCommentComplete: fckeRemoveCommentComplete,
+        fckeCancelCommentComplete: fckeCancelCommentComplete,
+        fckeEditCommentComplete: fckeEditCommentComplete,
+        updatePortalName: updatePortalName,
 
         addPrjEntityFiles: addPrjEntityFiles,
         uploadFilesToPrjEntity: uploadFilesToPrjEntity,
@@ -2308,7 +2440,7 @@ window.Teamlab = (function() {
         getPrjDiscussions: getPrjDiscussions,
         subscribeToPrjDiscussion: subscribeToPrjDiscussion,
         getSubscribesToPrjDiscussion: getSubscribesToPrjDiscussion,
-        
+
         addPrjProject: addPrjProject,
         updatePrjProject: updatePrjProject,
         updatePrjProjectStatus: updatePrjProjectStatus,
@@ -2379,6 +2511,7 @@ window.Teamlab = (function() {
         copyBatchItems: copyBatchItems,
         getOperationStatuses: getOperationStatuses,
         getPresignedUri: getPresignedUri,
+        saveDocServiceUrl: saveDocServiceUrl,
 
         createCrmUploadFile: createCrmUploadFile,
 
@@ -2539,11 +2672,9 @@ window.Teamlab = (function() {
         getCrmContactTweets: getCrmContactTweets,
         getCrmContactTwitterProfiles: getCrmContactTwitterProfiles,
         getCrmContactFacebookProfiles: getCrmContactFacebookProfiles,
-        getCrmContactLinkedinProfiles: getCrmContactLinkedinProfiles,
         removeCrmContactAvatar: removeCrmContactAvatar,
         updateCrmContactAvatar: updateCrmContactAvatar,
         getCrmContactSocialMediaAvatar: getCrmContactSocialMediaAvatar,
-        getCrmContactInCruchBase: getCrmContactInCruchBase,
         startCrmImportFromCSV: startCrmImportFromCSV,
         getStatusCrmImportFromCSV: getStatusCrmImportFromCSV,
         getCrmImportFromCSVSampleRow: getCrmImportFromCSVSampleRow,
@@ -2590,8 +2721,6 @@ window.Teamlab = (function() {
 
         getMailFilteredMessages: getMailFilteredMessages,
         getMailFolders: getMailFolders,
-        getMailMessagesModifyDate: getMailMessagesModifyDate,
-        getMailFolderModifyDate: getMailFolderModifyDate,
         getAccounts: getAccounts,
         getMailTags: getMailTags,
         getMailMessage: getMailMessage,
@@ -2601,7 +2730,6 @@ window.Teamlab = (function() {
         getNextMailConversationId: getNextMailConversationId,
         getPrevMailConversationId: getPrevMailConversationId,
         getMailMessageTemplate: getMailMessageTemplate,
-        getMailRandomGuid: getMailRandomGuid,
         removeMailFolderMessages: removeMailFolderMessages,
         restoreMailMessages: restoreMailMessages,
         moveMailMessages: moveMailMessages,
@@ -2671,6 +2799,9 @@ window.Teamlab = (function() {
         isDomainExists: isDomainExists,
         checkDomainOwnership: checkDomainOwnership,
         getDomainDnsSettings: getDomainDnsSettings,
+        createNotificationAddress: createNotificationAddress,
+        removeNotificationAddress: removeNotificationAddress,
+        
 
         getWebItemSecurityInfo: getWebItemSecurityInfo,
         setWebItemSecurity: setWebItemSecurity,
@@ -2689,9 +2820,15 @@ window.Teamlab = (function() {
         updateIpRestrictionsSettings: updateIpRestrictionsSettings,
         updateTipsSettings: updateTipsSettings,
         smsValidationSettings: smsValidationSettings,
+        closeWelcomePopup: closeWelcomePopup,
+        setColorTheme: setColorTheme,
+        setDefaultpage: setDefaultpage,
 
         getTalkUnreadMessages: getTalkUnreadMessages,
 
         registerUserOnPersonal: registerUserOnPersonal,
+
+        saveWhiteLabelSettings: saveWhiteLabelSettings,
+        restoreWhiteLabelSettings: restoreWhiteLabelSettings
     };
 })();

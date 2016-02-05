@@ -42,8 +42,15 @@
             <span class="accountname" title="${email}">${email}</span>
         </td>
         <td class="notify_column">
-            {{if !isTeamlabMailbox && oAuthConnection }}
-                <span class="notification" title="<%: MailScriptResource.AccountNotificationText %>"><%: MailScriptResource.AccountNotificationText %></span>
+            {{if enabled == false}}
+                <span style="margin-left: 16px;display: inline-block;" class="red-text notification" title="<%: MailResource.AccountDisableForReceiving %>">
+                    <%: MailResource.AccountDisableForReceiving %>
+                    <a class="link dotline red-text" style="border-bottom: 1px dotted;display: inline-block;" onclick="javascript:accountsModal.activateAccount('${email}', true);"><%: MailResource.TurnOnAccountLabel %></a>
+                </span>
+            {{else}}
+                {{if !isTeamlabMailbox && oAuthConnection }}
+                    <span class="notification" title="<%: MailScriptResource.AccountNotificationText %>"><%: MailScriptResource.AccountNotificationText %></span>
+                {{/if}}
             {{/if}}
         </td>
         <td class="manage_signature_column">
@@ -52,7 +59,7 @@
             </div>
         </td>
         <td class="menu_column">
-            <div class="menu" title="<%: MailScriptResource.Actions %>" data_id="${email}"></div>
+            <div class="menu menu-small" title="<%: MailScriptResource.Actions %>" data_id="${email}"></div>
         </td>
     </tr>
 </script>
@@ -90,8 +97,15 @@
             <span class="accountname" title="${email}">${email}</span>
         </td>
         <td class="notify_column">
-            <span class="notification" title="${"<%: MailScriptResource.AliasNotificationText %>".replace('%mailbox_address%', $data.realEmail)}">
-               ${"<%: MailScriptResource.AliasNotificationText %>".replace('%mailbox_address%', $data.realEmail)}</span>
+            {{if enabled == false}}
+                <span style="margin-left: 16px;display: inline-block;" class="red-text notification" title="<%: MailResource.AccountDisableForReceiving %>">
+                    <%: MailResource.AccountDisableForReceiving %>
+                    <a class="link dotline red-text" style="border-bottom: 1px dotted;display: inline-block;" onclick="javascript:accountsModal.activateAccount('${email}', true);"><%: MailResource.TurnOnAccountLabel %></a>
+                </span>
+            {{else}}
+                <span class="notification" title="${"<%: MailScriptResource.AliasNotificationText %>".replace('%mailbox_address%', $data.realEmail)}">
+                   ${"<%: MailScriptResource.AliasNotificationText %>".replace('%mailbox_address%', $data.realEmail)}</span>
+            {{/if}}
         </td>
     </tr>
 </script>

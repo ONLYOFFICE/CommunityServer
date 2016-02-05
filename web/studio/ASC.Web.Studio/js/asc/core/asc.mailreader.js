@@ -24,11 +24,6 @@
 */
 
 
-/*
-    Copyright (c) Ascensio System SIA 2015. All rights reserved.
-    http://www.onlyoffice.com
-*/
-
 ASC.Controls.MailReader = function () {
 
     function updateFolders() {

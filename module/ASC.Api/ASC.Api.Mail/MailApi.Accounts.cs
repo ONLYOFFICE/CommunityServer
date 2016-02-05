@@ -25,28 +25,28 @@
 
 
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Mail;
 using System.Security.Authentication;
+using System.Threading;
+using ActiveUp.Net.Mail;
 using ASC.Api.Attributes;
+using ASC.Api.Exceptions;
 using ASC.Api.Mail.DataContracts;
 using ASC.Api.Mail.Extensions;
-using ASC.Api.Exceptions;
 using ASC.Api.Mail.Resources;
+using ASC.Core;
 using ASC.Mail.Aggregator;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Authorization;
 using ASC.Mail.Aggregator.Dal;
-using ActiveUp.Net.Mail;
 using ASC.Web.Core.Utility.Settings;
-using ASC.Core;
 
 namespace ASC.Api.Mail
 {
     public partial class MailApi
     {
-
         /// <summary>
         ///    Returns lists of all mailboxes, aliases and groups for user.
         /// </summary>
@@ -73,7 +73,11 @@ namespace ASC.Api.Mail
         [Create(@"accounts/simple")]
         public MailAccountData CreateAccountSimple(string email, string password)
         {
-            if (string.IsNullOrEmpty(email)) throw new ArgumentException(@"Empty email", "email");
+            if (string.IsNullOrEmpty(email)) 
+                throw new ArgumentException(@"Empty email", "email");
+
+            Thread.CurrentThread.CurrentCulture = CurrentCulture;
+            Thread.CurrentThread.CurrentUICulture = CurrentCulture;
 
             string errorText = null;
             MailBox mbox = null;
@@ -140,6 +144,10 @@ namespace ASC.Api.Mail
                                                                           "smtp", AuthorizationServiceType.Unknown);
 
                 MailBoxManager.SaveMailBox(mbox);
+
+                if (IsSignalRAvailable)
+                    MailBoxManager.UpdateUserActivity(TenantId, Username);
+
                 var account = new AccountInfo(mbox.MailBoxId, mbox.EMailView, mbox.Name, mbox.Enabled, mbox.QuotaError,
                                                MailBox.AuthProblemType.NoProblems, new SignatureDto(mbox.MailBoxId, TenantId, "", false), 
                                                false, mbox.EMailInFolder, false, false);
@@ -206,6 +214,10 @@ namespace ASC.Api.Mail
                                         (AuthorizationServiceType)type);
 
                 MailBoxManager.SaveMailBox(mboxImap);
+
+                if (IsSignalRAvailable)
+                    MailBoxManager.UpdateUserActivity(TenantId, Username);
+
                 var account = new AccountInfo(mboxImap.MailBoxId, mboxImap.EMailView, mboxImap.Name, mboxImap.Enabled, mboxImap.QuotaError,
                                                MailBox.AuthProblemType.NoProblems, new SignatureDto(mboxImap.MailBoxId, TenantId, "", false),
                                                true, mboxImap.EMailInFolder, false, false);
@@ -343,6 +355,10 @@ namespace ASC.Api.Mail
                                                                           "smtp", AuthorizationServiceType.Unknown);
 
                 MailBoxManager.SaveMailBox(mbox);
+
+                if (IsSignalRAvailable)
+                    MailBoxManager.UpdateUserActivity(TenantId, Username);
+
                 var accountInfo = new AccountInfo(mbox.MailBoxId, mbox.EMailView, mbox.Name, mbox.Enabled, mbox.QuotaError,
                                                MailBox.AuthProblemType.NoProblems, new SignatureDto(mbox.MailBoxId, TenantId, "", false), 
                                                false, mbox.EMailInFolder, false, false);
@@ -503,7 +519,7 @@ namespace ASC.Api.Mail
         /// <exception cref="NullReferenceException">Exception happens when mailbox wasn't founded by email.</exception>
         /// <short>Delete account</short> 
         /// <category>Accounts</category>
-        [Delete(@"accounts/{email}")]
+        [Delete(@"accounts")]
         public string DeleteAccount(string email)
         {
             if (string.IsNullOrEmpty(email))
@@ -530,7 +546,7 @@ namespace ASC.Api.Mail
         /// <exception cref="Exception">Exception happens when update operation failed.</exception>
         /// <short>Set account state</short> 
         /// <category>Accounts</category>
-        [Update(@"accounts/{email}/state")]
+        [Update(@"accounts/state")]
         public int SetAccountEnable(string email, bool state)
         {
             if (string.IsNullOrEmpty(email))
@@ -581,19 +597,20 @@ namespace ASC.Api.Mail
         ///    Sets the default account specified in the request
         /// </summary>
         /// <param name="email">Email of the account</param>
-        /// <param name="setDefault">Set or reset account as default</param>
+        /// <param name="isDefault">Set or reset account as default</param>
         /// <returns>Account email address</returns>
         /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
         /// <exception cref="Exception">Exception happens when update operation failed.</exception>
         /// <short>Set default account</short> 
         /// <category>Accounts</category>
-        [Update(@"accounts/{email}/set-default/{setDefault}")]
-        public string SetDefaultAccount(string email, bool setDefault)
+        [Update(@"accounts/default")]
+        public string SetDefaultAccount(string email, bool isDefault)
         {
             if (string.IsNullOrEmpty(email))
                 throw new ArgumentNullException("email");
+
             email = email.ToLowerInvariant();
-            if (setDefault)
+            if (isDefault)
             {
                 var accounts = MailBoxManager.GetAccountInfo(TenantId, Username);
                 bool emailExist = false;
@@ -619,7 +636,7 @@ namespace ASC.Api.Mail
             }
             var settings = new MailBoxAccountSettings
             {
-                DefaultEmail = setDefault ? email : String.Empty
+                DefaultEmail = isDefault ? email : String.Empty
             };
             SettingsManager.Instance.SaveSettingsFor<MailBoxAccountSettings>(settings, SecurityContext.CurrentAccount.ID);
 
@@ -635,7 +652,7 @@ namespace ASC.Api.Mail
         /// <exception cref="NullReferenceException">Exception happens when mailbox wasn't founded by email.</exception>
         /// <short>Get account by email</short> 
         /// <category>Accounts</category>
-        [Read(@"accounts/{email}")]
+        [Read(@"accounts/single")]
         public MailBox GetAccount(string email)
         {
             if (string.IsNullOrEmpty(email))
@@ -648,6 +665,9 @@ namespace ASC.Api.Mail
 
             if (mailbox.IsTeamlab)
                 throw new ArgumentException("Access to this account restricted");
+
+            mailbox.Password = "";
+            mailbox.SmtpPassword = "";
 
             return mailbox;
         }
@@ -665,7 +685,7 @@ namespace ASC.Api.Mail
         /// <returns>Account with default settings</returns>
         /// <short>Get default account settings</short> 
         /// <category>Accounts</category>
-        [Read(@"accounts/{email}/default")]
+        [Read(@"accounts/setups")]
         public MailBox GetAccountsDefaults(string email, string action)
         {
             if (action == "get_imap_pop_settings")
@@ -690,13 +710,13 @@ namespace ASC.Api.Mail
         ///    Sets the state for the account specified in the request
         /// </summary>
         /// <param name="mailbox_id">Id of the account</param>
-        /// <param name="email_in_folder">Account EMailIn folder</param>
+        /// <param name="email_in_folder">Document's folder Id</param>
         /// <returns>Account email address</returns>
         /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
         /// <exception cref="Exception">Exception happens when update operation failed.</exception>
         /// <short>Set account state</short> 
         /// <category>Accounts</category>
-        [Update(@"accounts/{mailbox_id:[0-9]+}/emailinfolder")]
+        [Update(@"accounts/emailinfolder")]
         public void SetAccountEMailInFolder(int mailbox_id, string email_in_folder)
         {
             if (null == email_in_folder)

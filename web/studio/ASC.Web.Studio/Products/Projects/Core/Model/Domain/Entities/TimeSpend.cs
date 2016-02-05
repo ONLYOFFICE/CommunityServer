@@ -30,6 +30,8 @@ namespace ASC.Projects.Core.Domain
 {
     public class TimeSpend : DomainObject<int>
     {
+        public override EntityType EntityType { get { return EntityType.TimeSpend; } }
+
         public Task Task { get; set; }
 
         public DateTime Date { get; set; }

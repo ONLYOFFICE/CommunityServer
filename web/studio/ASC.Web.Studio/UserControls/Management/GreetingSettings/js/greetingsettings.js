@@ -24,11 +24,6 @@
 */
 
 
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.onlyoffice.com
-*/
-
 var GreetingSettingsManager = new function () {
 
     var _bindAjaxProOnLoading = function () {

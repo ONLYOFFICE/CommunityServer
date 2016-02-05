@@ -34,12 +34,10 @@ using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.Studio.Utility.BBCodeParser;
-using AjaxPro;
 using System.Web.SessionState;
 
 namespace ASC.Web.Studio.Utility
 {
-    [AjaxNamespace("CommonControlsConfigurer")]
     public class CommonControlsConfigurer
     {
         #region FCK Editor
@@ -148,6 +146,7 @@ namespace ASC.Web.Studio.Utility
                 uploads.Add(tempInfo);
             }
             tempInfo.Files.Add(filename);
+            session["tempFCKUploads"] = uploads;
             return folderID;
         }
 
@@ -283,88 +282,13 @@ namespace ASC.Web.Studio.Utility
 
         public static void CommentsConfigure(CommentsList commentList)
         {
-            commentList.PID = CommonLinkUtility.GetProductID().ToString();
-            commentList.InactiveMessage = Resources.Resource.CommentRemovedMessage;
-            commentList.UserProfileUrlResolver = user => CommonLinkUtility.GetUserProfile(user);
-            commentList.AddCommentLink = Resources.Resource.AddNewCommentButton;
-            commentList.CancelCommentLink = Resources.Resource.CancelCommentButton;
-
-            commentList.SaveButton = Resources.Resource.PublishButton;
             commentList.BehaviorID = "_commentObj";
 
-            commentList.PreviewButton = Resources.Resource.PreviewButton;
-            commentList.HidePrevuewButton = Resources.Resource.CloseButton;
-            commentList.CancelButton = Resources.Resource.CancelButton;
-            commentList.InactiveMessage = Resources.Resource.CommentWasRemoved;
-
-            commentList.RemoveCommentLink = Resources.Resource.DeleteButton;
-            commentList.ResponseCommentLink = Resources.Resource.AnswerButton;
-            commentList.EditCommentLink = Resources.Resource.EditButton;
-
-            commentList.CommentsTitle = Resources.Resource.Comments;
-
             commentList.ConfirmRemoveCommentMessage = Resources.Resource.ConfirmRemoveCommentMessage;
-
-            commentList.AdditionalSubmitText = "<span class=\"text-medium-describe\" style=\"margin-left:5px;\">" + Resources.Resource.OrPress + "</span> <span class=\"text-base\">" + Resources.Resource.CtrlEnterKeys + "</span>";
 
             commentList.OnEditedCommentJS = "FCKCommentsController.EditCommentHandler";
             commentList.OnCanceledCommentJS = "FCKCommentsController.CancelCommentHandler";
             commentList.OnRemovedCommentJS = "FCKCommentsController.RemoveCommentHandler";
-
-            try
-            {
-                AjaxPro.Utility.RegisterTypeForAjax(typeof(CommonControlsConfigurer));
-            }
-            catch
-            {
-            }
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public object EditCommentComplete(string commentID, string domain, string html, bool isEdit)
-        {
-            try
-            {
-                FCKEditingComplete(domain, commentID, html, isEdit);
-                return 1;
-            }
-
-            catch
-            {
-                return 0;
-            }
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public object RemoveCommentComplete(string commentID, string domain)
-        {
-            try
-            {
-                FCKUploadsRemoveForItem(domain, commentID);
-                return 1;
-            }
-            catch
-            {
-                return 0;
-            }
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public object CancelCommentComplete(string commentID, string domain, bool isEdit)
-        {
-            try
-            {
-                if (isEdit)
-                    FCKEditingCancel(domain, commentID);
-                else
-                    FCKEditingCancel(domain);
-
-                return 1;
-            }
-            catch
-            {
-                return 0;
-            }
         }
 
         #endregion

@@ -123,9 +123,6 @@
   <data name="AddAliasSuccess" xml:space="preserve">
     <value>Alias "{0}" was added successfully.</value>
   </data>
-  <data name="AddDomainSuccess" xml:space="preserve">
-    <value>Domain "{0}" was added successfully.</value>
-  </data>
   <data name="AddMailboxSuccess" xml:space="preserve">
     <value>Mailbox "{0}" was added successfully.</value>
   </data>

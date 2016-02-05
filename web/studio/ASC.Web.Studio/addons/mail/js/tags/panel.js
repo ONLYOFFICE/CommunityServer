@@ -43,6 +43,10 @@ window.tagsPanel = (function($) {
             tagsManager.events.bind('update', onUpdateTag);
             tagsManager.events.bind('increment', onIncrement);
             tagsManager.events.bind('decrement', onDecrement);
+
+            jq(window).on("resizeWinTimer", function () {
+                updatePanel();
+            });
         }
     };
 

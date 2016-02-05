@@ -112,14 +112,11 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddButton" xml:space="preserve">
-    <value>Add</value>
-  </data>
   <data name="AddonDescription" xml:space="preserve">
     <value>Corporate forum discussions</value>
   </data>
@@ -128,9 +125,6 @@
   </data>
   <data name="AddThreadButton" xml:space="preserve">
     <value>Create New Forum</value>
-  </data>
-  <data name="AddThreadCategoryButton" xml:space="preserve">
-    <value>Create new forum</value>
   </data>
   <data name="AddThreadCategoryTitle" xml:space="preserve">
     <value>New Forum</value>
@@ -147,14 +141,8 @@
   <data name="CreateButton" xml:space="preserve">
     <value>Create</value>
   </data>
-  <data name="CutLongMassageSettingsTitle" xml:space="preserve">
-    <value>Shorten long posts</value>
-  </data>
   <data name="DeleteButton" xml:space="preserve">
     <value>Delete</value>
-  </data>
-  <data name="EditButton" xml:space="preserve">
-    <value>Edit</value>
   </data>
   <data name="EditShortButton" xml:space="preserve">
     <value>Edit</value>
@@ -165,26 +153,26 @@
   <data name="EmptyScreenForumCaption" xml:space="preserve">
     <value>No forums have been started yet</value>
   </data>
-  <data name="EmptyScreenTopicCaption" xml:space="preserve">
-    <value>No topics have been created yet</value>
-  </data>
-  <data name="EmptyScreenSearchCaption" xml:space="preserve">
-    <value>Topics not found</value>
-  </data>
   <data name="EmptyScreenForumLink" xml:space="preserve">
     <value>Create the first forum</value>
-  </data>
-  <data name="EmptyScreenTopicLink" xml:space="preserve">
-    <value>Create the first topic</value>
   </data>
   <data name="EmptyScreenForumText" xml:space="preserve">
     <value>Create your own forums, take part in the discussions, share some interesting information, organize polls making your forums more interactive.</value>
   </data>
-  <data name="EmptyScreenTopicText" xml:space="preserve">
-    <value>Create your own topics, take part in the discussions, share some interesting information, organize polls making your forums more interactive.</value>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>Topics not found</value>
   </data>
   <data name="EmptyScreenSearchText" xml:space="preserve">
     <value>Create your own forums, take part in the discussions, share some interesting information, organize polls making your forums more interactive.</value>
+  </data>
+  <data name="EmptyScreenTopicCaption" xml:space="preserve">
+    <value>No topics have been created yet</value>
+  </data>
+  <data name="EmptyScreenTopicLink" xml:space="preserve">
+    <value>Create the first topic</value>
+  </data>
+  <data name="EmptyScreenTopicText" xml:space="preserve">
+    <value>Create your own topics, take part in the discussions, share some interesting information, organize polls making your forums more interactive.</value>
   </data>
   <data name="ErrorAccessDenied" xml:space="preserve">
     <value>No permissions to perform this action</value>
@@ -201,9 +189,6 @@
   <data name="ErrorEmptyName" xml:space="preserve">
     <value>Enter a name</value>
   </data>
-  <data name="ErrorNotCorrectMaxTopicCountSettings" xml:space="preserve">
-    <value>Invalid number of posts</value>
-  </data>
   <data name="ErrorSubscription" xml:space="preserve">
     <value>An error occurred while unsubscribing/subscribing</value>
   </data>
@@ -213,26 +198,11 @@
   <data name="FindTopicDescription" xml:space="preserve">
     <value>Topic in "{0}" forum</value>
   </data>
-  <data name="ForumEditorBreadCrumbs" xml:space="preserve">
-    <value>Open forum editor</value>
-  </data>
-  <data name="ForumListPageDescription" xml:space="preserve">
-    <value>Forum title page</value>
-  </data>
-  <data name="ForumNotCreatedWidgetMessage" xml:space="preserve">
-    <value>No forums created yet</value>
-  </data>
-  <data name="ForumNotCreatedWidgetMessageForAdmin" xml:space="preserve">
-    <value>Click here to {0}Create new forum{1}</value>
-  </data>
   <data name="ForumsBreadCrumbs" xml:space="preserve">
     <value>All Forums</value>
   </data>
   <data name="MakeModeratorsButton" xml:space="preserve">
     <value>Change</value>
-  </data>
-  <data name="MaxLastTopicCountSettingsTitle" xml:space="preserve">
-    <value>Number of posts to display (1 to 30)</value>
   </data>
   <data name="Moderators" xml:space="preserve">
     <value>Moderators</value>
@@ -252,32 +222,8 @@
   <data name="NewTopicOnForumSubscriptionTitle" xml:space="preserve">
     <value>Subscription to new forum topics </value>
   </data>
-  <data name="PartnershipTopic" xml:space="preserve">
-    <value>Participation in topic</value>
-  </data>
-  <data name="PleaseWaitMessage" xml:space="preserve">
-    <value>Please wait...</value>
-  </data>
   <data name="PostCount" xml:space="preserve">
     <value>Posts</value>
-  </data>
-  <data name="PostedBy" xml:space="preserve">
-    <value>Author</value>
-  </data>
-  <data name="QuestionEmptyMessage" xml:space="preserve">
-    <value>Enter your question</value>
-  </data>
-  <data name="RecentActivityContainerTitle" xml:space="preserve">
-    <value>Recent Activity</value>
-  </data>
-  <data name="RecentForumUpdateWidgetDescription" xml:space="preserve">
-    <value>shows the latest posts in forums</value>
-  </data>
-  <data name="RecentForumUpdateWidgetTitle" xml:space="preserve">
-    <value>Forums</value>
-  </data>
-  <data name="RecentPostFromTopic" xml:space="preserve">
-    <value>Latest Posts in Topic</value>
   </data>
   <data name="RecentUpdate" xml:space="preserve">
     <value>Latest Update</value>
@@ -291,12 +237,6 @@
   <data name="ShotPostCount" xml:space="preserve">
     <value>Posts</value>
   </data>
-  <data name="StickyTopicButton" xml:space="preserve">
-    <value>Attach</value>
-  </data>
-  <data name="SubjectEmptyMessage" xml:space="preserve">
-    <value>Enter the topic name</value>
-  </data>
   <data name="SubscribeOnNewTopicInForum" xml:space="preserve">
     <value>Subscribe to new topics</value>
   </data>
@@ -306,29 +246,11 @@
   <data name="SubscribeOnTopic" xml:space="preserve">
     <value>Subscribe to this topic</value>
   </data>
-  <data name="SubscribeThreadHelp" xml:space="preserve">
-    <value>You´ll be notified about all new posts and topics in forum.</value>
-  </data>
-  <data name="SubscribeTopicHelp" xml:space="preserve">
-    <value>You´ll be notified about new posts in topic</value>
-  </data>
   <data name="SuccessfullyCreateForumMessage" xml:space="preserve">
     <value>The forum has been successfully created</value>
   </data>
-  <data name="TagName" xml:space="preserve">
-    <value>Tag Name</value>
-  </data>
-  <data name="Tags" xml:space="preserve">
-    <value>Tags</value>
-  </data>
-  <data name="TagSubscriptionTitle" xml:space="preserve">
-    <value>Subscription to tags</value>
-  </data>
   <data name="Thread" xml:space="preserve">
     <value>Forum</value>
-  </data>
-  <data name="ThreadActionText" xml:space="preserve">
-    <value>forum created</value>
   </data>
   <data name="ThreadCategory" xml:space="preserve">
     <value>Category</value>
@@ -342,14 +264,8 @@
   <data name="ThreadCategoryName" xml:space="preserve">
     <value>Title</value>
   </data>
-  <data name="ThreadDeleteActionText" xml:space="preserve">
-    <value>forum deleted</value>
-  </data>
   <data name="ThreadDescription" xml:space="preserve">
     <value>Forum Description</value>
-  </data>
-  <data name="ThreadEditActionText" xml:space="preserve">
-    <value>forum edited</value>
   </data>
   <data name="ThreadEditor" xml:space="preserve">
     <value>Forum Editor</value>
@@ -371,9 +287,6 @@
   </data>
   <data name="TypeCategoryName" xml:space="preserve">
     <value>Create a new category</value>
-  </data>
-  <data name="UnsubscribeButton" xml:space="preserve">
-    <value>Unsubscribe from notification</value>
   </data>
   <data name="UnsubscribeOnNewTopicInForum" xml:space="preserve">
     <value>Unsubscribe from new topics</value>

@@ -50,7 +50,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
             {
                 if (e != null) Error = e.Message;
 
-                Id = String.IsNullOrEmpty(id.ToString()) ? "/" : id.ToString();
+                Id = String.IsNullOrEmpty((id ?? "").ToString()) ? "/" : id.ToString();
             }
 
             public string Error { get; set; }
@@ -139,8 +139,6 @@ namespace ASC.Files.Thirdparty.Sharpbox
             }
         }
 
-        public DbManager DbManager { get; private set; }
-
         public int TenantID { get; private set; }
 
         protected SharpBoxDaoBase(SharpBoxDaoSelector.SharpBoxInfo sharpBoxInfo, SharpBoxDaoSelector sharpBoxDaoSelector)
@@ -148,8 +146,13 @@ namespace ASC.Files.Thirdparty.Sharpbox
             SharpBoxProviderInfo = sharpBoxInfo.SharpBoxProviderInfo;
             PathPrefix = sharpBoxInfo.PathPrefix;
             SharpBoxDaoSelector = sharpBoxDaoSelector;
-            DbManager = new DbManager(FileConstant.DatabaseId);
             TenantID = CoreContext.TenantManager.GetCurrentTenant().TenantId;
+        }
+
+
+        protected DbManager GetDb()
+        {
+            return new DbManager(FileConstant.DatabaseId);
         }
 
         protected object MappingID(object id, bool saveIfNotExist)
@@ -162,19 +165,20 @@ namespace ASC.Files.Thirdparty.Sharpbox
             if (isNumeric) return n;
 
             object result;
+            using (var db = GetDb())
+            {
+                if (id.ToString().StartsWith("sbox"))
+                    result = Regex.Replace(BitConverter.ToString(Hasher.Hash(id.ToString(), HashAlg.MD5)), "-", "").ToLower();
+                else
+                    result = db.ExecuteScalar<String>(Query("files_thirdparty_id_mapping")
+                                                                 .Select("id")
+                                                                 .Where(Exp.Eq("hash_id", id)));
 
-            if (id.ToString().StartsWith("sbox"))
-                result = Regex.Replace(BitConverter.ToString(Hasher.Hash(id.ToString(), HashAlg.MD5)), "-", "").ToLower();
-            else
-                result = DbManager.ExecuteScalar<String>(Query("files_thirdparty_id_mapping")
-                                                             .Select("id")
-                                                             .Where(Exp.Eq("hash_id", id)));
-
-            if (saveIfNotExist)
-                DbManager.ExecuteNonQuery(Insert("files_thirdparty_id_mapping")
-                                              .InColumnValue("id", id)
-                                              .InColumnValue("hash_id", result));
-
+                if (saveIfNotExist)
+                    db.ExecuteNonQuery(Insert("files_thirdparty_id_mapping")
+                                                  .InColumnValue("id", id)
+                                                  .InColumnValue("hash_id", result));
+            }
             return result;
         }
 
@@ -187,9 +191,10 @@ namespace ASC.Files.Thirdparty.Sharpbox
         {
             if (oldValue.Equals(newValue)) return;
 
-            using (var tx = DbManager.BeginTransaction())
+            using (var db = GetDb())
+            using (var tx = db.BeginTransaction())
             {
-                var oldIDs = DbManager.ExecuteList(Query("files_thirdparty_id_mapping")
+                var oldIDs = db.ExecuteList(Query("files_thirdparty_id_mapping")
                                                        .Select("id")
                                                        .Where(Exp.Like("id", oldValue, SqlLike.StartWith)))
                                       .ConvertAll(x => x[0].ToString());
@@ -200,16 +205,16 @@ namespace ASC.Files.Thirdparty.Sharpbox
                     var newID = oldID.Replace(oldValue, newValue);
                     var newHashID = MappingID(newID);
 
-                    DbManager.ExecuteNonQuery(Update("files_thirdparty_id_mapping")
+                    db.ExecuteNonQuery(Update("files_thirdparty_id_mapping")
                                                   .Set("id", newID)
                                                   .Set("hash_id", newHashID)
                                                   .Where(Exp.Eq("hash_id", oldHashID)));
 
-                    DbManager.ExecuteNonQuery(Update("files_security")
+                    db.ExecuteNonQuery(Update("files_security")
                                                   .Set("entry_id", newHashID)
                                                   .Where(Exp.Eq("entry_id", oldHashID)));
 
-                    DbManager.ExecuteNonQuery(Update("files_tag_link")
+                    db.ExecuteNonQuery(Update("files_tag_link")
                                                   .Set("entry_id", newHashID)
                                                   .Where(Exp.Eq("entry_id", oldHashID)));
                 }
@@ -251,7 +256,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
         protected string MakePath(object entryId)
         {
-            return string.Format("/{0}", Convert.ToString(entryId, CultureInfo.InvariantCulture).TrimStart('/').TrimEnd('/'));
+            return string.Format("/{0}", Convert.ToString(entryId, CultureInfo.InvariantCulture).Trim('/'));
         }
 
         protected string MakeId(ICloudFileSystemEntry entry)
@@ -295,8 +300,6 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
         public void Dispose()
         {
-            DbManager.Dispose();
-
             if (SharpBoxProviderInfo.Storage.IsOpened)
             {
                 SharpBoxProviderInfo.Storage.Close();
@@ -316,25 +319,25 @@ namespace ASC.Files.Thirdparty.Sharpbox
             var isRoot = IsRoot(fsEntry);
 
             var folder = new Folder
-                {
-                    ID = MakeId(fsEntry),
-                    ParentFolderID = isRoot ? null : MakeId(fsEntry.Parent),
-                    CreateBy = SharpBoxProviderInfo.Owner,
-                    CreateOn = isRoot ? SharpBoxProviderInfo.CreateOn : fsEntry.Modified,
-                    FolderType = FolderType.DEFAULT,
-                    ModifiedBy = SharpBoxProviderInfo.Owner,
-                    ModifiedOn = isRoot ? SharpBoxProviderInfo.CreateOn : fsEntry.Modified,
-                    ProviderId = SharpBoxProviderInfo.ID,
-                    ProviderKey = SharpBoxProviderInfo.ProviderKey,
-                    RootFolderCreator = SharpBoxProviderInfo.Owner,
-                    RootFolderId = MakeId(RootFolder()),
-                    RootFolderType = SharpBoxProviderInfo.RootFolderType,
+            {
+                ID = MakeId(fsEntry),
+                ParentFolderID = isRoot ? null : MakeId(fsEntry.Parent),
+                CreateBy = SharpBoxProviderInfo.Owner,
+                CreateOn = isRoot ? SharpBoxProviderInfo.CreateOn : fsEntry.Modified,
+                FolderType = FolderType.DEFAULT,
+                ModifiedBy = SharpBoxProviderInfo.Owner,
+                ModifiedOn = isRoot ? SharpBoxProviderInfo.CreateOn : fsEntry.Modified,
+                ProviderId = SharpBoxProviderInfo.ID,
+                ProviderKey = SharpBoxProviderInfo.ProviderKey,
+                RootFolderCreator = SharpBoxProviderInfo.Owner,
+                RootFolderId = MakeId(RootFolder()),
+                RootFolderType = SharpBoxProviderInfo.RootFolderType,
 
-                    Shareable = false,
-                    Title = MakeTitle(fsEntry),
-                    TotalFiles = 0, /*fsEntry.Count - childFoldersCount NOTE: Removed due to performance isssues*/
-                    TotalSubFolders = 0, /*childFoldersCount NOTE: Removed due to performance isssues*/
-                };
+                Shareable = false,
+                Title = MakeTitle(fsEntry),
+                TotalFiles = 0, /*fsEntry.Count - childFoldersCount NOTE: Removed due to performance isssues*/
+                TotalSubFolders = 0, /*childFoldersCount NOTE: Removed due to performance isssues*/
+            };
 
             if (folder.CreateOn != DateTime.MinValue && folder.CreateOn.Kind == DateTimeKind.Utc)
                 folder.CreateOn = TenantUtil.DateTimeFromUtc(folder.CreateOn);
@@ -355,20 +358,20 @@ namespace ASC.Files.Thirdparty.Sharpbox
         private Files.Core.File ToErrorFile(ErrorEntry fsEntry)
         {
             return new Files.Core.File
-                {
-                    ID = MakeId(fsEntry),
-                    CreateBy = SharpBoxProviderInfo.Owner,
-                    CreateOn = fsEntry.Modified,
-                    ModifiedBy = SharpBoxProviderInfo.Owner,
-                    ModifiedOn = fsEntry.Modified,
-                    ProviderId = SharpBoxProviderInfo.ID,
-                    ProviderKey = SharpBoxProviderInfo.ProviderKey,
-                    RootFolderCreator = SharpBoxProviderInfo.Owner,
-                    RootFolderId = MakeId(RootFolder()),
-                    RootFolderType = SharpBoxProviderInfo.RootFolderType,
-                    Title = MakeTitle(fsEntry),
-                    Error = fsEntry.Error
-                };
+            {
+                ID = MakeId(fsEntry),
+                CreateBy = SharpBoxProviderInfo.Owner,
+                CreateOn = fsEntry.Modified,
+                ModifiedBy = SharpBoxProviderInfo.Owner,
+                ModifiedOn = fsEntry.Modified,
+                ProviderId = SharpBoxProviderInfo.ID,
+                ProviderKey = SharpBoxProviderInfo.ProviderKey,
+                RootFolderCreator = SharpBoxProviderInfo.Owner,
+                RootFolderId = MakeId(RootFolder()),
+                RootFolderType = SharpBoxProviderInfo.RootFolderType,
+                Title = MakeTitle(fsEntry),
+                Error = fsEntry.Error
+            };
         }
 
         private Folder ToErrorFolder(ErrorEntry fsEntry)
@@ -383,25 +386,25 @@ namespace ASC.Files.Thirdparty.Sharpbox
             }
 
             return new Folder
-                {
-                    ID = MakeId(fsEntry),
-                    ParentFolderID = null,
-                    CreateBy = SharpBoxProviderInfo.Owner,
-                    CreateOn = fsEntry.Modified,
-                    FolderType = FolderType.DEFAULT,
-                    ModifiedBy = SharpBoxProviderInfo.Owner,
-                    ModifiedOn = fsEntry.Modified,
-                    ProviderId = SharpBoxProviderInfo.ID,
-                    ProviderKey = SharpBoxProviderInfo.ProviderKey,
-                    RootFolderCreator = SharpBoxProviderInfo.Owner,
-                    RootFolderId = MakeId(rootFolder),
-                    RootFolderType = SharpBoxProviderInfo.RootFolderType,
-                    Shareable = false,
-                    Title = MakeTitle(fsEntry),
-                    TotalFiles = fsEntry.Count - 0,
-                    TotalSubFolders = 0,
-                    Error = fsEntry.Error
-                };
+            {
+                ID = MakeId(fsEntry),
+                ParentFolderID = null,
+                CreateBy = SharpBoxProviderInfo.Owner,
+                CreateOn = fsEntry.Modified,
+                FolderType = FolderType.DEFAULT,
+                ModifiedBy = SharpBoxProviderInfo.Owner,
+                ModifiedOn = fsEntry.Modified,
+                ProviderId = SharpBoxProviderInfo.ID,
+                ProviderKey = SharpBoxProviderInfo.ProviderKey,
+                RootFolderCreator = SharpBoxProviderInfo.Owner,
+                RootFolderId = MakeId(rootFolder),
+                RootFolderType = SharpBoxProviderInfo.RootFolderType,
+                Shareable = false,
+                Title = MakeTitle(fsEntry),
+                TotalFiles = fsEntry.Count - 0,
+                TotalSubFolders = 0,
+                Error = fsEntry.Error
+            };
         }
 
         protected Files.Core.File ToFile(ICloudFileSystemEntry fsEntry)
@@ -415,26 +418,26 @@ namespace ASC.Files.Thirdparty.Sharpbox
             }
 
             return new Files.Core.File
-                {
-                    ID = MakeId(fsEntry),
-                    Access = FileShare.None,
-                    ContentLength = fsEntry.Length,
-                    CreateBy = SharpBoxProviderInfo.Owner,
-                    CreateOn = fsEntry.Modified.Kind == DateTimeKind.Utc ? TenantUtil.DateTimeFromUtc(fsEntry.Modified) : fsEntry.Modified,
-                    FileStatus = FileStatus.None,
-                    FolderID = MakeId(fsEntry.Parent),
-                    ModifiedBy = SharpBoxProviderInfo.Owner,
-                    ModifiedOn = fsEntry.Modified.Kind == DateTimeKind.Utc ? TenantUtil.DateTimeFromUtc(fsEntry.Modified) : fsEntry.Modified,
-                    NativeAccessor = fsEntry,
-                    ProviderId = SharpBoxProviderInfo.ID,
-                    ProviderKey = SharpBoxProviderInfo.ProviderKey,
-                    Title = MakeTitle(fsEntry),
-                    RootFolderId = MakeId(RootFolder()),
-                    RootFolderType = SharpBoxProviderInfo.RootFolderType,
-                    RootFolderCreator = SharpBoxProviderInfo.Owner,
-                    SharedByMe = false,
-                    Version = 1
-                };
+            {
+                ID = MakeId(fsEntry),
+                Access = FileShare.None,
+                ContentLength = fsEntry.Length,
+                CreateBy = SharpBoxProviderInfo.Owner,
+                CreateOn = fsEntry.Modified.Kind == DateTimeKind.Utc ? TenantUtil.DateTimeFromUtc(fsEntry.Modified) : fsEntry.Modified,
+                FileStatus = FileStatus.None,
+                FolderID = MakeId(fsEntry.Parent),
+                ModifiedBy = SharpBoxProviderInfo.Owner,
+                ModifiedOn = fsEntry.Modified.Kind == DateTimeKind.Utc ? TenantUtil.DateTimeFromUtc(fsEntry.Modified) : fsEntry.Modified,
+                NativeAccessor = fsEntry,
+                ProviderId = SharpBoxProviderInfo.ID,
+                ProviderKey = SharpBoxProviderInfo.ProviderKey,
+                Title = MakeTitle(fsEntry),
+                RootFolderId = MakeId(RootFolder()),
+                RootFolderType = SharpBoxProviderInfo.RootFolderType,
+                RootFolderCreator = SharpBoxProviderInfo.Owner,
+                SharedByMe = false,
+                Version = 1
+            };
         }
 
         public Folder GetRootFolder(object folderId)
@@ -509,9 +512,9 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return folder.Where(x => (x is ICloudDirectoryEntry));
         }
 
-        protected String GetAvailableTitle(String requestTitle, ICloudDirectoryEntry parentFolderID, Func<string, ICloudDirectoryEntry, bool> isExist)
+        protected String GetAvailableTitle(String requestTitle, ICloudDirectoryEntry parentFolder, Func<string, ICloudDirectoryEntry, bool> isExist)
         {
-            if (!isExist(requestTitle, parentFolderID)) return requestTitle;
+            if (!isExist(requestTitle, parentFolder)) return requestTitle;
 
             var re = new Regex(@"( \(((?<index>[0-9])+)\)(\.[^\.]*)?)$");
             var match = re.Match(requestTitle);
@@ -526,7 +529,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
                 requestTitle = requestTitle.Insert(insertIndex, " (1)");
             }
 
-            while (isExist(requestTitle, parentFolderID))
+            while (isExist(requestTitle, parentFolder))
             {
                 requestTitle = re.Replace(requestTitle, MatchEvaluator);
             }

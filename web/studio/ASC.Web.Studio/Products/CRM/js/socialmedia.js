@@ -103,15 +103,6 @@ ASC.CRM.SocialMedia = (function() {
         _ShowProfilesWindow();
     };
 
-    _FindLinkedInProfilesResponse = function (target, addTop, addLeft, response) {
-        _RenderSMProfiles(response, "LinkedInProfileTmpl");
-        jq("#divSMProfilesWindow .divWait").hide();
-        _CalculateProfilesWindowHeight();
-
-        ASC.CRM.SocialMedia.LinkedInTargetTextbox = jq(target).parent().parent().children('table').find('input');
-        _ShowProfilesWindow();
-    };
-
     _CalculateProfilesWindowHeight = function() {
         var height = jq("#sm_tbl_UserList").outerHeight();
         if (height > 200) {
@@ -189,37 +180,6 @@ ASC.CRM.SocialMedia = (function() {
         jq(document).unbind("click", _CheckProfilesWindow);
     };
 
-    _ShowCrunchbaseContact = function (contactNamespace, result) {
-        var resObj = jq.parseJSON(result);
-        resObj.namespace = contactNamespace;
-        jq("#divSMContactsSearchContainer .divWaitForSearching").hide();
-        jq("#divSMContactsSearchContainer .divNoProfiles").css("display", "none");
-
-        jq("#divContactDescription").css("display", "block");
-        jq("#divCrbsContactConfirm").css("display", "block");
-        jq("#divContactDescription").html("");
-
-        var uniqueRelationships = [],
-            permalinks = [],
-            item = {};
-        if (contactNamespace == "organization" && resObj.relationships && resObj.relationships.length != 0) {
-            for (var i = 0, n = resObj.relationships.length; i < n; i++) {
-                item = resObj.relationships[i];
-                if (jQuery.inArray(item.person.permalink, permalinks) == -1) {
-                    permalinks.push(item.person.permalink);
-                    uniqueRelationships.push(item);
-                }
-            }
-            resObj.relationships = uniqueRelationships;
-        }
-
-        jq.tmpl("crunchbaseContactFullTmpl", resObj).appendTo("#divContactDescription");
-        if (jq("#tblCompanyFields > tbody > tr").length == 0) {
-            jq("#divContactDescription").html("");
-            jq("#divCrbsContactConfirm").css("display", "none");
-            jq("#divSMContactsSearchContainer .divNoProfiles").css("display", "block");
-        }
-    };
 
     return {
         init: function (defaultAvatarSrc) {
@@ -262,18 +222,6 @@ ASC.CRM.SocialMedia = (function() {
                     jq("#tweetsEmptyScreen.display-none").removeClass("display-none");
                 }
             }
-        },
-
-        initFindInCrunchbasePanel: function (blockSelector) {
-            jq.tmpl("template-blockUIPanel", {
-                id: "divSMContactsSearchContainer",
-                headerTest: ASC.CRM.Resources.CRMSocialMediaResource.ProfilesInSocialMedia,
-                questionText: "",
-                innerHtmlText: jq.tmpl("findInCrunchbasePanelBodyTmpl").html(),
-                OKBtn: "",
-                CancelBtn: "",
-                progressText: ""
-            }).insertAfter(blockSelector);
         },
 
         switchCheckedPersonsInCompany: function(checked) {
@@ -518,44 +466,6 @@ ASC.CRM.SocialMedia = (function() {
             });
         },
 
-        FindLinkedInProfiles: function(target, contactType, addTop, addLeft) {
-            _HideProfilesWindow();
-            jq("#divSMProfilesWindow .divNoProfiles").css("display", "none");
-            jq("#sm_tbl_UserList").html("");
-
-            var searchText;
-            //contact type can be only "person"
-            if (contactType == "company")
-                return;
-            if (contactType == "people") {
-                jq("#divSMProfilesWindow .divSMProfilesWindowBody .errorBox").remove();
-
-                var firstName = jq("[name='baseInfo_firstName']").val(),
-                    lastName = jq("[name='baseInfo_lastName']").val(),
-                    searchText = firstName + " " + lastName;
-
-                if (searchText === undefined || jq.trim(searchText).length == 0) {
-                    return;
-                }
-
-                _CalculateProfilesWindowPosition(jq(target), addTop, addLeft);
-                _ShowWaitProfilesWindow(searchText);
-
-                Teamlab.getCrmContactLinkedinProfiles({}, firstName, lastName,
-                    {
-                        max_request_attempts: 1,
-                        success: function (params, response) {
-                            _FindLinkedInProfilesResponse(target, addTop, addLeft, response);
-                        },
-                        error: function (params, errors) {
-                            var err = errors[0];
-                            jq("#divSMProfilesWindow .divWait").hide();
-                            jq("#divSMProfilesWindow .divSMProfilesWindowBody").prepend(jq("<div></div>").addClass("errorBox").text(err));
-                        }
-                });
-            }
-        },
-
         AddAndSaveTwitterProfileToContact: function(twitterScreenName, contactID) {
             var params = {},
                 data = {
@@ -580,193 +490,6 @@ ASC.CRM.SocialMedia = (function() {
         AddFacebookProfileToContact: function(profileId) {
             jq(ASC.CRM.SocialMedia.FacebookTargetTextbox).val(profileId);
             _HideProfilesWindow();
-        },
-
-        AddLinkedInProfileToContact: function(profileId, position, publicProfileUrl) {
-            if (jq.trim(jq("[name='baseInfo_personPosition']").val()).length == 0) {
-                jq("[name='baseInfo_personPosition']").val(jQuery.base64.decode(position));
-            }
-
-            jq(ASC.CRM.SocialMedia.LinkedInTargetTextbox).val(jQuery.base64.decode(publicProfileUrl));
-            _HideProfilesWindow();
-        },
-
-        FindContacts: function(isCompany) {
-            jq("#divSMContactsSearchContainer .divNoProfiles").hide();
-            jq("#divSMContactsSearchContainer .divWaitForAdding").hide();
-            jq("#divSMContactsSearchContainer #divModalContent .errorBox").remove();
-
-            var searchUrl = "";
-            if (isCompany) {
-                var name = jq("[name='baseInfo_companyName']").val().trim();
-                if (name == "") { return; }
-                searchUrl = "http://api.crunchbase.com/v/2/organizations?name=" + name;
-            } else {
-                var first_name = jq("[name='baseInfo_firstName']").val().trim(),
-                    last_name = jq("[name='baseInfo_lastName']").val().trim();
-                if (first_name == "" || last_name == "") { return; }
-                searchUrl = "http://api.crunchbase.com/v/2/people?first_name=" + first_name + "&last_name=" + last_name;
-            }
-
-            var contactNamespace = isCompany ? "organization" : "person";
-            PopupKeyUpActionProvider.EnableEsc = false;
-            StudioBlockUIManager.blockUI("#divSMContactsSearchContainer", 550, 500, 0);
-
-            jq("#divContactDescription").css("display", "none");
-            jq("#divCrbsContactConfirm").css("display", "none");
-            jq("#divSMContactsSearchContainer .divWaitForSearching").show();
-
-            Teamlab.getCrmContactInCruchBase({},
-                { searchUrl: searchUrl, contactNamespace: contactNamespace },
-                {
-                    max_request_attempts: 1,
-                    success: function (params, response) {
-                        _ShowCrunchbaseContact(contactNamespace, response);
-                    },
-                    error: function (params, errors) {
-                        jq("#divSMContactsSearchContainer .divWaitForSearching").hide();
-
-                        var err = errors[0];
-                        jq("#divSMProfilesWindow .divWait").hide();
-                        jq("#divSMContactsSearchContainer #divModalContent").prepend(jq("<div></div>").addClass("errorBox").text(err));
-                    }
-            });
-        },
-
-        ConfirmCrunchbaseContact: function() {
-            jq("#divCrbsContactConfirm").hide();
-            jq("#divSMContactsSearchContainer .divWaitForAdding").show();
-
-            if (jq("#chbWebsite").is(":checked")) {
-                var newValue = jq("#crbsWebSite").val(),
-                    $newContact = ASC.CRM.ContactActionView.createNewCommunication("websiteAndSocialProfilesContainer", newValue);
-                ASC.CRM.ContactActionView.changeSocialProfileCategory(
-                    $newContact.find('a.social_profile_type'),
-                    2,
-                    jq("#socialProfileCategoriesPanel ul.dropdown-content li").children('a[category="2"]').text(),
-                    jq("#socialProfileCategoriesPanel ul.dropdown-content li").children('a[category="2"]').attr('categoryName')
-                );
-                $newContact.insertAfter(jq("#websiteAndSocialProfilesContainer").children('div:last')).show();
-            }
-
-            if (jq("#chbEmail").is(":checked")) {
-                var newValue = jq("#crbsEmail").val(),
-                    $newContact = ASC.CRM.ContactActionView.createNewCommunication("emailContainer", newValue, jq("#emailContainer").find(".primary_field").length == 0);
-                $newContact.insertAfter(jq("#emailContainer").children('div:last')).show();
-                jq('#emailContainer').prev('dt').removeClass('crm-headerHiddenToggledBlock');
-            }
-
-            if (jq("#chbPhoneNumber").is(":checked")) {
-                var newValue = jq("#crbsPhoneNumber").val(),
-                    $newContact = ASC.CRM.ContactActionView.createNewCommunication("phoneContainer", newValue, jq("#phoneContainer").find(".primary_field").length == 0);
-                $newContact.insertAfter(jq("#phoneContainer").children('div:last')).show();
-                jq('#phoneContainer').prev('dt').removeClass('crm-headerHiddenToggledBlock');
-            }
-
-            if (jq("#chbTwitter").is(":checked")) {
-                var newValue = jq("#crbsTwitterUserName").val(),
-                    $newContact = ASC.CRM.ContactActionView.createNewCommunication("websiteAndSocialProfilesContainer", newValue);
-                $newContact.insertAfter(jq("#websiteAndSocialProfilesContainer").children('div:last')).show();
-                ASC.CRM.ContactActionView.changeSocialProfileCategory(
-                    $newContact.find('a.social_profile_type'),
-                    4,
-                    jq("#socialProfileCategoriesPanel ul.dropdown-content li").children('a[category="4"]').text(),
-                    jq("#socialProfileCategoriesPanel ul.dropdown-content li").children('a[category="4"]').attr('categoryName')
-                );
-            }
-
-            if (jq("#chbBlog").is(":checked")) {
-                var newValue = jq("#crbsBlogUrl").val(),
-                    $newContact = ASC.CRM.ContactActionView.createNewCommunication("websiteAndSocialProfilesContainer", newValue);
-                ASC.CRM.ContactActionView.changeSocialProfileCategory(
-                    $newContact.find('a.social_profile_type'),
-                    11,
-                    jq("#socialProfileCategoriesPanel ul.dropdown-content li").children('a[category="11"]').text(),
-                    jq("#socialProfileCategoriesPanel ul.dropdown-content li").children('a[category="11"]').attr('categoryName')
-                );
-                $newContact.insertAfter(jq("#websiteAndSocialProfilesContainer").children('div:last')).show();
-            }
-            if (jq("#chbBlogFeed").is(":checked")) {
-                var newValue = jq("#crbsBlogFeedUrl").val(),
-                    $newContact = ASC.CRM.ContactActionView.createNewCommunication("websiteAndSocialProfilesContainer", newValue);
-                ASC.CRM.ContactActionView.changeSocialProfileCategory(
-                    $newContact.find('a.social_profile_type'),
-                    11,
-                    jq("#socialProfileCategoriesPanel ul.dropdown-content li").children('a[category="11"]').text(),
-                    jq("#socialProfileCategoriesPanel ul.dropdown-content li").children('a[category="11"]').attr('categoryName')
-                );
-                $newContact.insertAfter(jq("#websiteAndSocialProfilesContainer").children('div:last')).show();
-            }
-
-            if (jq("#chbDescription").is(":checked")) {
-                var newValue = jq("#crbsOverview").val();
-                if (jq("#overviewContainer").children("div").length == 1) {
-                    var $newContact = ASC.CRM.ContactActionView.createNewCommunication("overviewContainer", newValue);
-                    $newContact.insertAfter(jq("#overviewContainer").children('div:last')).show();
-                } else {
-                    jq("#overviewContainer").children("div:last").find("[name='baseInfo_contactOverview']").val(newValue);
-                }
-                jq('#overviewContainer').prev('dt').removeClass('crm-headerHiddenToggledBlock');
-            }
-
-
-            var add_new_button_class = "crm-addNewLink",
-                delete_button_class = "crm-deleteLink";
-            jq('#emailContainer').children('div:not(:first)').find("." + add_new_button_class).hide();
-            jq('#emailContainer').children('div:last').find("." + add_new_button_class).show();
-
-            jq('#phoneContainer').children('div:not(:first)').find("." + add_new_button_class).hide();
-            jq('#phoneContainer').children('div:last').find("." + add_new_button_class).show();
-
-            if (jq('#websiteAndSocialProfilesContainer').children('div').length > 1) {
-                jq('#websiteAndSocialProfilesContainer').prev('dt').removeClass('crm-headerHiddenToggledBlock');
-            }
-            jq('#websiteAndSocialProfilesContainer').children('div:not(:first)').find("." + add_new_button_class).hide();
-            jq('#websiteAndSocialProfilesContainer').children('div:last').find("." + add_new_button_class).show();
-
-
-            if (jq("#chbImage").is(":checked")) {
-                var imageObj = jq.parseJSON(jq("#crbsImageJSON").val()).available_sizes,
-                    imgSrc = imageObj[imageObj.length - 1][1];
-
-                jq("#uploadPhotoPath").val(imgSrc);
-                jq("#contactPhoto img").attr("src", imgSrc);
-            }
-
-            var relationshipObj = jq.parseJSON(jq("#crbsPeopleJSON").val()),
-                data = [];
-            for (var i = 0, n = relationshipObj.length; i < n; i++) {
-                if (relationshipObj[i].person) {
-                    if (jq("#chbPersonsRelationship input[id=" + relationshipObj[i].person.permalink + "]").is(":checked")) {
-                        var person = {
-                                        Key: relationshipObj[i].person.first_name,
-                                        Value: relationshipObj[i].person.last_name,
-                                        canEdit: true,
-                                        showUnlinkBtn: true,
-                                        displayName: [relationshipObj[i].person.first_name, " ", relationshipObj[i].person.last_name].join(''),
-                                        id: relationshipObj[i].person.permalink,
-                                        isCompany: false,
-                                        isPrivate: false,
-                                        smallFotoUrl: ASC.CRM.Data.EmptyScrImgs["empty_people_logo_40_40"]
-                                    };
-                        ASC.CRM.SocialMedia.selectedPersons.push(person);
-                        data.push(person);
-                    }
-                }
-            }
-
-            if (data.length > 0) {
-                //jq.tmpl("simpleContactTmpl", data).prependTo("#contactTable tbody");
-                for (var i = 0, n = data.length; i < n; i++) {
-                    data[i].isShared = false;
-                }
-                ASC.CRM.ListContactView.CallbackMethods.addMember({}, data);
-                if (jq("#contactTable tr").length > 0) {
-                    jq("#contactListBox").parent().removeClass('hiddenFields');
-                }
-            }
-            jq(window).trigger("confirmCrunchBaseContactSuccess", null);
-            PopupKeyUpActionProvider.CloseDialog();
         }
     };
 })();

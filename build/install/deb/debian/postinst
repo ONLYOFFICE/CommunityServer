@@ -1,0 +1,177 @@
+#!/bin/sh
+# postinst script for onlyoffice
+#
+# see: dh_installdeb(1)
+
+set -e
+
+# summary of how this script can be called:
+#        * <postinst> `configure' <most-recently-configured-version>
+#        * <old-postinst> `abort-upgrade' <new version>
+#        * <conflictor's-postinst> `abort-remove' `in-favour' <package>
+#          <new-version>
+#        * <postinst> `abort-remove'
+#        * <deconfigured's-postinst> `abort-deconfigure' `in-favour'
+#          <failed-install-package> <version> `removing'
+#          <conflicting-package> <version>
+# for details, see http://www.debian.org/doc/debian-policy/ or
+# the debian-policy package
+
+. /usr/share/debconf/confmodule
+
+DIR="/var/www/onlyoffice"
+LOG_DIR="/var/log/onlyoffice"
+OLD_VERSION="$2"
+
+DB_HOST=""
+DB_USER=""
+DB_PWD=""
+DB_NAME=""
+
+install_db(){
+	db_get onlyoffice/db-host || true
+	DB_HOST="$RET"
+	db_get onlyoffice/db-user || true
+	DB_USER="$RET"
+	db_get onlyoffice/db-pwd || true
+	DB_PWD="$RET"
+	db_get onlyoffice/db-name || true
+	DB_NAME="$RET"
+
+	MYSQL="mysql -h$DB_HOST -u$DB_USER"
+	if [ -n "$DB_PWD" ]; then
+		MYSQL="$MYSQL -p$DB_PWD"
+	fi
+
+	# test mysql connection
+	$MYSQL -e ";" &>/dev/null || ( service mysql start &>/dev/null && $MYSQL -e ";" >/dev/null )
+
+	if [ "$OLD_VERSION" = "" ]; then
+		$MYSQL -e "CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8 COLLATE 'utf8_general_ci';"
+		$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.sql
+		$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.data.sql
+		$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.resources.sql
+	elif dpkg --compare-versions "$OLD_VERSION" ge 8.0 && dpkg --compare-versions "$OLD_VERSION" lt 8.1; then
+		$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade81.sql
+	fi
+	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade85.sql
+	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade86.sql
+	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade87.sql
+
+	sed "s/#max_connections.*/max_connections = 1000/" -i /etc/mysql/my.cnf || true # ignore errors
+}
+
+apply_connection_string(){
+	find "$DIR/" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"Server=$DB_HOST;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
+}
+
+upgrade_storage(){
+	if [ -d $DIR/WebStudio/Products/Community/Modules/Blogs/data ]; then
+		mkdir -p $DIR/Data/Products/Community/Modules/Blogs/Data
+		cp -R -u $DIR/WebStudio/Products/Community/Modules/Blogs/data/. $DIR/Data/Products/Community/Modules/Blogs/Data
+	fi
+	if [ -d $DIR/WebStudio/Products/Community/Modules/Forum/data ]; then
+		mkdir -p $DIR/Data/Products/Community/Modules/Forum/Data
+		cp -R -u $DIR/WebStudio/Products/Community/Modules/Forum/data/. $DIR/Data/Products/Community/Modules/Forum/Data
+	fi
+	if [ -d $DIR/WebStudio/Products/Community/Modules/News/data ]; then
+		mkdir -p $DIR/Data/Products/Community/Modules/News/Data
+		cp -R -u $DIR/WebStudio/Products/Community/Modules/News/data/. $DIR/Data/Products/Community/Modules/News/Data
+	fi
+	if [ -d $DIR/WebStudio/Products/Community/Modules/Bookmarking/data ]; then
+		mkdir -p $DIR/Data/Products/Community/Modules/Bookmarking/Data
+		cp -R -u $DIR/WebStudio/Products/Community/Modules/Bookmarking/data/. $DIR/Data/Products/Community/Modules/Bookmarking/Data
+	fi
+	if [ -d $DIR/WebStudio/Products/Community/Modules/Wiki/data ]; then
+		mkdir -p $DIR/Data/Products/Community/Modules/Wiki/Data
+		cp -R -u $DIR/WebStudio/Products/Community/Modules/Wiki/data/. $DIR/Data/Products/Community/Modules/Wiki/Data
+	fi
+	if [ -d $DIR/Data/Files ]; then
+		mkdir -p $DIR/Data/Products
+		cp -R -u $DIR/Data/Files $DIR/Data/Products
+	fi
+	if [ -d $DIR/WebStudio/Products/CRM/data ]; then
+		mkdir -p $DIR/Data/Products/CRM/Data
+		cp -R -u $DIR/WebStudio/Products/CRM/data/. $DIR/Data/Products/CRM/Data
+	fi
+	if [ -d $DIR/WebStudio/Products/Projects/data ]; then
+		mkdir -p $DIR/Data/Products/Projects/Data
+		cp -R -u $DIR/WebStudio/Products/Projects/data/. $DIR/Data/Products/Projects/Data
+	fi
+	if [ -d $DIR/WebStudio/data ]; then
+		mkdir -p $DIR/Data/Studio
+		cp -R -u $DIR/WebStudio/data/. $DIR/Data/Studio
+	fi
+	if [ -d $DIR/WebStudio/addons/mail/data ]; then
+		mkdir -p $DIR/Data/addons/mail/Data
+		cp -R -u $DIR/WebStudio/addons/mail/data/. $DIR/Data/addons/mail/Data
+	fi
+	if [ -d $DIR/WebStudio/addons/mail/Data ]; then
+		mkdir -p $DIR/Data/addons/mail/Data
+		cp -R -u $DIR/WebStudio/addons/mail/Data/. $DIR/Data/addons/mail/Data
+	fi
+	if [ -d $DIR/Data/Mail/Aggregator ]; then
+		mkdir -p $DIR/Data/addons/mail/Data/aggregator
+		cp -R -u $DIR/Data/Mail/Aggregator/. $DIR/Data/addons/mail/Data/aggregator
+	fi
+	if [ -d $DIR/WebStudio/addons/talk/Data/upload ]; then
+		mkdir -p $DIR/Data/addons/talk/Data
+		cp -R -u $DIR/WebStudio/addons/talk/Data/upload/. $DIR/Data/addons/talk/Data
+	fi
+	if [ -d $DIR/Data/bundle ]; then
+		rm -rf $DIR/Data/bundle
+	fi
+}
+
+case "$1" in
+	configure)
+		adduser --quiet --home $DIR --system --group onlyoffice
+		usermod -aG onlyoffice,www-data onlyoffice
+
+		install_db
+		apply_connection_string
+
+		mkdir -p /etc/mono/registry/LocalMachine
+		mkdir -p /usr/share/.mono/keypairs
+		mkdir -p $LOG_DIR
+		mkdir -p "$DIR/Data"
+		mkdir -p /var/cache/nginx/onlyoffice
+		mkdir -p /var/run/onlyoffice
+
+		upgrade_storage
+
+		chown onlyoffice:onlyoffice -R $DIR
+		chown onlyoffice:onlyoffice -R $LOG_DIR
+		chown www-data:www-data -R /var/cache/nginx/onlyoffice
+		chown onlyoffice:www-data -R /var/run/onlyoffice
+		chmod g+s+w /var/run/onlyoffice
+
+		# import common ssl certificates
+		mozroots --import --sync --machine --quiet
+
+		# configure ngninx for onlyoffice
+		rm -f /etc/nginx/sites-enabled/default
+
+		# call db_stop to prevent installation hang
+		db_stop
+
+		# restart dependent services
+		service nginx restart >/dev/null 2>&1
+		service mysql restart >/dev/null 2>&1 || true # ignore errors
+	;;
+
+	abort-upgrade|abort-remove|abort-deconfigure)
+	;;
+
+	*)
+		echo "postinst called with unknown argument \`$1'" >&2
+		exit 1
+	;;
+esac
+
+# dh_installdeb will replace this with shell code automatically
+# generated by other debhelper scripts.
+
+#DEBHELPER#
+
+exit 0

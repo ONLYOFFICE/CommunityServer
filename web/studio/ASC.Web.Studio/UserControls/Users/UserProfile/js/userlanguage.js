@@ -58,7 +58,7 @@ jq(function () {
             if (result.Status == 1) {
                 LoadingBanner.displayLoading();
                 window.location.reload(true);
-            } else if (jq("#studio_lngTimeSettingsInfo").length == 1) {
+            } else if (result.Status == 0) {
                 toastr.error(result.Message);
             }
         });

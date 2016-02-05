@@ -28,6 +28,7 @@ using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Xmpp.Server.Configuration;
 using ASC.Xmpp.Server.Utils;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -39,6 +40,7 @@ namespace ASC.Xmpp.Server.Storage
     public abstract class DbStoreBase : IConfigurable, IDisposable
     {
         protected static readonly int MESSAGE_COLUMN_LEN = (int)Math.Pow(2, 24) - 1;
+        private readonly static ILog _log = LogManager.GetLogger(typeof(DbStoreBase));
 
         private readonly object syncRoot = new object();
         private DbManager db;
@@ -128,8 +130,10 @@ namespace ASC.Xmpp.Server.Storage
                 {
                     return db.ExecuteNonQuery(sql);
                 }
-                catch (DbException)
+                catch (DbException ex)
                 {
+                    _log.ErrorFormat("DbException: {0} {1} {2}",
+                        ex, ex.InnerException != null ? ex.InnerException.Message : String.Empty, sql.ToString());
                     db.Dispose();
                     db = new DbManager(db.DatabaseId, false);
                     return db.ExecuteNonQuery(sql);
@@ -145,8 +149,14 @@ namespace ASC.Xmpp.Server.Storage
                 {
                     return db.ExecuteBatch(batch);
                 }
-                catch (DbException)
+                catch (DbException ex)
                 {
+                    _log.ErrorFormat("DbException: {0} {1}",
+                        ex, ex.InnerException != null ? ex.InnerException.Message : String.Empty);
+                    foreach (var sql in batch)
+                    {
+                        _log.ErrorFormat("sql = {0}", sql.ToString());
+                    }
                     db.Dispose();
                     db = new DbManager(db.DatabaseId, false);
                     return db.ExecuteBatch(batch);

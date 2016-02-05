@@ -24,8 +24,8 @@
 */
 
 
+using ASC.Common.Caching;
 using ASC.Core.Billing;
-using ASC.Core.Caching;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using log4net;
@@ -41,6 +41,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using System.Web;
+using System.Web.Caching;
 using System.Xml.Linq;
 
 
@@ -53,7 +54,7 @@ namespace ASC.Core
         private readonly ITariffService tariffService;
         private readonly string partnerUrl;
         private readonly string partnerKey;
-        private readonly ICache cache = AscCache.Default;
+        private readonly ICache cache = AscCache.Memory;
         private readonly TimeSpan cacheTimeout = TimeSpan.FromMinutes(2);
 
 
@@ -94,7 +95,17 @@ namespace ASC.Core
 
         public Uri GetShoppingUri(int tenant, int quotaId)
         {
-            return tariffService.GetShoppingUri(tenant, quotaId);
+            return tariffService.GetShoppingUri(tenant, quotaId, null);
+        }
+
+        public Uri GetShoppingUri(int quotaId, bool forCurrentTenant = true, string affiliateId = null)
+        {
+            return tariffService.GetShoppingUri(forCurrentTenant ? CoreContext.TenantManager.GetCurrentTenant().TenantId : (int?)null, quotaId, affiliateId);
+        }
+
+        public Uri GetShoppingUri(int quotaId, string affiliateId)
+        {
+            return tariffService.GetShoppingUri(null, quotaId, affiliateId);
         }
 
         public void SendTrialRequest(int tenant, UserInfo user)
@@ -255,7 +266,7 @@ namespace ASC.Core
                             var data = Encoding.UTF8.GetString(webClient.DownloadData(partnerUrl + actionUrl));
                             HttpRuntime.Cache.Remove(partnerUrl + actionUrl);
                             HttpRuntime.Cache.Insert(partnerUrl + actionUrl, partner = JsonConvert.DeserializeObject<Partner>(data), 
-                                new System.Web.Caching.CacheDependency(null, new[] { "PartnerCache" }), DateTime.UtcNow.Add(cacheTimeout), System.Web.Caching.Cache.NoSlidingExpiration);
+                                new CacheDependency(null, new[] { "PartnerCache" }), DateTime.Now.Add(cacheTimeout), Cache.NoSlidingExpiration);
                         }
                         catch (WebException we)
                         {
@@ -297,7 +308,7 @@ namespace ASC.Core
             try
             {
                 var actionUrl = "/partnerapi/tariffs?partnerid=" + HttpUtility.UrlEncode(partnerId);
-                var tariffs = (IEnumerable<TenantQuota>)cache.Get(partnerUrl + actionUrl);
+                var tariffs = cache.Get<TenantQuota[]>(partnerUrl + actionUrl);
                 if (tariffs == null)
                 {
                     using (var webClient = new WebClient())
@@ -402,8 +413,8 @@ namespace ASC.Core
 
             //upgrade
             var start = currentQuota.Year ? currentTariff.DueDate.AddYears(-1) : currentTariff.DueDate.AddMonths(-1);
-            var left = currentTariff.DueDate.Subtract(DateTime.UtcNow).TotalDays;
-            var totalOldDays = currentTariff.DueDate.Subtract(start).TotalDays;
+            var left = currentTariff.DueDate.Date.Subtract(DateTime.Today).TotalDays;
+            var totalOldDays = currentTariff.DueDate.Date.Subtract(start.Date).TotalDays;
 
             var used = totalOldDays - left;
             var totalNewDays = (newQuota.Year ? DateTime.UtcNow.AddYears(1) : DateTime.UtcNow.AddMonths(1)).Subtract(DateTime.UtcNow).TotalDays;

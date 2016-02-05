@@ -104,17 +104,7 @@ namespace ActiveUp.Net.Mail
         {
             get
             {
-                string getString = string.Empty;
-
-                if (this.Name.Length > 0)
-                {
-                    getString += "\"" + this.Name + "\" ";
-                    getString += "<" + this.Email + ">";
-                }
-                else
-                {
-                    getString += this.Email;
-                }
+                var getString = this.Name.Length > 0 ? string.Format("\"{0}\" <{1}>", this.Name, this.Email) : this.Email;
 
                 return getString;
             }
@@ -138,21 +128,27 @@ namespace ActiveUp.Net.Mail
         {
             get
             {
-                string getString = string.Empty;
-
-                if (this.Name.Length > 0)
-                {
-                    getString += "<a href=\"mailto:" + this.Email + "\">";
-                    getString += this.Name + "</a>";
-                }
-                else
-                {
-                    getString += "<a href=\"mailto:" + this.Email + "\">";
-                    getString += this.Email + "</a>";
-                }
+                var getString = string.Format("<a href=\"mailto:{0}\">{1}</a>", this.Email, this.Name.Length > 0 ? this.Name : this.Email);
 
                 return getString;
             }
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (ReferenceEquals(null, obj)) return false;
+            if (ReferenceEquals(this, obj)) return true;
+
+            if (!(obj is Address)) return false;
+
+            var other = (Address)obj;
+
+            return Email.Equals(other.Email) && Name.Equals(other.Name);
+        }
+
+        public override int GetHashCode()
+        {
+            return ((Email != null ? Email.GetHashCode() : 0)) ^ (Name != null ? Name.GetHashCode() : 0);
         }
 
     }

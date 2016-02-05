@@ -44,7 +44,7 @@ namespace ASC.Web.Projects.Controls.Reports
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Template = Global.EngineFactory.GetReportEngine().GetTemplate(int.Parse(Request["tmplId"]));
+            Template = Page.EngineFactory.ReportEngine.GetTemplate(int.Parse(Request["tmplId"]));
             if (Template == null)
             {
                 Page.RedirectNotFound("reports.aspx");

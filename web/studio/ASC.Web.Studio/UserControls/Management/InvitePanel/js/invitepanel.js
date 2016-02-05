@@ -30,8 +30,8 @@ if (typeof ASC === "undefined") {
 
 ASC.InvitePanel = (function () {
     var isInit = false;
-    var isClipboarInit = false;
     var isShortenSelected = false;
+    var clip = null;
 
     var init = function () {
         if (isInit) return;
@@ -47,26 +47,32 @@ ASC.InvitePanel = (function () {
             })
         );
 
-        jq("#inviteLinkContainer").on("click", ".button.blue.middle", function () {
-            PopupKeyUpActionProvider.CloseDialog();
-            jq("#getShortenInviteLink").show();
-            jq("#chkVisitor").prop("checked", false);
-            var defaultLink = jq("#hiddenUserLink").val();
-            jq("#shareInviteUserLink").val(defaultLink);
-            updateSocialLink(defaultLink);
-            isShortenSelected = false;
-            return false;
-        })
+        jq("#inviteLinkContainer").on("click", ".button.blue.middle, .cancelButton", function () {
+            var $target = jq(this),
+                defaultLink = "";
 
-        jq("#inviteLinkContainer").on("click", ".cancelButton", function () {
+            if (clip != null) {
+                clip.destroy();
+                delete window.ZeroClipboard.clients[clip.id];
+            }
+
+            if ($target.is(".button.blue")) { PopupKeyUpActionProvider.CloseDialog(); }
+
             jq("#getShortenInviteLink").show();
-            jq("#chkVisitor").prop("checked", false);
-            var defaultLink = jq("#hiddenUserLink").val();
+            isShortenSelected = false;
+
+            if (jq("#hiddenUserLink").length != 0) {
+                jq("#chkVisitor").prop("checked", false);
+                defaultLink = jq("#hiddenUserLink").val();
+            } else {
+                jq("#chkVisitor").prop("checked", true);
+                defaultLink = jq("#hiddenVisitorLink").val();
+            }
+
             jq("#shareInviteUserLink").val(defaultLink);
             updateSocialLink(defaultLink);
-            isShortenSelected = false;
-        })
-        
+            if ($target.is(".button.blue")) { return false; }
+        });
 
         if (jq("#hiddenUserLink").length != 0 && jq("#hiddenVisitorLink").length != 0) {
             jq("#chkVisitor").on("click", function() {
@@ -84,8 +90,7 @@ ASC.InvitePanel = (function () {
     };
 
     var bindClipboardEvent = function () {
-        if (!isInit || isClipboarInit) return;
-        isClipboarInit = true;
+        if (!isInit) return;
 
         var deviceAgent = navigator.userAgent.toLowerCase(),
             agentID = deviceAgent.match(/(ipad)/);
@@ -97,7 +102,7 @@ ASC.InvitePanel = (function () {
                     ZeroClipboard.setMoviePath(ASC.Resources.Master.ZeroClipboardMoviePath);
                 }
 
-                var clip = new window.ZeroClipboard.Client();
+                clip = new window.ZeroClipboard.Client();
 
                 clip.addEventListener("mouseDown",
                     function () {

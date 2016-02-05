@@ -1,0 +1,8 @@
+Files/nginx/onlyoffice etc/nginx/sites-available/
+Files/hyperfastcgi/* etc/hyperfastcgi/
+Files/god/* etc/god/
+Files/Services/* var/www/onlyoffice/Services/
+Files/WebStudio/* var/www/onlyoffice/WebStudio/
+Files/WebStudio/* var/www/onlyoffice/WebStudio2/
+Files/sql/* var/www/onlyoffice/Sql/
+Files/licenses/* usr/share/doc/onlyoffice/licenses/

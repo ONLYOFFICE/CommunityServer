@@ -25,123 +25,92 @@
 
 
 window.DocumentsPopup = (function($) {
-    var isInit = false;
-    var lastId = -1;
-    var supportedCustomEvents = { SelectFiles: "on_documents_selected" };
-    var eventsHandler = jq({});
-    var documentSelectorTree;
-    var folderFiles = [];
-    var isShareableFolder = false;
-
-    var $attachFilesAsLinksSelector;
-
-    function init() {
-        if (!isInit) {
-            isInit = true;
-            folderFiles = [];
-
-            initElements();
-            bindEvents();
-
-            documentSelectorTree = new ASC.Files.TreePrototype("#documentSelectorTree");
-            documentSelectorTree.clickOnFolder = getListFolderFiles;
-
-            var treeNode = jq("#documentSelectorTree .tree-node")[0];
-            lastId = jq(treeNode).attr('data-id');
-
-            jq("#popupDocumentUploader .buttonContainer #attach_btn").unbind('click').bind('click', function() {
-                if (!jq(this).hasClass('disable')) {
-                    attachSelectedFiles();
-                }
-                return false;
-            });
-
-            jq("#popupDocumentUploader .buttonContainer #cancel_btn").unbind('click').bind('click', function() {
-                if (!jq(this).hasClass('disable')) {
-                    DocumentsPopup.EnableEsc = true;
-                    jq.unblockUI();
-                }
-                return false;
-            });
-
-            jq("#popupDocumentUploader .fileList input").unbind('click').bind('click', function() {
-                if (!jq(this).is(":checked")) {
-                    jq("#checkAll").prop("checked", false);
-                    return;
-                }
-                var checkedAll = true;
-                jq(".fileList input").each(function() {
-                    if (!jq(this).is(":checked")) {
-                        checkedAll = false;
-                        return;
-                    }
-                });
-                if (checkedAll) {
-                    jq("#checkAll").prop("checked", true);
-                }
-            });
-
-            toggleButtons(true, false);
-        }
-    }
-
-    function initElements() {
-        $attachFilesAsLinksSelector = $('#attachFilesAsLinksSelector');
-    }
-
-    function bindEvents() {
-
-    }
-
-    function getListFolderFiles(id) {
-        if (id == undefined || id == '') {
-            return;
-        }
-
-        lastId = id;
-        toggleButtons(true, false);
-        jq(".fileList").empty();
-        jq(".loader").show();
-        hideEmptyScreen();
-        Teamlab.getDocFolder(null, id, function() { onGetFolderFiles(arguments); });
-    }
-
-    function showEmptyScreen() {
-        jq("#popupDocumentUploader .fileContainer").find("#emptyFileList").show();
-        toggleButtons(true, false);
-    }
-
-    function hideEmptyScreen() {
-        jq("#popupDocumentUploader .fileContainer").find("#emptyFileList").hide();
-    }
+    var isInit = false,
+        el,
+        elFiles,
+        elButtons,
+        elEmpty,
+        elError,
+        elLoader,
+        $attachFilesAsLinksSelector,
+        elDocumentSelectorTree,
+        lastId = -1,
+        supportedCustomEvents = { SelectFiles: "on_documents_selected" },
+        eventsHandler = jq({}),
+        documentSelectorTree,
+        folderFiles = [],
+        isShareableFolder = false,
+        showTypes = {
+            loader: 0,
+            files: 1,
+            error: 2,
+            empty: 3
+        };
 
     function toggleButtons(hide, all) {
         if (hide) {
-            jq("#popupDocumentUploader .buttonContainer #attach_btn").removeClass("disable").addClass("disable");
+            elButtons.find("#attach_btn").toggleClass("disable", true);
             if (all) {
-                jq("#popupDocumentUploader .buttonContainer #cancel_btn").removeClass("disable").addClass("disable");
+                elButtons.find("#cancel_btn").toggleClass("disable", true);
             }
         } else {
-            jq("#popupDocumentUploader .buttonContainer #attach_btn").removeClass("disable");
+            elButtons.find("#attach_btn").removeClass("disable");
             if (all) {
-                jq("#popupDocumentUploader .buttonContainer #cancel_btn").removeClass("disable");
+                elButtons.find("#cancel_btn").removeClass("disable");
             }
         }
     }
 
-    function onGetFolderFiles(args) {
+    function showContent(type) {
+        elFiles.hide();
+        elLoader.hide();
+        elEmpty.hide();
+        elError.hide();
+        toggleButtons(true, false);
+
+        switch (type) {
+        case showTypes.loader:
+            elLoader.show();
+            break;
+        case showTypes.files:
+            elFiles.show();
+            break;
+        case showTypes.error:
+            elError.show();
+            break;
+        case showTypes.empty:
+        default:
+            elEmpty.show();
+            break;
+        }
+    }
+
+    function testCheckboxesState() {
+        var files = elFiles.find("li input:checked");
+        var hasSelected = false;
+        for (var i = 0; i < files.length; i++) {
+            if (jq(files[i]).is(':checked')) {
+                hasSelected = true;
+                break;
+            }
+        }
+        toggleButtons(!hasSelected, false);
+    }
+
+    function onGetFolderFiles(params, folderInfo) {
         var content = new Array();
-        var folders = args[1].folders;
-        for (var i = 0; i < folders.length; i++) {
+        var folders = folderInfo.folders;
+        var i;
+        for (i = 0; i < folders.length; i++) {
             var folderName = folders[i].title;
             var folId = folders[i].id;
             var folder = { title: folderName, exttype: "", id: folId, type: "folder" };
             content.push(folder);
         }
         
-        folderFiles = args[1].files;
-        isShareableFolder = args[1].isShareable === undefined ? args[1].current.isShareable : args[1].isShareable;
-        
+        folderFiles = folderInfo.files;
+        isShareableFolder = folderInfo.isShareable === undefined ? folderInfo.current.isShareable : folderInfo.isShareable;
+
         for (i = 0; i < folderFiles.length; i++) {
             var fileName = decodeURIComponent(folderFiles[i].title);
 
@@ -153,104 +122,76 @@ window.DocumentsPopup = (function($) {
             var version = folderFiles[i].version;
             var contentLength = folderFiles[i].contentLength;
             var pureContentLength = folderFiles[i].pureContentLength;
-            var file = { title: fileName, access: access, exttype: exttype, version: version, id: fileId, type: "file", ViewUrl: viewUrl, size_string: contentLength, size: pureContentLength, original: folderFiles[i] };
+            var file = {
+                title: fileName,
+                access: access,
+                exttype: exttype,
+                version: version,
+                id: fileId,
+                type: "file",
+                ViewUrl: viewUrl,
+                size_string: contentLength,
+                size: pureContentLength,
+                original: folderFiles[i]
+            };
             content.push(file);
         }
 
-        jq(".fileList").empty();
-        if (content.length == 0) {
-            showEmptyScreen();
-            jq(".loader").hide();
+        elFiles.empty();
+        if (content.length === 0) {
+            showContent(showTypes.empty);
             return;
         }
-        hideEmptyScreen();
-        jq(".fileContainer").find("#emptyFileList").hide();
-        jq.tmpl("docAttachTmpl", content).appendTo(jq(".fileList"));
-        jq(".loader").hide();
+
+        jq.tmpl("docAttachTmpl", content).appendTo(elFiles);
+        
+        showContent(showTypes.files);
+
         toggleButtons(false, true);
         toggleButtons(true, false);
 
-        jq("#filesViewContainer :checkbox").change(testCheckboxesState);
+        elFiles.find("li input:checked").change(testCheckboxesState);
     }
 
-    function selectFile(id) {
-        var checkbox = jq(".fileList").find('input[id="' + id + '"]');
-        if (checkbox.prop("checked")) {
-            checkbox.removeAttr("checked");
-        } else {
-            checkbox.prop("checked", true);
-        }
-
-        testCheckboxesState();
-    }
-
-    function testCheckboxesState() {
-        var files = jq('#filesViewContainer  :checkbox');
-        var hasSelected = false;
-        for (var i = 0; i < files.length; i++) {
-            if (jq(files[i]).is(':checked')) {
-                hasSelected = true;
-                break;
+    function onError(params, errors) {
+        if (errors.length > 1 && errors[1].hresult) {
+            if (errors[1].hresult === ASC.Mail.Constants.Errors.COR_E_UNAUTHORIZED_ACCESS) {
+                var html = $.tmpl('filesFolderOpenErrorTmpl');
+                elError.html(html);
+                showContent(showTypes.error);
+                return;
             }
         }
-        toggleButtons(!hasSelected, false);
+
+        window.toastr.error(errors[0]);
+        showContent(showTypes.empty);
     }
 
-    function openFolder(id) {
-        getListFolderFiles(id);
-        documentSelectorTree.rollUp();
-        documentSelectorTree.setCurrent(id);
-    }
-
-    function showPortalDocUploader() {
-        if (!isInit) {
-            init();
+    function getListFolderFiles(id) {
+        if (id == undefined || id === '') {
+            return;
         }
 
-        documentSelectorTree.rollUp();
-        documentSelectorTree.setCurrent(lastId);
-        getListFolderFiles(lastId);
+        lastId = id;
+        showContent(showTypes.loader);
+        Teamlab.getDocFolder({}, id, { success: onGetFolderFiles, error: onError, max_request_attempts: 1 });
+    }
 
-        jq(".fileList li input").removeAttr("checked");
-
-        var margintop = jq(window).scrollTop() - 135;
-        margintop = margintop + 'px';
-
-        toggleButtons(true, false);
-
-        PopupKeyUpActionProvider.EnableEsc = false;
-        jq.blockUI({
-            message: jq("#popupDocumentUploader"),
-            css: {
-                left: '50%',
-                top: '25%',
-                opacity: '1',
-                border: 'none',
-                padding: '0px',
-                width: '650px',
-
-                cursor: 'default',
-                textAlign: 'left',
-                position: 'absolute',
-                'margin-left': '-300px',
-                'margin-top': margintop,
-                'background-color': 'White'
-            },
-
-            overlayCSS: {
-                backgroundColor: '#AAA',
-                cursor: 'default',
-                opacity: '0.3'
-            },
-            focusInput: false,
-            baseZ: 666,
-
-            fadeIn: 0,
-            fadeOut: 0,
-
-            onBlock: function() {
-            }
-        });
+    function initElements() {
+        el = jq("#popupDocumentUploader");
+        elFiles = el.find(".fileList");
+        elButtons = el.find(".buttonContainer");
+        elEmpty = el.find("#emptyFileList");
+        elError = el.find("#errorOpenFolder");
+        elLoader = el.find(".loader");
+        $attachFilesAsLinksSelector = el.find("#attachFilesAsLinksSelector");
+        documentSelectorTree = new ASC.Files.TreePrototype("#documentSelectorTree");
+        documentSelectorTree.clickOnFolder = getListFolderFiles;
+        elDocumentSelectorTree = jq("#documentSelectorTree");
+        var treeNodes = elDocumentSelectorTree.find(".tree-node");
+        if (treeNodes.length > 0) {
+            lastId = jq(treeNodes[0]).attr('data-id');
+        }
     }
 
     function attachSelectedFiles() {
@@ -259,13 +200,13 @@ window.DocumentsPopup = (function($) {
 
             var listfiles = [];
 
-            var fileIds = jq.map(jq(".fileList li input:checked"), function(el) {
+            var fileIds = jq.map(elFiles.find("li input:checked"), function(el) {
                 var id = jq(el).attr('id');
                 return $.isNumeric(id) ? parseInt(id) : id;
             });
             
             var selectedFiles = jq.grep(folderFiles, function(f) {
-                return jq.inArray(f.id, fileIds) != -1;
+                return jq.inArray(f.id, fileIds) !== -1;
             });
 
             for (var i = 0; i < selectedFiles.length; i++) {
@@ -318,6 +259,119 @@ window.DocumentsPopup = (function($) {
         } catch(e) {
             toggleButtons(false, true);
         }
+    }
+
+    function bindEvents() {
+        elButtons.find("#attach_btn").unbind('click').bind('click', function () {
+            if (!jq(this).hasClass('disable')) {
+                attachSelectedFiles();
+            }
+            return false;
+        });
+
+        elButtons.find("#cancel_btn").unbind('click').bind('click', function () {
+            if (!jq(this).hasClass('disable')) {
+                DocumentsPopup.EnableEsc = true;
+                jq.unblockUI();
+            }
+            return false;
+        });
+
+        elFiles.find("input").unbind('click').bind('click', function () {
+            if (!jq(this).is(":checked")) {
+                jq("#checkAll").prop("checked", false);
+                return;
+            }
+            var checkedAll = true;
+            elFiles.find("input").each(function () {
+                if (!jq(this).is(":checked")) {
+                    checkedAll = false;
+                    return;
+                }
+            });
+            if (checkedAll) {
+                el.find("#checkAll").prop("checked", true);
+            }
+        });
+    }
+
+    function init() {
+        if (!isInit) {
+            isInit = true;
+
+            initElements();
+            bindEvents();
+
+            toggleButtons(true, false);
+        }
+    }
+
+    function selectFile(id) {
+        var checkbox = elFiles.find('input[id="' + id + '"]');
+        if (checkbox.prop("checked")) {
+            checkbox.removeAttr("checked");
+        } else {
+            checkbox.prop("checked", true);
+        }
+
+        testCheckboxesState();
+    }
+
+    function openFolder(id) {
+        getListFolderFiles(id);
+        documentSelectorTree.rollUp();
+        documentSelectorTree.setCurrent(id);
+    }
+
+    function showPortalDocUploader() {
+        if (!isInit) {
+            init();
+        }
+
+        documentSelectorTree.rollUp();
+        documentSelectorTree.setCurrent(lastId);
+        getListFolderFiles(lastId);
+
+        elFiles.find("li input").removeAttr("checked");
+
+        var margintop = jq(window).scrollTop() - 135;
+        margintop = margintop + 'px';
+
+        toggleButtons(true, false);
+
+        PopupKeyUpActionProvider.EnableEsc = false;
+        jq.blockUI({
+            message: el,
+            css: {
+                left: '50%',
+                top: '25%',
+                opacity: '1',
+                border: 'none',
+                padding: '0px',
+                width: '650px',
+
+                cursor: 'default',
+                textAlign: 'left',
+                position: 'absolute',
+                'margin-left': '-300px',
+                'margin-top': margintop,
+                'background-color': 'White'
+            },
+
+            overlayCSS: {
+                backgroundColor: '#AAA',
+                cursor: 'default',
+                opacity: '0.3'
+            },
+            focusInput: false,
+            baseZ: 666,
+
+            fadeIn: 0,
+            fadeOut: 0,
+
+            onBlock: function() {
+            }
+        });
     }
 
     function bind(eventName, fn) {

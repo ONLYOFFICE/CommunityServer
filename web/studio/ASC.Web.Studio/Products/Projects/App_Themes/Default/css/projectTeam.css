@@ -216,8 +216,6 @@
 #userActionPanel {
     width: 165px;
 }
-@media all and (max-width: 1200px) {
-    .pm-projectTeam-participantContainer .splitter {
-        display:none;
-    }
+body.media-width-0-1200 .pm-projectTeam-participantContainer .splitter {
+    display:none;
 }

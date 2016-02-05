@@ -59,9 +59,11 @@
       <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.ServiceModel">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
@@ -77,6 +79,7 @@
     <Compile Include="JabberService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="XmppServerLauncher.cs" />
+    <Compile Include="XmppServerCleaner.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj">

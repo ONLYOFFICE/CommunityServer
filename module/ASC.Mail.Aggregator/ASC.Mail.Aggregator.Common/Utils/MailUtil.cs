@@ -24,16 +24,26 @@
 */
 
 
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization.Json;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml;
+using ASC.Mail.Aggregator.Common.Imap;
+using Newtonsoft.Json;
 
 namespace ASC.Mail.Aggregator.Common.Utils
 {
     public static class MailUtil
     {
+        private static readonly Regex RegexSubjectPrefix = new Regex("([\\[\\(]\\s*)?((?<=(\\A)|\\s|\\^|\\:|\\(|\\[)(RE?S?|FYI|RIF|I|FS|VB|RV|ENC|ODP|PD|YNT|ILT|SV|VS|VL|BLS|TRS?|AW|WG|ΑΠ|ΣΧΕΤ|ΠΡΘ|ANTW|DOORST|НА|תגובה|הועבר|主题|转发|FWD?))(\\[\\d+\\])* *([-:;)\\]][ :;\\])-]*|$)|\\]+ *$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex RegexSubjectAbbreviationsSplit = new Regex("\\[.*\\]", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex RegexSubjectAbbreviations = new Regex("([A-Z]+[\\s\\/]*[A-Z]+)+", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+
         public static List<int> GetLabelsFromString(string stringLabel)
         {
             var list = new List<int>();
@@ -78,6 +88,66 @@ namespace ASC.Mail.Aggregator.Common.Utils
                 }
             }
             return jsonData;
+        }
+
+        public static double BytesToMegabytes(long bytes)
+        {
+            return Math.Round(bytes / 1024d / 1024d, 1);
+        }
+
+        public static Dictionary<string, ImapFolderUids> ParseImapIntervals(string json)
+        {
+            var text = json;
+
+            if (json.StartsWith("["))
+            {
+                text =
+                    text.Replace("\"Key\":", "")
+                        .Replace(",\"Value\"", "")
+                        .Replace("\"__type\":\"ImapFolderUids:#ASC.Mail.Aggregator.Common.Imap\",", "")
+                        .Replace("},{", ",");
+                text = text
+                    .Substring(1, text.Length - 2);
+            }
+
+            return (Dictionary<string, ImapFolderUids>)JsonConvert.DeserializeObject(text, typeof(Dictionary<string, ImapFolderUids>));
+        }
+
+        public static string NormalizeSubject(string subject)
+        {
+            subject = RegexSubjectPrefix.Replace(subject, "");
+
+            var matches = RegexSubjectAbbreviationsSplit.Matches(subject);
+
+            for (var i = 0; i < matches.Count; i++)
+            {
+                var match = matches[i].Value.Trim('[', ']');
+
+                if (RegexSubjectAbbreviations.IsMatch(match))
+                {
+                    subject = subject.Replace(matches[i].Value, "");
+                }
+            }
+
+            return subject.Trim();
+        }
+
+        /// <summary>
+        /// Removes control characters and other non-UTF-8 characters
+        /// </summary>
+        /// <param name="inString">The string to process</param>
+        /// <returns>A string with no control characters or entities above 0x00FD</returns
+        public static string NormalizeStringForMySql(string inString)
+        {
+            if (string.IsNullOrEmpty(inString))
+                return inString;
+
+            var newString = new StringBuilder(inString.Length);
+
+            foreach (var ch in inString.Where(XmlConvert.IsXmlChar))
+                newString.Append(ch);
+
+            return newString.ToString();
         }
     }
 }

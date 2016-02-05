@@ -34,6 +34,7 @@ using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility;
 using ASC.Core;
+using ASC.Projects.Engine;
 
 namespace ASC.Web.Projects.Controls.Projects
 {
@@ -53,6 +54,9 @@ namespace ASC.Web.Projects.Controls.Projects
         protected int TemplatesCount { get; set; }
         protected bool RenderProjectPrivacyCheckboxValue { get; set; }
         protected bool HideChooseTeam { get; set; }
+        protected string ProjectManagerId { get; set; }
+        protected string ProjectStatusTitle { get; set; }
+        protected string ProjectStatusList { get; set; }
 
         protected bool IsProjectCreatedFromCrm
         {
@@ -67,28 +71,35 @@ namespace ASC.Web.Projects.Controls.Projects
             _hintPopupActiveTasks.Options.IsPopup = true;
             _hintPopupActiveMilestones.Options.IsPopup = true;
 
-            TemplatesCount = Global.EngineFactory.GetTemplateEngine().GetCount();
+            TemplatesCount = Page.EngineFactory.TemplateEngine.GetCount();
             HideChooseTeam = CoreContext.UserManager.GetUsers().All(r => r.ID == SecurityContext.CurrentAccount.ID);
 
             if (Project != null)
             {
                 ProjectManagerName = CoreContext.UserManager.GetUsers(Project.Responsible).DisplayUserName();
                 UrlProject = "tasks.aspx?prjID=" + Project.ID;
-                ActiveTasksCount = Global.EngineFactory.GetTaskEngine().GetByProject(Project.ID, TaskStatus.Open, Guid.Empty).Count();
-                ActiveMilestonesCount = Global.EngineFactory.GetMilestoneEngine().GetByProject(Project.ID).Count(m => m.Status == MilestoneStatus.Open);
+                ActiveTasksCount = Page.EngineFactory.TaskEngine.GetByProject(Project.ID, TaskStatus.Open, Guid.Empty).Count();
+                ActiveMilestonesCount = Page.EngineFactory.MilestoneEngine.GetByProject(Project.ID).Count(m => m.Status == MilestoneStatus.Open);
                 IsEditingProjectAvailable = true;
                 PageTitle = ProjectResource.EditProject;
                 ActiveTasksUrl = string.Format("tasks.aspx?prjID={0}#status=open", Project.ID);
                 ActiveMilestonesUrl = string.Format("milestones.aspx?prjID={0}#status=open", Project.ID);
                 ProjectActionButtonTitle = ProjectResource.SaveProject;
                 RenderProjectPrivacyCheckboxValue = Project.Private;
+                ProjectManagerId = Project.Responsible.ToString();
 
                 projectTitle.Text = Project.Title;
                 projectDescription.Text = Project.Description;
 
-                var tags = Global.EngineFactory.GetTagEngine().GetProjectTags(Project.ID).Select(r => r.Value.HtmlEncode()).ToArray();
+                var tags = Page.EngineFactory.TagEngine.GetProjectTags(Project.ID).Select(r => r.Value.HtmlEncode()).ToArray();
                 ProjectTags = string.Join(", ", tags);
-                
+
+                ProjectStatusTitle = Project.Status.ToString();
+                ProjectStatusList = string.Join(";",
+                    string.Join(",", (int)ProjectStatus.Open, ProjectStatus.Open),
+                    string.Join(",", (int)ProjectStatus.Paused, ProjectStatus.Paused),
+                    string.Join(",", (int)ProjectStatus.Closed, ProjectStatus.Closed));
+
                 Page.Title = HeaderStringHelper.GetPageTitle(Project.Title);
             }
             else
@@ -107,9 +118,17 @@ namespace ASC.Web.Projects.Controls.Projects
                 PageTitle = ProjectResource.CreateNewProject;
                 ProjectActionButtonTitle = ProjectResource.AddNewProject;
                 RenderProjectPrivacyCheckboxValue = true;
+                ProjectManagerName = ProjectResource.AddProjectManager;
 
-                Page.Title = HeaderStringHelper.GetPageTitle(PageTitle);
+                var users = CoreContext.UserManager.GetUsers().Where(r => ProjectSecurity.IsProjectsEnabled(r.ID)).ToList();
+                if (users.Count == 1)
+                {
+                    var manager = users.First();
+                    ProjectManagerId = manager.ID.ToString();
+                    ProjectManagerName = manager.DisplayUserName();
+                }
                 
+                Page.Title = HeaderStringHelper.GetPageTitle(PageTitle);
 
                 Page.Master.RegisterCRMResources();
             }

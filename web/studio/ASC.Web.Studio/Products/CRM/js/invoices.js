@@ -709,13 +709,16 @@ ASC.CRM.ListInvoiceView = (function () {
 
 
         jq("#invoiceTable").unbind("contextmenu").bind("contextmenu", function (event) {
-            event.preventDefault();
+            var e = jq.fixEvent(event);
 
-            var e = ASC.CRM.Common.fixEvent(event),
-                target = jq(e.srcElement || e.target),
+            if (typeof e == "undefined" || !e) {
+                return true;
+            }
+
+            var target = jq(e.srcElement || e.target),
                 invoiceId = parseInt(target.closest("tr.with-entity-menu").attr("id").split('_')[1]);
             if (!invoiceId) {
-                return false;
+                return true;
             }
             _showActionMenu(invoiceId);
             jq("#invoiceTable .entity-menu.active").removeClass("active");
@@ -739,7 +742,7 @@ ASC.CRM.ListInvoiceView = (function () {
                 });
             }
             $dropdownItem.show();
-            return true;
+            return false;
         });
 
     };
@@ -916,7 +919,7 @@ ASC.CRM.ListInvoiceView = (function () {
         LoadingBanner.displayLoading();
         jq("#invoiceActionMenu").hide();
         jq("#invoiceTable .entity-menu.active").removeClass("active");
-        ASC.CRM.ListInvoiceView.checkInvoicePdfFile(invoice, "", "", "", null, _downloadFile);
+        ASC.CRM.ListInvoiceView.checkInvoicePdfFile(invoice, "", "", null, _downloadFile);
     };
 
     var _sendInvoice = function (invoice) {
@@ -926,9 +929,9 @@ ASC.CRM.ListInvoiceView = (function () {
 
         if (jq.browser.mobile == false) {
             var newTab = window.open("", "_blank");
-            ASC.CRM.ListInvoiceView.checkInvoicePdfFile(invoice, "", "", "", newTab, ASC.CRM.Common.createInvoiceMail);
+            ASC.CRM.ListInvoiceView.checkInvoicePdfFile(invoice, "", "", newTab, ASC.CRM.Common.createInvoiceMail);
         } else {
-            ASC.CRM.ListInvoiceView.checkInvoicePdfFile(invoice, "", "", "", null, ASC.CRM.Common.createInvoiceMail);
+            ASC.CRM.ListInvoiceView.checkInvoicePdfFile(invoice, "", "", null, ASC.CRM.Common.createInvoiceMail);
         }
     };
 
@@ -1546,14 +1549,13 @@ ASC.CRM.ListInvoiceView = (function () {
             });
         },
         
-        checkInvoicePdfFile: function (invoice, converterUrl, storageUrl, revisionId, newTab, callback) {
+        checkInvoicePdfFile: function (invoice, storageUrl, revisionId, newTab, callback) {
             var parameters = {
                 invoice: invoice
             };
 
             var converterData = {
                 invoiceId: invoice.id,
-                converterUrl: converterUrl,
                 storageUrl: storageUrl,
                 revisionId: revisionId
             };
@@ -1566,7 +1568,7 @@ ASC.CRM.ListInvoiceView = (function () {
                         callback(params.invoice, newTab);
                     } else {
                         setTimeout(function () {
-                            ASC.CRM.ListInvoiceView.checkInvoicePdfFile(params.invoice, data.converterUrl, data.storageUrl, data.revisionId, newTab, callback);
+                            ASC.CRM.ListInvoiceView.checkInvoicePdfFile(params.invoice, data.storageUrl, data.revisionId, newTab, callback);
                         }, 2000);
                     }
                 },
@@ -2399,7 +2401,7 @@ ASC.CRM.InvoiceActionView = (function () {
             };
 
             if (str || cit || stt || zip) {
-                saveAddress(contactId, data, isConsignee);
+                saveAddress(contactId, data, isConsignee, isBilling);
             } else {
                 $dialog.hide();
             }
@@ -2439,13 +2441,13 @@ ASC.CRM.InvoiceActionView = (function () {
         }
     };
 
-    var saveAddress = function (contactId, addressData, isConsignee) {
-        var params = {};
-        var options = {
-            before: onBefore,
-            success: onSuccess,
-            error: onError
-        };
+    var saveAddress = function (contactId, addressData, isConsignee, isBilling) {
+        var params = {contactId: contactId, isConsignee: isConsignee, isBilling: isBilling },
+            options = {
+                before: onBefore,
+                success: onSuccess,
+                error: onError
+            };
 
         if (addressData.id == 0) {
             window.Teamlab.addCrmContactInfo(params, contactId, addressData, options);
@@ -2458,15 +2460,22 @@ ASC.CRM.InvoiceActionView = (function () {
         }
 
         function onSuccess(parameters, data) {
-            if (isConsignee) {
+            if (parameters.isConsignee) {
                 setInvoiceContsigneeInfo(data);
                 showInvoiceConsigneeInfoContainer();
             } else {
                 setInvoiceContactInfo(data);
                 showInvoiceContactInfoContainer();
             }
+
+            if (parameters.isBilling) {
+                jq("#addressDialog").find("[name='billingAddressID']").val(data.id);
+            } else {
+                jq("#addressDialog").find("[name='deliveryAddressID']").val(data.id);
+            }
+
             jq("#addressDialog").hide();
-            jq(window).trigger("addressCrmContactSaveSuccess", [contactId, addressData]);
+            jq(window).trigger("addressCrmContactSaveSuccess", [contactId, data]);
             window.LoadingBanner.hideLoading();
         }
 
@@ -3843,7 +3852,7 @@ ASC.CRM.InvoiceDetailsView = (function () {
         LoadingBanner.displayLoading();
         jq(".mainContainerClass .containerHeaderBlock .menu-small.active").removeClass("active");
         jq("#invoiceDetailsMenuPanel").hide();
-        checkPdfFile(window.invoice.id, "", "", "", null, downloadFile);
+        checkPdfFile(window.invoice.id, "", "", null, downloadFile);
     };
 
     var sendByEmail = function () {
@@ -3851,9 +3860,9 @@ ASC.CRM.InvoiceDetailsView = (function () {
 
         if (jq.browser.mobile == false) {
             var newTab = window.open("", "_blank");
-            checkPdfFile(window.invoice.id, "", "", "", newTab, ASC.CRM.Common.createInvoiceMail);
+            checkPdfFile(window.invoice.id, "", "", newTab, ASC.CRM.Common.createInvoiceMail);
         } else {
-            checkPdfFile(window.invoice.id, "", "", "", null, ASC.CRM.Common.createInvoiceMail);
+            checkPdfFile(window.invoice.id, "", "", null, ASC.CRM.Common.createInvoiceMail);
         }
     };
 
@@ -3861,10 +3870,9 @@ ASC.CRM.InvoiceDetailsView = (function () {
         location.href = "invoices.aspx?id={0}&action=pdf".format(window.invoice.id);
     }
 
-    var checkPdfFile = function (invoiceId, converterUrl, storageUrl, revisionId, newTab, callback) {
+    var checkPdfFile = function (invoiceId, storageUrl, revisionId, newTab, callback) {
         var converterData = {
             invoiceId: invoiceId,
-            converterUrl: converterUrl,
             storageUrl: storageUrl,
             revisionId: revisionId
         };
@@ -3877,7 +3885,7 @@ ASC.CRM.InvoiceDetailsView = (function () {
                     callback(window.invoice, newTab);
                 } else {
                     setTimeout(function () {
-                        ASC.CRM.InvoiceDetailsView.checkPdfFile(data.invoiceId, data.converterUrl, data.storageUrl, data.revisionId, newTab, callback);
+                        ASC.CRM.InvoiceDetailsView.checkPdfFile(data.invoiceId, data.storageUrl, data.revisionId, newTab, callback);
                     }, 2000);
                 }
             },

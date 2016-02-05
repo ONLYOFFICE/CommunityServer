@@ -1,30 +1,17 @@
-﻿<%@ 
-    Control
+﻿<%@ Control
     Language="C#"
-    Inherits="System.Web.Mvc.ViewUserControl"
-%>
+    Inherits="System.Web.Mvc.ViewUserControl" %>
 
 <div class="treeheader">Get Started</div>
 <ul class="treeview root">
     <li>
-        <%=Html.MenuActionLink("Basic concepts", "basic", "editors", "selected")%>
+        <%= Html.MenuActionLink("Basic concepts", "basic", "editors", "selected") %>
     </li>
     <li>
-        <%= Html.ActionLink("Demo preview", "demopreview", "editors") %>
-        <ul class="treeview">
-            <li>
-                <%= Html.ActionLink("Document editor", "demopreview", "editors", null, null, "text", null, new { id = "textDemo" }) %>
-            </li>
-            <li>
-                <%= Html.ActionLink("Spreadsheet editor", "demopreview", "editors", null, null, "spreadsheet", null, new { id = "spreadsheetDemo" }) %>
-            </li>
-            <li>
-                <%= Html.ActionLink("Presentation editor", "demopreview", "editors", null, null, "presentation", null, new { id = "presentationDemo" }) %>
-            </li>
-        </ul>
+        <%= Html.MenuActionLink("Integration Examples", "demopreview", "editors", "selected") %>
     </li>
     <li>
-        <%=Html.MenuActionLink("How It Works", "howitworks", "editors", "selected")%>
+        <%= Html.MenuActionLink("How It Works", "howitworks", "editors", "selected") %>
         <ul class="treeview">
             <li>
                 <%= Html.MenuActionLink("Opening File", "open", "editors", "selected") %>
@@ -36,9 +23,6 @@
                 <%= Html.MenuActionLink("Converting and Downloading File", "conversion", "editors", "selected") %>
             </li>
             <li>
-                <%= Html.MenuActionLink("Conversion API", "conversionapi", "editors", "selected") %>
-            </li>
-            <li>
                 <%= Html.MenuActionLink("Hardware Requirements", "hardware", "editors", "selected") %>
             </li>
         </ul>
@@ -47,6 +31,12 @@
 
 <div class="treeheader">Documentation</div>
 <ul class="treeview root">
+    <li>
+        <%= Html.MenuActionLink("License Server API", "license", "editors", "selected") %>
+    </li>
+    <li>
+        <%= Html.MenuActionLink("Advanced parameters", "advanced", "editors", "selected") %>
+    </li>
     <li>
         <%= Html.MenuActionLink("Config", "config", "editors", "selected") %>
         <ul class="treeview">
@@ -63,11 +53,25 @@
             </li>
             <li>
                 <%= Html.MenuActionLink("Editor", "editor", "editors", "selected") %>
+                <ul class="treeview">
+                    <li>
+                        <%= Html.MenuActionLink("Customization", "customization", "editors", "selected") %>
+                    </li>
+                    <li>
+                        <%= Html.MenuActionLink("Embedded", "embedded", "editors", "selected") %>
+                    </li>
+                </ul>
             </li>
             <li>
                 <%= Html.MenuActionLink("Events", "events", "editors", "selected") %>
             </li>
         </ul>
+    </li>
+    <li>
+        <%= Html.MenuActionLink("Callback handler", "callback", "editors", "selected") %>
+    </li>
+    <li>
+        <%= Html.MenuActionLink("Conversion API", "conversionapi", "editors", "selected") %>
     </li>
 </ul>
 

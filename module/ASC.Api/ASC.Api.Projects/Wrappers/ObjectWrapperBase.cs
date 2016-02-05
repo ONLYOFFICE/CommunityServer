@@ -44,7 +44,7 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember(Order = 20)]
         public int Status { get; set; }
 
-        [DataMember(Order = 30)]
+        [DataMember(Order = 30, EmitDefaultValue = false)]
         public EmployeeWraper Responsible { get; set; }
     }
 }

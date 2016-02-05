@@ -29,10 +29,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading;
-using System.Configuration;
 
 using ASC.Core;
-using ASC.Core.Common.Contracts;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
@@ -41,6 +39,7 @@ using ASC.Web.Studio.UserControls.Common.HelpCenter;
 using ASC.Web.Studio.UserControls.Common.Support;
 using ASC.Web.Studio.UserControls.Common.VideoGuides;
 using ASC.Web.Studio.UserControls.Common.UserForum;
+using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.Utility;
 using Resources;
 
@@ -48,36 +47,13 @@ namespace ASC.Web.Studio
 {
     public partial class Management : MainPage
     {
-        private const ManagementType DefaultModule = ManagementType.Customization;
-
         protected static readonly Lazy<Dictionary<ManagementType, ManagementControlAttribute[]>> ManagementModules =
             new Lazy<Dictionary<ManagementType, ManagementControlAttribute[]>>(LoadModules, LazyThreadSafetyMode.PublicationOnly);
 
         private readonly bool auditTrailEnabled = true;
-
         public TenantAccessSettings TenantAccess { get; private set; }
-
-        protected ManagementType CurrentModule
-        {
-            get
-            {
-                ManagementType currentModule;
-                if (!Enum.TryParse(Request["type"], out currentModule))
-                {
-                    currentModule = DefaultModule;
-                }
-                if (!ManagementModules.Value.ContainsKey(currentModule) && currentModule != ManagementType.HelpCenter)
-                {
-                    currentModule = DefaultModule;
-                }
-                if (TenantAccess.Anyone && currentModule == ManagementType.Backup)
-                {
-                    currentModule = DefaultModule;
-                }
-
-                return currentModule;
-            }
-        }
+        protected ManagementType CurrentModule { get; private set; }
+        protected List<ManagementType> NavigationList { get; private set; }
 
         protected override void OnPreInit(EventArgs e)
         {
@@ -105,7 +81,9 @@ namespace ASC.Web.Studio
             UserForumHolder.Controls.Add(LoadControl(UserForum.Location));
             InviteUserHolder.Controls.Add(LoadControl(InviteLink.Location));
 
-            Page.Title = GetPageTitle(CurrentModule);
+            CurrentModule = GetCurrentModule();
+            NavigationList = GetNavigationList();
+            Page.Title = HeaderStringHelper.GetPageTitle(GetNavigationTitle(CurrentModule));
 
             if (CurrentModule == ManagementType.HelpCenter)
             {
@@ -113,21 +91,34 @@ namespace ASC.Web.Studio
                 return;
             }
 
-            foreach (var control in ManagementModules.Value[CurrentModule].Where(IsControlVisibleForCurrentUser))
+            foreach (var control in ManagementModules.Value[CurrentModule])
             {
                 SettingsContainer.Controls.Add(LoadControl(control.Location));
             }
         }
 
-        protected string GetPageTitle(ManagementType module)
+        protected ManagementType GetCurrentModule()
         {
-            return HeaderStringHelper.GetPageTitle(GetNavigationTitle(module));
+            const ManagementType defaultModule = ManagementType.Customization;
+            ManagementType currentModule;
+
+            if (!Enum.TryParse(Request["type"], out currentModule))
+            {
+                return defaultModule;
+            }
+
+            if (!ManagementModules.Value.ContainsKey(currentModule) && currentModule != ManagementType.HelpCenter)
+            {
+                return defaultModule;
+            }
+
+            return currentModule;
         }
 
-        protected List<ManagementType> GetNavigationList()
+        private static List<ManagementType> GetNavigationList()
         {
             return ManagementModules.Value
-                                    .Where(keyValue => keyValue.Value.Any(IsControlVisibleForCurrentUser))
+                                    .Where(keyValue => keyValue.Value.Any())
                                     .Select(keyValue => keyValue.Key)
                                     .ToList();
         }
@@ -152,55 +143,45 @@ namespace ASC.Web.Studio
                     return Resource.DeactivationDeletionPortal;
                 case ManagementType.DocService:
                     return Resource.DocService;
+                case ManagementType.WhiteLabel:
+                    return Resource.WhiteLabel;
                 default:
                     return Resource.ResourceManager.GetString(module.ToString()) ?? module.ToString();
             }
         }
 
-        protected class TransferRegionWithName : TransferRegion
+        protected static bool DisplayModule(ManagementControlAttribute control)
         {
-            public string FullName { get; set; }
+            var result = DisplayModule(control.Module);
+            if (control.SubModule.HasValue)
+                result = result && DisplayModule(control.SubModule.Value);
+
+            return result;
         }
 
-        private List<TransferRegionWithName> _transferRegions;
-
-        protected List<TransferRegionWithName> TransferRegions
+        protected static bool DisplayModule(ManagementType module)
         {
-            get { return _transferRegions ?? (_transferRegions = GetRegions()); }
-        }
-
-        private static List<TransferRegionWithName> GetRegions()
-        {
-            try
-            {
-                using (var backupClient = new BackupServiceClient())
-                {
-                    return backupClient.GetTransferRegions()
-                                       .Select(x => new TransferRegionWithName
-                                           {
-                                               Name = x.Name,
-                                               IsCurrentRegion = x.IsCurrentRegion,
-                                               BaseDomain = x.BaseDomain,
-                                               FullName = TransferResourceHelper.GetRegionDescription(x.Name)
-                                           })
-                                       .ToList();
-                }
-            }
-            catch
-            {
-                return new List<TransferRegionWithName>();
-            }
-        }
-
-        protected bool DisplayModule(ManagementType module)
-        {
+            var tenantAccessAnyone = SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID);
             switch (module)
             {
                 case ManagementType.Migration:
-                    return (ConfigurationManager.AppSettings["web.migration.status"] == "true") && TransferRegions.Count > 1;
+                    return SetupInfo.IsVisibleSettings(module.ToString()) && TransferPortal.TransferRegions.Count > 1;
 
                 case ManagementType.Backup:
-                    return !TenantAccess.Anyone && SetupInfo.IsVisibleSettings(module.ToString());
+                    //only SaaS features
+                    return !CoreContext.Configuration.Standalone
+                           && !tenantAccessAnyone.Anyone && SetupInfo.IsVisibleSettings(module.ToString());
+
+                case ManagementType.AuditTrail:
+                case ManagementType.LoginHistory:
+                case ManagementType.LdapSettings:
+                case ManagementType.DeletionPortal:
+                    //only SaaS features
+                    return !CoreContext.Configuration.Standalone && SetupInfo.IsVisibleSettings(module.ToString());
+                case ManagementType.WhiteLabel:
+                    return Web.UserControls.WhiteLabel.WhiteLabel.AvailableControl;
+                case ManagementType.SingleSignOnSettings:
+                    return !CoreContext.Configuration.Standalone;
 
                 default:
                     return SetupInfo.IsVisibleSettings(module.ToString());
@@ -209,156 +190,158 @@ namespace ASC.Web.Studio
 
         protected bool DisplayModuleList(CategorySettings category)
         {
-            return GetNavigationList().Intersect(category.Modules).Any();
+            return NavigationList.Intersect(category.Modules).Any();
         }
 
         protected class CategorySettings
         {
-            public String Title;
-            public List<ManagementType> Modules;
-            public ManagementType ModuleUrl;
-            public String ClassName;
-        }
+            public String Title { get; set; }
+            public ManagementType ModuleUrl { get; set; }
+            public String ClassName { get; set; }
 
-        protected List<CategorySettings> Category
-        {
-            get
+            private List<ManagementType> modules;
+            public IEnumerable<ManagementType> Modules { get { return modules; } }
+
+            public CategorySettings() { }
+
+            public CategorySettings(IEnumerable<ManagementType> managementTypes)
             {
-                var securityCategorySettings = new CategorySettings
-                    {
-                        Title = Resource.ManagementCategorySecurity,
-                        Modules = new List<ManagementType>
-                            {
-                                ManagementType.PortalSecurity,
-                                ManagementType.AccessRights
-                            },
-                        ClassName = "security"
-                    };
+                modules = managementTypes.Where(DisplayModule).ToList();
+            }
 
-                if (auditTrailEnabled)
-                {
-                    securityCategorySettings.Modules.AddRange(new List<ManagementType> {ManagementType.LoginHistory, ManagementType.AuditTrail});
-                }
+            public void AddModules(params ManagementType[] newModules)
+            {
+                if (modules == null) modules = new List<ManagementType>();
+                modules.AddRange(newModules.Where(DisplayModule));
+            }
 
-                var integrationCategorySettings = new CategorySettings
-                                                      {
-                                                          Title = Resource.ManagementCategoryIntegration,
-                                                          Modules = new List<ManagementType>
-                                                                        {
-                                                                            ManagementType.LdapSettings,
-                                                                            ManagementType.ThirdPartyAuthorization,
-                                                                            ManagementType.DocService,
-                                                                            ManagementType.SmtpSettings
-                                                                        },
-                                                          ClassName = "productsandinstruments"
-                                                      };
+            public string GetNavigationUrl()
+            {
+                return GetNavigationUrl(modules == null ? ModuleUrl : modules.First());
+            }
 
-                if(CoreContext.Configuration.Standalone)
-                {
-                    integrationCategorySettings.Modules.Add(ManagementType.FullTextSearch);
-                }
-
-                var list = new List<CategorySettings>
-                    {
-                        new CategorySettings
-                            {
-                                Title = Resource.ManagementCategoryCommon,
-                                Modules = new List<ManagementType>
-                                    {
-                                        ManagementType.Customization,
-                                        ManagementType.ProductsAndInstruments
-                                    },
-                                ClassName = "general"
-                            },
-                        securityCategorySettings,
-                        new CategorySettings
-                            {
-                                Title = Resource.DataManagement,
-                                Modules = new List<ManagementType>
-                                    {
-                                        ManagementType.Migration,
-                                        ManagementType.Backup,
-                                        ManagementType.DeletionPortal
-                                    },
-                                ClassName = "backup"
-                            },
-                        integrationCategorySettings,
-                        new CategorySettings
-                            {
-                                Title = Resource.ManagementCategoryStatistic,
-                                ModuleUrl = ManagementType.Statistic,
-                                ClassName = "statistic"
-                            },
-                        new CategorySettings
-                            {
-                                Title = Resource.Monitoring,
-                                ModuleUrl = ManagementType.Monitoring,
-                                ClassName = "monitoring"
-                            }
-                    };
-                return list;
+            public string GetNavigationUrl(ManagementType module)
+            {
+                return CommonLinkUtility.GetAdministration(module);
             }
         }
 
-        protected string GetNavigationUrl(ManagementType module)
+        protected List<CategorySettings> GetCategoryList()
         {
-            return CommonLinkUtility.GetAdministration(module);
+            var securityCategorySettings = new CategorySettings(new[]
+                                                                {
+                                                                    ManagementType.PortalSecurity,
+                                                                    ManagementType.AccessRights
+                                                                })
+                                           {
+                                               Title = Resource.ManagementCategorySecurity,
+                                               ClassName = "security"
+                                           };
+            if (auditTrailEnabled)
+            {
+                securityCategorySettings.AddModules(ManagementType.LoginHistory, ManagementType.AuditTrail);
+            }
+
+            var generalSettings = new CategorySettings(new[]
+                                                       {
+                                                           ManagementType.Customization,
+                                                           ManagementType.ProductsAndInstruments,
+                                                           ManagementType.WhiteLabel
+                                                       })
+                                  {
+                                      Title = Resource.ManagementCategoryCommon,
+                                      ClassName = "general"
+                                  };
+
+            var backupSettings =
+                new CategorySettings(new[]
+                                     {
+                                         ManagementType.Migration,
+                                         ManagementType.Backup,
+                                         ManagementType.DeletionPortal
+                                     })
+                {
+                    Title = Resource.DataManagement,
+                    ClassName = "backup"
+                };
+
+            var integrationCategorySettings = new CategorySettings(new[]
+                                                                   {
+                                                                       ManagementType.LdapSettings,
+                                                                       ManagementType.ThirdPartyAuthorization,
+                                                                       ManagementType.DocService,
+                                                                       ManagementType.SmtpSettings
+                                                                   })
+                                              {
+                                                  Title = Resource.ManagementCategoryIntegration,
+                                                  ClassName = "productsandinstruments"
+                                              };
+
+            if (CoreContext.Configuration.Standalone)
+            {
+                integrationCategorySettings.AddModules(ManagementType.FullTextSearch);
+            }
+
+            var statisticSettings = new CategorySettings
+                                    {
+                                        Title = Resource.ManagementCategoryStatistic,
+                                        ModuleUrl = ManagementType.Statistic,
+                                        ClassName = "statistic"
+                                    };
+            var monitoringSettings = new CategorySettings
+                                     {
+                                         Title = Resource.Monitoring,
+                                         ModuleUrl = ManagementType.Monitoring,
+                                         ClassName = "monitoring"
+                                     };
+
+            return new List<CategorySettings>
+                   {
+                       generalSettings,
+                       securityCategorySettings,
+                       backupSettings,
+                       integrationCategorySettings,
+                       statisticSettings,
+                       monitoringSettings
+                   };
         }
 
         private static Dictionary<ManagementType, ManagementControlAttribute[]> LoadModules()
         {
             return Assembly.GetExecutingAssembly()
                            .GetTypes()
-                           .Select(type => IsControlVisible(type) ? type.GetCustomAttribute<ManagementControlAttribute>() : null)
-                           .Where(control => control != null && IsModuleVisible(control.Module))
+                           .Select(type => type.GetCustomAttribute<ManagementControlAttribute>())
+                           .Where(control => control != null  && DisplayModule(control))
                            .GroupBy(control => control.Module)
                            .OrderBy(group => (int)group.Key)
-                           .ToDictionary(group => group.Key, group => group.OrderBy(control => control.SortOrder)
-                                                                           .ToArray());
-        }
-
-        private static bool IsControlVisibleForCurrentUser(ManagementControlAttribute control)
-        {
-            return control.IsVisibleForAdministrator || (SecurityContext.CurrentAccount.ID == CoreContext.TenantManager.GetCurrentTenant().OwnerId);
-        }
-
-        private static bool IsControlVisible(Type type)
-        {
-            return SetupInfo.IsVisibleSettings(type.Name);
-        }
-
-        private static bool IsModuleVisible(ManagementType type)
-        {
-            return SetupInfo.IsVisibleSettings(type.ToString());
+                           .ToDictionary(
+                           group => group.Key, 
+                           group => group.OrderBy(control => control.SortOrder).ToArray());
         }
     }
 
-    [AttributeUsage(AttributeTargets.Class, AllowMultiple = false, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Class)]
     public class ManagementControlAttribute : Attribute
     {
-        private readonly ManagementType _module;
+        public ManagementType Module { get; private set; }
 
-        public ManagementType Module
-        {
-            get { return _module; }
-        }
+        public ManagementType? SubModule { get; private set; }
 
-        private readonly string _location;
-
-        public string Location
-        {
-            get { return _location; }
-        }
+        public string Location { get; private set; }
 
         public int SortOrder { get; set; }
 
-        public bool IsVisibleForAdministrator { get; set; }
-
         public ManagementControlAttribute(ManagementType module, string location)
         {
-            _module = module;
-            _location = location;
-            IsVisibleForAdministrator = true;
+            Module = module;
+            Location = location;
+        }
+
+        public ManagementControlAttribute(ManagementType module, ManagementType submodule, string location)
+        {
+            Module = module;
+            SubModule = submodule;
+            Location = location;
         }
     }
 }

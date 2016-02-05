@@ -26,9 +26,13 @@
 
 var TariffSettings = new function () {
     var isInit = false;
-    var selectedTariffId = null;
-    var selectActiveUsers = "0-0";
-    var selectStorage = "0 byte";
+
+    var _tariffsMaxUsers = [],
+        _defaultTariff = 0,
+        _maxTariff = 0,
+        _minTariff = 0,
+        _sliderVals = [],
+        _sliderClasses = [];
 
     var init = function () {
         if (isInit === false) {
@@ -37,93 +41,206 @@ var TariffSettings = new function () {
 
         jq.switcherAction("#switcherPayments", "#paymentsContainer");
 
-        jq(".tariffs-selected input:radio").prop("checked", true);
-        TariffSettings.selectTariff();
+        initMainProperties();
+        initSlider();
+    };
 
-        if (jq("#annualRecomendationDialog").length) {
-            StudioBlockUIManager.blockUI("#annualRecomendationDialog", 600, 300, 0);
-            PopupKeyUpActionProvider.EnterAction = "TariffSettings.redirectToBuy(jq('#buttonYearSubscribe').attr('data-id'));";
+    var initMainProperties = function () {
+        _tariffsMaxUsers = jq(".tariff-user-descr-item").map(function (i, item) {
+            return parseInt(jq(item).attr("data-users"));
+        }).toArray();
+
+
+        _maxTariff = _tariffsMaxUsers[_tariffsMaxUsers.length - 1];
+        _defaultTariff = jq(".tariff-slider-container").attr("data-default");
+        _minTariff = jq(".tariff-slider-container").attr("data-min");
+
+        for (var i = 1; i <= _maxTariff; i++) {
+            _sliderVals.push(i);
+            var curClass = '';
+            if (_tariffsMaxUsers.indexOf(i) != -1)
+                curClass = "withVertLine";
+
+            _sliderClasses.push(curClass);
+        }
+
+        for (var i = 1; i <= 10; i++) { // 10 steps (100px) for max zone ">50" users
+            _sliderVals.push(_maxTariff + i);
+            _sliderClasses.push("darkGrey" + (i == 10 ? " rightRadius" : ""));
         }
     };
 
-    var clickOnBuy = function (object) {
+    var slideRefreshText = function (slideHandle, curUsrCount) {
+        slideHandle.children(".ui-slider-handle-text")
+            .text(_maxTariff < curUsrCount
+                ? (">" + _maxTariff)
+                : curUsrCount);
+    };
+
+    var slideExt = function (e, ui) {
+        var $thisHandle = jq(ui.handle),
+            liItems = $thisHandle.parent().children('ol.ui-slider-scale').children('li'),
+            opts = $thisHandle.data("options");
+
+        $thisHandle.attr('aria-valuenow', ui.value);
+
+        for (var i = 0, n = liItems.length; i < n; i++) {
+            if (i < ui.value) {
+                jq(liItems[i]).addClass(opts.baseCssClass);
+            } else {
+                jq(liItems[i]).removeClass(opts.baseCssClass);
+            }
+        }
+
+        if (e != null) {
+            opts.value = ui.value;
+            $thisHandle.data("options", opts);
+
+            slideRefreshText($thisHandle, ui.value);
+        } else {
+            $thisHandle.parent().slider("option", "value", ui.value);
+        }
+    };
+
+    var onSliderCreate = function (event, ui) {
+        var sliderHandle = jq("#pricingPlanSlider .ui-slider a.ui-slider-handle:first");
+        var curTariffMaxUsers = getTariffMaxUsersByCurUsrCnt(_defaultTariff);
+
+        sliderHandle.append("<div class=\"ui-slider-handle-text\">" + curTariffMaxUsers + "</div><div class=\"ui-slider-handle-q\"></div>");
+        sliderHandle.children(".ui-slider-handle-q").append(jq(".tariff-user-question:first").removeClass("display-none"));
+
+        selectUserCount(sliderHandle, curTariffMaxUsers);
+    };
+
+    var onSliderStop = function (event, ui) {
+        var curTariffMaxUsers = getTariffMaxUsersByCurUsrCnt(ui.value);
+
+        slideExt(null, { handle: ui.handle, value: _maxTariff < ui.value ? _sliderVals[_sliderVals.length - 1] : curTariffMaxUsers });
+
+        selectUserCount(jq(ui.handle), curTariffMaxUsers);
+    };
+
+    var onSliderStart = function (event, ui) {
+        jq(ui.handle).children(".ui-slider-handle-q").remove();
+    };
+
+    var initMainSliderOpts = function () {
+        return {
+            values: _sliderVals,
+            defaultClasses: _sliderClasses,
+            width: '10px',
+            height: '6px',
+
+            sliderOptions: {
+                baseCssClass: 'blue',
+                step: 1,
+                animate: 0,
+                min: 1,
+                max: _sliderVals.length,
+                orientation: 'horizontal',
+                range: false,
+                value: _defaultTariff,
+
+                create: onSliderCreate,
+
+                start: onSliderStart,
+                slide: slideExt,
+                stop: onSliderStop
+            }
+        };
+    };
+
+    var initSlider = function () {
+        var $this = jq("#pricingPlanSlider"),
+            options = initMainSliderOpts(),
+            sliderComponent = jq('<div></div>');
+
+        jq(['<a tabindex="0" class="ui-slider-handle" role="slider" aria-valuenow="',
+                options.sliderOptions.value,
+                '"></a>'
+        ].join(''))
+            .data("options", options.sliderOptions)
+            .appendTo(sliderComponent);
+
+        var scale = sliderComponent.append('<ol class="ui-slider-scale" role="presentation" style="width: 100%;' +
+            ' height: ' + (options.height != null ? options.height : "100%") + ';"></ol>')
+            .find('.ui-slider-scale:eq(0)'),
+            liClass = '';
+
+        for (var i = 0, n = options.values.length; i < n; i++) {
+            liClass = (i < options.sliderOptions.value) ? options.sliderOptions.baseCssClass : '';
+
+            if (i == 0) {
+                liClass = "leftRadius " + options.sliderOptions.baseCssClass;
+            }
+            if (options.defaultClasses != null && typeof (options.defaultClasses[i]) !== "undefined" && options.defaultClasses[i] != "") {
+                liClass += " " + options.defaultClasses[i];
+            }
+
+
+            scale.append(
+                ['<li class="',
+                liClass,
+                '" style="left:',
+                (parseInt(options.width) * i).toFixed(0), 'px;',
+                ' height: ',
+                (options.height != null ? options.height : "100%"),
+                '; width:',
+                options.width,
+                ';"></li>'
+                ]
+                .join(''));
+        }
+
+        //inject and return
+        sliderComponent.appendTo($this).slider(options.sliderOptions).attr('role', 'application');
+    };
+
+    var getTariffMaxUsersByCurUsrCnt = function (curUserCount) {
+        for (var i = 0, n = _tariffsMaxUsers.length; i < n; i++) {
+            if (curUserCount <= _tariffsMaxUsers[i]) {
+                return _tariffsMaxUsers[i];
+            }
+        }
+        return curUserCount;
+    };
+
+    var selectUserCount = function (handle, curTariffMaxUsers) {
+        var userMinWarn = curTariffMaxUsers < _minTariff,
+            userMaxWarn = _maxTariff < curTariffMaxUsers;
+
+        slideRefreshText(handle, curTariffMaxUsers);
+
+        jq(".tariff-user-descr-item, .tariff-item").hide();
+        jq(".tariff-user-descr-item[data-users=\"" + curTariffMaxUsers + "\"], .tariff-item[data-users=\"" + curTariffMaxUsers + "\"]").show();
+
+
+        jq("#pricingPlanSlider").toggleClass("warn-slider", userMinWarn);
+        jq(".tariff-user-warn-min").toggle(userMinWarn);
+        jq(".tariff-user-warn-max, .tariff-request-panel").toggle(userMaxWarn);
+        jq(".tariffs-panel, .see-full-price").toggle(!userMaxWarn);
+        if (userMinWarn || userMaxWarn) {
+            jq(".tariff-user-descr-item").hide();
+        }
+    };
+
+    var clickOnBuy = function () {
         if (!jq("#buyRecommendationDialog").length) {
             return true;
         }
-        if (typeof object == "undefined") {
-            return true;
-        }
+
+        jq("#buyRecommendationOk").attr("href", jq(this).attr("href"));
 
         StudioBlockUIManager.blockUI("#buyRecommendationDialog", 550, 300, 0);
-        PopupKeyUpActionProvider.EnterAction = "TariffSettings.redirectToBuy(TariffSettings.selectedTariffId);";
+        PopupKeyUpActionProvider.EnterAction = "location.href = jq(\"#buyRecommendationOk\").attr(\"href\");";
         PopupKeyUpActionProvider.CloseDialogAction = "TariffSettings.dialogRecommendationClose();";
 
         return false;
     };
 
-    var selectTariff = function (tariffLabel) {
-        if (!tariffLabel) {
-            tariffLabel = jq(".tariffs-selected");
-        }
-
-        jq(".tariffs-selected").removeClass("tariffs-selected");
-        tariffLabel.addClass("tariffs-selected");
-
-        var tariffHidden = tariffLabel.find(".tariff-hidden-link");
-        var tariffLink = tariffHidden.val();
-        var tariffId = tariffLabel.attr("data-id");
-
-        jq(".tariff-buy-action").hide();
-        jq(".tariff-pay-key-prolongable").removeClass("disable");
-
-        var button = jq();
-        if (tariffHidden.hasClass("tariff-hidden-pay")) {
-            button = jq(".tariff-buy-pay, .tariff-pay-pal");
-            jq(".tariff-pay-key-prolongable").addClass("disable").removeAttr("href");
-        } else if (tariffHidden.hasClass("tariff-hidden-free")) {
-            button = jq(".tariff-buy-free");
-            jq(".tariff-pay-key-prolongable").addClass("disable").removeAttr("href");
-        } else if (tariffHidden.hasClass("tariff-hidden-stopfree")) {
-        } else if (tariffHidden.hasClass("tariff-hidden-limit")) {
-            button = jq(".tariff-buy-limit");
-            TariffSettings.selectedTariffId = null;
-            TariffSettings.selectActiveUsers = tariffLabel.find(".tariff-hidden-users").val();
-            TariffSettings.selectStorage = tariffLabel.find(".tariff-hidden-storage").val();
-        } else {
-            if (tariffHidden.length) {
-                button = jq(".tariff-buy-change, .tariff-pay-pal");
-            }
-        }
-
-        button.css({ "display": "inline-block" });
-        if (!button.hasClass("disable"))
-            button.attr("href", tariffLink);
-        TariffSettings.selectedTariffId = tariffId;
-    };
-
-    var showDowngradeDialog = function () {
-        var quotaActiveUsers = TariffSettings.selectActiveUsers;
-        var quotaStorageSize = TariffSettings.selectStorage;
-        jq("#downgradeUsers").html(quotaActiveUsers);
-        jq("#downgradeStorage").html(quotaStorageSize);
-
-        StudioBlockUIManager.blockUI("#tafirrDowngradeDialog", 450, 300, 0);
-    };
-
     var hideBuyRecommendation = function (obj) {
         var dontDisplay = jq(obj).is(":checked");
         TariffUsageController.SaveHideRecommendation(dontDisplay,
-            function (result) {
-                if (result.error != null) {
-                    toastr.error(result.error.Message);
-                    return;
-                }
-            });
-    };
-
-    var annualRecomendationCheck = function (obj) {
-        var dontDisplay = jq(obj).is(":checked");
-        TariffUsageController.SaveAnnualRecomendation(dontDisplay,
             function (result) {
                 if (result.error != null) {
                     toastr.error(result.error.Message);
@@ -138,82 +255,54 @@ var TariffSettings = new function () {
         }
     };
 
-    var redirectToBuy = function (tariffId) {
-        var tariffLabel = jq(".tariff-price-block[data-id='" + tariffId + "']");
-        var tariffHidden = tariffLabel.find(".tariff-hidden-link");
-        var tariffLink = tariffHidden.val();
-        var price = tariffLabel.find(".tariff-hidden-price").val();
-        var ownerId = jq(".tariffs-panel").attr("data-id");
+    var showDowngradeDialog = function () {
+        var tariff = jq(".tariff-item:visible");
+        var quotaActiveUsers = tariff.attr("data-users");
+        var quotaStorageSize = tariff.attr("data-storage");
+        jq("#downgradeUsers").html(quotaActiveUsers);
+        jq("#downgradeStorage").html(quotaStorageSize);
 
-        //window.ga('send', 'buy', ownerId, price);
-        location.href = tariffLink;
-        PopupKeyUpActionProvider.CloseDialog();
+        StudioBlockUIManager.blockUI("#tafirrDowngradeDialog", 450, 300, 0);
     };
 
-    var getTrial = function () {
-        TariffUsageController.GetTrial(
+    var requestTariff = function () {
+        var name = jq(".text-edit-name").val().trim();
+        var email = jq(".text-edit-email").val().trim();
+        var message = jq(".text-edit-message").val().trim();
+        if (!name.length || !email.length || !message.length) {
+            toastr.error(ASC.Resources.Master.Resource.ErrorEmptyField);
+            return;
+        }
+
+        TariffUsageController.RequestTariff(name, email, message,
             function (result) {
                 if (result.error != null) {
                     toastr.error(result.error.Message);
+                    return;
                 }
-                location.reload();
+                toastr.success(ASC.Resources.Master.Resource.SendTariffRequest);
             });
-    };
-
-    var getFree = function () {
-        TariffUsageController.GetFree(
-            function (result) {
-                if (result.error != null) {
-                    toastr.error(result.error.Message);
-                }
-                location.reload();
-            });
-    };
-
-    var selectedQuotaId = function () {
-        return jq(".tariffs-selected").attr("data-id");
     };
 
     return {
         init: init,
 
-        selectedTariffId: selectedTariffId,
-        selectActiveUsers: selectActiveUsers,
-        selectStorage: selectStorage,
-
         clickOnBuy: clickOnBuy,
-        selectTariff: selectTariff,
 
         showDowngradeDialog: showDowngradeDialog,
         hideBuyRecommendation: hideBuyRecommendation,
         dialogRecommendationClose: dialogRecommendationClose,
-        redirectToBuy: redirectToBuy,
-        annualRecomendationCheck: annualRecomendationCheck,
 
-        selectedQuotaId: selectedQuotaId,
-
-        getTrial: getTrial,
-        getFree: getFree
+        requestTariff: requestTariff,
     };
 };
 
 jq(function () {
-
     TariffSettings.init();
 
-    jq(".tariffs-panel").on("change", "input:radio", function () {
-        TariffSettings.selectTariff(jq(this).closest(".tariff-price-block"));
-    });
+    jq(".tariffs-panel").on("click", ".tariffs-buy-action:not(.disable)", TariffSettings.clickOnBuy);
 
-    jq(".tariffs-button-block").on("click", ".tariff-buy-pay:not(.disable), .tariff-buy-change", function () {
-        if (TariffSettings.clickOnBuy(this)) {
-            TariffSettings.redirectToBuy(TariffSettings.selectedTariffId);
-        }
-
-        return false;
-    });
-
-    jq(".tariffs-button-block").on("click", ".tariff-buy-limit", function () {
+    jq(".tariff-user-warn-link").click(function () {
         TariffSettings.showDowngradeDialog();
         return false;
     });
@@ -223,29 +312,5 @@ jq(function () {
         return true;
     });
 
-    jq("#buyRecommendationOk").click(function () {
-        TariffSettings.redirectToBuy(TariffSettings.selectedTariffId);
-        return false;
-    });
-
-    jq("#annualRecomendationDisplay").click(function () {
-        TariffSettings.annualRecomendationCheck(this);
-        return true;
-    });
-
-    jq("#buttonYearSubscribe").click(function () {
-        var tariffId = jq("#buttonYearSubscribe").attr("data-id");
-        TariffSettings.redirectToBuy(tariffId);
-        return true;
-    });
-
-    jq(".tariff-buy-try").click(function () {
-        TariffSettings.getTrial();
-        return false;
-    });
-
-    jq(".tariff-buy-free").click(function () {
-        TariffSettings.getFree();
-        return false;
-    });
+    jq(".tariff-request").click(TariffSettings.requestTariff);
 });

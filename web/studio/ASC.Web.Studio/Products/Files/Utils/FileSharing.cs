@@ -30,6 +30,7 @@ using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
+using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Files.Services.NotifyService;
 using ASC.Web.Files.Services.WCFService;
 using System;
@@ -47,7 +48,9 @@ namespace ASC.Web.Files.Utils
             return
                 entry != null
                 && (entry.RootFolderType == FolderType.COMMON && Global.IsAdministrator
-                    || entry.RootFolderType == FolderType.USER && (Equals(entry.RootFolderId, Global.FolderMy) || Global.GetFilesSecurity().CanEdit(entry)));
+                    || entry.RootFolderType == FolderType.USER
+                    && (Equals(entry.RootFolderId, Global.FolderMy) || Global.GetFilesSecurity().CanEdit(entry))
+                    && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor());
         }
 
         public static List<AceWrapper> GetSharedInfo(FileEntry entry)
@@ -220,6 +223,11 @@ namespace ASC.Web.Files.Utils
 
                 fileSecurity.Share(entry.ID, entryType, w.SubjectId, share);
 
+                if (entryType == FileEntryType.File && share != FileShare.ReadWrite)
+                {
+                    DocumentServiceHelper.CheckUsersForDrop((File) entry, !w.SubjectGroup ? w.SubjectId : Guid.Empty);
+                }
+
                 if (w.SubjectId == FileConstant.ShareLinkId)
                     continue;
 
@@ -280,6 +288,12 @@ namespace ASC.Web.Files.Utils
 
                         var entryType = entry is File ? FileEntryType.File : FileEntryType.Folder;
                         fileSecurity.Share(entry.ID, entryType, SecurityContext.CurrentAccount.ID, fileSecurity.DefaultMyShare);
+
+                        var file = entry as File;
+                        if (file != null)
+                        {
+                            DocumentServiceHelper.CheckUsersForDrop(file, SecurityContext.CurrentAccount.ID);
+                        }
 
                         FileMarker.RemoveMarkAsNew(entry);
                     });

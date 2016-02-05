@@ -157,6 +157,7 @@
         .label {
             .tag {
                 margin-left: @message-spliter-width;
+                cursor: default;
             }
         }
 
@@ -184,21 +185,18 @@
         .menu_column {
             padding-right: @message-spliter-width;
 
-            .menu {
-                background-color: transparent;
-                background: url("@{base-icon-sprite-url}") no-repeat 0 -90px;
-                width: 24px;
-                height: 24px;
+            .menu-small {
+                //background-color: transparent;
+                //background: url("@{base-icon-sprite-url}") no-repeat 0 -90px;
+                //width: 24px;
+                //height: 24px;
                 float: right;
                 right: 0px;
-                cursor: pointer;
-                margin-left: 24px;
-                display: inline-block;
+                margin: 0;
+                //cursor: pointer;
+                //margin-left: 24px;
+                //display: inline-block;
             }
-
-                .menu.active {
-                    background-position: -30px -90px;
-                }
         }
 
         &:hover {
@@ -215,8 +213,8 @@
                 display: inline-block;
             }
 
-            .menu {
-                background-position: -30px -90px;
+            .menu-small {
+                background-position: center bottom;
             }
 
             .more_lnk {

@@ -28,7 +28,7 @@ window.accountsModal = (function($) {
     var isInit = false,
         accountEmail = '',
         wndQuestion = undefined,
-        storedSettings = undefined;
+        onSuccessOperationCallback;
 
     var ids = {
         'email': 'email',
@@ -75,7 +75,6 @@ window.accountsModal = (function($) {
             isInit = true;
 
             serviceManager.bind(window.Teamlab.events.getMailMailbox, onGetBox);
-            serviceManager.bind(window.Teamlab.events.getMailDefaultMailboxSettings, onGetDefaultMailboxSettings);
             serviceManager.bind(window.Teamlab.events.createMailMailboxSimple, onCreateAccount);
             serviceManager.bind(window.Teamlab.events.createMailMailboxOAuth, onCreateAccount);
             serviceManager.bind(window.Teamlab.events.createMailMailbox, onCreateAccount);
@@ -95,9 +94,25 @@ window.accountsModal = (function($) {
                 var account = accountsManager.getAccountByAddress(accountEmail);
 
                 if (account.is_teamlab && (account.is_shared_domain || Teamlab.profile.isAdmin)) {
-                    removeMailbox(account);
+                    serviceManager.removeMailbox(account.mailbox_id, { account: account }, {
+                        success: function (params) {
+                            accountsManager.removeAccount(params.account.email);
+                            serviceManager.getAccounts();
+                        },
+                        error: function (params, error) {
+                            administrationError.showErrorToastr("getCommonMailDomain", error);
+                        }
+                    }, ASC.Resources.Master.Resource.LoadingProcessing);
+
                 } else {
-                    serviceManager.removeBox(account.email, {}, {}, ASC.Resources.Master.Resource.LoadingProcessing);
+                    serviceManager.removeBox(account.email, { account: account }, {
+                        success: function (params, data) {
+                            accountsManager.removeAccount(params.account.email);
+                        },
+                        error: function (params, error) {
+                            administrationError.showErrorToastr("getCommonMailDomain", error);
+                        }
+                    }, ASC.Resources.Master.Resource.LoadingProcessing);
                 }
 
                 serviceManager.updateFolders();
@@ -146,12 +161,12 @@ window.accountsModal = (function($) {
 
         var mailboxEmail = account.is_alias ? accountsManager.getAccountById(account.mailbox_id).email : accountEmail;
 
-        serviceManager.setMailboxState(mailboxEmail, true, { email: accountEmail, enabled: true }, {
+        serviceManager.setMailboxState(mailboxEmail, true, { email: accountEmail, enabled: true, onSuccessOperationCallback: onSuccessOperationCallback }, {
             error: function (e, errors) {
                 if (errors && errors.length && errors.length > 1) {
-                    if (errors[1].hresult == ASC.Mail.ErrorConstants.COR_E_AUTHENTICATION) {
+                    if (errors[1].hresult == ASC.Mail.Constants.Errors.COR_E_AUTHENTICATION) {
                         if (account && account.mailbox_id) {
-                            mailAlerts.showAlert({ type: 6, id_mailbox: account.mailbox_id, data: null, redirectToAccounts: false, activateOnSuccess: true });
+                            mailAlerts.showAlert({ type: ASC.Mail.Constants.Alerts.AuthConnectFailure, id_mailbox: account.mailbox_id, data: null, redirectToAccounts: false, activateOnSuccess: true });
                             return;
                         }
                     }
@@ -340,24 +355,6 @@ window.accountsModal = (function($) {
         questionBox('remove');
     }
 
-    function removeMailbox(account) {
-        var id = account.mailbox_id;
-        serviceManager.removeMailbox(id, { account: account }, {
-            success: function (params, data) {
-                serviceManager.getAccounts();
-
-                mailBox.markFolderAsChanged(TMMail.sysfolders.inbox.id);
-                mailBox.markFolderAsChanged(TMMail.sysfolders.sent.id);
-                mailBox.markFolderAsChanged(TMMail.sysfolders.drafts.id);
-                mailBox.markFolderAsChanged(TMMail.sysfolders.trash.id);
-                mailBox.markFolderAsChanged(TMMail.sysfolders.spam.id);
-            },
-            error: function (params, error) {
-                administrationError.showErrorToastr("getCommonMailDomain", error);
-            }
-        }, ASC.Resources.Master.Resource.LoadingProcessing);
-    }
-
     function editBox(account, activateOnSuccess) {
         serviceManager.getBox(account, { action: 'edit', activateOnSuccess: activateOnSuccess }, {}, ASC.Resources.Master.Resource.LoadingProcessing);
     }
@@ -389,7 +386,7 @@ window.accountsModal = (function($) {
 
     // Simple wizard window
 
-    function showWizard(email) {
+    function showWizard(email, password) {
 
         var html = $.tmpl('accountWizardTmpl');
 
@@ -436,6 +433,11 @@ window.accountsModal = (function($) {
         if (email) {
             setVal(ids.email, email);
         }
+
+        if (password) {
+            setVal(ids.password, password);
+            $('.containerBodyBlock #password').keyup();
+        }
     }
 
     function setupPasswordView() {
@@ -472,14 +474,15 @@ window.accountsModal = (function($) {
             obj = evt.data;
         }
 
-        if (obj.Tpr == "OAuthImporter" && obj.Data.length != 0) {
-            if (obj.error && obj.error != "Canceled at provider") {
-                onErrorCreateMailboxSimple({ email: obj.Data.Email || '' }, [obj.error]);
-            } else if (obj.Data.Email != null && obj.Data.RefreshToken != null) {
+        if (obj.Tpr === "OAuthImporter") {
+            if (obj.error && obj.error !== "Canceled at provider") {
+                var email = obj.Data !== null ? obj.Data.Email || '' : '';
+                showErrorModal({ oauth: true, simple: true, settings: { email: email, name: '' } }, [obj.error]);
+            } else if (obj.Data != null && obj.Data.Email != null && obj.Data.RefreshToken != null) {
                 showLoader(window.MailScriptResource.MailboxCreation);
                 serviceManager.createOAuthBox(obj.Data.Email, obj.Data.RefreshToken, 1, //google service
-                    { email: obj.Data.Email, name: '', enabled: true, restrict: true, oauth: true },
-                    { error: onErrorCreateMailboxSimple });
+                    { oauth: true, settings: { email: obj.Data.Email, name: '', enabled: true, restrict: true } },
+                    { error: showErrorModal });
             }
         } else {
             hide();
@@ -487,7 +490,6 @@ window.accountsModal = (function($) {
     }
 
     function switchToAdvanced(action) {
-        storedSettings = undefined;
         var email = getVal(ids.email);
         var password = getVal(ids.password, false);
 
@@ -496,10 +498,16 @@ window.accountsModal = (function($) {
         // If the email entered is OK
         if (TMMail.reEmailStrict.test(email)) {
             options.password = password;
-            serviceManager.getDefaultMailboxSettings(email, options, { error: onErrorGetDefaultMailboxSettings }, window.MailScriptResource.ObtainingDefaultDomainSettings);
+            options.name = getVal(ids.name, true);
+            serviceManager.getDefaultMailboxSettings(email, options,
+                {
+                    success: onGetDefaultMailboxSettings,
+                    error: onErrorGetDefaultMailboxSettings
+                },
+                window.MailScriptResource.ObtainingDefaultDomainSettings);
         }
-            // If nothing is entered as email or the email is wrong
         else {
+            // If nothing is entered as email or the email is wrong
             var data = {
                 email: email,
                 password: password,
@@ -511,9 +519,11 @@ window.accountsModal = (function($) {
                 restrict: true,
                 outcoming_encryption_type: encriptionTypes.ssl,
                 smtp_port: defaultPorts.smtp_ssl,
+                smtp_password: password,
                 auth_type_smtp: authTypes.simple
             };
-            setBoxData(data, options);
+
+            onGetBox(options, data);
         }
     }
 
@@ -711,7 +721,16 @@ window.accountsModal = (function($) {
             }
 
             if (emailCorrect) {
-                serviceManager.getDefaultMailboxSettings(email, { action: action, password: getVal(ids.password, true), smtp_password: getVal(ids.smtp_password, true) }, { error: onErrorGetDefaultMailboxSettings }, window.MailScriptResource.ObtainingDefaultDomainSettings);
+                account.password = getVal(ids.password, true);
+                account.smtp_password = getVal(ids.smtp_password, true);
+                var data = $.extend({ action: action }, { settings: account });
+                serviceManager.getDefaultMailboxSettings(email,
+                    data,
+                    {
+                        success: onGetDefaultMailboxSettings,
+                        error: onErrorGetDefaultMailboxSettings
+                    },
+                    window.MailScriptResource.ObtainingDefaultDomainSettings);
             }
         });
 
@@ -721,6 +740,14 @@ window.accountsModal = (function($) {
 
         if (params.error) {
             setErrorToPopupMailbox(params.error);
+        }
+
+        if (account.password) {
+            $('.containerBodyBlock #password').keyup();
+        }
+
+        if (account.smtp_password) {
+            $('.containerBodyBlock #smtp_password').keyup();
         }
     }
 
@@ -763,54 +790,45 @@ window.accountsModal = (function($) {
             window.ASC.Mail.ga_track(ga_Categories.accauntsSettings, ga_Actions.createNew, "create_min_account");
 
             showLoader(window.MailScriptResource.MailboxCreation);
+
+            var data = {
+                oauth: false,
+                simple: true,
+                settings: { email: email, password: password, name: '', enabled: true, restrict: true }
+            };
+
             serviceManager.createMinBox(email, password,
-                { email: email, name: '', enabled: true, restrict: true, oauth: false },
-                { error: onErrorCreateMailboxSimple });
+                data,
+                { error: showErrorModal });
         }
     }
 
     function updateMailbox(newFlag, activateOnSuccess) {
-        var email = getVal(ids.email),
-            server = getVal(ids.server),
-            account = getVal(ids.account),
-            name = getVal(ids.name),
-            password = getVal(ids.password, true),
-            port = getVal(ids.port),
-            smtpAuth = $('.popupMailBox #auth_type_smtp_sel').val() != 0,
-            smtpServer = getVal(ids.smtp_server),
-            smtpAccount = getVal(ids.smtp_account),
-            smtpPassword = getVal(ids.smtp_password),
-            smtpPort = getVal(ids.smtp_port),
-            imap = (getVal(ids.server_type, true) == 'imap'),
-            mailLimit = $('.popupMailBox #mail-limit').is(':checked'),
-            incomingEncryptionType = getVal(ids.incoming_encryption_type + ' option:selected', true),
-            outcomingEncryptionType = getVal(ids.outcoming_encryption_type + ' option:selected', true),
-            authTypeIn = getVal(ids.auth_type_in_sel + ' option:selected', true),
-            authTypeSmtp = getVal(ids.auth_type_smtp_sel + ' option:selected', true);
-
-        storedSettings = {};
-        storedSettings.account = account;
-        storedSettings.auth_type_in = authTypeIn;
-        storedSettings.auth_type_smtp = authTypeSmtp;
-        storedSettings.email = email;
-        storedSettings.imap = imap;
-        storedSettings.incoming_encryption_type = incomingEncryptionType;
-        storedSettings.name = name;
-        storedSettings.outcoming_encryption_type = outcomingEncryptionType;
-        storedSettings.password = "";
-        storedSettings.port = port;
-        storedSettings.server = server;
-        storedSettings.smtp_account = smtpAccount;
-        storedSettings.smtp_auth = smtpAuth;
-        storedSettings.smtp_password = "";
-        storedSettings.smtp_port = smtpPort;
-        storedSettings.smtp_server = smtpServer;
-
-        if (password == $('#password').attr('placeholder')) {
-            password = '';
+        var settings = {
+            email: getVal(ids.email),
+            name: getVal(ids.name),
+            account: getVal(ids.account),
+            password: getVal(ids.password, true),
+            server: getVal(ids.server),
+            smtp_server: getVal(ids.smtp_server),
+            smtp_port: getVal(ids.smtp_port),
+            smtp_account: getVal(ids.smtp_account),
+            smtp_password: getVal(ids.smtp_password),
+            smtp_auth: $('.popupMailBox #auth_type_smtp_sel').val() != 0,
+            port: getVal(ids.port),
+            incoming_encryption_type: getVal(ids.incoming_encryption_type + ' option:selected', true),
+            outcoming_encryption_type: getVal(ids.outcoming_encryption_type + ' option:selected', true),
+            auth_type_in: getVal(ids.auth_type_in_sel + ' option:selected', true),
+            auth_type_smtp: getVal(ids.auth_type_smtp_sel + ' option:selected', true),
+            imap: (getVal(ids.server_type, true) == 'imap'),
+            restrict: $('.popupMailBox #mail-limit').is(':checked')
         }
-        if (smtpPassword == $('#smtp_password').attr('placeholder')) {
-            smtpPassword = '';
+
+        if (settings.password == $('#password').attr('placeholder')) {
+            settings.password = '';
+        }
+        if (settings.smtp_password == $('#smtp_password').attr('placeholder')) {
+            settings.smtp_password = '';
         }
 
         var emailIncorrect = true;
@@ -823,30 +841,30 @@ window.accountsModal = (function($) {
         var smtpAccountIncorrect = false;
         var smtpPasswordIncorrect = false;
 
-        if (email.length === 0) {
+        if (settings.email.length === 0) {
             $("#mail_EMailContainer.requiredField span").text(window.MailScriptResource.ErrorEmptyField);
-        } else if (!TMMail.reEmailStrict.test(email)) {
+        } else if (!TMMail.reEmailStrict.test(settings.email)) {
             TMMail.setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorIncorrectEmail);
-        } else if (newFlag && accountsPage.isContain(email.toLowerCase())) {
+        } else if (newFlag && accountsPage.isContain(settings.email.toLowerCase())) {
             TMMail.setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorAccountAlreadyExists);
         } else {
             emailIncorrect = false;
         }
 
         TMMail.setRequiredError("mail_EMailContainer", emailIncorrect);
-        TMMail.setRequiredError("mail_POPServerContainer", serverIncorrect = server.length === 0);
-        TMMail.setRequiredError("mail_POPPortContainer", portIncorrect = port.length === 0);
-        TMMail.setRequiredError("mail_POPLoginContainer", accountIncorrect = account.length === 0);
-        TMMail.setRequiredError("mail_POPPasswordContainer", passwordIncorrect = (password.length === 0 && newFlag));
+        TMMail.setRequiredError("mail_POPServerContainer", serverIncorrect = settings.server.length === 0);
+        TMMail.setRequiredError("mail_POPPortContainer", portIncorrect = settings.port.length === 0);
+        TMMail.setRequiredError("mail_POPLoginContainer", accountIncorrect = settings.account.length === 0);
+        TMMail.setRequiredError("mail_POPPasswordContainer", passwordIncorrect = (settings.password.length === 0 && newFlag));
 
-        TMMail.setRequiredError("mail_SMTPServerContainer", smtpServerIncorrect = smtpServer.length === 0);
-        TMMail.setRequiredError("mail_SMTPPortContainer", smtpPortIncorrect = smtpPort.length === 0);
+        TMMail.setRequiredError("mail_SMTPServerContainer", smtpServerIncorrect = settings.smtp_server.length === 0);
+        TMMail.setRequiredError("mail_SMTPPortContainer", smtpPortIncorrect = settings.smtp_port.length === 0);
 
-        if (smtpAuth) {
-            TMMail.setRequiredError("mail_SMTPLoginContainer", smtpAccountIncorrect = smtpAccount.length === 0);
-            TMMail.setRequiredError("mail_SMTPPasswordContainer", smtpPasswordIncorrect = (smtpPassword.length === 0 && newFlag));
+        if (settings.smtp_auth) {
+            TMMail.setRequiredError("mail_SMTPLoginContainer", smtpAccountIncorrect = settings.smtp_account.length === 0);
+            TMMail.setRequiredError("mail_SMTPPasswordContainer", smtpPasswordIncorrect = (settings.smtp_password.length === 0 && newFlag));
         }
-
+        var data;
         if (!emailIncorrect &&
             !serverIncorrect &&
             !portIncorrect &&
@@ -856,48 +874,57 @@ window.accountsModal = (function($) {
             !smtpPortIncorrect &&
             !smtpAccountIncorrect &&
             !smtpPasswordIncorrect) {
+
             if (true === newFlag) {
                 window.ASC.Mail.ga_track(ga_Categories.accauntsSettings, ga_Actions.createNew, "create_advanced_account");
+
                 showLoader(window.MailScriptResource.MailboxCreation);
-                serviceManager.createBox(name,
-                    email,
-                    account,
-                    password,
-                    port,
-                    server,
-                    smtpAccount,
-                    smtpPassword,
-                    smtpPort,
-                    smtpServer,
-                    smtpAuth,
-                    imap,
-                    mailLimit,
-                    incomingEncryptionType,
-                    outcomingEncryptionType,
-                    authTypeIn,
-                    authTypeSmtp,
-                    { email: email, name: name, enabled: true, restrict: mailLimit, oauth: false, action: 'add' },
-                    { error: onErrorCreateMailbox });
+
+                data = $.extend({ oauth: false, action: 'add' }, { settings: settings });
+
+                serviceManager.createBox(settings.name,
+                    settings.email,
+                    settings.account,
+                    settings.password,
+                    settings.port,
+                    settings.server,
+                    settings.smtp_account,
+                    settings.smtp_password,
+                    settings.smtp_port,
+                    settings.smtp_server,
+                    settings.smtp_auth,
+                    settings.imap,
+                    settings.restrict,
+                    settings.incoming_encryption_type,
+                    settings.outcoming_encryption_type,
+                    settings.auth_type_in,
+                    settings.auth_type_smtp,
+                    data,
+                    { error: showErrorModal });
             } else {
+
                 showLoader(window.MailScriptResource.MailBoxUpdate);
-                serviceManager.updateBox(name,
-                    email,
-                    account,
-                    password,
-                    port,
-                    server,
-                    smtpAccount,
-                    smtpPassword,
-                    smtpPort,
-                    smtpServer,
-                    smtpAuth,
-                    mailLimit,
-                    incomingEncryptionType,
-                    outcomingEncryptionType,
-                    authTypeIn,
-                    authTypeSmtp,
-                    { email: email, name: name, enabled: true, restrict: mailLimit, action: 'edit', activateOnSuccess: activateOnSuccess },
-                    { error: onErrorCreateMailbox });
+
+                data = $.extend({ action: 'edit', activateOnSuccess: activateOnSuccess }, { settings: settings });
+
+                serviceManager.updateBox(settings.name,
+                    settings.email,
+                    settings.account,
+                    settings.password,
+                    settings.port,
+                    settings.server,
+                    settings.smtp_account,
+                    settings.smtp_password,
+                    settings.smtp_port,
+                    settings.smtp_server,
+                    settings.smtp_auth,
+                    settings.restrict,
+                    settings.incoming_encryption_type,
+                    settings.outcoming_encryption_type,
+                    settings.auth_type_in,
+                    settings.auth_type_smtp,
+                    data,
+                    { error: showErrorModal });
             }
         }
     }
@@ -937,12 +964,12 @@ window.accountsModal = (function($) {
 
     function informationBox(params) {
         var content = window.MailScriptResource.ImportAccountText;
-        if (params.restrict === true) {
+        if (params.settings.restrict === true) {
             content += '<br><br>' + window.MailScriptResource.ImportAccountRestrictLabel;
         }
 
         var footer;
-        if (/@gmail.com$/.test(params.email.toLowerCase())) {
+        if (/@gmail.com$/.test(params.settings.email.toLowerCase())) {
             footer = window.MailScriptResource.ImportGmailAttention;
         } else {
             footer = window.MailScriptResource.ImportProblemText;
@@ -950,7 +977,7 @@ window.accountsModal = (function($) {
 
         footer = footer
             .replace('{0}', '<a href="{0}"class="linkDescribe" target="blank">'
-                .format(TMMail.getFaqLink(params.email.toLowerCase())))
+                .format(TMMail.getFaqLink(params.settings.email.toLowerCase())))
             .replace('{1}', '</a>');
 
         var body = $($.tmpl("accountSuccessTmpl", {
@@ -973,9 +1000,12 @@ window.accountsModal = (function($) {
         activateAccount(account, activated);
     }
 
-    function activateAccount(account, activated) {
+    function activateAccount(account, activated, onSuccessCallback) {
         if (!account)
             return;
+
+        if (onSuccessCallback)
+            onSuccessOperationCallback = onSuccessCallback;
 
         accountEmail = account;
         if (activated) {
@@ -1007,21 +1037,21 @@ window.accountsModal = (function($) {
         setErrorToPopupMailbox(error.message + (error.comment ? ': ' + error.comment : ''));
     }
 
-    function setBoxData(defaults, params, error) {
-        onGetBox(params, defaults, error);
-    }
-
     function onErrorGetDefaultMailboxSettings() {
         setErrorToPopupMailbox(window.MailScriptResource.ErrorNotification);
     }
 
     function onGetDefaultMailboxSettings(params, defaults) {
-        if (params.password != undefined) {
+        if (params.password) {
             defaults.password = params.password;
             if (defaults.smtp_auth) {
                 defaults.smtp_password = params.smtp_password != undefined ? params.smtp_password : params.password;
             }
         }
+        if (params.name) {
+            defaults.name = params.name;
+        }
+
         onGetBox(params, defaults);
     }
 
@@ -1030,7 +1060,7 @@ window.accountsModal = (function($) {
             if (TMMail.pageIs('sysfolders') && accountsManager.getAccountList().length == 0) {
                 blankPages.showEmptyFolder();
             }
-            accountsPage.addAccount(params.email, params.enabled, params.oauth);
+
             var accountData = {
                 name: TMMail.ltgt(account.name),
                 email: TMMail.ltgt(account.email),
@@ -1048,6 +1078,7 @@ window.accountsModal = (function($) {
                 quotaError: account.quotaError
             };
 
+            accountsPage.addAccount(accountData.email, accountData.enabled, accountData.oauth);
             accountsManager.addAccount(accountData);
             hide();
             informationBox(params);
@@ -1057,21 +1088,17 @@ window.accountsModal = (function($) {
         }
     }
 
-    function onErrorCreateMailboxSimple(params, error) {
-        showErrorModal({ email: params.email, simple: true, error_text: error });
-    }
-
     function getAccountErrorFooter(address) {
         return window.MailScriptResource.AccountCreationErrorGmailFooter.replace('{0}', '<a target="blank" class="linkDescribe" href="' + TMMail.getFaqLink(address) + '">').replace('{1}', '</a>');
     }
 
-    function showErrorModal(params) {
+    function showErrorModal(params, error) {
         // ToDo: Reimplement to popup mechanism instead of #manageWindow
         hideLoader();
-        var footer = getAccountErrorFooter(params.email.toLowerCase()),
+        var footer = getAccountErrorFooter(params.email),
             html = $.tmpl('accountErrorTmpl', {
                 errorBodyFooter: footer,
-                errorAdvancedInfo: params.error_text[0]
+                errorAdvancedInfo: error[0]
             });
 
         $('#manageWindow').removeClass('show-error').find('div.containerBodyBlock:first').html(html);
@@ -1084,26 +1111,10 @@ window.accountsModal = (function($) {
         });
 
         $('#account_error_container .buttons .tryagain').click(function() {
-            if (true === params.simple) {
-                showWizard(params.email);
-
-            } else {
-                if (params.action == "edit") {
-                    editBox(params.email, params.activateOnSuccess);
-                } else {
-                    if (storedSettings != undefined) {
-                        onGetBox({ action: "get_pop_server_full", activateOnSuccess: params.activateOnSuccess }, storedSettings);
-                    } else {
-                        serviceManager.getDefaultMailboxSettings(params.email,
-                            { action: "get_pop_server_full", password: params.password, smtp_password: params.smtp_password },
-                            {
-                                success: function() { setErrorToPopupMailbox(window.MailScriptResource.CorrectAccountRecommendation); },
-                                error: function() { setErrorToPopupMailbox(window.MailScriptResource.ErrorNotificationEx); }
-                            },
-                            window.MailScriptResource.ObtainingDefaultDomainSettings);
-                    }
-                }
-            }
+            if (true === params.simple)
+                showWizard(params.settings.email, params.settings.password);
+            else
+                onGetBox({ action: "get_pop_server_full", activateOnSuccess: params.activateOnSuccess }, params.settings);
         });
 
         $('#account_error_container .buttons .tryagain').keypress(function(event) {
@@ -1111,11 +1122,6 @@ window.accountsModal = (function($) {
         });
 
         window.PopupKeyUpActionProvider.EnterAction = "jq('#account_error_container .buttons #tryagain').click()";
-    }
-
-    function onErrorCreateMailbox(params, error) {
-        params.error_text = error;
-        showErrorModal(params);
     }
 
     function getVal(id, skipTrim) {
@@ -1208,7 +1214,6 @@ window.accountsModal = (function($) {
         setDefaultAccount: setDefaultAccount,
         hide: hide,
         onError: onError,
-        setBoxData: setBoxData,
         showInformationBox: informationBox,
         showSignatureBox: signatureBox
     };

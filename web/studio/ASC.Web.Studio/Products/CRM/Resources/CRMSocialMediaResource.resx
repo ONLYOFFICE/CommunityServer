@@ -112,37 +112,16 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Back" xml:space="preserve">
-    <value>Вернуться</value>
-  </data>
-  <data name="BlogFeed" xml:space="preserve">
-    <value>Blog feed</value>
-  </data>
-  <data name="Confirm" xml:space="preserve">
-    <value>Подтвердить</value>
-  </data>
   <data name="EmptyContentTwitterAccountsDescribe" xml:space="preserve">
     <value>Be aware of what your clients think about your produce and brand in the social network. Simply link the twitter account with the contact and follow the tweet news feed right on your portal.</value>
   </data>
   <data name="EmptyContentTwitterAccountsHeader" xml:space="preserve">
     <value>No linked twitter accounts</value>
-  </data>
-  <data name="FindInSocialMedia" xml:space="preserve">
-    <value>Найти в сторонних ресурсах</value>
-  </data>
-  <data name="Image" xml:space="preserve">
-    <value>Image</value>
-  </data>
-  <data name="InformationProvidedBy" xml:space="preserve">
-    <value>Информация взята из источника</value>
-  </data>
-  <data name="InternalError" xml:space="preserve">
-    <value>Внутренняя ошибка</value>
   </data>
   <data name="LinkTwitterAccount" xml:space="preserve">
     <value>Link twitter account</value>
@@ -153,31 +132,7 @@
   <data name="NoCompaniesHasBeenFound" xml:space="preserve">
     <value>Компании не найдены</value>
   </data>
-  <data name="NoResults" xml:space="preserve">
-    <value>По вашему запросу ничего не найдено</value>
-  </data>
   <data name="PleaseWait" xml:space="preserve">
     <value>Пожалуйста, подождите...</value>
-  </data>
-  <data name="PleaseWaitForSearching" xml:space="preserve">
-    <value>Пожалуйста, подождите. Идет поиск...</value>
-  </data>
-  <data name="ProfilesInSocialMedia" xml:space="preserve">
-    <value>Профили в социальных сетях</value>
-  </data>
-  <data name="Relate" xml:space="preserve">
-    <value>Привязать</value>
-  </data>
-  <data name="RelateAccountToContact" xml:space="preserve">
-    <value>Привязать аккаунт к контакту</value>
-  </data>
-  <data name="RelateAvatar" xml:space="preserve">
-    <value>Добавить изображение</value>
-  </data>
-  <data name="SearchInSocialMedia" xml:space="preserve">
-    <value>Поиск в социальных сетях</value>
-  </data>
-  <data name="SearchText" xml:space="preserve">
-    <value>Введите текст для поиска</value>
   </data>
 </root>

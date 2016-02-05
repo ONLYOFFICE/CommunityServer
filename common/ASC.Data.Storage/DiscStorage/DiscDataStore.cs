@@ -275,6 +275,28 @@ namespace ASC.Data.Storage.DiscStorage
             }
         }
 
+        public override void DeleteFiles(string domain, List<string> paths)
+        {
+            if (paths == null) throw new ArgumentNullException("paths");
+
+            foreach (var path in paths)
+            {
+                var target = GetTarget(domain, path);
+
+                if (!File.Exists(target))
+                    continue;
+
+                var obj = new FileInfo(target);
+
+                if (QuotaController != null)
+                {
+                    QuotaController.QuotaUsedDelete(_modulename, domain, _dataList.GetData(domain), obj.Length);
+                }
+
+                File.Delete(target);
+            }
+        }
+
         public override void DeleteFiles(string domain, string folderPath, string pattern, bool recursive)
         {
             if (folderPath == null) throw new ArgumentNullException("folderPath");
@@ -437,7 +459,6 @@ namespace ASC.Data.Storage.DiscStorage
                     File.Delete(entry);
                 }
             }
-
         }
 
         public override string GetUploadForm(string domain, string directoryPath, string redirectTo, long maxUploadSize, string contentType, string contentDisposition, string submitLabel)

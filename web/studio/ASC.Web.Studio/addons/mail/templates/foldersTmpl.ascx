@@ -3,7 +3,7 @@
 <%@ Import Namespace="ASC.Web.Mail.Resources" %>
 
 <script id="foldersTmpl" type="text/x-jquery-tmpl">
-    <li class="menu-item none-sub-list{{if $item.marked==id}} active{{/if}}" folderid="${id}" unread="${unread}">
+    <li class="menu-item none-sub-list{{if $item.marked==id}} active{{/if}}" folderid="${id}" {{if id==1 || id==3 || id==5}}unread="{{if id==3}}${total_count}{{else}}${unread}{{/if}}"{{/if}}>
         <span class="menu-item-icon {{if id==1}}inbox{{else id==2}}sent{{else id==3}}drafts{{else id==4}}trash{{else id==5}}spam{{/if}}"></span>
         <a class="menu-item-label outer-text text-overflow" href="#" folderid="${id}">
             <span class="menu-item-label inner-text">
@@ -25,8 +25,8 @@
                 <span class="unread">${unread}</span>
             {{/if}}
           {{/if}}
-          {{if id==3 && total_count!=0}}
-               <span class="unread">${total_count}</span>
+          {{if id==3}}
+               <span class="unread">{{if total_count > 0}}${total_count}{{/if}}</span>
           {{/if}}
         </div>
     </li>

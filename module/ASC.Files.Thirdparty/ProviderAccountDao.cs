@@ -25,7 +25,6 @@
 
 
 using AppLimit.CloudComputing.SharpBox;
-using ASC.Collections;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -42,46 +41,10 @@ using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 
 namespace ASC.Files.Thirdparty
 {
-    internal class CachedProviderAccountDao : ProviderAccountDao
-    {
-        private static readonly CachedDictionary<IProviderInfo> ProviderCache = new CachedDictionary<IProviderInfo>("thirdparty-providers", x => true);
-
-        private readonly string _rootKey = string.Empty;
-
-        public CachedProviderAccountDao(int tenantID, string storageKey)
-            : base(tenantID, storageKey)
-        {
-            _rootKey = tenantID.ToString(CultureInfo.InvariantCulture);
-        }
-
-        public override IProviderInfo GetProviderInfo(int linkId)
-        {
-            return ProviderCache.Get(_rootKey, linkId.ToString(CultureInfo.InvariantCulture), () => GetProviderInfoBase(linkId));
-        }
-
-        private IProviderInfo GetProviderInfoBase(int linkId)
-        {
-            return base.GetProviderInfo(linkId);
-        }
-
-        public override void RemoveProviderInfo(int linkId)
-        {
-            base.RemoveProviderInfo(linkId);
-            ProviderCache.Reset(_rootKey, linkId.ToString(CultureInfo.InvariantCulture));
-        }
-
-        public override int UpdateProviderInfo(int linkId, string customerTitle, FolderType folderType)
-        {
-            ProviderCache.Reset(_rootKey, linkId.ToString(CultureInfo.InvariantCulture));
-            return base.UpdateProviderInfo(linkId, customerTitle, folderType);
-        }
-    }
-
     internal class ProviderAccountDao : IProviderDao
     {
         private enum ProviderTypes
@@ -98,15 +61,14 @@ namespace ASC.Files.Thirdparty
 
 
         private const string TableTitle = "files_thirdparty_account";
-
-        protected DbManager DbManager { get; private set; }
+        private readonly string storageKey;
 
         protected int TenantID { get; private set; }
 
         public ProviderAccountDao(int tenantID, String storageKey)
         {
             TenantID = tenantID;
-            DbManager = new DbManager(storageKey);
+            this.storageKey = storageKey;
         }
 
         public virtual IProviderInfo GetProviderInfo(int linkId)
@@ -124,6 +86,12 @@ namespace ASC.Files.Thirdparty
             return GetProvidersInfoInternal(folderType: folderType);
         }
 
+
+        protected DbManager GetDb()
+        {
+            return new DbManager(storageKey);
+        }
+
         private List<IProviderInfo> GetProvidersInfoInternal(int linkId = -1, FolderType folderType = FolderType.DEFAULT)
         {
             var querySelect = new SqlQuery(TableTitle)
@@ -137,11 +105,14 @@ namespace ASC.Files.Thirdparty
                 querySelect.Where("id", linkId);
 
             if (folderType != FolderType.DEFAULT)
-                querySelect.Where("folder_type", (int) folderType);
+                querySelect.Where("folder_type", (int)folderType);
 
             try
             {
-                return DbManager.ExecuteList(querySelect).ConvertAll(ToProviderInfo);
+                using (var db = GetDb())
+                {
+                    return db.ExecuteList(querySelect).ConvertAll(ToProviderInfo);
+                }
             }
             catch (Exception e)
             {
@@ -156,7 +127,7 @@ namespace ASC.Files.Thirdparty
             ProviderTypes prKey;
             try
             {
-                prKey = (ProviderTypes) Enum.Parse(typeof (ProviderTypes), providerKey, true);
+                prKey = (ProviderTypes)Enum.Parse(typeof(ProviderTypes), providerKey, true);
             }
             catch (Exception)
             {
@@ -175,14 +146,16 @@ namespace ASC.Files.Thirdparty
                 .InColumnValue("customer_title", Global.ReplaceInvalidCharsAndTruncate(customerTitle))
                 .InColumnValue("user_name", authData.Login)
                 .InColumnValue("password", EncryptPassword(authData.Password))
-                .InColumnValue("folder_type", (int) folderType)
+                .InColumnValue("folder_type", (int)folderType)
                 .InColumnValue("create_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
                 .InColumnValue("user_id", SecurityContext.CurrentAccount.ID.ToString())
                 .InColumnValue("token", authData.Token)
                 .InColumnValue("url", authData.Url)
                 .Identity(0, 0, true);
-
-            return Int32.Parse(DbManager.ExecuteScalar<string>(queryInsert));
+            using (var db = GetDb())
+            {
+                return Int32.Parse(db.ExecuteScalar<string>(queryInsert));
+            }
         }
 
         public bool CheckProviderInfo(IProviderInfo providerInfo)
@@ -194,27 +167,31 @@ namespace ASC.Files.Thirdparty
         {
             var queryUpdate = new SqlUpdate(TableTitle)
                 .Set("customer_title", customerTitle)
-                .Set("folder_type", (int) folderType)
+                .Set("folder_type", (int)folderType)
                 .Where("id", linkId)
                 .Where("tenant_id", TenantID);
 
-            return DbManager.ExecuteNonQuery(queryUpdate) == 1 ? linkId : default(int);
+            using (var db = GetDb())
+            {
+                return db.ExecuteNonQuery(queryUpdate) == 1 ? linkId : default(int);
+            }
         }
 
         public virtual void RemoveProviderInfo(int linkId)
         {
-            using (var tx = DbManager.BeginTransaction())
+            using (var db = GetDb())
+            using (var tx = db.BeginTransaction())
             {
                 var folderId = GetProviderInfo(linkId).RootFolderId.ToString();
 
-                var entryIDs = DbManager.ExecuteList(new SqlQuery("files_thirdparty_id_mapping")
+                var entryIDs = db.ExecuteList(new SqlQuery("files_thirdparty_id_mapping")
                                                          .Select("hash_id")
                                                          .Where(Exp.Eq("tenant_id", TenantID) &
                                                                 Exp.Like("id", folderId, SqlLike.StartWith)))
                                         .ConvertAll(x => x[0]);
 
 
-                DbManager.ExecuteNonQuery(new SqlDelete("files_security")
+                db.ExecuteNonQuery(new SqlDelete("files_security")
                                               .Where(
                                                   Exp.Eq("tenant_id", TenantID) &
                                                   Exp.In("entry_id", entryIDs)));
@@ -222,14 +199,14 @@ namespace ASC.Files.Thirdparty
                 var sqlQuery = new SqlDelete("files_tag_link")
                     .Where(Exp.Eq("tenant_id", TenantID) & Exp.In("entry_id", entryIDs));
 
-                DbManager.ExecuteNonQuery(sqlQuery);
+                db.ExecuteNonQuery(sqlQuery);
 
                 sqlQuery = new SqlDelete(TableTitle)
                     .Where("id", linkId)
                     .Where("tenant_id", TenantID);
 
 
-                DbManager.ExecuteNonQuery(sqlQuery);
+                db.ExecuteNonQuery(sqlQuery);
 
                 tx.Commit();
             }
@@ -237,14 +214,14 @@ namespace ASC.Files.Thirdparty
 
         private static IProviderInfo ToProviderInfo(int id, string providerKey, string customerTitle, AuthData authData, string owner, FolderType type, DateTime createOn)
         {
-            return ToProviderInfo(new object[] {id, providerKey, customerTitle, authData.Login, EncryptPassword(authData.Password), authData.Token, owner, (int) type, createOn, authData.Url});
+            return ToProviderInfo(new object[] { id, providerKey, customerTitle, authData.Login, EncryptPassword(authData.Password), authData.Token, owner, (int)type, createOn, authData.Url });
         }
 
         private static IProviderInfo ToProviderInfo(object[] input)
         {
-            var key = (ProviderTypes) Enum.Parse(typeof (ProviderTypes), (string) input[1], true);
+            var key = (ProviderTypes)Enum.Parse(typeof(ProviderTypes), (string)input[1], true);
 
-            if (string.IsNullOrEmpty((string) input[2]))
+            if (string.IsNullOrEmpty((string)input[2]))
             {
                 throw new ArgumentException("Unrecognize customerTitle");
             }
@@ -257,7 +234,7 @@ namespace ASC.Files.Thirdparty
                     input[2] as string,
                     new AuthData(input[9] as string, input[3] as string, DecryptPassword(input[4] as string), input[5] as string),
                     input[6] == null ? Guid.Empty : new Guid((input[6] as string) ?? ""),
-                    (FolderType) Convert.ToInt32(input[7]),
+                    (FolderType)Convert.ToInt32(input[7]),
                     TenantUtil.DateTimeFromUtc(Convert.ToDateTime(input[8])));
             }
 
@@ -269,7 +246,7 @@ namespace ASC.Files.Thirdparty
                     input[2] as string,
                     DecryptPassword(input[5] as string),
                     input[6] == null ? Guid.Empty : new Guid((input[6] as string) ?? ""),
-                    (FolderType) Convert.ToInt32(input[7]),
+                    (FolderType)Convert.ToInt32(input[7]),
                     TenantUtil.DateTimeFromUtc(Convert.ToDateTime(input[8])));
             }
 
@@ -279,13 +256,12 @@ namespace ASC.Files.Thirdparty
                 input[2] as string,
                 new AuthData(input[9] as string, input[3] as string, DecryptPassword(input[4] as string), input[5] as string),
                 input[6] == null ? Guid.Empty : new Guid((input[6] as string) ?? ""),
-                (FolderType) Convert.ToInt32(input[7]),
+                (FolderType)Convert.ToInt32(input[7]),
                 TenantUtil.DateTimeFromUtc(Convert.ToDateTime(input[8])));
         }
 
         public void Dispose()
         {
-            DbManager.Dispose();
         }
 
         private static AuthData GetEncodedAccesToken(AuthData authData, ProviderTypes provider)

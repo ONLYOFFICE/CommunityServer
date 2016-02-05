@@ -461,21 +461,21 @@ ASC.CRM.Common = (function() {
 
             var query = "";
             if (addressObj.street != "" && addressObj.street != null) {
-                query += jq.htmlEncodeLight(addressObj.street) + ", ";
+                query += addressObj.street + ", ";
             }
             if (addressObj.city != "" && addressObj.city != null) {
-                query += jq.htmlEncodeLight(addressObj.city) + ", ";
+                query += addressObj.city + ", ";
             }
             if (addressObj.state != "" && addressObj.state != null) {
-                query += jq.htmlEncodeLight(addressObj.state) + ", ";
+                query += addressObj.state + ", ";
             }
             if (addressObj.zip != "" && addressObj.zip != null) {
-                query += jq.htmlEncodeLight(addressObj.zip) + ", ";
+                query += addressObj.zip + ", ";
             }
             if (addressObj.country != "" && addressObj.country != null) {
                 query += addressObj.country + ", ";
             }
-            query = jq.trim(query);
+            query = jq.trim(query).replace(/</ig, '&lt;').replace(/>/ig, '&gt;').replace(/\n/ig, ' ');
             query = query.charAt(query.length - 1) === ',' ? query.substring(0, query.length - 1) : query;
             return query;
         },
@@ -706,20 +706,6 @@ ASC.CRM.Common = (function() {
                 window.location.search != null && window.location.search != "" ? "&" : "?",
                 "action=export&view=editor"]
                 .join(''));
-        },
-
-        fixEvent: function (e) {
-            e = e || window.event;
-            if (e.pageX == null && e.clientX != null) {
-                var html = document.documentElement,
-                    body = document.body;
-                e.pageX = e.clientX + (html && html.scrollLeft || body && body.scrollLeft || 0) - (html.clientLeft || 0);
-                e.pageY = e.clientY + (html && html.scrollTop || body && body.scrollTop || 0) - (html.clientTop || 0);
-            }
-            //            if (!e.which && e.button) {
-            //                e.which = e.button & 1 ? 1 : (e.button & 2 ? 3 : (e.button & 4 ? 2 : 0));
-            //            }
-            return e;
         },
 
         getMailModuleBasePath: function () {

@@ -1070,9 +1070,17 @@ ASC.CRM.ListItemView = (function() {
                 jq("#listView .entity-menu.active").removeClass("active");
                 if (dropdownItem.is(":hidden")) {
                     switcherObj.addClass("active");
-                    if (switcherObj.attr("listitemid") != dropdownItem.attr("listitemid")) {
-                        dropdownItem.attr("listitemid", switcherObj.attr("listitemid"));
+                    var listitemid = switcherObj.attr("data-listitemid"),
+                        relativeCount = switcherObj.attr("data-relativecount");
+
+                    if (relativeCount == "0") {
+                        dropdownItem.find(".editItem.display-none").removeClass("display-none");
+                    } else {
+                        dropdownItem.find(".editItem").addClass("display-none");
                     }
+                    
+                    dropdownItem.attr("data-listitemid", listitemid);
+                    dropdownItem.attr("data-relativecount", relativeCount);
                 }
             },
             hideFunction: function() {
@@ -1104,11 +1112,10 @@ ASC.CRM.ListItemView = (function() {
                 var $first_icon = $iconsPanel.children('label:first');
                 if ($first_icon.length == 1) {
                     var $selectedIcinObj = jq("#manageItem label.selectedIcon"),
-                        cssClass = $first_icon.attr('img_name').split('.')[0];
+                        cssClass = $first_icon.attr('data-imgName').split('.')[0];
 
-                    $selectedIcinObj.attr('img_name', $first_icon.attr('img_name'));
+                    $selectedIcinObj.attr('data-imgName', $first_icon.attr('data-imgName'));
                     $selectedIcinObj.attr('title', $first_icon.attr('title'));
-                    $selectedIcinObj.attr('alt', $first_icon.attr('alt'));
                     $selectedIcinObj.attr("class", ["selectedIcon ", ASC.CRM.ListItemView.CurrentType == 2 ? "task_category" : "event_category", " ", cssClass].join(''));
                 }
             }
@@ -1180,7 +1187,7 @@ ASC.CRM.ListItemView = (function() {
     };
 
     var _changeIcon = function(Obj, listItemId, $imgObj) {
-        var imgName = $imgObj.attr("img_name"),
+        var imgName = $imgObj.attr("data-imgName"),
             data = {
                 id: listItemId,
                 imageName: imgName
@@ -1200,9 +1207,8 @@ ASC.CRM.ListItemView = (function() {
 
                 params.Obj
                     .attr("class", ["currentIcon ", ASC.CRM.ListItemView.CurrentType == 2 ? "task_category" : "event_category", " ", listItem.cssClass].join(''))
-                    .attr("img_name", listItem.imageName)
-                    .attr("title", listItem.imageTitle)
-                    .attr("alt", listItem.imageAlt);
+                    .attr("data-imgName", listItem.imageName)
+                    .attr("title", listItem.imageTitle);
 
                 params.Obj.parent().find("div.ajax_change_icon").hide();
 
@@ -1233,17 +1239,14 @@ ASC.CRM.ListItemView = (function() {
 
                 if ($icon != null) {
                     item.imageTitle = $icon.attr('title');
-                    item.imageAlt = $icon.attr('alt');
-                    item.imageName = $icon.attr('img_name');
+                    item.imageName = $icon.attr('data-imgName');
                 } else {
                     item.imageTitle = "";
-                    item.imageAlt = "";
                     item.imageName = "";
                 }
                 
             } else {
                 item.imageTitle = "";
-                item.imageAlt = "";
                 item.imageName = "";
                 item.cssClass= "";
             }
@@ -1327,7 +1330,7 @@ ASC.CRM.ListItemView = (function() {
             item.color = ASC.CRM.Common.getHexRGBColor(jq("#manageItem .selectedColor").css("background-color"));
         }
         if (ASC.CRM.ListItemView.CurrentType === 2 || ASC.CRM.ListItemView.CurrentType === 3) {
-            item.imageName = jq("#manageItem label.selectedIcon").attr('img_name');
+            item.imageName = jq("#manageItem label.selectedIcon").attr('data-imgName');
         }
 
         return item;
@@ -1412,6 +1415,36 @@ ASC.CRM.ListItemView = (function() {
         jq("#manageItem .button.gray").on("click", function () { PopupKeyUpActionProvider.EnableEsc = true; jq.unblockUI(); });
     };
 
+    var _getAndRenderPageData = function (firstTime) {
+        LoadingBanner.displayLoading();
+
+        ASC.CRM.ListItemView.itemList = [];
+
+        Teamlab.getCrmListItem({}, ASC.CRM.ListItemView.CurrentType, function (params, items) {
+            for (var i = 0, len = items.length; i < len; i++) {
+                _itemFactory(items[i]);
+                ASC.CRM.ListItemView.itemList.push(items[i]);
+            }
+
+            jq.tmpl("listItemsTmpl", ASC.CRM.ListItemView.itemList).appendTo(jq("#listView").html(""));
+            if (ASC.CRM.ListItemView.itemList.length == 1) {
+                var $menuSwitcher = jq("#listView li [id^=list_item_menu_]:first");
+                if ($menuSwitcher.attr("data-relativecount") != "0") {
+                    $menuSwitcher.hide();
+                } else {
+                    jq("#listItemActionMenu .deleteItem").hide();
+                }
+            }
+
+            if (firstTime === true) {
+                _initSortableElements();
+            }
+
+            LoadingBanner.hideLoading();
+        });
+
+    };
+
     return {
         CallbackMethods: {
             delete_item: function(params, item) {
@@ -1423,7 +1456,12 @@ ASC.CRM.ListItemView = (function() {
                 }
 
                 if (jq("#listView li").length == 1) {
-                    jq("#listItemActionMenu .deleteItem").hide();
+                    var $menuSwitcher = jq("#listView li [id^=list_item_menu_]:first");
+                    if ($menuSwitcher.attr("data-relativecount") != "0") {
+                        $menuSwitcher.hide();
+                    } else {
+                        jq("#listItemActionMenu .deleteItem").hide();
+                    }
                 }
             },
 
@@ -1432,9 +1470,12 @@ ASC.CRM.ListItemView = (function() {
                 ASC.CRM.ListItemView.itemList.push(item);
 
                 var $itemHTML = jq.tmpl("listItemsTmpl", item);
+
                 if (jq("#listView li").length == 1) {
+                    jq("#listView li [id^=list_item_menu_]:first").show();
                     jq("#listItemActionMenu .deleteItem").show();
                 }
+
                 $itemHTML.appendTo("#listView");
 
                 ASC.CRM.Common.animateElement({
@@ -1463,23 +1504,8 @@ ASC.CRM.ListItemView = (function() {
             ASC.CRM.ListItemView.CurrentType = currentType;
             ASC.CRM.ListItemView.AddItemHeaderText = addItemHeaderText;
             ASC.CRM.ListItemView.AddItemButtonText = addItemButtonText;
-            ASC.CRM.ListItemView.itemList = [];
 
-            LoadingBanner.displayLoading();
-            Teamlab.getCrmListItem({}, currentType, function (params, items) {
-                for (var i = 0, len = items.length; i < len; i++) {
-                    _itemFactory(items[i]);
-                    ASC.CRM.ListItemView.itemList.push(items[i]);
-                }
-
-                jq.tmpl("listItemsTmpl", ASC.CRM.ListItemView.itemList).appendTo("#listView");
-                if (ASC.CRM.ListItemView.itemList.length == 1) {
-                    jq("#listItemActionMenu .deleteItem").hide();
-                }
-
-                _initSortableElements();
-                LoadingBanner.hideLoading();
-            });
+            _getAndRenderPageData(true);
 
             _initManagePanel();
             _initElementsActionMenu();
@@ -1543,7 +1569,7 @@ ASC.CRM.ListItemView = (function() {
                 item = null,
                 liObj = null,
                 currIcon = null,
-                listitemid = jq("#listItemActionMenu").attr("listitemid");
+                listitemid = jq("#listItemActionMenu").attr("data-listitemid");
             if (typeof (listitemid) === "undefined" || listitemid == "") { return; }
 
             index = _findIndexOfItemByID(listitemid);
@@ -1566,9 +1592,8 @@ ASC.CRM.ListItemView = (function() {
             if (currIcon.length == 1) {
                 var $selectedIcinObj = jq("#manageItem label.selectedIcon");
 
-                $selectedIcinObj.attr('img_name', item.imageName);
+                $selectedIcinObj.attr('data-imgName', item.imageName);
                 $selectedIcinObj.attr('title', item.imageTitle);
-                $selectedIcinObj.attr('alt', item.imageAlt);
 
                 $selectedIcinObj.attr("class", ["selectedIcon ", ASC.CRM.ListItemView.CurrentType == 2 ? "task_category" : "event_category", " ", item.cssClass].join(''));
             } else {
@@ -1613,7 +1638,8 @@ ASC.CRM.ListItemView = (function() {
             jq("#listItemActionMenu").hide();
             jq("#listView .entity-menu.active").removeClass("active");
 
-            var listitemid = jq("#listItemActionMenu").attr('listitemid');
+            var listitemid = jq("#listItemActionMenu").attr("data-listitemid"),
+                relativecount = jq("#listItemActionMenu").attr("data-relativecount");
             if (typeof (listitemid) === "undefined" || listitemid == "") { return; }
 
             var liObj = jq("#list_item_id_" + listitemid);
@@ -1647,13 +1673,72 @@ ASC.CRM.ListItemView = (function() {
                 return;
             }
 
-            Teamlab.removeCrmListItem({ liObj: liObj }, ASC.CRM.ListItemView.CurrentType, listitemid, {
-                before: function(params) {
-                    params.liObj.find(".entity-menu").hide();
-                    params.liObj.find("div.ajax_loader").show();
-                },
-                success: ASC.CRM.ListItemView.CallbackMethods.delete_item
-            });
+            if (ASC.CRM.ListItemView.CurrentType === 2 && relativecount != "0") {//For task categories with linked task
+
+                if (jq("#selectItemForReplacePopUp").length == 0) {
+                    jq.tmpl("template-blockUIPanel", {
+                        id: "selectItemForReplacePopUp",
+                        headerTest: ASC.CRM.Resources.CRMSettingResource.DeleteTaskCategoryConfirmation,
+                        questionText: "",
+                        innerHtmlText: "<div class=\"selectItemForReplaceContainer\"></div>",
+                        progressText: ""
+                    }).appendTo("#studioPageContent .mainPageContent .containerBodyBlock:first");
+
+                    jq("#selectItemForReplacePopUp .selectItemForReplaceContainer").replaceWith(jq("#selectItemForReplacePopUpBody").removeClass("display-none"));
+                }
+
+
+                var selectedItem = { id: 0, title: "", cssClass: "" },
+                    itemsForSelector = [];
+
+                jq("#itemForReplaceSelector").remove();
+
+                if (ASC.CRM.ListItemView.itemList.length > 0) {
+                    for (var i = 0, n = ASC.CRM.ListItemView.itemList.length; i < n; i++) {
+                        if (ASC.CRM.ListItemView.itemList[i].id != listitemid) {
+                            itemsForSelector.push({
+                                id: ASC.CRM.ListItemView.itemList[i].id,
+                                title: ASC.CRM.ListItemView.itemList[i].title,
+                                cssClass: "task_category " + ASC.CRM.ListItemView.itemList[i].cssClass
+                            });
+                        }
+                    }
+                    selectedItem = itemsForSelector[0];
+                } else {
+                    itemsForSelector.push(selectedItem);
+                }
+
+                window.itemForReplaceSelector = new ASC.CRM.CategorySelector("itemForReplaceSelector", selectedItem);
+                window.itemForReplaceSelector.renderControl(itemsForSelector, selectedItem, "#itemForReplaceSelectorContainer", 0, "");
+
+                jq("#deleteItemPopupOK").off("click").on("click", function () {
+                    Teamlab.removeCrmListItem({ liObj: liObj }, ASC.CRM.ListItemView.CurrentType, listitemid, window.itemForReplaceSelector.CategoryID, {
+                        before: function (params) {
+                            params.liObj.find(".entity-menu").hide();
+                            params.liObj.find("div.ajax_loader").show();
+
+                            LoadingBanner.strLoading = ASC.CRM.Resources.CRMCommonResource.LoadingWait;
+                            LoadingBanner.showLoaderBtn("#selectItemForReplacePopUp");
+                        },
+                        success: function (params, response) {
+                            LoadingBanner.hideLoaderBtn("#selectItemForReplacePopUp");
+                            jq.unblockUI();
+                            _getAndRenderPageData(false);
+                        }
+                    });
+                });
+
+                StudioBlockUIManager.blockUI("#selectItemForReplacePopUp", 500, 300, 0);
+
+            } else {
+                Teamlab.removeCrmListItem({ liObj: liObj }, ASC.CRM.ListItemView.CurrentType, listitemid, 0, {
+                    before: function (params) {
+                        params.liObj.find(".entity-menu").hide();
+                        params.liObj.find("div.ajax_loader").show();
+                    },
+                    success: ASC.CRM.ListItemView.CallbackMethods.delete_item
+                });
+            }
         },
 
         showColorsPanel: function(switcherUI) {
@@ -1682,9 +1767,9 @@ ASC.CRM.ListItemView = (function() {
             if ($popup_iconsPanel.length != 1) return;
             $popup_iconsPanel.children("label").unbind("click").click(function() {
                 var $selectedIcinObj = jq("#manageItem label.selectedIcon"),
-                    cssClass = jq(this).attr('img_name').split('.')[0];
+                    cssClass = jq(this).attr('data-imgName').split('.')[0];
 
-                $selectedIcinObj.attr('img_name', jq(this).attr('img_name'));
+                $selectedIcinObj.attr('data-imgName', jq(this).attr('data-imgName'));
                 $selectedIcinObj.attr('title', jq(this).attr('title'));
                 $selectedIcinObj.attr('alt', jq(this).attr('alt'));
                 $selectedIcinObj.attr("class", ["selectedIcon ", ASC.CRM.ListItemView.CurrentType == 2 ? "task_category" : "event_category", " ", cssClass].join(''));

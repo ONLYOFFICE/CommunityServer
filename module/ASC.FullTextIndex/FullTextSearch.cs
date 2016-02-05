@@ -31,6 +31,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using ASC.Common.Module;
+using ASC.Core;
 using ASC.FullTextIndex.Service;
 
 using log4net;
@@ -51,12 +52,21 @@ namespace ASC.FullTextIndex
         public static ModuleInfo ProjectsMilestonesModule { get { return new ModuleInfo("projects_milestones"); } }
         public static ModuleInfo ProjectsMessagesModule { get { return new ModuleInfo("projects_messages"); } }
         public static ModuleInfo ProjectsCommentsModule { get { return new ModuleInfo("projects_comments"); } }
+        public static ModuleInfo ProjectsSubtasksModule { get { return new ModuleInfo("projects_subtasks"); } }
 
         public static ModuleInfo FileModule { get { return new ModuleInfo("files_file"); } }
         public static ModuleInfo FileFolderModule { get { return new ModuleInfo("files_folder"); } }
 
         public static ModuleInfo UserEmailsModule { get { return new ModuleInfo("UserEmails"); } }
-        public static ModuleInfo MailModule { get { return new ModuleInfo("mail_mail"); } }
+
+        public static ModuleInfo MailModule
+        {
+            get
+            {
+                return new ModuleInfo("mail_mail").AddAttribute("user_id", SecurityContext.CurrentAccount.ID.ToString());
+            }
+        }
+
         public static ModuleInfo MailContactsModule { get { return new ModuleInfo("mail_contacts"); } }
 
         public static ModuleInfo CRMContactsModule { get { return new ModuleInfo("crm_contacts"); } }
@@ -106,7 +116,7 @@ namespace ASC.FullTextIndex
             {
                 using (var service = new TextIndexServiceClient())
                 {
-                    return service.Search(modules).SelectMany(r => r.Value).Distinct().ToList();
+                    return service.Search(modules, CoreContext.TenantManager.GetCurrentTenant().TenantId).SelectMany(r => r.Value).Distinct().ToList();
                 }
             }
             catch (Exception e)
@@ -149,16 +159,16 @@ namespace ASC.FullTextIndex
         }
     }
 
-    class TextIndexServiceClient : BaseWcfClient<ITextIndexService>, ITextIndexService
+    public class TextIndexServiceClient : BaseWcfClient<ITextIndexService>, ITextIndexService
     {
         public bool SupportModule(string[] modules)
         {
             return Channel.SupportModule(modules);
         }
 
-        public Dictionary<string, IEnumerable<int>> Search(IEnumerable<ModuleInfo> modules)
+        public Dictionary<string, IEnumerable<int>> Search(IEnumerable<ModuleInfo> modules, int tenantID)
         {
-            return Channel.Search(modules);
+            return Channel.Search(modules, tenantID);
         }
 
         public bool CheckState()

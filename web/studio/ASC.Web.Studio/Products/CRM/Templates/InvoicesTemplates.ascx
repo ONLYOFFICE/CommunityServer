@@ -42,7 +42,7 @@
         </ul>
         <div class="header-menu-spacer">&nbsp;</div>
 
-        <div id="changeStatusDialog" class="studio-action-panel changeStatusDialog">
+        <div id="changeStatusDialog" class="studio-action-panel group-actions changeStatusDialog">
             <ul class="dropdown-content mobile-overflow"></ul>
         </div>
 

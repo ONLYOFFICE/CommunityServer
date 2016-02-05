@@ -42,7 +42,7 @@ namespace ASC.Web.Files.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/products/files/controls/thirdparty/thirdparty.js"));
+            Page.RegisterBodyScripts("~/products/files/controls/thirdparty/thirdparty.js");
 
             ThirdPartyEditorTemp.Options.IsPopup = true;
             ThirdPartyDeleteTmp.Options.IsPopup = true;

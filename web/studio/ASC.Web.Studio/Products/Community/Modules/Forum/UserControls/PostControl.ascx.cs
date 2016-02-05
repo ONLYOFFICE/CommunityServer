@@ -61,7 +61,7 @@ namespace ASC.Web.UserControls.Forum
         {
             Utility.RegisterTypeForAjax(GetType());
 
-            _settings = ForumManager.GetSettings(SettingsID);
+            _settings = Community.Forum.ForumManager.Settings;
             _forumManager = _settings.ForumManager;
 
             _postCSSClass = IsEven ? "tintMedium" : "";
@@ -146,7 +146,7 @@ namespace ASC.Web.UserControls.Forum
 
         public static string AttachmentsList(Post post, Guid settingsID)
         {
-            var forumManager = ForumManager.GetForumManager(settingsID);
+            var forumManager = Community.Forum.ForumManager.Settings.ForumManager;
             var sb = new StringBuilder();
             if (post.Attachments.Count <= 0)
                 return "";
@@ -182,7 +182,7 @@ namespace ASC.Web.UserControls.Forum
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public AjaxResponse DoDeletePost(int idPost, Guid settingsID)
         {
-            _forumManager = ForumManager.GetForumManager(settingsID);
+            _forumManager = Community.Forum.ForumManager.Settings.ForumManager;
             var resp = new AjaxResponse {rs2 = idPost.ToString()};
 
             var post = ForumDataProvider.GetPostByID(TenantProvider.CurrentTenantID, idPost);
@@ -235,7 +235,7 @@ namespace ASC.Web.UserControls.Forum
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public AjaxResponse DoApprovedPost(int idPost, Guid settingsID)
         {
-            _forumManager = ForumManager.GetForumManager(settingsID);
+            _forumManager = Community.Forum.ForumManager.Settings.ForumManager;
             var resp = new AjaxResponse {rs2 = idPost.ToString()};
 
             var post = ForumDataProvider.GetPostByID(TenantProvider.CurrentTenantID, idPost);
@@ -269,7 +269,7 @@ namespace ASC.Web.UserControls.Forum
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public AjaxResponse DoDeleteAttachment(int idAttachment, int idPost, Guid settingsID)
         {
-            _forumManager = ForumManager.GetForumManager(settingsID);
+            _forumManager = Community.Forum.ForumManager.Settings.ForumManager;
             var resp = new AjaxResponse {rs2 = idAttachment.ToString()};
 
             var post = ForumDataProvider.GetPostByID(TenantProvider.CurrentTenantID, idPost);

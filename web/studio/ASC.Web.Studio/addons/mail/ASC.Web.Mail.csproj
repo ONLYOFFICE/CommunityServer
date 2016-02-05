@@ -48,7 +48,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxPro.2">
-      <HintPath>..\..\..\..\..\packages\AjaxPro.2.2.9.17.1\lib\net20\AjaxPro.2.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\AjaxPro.2.2.9.17.2\lib\net20\AjaxPro.2.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ASC.Common, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -84,7 +84,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -140,6 +140,7 @@
     <Content Include="js\administration\plugin\jquery-domainadvansedselector.js" />
     <Content Include="js\administration\plugin\jquery-mailboxadvansedselector.js" />
     <Content Include="js\alerts.js" />
+    <Content Include="js\jquery.dotdotdot.min.js" />
     <Content Include="js\mail.printpage.js" />
     <Content Include="js\mail.attachmentmanager.js" />
     <Content Include="js\dropdown.js" />
@@ -186,6 +187,7 @@
     <Content Include="js\tags\panel.js" />
     <Content Include="js\trustedAddresses.js" />
     <Content Include="js\wysiwyg.js" />
+    <Content Include="js\mail.cache.js" />
     <Content Include="Masters\BodyScripts.ascx" />
     <Content Include="Masters\Styles.ascx" />
     <Content Include="templates\accountErrorTmpl.ascx" />
@@ -342,7 +344,7 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\MailApiErrorsResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>MailApiErrorsResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\MailAttachmentsResource.resx">
@@ -405,6 +407,11 @@
       <Project>{7080343D-FBE7-423A-9405-4F883F6E235B}</Project>
       <Name>ASC.Mail.Aggregator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\..\..\module\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
+      <Project>{481b0d9c-b2f8-4de9-8597-ba8d24585099}</Project>
+      <Name>ASC.FederatedLogin</Name>
+      <Private>False</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\ASC.Web.Studio.csproj">
       <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
       <Name>ASC.Web.Studio</Name>
@@ -424,7 +431,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>64039</DevelopmentServerPort>
+          <DevelopmentServerPort>60654</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>
           </IISUrl>

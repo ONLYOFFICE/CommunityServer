@@ -242,10 +242,14 @@ window.ASC.Files.Marker = (function () {
 
                     var entryUrl = ASC.Files.Utility.GetFileDownloadUrl(entryId);
 
-                    if ((ASC.Files.Utility.CanWebView(entryTitle) || ASC.Files.Utility.CanWebEdit(entryTitle))
+                    if (ASC.Files.Utility.CanWebEdit(entryTitle)
                         && !ASC.Files.Utility.MustConvert(entryTitle)
                         && ASC.Resources.Master.TenantTariffDocsEdition) {
                         entryUrl = ASC.Files.Utility.GetFileWebEditorUrl(entryId);
+                        rowLink.attr("href", entryUrl).attr("target", "_blank");
+                    } else if (ASC.Files.Utility.CanWebView(entryTitle)
+                            && ASC.Resources.Master.TenantTariffDocsEdition) {
+                        entryUrl = ASC.Files.Utility.GetFileWebViewerUrl(entryId);
                         rowLink.attr("href", entryUrl).attr("target", "_blank");
                     } else if (typeof ASC.Files.ImageViewer != "undefined" && ASC.Files.Utility.CanImageView(entryTitle)) {
                         entryUrl = "#" + ASC.Files.ImageViewer.getPreviewHash(entryId);

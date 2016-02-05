@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -25,10 +25,8 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
-using ASC.Files.Core.Security;
 
 namespace ASC.Files.Core
 {
@@ -64,7 +62,7 @@ namespace ASC.Files.Core
         [DataMember(Name = "total_sub_folder")]
         public int TotalSubFolders { get; set; }
 
-        [DataMember(Name = "shareable")]
+        [DataMember(Name = "shareable", EmitDefaultValue = false)]
         public bool Shareable { get; set; }
 
         [DataMember(Name = "isnew")]

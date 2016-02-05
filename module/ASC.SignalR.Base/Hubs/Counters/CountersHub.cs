@@ -301,7 +301,7 @@ namespace ASC.SignalR.Base.Hubs.Counters
             try
             {
                 List<MailBoxManager.MailFolderInfo> mailFolderInfos =
-                    mailBoxManager.GetFoldersList(currentUser.Tenant, currentUser.ID.ToString(), true);
+                    mailBoxManager.GetFolders(currentUser.Tenant, currentUser.ID.ToString(), true);
                 foreach (var mailFolderInfo in mailFolderInfos)
                 {
                     if (mailFolderInfo.id == MailFolder.Ids.inbox)

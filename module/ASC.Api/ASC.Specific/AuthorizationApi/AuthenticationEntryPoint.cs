@@ -34,6 +34,7 @@ using ASC.FederatedLogin.LoginProviders;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Core.Import;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.Users;
@@ -282,10 +283,13 @@ namespace ASC.Specific.AuthorizationApi
                     userName.ThrowIfNull(new ArgumentException("userName empty", "userName"));
                     password.ThrowIfNull(new ArgumentException("password empty", "password"));
 
-                    user = CoreContext.UserManager.GetUsers(
-                        CoreContext.TenantManager.GetCurrentTenant().TenantId,
-                        userName,
-                        Hasher.Base64Hash(password, HashAlg.SHA256));
+                    if (!ActiveDirectoryUserImporter.TryGetLdapUserInfo(userName, password, out user))
+                    {
+                        user = CoreContext.UserManager.GetUsers(
+                            CoreContext.TenantManager.GetCurrentTenant().TenantId,
+                            userName,
+                            Hasher.Base64Hash(password, HashAlg.SHA256));
+                    }
 
                     if (user == null || !CoreContext.UserManager.UserExists(user.ID))
                     {

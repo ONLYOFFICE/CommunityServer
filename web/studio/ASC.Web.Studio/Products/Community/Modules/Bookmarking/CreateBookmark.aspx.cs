@@ -24,14 +24,16 @@
 */
 
 
-using System.Web;
+using ASC.Bookmarking;
 using ASC.Bookmarking.Business.Permissions;
+using ASC.Bookmarking.Common;
 using ASC.Web.Community.Bookmarking.Util;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Bookmarking;
 using ASC.Web.UserControls.Bookmarking.Common;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;
 using ASC.Web.UserControls.Bookmarking.Resources;
+using System.Web;
 
 namespace ASC.Web.Community.Bookmarking
 {
@@ -44,7 +46,7 @@ namespace ASC.Web.Community.Bookmarking
                 Response.Redirect(BookmarkingRequestConstants.BookmarkingPageName);
             }
 
-            ServiceHelper.DisplayMode = BookmarkingServiceHelper.BookmarkDisplayMode.CreateBookmark;
+            BookmarkingBusinessFactory.UpdateObjectInCookies("BookmarkDisplayMode", BookmarkDisplayMode.CreateBookmark.ToString());
 
             var c = LoadControl(BookmarkUserControlPath.CreateBookmarkUserControlPath) as CreateBookmarkUserControl;
             c.IsNewBookmark = true;

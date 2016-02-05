@@ -133,13 +133,16 @@ ASC.CRM.ListContactView = (function() {
 
 
         jq("#companyTable").unbind("contextmenu").bind("contextmenu", function(event) {
-            event.preventDefault();
+            var e = jq.fixEvent(event);
 
-            var e = ASC.CRM.Common.fixEvent(event),
-                target = jq(e.srcElement || e.target),
+            if (typeof e == "undefined" || !e) {
+                return true;
+            }
+
+            var target = jq(e.srcElement || e.target),
                 contactId = parseInt(target.closest("tr.with-entity-menu").attr("id").split('_')[1]);
             if (!contactId) {
-                return false;
+                return true;
             }
             _showActionMenu(contactId);
             jq("#companyTable .entity-menu.active").removeClass("active");
@@ -163,7 +166,7 @@ ASC.CRM.ListContactView = (function() {
                 });
             }
             $dropdownItem.show();
-            return true;
+            return false;
         });
     };
 
@@ -4302,34 +4305,6 @@ ASC.CRM.ContactActionView = (function () {
         }).insertAfter("#divSMProfilesWindow");
     };
 
-    var bindEventFindInSocialMediaButton = function (isCompany) {
-        if (!isCompany) {
-            setInterval(function () {
-                var $input1 = jq("#contactProfileEdit .info_for_person input[name=baseInfo_firstName]"),
-                    $input2 = jq("#contactProfileEdit .info_for_person input[name=baseInfo_lastName]");
-
-                if (jq.trim($input1.val()) == "" || jq.trim($input2.val()) == "") {
-                    jq("#contactProfileEdit .info_for_person .findInSocialMediaButton_Enabled").hide();
-                    jq("#contactProfileEdit .info_for_person .findInSocialMediaButton_Disabled").show();
-                } else {
-                    jq("#contactProfileEdit .info_for_person .findInSocialMediaButton_Disabled").hide();
-                    jq("#contactProfileEdit .info_for_person .findInSocialMediaButton_Enabled").show();
-                }
-            }, 500);
-        } else {
-            setInterval(function () {
-                var $input = jq("#contactProfileEdit .info_for_company input[name=baseInfo_companyName]");
-                if (jq.trim($input.val()) == "") {
-                    jq("#contactProfileEdit .info_for_company .findInSocialMediaButton_Enabled").hide();
-                    jq("#contactProfileEdit .info_for_company .findInSocialMediaButton_Disabled").show();
-                } else {
-                    jq("#contactProfileEdit .info_for_company .findInSocialMediaButton_Disabled").hide();
-                    jq("#contactProfileEdit .info_for_company .findInSocialMediaButton_Enabled").show();
-                }
-            }, 500);
-        }
-    };
-
     var createNewAddress = function($contact, is_primary, category, street, city, state, zip, country) {
         if (jq("#addressContainer").children("div").length != 1) {
             $contact.attr("style", "margin-top: 10px;");
@@ -4666,7 +4641,7 @@ ASC.CRM.ContactActionView = (function () {
         jq("#contactProfileEdit").on("click", ".crm-deleteLink", function (e) {
             ASC.CRM.Common.bindOnbeforeUnloadEvent();
         });
-        jq(window).on("contactPhotoUploadSuccessComplete addTagComplete deleteTagComplete setContactInSelector editContactInSelector deleteContactFromSelector advUserSelectorDeleteComplete advUserSelectorPushUserComplete confirmCrunchBaseContactSuccess", function (e) {
+        jq(window).on("contactPhotoUploadSuccessComplete addTagComplete deleteTagComplete setContactInSelector editContactInSelector deleteContactFromSelector advUserSelectorDeleteComplete advUserSelectorPushUserComplete", function (e) {
             ASC.CRM.Common.bindOnbeforeUnloadEvent();
         });
     };
@@ -4835,8 +4810,6 @@ ASC.CRM.ContactActionView = (function () {
                     { contactID: contactID, uploadOnly: true });
                 }
 
-                ASC.CRM.SocialMedia.initFindInCrunchbasePanel("#divSMProfilesWindow");
-
 
                 if (typeof (window.assignedContactSelector) != "undefined") {
                     if (window.assignedContactSelector.SelectedContacts.length == 0) {
@@ -4854,8 +4827,7 @@ ASC.CRM.ContactActionView = (function () {
                 }
 
                 ASC.CRM.SocialMedia.init(ASC.CRM.Data.DefaultContactPhoto[isCompany === true ? "CompanyBigSizePhoto" : "PersonBigSizePhoto"]);
-                bindEventFindInSocialMediaButton(isCompany);
-                
+
                 jq(".cancelSbmtFormBtn:first").on("click", function () {
                     ASC.CRM.Common.unbindOnbeforeUnloadEvent();
                     return true;
@@ -4992,14 +4964,9 @@ ASC.CRM.ContactActionView = (function () {
                     func = (function(p1, p2) { return function() { ASC.CRM.SocialMedia.FindTwitterProfiles(jq(this), jq("#typeAddedContact").val(), p1, p2); } })(-3, 5)
                     break;
                 case 5:
-                    if (!window.linkedinSearchEnabled || jq("#typeAddedContact").val() === "company") {
-                        isShown = false;
-                    } else {
-                        isShown = true;
-                    }
-                    title = ASC.CRM.Resources.CRMJSResource.FindLinkedIn;
+                    isShown = false;
+
                     description = ASC.CRM.Resources.CRMJSResource.ContactLinkedInDescription;
-                    func = (function(p1, p2) { return function() { ASC.CRM.SocialMedia.FindLinkedInProfiles(jq(this), jq("#typeAddedContact").val(), p1, p2); } })(-3, 5)
                     break;
                 case 6:
                     isShown = window.facebokSearchEnabled;

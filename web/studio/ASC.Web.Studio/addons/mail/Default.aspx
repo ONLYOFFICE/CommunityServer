@@ -10,22 +10,6 @@
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <asp:Content ID="HeaderContent" ContentPlaceHolderID="HeaderContent" runat="server">
-    <script>
-        var service_ckeck_time = "<%= GetServiceCheckTimeout() %>";
-        var FilterByGroupLocalize = "<asp:Localize runat=server ID="PeopleGroupLocalize"></asp:Localize>";
-        var MailFaqUri = "<%= GetMailFaqUri() %>";
-        var MailSupportUrl = "<%= GetMailSupportUri() %>";
-        var crm_available = "<%= IsCrmAvailable() %>" === "True" ? true : false;
-        var tl_available = "<%= IsPeopleAvailable() %>" === "True" ? true : false;
-        var mailCommonDomainAvailable = "<%= IsMailCommonDomainAvailable() %>" === "True" ? true : false;
-        var mailPrintAvailable = "<%= IsMailPrintAvailable() %>" === "True" ? true : false;
-        var MailDownloadHandlerUri = "<%= GetMailDownloadHandlerUri() %>";
-        var MailDownloadAllHandlerUri = "<%= GetMailDownloadAllHandlerUri() %>";
-        var MailViewDocumentHandlerUri = "<%= GetMailViewDocumentHandlerUri() %>";
-        var MailEditDocumentHandlerUri = "<%= GetMailEditDocumentHandlerUri() %>";
-        var MailAccounts = <%= Serialize(Accounts) %>;
-    </script>
-    
     <% if (IsBlank)
        { %>
         <style type="text/css">
@@ -61,9 +45,9 @@
     <div class="page-menu">
         <ul class="menu-actions">
             <li class="menu-main-button middle create-new" id="createNewMailBtn">
-                <span class="main-button-text"><%= MailResource.WriteNewLetterBtnLabel %></span>
+                <span class="main-button-text"><%: MailResource.WriteNewLetterBtnLabel %></span>
             </li>
-            <li id="check_email_btn" title="<%= MailResource.RefreshBtnHint %>" class="menu-gray-button">
+            <li id="check_email_btn" title="<%: MailResource.RefreshBtnHint %>" class="menu-gray-button">
                 <span class="mail"></span>
             </li>
         </ul>
@@ -94,41 +78,11 @@
                                                                              { %> style="display: block;" <% } %>>
             <div class="content" style="max-height: 250px;">
                 <ul class="menu-list accounts">
-                    <% if (DefaultAccount != null) 
-                       { %>
-                        <li class="menu-item none-sub-list">
-                            <a><span class="link dotted"><%= DefaultAccount.Email %></span></a>
-                        </li>
-                    <% } %>
-                    <% foreach (var account in CommonAccounts)
-                       { %>
-                        <li class="menu-item none-sub-list">
-                            <a><span class="link dotted"><%= account.Email %></span></a>
-                        </li>
-                    <% } %>
-                    <% foreach (var account in ServerAccounts)
-                       { %>
-                        <li class="menu-item none-sub-list">
-                            <a><span class="link dotted"><%= account.Email %></span></a>
-                        </li>
-                    <% } %>
-                    <% foreach (var account in Aliases)
-                       { %>
-                        <li class="menu-item none-sub-list">
-                            <a><span class="link dotted"><%= account.Email %></span></a>
-                        </li>
-                    <% } %>
-                    <% foreach (var account in Groups)
-                       { %>
-                        <li class="menu-item none-sub-list">
-                            <a><span class="link dotted"><%= account.Email %></span></a>
-                        </li>
-                    <% } %>
                 </ul>
             </div>
             <div class="more hidden left-margin">
                 <div class="shadow"></div>
-                <div class="text"><%= MailResource.ShowMoreAccounts %></div>
+                <div class="text"><%: MailResource.ShowMoreAccounts %></div>
             </div>
         </div>
 
@@ -137,18 +91,18 @@
             <li class="menu-item none-sub-list" runat="server" id="tlContactsContainer">
                 <span class="menu-item-icon group"></span>
                 <a class="menu-item-label outer-text text-overflow" id="teamlab" href="#tlcontact">
-                    <span class="menu-item-label inner-text"><%= MailScriptResource.TeamLabContactsLabel %></span>
+                    <span class="menu-item-label inner-text"><%: MailScriptResource.TeamLabContactsLabel %></span>
                 </a>
             </li>
             <li class="menu-item none-sub-list" runat="server" id="crmContactsContainer">
                 <span class="menu-item-icon company"></span>
                 <a class="menu-item-label outer-text text-overflow" id="crm" href="#crmcontact">
-                    <span class="menu-item-label inner-text"><%= MailScriptResource.CRMContactsLabel %></span>
+                    <span class="menu-item-label inner-text"><%: MailScriptResource.CRMContactsLabel %></span>
                 </a>
             </li>
         </ul>
 
-        
+
         <ul class="menu-list with-expander">
             <asp:PlaceHolder ID="InviteUserHolder" runat="server"></asp:PlaceHolder>
             <li class="menu-item sub-list add-block open-by-default">
@@ -156,7 +110,7 @@
                     <span class="expander"></span>
                     <a class="menu-item-label outer-text text-overflow" id="settingsLabel" href="javascript:void(0);">
                         <span class="menu-item-icon settings"></span>
-                        <span class="menu-item-label inner-text gray-text settings"><%= MailResource.Settings %></span>
+                        <span class="menu-item-label inner-text gray-text settings"><%: MailResource.Settings %></span>
                     </a>
                 </div>
                 <ul class="menu-sub-list" id="settingsContainer">
@@ -164,25 +118,25 @@
                        { %>
                         <li class="menu-sub-item">
                             <a class="menu-item-label outer-text text-overflow" id="adminSettings" href="#administration">
-                                <span class="menu-item-label inner-text"><%= MailScriptResource.AdministrationLabel %></span>
+                                <span class="menu-item-label inner-text"><%: MailScriptResource.AdministrationLabel %></span>
                             </a>
                         </li>
                     <% } %>
                     <li class="menu-sub-item">
                         <a class="menu-item-label outer-text text-overflow" id="accountsSettings" href="#accounts">
-                            <span class="menu-item-label inner-text"><%= MailResource.AccountsSettingsLabel %></span>
+                            <span class="menu-item-label inner-text"><%: MailResource.AccountsSettingsLabel %></span>
                         </a>
                     </li>
                     <li class="menu-sub-item">
                         <a class="menu-item-label outer-text text-overflow" id="tagsSettings" href="#tags">
-                            <span class="menu-item-label inner-text"><%= MailResource.TagsSettingsLabel %></span>
+                            <span class="menu-item-label inner-text"><%: MailResource.TagsSettingsLabel %></span>
                         </a>
                     </li>
                     <% if (IsAdministrator && !IsPersonal)
                        { %>
                         <li class="menu-sub-item">
                             <a class="menu-item-label outer-text text-overflow" href="<%= VirtualPathUtility.ToAbsolute("~/management.aspx") + "?type=" + (int)ASC.Web.Studio.Utility.ManagementType.AccessRights + "#mail" %>">
-                                <span class="menu-item-label inner-text"><%= MailResource.AccessRightsSettings %></span>
+                                <span class="menu-item-label inner-text"><%: MailResource.AccessRightsSettings %></span>
                             </a>
                         </li>
                     <% } %>

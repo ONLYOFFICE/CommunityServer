@@ -28,15 +28,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.Web.Configuration;
 using ASC.Api.Documents;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
 using ASC.Api.Projects.Calendars;
-using ASC.Web.Core.Calendars;
-using ASC.Common.Data;
-using ASC.Projects.Engine;
 using ASC.Core;
+using ASC.Projects.Core.Domain;
+using ASC.Projects.Engine;
+using ASC.Web.Core.Calendars;
 
 namespace ASC.Api.Projects
 {
@@ -55,6 +54,22 @@ namespace ASC.Api.Projects
             get { return "project"; }
         }
 
+        public TaskFilter CreateFilter()
+        {
+            var filter = new TaskFilter
+                   {
+                       SortBy = _context.SortBy,
+                       SortOrder = !_context.SortDescending,
+                       SearchText = _context.FilterValue,
+                       Offset = _context.StartIndex,
+                       Max = _context.Count
+                   };
+
+            _context.SetDataFiltered().SetDataPaginated().SetDataSorted();
+
+            return filter;
+        }
+
         ///<summary>
         /// Constructor
         ///</summary>
@@ -65,6 +80,21 @@ namespace ASC.Api.Projects
             this.documentsApi = documentsApi;
 
             _context = context;
+        }
+
+        private void SetTotalCount(int count)
+        {
+            _context.SetTotalCount(count);
+        }
+
+        private long StartIndex
+        {
+            get { return _context.StartIndex; }
+        }
+
+        private long Count
+        {
+            get { return _context.Count; }
         }
 
         private static HttpRequest Request
@@ -79,7 +109,7 @@ namespace ASC.Api.Projects
             var engineFactory = new EngineFactory(DbId, tenantId);
 
             var cals = new List<BaseCalendar>();
-            var engine = engineFactory.GetProjectEngine();
+            var engine = engineFactory.ProjectEngine;
             var projects = engine.GetByParticipant(userId);
 
             if (projects != null)
@@ -99,7 +129,6 @@ namespace ASC.Api.Projects
                     var index = project.ID % CalendarColors.BaseColors.Count;
                     cals.Add(new ProjectCalendar(
                                  engineFactory,
-                                 userId,
                                  project,
                                  CalendarColors.BaseColors[index].BackgroudColor,
                                  CalendarColors.BaseColors[index].TextColor,
@@ -116,7 +145,7 @@ namespace ASC.Api.Projects
                 {
                     var p = project;
 
-                    if (projects != null && projects.Exists(proj => proj.ID == project.ID)) continue;
+                    if (projects != null && projects.Any(proj => proj.ID == p.ID)) continue;
 
                     var sharingOptions = new SharingOptions();
                     sharingOptions.PublicItems.Add(new SharingOptions.PublicItem {Id = userId, IsGroup = false});
@@ -125,11 +154,10 @@ namespace ASC.Api.Projects
                         sharingOptions.PublicItems.Add(new SharingOptions.PublicItem {Id = participant.ID, IsGroup = false});
                     }
 
-                    var index = project.ID % CalendarColors.BaseColors.Count;
+                    var index = p.ID % CalendarColors.BaseColors.Count;
                     cals.Add(new ProjectCalendar(
                                  engineFactory,
-                                 userId,
-                                 project,
+                                 p,
                                  CalendarColors.BaseColors[index].BackgroudColor,
                                  CalendarColors.BaseColors[index].TextColor,
                                  sharingOptions, true));

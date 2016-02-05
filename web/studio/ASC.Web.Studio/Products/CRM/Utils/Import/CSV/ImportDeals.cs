@@ -37,6 +37,7 @@ using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Core.Users;
 using LumenWorks.Framework.IO.Csv;
 using Newtonsoft.Json.Linq;
+using ASC.Common.Threading.Progress;
 
 #endregion
 
@@ -261,6 +262,15 @@ namespace ASC.Web.CRM.Classes
 
                     Percentage += 1.0 * 100 / (ImportFromCSV.MaxRoxCount * 2);
 
+                    if (ImportDataCache.CheckCancelFlag(EntityType.Opportunity))
+                    {
+                        ImportDataCache.ResetAll(EntityType.Opportunity);
+
+                        throw new OperationCanceledException();
+                    }
+
+                    ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());               
+
 
 
                     findedDeals.Add(obj);
@@ -274,10 +284,28 @@ namespace ASC.Web.CRM.Classes
 
                 Percentage = 50;
 
+                if (ImportDataCache.CheckCancelFlag(EntityType.Opportunity))
+                {
+                    ImportDataCache.ResetAll(EntityType.Opportunity);
+
+                    throw new OperationCanceledException();
+                }
+
+                ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());               
+                
                 var newDealIDs = dealDao.SaveDealList(findedDeals);
                 findedDeals.ForEach(d => d.ID = newDealIDs[d.ID]);
 
                 Percentage += 12.5;
+
+                if (ImportDataCache.CheckCancelFlag(EntityType.Opportunity))
+                {
+                    ImportDataCache.ResetAll(EntityType.Opportunity);
+
+                    throw new OperationCanceledException();
+                }
+
+                ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());               
 
                 findedCustomField.ForEach(item => item.EntityID = newDealIDs[item.EntityID]);
 
@@ -285,12 +313,30 @@ namespace ASC.Web.CRM.Classes
 
                 Percentage += 12.5;
 
+                if (ImportDataCache.CheckCancelFlag(EntityType.Opportunity))
+                {
+                    ImportDataCache.ResetAll(EntityType.Opportunity);
+
+                    throw new OperationCanceledException();
+                }
+
+                ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());               
+
                 foreach (var findedDealMemberKey in findedDealMembers.Keys)
                 {
                     dealDao.SetMembers(newDealIDs[findedDealMemberKey], findedDealMembers[findedDealMemberKey].ToArray());
                 }
 
                 Percentage += 12.5;
+
+                if (ImportDataCache.CheckCancelFlag(EntityType.Opportunity))
+                {
+                    ImportDataCache.ResetAll(EntityType.Opportunity);
+
+                    throw new OperationCanceledException();
+                }
+
+                ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());               
 
                 foreach (var findedTagKey in findedTags.Keys)
                 {
@@ -301,6 +347,16 @@ namespace ASC.Web.CRM.Classes
                     findedDeals.ForEach(dealItem => CRMSecurity.SetAccessTo(dealItem, _importSettings.AccessList));
 
                 Percentage += 12.5;
+
+                if (ImportDataCache.CheckCancelFlag(EntityType.Opportunity))
+                {
+                    ImportDataCache.ResetAll(EntityType.Opportunity);
+
+                    throw new OperationCanceledException();
+                }
+
+                ImportDataCache.Insert(EntityType.Opportunity, (ImportDataOperation)Clone());               
+                
             }
 
             Complete();

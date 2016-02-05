@@ -26,43 +26,31 @@
 
 window.TMMail = (function($) {
     var isInit = false,
-        lastItems = 29,
-        plusItems = 29,
         requiredFieldErrorCss = "requiredFieldError",
         options = {
             MessagesPageSize: 25,
             ContactsPageSize: 25,
             ConversationSortAsc: "true"
         },
-        availability = {
-            CRM: true,
-            People: true
-        },
         saveMessageInterval = 5000, // 5 seconds for autosave
         showNextAlertTimeout = 60000,
-        serviceCheckInterval = 30000,
         constants = {
             pageTitle: '',
             pageHeader: ''
         },
         reEmail = /(([\w-\s]+)|([\w-]+(?:\.[\w-]+)*)|([\w-\s]+)([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-zA-Z]{2,7}(?:\.[a-zA-Z]{2})?))|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?)/,
         reEmailStrict = /^([\w-\.\+]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,7}|[0-9]{1,3})(\]?)$/,
-        reMailServerEmailStrict = /^([a-zA-Z0-9]+)([-\.\_][a-zA-Z0-9]+)*@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,7}|[0-9]{1,3})(\]?)$/,
+        reMailServerEmailStrict = /^([a-zA-Z0-9]+)([-\.\_][a-zA-Z0-9]+)*@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,}|[0-9]{1,3})(\]?)$/,
         reDomainStrict = /(?=^.{5,254}$)(^(?:(?!\d+\.)[a-zA-Z0-9_\-]{1,63}\.?)+\.(?:[a-zA-Z]{2,})$)/,
         optionCookieName = 'tmmail',
-        headerSeparator = ' - ',
         optionSeparator = '&',
-        lastTimeModifiedAll = 0, // Means the date and time the message list on server modified. This value comes from server and independent on folder.
-
         maxWordLength = 10, //like google
-
-        messagesModifyDate = new Date(0),
         systemFolders = {
-            inbox: { id: 1, name: 'inbox', displayName: ASC.Mail.Resources.MailResource.FolderNameInbox, last_time_modified: 0 },
-            sent: { id: 2, name: 'sent', displayName: ASC.Mail.Resources.MailResource.FolderNameSent, last_time_modified: 0 },
-            drafts: { id: 3, name: 'drafts', displayName: ASC.Mail.Resources.MailResource.FolderNameDrafts, last_time_modified: 0 },
-            trash: { id: 4, name: 'trash', displayName: ASC.Mail.Resources.MailResource.FolderNameTrash, last_time_modified: 0 },
-            spam: { id: 5, name: 'spam', displayName: ASC.Mail.Resources.MailResource.FolderNameSpam, last_time_modified: 0 }
+            inbox: { id: 1, name: 'inbox', displayName: ASC.Mail.Resources.MailResource.FolderNameInbox },
+            sent: { id: 2, name: 'sent', displayName: ASC.Mail.Resources.MailResource.FolderNameSent },
+            drafts: { id: 3, name: 'drafts', displayName: ASC.Mail.Resources.MailResource.FolderNameDrafts },
+            trash: { id: 4, name: 'trash', displayName: ASC.Mail.Resources.MailResource.FolderNameTrash },
+            spam: { id: 5, name: 'spam', displayName: ASC.Mail.Resources.MailResource.FolderNameSpam }
         },
         actionTypes = {
             'move': 1,
@@ -113,7 +101,7 @@ window.TMMail = (function($) {
             conversationPrint: /^conversation\/print\/(\d+)\/?(.+)*/
         };
 
-    var init = function(crmAvailable, tlAvailable) {
+    function init() {
         if (isInit === true) {
             return;
         }
@@ -121,32 +109,15 @@ window.TMMail = (function($) {
         isInit = true;
         loadOptions();
 
-        serviceManager.init(serviceCheckInterval);
+        serviceManager.init();
 
         constants.pageTitle = document.title;
         constants.pageHeader = ASC.Mail.Resources.MailResource.MailTitle || 'Mail';
 
-        availability.CRM = crmAvailable;
-        availability.People = tlAvailable;
-
-        serviceManager.bind(window.Teamlab.events.getMailFolderModifyDate, onGetMailFolderModifyDate);
         ASC.Controls.AnchorController.bind(TMMail.anchors.common, checkAnchor);
-    };
-
-    function onGetMailFolderModifyDate(params, date) {
-        var folder = getSysFolderById(params.folder_id);
-        folder.modified_date = date;
     }
 
-    // Get current page last time items list modified on the server (the value that was last get from the server for this folder)
-
-    function getFolderModifyDate(folderId) {
-        var folder = getSysFolderById(folderId);
-        return folder.modified_date;
-    }
-
-
-    var setPageHeaderFolderName = function(folderId) {
+    function setPageHeaderFolderName(folderId) {
         // ToDo: fix this workaround for 'undefined' in title
         // case: open conversation by direct link, and 'undefined' word will appear in page title
         if (0 == folderId) {
@@ -158,10 +129,10 @@ window.TMMail = (function($) {
         var title = (unread == 0 || unread == undefined ? "" : ('(' + unread + ') ')) + getSysFolderDisplayNameById(folderId);
 
         setPageHeaderTitle(title);
-    };
+    }
 
-    var setPageHeaderTitle = function(title) {
-        title = translateSymbols(title) + headerSeparator + constants.pageTitle;
+    function setPageHeaderTitle(title) {
+        title = "{0} - {1}".format(title, constants.pageTitle);
 
         if ($.browser.msie) {
             setImmediate(function() {
@@ -170,13 +141,9 @@ window.TMMail = (function($) {
         } else {
             document.title = title;
         }
-    };
+    }
 
-    var constant = function(name) {
-        return constants[name];
-    };
-
-    var option = function(name, value) {
+    function option(name, value) {
         if (typeof name !== 'string') {
             return undefined;
         }
@@ -186,9 +153,9 @@ window.TMMail = (function($) {
         options[name] = value;
         saveOptions();
         return value;
-    };
+    }
 
-    var loadOptions = function() {
+    function loadOptions() {
         var fieldSeparator = ':',
             pos,
             name,
@@ -206,9 +173,9 @@ window.TMMail = (function($) {
             }
             options[name] = value;
         }
-    };
+    }
 
-    var saveOptions = function() {
+    function saveOptions() {
         var fieldSeparator = ':',
             collect = [];
         for (var name in options) {
@@ -217,7 +184,7 @@ window.TMMail = (function($) {
             }
         }
         ASC.Mail.cookies.set(optionCookieName, collect.join(optionSeparator));
-    };
+    }
 
     function ltgt(str) {
         if (str.indexOf('<') !== false || str.indexOf('>') !== false) {
@@ -238,32 +205,7 @@ window.TMMail = (function($) {
         return found;
     }
 
-
-    function translateSymbols(str, toText) {
-        var symbols = [
-            ['&lt;', '<'],
-            ['&gt;', '>']
-        ];
-
-        if (typeof str !== 'string') {
-            return '';
-        }
-        var symInd;
-        if (typeof toText === 'undefined' || toText) {
-            symInd = symbols.length;
-            while (symInd--) {
-                str = str.replace(new RegExp(symbols[symInd][0], 'g'), symbols[symInd][1]);
-            }
-        } else {
-            symInd = symbols.length;
-            while (symInd--) {
-                str = str.replace(new RegExp(symbols[symInd][1], 'g'), symbols[symInd][0]);
-            }
-        }
-        return str;
-    }
-
-    var getErrorMessage = function(errors) {
+    function getErrorMessage(errors) {
         var mes = [];
         mes.push('<ul class="errors">');
         for (var i = 0, n = errors.length; i < n; i++) {
@@ -271,9 +213,9 @@ window.TMMail = (function($) {
         }
         mes.push('</ul>');
         return mes.join('');
-    };
+    }
 
-    var isInvalidPage = function() {
+    function isInvalidPage() {
         var anchor = ASC.Controls.AnchorController.getAnchor();
         return !(anchorRegExp.message.test(anchor) || anchorRegExp.accounts.test(anchor) || anchorRegExp.teamlab.test(anchor) ||
             anchorRegExp.crm.test(anchor) || anchorRegExp.sysfolders.test(anchor) || anchorRegExp.writemessage.test(anchor) ||
@@ -281,9 +223,9 @@ window.TMMail = (function($) {
             anchorRegExp.next_message.test(anchor) || anchorRegExp.prev_message.test(anchor) || anchorRegExp.next_conversation.test(anchor) ||
             anchorRegExp.prev_conversation.test(anchor) || anchorRegExp.administration.test(anchor) ||
             anchorRegExp.messagePrint.test(anchor) || anchorRegExp.conversationPrint.test(anchor));
-    };
+    }
 
-    var pageIs = function(pageType) {
+    function pageIs(pageType) {
         var anchor = ASC.Controls.AnchorController.getAnchor();
         switch (pageType) {
             case 'message':
@@ -393,22 +335,26 @@ window.TMMail = (function($) {
                 if (anchorRegExp.conversationPrint.test(anchor)) {
                     return true;
                 }
+            case 'print':
+                if (anchorRegExp.messagePrint.test(anchor) || anchorRegExp.conversationPrint.test(anchor)) {
+                    return true;
+                }
                 break;
         }
         return false;
-    };
+    }
 
-    var getSysFolderNameById = function(sysfolderId, defaultValue) {
+    function getSysFolderNameById(sysfolderId, defaultValue) {
         var sysfolder = getSysFolderById(sysfolderId);
         return typeof sysfolder != 'undefined' && sysfolder ? sysfolder.name : defaultValue;
-    };
+    }
 
-    var getSysFolderDisplayNameById = function(sysfolderId, defaultValue) {
+    function getSysFolderDisplayNameById(sysfolderId, defaultValue) {
         var sysfolder = getSysFolderById(sysfolderId);
         return typeof sysfolder != 'undefined' && sysfolder ? sysfolder.displayName : defaultValue;
-    };
+    }
 
-    var getSysFolderIdByName = function(sysfolderName, defaultValue) {
+    function getSysFolderIdByName(sysfolderName, defaultValue) {
         for (var sysfolderNameIn in systemFolders) {
             var sysfolder = systemFolders[sysfolderNameIn];
             if (sysfolder.name == sysfolderName) {
@@ -416,10 +362,10 @@ window.TMMail = (function($) {
             }
         }
         return defaultValue;
-    };
+    }
 
     // private
-    var getSysFolderById = function(sysfolderId) {
+    function getSysFolderById(sysfolderId) {
         for (var sysfolderName in systemFolders) {
             var sysfolder = systemFolders[sysfolderName];
             if (sysfolder.id == +sysfolderId) {
@@ -427,26 +373,9 @@ window.TMMail = (function($) {
             }
         }
         return undefined;
-    };
+    }
 
-    // Get current page last time items list modified on the server (the value that was last get from the server for this folder)
-    var getLastTimeServerListModifiedForFolder = function(folderId) {
-        var sysfolder = getSysFolderById(folderId);
-        if (typeof sysfolder != 'undefined' && sysfolder) {
-            return sysfolder.last_time_modified;
-        }
-        return null;
-    };
-
-    // Set current page last time items list modified on the server (the value that was last get from the server for this folder)
-    var setLastTimeServerListModifiedForFolder = function(timeValue, folderId) {
-        var sysfolder = getSysFolderById(folderId);
-        if (typeof sysfolder != 'undefined' && sysfolder) {
-            sysfolder.last_time_modified = timeValue;
-        }
-    };
-
-    var extractFolderIdFromAnchor = function() {
+    function extractFolderIdFromAnchor() {
         var anchor = ASC.Controls.AnchorController.getAnchor();
         if (anchor === "") {
             return systemFolders.inbox.id;
@@ -456,9 +385,9 @@ window.TMMail = (function($) {
             return getSysFolderIdByName(sysfolderRes[1]);
         }
         return 0;
-    };
+    }
 
-    var extractConversationIdFromAnchor = function() {
+    function extractConversationIdFromAnchor() {
         var anchor = ASC.Controls.AnchorController.getAnchor();
 
         if (anchor !== "") {
@@ -469,13 +398,13 @@ window.TMMail = (function($) {
         }
 
         return 0;
-    };
+    }
 
-    var getSupportLink = function() {
-        return window.MailSupportUrl;
-    };
+    function getSupportLink() {
+        return ASC.Mail.Constants.SUPPORT_URL;
+    }
 
-    var getFaqLink = function(address) {
+    function getFaqLink(address) {
         address = address || "";
         var anchor = "";
         if (/@gmail\./.test(address.toLowerCase()) || /@googlemail\./.test(address.toLowerCase())) {
@@ -489,48 +418,63 @@ window.TMMail = (function($) {
         if (/@mail\.ru/.test(address.toLowerCase())) {
             anchor = "#IssueswithMailruService_block";
         }
-        return window.MailFaqUri + anchor;
-    };
+        return ASC.Mail.Constants.FAQ_URL + anchor;
+    }
 
-    var moveToReply = function(msgid) {
+    function moveToReply(msgid) {
         ASC.Controls.AnchorController.move('#reply/' + msgid);
-    };
+    }
 
-    var moveToReplyAll = function(msgid) {
+    function moveToReplyAll(msgid) {
         ASC.Controls.AnchorController.move('#replyAll/' + msgid);
-    };
+    }
 
-    var moveToForward = function(msgid) {
+    function moveToForward(msgid) {
         ASC.Controls.AnchorController.move('#forward/' + msgid);
-    };
+    }
 
-    var moveToMessagePrint = function(messageId, showImages) {
+    function moveToMessagePrint(messageId, showImages, showQuotes) {
+        var href = window.location.href.split('#')[0] + '?blankpage=true#message/print/' + messageId;
+
         if (showImages) {
-            window.open(window.location.href.split('#')[0] + '?blankpage=true#message/print/' + messageId + '?sim=' + messageId);
+            href += '?sim=' + messageId;
         }
-        else {
-            window.open(window.location.href.split('#')[0] + '?blankpage=true#message/print/' + messageId);
+        if (showQuotes) {
+            href += showImages ? '&' : '?';
+            href += 'squ=' + messageId;
         }
-    };
-
-    var moveToConversationPrint = function (conversationId, simIds) {
-        var href = window.location.href.split('#')[0] + '?blankpage=true#conversation/print/' + conversationId;
-        if (simIds && simIds.length)
-            href += '?sim=' + simIds.join(",");
+        
         window.open(href);
-    };
+    }
 
-    var moveToInbox = function() {
+    function moveToConversationPrint(conversationId, simIds, squIds, sortAsc) {
+        var href = window.location.href.split('#')[0] + '?blankpage=true#conversation/print/' + conversationId;
+
+        if (simIds && simIds.length) {
+            href += '?sim=' + simIds.join(',');
+        }
+        if (squIds && squIds.length) {
+            href += simIds && simIds.length ? '&' : '?';
+            href += 'squ=' + squIds.join(',');
+        }
+
+        href += (simIds && simIds.length) || (squIds && squIds.length) ? '&' : '?';
+        href += 'sortAsc=' + (sortAsc === undefined || sortAsc === true ? '1' : '0');
+
+        window.open(href);
+    }
+
+    function moveToInbox() {
         ASC.Controls.AnchorController.move(systemFolders.inbox.name);
-    };
+    }
 
-    var openMessage = function(id) {
+    function openMessage(id) {
         window.open('#message/' + id, '_blank');
-    };
+    }
 
-    var openConversation = function(id) {
+    function openConversation(id) {
         window.open('#conversation/' + id, '_blank');
-    };
+    }
 
     function openDraftItem(id) {
         window.open('#draftitem/' + id, '_blank');
@@ -543,7 +487,7 @@ window.TMMail = (function($) {
         } else {
             ASC.Controls.AnchorController.move(anchor);
         }
-    };
+    }
 
     function moveToMessage(id, safe) {
         var anchor = '#message/' + id;
@@ -554,8 +498,6 @@ window.TMMail = (function($) {
         }
     }
 
-    ;
-
     function moveToDraftItem(id, safe) {
         var anchor = '#draftitem/' + id;
         if (safe) {
@@ -565,17 +507,15 @@ window.TMMail = (function($) {
         }
     }
 
-    ;
-
-    var parseEmailFromFullAddress = function(from) {
+    function parseEmailFromFullAddress(from) {
         var res = (/^.*<([^<^>]+)>$/).exec(from);
         return (res != null) && (res.length == 2) ? res[1] : from;
-    };
+    }
 
-    var parseFullNameFromFullAddress = function(from) {
+    function parseFullNameFromFullAddress(from) {
         var res = (/^"(.+)" <[^<^>]+>$/).exec(from);
         return (res != null) && (res.length == 2) ? res[1] : "";
-    };
+    }
 
     function wordWrap(string) {
         var words = string.split(' ');
@@ -597,17 +537,17 @@ window.TMMail = (function($) {
         return string;
     }
 
-    var getParamsValue = function(params, reg) {
+    function getParamsValue(params, reg) {
         var myArray = reg.exec(params);
         if (myArray === null) {
             return undefined;
         }
         return myArray[1];
-    };
+    }
 
     function showCompleteActionHint(actionType, isConversation, count, dstFolderId) {
         var hintText;
-        var folderName = TMMail.GetSysFolderDisplayNameById(dstFolderId, '');
+        var folderName = TMMail.getSysFolderDisplayNameById(dstFolderId, '');
         switch (actionType) {
             case TMMail.action_types.move:
                 hintText =
@@ -674,7 +614,7 @@ window.TMMail = (function($) {
         }, 1000);
     }
 
-    var strHash = function(str) {
+    function strHash(str) {
         var hash = 0, i, l;
         if (str.length == 0) {
             return hash;
@@ -684,10 +624,6 @@ window.TMMail = (function($) {
             hash |= 0; // Convert to 32bit integer
         }
         return hash;
-    };
-
-    function prepareUrlToDocument(url) {
-        return decodeURIComponent(url).replace('+', '%2b').replace('#', '%23');
     }
 
     function canViewInDocuments(url) {
@@ -712,19 +648,19 @@ window.TMMail = (function($) {
     }
 
     function getAttachmentDownloadUrl(attachmentId) {
-        return window.MailDownloadHandlerUri.format(attachmentId);
+        return ASC.Mail.Constants.DOWNLOAD_HANDLER_URL.format(attachmentId);
     }
 
     function getAttachmentsDownloadAllUrl(messageId) {
-        return window.MailDownloadAllHandlerUri.format(messageId);
+        return ASC.Mail.Constants.DOWNLOAD_ALL_HANDLER_URL.format(messageId);
     }
 
     function getViewDocumentUrl(attachmentId) {
-        return window.MailViewDocumentHandlerUri.format(attachmentId);
+        return ASC.Mail.Constants.VIEW_DOCUMENT_HANDLER_URL.format(attachmentId);
     }
 
     function getEditDocumentUrl(attachmentId) {
-        return window.MailEditDocumentHandlerUri.format(attachmentId);
+        return ASC.Mail.Constants.EDIT_DOCUMENT_HANDLER_URL.format(attachmentId);
     }
 
     function htmlEncode(value) {
@@ -808,34 +744,23 @@ window.TMMail = (function($) {
 
         init: init,
         option: option,
-        availability: availability,
-        lastItems: lastItems,
-        plusItems: plusItems,
-        constant: constant,
+
         saveMessageInterval: saveMessageInterval,
         showNextAlertTimeout: showNextAlertTimeout,
-        serviceCheckInterval: serviceCheckInterval,
-
-        last_time_modified_all: lastTimeModifiedAll,
-        GetLastTimeServerListModifiedForFolder: getLastTimeServerListModifiedForFolder,
-        SetLastTimeServerListModifiedForFolder: setLastTimeServerListModifiedForFolder,
 
         ltgt: ltgt,
         in_array: inArray,
-        translateSymbols: translateSymbols,
+
         setPageHeaderFolderName: setPageHeaderFolderName,
         setPageHeaderTitle: setPageHeaderTitle,
         getErrorMessage: getErrorMessage,
         pageIs: pageIs,
-        isInvalidPage: isInvalidPage,
-        GetSysFolderNameById: getSysFolderNameById,
-        GetSysFolderIdByName: getSysFolderIdByName,
-        GetSysFolderDisplayNameById: getSysFolderDisplayNameById,
-        ExtractFolderIdFromAnchor: extractFolderIdFromAnchor,
-        ExtractConversationIdFromAnchor: extractConversationIdFromAnchor,
 
-        GetFolderModifyDate: getFolderModifyDate,
-        messages_modify_date: messagesModifyDate,
+        getSysFolderNameById: getSysFolderNameById,
+        getSysFolderIdByName: getSysFolderIdByName,
+        getSysFolderDisplayNameById: getSysFolderDisplayNameById,
+        extractFolderIdFromAnchor: extractFolderIdFromAnchor,
+        extractConversationIdFromAnchor: extractConversationIdFromAnchor,
 
         getFaqLink: getFaqLink,
         getSupportLink: getSupportLink,
@@ -859,7 +784,7 @@ window.TMMail = (function($) {
         showCompleteActionHint: showCompleteActionHint,
 
         strHash: strHash,
-        prepareUrlToDocument: prepareUrlToDocument,
+
         canViewInDocuments: canViewInDocuments,
         canEditInDocuments: canEditInDocuments,
         fixMailtoLinks: fixMailtoLinks,

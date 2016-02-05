@@ -27,18 +27,15 @@
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.IO;
 using System.Net.Mail;
 using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
-using System.Text;
-using ASC.Mail.Aggregator.Common.Imap;
 using ActiveUp.Net.Mail;
+using ASC.Mail.Aggregator.Common.Imap;
+using ASC.Mail.Aggregator.Common.Utils;
+using Newtonsoft.Json;
 
 namespace ASC.Mail.Aggregator.Common
 {
-    using ImapIntervalsType = Dictionary<string, ImapFolderUids>;
-
     [DataContract(Namespace = "")]
     public class MailBox : IEquatable<MailBox>
     {
@@ -223,7 +220,7 @@ namespace ASC.Mail.Aggregator.Common
 
         public bool BeginDateChanged { get; set; }
 
-        public ImapIntervalsType ImapIntervals { get; set; }
+        public Dictionary<string, ImapFolderUids> ImapIntervals { get; set; }
 
         public int SmtpServerId { get; set; }
 
@@ -233,35 +230,13 @@ namespace ASC.Mail.Aggregator.Common
         {
             get
             {
-                try
-                {
-                    var serializer = new DataContractJsonSerializer(typeof (ImapIntervalsType));
-                    using (var stream = new MemoryStream())
-                    {
-                        serializer.WriteObject(stream, ImapIntervals);
-                        return Encoding.UTF8.GetString(stream.GetCorrectBuffer());
-                    }
-                }
-                catch (Exception)
-                {
-                    return "";
-                }
+                var contentJson = JsonConvert.SerializeObject(ImapIntervals);
+                return contentJson;
             }
             set
             {
-                if (null == value) return;
-                try
-                {
-
-                    var serializer = new DataContractJsonSerializer(typeof (ImapIntervalsType));
-                    using (var imapFoldersStream = new MemoryStream(Encoding.UTF8.GetBytes(value)))
-                    {
-                        ImapIntervals = (ImapIntervalsType) serializer.ReadObject(imapFoldersStream);
-                    }
-                }
-                catch (Exception)
-                {
-                }
+                if (string.IsNullOrEmpty(value)) return;
+                ImapIntervals = MailUtil.ParseImapIntervals(value);
             }
         }
 
@@ -276,7 +251,7 @@ namespace ASC.Mail.Aggregator.Common
         public MailBox()
         {
             ServerLoginDelay = DefaultServerLoginDelay; //This value can be changed in test mailbox connection
-            ImapIntervals = new ImapIntervalsType();
+            ImapIntervals = new Dictionary<string, ImapFolderUids>();
         }
 
         public MailBox(int tenant, string user, string name,
@@ -317,7 +292,7 @@ namespace ASC.Mail.Aggregator.Common
             Restrict = !(BeginDate.Equals(MailBeginTimestamp));
             ServiceType = service;
             RefreshToken = refreshToken;
-            ImapIntervals = new ImapIntervalsType();
+            ImapIntervals = new Dictionary<string, ImapFolderUids>();
             EMailInFolder = emailInFolder;
             IsRemoved = isRemoved;
         }

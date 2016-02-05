@@ -1,8 +1,4 @@
-﻿/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
-(function ($, win, doc, body) {
+﻿(function ($, win, doc, body) {
   function converText (str) {
     var o = document.createElement('textarea');
     o.innerHTML = str;

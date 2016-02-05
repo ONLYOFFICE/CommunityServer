@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Runtime.Serialization;
 using ASC.Core;
 using ASC.Web.Core.Utility.Settings;
-using AjaxPro;
 
 namespace ASC.Web.Core.Users
 {
@@ -58,7 +57,6 @@ namespace ASC.Web.Core.Users
         }
     }
         
-    [AjaxNamespace("UserHelpTourUsage")]
     public class UserHelpTourHelper
     {
         private static UserHelpTourSettings Settings
@@ -76,33 +74,6 @@ namespace ASC.Web.Core.Users
                 settings.IsNewUser = value;
                 Settings = settings;
             }
-        }
-
-        public static int GetStep(Guid module)
-        {
-            var setting = Settings;
-
-            if (setting.IsNewUser)
-                return setting.ModuleHelpTour.ContainsKey(module) ? setting.ModuleHelpTour[module] : 0;
-
-            return -1;
-        }
-
-        [AjaxMethod]
-        public void SetStep(Guid module, int step)
-        {
-            var settings = Settings;
-
-            if (settings.ModuleHelpTour.ContainsKey(module))
-            {
-                settings.ModuleHelpTour[module] = step;
-            }
-            else
-            {
-                settings.ModuleHelpTour.Add(module, step);
-            }
-
-            Settings = settings;
         }
     }
 }

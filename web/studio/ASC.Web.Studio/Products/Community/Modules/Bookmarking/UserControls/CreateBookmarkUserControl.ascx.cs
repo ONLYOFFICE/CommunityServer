@@ -28,6 +28,8 @@ using System;
 using AjaxPro;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;
 using ASC.Web.UserControls.Bookmarking.Resources;
+using ASC.Bookmarking.Common;
+using ASC.Bookmarking;
 
 namespace ASC.Web.UserControls.Bookmarking
 {
@@ -39,7 +41,6 @@ namespace ASC.Web.UserControls.Bookmarking
         {
             Utility.RegisterTypeForAjax(typeof(BookmarkingUserControl));
             Utility.RegisterTypeForAjax(typeof(SingleBookmarkUserControl));
-            Utility.RegisterTypeForAjax(typeof(CommentsUserControl));
 
             InitActionButtons();
         }
@@ -65,20 +66,32 @@ namespace ASC.Web.UserControls.Bookmarking
 
         public string NavigateToMainPage
         {
-            get { return BookmarkingServiceHelper.BookmarkDisplayMode.CreateBookmark.Equals(BookmarkingServiceHelper.GetCurrentInstanse().DisplayMode).ToString().ToLower(); }
+            get
+            {
+                BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                    BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+                return BookmarkDisplayMode.CreateBookmark.Equals(displayMode).ToString().ToLower();
+            }
         }
 
         public bool CreateBookmarkMode
         {
-            get { return BookmarkingServiceHelper.BookmarkDisplayMode.CreateBookmark.Equals(BookmarkingServiceHelper.GetCurrentInstanse().DisplayMode); }
+            get
+            {
+                BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                    BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+                return BookmarkDisplayMode.CreateBookmark.Equals(displayMode);
+            }
         }
 
         public bool IsEditMode
         {
             get
             {
+                BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                    BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
                 var serviceHelper = BookmarkingServiceHelper.GetCurrentInstanse();
-                return BookmarkingServiceHelper.BookmarkDisplayMode.SelectedBookmark.Equals(serviceHelper.DisplayMode) && serviceHelper.IsCurrentUserBookmark();
+                return BookmarkDisplayMode.SelectedBookmark.Equals(displayMode) && serviceHelper.IsCurrentUserBookmark();
             }
         }
     }

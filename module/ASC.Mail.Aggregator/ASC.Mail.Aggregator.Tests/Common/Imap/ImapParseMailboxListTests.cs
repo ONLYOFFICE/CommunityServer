@@ -24,11 +24,12 @@
 */
 
 
+using System.Collections.Generic;
 using System.Linq;
 using ASC.Mail.Aggregator.Common.Extension;
 using NUnit.Framework;
 
-namespace ASC.Mail.Aggregator.Tests.Common
+namespace ASC.Mail.Aggregator.Tests.Common.Imap
 {
     [TestFixture]
     class ImapParseMailboxListTests
@@ -37,110 +38,110 @@ namespace ASC.Mail.Aggregator.Tests.Common
         public void TestAvsmediaNetInbox()
         {
             const string list_string = "* LIST (\\HasNoChildren) \"/\" INBOX\r\n140827105114648 OK LIST done";
-            var folder_list = ImapExtensions.ParseImapMailboxes(list_string).ToList();
-            Assert.IsTrue(folder_list.Any());
-            Assert.AreEqual(1, folder_list.Count);
-            Assert.AreEqual(1, folder_list[0].folder_id);
-            Assert.AreEqual("INBOX", folder_list[0].name);
+            var folderList = ImapExtensions.ParseImapMailboxes(list_string, "", MailQueueItemSettings.DefaultFolders).ToList();
+            Assert.IsTrue(folderList.Any());
+            Assert.AreEqual(1, folderList.Count);
+            Assert.AreEqual(1, folderList[0].folder_id);
+            Assert.AreEqual("INBOX", folderList[0].name);
         }
 
         [Test]
         public void TestGmailInbox()
         {
             const string list_string = "* LIST (\\HasNoChildren) \"/\" \"INBOX\"\r\n140827105114648 OK LIST done";
-            var folder_list = ImapExtensions.ParseImapMailboxes(list_string).ToList();
-            Assert.IsTrue(folder_list.Any());
-            Assert.AreEqual(1, folder_list.Count);
-            Assert.AreEqual(1, folder_list[0].folder_id);
-            Assert.AreEqual("INBOX", folder_list[0].name);
+            var folderList = ImapExtensions.ParseImapMailboxes(list_string, "", MailQueueItemSettings.DefaultFolders).ToList();
+            Assert.IsTrue(folderList.Any());
+            Assert.AreEqual(1, folderList.Count);
+            Assert.AreEqual(1, folderList[0].folder_id);
+            Assert.AreEqual("INBOX", folderList[0].name);
         }
 
         [Test]
         public void TestMailRuInbox()
         {
             const string list_string = "* LIST (\\Inbox) \"/\" \"INBOX\"\r\n140827105114648 OK LIST done";
-            var folder_list = ImapExtensions.ParseImapMailboxes(list_string).ToList();
-            Assert.IsTrue(folder_list.Any());
-            Assert.AreEqual(1, folder_list.Count);
-            Assert.AreEqual(1, folder_list[0].folder_id);
-            Assert.AreEqual("INBOX", folder_list[0].name);
+            var folderList = ImapExtensions.ParseImapMailboxes(list_string, "", MailQueueItemSettings.DefaultFolders).ToList();
+            Assert.IsTrue(folderList.Any());
+            Assert.AreEqual(1, folderList.Count);
+            Assert.AreEqual(1, folderList[0].folder_id);
+            Assert.AreEqual("INBOX", folderList[0].name);
         }
 
         [Test]
         public void TestYandexRuInbox()
         {
             const string list_string = "* LIST (\\Marked \\NoInferiors) \"|\" INBOX\r\n140827121936507 OK LIST completed";
-            var folder_list = ImapExtensions.ParseImapMailboxes(list_string).ToList();
-            Assert.IsTrue(folder_list.Any());
-            Assert.AreEqual(1, folder_list.Count);
-            Assert.AreEqual(1, folder_list[0].folder_id);
-            Assert.AreEqual("INBOX", folder_list[0].name);
+            var folderList = ImapExtensions.ParseImapMailboxes(list_string, "", MailQueueItemSettings.DefaultFolders).ToList();
+            Assert.IsTrue(folderList.Any());
+            Assert.AreEqual(1, folderList.Count);
+            Assert.AreEqual(1, folderList[0].folder_id);
+            Assert.AreEqual("INBOX", folderList[0].name);
         }
 
         [Test]
         public void TestRamblerRuInbox()
         {
             const string list_string = "* LIST (\\HasNoChildren \\UnMarked) \"/\" INBOX\r\n140827121936507 OK LIST completed";
-            var folder_list = ImapExtensions.ParseImapMailboxes(list_string).ToList();
-            Assert.IsTrue(folder_list.Any());
-            Assert.AreEqual(1, folder_list.Count);
-            Assert.AreEqual(1, folder_list[0].folder_id);
-            Assert.AreEqual("INBOX", folder_list[0].name);
+            var folderList = ImapExtensions.ParseImapMailboxes(list_string, "", MailQueueItemSettings.DefaultFolders).ToList();
+            Assert.IsTrue(folderList.Any());
+            Assert.AreEqual(1, folderList.Count);
+            Assert.AreEqual(1, folderList[0].folder_id);
+            Assert.AreEqual("INBOX", folderList[0].name);
         }
 
         [Test]
         public void TestYahooComInbox()
         {
             const string list_string = "* LIST (\\HasNoChildren) \"/\" \"Inbox\"\r\n140827121936507 OK LIST completed";
-            var folder_list = ImapExtensions.ParseImapMailboxes(list_string).ToList();
-            Assert.IsTrue(folder_list.Any());
-            Assert.AreEqual(1, folder_list.Count);
-            Assert.AreEqual(1, folder_list[0].folder_id);
-            Assert.AreEqual("Inbox", folder_list[0].name);
+            var folderList = ImapExtensions.ParseImapMailboxes(list_string, "", MailQueueItemSettings.DefaultFolders).ToList();
+            Assert.IsTrue(folderList.Any());
+            Assert.AreEqual(1, folderList.Count);
+            Assert.AreEqual(1, folderList[0].folder_id);
+            Assert.AreEqual("Inbox", folderList[0].name);
         }
 
         [Test]
         public void TestGmxComInbox()
         {
             const string list_string = "* LIST (\\HasNoChildren) \"/\" INBOX\r\n140827121936507 OK LIST completed";
-            var folder_list = ImapExtensions.ParseImapMailboxes(list_string).ToList();
-            Assert.IsTrue(folder_list.Any());
-            Assert.AreEqual(1, folder_list.Count);
-            Assert.AreEqual(1, folder_list[0].folder_id);
-            Assert.AreEqual("INBOX", folder_list[0].name);
+            var folderList = ImapExtensions.ParseImapMailboxes(list_string, "", MailQueueItemSettings.DefaultFolders).ToList();
+            Assert.IsTrue(folderList.Any());
+            Assert.AreEqual(1, folderList.Count);
+            Assert.AreEqual(1, folderList[0].folder_id);
+            Assert.AreEqual("INBOX", folderList[0].name);
         }
 
         [Test]
         public void TestGmailWithQuotaFormat()
         {
             const string list_string = "* LIST (\\HasNoChildren) \"/\" \"Pelikan/M2/20071010 PTI \"ID\" model\"\r\n140827105114648 OK LIST done";
-            var folder_list = ImapExtensions.ParseImapMailboxes(list_string).ToList();
-            Assert.IsTrue(folder_list.Any());
-            Assert.AreEqual(1, folder_list.Count);
-            Assert.AreEqual(1, folder_list[0].folder_id);
-            Assert.AreEqual("Pelikan/M2/20071010 PTI \"ID\" model", folder_list[0].name);
+            var folderList = ImapExtensions.ParseImapMailboxes(list_string, "", MailQueueItemSettings.DefaultFolders).ToList();
+            Assert.IsTrue(folderList.Any());
+            Assert.AreEqual(1, folderList.Count);
+            Assert.AreEqual(1, folderList[0].folder_id);
+            Assert.AreEqual("Pelikan/M2/20071010 PTI \"ID\" model", folderList[0].name);
         }
 
         [Test]
         public void TestGmailWhenLastCharDuim()
         {
             const string list_string = "* LIST (\\HasChildren) \"/\" \"Cisco/EFA 11.6\\\"\"\r\n140827105114648 OK LIST done";
-            var folder_list = ImapExtensions.ParseImapMailboxes(list_string).ToList();
-            Assert.IsTrue(folder_list.Any());
-            Assert.AreEqual(1, folder_list.Count);
-            Assert.AreEqual(1, folder_list[0].folder_id);
-            Assert.AreEqual("Cisco/EFA 11.6\"", folder_list[0].name);
+            var folderList = ImapExtensions.ParseImapMailboxes(list_string, "", MailQueueItemSettings.DefaultFolders).ToList();
+            Assert.IsTrue(folderList.Any());
+            Assert.AreEqual(1, folderList.Count);
+            Assert.AreEqual(1, folderList[0].folder_id);
+            Assert.AreEqual("Cisco/EFA 11.6\"", folderList[0].name);
         }
 
         [Test]
         public void TestWhenFolderNameIsOneChar()
         {
             const string list_string = "* LIST (\\HasChildren) \"/\" \"P\"\r\n140827105114648 OK LIST done";
-            var folder_list = ImapExtensions.ParseImapMailboxes(list_string).ToList();
-            Assert.IsTrue(folder_list.Any());
-            Assert.AreEqual(1, folder_list.Count);
-            Assert.AreEqual(1, folder_list[0].folder_id);
-            Assert.AreEqual("P", folder_list[0].name);
+            var folderList = ImapExtensions.ParseImapMailboxes(list_string, "", MailQueueItemSettings.DefaultFolders).ToList();
+            Assert.IsTrue(folderList.Any());
+            Assert.AreEqual(1, folderList.Count);
+            Assert.AreEqual(1, folderList[0].folder_id);
+            Assert.AreEqual("P", folderList[0].name);
         }
 
 
@@ -148,11 +149,11 @@ namespace ASC.Mail.Aggregator.Tests.Common
         public void TestYandexRuWithNewLineMoveFormat()
         {
             const string list_string = "* LIST (\\Unmarked \\HasNoChildren) \"|\" {28}\r\nCisco|test&AKA-\"id\"&AKA-test\r\n140827121936507 OK LIST completed";
-            var folder_list = ImapExtensions.ParseImapMailboxes(list_string).ToList();
-            Assert.IsTrue(folder_list.Any());
-            Assert.AreEqual(1, folder_list.Count);
-            Assert.AreEqual(1, folder_list[0].folder_id);
-            Assert.AreEqual("Cisco|test&AKA-\"id\"&AKA-test", folder_list[0].name);
+            var folderList = ImapExtensions.ParseImapMailboxes(list_string, "", MailQueueItemSettings.DefaultFolders).ToList();
+            Assert.IsTrue(folderList.Any());
+            Assert.AreEqual(1, folderList.Count);
+            Assert.AreEqual(1, folderList[0].folder_id);
+            Assert.AreEqual("Cisco|test&AKA-\"id\"&AKA-test", folderList[0].name);
 
         }
 
@@ -173,7 +174,32 @@ namespace ASC.Mail.Aggregator.Tests.Common
                                          "* LIST () \"/\" \"Public Folders/Bayesian Learning/Spam\"\r\n" + 
                                          "140827103505391 OK LIST completed";
 
-            ImapExtensions.ParseImapMailboxes(list_response).ToList();
+            ImapExtensions.ParseImapMailboxes(list_response, "", MailQueueItemSettings.DefaultFolders).ToList();
+        }
+
+        [Test]
+        public void TestParseWithoutFolderFlags()
+        {
+            const string list_string = "* LIST (\\HasNoChildren) \"/\" \"Trash\"\r\n" +
+                                       "* LIST (\\HasNoChildren) \"/\" \"Drafts\"\r\n" +
+                                       "* LIST (\\HasNoChildren) \"/\" \"Sent\"\r\n" +
+                                       "* LIST (\\HasNoChildren) \"/\" \"Junk\"\r\n" +
+                                       "* LIST (\\HasNoChildren) \"/\" \"INBOX\"\r\n" +
+                                       "151103112052465 OK List completed.\r\n";
+
+            var respnse = new Dictionary<string, int> { {"INBOX", 1}, {"Sent", 2}, {"Drafts", 3}, {"Junk", 5}, {"Trash", 4} };
+            var folderList = ImapExtensions.ParseImapMailboxes(list_string, "", MailQueueItemSettings.DefaultFolders,
+                                                                MailQueueItemSettings.SpecialDomainFolders,
+                                                                MailQueueItemSettings.SkipImapFlags, 
+                                                                MailQueueItemSettings.ImapFlags).ToList();
+            Assert.IsTrue(folderList.Any());
+            Assert.AreEqual(5, folderList.Count);
+
+            foreach (var folder in folderList)
+            {
+                Assert.IsTrue(respnse.ContainsKey(folder.name));
+                Assert.AreEqual(respnse[folder.name], folder.folder_id);
+            }
         }
     }
 }

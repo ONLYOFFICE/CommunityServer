@@ -31,24 +31,22 @@ jq(function () {
             //track event
 
             jq("#joinAffilliateBanner").trackEvent("affilliate_system", "action-click", "affilliate-banner");
-
-            AjaxPro.timeoutPeriod = 1800000;
-            AjaxPro.onLoading = function (b) {
-                if (b) {
+            Teamlab.joinAffiliate({},
+            {
+                before: function (params) {
                     LoadingBanner.displayLoading();
-                } else {
+                },
+                after: function (params) {
                     LoadingBanner.hideLoading();
-                }
-            };
-            AjaxPro.BannerController.JoinToAffiliateProgram(function (result) {
-                var res = result.value;
-                if (res.rs1 == "1" && res.rs2) {
-                    location.href = res.rs2;
-                } else if (res.rs1 == "0") {
-                    jq("#errorAffilliateBanner").text(res.rs2);
+                },
+                success: function (params, response) {
+                    location.href = response;
+                },
+                error: function (params, errors) {
+                    var err = errors[0];
+                    jq("#errorAffilliateBanner").text(err);
                 }
             });
-            return false;
         });
 
     }

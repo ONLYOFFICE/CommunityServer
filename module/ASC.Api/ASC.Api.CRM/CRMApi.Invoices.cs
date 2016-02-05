@@ -393,7 +393,7 @@ namespace ASC.Api.CRM
         /// <param optional="true" name="entityId">Invoice entity ID</param>
         /// <param optional="true" name="billingAddressID">Invoice billing address ID</param>
         /// <param optional="true" name="deliveryAddressID">Invoice delivery address ID</param>
-        /// <param optional="true" name="dueDate">Invoice due date</param>
+        /// <param optional="false" name="dueDate">Invoice due date</param>
         /// <param optional="false" name="language">Invoice language</param>
         /// <param optional="false" name="currency" remark="Allowed values: EUR, RUB etc. You can get the whole list of available currencies by api">Invoice currency</param>
         /// <param optional="false" name="exchangeRate">Invoice exchange rate</param>
@@ -701,14 +701,13 @@ namespace ASC.Api.CRM
         ///  Returns information about the generation of the pdf file of the invoice
         /// </summary>
         /// <param name="invoiceId">Invoice ID</param>
-        /// <param name="converterUrl">Converter Url</param>
         /// <param name="storageUrl">Storage Url</param>
         /// <param name="revisionId">Revision ID</param>
         /// <short>Check invoice pdf file</short> 
         /// <category>Invoices</category>
         /// <returns>ConverterData</returns>
         [Create(@"invoice/converter/data")]
-        public ConverterData GetInvoiceConverterData(int invoiceId, string converterUrl, string storageUrl, string revisionId)
+        public ConverterData GetInvoiceConverterData(int invoiceId, string storageUrl, string revisionId)
         {
             if (invoiceId <= 0) throw new ArgumentException();
 
@@ -721,7 +720,6 @@ namespace ASC.Api.CRM
 
             var converterData = new ConverterData
             {
-                ConverterUrl = converterUrl,
                 StorageUrl = storageUrl,
                 RevisionId = revisionId,
                 InvoiceId = invoiceId
@@ -734,7 +732,7 @@ namespace ASC.Api.CRM
                 return converterData;
             }
 
-            if (string.IsNullOrEmpty(converterUrl) || string.IsNullOrEmpty(storageUrl) || string.IsNullOrEmpty(revisionId))
+            if (string.IsNullOrEmpty(storageUrl) || string.IsNullOrEmpty(revisionId))
             {
                 return PdfCreator.StartCreationFileAsync(invoice);
             }

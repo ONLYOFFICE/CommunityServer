@@ -34,7 +34,7 @@ namespace ASC.Mail.Aggregator
 {
     public partial class MailBoxManager
     {
-        public void SaveEmailInData(MailBox mailbox, MailMessageItem message, ILogger log)
+        public void SaveEmailInData(MailBox mailbox, MailMessage message, ILogger log)
         {
             if (string.IsNullOrEmpty(mailbox.EMailInFolder))
                 return;

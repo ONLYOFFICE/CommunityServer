@@ -62,14 +62,6 @@ window.TipsSettings = new function() {
                 toastr.error(ASC.Resources.Master.Resource.CommonJSErrorMsg);
             }
         });
-        
-        if (!show) {
-            jq.post(ASC.Resources.Master.SetupInfoTipsAddress + 'tips/deletereaded',
-                {
-                    userId: Teamlab.profile.id,
-                    tenantId: ASC.Resources.Master.CurrentTenantId
-                });
-        }
     }
 
     return {

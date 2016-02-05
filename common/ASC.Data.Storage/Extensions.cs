@@ -33,7 +33,7 @@ public static class Extensions
 {
     private const int BufferSize = 2048;//NOTE: set to 2048 to fit in minimum tcp window
 
-    public static Stream GetBuffered(this Stream srcStream)
+    internal static Stream GetBuffered(this Stream srcStream)
     {
         if (srcStream == null) throw new ArgumentNullException("srcStream");
         if (!srcStream.CanSeek || srcStream.CanTimeout)
@@ -49,13 +49,18 @@ public static class Extensions
 
     public static byte[] GetCorrectBuffer(this Stream stream)
     {
-        Stream memoryStream = stream;
-        if (memoryStream == null) throw new ArgumentNullException("stream");
-        memoryStream = memoryStream.GetBuffered();
-        var buffer = new byte[memoryStream.Length];
-        memoryStream.Position = 0;
-        memoryStream.Read(buffer, 0, buffer.Length);
-        return buffer;
+        if (stream == null)
+        {
+            throw new ArgumentNullException("stream");
+        }
+
+        using (var mem = stream.GetBuffered())
+        {
+            var buffer = new byte[mem.Length];
+            mem.Position = 0;
+            mem.Read(buffer, 0, buffer.Length);
+            return buffer;
+        }
     }
 
     public static void StreamCopyTo(this Stream srcStream, Stream dstStream)

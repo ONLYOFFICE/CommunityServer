@@ -116,7 +116,7 @@ var DepartmentManagement = new function () {
         jq("#membersDepartmentList li").remove();
         jq("#membersAdvancedSelector").useradvancedSelector("reset");
         this._groupId = null;
-        jq("#grouptitle").html(ASC.Resources.Master.AddDepartmentHeader);
+        jq("#studio_departmentAddDialog .grouptitle").html(ASC.Resources.Master.AddDepartmentHeader);
         jq("#studio_departmentAddDialog .middle-button-container a.blue").html(ASC.Resources.Master.Resource.AddButton);
 
         PopupKeyUpActionProvider.ClearActions();
@@ -134,7 +134,7 @@ var DepartmentManagement = new function () {
         PopupKeyUpActionProvider.EnterAction = 'DepartmentManagement.AddDepartmentCallback()';
 
         this._groupId = id;
-        jq("#grouptitle").html(ASC.Resources.Master.EditDepartmentHeader);
+        jq("#studio_departmentAddDialog .grouptitle").html(ASC.Resources.Master.EditDepartmentHeader);
         jq("#studio_departmentAddDialog .middle-button-container .blue").html(ASC.Resources.Master.Resource.EditButton);
         jq("#studio_newDepName").val(gName);
 
@@ -165,7 +165,6 @@ var DepartmentManagement = new function () {
                 $memberList.find(".loading-link").remove();
             },
             success: function (params, gMembers) {
-                console.log(gMembers);
                 if (gMembers.length) {
                     var memberIds = [],
                         members = [];
@@ -258,3 +257,18 @@ var DepartmentManagement = new function () {
         LoadingBanner.hideLoaderBtn("#studio_departmentAddDialog");
     };
 };
+
+
+
+jq(document).ready(function () {
+    jq.tmpl("template-blockUIPanel", {
+        id: "studio_departmentAddDialog",
+        headerTest: ASC.People.Resources.AddDepartmentDlgTitle,
+        headerClass: "grouptitle"
+    }).insertAfter("#peopleSidepanel");
+    jq.tmpl("depAddPopupBodyTemplate", null).appendTo("#studio_departmentAddDialog .containerBodyBlock");
+
+    jq("#depActionBtn").on("click", ".button.blue", function () { DepartmentManagement.AddDepartmentCallback(); });
+    jq("#depActionBtn").on("click", ".button.gray", function () { DepartmentManagement.CloseAddDepartmentDialog(); });
+
+});

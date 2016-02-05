@@ -65,9 +65,8 @@ namespace ASC.FederatedLogin.LoginProviders
             try
             {
                 var token = Auth(context, FacebookProfileScope);
-                return token == null
-                           ? LoginProfile.FromError(new Exception("Login failed"))
-                           : RequestProfile(token.AccessToken);
+
+                return GetLoginProfile(token == null ? null : token.AccessToken);
             }
             catch (ThreadAbortException)
             {
@@ -81,18 +80,10 @@ namespace ASC.FederatedLogin.LoginProviders
 
         public LoginProfile GetLoginProfile(string accessToken)
         {
-            try
-            {
-                return RequestProfile(accessToken);
-            }
-            catch (ThreadAbortException)
-            {
-                throw;
-            }
-            catch (Exception ex)
-            {
-                return LoginProfile.FromError(ex);
-            }
+            if (string.IsNullOrEmpty(accessToken))
+                throw new Exception("Login failed");
+
+            return RequestProfile(accessToken);
         }
 
         public static OAuth20Token Auth(HttpContext context, string scopes)

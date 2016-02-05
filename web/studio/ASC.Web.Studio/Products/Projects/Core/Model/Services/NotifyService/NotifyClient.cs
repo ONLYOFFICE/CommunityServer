@@ -929,7 +929,7 @@ namespace ASC.Projects.Core.Services.NotifyService
                     new TagValue(NotifyConstants.Tag_EntityTitle, message.Title),
                     new TagValue(NotifyConstants.Tag_EntityID, message.ID),
                     new TagValue(NotifyConstants.Tag_EventType, isNew ? NotifyConstants.Event_MessageCreated.ID : NotifyConstants.Event_MessageEdited.ID),
-                    new TagValue(NotifyConstants.Tag_AdditionalData, new Hashtable {{"MessagePreview", message.Content}, {"Files", fileListInfoHashtable}}),
+                    new TagValue(NotifyConstants.Tag_AdditionalData, new Hashtable {{"MessagePreview", message.Description}, {"Files", fileListInfoHashtable}}),
                     ReplyToTagProvider.Comment("project.message", message.ID.ToString(CultureInfo.InvariantCulture))
                 };
 

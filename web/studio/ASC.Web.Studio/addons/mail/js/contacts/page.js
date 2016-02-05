@@ -144,13 +144,13 @@ window.contactsPage = (function($) {
                         isChange = true;
                     }
                     break;
-                case 'types':
+                case 'stages':
                     if (params.params.value == null) {
-                        filter.ContactType = undefined;
+                        filter.ContactStage = undefined;
                         isChange = true;
                     }
-                    if (filter.ContactType != params.params.value) {
-                        filter.ContactType = params.params.value;
+                    if (filter.ContactStage != params.params.value) {
+                        filter.ContactStage = params.params.value;
                         isChange = true;
                     }
                     break;
@@ -227,8 +227,8 @@ window.contactsPage = (function($) {
             case 'withopportunity':
                 filter.ContactListView = '';
                 break;
-            case 'types':
-                filter.ContactType = undefined;
+            case 'stages':
+                filter.ContactStage = undefined;
                 break;
             case 'tags':
                 filter.Tags = [];
@@ -243,7 +243,7 @@ window.contactsPage = (function($) {
 
     var onResetAllFilter = function() {
         filter.ContactListView = '';
-        filter.ContactType = undefined;
+        filter.ContactStage = undefined;
         filter.Tags = [];
         filter.Search = '';
         filter.FilterValue = '';
@@ -504,7 +504,7 @@ window.contactsPage = (function($) {
         filter.TlSortBy = 'displayName';
         filter.TlSortOrder = 'ascending';
         filter.ContactListView = '';
-        filter.ContactType = undefined;
+        filter.ContactStage = undefined;
         filter.Tags = [];
         filter.Search = '';
         filter.FilterValue = '';
@@ -603,7 +603,7 @@ window.contactsPage = (function($) {
 
     var isFilterEmpty = function() {
         var result = false;
-        if (!filter.Tags.length && filter.ContactType == undefined && filter.Search == ''
+        if (!filter.Tags.length && filter.ContactStage == undefined && filter.Search == ''
             && filter.FilterValue == '' && filter.ContactListView == '') {
             result = true;
         }
@@ -642,8 +642,8 @@ window.contactsPage = (function($) {
             crmFilter.setTags(filter.Tags);
         }
 
-        if (filter.ContactType != undefined) {
-            crmFilter.setType(filter.ContactType);
+        if (filter.ContactStage != undefined) {
+            crmFilter.setStage(filter.ContactStage);
         }
 
         if (filter.Search != '') {
@@ -797,8 +797,8 @@ window.contactsPage = (function($) {
             res += 'contactListView=' + filter.ContactListView + '/';
         }
 
-        if (filter.ContactType != undefined) {
-            res += 'contactType=' + filter.ContactType + '/';
+        if (filter.ContactStage != undefined) {
+            res += 'contactStage=' + filter.ContactStage + '/';
         }
 
         if (filter.Search != '') {
@@ -834,7 +834,7 @@ window.contactsPage = (function($) {
             sortBy = TMMail.getParamsValue(params, /sortBy=([^\/]+)/);
             sortOrder = TMMail.getParamsValue(params, /sortOrder=([^\/]+)/);
             contactListView = TMMail.getParamsValue(params, /contactListView=([^\/]+)/);
-            contactType = TMMail.getParamsValue(params, /contactType=([^\/]+)/);
+            contactType = TMMail.getParamsValue(params, /contactStage=([^\/]+)/);
             search = TMMail.getParamsValue(params, /search=([^\/]+)/);
             pageParam = TMMail.getParamsValue(params, /page=(\d+)/);
             pageSize = TMMail.getParamsValue(params, /page_size=(\d+)/);
@@ -875,9 +875,9 @@ window.contactsPage = (function($) {
         }
 
         if (contactType) {
-            filter.ContactType = contactType;
+            filter.ContactStage = contactType;
         } else {
-            filter.ContactType = undefined;
+            filter.ContactStage = undefined;
         }
 
         if (search) {
@@ -914,8 +914,8 @@ window.contactsPage = (function($) {
             if (filter.Search != '') {
                 filterData.filterValue = filter.Search;
             }
-            if (filter.ContactType) {
-                filterData.contactStage = filter.ContactType;
+            if (filter.ContactStage) {
+                filterData.contactStage = filter.ContactStage;
             }
             filterData.tags = filter.Tags;
 

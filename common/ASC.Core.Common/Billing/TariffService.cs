@@ -24,9 +24,9 @@
 */
 
 
+using ASC.Common.Caching;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
-using ASC.Core.Caching;
 using ASC.Core.Data;
 using ASC.Core.Tenants;
 using log4net;
@@ -46,15 +46,31 @@ namespace ASC.Core.Billing
         private static readonly TimeSpan DEFAULT_CACHE_EXPIRATION = TimeSpan.FromMinutes(5);
         private static readonly TimeSpan STANDALONE_CACHE_EXPIRATION = TimeSpan.FromMinutes(15);
 
+        private readonly static ICache cache;
+        private readonly static ICacheNotify notify;
+
         private static readonly ILog log = LogManager.GetLogger(typeof(TariffService));
         private readonly IQuotaService quotaService;
         private readonly ITenantService tenantService;
         private readonly CoreConfiguration config;
-        private readonly ICache cache;
         private readonly bool test;
+        private readonly int paymentDelay;
 
 
         public TimeSpan CacheExpiration { get; set; }
+
+
+        static TariffService()
+        {
+            cache = AscCache.Memory;
+            notify = AscCache.Notify;
+            notify.Subscribe<TariffCacheItem>((i, a) =>
+            {
+                cache.Remove(GetTariffCacheKey(i.TenantId));
+                cache.Remove(GetBillingUrlCacheKey(i.TenantId));
+                cache.Remove(GetBillingPaymentCacheKey(i.TenantId, DateTime.MinValue, DateTime.MaxValue)); // clear all payments
+            });
+        }
 
 
         public TariffService(ConnectionStringSettings connectionString, IQuotaService quotaService, ITenantService tenantService)
@@ -62,17 +78,17 @@ namespace ASC.Core.Billing
         {
             this.quotaService = quotaService;
             this.tenantService = tenantService;
-            this.config = new CoreConfiguration(tenantService);
-            this.cache = AscCache.Default;
-            this.CacheExpiration = DEFAULT_CACHE_EXPIRATION;
-            this.test = ConfigurationManager.AppSettings["core.payment-test"] == "true";
+            config = new CoreConfiguration(tenantService);
+            CacheExpiration = DEFAULT_CACHE_EXPIRATION;
+            test = ConfigurationManager.AppSettings["core.payment-test"] == "true";
+            int.TryParse(ConfigurationManager.AppSettings["core.payment-delay"], out paymentDelay);
         }
 
 
         public Tariff GetTariff(int tenantId, bool withRequestToPaymentSystem = true)
         {
-            var key = "tariff/" + tenantId;
-            var tariff = cache.Get(key) as Tariff;
+            var key = GetTariffCacheKey(tenantId);
+            var tariff = cache.Get<Tariff>(key);
             if (tariff == null)
             {
                 tariff = Tariff.CreateDefault();
@@ -83,6 +99,9 @@ namespace ASC.Core.Billing
                     tariff.QuotaId = cached.Item1;
                     tariff.DueDate = cached.Item2;
                 }
+
+                tariff = CalculateTariff(tenantId, tariff);
+                cache.Insert(key, tariff, DateTime.UtcNow.Add(GetCacheExpiration()));
 
                 if (withRequestToPaymentSystem)
                 {
@@ -131,9 +150,6 @@ namespace ASC.Core.Billing
                         }
                     });
                 }
-
-                tariff = CalculateTariff(tenantId, tariff);
-                cache.Insert(key, tariff, DateTime.UtcNow.Add(GetCacheExpiration()));
             }
 
             return tariff;
@@ -163,19 +179,33 @@ namespace ASC.Core.Billing
             ClearCache(tenantId);
         }
 
+        private static string GetTariffCacheKey(int tenantId)
+        {
+            return string.Format("{0}:{1}", tenantId, "tariff");
+        }
+
+        private static string GetBillingUrlCacheKey(int tenantId)
+        {
+            return string.Format("{0}:{1}", tenantId, "billing:urls");
+        }
+
+        private static string GetBillingPaymentCacheKey(int tenantId, DateTime from, DateTime to)
+        {
+            return string.Format("{0}:{1}:{2}-{3}", tenantId, "billing:payments", from.ToString("yyyyMMddHHmmss"), to.ToString("yyyyMMddHHmmss"));
+        }
+
+
         public void ClearCache(int tenantId)
         {
-            cache.Remove("tariff/" + tenantId);
-            cache.Remove("billing/urls/" + tenantId);
-            cache.Remove(string.Format("billing/payments/{0}{1:u}{2:u}", tenantId, DateTime.MinValue, DateTime.MaxValue)); // clear all payments
+            notify.Publish(new TariffCacheItem { TenantId = tenantId }, CacheNotifyAction.Remove);
         }
 
         public IEnumerable<PaymentInfo> GetPayments(int tenantId, DateTime from, DateTime to)
         {
             from = from.Date;
             to = to.Date.AddTicks(TimeSpan.TicksPerDay - 1);
-            var key = string.Format("billing/payments/{0}{1:u}{2:u}", tenantId, from, to);
-            var payments = cache.Get(key) as List<PaymentInfo>;
+            var key = GetBillingPaymentCacheKey(tenantId, from, to);
+            var payments = cache.Get<List<PaymentInfo>>(key);
             if (payments == null)
             {
                 payments = new List<PaymentInfo>();
@@ -206,10 +236,12 @@ namespace ASC.Core.Billing
             return payments;
         }
 
-        public Uri GetShoppingUri(int tenant, int plan)
+        public Uri GetShoppingUri(int? tenant, int plan, string affiliateId)
         {
-            var key = "billing/urls/" + tenant;
-            var urls = cache.Get(key) as IDictionary<string, Tuple<Uri, Uri>>;
+            var key = tenant.HasValue
+                ? GetBillingUrlCacheKey(tenant.Value)
+                : String.Format("notenant{0}", !string.IsNullOrEmpty(affiliateId) ? "_" + affiliateId : "");
+            var urls = cache.Get<Dictionary<string, Tuple<Uri, Uri>>>(key) as IDictionary<string, Tuple<Uri, Uri>>;
             if (urls == null)
             {
                 urls = new Dictionary<string, Tuple<Uri, Uri>>();
@@ -221,7 +253,9 @@ namespace ASC.Core.Billing
                                                .ToArray();
                     using (var client = GetBillingClient())
                     {
-                        urls = client.GetPaymentUrls(GetPortalId(tenant), products);
+                        urls = tenant.HasValue ?
+                            client.GetPaymentUrls(GetPortalId(tenant.Value), products, GetAffiliateId(tenant.Value)) :
+                            client.GetPaymentUrls(null, products, !string.IsNullOrEmpty(affiliateId) ? affiliateId : null);
                     }
                 }
                 catch (Exception error)
@@ -237,8 +271,8 @@ namespace ASC.Core.Billing
             Tuple<Uri, Uri> tuple;
             if (quota != null && !string.IsNullOrEmpty(quota.AvangateId) && urls.TryGetValue(quota.AvangateId, out tuple))
             {
-                var tariff = GetTariff(tenant);
-                if (tariff == null || tariff.QuotaId == plan || tariff.State == TariffState.NotPaid || tuple.Item2 == null)
+                var tariff = tenant.HasValue ? GetTariff(tenant.Value) : null;
+                if (tariff == null || tariff.QuotaId == plan || tariff.State >= TariffState.Delay || tuple.Item2 == null)
                 {
                     return tuple.Item1;
                 }
@@ -315,7 +349,7 @@ namespace ASC.Core.Billing
                             .InColumnValue("tariff", bi.Item1)
                             .InColumnValue("stamp", bi.Item2);
                         db.ExecuteNonQuery(i);
-                        cache.Remove("tariff/" + tenant);
+                        cache.Remove(GetTariffCacheKey(tenant));
                         inserted = true;
                     }
                     tx.Commit();
@@ -346,6 +380,7 @@ namespace ASC.Core.Billing
                 q = quotaService.GetTenantQuota(tariff.QuotaId);
             }
 
+            var delay = 0;
             if (q != null && q.Trial)
             {
                 tariff.State = TariffState.Trial;
@@ -365,7 +400,20 @@ namespace ASC.Core.Billing
                     }
                 }
             }
-            if (tariff.DueDate.Date < DateTime.UtcNow.Date)
+            else
+            {
+                delay = paymentDelay;
+            }
+
+            if (tariff.DueDate != DateTime.MinValue && tariff.DueDate.Date < DateTime.Today && delay > 0)
+            {
+                tariff.State = TariffState.Delay;
+
+                tariff.DelayDueDate = tariff.DueDate.Date.AddDays(delay);
+            }
+
+            if (tariff.DueDate == DateTime.MinValue ||
+                tariff.DueDate != DateTime.MaxValue && tariff.DueDate.Date.AddDays(delay) < DateTime.Today)
             {
                 tariff.State = TariffState.NotPaid;
 
@@ -413,6 +461,11 @@ namespace ASC.Core.Billing
             return config.GetKey(tenant);
         }
 
+        private string GetAffiliateId(int tenant)
+        {
+            return config.GetAffiliateId(tenant);
+        }
+
         private TimeSpan GetCacheExpiration()
         {
             if (config.Standalone && CacheExpiration < STANDALONE_CACHE_EXPIRATION)
@@ -430,7 +483,7 @@ namespace ASC.Core.Billing
             }
         }
 
-        private void LogError(Exception error)
+        private static void LogError(Exception error)
         {
             if (error is BillingNotFoundException)
             {
@@ -451,6 +504,13 @@ namespace ASC.Core.Billing
                     log.Error(error.Message);
                 }
             }
+        }
+
+
+        [Serializable]
+        class TariffCacheItem
+        {
+            public int TenantId { get; set; }
         }
     }
 }

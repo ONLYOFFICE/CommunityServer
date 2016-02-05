@@ -24,19 +24,15 @@
 */
 
 
-#region Usings
-
 using System;
 using System.Diagnostics;
-
-#endregion
 
 namespace ASC.Projects.Core.Domain
 {
     [DebuggerDisplay("SubTask: ID = {ID}, Title = {Title}")]
-    public class Subtask
+    public class Subtask : DomainObject<int>
     {
-        public int ID { get; set; }
+        public override EntityType EntityType { get { return EntityType.SubTask; } }
 
         public String Title { get; set; }
 

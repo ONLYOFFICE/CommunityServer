@@ -26,6 +26,7 @@
 
 using System;
 using System.Runtime.Serialization;
+using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Web.Files.Resources;
 
@@ -78,6 +79,9 @@ namespace ASC.Web.Files.Services.WCFService
         [DataMember(Name = "permissions")]
         public string Permissions { get; set; }
 
+        [DataMember(Name = "isLink", EmitDefaultValue = false, IsRequired = false)]
+        public bool IsLink { get; set; }
+
         public AceShortWrapper(AceWrapper aceWrapper)
         {
             var permission = string.Empty;
@@ -96,6 +100,11 @@ namespace ASC.Web.Files.Services.WCFService
             }
 
             User = aceWrapper.SubjectName;
+            if (aceWrapper.SubjectId.Equals(FileConstant.ShareLinkId))
+            {
+                IsLink = true;
+                User = FilesCommonResource.AceShareLink;
+            }
             Permissions = permission;
         }
     }

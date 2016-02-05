@@ -37,7 +37,7 @@ window.crmFilter = (function($) {
                 maxfilters: -1,
                 sorters: [
                     { id: 'displayname', title: MailScriptResource.FilterByTitle, sortOrder: 'ascending', def: true },
-                    { id: 'contacttype', title: MailScriptResource.FilterByContactTypes, sortOrder: 'ascending' }
+                    { id: 'contacttype', title: MailScriptResource.FilterByContactStage, sortOrder: 'ascending' }
                 ],
                 filters: [
                     {
@@ -87,9 +87,9 @@ window.crmFilter = (function($) {
                     },
                     {
                         type: "combobox",
-                        id: "types",
-                        apiparamname: "contactType",
-                        title: MailScriptResource.FilterContactType,
+                        id: "stages",
+                        apiparamname: "contactStage",
+                        title: MailScriptResource.FilterContactStage,
                         group: MailScriptResource.FilterAnotherGroup,
                         options: [],
                         defaulttitle: MailScriptResource.FilterChoose,
@@ -118,7 +118,7 @@ window.crmFilter = (function($) {
             tagsManager.events.bind('create', onUpdateTags);
             tagsManager.events.bind('update', onUpdateTags);
 
-            contactTypes.events.bind('update', onUpdateTypes);
+            contactStages.events.bind('update', onUpdateStages);
         }
     };
 
@@ -152,7 +152,7 @@ window.crmFilter = (function($) {
     var update = function() {
         filter.advansedFilter('resize');
         onUpdateTags();
-        contactTypes.update();
+        contactStages.update();
     };
 
     var onUpdateTags = function() {
@@ -165,12 +165,12 @@ window.crmFilter = (function($) {
         filter.advansedFilter({ filters: [{ type: 'combobox', id: 'tags', options: tags, enable: tags.length > 0 }] });
     };
 
-    var onUpdateTypes = function() {
-        var types = [];
-        $.each(contactTypes.getTypes(), function(index, value) {
-            types.push({ value: value.id, classname: 'colorFilterItem color_' + value.color.replace('#', ''), title: value.title });
+    var onUpdateStages = function() {
+        var stages = [];
+        $.each(contactStages.getStages(), function(index, value) {
+            stages.push({ value: value.id, classname: 'colorFilterItem color_' + value.color.replace('#', ''), title: value.title });
         });
-        filter.advansedFilter({ filters: [{ type: 'combobox', id: 'types', options: types, enable: types.length > 0 }] });
+        filter.advansedFilter({ filters: [{ type: 'combobox', id: 'stages', options: stages, enable: stages.length > 0 }] });
         events.trigger('ready');
     };
 
@@ -190,8 +190,8 @@ window.crmFilter = (function($) {
         showItem('withopportunity', { value: 'withopportunity' });
     };
 
-    var setType = function(value) {
-        filter.advansedFilter({ filters: [{ type: 'combobox', id: 'types', params: { value: value } }] });
+    var setStage = function(value) {
+        filter.advansedFilter({ filters: [{ type: 'combobox', id: 'stages', params: { value: value } }] });
     };
     var setTags = function(tags) {
         filter.advansedFilter({ filters: [{ type: 'combobox', id: 'tags', params: { value: tags } }] });
@@ -217,7 +217,7 @@ window.crmFilter = (function($) {
         setCompany: setCompany,
         setPerson: setPerson,
         setOpportunity: setOpportunity,
-        setType: setType,
+        setStage: setStage,
         setTags: setTags,
         setSearch: setSearch,
         setSort: setSort,

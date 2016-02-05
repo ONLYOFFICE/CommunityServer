@@ -24,10 +24,6 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using ASC.Bookmarking.Common;
 using ASC.Bookmarking.Common.Util;
 using ASC.Bookmarking.Pojo;
@@ -36,9 +32,12 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Users;
-using ASC.FullTextIndex.Service;
-using ASC.Web.Studio.Utility;
 using ASC.FullTextIndex;
+using ASC.Web.Studio.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace ASC.Bookmarking.Dao
 {
@@ -386,7 +385,7 @@ namespace ASC.Bookmarking.Dao
 
         #endregion
 
-        internal Bookmark RemoveBookmarkFromFavourite(long bookmarkID)
+        internal Bookmark RemoveBookmarkFromFavourite(long bookmarkID, Guid? userID = null)
         {
             var tx = DbManager.BeginTransaction();
             try
@@ -397,7 +396,7 @@ namespace ASC.Bookmarking.Dao
                                         .From("bookmarking_userbookmark")
                                         .Where("BookmarkID", bookmarkID)
                                         .Where("Tenant", Tenant)
-                                        .Where("UserID", GetCurrentUserId()));
+                                        .Where("UserID", userID ?? GetCurrentUserId()));
 
                 var raiting = GetUserBookmarksCount(bookmarkID);
 
@@ -713,6 +712,7 @@ group by TagID order by t.Name asc limit @l")
         private long SetBookmarksCount(long count)
         {
             ItemsCount = count;
+            BookmarkingHibernateDao.UpdateCurrentInstanse(this);
             return ItemsCount;
         }
 

@@ -24,10 +24,11 @@
 */
 
 
-using System;
-using System.Runtime.Serialization;
 using ASC.Core;
 using ASC.Web.Core.Utility.Settings;
+using System;
+using System.Globalization;
+using System.Runtime.Serialization;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -35,18 +36,20 @@ namespace ASC.Web.Studio.UserControls.Management
     [DataContract]
     public class TariffSettings : ISettings
     {
+        private static readonly CultureInfo CultureInfo = CultureInfo.CreateSpecificCulture("en-US");
+
         [DataMember(Name = "HideRecommendation")]
         public bool HideBuyRecommendationSetting { get; set; }
 
-        [DataMember(Name = "HideAnnualRecomendation")]
-        public bool HideAnnualRecomendationSetting { get; set; }
+        [DataMember(Name = "LicenseAccept")]
+        public string LicenseAcceptSetting { get; set; }
 
         public ISettings GetDefault()
         {
             return new TariffSettings
                 {
                     HideBuyRecommendationSetting = false,
-                    HideAnnualRecomendationSetting = false,
+                    LicenseAcceptSetting = DateTime.MinValue.ToString(CultureInfo),
                 };
         }
 
@@ -66,14 +69,21 @@ namespace ASC.Web.Studio.UserControls.Management
             }
         }
 
-        public static bool HideAnnualRecomendation
+        public static bool LicenseAccept
         {
-            get { return SettingsManager.Instance.LoadSettingsFor<TariffSettings>(SecurityContext.CurrentAccount.ID).HideAnnualRecomendationSetting; }
+            get
+            {
+                return !DateTime.MinValue.ToString(CultureInfo)
+                                .Equals(SettingsManager.Instance.LoadSettingsFor<TariffSettings>(SecurityContext.CurrentAccount.ID).LicenseAcceptSetting);
+            }
             set
             {
                 var tariffSettings = SettingsManager.Instance.LoadSettingsFor<TariffSettings>(SecurityContext.CurrentAccount.ID);
-                tariffSettings.HideAnnualRecomendationSetting = value;
-                SettingsManager.Instance.SaveSettingsFor(tariffSettings, SecurityContext.CurrentAccount.ID);
+                if (DateTime.MinValue.ToString(CultureInfo).Equals(tariffSettings.LicenseAcceptSetting))
+                {
+                    tariffSettings.LicenseAcceptSetting = DateTime.UtcNow.ToString(CultureInfo);
+                    SettingsManager.Instance.SaveSettingsFor(tariffSettings, SecurityContext.CurrentAccount.ID);
+                }
             }
         }
     }

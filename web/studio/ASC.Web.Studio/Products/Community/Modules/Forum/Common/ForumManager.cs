@@ -58,20 +58,7 @@ namespace ASC.Web.Community.Forum
 
         static ForumManager()
         {
-            Settings = new Settings
-                           {
-                               ModuleID = new Guid("853B6EB9-73EE-438d-9B09-8FFEEDF36234"),
-                               ImageItemID = new Guid("853B6EB9-73EE-438d-9B09-8FFEEDF36234"),
-                               UserControlsVirtualPath = "~/products/community/modules/forum/usercontrols",
-                               StartPageVirtualPath = "~/products/community/modules/forum/default.aspx",
-                               TopicPageVirtualPath = "~/products/community/modules/forum/topics.aspx",
-                               PostPageVirtualPath = "~/products/community/modules/forum/posts.aspx",
-                               SearchPageVirtualPath = "~/products/community/modules/forum/search.aspx",
-                               NewPostPageVirtualPath = "~/products/community/modules/forum/newpost.aspx",
-                               EditTopicPageVirtualPath = "~/products/community/modules/forum/edittopic.aspx",
-                               FileStoreModuleID = "forum",
-                               ConfigPath = "~/products/community/modules/forum/web.config"
-                           };
+            Settings = new Settings();
         }
     }
 }

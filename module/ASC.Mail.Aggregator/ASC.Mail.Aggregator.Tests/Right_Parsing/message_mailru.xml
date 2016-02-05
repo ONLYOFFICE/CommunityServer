@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><RightParserResult xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><From><Email>asccollector@inbox.ru</Email><Name>xxxx yyyy</Name></From><To><TestAddress><Email>test.mail@gip.ru</Email><Name>ety</Name></TestAddress></To><Cc /><Subject>test smile message and 1 attachment</Subject><TextEncoding>QuotedPrintable</TextEncoding><TextCharset>utf-8</TextCharset><TextBody>test smile message and 1 attachment
+<?xml version="1.0" encoding="utf-8"?><RightParserResult xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><From><Email>asccollector@inbox.ru</Email><Name>xxxx yyyy</Name></From><To><TestAddress><Email>test.mail@gip.ru</Email><Name>ety</Name></TestAddress></To><Cc /><Subject>test smile message and 1 attachment</Subject><TextEncoding>QuotedPrintable</TextEncoding><TextCharset>ascii</TextCharset><TextBody>test smile message and 1 attachment
 
 
 </TextBody><HtmlEncoding>QuotedPrintable</HtmlEncoding><HtmlCharset>utf-8</HtmlCharset><HtmlBody>

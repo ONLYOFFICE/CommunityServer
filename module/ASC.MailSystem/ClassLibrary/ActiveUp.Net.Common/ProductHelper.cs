@@ -77,7 +77,7 @@ namespace ActiveUp.Net.Mail
             // Insert pattern
             randomString = randomString.Insert(random.Next(randomString.Length), pattern);
 
-            return " " + randomString + " ";
+            return string.Format(" {0} ", randomString);
         }
     }
 

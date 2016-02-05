@@ -24,12 +24,6 @@
 */
 
 
-/*	
- 
- Copyright (c) Ascensio System SIA 2013. All rights reserved.
- http://www.teamlab.com
-
- */
 function G(){return function(){}}function V(y){return function(U){this[y]=U}}function W(y){return function(){return this[y]}}function aa(y){return function(){return y}}
 (function(y){var U,wa,xa,X,ia;function J(a){if(!a)return a;var b;[Number,String,Boolean].forEach(function(c){a instanceof c&&(b=c(a))});if("undefined"==typeof b)if("[object Array]"===Object.prototype.toString.call(a))b=[],a.forEach(function(a,c){b[c]=J(a)});else if("object"==typeof a)if(a.nodeType&&"function"==typeof a.cloneNode)b=a.cloneNode(!0);else if(a.prototype)b=a;else if(a instanceof Date)b=new Date(a);else{b={};for(var c in a)b[c]=J(a[c])}else b=a;return b}function N(a){a.preventDefault?a.preventDefault():
 a.returnValue&&(a.returnValue=!1);a.stopPropagation&&a.stopPropagation()}function S(a){var b=null;a||(a=y.event);a.target?b=a.target:a.srcElement&&(b=a.srcElement);3==b.nodeType&&(b=b.parentNode);return b}function Q(a){return a>>0}function M(a){return 0>a?~a++:a}function H(a,b,c,d,e,f){return c-5<=a&&d-5<=b&&e+5>=a&&f+5>=b}function P(a,b){return a&&a.length>b?a.substr(0,b-3)+"...":a}function ba(){this.root=null;this.zg=[];this.data=null}function ja(a){this.p=a}function Y(a,b){this.d=a;this.sa=b;this.ed=

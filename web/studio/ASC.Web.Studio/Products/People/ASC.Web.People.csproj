@@ -47,10 +47,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AjaxPro.2">
-      <HintPath>..\..\..\..\..\packages\AjaxPro.2.2.9.17.1\lib\net20\AjaxPro.2.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -109,13 +105,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>PeopleResource.resx</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\DepartmentAdd.ascx.cs">
-      <DependentUpon>DepartmentAdd.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\DepartmentAdd.ascx.designer.cs">
-      <DependentUpon>DepartmentAdd.ascx</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\SideNavigationPanel.ascx.cs">
       <DependentUpon>SideNavigationPanel.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -136,12 +125,11 @@
     <Content Include="js\peopleController.js" />
     <Content Include="Profile.aspx" />
     <Content Include="Templates\PeopleTemplates.ascx" />
-    <Content Include="UserControls\DepartmentAdd.ascx" />
     <Content Include="UserControls\SideNavigationPanel.ascx" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\PeopleJSResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>PeopleJSResource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\PeopleResource.resx">

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -27,22 +27,25 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
-using ASC.MessagingSystem;
-using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Studio.Core.Users;
-using AjaxPro;
+
 using ASC.Core;
 using ASC.Core.Users;
+using ASC.MessagingSystem;
 using ASC.Web.Core;
+using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Controls.Users;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Utility;
-using System.Web;
-using System.Text;
+
 using Resources;
+
+using AjaxPro;
+using Newtonsoft.Json;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -74,14 +77,49 @@ namespace ASC.Web.Studio.UserControls.Management
         public const string Location = "~/UserControls/Management/AccessRights/AccessRights.ascx";
 
         protected bool CanOwnerEdit;
-        protected bool AdvancedRightsEnabled = true;
 
         protected bool EnableAR = true;
 
-        protected List<IProduct> Products;
-        protected List<IProduct> ProductsForAccessSettings;
+        private List<IProduct> products;
+        protected List<IProduct> Products
+        {
+            get
+            {
+                return products ?? (products = WebItemManager.Instance.GetItemsAll<IProduct>());
+            }
+        }
+
+        private List<IProduct> productsForAccessSettings;
+        protected List<IProduct> ProductsForAccessSettings
+        {
+            get
+            {
+                return productsForAccessSettings ??
+                       (productsForAccessSettings =
+                           Products.Where(n => String.Compare(n.GetSysName(), "people") != 0).ToList());
+            }
+        }
 
         protected string[] FullAccessOpportunities { get; set; }
+
+
+
+
+        protected string PeopleImgSrc
+        {
+            get { return WebImageSupplier.GetAbsoluteWebPath("user_12.png"); }
+        }
+
+        protected string GroupImgSrc
+        {
+            get { return WebImageSupplier.GetAbsoluteWebPath("group_12.png"); }
+        }
+
+        protected string TrashImgSrc
+        {
+            get { return WebImageSupplier.GetAbsoluteWebPath("trash_12.png"); }
+        }
+
 
         #endregion
 
@@ -93,17 +131,6 @@ namespace ASC.Web.Studio.UserControls.Management
             RegisterClientScript();
         }
 
-        protected void RptProductsItemDataBound(object sender, RepeaterItemEventArgs e)
-        {
-            if (e.Item.ItemType == ListItemType.AlternatingItem || e.Item.ItemType == ListItemType.Item)
-            {
-                var phProductItem = (PlaceHolder)e.Item.FindControl("phProductItem");
-                var productItem = (AccessRightsProductItem)LoadControl(AccessRightsProductItem.Location);
-                productItem.ProductItem = (Item)e.Item.DataItem;
-                phProductItem.Controls.Add(productItem);
-            }
-        }
-
         #endregion
 
         #region Methods
@@ -111,8 +138,6 @@ namespace ASC.Web.Studio.UserControls.Management
         private void InitControl()
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Products = WebItemManager.Instance.GetItemsAll<IProduct>();
-            ProductsForAccessSettings = Products.Where(n => String.Compare(n.GetSysName(), "people") != 0).ToList();
 
             //owner settings
             var curTenant = CoreContext.TenantManager.GetCurrentTenant();
@@ -125,32 +150,18 @@ namespace ASC.Web.Studio.UserControls.Management
                     EmployeeUrl = currentOwner.GetUserProfilePageURL(),
                 });
 
-            var managementPage = Page as Studio.Management;
-            var tenantAccess = managementPage != null ? managementPage.TenantAccess : SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID);
-
-            if (tenantAccess.Anyone)
-            {
-                AdvancedRightsEnabled = false;
-            }
-            else
-            {
-                rptProducts.DataSource = GetDataSource();
-                rptProducts.ItemDataBound += RptProductsItemDataBound;
-                rptProducts.DataBind();
-            }
-
             FullAccessOpportunities = Resource.AccessRightsFullAccessOpportunities.Split('|');
         }
 
         private void RegisterClientScript()
         {
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/accessrights/js/accessrights.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/accessrights/css/accessrights.less"));
+            Page.RegisterBodyScripts("~/usercontrols/management/accessrights/js/accessrights.js");
+            Page.RegisterStyle("~/usercontrols/management/accessrights/css/accessrights.less");
 
             var curTenant = CoreContext.TenantManager.GetCurrentTenant();
             var currentOwner = CoreContext.UserManager.GetUsers(curTenant.OwnerId);
             var admins = WebItemSecurity.GetProductAdministrators(Guid.Empty).Where(admin => admin.ID != currentOwner.ID).SortByUserName();
-
+            
             var sb = new StringBuilder();
 
             sb.AppendFormat("ownerId = {0};", JavaScriptSerializer.Serialize(curTenant.OwnerId));
@@ -163,38 +174,96 @@ namespace ASC.Web.Studio.UserControls.Management
                                     displayName = u.DisplayUserName(),
                                     title = u.Title.HtmlEncode(),
                                     userUrl = CommonLinkUtility.GetUserProfile(u.ID),
-                                    accessList = GetAccessList(u.ID)
+                                    accessList = GetAccessList(u.ID, WebItemSecurity.IsProductAdministrator(Guid.Empty, u.ID))
                                 }))
                 );
-            sb.AppendFormat("ASC.Settings.AccessRights.init({0},\"{1}\");",
-                            JavaScriptSerializer.Serialize(Products.Select(p => p.GetSysName()).ToArray()),
-                            CustomNamingPeople.Substitute<Resource>("AccessRightsAddGroup").HtmlEncode()
+
+
+
+
+            var managementPage = Page as Studio.Management;
+            var tenantAccess = managementPage != null ? managementPage.TenantAccess : SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID);
+
+            if (!tenantAccess.Anyone)
+            {
+                var productItemList = GetProductItemListForSerialization();
+
+                foreach (var ProductItem in productItemList)
+                {
+                    var ids = ProductItem.SelectedUsers.Select(i => i.ID).ToArray();
+                    var names = ProductItem.SelectedUsers.Select(i => i.DisplayUserName()).ToArray();
+
+                    sb.AppendFormat("SelectedUsers_{0} = {1};",
+                        ProductItem.ItemName,
+                        JavaScriptSerializer.Serialize(
+                        new
+                        {
+                            IDs = ids,
+                            Names = names,
+                            PeopleImgSrc = PeopleImgSrc,
+                            TrashImgSrc = TrashImgSrc,
+                            TrashImgTitle = Resources.Resource.DeleteButton,
+                            CurrentUserID = SecurityContext.CurrentAccount.ID
+                        })
+                    );
+
+                    ids = ProductItem.SelectedGroups.Select(i => i.ID).ToArray();
+                    names = ProductItem.SelectedGroups.Select(i => i.Name.HtmlEncode()).ToArray();
+
+                    sb.AppendFormat("SelectedGroups_{0} = {1};",
+                        ProductItem.ItemName,
+                        JavaScriptSerializer.Serialize(
+                        new
+                        {
+                            IDs = ids,
+                            Names = names,
+                            GroupImgSrc = GroupImgSrc,
+                            TrashImgSrc = TrashImgSrc,
+                            TrashImgTitle = Resources.Resource.DeleteButton
+                        })
+                    );
+
+                    if (!ProductItem.CanNotBeDisabled)
+                    {
+                        sb.AppendFormat("ASC.Settings.AccessRights.initProduct('{0}');",
+                            Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(ProductItem))));
+                    }
+                }
+            }
+
+
+            sb.AppendFormat("ASC.Settings.AccessRights.init({0});",
+                            JavaScriptSerializer.Serialize(Products.Select(p => p.GetSysName()).ToArray())
                 );
 
             Page.RegisterInlineScript(sb.ToString());
         }
 
-        private List<Item> GetDataSource()
+        private List<Item> GetProductItemListForSerialization()
         {
             var data = new List<Item>();
 
             foreach (var p in Products)
             {
+                if (String.IsNullOrEmpty(p.Name)) continue;
+
+                var userOpportunities = p.GetUserOpportunities();
+
                 var item = new Item
                     {
                         ID = p.ID,
-                        Name = p.Name,
+                        Name = p.Name.HtmlEncode(),
                         IconUrl = p.GetIconAbsoluteURL(),
                         DisabledIconUrl = p.GetDisabledIconAbsoluteURL(),
                         SubItems = new List<Item>(),
-                        ItemName = p.GetSysName(),
-                        UserOpportunitiesLabel = String.Format(Resource.AccessRightsProductUsersCan, p.Name),
-                        UserOpportunities = p.GetUserOpportunities(),
+                        ItemName = p.GetSysName().HtmlEncode(),
+                        UserOpportunitiesLabel = String.Format(Resource.AccessRightsProductUsersCan, p.Name).HtmlEncode(),
+                        UserOpportunities = userOpportunities != null ? userOpportunities.ConvertAll(uo => uo.HtmlEncode()) : null,
                         CanNotBeDisabled = p.CanNotBeDisabled()
                     };
 
                 if (p.HasComplexHierarchyOfAccessRights())
-                    item.UserOpportunitiesLabel = String.Format(Resource.AccessRightsProductUsersWithRightsCan, item.Name);
+                    item.UserOpportunitiesLabel = String.Format(Resource.AccessRightsProductUsersWithRightsCan, item.Name).HtmlEncode();
 
                 var productInfo = WebItemSecurity.GetSecurityInfo(item.ID.ToString());
                 item.Disabled = !productInfo.Enabled;
@@ -207,9 +276,8 @@ namespace ASC.Web.Studio.UserControls.Management
             return data;
         }
 
-        private object GetAccessList(Guid uId)
+        private object GetAccessList(Guid uId, bool fullAccess)
         {
-            var fullAccess = WebItemSecurity.IsProductAdministrator(Guid.Empty, uId);
             var res = new List<object>
                 {
                     new
@@ -221,18 +289,12 @@ namespace ASC.Web.Studio.UserControls.Management
                         }
                 };
 
-            if (ProductsForAccessSettings == null)
-            {
-                Products = WebItemManager.Instance.GetItemsAll<IProduct>();
-                ProductsForAccessSettings = Products.Where(n => String.Compare(n.GetSysName(), "people") != 0).ToList();
-            }
-
             foreach (var p in ProductsForAccessSettings)
                 res.Add(new
                     {
                         pId = p.ID,
                         pName = p.GetSysName(),
-                        pAccess = WebItemSecurity.IsProductAdministrator(p.ID, uId),
+                        pAccess = fullAccess || WebItemSecurity.IsProductAdministrator(p.ID, uId),
                         disabled = fullAccess
                     });
 
@@ -287,19 +349,17 @@ namespace ASC.Web.Studio.UserControls.Management
 
             WebItemSecurity.SetProductAdministrator(Guid.Empty, id, true);
 
-            var result = new
-                {
-                    id = user.ID,
-                    smallFotoUrl = user.GetSmallPhotoURL(),
-                    displayName = user.DisplayUserName(),
-                    title = user.Title.HtmlEncode(),
-                    userUrl = CommonLinkUtility.GetUserProfile(user.ID),
-                    accessList = GetAccessList(user.ID)
-                };
-
             MessageService.Send(HttpContext.Current.Request, MessageAction.AdministratorAdded, user.DisplayUserName(false));
 
-            return result;
+            return new
+                   {
+                       id = user.ID,
+                       smallFotoUrl = user.GetSmallPhotoURL(),
+                       displayName = user.DisplayUserName(),
+                       title = user.Title.HtmlEncode(),
+                       userUrl = CommonLinkUtility.GetUserProfile(user.ID),
+                       accessList = GetAccessList(user.ID, true)
+                   };
         }
 
         #endregion

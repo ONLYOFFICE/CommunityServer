@@ -24,13 +24,9 @@
 */
 
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using ASC.Projects.Core.Domain;
-
-#endregion
 
 namespace ASC.Projects.Core.DataInterfaces
 {
@@ -38,7 +34,7 @@ namespace ASC.Projects.Core.DataInterfaces
     {
         List<Subtask> GetSubtasks(int taskid);
 
-        void GetSubtasks(ref List<Task> tasks);
+        void GetSubtasksForTasks(ref List<Task> tasks);
 
         void CloseAllSubtasks(Task task);
 

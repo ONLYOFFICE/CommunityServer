@@ -24,12 +24,12 @@
 */
 
 
-using System;
-using System.Collections.Generic;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
+using System;
+using System.Collections.Generic;
 
 namespace ASC.Files.Thirdparty.GoogleDrive
 {
@@ -43,18 +43,19 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public void SetShare(FileShareRecord r)
         {
-            using (var tx = DbManager.BeginTransaction())
+            using (var db = GetDb())
+            using (var tx = db.BeginTransaction())
             {
                 if (r.Share == FileShare.None)
                 {
                     if (r.EntryType == FileEntryType.Folder)
                     {
-                        var entryIDs = DbManager.ExecuteList(Query("files_thirdparty_id_mapping")
+                        var entryIDs = db.ExecuteList(Query("files_thirdparty_id_mapping")
                                                                  .Select("hash_id")
                                                                  .Where(Exp.Like("id", r.EntryId.ToString(), SqlLike.StartWith)))
                                                 .ConvertAll(x => x[0]);
 
-                        DbManager.ExecuteNonQuery(Delete("files_security")
+                        db.ExecuteNonQuery(Delete("files_security")
                                                       .Where(Exp.In("entry_id", entryIDs) &
                                                              Exp.Eq("subject", r.Subject.ToString())));
                     }
@@ -62,10 +63,10 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                     {
                         var d2 = Delete("files_security")
                             .Where(Exp.Eq("entry_id", MappingID(r.EntryId, true)))
-                            .Where("entry_type", (int) FileEntryType.File)
+                            .Where("entry_type", (int)FileEntryType.File)
                             .Where("subject", r.Subject.ToString());
 
-                        DbManager.ExecuteNonQuery(d2);
+                        db.ExecuteNonQuery(d2);
                     }
                 }
                 else
@@ -73,13 +74,13 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                     var i = new SqlInsert("files_security", true)
                         .InColumnValue("tenant_id", r.Tenant)
                         .InColumnValue("entry_id", MappingID(r.EntryId, true))
-                        .InColumnValue("entry_type", (int) r.EntryType)
+                        .InColumnValue("entry_type", (int)r.EntryType)
                         .InColumnValue("subject", r.Subject.ToString())
                         .InColumnValue("owner", r.Owner.ToString())
-                        .InColumnValue("security", (int) r.Share)
+                        .InColumnValue("security", (int)r.Share)
                         .InColumnValue("timestamp", DateTime.UtcNow);
 
-                    DbManager.ExecuteNonQuery(i);
+                    db.ExecuteNonQuery(i);
                 }
 
                 tx.Commit();

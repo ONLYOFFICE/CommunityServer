@@ -28,7 +28,7 @@ window.PagesNavigation = (function($) {
     var visiblePageCount = 3;
 
     var changeSysfolderPageCallback = function(number) {
-        var anchor = "#" + TMMail.GetSysFolderNameById(MailFilter.getFolder());
+        var anchor = "#" + TMMail.getSysFolderNameById(MailFilter.getFolder());
         var prevFlag, el;
         var messagesRows = $('.messages:visible .row[data_id]');
 
@@ -133,21 +133,24 @@ window.PagesNavigation = (function($) {
         var $navigationBarSourceDiv = $('#bottomNavigationBar');
         $prevNextDiv.html("");
 
-        var $simplePn = jq("<div></div>");
+        var nav = [];
+
         var $prevSource = $navigationBarSourceDiv.find(".pagerPrevButtonCSSClass");
         var $nextSource = $navigationBarSourceDiv.find(".pagerNextButtonCSSClass");
 
         if ($prevSource.length != 0) {
-            $prevSource.clone().appendTo($simplePn);
+            nav.push($prevSource.clone());
         }
+
         if ($nextSource.length != 0) {
             if ($prevSource.length != 0) {
-                $("<span style='padding: 0 8px;'>&nbsp;</span>").clone().appendTo($simplePn);
+                nav.push($("<span style='padding: 0 8px;'>&nbsp;</span>").clone());
             }
-            $nextSource.clone().appendTo($simplePn);
+            nav.push($nextSource.clone());
         }
-        if ($simplePn.children().length != 0) {
-            $simplePn.appendTo($prevNextDiv);
+
+        if (nav.length != 0) {
+            $prevNextDiv.append(nav);
             $prevNextDiv.show();
         } else {
             $prevNextDiv.hide();

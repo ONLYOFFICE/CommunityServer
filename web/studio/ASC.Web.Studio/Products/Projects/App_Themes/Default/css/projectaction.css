@@ -59,7 +59,8 @@
 }
 
 #projectManagerContainer .headerPanelSmall,
-#projectTeamContainer .headerPanelSmall{
+#projectTeamContainer .headerPanelSmall,
+#projectStatusContainer .headerPanelSmall {
     margin-bottom:15px;
 }
 

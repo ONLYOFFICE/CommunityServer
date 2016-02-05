@@ -211,7 +211,7 @@ window.ServiceFactory = (function() {
             { handler: 'prj-discussions', re: /project\/message\.json/ },
             { handler: 'prj-discussions', re: /project\/[\w\d-]+\/message\.json/, method: 'get' },
             { handler: 'prj-discussions', re: /project\/message\/filter\.json/ },
-            { handler: 'prj-project', re: /project\.json/, method: 'post' },
+
             { handler: 'prj-project', re: /project\/[\w\d-]+\/contact\.json/, method: 'post' },
             { handler: 'prj-project', re: /project\/[\w\d-]+\/contact\.json/, method: 'delete' },
             { handler: 'prj-projects', re: /project[\/]*[@self|@follow]*\.json/ },
@@ -225,6 +225,7 @@ window.ServiceFactory = (function() {
             { handler: 'prj-timespends', re: /project\/time\/filter\.json/, method: 'get' },
             { handler: 'prj-timespends', re: /project\/task\/[\w\d-]+\/time\.json/, method: 'get' },
             { handler: 'prj-activities', re: /project\/activities\/filter\.json/ },
+            { handler: 'prj-project', re: /project\.json/, method: 'post' },
             { handler: 'doc-miss', re: /files\/fileops.json/ },
             { handler: 'doc-folder', re: /files\/[@\w\d-]+\.json/ },
             { handler: 'doc-folder', re: /files\/[\w\d-]+\/[text|html|file]+\.json/ },
@@ -241,6 +242,7 @@ window.ServiceFactory = (function() {
             { handler: 'doc-file', re: /crm\/[case|contact|opportunity]+\/[\w\d-]+\/files\/upload\.json/ },
             { handler: 'doc-file', re: /crm\/[case|contact|opportunity]+\/[\w\d-]+\/files\/text\.json/ },
             { handler: 'doc-miss', re: /files\/fileops.json/ },
+            { handler: 'doc-check', re: /files\/checkdocservice.json/ },
             { handler: 'crm-addresses', re: /crm\/contact\/[\w\d-]+\/data\.json/, method: 'get' },
             { handler: 'crm-address', re: /crm\/contact\/[\w\d-]+\/data\/[\w\d-]+\.json/ },
             { handler: 'crm-address', re: /crm\/contact\/[\w\d-]+\/data\.json/, method: 'post' },
@@ -258,7 +260,6 @@ window.ServiceFactory = (function() {
             { handler: 'crm-tweets', re: /crm\/contact\/[\w\d-]+\/tweets\.json/ },
             { handler: 'crm-twitterprofiles', re: /crm\/contact\/twitterprofile\.json/ },
             { handler: 'crm-facebookprofiles', re: /crm\/contact\/facebookprofile\.json/ },
-            { handler: 'crm-linkedinprofiles', re: /crm\/contact\/linkedinprofile\.json/ },
             { handler: 'crm-progressitem', re: /crm\/contact\/mailsmtp\/send\.json/ },
             { handler: 'crm-progressitem', re: /crm\/contact\/mailsmtp\/status\.json/ },
             { handler: 'crm-progressitem', re: /crm\/contact\/mailsmtp\/cancel\.json/ },
@@ -312,7 +313,6 @@ window.ServiceFactory = (function() {
             { handler: 'crm-contacts', re: /crm\/[case|opportunity]+\/[\w\d-]+\/contact\.json/, method: 'get' },
             { handler: 'crm-contacts', re: /crm\/contact\/access\.json/ },
             { handler: 'crm-contacts', re: /crm\/contact\/[\w\d-]+\/access\.json/ },
-            { handler: 'crm-crunchbaseinfo', re: /crm\/contact\/crunchbase\.json/ },
             { handler: 'crm-cases', re: /crm\/case\/access\.json/ },
             { handler: 'crm-cases', re: /crm\/case\/[\w\d-]+\/access\.json/ },
             { handler: 'crm-opportunities', re: /crm\/opportunity\/access\.json/ },
@@ -397,6 +397,9 @@ window.ServiceFactory = (function() {
             { handler: 'profiles', re: /people\/filter\.json/ },
             { handler: 'profiles', re: /people\/type\/[\w\d-]+\.json/ },
             { handler: 'profiles', re: /people\/invite\.json/ },
+            { handler: 'text', re: /people\/remindpwd\.json/ },
+            { handler: 'text', re: /people\/thirdparty\/linkaccount\.json/ },
+            { handler: 'text', re: /people\/thirdparty\/unlinkaccount\.json/ },
             { handler: 'group', re: /group\/[\w\d-]+\.json/ },
             { handler: 'groups', re: /group\.json/ },
             { handler: 'crm-tasks', re: /crm\/contact\/task\/group\.json/ },
@@ -405,6 +408,35 @@ window.ServiceFactory = (function() {
             { handler: 'crm-voipSettings', re: /crm\/voip\/numbers\/settings.json/ },
             { handler: 'comment', re: /comment\.json/, method: 'post' },
             { handler: 'comments', re: /comment\.json/, method: 'get' },
+            
+            
+            { handler: 'text', re: /project\/comment\/[\w\d-]+\.json/, method: 'delete' },
+            { handler: 'text', re: /community\/wiki\/comment\/[\w\d-]+\.json/, method: 'delete' },
+            { handler: 'text', re: /community\/event\/comment\/[\w\d-]+\.json/, method: 'delete' },
+            { handler: 'text', re: /community\/bookmark\/comment\/[\w\d-]+\.json/, method: 'delete' },
+            { handler: 'text', re: /community\/blog\/comment\/[\w\d-]+\.json/, method: 'delete' },
+            
+            { handler: 'text', re: /project\/comment\/[\w\d-]+\.json/, method: 'put' },
+            { handler: 'text', re: /community\/wiki\/comment\/[\w\d-]+\.json/, method: 'put' },
+            { handler: 'text', re: /community\/event\/comment\/[\w\d-]+\.json/, method: 'put' },
+            { handler: 'text', re: /community\/bookmark\/comment\/[\w\d-]+\.json/, method: 'put' },
+            { handler: 'text', re: /community\/blog\/comment\/[\w\d-]+\.json/, method: 'put' },
+            
+            { handler: 'text', re: /project\/message\/discussion\/preview\.json/ },
+            { handler: 'commentinlist', re: /project\/message\/preview\.json/ },
+            { handler: 'commentinlist', re: /community\/wiki\/comment\/preview\.json/ },
+            { handler: 'commentinlist', re: /community\/event\/comment\/preview\.json/ },
+            { handler: 'commentinlist', re: /community\/bookmark\/comment\/preview\.json/ },
+            { handler: 'commentinlist', re: /community\/blog\/comment\/preview\.json/ },
+            
+            { handler: 'commentinlist', re: /project\/comment\.json/, method: 'post' },
+            { handler: 'commentinlist', re: /community\/wiki\/comment\.json/, method: 'post' },
+            { handler: 'commentinlist', re: /community\/event\/comment\.json/, method: 'post' },
+            { handler: 'commentinlist', re: /community\/bookmark\/comment\.json/, method: 'post' },
+            { handler: 'commentinlist', re: /community\/blog\/comment\.json/, method: 'post' },
+            
+            
+            
             { handler: 'feed-feeds', re: /feed\/filter\.json/ },
             { handler: 'text', re: /crm\/[contact|opportunity|case|relationshipevent]+\/[\w\d-]+\/files\/hidden\.json/ }
         ];
@@ -1169,6 +1201,8 @@ window.ServiceFactory = (function() {
             text: o.text || ''
         }
     };
+    
+    
 
     var createCommentsTree = function(o) {
         var comments = [],
@@ -1296,9 +1330,13 @@ window.ServiceFactory = (function() {
         comment: function(response) {
             return createComment(response);
         },
-
+        
         comments: function(response) {
             return createCommentsTree(response);
+        },
+        
+        commentinlist: function(response){
+            return response;
         },
 
         searchentryitems: function(response) {
@@ -1477,13 +1515,10 @@ window.ServiceFactory = (function() {
                 id: response.id,
                 timestamp: crtdate ? crtdate.getTime() : 0,
                 crtdate: crtdate,
-                displayCrtdate: getDisplayDatetime(crtdate),
                 displayDateCrtdate: getDisplayDate(crtdate),
-                displayTimeCrtdate: getDisplayTime(crtdate),
                 uptdate: uptdate,
                 displayUptdate: getDisplayDatetime(uptdate),
                 displayDateUptdate: getDisplayDate(uptdate),
-                displayTimeUptdate: getDisplayTime(uptdate),
                 createdBy: createdBy,
                 updatedBy: createPerson(response.updatedBy),
                 responsible: responsible,
@@ -1606,7 +1641,8 @@ window.ServiceFactory = (function() {
             });
         },
 
-        discussion: function(response) {
+        discussion: function (response) {
+            var crtdate = serializeDate(response.created);
             return extend(this.item(response), {
                 type: 'discussion',
                 projectId: response.hasOwnProperty('projectOwner') ? response.projectOwner.id : -1,
@@ -1614,24 +1650,39 @@ window.ServiceFactory = (function() {
                 parentId: null,
                 comments: null,
                 text: response.text || '',
-                status: response.status
+                status: response.status,
+                displayTimeCrtdate: getDisplayTime(crtdate)
             });
         },
 
-        project: function(response) {
-            return extend(this.item(response), {
-                type: 'project',
-                responsibleId: response.responsible.id ? response.responsible.id : response.responsible,
+        project: function (response) {
+            var createdBy = createPerson(response.createdBy);
+            var responsible = createPerson(response.responsible);
+
+            return {
+                id: response.id,
+                title: response.title || '',
+                description: response.description || '',
                 status: response.status,
-                taskCount: response.taskCount,
-                milestoneCount: response.milestoneCount,
-                participantCount: response.participantCount,
+
                 canCreateMessage: response.hasOwnProperty('security') ? response.security.canCreateMessage : '',
                 canCreateMilestone: response.hasOwnProperty('security') ? response.security.canCreateMilestone : '',
                 canCreateTask: response.hasOwnProperty('security') ? response.security.canCreateTask : '',
+
+                isPrivate: response.isPrivate || false,
                 isInTeam: response.hasOwnProperty('security') ? response.security.isInTeam : '',
-                canLinkContact: response.hasOwnProperty('security') ? response.security.canLinkContact : null
-            });
+                canLinkContact: response.hasOwnProperty('security') ? response.security.canLinkContact : null,
+
+                displayDateCrtdate: getDisplayDate(serializeDate(response.created)),
+                taskCount: response.taskCount,
+                milestoneCount: response.milestoneCount,
+                participantCount: response.participantCount,
+                responsibleId: response.responsible.id ? response.responsible.id : response.responsible,
+                canEdit: response.canEdit || false,
+
+                createdBy: createdBy,
+                responsible: responsible
+            };
         },
 
         link: function(response) {
@@ -1706,10 +1757,11 @@ window.ServiceFactory = (function() {
             });
         },
 
-        projects: function(response) {
-            return collection(response, this.item, function(response) {
-                return factories.prj.project(response);
-            });
+        projects: function (response) {
+            var func = function(prj) {
+                return factories.prj.project(prj);
+            };
+            return response.map(func);
         },
 
         links: function(response) {
@@ -1726,6 +1778,7 @@ window.ServiceFactory = (function() {
             person.canReadTasks = response.canReadTasks;
             person.canReadContacts = response.canReadContacts;
             person.isAdministrator = response.isAdministrator;
+            person.isManager = response.isManager;
             person.department = response.department || "";
             return person;
         },
@@ -2288,27 +2341,6 @@ window.ServiceFactory = (function() {
             });
         },
 
-        linkedinprofile: function(response) {
-            var postedOn = serializeDate(response.postedOn);
-            return {
-                type: "linkedinprofile",
-                userID: response.userID,
-                userName: response.userName,
-                firstName: response.firstName,
-                lastName: response.lastName,
-                companyName: response.companyName,
-                imageUrl: response.imageUrl,
-                position: response.position,
-                publicProfileUrl: response.publicProfileUrl
-            };
-        },
-
-        linkedinprofiles: function(response) {
-            return collection(response, null, function(response) {
-                return factories.crm.linkedinprofile(response);
-            });
-        },
-
         progressitem: function(response) {
             return response;
         },
@@ -2714,10 +2746,6 @@ window.ServiceFactory = (function() {
             };
         },
 
-        crunchbaseinfo: function(response) {
-            return response;
-        },
-
         voipNumbers: function(response) {
             return collection(response, null, function(response) {
                 return factories.crm.voipNumber(response);
@@ -2781,7 +2809,6 @@ window.ServiceFactory = (function() {
         converterData: function(response) {
             return {
                 type: 'converterData',
-                converterUrl: response.converterUrl,
                 storageUrl: response.storageUrl,
                 revisionId: response.revisionId,
                 urlToFile: response.urlToFile,

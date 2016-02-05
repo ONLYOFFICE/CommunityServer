@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -41,8 +41,8 @@ namespace ASC.Web.Studio.UserControls.Feed
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(LoadControl(VirtualPathUtility.ToAbsolute("~/Masters/FeedBodyScripts.ascx")));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/UserControls/Feed/css/feed.less"));
+            Page.RegisterBodyScriptsControl("~/Masters/FeedBodyScripts.ascx");
+            Page.RegisterStyle("~/UserControls/Feed/css/feed.less");
             Page.RegisterInlineScript(@"new Feed('" + AccessRights() + "').init();");
         }
 

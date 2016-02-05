@@ -25,7 +25,7 @@
             </li>
             <li><a href="<%= string.Format("messages.aspx?prjID={0}&id={1}&action=edit", Project.ID, Discussion.ID) %>" class="dropdown-item"><%= MessageResource.EditMessage %></a></li>
             <li><a id="deleteDiscussionButton" discussionid="<%= Discussion.ID %>" class="dropdown-item"><%= MessageResource.DeleteMessage %></a></li>
-                <% if(RequestContext.CanCreateTask(true) && Project.Status == ProjectStatus.Open)
+                <% if (Page.RequestContext.CanCreateTask(true) && Project.Status == ProjectStatus.Open)
                    {%>
                 <li><a id="createTaskOnDiscussion" class="dropdown-item"><%= MessageResource.CreateTaskOnDiscussion %></a></li>
                 <% } %>
@@ -56,14 +56,14 @@
             </a>
         </div>
         <div>
-            <%=  HtmlUtility.GetFull(Discussion.Content) %>
+            <%=  HtmlUtility.GetFull(Discussion.Description) %>
         </div>
     </div>
 </div>
 
 <div id="discussionTabs">
     <div class="tabs-section" container="discussionParticipantsContainer">
-        <span class="header-base"><%= MessageResource.DiscussionParticipants %></span>
+        <span class="header-base"><%= GetTabTitle(ParticipiantCount, MessageResource.DiscussionParticipants) %></span>
         <span id="switcherDiscussionParticipants" class="toggle-button" data-switcher="1" 
                 data-showtext="<%= ProjectsCommonResource.Show %>" data-hidetext="<%= ProjectsCommonResource.Hide %>">
                 <%= ProjectsCommonResource.Show %>
@@ -75,10 +75,6 @@
 
         <% } %>
         <ul id="discussionParticipantsTable" class="items-display-list">
-            <% var currentParticipiant = new ParticipiantWrapper(Page.Participant.ID.ToString(), Discussion);%>
-            <li class="items-display-list_i hidden <%= currentParticipiant.CanRead ? "" : "gray" %>" id="currentLink" guid="<%= currentParticipiant.ID %>">
-                <span class="item-name"><%= currentParticipiant.FullUserName %></span>
-            </li>
         </ul>
         <div style="clear: both;"></div>
     </div>
@@ -99,7 +95,7 @@
 <% if (CommentsAvailable)
    { %>
 <div class="tabs-section" container="discussionCommentsContainer">
-    <span class="header-base"><%= GetTabTitle(int.Parse(discussionComments.CommentsCountTitle), MessageResource.Comments) %></span>
+    <span class="header-base"><%= GetTabTitle(int.Parse(string.IsNullOrEmpty(CommentsCountTitle) ? "0" : CommentsCountTitle), MessageResource.Comments) %></span>
     <span id="switcherCommentsButton" class="toggle-button" data-switcher="0" 
                 data-showtext="<%= ProjectsCommonResource.Show %>" data-hidetext="<%= ProjectsCommonResource.Hide %>">
                 <%= ProjectsCommonResource.Hide %>

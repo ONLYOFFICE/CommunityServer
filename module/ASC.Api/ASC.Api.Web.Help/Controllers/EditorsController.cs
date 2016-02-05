@@ -40,29 +40,24 @@ namespace ASC.Api.Web.Help.Controllers
     {
         private enum ActionType
         {
+            Advanced,
             Basic,
-            HowItWorks,
+            Callback,
             Config,
-            Document,
-            DocInfo,
-            DocPermissions,
-            Editor,
-            Events,
-            Open,
-            Save,
             Conversion,
             ConversionApi,
-            Hardware
-        }
-        
-        public ActionResult Index()
-        {
-            return View("Basic");
-        }
-
-        public ActionResult Navigation()
-        {
-            return View();
+            Customization,
+            DocInfo,
+            DocPermissions,
+            Document,
+            Editor,
+            Embedded,
+            Events,
+            Hardware,
+            HowItWorks,
+            License,
+            Open,
+            Save
         }
 
         public ActionResult Search(string query)
@@ -99,33 +94,34 @@ namespace ASC.Api.Web.Help.Controllers
         }
 
 
+        public ActionResult Navigation()
+        {
+            return View();
+        }
+
+
+        public ActionResult Index()
+        {
+            return View("Basic");
+        }
+
+
+        public ActionResult Advanced()
+        {
+            return View();
+        }
+
         public ActionResult Basic()
         {
             return View();
         }
 
-
-        public ActionResult DemoPreview()
-        {
-            var directoryInfo = new DirectoryInfo(Request.MapPath("~/app_data"));
-
-            var examples = directoryInfo.GetFiles("*.zip", SearchOption.TopDirectoryOnly).Select(fileInfo => fileInfo.Name).ToList();
-
-            return View(examples);
-        }
-
-
-        public ActionResult HowItWorks()
+        public ActionResult Callback()
         {
             return View();
         }
 
-        public ActionResult Open()
-        {
-            return View();
-        }
-
-        public ActionResult Save()
+        public ActionResult Config()
         {
             return View();
         }
@@ -140,18 +136,7 @@ namespace ASC.Api.Web.Help.Controllers
             return View();
         }
 
-        public ActionResult Hardware()
-        {
-            return View();
-        }
-
-
-        public ActionResult Config()
-        {
-            return View();
-        }
-
-        public ActionResult Document()
+        public ActionResult Customization()
         {
             return View();
         }
@@ -166,12 +151,56 @@ namespace ASC.Api.Web.Help.Controllers
             return View();
         }
 
+        public ActionResult Document()
+        {
+            return View();
+        }
+
+        public ActionResult DemoPreview()
+        {
+            var directoryInfo = new DirectoryInfo(Request.MapPath("~/app_data"));
+
+            var examples = directoryInfo.GetFiles("*.zip", SearchOption.TopDirectoryOnly).Select(fileInfo => fileInfo.Name).ToList();
+
+            return View(examples);
+        }
+
         public ActionResult Editor()
         {
             return View();
         }
 
+        public ActionResult Embedded()
+        {
+            return View();
+        }
+
         public ActionResult Events()
+        {
+            return View();
+        }
+
+        public ActionResult Hardware()
+        {
+            return View();
+        }
+
+        public ActionResult HowItWorks()
+        {
+            return View();
+        }
+
+        public ActionResult License()
+        {
+            return View();
+        }
+
+        public ActionResult Open()
+        {
+            return View();
+        }
+
+        public ActionResult Save()
         {
             return View();
         }

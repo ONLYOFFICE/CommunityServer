@@ -4,7 +4,7 @@
     Inherits="System.Web.Mvc.ViewUserControl"
 %>
 
-<a class="logo" href="<%=Url.Action("index","home") %>"></a>
+<a class="logo" href="<%= Url.Action("index","home") %>"></a>
 
 <% 
     var products = (ConfigurationManager.AppSettings["enabled_products"] ?? "").Split('|');
@@ -17,7 +17,7 @@
     <% if (products.Contains("portals"))
        { %>
     <li class="<%= Html.IfController("portals") || subControllerStr.Equals("portals", StringComparison.OrdinalIgnoreCase) ? "active" : "" %>">
-        <a href="<%= Url.Action("basic", "portals") %>">Common Server</a>
+        <a href="<%= Url.Action("basic", "portals") %>">Community Server</a>
     </li>
     <% } %>
     <% if (products.Contains("editors"))

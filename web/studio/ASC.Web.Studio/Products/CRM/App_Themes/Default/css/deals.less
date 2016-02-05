@@ -90,6 +90,44 @@ DealListView
     display: block;
     width: auto;
 }
+
+body.media-width-0-1400 {
+    #dealList td.dealTitle > div {
+        max-width: 350px;
+        width: 350px;
+    }
+}
+body.media-width-0-1350 {
+    #dealList td.dealTitle > div {
+        max-width: 300px;
+        width: 300px;
+    }
+}
+body.media-width-0-1300 {
+    #dealList td.dealTitle > div {
+        max-width: 270px;
+        width: 270px;
+    }
+}
+body.media-width-0-1250 {
+    #dealList td.dealTitle > div {
+        max-width: 220px;
+        width: 220px;
+    }
+}
+body.media-width-0-1200,
+body.media-width-min {
+    #dealList td.dealTitle > div {
+        max-width: 170px;
+        width: 170px;
+    }
+}
+body.media-width-min {
+    #dealList td.dealTitle > div {
+        white-space: nowrap;
+    }
+}
+
 /*******************************************************************************
 DealActionView.ascx
 *******************************************************************************/
@@ -158,18 +196,22 @@ DealActionView.ascx
     }
 }
 
-@media all and (max-width: 1200px) {
-    #crm_dealMakerDialog .deal_info {
-        width: 670px;
-    }
-    #crm_dealMakerDialog .middle-button-container{
-        min-width: 670px;
-    }
+body.media-width-0-1200,
+body.media-width-min {
+    #crm_dealMakerDialog {
+        .deal_info {
+            width: 670px;
+        }
 
-    #crm_dealMakerDialog .deal_info dl #dealClientContainer,
-    #crm_dealMakerDialog .deal_info dl #dealMembersBody,
-    #crm_dealMakerDialog .deal_info dl .assignedDealContacts {
-        width: 674px;
+        .middle-button-container {
+            min-width: 670px;
+        }
+
+        .deal_info dl #dealClientContainer,
+        .deal_info dl #dealMembersBody,
+        .deal_info dl .assignedDealContacts {
+            width: 674px;
+        }
     }
 }
 /*******************************************************************************

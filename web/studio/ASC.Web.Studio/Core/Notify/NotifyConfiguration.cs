@@ -39,7 +39,7 @@ using ASC.Notify.Patterns;
 using ASC.Web.Core;
 using ASC.Web.Studio.Utility;
 using log4net;
-using ASC.Web.Core.CoBranding;
+using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.Studio.Core.Notify
 {

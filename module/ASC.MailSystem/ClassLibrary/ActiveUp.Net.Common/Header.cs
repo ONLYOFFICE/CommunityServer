@@ -22,6 +22,7 @@ using System;
 using System.IO;
 using System.Net;
 using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace ActiveUp.Net.Mail
@@ -165,8 +166,8 @@ namespace ActiveUp.Net.Mail
 
             if (this.Date.Equals(DateTime.MinValue)) this.Date = DateTime.Now;
             
-            if (this.MessageId == null || this.MessageId == string.Empty)
-                this.MessageId = "<AU" + Codec.GetUniqueString() + "@" + System.Net.Dns.GetHostName() + ">";
+            if (string.IsNullOrEmpty(this.MessageId))
+                this.MessageId = string.Format("<AU{0}@{1}>", Codec.GetUniqueString(), System.Net.Dns.GetHostName());
 
             if (this.ContentType.MimeType.Length > 0)
             {
@@ -194,12 +195,12 @@ namespace ActiveUp.Net.Mail
             System.Reflection.Assembly asm = System.Reflection.Assembly.GetExecutingAssembly();
             System.Version v = asm.GetName().Version;
 
-            this.AddHeaderField("X-Mailer", "ActiveUp.MailSystem " + v.Major + "." + v.Minor + "." + v.Build + " www.activeup.com");
+            this.AddHeaderField("X-Mailer", string.Format("ActiveUp.MailSystem {0}.{1}.{2} www.activeup.com", v.Major, v.Minor, v.Build));
             
             foreach (string key in this.HeaderFields.AllKeys)
             {
                 for (int i = 0; i < this.HeaderFields.GetValues(key).Length ; i++)
-                    sb.Append(this.HeaderFieldNames.GetValues(key)[i] + ": " + this.HeaderFields.GetValues(key)[i] + "\r\n");
+                    sb.AppendFormat("{0}: {1}\r\n", this.HeaderFieldNames.GetValues(key)[i], this.HeaderFields.GetValues(key)[i]);
             }
 
             /*string header = sb.ToString().TrimEnd('\r', '\n');
@@ -1059,9 +1060,12 @@ namespace ActiveUp.Net.Mail
             }
             set
             {
-                string temp = "";
-                foreach (string str in value.Groups.AllKeys) temp += " " + str + ":" + value.Groups[str];
-                this.HeaderFields["xref"] = value.Host + temp;
+                var sb = new StringBuilder();
+                sb.Append(value.Host);
+                foreach (var str in value.Groups.AllKeys) 
+                    sb.AppendFormat(" {0}:{1}", str, value.Groups[str]);
+
+                this.HeaderFields["xref"] = sb.ToString();
             }
         }
 

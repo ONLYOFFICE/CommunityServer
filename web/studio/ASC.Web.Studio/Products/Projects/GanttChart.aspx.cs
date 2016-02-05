@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -35,10 +35,10 @@ namespace ASC.Web.Projects
     public partial class GanttChart : BasePage
     {
         protected override bool CanRead { get { return !MobileDetector.IsMobile; } }
+        protected override bool CheckSecurity { get { return CanRead; } }
 
         protected override void PageLoad()
         {
-            Master.DisabledHelpTour = true;
             Master.DisabledSidePanel = true;
             Master.DisabledPrjNavPanel = true;
             Master.DisabledEmptyScreens = true;
@@ -54,8 +54,8 @@ namespace ASC.Web.Projects
             _taskAction.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Tasks/TaskAction.ascx")));
             _milestoneAction.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Milestones/MilestoneAction.ascx")));
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/products/projects/app_themes/default/css/common.css"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/products/projects/app_themes/default/css/ganttchart.css"));
+            Page.RegisterStyle("~/products/projects/app_themes/default/css/common.css");
+            Page.RegisterStyle("~/products/projects/app_themes/default/css/ganttchart.css");
 
             Title = HeaderStringHelper.GetPageTitle(ProjectResource.GanttGart);
         }

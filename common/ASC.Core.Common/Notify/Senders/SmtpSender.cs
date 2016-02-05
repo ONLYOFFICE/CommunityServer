@@ -24,21 +24,20 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Net.Mail;
-using System.Text;
 using ASC.Common.Utils;
 using ASC.Notify.Messages;
 using ASC.Notify.Patterns;
 using log4net;
-using System.Security.Cryptography.X509Certificates;
-using System.Net.Security;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Mail;
+using System.Net.Mime;
+using System.Text;
 
 namespace ASC.Core.Notify.Senders
 {
-    class SmtpSender : INotifySender
+    internal class SmtpSender : INotifySender
     {
         private const string htmlFormat =
             @"<!DOCTYPE html PUBLIC ""-//W3C//DTD HTML 4.01 Transitional//EN"">
@@ -49,11 +48,7 @@ namespace ASC.Core.Notify.Senders
 <body>{0}</body>
 </html>";
 
-        protected ILog Log
-        {
-            get;
-            private set;
-        }
+        protected ILog Log { get; private set; }
 
         private string host;
         private int port;
@@ -78,13 +73,12 @@ namespace ASC.Core.Notify.Senders
             {
                 host = properties["host"];
                 port = properties.ContainsKey("port") ? int.Parse(properties["port"]) : 25;
-                ssl = properties.ContainsKey("enableSsl") ? bool.Parse(properties["enableSsl"]) : false;
+                ssl = properties.ContainsKey("enableSsl") && bool.Parse(properties["enableSsl"]);
                 if (properties.ContainsKey("userName"))
                 {
                     credentials = new NetworkCredential(
                         properties["userName"],
-                        properties["password"],
-                        properties.ContainsKey("domain") ? properties["domain"] : string.Empty);
+                        properties["password"]);
                 }
             }
         }
@@ -95,7 +89,7 @@ namespace ASC.Core.Notify.Senders
             host = s.Host;
             port = s.Port;
             ssl = s.EnableSSL;
-            credentials = new NetworkCredential(s.CredentialsUserName, s.CredentialsUserPassword, s.CredentialsDomain);
+            credentials = new NetworkCredential(s.CredentialsUserName, s.CredentialsUserPassword);
         }
 
         public virtual NoticeSendResult Send(NotifyMessage m)
@@ -113,29 +107,29 @@ namespace ASC.Core.Notify.Senders
                     {
                         ServicePointManager.ServerCertificateValidationCallback = (s, cert, c, p) => true;
                     }
-   
+
                     smtpClient.Send(mail);
                     result = NoticeSendResult.OK;
                 }
-                catch (Exception e)
+                catch(Exception e)
                 {
                     Log.ErrorFormat("Tenant: {0}, To: {1} - {2}", m.Tenant, m.To, e);
                     throw;
                 }
             }
-            catch (ArgumentException)
+            catch(ArgumentException)
             {
                 result = NoticeSendResult.MessageIncorrect;
             }
-            catch (ObjectDisposedException)
+            catch(ObjectDisposedException)
             {
                 result = NoticeSendResult.SendingImpossible;
             }
-            catch (InvalidOperationException)
+            catch(InvalidOperationException)
             {
                 result = string.IsNullOrEmpty(smtpClient.Host) || smtpClient.Port == 0 ? NoticeSendResult.SendingImpossible : NoticeSendResult.TryOnceAgain;
             }
-            catch (SmtpFailedRecipientException e)
+            catch(SmtpFailedRecipientException e)
             {
                 if (e.StatusCode == SmtpStatusCode.MailboxBusy ||
                     e.StatusCode == SmtpStatusCode.MailboxUnavailable ||
@@ -154,7 +148,7 @@ namespace ASC.Core.Notify.Senders
                     result = NoticeSendResult.TryOnceAgain;
                 }
             }
-            catch (SmtpException)
+            catch(SmtpException)
             {
                 result = NoticeSendResult.SendingImpossible;
             }
@@ -168,14 +162,14 @@ namespace ASC.Core.Notify.Senders
         private MailMessage BuildMailMessage(NotifyMessage m)
         {
             var email = new MailMessage
-            {
-                BodyEncoding = Encoding.UTF8,
-                SubjectEncoding = Encoding.UTF8,
-                From = MailAddressUtils.Create(m.From),
-                Subject = m.Subject,
-            };
+                {
+                    BodyEncoding = Encoding.UTF8,
+                    SubjectEncoding = Encoding.UTF8,
+                    From = MailAddressUtils.Create(m.From),
+                    Subject = m.Subject,
+                };
 
-            foreach (var to in m.To.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries))
+            foreach (var to in m.To.Split(new[] {'|'}, StringSplitOptions.RemoveEmptyEntries))
             {
                 email.To.Add(MailAddressUtils.Create(to));
             }
@@ -183,7 +177,9 @@ namespace ASC.Core.Notify.Senders
             if (m.ContentType == Pattern.HTMLContentType)
             {
                 email.Body = HtmlUtil.GetText(m.Content);
-                email.AlternateViews.Add(AlternateView.CreateAlternateViewFromString(GetHtmlView(m.Content), Encoding.UTF8, "text/html"));
+                var aview = AlternateView.CreateAlternateViewFromString(GetHtmlView(m.Content), Encoding.UTF8, "text/html");
+                aview.TransferEncoding = TransferEncoding.Base64;
+                email.AlternateViews.Add(aview);
             }
             else
             {
@@ -210,9 +206,11 @@ namespace ASC.Core.Notify.Senders
                 InitUseCoreSettings();
             }
             Log.DebugFormat("SmtpSender - host={0}; port={1}; enableSsl={2}", host, port, ssl);
-            var smtpClient = new SmtpClient(host, port);
-            smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-            smtpClient.EnableSsl = ssl;
+            var smtpClient = new SmtpClient(host, port)
+                {
+                    DeliveryMethod = SmtpDeliveryMethod.Network,
+                    EnableSsl = ssl
+                };
             if (credentials != null)
             {
                 smtpClient.UseDefaultCredentials = false;

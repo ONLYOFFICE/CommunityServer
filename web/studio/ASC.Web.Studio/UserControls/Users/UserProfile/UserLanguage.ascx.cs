@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -46,7 +46,7 @@ namespace ASC.Web.Studio.UserControls.Users
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterStyleControl(ResolveUrl("~/usercontrols/users/userprofile/css/userlanguages.less"));
+            Page.RegisterStyle(ResolveUrl("~/usercontrols/users/userprofile/css/userlanguages.less"));
             Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/usercontrols/users/userprofile/js/userlanguage.js"));
         }
 
@@ -56,22 +56,30 @@ namespace ASC.Web.Studio.UserControls.Users
             try
             {
                 var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-
+                var curLng = user.CultureName;
+                
                 var changelng = false;
                 if (SetupInfo.EnabledCultures.Find(c => String.Equals(c.Name, lng, StringComparison.InvariantCultureIgnoreCase)) != null)
                 {
-                    if (user.CultureName != lng)
+                    if (curLng != lng)
                     {
                         user.CultureName = lng;
                         changelng = true;
+
+                        try
+                        {
+                            CoreContext.UserManager.SaveUserInfo(user);
+                        }
+                        catch (Exception ex)
+                        {
+                            user.CultureName = curLng;
+                            throw ex;
+                        }
+
+                        MessageService.Send(HttpContext.Current.Request, MessageAction.UserUpdatedLanguage);
                     }
                 }
-                CoreContext.UserManager.SaveUserInfo(user);
-                if (changelng)
-                {
-                    MessageService.Send(HttpContext.Current.Request, MessageAction.UserUpdatedLanguage);
-                }
-
+                
                 return new {Status = changelng ? 1 : 2, Message = Resource.SuccessfullySaveSettingsMessage};
             }
             catch(Exception e)

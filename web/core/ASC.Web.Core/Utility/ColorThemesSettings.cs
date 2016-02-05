@@ -38,7 +38,8 @@ namespace ASC.Web.Core.Utility
     [DataContract]
     public class ColorThemesSettings : ISettings
     {
-        private const string DefaultName = "default";
+        public const string ThemeFolderTemplate = "<theme_folder>";
+        private const string DefaultName = "pure-orange";
 
         [DataMember(Name = "ColorThemeName")]
         public string ColorThemeName { get; set; }
@@ -63,7 +64,7 @@ namespace ASC.Web.Core.Utility
         public static string GetThemeFolderName(string path)
         {
             var folderName = GetColorThemesSettings();
-            var resolvedPath = path.ToLower().Replace("<theme_folder>", folderName);
+            var resolvedPath = path.ToLower().Replace(ThemeFolderTemplate, folderName);
 
             if (!VirtualPathUtility.IsAbsolute(resolvedPath))
                 resolvedPath = VirtualPathUtility.ToAbsolute(resolvedPath);
@@ -72,7 +73,7 @@ namespace ASC.Web.Core.Utility
 
             if (!File.Exists(filePath))
             {
-                resolvedPath = path.ToLower().Replace("<theme_folder>", "default");
+                resolvedPath = path.ToLower().Replace(ThemeFolderTemplate, "default");
 
                 if (!VirtualPathUtility.IsAbsolute(resolvedPath))
                     resolvedPath = VirtualPathUtility.ToAbsolute(resolvedPath);

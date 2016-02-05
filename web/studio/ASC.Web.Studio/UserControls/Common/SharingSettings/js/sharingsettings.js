@@ -75,6 +75,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
 
     var _data = sharingData;
     var _workData = clone(sharingData);
+    var _changed = false;
 
     var _manager = this;
 
@@ -85,7 +86,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
             });
         }
 
-        jq("#sharingSettingsSaveButton").click(_manager.SaveAndCloseDialog);
+        jq("#studio_sharingSettingsDialog").on("click", ".sharing-save-button", _manager.SaveAndCloseDialog);
         jq("#studio_sharingSettingsDialog").on("click", ".sharing-cancel-button", _manager.CloseDialog);
 
         jq("#studio_sharingSettingsDialog").on("click", ".removeItem", function () {
@@ -152,6 +153,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
     };
 
     var changeItemAction = function (itemId, actionId) {
+        changeStatus(true);
         var act = null;
 
         for (var i = 0; i < _workData.actions.length; i++) {
@@ -171,6 +173,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
     };
 
     var removeItem = function (itemId) {
+        changeStatus(true);
         for (var i = 0; i < _workData.items.length; i++) {
             if (_workData.items[i].id == itemId) {
                 if (_workData.items[i].canEdit === false || _workData.items[i].hideRemove) {
@@ -192,7 +195,8 @@ var SharingSettingsManager = function (elementId, sharingData) {
         return true;
     };
 
-    var addUsers = function (event, users) { 
+    var addUsers = function (event, users) {
+        changeStatus(true);
         var selectedIds = jq(users).map(function (j, user) {
             return user.id;
         }).toArray();
@@ -219,6 +223,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
     };
 
     var addUserItem = function (userId, userName) {
+        changeStatus(true);
         var defAct = null;
         for (var i = 0; i < _workData.actions.length; i++) {
             if (_workData.actions[i].defaultAction) {
@@ -237,6 +242,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
     };
 
     var addGroups = function (event, groups) {
+        changeStatus(true);
         var selectedIds = jq(groups).map(function (j, group) {
             return group.id;
         }).toArray();
@@ -263,6 +269,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
     };
 
     var addGroupItem = function (groupId, groupName) {
+        changeStatus(true);
         var defAct = null;
         for (var i = 0; i < _workData.actions.length; i++) {
             if (_workData.actions[i].defaultAction) {
@@ -319,7 +326,19 @@ var SharingSettingsManager = function (elementId, sharingData) {
         shareGroupSelector.groupadvancedSelector("disable", disableGroupIds);
     };
 
+    var changeStatus = function (value) {
+        _changed = value;
+
+        jq(".sharing-notchanged-buttons").toggleClass("display-none", value);
+        jq(".sharing-changed-buttons").toggleClass("display-none", !value);
+    };
+
+    this.WhereChanges = function () {
+        return _changed;
+    };
+
     this.UpdateSharingData = function (data) {
+        changeStatus(false);
         _data = data;
         _workData = clone(data);
     };
@@ -343,7 +362,7 @@ var SharingSettingsManager = function (elementId, sharingData) {
                 .css({ "display": "block" });
         }
 
-        PopupKeyUpActionProvider.EnterAction = "jq(\"#sharingSettingsSaveButton\").click();";
+        PopupKeyUpActionProvider.EnterAction = "jq(\".sharing-save-button:visible\").click();";
     };
 
     this.SaveAndCloseDialog = function () {

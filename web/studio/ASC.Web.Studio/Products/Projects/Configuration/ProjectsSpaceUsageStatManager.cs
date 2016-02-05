@@ -40,12 +40,10 @@ namespace ASC.Web.Projects.Configuration
 {
     public class ProjectsSpaceUsageStatManager : SpaceUsageStatManager
     {
-        private const string PROJECTS_DBID = "projects";
-
         public override List<UsageSpaceStatItem> GetStatData()
         {
             using (var filedb = new DbManager(FileConstant.DatabaseId))
-            using (var projdb = new DbManager(PROJECTS_DBID))
+            using (var projdb = new DbManager(Global.DbID))
             {
                 var q = new SqlQuery("files_file f")
                     .Select("b.right_node")

@@ -37,9 +37,11 @@ namespace ASC.Web.UserControls.Bookmarking
 		protected void Page_Load(object sender, EventArgs e)
 		{
 			BookmarkingRemoveFromFavouriteContainer.Options.IsPopup = true;
-
 			BookmarkingRemoveFromFavouriteLink.ButtonText = BookmarkingUCResource.RemoveButton;
 			BookmarkingRemoveFromFavouriteLink.AjaxRequestText = BookmarkingUCResource.RemovingBookmarkFromFavouriteIsInProgressLabel;
+
+            BookmarkingRemoveContainer.Options.IsPopup = true;
+            BookmarkingRemoveLink.ButtonText = BookmarkingUCResource.RemoveButton;
 		}
 	}
 }

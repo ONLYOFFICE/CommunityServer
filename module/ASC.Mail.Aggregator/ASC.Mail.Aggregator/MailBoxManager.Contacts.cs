@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -27,17 +27,16 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ASC.Common.Data.Sql;
-using ASC.FullTextIndex;
-using ASC.Common.Data.Sql.Expressions;
+using ActiveUp.Net.Mail;
 using ASC.Common.Data;
+using ASC.Common.Data.Sql;
+using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
-using ASC.FullTextIndex.Service;
+using ASC.FullTextIndex;
 using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Dal.DbSchema;
-using ActiveUp.Net.Mail;
 using ASC.Web.CRM.Core.Enums;
 
 namespace ASC.Mail.Aggregator
@@ -58,15 +57,24 @@ namespace ASC.Mail.Aggregator
         {
             try
             {
-                var contacts = new AddressCollection();
-                contacts.AddRange(message.To);
-                contacts.AddRange(message.Cc);
-                contacts.AddRange(message.Bcc);
-
-                foreach (var contact in contacts)
+                Func<AddressCollection, AddressCollection> copyAddressesFunc = delegate(AddressCollection addresses)
                 {
-                    contact.Name = !String.IsNullOrEmpty(contact.Name) ? Codec.RFC2047Decode(contact.Name) : String.Empty;
-                }
+                    var newAddresses = new AddressCollection();
+
+                    foreach (var address in addresses)
+                    {
+                        newAddresses.Add(new Address(address.Email,
+                            !string.IsNullOrEmpty(address.Name) ? Codec.RFC2047Decode(address.Name) : string.Empty));
+                    }
+
+                    return newAddresses;
+                };
+
+                var contacts = new AddressCollection();
+
+                contacts.AddRange(copyAddressesFunc(message.To));
+                contacts.AddRange(copyAddressesFunc(message.Cc));
+                contacts.AddRange(copyAddressesFunc(message.Bcc));
 
                 var contactsList = contacts.Distinct().ToList();
 

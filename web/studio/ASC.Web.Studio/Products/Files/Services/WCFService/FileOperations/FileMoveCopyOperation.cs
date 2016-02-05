@@ -24,11 +24,6 @@
 */
 
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using ASC.Core.Tenants;
 using ASC.Files.Core;
 using ASC.MessagingSystem;
 using ASC.Web.Core.Files;
@@ -36,60 +31,49 @@ using ASC.Web.Files.Classes;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Utils;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ASC.Web.Files.Services.WCFService.FileOperations
 {
-    internal class FileMoveCopyOperation : FileOperation
+    class FileMoveCopyOperation : FileOperation
     {
-        private readonly string _toFolderId;
-        private readonly bool _copy;
-        private readonly FileConflictResolveType _resolveType;
-        private readonly List<Guid> _markAsNewRecipientIDs;
-        private readonly List<FileEntry> _needToMarkAsNew = new List<FileEntry>();
+        private readonly string toFolderId;
+        private readonly bool copy;
+        private readonly FileConflictResolveType resolveType;
+        private readonly List<Guid> recipients;
+        private readonly List<FileEntry> needToMark = new List<FileEntry>();
 
-        private readonly Dictionary<string, string> httpRequestHeaders;
+        private readonly Dictionary<string, string> headers;
 
-        protected override FileOperationType OperationType
+        public override FileOperationType OperationType
         {
-            get { return _copy ? FileOperationType.Copy : FileOperationType.Move; }
+            get { return copy ? FileOperationType.Copy : FileOperationType.Move; }
         }
 
-        public FileMoveCopyOperation(Tenant tenant,
-                                     List<object> folders,
-                                     List<object> files,
-                                     string toFolderId,
-                                     bool copy,
-                                     FileConflictResolveType resolveType)
-            : base(tenant, folders, files)
+        public FileMoveCopyOperation(List<object> folders, List<object> files, string toFolderId, bool copy, FileConflictResolveType resolveType, Dictionary<string, string> headers)
+            : base(folders, files)
         {
-            _toFolderId = toFolderId;
-            _copy = copy;
-            _resolveType = resolveType;
+            this.toFolderId = toFolderId;
+            this.copy = copy;
+            this.resolveType = resolveType;
+            this.headers = headers;
 
             var toFolder = Global.DaoFactory.GetFolderDao().GetFolder(toFolderId);
-
             if (toFolder != null && toFolder.RootFolderType == FolderType.BUNCH)
-                _markAsNewRecipientIDs = Global.GetProjectTeam(toFolder).ToList();
-        }
-
-        public FileMoveCopyOperation(Tenant tenant,
-                                     List<object> folders,
-                                     List<object> files,
-                                     string toFolderId,
-                                     bool copy,
-                                     FileConflictResolveType resolveType,
-                                     Dictionary<string, string> httpRequestHeaders)
-            : this(tenant, folders, files, toFolderId, copy, resolveType)
-        {
-            this.httpRequestHeaders = httpRequestHeaders;
+            {
+                recipients = Global.GetProjectTeam(toFolder).ToList();
+            }
         }
 
         protected override void Do()
         {
-            Status += string.Format("folder_{0}{1}", _toFolderId, SplitCharacter);
+            Status += string.Format("folder_{0}{1}", toFolderId, SPLIT_CHAR);
 
             //TODO: check on each iteration?
-            var toFolder = FolderDao.GetFolder(_toFolderId);
+            var toFolder = FolderDao.GetFolder(toFolderId);
             if (toFolder == null) return;
             if (!FilesSecurity.CanCreate(toFolder)) throw new System.Security.SecurityException(FilesCommonResource.ErrorMassage_SecurityException_Create);
 
@@ -99,7 +83,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 return;
             }
 
-            if (_copy)
+            if (copy)
             {
                 Folder rootFrom = null;
                 if (0 < Folders.Count) rootFrom = FolderDao.GetRootFolder(Folders[0]);
@@ -108,10 +92,10 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 if (toFolder.RootFolderType == FolderType.TRASH) throw new InvalidOperationException("Can not copy to Trash.");
             }
 
-            MoveOrCopyFolders(Folders, toFolder, _copy);
-            MoveOrCopyFiles(Files, toFolder, _copy);
+            MoveOrCopyFolders(Folders, toFolder, copy);
+            MoveOrCopyFiles(Files, toFolder, copy);
 
-            _needToMarkAsNew.Distinct().ToList().ForEach(x => FileMarker.MarkAsNew(x, _markAsNewRecipientIDs));
+            needToMark.Distinct().ToList().ForEach(x => FileMarker.MarkAsNew(x, recipients));
         }
 
         private void MoveOrCopyFolders(ICollection folderIds, Folder toFolder, bool copy)
@@ -119,11 +103,11 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             if (folderIds.Count == 0) return;
 
             var toFolderId = toFolder.ID;
-            var isToFolder = Equals(toFolderId.ToString(), _toFolderId);
+            var isToFolder = Equals(toFolderId.ToString(), this.toFolderId);
 
             foreach (var folderId in folderIds)
             {
-                if (Canceled) return;
+                CancellationToken.ThrowIfCancellationRequested();
 
                 var folder = FolderDao.GetFolder(folderId);
                 if (folder == null)
@@ -134,7 +118,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 {
                     Error = FilesCommonResource.ErrorMassage_SecurityException_ReadFolder;
                 }
-                else if (!Equals((folder.ParentFolderID ?? string.Empty).ToString(), toFolderId.ToString()) || _resolveType == FileConflictResolveType.Duplicate)
+                else if (!Equals((folder.ParentFolderID ?? string.Empty).ToString(), toFolderId.ToString()) || resolveType == FileConflictResolveType.Duplicate)
                 {
                     try
                     {
@@ -149,26 +133,25 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                 newFolder = conflictFolder;
 
                                 if (isToFolder)
-                                    _needToMarkAsNew.Add(conflictFolder);
+                                    needToMark.Add(conflictFolder);
                             }
                             else
                             {
                                 newFolder = FolderDao.CopyFolder(folder.ID, toFolderId);
-                                FilesMessageService.Send(folder, toFolder, httpRequestHeaders, MessageAction.FolderCopied, folder.Title, toFolder.Title);
+                                FilesMessageService.Send(folder, toFolder, headers, MessageAction.FolderCopied, folder.Title, toFolder.Title);
 
                                 if (isToFolder)
-                                    _needToMarkAsNew.Add(newFolder);
+                                    needToMark.Add(newFolder);
 
                                 if (ProcessedFolder(folderId))
                                 {
-                                    Status += string.Format("folder_{0}{1}", newFolder.ID, SplitCharacter);
-                                    ResultedFolder(newFolder.ID);
+                                    Status += string.Format("folder_{0}{1}", newFolder.ID, SPLIT_CHAR);
                                 }
                             }
 
                             if (FolderDao.UseRecursiveOperation(folder.ID, toFolderId))
                             {
-                                MoveOrCopyFiles(FolderDao.GetFiles(folder.ID, false), newFolder, copy);
+                                MoveOrCopyFiles(FileDao.GetFiles(folder.ID, false), newFolder, copy);
                                 MoveOrCopyFolders(FolderDao.GetFolders(folder.ID).Select(f => f.ID).ToList(), newFolder, copy);
 
                                 if (!copy)
@@ -178,8 +161,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                         FolderDao.DeleteFolder(folder.ID);
                                         if (ProcessedFolder(folderId))
                                         {
-                                            Status += string.Format("folder_{0}{1}", newFolder.ID, SplitCharacter);
-                                            ResultedFolder(newFolder.ID);
+                                            Status += string.Format("folder_{0}{1}", newFolder.ID, SPLIT_CHAR);
                                         }
                                     }
                                 }
@@ -193,24 +175,23 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                     {
                                         newFolder = FolderDao.CopyFolder(folder.ID, toFolderId);
                                         newFolderId = newFolder.ID;
-                                        FilesMessageService.Send(folder, toFolder, httpRequestHeaders, MessageAction.FolderCopiedWithOverwriting, folder.Title, toFolder.Title);
+                                        FilesMessageService.Send(folder, toFolder, headers, MessageAction.FolderCopiedWithOverwriting, folder.Title, toFolder.Title);
 
                                         if (isToFolder)
-                                            _needToMarkAsNew.Add(newFolder);
+                                            needToMark.Add(newFolder);
                                     }
                                     else
                                     {
                                         newFolderId = FolderDao.MoveFolder(folder.ID, toFolderId);
-                                        FilesMessageService.Send(folder, toFolder, httpRequestHeaders, MessageAction.FolderMovedWithOverwriting, folder.Title, toFolder.Title);
+                                        FilesMessageService.Send(folder, toFolder, headers, MessageAction.FolderMovedWithOverwriting, folder.Title, toFolder.Title);
 
                                         if (isToFolder)
-                                            _needToMarkAsNew.Add(FolderDao.GetFolder(newFolderId));
+                                            needToMark.Add(FolderDao.GetFolder(newFolderId));
                                     }
 
                                     if (ProcessedFolder(folderId))
                                     {
-                                        Status += string.Format("folder_{0}{1}", newFolderId, SplitCharacter);
-                                        ResultedFolder(newFolderId);
+                                        Status += string.Format("folder_{0}{1}", newFolderId, SPLIT_CHAR);
                                     }
                                 }
                             }
@@ -222,15 +203,14 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                 FileMarker.RemoveMarkAsNewForAll(folder);
 
                                 var newFolderId = FolderDao.MoveFolder(folder.ID, toFolderId);
-                                FilesMessageService.Send(folder, toFolder, httpRequestHeaders, MessageAction.FolderMoved, folder.Title, toFolder.Title);
+                                FilesMessageService.Send(folder, toFolder, headers, MessageAction.FolderMoved, folder.Title, toFolder.Title);
 
                                 if (isToFolder)
-                                    _needToMarkAsNew.Add(FolderDao.GetFolder(newFolderId));
+                                    needToMark.Add(FolderDao.GetFolder(newFolderId));
 
                                 if (ProcessedFolder(folderId))
                                 {
-                                    Status += string.Format("folder_{0}{1}", newFolderId, SplitCharacter);
-                                    ResultedFolder(newFolderId);
+                                    Status += string.Format("folder_{0}{1}", newFolderId, SPLIT_CHAR);
                                 }
                             }
                             else
@@ -239,7 +219,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                             }
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Error = ex.Message;
 
@@ -257,7 +237,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             var toFolderId = toFolder.ID;
             foreach (var fileId in fileIds)
             {
-                if (Canceled) return;
+                CancellationToken.ThrowIfCancellationRequested();
 
                 var file = FileDao.GetFile(fileId);
                 if (file == null)
@@ -273,12 +253,12 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 {
                     Error = FilesCommonResource.ErrorMassage_NotSupportedFormat;
                 }
-                else // if (!Equals(file.FolderID.ToString(), toFolderId.ToString()) || _resolveType == FileConflictResolveType.Duplicate)
+                else
                 {
                     var parentFolder = FolderDao.GetFolder(file.FolderID);
                     try
                     {
-                        var conflict = _resolveType == FileConflictResolveType.Duplicate
+                        var conflict = resolveType == FileConflictResolveType.Duplicate
                                            ? null
                                            : FileDao.GetFile(toFolderId, file.Title);
                         if (conflict != null && !FilesSecurity.CanEdit(conflict))
@@ -297,17 +277,16 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                 try
                                 {
                                     newFile = FileDao.CopyFile(file.ID, toFolderId); //Stream copy will occur inside dao
-                                    FilesMessageService.Send(file, toFolder, httpRequestHeaders, MessageAction.FileCopied, file.Title, parentFolder.Title, toFolder.Title);
+                                    FilesMessageService.Send(file, toFolder, headers, MessageAction.FileCopied, file.Title, parentFolder.Title, toFolder.Title);
 
-                                    if (Equals(newFile.FolderID.ToString(), _toFolderId))
+                                    if (Equals(newFile.FolderID.ToString(), this.toFolderId))
                                     {
-                                        _needToMarkAsNew.Add(newFile);
+                                        needToMark.Add(newFile);
                                     }
 
                                     if (ProcessedFile(fileId))
                                     {
-                                        Status += string.Format("file_{0}{1}", newFile.ID, SplitCharacter);
-                                        ResultedFile(newFile.ID);
+                                        Status += string.Format("file_{0}{1}", newFile.ID, SPLIT_CHAR);
                                     }
                                 }
                                 catch
@@ -331,17 +310,16 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                     FileMarker.RemoveMarkAsNewForAll(file);
 
                                     var newFileId = FileDao.MoveFile(file.ID, toFolderId);
-                                    FilesMessageService.Send(file, toFolder, httpRequestHeaders, MessageAction.FileMoved, file.Title, parentFolder.Title, toFolder.Title);
+                                    FilesMessageService.Send(file, toFolder, headers, MessageAction.FileMoved, file.Title, parentFolder.Title, toFolder.Title);
 
-                                    if (Equals(toFolderId.ToString(), _toFolderId))
+                                    if (Equals(toFolderId.ToString(), this.toFolderId))
                                     {
-                                        _needToMarkAsNew.Add(FileDao.GetFile(newFileId));
+                                        needToMark.Add(FileDao.GetFile(newFileId));
                                     }
 
                                     if (ProcessedFile(fileId))
                                     {
-                                        Status += string.Format("file_{0}{1}", newFileId, SplitCharacter);
-                                        ResultedFile(newFileId);
+                                        Status += string.Format("file_{0}{1}", newFileId, SPLIT_CHAR);
                                     }
                                 }
                                 else
@@ -352,7 +330,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                         }
                         else
                         {
-                            if (_resolveType == FileConflictResolveType.Overwrite)
+                            if (resolveType == FileConflictResolveType.Overwrite)
                             {
                                 if (EntryManager.FileLockedForMe(conflict.ID))
                                 {
@@ -364,23 +342,23 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                 }
                                 else
                                 {
-                                    conflict.Version++;
+                                    var newFile = conflict;
+                                    newFile.Version++;
+                                    newFile.ContentLength = conflict.ContentLength;
+
                                     using (var stream = FileDao.GetFileStream(file))
                                     {
-                                        conflict.ContentLength = stream.Length;
-                                        conflict.Comment = string.Empty;
-                                        conflict = FileDao.SaveFile(conflict, stream);
-
-                                        _needToMarkAsNew.Add(conflict);
+                                        newFile = FileDao.SaveFile(newFile, stream);
                                     }
+
+                                    needToMark.Add(newFile);
 
                                     if (copy)
                                     {
-                                        FilesMessageService.Send(file, toFolder, httpRequestHeaders, MessageAction.FileCopiedWithOverwriting, file.Title, parentFolder.Title, toFolder.Title);
+                                        FilesMessageService.Send(file, toFolder, headers, MessageAction.FileCopiedWithOverwriting, file.Title, parentFolder.Title, toFolder.Title);
                                         if (ProcessedFile(fileId))
                                         {
-                                            Status += string.Format("file_{0}{1}", conflict.ID, SplitCharacter);
-                                            ResultedFile(conflict.ID);
+                                            Status += string.Format("file_{0}{1}", newFile.ID, SPLIT_CHAR);
                                         }
                                     }
                                     else
@@ -389,8 +367,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                         {
                                             if (ProcessedFile(fileId))
                                             {
-                                                Status += string.Format("file_{0}{1}", conflict.ID, SplitCharacter);
-                                                ResultedFile(conflict.ID);
+                                                Status += string.Format("file_{0}{1}", newFile.ID, SPLIT_CHAR);
                                             }
                                         }
                                         else
@@ -408,12 +385,11 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                                 FileDao.DeleteFile(file.ID);
                                                 FileDao.DeleteFolder(file.ID);
 
-                                                FilesMessageService.Send(file, toFolder, httpRequestHeaders, MessageAction.FileMovedWithOverwriting, file.Title, parentFolder.Title, toFolder.Title);
+                                                FilesMessageService.Send(file, toFolder, headers, MessageAction.FileMovedWithOverwriting, file.Title, parentFolder.Title, toFolder.Title);
 
                                                 if (ProcessedFile(fileId))
                                                 {
-                                                    Status += string.Format("file_{0}{1}", conflict.ID, SplitCharacter);
-                                                    ResultedFile(conflict.ID);
+                                                    Status += string.Format("file_{0}{1}", newFile.ID, SPLIT_CHAR);
                                                 }
                                             }
                                             else
@@ -424,13 +400,13 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                                     }
                                 }
                             }
-                            else if (_resolveType == FileConflictResolveType.Skip)
+                            else if (resolveType == FileConflictResolveType.Skip)
                             {
                                 //nothing
                             }
                         }
                     }
-                    catch(Exception ex)
+                    catch (Exception ex)
                     {
                         Error = ex.Message;
                         Logger.Error(Error, ex);

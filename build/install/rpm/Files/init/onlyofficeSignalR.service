@@ -1,0 +1,18 @@
+[Unit]
+Description=ONLYOFFICE SignalR Service
+After=syslog.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/mono-service -d:/var/www/onlyoffice/Services/TeamLabSvc -l:/tmp/onlyofficeSignalR /var/www/onlyoffice/Services/TeamLabSvc/TeamLabSvc.exe --service \"ASC.SignalR.Base.SignalRLauncher, ASC.SignalR.Base\" --log SignalR
+Environment=MONO_IOMAP=all MONO_ASPNET_WEBCONFIG_CACHESIZE=1000
+User=onlyoffice
+Group=onlyoffice
+# Give up if ping don't get an answer
+TimeoutSec=600
+
+Restart=always
+PrivateTmp=false
+
+[Install]
+WantedBy=multi-user.target

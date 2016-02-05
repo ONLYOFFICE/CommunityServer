@@ -24,6 +24,7 @@
 */
 
 
+using ASC.Common.Caching;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,7 @@ namespace ASC.Core.Caching
     {
         private readonly ISubscriptionService service;
         private readonly ICache cache;
-        private int getsub = 0;
+        private readonly ICacheNotify notify;
 
 
         public TimeSpan CacheExpiration
@@ -50,9 +51,40 @@ namespace ASC.Core.Caching
             if (service == null) throw new ArgumentNullException("service");
 
             this.service = service;
-            this.cache = AscCache.Default;
-
+            cache = AscCache.Memory;
+            notify = AscCache.Notify;
             CacheExpiration = TimeSpan.FromMinutes(5);
+
+            notify.Subscribe<SubscriptionRecord>((s, a) =>
+            {
+                var store = GetSubsciptionsStore(s.Tenant, s.SourceId, s.ActionId);
+                lock (store)
+                {
+                    if (a == CacheNotifyAction.InsertOrUpdate)
+                    {
+                        store.SaveSubscription(s);
+                    }
+                    else if (a == CacheNotifyAction.Remove)
+                    {
+                        if (s.ObjectId == null)
+                        {
+                            store.RemoveSubscriptions();
+                        }
+                        else
+                        {
+                            store.RemoveSubscriptions(s.ObjectId);
+                        }
+                    }
+                }
+            });
+            notify.Subscribe<SubscriptionMethod>((m, a) =>
+            {
+                var store = GetSubsciptionsStore(m.Tenant, m.SourceId, m.ActionId);
+                lock (store)
+                {
+                    store.SetSubscriptionMethod(m);
+                }
+            });
         }
 
 
@@ -86,31 +118,19 @@ namespace ASC.Core.Caching
         public void SaveSubscription(SubscriptionRecord s)
         {
             service.SaveSubscription(s);
-            var store = GetSubsciptionsStore(s.Tenant, s.SourceId, s.ActionId);
-            lock (store)
-            {
-                store.SaveSubscription(s);
-            }
+            notify.Publish(s, CacheNotifyAction.InsertOrUpdate);
         }
 
         public void RemoveSubscriptions(int tenant, string sourceId, string actionId)
         {
             service.RemoveSubscriptions(tenant, sourceId, actionId);
-            var store = GetSubsciptionsStore(tenant, sourceId, actionId);
-            lock (store)
-            {
-                store.RemoveSubscriptions();
-            }
+            notify.Publish(new SubscriptionRecord { Tenant = tenant, SourceId = sourceId, ActionId = actionId }, CacheNotifyAction.Remove);
         }
 
         public void RemoveSubscriptions(int tenant, string sourceId, string actionId, string objectId)
         {
             service.RemoveSubscriptions(tenant, sourceId, actionId, objectId);
-            var store = GetSubsciptionsStore(tenant, sourceId, actionId);
-            lock (store)
-            {
-                store.RemoveSubscriptions(objectId);
-            }
+            notify.Publish(new SubscriptionRecord { Tenant = tenant, SourceId = sourceId, ActionId = actionId, ObjectId = objectId }, CacheNotifyAction.Remove);
         }
 
         public IEnumerable<SubscriptionMethod> GetSubscriptionMethods(int tenant, string sourceId, string actionId, string recipientId)
@@ -125,37 +145,19 @@ namespace ASC.Core.Caching
         public void SetSubscriptionMethod(SubscriptionMethod m)
         {
             service.SetSubscriptionMethod(m);
-            var store = GetSubsciptionsStore(m.Tenant, m.SourceId, m.ActionId);
-            lock (store)
-            {
-                store.SetSubscriptionMethod(m);
-            }
+            notify.Publish(m, CacheNotifyAction.Any);
         }
 
 
         private SubsciptionsStore GetSubsciptionsStore(int tenant, string sourceId, string actionId)
         {
             var key = string.Format("sub/{0}/{1}/{2}", tenant, sourceId, actionId);
-            var store = cache.Get(key) as SubsciptionsStore;
+            var store = cache.Get<SubsciptionsStore>(key);
             if (store == null)
             {
-                if (Interlocked.CompareExchange(ref getsub, 1, 0) == 0)
-                {
-                    try
-                    {
-                        var records = service.GetSubscriptions(tenant, sourceId, actionId);
-                        var methods = service.GetSubscriptionMethods(tenant, sourceId, actionId, null);
-                        cache.Insert(key, store = new SubsciptionsStore(records, methods), DateTime.UtcNow.Add(CacheExpiration));
-                    }
-                    finally
-                    {
-                        getsub = 0;
-                    }
-                }
-                else
-                {
-                    store = new SubsciptionsStore(Enumerable.Empty<SubscriptionRecord>(), Enumerable.Empty<SubscriptionMethod>());
-                }
+                var records = service.GetSubscriptions(tenant, sourceId, actionId);
+                var methods = service.GetSubscriptionMethods(tenant, sourceId, actionId, null);
+                cache.Insert(key, store = new SubsciptionsStore(records, methods), DateTime.UtcNow.Add(CacheExpiration));
             }
             return store;
         }

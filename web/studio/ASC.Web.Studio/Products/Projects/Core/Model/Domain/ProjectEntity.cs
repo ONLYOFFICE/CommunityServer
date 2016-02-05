@@ -32,6 +32,8 @@ namespace ASC.Projects.Core.Domain
     {
         public string Title { get; set; }
 
+        public string Description { get; set; }
+
         public string HtmlTitle
         {
             get

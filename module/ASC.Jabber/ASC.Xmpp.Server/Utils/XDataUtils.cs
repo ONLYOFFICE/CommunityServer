@@ -24,7 +24,7 @@
 */
 
 
-using ASC.Xmpp.Core.protocol.x.data;
+using XmppData = ASC.Xmpp.Core.protocol.x.data;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
@@ -106,9 +106,9 @@ namespace ASC.Xmpp.Server.Utils
 		{
 		}
 
-		public static void FillDataTo(object dataForm, string prefix, Data data)
+        public static void FillDataTo(object dataForm, string prefix, XmppData.Data data)
 		{
-			if (data.Type == XDataFormType.submit)
+            if (data.Type == XmppData.XDataFormType.submit)
 			{
 				//Gen prop map
 				PropertyInfo[] props =
@@ -123,7 +123,7 @@ namespace ASC.Xmpp.Server.Utils
 					}
 				}
 
-				Field[] fields = data.GetFields();
+                XmppData.Field[] fields = data.GetFields();
 				foreach (var field in fields)
 				{
 					if (propsVar.ContainsKey(field.Var))
@@ -159,9 +159,9 @@ namespace ASC.Xmpp.Server.Utils
 			}
 		}
 
-		public static Data GetDataForm(object dataForm, string prefix)
+        public static XmppData.Data GetDataForm(object dataForm, string prefix)
 		{
-			Data data = new Data(XDataFormType.form);
+            XmppData.Data data = new XmppData.Data(XmppData.XDataFormType.form);
 
 			//Go through public vars
 			PropertyInfo[] props = dataForm.GetType().GetProperties(BindingFlags.Instance | BindingFlags.SetProperty |
@@ -170,7 +170,7 @@ namespace ASC.Xmpp.Server.Utils
 			{
 				if (prop.CanRead)
 				{
-					Field field = new Field(FieldType.Unknown);
+                    XmppData.Field field = new XmppData.Field(XmppData.FieldType.Unknown);
 
 					field.Var = string.Format("{0}#{1}", prefix, prop.Name);
 					object propValue = prop.GetValue(dataForm, null);
@@ -183,7 +183,7 @@ namespace ASC.Xmpp.Server.Utils
 						}
 						else if (attribute is XDataOneOfAttribute)
 						{
-							field.Type = FieldType.List_Single;
+                            field.Type = XmppData.FieldType.List_Single;
 							field.FieldValue = (string)propValue;
 							foreach (var vars in (attribute as XDataOneOfAttribute).Variants)
 							{
@@ -192,7 +192,7 @@ namespace ASC.Xmpp.Server.Utils
 						}
 						else if (attribute is XDataAnyOfAttribute)
 						{
-							field.Type = FieldType.List_Multi;
+                            field.Type = XmppData.FieldType.List_Multi;
 							field.AddValues((string[])propValue);
 							foreach (var vars in (attribute as XDataAnyOfAttribute).Variants)
 							{
@@ -201,30 +201,30 @@ namespace ASC.Xmpp.Server.Utils
 						}
 						else if (attribute is XDataMultiline)
 						{
-							field.Type = FieldType.Text_Multi;
+                            field.Type = XmppData.FieldType.Text_Multi;
 							field.FieldValue = (string)propValue;
 						}
 						else if (attribute is XDataPassword)
 						{
-							field.Type = FieldType.Text_Private;
+                            field.Type = XmppData.FieldType.Text_Private;
 							field.FieldValue = (string)propValue;
 						}
 						else if (attribute is XDataFixed)
 						{
-							field.Type = FieldType.Fixed;
+                            field.Type = XmppData.FieldType.Fixed;
 							field.FieldValue = (string)propValue;
 						}
 					}
-					if (field.Type == FieldType.Unknown)
+                    if (field.Type == XmppData.FieldType.Unknown)
 					{
 						if (prop.PropertyType == typeof(bool))
 						{
-							field.Type = FieldType.Boolean;
+                            field.Type = XmppData.FieldType.Boolean;
 							field.FieldValue = (bool)propValue ? "1" : "0";
 						}
 						else if (prop.PropertyType == typeof(string))
 						{
-							field.Type = FieldType.Text_Single;
+                            field.Type = XmppData.FieldType.Text_Single;
 							field.FieldValue = (string)propValue;
 						}
 					}

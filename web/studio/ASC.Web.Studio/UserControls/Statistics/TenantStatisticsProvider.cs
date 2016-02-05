@@ -44,7 +44,7 @@ namespace ASC.Web.Studio.UserControls.Statistics
 
         public static int GetUsersCount()
         {
-            return CoreContext.UserManager.GetUsers(EmployeeStatus.Default, EmployeeType.User).Length;
+            return CoreContext.UserManager.GetUsersByGroup(Constants.GroupUser.ID).Length;
         }
 
         public static long GetUsedSize()

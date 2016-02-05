@@ -99,288 +99,10 @@ namespace ASC.Web.Studio.Core.Notify
         }
 
 
+
         public void SendMsgWhatsNew(DateTime scheduleDate)
         {
-            var log = LogManager.GetLogger("ASC.Notify.WhatsNew");
-
-            if (WebItemManager.Instance.GetItemsAll<IProduct>().Count == 0)
-            {
-                log.Info("No products. Return from function");
-                return;
-            }
-
-            log.Info("Start send whats new.");
-
-            var products = WebItemManager.Instance.GetItemsAll().ToDictionary(p => p.GetSysName());
-
-            foreach (var tenantid in GetChangedTenants(scheduleDate))
-            {
-                try
-                {
-                    var tenant = CoreContext.TenantManager.GetTenant(tenantid);
-                    if (tenant == null ||
-                        tenant.Status != TenantStatus.Active ||
-                        !TimeToSendWhatsNew(TenantUtil.DateTimeFromUtc(tenant.TimeZone, scheduleDate)) ||
-                        TariffState.NotPaid <= CoreContext.PaymentManager.GetTariff(tenantid).State)
-                    {
-                        continue;
-                    }
-
-                    CoreContext.TenantManager.SetCurrentTenant(tenant);
-
-                    log.InfoFormat("Start send whats new in {0} ({1}).", tenant.TenantDomain, tenantid);
-                    foreach (var user in CoreContext.UserManager.GetUsers())
-                    {
-                        if (!IsSubscribeToWhatsNew(user))
-                        {
-                            continue;
-                        }
-
-                        SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(user.ID));
-                        Thread.CurrentThread.CurrentCulture = user.GetCulture();
-                        Thread.CurrentThread.CurrentUICulture = user.GetCulture();
-
-                        var feeds = FeedAggregateDataProvider.GetFeeds(new FeedApiFilter
-                        {
-                            From = scheduleDate.Date.AddDays(-1),
-                            To = scheduleDate.Date.AddSeconds(-1),
-                            Max = 100,
-                        });
-
-                        var feedMinWrappers = feeds.ConvertAll(f => f.ToFeedMin());
-
-                        var feedMinGroupedWrappers = feedMinWrappers
-                            .Where(f =>
-                                (f.CreatedDate == DateTime.MaxValue || f.CreatedDate >= scheduleDate.Date.AddDays(-1)) && //'cause here may be old posts with new comments
-                                products.ContainsKey(f.Product) &&
-                                !f.Id.StartsWith("participant")
-                            )
-                            .GroupBy(f => products[f.Product]);
-
-                        var ProjectsProductName = products["projects"].Name; //from ASC.Feed.Aggregator.Modules.ModulesHelper.ProjectsProductName
- 
-                        var activities = feedMinGroupedWrappers
-                            .Where(f => f.Key.Name != ProjectsProductName) //not for project product
-                            .ToDictionary(
-                            g => g.Key.Name,
-                            g => g.Select(f => new WhatsNewUserActivity
-                            {
-                                Date = f.CreatedDate,
-                                UserName = f.Author != null && f.Author.UserInfo != null ? f.Author.UserInfo.DisplayUserName() : string.Empty,
-                                UserAbsoluteURL = f.Author != null && f.Author.UserInfo != null ? CommonLinkUtility.GetFullAbsolutePath(f.Author.UserInfo.GetUserProfilePageURL()) : string.Empty,
-                                Title = HtmlUtil.GetText(f.Title, 512),
-                                URL = CommonLinkUtility.GetFullAbsolutePath(f.ItemUrl),
-                                BreadCrumbs = new string[0],
-                                Action = getWhatsNewActionText(f)
-                            }).ToList());
-
-
-                        var projectActivities = feedMinGroupedWrappers
-                            .Where(f => f.Key.Name == ProjectsProductName) // for project product
-                            .SelectMany(f => f);
-
-                        var projectActivitiesWithoutBreadCrumbs = projectActivities.Where(p => String.IsNullOrEmpty(p.ExtraLocation));
-
-                        var whatsNewUserActivityGroupByPrjs = new List<WhatsNewUserActivity>();
-
-                        foreach (var prawbc in projectActivitiesWithoutBreadCrumbs)
-                        {
-                            whatsNewUserActivityGroupByPrjs.Add(
-                                        new WhatsNewUserActivity
-                                        {
-                                            Date = prawbc.CreatedDate,
-                                            UserName = prawbc.Author != null && prawbc.Author.UserInfo != null ? prawbc.Author.UserInfo.DisplayUserName() : string.Empty,
-                                            UserAbsoluteURL = prawbc.Author != null && prawbc.Author.UserInfo != null ? CommonLinkUtility.GetFullAbsolutePath(prawbc.Author.UserInfo.GetUserProfilePageURL()) : string.Empty,
-                                            Title = HtmlUtil.GetText(prawbc.Title, 512),
-                                            URL = CommonLinkUtility.GetFullAbsolutePath(prawbc.ItemUrl),
-                                            BreadCrumbs = new string[0],
-                                            Action = getWhatsNewActionText(prawbc)
-                                        });
-                        }
-
-                        var groupByPrjs = projectActivities.Where(p => !String.IsNullOrEmpty(p.ExtraLocation)).GroupBy(f => f.ExtraLocation);
-                        foreach (var gr in groupByPrjs)
-                        {
-                            var grlist = gr.ToList();
-                            for (var i = 0; i < grlist.Count(); i++)
-                            {
-                                var ls = grlist[i];
-                                whatsNewUserActivityGroupByPrjs.Add(
-                                    new WhatsNewUserActivity
-                                    {
-                                        Date = ls.CreatedDate,
-                                        UserName = ls.Author != null && ls.Author.UserInfo != null ? ls.Author.UserInfo.DisplayUserName() : string.Empty,
-                                        UserAbsoluteURL = ls.Author != null && ls.Author.UserInfo != null ? CommonLinkUtility.GetFullAbsolutePath(ls.Author.UserInfo.GetUserProfilePageURL()) : string.Empty,
-                                        Title = HtmlUtil.GetText(ls.Title, 512),
-                                        URL = CommonLinkUtility.GetFullAbsolutePath(ls.ItemUrl),
-                                        BreadCrumbs = i == 0 ? new string[1]{gr.Key} : new string[0],
-                                        Action = getWhatsNewActionText(ls)
-                                    });
-                            }
-                        }
-
-                        if (whatsNewUserActivityGroupByPrjs.Count > 0)
-                        {
-                            activities.Add(ProjectsProductName, whatsNewUserActivityGroupByPrjs);
-                        }
-                           
-                        if (0 < activities.Count)
-                        {
-                            log.InfoFormat("Send whats new to {0}", user.Email);
-                            client.SendNoticeAsync(
-                                Constants.ActionSendWhatsNew, null, user, null,
-                                new TagValue(Constants.TagActivities, activities),
-                                new TagValue(Constants.TagDate, DateToString(scheduleDate.AddDays(-1), user.GetCulture())),
-                                new TagValue(CommonTags.Priority, 1)
-                            );
-                        }
-                    }
-                }
-                catch (Exception error)
-                {
-                    log.Error(error);
-                }
-            }
-        }
-
-        private string getWhatsNewActionText(FeedMin feed) {
-
-            if (feed.Module == ASC.Feed.Constants.BookmarksModule)
-                return WebstudioPatternResource.ActionCreateBookmark;
-            else if (feed.Module == ASC.Feed.Constants.BlogsModule)
-                return WebstudioPatternResource.ActionCreateBlog;
-            else if (feed.Module == ASC.Feed.Constants.ForumsModule)
-            {
-                if (feed.Item == "forumTopic")
-                    return WebstudioPatternResource.ActionCreateForum;
-                if (feed.Item == "forumPost")
-                    return WebstudioPatternResource.ActionCreateForumPost;
-                if (feed.Item == "forumPoll")
-                    return WebstudioPatternResource.ActionCreateForumPoll;
-            }
-            else if (feed.Module == ASC.Feed.Constants.EventsModule)
-                return WebstudioPatternResource.ActionCreateEvent;
-            else if (feed.Module == ASC.Feed.Constants.ProjectsModule)
-                return WebstudioPatternResource.ActionCreateProject;
-            else if (feed.Module == ASC.Feed.Constants.MilestonesModule)
-                return WebstudioPatternResource.ActionCreateMilestone;
-            else if (feed.Module == ASC.Feed.Constants.DiscussionsModule)
-                return WebstudioPatternResource.ActionCreateDiscussion;
-            else if (feed.Module == ASC.Feed.Constants.TasksModule)
-                return WebstudioPatternResource.ActionCreateTask;
-            else if (feed.Module == ASC.Feed.Constants.CommentsModule)
-                return WebstudioPatternResource.ActionCreateComment;
-            else if (feed.Module == ASC.Feed.Constants.CrmTasksModule)
-                return WebstudioPatternResource.ActionCreateTask;
-            else if (feed.Module == ASC.Feed.Constants.ContactsModule)
-                return WebstudioPatternResource.ActionCreateContact;
-            else if (feed.Module == ASC.Feed.Constants.DealsModule)
-                return WebstudioPatternResource.ActionCreateDeal;
-            else if (feed.Module == ASC.Feed.Constants.CasesModule)
-                return WebstudioPatternResource.ActionCreateCase;
-            else if (feed.Module == ASC.Feed.Constants.FilesModule)
-                return WebstudioPatternResource.ActionCreateFile;
-            else if (feed.Module == ASC.Feed.Constants.FoldersModule)
-                return WebstudioPatternResource.ActionCreateFolder;
-
-            return "";
-        }
-
-        private IList<string> GetBreadCrumbs(Dictionary<string, IWebItem> products, FeedMin f)
-        {
-            var result = new List<string>();
-            if (f.Product == "projects")
-            {
-                if (f.Id.StartsWith("taskComment"))
-                {
-                    result.Add(f.AdditionalInfo2);
-                }
-                else if (f.Module == "projects")
-                {
-                    result.Add(f.Title);
-                }
-                else
-                {
-                    result.Add(f.AdditionalInfo);
-                }
-            }
-            else if (f.Product == "community")
-            {
-                if (f.Module == "blogs" && products.ContainsKey("community-blogs"))
-                {
-                    result.Add(products["community-blogs"].Name);
-                }
-                else if (f.Module == "forums" && products.ContainsKey("community-forum"))
-                {
-                    result.Add(products["community-forum"].Name);
-                }
-                else if (f.Module == "bookmarks" && products.ContainsKey("community-bookmarking"))
-                {
-                    result.Add(products["community-bookmarking"].Name);
-                }
-                else if (f.Module == "events" && products.ContainsKey("community-news"))
-                {
-                    result.Add(products["community-news"].Name);
-                }
-            }
-            if (result.Count == 0)
-            {
-                result.Add(string.Empty);
-            }
-            return result
-                .Select(s => string.IsNullOrEmpty(s) ? "    " : s)
-                .ToList();
-        }
-
-        private IEnumerable<int> GetChangedTenants(DateTime date)
-        {
-            return new FeedAggregateDataProvider().GetTenants(new TimeInterval(date.Date.AddDays(-1), date.Date.AddSeconds(-1)));
-        }
-
-        private bool TimeToSendWhatsNew(DateTime currentTime)
-        {
-            var hourToSend = 7;
-            if (!string.IsNullOrEmpty(WebConfigurationManager.AppSettings["web.whatsnew-time"]))
-            {
-                var hour = 0;
-                if (int.TryParse(WebConfigurationManager.AppSettings["web.whatsnew-time"], out hour))
-                {
-                    hourToSend = hour;
-                }
-            }
-            return currentTime.Hour == hourToSend;
-        }
-
-        private string DateToString(DateTime d, CultureInfo c)
-        {
-            return d.ToString(c.TwoLetterISOLanguageName == "ru" ? "d MMMM" : "M", c);
-        }
-
-        public bool IsSubscribeToWhatsNew(Guid userID)
-        {
-            return IsSubscribeToWhatsNew(ToRecipient(userID));
-        }
-
-        private bool IsSubscribeToWhatsNew(IRecipient recipient)
-        {
-            if (recipient == null) return false;
-            return source.GetSubscriptionProvider().IsSubscribed(Constants.ActionSendWhatsNew, recipient, null);
-        }
-
-        public void SubscribeToWhatsNew(Guid userID, bool subscribe)
-        {
-            var recipient = ToRecipient(userID);
-            if (recipient != null)
-            {
-                if (subscribe)
-                {
-                    source.GetSubscriptionProvider().Subscribe(Constants.ActionSendWhatsNew, null, recipient);
-                }
-                else
-                {
-                    source.GetSubscriptionProvider().UnSubscribe(Constants.ActionSendWhatsNew, null, recipient);
-                }
-            }
+            StudioWhatsNewService.Instance.SendMsgWhatsNew(scheduleDate, client);
         }
 
         public bool IsSubscribeToAdminNotify(Guid userID)
@@ -422,6 +144,66 @@ namespace ASC.Web.Studio.Core.Notify
                 new TagValue(Constants.TagBody, balance));
         }
 
+        public void SendRequestTariff(string name, string email, string message)
+        {
+            name = (name ?? "").Trim();
+            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
+
+            email = (email ?? "").Trim();
+            if (string.IsNullOrEmpty(email)) throw new ArgumentNullException("email");
+
+            message = (message ?? "").Trim();
+            if (string.IsNullOrEmpty(message)) throw new ArgumentNullException("message");
+
+            var recipient = (IRecipient) (new DirectRecipient(SecurityContext.CurrentAccount.ID.ToString(), String.Empty, new[] {SetupInfo.SalesEmail}, false));
+            client.SendNoticeToAsync(Constants.ActionRequestTariff,
+                                     null,
+                                     new[] {recipient},
+                                     new[] {"email.sender"},
+                                     null,
+                                     new TagValue(Constants.TagUserEmail, email),
+                                     new TagValue(Constants.TagUserName, name),
+                                     new TagValue(Constants.TagBody, message));
+        }
+
+        public void SendRequestLicense(string fname, string lname, string title, string email, string phone, string ctitle, string csize, string site, string message)
+        {
+            fname = (fname ?? "").Trim();
+            if (string.IsNullOrEmpty(fname)) throw new ArgumentNullException("fname");
+            lname = (lname ?? "").Trim();
+            if (string.IsNullOrEmpty(lname)) throw new ArgumentNullException("lname");
+            title = (title ?? "").Trim();
+            email = (email ?? "").Trim();
+            if (string.IsNullOrEmpty(email)) throw new ArgumentNullException("email");
+            phone = (phone ?? "").Trim();
+            if (string.IsNullOrEmpty(phone)) throw new ArgumentNullException("phone");
+            ctitle = (ctitle ?? "").Trim();
+            if (string.IsNullOrEmpty(ctitle)) throw new ArgumentNullException("ctitle");
+            csize = (csize ?? "").Trim();
+            if (string.IsNullOrEmpty(csize)) throw new ArgumentNullException("csize");
+            site = (site ?? "").Trim();
+            if (string.IsNullOrEmpty(site)) throw new ArgumentNullException("site");
+            message = (message ?? "").Trim();
+
+            var recipient = (IRecipient)(new DirectRecipient(SecurityContext.CurrentAccount.ID.ToString(), String.Empty, new[] { SetupInfo.SalesEmail }, false));
+            client.SendNoticeToAsync(Constants.ActionRequestLicense,
+                                     null,
+                                     new[] { recipient },
+                                     new[] { "email.sender" },
+                                     null,
+                                     new TagValue(Constants.TagUserName, fname),
+                                     new TagValue(Constants.TagUserLastName, lname),
+                                     new TagValue(Constants.TagUserPosition, title),
+                                     new TagValue(Constants.TagUserEmail, email),
+                                     new TagValue(Constants.TagPhone, phone),
+                                     new TagValue(Constants.TagWebsite, site),
+                                     new TagValue(Constants.TagCompanyTitle, ctitle),
+                                     new TagValue(Constants.TagCompanySize, csize),
+                                     new TagValue(Constants.TagBody, message));
+        }
+
+        #region Voip
+
         public void SendToAdminVoipWarning(double balance)
         {
             client.SendNoticeAsync(Constants.ActionVoipWarning, null, null,
@@ -432,6 +214,10 @@ namespace ASC.Web.Studio.Core.Notify
         {
             client.SendNoticeAsync(Constants.ActionVoipBlocked, null, null);
         }
+
+        #endregion
+
+        #region User Password
 
         public void UserPasswordChange(UserInfo userInfo)
         {
@@ -497,6 +283,10 @@ namespace ASC.Web.Studio.Core.Notify
                         new TagValue(Constants.TagAuthor, (HttpContext.Current != null) ? HttpContext.Current.Request.UserHostAddress : null));
         }
 
+        #endregion
+
+        #region User Email
+
         public void SendEmailChangeInstructions(UserInfo user, string email)
         {
             client.SendNoticeToAsync(
@@ -533,6 +323,8 @@ namespace ASC.Web.Studio.Core.Notify
                         new TagValue(CommonTags.IsPromoLetter, CoreContext.Configuration.Personal ? "true" : "false"),
                         Constants.UnsubscribeLink);
         }
+
+        #endregion
 
         public void SendMsgMobilePhoneChange(UserInfo userInfo)
         {
@@ -596,8 +388,20 @@ namespace ASC.Web.Studio.Core.Notify
         {
             if (CoreContext.UserManager.UserExists(newUserInfo.ID))
             {
+                var tenant = CoreContext.TenantManager.GetCurrentTenant();
+                var tariff = CoreContext.TenantManager.GetTenantQuota(tenant.TenantId);
+
+                var notifyAction = CoreContext.Configuration.Personal
+                    ? Constants.ActionAfterRegistrationPersonal1
+                    : (tariff.Free ? Constants.ActionYouAddedAfterInviteFreeCloud : Constants.ActionYouAddedAfterInvite);
+
+                var footer = CoreContext.Configuration.Personal
+                    ? "personal"
+                    : (tariff.Free ? "freecloud" : "");
+
+
                 client.SendNoticeToAsync(
-                    CoreContext.Configuration.Personal ? Constants.ActionAfterRegistrationPersonal1 : Constants.ActionYouAddedAfterInvite,
+                    notifyAction,
                     null,
                     RecipientFromEmail(new[] { newUserInfo.Email }, false),
                     new[] { EMailSenderName },
@@ -616,7 +420,7 @@ namespace ASC.Web.Studio.Core.Notify
                     Constants.TagStrongEnd,
                     Constants.TagSignatureStart,
                     Constants.TagSignatureEnd,
-                    new TagValue(CommonTags.WithPhoto, CoreContext.Configuration.Personal ? "personal" : ""),
+                    new TagValue(CommonTags.WithPhoto, footer),
                     new TagValue(CommonTags.IsPromoLetter, CoreContext.Configuration.Personal ? "true" : "false"),
                     Constants.UnsubscribeLink);
             }
@@ -626,8 +430,11 @@ namespace ASC.Web.Studio.Core.Notify
         {
             if (CoreContext.UserManager.UserExists(newUserInfo.ID))
             {
+                var tariff = CoreContext.TenantManager.GetTenantQuota(CoreContext.TenantManager.GetCurrentTenant().TenantId);
+                var notifyAction = tariff != null && tariff.Free ? Constants.ActionYouAddedLikeGuestFreeCloud : Constants.ActionYouAddedLikeGuest;
+
                 client.SendNoticeToAsync(
-                            Constants.ActionYouAddedLikeGuest,
+                            notifyAction,
                             null,
                             RecipientFromEmail(new[] { newUserInfo.Email }, false),
                             new[] { EMailSenderName },
@@ -646,8 +453,13 @@ namespace ASC.Web.Studio.Core.Notify
                 throw new ArgumentException("User is already activated!");
             }
 
+            var tariff = CoreContext.TenantManager.GetTenantQuota(CoreContext.TenantManager.GetCurrentTenant().TenantId);
+
+            var notifyAction = tariff != null && tariff.Free ? Constants.ActionActivateUsersFreeCloud : Constants.ActionActivateUsers;
+            var footer = tariff.Free ? "freecloud" : "links";
+
             client.SendNoticeToAsync(
-                Constants.ActionActivateUsers,
+                notifyAction,
                 null,
                 RecipientFromEmail(new[] { newUserInfo.Email.ToLower() }, false),
                 new[] { EMailSenderName },
@@ -670,7 +482,7 @@ namespace ASC.Web.Studio.Core.Notify
                 Constants.TagStrongEnd,
                 Constants.TagSignatureStart,
                 Constants.TagSignatureEnd,
-                new TagValue(CommonTags.WithPhoto, "links"),
+                new TagValue(CommonTags.WithPhoto, footer),
                 new TagValue(CommonTags.IsPromoLetter, "false"),
                 CreateSendFromTag());
         }
@@ -681,8 +493,10 @@ namespace ASC.Web.Studio.Core.Notify
             {
                 throw new ArgumentException("User is already activated!");
             }
+            var tariff = CoreContext.TenantManager.GetTenantQuota(CoreContext.TenantManager.GetCurrentTenant().TenantId);
+
             client.SendNoticeToAsync(
-                Constants.ActionActivateGuests,
+                tariff.Free ? Constants.ActionActivateGuestsFreeCloud : Constants.ActionActivateGuests,
                 null,
                 RecipientFromEmail(new[] { newUserInfo.Email.ToLower() }, false),
                 new[] { EMailSenderName },
@@ -703,6 +517,7 @@ namespace ASC.Web.Studio.Core.Notify
                         new TagValue(Constants.TagInviteLink, CommonLinkUtility.GetConfirmationUrl(email, ConfirmType.ProfileRemove)));
         }
 
+        #region Backup & Restore
 
         public void SendMsgBackupCompleted(Guid userId, string link)
         {
@@ -745,6 +560,10 @@ namespace ASC.Web.Studio.Core.Notify
                 null);
         }
 
+        #endregion
+
+        #region Portal Deactivation & Deletion
+
         public void SendMsgPortalDeactivation(Tenant t, string d_url, string a_url)
         {
             var u = CoreContext.UserManager.GetUsers(t.OwnerId);
@@ -772,12 +591,14 @@ namespace ASC.Web.Studio.Core.Notify
                         new TagValue(Constants.TagOwnerName, u.DisplayUserName()));
         }
 
-        public void SendMsgPortalDeletionSuccess(Tenant t, string url)
+        public void SendMsgPortalDeletionSuccess(Tenant t, TenantQuota tariff, string url)
         {
             var u = CoreContext.UserManager.GetUsers(t.OwnerId);
 
+            var notifyAction = tariff != null && tariff.Free ? Constants.ActionPortalDeleteSuccessFreeCloud : Constants.ActionPortalDeleteSuccess;
+
             client.SendNoticeToAsync(
-                        Constants.ActionPortalDeleteSuccess,
+                        notifyAction,
                         null,
                         new[] { u },
                         new[] { EMailSenderName },
@@ -785,6 +606,8 @@ namespace ASC.Web.Studio.Core.Notify
                         new TagValue("FeedBackUrl", url),
                         new TagValue(Constants.TagOwnerName, u.DisplayUserName()));
         }
+
+        #endregion
 
         public void SendMsgDnsChange(Tenant t, string confirmDnsUpdateUrl, string portalAddress, string portalDns)
         {
@@ -819,9 +642,17 @@ namespace ASC.Web.Studio.Core.Notify
 
         public void SendCongratulations(UserInfo u)
         {
-            var tariff = CoreContext.TenantManager.GetTenantQuota(CoreContext.TenantManager.GetCurrentTenant().TenantId);
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
+            var tariff = CoreContext.TenantManager.GetTenantQuota(tenant.TenantId);
+
+            var notifyAction = tariff != null && tariff.Trial
+                    ? Constants.ActionCongratulations
+                    : (tariff.Free ? Constants.ActionCongratulationsFreeCloud : Constants.ActionCongratulationsNoTrial);
+
+            var footer = tariff.Free ? "freecloud" : "links";
+
             client.SendNoticeToAsync(
-                tariff != null && tariff.Trial ? Constants.ActionCongratulations : Constants.ActionCongratulationsNoTrial,
+                notifyAction,
                 null,
                 RecipientFromEmail(new[] { u.Email.ToLower() }, false),
                 new[] { EMailSenderName },
@@ -833,7 +664,7 @@ namespace ASC.Web.Studio.Core.Notify
                 new TagValue(Constants.TagInviteLink, CommonLinkUtility.GetConfirmationUrl(u.Email, ConfirmType.EmailActivation)),
                 Constants.TagNoteStart,
                 Constants.TagNoteEnd,
-                new TagValue(CommonTags.WithPhoto, "links"));
+                new TagValue(CommonTags.WithPhoto, footer));
         }
 
         public void SendTariffWarnings(DateTime scheduleDate)
@@ -848,7 +679,7 @@ namespace ASC.Web.Studio.Core.Notify
             if (activeTenants.Count > 0)
             {
                 var monthQuotas = CoreContext.TenantManager.GetTenantQuotas()
-                                .Where(r => !r.Trial && r.Visible && !r.Year && !r.Free && !r.NonProfit)
+                                .Where(r => !r.Trial && r.Visible && !r.Year && !r.Year3 && !r.Free && !r.NonProfit)
                                 .ToList();
                 var monthQuotasIds = monthQuotas.Select(q => q.Id).ToArray();
 
@@ -860,6 +691,7 @@ namespace ASC.Web.Studio.Core.Notify
                     var tariff = CoreContext.PaymentManager.GetTariff(tenant.TenantId);
                     var quota = CoreContext.TenantManager.GetTenantQuota(tenant.TenantId);
                     var duedate = tariff.DueDate.Date;
+                    var delayDuedate = tariff.DelayDueDate.Date;
 
                     INotifyAction action = null;
                     var onlyadmins = true;
@@ -896,7 +728,8 @@ namespace ASC.Web.Studio.Core.Notify
 
                     if (tenant.CreatedDateTime.Date.AddDays(3) == now)
                     {
-                        action = Constants.ActionAfterCreation1;
+                        action = quota.Free ? Constants.ActionAfterCreation1FreeCloud : Constants.ActionAfterCreation1;
+                        footer = quota.Free ? "freecloud" : "links";
 
                         tableItemImg1 = "http://cdn.teamlab.com/media/newsletters/images/integrate_documents.jpg";
                         tableItemText1 = "ItemCreateWorkspaceDocs";
@@ -919,7 +752,7 @@ namespace ASC.Web.Studio.Core.Notify
 
                     #region 7 days after registration
 
-                    if (tenant.CreatedDateTime.Date.AddDays(7) == now)
+                    if (!quota.Free && tenant.CreatedDateTime.Date.AddDays(7) == now)
                     {
                         action = Constants.ActionAfterCreation4;
 
@@ -948,7 +781,7 @@ namespace ASC.Web.Studio.Core.Notify
 
                     #region 2 weeks after registration
 
-                    if (tenant.CreatedDateTime.Date.AddDays(14) == now)
+                    if (!quota.Free && tenant.CreatedDateTime.Date.AddDays(14) == now)
                     {
                         onlyadmins = false;
                         action = Constants.ActionAfterCreation2;
@@ -986,7 +819,7 @@ namespace ASC.Web.Studio.Core.Notify
 
                     #region 3 weeks after registration
 
-                    if (tenant.CreatedDateTime.Date.AddDays(21) == now)
+                    if (!quota.Free && tenant.CreatedDateTime.Date.AddDays(21) == now)
                     {
                         onlyadmins = false;
                         action = Constants.ActionAfterCreation3;
@@ -1017,9 +850,19 @@ namespace ASC.Web.Studio.Core.Notify
 
                     #endregion
 
+                    #region 30 days after registration for free cloud
+
+                    if (quota.Free && tenant.CreatedDateTime.Date.AddDays(30) == now)
+                    {
+                        action = Constants.ActionAfterCreation30FreeCloud;
+                        footer = "freecloud";
+                    }
+
+                    #endregion
+
                     #region 5 days before trial ends
 
-                    if (quota.Trial && duedate.AddDays(-5) == now)
+                    if (quota.Trial && duedate != DateTime.MaxValue && duedate.AddDays(-5) == now)
                     {
                         action = Constants.ActionTariffWarningTrial;
                         footer = "links";
@@ -1041,7 +884,7 @@ namespace ASC.Web.Studio.Core.Notify
 
                     #region 5 days after trial expired
 
-                    if (quota.Trial && duedate.AddDays(5) == now && tenant.VersionChanged <= tenant.CreatedDateTime)
+                    if (quota.Trial && duedate != DateTime.MaxValue && duedate.AddDays(5) == now && tenant.VersionChanged <= tenant.CreatedDateTime)
                     {
                         action = Constants.ActionTariffWarningTrial3;
                         footer = "links";
@@ -1051,14 +894,62 @@ namespace ASC.Web.Studio.Core.Notify
 
                     #endregion
 
-                    #region 30 days after trial expired
+                    #region 30 days after trial expired 1 user
 
-                    if (quota.Trial && duedate.AddDays(30) == now && CoreContext.UserManager.GetUsers().Count() == 1)
+                    if (quota.Trial && duedate != DateTime.MaxValue && duedate.AddDays(30) == now && CoreContext.UserManager.GetUsers().Count() == 1)
                     {
                         action = Constants.ActionTariffWarningTrial4;
                         footer = "links";
                         greenButtonText = "ButtonSignUpPersonal";
                         greenButtonUrl = "https://personal.onlyoffice.com";
+                    }
+
+                    #endregion
+
+                    #region 7 days before paid expired
+
+                    if (tariff.State == TariffState.Paid && duedate != DateTime.MaxValue && duedate.AddDays(-7) == now)
+                    {
+                        action = Constants.ActionPaymentWarningBefore7;
+                        footer = "links";
+                        greenButtonText = "ButtonSelectPricingPlans";
+                        greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/tariffs.aspx");
+                    }
+
+                    #endregion
+
+                    #region paid expires today
+
+                    if (tariff.State >= TariffState.Paid && duedate == now)
+                    {
+                        action = Constants.ActionPaymentWarning;
+                        footer = "links";
+                        greenButtonText = "ButtonSelectPricingPlans";
+                        greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/tariffs.aspx");
+                    }
+
+                    #endregion
+
+                    #region 3 days after paid expired on delay
+
+                    if (tariff.State == TariffState.Delay && duedate != DateTime.MaxValue && duedate.AddDays(3) == now)
+                    {
+                        action = Constants.ActionPaymentWarningAfter3;
+                        footer = "links";
+                        greenButtonText = "ButtonSelectPricingPlans";
+                        greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/tariffs.aspx");
+                    }
+
+                    #endregion
+
+                    #region payment delay expires today
+
+                    if (tariff.State >= TariffState.Delay && delayDuedate == now)
+                    {
+                        action = Constants.ActionPaymentWarningDelayDue;
+                        footer = "links";
+                        greenButtonText = "ButtonSelectPricingPlans";
+                        greenButtonUrl = CommonLinkUtility.GetFullAbsolutePath("~/tariffs.aspx");
                     }
 
                     #endregion
@@ -1070,7 +961,7 @@ namespace ASC.Web.Studio.Core.Notify
 
                     try
                     {
-                        if (tariff.State == TariffState.Paid)
+                        if (!quota.Free && tariff.State == TariffState.Paid)
                         {
                             var lastDatePayment = DateTime.MinValue;
 
@@ -1100,7 +991,7 @@ namespace ASC.Web.Studio.Core.Notify
 
                     #region 5 days after registration without activity in 1 or more days
 
-                    if (tenant.CreatedDateTime.Date.AddDays(5) == now)
+                    if (!quota.Free && tenant.CreatedDateTime.Date.AddDays(5) == now)
                     {
 
                         var datesWithActivity = new List<DateTime>();
@@ -1148,7 +1039,9 @@ namespace ASC.Web.Studio.Core.Notify
                                 new TagValue(Constants.TagFAQ, getHelpCenterLink() + "faq/pricing.aspx"),
                                 new TagValue(Constants.TagActiveUsers, CoreContext.UserManager.GetUsers().Count()),
                                 new TagValue(Constants.TagPrice, rquota.Price),//TODO: use price partner
-                                new TagValue(Constants.TagPricePeriod, rquota.Year ? UserControlsCommonResource.TariffPerYear : UserControlsCommonResource.TariffPerMonth),
+                                new TagValue(Constants.TagPricePeriod, rquota.Year3 ? UserControlsCommonResource.TariffPerYear3 : rquota.Year ? UserControlsCommonResource.TariffPerYear : UserControlsCommonResource.TariffPerMonth),
+                                new TagValue(Constants.TagDueDate, duedate.ToLongDateString()),
+                                new TagValue(Constants.TagDelayDueDate, (delayDuedate != DateTime.MaxValue ? delayDuedate : duedate).ToLongDateString()),
                                 Constants.TagBlueButton("ButtonRequestCallButton", "http://www.onlyoffice.com/call-back-form.aspx"),
                                 Constants.TagGreenButton(greenButtonText, greenButtonUrl),
                                 Constants.TagTableTop(),
@@ -1170,6 +1063,8 @@ namespace ASC.Web.Studio.Core.Notify
             }
             log.Info("End SendTariffWarnings.");
         }
+
+        #region Personal
 
         public void SendLettersPersonal(DateTime scheduleDate)
         {
@@ -1198,7 +1093,6 @@ namespace ASC.Web.Studio.Core.Notify
                         SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(user.ID));
 
                         var culture = tenant.GetCulture();
-
                         if (!string.IsNullOrEmpty(user.CultureName))
                         {
                             try
@@ -1210,7 +1104,6 @@ namespace ASC.Web.Studio.Core.Notify
 
                                 log.Error(exception);
                             }
-
                         }
 
                         Thread.CurrentThread.CurrentCulture = culture;
@@ -1333,6 +1226,10 @@ namespace ASC.Web.Studio.Core.Notify
                 CreateSendFromTag());
         }
 
+        #endregion
+
+        #region Migration Portal
+
         public void MigrationPortalStart(string region, bool notify)
         {
             MigrationNotify(Constants.ActionMigrationPortalStart, region, string.Empty, notify);
@@ -1367,6 +1264,48 @@ namespace ASC.Web.Studio.Core.Notify
             }
         }
 
+        public void PortalRenameNotify(String oldVirtualRootPath)
+        {
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
+
+            var users = CoreContext.UserManager.GetUsers()
+                        .Where(u => u.ActivationStatus == EmployeeActivationStatus.Activated);
+
+
+            ThreadPool.QueueUserWorkItem(_ =>
+            {
+                try
+                {
+                    CoreContext.TenantManager.SetCurrentTenant(tenant);
+
+                    foreach (var u in users)
+                    {
+                        var culture = string.IsNullOrEmpty(u.CultureName) ? tenant.GetCulture() : u.GetCulture();
+                        Thread.CurrentThread.CurrentCulture = culture;
+                        Thread.CurrentThread.CurrentUICulture = culture;
+
+                        client.SendNoticeToAsync(
+                            Constants.ActionPortalRename,
+                            null,
+                            new[] { ToRecipient(u.ID) },
+                            new[] { EMailSenderName },
+                            null,
+                            new TagValue(Constants.TagPortalUrl, oldVirtualRootPath),
+                            new TagValue(Constants.TagUserDisplayName, u.DisplayUserName()));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    LogManager.GetLogger("ASC.Notify").Error(ex);
+                }
+                finally
+                {
+
+                }
+            });
+        }
+
+        #endregion
 
         #region Helpers
 
@@ -1435,16 +1374,5 @@ namespace ASC.Web.Studio.Core.Notify
         }
 
         #endregion
-
-        class WhatsNewUserActivity
-        {
-            public IList<string> BreadCrumbs { get; set; }
-            public string Title { get; set; }
-            public string URL { get; set; }
-            public string UserName { get; set; }
-            public string UserAbsoluteURL { get; set; }
-            public DateTime Date { get; set; }
-            public string Action { get; set; }
-        }
     }
 }

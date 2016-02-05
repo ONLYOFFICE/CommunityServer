@@ -53,13 +53,10 @@
         that.$advancedSelector.on("click", ".advanced-selector-list-block .advanced-selector-btn-cancel", $.proxy(onClickCancelSelector, that));
         $(document.body).on('click', $.proxy(onBodyClick, that));
 
-        var res;
-        window.onresize = function () {
-            if (res){clearTimeout(res)};
-            res = setTimeout(function () {
-                setPositionSelectorContainer.call(that);
-            }, 500);
-        };
+
+        jq(window).bind("resizeWinTimerWithMaxDelay", function (event) {
+            setPositionSelectorContainer.call(that);
+        });
 
         $(document).keyup(function (event) {
             if (!that.$advancedSelector.is(":visible"))
@@ -239,7 +236,6 @@
     }
 
     function setPositionSelectorContainer() {
-
         if (!this.$element.length) {
             return;
         }
@@ -1127,7 +1123,7 @@
                 that.items.push(newObj);
             }
 
-            that.items = that.items.sort(SortData);
+            that.items = that.items.sort(that.options.sortMethod || SortData);
             that.$element.data('items', that.items);
             that.showItemsListAdvSelector.call(that);
         },

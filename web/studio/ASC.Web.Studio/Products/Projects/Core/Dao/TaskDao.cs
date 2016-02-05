@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -88,10 +88,12 @@ namespace ASC.Projects.Data.DAO
     class TaskDao : BaseDao, ITaskDao
     {
         public static readonly string[] TaskColumns = new[] { "id", "title", "description", "status", "create_by", "create_on", "last_modified_by", "last_modified_on", "priority", "milestone_id", "sort_order", "deadline", "start_date", "progress", "responsibles" };
+        private readonly Converter<object[], Task> converter;
 
         public TaskDao(string dbId, int tenantID)
             : base(dbId, tenantID)
         {
+            converter = ToTask;
         }
 
 
@@ -101,7 +103,7 @@ namespace ASC.Projects.Data.DAO
         {
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(CreateQuery()).ConvertAll(ToTask);
+                return db.ExecuteList(CreateQuery()).ConvertAll(converter);
             }
         }
 
@@ -117,15 +119,15 @@ namespace ASC.Projects.Data.DAO
                 .OrderBy("t.status", true)
                 .OrderBy("t.priority", true)
                 .OrderBy("t.create_on", true);
-            if (status != null)
+            if (status.HasValue)
             {
-                if (status == TaskStatus.Open)
+                if (status.Value == TaskStatus.Open)
                     query.Where(!Exp.Eq("t.status", TaskStatus.Closed));
                 else
                     query.Where("t.status", TaskStatus.Closed);
             }
 
-            if (participant != Guid.Empty)
+            if (!participant.Equals(Guid.Empty))
             {
                 var existSubtask = new SqlQuery(SubtasksTable + " pst").Select("pst.task_id").Where(Exp.EqColumns("t.tenant_id", "pst.tenant_id") & Exp.EqColumns("t.id", "pst.task_id") & Exp.Eq("pst.status", TaskStatus.Open));
                 var existResponsible = new SqlQuery(TasksResponsibleTable + " ptr1").Select("ptr1.task_id").Where(Exp.EqColumns("t.tenant_id", "ptr1.tenant_id") & Exp.EqColumns("t.id", "ptr1.task_id"));
@@ -138,7 +140,7 @@ namespace ASC.Projects.Data.DAO
 
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(query).ConvertAll(ToTask);
+                return db.ExecuteList(query).ConvertAll(converter);
             }
         }
 
@@ -155,12 +157,6 @@ namespace ASC.Projects.Data.DAO
             }
 
             //query.OrderBy("(case t.status when 2 then 1 else 0 end)", true);
-
-            if (filter.TaskStatuses.Count == 1 && filter.TaskStatuses.Contains(TaskStatus.Closed))
-            {
-                filter.SortBy = "status_changed";
-                filter.SortOrder = false;
-            }
 
             if (!string.IsNullOrEmpty(filter.SortBy))
             {
@@ -198,7 +194,7 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 var result = db.ExecuteList(queryCount).ToDictionary(r => Convert.ToInt32(r[1]), r => Convert.ToInt32(r[0]));
-                int tasksOpen = result.Where(row => row.Key != (int) TaskStatus.Closed).Sum(row => row.Value);
+                var tasksOpen = result.Where(row => row.Key != (int) TaskStatus.Closed).Sum(row => row.Value);
                     //that's right. open its not closed.
                 int tasksClosed;
                 result.TryGetValue((int) TaskStatus.Closed, out tasksClosed);
@@ -231,7 +227,7 @@ namespace ASC.Projects.Data.DAO
 
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(q).ConvertAll(ToTask);
+                return db.ExecuteList(q).ConvertAll(converter);
             }
         }
 
@@ -246,7 +242,7 @@ namespace ASC.Projects.Data.DAO
 
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(query).ConvertAll(ToTask);
+                return db.ExecuteList(query).ConvertAll(converter);
             }
         }
 
@@ -255,7 +251,7 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 var query = CreateQuery().Where(Exp.In("t.id", ids.ToArray()));
-                return db.ExecuteList(query).ConvertAll(ToTask);
+                return db.ExecuteList(query).ConvertAll(converter);
             }
         }
 
@@ -264,7 +260,7 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 var query = CreateQuery().Where("t.id", id);
-                return db.ExecuteList(query).ConvertAll(ToTask).SingleOrDefault();
+                return db.ExecuteList(query).ConvertAll(converter).SingleOrDefault();
             }
         }
 
@@ -281,9 +277,10 @@ namespace ASC.Projects.Data.DAO
         {
             using (var db = new DbManager(DatabaseId))
             {
+                var deadlineDate = deadline.Date;
                 var q = new SqlQuery(TasksTable)
                     .Select("tenant_id", "id", "deadline")
-                    .Where(Exp.Between("deadline", deadline.Date.AddDays(-1), deadline.Date.AddDays(1)))
+                    .Where(Exp.Between("deadline", deadlineDate.AddDays(-1), deadlineDate.AddDays(1)))
                     .Where(!Exp.Eq("status", TaskStatus.Closed));
 
                 return db.ExecuteList(q)
@@ -530,12 +527,12 @@ namespace ASC.Projects.Data.DAO
                 query.Where("t.create_by", filter.UserId);
             }
 
-            if (filter.DepartmentId != Guid.Empty || (filter.ParticipantId.HasValue && filter.ParticipantId != Guid.Empty))
+            if (!filter.DepartmentId.Equals(Guid.Empty) || (filter.ParticipantId.HasValue && !filter.ParticipantId.Value.Equals(Guid.Empty)))
             {
                 var existSubtask = new SqlQuery(SubtasksTable + " pst").Select("pst.task_id").Where(Exp.EqColumns("t.tenant_id", "pst.tenant_id") & Exp.EqColumns("t.id", "pst.task_id") & Exp.Eq("pst.status", TaskStatus.Open));
                 var existResponsible = new SqlQuery(TasksResponsibleTable + " ptr1").Select("ptr1.task_id").Where(Exp.EqColumns("t.tenant_id", "ptr1.tenant_id") & Exp.EqColumns("t.id", "ptr1.task_id"));
 
-                if (filter.DepartmentId != Guid.Empty)
+                if (!filter.DepartmentId.Equals(Guid.Empty))
                 {
                     existSubtask.InnerJoin("core_usergroup cug", Exp.Eq("cug.removed", false) & Exp.EqColumns("cug.userid", "pst.responsible_id") & Exp.Eq("cug.tenant", Tenant));
                     existResponsible.InnerJoin("core_usergroup cug", Exp.Eq("cug.removed", false) & Exp.EqColumns("cug.userid", "ptr1.responsible_id") & Exp.Eq("cug.tenant", Tenant));
@@ -543,10 +540,10 @@ namespace ASC.Projects.Data.DAO
                     existResponsible.Where("cug.groupid", filter.DepartmentId);
                 }
 
-                if (filter.ParticipantId.HasValue && filter.ParticipantId != Guid.Empty)
+                if (filter.ParticipantId.HasValue && !filter.ParticipantId.Value.Equals(Guid.Empty))
                 {
-                    existSubtask.Where(Exp.Eq("pst.responsible_id", filter.ParticipantId.ToString()));
-                    existResponsible.Where(Exp.Eq("ptr1.responsible_id", filter.ParticipantId.ToString()));
+                    existSubtask.Where(Exp.Eq("pst.responsible_id", filter.ParticipantId.Value.ToString()));
+                    existResponsible.Where(Exp.Eq("ptr1.responsible_id", filter.ParticipantId.Value.ToString()));
                 }
 
                 query.Where(Exp.Exists(existSubtask) | Exp.Exists(existResponsible));
@@ -554,12 +551,12 @@ namespace ASC.Projects.Data.DAO
 
             if (!string.IsNullOrEmpty(filter.SearchText))
             {
-                if (FullTextSearch.SupportModule(FullTextSearch.ProjectsTasksModule, FullTextSearch.ProjectsCommentsModule))
+                if (FullTextSearch.SupportModule(FullTextSearch.ProjectsTasksModule))
                 {
-                    var taskIds = FullTextSearch.Search(
-                     FullTextSearch.ProjectsTasksModule.Match(filter.SearchText),
-                     FullTextSearch.ProjectsCommentsModule.Match(filter.SearchText, "content")
-                     .Select("target_uniq_id").Match("Task_*", "target_uniq_id"));
+                    var taskIds = FullTextSearch.Search(FullTextSearch.ProjectsTasksModule.Match(filter.SearchText));
+
+                    if(FullTextSearch.SupportModule(FullTextSearch.ProjectsSubtasksModule))
+                        taskIds.AddRange(FullTextSearch.Search(FullTextSearch.ProjectsSubtasksModule.Select("task_id").Match(filter.SearchText)));
 
                     query.Where(Exp.In("t.id", taskIds));
                 }
@@ -574,6 +571,10 @@ namespace ASC.Projects.Data.DAO
 
         private SqlQuery CreateQueryFilterCount(SqlQuery query, TaskFilter filter, bool isAdmin, bool checkAccess)
         {
+            var minDateTime = DateTime.MinValue;
+            var maxDateTime = DateTime.MaxValue;
+            var minDateTimeString = DateTime.MinValue.ToString("yyyy-MM-dd HH:mm:ss");
+
             query = CreateQueryFilterBase(query, filter);
 
             if (filter.Milestone.HasValue)
@@ -592,19 +593,19 @@ namespace ASC.Projects.Data.DAO
                 query.Where(Exp.Exists(existsMilestone));
             }
 
-            if (filter.ParticipantId.HasValue && filter.ParticipantId == Guid.Empty)
+            if (filter.ParticipantId.HasValue && filter.ParticipantId.Value.Equals(Guid.Empty))
             {
                 var notExists = new SqlQuery(TasksResponsibleTable + " ptr").Select("ptr.responsible_id").Where(Exp.EqColumns("t.id", "ptr.task_id") & Exp.Eq("ptr.tenant_id", Tenant));
                 query.Where(!Exp.Exists(notExists));
             }
 
-            var hasFromDate = !filter.FromDate.Equals(DateTime.MinValue) && !filter.FromDate.Equals(DateTime.MaxValue);
-            var hasToDate = !filter.ToDate.Equals(DateTime.MinValue) && !filter.ToDate.Equals(DateTime.MaxValue);
+            var hasFromDate = !filter.FromDate.Equals(minDateTime) && !filter.FromDate.Equals(maxDateTime);
+            var hasToDate = !filter.ToDate.Equals(minDateTime) && !filter.ToDate.Equals(maxDateTime);
 
             if (hasFromDate && hasToDate)
             {
                 var existsMilestone = new SqlQuery(MilestonesTable + " m").Select("m.id").Where(Exp.EqColumns("m.id", "t.milestone_id") & Exp.EqColumns("m.tenant_id", "t.tenant_id") & Exp.Between("m.deadline", TenantUtil.DateTimeFromUtc(filter.FromDate), TenantUtil.DateTimeFromUtc(filter.ToDate)));
-                var expExists = Exp.Exists(existsMilestone) & Exp.Eq("t.deadline", DateTime.MinValue.ToString("yyyy-MM-dd HH:mm:ss"));
+                var expExists = Exp.Exists(existsMilestone) & Exp.Eq("t.deadline", minDateTimeString);
                 query.Where(Exp.Between("t.deadline", TenantUtil.DateTimeFromUtc(filter.FromDate), TenantUtil.DateTimeFromUtc(filter.ToDate)) | expExists);
             }
             else if (hasFromDate)
@@ -614,7 +615,7 @@ namespace ASC.Projects.Data.DAO
                     .Where(Exp.EqColumns("m.id", "t.milestone_id"))
                     .Where(Exp.EqColumns("m.tenant_id", "t.tenant_id"))
                     .Where(Exp.Ge("m.deadline", TenantUtil.DateTimeFromUtc(filter.FromDate)))
-                    .Where(Exp.Eq("t.deadline", DateTime.MinValue.ToString("yyyy-MM-dd HH:mm:ss")));
+                    .Where(Exp.Eq("t.deadline", minDateTimeString));
 
                 query.Where(Exp.Ge("t.deadline", TenantUtil.DateTimeFromUtc(filter.FromDate))
                             | Exp.Exists(existsMilestone));
@@ -626,10 +627,10 @@ namespace ASC.Projects.Data.DAO
                     .Where(Exp.EqColumns("m.id", "t.milestone_id"))
                     .Where(Exp.EqColumns("m.tenant_id", "t.tenant_id"))
                     .Where(Exp.Le("m.deadline", TenantUtil.DateTimeFromUtc(filter.ToDate)))
-                    .Where(!Exp.Eq("m.deadline", DateTime.MinValue.ToString("yyyy-MM-dd HH:mm:ss")))
-                    .Where("t.deadline", DateTime.MinValue.ToString("yyyy-MM-dd HH:mm:ss"));
+                    .Where(!Exp.Eq("m.deadline", minDateTimeString))
+                    .Where("t.deadline", minDateTimeString);
 
-                query.Where(!Exp.Eq("t.deadline", DateTime.MinValue.ToString("yyyy-MM-dd HH:mm:ss"))
+                query.Where(!Exp.Eq("t.deadline", minDateTimeString)
                             & Exp.Le("t.deadline", TenantUtil.DateTimeFromUtc(filter.ToDate))
                             | Exp.Exists(existsMilestone));
             }
@@ -643,7 +644,7 @@ namespace ASC.Projects.Data.DAO
         {
             query = CreateQueryFilterBase(query, filter);
 
-            if (filter.ParticipantId.HasValue && filter.ParticipantId == Guid.Empty)
+            if (filter.ParticipantId.HasValue && filter.ParticipantId.Value.Equals(Guid.Empty))
             {
                 query.Where(Exp.Eq("ptr.task_id", null));
             }
@@ -681,6 +682,8 @@ namespace ASC.Projects.Data.DAO
         private static Task ToTask(object[] r)
         {
             var offset = ProjectDao.ProjectColumns.Length;
+            var deadline = Convert.ToDateTime(r[11 + offset]);
+            var startDate = Convert.ToDateTime(r[12 + offset]);
             var task = new Task
             {
                 Project = r[0] != null ? ProjectDao.ToProject(r) : null,
@@ -695,8 +698,8 @@ namespace ASC.Projects.Data.DAO
                 Status = (TaskStatus)Convert.ToInt32(r[8 + offset]),
                 Milestone = r[9 + offset] == null ? 0 : Convert.ToInt32(r[9 + offset]),
                 SortOrder = Convert.ToInt32(r[10 + offset]),
-                Deadline = r[11 + offset] != null ? DateTime.SpecifyKind(Convert.ToDateTime(r[11 + offset]), DateTimeKind.Local) : default(DateTime),
-                StartDate = !Convert.ToDateTime(r[12 + offset]).Equals(DateTime.MinValue) ? DateTime.SpecifyKind(Convert.ToDateTime(r[12 + offset]), DateTimeKind.Local) : default(DateTime),
+                Deadline = !deadline.Equals(DateTime.MinValue) ? DateTime.SpecifyKind(deadline, DateTimeKind.Local) : default(DateTime),
+                StartDate = !startDate.Equals(DateTime.MinValue) ? DateTime.SpecifyKind(startDate, DateTimeKind.Local) : default(DateTime),
                 Progress = Convert.ToInt32(r[13 + offset]),
                 Responsibles = !string.IsNullOrEmpty((string)r[14 + offset]) ? new List<Guid>(((string)r[14 + offset]).Split(',').Select(ToGuid)) : new List<Guid>(),
                 SubTasks = new List<Subtask>()
@@ -735,7 +738,7 @@ namespace ASC.Projects.Data.DAO
         {
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(CreateQuery().Where(where)).ConvertAll(ToTask);
+                return db.ExecuteList(CreateQuery().Where(where)).ConvertAll(converter);
             }
         }
 

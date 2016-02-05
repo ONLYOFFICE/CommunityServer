@@ -50,8 +50,8 @@
             <% if (!MobileDetector.IsMobile)
                { %>
             <td class="teamlab-cut">
-                <div class="title-teamlab-cut"><%= ProjectsCommonResource.TeamlabCutTitle %></div>
-                <div class="text-teamlab-cut"><%= ProjectsCommonResource.TeamlabCutText %></div>
+                <div class="title-teamlab-cut"><%: ProjectsCommonResource.TeamlabCutTitle %></div>
+                <div class="text-teamlab-cut"><%: ProjectsCommonResource.TeamlabCutText %></div>
             </td>
             <% } %>
         </tr>

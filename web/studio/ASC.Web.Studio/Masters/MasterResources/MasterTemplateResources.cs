@@ -39,16 +39,21 @@ namespace ASC.Web.Studio.Masters.MasterResources
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterClientTemplatesPath("~/templates/UserProfileCardTemplate.ascx", context);
-            yield return RegisterClientTemplatesPath("~/templates/AdvansedFilterTemplate.ascx", context);
-            yield return RegisterClientTemplatesPath("~/templates/FeedListTemplate.ascx", context);
-            yield return RegisterClientTemplatesPath("~/templates/DropFeedTemplate.ascx", context);
-            yield return RegisterClientTemplatesPath("~/templates/DropMailTemplate.ascx", context);
-            yield return RegisterClientTemplatesPath("~/templates/AdvUserSelectorTemplate.ascx", context);
-            yield return RegisterClientTemplatesPath("~/templates/GroupSelectorTemplate.ascx", context);
-            yield return RegisterClientTemplatesPath("~/templates/SharingSettingsTemplate.ascx", context);
-            yield return RegisterClientTemplatesPath("~/templates/AdvansedSelectorTemplate.ascx", context);
-            yield return RegisterClientTemplatesPath("~/templates/CommonTemplates.ascx", context);
+            return new List<KeyValuePair<string, object>>(12)
+                   {
+                       RegisterClientTemplatesPath("~/templates/UserProfileCardTemplate.ascx", context),
+                       RegisterClientTemplatesPath("~/templates/AdvansedFilterTemplate.ascx", context),
+                       RegisterClientTemplatesPath("~/templates/FeedListTemplate.ascx", context),
+                       RegisterClientTemplatesPath("~/templates/DropFeedTemplate.ascx", context),
+                       RegisterClientTemplatesPath("~/templates/DropMailTemplate.ascx", context),
+                       RegisterClientTemplatesPath("~/templates/AdvUserSelectorTemplate.ascx", context),
+                       RegisterClientTemplatesPath("~/templates/GroupSelectorTemplate.ascx", context),
+                       RegisterClientTemplatesPath("~/templates/SharingSettingsTemplate.ascx", context),
+                       RegisterClientTemplatesPath("~/templates/AdvansedSelectorTemplate.ascx", context),
+                       RegisterClientTemplatesPath("~/templates/CommonTemplates.ascx", context),
+                       RegisterClientTemplatesPath("~/templates/ManagementTemplates.ascx", context),
+                       RegisterClientTemplatesPath("~/templates/CommentsTemplates.ascx", context)
+                   };
         }
     }
 }

@@ -24,18 +24,9 @@
 */
 
 
-// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="" file="MucRoomSettings.cs">
-//   
-// </copyright>
-// <summary>
-//   (c) Copyright Ascensio System Limited 2008-2009
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-
 using ASC.Xmpp.Core.protocol;
 using ASC.Xmpp.Core.protocol.iq.disco;
-using ASC.Xmpp.Core.protocol.x.data;
+using XmppData = ASC.Xmpp.Core.protocol.x.data;
 using ASC.Xmpp.Core.protocol.x.muc;
 using ASC.Xmpp.Core.utils.Xml.Dom;
 using ASC.Xmpp.Server.Services.Muc2.Room.Member;
@@ -283,33 +274,33 @@ namespace ASC.Xmpp.Server.Services.Muc2.Room.Settings
             return features.ToArray();
         }
 
-        public Data GetDataForm(Jid creator)
+        public XmppData.Data GetDataForm(Jid creator)
         {
-            Data data = new Data(XDataFormType.form);
+            XmppData.Data data = new XmppData.Data(XmppData.XDataFormType.form);
             data.Title = string.Format("Configuration of {0} room", Room.Jid);
             data.Instructions = string.Format("Room {0} was created. Please fill configuration", Room.Name);
 
-            data.AddChild(new Field(FieldType.Hidden) { Var = "FORM_TYPE", FieldValue = Features.FEAT_MUC_ROOMCONFIG });
-            data.AddChild(new Field(FieldType.Text_Single) { Var = "muc#roomconfig_roomtitle", Label = RoomTitle, FieldValue = Title });
-            data.AddChild(new Field(FieldType.Boolean) { Var = "muc#roomconfig_publicroom", FieldValue = Visible ? "1" : "0", Label = RoomPublic });
-            data.AddChild(new Field(FieldType.Boolean) { Var = "muc#roomconfig_passwordprotectedroom", FieldValue = PasswordProtected ? "1" : "0", Label = RoomPasswordProtected });
-            data.AddChild(new Field(FieldType.Text_Private) { Var = "muc#roomconfig_roomsecret", Label = RoomPassword, FieldValue = Password });
-            data.AddChild(new Field(FieldType.Boolean) { Var = "muc#roomconfig_changesubject", FieldValue = CanChangeSubject ? "1" : "0", Label = AllowChangeSubject });
-            data.AddChild(new Field(FieldType.Boolean) { Var = "muc#roomconfig_enablelogging", FieldValue = Logging ? "1" : "0", Label = "Enable Public Logging?" });
-            data.AddChild(new Field(FieldType.Boolean) { Var = "muc#roomconfig_persistentroom", FieldValue = Persistent ? "1" : "0", Label = MakeRoomPersistent });
+            data.AddChild(new XmppData.Field(XmppData.FieldType.Hidden) { Var = "FORM_TYPE", FieldValue = Features.FEAT_MUC_ROOMCONFIG });
+            data.AddChild(new XmppData.Field(XmppData.FieldType.Text_Single) { Var = "muc#roomconfig_roomtitle", Label = RoomTitle, FieldValue = Title });
+            data.AddChild(new XmppData.Field(XmppData.FieldType.Boolean) { Var = "muc#roomconfig_publicroom", FieldValue = Visible ? "1" : "0", Label = RoomPublic });
+            data.AddChild(new XmppData.Field(XmppData.FieldType.Boolean) { Var = "muc#roomconfig_passwordprotectedroom", FieldValue = PasswordProtected ? "1" : "0", Label = RoomPasswordProtected });
+            data.AddChild(new XmppData.Field(XmppData.FieldType.Text_Private) { Var = "muc#roomconfig_roomsecret", Label = RoomPassword, FieldValue = Password });
+            data.AddChild(new XmppData.Field(XmppData.FieldType.Boolean) { Var = "muc#roomconfig_changesubject", FieldValue = CanChangeSubject ? "1" : "0", Label = AllowChangeSubject });
+            data.AddChild(new XmppData.Field(XmppData.FieldType.Boolean) { Var = "muc#roomconfig_enablelogging", FieldValue = Logging ? "1" : "0", Label = "Enable Public Logging?" });
+            data.AddChild(new XmppData.Field(XmppData.FieldType.Boolean) { Var = "muc#roomconfig_persistentroom", FieldValue = Persistent ? "1" : "0", Label = MakeRoomPersistent });
             //data.AddChild(new Field(FieldType.Boolean) { Var = "muc#roomconfig_usernamesonly", FieldValue = UserNamesOnly ? "1" : "0", Label = "Allow only real User Names?" });
             return data;
         }
 
-        public Data GetResultForm()
+        public XmppData.Data GetResultForm()
         {
-            Data data = new Data(XDataFormType.result);
+            XmppData.Data data = new XmppData.Data(XmppData.XDataFormType.result);
 
-            data.AddChild(new Field(FieldType.Hidden) { Var = "FORM_TYPE", FieldValue = Features.FEAT_MUC_ROOMINFO });
-            data.AddChild(new Field() { Var = "muc#roominfo_description", Label = RoomTitle, FieldValue = Title });
-            data.AddChild(new Field() { Var = "muc#roomconfig_publicroom", FieldValue = Visible ? "1" : "0", Label = RoomPublic });
-            data.AddChild(new Field() { Var = "muc#roomconfig_passwordprotectedroom", FieldValue = PasswordProtected ? "1" : "0", Label = RoomPasswordProtected });
-            data.AddChild(new Field() { Var = "muc#roomconfig_persistentroom", FieldValue = Persistent ? "1" : "0", Label = MakeRoomPersistent });
+            data.AddChild(new XmppData.Field(XmppData.FieldType.Hidden) { Var = "FORM_TYPE", FieldValue = Features.FEAT_MUC_ROOMINFO });
+            data.AddChild(new XmppData.Field() { Var = "muc#roominfo_description", Label = RoomTitle, FieldValue = Title });
+            data.AddChild(new XmppData.Field() { Var = "muc#roomconfig_publicroom", FieldValue = Visible ? "1" : "0", Label = RoomPublic });
+            data.AddChild(new XmppData.Field() { Var = "muc#roomconfig_passwordprotectedroom", FieldValue = PasswordProtected ? "1" : "0", Label = RoomPasswordProtected });
+            data.AddChild(new XmppData.Field() { Var = "muc#roomconfig_persistentroom", FieldValue = Persistent ? "1" : "0", Label = MakeRoomPersistent });
             //data.AddChild(new Field() { Var = "muc#roominfo_subject", FieldValue = Subject, Label = "Real user names only" });
             //data.AddChild(new Field() { Var = "muc#roomconfig_enablelogging", FieldValue = Logging ? "1" : "0", Label = "Logging enabled" });
             return data;
@@ -317,14 +308,14 @@ namespace ASC.Xmpp.Server.Services.Muc2.Room.Settings
 
         #endregion
 
-        public void SubmitForm(Data submit)
+        public void SubmitForm(XmppData.Data submit)
         {
-            ElementList fields = submit.SelectElements(typeof(Field));
+            ElementList fields = submit.SelectElements(typeof(XmppData.Field));
             foreach (var field in fields)
             {
-                if (field is Field)
+                if (field is XmppData.Field)
                 {
-                    Field fld = (Field)field;
+                    XmppData.Field fld = (XmppData.Field)field;
                     //Set conf back
                     switch (fld.Var)
                     {

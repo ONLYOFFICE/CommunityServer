@@ -27,6 +27,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using ASC.FullTextIndex.Service.Config;
 using log4net;
 
@@ -58,7 +59,7 @@ namespace ASC.FullTextIndex.Service
                     UseShellExecute = false,
                     FileName = TextIndexCfg.SearcherName,
                     WindowStyle = ProcessWindowStyle.Hidden,
-                    Arguments = string.Format("--config {0}", TextIndexCfg.ConfPath),
+                    Arguments = string.Format("--config \"{0}\"", TextIndexCfg.ConfPath),
                     WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
                 };
 
@@ -88,30 +89,33 @@ namespace ASC.FullTextIndex.Service
             }
         }
 
-        public Dictionary<string, IEnumerable<int>> Search(IEnumerable<ModuleInfo> modules)
+        public Dictionary<string, IEnumerable<int>> Search(IEnumerable<ModuleInfo> modules, int tenantID)
         {
             var result = new Dictionary<string, IEnumerable<int>>();
             foreach (var module in modules)
             {
                 try
                 {
-                    var ids = DbProvider.Search(module);
+                    var ids = new List<int>();
+
+                    var temp = module.SqlQuery;
+
+                    module.SqlQuery = temp.Replace(module.Name, TextIndexCfg.Chunks > 1 ? module.GetChunkByTenantId(tenantID, TextIndexCfg.Chunks, TextIndexCfg.Dimension) : module.Main);                    
+                    ids.AddRange(DbProvider.Search(module));
+
+                    module.SqlQuery = temp.Replace(module.Name, module.Delta);
+                    ids.AddRange(DbProvider.Search(module));
+
                     result.Add(module.Name, ids);
                 }
                 catch (Exception e)
                 {
                     Start();
-                    log.Error("Searchd: search failed", e);
+                    log.ErrorFormat("Searchd: search failed, module :{0}, exception:{1}", module.Name, e.Message);
                 }
             }
 
             return result;
-        }
-
-        public bool CheckDeltaIndexNotEmpty(ModuleInfo module)
-        {
-            Start();
-            return DbProvider.CheckDeltaIndexNotEmpty(module);
         }
     }
 }

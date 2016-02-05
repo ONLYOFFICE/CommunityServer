@@ -26,89 +26,51 @@
 
 using System;
 using System.Collections.Generic;
+using System.Threading;
 using System.Web;
-using System.Xml.Linq;
-using System.Xml.XPath;
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.Profile;
 using ASC.Thrdparty;
 using ASC.Thrdparty.Configuration;
-using ASC.Thrdparty.TokenManagers;
-using DotNetOpenAuth.ApplicationBlock;
-using DotNetOpenAuth.OAuth;
+using Newtonsoft.Json.Linq;
 
 namespace ASC.FederatedLogin.LoginProviders
 {
     public class LinkedInLoginProvider : ILoginProvider
     {
-        private static InMemoryTokenManager ShortTermUserSessionTokenManager
+        private const string LinkedInProfileUrl = "https://api.linkedin.com/v1/people/~:(id,first-name,last-name,formatted-name,email-address)?format=json";
+        private const string LinkedInProfileScope = "r_basicprofile r_emailaddress";
+
+
+        public const string LinkedInOauthCodeUrl = "https://www.linkedin.com/uas/oauth2/authorization";
+        public const string LinkedInOauthTokenUrl = "https://www.linkedin.com/uas/oauth2/accessToken";
+
+        public static string LinkedInOAuth20ClientId
         {
-            get
-            {
-                var store = HttpContext.Current.Session;
-                var tokenManager = (InMemoryTokenManager) store["linkedInShortTermManager"];
-                if (tokenManager == null)
-                {
-                    var consumerKey = KeyStorage.Get("linkedInKey");
-                    var consumerSecret = KeyStorage.Get("linkedInSecret");
-                    tokenManager = new InMemoryTokenManager(consumerKey, consumerSecret);
-                    store["linkedInShortTermManager"] = tokenManager;
-                }
-                return tokenManager;
-            }
+            get { return KeyStorage.Get("linkedInKey"); }
         }
 
-        private static WebConsumer _signInConsumer;
-        private static readonly object SignInConsumerInitLock = new object();
-
-        private static WebConsumer SignIn
+        public static string LinkedInOAuth20ClientSecret
         {
-            get
-            {
-                if (_signInConsumer == null)
-                {
-                    lock (SignInConsumerInitLock)
-                    {
-                        if (_signInConsumer == null)
-                        {
-                            _signInConsumer = new WebConsumer(LinkedInConsumer.ServiceDescription, ShortTermUserSessionTokenManager);
-                        }
-                    }
-                }
+            get { return KeyStorage.Get("linkedInSecret"); }
+        }
 
-                return _signInConsumer;
-            }
+        public static string LinkedInOAuth20RedirectUrl
+        {
+            get { return KeyStorage.Get("linkedInRedirectUrl"); }
         }
 
         public LoginProfile ProcessAuthoriztion(HttpContext context, IDictionary<string, string> @params)
         {
-            var token = context.Request["oauth_token"];
-            if (string.IsNullOrEmpty(token))
-            {
-                LinkedInConsumer.RequestAuthorization(SignIn);
-            }
-            else
-            {
-                var accessTokenResponse = SignIn.ProcessUserAuthorization();
-                try
-                {
-                    return token == null
-                               ? LoginProfile.FromError(new Exception("Login failed"))
-                               : RequestProfile(accessTokenResponse.AccessToken);
-                }
-                catch (Exception ex)
-                {
-                    return LoginProfile.FromError(ex);
-                }
-            }
-            return null;
-        }
-
-        public LoginProfile GetLoginProfile(string accessToken)
-        {
             try
             {
-                return RequestProfile(accessToken);
+                var token = Auth(context, LinkedInProfileScope);
+
+                return GetLoginProfile(token == null ? null : token.AccessToken);
+            }
+            catch (ThreadAbortException)
+            {
+                throw;
             }
             catch (Exception ex)
             {
@@ -116,18 +78,69 @@ namespace ASC.FederatedLogin.LoginProviders
             }
         }
 
+        public LoginProfile GetLoginProfile(string accessToken)
+        {
+            if (string.IsNullOrEmpty(accessToken))
+                throw new Exception("Login failed");
+
+            return RequestProfile(accessToken);
+        }
+
+        public static OAuth20Token Auth(HttpContext context, string scopes)
+        {
+            var error = context.Request["error"];
+            if (!string.IsNullOrEmpty(error))
+            {
+                if (error == "access_denied")
+                {
+                    error = "Canceled at provider";
+                }
+                throw new Exception(error);
+            }
+
+            var code = context.Request["code"];
+            if (string.IsNullOrEmpty(code))
+            {
+                OAuth20TokenHelper.RequestCode(HttpContext.Current,
+                                               LinkedInOauthCodeUrl,
+                                               LinkedInOAuth20ClientId,
+                                               LinkedInOAuth20RedirectUrl,
+                                               scopes);
+                return null;
+            }
+
+            var token = OAuth20TokenHelper.GetAccessToken(LinkedInOauthTokenUrl,
+                                                          LinkedInOAuth20ClientId,
+                                                          LinkedInOAuth20ClientSecret,
+                                                          LinkedInOAuth20RedirectUrl,
+                                                          code);
+            return token;
+        }
+
         private static LoginProfile RequestProfile(string accessToken)
         {
-            var responce = LinkedInConsumer.GetProfile(SignIn, accessToken);
-            var document = XDocument.Parse(responce).CreateNavigator();
-            return new LoginProfile
+            var linkedInProfile = RequestHelper.PerformRequest(LinkedInProfileUrl, headers: new Dictionary<string, string> {{"Authorization", "Bearer " + accessToken}});
+            var loginProfile = ProfileFromLinkedIn(linkedInProfile);
+            return loginProfile;
+        }
+
+        internal static LoginProfile ProfileFromLinkedIn(string linkedInProfile)
+        {
+            var jProfile = JObject.Parse(linkedInProfile);
+            if (jProfile == null) throw new Exception("Failed to correctly process the response");
+
+            var profile = new LoginProfile
                 {
-                    Id = document.SelectNodeValue("//id"),
-                    FirstName = document.SelectNodeValue("//first-name"),
-                    LastName = document.SelectNodeValue("//last-name"),
-                    Avatar = document.SelectNodeValue("//picture-url"),
-                    Provider = ProviderConstants.LinkedIn
+                    Id = jProfile.Value<string>("id"),
+                    FirstName = jProfile.Value<string>("firstName"),
+                    LastName = jProfile.Value<string>("lastName"),
+                    DisplayName = jProfile.Value<string>("formattedName"),
+                    EMail = jProfile.Value<string>("emailAddress"),
+                    
+                    Provider = ProviderConstants.LinkedIn,
                 };
+
+            return profile;
         }
     }
 }

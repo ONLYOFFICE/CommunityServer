@@ -7,6 +7,7 @@
 <%@ Import Namespace="ASC.Web.Projects.Classes" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
+<%@ Import Namespace="System.Linq" %>
 
 
 <div class="page-menu">
@@ -30,8 +31,8 @@
         <% }
            if (ParticipantSecurityInfo["Discussion"])
            {%>
-               <%if(RequestContext.IsInConcreteProject) {%>
-                    <li><a id="createNewDiscussion"  class="dropdown-item" href="messages.aspx?action=add&prjID=<%=RequestContext.GetCurrentProjectId() %>"><%= MessageResource.Message %></a></li>
+               <%if(Page.RequestContext.IsInConcreteProject) {%>
+                    <li><a id="createNewDiscussion"  class="dropdown-item" href="messages.aspx?action=add&prjID=<%=Page.RequestContext.GetCurrentProjectId() %>"><%= MessageResource.Message %></a></li>
                 <%}else{%>
                     <li><a id="createNewDiscussion"  class="dropdown-item" href="messages.aspx?action=add"><%= MessageResource.Message %></a></li>
                 <%}%>
@@ -78,7 +79,7 @@
                 </div>
                 <ul class="menu-sub-list">
                     <% if (!IsOutsider) { %>
-                    <% if (MyProjects.Count != 0) { %>
+                    <% if (MyProjects.Any()) { %>
                        <li id="myProjectsConteiner" class="menu-sub-item myProjectsConteiner">
                             <div class="menu-item sub-list">
                                 <span id="myProjectsExpander" class="expander"></span>

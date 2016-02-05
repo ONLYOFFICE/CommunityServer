@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -42,19 +42,20 @@ using ASC.Web.Studio.Core.Import;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
+using Resources;
 using Constants = ASC.Core.Users.Constants;
 
 namespace ASC.Web.Studio.UserControls.Users
 {
     internal class ContactsUploader : IFileUploadHandler
     {
-        #region IFileUploadHandler Members
-
         public FileUploadResult ProcessUpload(HttpContext context)
         {
             var result = new FileUploadResult();
             try
             {
+                SecurityContext.CheckPermissions(Constants.Action_AddRemoveUser);
+
                 if (context.Request.Files.Count != 0)
                 {
                     var logo = context.Request.Files[0];
@@ -63,7 +64,7 @@ namespace ASC.Web.Studio.UserControls.Users
                     if (ext != ".csv")
                     {
                         result.Success = false;
-                        result.Message = Resources.Resource.ErrorEmptyUploadFileSelected;
+                        result.Message = Resource.ErrorEmptyUploadFileSelected;
                         return result;
                     }
 
@@ -79,7 +80,7 @@ namespace ASC.Web.Studio.UserControls.Users
                 else
                 {
                     result.Success = false;
-                    result.Message = Resources.Resource.ErrorEmptyUploadFileSelected;
+                    result.Message = Resource.ErrorEmptyUploadFileSelected;
                 }
             }
             catch(Exception ex)
@@ -100,8 +101,6 @@ namespace ASC.Web.Studio.UserControls.Users
                 return Encoding.UTF8.GetString(ms.GetBuffer(), 0, (int)ms.Length);
             }
         }
-
-        #endregion
     }
 
     [AjaxNamespace("ImportUsersController")]
@@ -155,21 +154,21 @@ namespace ASC.Web.Studio.UserControls.Users
 
         private void RegisterScript()
         {
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/users/importusers/css/import.less"));
+            Page.RegisterStyle("~/usercontrols/users/importusers/css/import.less");
 
-            Page.RegisterBodyScripts(ResolveUrl("~/js/uploader/ajaxupload.js"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/users/ImportUsers/js/ImportUsers.js"));
+            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js");
+            Page.RegisterBodyScripts("~/usercontrols/users/ImportUsers/js/ImportUsers.js");
 
             var script = new StringBuilder();
 
-            script.AppendFormat("ImportUsersManager.FName = '{0}';", Resources.Resource.ImportContactsFirstName.ReplaceSingleQuote());
-            script.AppendFormat("ImportUsersManager.EmptyFName = '{0}';", Resources.Resource.ImportContactsEmptyFirstName.ReplaceSingleQuote());
-            script.AppendFormat("ImportUsersManager.LName = '{0}';", Resources.Resource.ImportContactsLastName.ReplaceSingleQuote().Replace("\n", ""));
-            script.AppendFormat("ImportUsersManager.EmptyLName = '{0}';", Resources.Resource.ImportContactsEmptyLastName.ReplaceSingleQuote());
-            script.AppendFormat("ImportUsersManager.Email = '{0}';", Resources.Resource.ImportContactsEmail.ReplaceSingleQuote());
-            script.AppendFormat("ImportUsersManager._errorImport = '{0}';", String.Format(Resources.Resource.ImportContactsFromFileError.ReplaceSingleQuote(), "<br />"));
-            script.AppendFormat("ImportUsersManager._errorEmail = '{0}';", Resources.Resource.ImportContactsIncorrectFields.ReplaceSingleQuote());
-            script.AppendFormat("ImportUsersManager._emptySocImport = '{0}';", String.Format(Resources.Resource.ImportContactsEmptyData.ReplaceSingleQuote().Replace("\n", ""), "<br />"));
+            script.AppendFormat("ImportUsersManager.FName = '{0}';", Resource.ImportContactsFirstName.ReplaceSingleQuote());
+            script.AppendFormat("ImportUsersManager.EmptyFName = '{0}';", Resource.ImportContactsEmptyFirstName.ReplaceSingleQuote());
+            script.AppendFormat("ImportUsersManager.LName = '{0}';", Resource.ImportContactsLastName.ReplaceSingleQuote().Replace("\n", ""));
+            script.AppendFormat("ImportUsersManager.EmptyLName = '{0}';", Resource.ImportContactsEmptyLastName.ReplaceSingleQuote());
+            script.AppendFormat("ImportUsersManager.Email = '{0}';", Resource.ImportContactsEmail.ReplaceSingleQuote());
+            script.AppendFormat("ImportUsersManager._errorImport = '{0}';", String.Format(Resource.ImportContactsFromFileError.ReplaceSingleQuote(), "<br />"));
+            script.AppendFormat("ImportUsersManager._errorEmail = '{0}';", Resource.ImportContactsIncorrectFields.ReplaceSingleQuote());
+            script.AppendFormat("ImportUsersManager._emptySocImport = '{0}';", String.Format(Resource.ImportContactsEmptyData.ReplaceSingleQuote().Replace("\n", ""), "<br />"));
             script.AppendFormat("ImportUsersManager._portalLicence.maxUsers = '{0}';", TenantExtra.GetTenantQuota().ActiveUsers);
             script.AppendFormat("ImportUsersManager._portalLicence.currectUsers = '{0}';", TenantStatisticsProvider.GetUsersCount());
 
@@ -265,7 +264,7 @@ namespace ASC.Web.Studio.UserControls.Users
 
                 if (!SecurityContext.CheckPermissions(Constants.Action_AddRemoveUser))
                 {
-                    Error = Resources.Resource.ErrorAccessDenied;
+                    Error = Resource.ErrorAccessDenied;
                     IsCompleted = true;
                     return;
                 }
@@ -285,7 +284,7 @@ namespace ASC.Web.Studio.UserControls.Users
                             Data.Add(new UserResults
                                 {
                                     Email = userData.Email,
-                                    Result = Resources.Resource.ImportContactsIncorrectFields,
+                                    Result = Resource.ImportContactsIncorrectFields,
                                     Class = !validateEmail ? "error3" : "error1"
                                 });
                             error++;
@@ -300,7 +299,7 @@ namespace ASC.Web.Studio.UserControls.Users
                             Data.Add(new UserResults
                                 {
                                     Email = userData.Email,
-                                    Result = Resources.Resource.ImportContactsAlreadyExists,
+                                    Result = Resource.ImportContactsAlreadyExists,
                                     Class = "error2"
                                 });
                             error++;

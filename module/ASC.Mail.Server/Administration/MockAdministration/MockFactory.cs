@@ -72,5 +72,14 @@ namespace ASC.Mail.Server.MockAdministration
             return new MockDnsSettings(id, tenant, user, domainName, dkimSelector, dkimPrivateKey, dkimPublicKey, domainCheckName,
             domainCheckRecord, spfName, spfRecord, mxHost, mxPriority, logger);
         }
+
+        public override INotificationAddress CreateNotificationAddress(string localPart, IWebDomain domain, string smtpServer, int smtpPort,
+                                                                       string smtpAccount, bool smtpAuth, EncryptionType smptEncryptionType,
+                                                                       AuthenticationType smtpAuthenticationType)
+        {
+            return new MockNotificationAddress(localPart, domain, smtpServer, smtpPort,
+                   smtpAccount, smtpAuth, smptEncryptionType,
+                   smtpAuthenticationType);
+        }
     }
 }

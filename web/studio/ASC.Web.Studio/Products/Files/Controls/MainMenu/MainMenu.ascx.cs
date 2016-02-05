@@ -26,11 +26,8 @@
 
 using System;
 using System.Web.UI;
-using ASC.Core;
-using ASC.Core.Users;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Files.Classes;
-using ASC.Web.Files.Import;
 using ASC.Web.Studio.UserControls.Common.HelpCenter;
 using ASC.Web.Studio.UserControls.Common.Support;
 using ASC.Web.Studio.UserControls.Common.VideoGuides;
@@ -46,29 +43,26 @@ namespace ASC.Web.Files.Controls
             get { return PathProvider.GetFileControlPath("MainMenu/MainMenu.ascx"); }
         }
 
-        protected bool EnableThirdParty;
+        public bool EnableThirdParty;
+        public bool Desktop;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            var isVisitor = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor();
-
-            EnableThirdParty = ImportConfiguration.SupportInclusion
-                               && !isVisitor
-                               && (Global.IsAdministrator
-                                   || FilesSettings.EnableThirdParty);
-
             CreateMenuHolder.Controls.Add(LoadControl(CreateMenu.Location));
 
             ControlHolder.Controls.Add(LoadControl(TreeBuilder.Location));
             InviteUserHolder.Controls.Add(LoadControl(InviteLink.Location));
 
-            var helpCenter = (HelpCenter)LoadControl(HelpCenter.Location);
-            helpCenter.IsSideBar = true;
-            sideHelpCenter.Controls.Add(helpCenter);
+            if (!Desktop)
+            {
+                var helpCenter = (HelpCenter) LoadControl(HelpCenter.Location);
+                helpCenter.IsSideBar = true;
+                sideHelpCenter.Controls.Add(helpCenter);
 
-            sideSupport.Controls.Add(LoadControl(Support.Location));
-            VideoGuides.Controls.Add(LoadControl(VideoGuidesControl.Location));
-            UserForumHolder.Controls.Add(LoadControl(UserForum.Location));
+                sideSupport.Controls.Add(LoadControl(Support.Location));
+                VideoGuides.Controls.Add(LoadControl(VideoGuidesControl.Location));
+                UserForumHolder.Controls.Add(LoadControl(UserForum.Location));
+            }
 
             CreateButtonClass = MobileDetector.IsMobile ? "big" : "middle";
         }

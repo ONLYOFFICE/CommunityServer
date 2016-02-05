@@ -27,6 +27,6 @@
         </div>
     </div>
     <div class="settings-help-block">
-        <%= String.Format(Resource.FullTextSearchSettingsHelp, "<br />") %>
+        <%= String.Format(Resource.FullTextSearchSettingsHelp.HtmlEncode(), "<br />") %>
     </div>
 </div>

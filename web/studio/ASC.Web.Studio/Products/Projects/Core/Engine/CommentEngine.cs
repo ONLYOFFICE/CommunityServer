@@ -30,59 +30,102 @@ using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
+using ASC.Projects.Core.Services.NotifyService;
 
 namespace ASC.Projects.Engine
 {
     public class CommentEngine
     {
-        private readonly ICommentDao _commentDao;
+        private readonly ICommentDao commentDao;
+        private readonly EngineFactory factory;
 
 
-        public CommentEngine(IDaoFactory daoFactory)
+        public CommentEngine(IDaoFactory daoFactory, EngineFactory factory)
         {
-            _commentDao = daoFactory.GetCommentDao();
+            commentDao = daoFactory.GetCommentDao();
+            this.factory = factory;
         }
 
-        public List<Comment> GetComments(DomainObject<Int32> targetObject)
+        public List<Comment> GetComments(DomainObject<int> targetObject)
         {
-            return targetObject != null ? _commentDao.GetAll(targetObject) : new List<Comment>();
+            return targetObject != null ? commentDao.GetAll(targetObject) : new List<Comment>();
         }
 
         public Comment GetByID(Guid id)
         {
-            return _commentDao.GetById(id);
+            return commentDao.GetById(id);
         }
 
-        public Comment GetLast(DomainObject<Int32> targetObject)
+        public int Count(DomainObject<int> targetObject)
         {
-            return targetObject != null ? _commentDao.GetLast(targetObject) : null;
+            return targetObject == null ? 0 : commentDao.Count(targetObject);
         }
 
-        public int Count(DomainObject<Int32> targetObject)
+        public List<int> Count(List<ProjectEntity> targets)
         {
-            return targetObject == null ? 0 : _commentDao.Count(targetObject);
+            return commentDao.Count(targets);
         }
 
-        public List<int> GetCommentsCount(List<ProjectEntity> targets)
+        public int Count(ProjectEntity target)
         {
-            return _commentDao.GetCommentsCount(targets);
+            return commentDao.Count(target);
         }
 
-        public Comment SaveOrUpdate(Comment comment)
+        public void SaveOrUpdate(Comment comment)
         {
             if (comment == null) throw new ArgumentNullException("comment");
-
-            ProjectSecurity.DemandCreateComment();
 
             if (comment.CreateBy == default(Guid)) comment.CreateBy = SecurityContext.CurrentAccount.ID;
 
             var now = TenantUtil.DateTimeNow();
             if (comment.CreateOn == default(DateTime)) comment.CreateOn = now;
 
-            var newComment = _commentDao.Save(comment);
-            //mark entity as jast readed
+            commentDao.Save(comment);
+        }
 
-            return newComment;
+        public ProjectEntity GetEntityByTargetUniqId(Comment comment)
+        {
+            var engine = GetProjectEntityEngine(comment);
+            if (engine == null) return null;
+
+            return engine.GetEntityByID(comment.TargetID);
+        }
+
+        public Comment SaveOrUpdateComment(ProjectEntity entity, Comment comment)
+        {
+            var isNew = comment.OldGuidId.Equals(Guid.Empty);
+
+            ProjectSecurity.DemandCreateComment(entity);
+
+            SaveOrUpdate(comment);
+
+            NotifyNewComment(entity, comment, isNew);
+
+            GetProjectEntityEngine(comment).Subscribe(entity, SecurityContext.CurrentAccount.ID);
+
+            return comment;
+        }
+
+        private void NotifyNewComment(ProjectEntity entity, Comment comment, bool isNew)
+        {
+            if (factory.DisableNotifications) return;
+
+            var senders = GetProjectEntityEngine(comment).GetSubscribers(entity);
+
+            NotifyClient.Instance.SendNewComment(senders, entity, comment, isNew);
+        }
+
+        private ProjectEntityEngine GetProjectEntityEngine(Comment comment)
+        {
+            switch (comment.TargetType)
+            {
+                case "Task":
+                    return factory.TaskEngine;
+                case "Message":
+                    return factory.MessageEngine;
+                default:
+                    return null;
+            }
         }
     }
 }

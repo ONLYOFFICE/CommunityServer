@@ -120,20 +120,26 @@
   <data name="ActualCloseDate" xml:space="preserve">
     <value>Actual date of the deal</value>
   </data>
-  <data name="AddCheckboxButton" xml:space="preserve">
-    <value>Add a Checkbox</value>
-  </data>
   <data name="AddNewDealProgress" xml:space="preserve">
     <value>Adding an opportunity...</value>
+  </data>
+  <data name="AddNewEmail" xml:space="preserve">
+    <value>Add email</value>
+  </data>
+  <data name="AddNewInvoiceProgress" xml:space="preserve">
+    <value>Adding an invoice...</value>
+  </data>
+  <data name="AddNewPhone" xml:space="preserve">
+    <value>Add phone</value>
   </data>
   <data name="AddNewTask" xml:space="preserve">
     <value>Assign a new task</value>
   </data>
-  <data name="AddOptionButton" xml:space="preserve">
-    <value>Add an Option</value>
+  <data name="AddressGenitivePlural" xml:space="preserve">
+    <value>addresses</value>
   </data>
-  <data name="AddressCountry" xml:space="preserve">
-    <value>Country</value>
+  <data name="AddressGenitiveSingular" xml:space="preserve">
+    <value>addresses</value>
   </data>
   <data name="AddressWatermark" xml:space="preserve">
     <value>Address</value>
@@ -141,14 +147,44 @@
   <data name="AddThisTask" xml:space="preserve">
     <value>Assign this task</value>
   </data>
+  <data name="Batch" xml:space="preserve">
+    <value>batch</value>
+  </data>
+  <data name="BidType_PerDay" xml:space="preserve">
+    <value>per day</value>
+  </data>
+  <data name="BidType_PerHour" xml:space="preserve">
+    <value>per hour</value>
+  </data>
+  <data name="BidType_PerMonth" xml:space="preserve">
+    <value>per month</value>
+  </data>
+  <data name="BidType_PerWeek" xml:space="preserve">
+    <value>per week</value>
+  </data>
+  <data name="BidType_PerYear" xml:space="preserve">
+    <value>per year</value>
+  </data>
+  <data name="BillingAddress" xml:space="preserve">
+    <value>Billing address</value>
+  </data>
+  <data name="Browse" xml:space="preserve">
+    <value>Browse</value>
+  </data>
+  <data name="Case" xml:space="preserve">
+    <value>Case</value>
+  </data>
+  <data name="CaseStatusClosed" xml:space="preserve">
+    <value>Закрыто</value>
+  </data>
+  <data name="CaseStatusOpened" xml:space="preserve">
+    <value>Открыто</value>
+  </data>
   <data name="Change" xml:space="preserve">
     <value>Update</value>
   </data>
   <data name="CheckAsPrimary" xml:space="preserve">
     <value>Mark as primary</value>
-  </data>
-  <data name="Checkboxes" xml:space="preserve">
-    <value>Checkboxes</value>
   </data>
   <data name="Choose" xml:space="preserve">
     <value>Choose</value>
@@ -162,8 +198,18 @@
   <data name="Company" xml:space="preserve">
     <value>Company</value>
   </data>
+  <data name="ConfirmChangeKey" xml:space="preserve">
+    <value>Are you sure you want to change this key?</value>
+  </data>
+  <data name="ConfirmChangeKeyNote" xml:space="preserve">
+    <value>Note: all previously created forms will no longer work</value>
+  </data>
   <data name="ConfirmDeleteTask" xml:space="preserve">
     <value>Are you sure you want to delete this task?</value>
+  </data>
+  <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
+    <value>Вся введеная информация будет потеряна.
+Выполнить переход?</value>
   </data>
   <data name="ContactFacebookDescription" xml:space="preserve">
     <value>Please enter your facebook account identifier.</value>
@@ -174,6 +220,24 @@
   <data name="ContactTwitterDescription" xml:space="preserve">
     <value>Please enter the name of your Twitter account. For example, teamlabdotcom</value>
   </data>
+  <data name="CurrentMonth" xml:space="preserve">
+    <value>Current month</value>
+  </data>
+  <data name="CurrentWeek" xml:space="preserve">
+    <value>Current week</value>
+  </data>
+  <data name="CustomPeriod" xml:space="preserve">
+    <value>Custom period</value>
+  </data>
+  <data name="Deal" xml:space="preserve">
+    <value>Opportunity</value>
+  </data>
+  <data name="DeleteCaseConfirmMessage" xml:space="preserve">
+    <value>Are you sure you want to delete the '{0}' case?</value>
+  </data>
+  <data name="DeleteCaseInProgress" xml:space="preserve">
+    <value>Deleting case...</value>
+  </data>
   <data name="DeleteCompany" xml:space="preserve">
     <value>Delete company</value>
   </data>
@@ -183,20 +247,32 @@
   <data name="DeleteConfirmNote" xml:space="preserve">
     <value>Note: this action cannot be undone</value>
   </data>
+  <data name="DeleteContactInProgress" xml:space="preserve">
+    <value>Deleting contact...</value>
+  </data>
   <data name="DeleteDealConfirmMessage" xml:space="preserve">
     <value>Are you sure you want to delete the '{0}' opportunity?</value>
   </data>
   <data name="DeleteDealInProgress" xml:space="preserve">
     <value>Deleting opportunity...</value>
   </data>
-  <data name="DeleteMember" xml:space="preserve">
-    <value>Delete participant</value>
-  </data>
   <data name="DeletePersonConfirmMessage" xml:space="preserve">
     <value>Are you sure you want to delete the '{0}' person?</value>
   </data>
+  <data name="DeliveryAddress" xml:space="preserve">
+    <value>Delivery address</value>
+  </data>
+  <data name="EditEmail" xml:space="preserve">
+    <value>Update email</value>
+  </data>
   <data name="EditingDealProgress" xml:space="preserve">
     <value>Saving changes...</value>
+  </data>
+  <data name="EditingInvoiceProgress" xml:space="preserve">
+    <value>Saving changes...</value>
+  </data>
+  <data name="EditPhone" xml:space="preserve">
+    <value>Update phone</value>
   </data>
   <data name="EditSelectedCustomField" xml:space="preserve">
     <value>Update «{0}» field</value>
@@ -204,23 +280,20 @@
   <data name="EditTask" xml:space="preserve">
     <value>Update a task</value>
   </data>
-  <data name="EmptyDealContact" xml:space="preserve">
-    <value>Every opportunity must have a client</value>
+  <data name="ElementsSelectedCount" xml:space="preserve">
+    <value>{0} selected</value>
   </data>
-  <data name="EmptyDealExpectedValue" xml:space="preserve">
-    <value>Enter the opportunity budget</value>
+  <data name="Empty" xml:space="preserve">
+    <value>Empty</value>
   </data>
-  <data name="EmptyEventContact" xml:space="preserve">
-    <value>Every event must be linked with a contact</value>
-  </data>
-  <data name="EmptyEventContent" xml:space="preserve">
-    <value>Every event must have a description</value>
+  <data name="EmptyFieldsOfSettings" xml:space="preserve">
+    <value>The fields of settings can't be empty</value>
   </data>
   <data name="EmptyItemList" xml:space="preserve">
     <value>The element list cannot be empty</value>
   </data>
-  <data name="EmptyTaskContact" xml:space="preserve">
-    <value>Every task must have a contact</value>
+  <data name="EmptyLetterBodyContent" xml:space="preserve">
+    <value>Every letter must have a body</value>
   </data>
   <data name="EmptyTaskDeadline" xml:space="preserve">
     <value>Every task must have a due date</value>
@@ -231,23 +304,23 @@
   <data name="EmptyTaskTitle" xml:space="preserve">
     <value>Every task must have a title</value>
   </data>
-  <data name="ErrorCompanyAlreadyExists" xml:space="preserve">
-    <value>A company with such a name already exists</value>
-  </data>
-  <data name="ErrorCompanyIsNotSelected" xml:space="preserve">
-    <value>No company is selected</value>
+  <data name="ErrorCasesNotMappingBasicColumn" xml:space="preserve">
+    <value>Не найдено соответствие полю  'Название мероприятия'</value>
   </data>
   <data name="ErrorContactIsNotSelected" xml:space="preserve">
     <value>No person is selected</value>
+  </data>
+  <data name="ErrorContactNotMappingBasicColumn" xml:space="preserve">
+    <value>The fields corresponding to the 'First Name'' or 'Company Name' could not be found</value>
+  </data>
+  <data name="ErrorEmailRecipientsCount" xml:space="preserve">
+    <value>{0} email recipients maximum</value>
   </data>
   <data name="ErrorEmptyCaseTitle" xml:space="preserve">
     <value>Enter the case title</value>
   </data>
   <data name="ErrorMappingMoreBasicColumn" xml:space="preserve">
     <value>Obligatory fields must not be duplicated</value>
-  </data>
-  <data name="ErrorMessage_NoteAttachedToCaseAndDealTogether" xml:space="preserve">
-    <value>ErrorMessage_AttachCaseAndDealTogether</value>
   </data>
   <data name="ErrorMessage_NotImageSupportFormat" xml:space="preserve">
     <value>Image format is not supported</value>
@@ -258,20 +331,23 @@
   <data name="ErrorMessage_SaveImageError" xml:space="preserve">
     <value>An error occurred while uploading the image to the server</value>
   </data>
-  <data name="ErrorNotCorrectEmail" xml:space="preserve">
-    <value>Invalid email</value>
+  <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
+    <value>Не найдено соответствие полям  'Название возможной сделки', 'Ответственный за возможную сделку'</value>
   </data>
-  <data name="ErrorNotMappingColumn" xml:space="preserve">
-    <value>There are columns without correlation rules.</value>
-  </data>
-  <data name="ErrorPersonAlreadyExists" xml:space="preserve">
-    <value>A person with such first and last name already exists</value>
+  <data name="ErrorTaskNotMappingBasicColumn" xml:space="preserve">
+    <value>Не найдено соответствие полям 'Название задачи', 'Ответственный', 'Срок выполнения'</value>
   </data>
   <data name="ErrorTheLastContactStage" xml:space="preserve">
     <value>The "{0}" type is the last one. It cannot be deleted.</value>
   </data>
+  <data name="ErrorTheLastContactType" xml:space="preserve">
+    <value>The "{0}" type is the last one. It cannot be deleted.</value>
+  </data>
   <data name="ErrorTheLastDealMilestone" xml:space="preserve">
     <value>This is the only opportunity stage. It cannot be deleted.</value>
+  </data>
+  <data name="ErrorTheLastHistoryCategory" xml:space="preserve">
+    <value>The "{0}" category is the last one. It cannot be deleted.</value>
   </data>
   <data name="ErrorTheLastTaskCategory" xml:space="preserve">
     <value>The "{0}" category is the last one. It cannot be deleted.</value>
@@ -282,17 +358,56 @@
   <data name="FindFacebook" xml:space="preserve">
     <value>Find account in Facebook</value>
   </data>
-  <data name="FindLinkedIn" xml:space="preserve">
-    <value>Find account in LinkedIn</value>
-  </data>
   <data name="FindTwitter" xml:space="preserve">
     <value>Find account in Twitter</value>
   </data>
-  <data name="ImportFromCSVStepThreeDescription" xml:space="preserve">
-    <value>In accordance to the rules of columns correlation we scanned your file and found {0} contacts. The lines where correspondences to the obligatory fields could not be found were ignored. Please make sure you need to import all the contacts and start the contact import afterwards.</value>
+  <data name="GenerateLinkInfo" xml:space="preserve">
+    <value>Your recipient list has been generated. {0} Click the links below to pre-populate your email program with the email addresses.</value>
+  </data>
+  <data name="GoToSettings" xml:space="preserve">
+    <value>Go to Settings</value>
+  </data>
+  <data name="HelpContentAccessRights" xml:space="preserve">
+    <value>Open the portal Settings page if you need to restrict the access to the CRM module and give some users administrator privileges.</value>
+  </data>
+  <data name="HelpContentAddContacts" xml:space="preserve">
+    <value>Click this button and select the Import contacts option if you need to transfer your contacts from a CSV file, all at once.</value>
+  </data>
+  <data name="HelpContentCreateNew" xml:space="preserve">
+    <value>Use this button to start creating your customer database adding persons and companies and linking them.</value>
+  </data>
+  <data name="HelpContentCreateWebsite" xml:space="preserve">
+    <value>Use this link to build a form that you can publish on your site and capture new contacts automatically.</value>
+  </data>
+  <data name="HelpTitleAccessRights" xml:space="preserve">
+    <value>Manage Access Rights</value>
+  </data>
+  <data name="HelpTitleAddContacts" xml:space="preserve">
+    <value>Add Contacts in Bulk</value>
+  </data>
+  <data name="HelpTitleCreateNew" xml:space="preserve">
+    <value>Create New Contact</value>
+  </data>
+  <data name="HelpTitleCreateWebsite" xml:space="preserve">
+    <value>Create a Website Contact Form</value>
+  </data>
+  <data name="LinkWithDeal" xml:space="preserve">
+    <value>Link with opportunity</value>
+  </data>
+  <data name="LinkWithProject" xml:space="preserve">
+    <value>Link with project</value>
   </data>
   <data name="Loading" xml:space="preserve">
     <value>Uploading</value>
+  </data>
+  <data name="LoadingProcessing" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="ManyCases" xml:space="preserve">
+    <value>cases</value>
+  </data>
+  <data name="ManyCompanies" xml:space="preserve">
+    <value>companies</value>
   </data>
   <data name="ManyContacts" xml:space="preserve">
     <value>contacts</value>
@@ -300,14 +415,29 @@
   <data name="ManyDeals" xml:space="preserve">
     <value>opportunities</value>
   </data>
+  <data name="ManyEvents" xml:space="preserve">
+    <value>events</value>
+  </data>
+  <data name="ManyPersons" xml:space="preserve">
+    <value>persons</value>
+  </data>
   <data name="ManyTasks" xml:space="preserve">
     <value>tasks</value>
   </data>
-  <data name="NewDocument" xml:space="preserve">
-    <value>New document</value>
+  <data name="Next" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="NextPreview" xml:space="preserve">
+    <value>Next (to preview)</value>
+  </data>
+  <data name="NoCases" xml:space="preserve">
+    <value>There are no cases</value>
   </data>
   <data name="NoCloseDate" xml:space="preserve">
     <value>No close date</value>
+  </data>
+  <data name="NoCompanies" xml:space="preserve">
+    <value>There are no companies</value>
   </data>
   <data name="NoContacts" xml:space="preserve">
     <value>There are no contacts</value>
@@ -315,14 +445,38 @@
   <data name="NoDeals" xml:space="preserve">
     <value>There are no opportunities</value>
   </data>
+  <data name="NoEvents" xml:space="preserve">
+    <value>There are no events</value>
+  </data>
+  <data name="NoFileSelected" xml:space="preserve">
+    <value>No file selected</value>
+  </data>
+  <data name="NoPersons" xml:space="preserve">
+    <value>There are no persons</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>no subject</value>
+  </data>
   <data name="NoTasks" xml:space="preserve">
     <value>There are no tasks</value>
+  </data>
+  <data name="OneCase" xml:space="preserve">
+    <value>case</value>
+  </data>
+  <data name="OneCompany" xml:space="preserve">
+    <value>company</value>
   </data>
   <data name="OneContact" xml:space="preserve">
     <value>contact</value>
   </data>
   <data name="OneDeal" xml:space="preserve">
     <value>opportunity</value>
+  </data>
+  <data name="OneEvent" xml:space="preserve">
+    <value>event</value>
+  </data>
+  <data name="OnePerson" xml:space="preserve">
+    <value>person</value>
   </data>
   <data name="OneTask" xml:space="preserve">
     <value>task</value>
@@ -345,17 +499,23 @@
   <data name="PleaseRefreshThePage" xml:space="preserve">
     <value>Please reload the page</value>
   </data>
+  <data name="PleaseWait" xml:space="preserve">
+    <value>Please wait...</value>
+  </data>
   <data name="PossibleSocialMediaAccounts" xml:space="preserve">
     <value>Possible profiles for {0}</value>
+  </data>
+  <data name="Previous" xml:space="preserve">
+    <value>Previous</value>
   </data>
   <data name="Primary" xml:space="preserve">
     <value>Primary</value>
   </data>
+  <data name="RecipientsWithoutEmail" xml:space="preserve">
+    <value>{0} recipients didn't have email addresses.</value>
+  </data>
   <data name="SaveChanges" xml:space="preserve">
     <value>Save changes</value>
-  </data>
-  <data name="SaveField" xml:space="preserve">
-    <value>Save field</value>
   </data>
   <data name="SelectCSVFileButton" xml:space="preserve">
     <value>Select a CSV file</value>
@@ -363,11 +523,17 @@
   <data name="SelectedCSVFileLabel" xml:space="preserve">
     <value>Selected CSV file: {0}</value>
   </data>
-  <data name="SelectOptions" xml:space="preserve">
-    <value>Choices</value>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="SettingsUpdated" xml:space="preserve">
+    <value>Settings have been successfully updated</value>
   </data>
   <data name="ShowMore" xml:space="preserve">
     <value>Show {0} more from {1}</value>
+  </data>
+  <data name="ShowMoreButtonText" xml:space="preserve">
+    <value>Show more</value>
   </data>
   <data name="Stage" xml:space="preserve">
     <value>Стадия теплоты</value>
@@ -375,186 +541,14 @@
   <data name="StateWatermark" xml:space="preserve">
     <value>State</value>
   </data>
-  <data name="ZipCodeWatermark" xml:space="preserve">
-    <value>Zip code</value>
-  </data>
-  <data name="BidType_PerDay" xml:space="preserve">
-    <value>per day</value>
-  </data>
-  <data name="BidType_PerHour" xml:space="preserve">
-    <value>per hour</value>
-  </data>
-  <data name="BidType_PerMonth" xml:space="preserve">
-    <value>per month</value>
-  </data>
-  <data name="BidType_PerWeek" xml:space="preserve">
-    <value>per week</value>
-  </data>
-  <data name="BidType_PerYear" xml:space="preserve">
-    <value>per year</value>
-  </data>
-  <data name="LoadingProcessing" xml:space="preserve">
-    <value>Loading...</value>
-  </data>
-  <data name="ShowMoreButtonText" xml:space="preserve">
-    <value>Show more</value>
-  </data>
-  <data name="ManyCases" xml:space="preserve">
-    <value>cases</value>
-  </data>
-  <data name="ManyCompanies" xml:space="preserve">
-    <value>companies</value>
-  </data>
-  <data name="ManyPersons" xml:space="preserve">
-    <value>persons</value>
-  </data>
-  <data name="NoCases" xml:space="preserve">
-    <value>There are no cases</value>
-  </data>
-  <data name="NoCompanies" xml:space="preserve">
-    <value>There are no companies</value>
-  </data>
-  <data name="NoPersons" xml:space="preserve">
-    <value>There are no persons</value>
-  </data>
-  <data name="OneCase" xml:space="preserve">
-    <value>case</value>
-  </data>
-  <data name="OneCompany" xml:space="preserve">
-    <value>company</value>
-  </data>
-  <data name="OnePerson" xml:space="preserve">
-    <value>person</value>
-  </data>
-  <data name="Case" xml:space="preserve">
-    <value>Case</value>
-  </data>
-  <data name="Deal" xml:space="preserve">
-    <value>Opportunity</value>
-  </data>
-  <data name="AddressGenitivePlural" xml:space="preserve">
-    <value>addresses</value>
-  </data>
-  <data name="AddressGenitiveSingular" xml:space="preserve">
-    <value>addresses</value>
-  </data>
-  <data name="AddressNominative" xml:space="preserve">
-    <value>address</value>
-  </data>
-  <data name="EmptyMessageContent" xml:space="preserve">
-    <value>Empty message content</value>
-  </data>
-  <data name="NextPreview" xml:space="preserve">
-    <value>Next (to preview)</value>
-  </data>
-  <data name="NoSubject" xml:space="preserve">
-    <value>no subject</value>
-  </data>
-  <data name="Send" xml:space="preserve">
-    <value>Send</value>
-  </data>
-  <data name="ContactName" xml:space="preserve">
-    <value>Contact name</value>
-  </data>
-  <data name="CurrentDate" xml:space="preserve">
-    <value>Current date</value>
-  </data>
-  <data name="CurrentUser" xml:space="preserve">
-    <value>Current user</value>
-  </data>
-  <data name="FileGenitivePlural" xml:space="preserve">
-    <value>files</value>
-  </data>
-  <data name="FileGenitiveSingular" xml:space="preserve">
-    <value>files</value>
-  </data>
-  <data name="FileNominative" xml:space="preserve">
-    <value>file</value>
-  </data>
-  <data name="Batch" xml:space="preserve">
-    <value>batch</value>
-  </data>
-  <data name="GenerateLinkInfo" xml:space="preserve">
-    <value>Your recipient list has been generated. {0} Click the links below to pre-populate your email program with the email addresses.</value>
-  </data>
-  <data name="RecipientsWithoutEmail" xml:space="preserve">
-    <value>{0} recipients didn't have email addresses.</value>
+  <data name="SuccessfullyClosed" xml:space="preserve">
+    <value>Successfully closed</value>
   </data>
   <data name="TaskIsOver" xml:space="preserve">
     <value>Task «{0}» is closed</value>
   </data>
-  <data name="EmptyFieldsOfSettings" xml:space="preserve">
-    <value>The fields of settings can't be empty</value>
-  </data>
-  <data name="SettingsUpdated" xml:space="preserve">
-    <value>Settings have been successfully updated</value>
-  </data>
   <data name="TeamlabWatermark" xml:space="preserve">
     <value>Powered by {0}</value>
-  </data>
-  <data name="EmptyLetterBodyContent" xml:space="preserve">
-    <value>Every letter must have a body</value>
-  </data>
-  <data name="GoToSettings" xml:space="preserve">
-    <value>Go to Settings</value>
-  </data>
-  <data name="ConfirmChangeKey" xml:space="preserve">
-    <value>Are you sure you want to change this key?</value>
-  </data>
-  <data name="ConfirmChangeKeyNote" xml:space="preserve">
-    <value>Note: all previously created forms will no longer work</value>
-  </data>
-  <data name="ErrorEmailRecipientsCount" xml:space="preserve">
-    <value>{0} email recipients maximum</value>
-  </data>
-  <data name="TeamLab" xml:space="preserve">
-    <value>TeamLab.com</value>
-  </data>
-  <data name="SuccessfullyClosed" xml:space="preserve">
-    <value>Successfully closed</value>
-  </data>
-  <data name="UnsuccessfullyClosed" xml:space="preserve">
-    <value>Unsuccessfully closed</value>
-  </data>
-  <data name="ConfirmGoToCustomFieldPage" xml:space="preserve">
-    <value>Вся введеная информация будет потеряна.
-Выполнить переход?</value>
-  </data>
-  <data name="AddNewEmail" xml:space="preserve">
-    <value>Add email</value>
-  </data>
-  <data name="AddNewPhone" xml:space="preserve">
-    <value>Add phone</value>
-  </data>
-  <data name="EditEmail" xml:space="preserve">
-    <value>Update email</value>
-  </data>
-  <data name="EditPhone" xml:space="preserve">
-    <value>Update phone</value>
-  </data>
-  <data name="ElementsSelectedCount" xml:space="preserve">
-    <value>{0} selected</value>
-  </data>
-  <data name="ManyEvents" xml:space="preserve">
-    <value>events</value>
-  </data>
-  <data name="NoEvents" xml:space="preserve">
-    <value>There are no events</value>
-  </data>
-  <data name="OneEvent" xml:space="preserve">
-    <value>event</value>
-  </data>
-  <data name="ErrorCasesNotMappingBasicColumn" xml:space="preserve">
-    <value>Не найдено соответствие полю  'Название мероприятия'</value>
-  </data>
-  <data name="ErrorContactNotMappingBasicColumn" xml:space="preserve">
-    <value>The fields corresponding to the 'First Name'' or 'Company Name' could not be found</value>
-  </data>
-  <data name="ErrorOpportunityNotMappingBasicColumn" xml:space="preserve">
-    <value>Не найдено соответствие полям  'Название возможной сделки', 'Ответственный за возможную сделку'</value>
-  </data>
-  <data name="ErrorTaskNotMappingBasicColumn" xml:space="preserve">
-    <value>Не найдено соответствие полям 'Название задачи', 'Ответственный', 'Срок выполнения'</value>
   </data>
   <data name="TemplateFixedDeadline" xml:space="preserve">
     <value>От старта контейнера {0} дней {1} часов {2} минут</value>
@@ -562,119 +556,17 @@
   <data name="TemplateNotFixedDeadline" xml:space="preserve">
     <value>От предыдущей задачи {0} дней {1} часов {2} минут</value>
   </data>
-  <data name="DeleteCaseConfirmMessage" xml:space="preserve">
-    <value>Are you sure you want to delete the '{0}' case?</value>
-  </data>
-  <data name="DeleteCaseInProgress" xml:space="preserve">
-    <value>Deleting case...</value>
-  </data>
-  <data name="DeleteContactInProgress" xml:space="preserve">
-    <value>Deleting contact...</value>
-  </data>
-  <data name="LinkWithProject" xml:space="preserve">
-    <value>Link with project</value>
-  </data>
-  <data name="CaseStatusClosed" xml:space="preserve">
-    <value>Закрыто</value>
-  </data>
-  <data name="CaseStatusOpened" xml:space="preserve">
-    <value>Открыто</value>
-  </data>
-  <data name="HelpContentAccessRights" xml:space="preserve">
-    <value>Open the portal Settings page if you need to restrict the access to the CRM module and give some users administrator privileges.</value>
-  </data>
-  <data name="HelpContentAddContacts" xml:space="preserve">
-    <value>Click this button and select the Import contacts option if you need to transfer your contacts from a CSV file, all at once.</value>
-  </data>
-  <data name="HelpContentCreateNew" xml:space="preserve">
-    <value>Use this button to start creating your customer database adding persons and companies and linking them.</value>
-  </data>
-  <data name="HelpContentCreateWebsite" xml:space="preserve">
-    <value>Use this link to build a form that you can publish on your site and capture new contacts automatically.</value>
-  </data>
-  <data name="HelpContentSwitchModules" xml:space="preserve">
-    <value>Use the drop-down list to go to another TeamLab module or tool.</value>
-  </data>
-  <data name="HelpContentSwitchModulesAdmin" xml:space="preserve">
-    <value>Use the drop-down list to go to another TeamLab module or tool, or select People to add more users to your portal.</value>
-  </data>
-  <data name="HelpTitleAccessRights" xml:space="preserve">
-    <value>Manage Access Rights</value>
-  </data>
-  <data name="HelpTitleAddContacts" xml:space="preserve">
-    <value>Add Contacts in Bulk</value>
-  </data>
-  <data name="HelpTitleCreateNew" xml:space="preserve">
-    <value>Create New Contact</value>
-  </data>
-  <data name="HelpTitleCreateWebsite" xml:space="preserve">
-    <value>Create a Website Contact Form</value>
-  </data>
-  <data name="HelpTitleSwitchModules" xml:space="preserve">
-    <value>Switch between Modules</value>
-  </data>
-  <data name="LinkWithDeal" xml:space="preserve">
-    <value>Link with opportunity</value>
-  </data>
-  <data name="Next" xml:space="preserve">
-    <value>Next</value>
-  </data>
-  <data name="Previous" xml:space="preserve">
-    <value>Previous</value>
-  </data>
-  <data name="Empty" xml:space="preserve">
-    <value>Empty</value>
-  </data>
-  <data name="Browse" xml:space="preserve">
-    <value>Browse</value>
-  </data>
-  <data name="NoFileSelected" xml:space="preserve">
-    <value>No file selected</value>
-  </data>
-  <data name="AddNewInvoiceProgress" xml:space="preserve">
-    <value>Adding an invoice...</value>
-  </data>
-  <data name="EditingInvoiceProgress" xml:space="preserve">
-    <value>Saving changes...</value>
-  </data>
-  <data name="PleaseWait" xml:space="preserve">
-    <value>Please wait...</value>
-  </data>
-  <data name="ErrorTheLastContactType" xml:space="preserve">
-    <value>The "{0}" type is the last one. It cannot be deleted.</value>
-  </data>
-  <data name="ErrorTheLastHistoryCategory" xml:space="preserve">
-    <value>The "{0}" category is the last one. It cannot be deleted.</value>
-  </data>
-  <data name="BillingAddress" xml:space="preserve">
-    <value>Billing address</value>
-  </data>
-  <data name="DeliveryAddress" xml:space="preserve">
-    <value>Delivery address</value>
-  </data>
-  <data name="VoipCallAnsweredType" xml:space="preserve">
-    <value>Answered</value>
-  </data>
-  <data name="VoipCallMissedType" xml:space="preserve">
-    <value>Missed</value>
-  </data>
-  <data name="VoipCallOutgoingType" xml:space="preserve">
-    <value>Outgoing</value>
-  </data>
-  <data name="CurrentMonth" xml:space="preserve">
-    <value>Current month</value>
-  </data>
-  <data name="CurrentWeek" xml:space="preserve">
-    <value>Current week</value>
-  </data>
-  <data name="CustomPeriod" xml:space="preserve">
-    <value>Custom period</value>
-  </data>
   <data name="Today" xml:space="preserve">
     <value>Today</value>
   </data>
+  <data name="UnsuccessfullyClosed" xml:space="preserve">
+    <value>Unsuccessfully closed</value>
+  </data>
   <data name="VoipCallAgent" xml:space="preserve">
     <value>Agent</value>
+  </data>
+  <data name="VoipCallAnsweredType" xml:space="preserve">
+    <value>Answered</value>
   </data>
   <data name="VoipCallCaller" xml:space="preserve">
     <value>Caller</value>
@@ -691,7 +583,16 @@
   <data name="VoipCallDuration" xml:space="preserve">
     <value>Duration</value>
   </data>
+  <data name="VoipCallMissedType" xml:space="preserve">
+    <value>Missed</value>
+  </data>
+  <data name="VoipCallOutgoingType" xml:space="preserve">
+    <value>Outgoing</value>
+  </data>
   <data name="VoipCallType" xml:space="preserve">
     <value>Type</value>
+  </data>
+  <data name="ZipCodeWatermark" xml:space="preserve">
+    <value>Zip code</value>
   </data>
 </root>

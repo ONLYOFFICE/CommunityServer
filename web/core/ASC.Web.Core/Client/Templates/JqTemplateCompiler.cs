@@ -24,28 +24,27 @@
 */
 
 
-using Jurassic;
 using System.IO;
+using Jurassic;
 
 namespace ASC.Web.Core.Client.Templates
 {
     public class JqTemplateCompiler
     {
-        private readonly ScriptEngine _engine;
+        private readonly ScriptEngine engine;
 
         public JqTemplateCompiler()
-        {
-            
-            _engine = new ScriptEngine();
+        {   
+            engine = new ScriptEngine();
             using (var reader = new StreamReader(GetType().Assembly.GetManifestResourceStream("ASC.Web.Core.Client.Templates.jqTemplateCompiler.js")))
             {
-                _engine.Execute(reader.ReadToEnd());
+                engine.Execute(reader.ReadToEnd());
             }
         }
 
         public string GetCompiledCode(string source)
         {
-            return _engine.CallGlobalFunction<string>("buildTmplFn", source);
+            return engine.CallGlobalFunction<string>("buildTmplFn", source);
         }
     }
 }

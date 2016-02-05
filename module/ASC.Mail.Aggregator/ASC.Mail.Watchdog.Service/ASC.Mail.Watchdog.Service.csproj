@@ -67,7 +67,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="MySql.Data">
-      <HintPath>..\..\..\packages\MySql.Data.6.8.3\lib\net45\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\packages\MySql.Data.6.9.7\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -97,12 +97,6 @@
     </Compile>
     <Compile Include="WatchdogService.Designer.cs">
       <DependentUpon>WatchdogService.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WatchdogServiceInstaller.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="WatchdogServiceInstaller.Designer.cs">
-      <DependentUpon>WatchdogServiceInstaller.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

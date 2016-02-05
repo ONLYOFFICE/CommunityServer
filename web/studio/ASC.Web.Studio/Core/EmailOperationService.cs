@@ -186,7 +186,7 @@ namespace ASC.Web.Studio.Core
                 if (user == null)
                     throw new UserNotFoundException(Resources.Resource.ErrorUserNotFound);
 
-                if (viewer == null)
+                if (viewer == null || (user.IsOwner() && viewer.ID != user.ID))
                     throw new AccessDeniedException(Resources.Resource.ErrorAccessDenied);
 
                 var existentUser = CoreContext.UserManager.GetUserByEmail(email);

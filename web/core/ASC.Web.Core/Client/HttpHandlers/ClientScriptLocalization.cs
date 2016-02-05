@@ -24,7 +24,11 @@
 */
 
 
+using System;
 using System.Threading;
+using ASC.Core;
+using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.Core.Client.HttpHandlers
 {
@@ -32,7 +36,24 @@ namespace ASC.Web.Core.Client.HttpHandlers
     {
         protected internal sealed override string GetCacheHash()
         {
-            return ClientSettings.ResetCacheKey + Thread.CurrentThread.CurrentCulture.Name;
+            var result = ClientSettings.ResetCacheKey + Thread.CurrentThread.CurrentCulture.Name;
+
+            try
+            {
+                var tenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
+                var whiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(tenantId);
+
+                if (!string.IsNullOrEmpty(whiteLabelSettings.LogoText))
+                {
+                    result += tenantId.ToString() + whiteLabelSettings.LogoText;
+                }
+            }
+            catch (Exception e)
+            {
+                log4net.LogManager.GetLogger("ASC").Error(e);
+            }
+
+            return result;
         }
     }
 }

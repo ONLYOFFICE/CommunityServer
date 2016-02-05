@@ -30,35 +30,55 @@ namespace ASC.Mail.Aggregator.Common.Logging
 {
     public class NullLogger : ILogger
     {
-        public void Fatal(string message, params object[] param)
+        public void Info(string message)
         {
         }
 
-        public void Fatal(Exception ex, string message, params object[] param)
+        public void Info(string message, params object[] args)
         {
         }
 
-        public void Error(string message, object[] param)
+        public void Debug(string message)
         {
         }
 
-        public void Error(Exception ex, string message, params object[] param)
+        public void Debug(string message, params object[] args)
         {
         }
 
-        public void Warn(string message, object[] param)
+        public void Warn(string message)
         {
         }
 
-        public void Debug(string message, object[] param)
+        public void Warn(string message, params object[] args)
         {
         }
 
-        public void WarnException(string format, Exception exception)
+        public void Warn(string message, Exception ex)
         {
         }
 
-        public void Info(string message, params object[] param)
+        public void Error(string message)
+        {
+        }
+
+        public void Error(string message, params object[] args)
+        {
+        }
+
+        public void Error(string message, Exception ex)
+        {
+        }
+
+        public void Fatal(string message)
+        {
+        }
+
+        public void Fatal(string message, params object[] args)
+        {
+        }
+
+        public void Fatal(string message, Exception ex)
         {
         }
 

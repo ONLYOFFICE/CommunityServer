@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -41,12 +41,12 @@ namespace ASC.Projects.Data.DAO
     class ReportDao : BaseDao, IReportDao
     {
         private readonly string[] columns = new[] { "id", "type", "name", "filter", "cron", "create_by", "create_on", "tenant_id", "auto" };
-
+        private readonly Converter<object[], ReportTemplate> converter;
 
         public ReportDao(string dbId, int tenantID)
             : base(dbId, tenantID)
         {
-
+            converter = ToTemplate;
         }
 
 
@@ -58,7 +58,7 @@ namespace ASC.Projects.Data.DAO
                                      .Select(columns)
                                      .Where("create_by", userId.ToString())
                                      .OrderBy("name", true))
-                    .ConvertAll(ToTemplate);
+                    .ConvertAll(converter);
             }
         }
 
@@ -69,7 +69,7 @@ namespace ASC.Projects.Data.DAO
                 return db.ExecuteList(new SqlQuery(ReportTable).Select(columns)
                                                           .Where("auto", true)
                                                           .OrderBy("tenant_id", true))
-                    .ConvertAll(ToTemplate);
+                    .ConvertAll(converter);
             }
         }
 
@@ -77,7 +77,7 @@ namespace ASC.Projects.Data.DAO
         {
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(Query(ReportTable).Select(columns).Where("id", id)).ConvertAll(ToTemplate).SingleOrDefault();
+                return db.ExecuteList(Query(ReportTable).Select(columns).Where("id", id)).ConvertAll(converter).SingleOrDefault();
             }
         }
 

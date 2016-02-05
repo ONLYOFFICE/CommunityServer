@@ -36,10 +36,11 @@ namespace ASC.Notify.Config
             get { return (string)base["connectionStringName"]; }
         }
 
-        [ConfigurationProperty("deleteSendedMessages", DefaultValue = false)]
-        public bool DeleteSendedMessages
+        [ConfigurationProperty("storeDays", DefaultValue = 7)]
+        [IntegerValidator(MinValue = 1, MaxValue = short.MaxValue)]
+        public int StoreMessagesDays
         {
-            get { return (bool)base["deleteSendedMessages"]; }
+            get { return (int)base["storeDays"]; }
         }
 
         [ConfigurationProperty("process")]

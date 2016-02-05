@@ -104,11 +104,11 @@ namespace ActiveUp.Net.Mail
         /// <param name="filename">The fullpath to the file.</param>
         public void LoadTemplate(string filename)
         {
-            ActiveUp.Net.Mail.Logger.AddEntry("Loading template " + filename + ".", 2);
+            ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Loading template {0}", filename), 2);
 
             string fileContent = LoadFileContent(filename);
     
-            ActiveUp.Net.Mail.Logger.AddEntry("Template length: " + fileContent.Length.ToString() + " bytes.", 1);
+            ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Template length: {0} bytes.", fileContent.Length.ToString()), 1);
 
             if (fileContent.Length > 0)
             {
@@ -128,7 +128,7 @@ namespace ActiveUp.Net.Mail
         public void LoadTemplateFromString(string content)
         {
             ActiveUp.Net.Mail.Logger.AddEntry("Loading template from string.", 2);
-            ActiveUp.Net.Mail.Logger.AddEntry("Template length: " + content.Length.ToString() + " bytes.", 1);
+            ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Template length: {0} bytes.", content.Length.ToString()), 1);
 
             ProcessXmlTemplate(content);
         }
@@ -288,7 +288,7 @@ namespace ActiveUp.Net.Mail
                 {
                     case XmlNodeType.Element:
                         element = reader.Name;
-                        ActiveUp.Net.Mail.Logger.AddEntry("New element found: " + element + ".", 0);
+                        ActiveUp.Net.Mail.Logger.AddEntry(string.Format("New element found: {0}", element), 0);
 
                     switch (element.ToUpper())
                     {
@@ -310,25 +310,25 @@ namespace ActiveUp.Net.Mail
                                 if (reader.GetAttribute("NAME") != null && reader.GetAttribute("NAME") != string.Empty)
                                 {
                                     fieldFormat.Name = reader.GetAttribute("NAME");
-                                    ActiveUp.Net.Mail.Logger.AddEntry("Attribute NAME: " + fieldFormat.Name, 0);
+                                    ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Attribute NAME: {0}", fieldFormat.Name), 0);
                                 }
 
                                 else if (reader.GetAttribute("name") != null && reader.GetAttribute("name") != string.Empty)
                                 {
                                     fieldFormat.Name = reader.GetAttribute("name");
-                                    ActiveUp.Net.Mail.Logger.AddEntry("Attribute name: " + fieldFormat.Name, 0);
+                                    ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Attribute name: {0}", fieldFormat.Name), 0);
                                 }
 
                                 if (reader.GetAttribute("FORMAT") != null && reader.GetAttribute("FORMAT") != string.Empty)
                                 {
                                     fieldFormat.Format = reader.GetAttribute("FORMAT");
-                                    ActiveUp.Net.Mail.Logger.AddEntry("Attribute FORMAT: " + fieldFormat.Format, 0);
+                                    ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Attribute FORMAT: {0}", fieldFormat.Format), 0);
                                 }
 
                                 else if (reader.GetAttribute("format") != null && reader.GetAttribute("format") != string.Empty)
                                 {
                                     fieldFormat.Format = reader.GetAttribute("format");
-                                    ActiveUp.Net.Mail.Logger.AddEntry("Attribute format: " + fieldFormat.Format, 0);
+                                    ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Attribute format: {0}", fieldFormat.Format), 0);
                                 }
 
                                 if (reader.GetAttribute("PADDINGDIR") != null && reader.GetAttribute("PADDINGDIR") != string.Empty)
@@ -337,7 +337,7 @@ namespace ActiveUp.Net.Mail
                                         fieldFormat.PaddingDir = PaddingDirection.Left;
                                     else
                                         fieldFormat.PaddingDir = PaddingDirection.Right;
-                                    ActiveUp.Net.Mail.Logger.AddEntry("Attribute PADDINGDIR: " + reader.GetAttribute("PADDINGDIR"), 0);
+                                    ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Attribute PADDINGDIR: {0}", reader.GetAttribute("PADDINGDIR")), 0);
                                 }
 
                                 else if (reader.GetAttribute("paddingdir") != null && reader.GetAttribute("paddingdir") != string.Empty)
@@ -346,7 +346,7 @@ namespace ActiveUp.Net.Mail
                                         fieldFormat.PaddingDir = PaddingDirection.Left;
                                     else
                                         fieldFormat.PaddingDir = PaddingDirection.Right;
-                                    ActiveUp.Net.Mail.Logger.AddEntry("Attribute paddingdir: " + reader.GetAttribute("paddingdir"), 0);
+                                    ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Attribute paddingdir: {0}", reader.GetAttribute("paddingdir")), 0);
                                 }
 
                                 if (reader.GetAttribute("TOTALWIDTH") != null && reader.GetAttribute("TOTALWIDTH") != string.Empty)
@@ -359,7 +359,7 @@ namespace ActiveUp.Net.Mail
                                     {
                                         throw new Exception("Specified Total Width is not a valid number.");
                                     }
-                                    ActiveUp.Net.Mail.Logger.AddEntry("Attribute TOTALWIDTH: " + fieldFormat.TotalWidth.ToString(), 0);
+                                    ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Attribute TOTALWIDTH: {0}", fieldFormat.TotalWidth.ToString()), 0);
                                 }
 
                                 else if (reader.GetAttribute("totalwidth") != null && reader.GetAttribute("totalwidth") != string.Empty)
@@ -372,19 +372,19 @@ namespace ActiveUp.Net.Mail
                                     {
                                         throw new Exception("Specified Total Width is not a valid number.");
                                     }
-                                    ActiveUp.Net.Mail.Logger.AddEntry("Attribute totalwidth: " + fieldFormat.TotalWidth.ToString(), 0);
+                                    ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Attribute totalwidth: {0}", fieldFormat.TotalWidth.ToString()), 0);
                                 }
 
                                 if (reader.GetAttribute("PADDINGCHAR") != null && reader.GetAttribute("PADDINGCHAR") != string.Empty)
                                 {
                                     fieldFormat.PaddingChar = Convert.ToChar(reader.GetAttribute("PADDINGCHAR").Substring(0, 1));
-                                    ActiveUp.Net.Mail.Logger.AddEntry("Attribute PADDINGCHAR: '" + fieldFormat.PaddingChar + "'", 0);
+                                    ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Attribute PADDINGCHAR: '{0}'", fieldFormat.PaddingChar), 0);
                                 }
 
                                 else if (reader.GetAttribute("paddingchar") != null && reader.GetAttribute("paddingchar") != string.Empty)
                                 {
                                     fieldFormat.PaddingChar = Convert.ToChar(reader.GetAttribute("paddingchar").Substring(0, 1));
-                                    ActiveUp.Net.Mail.Logger.AddEntry("Attribute paddingchar: '" + fieldFormat.PaddingChar + "'", 0);
+                                    ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Attribute paddingchar: '{0}'", fieldFormat.PaddingChar), 0);
                                 }
 
                                 this.FieldsFormats.Add(fieldFormat);

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -35,7 +35,7 @@ namespace ASC.Web.Studio.UserControls.FirstTime
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/firsttime/howto/css/howto.less"));
+            Page.RegisterStyle("~/usercontrols/firsttime/howto/css/howto.less");
         }
     }
 }

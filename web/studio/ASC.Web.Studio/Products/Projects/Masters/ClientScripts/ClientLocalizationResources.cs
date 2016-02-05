@@ -40,11 +40,14 @@ namespace ASC.Web.Projects.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterResourceSet("ProjectsJSResource", ProjectsJSResource.ResourceManager);
-            yield return RegisterResourceSet("ProjectsFilterResource", ProjectsFilterResource.ResourceManager);
-            yield return RegisterResourceSet("ImportResource", ImportResource.ResourceManager);
-            yield return RegisterResourceSet("TasksResource", TaskResource.ResourceManager); // include temporary
-            yield return RegisterResourceSet("CommonResource", ProjectsCommonResource.ResourceManager); // include temporary
+            return new List<KeyValuePair<string, object>>(5)
+                         {
+                             RegisterResourceSet("ProjectsJSResource", ProjectsJSResource.ResourceManager),
+                             RegisterResourceSet("ProjectsFilterResource", ProjectsFilterResource.ResourceManager),
+                             RegisterResourceSet("ImportResource", ImportResource.ResourceManager),
+                             RegisterResourceSet("TasksResource", TaskResource.ResourceManager),
+                             RegisterResourceSet("CommonResource", ProjectsCommonResource.ResourceManager)
+                         };
         }
     }
 }

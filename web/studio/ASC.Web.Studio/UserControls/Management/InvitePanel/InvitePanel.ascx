@@ -35,8 +35,9 @@
                     <div id="chkVisitorContainer" class="clearFix">
                         <input type="checkbox" id="chkVisitor" <%= EnableInviteLink ? "" : "disabled=\"disabled\" checked=\"checked\"" %> />
                         <label for="chkVisitor"><%= Resource.InviteUsersAsCollaborators%></label>
-                        <% if (EnableInviteLink) { %>
+
                         <input id="hiddenVisitorLink" type="hidden" value="<%= GeneratedVisitorLink%>" />
+                        <% if (EnableInviteLink) { %>
                         <input id="hiddenUserLink" type="hidden" value="<%= GeneratedUserLink%>" />
                         <% } %>
                     </div>  
@@ -53,6 +54,6 @@
             <li><a class="google" target="_blank" title="<%= Resource.TitleGoogle %>"></a></li>
         </ul>
 
-        
+
     </div>
 </div>

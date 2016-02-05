@@ -78,73 +78,73 @@
             registerHubProxies(proxies, false);
         });
 
-        proxies.c = this.createHubProxy('c'); 
-        proxies.c.client = { };
+        proxies.c = this.createHubProxy('c');
+        proxies.c.client = {};
         proxies.c.server = {
             gci: function (userName) {
-            /// <summary>Calls the gci method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
-            /// <param name=\"userName\" type=\"String\">Server side type is System.String</param>
+                /// <summary>Calls the gci method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
+                /// <param name=\"userName\" type=\"String\">Server side type is System.String</param>
                 return proxies.c.invoke.apply(proxies.c, $.merge(["gci"], $.makeArray(arguments)));
-             },
+            },
 
             gid: function () {
-            /// <summary>Calls the gid method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
+                /// <summary>Calls the gid method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
                 return proxies.c.invoke.apply(proxies.c, $.merge(["gid"], $.makeArray(arguments)));
-             },
+            },
 
             grm: function (calleeUserName, id) {
-            /// <summary>Calls the grm method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
-            /// <param name=\"calleeUserName\" type=\"String\">Server side type is System.String</param>
-            /// <param name=\"id\" type=\"Number\">Server side type is System.Int32</param>
+                /// <summary>Calls the grm method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
+                /// <param name=\"calleeUserName\" type=\"String\">Server side type is System.String</param>
+                /// <param name=\"id\" type=\"Number\">Server side type is System.Int32</param>
                 return proxies.c.invoke.apply(proxies.c, $.merge(["grm"], $.makeArray(arguments)));
-             },
+            },
 
             gs: function () {
-            /// <summary>Calls the gs method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
+                /// <summary>Calls the gs method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
                 return proxies.c.invoke.apply(proxies.c, $.merge(["gs"], $.makeArray(arguments)));
-             },
+            },
 
             gui: function (userName) {
-            /// <summary>Calls the gui method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
-            /// <param name=\"userName\" type=\"String\">Server side type is System.String</param>
+                /// <summary>Calls the gui method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
+                /// <param name=\"userName\" type=\"String\">Server side type is System.String</param>
                 return proxies.c.invoke.apply(proxies.c, $.merge(["gui"], $.makeArray(arguments)));
-             },
+            },
 
             p: function () {
-            /// <summary>Calls the p method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
+                /// <summary>Calls the p method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
                 return proxies.c.invoke.apply(proxies.c, $.merge(["p"], $.makeArray(arguments)));
-             },
+            },
 
             s: function (calleeUserName, messageText) {
-            /// <summary>Calls the s method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
-            /// <param name=\"calleeUserName\" type=\"String\">Server side type is System.String</param>
-            /// <param name=\"messageText\" type=\"String\">Server side type is System.String</param>
+                /// <summary>Calls the s method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
+                /// <param name=\"calleeUserName\" type=\"String\">Server side type is System.String</param>
+                /// <param name=\"messageText\" type=\"String\">Server side type is System.String</param>
                 return proxies.c.invoke.apply(proxies.c, $.merge(["s"], $.makeArray(arguments)));
-             },
+            },
 
             sstt: function (state) {
-            /// <summary>Calls the sstt method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
-            /// <param name=\"state\" type=\"Number\">Server side type is System.Byte</param>
+                /// <summary>Calls the sstt method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
+                /// <param name=\"state\" type=\"Number\">Server side type is System.Byte</param>
                 return proxies.c.invoke.apply(proxies.c, $.merge(["sstt"], $.makeArray(arguments)));
-             },
+            },
 
             st: function (calleeUserName) {
-            /// <summary>Calls the st method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
-            /// <param name=\"calleeUserName\" type=\"String\">Server side type is System.String</param>
+                /// <summary>Calls the st method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
+                /// <param name=\"calleeUserName\" type=\"String\">Server side type is System.String</param>
                 return proxies.c.invoke.apply(proxies.c, $.merge(["st"], $.makeArray(arguments)));
-             },
+            },
 
             cu: function () {
-            /// <summary>Calls the st method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
-            /// <param name=\"calleeUserName\" type=\"String\">Server side type is System.String</param>
+                /// <summary>Calls the st method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
+                /// <param name=\"calleeUserName\" type=\"String\">Server side type is System.String</param>
                 return proxies.c.invoke.apply(proxies.c, $.merge(["cu"], $.makeArray(arguments)));
-             },
+            },
 
             dcu: function () {
-            /// <summary>Calls the st method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
-            /// <param name=\"calleeUserName\" type=\"String\">Server side type is System.String</param>
+                /// <summary>Calls the st method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
+                /// <param name=\"calleeUserName\" type=\"String\">Server side type is System.String</param>
                 return proxies.c.invoke.apply(proxies.c, $.merge(["dcu"], $.makeArray(arguments)));
-             }
+            }
         };
         proxies.ch = this.createHubProxy('ch');
         proxies.ch.client = {};
@@ -165,19 +165,19 @@
 
         proxies.voip = this.createHubProxy('voip');
         proxies.voip.client = {
-            miss: function(call) {
+            miss: function (call) {
                 console.log(call);
             },
-            mail: function(call) {
+            mail: function (call) {
                 console.log(call);
             },
-            onlineAgents : function(agents) {
+            onlineAgents: function (agents) {
                 console.log(agents);
             },
-            start: function() {
+            start: function () {
                 console.log("start");
             },
-            end: function() {
+            end: function () {
                 console.log("end");
             }
         };
@@ -186,43 +186,43 @@
                 /// <summary>Calls the st method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
                 /// <param name=\"status\" type=\"String\">Server side type is System.String</param>
                 return proxies.voip.invoke.apply(proxies.voip, $.merge(["status"], $.makeArray(arguments)));
-            },            
+            },
             dequeue: function () {
                 /// <summary>Calls the dequeue method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
                 return proxies.voip.invoke.apply(proxies.voip, $.merge(["dequeue"], $.makeArray(arguments)));
-            },            
+            },
             enqueue: function (call) {
                 /// <summary>Calls the enqueue method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
                 /// <param name=\"call\" type=\"String\">Server side type is System.String</param>
                 return proxies.voip.invoke.apply(proxies.voip, $.merge(["enqueue"], $.makeArray(arguments)));
-            },            
+            },
             onlineAgents: function () {
                 /// <summary>Calls the onlineAgents method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
                 return proxies.voip.invoke.apply(proxies.voip, $.merge(["onlineAgents"], $.makeArray(arguments)));
             }
         };
-        
+
         proxies.users = this.createHubProxy('users');
         proxies.users.client = {
-            renderOnlineUsers: function() {
-                
+            renderOnlineUsers: function () {
+
             },
-            renderOnlineUser: function() {
-                
+            renderOnlineUser: function () {
+
             },
-            renderOfflineUser: function() {
-                
+            renderOfflineUser: function () {
+
             }
         };
-        
+
         proxies.users.server = {
-            addToObserversOnlineUsers: function() {
+            addToObserversOnlineUsers: function () {
                 /// <summary>Calls the addToObserversOnlineUsers method on the server-side c hub.&#10;Returns a jQuery.Deferred() promise.</summary>
                 /// <param name=\"status\" type=\"String\">Server side type is System.String</param>
                 return proxies.users.invoke.apply(proxies.users, $.merge(["addToObserversOnlineUsers"], $.makeArray(arguments)));
             }
         };
-        
+
         return proxies;
     };
 
@@ -270,6 +270,7 @@ function countersHub() {
 
 
 jq(document).ready(function () {
+    var disconnect = false;
     if (!ASC.Resources.Master.Hub.Url) {
         return;
     }
@@ -280,7 +281,7 @@ jq(document).ready(function () {
     jq.connection.hub.qs = {
         token: ASC.Resources.Master.Hub.Token
     };
-    
+
     if (ASC.Resources.Master.numberId && ASC.Resources.Master.Hub.VoipEnabled == "true") {
         jq.connection.hub.qs.numberId = ASC.Resources.Master.numberId;
     } else {
@@ -315,6 +316,9 @@ jq(document).ready(function () {
         });
     });
     jq.connection.hub.disconnected(function () {
+        if (disconnect) {
+            return;
+        }
         var timeoutId = setTimeout(function () {
             if (attempt < LIMIT_ATTEMPTS) {
                 jq.connection.hub.start({
@@ -331,5 +335,9 @@ jq(document).ready(function () {
                 attempt = 0;
             }
         }, RECONNECT_TIMEOUT);
+    });
+    jq(window).bind("beforeunload", function () {
+        disconnect = true;
+        jq.connection.hub.stop();
     });
 });

@@ -355,8 +355,12 @@ div#talkRoomsContainer ul.rooms li.room ul.messages li.message div.body a{vertic
 div#talkRoomsContainer ul.rooms li.room ul.messages li.message div.body img{vertical-align:bottom;}
 div#talkRoomsContainer ul.rooms li.room ul.messages li.message.default{display:none;}
 div#talkRoomsContainer ul.rooms li.room div.messages{width:100%; height:100%; position:absolute; left:0; bottom:0; z-index:1;}
+
+/*
 body.engn-ios div#talkRoomsContainer ul.rooms li.room div.messages, body.engn-android div#talkRoomsContainer ul.rooms li.room div.messages{height:auto;}
 body.engn-ios div#talkRoomsContainer ul.rooms li.room div.messages ul.messages, body.engn-android div#talkRoomsContainer ul.rooms li.room div.messages ul.messages{height:auto;}
+*/
+
 div#talkRoomsContainer ul.rooms li.room div.messages ul.messages{overflow-x:auto; overflow-y:auto;}
 div#talkRoomsContainer ul.rooms li.room div.history{width:100%; height:100%; position:absolute; left:0; bottom:0; z-index:0;}
 div#talkRoomsContainer ul.rooms li.room div.history ul.messages{overflow-x:auto; overflow-y:scroll;}

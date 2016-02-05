@@ -1,7 +1,7 @@
-﻿using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿using ASC.Web.Core;
+using ASC.Web.CRM.Configuration;
+using System.Reflection;
 using System.Runtime.InteropServices;
-using ASC.Web.Core;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
@@ -11,7 +11,7 @@ using ASC.Web.Core;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Ascensio System SIA")]
 [assembly: AssemblyProduct("ASC.Web.CRM")]
-[assembly: AssemblyCopyright("Ascensio System SIA 2013")]
+[assembly: AssemblyCopyright("Ascensio System SIA 2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -35,4 +35,4 @@ using ASC.Web.Core;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: Product(typeof(ASC.Web.CRM.Configuration.ProductEntryPoint))]
+[assembly: Product(typeof(ProductEntryPoint))]

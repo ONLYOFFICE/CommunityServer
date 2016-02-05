@@ -31,16 +31,17 @@ window.wysiwygEditor = (function($) {
         isEditorReady,
         signatureOnload,
         needCkFocus,
-        newCkParagraph = '<p>&nbsp;</p>';
+        newCkParagraph = '<p style="font-family:open sans,sans-serif; font-size:12px; margin: 0;">&nbsp;</p>';
 
     function init() {
         close();
 
         var config = {
             toolbar: 'Mail',
-            removePlugins: 'resize, magicline',
+            removePlugins: 'magicline',
             filebrowserUploadUrl: 'fckuploader.ashx?newEditor=true&esid=mail',
             tabIndex: 5,
+            resize_dir: 'vertical',
             on: {
                 instanceReady: function() {
                     isEditorReady = true;
@@ -75,7 +76,7 @@ window.wysiwygEditor = (function($) {
                         window.open($(this).attr('href'));
                     });
                     
-                    $(body).find('.mailmessage-filelink-link').dotdotdot();
+                    $(body).find('.mailmessage-filelink-link .file-name').dotdotdot({ wrap: "letter", height: 18 });
                 },
                 change: onTextChange,
                 dataReady: function() {
@@ -186,9 +187,12 @@ window.wysiwygEditor = (function($) {
                 }
 
                 if (blockquote.length == 0) {
+                    editorBody.append(newCkParagraph);
                     editorBody.append(htmlSignature);
                 } else {
+                    $(newCkParagraph).insertBefore(blockquote.first());
                     htmlSignature.insertBefore(blockquote.first());
+                    $(newCkParagraph).insertBefore(blockquote.first());
                 }
             }
         }
@@ -249,7 +253,7 @@ window.wysiwygEditor = (function($) {
         setFocus();
 
         var body = editorInstance.document.getBody().$;
-        $(body).find('.mailmessage-filelink-link').dotdotdot();
+        $(body).find('.mailmessage-filelink-link .file-name').dotdotdot({ wrap: "letter", height: 18 });
     }
 
     return {

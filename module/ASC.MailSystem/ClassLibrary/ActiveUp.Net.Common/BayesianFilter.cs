@@ -53,7 +53,7 @@ namespace ActiveUp.Net.Mail
             Tokenizer.LoadFromFile(ignoreWordsFilename, ref IgnoreTab);
 
             //Parse Message Into Tokens
-            string[] msgTokens = Tokenizer.Parse(subject + " " + body);
+            string[] msgTokens = Tokenizer.Parse(string.Format("{0} {1}", subject, body));
 
             float I = 0;
             float invI = 0;
@@ -132,7 +132,7 @@ namespace ActiveUp.Net.Mail
 
             string subject = Codec.RFC2047Decode(message.Subject);
 
-            string[] tokens = Tokenizer.Parse(subject + " " + body);
+            string[] tokens = Tokenizer.Parse(string.Format("{0} {1}", subject, body));
 
             Tokenizer.AddWords(filename, tokens);
         }

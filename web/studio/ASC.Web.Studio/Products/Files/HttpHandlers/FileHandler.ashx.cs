@@ -31,10 +31,10 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Web;
-using System.Web.Configuration;
 using System.Web.Services;
 using ASC.Common.Web;
 using ASC.Core;
+using ASC.Core.Billing;
 using ASC.Data.Storage.S3;
 using ASC.Files.Core;
 using ASC.MessagingSystem;
@@ -50,6 +50,7 @@ using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
+using Resources;
 using File = ASC.Files.Core.File;
 using SecurityContext = ASC.Core.SecurityContext;
 using System.Diagnostics;
@@ -95,8 +96,14 @@ namespace ASC.Web.Files
                     case "redirect":
                         Redirect(context);
                         break;
+                    case "diff":
+                        DifferenceFile(context);
+                        break;
                     case "track":
                         TrackFile(context);
+                        break;
+                    case "license":
+                        License(context);
                         break;
                     default:
                         throw new HttpException((int)HttpStatusCode.BadRequest, FilesCommonResource.ErrorMassage_BadRequest);
@@ -240,7 +247,7 @@ namespace ASC.Web.Files
                         {
                             if (file.ContentLength <= SetupInfo.AvailableFileSize)
                             {
-                                if (file.ConvertedType == null && (string.IsNullOrEmpty(outType) || inline))
+                                if (!FileConverter.EnableConvert(file, ext))
                                 {
                                     if (fileDao.IsSupportedPreSignedUri(file))
                                     {
@@ -255,6 +262,7 @@ namespace ASC.Web.Files
                                 else
                                 {
                                     fileStream = FileConverter.Exec(file, ext);
+                                    context.Response.AddHeader("Content-Length", fileStream.Length.ToString(CultureInfo.InvariantCulture));
                                 }
 
                                 fileStream.StreamCopyTo(context.Response.OutputStream);
@@ -294,7 +302,7 @@ namespace ASC.Web.Files
                                 const int bufferSize = 1024;
                                 var buffer = new Byte[bufferSize];
 
-                                if (file.ConvertedType == null && (string.IsNullOrEmpty(outType) || inline))
+                                if (!FileConverter.EnableConvert(file, ext))
                                 {
                                     if (fileDao.IsSupportedPreSignedUri(file))
                                     {
@@ -421,11 +429,7 @@ namespace ASC.Web.Files
                 int version;
                 int.TryParse(context.Request[FilesLinkUtility.Version], out version);
 
-                int validateTimespan;
-                int.TryParse(WebConfigurationManager.AppSettings["files.stream-url-minute"], out validateTimespan);
-                if (validateTimespan <= 0) validateTimespan = 5;
-
-                var validateResult = EmailValidationKeyProvider.ValidateEmailKey(id + version, auth, TimeSpan.FromMinutes(validateTimespan));
+                var validateResult = EmailValidationKeyProvider.ValidateEmailKey(id + version, auth, Global.StreamUrlExpire);
                 if (validateResult != EmailValidationKeyProvider.ValidationResult.Ok)
                 {
                     var exc = new HttpException((int)HttpStatusCode.Forbidden, FilesCommonResource.ErrorMassage_SecurityException);
@@ -468,6 +472,55 @@ namespace ASC.Web.Files
             }
         }
 
+        private static void DifferenceFile(HttpContext context)
+        {
+            try
+            {
+                var id = context.Request[FilesLinkUtility.FileId];
+                var auth = context.Request[FilesLinkUtility.AuthKey];
+                int version;
+                int.TryParse(context.Request[FilesLinkUtility.Version], out version);
+
+                var validateResult = EmailValidationKeyProvider.ValidateEmailKey(id + version, auth, Global.StreamUrlExpire);
+                if (validateResult != EmailValidationKeyProvider.ValidationResult.Ok)
+                {
+                    var exc = new HttpException((int)HttpStatusCode.Forbidden, FilesCommonResource.ErrorMassage_SecurityException);
+
+                    Global.Logger.Error(string.Format("{0} {1}: {2}", FilesLinkUtility.AuthKey, validateResult, context.Request.Url), exc);
+
+                    throw exc;
+                }
+
+                using (var fileDao = Global.DaoFactory.GetFileDao())
+                {
+                    fileDao.InvalidateCache(id);
+
+                    var file = version > 0
+                                   ? fileDao.GetFile(id, version)
+                                   : fileDao.GetFile(id);
+                    using (var stream = fileDao.GetDifferenceStream(file))
+                    {
+                        context.Response.AddHeader("Content-Length", stream.Length.ToString(CultureInfo.InvariantCulture));
+                        stream.StreamCopyTo(context.Response.OutputStream);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                context.Response.Write(ex.Message);
+                Global.Logger.Error("Error for: " + context.Request.Url, ex);
+            }
+            try
+            {
+                context.Response.Flush();
+                context.Response.End();
+            }
+            catch (HttpException)
+            {
+            }
+        }
+
         private static string GetEtag(File file)
         {
             return file.ID + ":" + file.Version + ":" + file.Title.GetHashCode();
@@ -475,6 +528,7 @@ namespace ASC.Web.Files
 
         private static void CreateFile(HttpContext context)
         {
+            var responseMessage = context.Request["response"] == "message";
             var folderId = context.Request[FilesLinkUtility.FolderId];
             if (string.IsNullOrEmpty(folderId))
                 folderId = Global.FolderMy.ToString();
@@ -506,11 +560,20 @@ namespace ASC.Web.Files
             catch (Exception ex)
             {
                 Global.Logger.Error(ex);
-                context.Response.Redirect(PathProvider.StartURL + "#error/" + ex.Message);
+                if (responseMessage)
+                {
+                    context.Response.Write("error: " + ex.Message);
+                    return;
+                }
+                context.Response.Redirect(PathProvider.StartURL + "#error/" + HttpUtility.UrlEncode(ex.Message), true);
             }
 
             FileMarker.MarkAsNew(file);
 
+            if (responseMessage)
+            {
+                return;
+            }
             context.Response.Redirect(
                 (context.Request["openfolder"] ?? "").Equals("true")
                     ? PathProvider.GetFolderUrl(file.FolderID)
@@ -573,10 +636,9 @@ namespace ASC.Web.Files
                 {
                     Title = fileTitle,
                     ContentLength = storeTemplate.GetFileSize(templatePath),
-                    FolderID = folder.ID
+                    FolderID = folder.ID,
+                    Comment = FilesCommonResource.CommentCreate,
                 };
-
-            file.ConvertedType = FileUtility.GetInternalExtension(file.Title);
 
             using (var fileDao = Global.DaoFactory.GetFileDao())
             using (var stream = storeTemplate.IronReadStream("", templatePath, 10))
@@ -593,10 +655,17 @@ namespace ASC.Web.Files
             var file = new File
                 {
                     Title = fileTitle,
-                    FolderID = folder.ID
+                    FolderID = folder.ID,
+                    Comment = FilesCommonResource.CommentCreate,
                 };
 
             var req = (HttpWebRequest)WebRequest.Create(fileUri);
+
+            // hack. http://ubuntuforums.org/showthread.php?t=1841740
+            if (WorkContext.IsMono)
+            {
+                ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
+            }
 
             using (var fileDao = Global.DaoFactory.GetFileDao())
             using (var fileStream = new ResponseStream(req.GetResponse()))
@@ -687,6 +756,56 @@ namespace ASC.Web.Files
             {
                 Global.Logger.Error("DocService track:", e);
                 throw new HttpException((int)HttpStatusCode.BadRequest, e.Message);
+            }
+
+            context.Response.Write("{\"error\":0}");
+        }
+
+        private static void License(HttpContext context)
+        {
+            if (!CoreContext.Configuration.Standalone)
+            {
+                context.Response.StatusCode = (int) HttpStatusCode.MethodNotAllowed;
+                return;
+            }
+
+            try
+            {
+                var id = context.Request[FilesLinkUtility.FileId];
+                var auth = context.Request[FilesLinkUtility.AuthKey];
+
+                var validateResult = EmailValidationKeyProvider.ValidateEmailKey(id, auth, Global.StreamUrlExpire);
+                if (validateResult != EmailValidationKeyProvider.ValidationResult.Ok)
+                {
+                    var exc = new HttpException((int) HttpStatusCode.Forbidden, FilesCommonResource.ErrorMassage_SecurityException);
+
+                    Global.Logger.Error(string.Format("{0} {1}: {2}", FilesLinkUtility.AuthKey, validateResult, context.Request.Url), exc);
+
+                    throw exc;
+                }
+
+                using (var stream = LicenseReader.GetLicenseStream())
+                {
+                    if (stream.CanSeek)
+                    {
+                        context.Response.AddHeader("Content-Length", stream.Length.ToString(CultureInfo.InvariantCulture));
+                    }
+                    stream.StreamCopyTo(context.Response.OutputStream);
+                }
+            }
+            catch (Exception ex)
+            {
+                context.Response.StatusCode = (int) HttpStatusCode.BadRequest;
+                context.Response.Write(ex.Message);
+                Global.Logger.Error("Error for: " + context.Request.Url, ex);
+            }
+            try
+            {
+                context.Response.Flush();
+                context.Response.End();
+            }
+            catch (HttpException)
+            {
             }
         }
     }

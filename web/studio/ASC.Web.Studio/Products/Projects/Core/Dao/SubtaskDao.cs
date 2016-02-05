@@ -80,26 +80,28 @@ namespace ASC.Projects.Data.DAO
 
     class SubtaskDao : BaseDao, ISubtaskDao
     {
+        private readonly Converter<object[], Subtask> converter;
         public SubtaskDao(string dbId, int tenantID)
             : base(dbId, tenantID)
         {
+            converter = ToSubTask;
         }
 
         public List<Subtask> GetSubtasks(int taskid)
         {
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(CreateQuery().Where("task_id", taskid)).ConvertAll(ToSubTask);
+                return db.ExecuteList(CreateQuery().Where("task_id", taskid)).ConvertAll(converter);
             }
         }
 
-        public void GetSubtasks(ref List<Task> tasks)
+        public void GetSubtasksForTasks(ref List<Task> tasks)
         {
             using (var db = new DbManager(DatabaseId))
             {
                 var taskIds = tasks.Select(t => t.ID).ToArray();
                 var subtasks = db.ExecuteList(CreateQuery().Where(Exp.In("task_id", taskIds)))//bug: there may be too large set of tasks
-                    .ConvertAll(ToSubTask);
+                    .ConvertAll(converter);
 
                 tasks = tasks.GroupJoin(subtasks, task => task.ID, subtask => subtask.Task, (task, subtaskCol) =>
                             {
@@ -109,11 +111,19 @@ namespace ASC.Projects.Data.DAO
             }
         }
 
+        public List<Subtask> GetSubtasks(Exp where)
+        {
+            using (var db = new DbManager(DatabaseId))
+            {
+                return db.ExecuteList(CreateQuery().Where(where)).ConvertAll(converter);
+            }
+        }
+
         public virtual Subtask GetById(int id)
         {
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(CreateQuery().Where("id", id)).ConvertAll(ToSubTask).SingleOrDefault();
+                return db.ExecuteList(CreateQuery().Where("id", id)).ConvertAll(converter).SingleOrDefault();
             }
         }
 
@@ -121,7 +131,7 @@ namespace ASC.Projects.Data.DAO
         {
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(CreateQuery().Where(Exp.In("id", ids.ToArray()))).ConvertAll(ToSubTask);
+                return db.ExecuteList(CreateQuery().Where(Exp.In("id", ids.ToArray()))).ConvertAll(converter);
             }
         }
 

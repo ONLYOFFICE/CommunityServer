@@ -42,6 +42,13 @@ module Posty
         end
       end
     end
+
+    resource :version do
+      desc "Returns current mailserver version"
+      get do
+        GlobalVars.find("VERSION", :select => "value")
+      end
+    end
     
     resource :domains do
 

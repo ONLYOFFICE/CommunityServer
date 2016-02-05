@@ -75,6 +75,10 @@ div[id^="fu_item_"] {
             }
         }
     }
+
+    .menu-action-simple-pagenav {
+        margin-left: 15px;
+    }
 }
 
 a.anchorLinkButton {
@@ -262,14 +266,16 @@ div#itemContainer div.pages-navigation span.label, div#itemContainer div.pages-n
         .large-loading {
             height: 100px !important;
         }
+
         div#itemContainer {
             div.pages-navigation {
                 span.button {
                     width: 50px;
                 }
-                span.button.page.current {
-                    width: 22px;
-                }
+
+                    span.button.page.current {
+                        width: 22px;
+                    }
             }
         }
     }
@@ -288,13 +294,12 @@ div#itemContainer div.pages-navigation span.label, div#itemContainer div.pages-n
 .viewTitle {
     font-size: 18px;
     font-weight: bold;
-    margin-left: 53px;
-    max-height: 45px;
     overflow: hidden;
     -ms-text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
     text-overflow: ellipsis;
     line-height: 20px;
+    height: 20px;
 }
 
 .mail-gray-text {
@@ -588,11 +593,6 @@ a.disable {
     font-weight: normal;
 }
 
-.colorFilterItem {
-    padding-left: 25px !important;
-    position: relative;
-}
-
 .mail-navigation-table {
     width: 100%;
     margin-top: 20px;
@@ -797,19 +797,34 @@ textarea {
 }
 
 .messageHeader {
+    .menu-action-simple-pagenav {
+        margin-left: 8px !important;
+    }
+
     .sort-icon {
-        display: inline;
+        display: inline-block;
         float: right;
         width: 16px;
         height: 16px;
-        margin: 5px 8px 0 0;
+        margin: 4px 0 0 0;
         cursor: pointer;
     }
+
     .sort-icon.desc {
         background: url("@{base-icon-sprite-url}") 0 0 no-repeat transparent;
     }
+
     .sort-icon.asc {
         background: url("@{base-icon-sprite-url}") 0 -20px no-repeat transparent;
+    }
+
+    .collapse-conversation {
+        display: inline-block;
+        margin: 3px 8px 0 0;
+        color: #666;
+        font-size: 11px;
+        border-bottom: 1px dotted #666;
+        cursor: pointer;
     }
 }
 
@@ -1124,19 +1139,6 @@ div.error-popup {
     margin-top: 5px;
 }
 
-.colorFilterItem:before {
-    border: 1px solid #8E908F;
-    content: " ";
-    display: block;
-    height: 11px;
-    left: 5px;
-    margin-top: -6px;
-    position: absolute;
-    top: 50%;
-    width: 11px;
-    z-index: 0;
-}
-
 .fromAccountSelector {
     margin-top: 10px;
 }
@@ -1196,16 +1198,6 @@ input {
 
 .placeholder {
     color: #999;
-}
-
-.collapse-conversation {
-    display: inline;
-    float: right;
-    margin: 5px 8px 0 16px;
-    color: #666;
-    font-size: 11px;
-    border-bottom: 1px dotted #666;
-    cursor: pointer;
 }
 
 .rasdelitel_h_30 {
@@ -1312,7 +1304,7 @@ br.clear {
 
         .cke_contents.cke_reset
         {
-            height: 237px !important;
+            min-height: 237px;
         }
     }
 }
@@ -1325,12 +1317,11 @@ br.clear {
 
         .cke_contents.cke_reset
         {
-            height: 400px !important;
+            min-height: 400px;
         }
     }
 }
-
-@media screen and (max-width: 1200px)
+body.media-width-0-1200
 {
     .hidden-min {
         display: none !important;

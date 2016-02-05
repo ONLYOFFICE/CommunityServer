@@ -258,14 +258,14 @@ window.ASC.Files.ServiceManager = (function () {
             try {
                 switch (dataType) {
                     case "xml":
-                        data = ASC.Controls.XSLTManager.createXML(xmlHttpRequest.responseText);
+                        data = ASC.Files.TemplateManager.createXML(xmlHttpRequest.responseText);
                         break;
                     case "json":
                         data = jq.parseJSON(xmlHttpRequest.responseText);
                         break;
                     default:
                         if (xmlHttpRequest.responseXML.xml.indexOf(ignorResponse) != 0) {
-                            data = ASC.Controls.XSLTManager.createXML(xmlHttpRequest.responseXML.xml)
+                            data = ASC.Files.TemplateManager.createXML(xmlHttpRequest.responseXML.xml)
                                 || jq.parseJSON(xmlHttpRequest.responseText);
                         }
                 }
@@ -455,13 +455,15 @@ window.ASC.Files.ServiceManager = (function () {
 
         CanEditFile: "caneditfile",
         TrackEditFile: "trackeditfile",
-        SaveEditing: "saveediting",
         StartEdit: "startedit",
 
         LockFile: "lockfile",
 
         GetEditHistory: "getedithistory",
         GetDiffUrl: "getdiffurl",
+
+        GetMails: "getmails",
+        StartMailMerge: "startmailmerge",
     };
 
     var createFolder = function (eventType, params) {
@@ -615,6 +617,8 @@ window.ASC.Files.ServiceManager = (function () {
     };
 
     var getThirdParty = function (eventType, params) {
+        params.showLoading = true;
+        ASC.Files.Folders.isFirstLoad = false;
         request("get", "json", eventType, params, "thirdparty-list?folderType=" + (params.folderType || 0));
     };
 
@@ -648,6 +652,10 @@ window.ASC.Files.ServiceManager = (function () {
 
     var getDiffUrl = function (eventType, params) {
         request("get", "json", eventType, params, "edit-diff-url?fileId=" + encodeURIComponent(params.fileID) + "&version=" + params.version + params.shareLinkParam);
+    };
+
+    var getMailAccounts = function (eventType, params) {
+        request("get", "json", eventType, params, "mailaccounts");
     };
 
     var getHelpCenter = function (eventType, params) {
@@ -717,6 +725,8 @@ window.ASC.Files.ServiceManager = (function () {
 
         getEditHistory: getEditHistory,
         getDiffUrl: getDiffUrl,
+
+        getMailAccounts: getMailAccounts,
 
         getHelpCenter: getHelpCenter
     };

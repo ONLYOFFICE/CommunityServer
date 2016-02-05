@@ -120,6 +120,9 @@ namespace ASC.Notify.Textile
                         case "personal":
                             res = Resources.TemplateResource.FooterPersonal;
                             break;
+                        case "freecloud":
+                            res = Resources.TemplateResource.FooterFreeCloud;
+                            break;
                         default:
                             res = String.Empty;
                             break;

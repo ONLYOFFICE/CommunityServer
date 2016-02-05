@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -55,9 +55,9 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/TimeAndLanguage/js/TimeAndLanguage.js"));
+            Page.RegisterBodyScripts("~/usercontrols/management/TimeAndLanguage/js/TimeAndLanguage.js");
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/TimeAndLanguage/css/TimeAndLanguage.less"));
+            Page.RegisterStyle("~/usercontrols/management/TimeAndLanguage/css/TimeAndLanguage.less");
 
             _currentTenant = CoreContext.TenantManager.GetCurrentTenant();
         }

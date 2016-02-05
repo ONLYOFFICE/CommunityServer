@@ -62,7 +62,7 @@ namespace ASC.Web.UserControls.Forum
         {
             Utility.RegisterTypeForAjax(GetType());
 
-            _settings = ForumManager.GetSettings(SettingsID);
+            _settings = Community.Forum.ForumManager.Settings;
             _forumManager = _settings.ForumManager;
 
             TopicCSSClass = IsEven ? "tintMedium" : "";
@@ -170,7 +170,7 @@ namespace ASC.Web.UserControls.Forum
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public AjaxResponse DoApprovedTopic(int idTopic, Guid settingsID)
         {
-            _forumManager = ForumManager.GetForumManager(settingsID);
+            _forumManager = Community.Forum.ForumManager.Settings.ForumManager;
             var resp = new AjaxResponse { rs2 = idTopic.ToString() };
 
             var topic = ForumDataProvider.GetTopicByID(TenantProvider.CurrentTenantID, idTopic);
@@ -205,7 +205,7 @@ namespace ASC.Web.UserControls.Forum
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public AjaxResponse DoCloseTopic(int idTopic, Guid settingsID)
         {
-            _forumManager = ForumManager.GetForumManager(settingsID);
+            _forumManager = Community.Forum.ForumManager.Settings.ForumManager;
             var resp = new AjaxResponse { rs2 = idTopic.ToString() };
 
             var topic = ForumDataProvider.GetTopicByID(TenantProvider.CurrentTenantID, idTopic);
@@ -245,7 +245,7 @@ namespace ASC.Web.UserControls.Forum
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public AjaxResponse DoStickyTopic(int idTopic, Guid settingsID)
         {
-            _forumManager = ForumManager.GetForumManager(settingsID);
+            _forumManager = Community.Forum.ForumManager.Settings.ForumManager;
             var resp = new AjaxResponse { rs2 = idTopic.ToString() };
 
             var topic = ForumDataProvider.GetTopicByID(TenantProvider.CurrentTenantID, idTopic);
@@ -292,7 +292,7 @@ namespace ASC.Web.UserControls.Forum
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public AjaxResponse DoDeleteTopic(int idTopic, Guid settingsID)
         {
-            _forumManager = ForumManager.GetForumManager(settingsID);
+            _forumManager = Community.Forum.ForumManager.Settings.ForumManager;
             var resp = new AjaxResponse { rs2 = idTopic.ToString() };
 
             var topic = ForumDataProvider.GetTopicByID(TenantProvider.CurrentTenantID, idTopic);

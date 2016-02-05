@@ -26,6 +26,7 @@ using System.Net.NetworkInformation;
 using System.Net;
 using ActiveUp.Net.Dns;
 using System.Collections.Generic;
+using System.Text;
 
 namespace ActiveUp.Net.Mail
 {
@@ -99,7 +100,7 @@ namespace ActiveUp.Net.Mail
 
             if (nameServers.Count > 0)
             {
-                ActiveUp.Net.Mail.Logger.AddEntry("Name servers found : " + nameServers.Count.ToString(), 0);
+                ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Name servers found : {0}", nameServers.Count.ToString()), 0);
 
                 foreach(string server in nameServers)
                 {
@@ -107,12 +108,12 @@ namespace ActiveUp.Net.Mail
                     {
                         try
                         {
-                            ActiveUp.Net.Mail.Logger.AddEntry("Ask " + server + ":53 for MX records.", 0); 
+                            ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Ask {0}:53 for MX records.", server), 0); 
                             return GetMxRecords(address, server, 53, timeout);
                         }
                         catch
                         {
-                            ActiveUp.Net.Mail.Logger.AddEntry("Can't connect to " + server + ":53", 0);
+                            ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Can't connect to {0}:53", server), 0);
                         }
                     }
                 }
@@ -144,7 +145,7 @@ namespace ActiveUp.Net.Mail
             ArrayList nameServers = GetListNameServers();
             if (nameServers.Count > 0)
             {
-                ActiveUp.Net.Mail.Logger.AddEntry("Name servers found : " + nameServers.Count.ToString(), 0);
+                ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Name servers found : {0}", nameServers.Count.ToString()), 0);
 
                 foreach (string server in nameServers)
                 {
@@ -152,12 +153,12 @@ namespace ActiveUp.Net.Mail
                     {
                         try
                         {
-                            ActiveUp.Net.Mail.Logger.AddEntry("Ask " + server + ":53 for TXT records.", 0);
+                            ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Ask {0}:53 for TXT records.", server, 0));
                             return GetTxtRecords(address, server, 53);
                         }
                         catch
                         {
-                            ActiveUp.Net.Mail.Logger.AddEntry("Can't connect to " + server + ":53", 0);
+                            ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Can't connect to {0}:53", server), 0);
                         }
                     }
                 }
@@ -216,7 +217,7 @@ namespace ActiveUp.Net.Mail
                 }
                 catch
                 {
-                    ActiveUp.Net.Mail.Logger.AddEntry("Can't connect to " + server.Host + ":" + server.Port, 0);
+                    ActiveUp.Net.Mail.Logger.AddEntry(string.Format("Can't connect to {0}:{1}", server.Host, server.Port), 0);
                 }
             }
 
@@ -339,7 +340,8 @@ namespace ActiveUp.Net.Mail
             byte[] buffer = streamData;
             byte labelLength;
             bool pointerFound = false;
-            string temp = string.Empty, stringData = System.Text.Encoding.ASCII.GetString(streamData,0,streamData.Length);
+            var temp = new StringBuilder();
+            string stringData = System.Text.Encoding.ASCII.GetString(streamData, 0, streamData.Length);
 
             labelLength = buffer[currentPos];
 
@@ -355,8 +357,8 @@ namespace ActiveUp.Net.Mail
                     else
                         newPointer = buffer[currentPos+1];
 
-                    temp += GetLabelsByPos(streamData, ref newPointer);
-                    temp += ".";
+                    temp.Append(GetLabelsByPos(streamData, ref newPointer))
+                        .Append(".");
 
                     currentPos += 2;
                     
@@ -364,7 +366,8 @@ namespace ActiveUp.Net.Mail
                 }
                 else
                 {
-                    temp += stringData.Substring(currentPos+1, labelLength) + ".";
+                    temp.Append(stringData.Substring(currentPos+1, labelLength))
+                        .Append(".");
                     currentPos = currentPos + labelLength + 1;
                     labelLength = buffer[currentPos];
                 }
@@ -375,12 +378,7 @@ namespace ActiveUp.Net.Mail
             else
                 pos = currentPos+1;
 
-            if (temp.Length > 0)
-            {
-                return temp.TrimEnd('.');
-            }
-
-            return temp;
+            return temp.Length > 0 ? temp.ToString().TrimEnd('.') : temp.ToString();
         }
 
         public static ArrayList GetListNameServers()

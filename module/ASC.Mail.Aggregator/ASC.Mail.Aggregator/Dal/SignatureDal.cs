@@ -49,13 +49,13 @@ namespace ASC.Mail.Aggregator.Dal
 
         public int Tenant { get; private set;}
 
-        [DataMember]
+        [DataMember(Name = "mailboxId")]
         public int MailboxId { get; private set; }
 
-        [DataMember]
+        [DataMember(Name = "html")]
         public string Html { get; private set; }
 
-        [DataMember]
+        [DataMember(Name = "isActive")]
         public bool IsActive { get; private set; }
     }
 

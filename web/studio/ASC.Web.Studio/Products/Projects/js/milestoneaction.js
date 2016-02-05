@@ -304,7 +304,10 @@ ASC.Projects.MilestoneAction = (function() {
         milestoneDeadline.datepicker({ popupContainer: '#milestoneActionPanel', selectDefaultDate: true });
         jq(milestoneDeadline).on("keydown", function (e) { if (e.keyCode == 13) { milestoneDeadline.blur(); } });
         jq(milestoneDeadline).on("change", function () { milestoneDeadline.blur(); });
-        
+
+        if (jq.browser.mobile)
+            jq("#ui-datepicker-div").addClass("blockMsg");
+
         var date = new Date();
         date.setDate(date.getDate() + 7);
         milestoneDeadline.datepicker('setDate', date);

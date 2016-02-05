@@ -43,7 +43,7 @@
     <sc:Container runat="server" ID="PartnerApplyContainer">
         <Header><%=Resource.PartnerCodeWait %></Header>
         <Body>
-            <%= Resource.PartnerCodeWaitInfo %>
+            <%: Resource.PartnerCodeWaitInfo %>
             <div class="middle-button-container">
                 <a class="button blue middle" onclick="PopupKeyUpActionProvider.CloseDialog();">
                     <%= Resource.OKButton %></a>
@@ -56,7 +56,7 @@
     <sc:Container runat="server" ID="PartnerRequestContainer">
         <Header><%= Resource.PartnerRequestSent %></Header>
         <Body>
-            <%= Resource.PartnerRequestInfo %>
+            <%: Resource.PartnerRequestInfo %>
             <div class="middle-button-container">
                 <a class="button blue middle" onclick="PopupKeyUpActionProvider.CloseDialog();">
                     <%= Resource.OKButton %></a>
@@ -117,6 +117,6 @@
        if (!string.IsNullOrEmpty(CurPartner.SupportPhone))
        { %>
     <span class="describe-text"><%= Resource.PartnerPhone %>:</span>
-    <%= CurPartner.SupportPhone.HtmlEncode() %>
+    <%: CurPartner.SupportPhone %>
     <% } %>
 </div>

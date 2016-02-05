@@ -2,13 +2,13 @@
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 <%@ Import Namespace="ASC.Web.Core.Mobile" %>
-<%@ Import Namespace="ASC.Web.Core.CoBranding" %>
+<%@ Import Namespace="ASC.Web.Core.WhiteLabel" %>
 
 
 <div class="clearFix">
     <div id="studio_greetingLogoSettings" class="settings-block">
         <div class="header-base greetingTitle clearFix">
-            <%= Resource.GreetingSettingsTitle%>
+            <%= Resource.LogoSettingsTitle%>
         </div>
         <div class="clearFix">
             <div class="greetingContentLogo clearFix">
@@ -41,7 +41,7 @@
         </div>
     </div>
     <div class="settings-help-block">
-        <p><%= String.Format(Resource.HelpAnswerLogoSettings, "<br />","<b>","</b>")%></p>
+        <p><%= String.Format(Resource.HelpAnswerLogoSettings.HtmlEncode(), "<br />","<b>","</b>")%></p>
 
     </div>
 </div>

@@ -90,6 +90,7 @@ window.BackupManager = new function() {
             bind$Events();
 
             hideLoader();
+            AjaxPro.Backup.GetBackupProgress(processBackupResponseContinue);
         });
     }
 
@@ -427,8 +428,16 @@ window.BackupManager = new function() {
             return;
         }
 
+        processBackupResponseContinue(response);
+    }
+
+    function processBackupResponseContinue(response) {
+        if (response.error || !response.value || response.value.IsCompleted) {
+            return;
+        }
+
         showBackupProgress(response.value.Progress);
-        setTimeout(function() {
+        setTimeout(function () {
             AjaxPro.Backup.GetBackupProgress(processBackupResponse);
         }, 1000);
     }

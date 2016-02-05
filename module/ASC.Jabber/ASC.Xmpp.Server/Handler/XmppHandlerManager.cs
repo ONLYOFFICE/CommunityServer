@@ -33,7 +33,6 @@ using ASC.Xmpp.Server.Streams;
 using log4net;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Diagnostics;
 using System.Xml;
 using Error = ASC.Xmpp.Core.protocol.Error;
@@ -344,7 +343,7 @@ namespace ASC.Xmpp.Server.Handler
 
                 if (je.ErrorCode != ErrorCode.Forbidden)
                 {
-                    log.Warn("JabberError", ex);
+                    log.Error("JabberError", ex);
                 }
                 if (je.StreamError)
                 {

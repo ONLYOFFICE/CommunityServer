@@ -157,7 +157,7 @@ namespace ASC.Web.CRM.Controls.Tasks
                     {
                         var filterObj = JObject.Parse(filterItem);
 
-                        var filterParam = JObject.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(filterObj.Value<string>("params"))));
+                        JObject filterParam = Global.JObjectParseWithDateAsString(Encoding.UTF8.GetString(Convert.FromBase64String(filterObj.Value<string>("params"))));
 
                         switch (filterObj.Value<string>("id"))
                         {
@@ -181,9 +181,9 @@ namespace ASC.Web.CRM.Controls.Tasks
                                 var fromToArray = JsonConvert.DeserializeObject<List<string>>(valueString);
                                 if (fromToArray.Count != 2) continue;
                                 result.FromDate = !String.IsNullOrEmpty(fromToArray[0])
-                                                      ? UrlParameters.ApiDateTimeParse(fromToArray[0]) : DateTime.MinValue;
+                                                      ? Global.ApiDateTimeParse(fromToArray[0]) : DateTime.MinValue;
                                 result.ToDate = !String.IsNullOrEmpty(fromToArray[1])
-                                                    ? UrlParameters.ApiDateTimeParse(fromToArray[1]) : DateTime.MinValue;
+                                                    ? Global.ApiDateTimeParse(fromToArray[1]) : DateTime.MinValue;
                                 break;
                             case "fromToDate":
                                 result.FromDate = filterParam.Value<DateTime>("from");

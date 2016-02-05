@@ -47,7 +47,7 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/deactivateportal/js/deactivateportal.js"));
+            Page.RegisterBodyScripts("~/usercontrols/management/deactivateportal/js/deactivateportal.js");
         }
 
         [AjaxMethod]

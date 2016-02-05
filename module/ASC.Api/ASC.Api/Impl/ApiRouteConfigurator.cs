@@ -65,10 +65,6 @@ namespace ASC.Api.Impl
                     routePaths => routePaths.Cast<ApiMethodCall>()))
             {
                 apiMethodCall.FullPath = GetFullPath(apiBasePathPath, apiMethodCall);
-                if (!string.IsNullOrEmpty(apiMethodCall.RoutingPollUrl))
-                {
-                    apiMethodCall.RoutingPollUrl = GetFullPollPath(apiBasePathPath, apiMethodCall);
-                }
                 if (routeMap.Contains(apiMethodCall))
                 {
                     throw new ApiDuplicateRouteException(apiMethodCall, routeMap.Find(x => x.Equals(apiMethodCall)));
@@ -104,10 +100,8 @@ namespace ASC.Api.Impl
                             methodInfo.GetCustomAttributes(typeof(CacheAttribute), true).Cast<CacheAttribute>().
                             FirstOrDefault()
                         let filters = methodInfo.GetCustomAttributes(typeof(ApiCallFilter), true).Cast<ApiCallFilter>()
-                        let poll = methodInfo.GetCustomAttributes(typeof(PollAttribute), true).Cast<PollAttribute>().
-                            FirstOrDefault()
                         where attr != null
-                        select ToApiMethodCall(methodInfo, apiEntryPoint, attr, cache, poll, filters, gloabalFilters)).ToList();
+                        select ToApiMethodCall(methodInfo, apiEntryPoint, attr, cache, filters, gloabalFilters)).ToList();
             }
             catch (Exception err)
             {
@@ -116,7 +110,7 @@ namespace ASC.Api.Impl
             }
         }
 
-        private IApiMethodCall ToApiMethodCall(MethodInfo methodInfo, ContainerRegistration apiEntryPointType, ApiAttribute attr, CacheAttribute cache, PollAttribute poll, IEnumerable<ApiCallFilter> filters, List<ApiCallFilter> gloabalFilters)
+        private IApiMethodCall ToApiMethodCall(MethodInfo methodInfo, ContainerRegistration apiEntryPointType, ApiAttribute attr, CacheAttribute cache, IEnumerable<ApiCallFilter> filters, List<ApiCallFilter> gloabalFilters)
         {
             var methodCall = Container.Resolve<IApiMethodCall>();
             methodCall.MethodCall = methodInfo;
@@ -127,8 +121,6 @@ namespace ASC.Api.Impl
             methodCall.CacheTime = cache != null ? cache.CacheTime : 0;
             methodCall.Constraints = ExtractConstraints(attr.Path, attr.Method);
             methodCall.RequiresAuthorization = attr.RequiresAuthorization;
-            methodCall.SupportsPoll = poll != null;
-            methodCall.RoutingPollUrl = poll != null ? poll.PollUrl : string.Empty;
 
             //Add filters
             gloabalFilters.AddRange(filters);
@@ -198,11 +190,6 @@ namespace ASC.Api.Impl
         {
             return (apiBasePathPath + apiMethodCall.Name + Config.ApiSeparator +
                     apiMethodCall.RoutingUrl.TrimStart(Config.ApiSeparator)).TrimEnd('/');
-        }
-
-        private string GetFullPollPath(string apiBasePathPath, IApiMethodCall apiMethodCall)
-        {
-            return GetFullPath(apiBasePathPath, apiMethodCall) + Config.ApiSeparator + apiMethodCall.RoutingPollUrl.TrimStart(Config.ApiSeparator).TrimEnd('/');
         }
     }
 }

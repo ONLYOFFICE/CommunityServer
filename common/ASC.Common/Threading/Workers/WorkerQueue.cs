@@ -24,8 +24,6 @@
 */
 
 
-#region usings
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,27 +31,32 @@ using System.Threading;
 using log4net;
 
 
-#endregion
-
 namespace ASC.Common.Threading.Workers
 {
     public class WorkerQueue<T>
     {
-        private readonly AutoResetEvent _emptyEvent = new AutoResetEvent(false);
-        private readonly int _errorCount;
-        private readonly ICollection<WorkItem<T>> _items = new List<WorkItem<T>>();
-        private readonly bool _stopAfterFinsih;
+        private static ILog log = LogManager.GetLogger("ASC.WorkerQueue");
 
-        private readonly ManualResetEvent _stopEvent = new ManualResetEvent(false);
-        private readonly AutoResetEvent _waitEvent = new AutoResetEvent(false);
-        private readonly int _waitInterval;
-        private int _workerCount;
-        private readonly List<Thread> _workerThreads = new List<Thread>();
-        private Action<T> _action;
-        private bool _isThreadSet;
-        private ILog _log = LogManager.GetLogger("ASC.WorkerQueue");
+        private readonly ICollection<WorkItem<T>> items = new List<WorkItem<T>>();
+        private readonly List<Thread> threads = new List<Thread>();
+
+        private readonly AutoResetEvent waitEvent = new AutoResetEvent(false);
+        private readonly ManualResetEvent stopEvent = new ManualResetEvent(false);
+
+        private readonly int workerCount;
+        private readonly bool stopAfterFinsih;
+        private readonly int errorCount;
+        private readonly int waitInterval;
+
+        private Action<T> action;
+        private volatile bool started;
 
         public object SynchRoot { get { return Items; } }
+
+        protected virtual ICollection<WorkItem<T>> Items { get { return items; } }
+
+        public bool IsStarted { get { return started; } }
+
 
         public WorkerQueue(int workerCount, TimeSpan waitInterval)
             : this(workerCount, waitInterval, 1, false)
@@ -62,44 +65,24 @@ namespace ASC.Common.Threading.Workers
 
         public WorkerQueue(int workerCount, TimeSpan waitInterval, int errorCount, bool stopAfterFinsih)
         {
-            WorkerCount = workerCount;
-            _errorCount = errorCount;
-            _stopAfterFinsih = stopAfterFinsih;
-            _waitInterval = (int)waitInterval.TotalMilliseconds;
+            this.workerCount = workerCount;
+            this.errorCount = errorCount;
+            this.stopAfterFinsih = stopAfterFinsih;
+            this.waitInterval = (int)waitInterval.TotalMilliseconds;
         }
 
-        private WaitHandle[] WaitObjects()
+
+        public void Start(Action<T> starter)
         {
-            return new WaitHandle[] { _stopEvent, _waitEvent };
+            Start(starter, true);
         }
 
-        protected WaitHandle StopEvent { get { return _stopEvent; } }
-
-        public bool IsStarted { get; set; }
-
-
-        public int WorkerCount
+        public IEnumerable<T> GetItems()
         {
-            get { return _workerCount; }
-            set
+            lock (Items)
             {
-                if (value != _workerCount)
-                {
-                    _workerCount = value;
-
-                    //Do a restart
-                    if (_isThreadSet && _action != null)
-                    {
-                        Stop();
-                        Start(_action);
-                    }
-                }
+                return Items.Select(x => x.Item).ToList();
             }
-        }
-
-        public virtual ICollection<WorkItem<T>> Items
-        {
-            get { return _items; }
         }
 
         public virtual void AddRange(IEnumerable<T> items)
@@ -111,7 +94,7 @@ namespace ASC.Common.Threading.Workers
                     Items.Add(new WorkItem<T>(item));
                 }
             }
-            _waitEvent.Set();
+            waitEvent.Set();
             ReviveThreads();
         }
 
@@ -121,127 +104,75 @@ namespace ASC.Common.Threading.Workers
             {
                 Items.Add(new WorkItem<T>(item));
             }
-            _waitEvent.Set();
+            waitEvent.Set();
             ReviveThreads();
-        }
-
-        private void ReviveThreads()
-        {
-            if (_workerThreads.Count != 0)
-            {
-                bool haveLiveThread = _workerThreads.Count(x => x.IsAlive) > 0;
-                if (!haveLiveThread)
-                {
-                    Restart();
-                }
-            }
-        }
-
-        private void Restart()
-        {
-            Stop();
-            Start(_action);
         }
 
         public void Remove(T item)
         {
             lock (Items)
             {
-                WorkItem<T> existing = Items.Where(x => Equals(x.Item, item)).SingleOrDefault();
+                var existing = Items.Where(x => Equals(x.Item, item)).SingleOrDefault();
                 RemoveInternal(existing);
             }
         }
 
-        public IEnumerable<T> GetItems()
+        public void Clear()
         {
             lock (Items)
             {
-                return Items.Select(x => x.Item).ToList();
-            }
-        }
-
-        public void Start(Action<T> starter)
-        {
-            Start(starter, true);
-        }
-
-        public void Start(Action<T> starter, bool backgroundThreads)
-        {
-            lock (Items)
-            {
-                _action = starter;
-            }
-            if (!_isThreadSet)
-            {
-                _log.DebugFormat("Creating threads");
-                _isThreadSet = true;
-                for (int i = 0; i < WorkerCount; i++)
+                foreach (var workItem in Items)
                 {
-                    _workerThreads.Add(new Thread(DoWork) { IsBackground = backgroundThreads });
+                    workItem.Dispose();
                 }
-            }
-            if (!IsStarted)
-            {
-                IsStarted = true;
-                _stopEvent.Reset();
-                _waitEvent.Reset();
-                _log.DebugFormat("Starting threads");
-                foreach (Thread workerThread in _workerThreads)
-                {
-                    workerThread.Start(_stopAfterFinsih);
-                }
-            }
-        }
-
-        public void WaitForCompletion()
-        {
-            _emptyEvent.WaitOne();
-        }
-
-        public void Terminate()
-        {
-            if (IsStarted)
-            {
-                IsStarted = false;
-                _stopEvent.Set();
-                _waitEvent.Set();
-
-                _log.DebugFormat("Stoping queue. Terminating threads");
-                foreach (Thread workerThread in
-                    _workerThreads.Where(workerThread => workerThread != Thread.CurrentThread))
-                {
-                    workerThread.Abort();
-                }
-                _isThreadSet = false;
-                if (_workerThreads.Contains(Thread.CurrentThread))
-                {
-                    _workerThreads.Clear();
-                    _log.DebugFormat("Terminate called from current worker thread. Terminating");
-                    Thread.CurrentThread.Abort();
-                }
-                _workerThreads.Clear();
-                _log.DebugFormat("Queue stoped. Threads cleared");
+                Items.Clear();
             }
         }
 
         public void Stop()
         {
-            if (IsStarted)
+            if (started)
             {
-                IsStarted = false;
-                _stopEvent.Set();
-                _waitEvent.Set();
+                started = false;
+                
+                stopEvent.Set();
+                waitEvent.Set();
 
-                _log.DebugFormat("Stoping queue. Joining threads");
-                foreach (Thread workerThread in _workerThreads)
+                log.DebugFormat("Stoping queue. Joining threads");
+                foreach (var workerThread in threads)
                 {
                     workerThread.Join();
                 }
-                _isThreadSet = false;
-                _workerThreads.Clear();
-                _log.DebugFormat("Queue stoped. Threads cleared");
+                threads.Clear();
+                log.DebugFormat("Queue stoped. Threads cleared");
             }
         }
+
+        public void Terminate()
+        {
+            if (started)
+            {
+                started = false;
+                
+                stopEvent.Set();
+                waitEvent.Set();
+
+                log.DebugFormat("Stoping queue. Terminating threads");
+                foreach (var worker in threads.Where(t => t != Thread.CurrentThread))
+                {
+                    worker.Abort();
+                }
+                if (threads.Contains(Thread.CurrentThread))
+                {
+                    threads.Clear();
+                    log.DebugFormat("Terminate called from current worker thread. Terminating");
+                    Thread.CurrentThread.Abort();
+                }
+                threads.Clear();
+                log.DebugFormat("Queue stoped. Threads cleared");
+            }
+        }
+
 
         protected virtual WorkItem<T> Selector()
         {
@@ -250,7 +181,6 @@ namespace ASC.Common.Threading.Workers
 
         protected virtual void PostComplete(WorkItem<T> item)
         {
-            item.Completed = DateTime.UtcNow;
             RemoveInternal(item);
         }
 
@@ -272,103 +202,134 @@ namespace ASC.Common.Threading.Workers
         {
             LogManager.GetLogger("ASC.Common.Threading.Workers").Error(item, exception);
 
-            item.Error = exception;
             item.IsProcessed = false;
             item.Added = DateTime.Now;
         }
 
+
+        private WaitHandle[] WaitObjects()
+        {
+            return new WaitHandle[] { stopEvent, waitEvent };
+        }
+
+        private void ReviveThreads()
+        {
+            if (threads.Count != 0)
+            {
+                var haveLiveThread = threads.Count(x => x.IsAlive) > 0;
+                if (!haveLiveThread)
+                {
+                    Stop();
+                    Start(action);
+                }
+            }
+        }
+
+        private void Start(Action<T> starter, bool backgroundThreads)
+        {
+            if (!started)
+            {
+                started = true;
+                action = starter; 
+                
+                stopEvent.Reset();
+                waitEvent.Reset();
+
+                log.DebugFormat("Creating threads");
+                for (var i = 0; i < workerCount; i++)
+                {
+                    threads.Add(new Thread(DoWork) { IsBackground = backgroundThreads });
+                }
+
+                log.DebugFormat("Starting threads");
+                foreach (var thread in threads)
+                {
+                    thread.Start(stopAfterFinsih);
+                }
+            }
+        }
+
         private void DoWork(object state)
         {
-            bool stopAfterFinsih = false;
-            if (state != null && state is bool)
+            try
             {
-                stopAfterFinsih = (bool)state;
-            }
-            do
-            {
-                WorkItem<T> item;
-                Action<T> localAction;
-                lock (Items)
+                bool stopAfterFinsih = false;
+                if (state != null && state is bool)
                 {
-                    localAction = _action;
-                    item = Selector();
+                    stopAfterFinsih = (bool)state;
+                }
+                do
+                {
+                    WorkItem<T> item;
+                    Action<T> localAction;
+                    lock (Items)
+                    {
+                        localAction = action;
+                        item = Selector();
+                        if (item != null)
+                        {
+                            item.IsProcessed = true;
+                        }
+                    }
+                    if (localAction == null)
+                        break;//Exit if action is null
+
                     if (item != null)
                     {
-                        item.IsProcessed = true;
-                    }
-                }
-                if (localAction == null)
-                    break;//Exit if action is null
-
-                if (item != null)
-                {
-                    try
-                    {
-                        localAction(item.Item);
-                        bool fallSleep = false;
-                        lock (Items)
+                        try
                         {
-                            PostComplete(item);
-                            if (Items.Count == 0)
+                            localAction(item.Item);
+                            bool fallSleep = false;
+                            lock (Items)
                             {
-                                _emptyEvent.Set();
-                                fallSleep = QueueEmpty(true);
+                                PostComplete(item);
+                                if (Items.Count == 0)
+                                {
+                                    fallSleep = true;
+                                }
+                            }
+                            if (fallSleep)
+                            {
+                                if (stopAfterFinsih || WaitHandle.WaitAny(WaitObjects(), Timeout.Infinite, false) == 0)
+                                {
+                                    break;
+                                }
                             }
                         }
-                        if (fallSleep)
+                        catch (ThreadAbortException)
                         {
-                            if (stopAfterFinsih || WaitHandle.WaitAny(WaitObjects(), Timeout.Infinite, false) == 0)
-                            {
-                                break;
-                            }
+                            return;
                         }
-                    }
-                    catch (ThreadAbortException)
-                    {
-                    }
-                    catch (Exception e)
-                    {
-                        lock (Items)
+                        catch (Exception e)
                         {
-
-                            Error(item, e);
-                            item.ErrorCount++;
-                            if (item.ErrorCount > _errorCount)
+                            lock (Items)
                             {
-                                ErrorLimit(item);
+
+                                Error(item, e);
+                                item.ErrorCount++;
+                                if (item.ErrorCount > errorCount)
+                                {
+                                    ErrorLimit(item);
+                                }
                             }
                         }
                     }
-                }
-                else
-                {
-                    if (stopAfterFinsih || WaitHandle.WaitAny(WaitObjects(), GetSleepInterval(), false) == 0)
+                    else
                     {
-                        break;
+                        if (stopAfterFinsih || WaitHandle.WaitAny(WaitObjects(), waitInterval, false) == 0)
+                        {
+                            break;
+                        }
                     }
-                }
-            } while (true);
-        }
-
-        protected virtual bool QueueEmpty(bool fallAsleep)
-        {
-            return fallAsleep;
-        }
-
-        protected virtual int GetSleepInterval()
-        {
-            return _waitInterval;
-        }
-
-        public void Clear()
-        {
-            lock (Items)
+                } while (true);
+            }
+            catch (ThreadAbortException)
             {
-                foreach (var workItem in Items)
-                {
-                    workItem.Dispose();
-                }
-                Items.Clear();
+                return;
+            }
+            catch (Exception err)
+            {
+                log.Error(err);
             }
         }
     }

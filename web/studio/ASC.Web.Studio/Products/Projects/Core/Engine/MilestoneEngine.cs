@@ -138,13 +138,13 @@ namespace ASC.Projects.Engine
             return milestones.Count <= max ? milestones : milestones.GetRange(0, max);
         }
 
-        public List<Milestone> GetLateMilestones(int max, params int[] projects)
+        public List<Milestone> GetLateMilestones(int max)
         {
             var offset = 0;
             var milestones = new List<Milestone>();
             while (true)
             {
-                var packet = _milestoneDao.GetLateMilestones(offset, 2 * max, projects);
+                var packet = _milestoneDao.GetLateMilestones(offset, 2 * max);
                 milestones.AddRange(packet.Where(CanRead));
                 if (max <= milestones.Count || packet.Count() < 2 * max)
                 {

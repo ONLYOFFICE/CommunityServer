@@ -24,30 +24,43 @@
 */
 
 
+using System.ComponentModel;
+
 namespace ASC.Mail.Server.Administration.Interfaces
 {
     public enum ServerType
     {
+        [Description("SMTP")]
         Smtp = 0,
+        [Description("IMAP4")]
         Imap = 1,
+        [Description("POP3")]
         Pop3 = 2
     }
 
     public enum EncryptionType
     {
+        [Description("None")]
         None = 0,
 // ReSharper disable InconsistentNaming
+        [Description("SSL")]
         SSL = 1,
+        [Description("STARTTLS")]
         StartTLS = 2
 // ReSharper restore InconsistentNaming
     }
 
     public enum AuthenticationType
     {
+        [Description("None")]
         None = 0,
+        [Description("Login")]
         Login = 1,
+        [Description("Plain")]
         Plain = 2,
+        [Description("CramMD5")]
         CramMd5 = 4,
+        [Description("OAuth2")]
         OAuth2 = 5
     }
 }

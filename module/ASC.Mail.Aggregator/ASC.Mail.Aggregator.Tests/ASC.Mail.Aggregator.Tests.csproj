@@ -58,7 +58,11 @@
       <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
-      <HintPath>..\..\..\packages\MySql.Data.6.8.3\lib\net45\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\packages\MySql.Data.6.9.7\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
       <HintPath>..\..\..\packages\NUnit.2.6.3\lib\nunit.framework.dll</HintPath>
@@ -83,15 +87,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\MySqlNormalizeTests.cs" />
     <Compile Include="Common\HtmlSanitizerTests.cs" />
     <Compile Include="Common\Imap\ImapParseMailboxListTests.cs" />
     <Compile Include="Common\LoginFormatingTests.cs" />
+    <Compile Include="Common\MailerParserTests.cs" />
     <Compile Include="Common\MessageParserTests\BadContentTests.cs" />
     <Compile Include="Common\MessageParserTests\BadEncodingTests.cs" />
     <Compile Include="Common\MessageParserTests\MessageDeserializationTest.cs" />
     <Compile Include="Common\MessageParserTests\MessageParserTestsBase.cs" />
     <Compile Include="Common\MessageParserTests\MessageParseTests.cs" />
     <Compile Include="Common\Imap\ImapIntervalsTest.cs" />
+    <Compile Include="Common\SubjectNormalizeTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Common\SanitizeHtmlForEditorTests.cs" />
   </ItemGroup>

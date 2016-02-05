@@ -34,7 +34,13 @@ namespace ASC.Web.Studio.Core.Notify
     static class Constants
     {
         public static string TagUserName = "UserName";
+        public static string TagUserLastName = "UserLastName";
         public static string TagUserEmail = "UserEmail";
+        public static string TagUserPosition = "Position";
+        public static string TagPhone = "Phone";
+        public static string TagWebsite = "Website";
+        public static string TagCompanyTitle = "CompanyTitle";
+        public static string TagCompanySize = "CompanySize";
         public static string TagSubject = "Subject";
         public static string TagBody = "Body";
         public static string TagMyStaffLink = "MyStaffLink";
@@ -64,6 +70,8 @@ namespace ASC.Web.Studio.Core.Notify
         public static string TagFAQ = "FAQ";
         public static string TagPricingPage = "PricingPage";
         public static string TagBlogLink = "TagBlogLink";
+        public static string TagDueDate = "DueDate";
+        public static string TagDelayDueDate = "DelayDueDate";
 
         public static string LetterLogo = "LetterLogo";
 
@@ -74,6 +82,8 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionSmsBalance = new NotifyAction("admin_sms_balance", "admin_sms_balance");
         public static INotifyAction ActionVoipWarning = new NotifyAction("admin_voip_warning", "admin_voip_warning");
         public static INotifyAction ActionVoipBlocked = new NotifyAction("admin_voip_blocked", "admin_voip_blocked");
+        public static INotifyAction ActionRequestTariff = new NotifyAction("request_tariff", "request_tariff");
+        public static INotifyAction ActionRequestLicense = new NotifyAction("request_license", "request_license");
 
         public static INotifyAction ActionYouAddedLikeGuest = new NotifyAction("you_added_like_guest", "You added like guest");
         public static INotifyAction ActionYouAddedAfterInvite = new NotifyAction("you_added_after_invite", "You added after invite");
@@ -88,6 +98,7 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionPortalDeactivate = new NotifyAction("portal_deactivate", "portal deactivate");
         public static INotifyAction ActionPortalDelete = new NotifyAction("portal_delete", "portal delete");
         public static INotifyAction ActionPortalDeleteSuccess = new NotifyAction("portal_delete_success", "portal_delete_success");
+        
         public static INotifyAction ActionProfileDelete = new NotifyAction("profile_delete", "profile_delete");
         public static INotifyAction ActionDnsChange = new NotifyAction("dns_change", "dns_change");
 
@@ -106,12 +117,17 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionMigrationPortalSuccess = new NotifyAction("migration_success", "migration success");
         public static INotifyAction ActionMigrationPortalError = new NotifyAction("migration_error", "migration error");
         public static INotifyAction ActionMigrationPortalServerFailure = new NotifyAction("migration_server_failure", "migration_server_failure");
+        public static INotifyAction ActionPortalRename = new NotifyAction("portal_rename", "portal_rename");
+        
 
         public static INotifyAction ActionAfterCreation1 = new NotifyAction("after_creation1");
         public static INotifyAction ActionAfterCreation2 = new NotifyAction("after_creation2");
         public static INotifyAction ActionAfterCreation3 = new NotifyAction("after_creation3");
         public static INotifyAction ActionAfterCreation4 = new NotifyAction("after_creation4");
         public static INotifyAction ActionAfterCreation5 = new NotifyAction("after_creation5");
+        public static INotifyAction ActionAfterCreation1FreeCloud = new NotifyAction("after_creation1_freecloud");
+        public static INotifyAction ActionAfterCreation30FreeCloud = new NotifyAction("after_creation30_freecloud");
+
         public static INotifyAction ActionTariffWarningTrial = new NotifyAction("tariff_warning_trial");
         public static INotifyAction ActionTariffWarningTrial2 = new NotifyAction("tariff_warning_trial2");
         public static INotifyAction ActionTariffWarningTrial3 = new NotifyAction("tariff_warning_trial3");
@@ -127,6 +143,18 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionEmailChangePersonal = new NotifyAction("change_email_personal");
 
         public static INotifyAction ActionAfterPayment1 = new NotifyAction("after_payment1");
+        public static INotifyAction ActionPaymentWarningBefore7 = new NotifyAction("payment_warning_before7");
+        public static INotifyAction ActionPaymentWarning = new NotifyAction("payment_warning");
+        public static INotifyAction ActionPaymentWarningAfter3 = new NotifyAction("payment_warning_after3");
+        public static INotifyAction ActionPaymentWarningDelayDue = new NotifyAction("payment_warning_delaydue");
+
+
+        public static INotifyAction ActionCongratulationsFreeCloud = new NotifyAction("congratulations_freecloud");
+        public static INotifyAction ActionYouAddedAfterInviteFreeCloud = new NotifyAction("you_added_after_invite_freecloud", "you_added_after_invite_freecloud");
+        public static INotifyAction ActionYouAddedLikeGuestFreeCloud = new NotifyAction("you_added_like_guest_freecloud", "You added like guest");
+        public static INotifyAction ActionActivateUsersFreeCloud = new NotifyAction("activate_freecloud", "activate_freecloud");
+        public static INotifyAction ActionActivateGuestsFreeCloud = new NotifyAction("activate_guest_freecloud", "activate_guest_freecloud");
+        public static INotifyAction ActionPortalDeleteSuccessFreeCloud = new NotifyAction("portal_delete_success_freecloud", "portal_delete_success_freecloud");
 
         public static ITagValue UnsubscribeLink
         {
@@ -154,7 +182,7 @@ namespace ASC.Web.Studio.Core.Notify
         }
         public static ITagValue TagMarkerStart
         {
-            get { return new TagValue("MarkerStart", "<span style=\"background-color: #b9e3f5; padding: 5px 45px 5px 25px;\">"); }
+            get { return new TagValue("MarkerStart", "<span style=\"display: inline-block; background-color: #b9e3f5; padding: 5px 24px;\">"); }
         }
 
         public static ITagValue TagMarkerEnd
@@ -163,7 +191,7 @@ namespace ASC.Web.Studio.Core.Notify
         }
         public static ITagValue TagHeaderStart
         {
-            get { return new TagValue("HeaderStart", "<h1 style=\"color: #5e5e5e; font-family: 'Open Sans', sans-serif; letter-spacing: -1px; line-height: 62px; font-size: 48px; font-weight: normal; text-transform: uppercase;\">"); }
+            get { return new TagValue("HeaderStart", "<h1 style=\"color: #5e5e5e; font-family: 'Open Sans', sans-serif; line-height: 48px; font-size: 36px; font-weight: normal; text-transform: uppercase;\">"); }
         }
 
         public static ITagValue TagHeaderEnd

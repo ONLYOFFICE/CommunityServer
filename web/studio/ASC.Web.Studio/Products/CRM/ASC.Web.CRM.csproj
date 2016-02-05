@@ -4,8 +4,8 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
-  <UsingTask TaskName="CssCompressorTask" AssemblyFile="..\..\..\..\..\packages\YUICompressor.NET.MSBuild.2.2.0.0\lib\NET20\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
-  <UsingTask TaskName="JavaScriptCompressorTask" AssemblyFile="..\..\..\..\..\packages\YUICompressor.NET.MSBuild.2.2.0.0\lib\NET20\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
+  <UsingTask TaskName="CssCompressorTask" AssemblyFile="..\..\..\..\..\packages\YUICompressor.NET.MSBuild.2.7.0.0\lib\NET20\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
+  <UsingTask TaskName="JavaScriptCompressorTask" AssemblyFile="..\..\..\..\..\packages\YUICompressor.NET.MSBuild.2.7.0.0\lib\NET20\Yahoo.Yui.Compressor.Build.MsBuild.dll" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -64,7 +64,7 @@
       <HintPath>..\..\..\..\..\packages\LumenWorksCsvReader.3.8.2\lib\net20\LumenWorks.Framework.IO.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -103,8 +103,6 @@
     <Compile Include="Classes\OrganisationLogoManager.cs" />
     <Compile Include="Classes\RegisterClientScriptHelper.cs" />
     <Compile Include="Classes\SocialMedia\FacebookApiHelper.cs" />
-    <Compile Include="Classes\SocialMedia\LinkedInApiHelper.cs" />
-    <Compile Include="Classes\SocialMedia\LinkedInDefaultAccountTokenManager.cs" />
     <Compile Include="Classes\SocialMedia\TwitterApiHelper.cs" />
     <Compile Include="Classes\SubscriptionManager.cs" />
     <Compile Include="Configuration\CRMsSpaceUsageStatManager.cs" />
@@ -820,7 +818,6 @@
     <Content Include="App_Themes\Default\images\empty_screen_userfields.png" />
     <Content Include="App_Themes\Default\images\back-progress-light-big.png" />
     <Content Include="App_Themes\Default\images\companies_widget.png" />
-    <Content Include="App_Themes\Default\images\crunchbase.png" />
     <Content Include="App_Themes\Default\images\csv_16.png" />
     <Content Include="App_Themes\Default\images\empty_company_logo_145_145.png" />
     <Content Include="App_Themes\Default\images\empty_company_logo_40_40.png" />

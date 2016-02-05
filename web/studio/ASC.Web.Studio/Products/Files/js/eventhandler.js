@@ -377,18 +377,22 @@ window.ASC.Files.EventHandler = (function () {
             return;
         }
 
-        var htmlXML = ASC.Files.TemplateManager.translate(xmlData);
+        if (ASC.Files.Folders.currentFolder.id == params.folderID) {
+            var htmlXML = ASC.Files.TemplateManager.translate(xmlData);
 
-        var fileObj = insertFolderItems(htmlXML, fileNewObj);
+            var fileObj = insertFolderItems(htmlXML, fileNewObj);
 
-        fileObj.show().yellowFade().removeClass("new-file");
-        var fileData = ASC.Files.UI.getObjectData(fileObj);
-        var fileTitle = fileData.title;
-        var fileId = fileData.entryId;
+            fileObj.show().yellowFade().removeClass("new-file");
+            var fileData = ASC.Files.UI.getObjectData(fileObj);
+            var fileTitle = fileData.title;
+            var fileId = fileData.entryId;
+
+            ASC.Files.Actions.checkEditFile(fileId, winEditor, true);
+        } else {
+            fileTitle = params.fileTitle;
+        }
 
         ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoCrateFile.format(fileTitle));
-
-        ASC.Files.Actions.checkEditFile(fileId, winEditor, true);
     };
 
     var onCreateFolder = function (xmlData, params, errorMessage) {
@@ -404,12 +408,16 @@ window.ASC.Files.EventHandler = (function () {
             return;
         }
 
-        var htmlXML = ASC.Files.TemplateManager.translate(xmlData);
+        if (ASC.Files.Folders.currentFolder.id == params.parentFolderID) {
+            var htmlXML = ASC.Files.TemplateManager.translate(xmlData);
 
-        var folderObj = insertFolderItems(htmlXML, folderNewObj);
+            var folderObj = insertFolderItems(htmlXML, folderNewObj);
 
-        folderObj.yellowFade().removeClass("new-folder");
-        var folderTitle = ASC.Files.UI.getObjectData(folderObj).title;
+            folderObj.yellowFade().removeClass("new-folder");
+            var folderTitle = ASC.Files.UI.getObjectData(folderObj).title;
+        } else {
+            folderTitle = params.title;
+        }
 
         if (ASC.Files.Tree) {
             ASC.Files.Tree.resetFolder(params.parentFolderID);
@@ -516,7 +524,7 @@ window.ASC.Files.EventHandler = (function () {
 
         if (!canEdit
             || Teamlab.profile.isVisitor === true) {
-            jq(".version-operation.version-restore span").remove();
+            jq(".version-operation.version-restore").empty();
             jq(".version-complete, .version-continue").remove();
             jq(".version-num span").addClass("display-num");
         }
@@ -526,8 +534,7 @@ window.ASC.Files.EventHandler = (function () {
         }
 
         jq("#contentVersions .version-row[data-version='" + fileData.version + "'] .version-restore").empty();
-        jq("#contentVersions .version-row[data-version='" + fileData.version + "'] .version-sublist")
-            .removeClass("version-sublist").find("span").text(ASC.Files.FilesJSResources.RevisionCurrent);
+        jq("#contentVersions .version-row[data-version='" + fileData.version + "'] .version-sublist span").text(ASC.Files.FilesJSResources.RevisionCurrent);
 
         var curVersionGroup = fileData.version_group;
         jq("#contentVersions .version-row[data-version-group=" + curVersionGroup + "]").show();
@@ -542,9 +549,7 @@ window.ASC.Files.EventHandler = (function () {
 
                 var groupList = jq("#contentVersions .version-row[data-version-group=" + curVersionGroup + "]");
                 if (groupList.length > 1) {
-                    row.find(".version-sublist span").text(jq.format(ASC.Files.FilesJSResources.RevisionCount, groupList.length));
-                } else {
-                    row.find(".version-sublist span").remove();
+                    row.find(".version-sublist span").addClass("version-sublist-toggle").text(jq.format(ASC.Files.FilesJSResources.RevisionCount, groupList.length));
                 }
             } else if (!canEdit) {
                 row.find(".version-num").empty();

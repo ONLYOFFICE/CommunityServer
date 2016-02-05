@@ -264,7 +264,7 @@ namespace ASC.Api.Web.Help.DocumentGenerator
                                Authentification = methodCall.apiMethod.RequiresAuthorization,
                                FunctionName = GetFunctionName(methodCall.apiMethod.MethodCall.Name),
                                Summary = methodCall.description.Element("summary").ValueOrNull(),
-                               Visible = string.IsNullOrEmpty(methodCall.description.Element("visible").ValueOrNull()),
+                               Visible = !string.Equals(methodCall.description.Element("visible").ValueOrNull(), bool.FalseString, StringComparison.OrdinalIgnoreCase),
                                Remarks = methodCall.description.Element("remarks").ValueOrNull().Replace(Environment.NewLine, @"<br />"),
                                Returns = methodCall.description.Element("returns").ValueOrNull(),
                                Example = methodCall.description.Element("example").ValueOrNull().Replace(Environment.NewLine, @"<br />"),

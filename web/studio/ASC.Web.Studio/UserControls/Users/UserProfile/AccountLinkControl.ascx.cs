@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -26,25 +26,20 @@
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using ASC.FederatedLogin.LoginProviders;
-using ASC.MessagingSystem;
 using ASC.Thrdparty;
 using ASC.Thrdparty.Configuration;
 using ASC.Web.Core.Mobile;
-using AjaxPro;
 using ASC.Core;
 using ASC.FederatedLogin;
 using ASC.FederatedLogin.Profile;
-using ASC.Web.Studio.Utility;
+using Newtonsoft.Json;
 
 namespace ASC.Web.Studio.UserControls.Users.UserProfile
 {
-    [AjaxNamespace("AccountLinkControl")]
     public partial class AccountLinkControl : UserControl
     {
         public static string Location
@@ -60,7 +55,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
                     !string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20ClientId)
                     || !string.IsNullOrEmpty(FacebookLoginProvider.FacebookOAuth20ClientId)
                     || !string.IsNullOrEmpty(KeyStorage.Get("twitterKey"))
-                    || !string.IsNullOrEmpty(KeyStorage.Get("linkedInKey"));
+                    || !string.IsNullOrEmpty(LinkedInLoginProvider.LinkedInOAuth20ClientId);
             }
         }
 
@@ -76,10 +71,16 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/users/userprofile/css/accountlink_style.less"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/users/userprofile/js/accountlinker.js"));
+            Page.RegisterStyle("~/usercontrols/users/userprofile/css/accountlink_style.less");
+            Page.RegisterBodyScripts("~/usercontrols/users/userprofile/js/accountlinker.js");
             InitProviders();
+
+            Page.RegisterInlineScript(String.Format(@" AccountLinkControl_Providers = {0};
+                                                       AccountLinkControl_SettingsView = {1};
+                                                       AccountLinkControl_InviteView = {2};",
+                                    JsonConvert.SerializeObject(Infos),
+                                    SettingsView.ToString().ToLower(),
+                                    InviteView.ToString().ToLower()), onReady: false);
         }
 
         public string ClientCallback { get; set; }
@@ -104,7 +105,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             if (!string.IsNullOrEmpty(KeyStorage.Get("twitterKey")) && (string.IsNullOrEmpty(fromOnly) || fromOnly == "twitter"))
                 AddProvider(ProviderConstants.Twitter, linkedAccounts);
 
-            if (!string.IsNullOrEmpty(KeyStorage.Get("linkedInKey")) && (string.IsNullOrEmpty(fromOnly) || fromOnly == "linkedin"))
+            if (!string.IsNullOrEmpty(LinkedInLoginProvider.LinkedInOAuth20ClientId) && (string.IsNullOrEmpty(fromOnly) || fromOnly == "linkedin"))
                 AddProvider(ProviderConstants.LinkedIn, linkedAccounts);
         }
 
@@ -122,51 +123,6 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
                 });
         }
 
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public AjaxResponse LinkAccount(string serializedProfile)
-        {
-            //Link it
-            var profile = new LoginProfile(serializedProfile);
-
-            if (string.IsNullOrEmpty(profile.AuthorizationError))
-            {
-                GetLinker().AddLink(SecurityContext.CurrentAccount.ID.ToString(), profile);
-                MessageService.Send(HttpContext.Current.Request, MessageAction.UserLinkedSocialAccount, GetMeaningfulProviderName(profile.Provider));
-            }
-            else
-            {
-                // ignore cancellation
-                if (profile.AuthorizationError != "Canceled at provider")
-                {
-                    throw new Exception(profile.AuthorizationError);
-                }
-            }
-            return RenderControlHtml();
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public AjaxResponse UnlinkAccount(string provider)
-        {
-            //Link it
-            GetLinker().RemoveProvider(SecurityContext.CurrentAccount.ID.ToString(), provider);
-            MessageService.Send(HttpContext.Current.Request, MessageAction.UserUnlinkedSocialAccount, GetMeaningfulProviderName(provider));
-            
-            return RenderControlHtml();
-        }
-
-        private AjaxResponse RenderControlHtml()
-        {
-            using (var stringWriter = new StringWriter())
-            using (var writer = new HtmlTextWriter(stringWriter))
-            {
-                var ctrl = (AccountLinkControl) LoadControl(Location);
-                ctrl.SettingsView = true;
-                ctrl.InitProviders();
-                ctrl.RenderControl(writer);
-                return new AjaxResponse {rs1 = stringWriter.GetStringBuilder().ToString()};
-            }
-        }
-
         private static AccountLinker GetLinker()
         {
             return new AccountLinker("webstudio");
@@ -174,25 +130,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
         public IEnumerable<AccountInfo> GetLinkableProviders()
         {
-            return Infos.Where(x => !(x.Provider.ToLower() == "twitter" || x.Provider.ToLower() == "linkedin"));
-        }
-
-        private static string GetMeaningfulProviderName(string providerName)
-        {
-            switch (providerName)
-            {
-                case "google":
-                case "openid":
-                    return "Google";
-                case "facebook":
-                    return "Facebook";
-                case "twitter":
-                    return "Twitter";
-                case "linkedin":
-                    return "LinkedIn";
-                default:
-                    return "Unknown Provider";
-            }
+            return Infos.Where(x => x.Provider.ToLower() != "twitter");
         }
     }
 

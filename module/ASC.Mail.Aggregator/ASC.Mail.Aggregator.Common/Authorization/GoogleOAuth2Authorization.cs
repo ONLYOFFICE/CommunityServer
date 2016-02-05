@@ -25,50 +25,33 @@
 
 
 using System;
-using System.Collections.Generic;
+using ASC.FederatedLogin.LoginProviders;
 using ASC.Mail.Aggregator.Common.Logging;
-using DotNetOpenAuth.OAuth2;
-using System.Configuration;
-using System.Web.Configuration;
-using ASC.Thrdparty.Configuration;
 
 namespace ASC.Mail.Aggregator.Common.Authorization
 {
     public class GoogleOAuth2Authorization : BaseOAuth2Authorization
     {
-        public GoogleOAuth2Authorization(ILogger log) : base(log)
+        public GoogleOAuth2Authorization(ILogger log)
+            : base(log)
         {
-            Func<string, string> getConfigVal = value =>
-                                                (ConfigurationManager.AppSettings.Get(value) ??
-                                                 WebConfigurationManager.AppSettings.Get(value) ?? 
-                                                 KeyStorage.Get(value));
-
             try
             {
-                ClientId = getConfigVal("googleClientId");
-                ClientSecret = getConfigVal("googleClientSecret");
+                if (String.IsNullOrEmpty(ClientId = GoogleLoginProvider.GoogleOAuth20ClientId))
+                    throw new ArgumentNullException("ClientId");
 
-                if (String.IsNullOrEmpty(ClientId)) throw new ArgumentNullException("ClientId");
-                if (String.IsNullOrEmpty(ClientSecret)) throw new ArgumentNullException("ClientSecret");
+                if (String.IsNullOrEmpty(ClientSecret = GoogleLoginProvider.GoogleOAuth20ClientSecret))
+                    throw new ArgumentNullException("ClientSecret");
+
+                if (String.IsNullOrEmpty(RedirectUrl = GoogleLoginProvider.GoogleOAuth20RedirectUrl))
+                    throw new ArgumentNullException("RedirectUrl");
+
+                RefreshUrl = GoogleLoginProvider.GoogleOauthTokenUrl;
             }
             catch (Exception ex)
             {
                 log.Error("GoogleOAuth2Authorization() Exception:\r\n{0}\r\n", ex.ToString());
             }
-
-            RedirectUrl = "urn:ietf:wg:oauth:2.0:oob";
- 
-            ServerDescription = new AuthorizationServerDescription
-            {
-                AuthorizationEndpoint = new Uri("https://accounts.google.com/o/oauth2/auth?access_type=offline"),
-                TokenEndpoint = new Uri("https://www.googleapis.com/oauth2/v3/token"),
-                ProtocolVersion = ProtocolVersion.V20,
-            };
-
-            Scope = new List<string>
-            {
-                "https://mail.google.com/"
-            };
         }
     }
 }

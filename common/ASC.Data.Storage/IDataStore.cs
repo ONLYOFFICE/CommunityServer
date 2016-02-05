@@ -170,6 +170,13 @@ namespace ASC.Data.Storage
         void DeleteFiles(string domain, string folderPath, string pattern, bool recursive);
 
         ///<summary>
+        /// Deletes files
+        ///</summary>
+        ///<param name="domain"></param>
+        ///<param name="listPaths"></param>
+        void DeleteFiles(string domain, List<string> paths);
+
+        ///<summary>
         /// Moves the contents of one directory to another. s3 for a very expensive procedure.
         ///</summary>
         ///<param name="srcdomain"></param>

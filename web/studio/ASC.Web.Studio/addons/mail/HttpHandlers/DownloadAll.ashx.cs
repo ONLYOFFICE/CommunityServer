@@ -32,6 +32,7 @@ using System.Web;
 using System.Web.Services;
 using ASC.Core;
 using ASC.Mail.Aggregator;
+using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.DataStorage;
 using ASC.Web.Core.Files;
 using Ionic.Zip;
@@ -121,7 +122,7 @@ namespace ASC.Web.Mail.HttpHandlers
                                 filename = tempName;
                             }
 
-                            zip.AddEntry(filename, file.FileStream.GetCorrectBuffer());
+                            zip.AddEntry(filename, file.FileStream.ReadToEnd());
                         }
                     }
 

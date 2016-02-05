@@ -33,7 +33,6 @@ using System.Security;
 using System.Text;
 using System.Threading;
 using System.Web;
-using System.Web.Configuration;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
@@ -50,6 +49,7 @@ using ASC.Web.Files.Classes;
 using ASC.Web.Files.Core;
 using ASC.Web.Files.HttpHandlers;
 using ASC.Web.Files.Resources;
+using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.Utility;
@@ -97,23 +97,9 @@ namespace ASC.Web.Files.ThirdPartyApp
             return false;
         }
 
-        public Token RefreshToken(string refreshToken)
+        public string GetRefreshUrl()
         {
-            Global.Logger.Debug("BoxApp: refresh token");
-
-            var query = String.Format("client_id={0}&client_secret={1}&refresh_token={2}&grant_type=refresh_token",
-                                      HttpUtility.UrlEncode(ClientId),
-                                      HttpUtility.UrlEncode(SecretKey),
-                                      HttpUtility.UrlEncode(refreshToken));
-
-            var jsonToken = RequestHelper.PerformRequest(BoxUrlToken, "application/x-www-form-urlencoded", "POST", query);
-            Global.Logger.Debug("BoxApp: refresh token response - " + jsonToken);
-            var token = Token.FromJson(AppAttr, jsonToken);
-            if (token != null)
-            {
-                Token.SaveToken(token);
-            }
-            return token;
+            return BoxUrlToken;
         }
 
         public File GetFile(string fileId, out bool editable)
@@ -192,17 +178,15 @@ namespace ASC.Web.Files.ThirdPartyApp
             return uriBuilder.Uri + "?" + query;
         }
 
-        public void SaveFile(string fileId, string downloadUrl)
+        public void SaveFile(string fileId, string fileType, string downloadUrl, Stream stream)
         {
-            Global.Logger.Debug("BoxApp: save file stream " + fileId + " from - " + downloadUrl);
+            Global.Logger.Debug("BoxApp: save file stream " + fileId +
+                                (stream == null
+                                     ? " from - " + downloadUrl
+                                     : " from stream"));
             fileId = ThirdPartySelector.GetFileId(fileId);
 
             var token = Token.GetToken(AppAttr);
-            if (token == null)
-            {
-                Global.Logger.Error("BoxApp: token is null");
-                throw new SecurityException("Access token is null");
-            }
 
             var boxFile = GetBoxFile(fileId, token);
             if (boxFile == null)
@@ -210,8 +194,36 @@ namespace ASC.Web.Files.ThirdPartyApp
                 Global.Logger.Error("BoxApp: file is null");
                 throw new Exception("File not found");
             }
+
             var jsonFile = JObject.Parse(boxFile);
             var title = Global.ReplaceInvalidCharsAndTruncate(jsonFile.Value<string>("name"));
+            var currentType = FileUtility.GetFileExtension(title);
+            if (!fileType.Equals(currentType))
+            {
+                try
+                {
+                    var key = DocumentServiceConnector.GenerateRevisionId(downloadUrl ?? Guid.NewGuid().ToString());
+                    if (stream != null)
+                    {
+                        using (var tmpStream = new MemoryStream())
+                        {
+                            stream.CopyTo(tmpStream);
+
+                            Global.Logger.Debug("BoxApp: GetExternalUri format: " + fileType);
+                            downloadUrl = DocumentServiceConnector.GetExternalUri(tmpStream, fileType, key);
+                        }
+                    }
+
+                    Global.Logger.Debug("BoxApp: GetConvertedUri from " + fileType + " to " + currentType + " - " + downloadUrl);
+
+                    DocumentServiceConnector.GetConvertedUri(downloadUrl, fileType, currentType, key, false, out downloadUrl);
+                    stream = null;
+                }
+                catch (Exception e)
+                {
+                    Global.Logger.Error("BoxApp: Error convert", e);
+                }
+            }
 
             var request = (HttpWebRequest)WebRequest.Create(BoxUrlUpload.Replace("{fileId}", fileId));
 
@@ -224,11 +236,17 @@ namespace ASC.Web.Files.ThirdPartyApp
                 var bytes = Encoding.UTF8.GetBytes(metadataPart);
                 tmpStream.Write(bytes, 0, bytes.Length);
 
-                var downloadRequest = WebRequest.Create(downloadUrl);
-                using (var downloadResponse = downloadRequest.GetResponse())
-                using (var downloadStream = new ResponseStream(downloadResponse))
+                if (stream != null)
                 {
-                    downloadStream.CopyTo(tmpStream);
+                    stream.CopyTo(tmpStream);
+                }
+                else
+                {
+                    var downloadRequest = (HttpWebRequest) WebRequest.Create(downloadUrl);
+                    using (var downloadStream = new ResponseStream(downloadRequest.GetResponse()))
+                    {
+                        downloadStream.CopyTo(tmpStream);
+                    }
                 }
 
                 var mediaPartEnd = string.Format("\r\n--{0}--\r\n", boundary);
@@ -254,9 +272,9 @@ namespace ASC.Web.Files.ThirdPartyApp
             try
             {
                 using (var response = request.GetResponse())
-                using (var stream = response.GetResponseStream())
+                using (var responseStream = response.GetResponseStream())
                 {
-                    var result = stream != null ? new StreamReader(stream).ReadToEnd() : null;
+                    var result = responseStream != null ? new StreamReader(responseStream).ReadToEnd() : null;
 
                     Global.Logger.Debug("BoxApp: save file response - " + result);
                 }
@@ -341,11 +359,7 @@ namespace ASC.Web.Files.ThirdPartyApp
 
                 Global.Logger.Debug("BoxApp: get file stream " + fileId);
 
-                int validateTimespan;
-                int.TryParse(WebConfigurationManager.AppSettings["files.stream-url-minute"], out validateTimespan);
-                if (validateTimespan <= 0) validateTimespan = 5;
-
-                var validateResult = EmailValidationKeyProvider.ValidateEmailKey(fileId + userId, auth, TimeSpan.FromMinutes(validateTimespan));
+                var validateResult = EmailValidationKeyProvider.ValidateEmailKey(fileId + userId, auth, Global.StreamUrlExpire);
                 if (validateResult != EmailValidationKeyProvider.ValidationResult.Ok)
                 {
                     var exc = new HttpException((int)HttpStatusCode.Forbidden, FilesCommonResource.ErrorMassage_SecurityException);
@@ -362,7 +376,7 @@ namespace ASC.Web.Files.ThirdPartyApp
                     throw new SecurityException("Access token is null");
                 }
 
-                var request = WebRequest.Create(BoxUrlFile.Replace("{fileId}", fileId) + "/content");
+                var request = (HttpWebRequest)WebRequest.Create(BoxUrlFile.Replace("{fileId}", fileId) + "/content");
                 request.Method = "GET";
                 request.Headers.Add("Authorization", "Bearer " + token);
 
@@ -509,17 +523,15 @@ namespace ASC.Web.Files.ThirdPartyApp
 
         private static Token GetToken(string code)
         {
-            var data = string.Format("code={0}&client_id={1}&client_secret={2}&grant_type=authorization_code",
-                                     HttpUtility.UrlEncode(code),
-                                     HttpUtility.UrlEncode(ClientId),
-                                     HttpUtility.UrlEncode(SecretKey));
-
             try
             {
-                var jsonToken = RequestHelper.PerformRequest(BoxUrlToken, "application/x-www-form-urlencoded", "POST", data);
-                Global.Logger.Debug("BoxApp: token response - " + jsonToken);
-
-                return Token.FromJson(AppAttr, jsonToken);
+                Global.Logger.Debug("BoxApp: GetAccessToken by code " + code);
+                var token = OAuth20TokenHelper.GetAccessToken(BoxUrlToken,
+                                                              ClientId,
+                                                              SecretKey,
+                                                              string.Empty,
+                                                              code);
+                return new Token(token, AppAttr);
             }
             catch (Exception ex)
             {

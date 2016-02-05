@@ -39,7 +39,7 @@ window.ASC.Files.Actions = (function () {
                 jq.dropdownToggle().registerAutoHide(event, ".row-selected .menu-small", "#filesActionPanel",
                     function (e) {
                         jq(".row-selected.row-lonely-select").removeClass("row-lonely-select");
-                        e = ASC.Files.Common.fixEvent(e);
+                        e = jq.fixEvent(e);
                         return e.button != 2;
                     });
             });
@@ -153,10 +153,10 @@ window.ASC.Files.Actions = (function () {
         }
 
         if (typeof event != "undefined") {
-            var e = ASC.Files.Common.fixEvent(event);
-            var dropdownItem = jq("#filesActionsPanel");
-            var correctionX = document.body.clientWidth - (e.pageX - pageXOffset + dropdownItem.innerWidth()) > 0 ? 0 : dropdownItem.innerWidth();
-            var correctionY = document.body.clientHeight - (e.pageY - pageYOffset + dropdownItem.innerHeight()) > 0 ? 0 : dropdownItem.innerHeight();
+            var e = jq.fixEvent(event),
+                dropdownItem = jq("#filesActionsPanel"),
+                correctionX = document.body.clientWidth - (e.pageX - pageXOffset + dropdownItem.innerWidth()) > 0 ? 0 : dropdownItem.innerWidth(),
+                correctionY = document.body.clientHeight - (e.pageY - pageYOffset + dropdownItem.innerHeight()) > 0 ? 0 : dropdownItem.innerHeight();
 
             dropdownItem.css({
                 "top": e.pageY - correctionY,
@@ -172,7 +172,7 @@ window.ASC.Files.Actions = (function () {
             ASC.Files.Actions.clipGetLink.destroy();
         }
 
-        var e = ASC.Files.Common.fixEvent(event);
+        var e = jq.fixEvent(event);
 
         var target = jq(e.srcElement || e.target);
 
@@ -224,10 +224,8 @@ window.ASC.Files.Actions = (function () {
                 jq("#filesOpen").hide();
             }
 
-            var countVersion = entryData.version || 1;
-            if (countVersion < 2
-                || ASC.Files.Folders.folderContainer == "trash"
-                || entryObj.find("#contentVersions").length != 0) {
+            if (entryObj.find("#contentVersions").length != 0
+                || ASC.Files.ThirdParty && ASC.Files.ThirdParty.isThirdParty()) {
                 jq("#filesVersions").hide();
             }
 
@@ -442,7 +440,7 @@ window.ASC.Files.Actions = (function () {
     var onContextMenu = function (event) {
         ASC.Files.Actions.hideAllActionPanels();
 
-        var e = ASC.Files.Common.fixEvent(event);
+        var e = jq.fixEvent(event);
 
         if (typeof e == "undefined" || !e) {
             return true;
@@ -575,6 +573,10 @@ window.ASC.Files.Actions = (function () {
         }
 
         jq("#treeViewPanelSelector").removeClass("without-third-party");
+
+        if (!jq("#treeViewPanelSelector").next().is("#mainContentHeader")) {
+            jq("#treeViewPanelSelector").insertBefore("#mainContentHeader");
+        }
 
         jq.dropdownToggle().toggle(".menuActionSelectAll", "treeViewPanelSelector");
 

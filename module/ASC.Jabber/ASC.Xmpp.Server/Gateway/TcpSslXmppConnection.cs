@@ -24,7 +24,6 @@
 */
 
 
-using System;
 using System.Net.Security;
 using System.Net.Sockets;
 using System.Security.Authentication;
@@ -37,8 +36,9 @@ namespace ASC.Xmpp.Server.Gateway
         public TcpSslXmppConnection(Socket socket, long maxPacket, X509Certificate2 cert)
 			: base(socket, maxPacket)
 		{
-			sendStream = recieveStream = new SslStream(recieveStream, false);
-			((SslStream)recieveStream).AuthenticateAsServer(cert, false, SslProtocols.Ssl3, false);
+            sendStream = receiveStream = new SslStream(receiveStream, false);
+            ((SslStream)receiveStream).AuthenticateAsServer(cert, false,
+                SslProtocols.Ssl3 | SslProtocols.Tls | SslProtocols.Tls11 | SslProtocols.Tls12, false);
 		}
 	}
 }

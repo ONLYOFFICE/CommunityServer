@@ -112,16 +112,13 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="MilestoneStatus_Closed" xml:space="preserve">
     <value>Closed</value>
-  </data>
-  <data name="MilestoneStatus_Disable" xml:space="preserve">
-    <value>In Trash</value>
   </data>
   <data name="MilestoneStatus_Open" xml:space="preserve">
     <value>Active</value>
@@ -143,12 +140,6 @@
   </data>
   <data name="TaskStatus_Closed" xml:space="preserve">
     <value>Closed</value>
-  </data>
-  <data name="TaskStatus_Disable" xml:space="preserve">
-    <value>In Trash</value>
-  </data>
-  <data name="TaskStatus_NotAccept" xml:space="preserve">
-    <value>Awaiting start</value>
   </data>
   <data name="TaskStatus_Open" xml:space="preserve">
     <value>In progress</value>
@@ -176,42 +167,6 @@
   </data>
   <data name="EntityType_TimeSpend" xml:space="preserve">
     <value>Time</value>
-  </data>
-  <data name="MilestoneStatus_Late" xml:space="preserve">
-    <value>Overdue</value>
-  </data>
-  <data name="TaskStatus_Unclassified" xml:space="preserve">
-    <value>Not classified</value>
-  </data>
-  <data name="IssuePriority_High" xml:space="preserve">
-    <value>High</value>
-  </data>
-  <data name="IssuePriority_Immediate" xml:space="preserve">
-    <value>Very Urgent</value>
-  </data>
-  <data name="IssuePriority_Low" xml:space="preserve">
-    <value>Low</value>
-  </data>
-  <data name="IssuePriority_Normal" xml:space="preserve">
-    <value>Normal</value>
-  </data>
-  <data name="IssuePriority_Urgent" xml:space="preserve">
-    <value>Urgent</value>
-  </data>
-  <data name="IssueStatus_Closed" xml:space="preserve">
-    <value>Closed</value>
-  </data>
-  <data name="IssueStatus_Fixed" xml:space="preserve">
-    <value>Fixed</value>
-  </data>
-  <data name="IssueStatus_New" xml:space="preserve">
-    <value>New</value>
-  </data>
-  <data name="IssueStatus_Open" xml:space="preserve">
-    <value>Open</value>
-  </data>
-  <data name="IssueStatus_Rejected" xml:space="preserve">
-    <value>Rejected</value>
   </data>
   <data name="EntityType_SubTask" xml:space="preserve">
     <value>Subtask</value>

@@ -50,7 +50,7 @@ namespace ASC.Files.Core.Data
                     {
                         var d1 = new SqlDelete("files_security")
                             .Where("tenant_id", record.Tenant)
-                            .Where(Exp.Eq("entry_id", MappingID(record.EntryId)))
+                            .Where(Exp.Eq("entry_id", MappingID(record.EntryId).ToString()))
                             .Where("entry_type", (int) record.EntryType)
                             .Where("subject", record.Subject.ToString());
 

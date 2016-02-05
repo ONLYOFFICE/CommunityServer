@@ -68,11 +68,10 @@ window.ASC.Files.Tree = (function () {
     var updateTreePath = function () {
         for (var i = 0; i < ASC.Files.Tree.pathParts.length - 1; i++) {
             var parentId = ASC.Files.Tree.pathParts[i];
-            treeViewContainer.expandFolder(parentId, true, true);
             if (!treeViewContainer.getFolderData(ASC.Files.Tree.pathParts[i + 1])) {
                 treeViewContainer.resetFolder(parentId);
-                i--;
             }
+            treeViewContainer.expandFolder(parentId, true, true);
         }
 
         treeViewContainer.setCurrent(ASC.Files.Folders.currentFolder.id);

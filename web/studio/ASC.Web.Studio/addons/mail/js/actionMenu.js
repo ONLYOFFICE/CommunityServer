@@ -46,7 +46,7 @@
                 amData = $this.data('actionMenu');
                 amData['hide'] = function() {
                     $("#" + dropdownItemId).hide();
-                    $this.find(".menu.active").removeClass("active");
+                    $this.find(".menu-small.active").removeClass("active");
                     dropdown.unregHide(amData['hide']);
                 };
             } else {
@@ -60,10 +60,10 @@
             $dropdownItem.hide();
 
             $this.off("contextmenu.actionMenu").on("contextmenu.actionMenu", function(e) {
-                methods._onClick(e, $dropdownItem, amData);
+                return methods._onClick(e, $dropdownItem, amData);
             });
 
-            $this.find('.menu').off('click').on('click', function(e) {
+            $this.find('.menu-small').off('click').on('click', function (e) {
                 var $thisEl = $(this);
                 if (!$thisEl.is('.active')) {
                     $thisEl.addClass('active');
@@ -78,23 +78,20 @@
             $this.on("remove.actionMenu", methods._destroy);
         },
 
-        _onClick: function(e, $dropdownItem, amData) {
-            // handle click event if it exists
-            e && dropdown.onClick(e);
+        _onClick: function(event, $dropdownItem, amData) {
+            var e = $.fixEvent(event);
 
-            if (e.pageX == null && e.clientX != null) {
-                var html = document.documentElement;
-                var body = document.body;
-                e.pageX = e.clientX + (html && html.scrollLeft || body && body.scrollLeft || 0) - (html.clientLeft || 0);
-                e.pageY = e.clientY + (html && html.scrollTop || body && body.scrollTop || 0) - (html.clientTop || 0);
+            if (typeof e == "undefined" || !e) {
+                return true;
             }
+            $(window).click(); // initiate global event for other dropdowns close
 
-            var target = $(e.srcElement || e.target);
+            var target = $(e.srcElement || e.target),
+                id = target.is(".menu-small") ? target.attr("data_id") : target.closest(".row").attr("data_id");
 
-            var id = target.is(".menu") ? target.attr("data_id") : target.closest(".row").attr("data_id");
             if (!id || target.closest(".row").hasClass('inactive')) {
                 $dropdownItem.hide();
-                return;
+                return true;
             }
 
             showActionMenu(amData.dropdownItemId, amData.items, id);
@@ -102,16 +99,14 @@
 
             $dropdownItem.show();
 
-
             if (amData.pretreatment) {
                 amData.pretreatment(id, amData.dropdownItemId);
-
             }
 
-            if (target.is(".menu")) {
+            if (target.is(".menu-small")) {
                 target.addClass("active");
                 $dropdownItem.css({
-                    "top": target.offset().top + target.outerHeight() - 2,
+                    "top": target.offset().top + target.outerHeight(),
                     "left": target.offset().left - $dropdownItem.outerWidth() + target.outerWidth(),
                     "right": "auto"
                 });
@@ -124,6 +119,7 @@
             }
 
             dropdown.regHide(amData['hide']);
+            return false;
         },
 
         _destroy: function() {
@@ -146,7 +142,7 @@
                 }
 
                 $("#" + dropdownItemId).hide();
-                $(".menu.active").removeClass("active");
+                $(".menu-small.active").removeClass("active");
                 item.handler(id);
 
             });

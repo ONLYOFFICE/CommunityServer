@@ -24,11 +24,12 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using ASC.Api.Utils;
 using Newtonsoft.Json.Serialization;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ASC.Api.Impl.Serializers
 {
@@ -103,7 +104,7 @@ namespace ASC.Api.Impl.Serializers
             }
         }
 
-        private static readonly IDictionary<FieldsResolverKey,JsonContract> FieldsContractCache = new ASC.Collections.SynchronizedDictionary<FieldsResolverKey,JsonContract>(); 
+        private static readonly IDictionary<FieldsResolverKey, JsonContract> FieldsContractCache = new ConcurrentDictionary<FieldsResolverKey, JsonContract>(); 
 
         public override JsonContract ResolveContract(Type type)
         {

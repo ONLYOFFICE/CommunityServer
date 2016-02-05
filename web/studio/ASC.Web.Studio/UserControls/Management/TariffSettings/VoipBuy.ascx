@@ -3,7 +3,6 @@
 
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Voip" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
 <%= string.Format(Resource.VoipPackageSateMsg, "<b>" + VoipPaymentSettings.Left + "</b>", VoipPaymentSettings.Paid) %>
@@ -29,7 +28,7 @@
                 <ItemTemplate>
                     <label class="text">
                         <input type="radio" name="voipBuyPackageOption" <%# Container.ItemIndex == 0 ? "checked" : "" %>
-                               data-quota-link="<%# CoreContext.PaymentManager.GetShoppingUri(TenantProvider.CurrentTenantID, ((ASC.Core.Tenants.TenantQuota)Container.DataItem).Id) %>" />
+                               data-quota-link="<%# CoreContext.PaymentManager.GetShoppingUri(((ASC.Core.Tenants.TenantQuota)Container.DataItem).Id) %>" />
                         <%# string.Format(Resource.VoipPackageMsg,
                                           "<span class=\"header-base medium\">" + (int)((ASC.Core.Tenants.TenantQuota)Container.DataItem).Price + CurrencySymbol + "</span>") %>
                     </label>

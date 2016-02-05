@@ -56,17 +56,15 @@ namespace ASC.Web.Files.Controls
             if (!WithoutBaseScripts)
             {
                 Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("common.js"));
-                Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("xsltmanager.js"));
                 Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("templatemanager.js"));
                 Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("servicemanager.js"));
 
-                Page.RegisterStyleControl(FilesLinkUtility.FilesBaseAbsolutePath + "controls/thirdparty/thirdparty.css");
+                Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/thirdparty/thirdparty.css");
             }
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/products/files/controls/tree/tree.js"));
+            Page.RegisterBodyScripts("~/products/files/controls/tree/tree.js");
 
-            Page.RegisterStyleControl(FilesLinkUtility.FilesBaseAbsolutePath + "controls/tree/tree.css");
-            Page.RegisterStyleControl(FilesLinkUtility.FilesBaseAbsolutePath + "app_themes/<theme_folder>/leftmenu.less", true);
-
+            Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/tree/tree.css");
+            Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "app_themes/<theme_folder>/leftmenu.less");
             if (Global.IsOutsider)
                 WithoutTrash = true;
 

@@ -36,23 +36,24 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
     {
         const string TEST_FILE_NAME = "test_serialization.eml";
         const string TEST_FILE_PATH = TestFolderPath + TEST_FILE_NAME;
-
+        private const string TEST_TEXT = "test тест";
 
         [SetUp]
         public void PrepareMessageForSerialization()
         {
             var test_mail = new Message
             {
-                From = { Email = "test.mail@qip.ru", Name = Codec.RFC2047Encode("test") },
+                From = { Email = "test.mail@qip.ru", Name = Codec.RFC2047Encode(TEST_TEXT) },
                 To = { new Address { Email = "test.mail@qip.ru", Name = Codec.RFC2047Encode("name1") },
                        new Address { Email = "test.mail@gmail.com", Name = Codec.RFC2047Encode("name2") } },
-                Subject = Codec.RFC2047Encode("test"),
-                BodyText = { Charset = utf8_charset,
+                Subject = Codec.RFC2047Encode(TEST_TEXT),
+                BodyText = { Charset = utf8Charset,
                             ContentTransferEncoding = ContentTransferEncoding.QuotedPrintable,
-                            Text = "test" },
-                BodyHtml = { Charset = utf8_charset,
+                             Text = TEST_TEXT
+                },
+                BodyHtml = { Charset = utf8Charset,
                              ContentTransferEncoding = ContentTransferEncoding.QuotedPrintable,
-                             Text = "<a href='www.teamlab.com'>test</a>" }
+                             Text = string.Format("<a href='www.teamlab.com'>{0}</a>", TEST_TEXT) }
             };
 
             test_mail.StoreToFile(TEST_FILE_PATH);
@@ -80,22 +81,22 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
             var test_mail = Parser.ParseMessageFromFile(TEST_FILE_PATH);
 
             Assert.AreEqual("test.mail@qip.ru", test_mail.From.Email);
-            Assert.AreEqual("test", test_mail.From.Name);
+            Assert.AreEqual(TEST_TEXT, test_mail.From.Name);
             Assert.IsTrue(test_mail.To.Count(mail => (mail.Email == "test.mail@qip.ru") && (mail.Name == "name1")) != 0);
             Assert.IsTrue(test_mail.To.Count(mail => (mail.Email == "test.mail@gmail.com") && (mail.Name == "name2")) != 0);
 
-            Assert.AreEqual("test", test_mail.Subject);
+            Assert.AreEqual(TEST_TEXT, test_mail.Subject);
             Assert.AreEqual(0, test_mail.Attachments.Count);
 
-            Assert.AreEqual(utf8_charset, test_mail.BodyText.Charset);
-            Assert.AreEqual("test\r\n", test_mail.BodyText.Text);
-            Assert.AreEqual("test\r\n", test_mail.BodyText.TextStripped);
+            Assert.AreEqual(utf8Charset, test_mail.BodyText.Charset);
+            Assert.AreEqual(TEST_TEXT + "\r\n", test_mail.BodyText.Text);
+            Assert.AreEqual(TEST_TEXT + "\r\n", test_mail.BodyText.TextStripped);
             Assert.AreEqual(BodyFormat.Text, test_mail.BodyText.Format);
             Assert.AreEqual(ContentTransferEncoding.QuotedPrintable, test_mail.BodyText.ContentTransferEncoding);
 
-            Assert.AreEqual(utf8_charset, test_mail.BodyHtml.Charset);
-            Assert.AreEqual("<a href='www.teamlab.com'>test</a>\r\n", test_mail.BodyHtml.Text);
-            Assert.AreEqual("test\r\n", test_mail.BodyHtml.TextStripped);
+            Assert.AreEqual(utf8Charset, test_mail.BodyHtml.Charset);
+            Assert.AreEqual(string.Format("<a href='www.teamlab.com'>{0}</a>\r\n", TEST_TEXT), test_mail.BodyHtml.Text);
+            Assert.AreEqual(TEST_TEXT + "\r\n", test_mail.BodyHtml.TextStripped);
             Assert.AreEqual(BodyFormat.Html, test_mail.BodyHtml.Format);
             Assert.AreEqual(ContentTransferEncoding.QuotedPrintable, test_mail.BodyHtml.ContentTransferEncoding);
         }

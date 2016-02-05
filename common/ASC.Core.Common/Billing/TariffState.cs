@@ -30,6 +30,7 @@ namespace ASC.Core.Billing
     {
         Trial,
         Paid,
+        Delay,
         NotPaid,
     }
 }

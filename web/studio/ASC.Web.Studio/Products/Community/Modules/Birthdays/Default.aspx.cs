@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -74,8 +74,8 @@ namespace ASC.Web.Community.Birthdays
 
         protected void RenderScripts()
         {
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/products/community/modules/birthdays/app_themes/default/birthdays.css"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/products/community/modules/birthdays/js/birthdays.js"));
+            Page.RegisterStyle("~/products/community/modules/birthdays/app_themes/default/birthdays.css");
+            Page.RegisterBodyScripts("~/products/community/modules/birthdays/js/birthdays.js");
         }
 
         private List<UserInfo> GetTodayBirthdays()

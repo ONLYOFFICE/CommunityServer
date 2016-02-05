@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><RightParserResult xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><From><Email>do_not_reply@apple.com</Email><Name>iTunes Store</Name></From><To><TestAddress><Email>alexander.yuzhin@teamlab.com</Email><Name /></TestAddress></To><Cc /><Subject>Your app status is In Review</Subject><TextEncoding>QuotedPrintable</TextEncoding><TextCharset>ISO-8859-1</TextCharset><TextBody>Dear Ascensio System SIA,
+<?xml version="1.0" encoding="utf-8"?><RightParserResult xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><From><Email>do_not_reply@apple.com</Email><Name>iTunes Store</Name></From><To><TestAddress><Email>alexander.yuzhin@teamlab.com</Email><Name /></TestAddress></To><Cc /><Subject>Your app status is In Review</Subject><TextEncoding>QuotedPrintable</TextEncoding><TextCharset>ascii</TextCharset><TextBody>Dear Ascensio System SIA,
 
 The status for the following app has changed to In Review.
 

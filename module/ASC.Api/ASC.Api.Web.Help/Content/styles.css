@@ -73,7 +73,11 @@ li
 
 ol
 {
-    margin: 8px 0 8px 24px;
+    margin: 8px 0 8px 20px;
+}
+
+ol li {
+    margin-bottom: 18px;
 }
 
 table
@@ -346,6 +350,9 @@ h2
     margin: 32px 0 16px;
 }
 
+.dscr {
+}
+
 /*paragrath*/
 p
 {
@@ -486,7 +493,7 @@ p
 {
     display: inline-block;
     font-size: 18px;
-    width: 150px;
+    width: 160px;
     margin-right: 75px;
     text-align: center;
 }
@@ -496,15 +503,18 @@ pre
 {
     border: 1px solid #CCC;
     background-color: #fff;
-    padding: 8px;
-    margin: 18px 0 24px;
     border-radius: 3px;
     display: block;
+    font-family: Monaco,Andale Mono,Courier New,monospace;
     font-size: 12px;
     line-height: 18px;
+    margin: 18px 0 24px;
+    padding: 8px;
     white-space: pre-wrap;
     word-wrap: break-word;
-    font-family: Monaco,Andale Mono,Courier New,monospace;
+}
+pre.hljs {
+    padding-left: 35px;
 }
 
 /*note block*/
@@ -585,7 +595,7 @@ pre
 
 #embeddedEditor
 {
-    min-height: 400px;
+    min-height: 550px;
     background: #f1f1f1;
     border: 1px solid #cccccc;
 }
@@ -609,12 +619,72 @@ pre
     border-radius: 3px;
     color: #666666;
     cursor: pointer;
+    display: inline-block;
     font-size: 12px;
     margin-right: 8px;
+    margin-top: 8px;
     padding: 2px 12px;
 }
 
-.demo-info-container
+.demo-tab-panel {
+    margin-bottom: -1px;
+    width: 100%;
+}
+.demo-tab-panel td {
+    height: 48px;
+    width: 30%;
+}
+.demo-tab-center {
+    margin: 0 -1px;
+}
+.demo-tab-panel a {
+    background: #f5f5f5;
+    border: 1px solid #ccc;
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    height: 34px;
+    outline: none;
+    padding-top: 13px;
+    text-align: center;
+    text-decoration: none;
+}
+.demo-tab-panel a:hover {
+    background: #fcfcfc;
+}
+.demo-tab-panel a.active {
+    background: #fff;
+    border-bottom: 1px solid #FFF;
+}
+
+.demo-block {
+    border: 1px solid #ccc;
+    border-top: none;
+    padding: 20px 9px 9px;
+}
+
+.demo-info-buttons
 {
-    margin: 16px 0 8px;
+    margin-bottom: 30px;
+}
+
+.required {
+    color: #C00;
+}
+
+.required-descr {
+    display: block;
+    font-size: 12px;
+}
+
+.table-name {
+    width: 115px;
+}
+
+.table-type {
+    width: 90px;
+}
+
+.table-example {
+    width: 200px;
 }

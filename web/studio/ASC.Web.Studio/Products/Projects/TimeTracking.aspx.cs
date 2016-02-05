@@ -40,19 +40,6 @@ namespace ASC.Web.Projects
     {
         #region Properties
 
-        public static int TaskID
-        {
-            get
-            {
-                int id;
-                if (Int32.TryParse(UrlParameters.EntityID, out id))
-                {
-                    return id;
-                }
-                return -1;
-            }
-        }
-
         protected override bool CheckSecurity { get { return !Participant.IsVisitor; } }
 
         #endregion

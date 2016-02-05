@@ -28,7 +28,7 @@ using System;
 using System.Linq;
 using System.ServiceProcess;
 using ASC.Mail.Aggregator.Common.Logging;
-using log4net.Config;
+using CommandLine;
 
 namespace ASC.Mail.Aggregator.CollectionService
 {
@@ -42,7 +42,7 @@ namespace ASC.Mail.Aggregator.CollectionService
 
             if (args.Any())
             {
-               CommandLine.Parser.Default.ParseArgumentsStrict(args, options,
+               Parser.Default.ParseArgumentsStrict(args, options,
                                                                 () =>
                                                                 Console.WriteLine("Bad command line parameters."));
             }
@@ -61,7 +61,6 @@ namespace ASC.Mail.Aggregator.CollectionService
 
         private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            XmlConfigurator.Configure();
             var log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "AppDomain.CurrentDomain.UnhandledException");
             log.Fatal("Unhandled exception: {0}", e.ExceptionObject.ToString());
             log.Flush();

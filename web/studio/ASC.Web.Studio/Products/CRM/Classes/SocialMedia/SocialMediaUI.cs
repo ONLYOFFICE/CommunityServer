@@ -83,7 +83,6 @@ namespace ASC.Web.CRM.SocialMedia
             // Parallelizing
             IAsyncResult arGetAvatarsFromTwitter;
             IAsyncResult arGetAvatarsFromFacebook;
-            //IAsyncResult arGetAvatarsFromLinkedIn;
 
             var waitHandles = new List<WaitHandle>();
 
@@ -95,20 +94,15 @@ namespace ASC.Web.CRM.SocialMedia
             arGetAvatarsFromFacebook = dlgGetFacebookImageDescriptionList.BeginInvoke(facebookAccounts, currentTenant, null, null);
             waitHandles.Add(arGetAvatarsFromFacebook.AsyncWaitHandle);
 
-
-            //arGetAvatarsFromLinkedIn = dlgGetLinkedInImageDescriptionList.BeginInvoke(linkedinAccounts, currentTenant, null, null);
-            //waitHandles.Add(arGetAvatarsFromLinkedIn.AsyncWaitHandle);
-
             WaitHandle.WaitAll(waitHandles.ToArray());
 
             images.AddRange(dlgGetTwitterImageDescriptionList.EndInvoke(arGetAvatarsFromTwitter));
             images.AddRange(dlgGetFacebookImageDescriptionList.EndInvoke(arGetAvatarsFromFacebook));
-            //images.AddRange(dlgGetLinkedInImageDescriptionList.EndInvoke(arGetAvatarsFromLinkedIn));
 
             return images;
         }
 
-        public List<SocialMediaImageDescription> GetContactSMImages(List<String> twitter, List<String> facebook, List<String> linkedin)
+        public List<SocialMediaImageDescription> GetContactSMImages(List<String> twitter, List<String> facebook)
         {
             var images = new List<SocialMediaImageDescription>();
 
@@ -118,7 +112,6 @@ namespace ASC.Web.CRM.SocialMedia
             // Parallelizing
             IAsyncResult arGetAvatarsFromTwitter;
             IAsyncResult arGetAvatarsFromFacebook;
-            //IAsyncResult arGetAvatarsFromLinkedIn;
 
             var waitHandles = new List<WaitHandle>();
 
@@ -130,47 +123,10 @@ namespace ASC.Web.CRM.SocialMedia
             arGetAvatarsFromFacebook = dlgGetFacebookImageDescriptionList.BeginInvoke(facebook, currentTenant, null, null);
             waitHandles.Add(arGetAvatarsFromFacebook.AsyncWaitHandle);
 
-            //arGetAvatarsFromLinkedIn = dlgGetLinkedInImageDescriptionList.BeginInvoke(linkedin, currentTenant, null, null);
-            //waitHandles.Add(arGetAvatarsFromLinkedIn.AsyncWaitHandle);
-
             WaitHandle.WaitAll(waitHandles.ToArray());
 
             images.AddRange(dlgGetTwitterImageDescriptionList.EndInvoke(arGetAvatarsFromTwitter));
             images.AddRange(dlgGetFacebookImageDescriptionList.EndInvoke(arGetAvatarsFromFacebook));
-            //images.AddRange(dlgGetLinkedInImageDescriptionList.EndInvoke(arGetAvatarsFromLinkedIn));
-
-            return images;
-        }
-
-
-        private List<SocialMediaImageDescription> GetLinkedInImageDescriptionList(List<String> linkedInAccounts, Tenant tenant)
-        {
-            var images = new List<SocialMediaImageDescription>();
-
-            if (linkedInAccounts.Count == 0)
-                return images;
-
-            try
-            {
-                CoreContext.TenantManager.SetCurrentTenant(tenant);
-
-                var provider = LinkedInApiHelper.GetLinkedInDataProviderForCurrentUser();
-
-                if (provider == null)
-                    return images;
-
-                linkedInAccounts = linkedInAccounts.Distinct().ToList();
-                //images.AddRange(from linkedInAccount in linkedInAccounts
-                //                let imageUrl = provider.GetUrlOfUserImage(account.UserID)
-                //                select new SocialMediaImageDescription
-                //                           {
-                //                               Identity = account.UserID, ImageUrl = imageUrl, SocialNetwork = ASC.SocialMedia.Core.SocialNetworks.LinkedIn
-                //                           });
-
-            }
-            catch (Exception ex) {
-                _logger.Error(ex);
-            }
 
             return images;
         }
@@ -241,56 +197,6 @@ namespace ASC.Web.CRM.SocialMedia
         }
 
         #endregion
-
-
-        public string FindContactByName(string searchUrl, string contactNamespace)
-        {
-            var crunchBaseKey = KeyStorage.Get("crunchBaseKey");
-
-            if (!string.IsNullOrEmpty(crunchBaseKey))
-            {
-                crunchBaseKey = string.Format("user_key={0}", crunchBaseKey);
-                searchUrl += "&" + crunchBaseKey;
-            }
-
-            var findGet = System.Net.WebRequest.Create(searchUrl);
-            var findResp = findGet.GetResponse();
-
-            if (findResp != null)
-            {
-                var findStream = findResp.GetResponseStream();
-                if (findStream != null)
-                {
-                    var sr = new System.IO.StreamReader(findStream);
-                    var s = sr.ReadToEnd();
-                    var permalink = Newtonsoft.Json.Linq.JObject.Parse(s)["permalink"].ToString().HtmlEncode();
-
-                    searchUrl = @"http://api.crunchbase.com/v/2/" + contactNamespace + "/" + permalink + ".js";
-                    if (!string.IsNullOrEmpty(crunchBaseKey))
-                    {
-                        searchUrl += "?" + crunchBaseKey;
-                    }
-
-                    var infoGet = System.Net.WebRequest.Create(searchUrl);
-                    var infoResp = infoGet.GetResponse();
-
-                    if (infoResp != null)
-                    {
-                        var infoStream = infoResp.GetResponseStream();
-                        if (infoStream != null)
-                        {
-                            sr = new System.IO.StreamReader(infoStream);
-                            s = sr.ReadToEnd();
-                            return s;
-                        }
-                    }
-                    s = sr.ReadToEnd();
-
-                    return s;
-                }
-            }
-            return string.Empty;
-        }
 
         public Exception ProcessError(Exception exception, string methodName)
         {

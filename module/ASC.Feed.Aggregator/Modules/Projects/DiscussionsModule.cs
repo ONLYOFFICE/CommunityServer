@@ -197,7 +197,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                         {
                             ID = Convert.ToInt32(r[0]),
                             Title = Convert.ToString(r[1]),
-                            Content = Convert.ToString(r[2]),
+                            Description = Convert.ToString(r[2]),
                             CreateBy = new Guid(Convert.ToString(r[3])),
                             CreateOn = Convert.ToDateTime(r[4]),
                             LastModifiedBy = new Guid(Convert.ToString(r[5])),
@@ -222,7 +222,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
             {
                 p.Comment = new Comment
                     {
-                        ID = new Guid(Convert.ToString(r[18])),
+                        OldGuidId = new Guid(Convert.ToString(r[18])),
                         Content = Convert.ToString(r[19]),
                         CreateBy = new Guid(Convert.ToString(r[20])),
                         CreateOn = Convert.ToDateTime(r[21]),
@@ -256,10 +256,10 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                     Module = Name,
                     Action = comments.Any() ? FeedAction.Commented : FeedAction.Created,
                     Title = discussion.Title,
-                    Description = HtmlSanitizer.Sanitize(discussion.Content),
+                    Description = HtmlSanitizer.Sanitize(discussion.Description),
                     ExtraLocation = discussion.Project.Title,
                     ExtraLocationUrl = CommonLinkUtility.ToAbsolute(projectUrl),
-                    HasPreview = discussion.Content.Contains("class=\"asccut\""),
+                    HasPreview = discussion.Description.Contains("class=\"asccut\""),
                     CanComment = true,
                     CommentApiUrl = CommonLinkUtility.ToAbsolute(commentApiUrl),
                     Comments = comments.Select(ToFeedComment),
@@ -267,7 +267,7 @@ namespace ASC.Feed.Aggregator.Modules.Projects
                 };
             feed.Keywords = string.Format("{0} {1} {2}",
                                           discussion.Title,
-                                          Helper.GetText(discussion.Content),
+                                          Helper.GetText(discussion.Description),
                                           string.Join(" ", feed.Comments.Select(x => x.Description)));
 
             return new Tuple<Feed, object>(feed, discussion);

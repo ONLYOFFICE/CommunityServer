@@ -25,7 +25,9 @@
 
 
 using System;
+using System.IO;
 using ASC.Api.Attributes;
+using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Dal;
 
 namespace ASC.Api.Mail
@@ -38,10 +40,10 @@ namespace ASC.Api.Mail
         /// <param name="id_message">Id of any message</param>
         /// <returns>Count of exported attachments</returns>
         /// <category>Messages</category>
-        [Update(@"attachments/mydocuments/export")]
+        [Update(@"messages/attachments/export")]
         public int ExportAttachmentsToMyDocuments(int id_message)
         {
-            if (id_message < 0)
+            if (id_message < 1)
                 throw new ArgumentException(@"Invalid message id", "id_message");
 
             var documentsDal = new DocumentsDal(MailBoxManager, TenantId, Username);
@@ -56,15 +58,31 @@ namespace ASC.Api.Mail
         /// <param name="id_attachment">Id of any attachment from the message</param>
         /// <returns>Id document in My Documents</returns>
         /// <category>Messages</category>
-        [Update(@"attachment/mydocuments/export")]
+        [Update(@"messages/attachment/export")]
         public int ExportAttachmentToMyDocuments(int id_attachment)
         {
-            if (id_attachment < 0)
+            if (id_attachment < 1)
                 throw new ArgumentException(@"Invalid attachment id", "id_attachment");
 
             var documentsDal = new DocumentsDal(MailBoxManager, TenantId, Username);
             var documentId = documentsDal.StoreAttachmentToMyDocuments(id_attachment);
             return documentId;
+        }
+
+        /// <summary>
+        /// Add attachment to draft
+        /// </summary>
+        /// <param name="id_message">Id of any message</param>
+        /// <param name="name">File name</param>
+        /// <param name="file">File stream</param>
+        /// <returns>MailAttachment</returns>
+        /// <category>Messages</category>
+        [Create(@"messages/attachment/add")]
+        public MailAttachment AddAttachment(int id_message, string name, Stream file)
+        {
+            var attachment = MailBoxManager.AttachFile(TenantId, Username, id_message, name, file);
+
+            return attachment;
         }
     }
 }

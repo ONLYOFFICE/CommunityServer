@@ -27,18 +27,20 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Optimization;
-
-using ASC.Common.Threading.Workers;
+using System.Web.Script.Serialization;
+using ASC.Common.Caching;
 using ASC.Core;
 using ASC.Web.Core.Client;
+using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Utility;
-
 using log4net;
 
 namespace ASC.Web.Studio.Core
@@ -52,26 +54,81 @@ namespace ASC.Web.Studio.Core
 
     public class WarmUp
     {
-        private readonly object obj = new object();
-        private readonly int tenantId;
+        private int TenantId { get; set; }
+        private List<string> Urls { get; set; }
+        private readonly object locker = new object();
+        private readonly CancellationTokenSource tokenSource;
+        private readonly ICacheNotify cacheNotify = AscCache.Notify;
+        private readonly Dictionary<string, StartupProgress> startupProgresses;
+        private readonly StartupProgress progress;
 
-        private readonly List<string> urls;
-        private WorkerQueue<string> requests;
+        internal bool Started { get; private set; }
 
-        private static WarmUp instance;
+        private static readonly string instanseId = Process.GetCurrentProcess().Id.ToString();
+        private static readonly WarmUp instance = new WarmUp();
+        public static WarmUp Instance { get { return instance; } }
 
-        public bool Started { get; private set; }
-        public bool Completed { get { return Progress.Completed; } }
-        public StartupProgress Progress { get; private set; }
-        public static WarmUp Instance { get { return instance ?? (instance = new WarmUp()); } }
-
-        public WarmUp()
+        private WarmUp()
         {
-            tenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
-            
-            urls = GetUrlsForRequests();
+            tokenSource = new CancellationTokenSource();
+            TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
 
-            Progress = new StartupProgress(urls.Count());
+            int instanceCount;
+            if (!int.TryParse(ConfigurationManager.AppSettings["web.warmup.count"], out instanceCount))
+            {
+                instanceCount = 1;
+            }
+
+            startupProgresses = new Dictionary<string, StartupProgress>(instanceCount);
+
+            Urls = GetUrlsForRequests();
+
+            progress = new StartupProgress(Urls.Count);
+
+            cacheNotify.Subscribe<KeyValuePair<string, StartupProgress>>(
+                (kv, action) =>
+                {
+                    switch (action)
+                    {
+                        case CacheNotifyAction.Remove:
+                            tokenSource.Cancel();
+
+                            lock (locker)
+                            {
+                                progress.Complete();
+                                Publish();
+                            }
+                            break;
+
+                        case CacheNotifyAction.InsertOrUpdate:
+                            if (!startupProgresses.ContainsKey(kv.Key))
+                            {
+                                startupProgresses.Add(kv.Key, kv.Value);
+                            }
+                            else
+                            {
+                                startupProgresses[kv.Key] = kv.Value;
+                            }
+                            break;
+                    }
+                });
+
+            Publish();
+        }
+
+        public bool CheckCompleted()
+        {
+            return startupProgresses.All(pair => pair.Value.Completed);
+        }
+
+        internal string GetSerializedProgress()
+        {
+            var combinedProgress = (StartupProgress)progress.Clone();
+
+            var averageProgress = startupProgresses.Average(pair => pair.Value.Progress);
+            combinedProgress.Progress = Convert.ToInt32(averageProgress);
+
+            return new JavaScriptSerializer().Serialize(combinedProgress);
         }
 
         private static List<string> GetUrlsForRequests()
@@ -94,7 +151,6 @@ namespace ASC.Web.Studio.Core
                                       "~/startscriptsstyles.aspx",
                                       "~/tariffs.aspx",
                                       "~/products/files/default.aspx",
-                                      "~/products/files/doceditor.aspx",
                                       "~/products/crm/cases.aspx",
                                       "~/products/crm/deals.aspx",
                                       "~/products/crm/default.aspx",
@@ -177,110 +233,109 @@ namespace ASC.Web.Studio.Core
                                   });
             }
 
-            return result.Select(TransformUrl).ToList();
+            return result.Select(GetFullAbsolutePath).ToList();
         }
 
-        private static string TransformUrl(string url)
+        private static string GetFullAbsolutePath(string virtualPath)
         {
-            var result = CommonLinkUtility.GetFullAbsolutePath(url);
+            string result;
             const string warmupParam = "warmup=true";
 
-            return url.Contains("?")
-                       ? string.Format("{0}&{1}", result, warmupParam)
-                       : string.Format("{0}?{1}", result, warmupParam);
+            if (CoreContext.Configuration.Standalone)
+            {
+                var domain = ConfigurationManager.AppSettings["web.warmup.domain"] ?? "localhost";
+                result = "http://" + domain + "/" + virtualPath.TrimStart('~', '/');
+            }
+            else
+            {
+                result = CommonLinkUtility.GetFullAbsolutePath(virtualPath); 
+            }
+
+            return virtualPath.Contains("?")
+                           ? string.Format("{0}&{1}", result, warmupParam)
+                           : string.Format("{0}?{1}", result, warmupParam);
         }
 
-        public void Start()
+        internal void Start()
         {
             if (!Started)
             {
                 Started = true;
-                requests = new WorkerQueue<string>(4, TimeSpan.Zero, 10, true);
-                requests.AddRange(urls);
-                requests.Start(LoaderPortalPages);
+                Task.Run(() =>
+                         {
+                             Parallel.ForEach(Urls, new ParallelOptions {MaxDegreeOfParallelism = 4, CancellationToken = tokenSource.Token}, MakeRequest);
+                         }, tokenSource.Token);
             }
         }
 
-        public void StartSync()
+        internal void Terminate()
         {
-            if (!Started)
-            {
-                Started = true;
-                urls.ForEach(LoaderPortalPages);
-                Progress.Bundles.ForEach(r => MakeRequest(CommonLinkUtility.GetFullAbsolutePath(r)));
-            }
-        }
-
-        public void Terminate()
-        {
-            try
-            {
-                if (requests != null)
-                {
-                    requests.Terminate();
-                    requests = null;
-                }
-            }
-            catch (ThreadAbortException)
-            {
-            }
-
-        }
-
-        private void LoaderPortalPages(string requestUrl)
-        {
-            try
-            {
-                MakeRequest(requestUrl);
-            }
-            catch (Exception exception)
-            {
-                lock (obj)
-                {
-                    Progress.Error.Add(exception.StackTrace);
-                }
-
-                LogManager.GetLogger("ASC.Web")
-                    .Error(string.Format("Page is not avaliable by url {0}", requestUrl), exception);
-            }
-            finally
-            {
-                lock (obj)
-                {
-                    Progress.Increment();
-                }
-            }
+            cacheNotify.Publish(GetNotifyKey(), CacheNotifyAction.Remove);
         }
 
         private void MakeRequest(string requestUrl)
         {
-            CoreContext.TenantManager.SetCurrentTenant(tenantId);
-            if (WorkContext.IsMono)
-                ServicePointManager.ServerCertificateValidationCallback = (s, c, h, p) => true;
-
-            using (var webClient = new WebClient())
+            try
             {
-                webClient.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.4; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36");
-                webClient.Headers.Add("Authorization", SecurityContext.AuthenticateMe(SecurityContext.CurrentAccount.ID));
-                webClient.DownloadData(requestUrl);
+                if(tokenSource.IsCancellationRequested) return;
+
+                CoreContext.TenantManager.SetCurrentTenant(TenantId);
+                if (WorkContext.IsMono)
+                    ServicePointManager.ServerCertificateValidationCallback = (s, c, h, p) => true;
+
+                var currentUserId = SecurityContext.CurrentAccount.ID;
+                if (!SecurityContext.IsAuthenticated)
+                    currentUserId = CoreContext.TenantManager.GetCurrentTenant().OwnerId;
+
+                using (var webClient = new WebClient())
+                {
+                    webClient.Headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.4; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36");
+                    webClient.Headers.Add("Authorization", SecurityContext.AuthenticateMe(currentUserId));
+                    webClient.DownloadData(requestUrl);
+                }
             }
+            catch (Exception exception)
+            {
+                LogManager.GetLogger("ASC.Web").Error(string.Format("Page is not avaliable by url {0}", requestUrl), exception);
+            }
+            finally
+            {
+                lock (locker)
+                {
+                    progress.Increment();
+                    Publish();
+                }
+            }
+        }
+
+        private void Publish()
+        {
+            cacheNotify.Publish(GetNotifyKey(), CacheNotifyAction.InsertOrUpdate);
+        }
+
+        private KeyValuePair<string, StartupProgress> GetNotifyKey()
+        {
+            return new KeyValuePair<string, StartupProgress>(instanseId, progress);
         }
     }
 
     [DataContract]
-    public class StartupProgress
+    class StartupProgress : ICloneable
     {
-        private int progress;
-        private readonly int total;
+        [DataMember]
+        public int Progress { get; set; }
+
+        [DataMember]
+        public int Total { get; set; }
 
         [DataMember]
         public int Percentage { get { return ClientSettings.BundlingEnabled ? 50 : 100; } }
 
         [DataMember]
-        public bool Completed { get { return progress == total; } }
+        public bool Completed { get { return Progress >= Total; } }
 
         [DataMember]
-        public int ProgressPercent { get { return (progress * Percentage) / total; } }
+        public int ProgressPercent { get { return Total == 0 ? 0 : (Progress * Percentage) / Total; } }
 
         [DataMember]
         public List<string> Error { get; set; }
@@ -291,24 +346,27 @@ namespace ASC.Web.Studio.Core
         [DataMember]
         public List<string> Bundles { get; set; }
 
+        public StartupProgress()
+        {
+            
+        }
+
         public StartupProgress(int total)
         {
-            this.total = total;
+            Total = total;
             Error = new List<string>();
         }
 
         public void Increment()
         {
-            progress += 1;
+            if (!Completed)
+            {
+                Progress += 1;
+            }
 
             if (Completed)
             {
-                LogManager.GetLogger("ASC").Debug("Complete");
-
-                Link = VirtualPathUtility.ToAbsolute("~/default.aspx");
-                Bundles = BundleTable.Bundles.Select(GetBundlePath).ToList();
-
-                WarmUp.Instance.Terminate();
+                OnComplete();
             }
         }
 
@@ -317,6 +375,46 @@ namespace ASC.Web.Studio.Core
             return !string.IsNullOrEmpty(bundle.CdnPath)
                        ? bundle.CdnPath
                        : VirtualPathUtility.ToAbsolute(bundle.Path);
+        }
+
+        internal void Complete()
+        {
+            Progress = Total;
+            OnComplete();
+        }
+
+        private void OnComplete()
+        {
+            LogManager.GetLogger("ASC").Debug("Complete");
+
+            Link = VirtualPathUtility.ToAbsolute("~/default.aspx");
+            Bundles = BundleTable.Bundles.Select(GetBundlePath).Where(r => !r.Contains("/clientscript/")).ToList();
+            var settings = SettingsManager.Instance.LoadSettings<WarmUpSettings>(TenantProvider.CurrentTenantID);
+            settings.Completed = true;
+            SettingsManager.Instance.SaveSettings(settings, TenantProvider.CurrentTenantID);
+        }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+    }
+
+    [Serializable]
+    [DataContract]
+    public sealed class WarmUpSettings : ISettings
+    {
+        public Guid ID
+        {
+            get { return new Guid("5C699566-34B1-4714-AB52-0E82410CE4E5"); }
+        }
+
+        [DataMember]
+        public bool Completed { get; set; }
+
+        public ISettings GetDefault()
+        {
+            return new WarmUpSettings();
         }
     }
 }

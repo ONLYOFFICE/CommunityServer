@@ -44,69 +44,82 @@ namespace ASC.Projects.Engine
             daoFactory = new DaoFactory(dbId, tenantID);
         }
 
-        public FileEngine GetFileEngine()
+        private FileEngine fileEngine;
+        public FileEngine FileEngine
         {
-            return new FileEngine();
+            get { return fileEngine ?? (fileEngine = new FileEngine()); }
         }
 
-        public ProjectEngine GetProjectEngine()
+        private ProjectEngine projectEngine;
+        public ProjectEngine ProjectEngine
         {
-            return new CachedProjectEngine(daoFactory, this);
+            get { return projectEngine ?? (projectEngine = new CachedProjectEngine(daoFactory, this)); }
         }
 
-        public MilestoneEngine GetMilestoneEngine()
+        private MilestoneEngine milestoneEngine;
+        public MilestoneEngine MilestoneEngine
         {
-            return new MilestoneEngine(daoFactory, this);
+            get { return milestoneEngine ?? (milestoneEngine = new MilestoneEngine(daoFactory, this)); }
         }
 
-        public CommentEngine GetCommentEngine()
+        private CommentEngine commentEngine;
+        public CommentEngine CommentEngine
         {
-            return new CommentEngine(daoFactory);
+            get { return commentEngine ?? (commentEngine = new CommentEngine(daoFactory, this)); }
         }
 
-        public SearchEngine GetSearchEngine()
+        private SearchEngine searchEngine;
+        public SearchEngine SearchEngine
         {
-            return new SearchEngine(daoFactory);
+            get { return searchEngine ?? (searchEngine = new SearchEngine(daoFactory, this)); }
         }
 
-        public TaskEngine GetTaskEngine()
+        private TaskEngine taskEngine;
+        public TaskEngine TaskEngine
         {
-            return new TaskEngine(daoFactory, this);
+            get { return taskEngine ?? (taskEngine = new TaskEngine(daoFactory, this)); }
         }
 
-        public SubtaskEngine GetSubtaskEngine()
+        private SubtaskEngine subtaskEngine;
+        public SubtaskEngine SubtaskEngine
         {
-            return new SubtaskEngine(daoFactory, this);
+            get { return subtaskEngine ?? (subtaskEngine = new SubtaskEngine(daoFactory, this)); }
         }
 
-        public MessageEngine GetMessageEngine()
+        private MessageEngine messageEngine;
+        public MessageEngine MessageEngine
         {
-            return new MessageEngine(daoFactory, this);
+            get { return messageEngine ?? (messageEngine = new MessageEngine(daoFactory, this)); }
         }
 
-        public TimeTrackingEngine GetTimeTrackingEngine()
+        private TimeTrackingEngine timeTrackingEngine;
+        public TimeTrackingEngine TimeTrackingEngine
         {
-            return new TimeTrackingEngine(daoFactory);
+            get { return timeTrackingEngine ?? (timeTrackingEngine = new TimeTrackingEngine(daoFactory)); }
         }
 
-        public ParticipantEngine GetParticipantEngine()
+        private ParticipantEngine participantEngine;
+        public ParticipantEngine ParticipantEngine
         {
-            return new ParticipantEngine(daoFactory);
+            get { return participantEngine ?? (participantEngine = new ParticipantEngine(daoFactory)); }
         }
 
-        public TagEngine GetTagEngine()
+        private TagEngine tagEngine;
+        public TagEngine TagEngine
         {
-            return new TagEngine(daoFactory);
+            get { return tagEngine ?? (tagEngine = new TagEngine(daoFactory)); }
         }
 
-        public ReportEngine GetReportEngine()
+        private ReportEngine reportEngine;
+        public ReportEngine ReportEngine
         {
-            return new ReportEngine(daoFactory);
+            get { return reportEngine ?? (reportEngine = new ReportEngine(daoFactory, this)); }
         }
 
-        public TemplateEngine GetTemplateEngine()
+        private TemplateEngine templateEngine;
+        public TemplateEngine TemplateEngine
         {
-            return new TemplateEngine(daoFactory);
+            get { return templateEngine ?? (templateEngine = new TemplateEngine(daoFactory)); }
         }
     }
 }

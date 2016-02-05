@@ -22,7 +22,7 @@
             </td>
         {{else}}
             <td class="menu_column">
-                <div class="menu" title="<%: MailScriptResource.Actions %>" data_id="${id}"></div>
+                <div class="menu menu-small" title="<%: MailScriptResource.Actions %>" data_id="${id}"></div>
             </td>
         {{/if}}
     </tr>

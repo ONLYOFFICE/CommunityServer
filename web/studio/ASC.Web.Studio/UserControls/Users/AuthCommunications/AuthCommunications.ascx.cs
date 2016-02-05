@@ -88,7 +88,7 @@ namespace ASC.Web.Studio.UserControls
 
             ShowSeparator = _joinBlock.Visible && _sendAdmin.Visible;
 
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/users/AuthCommunications/js/authcommunications.js"));
+            Page.RegisterBodyScripts("~/usercontrols/users/AuthCommunications/js/authcommunications.js");
         }
 
         [SecurityPassthrough]
@@ -237,10 +237,10 @@ namespace ASC.Web.Studio.UserControls
                             i++;
                         }
                         domains += "</strong>";
-                        return String.Format(Resource.TrustedDomainsInviteTitle, domains);
+                        return String.Format(Resource.TrustedDomainsInviteTitle.HtmlEncode(), domains);
                     }
                 case TenantTrustedDomainsType.All:
-                    return Resource.SignInFromAnyDomainInviteTitle;
+                    return Resource.SignInFromAnyDomainInviteTitle.HtmlEncode();
             }
 
             return "";

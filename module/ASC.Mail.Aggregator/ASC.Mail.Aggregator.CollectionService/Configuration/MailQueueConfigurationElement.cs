@@ -58,6 +58,13 @@ namespace ASC.Mail.Aggregator.CollectionService.Configuration
             set { this[Schema.configuration_property_activity_timeout] = value; }
         }
 
+        [ConfigurationProperty(Schema.configuration_property_quota_ended_delay, IsRequired = false, IsKey = false, DefaultValue = 600)]
+        public int QuotaEndedDelay
+        {
+            get { return (int)this[Schema.configuration_property_quota_ended_delay]; }
+            set { this[Schema.configuration_property_quota_ended_delay] = value; }
+        }
+
         [ConfigurationProperty(Schema.configuration_property_overdueaccountdelay, IsRequired = false, IsKey = false, DefaultValue = 600)]
         public int OverdueAccountDelay
         {

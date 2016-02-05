@@ -50,8 +50,13 @@ namespace ASC.Projects.Engine
             SubscriptionProvider = NotifySource.Instance.GetSubscriptionProvider();
             RecipientProvider = NotifySource.Instance.GetRecipientsProvider();
             NotifyAction = notifyAction;
-            FileEngine = factory != null ? factory.GetFileEngine() : null;
+            FileEngine = factory != null ? factory.FileEngine : null;
             Factory = factory;
+        }
+
+        public virtual ProjectEntity GetEntityByID(int id)
+        {
+            return null;
         }
 
         #region Subscription
@@ -89,9 +94,9 @@ namespace ASC.Projects.Engine
         {
             var recipient = RecipientProvider.GetRecipient(recipientID.ToString());
 
-            var objects = new List<String>(SubscriptionProvider.GetSubscriptions(NotifyAction, recipient));
+            var objects = SubscriptionProvider.GetSubscriptions(NotifyAction, recipient);
 
-            return !String.IsNullOrEmpty(objects.Find(item => String.Compare(item, entity.NotifyId, StringComparison.OrdinalIgnoreCase) == 0));
+            return objects.Any(item => string.Compare(item, entity.NotifyId, StringComparison.OrdinalIgnoreCase) == 0);
         }
 
         public bool IsUnsubscribed(ProjectEntity entity, Guid recipientID)
@@ -154,7 +159,7 @@ namespace ASC.Projects.Engine
             }
         }
 
-        public void AttachFile(ProjectEntity entity, object fileId, bool notify)
+        public void AttachFile(ProjectEntity entity, object fileId, bool notify = false)
         {
             if (!ProjectSecurity.CanReadFiles(entity.Project)) return;
 
@@ -181,32 +186,6 @@ namespace ASC.Projects.Engine
             {
                 dao.RemoveTags(new Tag(entity.GetType().Name + entity.ID, TagType.System, Guid.Empty) { EntryType = FileEntryType.File, EntryId = fileId });
             }
-        }
-
-        #endregion
-
-        #region Comments
-
-        public Comment SaveOrUpdateComment(ProjectEntity entity, Comment comment)
-        {
-            var isNew = comment.ID.Equals(Guid.Empty);
-
-            Factory.GetCommentEngine().SaveOrUpdate(comment);
-
-            NotifyNewComment(comment, entity, isNew);
-
-            Subscribe(entity, SecurityContext.CurrentAccount.ID);
-
-            return comment;
-        }
-
-        private void NotifyNewComment(Comment comment, ProjectEntity entity, bool isNew)
-        {
-            if (Factory.DisableNotifications) return;
-
-            var senders = GetSubscribers(entity);
-
-            NotifyClient.Instance.SendNewComment(senders, entity, comment, isNew);
         }
 
         #endregion

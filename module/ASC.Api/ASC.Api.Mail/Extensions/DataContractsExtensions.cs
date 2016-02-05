@@ -27,10 +27,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using ASC.Api.Mail.DataContracts;
+using ASC.Core;
 using ASC.Mail.Aggregator;
+using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Dal;
 using ASC.Web.Core.Utility.Settings;
-using ASC.Core;
 
 namespace ASC.Api.Mail.Extensions
 {
@@ -83,13 +84,14 @@ namespace ASC.Api.Mail.Extensions
                 fromEmailList.Add(emailData);
             }
 
-            foreach (var group in account.Groups)
+            foreach (
+                var @group in
+                    account.Groups.Where(@group => fromEmailList.FindIndex(e => e.Email.Equals(@group.Email)) == -1))
             {
-                if (fromEmailList.FindIndex(e => e.Email.Equals(group.Email)) != -1) continue;
                 emailData = new MailAccountData
                 {
                     MailboxId = account.Id,
-                    Email = group.Email,
+                    Email = @group.Email,
                     Name = "",
                     Enabled = true,
                     OAuthConnection = false,
@@ -111,12 +113,9 @@ namespace ASC.Api.Mail.Extensions
         {
             var fromEmailList = new List<MailAccountData>();
 
-            foreach (var account in accounts)
-            {
-                fromEmailList = fromEmailList.Concat(account.ToAddressData()).ToList();
-            }
+            fromEmailList = accounts.Aggregate(fromEmailList, (current, account) => current.Concat(account.ToAddressData()).ToList());
 
-            return fromEmailList;
+            return fromEmailList.DistinctBy(a => a.Email).ToList();
         }
 
         public static void GetNeededAccounts(this List<MailAccountData> accounts, out MailAccountData defaultAccount,
@@ -134,29 +133,69 @@ namespace ASC.Api.Mail.Extensions
                 return;
             }
 
-            for (int i = 0; i < accounts.Count; i++)
+            foreach (var account in accounts)
             {
-                if (accounts[i].IsDefault)
+                if (account.IsDefault)
                 {
-                    defaultAccount = accounts[i];
+                    defaultAccount = account;
                 }
-                else if (accounts[i].IsGroup)
+                else if (account.IsGroup)
                 {
-                    groups.Add(accounts[i]);
+                    groups.Add(account);
                 }
-                else if (accounts[i].IsAlias)
+                else if (account.IsAlias)
                 {
-                    aliases.Add(accounts[i]);
+                    aliases.Add(account);
                 }
-                else if (accounts[i].IsTeamlabMailbox)
+                else if (account.IsTeamlabMailbox)
                 {
-                    serverAccounts.Add(accounts[i]);
+                    serverAccounts.Add(account);
                 }
                 else
                 {
-                    commonAccounts.Add(accounts[i]);
+                    commonAccounts.Add(account);
                 }
             }
+        }
+
+        public static List<MailFolderData> ToFolderData(this List<MailBoxManager.MailFolderInfo> folders)
+        {
+            return folders.Select(ToFolderData).ToList();
+        }
+
+        public static MailFolderData ToFolderData(this MailBoxManager.MailFolderInfo folder)
+        {
+            return new MailFolderData
+                {
+                    Id = folder.id,
+                    UnreadCount = folder.unread,
+                    TotalCount = folder.total_count,
+                    TimeModified = folder.time_modified
+                };
+        }
+
+        public static MailTagData ToTagData(this MailTag tag)
+        {
+            return new MailTagData
+                {
+                    Id = tag.Id,
+                    Name = tag.Name,
+                    Style = tag.Style,
+                    Addresses = new MailTagData.AddressesList<string>(tag.Addresses),
+                    LettersCount = tag.LettersCount
+                };
+        }
+
+        public static List<MailTagData> ToTagData(this List<MailTag> tags)
+        {
+            return tags.Select(t => new MailTagData
+            {
+                Id = t.Id,
+                Name = t.Name,
+                Style = t.Style,
+                Addresses = new MailTagData.AddressesList<string>(t.Addresses),
+                LettersCount = t.LettersCount
+            }).ToList();
         }
     }
 }

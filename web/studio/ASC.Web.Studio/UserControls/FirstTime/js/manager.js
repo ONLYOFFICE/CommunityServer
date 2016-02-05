@@ -54,6 +54,29 @@ ASC.Controls.EmailAndPasswordManager = new function() {
         ASC.Controls.EmailAndPasswordManager.wrongPass = wrongPassText;
         ASC.Controls.EmailAndPasswordManager.emptyPass = emptyPassText;
         ASC.Controls.EmailAndPasswordManager.wrongEmail = wrongEmailText;
+
+        uploadInit();
+    };
+
+    var uploadInit = function () {
+        var upload =
+            new AjaxUpload("licenseKey", {
+                action: 'ajaxupload.ashx?type=ASC.Web.Studio.HttpHandlers.LicenseUploader,ASC.Web.Studio',
+                onChange: function (file, ext) {
+                    jq("#licenseKeyText").removeClass("error");
+                    LoadingBanner.showLoaderBtn(".step");
+                },
+                onComplete: function (file, response) {
+                    LoadingBanner.hideLoaderBtn(".step");
+                    var result = jq.parseJSON(response);
+
+                    if (result.Success) {
+                        jq("#licenseKeyText").val(result.Message);
+                    } else {
+                        jq("#licenseKeyText").val(ASC.Resources.Master.Resource.LicenseKeyError).addClass("error");
+                    }
+                }
+            });
     };
 
     this.ShowChangeEmailAddress = function() {
@@ -75,7 +98,10 @@ ASC.Controls.EmailAndPasswordManager = new function() {
         jq('.changeEmail #dvChangeMail').append('<a class="info baseLinkAction" onclick="ASC.Controls.EmailAndPasswordManager.ShowChangeEmailAddress();">' + ASC.Controls.EmailAndPasswordManager.changeIt + '</a>');
     };
 
-    this.SaveRequiredData = function(parentCallback) {
+    this.SaveRequiredData = function (parentCallback) {
+        if (jq("#saveSettingsBtn").hasClass("disable")) {
+            return;
+        }
 
         var email = jQuery.trim(jq('#requiredStep .emailBlock .email .emailAddress #newEmailAddress').val()); //
         if (email == '' || email == null)
@@ -83,6 +109,7 @@ ASC.Controls.EmailAndPasswordManager = new function() {
         var pwd = jq('.passwordBlock .pwd #newPwd').val();
         var cpwd = jq('.passwordBlock .pwd #confPwd').val();
         var promocode = jq('.passwordBlock .promocode #promocode_input').val();
+        var licenseKey = jq("#licenseKeyText").val();
 
         if (email == '' || !jq.isValidEmail(email)) {
             var res = { "Status": 0, "Message": ASC.Controls.EmailAndPasswordManager.wrongEmail };
@@ -101,14 +128,27 @@ ASC.Controls.EmailAndPasswordManager = new function() {
                 jq(".passwordBlock .pwd #newPwd").css("border-color", "#DF1B1B");
             }
 
-            var res = { "Status": 0, "Message": pwd == '' ? ASC.Controls.EmailAndPasswordManager.emptyPass : ASC.Controls.EmailAndPasswordManager.wrongPass };
+            res = { "Status": 0, "Message": pwd == '' ? ASC.Controls.EmailAndPasswordManager.emptyPass : ASC.Controls.EmailAndPasswordManager.wrongPass };
             if (parentCallback != null)
                 parentCallback(res);
             return;
         }
+
+        if (jq("#licenseKeyText").length && !licenseKey.length) {
+            res = { "Status": 0, "Message": ASC.Resources.Master.Resource.LicenseKeyError };
+            if (parentCallback != null)
+                parentCallback(res);
+            return;
+        }
+
+        if (jq("#policyAccepted").length && !jq("#policyAccepted").is(":checked")) {
+            toastr.error(ASC.Resources.Master.Resource.LicenseAgreementsError);
+            return;
+        }
+
         window.onbeforeunload = null;
         AjaxPro.timeoutPeriod = 1800000;
-        EmailAndPasswordController.SaveData(email, pwd, jq('#studio_lng').val(), promocode, function(result) {
+        EmailAndPasswordController.SaveData(email, pwd, jq('#studio_lng').val(), promocode, licenseKey, function (result) {
 
             if (parentCallback != null)
                 parentCallback(result.value);

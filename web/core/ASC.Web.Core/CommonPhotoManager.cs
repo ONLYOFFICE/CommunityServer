@@ -82,7 +82,14 @@ namespace ASC.Web.Core
                     }
                     graphic.InterpolationMode = InterpolationMode.HighQualityBicubic;
                     graphic.PixelOffsetMode = PixelOffsetMode.HighQuality;
-                    graphic.DrawImage(image, rect);
+
+                    using (ImageAttributes wrapMode = new ImageAttributes())
+                    {
+                        wrapMode.SetWrapMode(WrapMode.TileFlipXY);
+                        graphic.DrawImage(image, rect, 0, 0, image.Width, image.Height, GraphicsUnit.Pixel, wrapMode);
+                    }
+                    
+                    //graphic.DrawImage(image, rect);
                 }
             }
             else

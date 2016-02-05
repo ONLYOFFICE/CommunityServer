@@ -83,16 +83,17 @@ namespace ActiveUp.Net.Mail
         public static void TeachListFile(string fileName, string[] msgTokens, Hashtable currentHash)
         {
             // Wirte New Tokens
-            StreamWriter W = new StreamWriter(fileName, true);
-                       
-            foreach (string t in msgTokens)
+            using (var W = new StreamWriter(fileName, true))
             {
-                if (!currentHash.ContainsKey(t))
-                    W.Write(t + " ");                
+                foreach (string t in msgTokens)
+                {
+                    if (!currentHash.ContainsKey(t))
+                        W.Write(t + " ");
+                }
+
+                W.Close();
             }
 
-            W.Close();
-          
         }
 
         /// <summary>

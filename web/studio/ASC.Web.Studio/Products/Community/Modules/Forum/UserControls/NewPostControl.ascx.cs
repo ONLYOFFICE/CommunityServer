@@ -60,7 +60,7 @@ namespace ASC.Web.UserControls.Forum
                 if (FileToUpload.HasFilesToUpload(context))
                 {
                     var settingsID = new Guid(context.Request["SettingsID"]);
-                    var settings = ForumManager.GetSettings(settingsID);
+                    var settings = Community.Forum.ForumManager.Settings;
                     var thread = ForumDataProvider.GetThreadByID(TenantProvider.CurrentTenantID, Convert.ToInt32(context.Request["ThreadID"]));
                     if (thread == null) return result;
 
@@ -195,7 +195,7 @@ namespace ASC.Web.UserControls.Forum
 
         private void InitScripts()
         {
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/usercontrols/common/ckeditor/ckeditor-connector.js"));
+            Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
 
             //Page.RegisterInlineScript("ckeditorConnector.onReady(function () {ForumManager.forumEditor = jq('#ckEditor').ckeditor({ toolbar : 'ComForum', filebrowserUploadUrl: '" + RenderRedirectUpload() + @"'}).editor;});");
             Page.RegisterInlineScript("ckeditorConnector.onReady(function () {" +
@@ -241,7 +241,7 @@ namespace ASC.Web.UserControls.Forum
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            _settings = ForumManager.GetSettings(SettingsID);
+            _settings = ASC.Web.Community.Forum.ForumManager.Settings;
             _forumManager = _settings.ForumManager;
             _currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
@@ -249,8 +249,8 @@ namespace ASC.Web.UserControls.Forum
             Utility.RegisterTypeForAjax(this.GetType());
             Utility.RegisterTypeForAjax(typeof(PostControl));
 
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/uploader/jquery.fileupload.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/uploader/jquery.fileuploadManager.js"));
+            Page.RegisterBodyScripts("~/js/uploader/jquery.fileupload.js");
+            Page.RegisterBodyScripts("~/js/uploader/jquery.fileuploadManager.js");
 
             PostType = NewPostType.Topic;
             PostAction = PostAction.Normal;
@@ -1032,8 +1032,7 @@ namespace ASC.Web.UserControls.Forum
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public void RemoveAttachment(Guid settingsID, string offsetPath)
         {
-            var _settings = ForumManager.GetSettings(settingsID);
-            _settings.ForumManager.RemoveAttachments(offsetPath);
+            Community.Forum.ForumManager.Settings.ForumManager.RemoveAttachments(offsetPath);
 
         }
 
@@ -1072,7 +1071,7 @@ namespace ASC.Web.UserControls.Forum
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
         public string CancelPost(Guid settingsID, string itemID)
         {
-            var _settings = ForumManager.GetSettings(settingsID);
+            var _settings = Community.Forum.ForumManager.Settings;
             if (String.IsNullOrEmpty(itemID) == false)
                 CommonControlsConfigurer.FCKEditingCancel(_settings.FileStoreModuleID, itemID);
             else

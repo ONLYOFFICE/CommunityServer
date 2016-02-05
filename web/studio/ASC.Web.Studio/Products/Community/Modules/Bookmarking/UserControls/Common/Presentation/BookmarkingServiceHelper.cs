@@ -24,31 +24,34 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Net;
+using ASC.Bookmarking;
 using ASC.Bookmarking.Business;
 using ASC.Bookmarking.Common;
+using ASC.Bookmarking.Dao;
 using ASC.Bookmarking.Pojo;
 using ASC.Common.Utils;
 using ASC.Core;
 using ASC.Core.Users;
-using System.Web;
-using System.Text;
-using ASC.Bookmarking.Dao;
-using System.Text.RegularExpressions;
+using ASC.Notify.Model;
+using ASC.Web.Core.ModuleManagement.Common;
+using ASC.Web.Core.Users;
+using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.Studio.UserControls.Common.ViewSwitcher;
 using ASC.Web.Studio.Utility;
-using ASC.Web.UserControls.Bookmarking.Util;
-using ASC.Web.Core.Utility.Skins;
 using ASC.Web.UserControls.Bookmarking.Common.Util;
-using ASC.Web.Core.Users;
-using ASC.Notify.Model;
-using ASC.Web.Core.ModuleManagement.Common;
-
+using ASC.Web.UserControls.Bookmarking.Util;
+using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web;
+using ASC.Web.Community.Product;
+using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
 {
@@ -63,7 +66,6 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
 
         public CommentsList Comments { get; set; }
 
-        public BookmarkDisplayMode DisplayMode { get; set; }
         private int PageCounter { get; set; }
 
         public int SelectedTab
@@ -152,15 +154,18 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
                 {
                     var b = BookmarkInit(BookmarkToAdd, bookmarkName, bookmarkDescription, tags);
                     BookmarkToAdd = _service.UpdateBookmark(b, tags);
+                    BookmarkingServiceHelper.UpdateCurrentInstanse(this);
                     return BookmarkToAdd;
                 }
 
                 BookmarkToAdd = _service.UpdateBookmark(bookmark, tags);
+                BookmarkingServiceHelper.UpdateCurrentInstanse(this);
                 return BookmarkToAdd;
             }
 
             var newBookmark = BookmarkInit(bookmarkUrl, bookmarkName, bookmarkDescription);
             BookmarkToAdd = _service.AddBookmark(newBookmark, tags);
+            BookmarkingServiceHelper.UpdateCurrentInstanse(this);
             return BookmarkToAdd;
         }
 
@@ -297,6 +302,7 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
             {
                 SubscriptionBookmarkCommentsID = BookmarkToAdd.ID.ToString();
             }
+            BookmarkingServiceHelper.UpdateCurrentInstanse(this);
             return BookmarkToAdd;
         }
 
@@ -325,7 +331,9 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
         private IList<Bookmark> GetSortedBookmarks(int itemsCounter)
         {
             SetPagination(itemsCounter);
-            switch (DisplayMode)
+            BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+            switch (displayMode)
             {
                 case BookmarkDisplayMode.Favourites:
                     var result = GetFavouriteBookmarksByRequest();
@@ -508,7 +516,9 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
         private void InitSortUtil(SortByEnum sortBy)
         {
             var sortUtil = new BookmarkingSortUtil();
-            switch (DisplayMode)
+            BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+            switch (displayMode)
             {
                 case BookmarkDisplayMode.Favourites:
                     _sortControl.SortItems = sortUtil.GetFavouriteBookmarksSortItems(sortBy);
@@ -656,6 +666,19 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
 
         #endregion
 
+        public void RemoveBookmark(long userBookmarkID)
+        {
+            var bookmark = _service.GetBookmarkByID(userBookmarkID);
+
+            if (!CommunitySecurity.IsAdministrator() && !bookmark.UserCreatorID.Equals(SecurityContext.CurrentAccount.ID)) throw new SecurityException();
+            var userBookmarks = _service.GetUserBookmarks(bookmark);
+
+            foreach (var userBookmark in userBookmarks)
+            {
+                RemoveBookmarkFromFavourite(userBookmark.BookmarkID, userBookmark.UserID);
+            }
+        }
+
         #region Current User Info
 
         public static UserInfo GetUserInfo(Guid userID)
@@ -704,7 +727,9 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
 
         public string GenerateSortUrl(string sortBy)
         {
-            switch (DisplayMode)
+            BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+            switch (displayMode)
             {
                 case BookmarkDisplayMode.Favourites:
                     return GenerateSortUrlWithPageName(BookmarkingRequestConstants.FavouriteBookmarksPageName, sortBy);
@@ -1015,6 +1040,7 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
                 CurrentPageNumber = 1;
             }
             FirstResult = (CurrentPageNumber - 1)*MaxResults;
+            BookmarkingServiceHelper.UpdateCurrentInstanse(this);
         }
 
         public void InitPageNavigator(PageNavigator pagination, int BookmarkPageCounter)
@@ -1027,6 +1053,7 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
             var visiblePageCount = (int)itemsCount/BookmarkPageCounter + 1;
             visiblePageCount = visiblePageCount > BookmarkingSettings.VisiblePageCount ? BookmarkingSettings.VisiblePageCount : visiblePageCount;
             PageCounter = BookmarkPageCounter;
+            BookmarkingServiceHelper.UpdateCurrentInstanse(this);
             pagination.CurrentPageNumber = CurrentPageNumber;
             pagination.EntryCountOnPage = BookmarkPageCounter;
             pagination.VisiblePageCount = visiblePageCount;
@@ -1041,6 +1068,7 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
         public Bookmark GetBookmarkByUrl(string url)
         {
             BookmarkToAdd = _service.GetBookmarkByUrl(url);
+            BookmarkingServiceHelper.UpdateCurrentInstanse(this);
             return BookmarkToAdd;
         }
 
@@ -1082,9 +1110,9 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
             return BookmarkToAdd != null && IsCurrentUserBookmark(BookmarkToAdd);
         }
 
-        public Bookmark RemoveBookmarkFromFavourite(long bookmarkID)
+        public Bookmark RemoveBookmarkFromFavourite(long bookmarkID, Guid? userID = null)
         {
-            var b = _service.RemoveBookmarkFromFavourite(bookmarkID);
+            var b = _service.RemoveBookmarkFromFavourite(bookmarkID, userID);
             if (b == null)
             {
                 ThumbnailHelper.Instance.DeleteThumbnail(BookmarkingService.DeletedBookmarkUrl);
@@ -1093,20 +1121,11 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
             return GetBookmarkWithUserBookmarks(b.URL);
         }
 
-        public enum BookmarkDisplayMode
-        {
-            AllBookmarks,
-            Favourites,
-            SelectedBookmark,
-            SearchBookmarks,
-            SearchByTag,
-            CreateBookmark,
-            BookmarksCreatedByUser
-        }
-
         public bool IsSelectedBookmarkDisplayMode()
         {
-            return BookmarkDisplayMode.SelectedBookmark.Equals(DisplayMode);
+            BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+            return BookmarkDisplayMode.SelectedBookmark.Equals(displayMode);
         }
 
         public IList<Bookmark> GetMostPopularBookmarksByTag(Tag t)

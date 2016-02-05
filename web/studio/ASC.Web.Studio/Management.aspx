@@ -13,10 +13,10 @@
 <asp:Content ContentPlaceHolderID="SidePanel" runat="server">
     <div class="page-menu">
         <ul class="menu-list">
-            <% foreach (var category in Category)
+            <% foreach (var category in GetCategoryList().Where(r => r.Modules == null || r.Modules.Any()))
                {%>
             <% 
-                   if ((category.Modules != null && DisplayModuleList(category)) || (GetNavigationList().Contains(category.ModuleUrl)))
+                   if ((category.Modules != null && DisplayModuleList(category)) || (NavigationList.Contains(category.ModuleUrl)))
                    { %>
             <li class="menu-item <%= category.Modules != null ? "" : "none-" %>sub-list 
                 <%= category.Modules != null && category.Modules.Contains(CurrentModule) ? "currentCategory" : "" %>
@@ -27,7 +27,7 @@
                     <span class="expander"></span>
                     <%} %>
                     <a class="menu-item-label outer-text text-overflow"
-                        href="<%= GetNavigationUrl((category.Modules == null) ? category.ModuleUrl : category.Modules.First(DisplayModule)) %>">
+                        href="<%= category.GetNavigationUrl() %>">
                         <span class="menu-item-icon  <%= category.ClassName %>"></span>
                         <span class="menu-item-label"><%= category.Title %></span>
                     </a>
@@ -38,15 +38,12 @@
                 <ul class="menu-sub-list">
                     <% foreach (var module in category.Modules) %>
                     <% { %>
-                    <% if (GetNavigationList().Contains(module) && DisplayModule(module))
-                       { %>
                     <li class="menu-sub-item <% if (CurrentModule == module)
                                                 { %>active<% } %>">
-                        <a class="menu-item-label outer-text text-overflow" href="<%= GetNavigationUrl(module) %>" title="<%= GetNavigationTitle(module) %>">
+                        <a class="menu-item-label outer-text text-overflow" href="<%= category.GetNavigationUrl(module) %>" title="<%= GetNavigationTitle(module) %>">
                             <span class="menu-item-label inner-text"><%= GetNavigationTitle(module) %></span>
                         </a>
                     </li>
-                    <% }  %>
                     <% } %>
                 </ul>
                 <%} %>
@@ -54,9 +51,23 @@
             <% } %>
             <% } %>
 
+            <% if (TenantExtra.EnableControlPanel)
+               { %>
+            <li class="menu-item none-sub-list">
+                <div class="category-wrapper">
+                    <a class="menu-item-label outer-text text-overflow" href="<%= SetupInfo.ControlPanelUrl %>" target="_blank">
+                        <span class="menu-item-icon controlpanel"></span>
+                        <span class="menu-item-label inner-text">
+                            <%= Resource.ControlPanelSettings %>
+                        </span>
+                    </a>
+                </div>
+            </li>
+            <% } %>
+
             <asp:PlaceHolder ID="InviteUserHolder" runat="server"></asp:PlaceHolder>
 
-            <% if (TenantExtra.EnableTarrifSettings && !CoreContext.Configuration.Standalone)
+            <% if (TenantExtra.EnableTarrifSettings)
                { %>
             <li class="menu-item none-sub-list add-block">
                 <div class="category-wrapper">

@@ -28,10 +28,10 @@ using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Users;
 using ASC.Web.Core;
-using ASC.Web.Core.CoBranding;
 using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Core.WebZones;
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Statistics;
@@ -89,11 +89,11 @@ namespace ASC.Web.Studio.UserControls.Common
                     return WebImageSupplier.GetAbsoluteWebPath("personal_logo/logo_personal_auth.png");
 
                 var general = !TenantLogoManager.IsRetina(Request);
-                if (TenantLogoManager.CoBrandingEnabled)
+                if (TenantLogoManager.WhiteLabelEnabled)
                 {
                     return TenantLogoManager.GetLogoDark(general);
                 }
-                return TenantCoBrandingSettings.GetAbsoluteDefaultLogoPath(CoBrandingLogoTypeEnum.Dark, general);
+                return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Dark, general);
             }
         }
 
@@ -108,37 +108,19 @@ namespace ASC.Web.Studio.UserControls.Common
 
         private List<IWebItem> _customNavItems;
 
-        protected bool DisplayTrialCountDays
-        {
-            get
-            {
-                var tariff = TenantExtra.GetCurrentTariff();
-                return (tariff.State == TariffState.Trial && tariff.DueDate.Subtract(DateTime.Today.Date).Days >= 0);
-            }
-        }
-        protected int TrialCountDays
-        {
-            get
-            {
-                return TenantExtra.GetCurrentTariff().DueDate.Subtract(DateTime.Today.Date).Days;
-            }
-        }
+        protected bool DisplayTrialCountDays;
+        protected int TariffDays;
 
         protected bool? IsAuthorizedPartner { get; set; }
         protected Partner Partner { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            debugInfoPopUpContainer.Options.IsPopup = true;
-
-            aboutCompanyPopupContainer.Options.IsPopup = true;
-
             if (!DisableSearch)
             {
                 RenderSearchProducts();
                 DisableSearch = DisableSearch || !SearchProducts.Any() || CoreContext.Configuration.Personal;
             }
-
 
             if (SecurityContext.IsAuthenticated)
             {
@@ -190,6 +172,7 @@ namespace ASC.Web.Studio.UserControls.Common
                     log4net.LogManager.GetLogger("ASC.Web.Studio").Error(ex);
                 }
             }
+
             if (CoreContext.Configuration.PartnerHosted)
             {
                 IsAuthorizedPartner = false;
@@ -198,6 +181,17 @@ namespace ASC.Web.Studio.UserControls.Common
                 {
                     IsAuthorizedPartner = !string.IsNullOrEmpty(partner.AuthorizedKey);
                     Partner = partner;
+                }
+            }
+
+            if (!DisableTariff)
+            {
+                var tariff = TenantExtra.GetCurrentTariff();
+                TariffDays = tariff.DueDate.Date.Subtract(DateTime.Today).Days;
+
+                if (tariff.State == TariffState.Trial && TariffDays >= 0)
+                {
+                    DisplayTrialCountDays = true;
                 }
             }
 

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -53,23 +53,14 @@ namespace ASC.Web.Studio.UserControls.Common.ProjectDocumentsPopup
 
         private void InitScripts()
         {
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/common/projectdocumentspopup/css/projectDocumentsPopup.less"));
-
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/common/projectdocumentspopup/js/projectDocumentsPopup.js"));
+            Page.RegisterStyle("~/usercontrols/common/projectdocumentspopup/css/projectDocumentsPopup.less");
+            Page.RegisterBodyScripts("~/usercontrols/common/projectdocumentspopup/js/projectDocumentsPopup.js");
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             _documentUploader.Options.IsPopup = true;
             InitScripts();
-            var emptyParticipantScreenControl = new EmptyScreenControl
-            {
-                ImgSrc = VirtualPathUtility.ToAbsolute("~/UserControls/Common/ProjectDocumentsPopup/Images/project-documents.png"),
-                Header = UserControlsCommonResource.ProjectDocuments,
-                HeaderDescribe = UserControlsCommonResource.EmptyDocsHeaderDescription,
-                Describe = Resources.UserControlsCommonResource.EmptyDocsDescription
-            };
-            _phEmptyDocView.Controls.Add(emptyParticipantScreenControl);
         }
     }
 }

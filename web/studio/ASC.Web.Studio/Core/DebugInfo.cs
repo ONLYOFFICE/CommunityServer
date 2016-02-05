@@ -34,6 +34,7 @@ using System.Web;
 using System.Xml;
 
 using ASC.Core;
+using ASC.Web.Core.Files;
 
 namespace ASC.Web.Studio.Core
 {
@@ -71,10 +72,14 @@ namespace ASC.Web.Studio.Core
                     var fileContent = File.ReadAllText(ChangeLogPatternFilePath, Encoding.Default);
                     fileContent = fileContent.Replace("{BuildVersion}", xmlLog.GetElementsByTagName("number")[0].InnerText);
                     fileContent = fileContent.Replace("{BuildDate}", new DateTime(1970, 1, 1).AddMilliseconds(Convert.ToInt64(xmlLog.GetElementsByTagName("timestamp")[0].InnerText)).ToString("yyyy-MM-dd hh:mm"));
-                    fileContent = fileContent.Replace("{User}", SecurityContext.CurrentAccount.ToString());
+                    fileContent = fileContent.Replace("{User}", SecurityContext.CurrentAccount.ToString().HtmlEncode());
                     fileContent = fileContent.Replace("{UserAgent}", HttpContext.Current.Request.UserAgent);
                     fileContent = fileContent.Replace("{Url}", HttpContext.Current.Request.Url.ToString());
                     fileContent = fileContent.Replace("{RewritenUrl}", HttpContext.Current.Request.GetUrlRewriter().ToString());
+                    fileContent = fileContent.Replace("{DocServiceApi}", FilesLinkUtility.DocServiceApiUrl);
+                    fileContent = fileContent.Replace("{DocServiceCommand}", FilesLinkUtility.DocServiceCommandUrl);
+                    fileContent = fileContent.Replace("{DocServiceConverter}", FilesLinkUtility.DocServiceConverterUrl);
+                    fileContent = fileContent.Replace("{DocServiceStorage}", FilesLinkUtility.DocServiceStorageUrl);
                     fileContent += GetChangeLogData(logs.Cast<XmlNode>());
                     return fileContent;
                 }
@@ -99,10 +104,11 @@ namespace ASC.Web.Studio.Core
                 var author = log.SelectSingleNode("author//fullName");
                 if(author == null) continue;
 
+                var commentText = comment.InnerText.Replace("\n", " ") + "\n";
                 if (!hashTable.ContainsKey(author.InnerText))
-                    hashTable.Add(author.InnerText, new HashSet<string> { "author: " + author.InnerText + Environment.NewLine, comment.InnerText });
+                    hashTable.Add(author.InnerText, new HashSet<string> { "author: " + author.InnerText + Environment.NewLine, commentText });
                 else
-                    hashTable[author.InnerText].Add(comment.InnerText);
+                    hashTable[author.InnerText].Add(commentText);
             }
 
             return string.Join(Environment.NewLine, hashTable.Select(r=> string.Join("", r.Value)).OrderBy(r=> r));

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -49,8 +49,8 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/namingpeoplesettings/js/namingpeoplecontent.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/namingpeoplesettings/css/namingpeople.less"));
+            Page.RegisterBodyScripts("~/usercontrols/management/namingpeoplesettings/js/namingpeoplecontent.js");
+            Page.RegisterStyle("~/usercontrols/management/namingpeoplesettings/css/namingpeople.less");
 
             var schemas = new List<object>();
             var currentSchemaId = CustomNamingPeople.Current.Id;

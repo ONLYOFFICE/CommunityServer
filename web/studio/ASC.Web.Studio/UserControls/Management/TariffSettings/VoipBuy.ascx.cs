@@ -46,7 +46,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/Management/TariffSettings/js/voipbuy.js"));
+            Page.RegisterBodyScripts("~/usercontrols/Management/TariffSettings/js/voipbuy.js");
             VoipBuyContainer.Options.IsPopup = true;
 
             var voipQuotas = VoipPaymentSettings.Quotas;

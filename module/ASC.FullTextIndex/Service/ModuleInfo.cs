@@ -38,6 +38,7 @@ namespace ASC.FullTextIndex.Service
     public class ModuleInfo
     {
         private string select = "id";
+        private readonly List<ModuleAttr> additionalAttributes; 
         private readonly MatchSphinx match;
         private const int Limit = 10000;
 
@@ -58,11 +59,18 @@ namespace ASC.FullTextIndex.Service
                 if (!string.IsNullOrEmpty(sqlQuery))
                     return sqlQuery;
 
+                query.Select(select).From(Name);
+
+                foreach (var attribute in additionalAttributes)
+                {
+                    query.Where(attribute.ToString());
+                }
+
                 return query
-                    .Select(select)
-                    .Where("tenant_id=" + CoreContext.TenantManager.GetCurrentTenant().TenantId)
                     .Where(match.ToString())
-                    + " OPTION max_matches=" + Limit;
+                    .SetFirstResult(0)
+                    .SetMaxResults(Limit - 1)
+                       + " OPTION max_matches=" + Limit;
             }
             set { sqlQuery = value; }
         }
@@ -70,12 +78,17 @@ namespace ASC.FullTextIndex.Service
         public ModuleInfo(string name)
         {
             if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
-            Name = name;
-            query = new SqlQuery(Main)
-                .SetFirstResult(0)
-                .SetMaxResults(Limit - 1);
 
             match = new MatchSphinx();
+            query = new SqlQuery();
+            Name = name;
+            var tenant = CoreContext.TenantManager.GetCurrentTenant(false);
+            additionalAttributes = new List<ModuleAttr>();
+
+            if (tenant != null)
+            {
+                AddAttribute("tenant_id", tenant.TenantId);
+            }
         }
 
         public ModuleInfo Where(string exp)
@@ -90,10 +103,48 @@ namespace ASC.FullTextIndex.Service
             return this;
         }
 
+        public ModuleInfo OrderBy(string column, bool asc)
+        {
+            query.OrderBy(column, asc);
+            return this;
+        }
+
         public ModuleInfo Match(string text, params string[] columns)
         {
             match.Add(text, columns.ToList());
             return this;
+        }
+
+        public ModuleInfo AddAttribute(string title, string value)
+        {
+            additionalAttributes.Add(ModuleAttr.CreateAttr(title, value));
+            return this;
+        }
+
+        public ModuleInfo AddAttribute(string title, int[] values)
+        {
+            additionalAttributes.Add(ModuleAttr.CreateAttr(title, values));
+            return this;
+        }
+
+        public ModuleInfo AddAttribute(string title, int value)
+        {
+            additionalAttributes.Add(ModuleAttr.CreateAttr(title, value));
+            return this;
+        }
+
+        public string GetChunk(int chunk)
+        {
+            return string.Format("{0}_{1}", Name, chunk);
+        }
+
+        public string GetChunkByTenantId(int tenantId, int chunks, int dimension)
+        {
+            var index = tenantId / dimension;
+            if (index >= chunks)
+                index = chunks - 1;
+
+            return GetChunk(index + 1);
         }
 
         public override string ToString()
@@ -160,27 +211,58 @@ namespace ASC.FullTextIndex.Service
 
         private static string EscapeString(string text)
         {
-            var escapeList = new[] { "@", "(", ")", "|", "-", "!", "~", "$", "/", "^", "&", "=", "'", "\\" };
-            foreach (var escapeCharacter in escapeList)
+            var escapeListFrom = new[] { "\\", "(", ")", "|", "-", "!", "@", "~", "\"", "&", "//", "^", "$", "=", "'", "\x00", "\n", "\r", "\x1a" };
+            var escapeListTo = new[] { "\\\\", @"\\\(", @"\\\)", @"\\\|", @"\\\-", @"\\\!", @"\\\@", @"\\\~", "\\\"", @"\\\&", @"\\\/", @"\\\^", @"\\\$", @"\\\=", "\\'", "\\x00", "\\n", "\\r", "\\x1a" };
+            for (var i = 0; i < escapeListFrom.Length; i++ )
             {
-                text = text.Replace(escapeCharacter, "\\" + escapeCharacter);
+                text = text.Replace(escapeListFrom[i], escapeListTo[i]);
             }
 
             if(!(text.StartsWith("\"") && text.EndsWith("\"")))
             {
                 text = ExpandKeyword(text);
             }
-            else
-            {
-                text = text.Replace("\"", "\\\"");
-            }
 
-            return text.Replace('?', '*').ToLower();
+            return text.ToLower();
         }
 
         private static string ExpandKeyword(string text)
         {
-            return string.Format("( {0} | *{0}* | ={0} )", text);
+            return string.Format("( ({0}) | (*{0}*) | (={0}) )", text);
+        }
+    }
+
+    internal class ModuleAttr
+    {
+        private string Title { get; set; }
+        private string Value { get; set; }
+        private string Format { get; set; }
+
+        private ModuleAttr(string title, string value, string format)
+        {
+            Title = title;
+            Value = value;
+            Format = format;
+        }
+
+        public static ModuleAttr CreateAttr(string title, string value)
+        {
+            return new ModuleAttr(title, value, "{0}='{1}'");
+        }
+
+        public static ModuleAttr CreateAttr(string title, int value)
+        {
+            return new ModuleAttr(title, value.ToString(), "{0}={1}");
+        }
+
+        public static ModuleAttr CreateAttr(string title, int[] values)
+        {
+            return new ModuleAttr(title, string.Join(",", values.Select(r=> r.ToString())), "{0} in({1})");
+        }
+
+        public override string ToString()
+        {
+            return string.Format(Format, Title, Value);
         }
     }
 }

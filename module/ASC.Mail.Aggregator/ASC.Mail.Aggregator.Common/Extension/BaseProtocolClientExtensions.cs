@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -24,10 +24,9 @@
 */
 
 
-using System;
-using ASC.Mail.Aggregator.Common.Logging;
 using ActiveUp.Net.Common;
 using ActiveUp.Net.Mail;
+using ASC.Mail.Aggregator.Common.Logging;
 
 namespace ASC.Mail.Aggregator.Common.Extension
 {
@@ -42,9 +41,9 @@ namespace ASC.Mail.Aggregator.Common.Extension
             switch (settings.EncryptionType)
             {
                 case EncryptionType.SSL:
-                    var timeout = TimeSpan.FromMinutes(3); // 3 minutes
-                    log.Debug("SSL connecting to {0} (timeout = {1} minutes)", settings.Url, timeout.TotalMinutes);
-                    lastResponse = ingoingMailClient.ConnectSsl(settings.Url, settings.Port, (int)timeout.TotalMilliseconds);
+                    //var timeout = TimeSpan.FromMinutes(3); // 3 minutes
+                    log.Debug("SSL connecting to {0} ", settings.Url); // (timeout = {1} minutes)", settings.Url, timeout.TotalMinutes);
+                    lastResponse = ingoingMailClient.ConnectSsl(settings.Url, settings.Port); //, (int)timeout.TotalMilliseconds);
 
                     break;
                 default:

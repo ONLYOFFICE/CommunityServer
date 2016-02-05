@@ -18,7 +18,7 @@
         </div>
     </div>
     <div class="settings-help-block">
-        <p><%= MonitoringResource.LogsHelpText %></p>
+        <p><%= MonitoringResource.LogsHelpText.HtmlEncode() %></p>
     </div>
 </div>
 
@@ -28,11 +28,11 @@
         <p class="monitoring-describe">
              <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
                 { %>
-            <%= string.Format(MonitoringResource.ContactUsText, "<a href=\"" + CommonLinkUtility.GetHelpLink(true) + "faq/faq.aspx\" class=\"gray link underline\">", "</a>", "<a href=\"mailto:support@onlyoffice.com\")  class=\"gray link underline\">", "</a>") %>
+            <%= string.Format(MonitoringResource.ContactUsText.HtmlEncode(), "<a href=\"" + CommonLinkUtility.GetHelpLink(true) + "faq/faq.aspx\" class=\"gray link underline\">", "</a>", "<a href=\"mailto:support@onlyoffice.com\")  class=\"gray link underline\">", "</a>") %>
             <% }
                 else
                 { %>
-            <%= string.Format(MonitoringResource.ContactUsText2, "<a href=\"mailto:support@onlyoffice.com\") class=\"gray link underline\">", "</a>") %>
+            <%= string.Format(MonitoringResource.ContactUsText2.HtmlEncode(), "<a href=\"mailto:support@onlyoffice.com\") class=\"gray link underline\">", "</a>") %>
             <% } %>
         </p>
 

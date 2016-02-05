@@ -41,5 +41,8 @@ namespace ASC.Mail.Server.Administration.Interfaces
         IDnsSettings CreateDnsSettings(int id, int tenant, string user, string domainName, string dkimSelector, string dkimPrivateKey,
                                 string dkimPublicKey, string domainCheckName, string domainCheckRecord,
                                 string spfName, string spfRecord, string mxHost, int mxPriority, ILogger logger = null);
+        INotificationAddress CreateNotificationAddress(string localPart, IWebDomain domain, string smtpServer, int smtpPort,
+                                        string smtpAccount, bool smtpAuth, EncryptionType smptEncryptionType,
+                                        AuthenticationType smtpAuthenticationType);
     }
 }

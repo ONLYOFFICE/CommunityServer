@@ -63,11 +63,6 @@ namespace ASC.Web.CRM.Controls.Contacts
         protected List<ContactInfoType> ContactInfoTypes { get; set; }
         protected bool MobileVer = false;
 
-        protected bool IsCrunchBaseSearchEnabled
-        {
-            get { return !string.IsNullOrEmpty(KeyStorage.Get("crunchBaseKey")); }
-        }
-
         private const string ErrorCookieKey = "save_contact_error";
 
         #endregion

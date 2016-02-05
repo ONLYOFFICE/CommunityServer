@@ -25,9 +25,7 @@
 
 
 .greating-modules-block {
-	margin-top: 22px;
     text-align: center;
-    padding-bottom: 30px;
 
     .docs-default-page {
 	    display: inline-block;
@@ -38,7 +36,7 @@
 		.title {
 		    display: block;
 		    margin: 0 0 11px 0;
-		    padding:170px 0 0 15px;
+		    padding: 140px 0 0 15px;
 
 		    a {
 		    	font-size: 36px;
@@ -64,11 +62,10 @@
 
 	.default-list-products {
 	    display: inline-block;
-	    margin-bottom: 25px;
 
 	    .product {
 		    float: left;
-		    margin-right: 80px;
+		    margin-right: 68px;
 		    width: 100px;
 		
 			.image-link:hover + h2 a {
@@ -96,11 +93,14 @@
 			    margin: 5px 0;
 		    }
 		}
+        .product:last-child {
+            margin-right: 0;
+        }
 	}
 }
 
 @media all and (max-width: 1200px) {
     .greating-modules-block .docs-default-page {
-        margin: 15px 55px 10px;
+        margin: 0 55px;
     }
 }

@@ -28,16 +28,34 @@ using System;
 using System.IO;
 using System.Web;
 using System.Web.Configuration;
+using ASC.Files.Core;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Statistics;
+using CommandMethod = ASC.Web.Core.Files.DocumentService.CommandMethod;
 
 namespace ASC.Web.Files.Services.DocumentService
 {
     public static class DocumentServiceConnector
     {
+        private static Web.Core.Files.DocumentService GetDocumentService()
+        {
+            int timeout;
+            Int32.TryParse(WebConfigurationManager.AppSettings["files.docservice.timeout"], out timeout);
+
+            var documentService = new Web.Core.Files.DocumentService(
+                StudioKeySettings.GetKey(),
+                StudioKeySettings.GetSKey(),
+                TenantStatisticsProvider.GetUsersCount());
+            if (timeout > 0)
+            {
+                documentService.Timeout = timeout;
+            }
+            return documentService;
+        }
+
         public static string GenerateRevisionId(string expectedKey)
         {
             return Web.Core.Files.DocumentService.GenerateRevisionId(expectedKey);
@@ -60,7 +78,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 userIp = string.Empty;
             }
 
-            return docServiceConnector.GenerateValidateKey(documentRevisionId, userIp);
+            return docServiceConnector.GenerateValidateKey(GenerateRevisionId(documentRevisionId), userIp);
         }
 
         public static int GetConvertedUri(string documentUri,
@@ -70,25 +88,15 @@ namespace ASC.Web.Files.Services.DocumentService
                                           bool isAsync,
                                           out string convertedDocumentUri)
         {
-            int timeout;
-            Int32.TryParse(WebConfigurationManager.AppSettings["files.docservice.timeout"], out timeout);
-
-            var docServiceConnector = new Web.Core.Files.DocumentService(
-                StudioKeySettings.GetKey(),
-                StudioKeySettings.GetSKey(),
-                TenantStatisticsProvider.GetUsersCount());
-            if (timeout > 0)
-            {
-                docServiceConnector.Timeout = timeout;
-            }
+            Global.Logger.DebugFormat("DocService convert from {0} to {1} - {2}", fromExtension, toExtension, documentUri);
             try
             {
-                return docServiceConnector.GetConvertedUri(
+                return GetDocumentService().GetConvertedUri(
                     FilesLinkUtility.DocServiceConverterUrl,
                     documentUri,
                     fromExtension,
                     toExtension,
-                    documentRevisionId,
+                    GenerateRevisionId(documentRevisionId),
                     isAsync,
                     out convertedDocumentUri);
             }
@@ -100,24 +108,16 @@ namespace ASC.Web.Files.Services.DocumentService
 
         public static string GetExternalUri(Stream fileStream, string contentType, string documentRevisionId)
         {
-            int timeout;
-            Int32.TryParse(WebConfigurationManager.AppSettings["files.docservice.timeout"], out timeout);
-
-            var docServiceConnector = new Web.Core.Files.DocumentService(
-                StudioKeySettings.GetKey(),
-                StudioKeySettings.GetSKey(),
-                TenantStatisticsProvider.GetUsersCount());
-            if (timeout > 0)
-            {
-                docServiceConnector.Timeout = timeout;
-            }
             try
             {
-                return docServiceConnector.GetExternalUri(
+                documentRevisionId = GenerateRevisionId(documentRevisionId);
+                var response = GetDocumentService().GetExternalUri(
                     FilesLinkUtility.DocServiceStorageUrl,
                     fileStream,
                     contentType,
                     documentRevisionId);
+                Global.Logger.Info("DocService GetExternalUri for " + documentRevisionId + " response " + response);
+                return response;
             }
             catch (Exception ex)
             {
@@ -125,36 +125,79 @@ namespace ASC.Web.Files.Services.DocumentService
             }
         }
 
-        public static string CommandRequest(string method,
-                                            string documentRevisionId,
-                                            string callbackUrl,
-                                            string users,
-                                            string status)
+        public static bool Command(CommandMethod method, string docKeyForTrack, object fileId = null, string callbackUrl = null, string users = null, string status = null)
         {
-            int timeout;
-            Int32.TryParse(WebConfigurationManager.AppSettings["files.docservice.timeout"], out timeout);
-
-            var docServiceConnector = new Web.Core.Files.DocumentService(
-                StudioKeySettings.GetKey(),
-                StudioKeySettings.GetSKey(),
-                TenantStatisticsProvider.GetUsersCount());
-            if (timeout > 0)
-            {
-                docServiceConnector.Timeout = timeout;
-            }
+            Global.Logger.DebugFormat("DocService command {0} fileId '{1}' docKey '{2}' callbackUrl '{3}' users '{4}' status '{5}'", method, fileId, docKeyForTrack, callbackUrl, users, status);
             try
             {
-                return docServiceConnector.CommandRequest(
+                var result = GetDocumentService().CommandRequest(
                     FilesLinkUtility.DocServiceCommandUrl,
                     method,
-                    documentRevisionId,
+                    GenerateRevisionId(docKeyForTrack),
                     callbackUrl,
                     users,
                     status);
+
+                if (result == Web.Core.Files.DocumentService.CommandResultTypes.NoError)
+                {
+                    return true;
+                }
+
+                Global.Logger.ErrorFormat("DocService command response: '{0}'", result);
             }
             catch (Exception e)
             {
-                throw CustomizeError(e);
+                Global.Logger.Error("DocService command error", e);
+            }
+            return false;
+        }
+
+        public static bool CheckDocServiceUrl(string docServiceUrlCommand, string docServiceUrlStorage, string docServiceUrlConverter)
+        {
+            var documentService = GetDocumentService();
+
+            var key = GenerateRevisionId(Guid.NewGuid().ToString());
+            var fileUri = string.Empty;
+            const string toExtension = ".docx";
+            var fileExtension = FileUtility.GetInternalExtension(toExtension);
+            try
+            {
+                var path = FileConstant.NewDocPath + "default/new" + fileExtension;
+
+                var storeTemplate = Global.GetStoreTemplate();
+                using (var stream = storeTemplate.IronReadStream("", path, 10))
+                {
+                    fileUri = documentService.GetExternalUri(docServiceUrlStorage, stream, MimeMapping.GetMimeMapping(toExtension), key);
+                }
+            }
+            catch (Exception ex)
+            {
+                Global.Logger.Error("DocService check error", ex);
+                throw new Exception("Storage url: " + ex.Message);
+            }
+
+            try
+            {
+                string tmp;
+                documentService.GetConvertedUri(docServiceUrlConverter, fileUri, fileExtension, toExtension, key, false, out tmp);
+            }
+            catch (Exception ex)
+            {
+                Global.Logger.Error("DocService check error", ex);
+                throw new Exception("Converter url: " + ex.Message);
+            }
+
+            try
+            {
+                var response = documentService.CommandRequest(docServiceUrlCommand, CommandMethod.Test, key, null, null, null);
+
+                return response == Web.Core.Files.DocumentService.CommandResultTypes.NoError
+                       || response == Web.Core.Files.DocumentService.CommandResultTypes.CommandError;
+            }
+            catch (Exception ex)
+            {
+                Global.Logger.Error("DocService check error", ex);
+                throw new Exception("Command url: " + ex.Message);
             }
         }
 

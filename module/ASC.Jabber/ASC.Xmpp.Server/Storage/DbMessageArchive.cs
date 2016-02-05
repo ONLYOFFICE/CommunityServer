@@ -24,7 +24,6 @@
 */
 
 
-using ASC.Collections;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Xmpp.Core.protocol;
@@ -32,6 +31,7 @@ using ASC.Xmpp.Core.protocol.client;
 using ASC.Xmpp.Core.protocol.x;
 using ASC.Xmpp.Core.utils;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Data;
 
@@ -39,7 +39,7 @@ namespace ASC.Xmpp.Server.Storage
 {
     public class DbMessageArchive : DbStoreBase
     {
-        private IDictionary<string, bool> loggingCache = new SynchronizedDictionary<string, bool>();
+        private IDictionary<string, bool> loggingCache = new ConcurrentDictionary<string, bool>();
 
         protected override SqlCreate[] GetCreateSchemaScript()
         {

@@ -139,5 +139,29 @@ namespace ASC.Mail.Server.Dal
             return server;
         }
 
+        public List<TenantServerSettingsDto> GetTenantServerSettings()
+        {
+            var server = GetTenantServer();
+
+            var settings = new List<TenantServerSettingsDto>();
+
+            var query = new SqlQuery(MailboxServerTable.name)
+                .Select(MailboxServerTable.Columns.id, 
+                        MailboxServerTable.Columns.type,
+                        MailboxServerTable.Columns.hostname, 
+                        MailboxServerTable.Columns.port,
+                        MailboxServerTable.Columns.socket_type, 
+                        MailboxServerTable.Columns.username,
+                        MailboxServerTable.Columns.authentication)
+                .Where(Exp.In(MailboxServerTable.Columns.id, new[] {server.imap_settings_id, server.smtp_settings_id}));
+
+            using (var db = GetDb())
+            {
+                settings = db.ExecuteList(query).ConvertAll(r => r.ToTenantServerSettingsDto()).ToList();
+            }
+
+            return settings;
+        }
+
     }
 }

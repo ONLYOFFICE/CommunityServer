@@ -24,6 +24,22 @@
 */
 
 
+using ASC.Common.Caching;
+using ASC.Common.Threading.Workers;
+using ASC.Common.Web;
+using ASC.Core;
+using ASC.Core.Users;
+using ASC.Projects.Core.Domain;
+using ASC.Projects.Core.Services.NotifyService;
+using ASC.Projects.Engine;
+using ASC.Web.Core.Users;
+using ASC.Web.Projects.Classes;
+using ASC.Web.Projects.Resources;
+using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Core.Users;
+using ASC.Web.Studio.Utility;
+using BasecampRestAPI;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -32,58 +48,38 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Runtime.Serialization;
+using System.Security.Principal;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
-using ASC.Common.Threading.Workers;
-using ASC.Core;
-using ASC.Core.Users;
-using ASC.Projects.Core.Domain;
-using ASC.Projects.Core.Services.NotifyService;
-using ASC.Projects.Engine;
-using ASC.Web.Projects.Classes;
-using ASC.Web.Projects.Resources;
-using ASC.Web.Studio.Core.Users;
-using ASC.Web.Studio.Utility;
-using BasecampRestAPI;
-using log4net;
 using Comment = ASC.Projects.Core.Domain.Comment;
 using Project = ASC.Projects.Core.Domain.Project;
-using System.Security.Principal;
-using ASC.Web.Studio.Core;
-using ASC.Common.Web;
-using ASC.Web.Core.Users;
+
 
 namespace ASC.Web.Projects.Configuration
 {
     public class ImportQueue
     {
-        private static readonly WorkerQueue<ImportFromBasecamp> Imports = new WorkerQueue<ImportFromBasecamp>(4, TimeSpan.FromMinutes(30), 1, true);
-
-        private static readonly List<ImportFromBasecamp> Completed = new List<ImportFromBasecamp>();
+        private static readonly WorkerQueue<ImportFromBasecamp> imports = new WorkerQueue<ImportFromBasecamp>(4, TimeSpan.FromMinutes(30), 1, true);
 
         static ImportQueue()
         {
-            Imports.Start(DoImport);
+            imports.Start(DoImport);
         }
 
         public static int Add(string url, string userName, string password, bool processClosed, bool disableNotifications, bool importUsersAsCollaborators, IEnumerable<int> projects)
         {
-            if (Imports.GetItems().Count(x => x.Id == TenantProvider.CurrentTenantID) > 0)
+            var status = GetStatus();
+            if (imports.GetItems().Count(x => x.Id == TenantProvider.CurrentTenantID) > 0 || (status.Started && !status.Completed))
             {
                 throw new DuplicateNameException("Import already running");
-            }
-
-            lock (Completed)
-            {
-                Completed.RemoveAll(x => x.Id == TenantProvider.CurrentTenantID);
             }
 
             SecurityContext.DemandPermissions(Constants.Action_AddRemoveUser);
 
             var importTask = new ImportFromBasecamp(url, userName, password, SecurityContext.CurrentAccount.ID, processClosed, disableNotifications, importUsersAsCollaborators, Global.EngineFactory, projects);
 
-            Imports.Add(importTask);
+            imports.Add(importTask);
 
             return importTask.Id;
         }
@@ -91,8 +87,7 @@ namespace ASC.Web.Projects.Configuration
         public static IEnumerable<Project> GetProjects(string url, string userName, string password)
         {
             var basecampManager = BaseCamp.GetInstance(ImportFromBasecamp.PrepUrl(url).ToString().TrimEnd('/') + "/api/v1", userName, password);
-
-            return basecampManager.Projects.Select(r => new Project {ID = r.ID, Title = r.Name, Status = r.IsClosed ? ProjectStatus.Closed : ProjectStatus.Open});
+            return basecampManager.Projects.Select(r => new Project {ID = r.ID, Title = r.Name, Status = r.IsClosed ? ProjectStatus.Closed : ProjectStatus.Open}).ToList();
         }
 
         public static int CheckUsersQuota(string url, string userName, string password)
@@ -109,45 +104,24 @@ namespace ASC.Web.Projects.Configuration
 
         public static ImportStatus GetStatus()
         {
-            var importd = Imports.GetItems().SingleOrDefault(x => x.Id == TenantProvider.CurrentTenantID);
-            if (importd == null)
-            {
-                lock (Completed)
-                {
-                    //Maybe it's completed already
-                    importd = Completed.FirstOrDefault(x => x.Id == TenantProvider.CurrentTenantID);
-                    Completed.RemoveAll(x => x.Id == TenantProvider.CurrentTenantID);
-                }
-            }
-            if (importd != null)
-            {
-                return importd.Status;
-            }
-            return new ImportStatus();
+            return StatusState.GetStatus();
         }
 
         private static void DoImport(ImportFromBasecamp obj)
         {
             try
             {
-                obj.Status.Started = true;
                 obj.StartImport();
-                obj.Status.Completed = true;
+
                 NotifyClient.Instance.SendAboutImportComplite(obj.InitiatorId);
             }
             catch(Exception e)
             {
-                obj.Status.LogError(ImportResource.ImportFailed, e);
-                obj.Status.Error = e;
-                obj.LogError("generic error", e);
+                obj.ImportError(e);
             }
             finally
             {
-                obj.Status.CompletedAt = DateTime.Now;
-                lock (Completed)
-                {
-                    Completed.Add(obj);
-                }
+                obj.ImportComplete();
             }
         }
     }
@@ -165,9 +139,9 @@ namespace ASC.Web.Projects.Configuration
         public DateTime Time { get; set; }
 
         [DataMember]
-        public Exception Ex { get; set; }
+        public string Ex { get; set; }
 
-        public ImportStatusLogEntry(Exception e)
+        public ImportStatusLogEntry(string e)
         {
             Time = DateTime.UtcNow;
             Ex = e;
@@ -214,6 +188,7 @@ namespace ASC.Web.Projects.Configuration
             get { return FileProgress == 100 && ProjectProgress == 100 && UserProgress == 100 && Error == null; }
             set
             {
+                if (!value) return;
                 FileProgress = 100;
                 UserProgress = 100;
                 ProjectProgress = 100;
@@ -242,12 +217,7 @@ namespace ASC.Web.Projects.Configuration
 
         public void LogError(string message, Exception e)
         {
-            Log.Add(new ImportStatusLogEntry(e) {Message = HttpUtility.HtmlEncode(message), Type = "error"});
-        }
-
-        public void LogWarn(string message)
-        {
-            Log.Add(new ImportStatusLogEntry(null) {Message = HttpUtility.HtmlEncode(message), Type = "warn"});
+            Log.Add(new ImportStatusLogEntry(e.ToString()) {Message = HttpUtility.HtmlEncode(message), Type = "error"});
         }
     }
 
@@ -271,7 +241,7 @@ namespace ASC.Web.Projects.Configuration
         private bool _importUsersOverLimitAsCollaborators;
         private readonly EngineFactory _engineFactory;
         public readonly int Id;
-        public ImportStatus Status { get; set; }
+
         private readonly ILog _log;
         private readonly IPrincipal _principal;
         private readonly IEnumerable<int> _projects;
@@ -309,7 +279,7 @@ namespace ASC.Web.Projects.Configuration
             _importUsersAsCollaborators = importUsersAsCollaborators;
             _engineFactory = engineFactory;
             _engineFactory.DisableNotifications = disableNotifications;
-            Status = new ImportStatus(_url);
+            StatusState.SetStatus(new ImportStatus(_url));
             Id = TenantProvider.CurrentTenantID;
             _log = LogManager.GetLogger("ASC.Project.BasecampImport");
             _principal = Thread.CurrentPrincipal;
@@ -356,7 +326,8 @@ namespace ASC.Web.Projects.Configuration
                     new HttpRequest("fake", CommonLinkUtility.GetFullAbsolutePath("/"), string.Empty),
                     new HttpResponse(new StringWriter()));
 
-                Status.LogInfo(ImportResource.ImportStarted);
+                StatusState.SetStatusStarted();
+                StatusState.StatusLogInfo(ImportResource.ImportStarted);
                 var basecampManager = BaseCamp.GetInstance(_url, _userName, _password);
 
                 LogStatus("import users");
@@ -365,7 +336,10 @@ namespace ASC.Web.Projects.Configuration
                 LogStatus("import projects");
 
                 SaveProjects(basecampManager);
-                Status.LogInfo(ImportResource.ImportCompleted);
+
+                StatusState.SetStatusCompleted();
+
+                StatusState.StatusLogInfo(ImportResource.ImportCompleted);
             }
             finally
             {
@@ -375,6 +349,18 @@ namespace ASC.Web.Projects.Configuration
                     HttpContext.Current = null;
                 }
             }
+        }
+
+        public void ImportError(Exception e)
+        {
+            StatusState.StatusLogError(ImportResource.ImportFailed, e);
+            StatusState.StatusError(e);
+            LogError("generic error", e);
+        }
+
+        public void ImportComplete()
+        {
+            StatusState.StatusCompletedAt(DateTime.Now);
         }
 
         #region Save Functions
@@ -392,7 +378,7 @@ namespace ASC.Web.Projects.Configuration
                         _importUsersOverLimitAsCollaborators = true;
                     }
 
-                    Status.UserProgress += step;
+                    StatusState.StatusUserProgress(step);
                     var userID = FindUserByEmail(person.EmailAddress);
 
                     if (userID.Equals(Guid.Empty))
@@ -426,7 +412,7 @@ namespace ASC.Web.Projects.Configuration
                 }
                 catch(Exception e)
                 {
-                    Status.LogError(string.Format(ImportResource.FailedToSaveUser, person.EmailAddress), e);
+                    StatusState.StatusLogError(string.Format(ImportResource.FailedToSaveUser, person.EmailAddress), e);
                     LogError(string.Format("user '{0}' failed", person.EmailAddress), e);
                     _newUsersID.RemoveAll(x => x.InBasecamp == person.ID);
                 }
@@ -437,8 +423,8 @@ namespace ASC.Web.Projects.Configuration
         {
             var projects = basecampManager.Projects;
             var step = 50.0 / projects.Count();
-            var projectEngine = _engineFactory.GetProjectEngine();
-            var participantEngine = _engineFactory.GetParticipantEngine();
+            var projectEngine = _engineFactory.ProjectEngine;
+            var participantEngine = _engineFactory.ParticipantEngine;
 
             if (_projects.Any())
             {
@@ -449,8 +435,8 @@ namespace ASC.Web.Projects.Configuration
             {
                 try
                 {
-                    Status.LogInfo(string.Format(ImportResource.ImportProjectStarted, project.Name));
-                    Status.ProjectProgress += step;
+                    StatusState.StatusLogInfo(string.Format(ImportResource.ImportProjectStarted, project.Name));
+                    StatusState.StatusProjectProgress(step);
                     var newProject = new Project
                         {
                             Status = !project.IsClosed ? ProjectStatus.Open : ProjectStatus.Closed,
@@ -461,7 +447,7 @@ namespace ASC.Web.Projects.Configuration
                         };
 
                     projectEngine.SaveOrUpdate(newProject, true);
-                    Participant prt = participantEngine.GetByID(newProject.Responsible);
+                    var prt = participantEngine.GetByID(newProject.Responsible);
                     projectEngine.AddToTeam(newProject, prt, true);
 
                     foreach (var wrapper in
@@ -480,7 +466,7 @@ namespace ASC.Web.Projects.Configuration
                 }
                 catch(Exception e)
                 {
-                    Status.LogError(string.Format(ImportResource.FailedToSaveProject, project.Name), e);
+                    StatusState.StatusLogError(string.Format(ImportResource.FailedToSaveProject, project.Name), e);
                     LogError(string.Format("project '{0}' failed", project.Name), e);
                     _newProjectsID.RemoveAll(x => x.InBasecamp == project.ID);
                 }
@@ -491,9 +477,9 @@ namespace ASC.Web.Projects.Configuration
             step = 50.0 / projectsToProcess.Count;
             foreach (var project in projectsToProcess)
             {
-                Status.LogInfo(string.Format(ImportResource.ImportProjectDataStarted, project.Name));
+                StatusState.StatusLogInfo(string.Format(ImportResource.ImportProjectDataStarted, project.Name));
 
-                Status.ProjectProgress += step;
+                StatusState.StatusProjectProgress(step);
 
                 var messages = project.RecentMessages;
                 foreach (var message in messages)
@@ -513,14 +499,14 @@ namespace ASC.Web.Projects.Configuration
 
         private void SaveMessages(IPost message, int projectID)
         {
-            var projectEngine = _engineFactory.GetProjectEngine();
-            var messageEngine = _engineFactory.GetMessageEngine();
+            var projectEngine = _engineFactory.ProjectEngine;
+            var messageEngine = _engineFactory.MessageEngine;
             try
             {
                 var newMessage = new Message
                     {
                         Title = ReplaceLineSeparator(message.Title),
-                        Content = message.Body,
+                        Description = message.Body,
                         Project = projectEngine.GetByID(FindProject(projectID)),
                         CreateOn = message.PostedOn.ToUniversalTime(),
                         CreateBy = FindUser(message.AuthorID)
@@ -532,7 +518,7 @@ namespace ASC.Web.Projects.Configuration
             }
             catch(Exception e)
             {
-                Status.LogError(string.Format(ImportResource.FailedToSaveMessage, message.Title), e);
+                StatusState.StatusLogError(string.Format(ImportResource.FailedToSaveMessage, message.Title), e);
                 LogError(string.Format("message '{0}' failed", message.Title), e);
                 _newMessagesID.RemoveAll(x => x.InBasecamp == message.ID);
             }
@@ -540,8 +526,8 @@ namespace ASC.Web.Projects.Configuration
 
         private void SaveTasks(IToDoList todoList, int projectID)
         {
-            var projectEngine = _engineFactory.GetProjectEngine();
-            var taskEngine = _engineFactory.GetTaskEngine();
+            var projectEngine = _engineFactory.ProjectEngine;
+            var taskEngine = _engineFactory.TaskEngine;
             foreach (var task in todoList.Items.Where(x => _withClosed || !x.Completed))
             {
                 try
@@ -580,7 +566,7 @@ namespace ASC.Web.Projects.Configuration
                 }
                 catch(Exception e)
                 {
-                    Status.LogError(string.Format(ImportResource.FailedToSaveTask, task.Content), e);
+                    StatusState.StatusLogError(string.Format(ImportResource.FailedToSaveTask, task.Content), e);
                     LogError(string.Format("task '{0}' failed", task.Content), e);
                     _newTasksID.RemoveAll(x => x.InBasecamp == task.ID);
                 }
@@ -589,7 +575,7 @@ namespace ASC.Web.Projects.Configuration
 
         private void SaveMessageComments(IEnumerable<IComment> comments, int messageid)
         {
-            var commentEngine = _engineFactory.GetCommentEngine();
+            var commentEngine = _engineFactory.CommentEngine;
             foreach (var comment in comments)
             {
                 try
@@ -605,7 +591,7 @@ namespace ASC.Web.Projects.Configuration
                 }
                 catch(Exception e)
                 {
-                    Status.LogError(string.Format(ImportResource.FailedToSaveComment, comment.ID), e);
+                    StatusState.StatusLogError(string.Format(ImportResource.FailedToSaveComment, comment.ID), e);
                     LogError(string.Format("comment '{0}' failed", comment.ID), e);
                 }
             }
@@ -613,7 +599,7 @@ namespace ASC.Web.Projects.Configuration
 
         private void SaveTaskComments(IEnumerable<IComment> comments, int taskid)
         {
-            var commentEngine = _engineFactory.GetCommentEngine();
+            var commentEngine = _engineFactory.CommentEngine;
             foreach (var comment in comments)
             {
                 try
@@ -629,7 +615,7 @@ namespace ASC.Web.Projects.Configuration
                 }
                 catch(Exception e)
                 {
-                    Status.LogError(string.Format(ImportResource.FailedToSaveComment, comment.ID), e);
+                    StatusState.StatusLogError(string.Format(ImportResource.FailedToSaveComment, comment.ID), e);
                     LogError(string.Format("comment '{0}' failed", comment.ID), e);
                 }
             }
@@ -639,12 +625,13 @@ namespace ASC.Web.Projects.Configuration
         {
             var step = 100.0 / attachments.Count();
 
-            Status.LogInfo(string.Format(ImportResource.ImportFileStarted, attachments.Count()));
+            StatusState.StatusLogInfo(string.Format(ImportResource.ImportFileStarted, attachments.Count()));
 
             //select last version
             foreach (var attachment in attachments)
             {
-                Status.FileProgress += step;
+                StatusState.StatusFileProgress(step);
+
                 try
                 {
                     var httpWReq = basecampManeger.Service.GetRequest(attachment.DownloadUrl);
@@ -652,28 +639,29 @@ namespace ASC.Web.Projects.Configuration
                     {
                         if (attachment.ByteSize > SetupInfo.MaxUploadSize)
                         {
-                            Status.LogError(string.Format(ImportResource.FailedSaveFileMaxSizeExided, attachment.Name), new Exception());
+                            StatusState.StatusLogError(string.Format(ImportResource.FailedSaveFileMaxSizeExided, attachment.Name), new Exception());
                             continue;
                         }
 
                         var file = new ASC.Files.Core.File
                             {
-                                FolderID = FileEngine2.GetRoot(FindProject(projectID)),
+                                FolderID =_engineFactory.FileEngine.GetRoot(FindProject(projectID)),
                                 Title = attachment.Name,
                                 ContentLength = attachment.ByteSize,
                                 CreateBy = FindUser(attachment.AuthorID),
-                                CreateOn = attachment.CreatedOn.ToUniversalTime()
+                                CreateOn = attachment.CreatedOn.ToUniversalTime(),
+                                Comment = ImportResource.CommentImport,
                             };
                         if (file.Title.LastIndexOf('\\') != -1) file.Title = file.Title.Substring(file.Title.LastIndexOf('\\') + 1);
 
-                        file = FileEngine2.SaveFile(file, httpWResp.GetResponseStream());
+                        file = _engineFactory.FileEngine.SaveFile(file, httpWResp.GetResponseStream());
 
                         if ("Message".Equals(attachment.OwnerType, StringComparison.OrdinalIgnoreCase))
                         {
                             try
                             {
                                 var messageId = FindMessage(attachment.OwnerID);
-                                FileEngine2.AttachFileToMessage(new Message {ID = messageId}, file.ID); //It's not critical 
+                                _engineFactory.MessageEngine.AttachFile(new Message {ID = messageId}, file.ID, false); //It's not critical 
                             }
                             catch(Exception e)
                             {
@@ -686,7 +674,7 @@ namespace ASC.Web.Projects.Configuration
                             try
                             {
                                 var taskId = FindTask(attachment.OwnerID);
-                                FileEngine2.AttachFileToTask(new Task {ID = taskId}, file.ID); //It's not critical 
+                                _engineFactory.TaskEngine.AttachFile(new Task {ID = taskId}, file.ID, false); //It's not critical 
                             }
                             catch(Exception e)
                             {
@@ -705,7 +693,7 @@ namespace ASC.Web.Projects.Configuration
                 {
                     try
                     {
-                        Status.LogError(string.Format(ImportResource.FailedToSaveFile, attachment.Name), e);
+                        StatusState.StatusLogError(string.Format(ImportResource.FailedToSaveFile, attachment.Name), e);
                         LogError(string.Format("file '{0}' failed", attachment.Name), e);
                         _newFilesID.RemoveAll(x => x.InBasecamp == attachment.ID);
                     }
@@ -846,6 +834,91 @@ namespace ASC.Web.Projects.Configuration
         public override int GetHashCode()
         {
             return Id;
+        }
+    }
+
+    static class StatusState
+    {
+        private static readonly ICache cache = AscCache.Default;
+
+        internal static ImportStatus GetStatus()
+        {
+            return cache.Get<ImportStatus>(GetStateCacheKey()) ?? new ImportStatus();
+        }
+
+        internal static void SetStatus(ImportStatus status)
+        {
+            cache.Insert(GetStateCacheKey(), status, TimeSpan.FromMinutes(10));
+        }
+
+        private static string GetStateCacheKey()
+        {
+            return string.Format("{0}:project:queue:importbasecamp", TenantProvider.CurrentTenantID);
+        }
+
+
+        internal static void SetStatusStarted()
+        {
+            var status = GetStatus();
+            status.Started = true;
+            status.Completed = false;
+            SetStatus(status);
+        }
+
+        internal static void SetStatusCompleted()
+        {
+            var status = GetStatus();
+            status.Completed = true;
+            SetStatus(status);
+        }
+
+        internal static void StatusLogInfo(string infoText)
+        {
+            var status = GetStatus();
+            status.LogInfo(infoText);
+            SetStatus(status);
+        }
+
+        internal static void StatusLogError(string errorText, Exception e)
+        {
+            var status = GetStatus();
+            status.LogError(errorText, e);
+            SetStatus(status);
+        }
+
+        internal static void StatusError(Exception e)
+        {
+            var status = GetStatus();
+            status.Error = e;
+            SetStatus(status);
+        }
+
+        internal static void StatusCompletedAt(DateTime dateTime)
+        {
+            var status = GetStatus();
+            status.CompletedAt = dateTime;
+            SetStatus(status);
+        }
+
+        internal static void StatusUserProgress(double step)
+        {
+            var status = GetStatus();
+            status.UserProgress += step;
+            SetStatus(status);
+        }
+
+        internal static void StatusProjectProgress(double step)
+        {
+            var status = GetStatus();
+            status.ProjectProgress += step;
+            SetStatus(status);
+        }
+
+        internal static void StatusFileProgress(double step)
+        {
+            var status = GetStatus();
+            status.FileProgress += step;
+            SetStatus(status);
         }
     }
 }

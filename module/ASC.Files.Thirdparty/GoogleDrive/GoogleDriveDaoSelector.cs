@@ -136,7 +136,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public void RenameProvider(GoogleDriveProviderInfo googleDriveProviderInfo, string newTitle)
         {
-            using (var dbDao = new ProviderAccountDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, FileConstant.DatabaseId))
+            using (var dbDao = new CachedProviderAccountDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, FileConstant.DatabaseId))
             {
                 dbDao.UpdateProviderInfo(googleDriveProviderInfo.ID, newTitle, googleDriveProviderInfo.RootFolderType);
                 googleDriveProviderInfo.UpdateTitle(newTitle); //This will update cached version too

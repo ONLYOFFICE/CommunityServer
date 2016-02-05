@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -25,12 +25,22 @@
 
 
 using System;
+using ASC.Mail.Aggregator.Common.Logging.LayoutRenderers;
+using log4net.Config;
+using NLog;
 using NLog.Config;
 
 namespace ASC.Mail.Aggregator.Common.Logging
 {
     public class LoggerFactory
     {
+        static LoggerFactory()
+        {
+            ConfigurationItemFactory.Default.LayoutRenderers.RegisterDefinition("syslogdir", typeof(SystemLogFolderLayoutRenderer));
+            ConfigurationItemFactory.Default.LayoutRenderers.RegisterDefinition("parentdir", typeof(ParentFolderLayoutRenderer));
+            XmlConfigurator.Configure();
+        }
+
         public enum LoggerType { Nlog, Log4Net, Null }
         
         public static ILogger GetLogger(LoggerType type, string name)
@@ -38,17 +48,13 @@ namespace ASC.Mail.Aggregator.Common.Logging
             switch (type)
             {
                 case LoggerType.Nlog:
-                    {
-                        ConfigurationItemFactory.Default.LayoutRenderers.RegisterDefinition("syslogdir", typeof(LayoutRenderers.SystemLogFolderLayoutRenderer));
-                        ConfigurationItemFactory.Default.LayoutRenderers.RegisterDefinition("parentdir", typeof(LayoutRenderers.ParentFolderLayoutRenderer));
-                        return new NlogLogger(NLog.LogManager.GetLogger(name));
-                    }
+                    return new NlogLogger(LogManager.GetLogger(name));
                 case LoggerType.Log4Net:
                     return new Log4NetLogger(log4net.LogManager.GetLogger(name));
                 case LoggerType.Null:
                     return new NullLogger();
                 default:
-                    throw new ArgumentException("Unknown logger type: " + type);
+                    throw new ArgumentException(string.Format("Unknown logger type: {0}", type));
             }
         }
     }

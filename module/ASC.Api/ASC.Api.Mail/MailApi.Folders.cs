@@ -27,9 +27,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using ASC.Api.Attributes;
-using ASC.Mail.Aggregator;
+using ASC.Api.Mail.DataContracts;
+using ASC.Api.Mail.Extensions;
 using ASC.Mail.Aggregator.Common;
-using ASC.Specific;
 
 namespace ASC.Api.Mail
 {
@@ -38,42 +38,19 @@ namespace ASC.Api.Mail
         /// <summary>
         ///    Returns the list of all folders
         /// </summary>
-        /// <param name="last_check_time" optional="true"> Filter folders for last_check_time. Get folders with greater date time.</param>
         /// <returns>Folders list</returns>
         /// <short>Get folders</short> 
         /// <category>Folders</category>
         [Read(@"folders")]
-        public IEnumerable<MailBoxManager.MailFolderInfo> GetFolders(ApiDateTime last_check_time)
+        public IEnumerable<MailFolderData> GetFolders()
         {
             if (!IsSignalRAvailable)
                 MailBoxManager.UpdateUserActivity(TenantId, Username);
 
-            if (null != last_check_time)
-            {
-                var apiDate = new ApiDateTime(MailBoxManager.GetMessagesModifyDate(TenantId, Username));
-
-                var compareRez = apiDate.CompareTo(last_check_time);
-
-                if (compareRez < 1 && System.DateTime.MinValue != apiDate) // if api_date == DateTime.MinValue then there are no folders in mail_folder
-                {
-                    return null;
-                }
-            }
-
-            return FoldersList;
-        }
-
-        /// <summary>
-        ///    Returns change date of folderid.
-        /// </summary>
-        /// <param name="folderid">Selected folder id.</param>
-        /// <returns>Last modify folder DateTime</returns>
-        /// <short>Get folder change date</short> 
-        /// <category>Folders</category>
-        [Read(@"folders/{folderid:[0-9]+}/modify_date")]
-        public ApiDateTime GetFolderModifyDate(int folderid)
-        {
-            return new ApiDateTime(MailBoxManager.GetFolderModifyDate(TenantId, Username, folderid));
+            return MailBoxManager.GetFolders(TenantId, Username, true)
+                                 .Where(f => f.id != MailFolder.Ids.temp)
+                                 .ToList()
+                                 .ToFolderData();
         }
 
         /// <summary>
@@ -93,9 +70,5 @@ namespace ASC.Api.Mail
             return folderid;
         }
 
-        private IEnumerable<MailBoxManager.MailFolderInfo> FoldersList
-        {
-            get { return MailBoxManager.GetFoldersList(TenantId, Username, true).Where(f => f.id != MailFolder.Ids.temp); }
-        }
     }
 }

@@ -37,6 +37,8 @@ using ASC.Data.Storage.S3;
 using ASC.FullTextIndex;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
+using ASC.Web.Files.Resources;
+using ASC.Web.Files.Services.DocumentService;
 using ASC.Web.Studio.Core;
 using FileShare = System.IO.FileShare;
 
@@ -127,6 +129,112 @@ namespace ASC.Files.Core.Data
             {
                 return dbManager
                     .ExecuteList(GetFileQuery(Exp.In("id", fileIds) & Exp.Eq("current_version", true)))
+                    .ConvertAll(ToFile);
+            }
+        }
+
+        public List<object> GetFiles(object parentId, bool withSubfolders)
+        {
+            using (var dbManager = GetDb())
+            {
+                return dbManager.ExecuteList(
+                    Query("files_file")
+                        .Select("id")
+                        .Where(Exp.Eq("folder_id", parentId) & Exp.Eq("current_version", true)))
+                                .ConvertAll(r => r[0]);
+            }
+        }
+
+        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        {
+            var q = GetFileQuery(Exp.Eq("current_version", true) & Exp.In("folder_id", parentIds));
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                if (searchSubfolders)
+                {
+                    q = GetFileQuery(Exp.Eq("current_version", true) & Exp.In("fft.parent_id", parentIds))
+                        .InnerJoin("files_folder_tree fft", Exp.EqColumns("fft.folder_id", "f.folder_id"));
+                }
+
+                q.Where(Exp.Like("lower(title)", searchText.ToLower().Trim()));
+            }
+
+            using (var dbManager = GetDb())
+            {
+                return dbManager
+                    .ExecuteList(q)
+                    .ConvertAll(ToFile);
+            }
+        }
+
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filter, Guid subjectId, string searchText, bool searchSubfolders = false)
+        {
+            if (filter == FilterType.FoldersOnly) return new List<File>();
+
+            if (orderBy == null) orderBy = new OrderBy(SortedByType.DateAndTime, false);
+
+            var q = GetFileQuery(Exp.Eq("current_version", true) & Exp.Eq("folder_id", parentId));
+
+            if (!string.IsNullOrEmpty(searchText))
+            {
+                if (searchSubfolders)
+                {
+                    q = GetFileQuery(Exp.Eq("current_version", true) & Exp.Eq("fft.parent_id", parentId))
+                        .InnerJoin("files_folder_tree fft", Exp.EqColumns("fft.folder_id", "f.folder_id"));
+                }
+
+                q.Where(Exp.Like("lower(title)", searchText.ToLower().Trim()));
+            }
+
+            switch (orderBy.SortedBy)
+            {
+                case SortedByType.Author:
+                    q.OrderBy("create_by", orderBy.IsAsc);
+                    break;
+                case SortedByType.Size:
+                    q.OrderBy("content_length", orderBy.IsAsc);
+                    break;
+                case SortedByType.AZ:
+                    q.OrderBy("title", orderBy.IsAsc);
+                    break;
+                case SortedByType.DateAndTime:
+                    q.OrderBy("create_on", orderBy.IsAsc);
+                    break;
+                default:
+                    q.OrderBy("title", true);
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(searchText))
+                q.Where(Exp.Like("lower(title)", searchText.ToLower().Trim()));
+
+            switch (filter)
+            {
+                case FilterType.DocumentsOnly:
+                case FilterType.ImagesOnly:
+                case FilterType.PresentationsOnly:
+                case FilterType.SpreadsheetsOnly:
+                case FilterType.ArchiveOnly:
+                    q.Where("category", (int)filter);
+                    break;
+                case FilterType.ByUser:
+                    q.Where("create_by", subjectId.ToString());
+                    break;
+                case FilterType.ByDepartment:
+                    var users = CoreContext.UserManager.GetUsersByGroup(subjectId).Select(u => u.ID.ToString()).ToArray();
+                    q.Where(Exp.In("create_by", users));
+                    break;
+                case FilterType.ByExtension:
+                    if (!string.IsNullOrEmpty(searchText))
+                        q.Where(Exp.Like("lower(title)", searchText.ToLower().Trim(), SqlLike.EndWith));
+                    break;
+            }
+
+            using (var dbManager = GetDb())
+            {
+                return dbManager
+                    .ExecuteList(q)
                     .ConvertAll(ToFile);
             }
         }
@@ -296,9 +404,9 @@ namespace ASC.Files.Core.Data
                         .ConvertAll(r => r[0]);
 
                     db.ExecuteNonQuery(Delete("files_file").Where("id", fileId));
-                    db.ExecuteNonQuery(Delete("files_tag_link").Where("entry_id", fileId).Where("entry_type", FileEntryType.File));
+                    db.ExecuteNonQuery(Delete("files_tag_link").Where("entry_id", fileId).Where("entry_type", (int)FileEntryType.File));
                     db.ExecuteNonQuery(Delete("files_tag").Where(Exp.EqColumns("0", Query("files_tag_link l").SelectCount().Where(Exp.EqColumns("tag_id", "id")))));
-                    db.ExecuteNonQuery(Delete("files_security").Where("entry_id", fileId).Where("entry_type", FileEntryType.File));
+                    db.ExecuteNonQuery(Delete("files_security").Where("entry_id", fileId).Where("entry_type", (int)FileEntryType.File));
 
                     tx.Commit();
 
@@ -364,9 +472,8 @@ namespace ASC.Files.Core.Data
                         FileStatus = file.FileStatus,
                         FolderID = toFolderId,
                         Title = file.Title,
-                        Version = file.Version,
-                        VersionGroup = file.VersionGroup,
                         ConvertedType = file.ConvertedType,
+                        Comment = FilesCommonResource.CommentCopy,
                     };
 
                 using (var stream = GetFileStream(file))
@@ -378,7 +485,7 @@ namespace ASC.Files.Core.Data
             return null;
         }
 
-        public object FileRename(object fileId, String newTitle)
+        public object FileRename(File file, string newTitle)
         {
             newTitle = Global.ReplaceInvalidCharsAndTruncate(newTitle);
             using (var dbManager = GetDb())
@@ -388,10 +495,10 @@ namespace ASC.Files.Core.Data
                         .Set("title", newTitle)
                         .Set("modified_on", DateTime.UtcNow)
                         .Set("modified_by", SecurityContext.CurrentAccount.ID.ToString())
-                        .Where("id", fileId)
+                        .Where("id", file.ID)
                         .Where("current_version", true));
             }
-            return fileId;
+            return file.ID;
         }
 
         public string UpdateComment(object fileId, int fileVersion, string comment)
@@ -603,11 +710,18 @@ namespace ASC.Files.Core.Data
                 var file = GetFile(uploadSession.File.ID);
                 file.Version++;
                 file.ContentLength = uploadSession.BytesTotal;
-                file.Comment = string.Empty;
+                file.ConvertedType = null;
+                file.Comment = FilesCommonResource.CommentUpload;
                 return file;
             }
 
-            return new File { FolderID = uploadSession.File.FolderID, Title = uploadSession.File.Title, ContentLength = uploadSession.BytesTotal };
+            return new File
+                {
+                    FolderID = uploadSession.File.FolderID,
+                    Title = uploadSession.File.Title,
+                    ContentLength = uploadSession.BytesTotal,
+                    Comment = FilesCommonResource.CommentUpload,
+                };
         }
 
         #endregion
@@ -703,6 +817,7 @@ namespace ASC.Files.Core.Data
                     .Select("modified_on")
                     .Select("modified_by")
                     .Select("changes")
+                    .Select("create_on")
                     .Where(Exp.Eq("id", fileId))
                     .OrderBy("version", true);
 
@@ -714,23 +829,54 @@ namespace ASC.Files.Core.Data
                 return
                     dbManager
                         .ExecuteList(query)
-                        .ConvertAll(r => new EditHistory
+                        .ConvertAll(r =>
                             {
+                                var item = new EditHistory
+                                    {
                                 ID = Convert.ToInt32(r[0]),
                                 Version = Convert.ToInt32(r[1]),
                                 VersionGroup = Convert.ToInt32(r[2]),
                                 ModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[3])),
-                                ModifiedBy = new Guid((string) r[4]),
-                                Changes = (string) (r[5]),
+                                ModifiedBy = new EditHistoryAuthor {Id = new Guid((string) r[4])},
+                                ChangesString = (string) (r[5]),
+                                    };
+
+                                item.Key = DocumentServiceHelper.GetDocKey(item.ID, item.Version, TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[6])));
+                                return item;
                             });
             }
         }
 
-        public string GetDifferenceUrl(File file)
+        public Stream GetDifferenceStream(File file)
         {
-            return Global.GetStore().GetPreSignedUri(string.Empty, GetUniqFilePath(file, DiffTitle), TimeSpan.FromHours(1), null).ToString();
+            return Global.GetStore().GetReadStream(string.Empty, GetUniqFilePath(file, DiffTitle));
         }
 
         #endregion
+
+        private File ToFile(object[] r)
+        {
+            var result = new File
+            {
+                ID = Convert.ToInt32(r[0]),
+                Title = (String)r[1],
+                FolderID = Convert.ToInt32(r[2]),
+                CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[3])),
+                CreateBy = new Guid((string)r[4]),
+                Version = Convert.ToInt32(r[5]),
+                VersionGroup = Convert.ToInt32(r[6]),
+                ContentLength = Convert.ToInt64(r[7]),
+                ModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[8])),
+                ModifiedBy = new Guid((string)r[9]),
+                RootFolderType = ParseRootFolderType(r[10]),
+                RootFolderCreator = ParseRootFolderCreator(r[10]),
+                RootFolderId = ParseRootFolderId(r[10]),
+                SharedByMe = Convert.ToBoolean(r[11]),
+                ConvertedType = (string)r[12],
+                Comment = (string)r[13],
+            };
+
+            return result;
+        }
     }
 }

@@ -10,10 +10,10 @@
 <div class="treeheader">Get Started</div>
 <ul class="treeview root">
     <li>
-        <%=Html.MenuActionLink("Basic concepts", "basic", "portals", "selected")%>
+        <%= Html.MenuActionLink("Basic concepts", "basic", "portals", "selected") %>
     </li>
     <li>
-        <%=Html.MenuActionLink("Passing authentication", "auth", "portals", "selected")%>
+        <%= Html.MenuActionLink("Passing authentication", "auth", "portals", "selected") %>
     </li>
 </ul>
 
@@ -44,13 +44,13 @@
 <div class="treeheader">Help</div>
 <ul class="treeview root">
     <li>
-        <%=Html.MenuActionLink("F.A.Q.", "faq", "portals", "selected")%>
+        <%= Html.MenuActionLink("F.A.Q.", "faq", "portals", "selected") %>
     </li>
     <li>
-        <%=Html.MenuActionLink("Filtering", "filters", "portals", "selected")%>
+        <%= Html.MenuActionLink("Filtering", "filters", "portals", "selected") %>
     </li>
     <li>
-        <%=Html.MenuActionLink("Batching", "batch", "portals", "selected")%>
+        <%= Html.MenuActionLink("Batching", "batch", "portals", "selected") %>
     </li>
 </ul>
 

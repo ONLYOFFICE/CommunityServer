@@ -74,10 +74,16 @@ namespace ASC.Mail.Aggregator.Common
         }
 
         public ApiHelperException(string message, HttpStatusCode statusCode, string response)
-            : base(string.Format("Api error has been occurred: Message = '{0}' StatusCode = '{1}' Response = '{2}'", message, statusCode, response))
+            : base(message)
         {
             _statusCode = statusCode;
             _response = response;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("Api error has been occurred: Message = '{0}' StatusCode = '{1}' Response = '{2}'",
+                Message, StatusCode, Response);
         }
     }
 }

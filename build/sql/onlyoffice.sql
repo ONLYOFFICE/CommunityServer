@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `backup_backup` (
 
 CREATE TABLE IF NOT EXISTS `backup_schedule` (
   `tenant_id` int(11) NOT NULL,
-  `backup_mail` int(1) NOT NULL DEFAULT '0',
+  `backup_mail` int(11) NOT NULL DEFAULT '0',
   `cron` varchar(255) NOT NULL,
   `backups_stored` int(11) NOT NULL,
   `storage_type` int(11) NOT NULL,
@@ -217,8 +217,20 @@ CREATE TABLE IF NOT EXISTS `calendar_events` (
   `owner_id` char(38) NOT NULL,
   `alert_type` smallint(6) NOT NULL DEFAULT '0',
   `rrule` varchar(255) DEFAULT NULL,
+  `uid` varchar(255) DEFAULT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `calendar_id` (`tenant`,`calendar_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `calendar_event_history` (
+  `tenant` int(11) NOT NULL,
+  `calendar_id` int(11) NOT NULL,
+  `event_uid` char(255) NOT NULL,
+  `event_id` int(10) NOT NULL DEFAULT '0',
+  `ics` text,
+  PRIMARY KEY (`tenant`,`calendar_id`,`event_uid`),
+  KEY `event_id` (`tenant`,`event_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `calendar_event_item` (
@@ -895,7 +907,6 @@ CREATE TABLE IF NOT EXISTS `files_file` (
   `current_version` int(11) NOT NULL DEFAULT '0',
   `folder_id` int(11) NOT NULL DEFAULT '0',
   `title` varchar(400) NOT NULL,
-  `content_type` varchar(255) DEFAULT NULL,
   `content_length` bigint(25) NOT NULL DEFAULT '0',
   `file_status` int(11) NOT NULL DEFAULT '0',
   `category` int(11) NOT NULL DEFAULT '0',
@@ -1163,16 +1174,20 @@ CREATE TABLE IF NOT EXISTS `forum_variant` (
 
 CREATE TABLE IF NOT EXISTS `jabber_archive` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `jid` varchar(255) NOT NULL,
+  `jid` varchar(255) CHARACTER SET utf8 NOT NULL,
   `stamp` datetime NOT NULL,
-  `message` mediumtext,
+  `message` mediumtext CHARACTER SET utf8,
   PRIMARY KEY (`id`),
   KEY `jabber_archive_jid` (`jid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `jabber_archive_switch` (
   `id` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `jabber_clear` (
+  `lastdate` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `jabber_offactivity` (
@@ -1187,8 +1202,8 @@ CREATE TABLE IF NOT EXISTS `jabber_offmessage` (
   `jid` varchar(255) NOT NULL,
   `message` mediumtext,
   PRIMARY KEY (`id`),
-  KEY `jabber_offmessage_jid` (`jid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  KEY `jabber_offmessage_jid` (`jid`(190))
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 CREATE TABLE IF NOT EXISTS `jabber_offpresence` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -1270,8 +1285,8 @@ CREATE TABLE IF NOT EXISTS `login_events` (
   `action` int(11) DEFAULT NULL,
   `description` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `tenant_id` (`tenant_id`),
-  KEY `date` (`date`)
+  KEY `date` (`date`),
+  KEY `tenant_id` (`tenant_id`,`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `mail_alerts` (
@@ -1330,13 +1345,30 @@ CREATE TABLE IF NOT EXISTS `mail_chain_x_crm_entity` (
 CREATE TABLE IF NOT EXISTS `mail_contacts` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `id_user` varchar(255) NOT NULL,
+  `tenant` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   `address` varchar(255) NOT NULL,
-  `last_modified` datetime DEFAULT NULL,
-  `tenant` int(11) NOT NULL,
+  `description` varchar(100) DEFAULT NULL,
+  `has_photo` tinyint(1) NOT NULL DEFAULT '0',
+  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  KEY `id_user_name_address` (`id_user`,`address`),
-  KEY `last_modified` (`tenant`,`last_modified`)
+  KEY `tenant_id_user_name_address` (`tenant`,`id_user`,`address`),
+  KEY `last_modified` (`last_modified`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `mail_contact_info` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `tenant` int(11) NOT NULL,
+  `id_user` varchar(255) NOT NULL,
+  `id_contact` int(11) unsigned NOT NULL,
+  `data` varchar(255) NOT NULL,
+  `type` int(11) NOT NULL,
+  `is_primary` tinyint(1) NOT NULL DEFAULT '0',
+  `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `last_modified` (`last_modified`),
+  KEY `contact_id` (`id_contact`),
+  KEY `tenant_id_user_data` (`tenant`,`id_user`,`data`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `mail_display_images` (
@@ -1400,6 +1432,7 @@ CREATE TABLE IF NOT EXISTS `mail_mail` (
   `is_from_tl` int(11) NOT NULL DEFAULT '0',
   `is_text_body_only` int(11) NOT NULL DEFAULT '0',
   `has_parse_error` tinyint(1) NOT NULL DEFAULT '0',
+  `calendar_uid` varchar(255) DEFAULT NULL,
   `stream` varchar(38) NOT NULL,
   `folder` int(11) NOT NULL DEFAULT '1',
   `folder_restore` int(11) NOT NULL DEFAULT '1',
@@ -1740,8 +1773,8 @@ CREATE TABLE IF NOT EXISTS `projects_project_participant` (
   `project_id` int(11) NOT NULL,
   `participant_id` char(38) NOT NULL,
   `security` int(10) NOT NULL DEFAULT '0',
-  `created` timestamp NOT NULL DEFAULT '2000-01-01 00:00:00',
-  `updated` timestamp NOT NULL DEFAULT '2000-01-01 00:00:00',
+  `created` timestamp NOT NULL DEFAULT '1999-12-31 23:00:00',
+  `updated` timestamp NOT NULL DEFAULT '1999-12-31 23:00:00',
   `removed` int(10) NOT NULL DEFAULT '0',
   `tenant` int(10) NOT NULL DEFAULT '0',
   PRIMARY KEY (`tenant`,`project_id`,`participant_id`),
@@ -1945,7 +1978,7 @@ CREATE TABLE IF NOT EXISTS `res_data` (
   `flag` int(11) NOT NULL DEFAULT '0',
   `link` varchar(120) DEFAULT NULL,
   `authorLogin` varchar(50) NOT NULL DEFAULT 'Console',
-  PRIMARY KEY (`fileid`,`title`,`cultureTitle`),
+  PRIMARY KEY (`fileid`,`cultureTitle`,`title`),
   UNIQUE KEY `id` (`id`),
   KEY `dateIndex` (`timeChanges`),
   KEY `resources_FK2` (`cultureTitle`)
@@ -1959,7 +1992,7 @@ CREATE TABLE IF NOT EXISTS `res_files` (
   `isLock` tinyint(1) NOT NULL DEFAULT '0',
   `lastUpdate` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `index1` (`resName`)
+  UNIQUE KEY `resname` (`resName`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `res_reserve` (
@@ -2011,7 +2044,8 @@ CREATE TABLE IF NOT EXISTS `tenants_iprestrictions` (
 
 CREATE TABLE IF NOT EXISTS `tenants_partners` (
   `tenant_id` int(10) NOT NULL,
-  `partner_id` varchar(36) NOT NULL,
+  `partner_id` varchar(36) DEFAULT NULL,
+  `affiliate_id` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`tenant_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

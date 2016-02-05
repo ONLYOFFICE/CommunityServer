@@ -24,8 +24,6 @@
 */
 
 
-using System;
-
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 
@@ -34,52 +32,47 @@ using ASC.Web.Projects.Controls.Common;
 using ASC.Web.Projects.Controls.Messages;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility;
-using AjaxPro;
 using ASC.Web.Studio.UserControls.Common.LoaderPage;
 
 namespace ASC.Web.Projects
 {
     public partial class Messages : BasePage
     {
-        protected Message Discussion { get; set; }
         protected bool CanCreate { get; set; }
 
         protected override bool CanRead { get { return !RequestContext.IsInConcreteProject || ProjectSecurity.CanReadMessages(Project); } }
 
         protected override void PageLoad()
         {
-            Utility.RegisterTypeForAjax(typeof(CommonControlsConfigurer), Page);
-
-            var messageEngine = Global.EngineFactory.GetMessageEngine();
-
+            var action = UrlParameters.ActionType;
             CanCreate = RequestContext.CanCreateDiscussion(true);
 
-            int discussionId;
-            if (int.TryParse(UrlParameters.EntityID, out discussionId))
+            var discussionId = UrlParameters.EntityID;
+            if (discussionId >= 0)
             {
-                Discussion = messageEngine.GetByID(discussionId);
+                var discussion = EngineFactory.MessageEngine.GetByID(discussionId);
 
-                if (string.Compare(UrlParameters.ActionType, "edit", StringComparison.OrdinalIgnoreCase) == 0)
+                if (action.HasValue && action.Value == UrlAction.Edit)
                 {
-                    if (ProjectSecurity.CanEdit(Discussion))
+                    if (ProjectSecurity.CanEdit(discussion))
                     {
-                        LoadDiscussionActionControl(Discussion);
+                        LoadDiscussionActionControl(discussion);
                     }
                     else
                     {
                         Response.Redirect("messages.aspx", true);
                     }
 
-                    Title = HeaderStringHelper.GetPageTitle(Discussion.Title);
+                    Title = HeaderStringHelper.GetPageTitle(discussion.Title);
                 }
-                else if (Discussion != null && ProjectSecurity.CanRead(Discussion.Project) && Discussion.Project.ID == Project.ID)
+                else if (discussion != null && ProjectSecurity.CanRead(discussion.Project) && discussion.Project.ID == Project.ID)
                 {
-                    LoadDiscussionDetailsControl(Discussion);
-                    
-                    IsSubcribed = messageEngine.IsSubscribed(Discussion);
-                    EssenceTitle = Discussion.Title;
+                    LoadDiscussionDetailsControl(discussion);
 
-                    Title = HeaderStringHelper.GetPageTitle(Discussion.Title);
+                    IsSubcribed = EngineFactory.MessageEngine.IsSubscribed(discussion);
+                    EssenceTitle = discussion.Title;
+
+                    Title = HeaderStringHelper.GetPageTitle(discussion.Title);
                 }
                 else
                 {
@@ -89,7 +82,7 @@ namespace ASC.Web.Projects
             }
             else
             {
-                if (string.Compare(UrlParameters.ActionType, "add", StringComparison.OrdinalIgnoreCase) == 0)
+                if (action.HasValue && action.Value == UrlAction.Add)
                 {
                     if (CanCreate)
                     {

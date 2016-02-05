@@ -103,7 +103,7 @@ span.addUserLink
     padding-top: 50px;
     font-weight: normal;
     margin: 0 auto;
-    width: 694px;
+    width: 687px;
 }
 .emptyScrCtrl {
     padding: 100px 0;
@@ -875,11 +875,12 @@ div.blockMsg
 }
 
 /*---------------- container for main page ------------------------*/
-div#GreetingBlock,
-.greating-block
-{
+div#GreetingBlock {
     margin: 0 auto;
     width: 900px;
+}
+div#GreetingBlock.greating-block {
+    width: 1000px;
 }
 
 .auth-form-page {
@@ -1721,20 +1722,45 @@ div.hintDescriptionPanel.help_bottom  {
 .borderBaseShadow {
     border: solid 1px #D1D1D1;
 }
+
+
 /*******************************************************************************
             Block of comments
 *******************************************************************************/
+div.comments-item-container {
+    padding: 8px 5px 8px 15px;
+}
+div.comments-item-container > table {
+    width: 100%;
+    table-layout:fixed;
+    border: 0 none;
+}
+div.comments-item-container > table td {
+    vertical-align: top;
+}
+div.comments-item-container .comments-item-data {
+    min-height: 55px;
+}
+div.comments-item-container .comments-item-actions {
+    margin: 10px 0px 0px 10px;
+    height: 19px;
+}
+div.comments-item-container > table td:first-child {
+    width: 90px;
+}
 
-div.blockComments a.link.dotline {
+div.comments-item-container a.link.dotline {
     border-bottom: 1px dotted #83888d;
     display: none;
     font-size: 12px;
     text-decoration: none;
 }
 
-div.blockComments:hover a.link.dotline{display: inline-block;zoom: 1;}
+div.comments-item-container:hover a.link.dotline{ display: inline-block;zoom: 1; }
 
-div.blockComments:hover a.link.bold {text-decoration: underline;}
+div.comments-item-container:hover a.link.bold { text-decoration: underline; }
+
+div.comments-item-container .splitter { display: inline-block; }
 
 #add_comment_btn,
 #cancel_comment_btn,
@@ -1761,9 +1787,30 @@ div.blockComments:hover a.link.bold {text-decoration: underline;}
 }
 #commentsTitle {
     font-weight: normal;
+    margin-left: 5px;
 }
-div.blockComments .splitter {
-    display: inline-block;
+
+.comment-main-container {
+    width: 100%;
+    margin-top: 5px;
+    word-wrap: break-word;
+}
+.comment-inactive {
+    padding: 10px;
+}
+.comment-main-actions-container {
+    margin-top: 5px;
+    display:none;
+}
+.comment-preview-container {
+    display: none;
+    margin-top: 20px;
+}
+.comment-preview-container .headerPanel {
+    margin-top: 0px;
+}
+.comment-preview-container .middle-button-container>.button.blue {
+    margin-right: 8px;
 }
 
 /*******************************************************************************
@@ -1901,11 +1948,11 @@ input[type=number] {
      min-height: 24px;
      width:301px;
 }
-@media all and (max-width: 1200px) {
-    .settings-help-block {
-        width: 221px;
-    }
+
+body.media-width-0-1200 .settings-help-block {
+    width: 221px;
 }
+
 .settings-help-block  p{
     color: #787878;
     font-size:11px;
@@ -1936,10 +1983,18 @@ input[type=number] {
     margin-bottom:3px;
 }
 #studio_enterDns input[type=text] {
-   width:350px;
+    width:350px;
 }
 #studio_enterDns .dns-settings-title label{
     margin: 0 0 0 2px;
+}
+
+/******Tenant rename ******/
+#studio_tenantAlias {
+    width:350px;
+}
+#studio_portalRename .header-base-small {
+    margin-bottom: 6px;
 }
 
 /*******************************************************************************
@@ -2139,6 +2194,107 @@ welcome popup for Collaborator
 .advansed-filter {
     margin-bottom: 32px;
 }
+
+body.media-width-0-1650 div.advansed-filter {
+    max-width:  1313px;
+}
+body.media-width-0-1620 div.advansed-filter {
+    max-width:  1283px;
+}
+body.media-width-0-1575 div.advansed-filter {
+    max-width:  1238px;
+}
+body.media-width-0-1500 div.advansed-filter {
+    max-width:  1163px;
+}
+body.media-width-0-1470 div.advansed-filter {
+    max-width:  1133px;
+}
+body.media-width-0-1450 div.advansed-filter {
+    max-width:  1113px;
+}
+body.media-width-0-1420 div.advansed-filter {
+    max-width:  1083px;
+}
+body.media-width-0-1410 div.advansed-filter {
+    max-width:  1073px;
+}
+body.media-width-0-1400 div.advansed-filter {
+    max-width:  1063px;
+}
+body.media-width-0-1390 div.advansed-filter {
+    max-width:  1053px;
+}
+body.media-width-0-1350 div.advansed-filter {
+    max-width:  1013px;
+}
+body.media-width-0-1340 div.advansed-filter {
+    max-width:  1003px;
+}
+body.media-width-0-1300 div.advansed-filter {
+    max-width:  963px;
+}
+body.media-width-0-1270 div.advansed-filter {
+    max-width:  933px;
+}
+body.media-width-0-1260 div.advansed-filter {
+    max-width:  923px;
+}
+body.media-width-0-1250 div.advansed-filter {
+    max-width:  913px;
+}
+body.media-width-0-1210 div.advansed-filter {
+    max-width:  873px;
+}
+body.media-width-0-1200 div.advansed-filter {
+    max-width:  863px;
+}
+body.media-width-0-1180 div.advansed-filter {
+    max-width:  843px;
+}
+body.media-width-0-1160 div.advansed-filter {
+    max-width:  823px;
+}
+body.media-width-0-1150 div.advansed-filter {
+    max-width:  813px;
+}
+body.media-width-0-1144 div.advansed-filter {
+    max-width:  807px;
+}
+body.media-width-0-1140 div.advansed-filter {
+    max-width:  803px;
+}
+body.media-width-0-1120 div.advansed-filter {
+    max-width:  783px;
+}
+body.media-width-0-1100 div.advansed-filter {
+    max-width:  763px;
+}
+body.media-width-0-1096 div.advansed-filter {
+    max-width:  759px;
+}
+body.media-width-0-1080 div.advansed-filter {
+    max-width:  743px;
+}
+body.media-width-0-1072 div.advansed-filter {
+    max-width:  735px;
+}
+body.media-width-0-1048 div.advansed-filter {
+    max-width:  711px;
+}
+body.media-width-0-1030 div.advansed-filter {
+    max-width:  693px;
+}
+body.media-width-0-1024 div.advansed-filter
+/*,
+body.media-width-min div.advansed-filter*/
+{   
+     max-width:  687px;
+}
+
+
+
+
 /*******************************************************************************
       Google Conversion Frame
 *******************************************************************************/
@@ -2160,41 +2316,38 @@ iframe[name='google_conversion_frame'] {
 .menuAction.otherFunctions {
     display: none;
 }
-  .menuAction.otherFunctions  li {
-        display: none;
-    }
-
-
-@media all and (max-width: 1210px) {
-    .menuAction.menuWriteLetter  {
-        display: none;
-    }
-    .menuAction.otherFunctions li.menuWriteLetter {
-        display: block;
-    }
+.menuAction.otherFunctions  li {
+    display: none;
 }
 
-@media all and (max-width: 1160px) {
-    .menuAction.menuSendInvite {
-        display: none;
-    }
-    .menuAction.otherFunctions li.menuSendInvite {
-            display: block;
-        }
+
+body.media-width-0-1210 .menuAction.menuWriteLetter  {
+    display: none;
+}
+body.media-width-0-1210 .menuAction.otherFunctions li.menuWriteLetter {
+    display: block;
 }
 
-@media all and (max-width: 1250px) {
-    .menuAction.menuRemoveUsers {
-        display: none;
-    }
-    .menuAction.otherFunctions {
-        display: block;
-    }
 
-    .menuAction.otherFunctions li.menuRemoveUsers {
-        display: block;
-    }
+body.media-width-0-1160 .menuAction.menuSendInvite {
+    display: none;
 }
+body.media-width-0-1160 .menuAction.otherFunctions li.menuSendInvite {
+        display: block;
+}
+
+
+body.media-width-0-1250 .menuAction.menuRemoveUsers {
+    display: none;
+}
+body.media-width-0-1250 .menuAction.otherFunctions {
+    display: block;
+}
+
+body.media-width-0-1250 .menuAction.otherFunctions li.menuRemoveUsers {
+    display: block;
+}
+
 /*******************************************************************************
             Psw Reminder
 *******************************************************************************/
@@ -2202,12 +2355,4 @@ iframe[name='google_conversion_frame'] {
 #studio_emailPwdReminder {
     margin-top: 15px;
     width: 100%;
-}
-
-
-
-
-.complete-input {
-    background: url("imagescss/complete.png") no-repeat center right transparent;
-    padding-right: 15px;
 }

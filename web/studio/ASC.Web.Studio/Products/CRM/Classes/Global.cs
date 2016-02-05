@@ -53,6 +53,7 @@ using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using ASC.Web.Core.Files;
 using ASC.Web.Core;
+using Newtonsoft.Json;
 
 #endregion
 
@@ -219,7 +220,7 @@ namespace ASC.Web.CRM.Classes
             var enUs = CultureInfo.GetCultureInfo("en-US");
             var additionalCountries = new List<KeyValuePair<int,string>>
                                         {
-                                            new KeyValuePair<int,string>(0, CRMCommonResource.ResourceManager.GetString("Country_Gambia", enUs)),
+                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_Gambia", enUs)),
                                             new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_Ghana", enUs)),
                                             new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_RepublicOfCyprus", enUs)),
                                             new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_SierraLeone", enUs)),
@@ -236,8 +237,10 @@ namespace ASC.Web.CRM.Classes
                                             new KeyValuePair<int,string>(12300,CRMCommonResource.ResourceManager.GetString("Country_IvoryCoast", enUs)),
                                             new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_Bahamas", enUs)),
                                             new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_Andorra", enUs)),
-                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_BritishVirginIslands", enUs))
-                                        };
+                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_BritishVirginIslands", enUs)),
+                                            new KeyValuePair<int,string>(9228,CRMCommonResource.ResourceManager.GetString("Country_RepublicOfCongo", enUs)),
+                                            new KeyValuePair<int,string>(0,CRMCommonResource.ResourceManager.GetString("Country_RepublicOfCuba", enUs))
+                                        };//https://msdn.microsoft.com/en-us/goglobal/bb964664
 
             var additionalCountriesCodes = additionalCountries.Select(s => s.Key).Where(s => s != 0).ToList();
 
@@ -370,6 +373,41 @@ namespace ASC.Web.CRM.Classes
         public static byte[] SaveToBytes(Image img)
         {
             return CommonPhotoManager.SaveToBytes(img, GetImgFormatName(img.RawFormat));
+        }
+
+        #endregion
+
+        #region Parse JOjbect with ApiDateTime
+
+        private static readonly string[] Formats = new[]
+                                                       {
+                                                           "o",
+                                                           "yyyy'-'MM'-'dd'T'HH'-'mm'-'ss'.'fffK",
+                                                           "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffK",
+                                                           "yyyy-MM-ddTHH:mm:ss"
+                                                       };
+
+        public static DateTime ApiDateTimeParse(string data)
+        {
+            if (string.IsNullOrEmpty(data)) throw new ArgumentNullException("data");
+
+            if (data.Length < 7) throw new ArgumentException(CRMErrorsResource.DateTimeFormatInvalid);
+
+            DateTime dateTime;
+            if (DateTime.TryParseExact(data, Formats, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out dateTime))
+            {
+                return new DateTime(dateTime.Ticks, DateTimeKind.Unspecified);
+            }
+            throw new ArgumentException(CRMErrorsResource.DateTimeFormatInvalid);
+        }
+
+        public static JObject JObjectParseWithDateAsString(string data)
+        {
+            JsonReader reader = new JsonTextReader(
+                          new StringReader(data)
+                          );
+            reader.DateParseHandling = DateParseHandling.None;
+            return JObject.Load(reader);
         }
 
         #endregion

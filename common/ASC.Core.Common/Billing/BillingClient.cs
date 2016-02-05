@@ -103,14 +103,20 @@ namespace ASC.Core.Billing
             }
         }
 
-        public IDictionary<string, Tuple<Uri, Uri>> GetPaymentUrls(string portalId, string[] products)
+        public IDictionary<string, Tuple<Uri, Uri>> GetPaymentUrls(string portalId, string[] products, string affiliateId = null)
         {
             var urls = new Dictionary<string, Tuple<Uri, Uri>>();
+
+            var additionalParameters = new List<Tuple<string, string>>(2){Tuple.Create("PaymentSystemId", "1")};
+            if (!string.IsNullOrEmpty(affiliateId))
+            {
+                additionalParameters.Add(Tuple.Create("AffiliateId", affiliateId));
+            }
 
             var parameters = products
                 .Distinct()
                 .Select(p => Tuple.Create("ProductId", p))
-                .Concat(new[] { Tuple.Create("PaymentSystemId", "1") })
+                .Concat(additionalParameters)
                 .ToArray();
 
             var paymentUrls = ToXElement(Request("GetBatchPaymentSystemUrl", portalId, parameters))
@@ -118,17 +124,22 @@ namespace ASC.Core.Billing
                 .ToDictionary(e => e.Attribute("id").Value, e => ToUrl(e.Attribute("value").Value));
 
             var upgradeUrls = new Dictionary<string, string>();
-            try
+            if (!string.IsNullOrEmpty(portalId))
             {
-                upgradeUrls = ToXElement(Request("GetBatchPaymentSystemUpgradeUrl", portalId, parameters))
-                    .Elements()
-                    .ToDictionary(e => e.Attribute("id").Value, e => ToUrl(e.Attribute("value").Value));
+                try
+                {
+                    upgradeUrls = ToXElement(Request("GetBatchPaymentSystemUpgradeUrl", portalId, parameters))
+                        .Elements()
+                        .ToDictionary(e => e.Attribute("id").Value, e => ToUrl(e.Attribute("value").Value));
+                }
+                catch (BillingException)
+                {
+                }
             }
-            catch (BillingException) { }
 
             foreach (var p in products)
             {
-                var url = string.Empty;
+                string url;
                 var paymentUrl = (Uri)null;
                 var upgradeUrl = (Uri)null;
                 if (paymentUrls.TryGetValue(p, out url) && !string.IsNullOrEmpty(url))

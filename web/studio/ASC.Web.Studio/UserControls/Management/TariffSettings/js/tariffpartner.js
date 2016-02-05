@@ -24,10 +24,6 @@
 */
 
 
-/*
-Copyright (c) Ascensio System SIA 2013. All rights reserved.
-http://www.teamlab.com
-*/
 window.TariffPartner = (function () {
     var isInit = false;
 
@@ -143,13 +139,17 @@ window.TariffPartner = (function () {
             });
     };
 
+    var selectedQuotaId = function () {
+        return jq(".tariffs-selected").attr("data-id");
+    };
+
     var requestKey = function () {
         jq(".tariff-key-aplly, .tariff-key-request, .tariff-key-cancel").addClass("disable");
         jq("#partnerPayKeyDialog input").prop("disabled", true);
         LoadingBanner.showLoaderBtn("#partnerPayKeyDialog");
         jq("#partnerPayKeyDialog .error-popup").hide();
         
-        var quotaId = TariffSettings.selectedQuotaId();
+        var quotaId = selectedQuotaId();
         TariffPartnerController.RequestKey(quotaId,
             function (result) {
                 jq(".tariff-key-aplly, .tariff-key-request, .tariff-key-cancel").removeClass("disable");
@@ -167,7 +167,7 @@ window.TariffPartner = (function () {
     };
 
     var payPal = function () {
-        var quotaId = TariffSettings.selectedQuotaId();
+        var quotaId = selectedQuotaId();
         TariffPartnerController.RequestPayPal(quotaId,
             function (result) {
                 var res = result.error || result.value;

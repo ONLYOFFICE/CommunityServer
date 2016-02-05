@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace ASC.Mail.Server.Dal
 {
@@ -100,6 +101,22 @@ namespace ASC.Mail.Server.Dal
         public readonly int smtp_settings_id;
         public readonly int imap_settings_id;
 
+        public string ApiVersionUrl
+        {
+            get
+            {
+                try
+                {
+                    var apiObject = JObject.Parse(connection_string)["Api"];
+                    return string.Format("{0}://{1}:{2}/api/{3}/version.json?auth_token={4}", apiObject["Protocol"], apiObject["Server"], apiObject["Port"], apiObject["Version"], apiObject["Token"]);
+                }
+                catch (Exception)
+                {
+                    return "";
+                }
+            }
+        }
+
         internal TenantServerDto(int id, string connectionString,  string mxRecord,
             int type, int smtpSettingsId, int imapSettingsId)
         {
@@ -110,6 +127,30 @@ namespace ASC.Mail.Server.Dal
             smtp_settings_id = smtpSettingsId;
             imap_settings_id = imapSettingsId;
         }
+    }
+
+    public class TenantServerSettingsDto
+    {
+        public readonly int id;
+        public readonly Administration.Interfaces.ServerType type;
+        public readonly string hostname;
+        public readonly int port;
+        public readonly Administration.Interfaces.AuthenticationType authentication_type;
+        public readonly Administration.Interfaces.EncryptionType socket_type;
+        public readonly string smtpLoginFormat;
+
+        internal TenantServerSettingsDto(int id, Administration.Interfaces.ServerType type, string hostname,
+            int port, Administration.Interfaces.AuthenticationType authentication_type, Administration.Interfaces.EncryptionType socket_type, string loginFormat)
+        {
+            this.id = id;
+            this.type = type;
+            this.hostname = hostname;
+            this.port = port;
+            this.authentication_type = authentication_type;
+            this.socket_type = socket_type;
+            this.smtpLoginFormat = loginFormat;
+        }
+
     }
 
     public class MailGroupDto

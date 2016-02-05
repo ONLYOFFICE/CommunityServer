@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -62,8 +62,8 @@ namespace ASC.Web.Community.Forum
         {
             ForumContainer.Options.InfoType = InfoType.Alert;
 
-            Page.RegisterBodyScripts(ResolveUrl(ForumManager.BaseVirtualPath + "/js/forummaker.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute(ForumManager.BaseVirtualPath + "/app_themes/default/style.css"));
+            Page.RegisterBodyScripts(ForumManager.BaseVirtualPath + "/js/forummaker.js");
+            Page.RegisterStyle(ForumManager.BaseVirtualPath + "/app_themes/default/style.css");
 
             var sb = new StringBuilder();
             sb.Append(" ForumMakerProvider.All='" + Resources.ForumResource.All + "'; ");

@@ -24,66 +24,67 @@
 */
 
 
-using System.Collections.Generic;
-using System.Linq;
-using ASC.Core.Tenants;
+using ASC.Common.Security.Authentication;
 using ASC.Files.Core;
 using ASC.Web.Files.Utils;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 
 namespace ASC.Web.Files.Services.WCFService.FileOperations
 {
-    internal class FileMarkAsReadOperation : FileOperation
+    class FileMarkAsReadOperation : FileOperation
     {
-        public FileMarkAsReadOperation(Tenant tenant, List<object> folders, List<object> files)
-            : base(tenant, folders, files)
-        {
-            CountWithoutSubitems = true;
-        }
-
-        protected override FileOperationType OperationType
+        public override FileOperationType OperationType
         {
             get { return FileOperationType.MarkAsRead; }
         }
 
+
+        public FileMarkAsReadOperation(List<object> folders, List<object> files)
+            : base(folders, files)
+        {
+        }
+
+
+        protected override int InitTotalProgressSteps()
+        {
+            return Files.Count + Folders.Count;
+        }
+
         protected override void Do()
         {
-            Percentage = 0;
-
-            var entries = Enumerable.Empty<FileEntry>();
-
+            var entries = new List<FileEntry>();
             if (Folders.Any())
-                entries = entries.Concat(FolderDao.GetFolders(Folders.ToArray()));
-
+            {
+                entries.AddRange(FolderDao.GetFolders(Folders.ToArray()));
+            }
             if (Files.Any())
-                entries = entries.Concat(FileDao.GetFiles(Files.ToArray()));
+            {
+                entries.AddRange(FileDao.GetFiles(Files.ToArray()));
+            }
+            entries.ForEach(x =>
+            {
+                CancellationToken.ThrowIfCancellationRequested();
 
-            entries.ToList().ForEach(x =>
+                FileMarker.RemoveMarkAsNew(x, ((IAccount)Thread.CurrentPrincipal.Identity).ID);
+
+                if (x is File)
                 {
-                    if (Canceled) return;
+                    ProcessedFile(x.ID.ToString());
+                }
+                else
+                {
+                    ProcessedFolder(x.ID.ToString());
+                }
+                ProgressStep();
+            });
 
-                    FileMarker.RemoveMarkAsNew(x, Owner);
+            var newrootfolder = FileMarker
+                .GetRootFoldersIdMarkedAsNew()
+                .Select(item => string.Format("new_{{\"key\"? \"{0}\", \"value\"? \"{1}\"}}", item.Key, item.Value));
 
-                    if (x is File)
-                    {
-                        ProcessedFile(x.ID.ToString());
-                        ResultedFile(x.ID.ToString());
-                    }
-                    else
-                    {
-                        ProcessedFolder(x.ID.ToString());
-                        ResultedFolder(x.ID.ToString());
-                    }
-
-                    ProgressStep();
-                });
-
-            var rootFolderIdAsNew =
-                FileMarker.GetRootFoldersIdMarkedAsNew()
-                          .Select(item => string.Format("new_{{\"key\"? \"{0}\", \"value\"? \"{1}\"}}", item.Key, item.Value));
-
-            Status += string.Join(SplitCharacter, rootFolderIdAsNew.ToArray());
-
-            IsCompleted = true;
+            Status += string.Join(SPLIT_CHAR, newrootfolder.ToArray());
         }
     }
 }

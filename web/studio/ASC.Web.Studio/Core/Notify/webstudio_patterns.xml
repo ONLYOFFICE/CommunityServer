@@ -50,7 +50,17 @@
     <subject />
     <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_you_added_after_invite|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
   </pattern>
-    
+
+  <!-- you_added_after_invite_freecloud -->
+  <pattern id="you_added_after_invite_freecloud" sender="email.sender">
+    <subject resource="|subject_you_added_after_invite_freecloud|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_you_added_after_invite_freecloud|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="you_added_after_invite_freecloud" sender="messanger.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_you_added_after_invite_freecloud|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  
    <!-- you_added_like_guest -->
    <pattern id="you_added_like_guest" sender="email.sender">
       <subject resource="|subject_you_added_like_guest|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
@@ -61,7 +71,17 @@
       <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_you_added_like_guest|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
    </pattern>
 
-    <!-- profile_updated -->
+  <!-- you_added_like_guest_freecloud -->
+  <pattern id="you_added_like_guest_freecloud" sender="email.sender">
+    <subject resource="|subject_you_added_like_guest|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_you_added_like_guest_freecloud|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="you_added_like_guest_freecloud" sender="messanger.sender">
+    <subject />
+    <body styler="ASC.Notify.Textile.JabberStyler,ASC.Notify.Textile" resource="|pattern_you_added_like_guest_freecloud|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- profile_updated -->
   <pattern id="profile_updated" sender="email.sender">
     <subject resource="|subject_profile_updated|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_profile_updated|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
@@ -167,6 +187,12 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_portal_delete_success|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
   </pattern>
 
+  <!-- portal_delete_success_freecloud -->
+  <pattern id="portal_delete_success_freecloud" sender="email.sender">
+    <subject resource="|subject_portal_delete_success|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_portal_delete_success_freecloud|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
   <!-- profile_delete -->
   <pattern id="profile_delete">
     <subject resource="|subject_profile_delete|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
@@ -190,11 +216,23 @@ $activity.Key
     <subject resource="|subject_activate|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio"/>
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_activate|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
   </pattern>
+
+  <!-- activate_freecloud -->
+  <pattern id="activate_freecloud">
+    <subject resource="|subject_activate|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio"/>
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_activate_freecloud|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
     
   <!-- activate_guest -->
   <pattern id="activate_guest">
     <subject resource="|subject_activate_guest|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio"/>
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_activate_guest|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- activate_guest_freecloud -->
+  <pattern id="activate_guest_freecloud">
+    <subject resource="|subject_activate_guest|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio"/>
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_activate_guest_freecloud|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
   </pattern>
 
     <!-- activate for your docs -->
@@ -249,6 +287,12 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_congratulations_notrial|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
   </pattern>
 
+  <!-- congratulations_freecloud -->
+  <pattern id="congratulations_freecloud">
+    <subject resource="|subject_congratulations|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_congratulations_freecloud|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
   <!-- migration_start -->
   <pattern id="migration_start">
     <subject resource="|subject_migration_start|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
@@ -273,6 +317,12 @@ $activity.Key
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_migration_server_failure|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
   </pattern>
 
+  <!-- portal_rename -->
+<pattern id="portal_rename">
+  <subject resource="|subject_portal_rename|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_portal_rename|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+</pattern>
+
   <!-- tariff warnings -->
   <pattern id="tariff_warning_trial">
     <subject resource="|subject_tariff_warning_trial|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
@@ -296,6 +346,11 @@ $activity.Key
     <subject resource="|subject_after_creation1|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_creation1|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
   </pattern>
+  <pattern id="after_creation1_freecloud">
+    <subject resource="|subject_after_creation1|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_creation1_freecloud|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
   <pattern id="after_creation2">
     <subject resource="|subject_after_creation2|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_creation2|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
@@ -312,7 +367,12 @@ $activity.Key
     <subject resource="|subject_after_creation5|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_creation5|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
   </pattern>
+  <pattern id="after_creation30_freecloud">
+    <subject resource="|subject_after_creation30_freecloud|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_creation30_freecloud|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
 
+  
   <!-- after registaration personal -->
   <pattern id="after_registration_personal1">
     <subject resource="|subject_after_registration_personal1|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
@@ -353,6 +413,40 @@ $activity.Key
   <pattern id="after_payment1">
     <subject resource="|subject_after_payment1|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_after_payment1|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- 7 days before paid expired -->
+  <pattern id="payment_warning_before7">
+    <subject resource="|subject_payment_warning_before7|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_payment_warning_before7|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- paid expires today -->
+  <pattern id="payment_warning">
+    <subject resource="|subject_payment_warning|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_payment_warning|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- 3 days after paid expired on delay -->
+  <pattern id="payment_warning_after3">
+    <subject resource="|subject_payment_warning_after3|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_payment_warning_after3|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- payment delay expires today -->
+  <pattern id="payment_warning_delaydue">
+    <subject resource="|subject_payment_warning_delaydue|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_payment_warning_delaydue|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+
+  <!-- request tariff -->
+  <pattern id="request_tariff" sender="email.sender">
+    <subject resource="|subject_request_tariff|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio"></subject>
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_request_tariff|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="request_license" sender="email.sender">
+    <subject resource="|subject_request_license|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio"></subject>
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_request_license|ASC.Web.Studio.Core.Notify.WebstudioPatternResource,ASC.Web.Studio" />
   </pattern>
 
 </patterns>

@@ -26,8 +26,7 @@
 
 #region Usings
 
-using ASC.Web.Core.CoBranding;
-using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Utility;
 using System;
 using System.Web;
@@ -48,52 +47,11 @@ namespace ASC.Web.Studio.HttpHandlers
             var type = context.Request["logotype"];
             if (string.IsNullOrEmpty(type)) return;
 
-            var imgUrl = "";
-
-            var coBrandingType = (CoBrandingLogoTypeEnum)Convert.ToInt32(type);
+            var whiteLabelType = (WhiteLabelLogoTypeEnum)Convert.ToInt32(type);
             var general = Convert.ToBoolean(context.Request["general"] ?? "true");
-            var isDefIfNoCoBranding = Convert.ToBoolean(context.Request["defifnoco"] ?? "false");
+            var isDefIfNoWhiteLabel = Convert.ToBoolean(context.Request["defifnoco"] ?? "false");
 
-
-            if (TenantLogoManager.CoBrandingEnabled)
-            {
-                var _tenantCoBrandingSettings = SettingsManager.Instance.LoadSettings<TenantCoBrandingSettings>(TenantProvider.CurrentTenantID);
-                imgUrl = _tenantCoBrandingSettings.GetAbsoluteLogoPath(coBrandingType, general);
-
-                if (coBrandingType == CoBrandingLogoTypeEnum.Dark)
-                {
-                    var defaultDarkLogoPath = TenantCoBrandingSettings.GetAbsoluteDefaultLogoPath(CoBrandingLogoTypeEnum.Dark, general);
-
-                    if (String.Equals(imgUrl, defaultDarkLogoPath, StringComparison.OrdinalIgnoreCase))
-                    {
-                        /*** simple scheme ***/
-                        var _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
-                        imgUrl = _tenantInfoSettings.GetAbsoluteCompanyLogoPath();
-                        /***/
-                    }
-                }
-            }
-            else
-            {
-                if (isDefIfNoCoBranding)
-                {
-                    imgUrl = TenantCoBrandingSettings.GetAbsoluteDefaultLogoPath(coBrandingType, general);
-                }
-                else
-                {
-                    if (coBrandingType == CoBrandingLogoTypeEnum.Dark)
-                    {
-                        /*** simple scheme ***/
-                        var _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
-                        imgUrl = _tenantInfoSettings.GetAbsoluteCompanyLogoPath();
-                        /***/
-                    }
-                    else
-                    {
-                        imgUrl = TenantCoBrandingSettings.GetAbsoluteDefaultLogoPath(coBrandingType, general);
-                    }
-                }
-            }
+            var imgUrl = TenantLogoHelper.GetLogo(whiteLabelType, general, isDefIfNoWhiteLabel);
 
             context.Response.ContentType = "image";
             context.Response.Redirect(imgUrl);

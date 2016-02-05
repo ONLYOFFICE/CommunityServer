@@ -72,6 +72,18 @@ namespace ASC.Web.Studio.Core
             }
         }
 
+        public static List<CultureInfo> EnabledCulturesPersonal
+        {
+            get
+            {
+                return GetAppSettings("web.cultures.personal", GetAppSettings("web.cultures", "en-US"))
+                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                    .Select(l => CultureInfo.GetCultureInfo(l.Trim()))
+                    .OrderBy(l => l.Name)
+                    .ToList();
+            }
+        }
+
         public static decimal ExchangeRateRuble
         {
             get { return GetAppSettings("exchange-rate.ruble", 40); }
@@ -103,15 +115,12 @@ namespace ASC.Web.Studio.Core
             get
             {
                 var diskQuota = TenantExtra.GetTenantQuota();
-                var usedSize = UserControls.Statistics.TenantStatisticsProvider.GetUsedSize();
 
                 if (diskQuota != null)
                 {
-                    var freeSize = diskQuota.MaxTotalSize - usedSize;
-                    if (freeSize < diskQuota.MaxFileSize)
-                        return freeSize < 0 ? 0 : freeSize;
-
-                    return diskQuota.MaxFileSize;
+                    var usedSize = UserControls.Statistics.TenantStatisticsProvider.GetUsedSize();
+                    var freeSize = Math.Max(diskQuota.MaxTotalSize - usedSize, 0);
+                    return Math.Min(freeSize, diskQuota.MaxFileSize);
                 }
 
                 return ChunkUploadSize;
@@ -183,11 +192,6 @@ namespace ASC.Web.Studio.Core
             return UrlSwitcher.SelectCurrentUriScheme(string.Format("{0}{2}culture={1}&mobile={3}", url, cultureName, urlSeparatorChar, MobileDetector.IsMobile));
         }
 
-        public static string BaseDomain
-        {
-            get { return GetAppSettings("core.base-domain", string.Empty); }
-        }
-
         public static string WebApiBaseUrl
         {
             get { return VirtualPathUtility.ToAbsolute(GetAppSettings("api.url", "~/api/2.0/")); }
@@ -196,6 +200,11 @@ namespace ASC.Web.Studio.Core
         public static TimeSpan ValidEamilKeyInterval
         {
             get { return GetAppSettings("email.validinterval", TimeSpan.FromDays(7)); }
+        }
+
+        public static string SalesEmail
+        {
+            get { return GetAppSettings("web.payment.email", "sales@onlyoffice.com"); }
         }
 
         public static bool IsSecretEmail(string email)
@@ -232,7 +241,27 @@ namespace ASC.Web.Studio.Core
         {
             get { return GetAppSettings("web.share.facebook", "http://www.facebook.com/sharer.php?s=100&p[url]={0}&p[title]={1}&p[images][0]={2}&p[summary]={3}"); }
         }
-        
+
+
+        public static string ApiSystemUrl
+        {
+            get { return GetAppSettings("web.api-system", ""); }
+        }
+
+        public static string ApiCacheUrl
+        {
+            get { return GetAppSettings("web.api-cache", ""); }
+        }
+
+        public static string ControlPanelUrl
+        {
+            get { return GetAppSettings("web.controlpanel.url", ""); }
+        }
+
+        public static string FontOpenSansUrl
+        {
+            get { return GetAppSettings("web.font.opensans.url", ""); }
+        }
 
         public static bool IsVisibleSettings<TSettings>()
         {

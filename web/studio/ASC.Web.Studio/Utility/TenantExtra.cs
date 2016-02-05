@@ -24,20 +24,18 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Globalization;
-using System.Linq;
-using System.Web;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Tenants;
+using ASC.Core.Users;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
-using Resources;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
 namespace ASC.Web.Studio.Utility
 {
@@ -47,16 +45,27 @@ namespace ASC.Web.Studio.Utility
         {
             get
             {
-                return SetupInfo.IsVisibleSettings<TariffSettings>() &&
-                       !SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone;
+                return SetupInfo.IsVisibleSettings<TariffSettings>()
+                    && !SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone
+                    && (!CoreContext.Configuration.Standalone || !string.IsNullOrEmpty(SetupInfo.ControlPanelUrl));
+            }
+        }
+
+        public static bool EnableControlPanel
+        {
+            get
+            {
+                return
+                    CoreContext.Configuration.Standalone
+                    && !String.IsNullOrEmpty(SetupInfo.ControlPanelUrl)
+                    && GetTenantQuota().ControlPanel
+                    && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
             }
         }
 
         public static string GetTariffPageLink()
         {
-            return CoreContext.Configuration.Standalone
-                       ? "https://www.onlyoffice.com/" + CultureInfo.CurrentUICulture.TwoLetterISOLanguageName + "/server-enterprise.aspx"
-                       : VirtualPathUtility.ToAbsolute("~/tariffs.aspx");
+            return VirtualPathUtility.ToAbsolute("~/tariffs.aspx");
         }
 
         public static Tariff GetCurrentTariff()
@@ -66,12 +75,7 @@ namespace ASC.Web.Studio.Utility
 
         public static TenantQuota GetTenantQuota()
         {
-            var q = GetTenantQuota(TenantProvider.CurrentTenantID);
-            if (CoreContext.Configuration.Standalone && LicenseReader.GetLicense() != null && LicenseReader.GetLicense().getUserQuota() > 0)
-            {
-                q.ActiveUsers = LicenseReader.GetLicense().getUserQuota();
-            }
-            return q;
+            return GetTenantQuota(TenantProvider.CurrentTenantID);
         }
 
         public static TenantQuota GetTenantQuota(int tenant)
@@ -87,7 +91,7 @@ namespace ASC.Web.Studio.Utility
         private static TenantQuota GetPrevQuota(TenantQuota curQuota)
         {
             TenantQuota prev = null;
-            foreach (var quota in GetTenantQuotas().OrderBy(r => r.ActiveUsers).Where(r => r.DocsEdition && r.Year == curQuota.Year))
+            foreach (var quota in GetTenantQuotas().OrderBy(r => r.ActiveUsers).Where(r => r.DocsEdition && r.Year == curQuota.Year && r.Year3 == curQuota.Year3))
             {
                 if (quota.Id == curQuota.Id)
                     return prev;
@@ -129,88 +133,11 @@ namespace ASC.Web.Studio.Utility
                                          && !q.Trial);
         }
 
-        public static string GetTariffNotify()
-        {
-            var tariff = GetCurrentTariff();
-            if (tariff.State == TariffState.Trial)
-            {
-                var count = tariff.DueDate.Subtract(DateTime.Today.Date).Days;
-                if (count <= 0)
-                    return Resource.TrialPeriodExpired;
-
-                string end;
-                var num = count%100;
-
-                if (num >= 11 && num <= 19)
-                {
-                    end = Resource.DaysTwo;
-                }
-                else
-                {
-                    var i = count%10;
-                    switch (i)
-                    {
-                        case (1):
-                            end = Resource.Day;
-                            break;
-                        case (2):
-                        case (3):
-                        case (4):
-                            end = Resource.DaysOne;
-                            break;
-                        default:
-                            end = Resource.DaysTwo;
-                            break;
-                    }
-                }
-                return string.Format(Resource.TrialPeriod, count, end);
-            }
-
-            if (tariff.State == TariffState.Paid)
-            {
-                var quota = GetTenantQuota();
-                long notifySize;
-                long.TryParse(ConfigurationManager.AppSettings["web.tariff-notify.storage"] ?? "314572800", out notifySize); //300 MB
-                if (notifySize > 0 && quota.MaxTotalSize - TenantStatisticsProvider.GetUsedSize() < notifySize)
-                {
-                    return string.Format(Resource.TariffExceedLimit, FileSizeComment.FilesSizeToString(quota.MaxTotalSize));
-                }
-            }
-
-            return string.Empty;
-        }
-
-        public static string GetTariffNotifyText()
-        {
-            var tariff = GetCurrentTariff();
-            var text = "";
-            if (tariff.State == TariffState.Trial)
-            {
-                text = Resource.TrialPeriodInfoText;
-            }
-            if (tariff.State == TariffState.Paid)
-            {
-                text = Resource.TariffExceedLimitInfoText;
-            }
-            return String.Format(text, "<a href=\"" + GetTariffPageLink() + "\">", "</a>");
-        }
-
         public static void TrialRequest()
         {
             CoreContext.PaymentManager.SendTrialRequest(
                 TenantProvider.CurrentTenantID,
                 CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID));
-        }
-
-        public static void FreeRequest()
-        {
-            var quota = GetTenantQuotas().FirstOrDefault(q => q.Free);
-            if (quota != null)
-                CoreContext.PaymentManager.SetTariff(TenantProvider.CurrentTenantID, new Tariff
-                    {
-                        QuotaId = quota.Id,
-                        DueDate = DateTime.MaxValue
-                    });
         }
 
         public static int GetRemainingCountUsers()

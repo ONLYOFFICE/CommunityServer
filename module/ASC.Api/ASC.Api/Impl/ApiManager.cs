@@ -38,7 +38,6 @@ using ASC.Api.Attributes;
 using ASC.Api.Exceptions;
 using ASC.Api.Interfaces;
 using ASC.Api.Logging;
-using ASC.Api.Publisher;
 using ASC.Api.Routing;
 using ASC.Api.Utils;
 using ASC.Common.Web;

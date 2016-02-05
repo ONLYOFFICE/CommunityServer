@@ -57,6 +57,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ARSoft.Tools.Net, Version=1.8.1.0, Culture=neutral, PublicKeyToken=1940454cd762ec57, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\ARSoft.Tools.Net.1.8.1\lib\ARSoft.Tools.Net.dll</HintPath>
+    </Reference>
     <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Api.dll</HintPath>
@@ -72,6 +76,10 @@
     <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Data.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="ASC.FederatedLogin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.FederatedLogin.dll</HintPath>
     </Reference>
     <Reference Include="ASC.FullTextIndex, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -98,7 +106,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -114,6 +122,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -122,13 +131,17 @@
     <Compile Include="Dal\MailGarbageCleanDal.cs" />
     <Compile Include="Dal\SignatureDal.cs" />
     <Compile Include="Exceptions\AttachmentsException.cs" />
+    <Compile Include="Exceptions\DraftException.cs" />
     <Compile Include="Exceptions\MailBoxOutException.cs" />
+    <Compile Include="Extension\MailAttachmentExtensions.cs" />
+    <Compile Include="Extension\MailDraftExtensions.cs" />
     <Compile Include="Extension\SqlQueryExtensions.cs" />
     <Compile Include="AccountInfo.cs" />
     <Compile Include="Iterators\MailboxMessagesIterator.cs" />
     <Compile Include="MailAddressInfo.cs" />
     <Compile Include="Iterators\MailboxIterator.cs" />
     <Compile Include="MailBoxManager.Attachments.cs" />
+    <Compile Include="Managers\DraftManager.cs" />
     <Compile Include="MailBoxManager.Contacts.cs" />
     <Compile Include="MailBoxManager.Conversations.cs" />
     <Compile Include="MailBoxManager.EmailIn.cs" />
@@ -139,6 +152,7 @@
     <Compile Include="MailBoxManager.Messages.cs" />
     <Compile Include="MailBoxManager.Tags.cs" />
     <Compile Include="MailBoxManager.Tasks.cs" />
+    <Compile Include="Managers\StorageManager.cs" />
     <Compile Include="TasksConfig.cs" />
     <Compile Include="MailQueueItemSettings.cs" />
     <Compile Include="MailTag.cs" />
@@ -146,7 +160,6 @@
     <Compile Include="MailBoxManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\HtmlSanitizer.cs" />
-    <Compile Include="WebRequestsDataWrappers.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

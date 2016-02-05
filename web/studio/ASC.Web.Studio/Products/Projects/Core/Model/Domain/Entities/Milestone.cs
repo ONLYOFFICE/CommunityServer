@@ -32,7 +32,9 @@ namespace ASC.Projects.Core.Domain
     [DebuggerDisplay("Milestone: ID = {ID}, Title = {Title}, DeadLine = {DeadLine}")]
     public class Milestone : ProjectEntity
     {
-        public String Description { get; set; }
+        public override EntityType EntityType { get { return EntityType.Milestone; } }
+
+        public override string ItemPath { get { return "{0}milestones.aspx?prjID={1}"; } }
 
         public Guid Responsible { get; set; }
 

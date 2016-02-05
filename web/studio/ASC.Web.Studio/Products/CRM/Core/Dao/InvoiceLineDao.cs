@@ -35,6 +35,7 @@ using ASC.Common.Data.Sql.Expressions;
 using ASC.CRM.Core.Entities;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
 
 namespace ASC.CRM.Core.Dao
 {
@@ -156,8 +157,7 @@ namespace ASC.CRM.Core.Dao
 
         public virtual int SaveOrUpdateInvoiceLine(InvoiceLine invoiceLine)
         {
-            _cache.Remove(_invoiceItemCacheKey);
-            _cache.Insert(_invoiceLineCacheKey, String.Empty);
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "invoice.*"));
 
             using (var db = GetDb())
             {
@@ -226,8 +226,8 @@ namespace ASC.CRM.Core.Dao
                 db.ExecuteNonQuery(Delete("crm_invoice_line").Where("id", invoiceLineID));
             }
 
-            _cache.Remove(_invoiceItemCacheKey);
-            _cache.Insert(_invoiceLineCacheKey, String.Empty);
+            /*_cache.Remove(_invoiceItemCacheKey);
+            _cache.Insert(_invoiceLineCacheKey, String.Empty);*/
         }
 
         public void DeleteInvoiceLines(int invoiceID)
@@ -237,8 +237,8 @@ namespace ASC.CRM.Core.Dao
                 db.ExecuteNonQuery(Delete("crm_invoice_line").Where(Exp.Eq("invoice_id", invoiceID)));
             }
 
-            _cache.Remove(_invoiceItemCacheKey);
-            _cache.Insert(_invoiceLineCacheKey, String.Empty);
+            /*_cache.Remove(_invoiceItemCacheKey);
+            _cache.Insert(_invoiceLineCacheKey, String.Empty);*/
         }
 
         public Boolean CanDelete(int invoiceLineID)

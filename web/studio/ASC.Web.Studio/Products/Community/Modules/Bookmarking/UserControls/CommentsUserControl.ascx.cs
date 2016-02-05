@@ -23,11 +23,9 @@
  *
 */
 
-
 using System;
 using System.Collections.Generic;
 using ASC.Web.Studio.Utility.HtmlUtility;
-using AjaxPro;
 using ASC.Bookmarking.Business.Permissions;
 using ASC.Bookmarking.Pojo;
 using ASC.Core;
@@ -36,10 +34,10 @@ using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;
 using ASC.Web.UserControls.Bookmarking.Common.Util;
+using Newtonsoft.Json;
 
 namespace ASC.Web.UserControls.Bookmarking
 {
-    [AjaxNamespace("CommentsUserControl")]
     public partial class CommentsUserControl : System.Web.UI.UserControl
     {
         #region Fields
@@ -67,7 +65,11 @@ namespace ASC.Web.UserControls.Bookmarking
                 CommentList = _serviceHelper.Comments;
                 return _serviceHelper.Comments;
             }
-            set { _serviceHelper.Comments = CommentList; }
+            set
+            { 
+                _serviceHelper.Comments = CommentList;
+                BookmarkingServiceHelper.UpdateCurrentInstanse(_serviceHelper);
+            }
         }
 
         #endregion
@@ -90,136 +92,14 @@ namespace ASC.Web.UserControls.Bookmarking
 
             // add comments permission check		
             commentList.IsShowAddCommentBtn = BookmarkingPermissionsCheck.PermissionCheckCreateComment();
-            commentList.CommentsCountTitle = BookmarkComments.Count.ToString();
-            commentList.Simple = false;
+
             commentList.BehaviorID = "commentsObj";
-            commentList.JavaScriptAddCommentFunctionName = "CommentsUserControl.AddComment";
-            commentList.JavaScriptLoadBBcodeCommentFunctionName = "CommentsUserControl.LoadCommentBBCode";
-            commentList.JavaScriptPreviewCommentFunctionName = "CommentsUserControl.GetPreview";
-            commentList.JavaScriptRemoveCommentFunctionName = "CommentsUserControl.RemoveComment";
-            commentList.JavaScriptUpdateCommentFunctionName = "CommentsUserControl.UpdateComment";
+            commentList.ModuleName = "bookmarks";
             commentList.FckDomainName = "bookmarking_comments";
             commentList.TotalCount = BookmarkComments.Count;
             commentList.ShowCaption = false;
             commentList.ObjectID = BookmarkID.ToString();
         }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public AjaxResponse AddComment(string parrentCommentID, long bookmarkID, string text, string pid)
-        {
-            var resp = new AjaxResponse { rs1 = parrentCommentID };
-
-            var comment = new Comment
-                {
-                    Content = text,
-                    Datetime = ASC.Core.Tenants.TenantUtil.DateTimeNow(),
-                    UserID = SecurityContext.CurrentAccount.ID
-                };
-
-            var parentID = Guid.Empty;
-            try
-            {
-                if (!string.IsNullOrEmpty(parrentCommentID))
-                {
-                    parentID = new Guid(parrentCommentID);
-                }
-            }
-            catch
-            {
-                parentID = Guid.Empty;
-            }
-            comment.Parent = parentID.ToString();
-            comment.BookmarkID = bookmarkID;
-            comment.ID = Guid.NewGuid();
-
-            _serviceHelper.AddComment(comment);
-
-            resp.rs2 = GetOneCommentHtmlWithContainer(comment);
-
-            return resp;
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public string LoadCommentBBCode(string commentID)
-        {
-            if (string.IsNullOrEmpty(commentID))
-                return string.Empty;
-
-            var comment = _serviceHelper.GetCommentById(commentID);
-            return comment.Content;
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public string GetPreview(string text, string commentID)
-        {
-            return GetHTMLComment(text, commentID);
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public string RemoveComment(string commentID, string pid)
-        {
-            var comment = _serviceHelper.GetCommentById(commentID);
-            if (comment != null && BookmarkingPermissionsCheck.PermissionCheckEditComment(comment))
-            {
-                _serviceHelper.RemoveComment(commentID);
-                return commentID;
-            }
-            return null;
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public AjaxResponse UpdateComment(string commentID, string text, string pid)
-        {
-            var resp = new AjaxResponse();
-            var comment = _serviceHelper.GetCommentById(commentID);
-            if (comment != null)
-            {
-                if (BookmarkingPermissionsCheck.PermissionCheckEditComment(comment))
-                {
-                    _serviceHelper.UpdateComment(commentID, text);
-                    resp.rs1 = commentID;
-                    resp.rs2 = HtmlUtility.GetFull(text) + CodeHighlighter.GetJavaScriptLiveHighlight(true);
-                }
-            }
-            return resp;
-        }
-
-        private string GetHTMLComment(string text, string commentID)
-        {
-            var comment = new Comment
-                {
-                    Datetime = ASC.Core.Tenants.TenantUtil.DateTimeNow(),
-                    UserID = SecurityContext.CurrentAccount.ID
-                };
-
-            if (!String.IsNullOrEmpty(commentID))
-            {
-                comment = _serviceHelper.GetCommentById(commentID);
-
-                comment.Parent = string.Empty;
-            }
-            comment.Content = text;
-
-            var defComment = new CommentsList();
-
-            ConfigureComments(defComment);
-
-            var ci = BookmarkingConverter.ConvertComment(comment, BookmarkingServiceHelper.GetCurrentInstanse().BookmarkToAdd.Comments);
-            ci.IsEditPermissions = false;
-            ci.IsResponsePermissions = false;
-
-            var isRoot = string.IsNullOrEmpty(comment.Parent) || comment.Parent.Equals(Guid.Empty.ToString(), StringComparison.CurrentCultureIgnoreCase);
-
-            return CommentsHelper.GetOneCommentHtmlWithContainer(defComment, ci, isRoot, false);
-        }
-
-        private string GetOneCommentHtmlWithContainer(Comment comment)
-        {
-            return CommentsHelper.GetOneCommentHtmlWithContainer(
-                Comments,
-                BookmarkingConverter.ConvertComment(comment, BookmarkingServiceHelper.GetCurrentInstanse().BookmarkToAdd.Comments),
-                comment.Parent.Equals(Guid.Empty.ToString(), StringComparison.CurrentCultureIgnoreCase),
-                false);
-        }
+      
     }
 }

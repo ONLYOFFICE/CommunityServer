@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -24,17 +24,20 @@
 */
 
 
-using ASC.Files.Core;
-using ASC.Files.Core.Security;
-using ASC.Web.Files.Api;
-using ASC.Web.Files.Services.WCFService;
-using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+
+using ASC.Files.Core;
+using ASC.Files.Core.Security;
+using ASC.Web.Files.Api;
+using ASC.Web.Files.Services.WCFService;
+
+using Microsoft.Practices.ServiceLocation;
+
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
 using SecurityContext = ASC.Core.SecurityContext;
@@ -43,17 +46,21 @@ namespace ASC.Projects.Engine
 {
     public class FileEngine
     {
+        private const string Module = "projects";
+        private const string Bunch = "project";
+        private readonly SecurityAdapterProvider securityAdapterProvider = new SecurityAdapterProvider();
+
         public object GetRoot(int projectId)
         {
-            return FilesIntegration.RegisterBunch("projects", "project", projectId.ToString());
+            return FilesIntegration.RegisterBunch(Module, Bunch, projectId.ToString(CultureInfo.InvariantCulture));
         }
 
         public IEnumerable<object> GetRoots(IEnumerable<int> projectIds)
         {
-            return FilesIntegration.RegisterBunchFolders("projects", "project", projectIds.Select(id => id.ToString(CultureInfo.InvariantCulture)));
+            return FilesIntegration.RegisterBunchFolders(Module, Bunch, projectIds.Select(id => id.ToString(CultureInfo.InvariantCulture)));
         }
 
-        public File GetFile(object id, int version)
+        public File GetFile(object id, int version = 1)
         {
             using (var dao = FilesIntegration.GetFileDao())
             {
@@ -80,63 +87,24 @@ namespace ASC.Projects.Engine
             docService.DeleteItems("delete", new ItemList<string> {"folder_" + folderId}, true);
         }
 
-        public void RemoveFile(object id)
+        public static void RegisterFileSecurityProvider()
         {
-            using (var dao = FilesIntegration.GetFileDao())
-            {
-                dao.DeleteFile(id);
-                dao.DeleteFolder(id);
-            }
-        }
-
-        public Folder SaveFolder(Folder folder)
-        {
-            using (var dao = FilesIntegration.GetFolderDao())
-            {
-                folder.ID = dao.SaveFolder(folder);
-                return folder;
-            }
+            FilesIntegration.RegisterFileSecurityProvider(Module, Bunch, new SecurityAdapterProvider());
         }
 
         internal static Hashtable GetFileListInfoHashtable(IEnumerable<File> uploadedFiles)
         {
+            if (uploadedFiles == null) return new Hashtable();
+
             var fileListInfoHashtable = new Hashtable();
 
-            if (uploadedFiles != null)
-                foreach (var file in uploadedFiles)
-                {
-                    var fileInfo = String.Format("{0} ({1})", file.Title, Path.GetExtension(file.Title).ToUpper());
-                    fileListInfoHashtable.Add(fileInfo, file.ViewUrl);
-                }
+            foreach (var file in uploadedFiles)
+            {
+                var fileInfo = String.Format("{0} ({1})", file.Title, Path.GetExtension(file.Title).ToUpper());
+                fileListInfoHashtable.Add(fileInfo, file.ViewUrl);
+            }
 
             return fileListInfoHashtable;
-        }
-
-
-        public bool CanCreate(FileEntry file, int projectId)
-        {
-            return GetFileSecurity(projectId).CanCreate(file, SecurityContext.CurrentAccount.ID);
-        }
-
-        public bool CanDelete(FileEntry file, int projectId)
-        {
-            return GetFileSecurity(projectId).CanDelete(file, SecurityContext.CurrentAccount.ID);
-        }
-
-        public bool CanEdit(FileEntry file, int projectId)
-        {
-            return GetFileSecurity(projectId).CanEdit(file, SecurityContext.CurrentAccount.ID);
-        }
-
-        public bool CanRead(FileEntry file, int projectId)
-        {
-            return GetFileSecurity(projectId).CanRead(file, SecurityContext.CurrentAccount.ID);
-        }
-
-
-        private static IFileSecurity GetFileSecurity(int projectId)
-        {
-            return SecurityAdapterProvider.GetFileSecurity(projectId);
         }
 
         internal FileShare GetFileShare(FileEntry file, int projectId)
@@ -146,6 +114,31 @@ namespace ASC.Projects.Engine
             if (!CanDelete(file, projectId)) return FileShare.ReadWrite;
 
             return FileShare.None;
+        }
+
+        private bool CanCreate(FileEntry file, int projectId)
+        {
+            return GetFileSecurity(projectId).CanCreate(file, SecurityContext.CurrentAccount.ID);
+        }
+
+        private bool CanDelete(FileEntry file, int projectId)
+        {
+            return GetFileSecurity(projectId).CanDelete(file, SecurityContext.CurrentAccount.ID);
+        }
+
+        private bool CanEdit(FileEntry file, int projectId)
+        {
+            return GetFileSecurity(projectId).CanEdit(file, SecurityContext.CurrentAccount.ID);
+        }
+
+        private bool CanRead(FileEntry file, int projectId)
+        {
+            return GetFileSecurity(projectId).CanRead(file, SecurityContext.CurrentAccount.ID);
+        }
+
+        private IFileSecurity GetFileSecurity(int projectId)
+        {
+            return securityAdapterProvider.GetFileSecurity(projectId);
         }
     }
 }

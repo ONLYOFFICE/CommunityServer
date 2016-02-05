@@ -1,9 +1,4 @@
-﻿/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
-
-if (typeof window.console === 'undefined') {
+﻿if (typeof window.console === 'undefined') {
   window.console = {};
 }
 
@@ -447,7 +442,8 @@ window.TMTalk = (function ($) {
       var inputObj = jq("<input/>")
           .attr("id", "fileupload")
           .attr("type", "file")
-          .css("display", "none");
+          .css("width", "0")
+          .css("height", "0");
 
       inputObj.appendTo(buttonObj.parent());
 

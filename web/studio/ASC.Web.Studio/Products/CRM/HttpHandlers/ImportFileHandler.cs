@@ -24,7 +24,11 @@
 */
 
 
+using ASC.Core;
+using ASC.CRM.Core;
+using ASC.Web.Core;
 using ASC.Web.Core.Utility;
+using ASC.Web.CRM.Configuration;
 using ASC.Web.Studio.Controls.FileUploader;
 using System;
 using System.Web;
@@ -36,6 +40,9 @@ namespace ASC.Web.CRM.Classes
     {
         public FileUploadResult ProcessUpload(HttpContext context)
         {
+            if (!WebItemSecurity.IsAvailableForUser(ProductEntryPoint.ID.ToString(), SecurityContext.CurrentAccount.ID))
+                throw CRMSecurity.CreateSecurityException();
+
             var fileUploadResult = new FileUploadResult();
 
             if (!FileToUpload.HasFilesToUpload(context)) return fileUploadResult;

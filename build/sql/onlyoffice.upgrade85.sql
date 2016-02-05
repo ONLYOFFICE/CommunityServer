@@ -1,6 +1,7 @@
-DROP PROCEDURE IF EXISTS upgrade85;
+DELIMITER DLM00
 
-DELIMITER $$
+DROP PROCEDURE IF EXISTS upgrade85 DLM00
+
 CREATE PROCEDURE upgrade85()
 BEGIN
 	IF EXISTS(SELECT * FROM information_schema.`COLUMNS` WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'audit_events' AND COLUMN_NAME = 'mobile') THEN
@@ -44,6 +45,9 @@ BEGIN
 		UPDATE mail_attachment t INNER JOIN mail_mail m ON t.id_mail = m.id SET t.id_mailbox = m.id_mailbox;
 	END IF;
 
+	IF NOT EXISTS(SELECT * FROM information_schema.`COLUMNS` WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'mail_mailbox' AND COLUMN_NAME = 'date_created') THEN
+		ALTER TABLE `mail_mailbox` ADD COLUMN `date_created` DATETIME NULL DEFAULT NULL AFTER `email_in_folder`;
+	END IF;
 	IF NOT EXISTS(SELECT * FROM information_schema.`COLUMNS` WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'mail_mailbox' AND COLUMN_NAME = 'date_modified') THEN
 		ALTER TABLE `mail_mailbox`
 			CHANGE COLUMN `date_created` `date_created` DATETIME NULL DEFAULT NULL AFTER `email_in_folder`,
@@ -54,6 +58,7 @@ BEGIN
 			ADD COLUMN `date_login_delay_expires` DATETIME NOT NULL DEFAULT '1975-01-01 00:00:00' AFTER `date_user_checked`,
 			ADD COLUMN `date_auth_error` DATETIME NULL DEFAULT NULL AFTER `date_login_delay_expires`,
 			ADD COLUMN `is_default` TINYINT(1) NOT NULL DEFAULT '0' AFTER `is_removed`,
+			ADD COLUMN `imap_intervals` mediumtext NULL DEFAULT NULL,
 			ADD INDEX `date_login_delay_expires` (`date_checked`, `date_login_delay_expires`);
 	END IF;
 	
@@ -199,9 +204,23 @@ BEGIN
 			ADD INDEX `tenant` (`tenant`);
 	END IF;
 	
+	CREATE TABLE IF NOT EXISTS `mobile_app_install` (
+		`user_email` varchar(255) NOT NULL,
+		`app_type` int(11) NOT NULL,
+		`registered_on` datetime NOT NULL,
+		PRIMARY KEY (`user_email`,`app_type`)
+	);
+
 	INSERT IGNORE INTO `crm_currency_info` (`resource_key`, `abbreviation`, `symbol`, `culture_name`, `is_convertable`, `is_basic`) VALUES ('Currency_MoldovanLeu', 'MDL', 'lei', 'MD', 1, 0);
 
-END$$
-DELIMITER ;
+	DELETE FROM webstudio_settings WHERE id = '9a925891-1f92-4ed7-b277-d6f649739f06' AND NOT EXISTS(SELECT id FROM core_user WHERE tenantid = tenant AND email = '');
+	TRUNCATE mail_folder;
 
-CALL UPGRADE85();
+	ALTER TABLE `res_data`
+		DROP PRIMARY KEY,
+		ADD PRIMARY KEY (`fileid`, `cultureTitle`, `title`);
+END DLM00
+
+CALL upgrade85() DLM00
+
+DELIMITER ;

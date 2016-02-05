@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -30,9 +30,10 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
+using ActiveUp.Net.Mail;
 using ASC.Mail.Aggregator.Common.Authorization;
 using ASC.Mail.Aggregator.Common.Logging;
-using ActiveUp.Net.Mail;
+using DotNetOpenAuth.Messaging;
 
 namespace ASC.Mail.Aggregator.Common.Extension
 {
@@ -49,12 +50,15 @@ namespace ASC.Mail.Aggregator.Common.Extension
         }
 
         // gets mailboxes, messages from wich we should get
-        public static IEnumerable<ImapMailboxInfo> GetImapMailboxes(this Imap4Client client, string server, Dictionary<string, Dictionary<string, MailboxInfo>> specialDomainFolders, string[] skipImapFlags, Dictionary<string, int> imapFlags)
+        public static IEnumerable<ImapMailboxInfo> GetImapMailboxes(this Imap4Client client, string server, 
+                                                Dictionary<string, int> defaultFolsers,
+                                                Dictionary<string, Dictionary<string, MailboxInfo>> specialDomainFolders, 
+                                                string[] skipImapFlags, Dictionary<string, int> imapFlags)
         {
             // get all mailboxes
             var response = client.GetImapMailboxes();
 
-            var mailboxes = ParseImapMailboxes(response, server, specialDomainFolders, skipImapFlags, imapFlags);
+            var mailboxes = ParseImapMailboxes(response, server, defaultFolsers, specialDomainFolders, skipImapFlags, imapFlags);
 
             return mailboxes;
         }
@@ -79,11 +83,10 @@ namespace ASC.Mail.Aggregator.Common.Extension
         }
 
         public static IEnumerable<ImapMailboxInfo> ParseImapMailboxes(string imapResponse, string server = "",
-                                                                      Dictionary
-                                                                          <string, Dictionary<string, MailboxInfo>>
-                                                                          specialDomainFolders = null,
-                                                                      string[] skipImapFlags = null,
-                                                                      Dictionary<string, int> imapFlags = null)
+                                                                Dictionary<string, int> defaultFolders = null,
+                                                                Dictionary <string, Dictionary<string, MailboxInfo>> specialDomainFolders = null,
+                                                                string[] skipImapFlags = null,
+                                                                Dictionary<string, int> imapFlags = null)
         {
             var mailboxes = new List<ImapMailboxInfo>();
 
@@ -127,6 +130,14 @@ namespace ASC.Mail.Aggregator.Common.Extension
                 if (newMailbox.name.ToLower() != "inbox")
                 {
                     var utf8Name = FolderNameDecodeHelper.Replace(newMailbox.name, DecodeUtf7);
+                    var defaultMapping = false;
+
+                    if (defaultFolders != null && defaultFolders.ContainsKey(utf8Name.ToLower()))
+                    {
+                        newMailbox.folder_id = defaultFolders[utf8Name.ToLower()];
+                        defaultMapping = true;
+                    }
+
                     if (domainSpecialFolders.ContainsKey(utf8Name.ToLower()))
                     {
                         var info = domainSpecialFolders[utf8Name.ToLower()];
@@ -176,7 +187,7 @@ namespace ASC.Mail.Aggregator.Common.Extension
                             lookForParent = true;
                         }
 
-                        if (lookForParent)
+                        if (lookForParent && !defaultMapping)
                         {
                             // if mailbox is potentialy child - add tag. Tags looks like Tag1/Tag2/Tag3
                             const string tag_for_store_separator = "/";
@@ -213,7 +224,7 @@ namespace ASC.Mail.Aggregator.Common.Extension
             var auth = new GoogleOAuth2Authorization(log);
             var grantedAccess = auth.RequestAccessToken(account.RefreshToken);
             if (grantedAccess == null)
-                throw new DotNetOpenAuth.Messaging.ProtocolException("Access denied");
+                throw new ProtocolException("Access denied");
             log.Info("IMAP SSL connecting to {0}", account.EMail);
             imap.ConnectSsl(account.Server, account.Port);
 

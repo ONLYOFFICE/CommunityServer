@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -64,12 +64,6 @@ namespace ASC.Web.Projects.Masters
             set { Master.DisabledSidePanel = value; }
         }
 
-        public bool DisabledHelpTour
-        {
-            get { return Master.DisabledHelpTour; }
-            set { Master.DisabledHelpTour = value; }
-        }
-
         public bool DisabledPrjNavPanel { get; set; }
 
         public bool DisabledEmptyScreens { get; set; }
@@ -93,12 +87,13 @@ namespace ASC.Web.Projects.Masters
 
         protected void InitControls()
         {
+            var requestContext = ((BasePage)Page).RequestContext;
             if (!Master.DisabledSidePanel)
             {
                 projectsNavigationPanel.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Common/NavigationSidePanel.ascx")));
             }
 
-            if (!DisabledPrjNavPanel && RequestContext.IsInConcreteProject)
+            if (!DisabledPrjNavPanel && requestContext.IsInConcreteProject)
             {
                 _projectNavigatePanel.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Projects/ProjectNavigatePanel.ascx")));
             }
@@ -111,6 +106,7 @@ namespace ASC.Web.Projects.Masters
 
         private void InitEmptyScreens()
         {
+            var requestContext = ((BasePage)Page).RequestContext;
             emptyScreenPlaceHolders.Controls.Add(RenderEmptyScreenForFilter(MessageResource.FilterNoDiscussions, MessageResource.DescrEmptyListMilFilter, "discEmptyScreenForFilter"));
             emptyScreenPlaceHolders.Controls.Add(RenderEmptyScreenForFilter(TaskResource.NoTasks, TaskResource.DescrEmptyListTaskFilter, "tasksEmptyScreenForFilter"));
             emptyScreenPlaceHolders.Controls.Add(RenderEmptyScreenForFilter(MilestoneResource.FilterNoMilestones, MilestoneResource.DescrEmptyListMilFilter, "mileEmptyScreenForFilter"));
@@ -123,7 +119,7 @@ namespace ASC.Web.Projects.Masters
                     Header = TaskResource.NoTasksCreated,
                     Describe = String.Format(TaskResource.TasksHelpTheManage, TaskResource.DescrEmptyListTaskFilter),
                     ID = "emptyListTask",
-                    ButtonHTML = RequestContext.CanCreateTask(true) ? String.Format("<span class='link dotline addFirstElement'>{0}</span>", TaskResource.AddFirstTask) : string.Empty
+                    ButtonHTML = requestContext.CanCreateTask(true) ? String.Format("<span class='link dotline addFirstElement'>{0}</span>", TaskResource.AddFirstTask) : string.Empty
                 });
 
             emptyScreenPlaceHolders.Controls.Add(new EmptyScreenControl
@@ -132,9 +128,9 @@ namespace ASC.Web.Projects.Masters
                     Header = MessageResource.DiscussionNotFound_Header,
                     Describe = MessageResource.DiscussionNotFound_Describe,
                     ID = "emptyListDiscussion",
-                    ButtonHTML = RequestContext.CanCreateDiscussion(true) ?
-                                     (RequestContext.IsInConcreteProject
-                                          ? String.Format("<a href='messages.aspx?prjID={0}&action=add' class='link dotline addFirstElement'>{1}</a>", RequestContext.GetCurrentProjectId(), MessageResource.StartFirstDiscussion)
+                    ButtonHTML = requestContext.CanCreateDiscussion(true) ?
+                                     (requestContext.IsInConcreteProject
+                                          ? String.Format("<a href='messages.aspx?prjID={0}&action=add' class='link dotline addFirstElement'>{1}</a>", requestContext.GetCurrentProjectId(), MessageResource.StartFirstDiscussion)
                                           : String.Format("<a href='messages.aspx?action=add' class='link dotline addFirstElement'>{0}</a>", MessageResource.StartFirstDiscussion))
                                      : string.Empty
                 });
@@ -145,14 +141,14 @@ namespace ASC.Web.Projects.Masters
                     Header = MilestoneResource.MilestoneNotFound_Header,
                     Describe = String.Format(MilestoneResource.MilestonesMarkMajorTimestamps),
                     ID = "emptyListMilestone",
-                    ButtonHTML = RequestContext.CanCreateMilestone(true) ? String.Format("<a class='link dotline addFirstElement'>{0}</a>", MilestoneResource.PlanFirstMilestone) : string.Empty
+                    ButtonHTML = requestContext.CanCreateMilestone(true) ? String.Format("<a class='link dotline addFirstElement'>{0}</a>", MilestoneResource.PlanFirstMilestone) : string.Empty
                 });
 
             emptyScreenPlaceHolders.Controls.Add(new EmptyScreenControl
                 {
                     Header = ProjectResource.EmptyListProjHeader,
                     ImgSrc = WebImageSupplier.GetAbsoluteWebPath("projects_logo.png", ProductEntryPoint.ID),
-                    Describe = ProjectResource.EmptyListProjDescribe,
+                    Describe = ProjectSecurity.CanCreateProject() ? ProjectResource.EmptyListProjDescribe : string.Empty,
                     ID = "emptyListProjects",
                     ButtonHTML = ProjectSecurity.CanCreateProject() ? string.Format("<a href='projects.aspx?action=add' class='projectsEmpty link dotline addFirstElement'>{0}<a>", ProjectResource.CreateFirstProject) : string.Empty
                 });
@@ -163,7 +159,7 @@ namespace ASC.Web.Projects.Masters
                     Header = TimeTrackingResource.NoTtimers,
                     Describe = String.Format(TimeTrackingResource.NoTimersNote),
                     ID = "emptyListTimers",
-                    ButtonHTML = String.Format("<span class='link dotline addFirstElement {1}'>{0}</span>", TimeTrackingResource.StartTimer, RequestContext.CanCreateTime(true) ? string.Empty : "display-none")
+                    ButtonHTML = String.Format("<span class='link dotline addFirstElement {1}'>{0}</span>", TimeTrackingResource.StartTimer, requestContext.CanCreateTime(true) ? string.Empty : "display-none")
                 });
 
             emptyScreenPlaceHolders.Controls.Add(new EmptyScreenControl
@@ -182,33 +178,34 @@ namespace ASC.Web.Projects.Masters
 
             if (Page is GanttChart)
             {
-                Page.RegisterBodyScripts(LoadControl(VirtualPathUtility.ToAbsolute("~/products/projects/masters/GanttBodyScripts.ascx")));
+                Page.RegisterBodyScriptsControl("~/products/projects/masters/GanttBodyScripts.ascx");
                 return;
             }
 
-            Page.RegisterStyleControl(LoadControl(VirtualPathUtility.ToAbsolute("~/products/projects/masters/Styles.ascx")));
-            Page.RegisterBodyScripts(LoadControl(VirtualPathUtility.ToAbsolute("~/products/projects/masters/CommonBodyScripts.ascx")));
+            Page.RegisterStyleControl("~/products/projects/masters/Styles.ascx");
+            Page.RegisterBodyScriptsControl("~/products/projects/masters/CommonBodyScripts.ascx");
         }
 
         public void RegisterCRMResources()
         {
-            Page.RegisterStyleControl(ResolveUrl(VirtualPathUtility.ToAbsolute("~/products/crm/app_themes/default/css/common.less")));
-            Page.RegisterStyleControl(ResolveUrl(VirtualPathUtility.ToAbsolute("~/products/crm/app_themes/default/css/contacts.less")));
+            Page.RegisterStyle("~/products/crm/app_themes/default/css/common.less");
+            Page.RegisterStyle("~/products/crm/app_themes/default/css/contacts.less");
 
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/third-party/jquery/jquery.watermarkinput.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/products/crm/js/contacts.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/products/crm/js/common.js"));
+            Page.RegisterBodyScripts("~/js/third-party/jquery/jquery.watermarkinput.js");
+            Page.RegisterBodyScripts("~/products/crm/js/contacts.js");
+            Page.RegisterBodyScripts("~/products/crm/js/common.js");
         }
 
         public void WriteProjectResources()
         {
+            var requestContext = ((BasePage)Page).RequestContext;
             Page.RegisterClientLocalizationScript(typeof(ClientScripts.ClientLocalizationResources));
             Page.RegisterClientLocalizationScript(typeof(ClientScripts.ClientTemplateResources));
 
             Page.RegisterClientScript(typeof(ClientScripts.ClientUserResources));
             Page.RegisterClientScript(typeof(ClientScripts.ClientCurrentUserResources));
 
-            if (RequestContext.IsInConcreteProject)
+            if (requestContext.IsInConcreteProject)
             {
                 Page.RegisterClientScript(typeof(ClientScripts.ClientProjectResources));
             }

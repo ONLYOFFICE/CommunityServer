@@ -24,6 +24,8 @@
 */
 
 
+using System.Diagnostics;
+using System.Net;
 using ASC.Common.Web;
 using ASC.Core;
 using ASC.Core.Tenants;
@@ -60,6 +62,7 @@ namespace ASC.Web.Files.HttpHandlers
                 if (CoreContext.TenantManager.GetCurrentTenant().Status != TenantStatus.Active)
                 {
                     WriteError(context, "Can't perform upload for deleted or transfering portals");
+                    return;
                 }
 
                 switch (request.Type)
@@ -79,14 +82,13 @@ namespace ASC.Web.Files.HttpHandlers
 
                         if (resumedSession.BytesUploaded == resumedSession.BytesTotal)
                         {
-                            WriteSuccess(context, ToResponseObject(resumedSession.File), statusCode: 201);
+                            WriteSuccess(context, ToResponseObject(resumedSession.File), (int) HttpStatusCode.Created);
                             FilesMessageService.Send(resumedSession.File, context.Request, MessageAction.FileUploaded, resumedSession.File.Title);
                         }
                         else
                         {
                             WriteSuccess(context, ToResponseObject(resumedSession));
                         }
-
                         return;
 
                     default:
@@ -94,7 +96,7 @@ namespace ASC.Web.Files.HttpHandlers
                         return;
                 }
             }
-            catch(Exception error)
+            catch (Exception error)
             {
                 Global.Logger.Error(error);
                 WriteError(context, error.Message);
@@ -124,25 +126,36 @@ namespace ASC.Web.Files.HttpHandlers
             return false;
         }
 
-        private static void WriteError(HttpContext context, string message, int statusCode = 200)
+        private static void WriteError(HttpContext context, string message)
         {
-            WriteResponse(context, statusCode, false, message.HtmlEncode(), "");
+            WriteResponse(context, false, null, message, (int) HttpStatusCode.OK);
         }
 
-        private static void WriteSuccess(HttpContext context, object data, int statusCode = 200)
+        private static void WriteSuccess(HttpContext context, object data, int statusCode = (int) HttpStatusCode.OK)
         {
-            WriteResponse(context, statusCode, true, string.Empty, data);
+            WriteResponse(context, true, data, string.Empty, statusCode);
         }
 
-        private static void WriteResponse(HttpContext context, int statusCode, bool success, string message, object data)
+        private static void WriteResponse(HttpContext context, bool success, object data, string message, int statusCode)
         {
             context.Response.StatusCode = statusCode;
             context.Response.Write(JsonConvert.SerializeObject(new {success, data, message}));
         }
 
-        public static object ToResponseObject(ChunkedUploadSession session, bool initiate = false)
+        public static object ToResponseObject(ChunkedUploadSession session, bool appendBreadCrumbs = false)
         {
-            var pathFolder = initiate ? EntryManager.GetBreadCrumbs(session.FolderId).Select(f => f.ID) : new List<object> {session.FolderId};
+            var pathFolder = appendBreadCrumbs
+                                 ? EntryManager.GetBreadCrumbs(session.FolderId).Select(f =>
+                                     {
+                                         //todo: check how?
+                                         if (f == null)
+                                         {
+                                             Global.Logger.ErrorFormat("GetBreadCrumbs {0} with null", session.FolderId);
+                                             return string.Empty;
+                                         }
+                                         return f.ID;
+                                     })
+                                 : new List<object> {session.FolderId};
 
             return new
                 {
@@ -164,7 +177,8 @@ namespace ASC.Web.Files.HttpHandlers
                     folderId = file.FolderID,
                     version = file.Version,
                     title = file.Title,
-                    provider_key = file.ProviderKey
+                    provider_key = file.ProviderKey,
+                    uploaded = true
                 };
         }
 
@@ -176,6 +190,7 @@ namespace ASC.Web.Files.HttpHandlers
             Upload
         }
 
+        [DebuggerDisplay("{Type} ({UploadId})")]
         private class ChunkedRequestHelper
         {
             private readonly HttpRequest _request;
@@ -194,10 +209,9 @@ namespace ASC.Web.Files.HttpHandlers
                     if (_request["abort"] == "true" && !string.IsNullOrEmpty(UploadId))
                         return ChunkedRequestType.Abort;
 
-                    if (!string.IsNullOrEmpty(UploadId))
-                        return ChunkedRequestType.Upload;
-
-                    return ChunkedRequestType.None;
+                    return !string.IsNullOrEmpty(UploadId)
+                               ? ChunkedRequestType.Upload
+                               : ChunkedRequestType.None;
                 }
             }
 

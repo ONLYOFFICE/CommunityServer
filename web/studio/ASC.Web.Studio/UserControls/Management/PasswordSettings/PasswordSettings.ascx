@@ -1,11 +1,14 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PasswordSettings.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.PasswordSettings" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
+
+<% if (Enabled)
+   { %>
 <div class="clearFix">
      <div id="studio_passwordSettings" class="settings-block">
-     <div class="header-base clearFix" id="mailDomainSettingsTitle">
-		    <%=Resource.StudioPasswordSettings%>
-    </div>
+         <div class="header-base clearFix" id="mailDomainSettingsTitle">
+             <%= Resource.StudioPasswordSettings %>
+         </div>
 
         <div class="clearFix slider">
             <div class="header-base-small">
@@ -43,10 +46,11 @@
         </div>
     </div>
     <div class="settings-help-block">
-             <p><%=String.Format(Resource.HelpAnswerPasswordSettings, "<br />","<b>","</b>")%></p>
-         <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+        <p><%= String.Format(Resource.HelpAnswerPasswordSettings.HtmlEncode(), "<br />", "<b>", "</b>") %></p>
+        <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
            { %>
-             <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#ChangingSecuritySettings_block" %>" target="_blank"><%= Resource.LearnMore %></a>
+            <a href="<%= CommonLinkUtility.GetHelpLink() + "gettingstarted/configuration.aspx#ChangingSecuritySettings_block" %>" target="_blank"><%= Resource.LearnMore %></a>
         <% } %>
     </div>
 </div>
+<% } %>

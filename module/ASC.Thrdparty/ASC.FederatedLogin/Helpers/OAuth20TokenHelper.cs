@@ -33,7 +33,7 @@ namespace ASC.FederatedLogin.Helpers
 {
     public static class OAuth20TokenHelper
     {
-        public static void RequestCode(HttpContext context, string requestUrl, string clientID = null, string redirectUri = null, string scope = null, Dictionary<string,string> additionalArgs = null)
+        public static void RequestCode(HttpContext context, string requestUrl, string clientID = null, string redirectUri = null, string scope = null, Dictionary<string, string> additionalArgs = null)
         {
             var uriBuilder = new UriBuilder(requestUrl);
 
@@ -50,10 +50,10 @@ namespace ASC.FederatedLogin.Helpers
             if (additionalArgs != null)
             {
                 query = additionalArgs.Keys.Where(additionalArg => additionalArg != null)
-                    .Aggregate(query, (current, additionalArg) =>
-                        additionalArg != null ? current
-                                                + ("&" + HttpUtility.UrlEncode((additionalArg).Trim())
-                                                   + "=" + HttpUtility.UrlEncode((additionalArgs[additionalArg] ?? "").Trim())) : null);
+                                      .Aggregate(query, (current, additionalArg) =>
+                                                        additionalArg != null ? current
+                                                                                + ("&" + HttpUtility.UrlEncode((additionalArg).Trim())
+                                                                                   + "=" + HttpUtility.UrlEncode((additionalArgs[additionalArg] ?? "").Trim())) : null);
             }
 
             context.Response.Redirect(uriBuilder.Uri + "?" + query, true);
@@ -61,13 +61,16 @@ namespace ASC.FederatedLogin.Helpers
 
         public static OAuth20Token GetAccessToken(string requestUrl, string clientID, string clientSecret, string redirectUri, string authCode)
         {
+            if (String.IsNullOrEmpty(authCode)) throw new ArgumentNullException("authCode");
             if (String.IsNullOrEmpty(clientID)) throw new ArgumentNullException("clientID");
             if (String.IsNullOrEmpty(clientSecret)) throw new ArgumentNullException("clientSecret");
-            if (String.IsNullOrEmpty(redirectUri)) throw new ArgumentNullException("redirectUri");
-            if (String.IsNullOrEmpty(authCode)) throw new ArgumentNullException("authCode");
 
-            var data = string.Format("code={0}&client_id={1}&client_secret={2}&redirect_uri={3}&grant_type=authorization_code",
-                                     authCode, clientID, clientSecret, redirectUri);
+            var data = string.Format("code={0}&client_id={1}&client_secret={2}", authCode, clientID, clientSecret);
+
+            if (!String.IsNullOrEmpty(redirectUri))
+                data += "&redirect_uri=" + redirectUri;
+
+            data += "&grant_type=authorization_code";
 
             var json = RequestHelper.PerformRequest(requestUrl, "application/x-www-form-urlencoded", "POST", data);
             if (json != null)
@@ -112,7 +115,7 @@ namespace ASC.FederatedLogin.Helpers
 
         private static bool CanRefresh(OAuth20Token token)
         {
-            return !String.IsNullOrEmpty(token.ClientID) && !String.IsNullOrEmpty(token.ClientSecret) && !String.IsNullOrEmpty(token.RedirectUri);
+            return !String.IsNullOrEmpty(token.ClientID) && !String.IsNullOrEmpty(token.ClientSecret);
         }
     }
 }

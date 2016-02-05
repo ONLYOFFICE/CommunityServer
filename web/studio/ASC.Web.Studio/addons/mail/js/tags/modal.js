@@ -129,7 +129,7 @@ window.tagsModal = (function($) {
         wnd.find('div.containerHeaderBlock:first td:first').html(headerText);
 
 
-        wnd.find('#mail_CreateTag_Name input').val(TMMail.translateSymbols(tag.name));
+        wnd.find('#mail_CreateTag_Name input').val(tag.name);
         changeWndTagColor(undefined, tag.style);
         wnd.find('#mail_EmailsContainer').empty();
 

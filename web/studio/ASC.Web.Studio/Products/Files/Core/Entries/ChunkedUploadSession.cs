@@ -26,10 +26,13 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace ASC.Files.Core
 {
-    public class ChunkedUploadSession
+    [DebuggerDisplay("{Id} into {FolderId}")]
+    [Serializable]
+    public class ChunkedUploadSession : ICloneable
     {
         public string Id { get; set; }
 
@@ -68,6 +71,13 @@ namespace ASC.Files.Core
         public T GetItemOrDefault<T>(string key)
         {
             return Items.ContainsKey(key) && Items[key] is T ? (T)Items[key] : default(T);
+        }
+
+        public object Clone()
+        {
+            var clone = (ChunkedUploadSession) MemberwiseClone();
+            clone.File = (File) File.Clone();
+            return clone;
         }
     }
 }

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -25,9 +25,16 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.Serialization;
+using ASC.Core;
+using ASC.Core.Tenants;
+using ASC.Core.Users;
 using ASC.Web.Files.Classes;
+using ASC.Web.Files.Resources;
+using Newtonsoft.Json.Linq;
 
 namespace ASC.Files.Core
 {
@@ -36,12 +43,48 @@ namespace ASC.Files.Core
     public class EditHistory
     {
         public int ID;
-        [DataMember(Name = "version")]
-        public int Version;
-        [DataMember(Name = "version_group")]
-        public int VersionGroup;
+        [DataMember(Name = "key")] public string Key;
+        [DataMember(Name = "version")] public int Version;
+        [DataMember(Name = "versionGroup")] public int VersionGroup;
+        //todo: delete
+        [DataMember(Name = "version_group")] public int VersionGroupOld { get { return VersionGroup; } set { VersionGroup = value; } }
+
+        [DataMember(Name = "user")] public EditHistoryAuthor ModifiedBy;
+
+        public string ChangesString;
+
         [DataMember(Name = "changes")]
-        public string Changes;
+        public List<EditHistoryChanges> Changes
+        {
+            get
+            {
+                var changes = new List<EditHistoryChanges>();
+                if (string.IsNullOrEmpty(ChangesString)) return changes;
+                try
+                {
+                    var jChanges = JArray.Parse(ChangesString);
+
+                    changes = jChanges.Children<JObject>()
+                                      .Select(jChange =>
+                                              new EditHistoryChanges
+                                                  {
+                                                      Date = jChange.Value<string>("date"),
+                                                      Author = new EditHistoryAuthor
+                                                          {
+                                                              Id = new Guid(jChange.Value<string>("userid") ?? Guid.Empty.ToString()),
+                                                              Name = jChange.Value<string>("username")
+                                                          }
+                                                  })
+                                      .ToList();
+                }
+                catch (Exception ex)
+                {
+                    Global.Logger.Error("DeSerialize exception", ex);
+                }
+                return changes;
+            }
+            set { throw new NotImplementedException(); }
+        }
 
         public DateTime ModifiedOn;
 
@@ -51,14 +94,50 @@ namespace ASC.Files.Core
             get { return ModifiedOn.Equals(default(DateTime)) ? null : ModifiedOn.ToString("g"); }
             set { throw new NotImplementedException(); }
         }
+    }
 
-        public Guid ModifiedBy;
+    [DataContract(Name = "user", Namespace = "")]
+    [DebuggerDisplay("{Id} {Name}")]
+    public class EditHistoryAuthor
+    {
+        [DataMember(Name = "id")] public Guid Id;
 
-        [DataMember(Name = "author")]
-        public string ModifiedByString
+        private string _name;
+
+        [DataMember(Name = "name")]
+        public string Name
         {
-            get { return !ModifiedBy.Equals(Guid.Empty) ? Global.GetUserName(ModifiedBy) : string.Empty; }
-            set { throw new NotImplementedException(); }
+            get
+            {
+                return string.IsNullOrEmpty(_name)
+                           ? Id.Equals(Guid.Empty) || Id.Equals(ASC.Core.Configuration.Constants.Guest.ID)
+                                 ? FilesCommonResource.Guest
+                                 : CoreContext.UserManager.GetUsers(Id).DisplayUserName(false)
+                           : _name;
+            }
+            set { _name = value; }
+        }
+    }
+
+    [DataContract(Name = "change", Namespace = "")]
+    [DebuggerDisplay("{Author.Name}")]
+    public class EditHistoryChanges
+    {
+        [DataMember(Name = "user")] public EditHistoryAuthor Author;
+
+        private DateTime _date;
+
+        [DataMember(Name = "created")]
+        public string Date
+        {
+            get { return _date.Equals(default(DateTime)) ? null : _date.ToString("g"); }
+            set
+            {
+                if (DateTime.TryParse(value, out _date))
+                {
+                    _date = TenantUtil.DateTimeFromUtc(_date);
+                }
+            }
         }
     }
 }

@@ -24,10 +24,6 @@
 */
 
 
-/*
-Copyright (c) Ascensio System SIA 2013. All rights reserved.
-http://www.teamlab.com
-*/
 window.EditProfileManager = (function () {
 
     var init = function () {
@@ -52,7 +48,8 @@ window.EditProfileManager = (function () {
             if (jq(this).hasClass("disabled")) return;
 
             if (!jq.browser.mobile) {
-                ASC.Controls.LoadPhotoImage.showPhotoDialog();
+                var curPhotoSrc = jq("#userProfilePhoto").find("img").attr("src");
+                ASC.Controls.LoadPhotoImage.showPhotoDialog(curPhotoSrc);
             }
         });
 

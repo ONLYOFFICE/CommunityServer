@@ -49,7 +49,6 @@
               "shared": <xsl:value-of select="shared" />,
               "title": "<xsl:value-of select="title" />",
               "isnew": <xsl:value-of select="isnew" />,
-              "shareable": <xsl:value-of select="shareable" />,
               "provider_key": "<xsl:value-of select="provider_key" />",
               "provider_id": "<xsl:value-of select="provider_id" />",
               "error": "<xsl:value-of select="error" />",

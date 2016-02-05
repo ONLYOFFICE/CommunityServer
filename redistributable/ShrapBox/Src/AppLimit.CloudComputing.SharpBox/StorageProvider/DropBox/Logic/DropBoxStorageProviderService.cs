@@ -427,7 +427,10 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
 
         public override IResumableUploadSession CreateUploadSession(IStorageProviderSession session, ICloudFileSystemEntry fileSystemEntry, long bytesToTransfer)
         {
-            return new ResumableUploadSession(fileSystemEntry, bytesToTransfer);
+            //return new ResumableUploadSession(fileSystemEntry, bytesToTransfer);
+            if (fileSystemEntry == null) throw new ArgumentNullException("fileSystemEntry");
+
+            return new ResumableUploadSession(fileSystemEntry.Id, fileSystemEntry.Name, fileSystemEntry.ParentID, bytesToTransfer);
         }
 
         public override void UploadChunk(IStorageProviderSession session, IResumableUploadSession uploadSession, Stream stream, long chunkLength)
@@ -500,16 +503,20 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
                 if (httpStatusCode != (int)HttpStatusCode.OK)
                     SharpBoxException.ThrowSharpBoxExceptionBasedOnHttpErrorCode((HttpWebRequest)request, (HttpStatusCode)httpStatusCode, httpException);
 
-                var file = (BaseFileEntry)uploadSession.File;
-                file.Length = uploadSession.BytesToTransfer;
-                file.Id = file.ParentID != "/" ? file.ParentID + "/" + file.Name : file.Name;
+                var rUploadSession = uploadSession as ResumableUploadSession;
+                rUploadSession.FileId = rUploadSession.ParentId != "/" ? rUploadSession.ParentId + "/" + rUploadSession.FileName : rUploadSession.FileName;
 
-                var parent = file.Parent as BaseDirectoryEntry;
-                if (parent != null)
-                {
-                    parent.RemoveChildById(file.Name);
-                    parent.AddChild(file);
-                }
+
+                //var file = (BaseFileEntry)uploadSession.File;
+                //file.Length = uploadSession.BytesToTransfer;
+                //file.Id = file.ParentID != "/" ? file.ParentID + "/" + file.Name : file.Name;
+
+                //var parent = file.Parent as BaseDirectoryEntry;
+                //if (parent != null)
+                //{
+                //    parent.RemoveChildById(file.Name);
+                //    parent.AddChild(file);
+                //}
 
                 ((ResumableUploadSession)uploadSession).Status = ResumableUploadSessionStatus.Completed;
             }
@@ -683,9 +690,12 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox.Logic
 
         public static String GetCommitUploadSessionUrl(IStorageProviderSession session, IResumableUploadSession uploadSession)
         {
+            var rUploadSession = uploadSession as ResumableUploadSession;
+            if (rUploadSession == null) throw new ArgumentNullException("uploadSession");
+
             return GetUrlString(DropBoxCommitChunkedUpload, session.ServiceConfiguration)
                    + "/" + GetRootToken((DropBoxStorageProviderSession)session)
-                   + "/" + HttpUtilityEx.UrlEncodeUTF8(DropBoxResourceIDHelpers.GetResourcePath(uploadSession.File.Parent, uploadSession.File.Name));
+                   + "/" + HttpUtilityEx.UrlEncodeUTF8(DropBoxResourceIDHelpers.GetResourcePath(null, rUploadSession.FileName, rUploadSession.ParentId));
         }
 
         #endregion

@@ -80,6 +80,38 @@ namespace ASC.Files.Core
         List<File> GetFiles(object[] fileIds);
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parentId"></param>
+        /// <param name="withSubfolders"></param>
+        /// <returns></returns>
+        List<object> GetFiles(object parentId, bool withSubfolders);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parentIds"></param>
+        /// <param name="searchText"></param>
+        /// <param name="searchSubfolders"></param>
+        /// <returns></returns>
+        List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false);
+
+        /// <summary>
+        ///     Get files in folder
+        /// </summary>
+        /// <param name="parentId">folder id</param>
+        /// <param name="orderBy"></param>
+        /// <param name="subjectID"></param>
+        /// <param name="filterType">filterType type</param>
+        /// <param name="searchText"> </param>
+        /// <param name="searchSubfolders"> </param>
+        /// <returns>list of files</returns>
+        /// <remarks>
+        ///    Return only the latest versions of files of a folder
+        /// </remarks>
+        List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false);
+
+        /// <summary>
         /// Get stream of file
         /// </summary>
         /// <param name="file"></param>
@@ -156,9 +188,9 @@ namespace ASC.Files.Core
         /// <summary>
         ///   Rename file
         /// </summary>
-        /// <param name="fileId">file id</param>
+        /// <param name="file"></param>
         /// <param name="newTitle">new name</param>
-        object FileRename(object fileId, String newTitle);
+        object FileRename(File file, string newTitle);
 
         /// <summary>
         ///   Update comment file
@@ -235,7 +267,7 @@ namespace ASC.Files.Core
 
         List<EditHistory> GetEditHistory(object fileId, int fileVersion = 0);
 
-        string GetDifferenceUrl(File file);
+        Stream GetDifferenceStream(File file);
 
         #endregion
     }

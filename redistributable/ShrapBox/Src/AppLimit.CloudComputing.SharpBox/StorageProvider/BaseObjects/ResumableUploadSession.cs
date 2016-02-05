@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 namespace AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects
 {
-    internal class ResumableUploadSession : IResumableUploadSession
+    [Serializable]
+    public class ResumableUploadSession : IResumableUploadSession
     {
         private readonly Dictionary<string, object> _items = new Dictionary<string, object>();
         private readonly DateTime _createdOn = DateTime.UtcNow;
@@ -13,6 +14,12 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects
         public long BytesTransfered { get; set; }
 
         public ICloudFileSystemEntry File { get; set; }
+
+        public string FileId { get; set; }
+
+        public string FileName { get; set; }
+
+        public string ParentId { get; set; }
 
         public ResumableUploadSessionStatus Status { get; set; }
 
@@ -32,6 +39,17 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.BaseObjects
             File = file;
             BytesToTransfer = bytesToTransfer;
             Status = ResumableUploadSessionStatus.None;
+        }
+
+        public ResumableUploadSession(string fileId, string fileName, string parentId, long bytesToTransfer)
+        {
+            File = null;
+            BytesToTransfer = bytesToTransfer;
+            Status = ResumableUploadSessionStatus.None;
+
+            FileId = fileId;
+            FileName = fileName;
+            ParentId = parentId;
         }
 
         public void SetItem(string key, object value)

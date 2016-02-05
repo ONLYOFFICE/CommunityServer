@@ -26,33 +26,65 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 namespace ASC.Web.Studio.UserControls.Common.Comments
 {
+    [DataContract]
     public class Attachment
     {
+        [DataMember(Name = "FileName")]
         public string FileName { get; set; }
+
+        [DataMember(Name = "FilePath")]
         public string FilePath { get; set; }
     }
 
+    [DataContract]
     public class CommentInfo
     {
+        [DataMember(Name = "commentID")]
         public string CommentID { get; set; }
+
+        [DataMember(Name = "userID")]
         public Guid UserID { get; set; }
+
+        [DataMember(Name = "userPost")]
         public string UserPost { get; set; }
+
+        [DataMember(Name = "userFullName")]
         public string UserFullName { get; set; }
-        public string UserAvatar { get; set; }
+
+        [DataMember(Name = "userProfileLink")]
+        public string UserProfileLink { get; set; }
+
+        [DataMember(Name = "userAvatarPath")]
+        public string UserAvatarPath { get; set; }
+
+        [DataMember(Name = "commentBody")]
         public string CommentBody { get; set; }
+
+        [DataMember(Name = "inactive")]
         public bool Inactive { get; set; }
+
+        [DataMember(Name = "isRead")]
         public bool IsRead { get; set; }
+
+        [DataMember(Name = "isEditPermissions")]
         public bool IsEditPermissions { get; set; }
+
+        [DataMember(Name = "isResponsePermissions")]
         public bool IsResponsePermissions { get; set; }
-        public string JavascriptEdit { get; set; }
-        public string JavascriptResponse { get; set; }
-        public string JavascriptRemove { get; set; }
+
         public DateTime TimeStamp { get; set; }
+
+        [DataMember(Name = "timeStampStr")]
         public string TimeStampStr { get; set; }
+
+        [DataMember(Name = "commentList")]
         public IList<CommentInfo> CommentList { get; set; }
+
+        [DataMember(Name = "attachments")]
         public IList<Attachment> Attachments { get; set; }
     }
 }

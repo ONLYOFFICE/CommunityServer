@@ -63,7 +63,7 @@ namespace ASC.Web.UserControls.Forum
 
         public void InitView()
         {
-            _settings = ForumManager.GetSettings(SettingsID);
+            _settings = Community.Forum.ForumManager.Settings;
             TopicList = ForumDataProvider.GetLastUpdateTopics(TenantProvider.CurrentTenantID, MaxTopicCount);
         }    
 

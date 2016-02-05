@@ -40,7 +40,7 @@
 
 <asp:Panel ID="_joinBlock" runat="server" CssClass="signUpBlock join">
 <div class="overview">
-<%= Resources.Resource.SendInviteToJoinDescription %>
+<%: Resources.Resource.SendInviteToJoinDescription %>
 </div>
     <a class="signUp join" href="javascript:void(0);" onclick="AuthCommunications.ShowInviteJoinDialog(); return false;">
         <%= Resources.Resource.SendInviteToJoinButtonBlock %></a>
@@ -49,11 +49,11 @@
             <div id="studio_invJoinInfo">
             </div>
             <div class="desc">
-                <%=RenderTrustedDominTitle()%>
+                <%= RenderTrustedDominTitle() %>
             </div>
             <div>
             <div class="label">
-            <%=Resources.Resource.SendInviteToJoinEmailDesc%>
+            <%: Resources.Resource.SendInviteToJoinEmailDesc%>
             </div>
                 <input class="textEdit" type="text" id="studio_joinEmail" style="width: 100%" />
             </div>

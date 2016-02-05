@@ -246,11 +246,10 @@
     white-space: nowrap;
 }
 
-@media all and (max-width: 1300px) {
-    .news-row .events_name {
-        max-width: 150px;
-    }
-    .news-row .events_autor {
-        max-width: 330px;
-    }
+
+body.media-width-0-1300 .news-row .events_name {
+    max-width: 150px;
+}
+body.media-width-0-1300 .news-row .events_autor {
+    max-width: 330px;
 }

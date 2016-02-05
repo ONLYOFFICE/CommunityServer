@@ -35,7 +35,7 @@ using System.Security.Authentication;
 using System.Web;
 using System.Web.Configuration;
 using ASC.Core;
-using ASC.Core.Tenants;
+using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Common.Logging;
 using ASC.Mail.Aggregator.Dal.DbSchema;
 using ASC.Specific;
@@ -49,6 +49,8 @@ namespace ASC.Mail.Aggregator.Common
         static ApiHelper()
         {
             Log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "ASC.Api");
+
+            _scheme = ConfigurationManager.AppSettings["mail.default-api-scheme"] ?? "";
         }
 
         private static Cookie _cookie;
@@ -112,7 +114,7 @@ namespace ASC.Mail.Aggregator.Common
                     ubBase.Port = int.Parse(port);
             }
             else
-                ubBase.Host += "." + WebConfigurationManager.AppSettings["core.base-domain"];
+                ubBase.Host += "." + CoreContext.Configuration.BaseDomain;
 
             ubBase.Path = tempUrl;
 
@@ -142,6 +144,8 @@ namespace ASC.Mail.Aggregator.Common
             return response.Data;
         }
 
+        const string ERR_MESSAGE = "Error retrieving response.  Check inner details for more info.";
+
         public static IRestResponse Execute(RestRequest request)
         {
             Setup();
@@ -152,9 +156,14 @@ namespace ASC.Mail.Aggregator.Common
 
             request.AddCookie(_cookie.Name, _cookie.Value);
 
-            var response = client.Execute(request);
+            var response = client.ExecuteSafe(request);
 
-            if (response.StatusCode == HttpStatusCode.NotFound)
+            if (response.ErrorException is ApiHelperException)
+            {
+                return response;
+            }
+
+            if (response.StatusCode == HttpStatusCode.NotFound || response.ErrorException != null)
             {
                 _scheme = Scheme == Uri.UriSchemeHttp ? Uri.UriSchemeHttps : Uri.UriSchemeHttp;
 
@@ -164,14 +173,17 @@ namespace ASC.Mail.Aggregator.Common
 
                 Log.Debug("ApiHelper->Execute: request url: {0}/{1}", BaseUrl.Uri.ToString(), request.Resource);
 
-                response = client.Execute(request);
+                response = client.ExecuteSafe(request);
+
+                if (response.StatusCode == HttpStatusCode.NotFound || response.ErrorException != null)
+                {
+                    _scheme = Scheme == Uri.UriSchemeHttp ? Uri.UriSchemeHttps : Uri.UriSchemeHttp;
+                }
             }
 
             if (response.ErrorException != null)
             {
-                const string message = "Error retrieving response.  Check inner details for more info.";
-                var ex = new ApplicationException(message, response.ErrorException);
-                throw ex;
+                throw new ApplicationException(ERR_MESSAGE, response.ErrorException);
             }
 
             return response;
@@ -181,14 +193,7 @@ namespace ASC.Mail.Aggregator.Common
         {
             var request = new RestRequest("portal/tariff.json", Method.GET);
 
-            request.AddUrlSegment("Payment-Info", "false");
-
-            var tenantInfo = CoreContext.TenantManager.GetCurrentTenant();
-
-            if (tenantInfo.Status == TenantStatus.RemovePending)
-                return Defines.TariffType.LongDead;
-
-            SecurityContext.AuthenticateMe(tenantInfo.OwnerId);
+            request.AddHeader("Payment-Info", "false");
 
             var response = Execute(request);
 
@@ -240,13 +245,15 @@ namespace ASC.Mail.Aggregator.Common
 
         private const int MAIL_CRM_HISTORY_CATEGORY = -3;
 
-        public static void AddToCrmHistory(MailMessageItem item, CrmContactEntity entity, string contentString, IEnumerable<int> fileIds)
+        public static void AddToCrmHistory(MailMessage message, CrmContactEntity entity, IEnumerable<int> fileIds)
         {
             var request = new RestRequest("crm/history.json", Method.POST);
 
-            request.AddParameter("content", contentString)
+            var contentJson = string.Format("{{ message_id : {0} }}", message.Id);
+
+            request.AddParameter("content", contentJson)
                    .AddParameter("categoryId", MAIL_CRM_HISTORY_CATEGORY)
-                   .AddParameter("created", new ApiDateTime(item.Date));
+                   .AddParameter("created", new ApiDateTime(message.Date));
 
             var crmEntityType = entity.Type.StringName();
 
@@ -278,6 +285,11 @@ namespace ASC.Mail.Aggregator.Common
                 (response.StatusCode != HttpStatusCode.Created &&
                  response.StatusCode != HttpStatusCode.OK))
             {
+                if (response.ErrorException is ApiHelperException)
+                {
+                    throw response.ErrorException;
+                }
+
                 throw new ApiHelperException("Add message to crm history failed.", response.StatusCode, response.Content);
             }
         }
@@ -285,13 +297,13 @@ namespace ASC.Mail.Aggregator.Common
         public static int UploadToCrm(Stream fileStream, string filename, string contentType,
                                       CrmContactEntity entity)
         {
-            var request = new RestRequest(string.Format("crm/{0}/{1}/files/upload.json", entity.Type.StringName(), entity.Id), Method.POST);
+            var request = new RestRequest("crm/{entityType}/{entityId}/files/upload.json", Method.POST);
 
-            request.AddParameter("storeOriginalFileFlag", false);
+            request.AddUrlSegment("entityType", entity.Type.StringName())
+                .AddUrlSegment("entityId", entity.Id.ToString())
+                .AddParameter("storeOriginalFileFlag", false);
 
-            var bytes = fileStream.GetCorrectBuffer();
-
-            request.AddFile(filename, bytes, filename, contentType);
+            request.AddFile(filename, fileStream.CopyTo, filename, contentType);
 
             var response = Execute(request);
 
@@ -311,14 +323,13 @@ namespace ASC.Mail.Aggregator.Common
 
         public static int UploadToDocuments(Stream fileStream, string filename, string contentType, string folderId, bool createNewIfExist)
         {
-            var request = new RestRequest(string.Format("files/{0}/upload.json", folderId), Method.POST);
+            var request = new RestRequest("files/{folderId}/upload.json", Method.POST);
 
-            request.AddParameter("createNewIfExist", createNewIfExist)
+            request.AddUrlSegment("folderId", folderId)
+                   .AddParameter("createNewIfExist", createNewIfExist)
                    .AddParameter("storeOriginalFileFlag", true);
 
-            var bytes = fileStream.GetCorrectBuffer();
-
-            request.AddFile(filename, bytes, filename, contentType);
+            request.AddFile(filename, fileStream.CopyTo, filename, contentType);
 
             var response = Execute(request);
 

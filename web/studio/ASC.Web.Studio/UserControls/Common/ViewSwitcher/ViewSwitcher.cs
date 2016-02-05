@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -163,8 +163,8 @@ namespace ASC.Web.Studio.UserControls.Common.ViewSwitcher
 
         public void InitViewSwitcherScripts(Page p, List<ViewSwitcherTabItem> tabs)
         {
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/common/viewswitcher/js/viewswitcher.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/common/viewswitcher/css/viewswitcher.css"));
+            Page.RegisterBodyScripts("~/usercontrols/common/viewswitcher/js/viewswitcher.js");
+            Page.RegisterStyle("~/usercontrols/common/viewswitcher/css/viewswitcher.css");
 
             if (tabs != null && tabs.Count > 0)
             {

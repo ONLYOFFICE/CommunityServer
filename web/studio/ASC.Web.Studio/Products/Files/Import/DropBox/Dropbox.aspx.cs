@@ -86,6 +86,12 @@ namespace ASC.Web.Files.Import.DropBox
                 // create a request token
                 var requestToken = DropBoxStorageProviderTools.GetDropBoxRequestToken(config, ImportConfiguration.DropboxAppKey,
                                                                                       ImportConfiguration.DropboxAppSecret);
+                if (requestToken == null)
+                {
+                    SubmitError("Failed to open storage with this credentials", Source);
+                    return;
+                }
+
                 var authorizationUrl = DropBoxStorageProviderTools.GetDropBoxAuthorizationUrl(config, requestToken);
                 Session[RequestTokenSessionKey] = requestToken; //Store token into session!!!
                 Response.Redirect(authorizationUrl);

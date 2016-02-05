@@ -71,7 +71,6 @@
     <Compile Include="Service\Config\TextIndexCfgModuleCollection.cs" />
     <Compile Include="Service\Config\TextIndexCfgModuleElement.cs" />
     <Compile Include="Service\Config\TextIndexCfgSectionHandler.cs" />
-    <Compile Include="FolderConstatnts.cs" />
     <Compile Include="Service\DbProvider.cs" />
     <Compile Include="Service\FullTextIndexLauncher.cs" />
     <Compile Include="Service\ModuleInfo.cs" />
@@ -79,7 +78,6 @@
     <Compile Include="Service\TextIndexerService.cs" />
     <Compile Include="Service\TextSearcher.cs" />
     <Compile Include="Service\TextSearcherService.cs" />
-    <Compile Include="TextSearchResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

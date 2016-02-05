@@ -34,7 +34,6 @@ using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Dal.DbSchema;
 
-
 namespace ASC.Mail.Aggregator
 {
     public partial class MailBoxManager
@@ -50,13 +49,11 @@ namespace ASC.Mail.Aggregator
         public bool LockMailbox(int mailboxId, bool isAdditionalProccessedCheckNeeded, DbManager dbManager)
         {
             _log.Debug("LockMailbox(MailboxId = {0}, checkAnotherProcess = {1})", mailboxId, isAdditionalProccessedCheckNeeded);
-            
-            var utcNow = DateTime.UtcNow;
 
             bool success;
 
             var updateQuery = new SqlUpdate(MailboxTable.name)
-                .Set(MailboxTable.Columns.date_checked, utcNow)
+                .Set(string.Format("{0} = UTC_TIMESTAMP()", MailboxTable.Columns.date_checked))
                 .Set(MailboxTable.Columns.is_processed, true)
                 .Where(MailboxTable.Columns.id, mailboxId);
 
@@ -138,12 +135,17 @@ namespace ASC.Mail.Aggregator
         {
             using (var db = GetDb())
             {
-                var updateAccountQuery = new SqlUpdate(MailboxTable.name)
-                    .Where(MailboxTable.Columns.id_tenant, tenant)
-                    .Where(MailboxTable.Columns.is_removed, false)
-                    .Set(MailboxTable.Columns.is_processed, false)
-                    .Set(MailboxTable.Columns.date_login_delay_expires, DateTime.UtcNow.Add(delay));
+                var updateAccountQuery = NextLoginDelayedQuery(tenant, (int)delay.TotalSeconds);
+                db.ExecuteNonQuery(updateAccountQuery);
+            }
+        }
 
+        public void SetNextLoginDelayedForUser(int tenant, string user, TimeSpan delay)
+        {
+            using (var db = GetDb())
+            {
+                var updateAccountQuery = NextLoginDelayedQuery(tenant, (int)delay.TotalSeconds);
+                updateAccountQuery.Where(MailboxTable.Columns.id_user, user);
                 db.ExecuteNonQuery(updateAccountQuery);
             }
         }
@@ -198,8 +200,6 @@ namespace ASC.Mail.Aggregator
         {
             using (var db = GetDb())
             {
-                var utcTicksNow = DateTime.UtcNow;
-
                 Func<SqlUpdate> getBaseUpdate = () => new SqlUpdate(MailboxTable.name)
                     .Where(MailboxTable.Columns.id_tenant, account.TenantId)
                     .Where(MailboxTable.Columns.id, account.MailBoxId)
@@ -211,7 +211,7 @@ namespace ASC.Mail.Aggregator
                 {
                     if (account.QuotaError)
                     {
-                        CreateQuotaErrorWarningAlert(db, account.TenantId, account.UserId);
+                        CreateQuotaErrorWarningAlert(account.TenantId, account.UserId, db);
                     }
                     else
                     {
@@ -230,8 +230,9 @@ namespace ASC.Mail.Aggregator
                 if (account.AuthErrorDate.HasValue)
                 {
                     updateAccountQuery
-                        .Set(MailboxTable.Columns.date_login_delay_expires,
-                             DateTime.UtcNow.Add(TimeSpan.FromSeconds(account.ServerLoginDelay)));
+                        .Set(string.Format("{0} = DATE_ADD(UTC_TIMESTAMP(), INTERVAL {1} SECOND)",
+                            MailboxTable.Columns.date_login_delay_expires,
+                            account.ServerLoginDelay));
 
                     var difference = DateTime.UtcNow - account.AuthErrorDate.Value;
 
@@ -258,7 +259,7 @@ namespace ASC.Mail.Aggregator
                         updateAccountQuery
                             .Where(MailboxTable.Columns.begin_date, account.BeginDate)
                             .Set(MailboxTable.Columns.imap_intervals, account.ImapIntervalsJson)
-                            .Set(MailboxTable.Columns.date_checked, utcTicksNow);
+                            .Set(string.Format("{0} = UTC_TIMESTAMP()", MailboxTable.Columns.date_checked));
 
                         var result = db.ExecuteNonQuery(updateAccountQuery);
 
@@ -273,8 +274,8 @@ namespace ASC.Mail.Aggregator
                             }
 
                             updateAccountQuery
-                                .Set(MailboxTable.Columns.imap_intervals, "[]")
-                                .Set(MailboxTable.Columns.date_checked, utcTicksNow);
+                                .Set(MailboxTable.Columns.imap_intervals, null)
+                                .Set(string.Format("{0} = UTC_TIMESTAMP()", MailboxTable.Columns.date_checked));
                         }
                         else
                         {
@@ -287,7 +288,7 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        public void SetEmailLoginDelayExpires(string email, DateTime expires)
+        public void SetEmailLoginDelayExpires(string email, int delaySeconds)
         {
             using (var db = GetDb())
             {
@@ -295,7 +296,9 @@ namespace ASC.Mail.Aggregator
                     new SqlUpdate(MailboxTable.name)
                         .Where(MailboxTable.Columns.address, email)
                         .Where(MailboxTable.Columns.is_removed, false)
-                        .Set(MailboxTable.Columns.date_login_delay_expires, expires));
+                        .Set(string.Format("{0} = DATE_ADD(UTC_TIMESTAMP(), INTERVAL {1} SECOND)",
+                            MailboxTable.Columns.date_login_delay_expires,
+                            delaySeconds)));
             }
         }
 
@@ -308,7 +311,7 @@ namespace ASC.Mail.Aggregator
                        .Where(MailboxTable.Columns.id_tenant, tenant)
                        .Where(MailboxTable.Columns.id_user, user)
                        .Where(MailboxTable.Columns.is_removed, false)
-                       .Set(MailboxTable.Columns.date_user_checked, DateTime.UtcNow)
+                       .Set(string.Format("{0} = UTC_TIMESTAMP()", MailboxTable.Columns.date_user_checked))
                        .Set(MailboxTable.Columns.user_online, userOnline));
             }
         }
@@ -380,10 +383,10 @@ namespace ASC.Mail.Aggregator
                     .OrderBy(MailboxTable.Columns.date_checked.Prefix(MAILBOX_ALIAS), true)
                     .SetMaxResults(tasksLimit);
 
-                if (tasksConfig.OnlyTeamlabTasks)
+                if (tasksConfig.AggregateMode != TasksConfig.AggregateModeType.All)
                 {
                     query
-                        .Where(MailboxTable.Columns.is_teamlab_mailbox, true);
+                        .Where(MailboxTable.Columns.is_teamlab_mailbox, tasksConfig.AggregateMode == TasksConfig.AggregateModeType.Internal);
                 }
 
                 if (tasksConfig.EnableSignalr)
@@ -412,6 +415,17 @@ namespace ASC.Mail.Aggregator
 
                 return seletedTasks;
             }
+        }
+
+        private SqlUpdate NextLoginDelayedQuery(int tenant, int delaySeconds)
+        {
+            return new SqlUpdate(MailboxTable.name)
+                .Where(MailboxTable.Columns.id_tenant, tenant)
+                .Where(MailboxTable.Columns.is_removed, false)
+                .Set(MailboxTable.Columns.is_processed, false)
+                .Set(string.Format("{0} = DATE_ADD(UTC_TIMESTAMP(), INTERVAL {1} SECOND)",
+                    MailboxTable.Columns.date_login_delay_expires,
+                    delaySeconds));
         }
 
         #endregion

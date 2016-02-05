@@ -99,19 +99,9 @@ namespace ASC.Web.Mail
             get { return "mail"; }
         }
 
-        public int MailCountGetFirstInMillisecond
+        public int GetMailCountersTimeout
         {
-            get { return Convert.ToInt32(WebConfigurationManager.AppSettings["mail.count-get-first-query"] ?? "3000"); }
-        }
-
-        public int MailCountGetIntervalInMillisecond
-        {
-            get { return Convert.ToInt32(WebConfigurationManager.AppSettings["mail.count-get-query-interval"] ?? "30000"); }
-        }
-
-        public bool MailCountGetEnableInterval
-        {
-            get { return Convert.ToBoolean(WebConfigurationManager.AppSettings["mail.count-get-query-enable-interval"] ?? "false"); }
+            get { return Convert.ToInt32(WebConfigurationManager.AppSettings["mail.get-counters-timeout"] ?? "3000"); }
         }
 
         public string HubUrl
@@ -123,25 +113,20 @@ namespace ASC.Web.Mail
         
         public string RenderCustomNavigation(Page page)
         {
-            var func = string.Empty;
+            var updateMailCounters = string.Empty;
 
             if (!page.AppRelativeTemplateSourceDirectory.Contains(BaseVirtualPath) && HubUrl == string.Empty)
             {
-                func = string.Format(@"
-
-                     setTimeout(function () {{ Teamlab.getMailFolders(); }}, {0}); 
-                     {1}", MailCountGetFirstInMillisecond,
-                           MailCountGetEnableInterval ? string.Format(
-                           "setInterval(function () {{ Teamlab.getMailFolders(); }}, {0});",
-                           MailCountGetIntervalInMillisecond)
-                           : string.Empty);
+                updateMailCounters = string.Format("\r\nsetTimeout(function () {{ Teamlab.getMailFolders(); }}, {0});", GetMailCountersTimeout);
             }
 
-            page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/asc/core/asc.mailreader.js"));
-            if (func != string.Empty)
+            page.RegisterBodyScripts("~/js/asc/core/asc.mailreader.js");
+
+            if (!string.IsNullOrEmpty(updateMailCounters))
             {
-                page.RegisterInlineScript(func);
+                page.RegisterInlineScript(updateMailCounters);
             }
+
             return string.Format(@"<li class=""top-item-box mail"">
                                      <a class=""inner-text mailActiveBox"" href=""{0}"" title=""{1}"">
                                        <span id=""TPUnreadMessagesCount"" class=""inner-label""></span>

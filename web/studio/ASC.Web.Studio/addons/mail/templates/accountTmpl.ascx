@@ -54,7 +54,6 @@
                 <tr>
                     <td>
                         <div id="mail_POPPortContainer" class="requiredField">
-                            <span class="requiredErrorText"><%: MailScriptResource.ErrorEmptyField %></span>
                             <div class="headerPanelSmall portTitle"><%: MailResource.Port %></div>
                             <div class="headerPanelSmall authTitle"><%: MailResource.AuthenticationType %></div>
                             <div>
@@ -68,7 +67,6 @@
                     </td>
                     <td>
                         <div id="mail_SMTPPortContainer" class="requiredField">
-                            <span class="requiredErrorText"><%: MailScriptResource.ErrorEmptyField %></span>
                             <div class="headerPanelSmall portTitle"><%: MailResource.Port %></div>
                             <div class="headerPanelSmall authTitle"><%: MailResource.AuthenticationType %></div>
                             <div>

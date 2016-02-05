@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -111,9 +111,9 @@ namespace ASC.Web.Studio.UserControls.Users
 
             var saveClass = GetThumbnailsData(SaveFunctionType);
 
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/users/thumbnaileditor/js/thumbnaileditor.js"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/users/thumbnaileditor/js/jquery.Jcrop.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/users/thumbnaileditor/css/thumbnaileditor.less"));
+            Page.RegisterBodyScripts("~/usercontrols/users/thumbnaileditor/js/thumbnaileditor.js");
+            Page.RegisterBodyScripts("~/usercontrols/users/thumbnaileditor/js/jquery.Jcrop.js");
+            Page.RegisterStyle("~/usercontrols/users/thumbnaileditor/css/thumbnaileditor.less");
 
             var script = new StringBuilder();
             script.Append("window." + JsObjName + " = new ASC.Studio.ThumbnailEditor.ThumbnailEditorPrototype('" + SelectorID + "','" + JsObjName + "'); ");

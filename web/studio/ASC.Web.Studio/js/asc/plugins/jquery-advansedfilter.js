@@ -1,7 +1,3 @@
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 (function ($, win, doc, body) {
     var
       defaultAnykeyTimeout = 500,
@@ -1954,7 +1950,7 @@
 
         if (filtervaluesInd !== -1) {
             wasUpdated = true;
-            wasUpdated = filtervalues[filtervaluesInd].params && value == filtervalues[filtervaluesInd].params.value ? false : wasUpdated;
+            //wasUpdated = filtervalues[filtervaluesInd].params && value == filtervalues[filtervaluesInd].params.value ? false : wasUpdated;
             wasUpdated = !filtervalues[filtervaluesInd].params && value == '' ? false : wasUpdated;
             if (wasUpdated) {
                 if (typeof value === 'string' && value.length > 0) {
@@ -2500,6 +2496,7 @@
                     return getLocalStorageFilters();
                 case 'resize':
                     if ($container.is(":visible")) {
+                        onBodyClick();
                         resizeUserSorterContainer($container);
                         resizeContainer($container);
                         resizeUserFilterContainer($container);

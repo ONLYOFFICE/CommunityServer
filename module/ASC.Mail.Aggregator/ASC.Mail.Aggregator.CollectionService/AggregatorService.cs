@@ -34,18 +34,15 @@ using System.Threading;
 using System.Threading.Tasks;
 using ASC.Mail.Aggregator.CollectionService.Configuration;
 using ASC.Mail.Aggregator.CollectionService.Queue;
-using ASC.Mail.Aggregator.CollectionService.Tasks;
 using ASC.Mail.Aggregator.CollectionService.Workers;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Logging;
-using log4net.Config;
 
 namespace ASC.Mail.Aggregator.CollectionService
 {
     public sealed class AggregatorService: ServiceBase
     {
         public const string AscMailCollectionServiceName = "ASC Mail Collection Service";
-        private readonly MailBoxManager _manager;
         private readonly ILogger _log;
 
         private readonly CancellationTokenSource _cancelTokenSource;
@@ -54,12 +51,12 @@ namespace ASC.Mail.Aggregator.CollectionService
         private Timer _intervalTimer;
 
         private readonly TasksConfig _tasksConfig;
-        private readonly MailQueueSettings _queueSettings;
 
         private readonly QueueManager _queueManager;
-        readonly LimitedConcurrencyLevelTaskScheduler _lcts;
         readonly TaskFactory _taskFactory;
         private readonly TimeSpan _tsTaskStateCheckInterval;
+
+        private bool _IsFirstTime = true;
 
         public AggregatorService(IEnumerable<string> workOnThisUsersOnly = null)
         {
@@ -75,21 +72,19 @@ namespace ASC.Mail.Aggregator.CollectionService
             CanStop = true;
             try
             {
-                XmlConfigurator.Configure();
-
                 _log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "MainThread");
 
                 Environment.SetEnvironmentVariable("MONO_TLS_SESSION_CACHE_TIMEOUT", "0");
 
-                _queueSettings = MailQueueSettings.FromConfig;
+                var queueSettings = MailQueueSettings.FromConfig;
                 
                 if (workOnThisUsersOnly != null)
-                    _queueSettings.WorkOnUsersOnly = workOnThisUsersOnly.ToList();
+                    queueSettings.WorkOnUsersOnly = workOnThisUsersOnly.ToList();
                 else
                 {
                     var userToWorkOn = ConfigurationManager.AppSettings["mail.OneUserMode"];
                     if (!string.IsNullOrEmpty(userToWorkOn))
-                        _queueSettings.WorkOnUsersOnly.Add(userToWorkOn);
+                        queueSettings.WorkOnUsersOnly.Add(userToWorkOn);
                 }
 
                 var authErrorWarningTimeout =
@@ -109,15 +104,15 @@ namespace ASC.Mail.Aggregator.CollectionService
                 _log.Info("Auth login error disable mailbox timeout is {0}.", authErrorDisableMailboxTimeout.ToString());
 
                 _log.Info("MailWorkerQueue: ConcurrentThreadCount = {0} and CheckInterval = {1} CheckPOP3_UIDL_Chunck = {2}",
-                _queueSettings.ConcurrentThreadCount, _queueSettings.CheckInterval, _queueSettings.CheckPop3UidlChunk);
+                queueSettings.ConcurrentThreadCount, queueSettings.CheckInterval, queueSettings.CheckPop3UidlChunk);
 
                 var configBuilder = new TasksConfig.Builder();
 
-                if (_queueSettings.WorkOnUsersOnly != null && _queueSettings.WorkOnUsersOnly.Any())
+                if (queueSettings.WorkOnUsersOnly != null && queueSettings.WorkOnUsersOnly.Any())
                 {
                     var i = 0;
                     var users = string.Empty;
-                    _queueSettings.WorkOnUsersOnly.ForEach(user => users += string.Format("\r\n\t\t\t\t{0}. \"{1}\"", ++i, user));
+                    queueSettings.WorkOnUsersOnly.ForEach(user => users += string.Format("\r\n\t\t\t\t{0}. \"{1}\"", ++i, user));
 
                     _log.Info("Aggregator will get tasks for this users only:" + users);
                 }
@@ -131,38 +126,39 @@ namespace ASC.Mail.Aggregator.CollectionService
                                        Convert.ToBoolean(
                                            ConfigurationManager.AppSettings["mail.show-activeup-logs"]);
 
-                _tasksConfig = configBuilder.SetUsersToWorkOn(_queueSettings.WorkOnUsersOnly)
-                                            .SetOnlyTeamlabTasks(_queueSettings.OnlyTeamlabTasks)
-                                            .SetActiveInterval(_queueSettings.ActivityTimeout)
-                                            .SetChunkOfPop3CheckUidLinDb(_queueSettings.CheckPop3UidlChunk)
-                                            .SetEnableSignalr(_queueSettings.EnableSignalr)
-                                            .SetMaxMessagesPerSession(_queueSettings.MaxMessagesPerSession)
-                                            .SetMaxTasksAtOnce(_queueSettings.ConcurrentThreadCount)
+                var saveOriginalMessage = ConfigurationManager.AppSettings["mail.save-original-message"] != null &&
+                                          Convert.ToBoolean(
+                                              ConfigurationManager.AppSettings["mail.save-original-message"]);
+
+                _tasksConfig = configBuilder.SetUsersToWorkOn(queueSettings.WorkOnUsersOnly)
+                                            .SetAggregateMode(queueSettings.AggregateMode)
+                                            .SetActiveInterval(queueSettings.ActivityTimeout)
+                                            .SetChunkOfPop3CheckUidLinDb(queueSettings.CheckPop3UidlChunk)
+                                            .SetEnableSignalr(queueSettings.EnableSignalr)
+                                            .SetMaxMessagesPerSession(queueSettings.MaxMessagesPerSession)
+                                            .SetMaxTasksAtOnce(queueSettings.ConcurrentThreadCount)
                                             .SetQueueLifetime(queueLifetime)
-                                            .SetTenantCachingPeriod(_queueSettings.TenantCachingPeriod)
+                                            .SetTenantCachingPeriod(queueSettings.TenantCachingPeriod)
                                             .SetShowActiveUpLogs(showActiveUpLogs)
-                                            .SetInactiveMailboxesRatio(_queueSettings.InactiveMailboxesRatio)
+                                            .SetInactiveMailboxesRatio(queueSettings.InactiveMailboxesRatio)
                                             .SetAuthErrorWarningTimeout(authErrorWarningTimeout)
                                             .SetAuthErrorDisableMailboxTimeout(authErrorDisableMailboxTimeout)
+                                            .SetMinQuotaBalance(queueSettings.MinQuotaBalance)
+                                            .SetOverdueAccountDelay(queueSettings.OverdueAccountDelay)
+                                            .SetTenantOverdueDays(queueSettings.OverdueDays)
+                                            .SetQuotaEndedDelay(queueSettings.QuotaEndedDelay)
+                                            .SetSaveOriginalMessageFlag(saveOriginalMessage)
                                             .Build();
 
-                _tsInterval = _queueSettings.CheckInterval;
+                _tsInterval = queueSettings.CheckInterval;
 
-                _manager = new MailBoxManager(_log)
-                {
-                    AuthErrorWarningTimeout = _tasksConfig.AuthErrorWarningTimeout,
-                    AuthErrorDisableTimeout = _tasksConfig.AuthErrorDisableMailboxTimeout
-                };
-
-                _queueManager = new QueueManager(_manager, _tasksConfig, _log);
+                _queueManager = new QueueManager(_tasksConfig, _log);
 
                 _resetEvent = new ManualResetEvent(false);
 
                 _cancelTokenSource = new CancellationTokenSource();
 
-                _lcts = new LimitedConcurrencyLevelTaskScheduler(_tasksConfig.MaxTasksAtOnce);
-
-                _taskFactory = new TaskFactory(_lcts);
+                _taskFactory = new TaskFactory();
 
                 _tsTaskStateCheckInterval = ConfigurationManager.AppSettings["mail.task-check-state-seconds"] != null
                         ? TimeSpan.FromSeconds(
@@ -196,7 +192,10 @@ namespace ASC.Mail.Aggregator.CollectionService
             try
             {
                 _log.Info("Start service\r\n");
+
                 _intervalTimer = new Timer(IntervalTimer_Elapsed, _cancelTokenSource.Token, 0, Timeout.Infinite);
+
+                base.OnStart(args);
             }
             catch (Exception)
             {
@@ -216,7 +215,7 @@ namespace ASC.Mail.Aggregator.CollectionService
 
             _queueManager.CancelHandler.WaitOne();
 
-            if (_intervalTimer == null)
+            if (_intervalTimer != null)
             {
                 _intervalTimer.Change(Timeout.Infinite, Timeout.Infinite);
                 _intervalTimer.Dispose();
@@ -226,6 +225,8 @@ namespace ASC.Mail.Aggregator.CollectionService
             _resetEvent.Set();
 
             _queueManager.Dispose();
+
+            base.OnStop();
         }
 
         /// <summary>
@@ -276,28 +277,56 @@ namespace ASC.Mail.Aggregator.CollectionService
 
         private void IntervalTimer_Elapsed(object state)
         {
-            var cancelToken = (CancellationToken)state;
+            _log.Debug("Timer->IntervalTimer_Elapsed");
 
-            if(cancelToken.IsCancellationRequested)
-                return;
-
-            _intervalTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            var cancelToken = state as CancellationToken? ?? new CancellationToken();
 
             try
             {
+                if (_IsFirstTime)
+                {
+                    _queueManager.LoadQueueFromDump();
+
+                    if (_queueManager.ProcessingCount > 0)
+                    {
+                        _log.Info("Found {0} tasks to release", _queueManager.ProcessingCount);
+
+                        _queueManager.ReleaseAllProcessingMailboxes();
+
+                        _queueManager.SaveQueueToDump();
+                    }
+
+                    _IsFirstTime = false;
+                }
+
+                if (cancelToken.IsCancellationRequested || _intervalTimer == null)
+                {
+                    _log.Debug("Timer->IntervalTimer_Elapsed - {0}. Quit.", cancelToken.IsCancellationRequested ? "IsCancellationRequested" : "_intervalTimer == null");
+                    return;
+                }
+
+                _log.Debug("Setup _intervalTimer to Timeout.Infinite");
+                _intervalTimer.Change(Timeout.Infinite, Timeout.Infinite);
+
                 var tasks = CreateTasks(_tasksConfig.MaxTasksAtOnce, cancelToken);
+
+                if(tasks.Any())
+                    _queueManager.SaveQueueToDump();
 
                 // ***Add a loop to process the tasks one at a time until none remain. 
                 while (tasks.Any())
                 {
                     // Identify the first task that completes.
-                    var indexTask = Task.WaitAny(tasks.ToArray(), (int)_tsTaskStateCheckInterval.TotalMilliseconds, cancelToken);
+                    var indexTask = Task.WaitAny(tasks.ToArray<Task>(), (int)_tsTaskStateCheckInterval.TotalMilliseconds, cancelToken);
                     if (indexTask > -1)
                     {
                         // ***Remove the selected task from the list so that you don't 
                         // process it more than once.
                         var outTask = tasks[indexTask];
+
                         FreeTask(outTask, tasks);
+
+                        _queueManager.SaveQueueToDump();
                     }
                     else
                     {
@@ -326,7 +355,10 @@ namespace ASC.Mail.Aggregator.CollectionService
                     if (difference <= 0) continue;
 
                     var newTasks = CreateTasks(difference, cancelToken);
+
                     tasks.AddRange(newTasks);
+
+                    _queueManager.SaveQueueToDump();
 
                     _log.Info("Total tasks count = {0} ({1}).", tasks.Count,
                               string.Join(",", tasks.Select(t => t.Id)));
@@ -337,11 +369,21 @@ namespace ASC.Mail.Aggregator.CollectionService
             }
             catch (Exception ex)
             {
+                if (ex is AggregateException)
+                {
+                    ex = ((AggregateException)ex).GetBaseException();
+                }
+
                 if (ex is TaskCanceledException || ex is OperationCanceledException)
                 {
                     _log.Info("Execution was canceled.");
+
                     _queueManager.ReleaseAllProcessingMailboxes();
+
+                    _queueManager.SaveQueueToDump();
+
                     _queueManager.CancelHandler.Set();
+
                     return;
                 }
 
@@ -353,10 +395,15 @@ namespace ASC.Mail.Aggregator.CollectionService
                 }
             }
 
+            _queueManager.SaveQueueToDump();
+
             _queueManager.CancelHandler.Set();
 
-            _intervalTimer.Change(_tsInterval, _tsInterval);
-
+            if (_intervalTimer != null)
+            {
+                _log.Debug("Setup _intervalTimer to {0} seconds", _tsInterval.TotalSeconds);
+                _intervalTimer.Change(_tsInterval, _tsInterval);
+            }
         }
 
         private List<Task<MailBox>> CreateTasks(int needCount, CancellationToken cancelToken)
@@ -369,7 +416,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                 mailboxes.Select(
                     mailbox =>
                     _taskFactory.StartNew(() => ProcessMailbox(mailbox, _tasksConfig, cancelToken),
-                                          cancelToken, TaskCreationOptions.LongRunning, _lcts)).ToList();
+                                          cancelToken)).ToList();
 
             if (tasks.Any())
                 _log.Info("Created {0} tasks.", tasks.Count);
@@ -398,14 +445,14 @@ namespace ASC.Mail.Aggregator.CollectionService
 
                 if (mailbox.Imap)
                 {
-                    using (var worker = new Imap4Worker(manager, mailbox, tasksConfig, cancelToken, taskLogger))
+                    using (var worker = new Imap4Worker(manager, mailbox, tasksConfig, cancelToken, tasksConfig.SaveOriginalMessage, taskLogger))
                     {
                         worker.Aggregate();
                     }
                 }
                 else
                 {
-                    using (var worker = new Pop3Worker(manager, mailbox, tasksConfig, cancelToken, taskLogger))
+                    using (var worker = new Pop3Worker(manager, mailbox, tasksConfig, cancelToken, tasksConfig.SaveOriginalMessage, taskLogger))
                     {
                         worker.Aggregate();
                     }

@@ -28,7 +28,6 @@ using System;
 using System.Linq;
 using log4net;
 using log4net.Appender;
-using log4net.Repository;
 
 namespace ASC.Mail.Aggregator.Common.Logging
 {
@@ -41,56 +40,74 @@ namespace ASC.Mail.Aggregator.Common.Logging
             _logger = logger;
         }
 
-        public void Fatal(string message, params object[] param)
+        public void Info(string message)
         {
-            var str = String.Format(message, param);
-            _logger.Fatal(str);
+            _logger.Info(message);
         }
 
-        public void Fatal(Exception ex, string message, params object[] param)
+        public void Info(string message, params object[] args)
         {
-            var originalMessage = String.Format(message, param);
-            _logger.Fatal(originalMessage + " Exception: " + ex);
+            _logger.InfoFormat(message, args);
         }
 
-        public void Error(string message, object[] param)
+        public void Debug(string message)
         {
-            var str = String.Format(message, param);
-            _logger.Error(str);
+            _logger.Debug(message);
         }
 
-        public void Error(Exception ex, string message, params object[] param)
+        public void Debug(string message, params object[] args)
         {
-            var originalMessage = String.Format(message, param);
-            _logger.Error(originalMessage + " Exception: " + ex);
+            _logger.DebugFormat(message, args);
         }
 
-        public void Warn(string message, object[] param)
+        public void Warn(string message)
         {
-            var str = String.Format(message, param);
-            _logger.Warn(str);
+            _logger.Warn(message);
         }
 
-        public void Debug(string message, object[] param)
+        public void Warn(string message, params object[] args)
         {
-            var str = String.Format(message, param);
-            _logger.Debug(str);
+            _logger.WarnFormat(message, args);
         }
 
-        public void WarnException(string format, Exception exception)
+        public void Warn(string message, Exception ex)
         {
-            _logger.Warn(format, exception);
+            _logger.Warn(message, ex);
         }
 
-        public void Info(string message, params object[] param)
+        public void Error(string message)
         {
-            var str = String.Format(message, param);
-            _logger.Info(str);
+            _logger.Error(message);
+        }
+
+        public void Error(string message, params object[] args)
+        {
+            _logger.ErrorFormat(message, args);
+        }
+
+        public void Error(string message, Exception ex)
+        {
+            _logger.Error(message, ex);
+        }
+
+        public void Fatal(string message)
+        {
+            _logger.Fatal(message);
+        }
+
+        public void Fatal(string message, params object[] args)
+        {
+            _logger.FatalFormat(message, args);
+        }
+
+        public void Fatal(string message, Exception ex)
+        {
+            _logger.Fatal(message, ex);
         }
 
         public void Flush()
         {
-            ILoggerRepository rep = LogManager.GetRepository();
+            var rep = LogManager.GetRepository();
             foreach (var buffered in rep.GetAppenders().OfType<BufferingAppenderSkeleton>())
             {
                 buffered.Flush();

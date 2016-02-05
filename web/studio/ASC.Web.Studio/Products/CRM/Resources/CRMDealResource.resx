@@ -150,8 +150,17 @@
   <data name="BidTypePeriod" xml:space="preserve">
     <value>Payment recurrence</value>
   </data>
+  <data name="ByStage" xml:space="preserve">
+    <value>By stage</value>
+  </data>
+  <data name="ByStageType" xml:space="preserve">
+    <value>By stage type</value>
+  </data>
   <data name="ClientDeal" xml:space="preserve">
     <value>Opportunity contact</value>
+  </data>
+  <data name="CreateDeal" xml:space="preserve">
+    <value>Create opportunity</value>
   </data>
   <data name="CreateFirstDeal" xml:space="preserve">
     <value>Add the first opportunity</value>
@@ -165,14 +174,20 @@
   <data name="CurrentDealMilestone" xml:space="preserve">
     <value>Opportunity at stage</value>
   </data>
+  <data name="CustomDateFilter" xml:space="preserve">
+    <value>Custom</value>
+  </data>
+  <data name="CustomResponsibleFilter" xml:space="preserve">
+    <value>Custom</value>
+  </data>
   <data name="Deal" xml:space="preserve">
     <value>Opportunity</value>
   </data>
+  <data name="DealAccessRightsLimit" xml:space="preserve">
+    <value>Права будут установлены только на те сделки, для которых вы являетесь автором</value>
+  </data>
   <data name="DealAmount" xml:space="preserve">
     <value>Sum</value>
-  </data>
-  <data name="DealClientNoSet" xml:space="preserve">
-    <value>No client is specified</value>
   </data>
   <data name="DealCount" xml:space="preserve">
     <value>Qty</value>
@@ -180,11 +195,17 @@
   <data name="DealMilestone" xml:space="preserve">
     <value>Opportunity Stages</value>
   </data>
+  <data name="DealMilestone_Champion_Description" xml:space="preserve">
+    <value>The potential buyer showed his/her interest and sees how your offering meets his/her goal</value>
+  </data>
   <data name="DealMilestone_Champion_Title" xml:space="preserve">
     <value>Discussion</value>
   </data>
-  <data name="DealMilestone_Champion_Description" xml:space="preserve">
-    <value>The potential buyer showed his/her interest and sees how your offering meets his/her goal</value>
+  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
+    <value>InitialContact_Description</value>
+  </data>
+  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
+    <value>Initial Contact</value>
   </data>
   <data name="DealMilestone_Lost_Description" xml:space="preserve">
     <value>A start or a failure. The opportunity is either not started yet or closed due to the lack of perspective</value>
@@ -198,11 +219,11 @@
   <data name="DealMilestone_Opportunity_Title" xml:space="preserve">
     <value>Evaluation</value>
   </data>
-  <data name="DealMilestone_Proposal_Description" xml:space="preserve">
-    <value>You have put forward a proposal for your offering to meet the potential buyer's objectives</value>
+  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
+    <value>Preapproach_Descriptions</value>
   </data>
-  <data name="DealMilestone_Proposal_Title" xml:space="preserve">
-    <value>Proposal</value>
+  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
+    <value>Preapproach</value>
   </data>
   <data name="DealMilestone_Prospect_Description" xml:space="preserve">
     <value>The potential buyer has already discussed your offering in details</value>
@@ -231,11 +252,29 @@
   <data name="DealMilestoneType" xml:space="preserve">
     <value>Stage type</value>
   </data>
+  <data name="DealParticipant" xml:space="preserve">
+    <value>Deal Participant</value>
+  </data>
+  <data name="DealParticipants" xml:space="preserve">
+    <value>Deal Participants</value>
+  </data>
   <data name="Deals" xml:space="preserve">
     <value>Opportunities</value>
   </data>
+  <data name="DealTag" xml:space="preserve">
+    <value>OpportunityTag</value>
+  </data>
+  <data name="DealTagList" xml:space="preserve">
+    <value>Opportunity Tag List</value>
+  </data>
+  <data name="DealTags" xml:space="preserve">
+    <value>Opportunity Tags</value>
+  </data>
   <data name="DeleteDeal" xml:space="preserve">
     <value>Delete opportunity</value>
+  </data>
+  <data name="DeletingDeals" xml:space="preserve">
+    <value>Deleting opportunities</value>
   </data>
   <data name="DescriptionDeal" xml:space="preserve">
     <value>Description</value>
@@ -246,17 +285,17 @@
   <data name="EditThisDealButton" xml:space="preserve">
     <value>Update this opportunity</value>
   </data>
-  <data name="EmptyContentDealsHeader" xml:space="preserve">
-    <value>The opportunity list is empty</value>
+  <data name="EmptyContentDealsDescribe" xml:space="preserve">
+    <value>Opportunities let you track potential sales to your clients. Determine the {0}opportunity stages{1} in accordance with your business process, keep history, assign tasks, upload documents, calculate profit with every client.</value>
+  </data>
+  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
+    <value>No opportunities matching your filter can be displayed in this section. Please select other filter options or clear filter to view all the opportunities in this section. Or you can create the opportunity in case it is absent from the list.</value>
   </data>
   <data name="EmptyContentDealsFilterHeader" xml:space="preserve">
     <value>No opportunities to be displayed for this filter here</value>
   </data>
-  <data name="EmptyContentDealsDescribe" xml:space="preserve">
-    <value>Opportunities let you track potential sales to your clients. Determine the {0}opportunity stages{1} in accordance with your business process, keep history, assign tasks, upload documents, calculate profit with every client.</value>
-  </data>
-  <data name="TooltipStages" xml:space="preserve">
-    <value>Opportunity stages let you determine steps necessary to complete the deal. The default opportunity stages are approach, discussion, evaluation, negotiation, commitment, success, zero-point. To be able to edit them the portal administrator rights are needed.</value>
+  <data name="EmptyContentDealsHeader" xml:space="preserve">
+    <value>The opportunity list is empty</value>
   </data>
   <data name="EmptyDealName" xml:space="preserve">
     <value>Enter the opportunity title</value>
@@ -270,56 +309,11 @@
   <data name="EmptyPeopleInDealDescript" xml:space="preserve">
     <value>Add participants to your opportunity from the list of companies or persons. After this is done you will know what contacts are associated with this opportunity and who you can deal with.</value>
   </data>
+  <data name="Estimated" xml:space="preserve">
+    <value>Estimated/Actual due date</value>
+  </data>
   <data name="ExpectedValue" xml:space="preserve">
     <value>Budget</value>
-  </data>
-  <data name="MyDeals" xml:space="preserve">
-    <value>My opportunities</value>
-  </data>
-  <data name="NameDeal" xml:space="preserve">
-    <value>Opportunity title</value>
-  </data>
-  <data name="NoExpectedValue" xml:space="preserve">
-    <value>Budget is not set</value>
-  </data>
-  <data name="OtherMembersDeal" xml:space="preserve">
-    <value>Other opportunity participants</value>
-  </data>
-  <data name="PeopleInDeal" xml:space="preserve">
-    <value>Participants</value>
-  </data>
-  <data name="PrivateDealDescription" xml:space="preserve">
-    <value>Private opportunity is accessible to certain users with proper access rights.</value>
-  </data>
-  <data name="PrivateDealLabelTex" xml:space="preserve">
-    <value>Yes, I understand. Add the opportunity as private.</value>
-  </data>
-  <data name="PrivateDealTitle" xml:space="preserve">
-    <value>Private opportunity</value>
-  </data>
-  <data name="PrivateDealUserListText" xml:space="preserve">
-    <value>Users with access to the opportunity</value>
-  </data>
-  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
-    <value>Restrict access to the opportunity</value>
-  </data>
-  <data name="ProbabilityOfWinning" xml:space="preserve">
-    <value>Success probability</value>
-  </data>
-  <data name="ResponsibleDeal" xml:space="preserve">
-    <value>Responsible for the opportunity</value>
-  </data>
-  <data name="SaveAndCreateDealButton" xml:space="preserve">
-    <value>Save and Create a New Opportunity</value>
-  </data>
-  <data name="SettingCustomFields" xml:space="preserve">
-    <value>Customize user fields</value>
-  </data>
-  <data name="TotalOnPage" xml:space="preserve">
-    <value>Page total</value>
-  </data>
-  <data name="ByStage" xml:space="preserve">
-    <value>By stage</value>
   </data>
   <data name="FilterByContact" xml:space="preserve">
     <value>By contact</value>
@@ -327,35 +321,8 @@
   <data name="FilterByParticipant" xml:space="preserve">
     <value>By participant</value>
   </data>
-  <data name="EmptyContentDealsFilterDescribe" xml:space="preserve">
-    <value>No opportunities matching your filter can be displayed in this section. Please select other filter options or clear filter to view all the opportunities in this section. Or you can create the opportunity in case it is absent from the list.</value>
-  </data>
-  <data name="CreateDeal" xml:space="preserve">
-    <value>Create opportunity</value>
-  </data>
-  <data name="ByEstimated" xml:space="preserve">
-    <value>By Estimated/Actual due date</value>
-  </data>
-  <data name="Estimated" xml:space="preserve">
-    <value>Estimated/Actual due date</value>
-  </data>
-  <data name="CustomDateFilter" xml:space="preserve">
-    <value>Custom</value>
-  </data>
-  <data name="CustomResponsibleFilter" xml:space="preserve">
-    <value>Custom</value>
-  </data>
   <data name="FilterByStageOrStageType" xml:space="preserve">
     <value>By stage/stage type</value>
-  </data>
-  <data name="MyDealFilter" xml:space="preserve">
-    <value>My</value>
-  </data>
-  <data name="Overdue" xml:space="preserve">
-    <value>Overdue</value>
-  </data>
-  <data name="TotalDeals" xml:space="preserve">
-    <value>Total opportunities</value>
   </data>
   <data name="ImportDeals" xml:space="preserve">
     <value>Import opportunities</value>
@@ -372,30 +339,6 @@
   <data name="ImportFromCSVStepTwoHeader" xml:space="preserve">
     <value>Please, verify the fields</value>
   </data>
-  <data name="ByStageType" xml:space="preserve">
-    <value>By stage type</value>
-  </data>
-  <data name="DealTag" xml:space="preserve">
-    <value>OpportunityTag</value>
-  </data>
-  <data name="DealTagList" xml:space="preserve">
-    <value>Opportunity Tag List</value>
-  </data>
-  <data name="DealParticipant" xml:space="preserve">
-    <value>Deal Participant</value>
-  </data>
-  <data name="DealParticipants" xml:space="preserve">
-    <value>Deal Participants</value>
-  </data>
-  <data name="DealTags" xml:space="preserve">
-    <value>Opportunity Tags</value>
-  </data>
-  <data name="TotalAmount" xml:space="preserve">
-    <value>Total amount</value>
-  </data>
-  <data name="ShowTotalAmount" xml:space="preserve">
-    <value>Show total amount</value>
-  </data>
   <data name="ImportStartingPanelButton" xml:space="preserve">
     <value>Go to oppotunity list</value>
   </data>
@@ -405,52 +348,55 @@
   <data name="ImportStartingPanelHeader" xml:space="preserve">
     <value>Import started</value>
   </data>
-  <data name="StartImport" xml:space="preserve">
-    <value>Start Import</value>
+  <data name="LinkOrCreateDeal" xml:space="preserve">
+    <value>Link or create opportunity</value>
   </data>
-  <data name="DealMilestone_InitialContact_Description" xml:space="preserve">
-    <value>InitialContact_Description</value>
+  <data name="MyDeals" xml:space="preserve">
+    <value>My opportunities</value>
   </data>
-  <data name="DealMilestone_InitialContact_Title" xml:space="preserve">
-    <value>Initial Contact</value>
+  <data name="NameDeal" xml:space="preserve">
+    <value>Opportunity title</value>
   </data>
-  <data name="DealMilestone_Preapproach_Description" xml:space="preserve">
-    <value>Preapproach_Descriptions</value>
+  <data name="NoExpectedValue" xml:space="preserve">
+    <value>Budget is not set</value>
   </data>
-  <data name="DealMilestone_Preapproach_Title" xml:space="preserve">
-    <value>Preapproach</value>
+  <data name="OtherMembersDeal" xml:space="preserve">
+    <value>Other opportunity participants</value>
   </data>
-  <data name="DeletingDeals" xml:space="preserve">
-    <value>Deleting opportunities</value>
+  <data name="PeopleInDeal" xml:space="preserve">
+    <value>Participants</value>
+  </data>
+  <data name="PrivatePanelCheckBoxLabel" xml:space="preserve">
+    <value>Restrict access to the opportunity</value>
+  </data>
+  <data name="ProbabilityOfWinning" xml:space="preserve">
+    <value>Success probability</value>
+  </data>
+  <data name="ResponsibleDeal" xml:space="preserve">
+    <value>Responsible for the opportunity</value>
   </data>
   <data name="ShowDealProfile" xml:space="preserve">
     <value>Перейти в профиль</value>
   </data>
-  <data name="MakePublicPanelCheckBoxLabelForDeal" xml:space="preserve">
-    <value>Allow access to the opportunity for all CRM users</value>
-  </data>
-  <data name="MakePublicPanelDescrForDeal" xml:space="preserve">
-    <value>The access is granted only to opportunity managers. To allow access to this opportunity for all users check the box below</value>
-  </data>
-  <data name="MakePublicPanelTitleForDeal" xml:space="preserve">
-    <value>Make this opportunity public</value>
-  </data>
-  <data name="SelectDealManagerError" xml:space="preserve">
-    <value>Select opportunity manager</value>
-  </data>
-  <data name="NotifyDealManager" xml:space="preserve">
-    <value>Notyfy opportunity manager by email</value>
-  </data>
-  <data name="AssignDealManager" xml:space="preserve">
-    <value>Assign manager to opportunity</value>
-  </data>
-  <data name="LinkOrCreateDeal" xml:space="preserve">
-    <value>Link or create opportunity</value>
-  </data>
-  <data name="DealAccessRightsLimit" xml:space="preserve">
-    <value>Права будут установлены только на те сделки, для которых вы являетесь автором</value>
-  </data>
   <data name="ShowDealProfileNewTab" xml:space="preserve">
     <value>Открыть в новой вкладке</value>
+  </data>
+  <data name="ShowTotalAmount" xml:space="preserve">
+    <value>Show total amount</value>
+  </data>
+  <data name="StartImport" xml:space="preserve">
+    <value>Start Import</value>
+  </data>
+  <data name="TooltipStages" xml:space="preserve">
+    <value>Opportunity stages let you determine steps necessary to complete the deal. The default opportunity stages are approach, discussion, evaluation, negotiation, commitment, success, zero-point. To be able to edit them the portal administrator rights are needed.</value>
+  </data>
+  <data name="TotalAmount" xml:space="preserve">
+    <value>Total amount</value>
+  </data>
+  <data name="TotalDeals" xml:space="preserve">
+    <value>Total opportunities</value>
+  </data>
+  <data name="TotalOnPage" xml:space="preserve">
+    <value>Page total</value>
   </data>
 </root>

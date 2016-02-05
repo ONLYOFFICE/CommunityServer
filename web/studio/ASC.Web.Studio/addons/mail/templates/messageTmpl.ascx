@@ -11,17 +11,21 @@
                 <i class="icon-{{if $item.important==false}}un{{/if}}important" 
                     title="{{if $item.important}}<%: MailScriptResource.ImportantLabel %>{{else}}<%: MailScriptResource.NotImportantLabel %>{{/if}}"></i>
             </div>
-            <div class="viewTitle">
+            {{if ASC.Mail.Constants.CRM_AVAILABLE == true}}
+                <div class="header-crm-link pull-left" {{if $item.hasLinked == false}}style="display: none;"{{/if}}>
+                    <i class="icon-crm-linked"></i>
+                </div>
+            {{/if}}
+            <div class="viewTitle" {{if $item.last_message.subject !== undefined && $item.last_message.subject !== null && $item.last_message.subject !== ''}}title="${$item.last_message.subject}"{{/if}}>
                 {{if typeof($item.last_message.subject)==='undefined' || $item.last_message.subject == null || $item.last_message.subject ==''}}
                     <%: MailResource.NoSubject %>
                 {{else}}
-                    {{html $item.wordWrap($item.last_message.subject) }}
+                    ${$item.last_message.subject}
                 {{/if}}
-                {{if crm_available == true}}
+                {{if ASC.Mail.Constants.CRM_AVAILABLE == true}}
                 <div class="header-crm-link" style="display: none"></div>
                 {{/if}}
             </div>
-
         </div>
 
         {{if $item.messages.length == 1}}
@@ -114,11 +118,11 @@
             {{/if}}
             <div class="head" message_id="${id}">
                 <div class="row" data_id="${id}">
-                    <div class="menu" data_id="${id}" title="<%: MailScriptResource.Actions %>"></div>
+                    <div class="menu menu-small" data_id="${id}" title="<%: MailScriptResource.Actions %>"></div>
                     <label><%: MailScriptResource.FromLabel %>:</label>
                     <div class="value">
                         <a class="from" href="javascript:void(0);">${from}</a>
-                        {{if crm_available && isFromCRM != true && folder == 1 && from != 'mail-daemon@teamlab.com'}}
+                        {{if ASC.Mail.Constants.CRM_AVAILABLE == true && isFromCRM == false && folder == 1 && from != ASC.Mail.Constants.MAIL_DAEMON_EMAIL}}
                             <span class="AddToCRMContacts addUserLink">
                                 <a class="link dotline"><%: MailResource.AddToCRMContacts %></a>
                                 <span class="sort-down-black down_arrow"></span>
@@ -213,7 +217,7 @@
                                         {{/if}}
                                     </td>
                                     <td class="menu_column">
-                                        <div class="menu" data_id="${$value.fileId}" name="${$value.fileName}" title="<%: MailScriptResource.Actions %>" />
+                                        <div class="menu menu-small" data_id="${$value.fileId}" name="${$value.fileName}" title="<%: MailScriptResource.Actions %>" />
                                     </td>
                                 </tr>
                             {{/each}}
@@ -259,15 +263,13 @@
                     <div class="down_arrow"></div>
                 </li>
                 <li class="menu-action-simple-pagenav">
-                    <div>
-                        <a class="pagerPrevButtonCSSClass" href=""><%: MailResource.GoToPrevMessage %></a>
-                        <a class="pagerNextButtonCSSClass" href=""><%: MailResource.GoToNextMessage %></a>
-                    </div>
+                    <a class="pagerPrevButtonCSSClass" href=""><%: MailResource.GoToPrevMessage %></a>
+                    <a class="pagerNextButtonCSSClass" href=""><%: MailResource.GoToNextMessage %></a>
                 </li>
                 {{if typeof($item.needSortButton)!=='undefined' && $item.needSortButton}}
-                <li>
-                    <div id="sort-conversation" class="sort-icon hidden-min"></div>
-                    <div id="collapse-conversation" class="collapse-conversation hidden-min">Expand all</div>
+                <li class="menu-action-simple-pagenav">
+                    <span id="sort-conversation" class="sort-icon hidden-min"></span>
+                    <span id="collapse-conversation" class="collapse-conversation hidden-min">Expand all</span>
                 </li>
                 {{/if}}
                 <li class="menu-action-on-top">

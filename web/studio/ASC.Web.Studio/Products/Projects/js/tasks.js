@@ -36,8 +36,6 @@ ASC.Projects.TasksManager = (function() {
         projectParticipants = undefined,
         filterTaskCount = 0,
         // cache DOM elements
-        commonPopupContainer = jq("#commonPopupContainer"),
-        commonListContainer = jq("#CommonListContainer"),
         $taskListContainer = jq('.taskList'),
         taskActionPanel = null,
         taskDescribePanel = null,
@@ -63,12 +61,13 @@ ASC.Projects.TasksManager = (function() {
     
     var self;
     var init = function () {
+        self = this;
         if (isInit === false) {
             initActionPanels();
             isInit = true;
         }
-        self = this;
         self.isFirstLoad = true;
+        self.cookiePagination = "tasksKeyForPagination";
         self.setDocumentTitle(ASC.Projects.Resources.ProjectsJSResource.TasksModule);
         self.checkElementNotFound(ASC.Projects.Resources.ProjectsJSResource.TaskNotFound);
 
@@ -81,7 +80,7 @@ ASC.Projects.TasksManager = (function() {
         ASC.Projects.SubtasksManager.onChangeTaskStatusHandler = onUpdateSubtaskStatus;
 
         //page navigator
-        self.initPageNavigator("tasksKeyForPagination");
+        ASC.Projects.PageNavigator.init(self);
 
         self.showLoader();        
 
@@ -96,10 +95,6 @@ ASC.Projects.TasksManager = (function() {
             projectParticipants = ASC.Projects.Master.Team;
             taskDescribePanel.find(".project").remove();
         }
-        
-        jq("#countOfRows").change(function (evt) {
-            self.changeCountOfRows(this.value);
-        });
 
         jq('body').on("click.tasksInit", function (event) {
             var elt = (event.target) ? event.target : event.srcElement;
@@ -155,14 +150,14 @@ ASC.Projects.TasksManager = (function() {
             }
         });
 
-        commonListContainer.on('click', '.project .value', function () {
+        self.$commonListContainer.on('click', '.project .value', function () {
             var path = jq.changeParamValue(ASC.Controls.AnchorController.getAnchor(), 'project', jq(this).attr('projectid'));
             path = jq.removeParam('milestone', path);
             path = jq.removeParam('myprojects', path);
             ASC.Controls.AnchorController.move(path);
         });
 
-        commonListContainer.on('click', '.milestone .value', function () {
+        self.$commonListContainer.on('click', '.milestone .value', function () {
             var path = jq.changeParamValue(ASC.Controls.AnchorController.getAnchor(), 'milestone', jq(this).attr('milestone'));
             ASC.Controls.AnchorController.move(path);
         });
@@ -296,7 +291,7 @@ ASC.Projects.TasksManager = (function() {
             if (!user) {
                 user = currentUserId;
             }
-            self.showTimer('timer.aspx?prjID=' + projectId + '&taskId=' + taskId + '&userID=' + user);
+            ASC.Projects.Common.showTimer('timer.aspx?prjID=' + projectId + '&taskId=' + taskId + '&userID=' + user);
             return false;
         });
         
@@ -408,9 +403,6 @@ ASC.Projects.TasksManager = (function() {
 
             showActionsPanel.call(this, 'taskActionPanel', event ? { x: event.pageX | (event.clientX + event.scrollLeft), y: event.pageY | (event.clientY + event.scrollTop) } : undefined);
 
-            // ga-track
-            trackingGoogleAnalitics(ga_Categories.tasks, ga_Actions.actionClick, "task-menu");
-
             return false;
         }
 
@@ -488,63 +480,42 @@ ASC.Projects.TasksManager = (function() {
             return false;
         });
         
-        commonPopupContainer.on("click", ".cancel, .ok", function () {
+        self.$commonPopupContainer.on("click", ".cancel, .ok", function () {
             jq.unblockUI();
             return false;
         });
 
-        commonPopupContainer.on('click', "#popupRemoveTaskButton", function () {
-            var taskId = commonPopupContainer.attr('taskId');
+        self.$commonPopupContainer.on('click', "#popupRemoveTaskButton", function () {
+            var taskId = self.$commonPopupContainer.attr('taskId');
             removeTask({ 'taskId': taskId }, taskId);
             return false;
         });
 
-        commonPopupContainer.on("click", ".end", function () {
+        self.$commonPopupContainer.on("click", ".end", function () {
             closeTask(jq(this).attr('taskid'));
             jq.unblockUI();
             return false;
         });
-        // ga-track-events
-
-        //change status
-        jq("#statusListContainer .open").trackEvent(ga_Categories.tasks, ga_Actions.changeStatus, "open");
-        jq("#statusListContainer .closed").trackEvent(ga_Categories.tasks, ga_Actions.changeStatus, "closed");
-
-        //responsible
-        jq(".user span").trackEvent(ga_Categories.tasks, ga_Actions.userClick, "tasks-responsible");
-
-        //actions in menu
-        jq("#ta_accept").trackEvent(ga_Categories.tasks, ga_Actions.actionClick, "accept");
-        jq("#ta_mesres").trackEvent(ga_Categories.tasks, ga_Actions.actionClick, "notify-responsible");
-        jq("#ta_move").trackEvent(ga_Categories.tasks, ga_Actions.actionClick, "move-in-milestone");
-        jq("#ta_time").trackEvent(ga_Categories.tasks, ga_Actions.actionClick, "time-track");
-        jq("#ta_subtask").trackEvent(ga_Categories.tasks, ga_Actions.actionClick, "add-subtask");
-        jq("#ta_remove").trackEvent(ga_Categories.tasks, ga_Actions.actionClick, "remove");
-        jq("#ta_edit").trackEvent(ga_Categories.tasks, ga_Actions.actionClick, "edit");
-
-        //actions
-        jq(".subtasksCount .add").trackEvent(ga_Categories.tasks, ga_Actions.quickAction, "add-subtask");
-        //end ga-track-events
     };
 
     var initActionPanels = function () {
-        commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "taskDescrPanel"}));
+        self.$commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "taskDescrPanel" }));
         taskDescribePanel = jq("#taskDescrPanel");
 
         jq("#" + statusListObject.listId).remove();
-        commonListContainer.append(jq.tmpl("projects_statusChangePanel", statusListObject));
+        self.$commonListContainer.append(jq.tmpl("projects_statusChangePanel", statusListObject));
         //action panel
-        commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "taskActionPanel"}));
+        self.$commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "taskActionPanel" }));
         taskActionPanel = jq("#taskActionPanel");
         taskActionPanel.find(".panel-content").empty().append(jq.tmpl("projects_actionMenuContent", actionMenuItems));
 
-        commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "othersPanel" }));
+        self.$commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "othersPanel" }));
         jq("#othersPanel .panel-content").empty().append(jq.tmpl("projects_actionMenuContent", { menuItems: [] }));
         jq("#othersPanel .dropdown-content").attr("id", "othersListPopup");
 
         // init move task to milestone popup
-        var clonedPopup = commonPopupContainer.clone();
-        commonListContainer.append(clonedPopup.attr("id", "moveTaskPanel"));
+        var clonedPopup = self.$commonPopupContainer.clone();
+        self.$commonListContainer.append(clonedPopup.attr("id", "moveTaskPanel"));
         jq("#moveTaskPanel .commonPopupContent").append(jq.tmpl("projects_moveTaskPopup", {}));
         jq("#moveTaskPanel .commonPopupHeaderTitle").empty().text(jq("#moveTaskPanel .hidden-title-text").text());
     };
@@ -559,7 +530,7 @@ ASC.Projects.TasksManager = (function() {
 
         // Responsible
         if (currentProjectId) {
-            if (self.userInProjectTeam(currentUserId)) {
+            if (ASC.Projects.Common.userInProjectTeam(currentUserId)) {
                 filters.push({
                     type: "combobox",
                     id: "me_tasks_responsible",
@@ -658,7 +629,7 @@ ASC.Projects.TasksManager = (function() {
                 title: ASC.Projects.Resources.ProjectsFilterResource.OtherProjects,
                 filtertitle: ASC.Projects.Resources.ProjectsFilterResource.ByProject + ":",
                 group: ASC.Projects.Resources.ProjectsFilterResource.ByProject,
-                options: self.getProjectsForFilter(),
+                options: ASC.Projects.Common.getProjectsForFilter(),
                 hashmask: "project/{0}",
                 groupby: "projects",
                 defaulttitle: ASC.Projects.Resources.ProjectsFilterResource.Select
@@ -779,33 +750,6 @@ ASC.Projects.TasksManager = (function() {
         ];
         
         ASC.Projects.ProjectsAdvansedFilter.init(self);
-
-        //filter
-        ASC.Projects.ProjectsAdvansedFilter.filter.one("adv-ready", function () {
-            var projectAdvansedFilterContainer = jq("#ProjectsAdvansedFilter .advansed-filter-list");
-            projectAdvansedFilterContainer.find("li[data-id='me_tasks_responsible'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'me-tasks-responsible');
-            projectAdvansedFilterContainer.find("li[data-id='tasks_responsible'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'tasks-responsible');
-            projectAdvansedFilterContainer.find("li[data-id='group'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'group');
-            projectAdvansedFilterContainer.find("li[data-id='noresponsible'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'noresponsible');
-
-            projectAdvansedFilterContainer.find("li[data-id='open'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'open');
-            projectAdvansedFilterContainer.find("li[data-id='closed'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'closed');
-
-            projectAdvansedFilterContainer.find("li[data-id='myprojects'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'my-projects');
-            projectAdvansedFilterContainer.find("li[data-id='project'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'project');
-            projectAdvansedFilterContainer.find("li[data-id='tag'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'tag');
-
-            projectAdvansedFilterContainer.find("li[data-id='overdue'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'overdue');
-            projectAdvansedFilterContainer.find("li[data-id='today'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'today');
-            projectAdvansedFilterContainer.find("li[data-id='upcoming'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'upcoming');
-            projectAdvansedFilterContainer.find("li[data-id='deadline'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'user-period');
-
-            projectAdvansedFilterContainer.find("li[data-id='mymilestones'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'my-milestones');
-            projectAdvansedFilterContainer.find("li[data-id='milestone'] .inner-text").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'milestone');
-
-            jq("#ProjectsAdvansedFilter .btn-toggle-sorter").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, 'sort');
-            jq("#ProjectsAdvansedFilter .advansed-filter-input").trackEvent(ga_Categories.tasks, ga_Actions.filterClick, "search_text", "enter");
-        });
     };
 
     var showNewTaskPopup = function() {
@@ -836,8 +780,8 @@ ASC.Projects.TasksManager = (function() {
 
     var getData = function () {
         self.showLoader();
-        self.currentFilter.Count = self.entryCountOnPage;
-        self.currentFilter.StartIndex = self.entryCountOnPage * self.currentPage;
+        self.currentFilter.Count = ASC.Projects.PageNavigator.entryCountOnPage;
+        self.currentFilter.StartIndex = ASC.Projects.PageNavigator.entryCountOnPage * ASC.Projects.PageNavigator.currentPage;
 
         Teamlab.getPrjTasks({}, { filter: self.currentFilter, success: onGetTasks });
     };
@@ -872,7 +816,7 @@ ASC.Projects.TasksManager = (function() {
                 var task = jq('.taskList .task[taskid=' + taskId + ']');
                 task.find(".taskProcess").remove();
                 task.find(".check div").show();
-                self.displayInfoPanel(response[0], true);
+                ASC.Projects.Common.displayInfoPanel(response[0], true);
             }
         });
     };
@@ -930,7 +874,7 @@ ASC.Projects.TasksManager = (function() {
     };
 
     var updateMilestonesListForMovePanel = function (milestones) {
-        milestones = milestones.sort(self.milestoneSort);
+        milestones = milestones.sort(ASC.Projects.Common.milestoneSort);
         jq('#moveTaskPanel .milestonesList .ms').remove();
         jq.tmpl("projects_milestoneForMoveTaskPanelTmpl", milestones).prependTo("#moveTaskPanel .milestonesList");
     };
@@ -958,16 +902,16 @@ ASC.Projects.TasksManager = (function() {
         }
 
         if (isItems) {
-            jq('.noContentBlock').hide();
-            self.showAdvansedFilter();
-            jq('#tableForNavigation').show();
+            self.$noContentBlock.hide();
+            ASC.Projects.ProjectsAdvansedFilter.show();
+            ASC.Projects.PageNavigator.show();
             jq(".taskList").show();
         } else {
             if (filterTaskCount == undefined || filterTaskCount == 0) {
                 jq(emptyScreen).show();
-                jq('#tableForNavigation').hide();
+                ASC.Projects.PageNavigator.hide();
                 if (emptyScreen == '#emptyListTask') {
-                    self.hideAdvansedFilter();
+                    ASC.Projects.ProjectsAdvansedFilter.hide();
                     jq('#tasksEmptyScreenForFilter').hide();
                 }
             }
@@ -996,13 +940,13 @@ ASC.Projects.TasksManager = (function() {
     };
 
     var showRemindTaskPopup = function() {
-        self.displayInfoPanel(ASC.Projects.Resources.TasksResource.MessageSend);
+        ASC.Projects.Common.displayInfoPanel(ASC.Projects.Resources.TasksResource.MessageSend);
     };
 
     var showQuestionWindowTaskRemove = function(taskId) {
         self.showCommonPopup("projects_taskRemoveWarning", 400, 200);
         PopupKeyUpActionProvider.EnterAction = "jq('.commonPopupContent .remove').click();";
-        commonPopupContainer.attr('taskId', taskId);
+        self.$commonPopupContainer.attr('taskId', taskId);
     };
 
     var showMoveToMilestonePanel = function() {
@@ -1118,7 +1062,7 @@ ASC.Projects.TasksManager = (function() {
             jq('body').on("click.tasksShowActionsPanel", function (event) {
                 var elt = (event.target) ? event.target : event.srcElement;
                 var isHide = true;
-                if (jq(elt).is('[id="' + panelId + '"]') || (elt.id == this.id && this.id.length) || jq(elt).is('.entity-menu') || jq(elt).is('.other')) {
+                if (jq(elt).is('[id="' + panelId + '"]') || (elt.id == this.id && this.id.length) || jq(elt).is('.entity-menu') || jq(elt).is('.other') || jq(elt).parents('#taskDescrPanel').length) {
                     isHide = false;
                 }
 
@@ -1183,11 +1127,10 @@ ASC.Projects.TasksManager = (function() {
 
     var unbindListEvents = function () {
         if (!isInit) return;
-        jq("#countOfRows").unbind();
         $taskListContainer.unbind();
         taskActionPanel.unbind();
-        commonListContainer.unbind();
-        commonPopupContainer.unbind();
+        self.$commonListContainer.unbind();
+        self.$commonPopupContainer.unbind();
         taskDescribePanel.unbind();
         statusListContainer.unbind();
     };
@@ -1198,7 +1141,7 @@ ASC.Projects.TasksManager = (function() {
         self.clearTables();
 
         filteredTasks = tasks;
-        jq('#CommonListContainer').height('auto');
+        self.$commonListContainer.height('auto');
         jq('#CommonListContainer .taskSaving').hide();
         clearTimeout(taskDescriptionTimeout);
         overTaskDescriptionPanel = false;
@@ -1218,18 +1161,18 @@ ASC.Projects.TasksManager = (function() {
         self.hideLoader();
 
         filterTaskCount = params.__total != undefined ? params.__total : 0;
-        self.updatePageNavigator(filterTaskCount);
+        ASC.Projects.PageNavigator.update(filterTaskCount);
         emptyScreenList(tasks.length);
     };
 
     var onAddTask = function (params, task) {
         filterTaskCount++;
         filteredTasks.push(task);
-        jq('.noContentBlock').hide();
+        self.$noContentBlock.hide();
         jq.tmpl("projects_taskListItemTmpl", task).prependTo(".taskList");
         jq('#CommonListContainer .taskSaving').hide();
         jq('.taskList .task:first').yellowFade();
-        self.updatePageNavigator(filterTaskCount);
+        ASC.Projects.PageNavigator.update(filterTaskCount);
         emptyScreenList(true);
     };
 
@@ -1244,7 +1187,7 @@ ASC.Projects.TasksManager = (function() {
         }
         setFilteredTask(task);
         jq.unblockUI();
-        self.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.TaskUpdated);
+        ASC.Projects.Common.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.TaskUpdated);
     };
     
     var onRemoveTask = function (params, task) {
@@ -1257,16 +1200,16 @@ ASC.Projects.TasksManager = (function() {
         }
 
         filterTaskCount--;
-        self.updatePageNavigator(filterTaskCount);
+        ASC.Projects.PageNavigator.update(filterTaskCount);
         if (typeof task != 'undefined') {
             emptyScreenList(task.length);
         } else {
             emptyScreenList(0);
         }
         jq('.taskList .task[taskid=' + taskId + ']').html('<div class="taskProcess"></div>');
-        commonPopupContainer.removeAttr('taskId');
+        self.$commonPopupContainer.removeAttr('taskId');
         jq.unblockUI();
-        self.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.TaskRemoved);
+        ASC.Projects.Common.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.TaskRemoved);
         
         if (filterTaskCount == 0) {
             jq("#emptyListTimers .addFirstElement").addClass("display-none");
@@ -1274,13 +1217,13 @@ ASC.Projects.TasksManager = (function() {
     };
 
     var onErrorRemoveTask = function (param, error) {
-        var removePopupErrorBox = commonPopupContainer.find(".errorBox");
+        var removePopupErrorBox = self.$commonPopupContainer.find(".errorBox");
         removePopupErrorBox.text(error[0]);
         removePopupErrorBox.removeClass("display-none");
-        commonPopupContainer.find(".middle-button-container").css('marginTop', '8px');
+        self.$commonPopupContainer.find(".middle-button-container").css('marginTop', '8px');
         setTimeout(function () {
             removePopupErrorBox.addClass("display-none");
-            commonPopupContainer.find(".middle-button-container").css('marginTop', '32px');
+            self.$commonPopupContainer.find(".middle-button-container").css('marginTop', '32px');
         }, 3000);
     };
 
@@ -1348,6 +1291,6 @@ ASC.Projects.TasksManager = (function() {
         onAddMilestone: onAddMilestone,
         unbindListEvents: unbindListEvents,
         basePath: 'sortBy=deadline&sortOrder=ascending'
-    }, ASC.Projects.Common);
+    }, ASC.Projects.Base);
     
 })(jQuery);

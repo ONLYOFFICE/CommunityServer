@@ -58,9 +58,9 @@
         <div>
            <% if (Project == null || CoreContext.UserManager.GetUsers(Project.Responsible).IsVisitor())
               {%>
-            <span id="projectManagerSelector" data-id="" class="link dotline plus"><%= ProjectResource.AddProjectManager %></span>
+            <span id="projectManagerSelector" data-id="<%= ProjectManagerId%>" class="link dotline plus"><%= ProjectManagerName%></span>
             <%} else { %>
-            <span id="projectManagerSelector" data-id="<%= Project.Responsible.ToString()%>" class="link dotline"><%= ProjectManagerName %></span>
+            <span id="projectManagerSelector" data-id="<%= ProjectManagerId%>" class="link dotline"><%= ProjectManagerName %></span>
             <%} %>
         </div>
         <div class="notifyManagerContainer">
@@ -120,21 +120,16 @@
     <% if (IsEditingProjectAvailable)
        { %>
     <div id="projectStatusContainer">
-        <div class="headerPanel clearFix">
+        <div class="headerPanelSmall clearFix">
             <div class="float-left"><%= ProjectResource.ProjectStatus %></div>
-            <div class="HelpCenterSwitcher" style="margin-top: 3px;" onclick="jq(this).helper({ BlockHelperID: 'AnswerForProjectStatus'});" title="<%=ProjectsCommonResource.HelpQuestionProjectStatus%>"></div>
+            <div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'AnswerForProjectStatus'});" title="<%=ProjectsCommonResource.HelpQuestionProjectStatus%>"></div>
             <div class="popup_helper" id="AnswerForProjectStatus">
                 <p><%=String.Format(ProjectsCommonResource.HelpAnswerProjectStatus, "<br />", "<b>", "</b>")%></p>
             </div>
         </div>
-        <select id="projectStatus" class="comboBox">
-            <option value="open" <%if (Project.Status == ProjectStatus.Open)
-                                   {%> selected="selected" <%} %>><%= ProjectResource.ActiveProject %></option>
-            <option value="paused" <%if (Project.Status == ProjectStatus.Paused)
-                                     {%> selected="selected" <%} %>><%= ProjectResource.PausedProject %></option>
-            <option value="closed " <%if (Project.Status == ProjectStatus.Closed)
-                                      {%> selected="selected" <%} %>><%= ProjectResource.ClosedProject %></option>
-        </select>
+        <span id="projectStatus" class="link dotline" data-status="<%= ProjectStatusList %>" data-id="<%= (int)Project.Status %>">
+            <%= ProjectStatusTitle %>
+        </span>
     </div>
     <input type="hidden" id="activeTasks" value="<%= ActiveTasksCount %>" />
     <input type="hidden" id="activeMilestones" value="<%= ActiveMilestonesCount %>" />

@@ -45,6 +45,12 @@ using ServerType = ASC.Mail.Server.Dal.ServerType;
 
 namespace ASC.MailServer.DnsCheckerService
 {
+    /*
+     * add locks MemoryCache to fix bug: https://bugzilla.xamarin.com/show_bug.cgi?id=25522
+     * see also https://github.com/alexanderkyte/mono/commit/311e03221901d24435aa1560dac0b046b9dfe4fc
+     * remove locks when mono bug will be fixed
+     */
+
     partial class DnsCheckerService : ServiceBase
     {
         #region - Declaration -
@@ -62,7 +68,8 @@ namespace ASC.MailServer.DnsCheckerService
         readonly TimeSpan _tsInterval;
         readonly ManualResetEvent _mreStop;
 
-        private static MemoryCache _tenantMemCache;
+        private readonly MemoryCache _tenantMemCache;
+        private readonly object locker = new object();
 
         private const int TENANT_OVERDUE_DAYS = 30;
 
@@ -195,7 +202,12 @@ namespace ASC.MailServer.DnsCheckerService
             {
                 try
                 {
-                    if (!_tenantMemCache.Contains(dnsTask.tenant.ToString(CultureInfo.InvariantCulture)))
+                    var contains = false;
+                    lock (locker)
+                    {
+                        contains = _tenantMemCache.Contains(dnsTask.tenant.ToString(CultureInfo.InvariantCulture));
+                    }
+                    if (!contains)
                     {
                         _log.Debug("Tenant {0} isn't in cache", dnsTask.tenant);
 
@@ -239,7 +251,10 @@ namespace ASC.MailServer.DnsCheckerService
                                         AbsoluteExpiration =
                                             DateTimeOffset.UtcNow.Add(_tenantCachingPeriod)
                                     };
-                                _tenantMemCache.Add(cacheItem, cacheItemPolicy);
+                                lock (locker)
+                                {
+                                    _tenantMemCache.Add(cacheItem, cacheItemPolicy);
+                                }
                                 break;
                         }
                     }

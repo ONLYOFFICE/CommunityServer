@@ -31,7 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxPro.2">
-      <HintPath>..\..\..\packages\AjaxPro.2.2.9.17.1\lib\net20\AjaxPro.2.dll</HintPath>
+      <HintPath>..\..\..\packages\AjaxPro.2.2.9.17.2\lib\net20\AjaxPro.2.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="ASC.Api, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
@@ -58,6 +58,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Thrdparty.dll</HintPath>
     </Reference>
+    <Reference Include="ASC.Web.Files, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Web.Files.dll</HintPath>
+    </Reference>
     <Reference Include="DotNetOpenAuth, Version=4.1.0.0, Culture=neutral, PublicKeyToken=2780ccd10d57b246, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
@@ -73,7 +77,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NLog">
       <HintPath>..\..\..\packages\NLog.2.1.0\lib\net45\NLog.dll</HintPath>
@@ -88,6 +92,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -99,12 +104,16 @@
     <Compile Include="Collection\ItemList.cs" />
     <Compile Include="Defines.cs" />
     <Compile Include="Extension\BaseProtocolClientExtensions.cs" />
+    <Compile Include="Extension\EnumerableExtensions.cs" />
     <Compile Include="Extension\DateTimeExtensions.cs" />
     <Compile Include="Exceptions.cs" />
     <Compile Include="Extension\ImapExtensions.cs" />
     <Compile Include="Extension\MailBoxExtensions.cs" />
     <Compile Include="Extension\QueueExtensions.cs" />
+    <Compile Include="Extension\RestClientExtensions.cs" />
+    <Compile Include="Extension\SmtpExtensions.cs" />
     <Compile Include="Extension\StackExtensions.cs" />
+    <Compile Include="Extension\StreamExtensions.cs" />
     <Compile Include="Imap\ImapFolderUids.cs" />
     <Compile Include="Imap\ImapIntervals.cs" />
     <Compile Include="Imap\UidInterval.cs" />
@@ -120,7 +129,8 @@
     <Compile Include="MailClientBuilder.cs" />
     <Compile Include="MailClientConfig.cs" />
     <Compile Include="MailFolder.cs" />
-    <Compile Include="MailMessageItem.cs" />
+    <Compile Include="MailMessage.cs" />
+    <Compile Include="MailDraft.cs" />
     <Compile Include="MailServerHelper.cs" />
     <Compile Include="MailServerSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -149,6 +159,10 @@
     <ProjectReference Include="..\..\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Smtp\ActiveUp.Net.Smtp.csproj">
       <Project>{d5eba7a8-a259-415a-a4aa-543a7bc025c5}</Project>
       <Name>ActiveUp.Net.Smtp</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
+      <Project>{481b0d9c-b2f8-4de9-8597-ba8d24585099}</Project>
+      <Name>ASC.FederatedLogin</Name>
     </ProjectReference>
     <ProjectReference Include="..\ASC.Mail.Aggregator.Dal\ASC.Mail.Aggregator.Dal.csproj">
       <Project>{d2f288a0-3622-406e-8d65-a308d1dbc2eb}</Project>

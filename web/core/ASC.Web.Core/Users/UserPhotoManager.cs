@@ -24,7 +24,13 @@
 */
 
 
+using ASC.Common.Threading.Workers;
+using ASC.Core;
+using ASC.Data.Storage;
+using ASC.Web.Core.Utility.Skins;
+using ASC.Web.Studio.Utility;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
@@ -35,12 +41,6 @@ using System.Net;
 using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.Configuration;
-using ASC.Collections;
-using ASC.Common.Threading.Workers;
-using ASC.Core;
-using ASC.Data.Storage;
-using ASC.Web.Core.Utility.Skins;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Core.Users
 {
@@ -123,7 +123,7 @@ namespace ASC.Web.Core.Users
 
     public class UserPhotoManager
     {
-        private static readonly IDictionary<Guid, IDictionary<Size, string>> Photofiles = new SynchronizedDictionary<Guid, IDictionary<Size, string>>();
+        private static readonly IDictionary<Guid, IDictionary<Size, string>> Photofiles = new Dictionary<Guid, IDictionary<Size, string>>();
 
 
         public static string GetDefaultPhotoAbsoluteWebPath()
@@ -263,15 +263,23 @@ namespace ASC.Web.Core.Users
 
         private static void AddToCache(Guid userId, Size size, string fileName, bool replace)
         {
-            if (!Photofiles.ContainsKey(userId)) Photofiles[userId] = new SynchronizedDictionary<Size, string>();
-            if (replace)
+            lock (Photofiles)
             {
-                Photofiles[userId][size] = fileName;
-            }
-            else
-            {
-                if (!Photofiles[userId].ContainsKey(size))
-                    Photofiles[userId].Add(size, fileName);
+                if (!Photofiles.ContainsKey(userId))
+                {
+                    Photofiles[userId] = new ConcurrentDictionary<Size, string>();
+                }
+                if (replace)
+                {
+                    Photofiles[userId][size] = fileName;
+                }
+                else
+                {
+                    if (!Photofiles[userId].ContainsKey(size))
+                    {
+                        Photofiles[userId].Add(size, fileName);
+                    }
+                }
             }
         }
 
@@ -357,18 +365,19 @@ namespace ASC.Web.Core.Users
             if (!IsCacheLoadedForTennant())
                 LoadDiskCache();
 
-            if (!Photofiles.ContainsKey(userId)) return null;
-            if (size != Size.Empty && !Photofiles[userId].ContainsKey(size)) return null;
-
             var findResult = String.Empty;
+            lock (Photofiles)
+            {
+                if (!Photofiles.ContainsKey(userId)) return null;
+                if (size != Size.Empty && !Photofiles[userId].ContainsKey(size)) return null;
 
-            if (size != Size.Empty)
-                findResult = Photofiles[userId][size];
-            else
-                findResult = Photofiles[userId]
-                            .Select(x => x.Value)
-                            .FirstOrDefault(x => !String.IsNullOrEmpty(x) && x.Contains("_orig_"));
-
+                if (size != Size.Empty)
+                    findResult = Photofiles[userId][size];
+                else
+                    findResult = Photofiles[userId]
+                                .Select(x => x.Value)
+                                .FirstOrDefault(x => !String.IsNullOrEmpty(x) && x.Contains("_orig_"));
+            }
             if (findResult != null && findResult.StartsWith("default")) return WebImageSupplier.GetAbsoluteWebPath(findResult);
 
             var store = GetDataStore();
@@ -451,7 +460,10 @@ namespace ASC.Web.Core.Users
         {
             try
             {
-                Photofiles.Remove(userID);
+                lock (Photofiles)
+                {
+                    Photofiles.Remove(userID);
+                }
                 var storage = GetDataStore();
                 storage.DeleteFiles("", (moduleID == Guid.Empty ? "" : moduleID.ToString()) + userID.ToString() + "*.*", false);
                 SetCacheLoadedForTennant(false);

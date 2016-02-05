@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using ASC.Web.Core.Files;
@@ -64,6 +65,11 @@ namespace ASC.Web.Studio.UserControls.Common.Attachments
         protected string ExtsWebPreviewed = string.Join(", ", FileUtility.ExtsWebPreviewed.ToArray());
         protected string ExtsWebEdited = string.Join(", ", FileUtility.ExtsWebEdited.ToArray());
 
+        protected static bool EnableAsUploaded
+        {
+            get { return FileUtility.ExtsMustConvert.Any() && !string.IsNullOrEmpty(FilesLinkUtility.DocServiceConverterUrl) && TenantExtra.GetTenantQuota().DocsEdition; }
+        }
+
         public Attachments()
         {
             PortalDocUploaderVisible = true;
@@ -79,8 +85,8 @@ namespace ASC.Web.Studio.UserControls.Common.Attachments
 
         private void InitScripts()
         {
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/common/attachments/css/attachments.less"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/common/attachments/js/attachments.js"));
+            Page.RegisterStyle("~/usercontrols/common/attachments/css/attachments.less");
+            Page.RegisterBodyScripts("~/usercontrols/common/attachments/js/attachments.js");
         }
 
         private void CreateEmptyPanel()
@@ -99,8 +105,8 @@ namespace ASC.Web.Studio.UserControls.Common.Attachments
                     Header = UserControlsCommonResource.EmptyListDocumentsHead,
                     Describe =
                         MobileDetector.IsMobile
-                            ? UserControlsCommonResource.EmptyListDocumentsDescrMobile
-                            : String.Format(UserControlsCommonResource.EmptyListDocumentsDescr,
+                            ? UserControlsCommonResource.EmptyListDocumentsDescrMobile.HtmlEncode()
+                            : String.Format(FileUtility.ExtsWebEdited.Any() ? UserControlsCommonResource.EmptyListDocumentsDescr.HtmlEncode() : UserControlsCommonResource.EmptyListDocumentsDescrPoor.HtmlEncode(),
                                             //create
                                             "<span class='hintCreate baseLinkAction' >", "</span>",
                                             //upload
@@ -123,7 +129,6 @@ namespace ASC.Web.Studio.UserControls.Common.Attachments
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            _hintPopup.Options.IsPopup = true;
             InitScripts();
 
             if (EmptyScreenVisible)

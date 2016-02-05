@@ -380,4 +380,70 @@
                 &lt;/tbody&gt;
         &lt;/table&gt;</value>
   </data>
+  <data name="FooterFreeCloud" xml:space="preserve">
+    <value>&lt;table cellspacing="0" cellpadding="0" style="margin: 0; border-spacing: 0; empty-cells: show;"&gt;
+				&lt;tbody&gt;
+					&lt;tr style="height: 10px"&gt;
+						&lt;td colspan="2" style="width: 40px; background-color: #09669C;"&gt;&lt;div style="width: 40px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 600px; background-color: #fff;"&gt;&lt;div style="width: 600px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td colspan="2" style="width: 40px; background-color: #09669C;"&gt;&lt;div style="width: 40px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr style="height: 10px"&gt;
+						&lt;td colspan="5" style="width: 680px; background-color: #09669C;"&gt;&lt;div style="width: 680px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr style="height: 10px"&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #09669C;"&gt;&lt;div style="width: 7px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 600px; background-color: #fff;"&gt;&lt;div style="width: 600px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #09669C;"&gt;&lt;div style="width: 7px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px; height: 10px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+				&lt;/tbody&gt;
+			&lt;/table&gt;
+&lt;table cellpadding="0" cellspacing="0" style="margin: 0; border-spacing: 0; empty-cells: show;"&gt;
+				&lt;tbody&gt;
+					&lt;tr style="color: #333;"&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;div style="width: 7px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 200px; background-color: #fff;"&gt;
+							&lt;h3 style="font-family: Arial; font-size: 16px; margin: 0px; padding: 15px 0px 10px 30px"&gt;Need tech help?&lt;/h3&gt;
+						&lt;/td&gt;
+						&lt;td style="width: 200px; background-color: #fff;"&gt;
+							&lt;h3 style="font-family: Arial; font-size: 16px; margin: 0px; padding: 15px 0px 10px 20px"&gt;Sales questions?&lt;/h3&gt;
+						&lt;/td&gt;
+						&lt;td style="width: 200px; background-color: #fff;"&gt;
+							&lt;h3 style="font-family: Arial; font-size: 16px; margin: 0px; padding: 15px 0 10px 20px"&gt;Stay tuned!&lt;/h3&gt;
+						&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;div style="width: 7px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+					&lt;tr style="color: #333;"&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;div style="width: 7px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="background-color: #fff; vertical-align: top; padding-left: 30px;"&gt;
+							&lt;a style="color: #0078bd; font-family: Arial; font-size: 14px;" href="http://cloud.onlyoffice.org" target="_blank"&gt;cloud.onlyoffice.org&lt;/a&gt;
+						&lt;/td&gt;
+						&lt;td style="background-color: #fff; vertical-align: top; padding-left: 20px;"&gt;
+							&lt;a style="color: #0078bd; font-family: Arial; font-size: 14px;" href="mailto:info@onlyoffice.com"&gt;info@onlyoffice.com&lt;/a&gt;
+						&lt;/td&gt;
+						&lt;td style="background-color: #fff; vertical-align: top; padding-left: 20px; font-family: Arial; font-size: 14px;"&gt;
+							&lt;a target="_blank" style="color: #3D4A6B;" href="http://www.facebook.com/TeamLab"&gt;&lt;img style="vertical-align: middle; border: 0; width: 26px; height: 26px;" src="http://cdn.teamlab.com/media/newsletters/images/social_01.jpg" alt="Facebook" title="Facebook" /&gt;&lt;/a&gt;
+							&lt;a target="_blank" style="color: #3D4A6B;" href="http://twitter.com/teamlabdotcom"&gt;&lt;img src="http://cdn.teamlab.com/media/newsletters/images/social_02.jpg" alt="Twitter" title="Twitter" style="vertical-align: middle; border: 0; width: 26px; height: 26px;" /&gt;&lt;/a&gt;
+							&lt;a target="_blank" style="color: #3D4A6B;" href="https://plus.google.com/u/0/+teamlab/"&gt;&lt;img src="http://cdn.teamlab.com/media/newsletters/images/social_03.jpg" alt="Google+" title="Google+" style="vertical-align: middle; border: 0; width: 26px; height: 26px;" /&gt;&lt;/a&gt;
+							&lt;a target="_blank" style="color: #3D4A6B;" href="http://www.linkedin.com/groups?home=&amp;amp;gid=3159387&amp;amp;trk=anet_ug_hm"&gt;&lt;img src="http://cdn.teamlab.com/media/newsletters/images/social_04.jpg" alt="Linked In" title="Linked In" style="vertical-align: middle; border: 0; width: 26px; height: 26px;" /&gt;&lt;/a&gt;
+						&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;div style="width: 7px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+					&lt;/tr&gt;
+                    &lt;tr style="height: 26px"&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;div style="width: 7px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+                        &lt;td style="width: 600px; background-color: #fff;" colspan="3"&gt;&lt;div style="width: 600px; height: 26px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 7px; background-color: #f5942d"&gt;&lt;div style="width: 7px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+						&lt;td style="width: 33px; background-color: #09669C;"&gt;&lt;div style="width: 33px;"&gt;&amp;nbsp;&lt;/div&gt;&lt;/td&gt;
+                    &lt;/tr&gt;
+                    
+                &lt;/tbody&gt;
+            &lt;/table&gt;</value>
+  </data>
 </root>

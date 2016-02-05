@@ -63,6 +63,7 @@
 #id_administration_page {
     .containerBodyBlock {
         .addDomain {
+            margin-top: 5px;
             padding-left: 21px;
             padding-right: 10px;
         }
@@ -78,22 +79,9 @@
                 padding-right: @base-distance;
                 width: 24px;
 
-                .menu {
-                    background-color: transparent;
-                    background: url("@{base-icon-sprite-url}") no-repeat 0 -90px;
-                    width: 24px;
-                    height: 24px;
+                .menu-small {
                     float: right;
-                    cursor: pointer;
-                    display: inline-block;
-
-                    &.active {
-                        background-position: -30px -90px;
-                    }
-
-                    &:hover {
-                        background-position: -30px -90px;
-                    }
+                    margin: 0;
                 }
             }
         }
@@ -124,24 +112,8 @@
                     }
 
                     .menu_column {
-                        .menu {
-                            background-color: transparent;
-                            background: url("@{base-icon-sprite-url}") no-repeat 0 -90px;
-                            width: @base-distance * 3;
-                            height: @base-distance * 3;
-                            float: right;
-                            cursor: pointer;
-                            display: inline-block;
-                            margin-left: @base-distance / 2;
-
-                            &:hover {
-                                background-position: -30px -90px;
-                                cursor: pointer;
-                            }
-
-                            &.active {
-                                background-position: -30px -90px;
-                            }
+                        .menu-small {
+                            margin: 2px 0 0 6px;
                         }
                     }
 
@@ -258,8 +230,8 @@
                                 &:hover {
                                     background-color: @hovered-row_bg;
 
-                                    .menu {
-                                        background-position: -30px -90px;
+                                    .menu-small {
+                                        background-position: center bottom;
                                     }
 
                                     .more_aliases {

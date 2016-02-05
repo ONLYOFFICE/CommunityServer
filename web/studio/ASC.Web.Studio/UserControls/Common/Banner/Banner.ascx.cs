@@ -35,12 +35,9 @@ using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.Utility;
 using Resources;
 
-using AjaxPro;
-
 
 namespace ASC.Web.Studio.UserControls.Common.Banner
 {
-    [AjaxNamespace("AjaxPro.BannerController")]
     public partial class Banner : UserControl
     {
         public static string Location { get { return "~/usercontrols/common/banner/banner.ascx"; } }
@@ -73,8 +70,7 @@ namespace ASC.Web.Studio.UserControls.Common.Banner
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/common/banner/js/banner.js"));
-            AjaxPro.Utility.RegisterTypeForAjax(GetType());
+            Page.RegisterBodyScripts("~/usercontrols/common/banner/js/banner.js");
 
             banners = new List<BannerType>();
 
@@ -96,33 +92,12 @@ namespace ASC.Web.Studio.UserControls.Common.Banner
                 {
                     Id = "joinAffilliateBanner",
                     Url = "javascript:void(0)",
-                    Title = Resource.WeUseTeamLabOnlineOffice,
+                    Title = Resource.WeUseTeamLabOnlineOffice.HtmlEncode(),
                     Img = "banner_portal_",
                     ImgType = ".png"
                 });
             }
         }
-
-
-        #region AjaxMethod
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public AjaxResponse JoinToAffiliateProgram()
-        {
-            var resp = new AjaxResponse();
-            try
-            {
-                resp.rs1 = "1";
-                resp.rs2 = AffiliateHelper.Join();
-            }
-            catch (Exception e)
-            {
-                resp.rs1 = "0";
-                resp.rs2 = HttpUtility.HtmlEncode(e.Message);
-            }
-            return resp;
-
-        }
-        #endregion
 
     }
 }

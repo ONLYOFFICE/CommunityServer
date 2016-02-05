@@ -94,7 +94,7 @@ namespace ASC.Web.Talk.UserControls
         protected override void Render(HtmlTextWriter writer)
         {
             base.Render(writer);
-            Page.RegisterBodyScripts(ResolveUrl("~/addons/talk/js/talk.navigationitem.js"));
+            Page.RegisterBodyScripts("~/addons/talk/js/talk.navigationitem.js");
             RegisterScript();
         }
 

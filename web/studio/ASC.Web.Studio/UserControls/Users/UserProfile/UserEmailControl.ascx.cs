@@ -25,6 +25,8 @@
 
 
 using System;
+using System.Web;
+using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Studio.Core;
 
@@ -47,6 +49,13 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(typeof(EmailOperationService));
+        }
+
+        protected string RenderMailLinkAttribute()
+        {
+            return CoreContext.Configuration.Personal
+                       ? "href=\"mailto:" + User.Email.ToLower() + "\""
+                       : "target=\"_blank\" href=\"" + VirtualPathUtility.ToAbsolute("~/addons/mail/#composeto/email=" + User.Email.ToLower()) + "\"";
         }
     }
 }

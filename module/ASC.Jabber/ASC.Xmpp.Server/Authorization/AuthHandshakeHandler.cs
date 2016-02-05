@@ -24,13 +24,12 @@
 */
 
 
-using System;
 using ASC.Xmpp.Core.protocol.component;
-
 using ASC.Xmpp.Core.utils;
 using ASC.Xmpp.Core.utils.Xml.Dom;
 using ASC.Xmpp.Server.Handler;
 using ASC.Xmpp.Server.Streams;
+using System;
 
 namespace ASC.Xmpp.Server.Authorization
 {

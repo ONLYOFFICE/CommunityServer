@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -24,6 +24,7 @@
 */
 
 
+using System.Security.Cryptography;
 using System.Text;
 
 namespace ASC.Mail.Aggregator.Common.Extension
@@ -39,7 +40,7 @@ namespace ASC.Mail.Aggregator.Common.Extension
         public static string GetMd5(this byte[] utf8Bytes)
         {
             var x =
-                new System.Security.Cryptography.MD5CryptoServiceProvider();
+                new MD5CryptoServiceProvider();
             var bs = x.ComputeHash(utf8Bytes);
             var s = new StringBuilder(32);
             foreach (var b in bs)

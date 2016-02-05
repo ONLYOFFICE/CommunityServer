@@ -34,6 +34,10 @@ namespace ActiveUp.Net.Mail
         /// <summary>
         /// A HTML based message body.
         /// </summary>
-        Html
+        Html,
+        /// <summary>
+        /// A iCal based message body (https://en.wikipedia.org/wiki/ICalendar).
+        /// </summary>
+        Calendar
     }
 }

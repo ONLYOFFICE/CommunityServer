@@ -24,9 +24,9 @@
 */
 
 
-using System.Collections.Generic;
-using ASC.Collections;
 using ASC.Xmpp.Core.protocol.iq.disco;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 
 namespace ASC.Xmpp.Server.Session
 {
@@ -34,17 +34,26 @@ namespace ASC.Xmpp.Server.Session
 	{
 		private const string DEFAULT_NODE = "DEFAULT_NODE";
 
-        private IDictionary<string, DiscoInfo> discoCache = new SynchronizedDictionary<string, DiscoInfo>();
+        private IDictionary<string, DiscoInfo> discoCache = new ConcurrentDictionary<string, DiscoInfo>();
 
 		public DiscoInfo GetDiscoInfo(string node)
 		{
-			if (string.IsNullOrEmpty(node)) node = DEFAULT_NODE;
-			return discoCache.ContainsKey(node) ? discoCache[node] : null;
+            if (string.IsNullOrEmpty(node))
+            {
+                node = DEFAULT_NODE;
+            }
+
+            DiscoInfo info;
+            discoCache.TryGetValue(node, out info);
+            return info;
 		}
 
 		public void SetDiscoInfo(DiscoInfo discoInfo)
 		{
-			if (discoInfo == null) return;
+            if (discoInfo == null)
+            {
+                return;
+            }
 			var node = !string.IsNullOrEmpty(discoInfo.Node) ? discoInfo.Node : DEFAULT_NODE;
 			discoCache[node] = discoInfo;
 		}

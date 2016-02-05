@@ -28,7 +28,7 @@
             </table>
             <div class="middle-button-container">
                 <a id="submitFileSelector" class="button blue middle disable">
-                    <%= FilesUCResource.ButtonOk %>
+                    <%= SuccessButton %>
                 </a>
                 <span class="splitter-buttons"></span>
                 <a id="closeFileSelector" class="button gray middle">

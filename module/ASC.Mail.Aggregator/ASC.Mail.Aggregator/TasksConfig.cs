@@ -26,20 +26,27 @@
 
 using System;
 using System.Collections.Generic;
-using ASC.Mail.Aggregator.Common;
 
 namespace ASC.Mail.Aggregator
 {
     public class TasksConfig
     {
+        public enum AggregateModeType
+        {
+            All,
+            External,
+            Internal
+        };
+
         private readonly TimeSpan _activeInterval;
         private readonly List<string> _workOnUsersOnly;
-        private readonly bool _onlyTeamlabTasks;
+        private readonly AggregateModeType _aggregateMode;
         private readonly bool _enableSignalr;
         private readonly int _chunkOfUidl;
         private readonly int _maxMessagesPerSession;
         private readonly int _maxTasksAtOnce;
         private readonly TimeSpan _overdueAccountDelay;
+        private readonly TimeSpan _quotaEndedDelay;
         private readonly TimeSpan _tenantCachingPeriod;
         private readonly TimeSpan _queueLifetimeInteravl;
         private readonly bool _showActiveUpLogs;
@@ -47,6 +54,8 @@ namespace ASC.Mail.Aggregator
         private readonly TimeSpan _authErrorWarningTimeout;
         private readonly TimeSpan _authErrorDisableMailboxTimeout;
         private readonly int _tenantOverdueDays;
+        private readonly long _minQuotaBalance;
+        private readonly bool _saveOriginalMessage;
 
         public TimeSpan ActiveInterval {
             get { return _activeInterval; }
@@ -57,9 +66,9 @@ namespace ASC.Mail.Aggregator
             get { return _workOnUsersOnly; }
         }
 
-        public bool OnlyTeamlabTasks
+        public AggregateModeType AggregateMode
         {
-            get { return _onlyTeamlabTasks; }
+            get { return _aggregateMode; }
         }
 
         public bool EnableSignalr
@@ -83,6 +92,11 @@ namespace ASC.Mail.Aggregator
 
         public TimeSpan OverdueAccountDelay {
             get { return _overdueAccountDelay; }
+        }
+
+        public TimeSpan QuotaEndedDelay
+        {
+            get { return _quotaEndedDelay; }
         }
 
         public TimeSpan TenantCachingPeriod
@@ -120,16 +134,27 @@ namespace ASC.Mail.Aggregator
             get { return _tenantOverdueDays; }
         }
 
+        public long MinQuotaBalance
+        {
+            get { return _minQuotaBalance; }
+        }
+
+        public bool SaveOriginalMessage
+        {
+            get { return _saveOriginalMessage; }
+        }
+
         public class Builder
         {
             internal TimeSpan activeInterval;
             internal List<string> workOnUsersOnly;
-            internal bool onlyTeamlabTasks;
+            internal AggregateModeType aggregateMode;
             internal int chunkOfUidl;
             internal bool enableSignalr;
             internal int maxMessagesPerSession;
             internal int maxTasksAtOnce;
             internal TimeSpan overdueAccountDelay;
+            internal TimeSpan quotaEndedDelay;
             internal TimeSpan tenantCachingPeriod;
             internal TimeSpan queueLifetime;
             internal bool showActiveUpLogs;
@@ -137,6 +162,8 @@ namespace ASC.Mail.Aggregator
             internal TimeSpan authErrorWarningTimeout;
             internal TimeSpan authErrorDisableMailboxTimeout;
             internal int tenantOverdueDays;
+            internal long minQuotaBalance;
+            internal bool saveOriginalMessage;
 
             public virtual Builder SetActiveInterval(TimeSpan activeIntervalObj)
             {
@@ -150,9 +177,20 @@ namespace ASC.Mail.Aggregator
                 return this;
             }
 
-            public virtual Builder SetOnlyTeamlabTasks(bool onlyTeamlabTasksObj)
+            public virtual Builder SetAggregateMode(string aggregateModeObj)
             {
-                onlyTeamlabTasks = onlyTeamlabTasksObj;
+                switch (aggregateModeObj)
+                {
+                    case "external":
+                        aggregateMode = AggregateModeType.External;
+                        break;
+                    case "internal":
+                        aggregateMode = AggregateModeType.Internal;
+                        break;
+                    default:
+                        aggregateMode = AggregateModeType.All;
+                        break;
+                }
                 return this;
             }
 
@@ -182,6 +220,12 @@ namespace ASC.Mail.Aggregator
             public virtual Builder SetOverdueAccountDelay(TimeSpan overdueAccountDelayObj)
             {
                 overdueAccountDelay = overdueAccountDelayObj;
+                return this;
+            }
+
+            public virtual Builder SetQuotaEndedDelay(TimeSpan quotaEndedDelayObj)
+            {
+                quotaEndedDelay = quotaEndedDelayObj;
                 return this;
             }
 
@@ -227,22 +271,36 @@ namespace ASC.Mail.Aggregator
                 return this;
             }
 
+            public virtual Builder SetMinQuotaBalance(long minQuotaBalanceObj)
+            {
+                minQuotaBalance = minQuotaBalanceObj;
+                return this;
+            }
+
+            public virtual Builder SetSaveOriginalMessageFlag(bool saveOriginalMessageObj)
+            {
+                saveOriginalMessage = saveOriginalMessageObj;
+                return this;
+            }
+
             public TasksConfig Build()
             {
                 return new TasksConfig(this);
             }
+
         }
 
         private TasksConfig(Builder builder)
         {
             _activeInterval = builder.activeInterval;
             _workOnUsersOnly = builder.workOnUsersOnly ?? new List<string>();
-            _onlyTeamlabTasks = builder.onlyTeamlabTasks;
+            _aggregateMode = builder.aggregateMode;
             _enableSignalr = builder.enableSignalr;
             _chunkOfUidl = builder.chunkOfUidl > 0 ? builder.chunkOfUidl : 100;
             _maxMessagesPerSession = builder.maxMessagesPerSession > 0 ? builder.maxMessagesPerSession : 1;
             _maxTasksAtOnce = builder.maxTasksAtOnce > 0 ? builder.maxTasksAtOnce : 1;
             _overdueAccountDelay = builder.overdueAccountDelay;
+            _quotaEndedDelay = builder.quotaEndedDelay;
             _tenantCachingPeriod = builder.tenantCachingPeriod;
             _queueLifetimeInteravl = builder.queueLifetime == TimeSpan.MinValue ? TimeSpan.FromSeconds(30) : builder.queueLifetime;
             _showActiveUpLogs = builder.showActiveUpLogs;
@@ -256,6 +314,8 @@ namespace ASC.Mail.Aggregator
             _authErrorWarningTimeout = builder.authErrorWarningTimeout;
             _authErrorDisableMailboxTimeout = builder.authErrorDisableMailboxTimeout;
             _tenantOverdueDays = builder.tenantOverdueDays;
+            _minQuotaBalance = builder.minQuotaBalance;
+            _saveOriginalMessage = builder.saveOriginalMessage;
         }
     }
 }

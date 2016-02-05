@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -24,9 +24,10 @@
 */
 
 
+using ASC.Core;
+using ASC.Web.Studio.Core;
 using Amazon;
 using ASC.Core.Common.Contracts;
-using ASC.Web.Core.Utility;
 using ASC.Web.Studio.Core.Backup;
 using System;
 using System.Linq;
@@ -61,14 +62,20 @@ namespace ASC.Web.Studio.UserControls.Management
         }
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (CoreContext.Configuration.Standalone || !SetupInfo.IsVisibleSettings("Restore"))
+            {
+                Response.Redirect(CommonLinkUtility.GetDefault(), true);
+                return;
+            }
+
             AjaxPro.Utility.RegisterTypeForAjax(typeof(BackupAjaxHandler), Page);
 
             _restoreChooseBackupDialog.Options.IsPopup = true;
 
-            Page.RegisterStyleControl(ResolveUrl("~/usercontrols/management/restore/css/restore.less"));
+            Page.RegisterStyle("~/usercontrols/management/restore/css/restore.less");
 
-            Page.RegisterBodyScripts(ResolveUrl("~/js/uploader/jquery.fileupload.js"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/restore/js/restore.js"));
+            Page.RegisterBodyScripts("~/js/uploader/jquery.fileupload.js");
+            Page.RegisterBodyScripts("~/usercontrols/management/restore/js/restore.js");
         }
     }
 }

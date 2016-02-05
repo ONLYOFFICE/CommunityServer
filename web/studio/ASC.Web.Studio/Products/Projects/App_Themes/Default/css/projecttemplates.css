@@ -163,65 +163,59 @@
 	width: 75%;
 }
 
-@media all and (max-width: 1500px) {
-    .projects-templates-container #addMilestoneContainer div:first-child {
-        width: 94%;
-    }
-
-    .projects-templates-container #addTaskContainer div:first-child {
-        width: 93%;
-    }
-
-    .projects-templates-container #addMilestoneContainer #newMilestoneTitle {
-        width: 65%;
-    }
-
-    .projects-templates-container #addTaskContainer #newTaskTitle {
-	    width: 75%;
-    }
+body.media-width-0-1500:not(.media-width-0-1300) .projects-templates-container #addMilestoneContainer div:first-child {
+    width: 94%;
+}
+body.media-width-0-1500:not(.media-width-0-1300) .projects-templates-container #addTaskContainer div:first-child {
+    width: 93%;
+}
+body.media-width-0-1500:not(.media-width-0-1300) .projects-templates-container #addMilestoneContainer #newMilestoneTitle {
+    width: 65%;
+}
+body.media-width-0-1500:not(.media-width-0-1300) .projects-templates-container #addTaskContainer #newTaskTitle {
+	width: 75%;
 }
 
-@media all and (max-width: 1300px) {
-    .projects-templates-container #addMilestoneContainer div:first-child {
-        width: 93%;    
-    }
-    .projects-templates-container #addTaskContainer div:first-child {
-        width: 92%;    
-    }
-    .projects-templates-container #addMilestoneContainer #newMilestoneTitle {
-        width: 60%;
-    }
-    .projects-templates-container #addTaskContainer #newTaskTitle {
-	    width: 70%;
-    }
+
+body.media-width-0-1300:not(.media-width-0-1200) .projects-templates-container #addMilestoneContainer div:first-child {
+    width: 93%;    
 }
-@media all and (max-width: 1200px) {
-    .projects-templates-container #addMilestoneContainer div:first-child {
-        width: 92%;    
-    }
-    .projects-templates-container #addTaskContainer div:first-child {
-        width: 91%;    
-    }
-    .projects-templates-container #addMilestoneContainer #newMilestoneTitle {
-        width: 55%;
-    }
-    .projects-templates-container #addTaskContainer #newTaskTitle {
-	    width: 65%;
-    }
+body.media-width-0-1300:not(.media-width-0-1200) .projects-templates-container #addTaskContainer div:first-child {
+    width: 92%;    
 }
-@media all and (max-width: 1100px) {
-    .projects-templates-container #addMilestoneContainer div:first-child {
-        width: 91%;    
-    }
-    .projects-templates-container #addTaskContainer div:first-child {
-        width: 90%;    
-    }
-    .projects-templates-container #addMilestoneContainer #newMilestoneTitle {
-        width: 45%;
-    }
-    .projects-templates-container #addTaskContainer #newTaskTitle {
-	    width: 60%;
-    }
+body.media-width-0-1300:not(.media-width-0-1200) .projects-templates-container #addMilestoneContainer #newMilestoneTitle {
+    width: 60%;
+}
+body.media-width-0-1300:not(.media-width-0-1200) .projects-templates-container #addTaskContainer #newTaskTitle {
+	width: 70%;
+}
+
+     
+body.media-width-0-1200:not(.media-width-0-1100) .projects-templates-container #addMilestoneContainer div:first-child {
+    width: 92%;    
+}
+body.media-width-0-1200:not(.media-width-0-1100) .projects-templates-container #addTaskContainer div:first-child {
+    width: 91%;    
+}
+body.media-width-0-1200:not(.media-width-0-1100) .projects-templates-container #addMilestoneContainer #newMilestoneTitle {
+    width: 55%;
+}
+body.media-width-0-1200:not(.media-width-0-1100) .projects-templates-container #addTaskContainer #newTaskTitle {
+	width: 65%;
+}
+
+
+body.media-width-0-1100 .projects-templates-container #addMilestoneContainer div:first-child {
+    width: 91%;    
+}
+body.media-width-0-1100 .projects-templates-container #addTaskContainer div:first-child {
+    width: 90%;    
+}
+body.media-width-0-1100 .projects-templates-container #addMilestoneContainer #newMilestoneTitle {
+    width: 45%;
+}
+body.media-width-0-1100 .projects-templates-container #addTaskContainer #newTaskTitle {
+	width: 60%;
 }
 
 /*---------end edit template-------*/

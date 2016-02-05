@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using ASC.Mail.Server.Administration.Interfaces;
 using ASC.Mail.Server.Utils;
 
 namespace ASC.Mail.Server.Dal
@@ -277,5 +278,86 @@ namespace ASC.Mail.Server.Dal
                 dbRecord[(int)DomainCheckTaskColumnsOrder.SpfRecord].ToString(),
                 dbRecord[(int)DomainCheckTaskColumnsOrder.MxRecord].ToString());
         }
+
+
+        private enum TenantServerSettingColumnsOrder
+        {
+            SettingId = 0,
+            Type,
+            Hostname,
+            Port,
+            SocketType,
+            Username,
+            AuthenticationType
+        }
+
+        public const int MAILBOX_SETTINGS_COLUMNS_COUNT = 7;
+
+        public static TenantServerSettingsDto ToTenantServerSettingsDto(this object[] dbRecord)
+        {
+            if (dbRecord.Length != MAILBOX_SETTINGS_COLUMNS_COUNT)
+                throw new InvalidCastException("Can't convert to TenantServerSettingsDto. Invalid columns count.");
+
+            Administration.Interfaces.ServerType type;
+
+            switch (dbRecord[(int) TenantServerSettingColumnsOrder.Type].ToString())
+            {
+                case "pop3":
+                    type = Administration.Interfaces.ServerType.Pop3;
+                    break;
+                case "imap":
+                    type = Administration.Interfaces.ServerType.Imap;
+                    break;
+                case "smtp":
+                    type = Administration.Interfaces.ServerType.Smtp;
+                    break;
+                default:
+                    throw new ArgumentException("Unknown mail server setting type");
+            }
+
+            Administration.Interfaces.EncryptionType socketType;
+
+            switch (dbRecord[(int) TenantServerSettingColumnsOrder.SocketType].ToString())
+            {
+                case "plain":
+                    socketType = Administration.Interfaces.EncryptionType.None;
+                    break;
+                case "SSL":
+                    socketType = Administration.Interfaces.EncryptionType.SSL;
+                    break;
+                case "STARTTLS":
+                    socketType = Administration.Interfaces.EncryptionType.StartTLS;
+                    break;
+                default:
+                    throw new ArgumentException("Unknown mail server socket type");
+            }
+
+            Administration.Interfaces.AuthenticationType authenticationType;
+
+            switch (dbRecord[(int) TenantServerSettingColumnsOrder.AuthenticationType].ToString())
+            {
+                case "":
+                case "oauth2":
+                case "password-cleartext":
+                    authenticationType =  Administration.Interfaces.AuthenticationType.Login;
+                    break;
+                case "none":
+                    authenticationType =  Administration.Interfaces.AuthenticationType.None;
+                    break;
+                case "password-encrypted":
+                    authenticationType =  Administration.Interfaces.AuthenticationType.CramMd5;
+                    break;
+                default:
+                    throw new ArgumentException("Unknown mail server authentication type");
+            }
+
+            return
+                new TenantServerSettingsDto(Convert.ToInt32(dbRecord[(int) TenantServerSettingColumnsOrder.SettingId]),
+                                            type, dbRecord[(int) TenantServerSettingColumnsOrder.Hostname].ToString(),
+                                            Convert.ToInt32(dbRecord[(int) TenantServerSettingColumnsOrder.Port]),
+                                            authenticationType, socketType,
+                                            dbRecord[(int) TenantServerSettingColumnsOrder.Username].ToString());
+        }
+
     }
 }

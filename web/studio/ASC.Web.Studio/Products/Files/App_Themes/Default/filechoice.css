@@ -23,12 +23,31 @@
  *
 */
 
+body #fileSelectorTree {
+    visibility: hidden;
+}
 
 body #fileSelectorTree,
 body #mainContent {
-    max-height: 440px;
+    height: 450px;
 }
 
 body #mainContent {
     overflow-y: auto;
+}
+
+#fileSelectorTree {
+    padding: 0;
+}
+
+.entry-descr-compact {
+    margin-right: 9px;
+}
+
+body.only-folder #studioPageContent {
+    min-width: 300px;
+}
+
+body.only-folder .mainPageLayout {
+    min-width: 0;
 }

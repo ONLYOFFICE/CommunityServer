@@ -159,7 +159,7 @@
       <key>ASC.Specific.ApiDateTime</key>
       <value>
         <Description>Date and Time</Description>
-        <Example>Roundtrip format: 2008-04-10T06:30:00.0000000-07:00</Example>
+        <Example>Roundtrip format: 2008-04-10T06-30-00.000Z</Example>
       </value>
     </entry>
     <entry>
@@ -173,7 +173,7 @@
       <key>ASC.Api.Documents.FileShareParams</key>
       <value>
         <Description>FileShareParams</Description>
-        <Example>share[0].ShareTo=9924256A-739C-462b-AF15-E652A3B1B6EB&amp;share[0].FileShare=0</Example>
+        <Example>share[0].ShareTo=9924256A-739C-462b-AF15-E652A3B1B6EB&amp;share[0].Access=0</Example>
       </value>
     </entry>
   </Names>

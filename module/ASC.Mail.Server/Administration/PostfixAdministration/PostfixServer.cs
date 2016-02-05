@@ -222,7 +222,7 @@ namespace ASC.Mail.Server.PostfixAdministration
 
         #region .Mailboxes
 
-        protected override MailboxBase _CreateMailbox(string login, string password, string localpart, string domain)
+        protected override MailboxBase _CreateMailbox(string login, string password, string localpart, string domain, bool enableImap = true, bool enablePop = true)
         {
             var creationDate = DateTime.UtcNow;
 
@@ -233,10 +233,16 @@ namespace ASC.Mail.Server.PostfixAdministration
                                         .InColumnValue(MailboxTable.Columns.name, localpart)
                                         .InColumnValue(MailboxTable.Columns.password, PostfixPasswordEncryptor.EncryptString(HashType.Md5, password))
                                         .InColumnValue(MailboxTable.Columns.maildir, maildir)
-                                        .InColumnValue(MailboxTable.Columns.local_part, localpart)
+                                        .InColumnValue(MailboxTable.Columns.localPart, localpart)
                                         .InColumnValue(MailboxTable.Columns.domain, domain)
                                         .InColumnValue(MailboxTable.Columns.created, creationDate)
-                                        .InColumnValue(MailboxTable.Columns.modified, creationDate);
+                                        .InColumnValue(MailboxTable.Columns.modified, creationDate)
+                                        .InColumnValue(MailboxTable.Columns.enableImap, enableImap)
+                                        .InColumnValue(MailboxTable.Columns.enableImapSecured, enableImap)
+                                        .InColumnValue(MailboxTable.Columns.enablePop, enablePop)
+                                        .InColumnValue(MailboxTable.Columns.enablePopSecured, enablePop)
+                                        .InColumnValue(MailboxTable.Columns.enableDeliver, enablePop || enableImap)
+                                        .InColumnValue(MailboxTable.Columns.enableLda, enablePop || enableImap);
 
             var insertMailboxAlias = new SqlInsert(AliasTable.name)
                                         .InColumnValue(AliasTable.Columns.address, login)
@@ -318,7 +324,7 @@ namespace ASC.Mail.Server.PostfixAdministration
                 .Select(MailboxTable.Columns.name.Prefix(mailbox_ns))
                 .Select(MailboxTable.Columns.maildir.Prefix(mailbox_ns))
                 .Select(MailboxTable.Columns.quota.Prefix(mailbox_ns))
-                .Select(MailboxTable.Columns.local_part.Prefix(mailbox_ns))
+                .Select(MailboxTable.Columns.localPart.Prefix(mailbox_ns))
                 .Select(MailboxTable.Columns.domain.Prefix(mailbox_ns))
                 .Select(MailboxTable.Columns.created.Prefix(mailbox_ns))
                 .Select(MailboxTable.Columns.modified.Prefix(mailbox_ns))
@@ -519,6 +525,22 @@ namespace ASC.Mail.Server.PostfixAdministration
         private RestRequest GetApiRequest(string apiUrl, Method method)
         {
             return _serverApi == null ? null : new RestRequest(string.Format("/api/{0}/{1}?auth_token={2}", _serverApi.version, apiUrl, _serverApi.token), method);
+        }
+
+        #endregion
+
+        #region .Notification
+
+        protected override MailboxBase _CreateNotificationAddress(string login, string password, string localpart, string domain)
+        {
+            return _CreateMailbox(login, password, localpart, domain, false, false);
+        }
+
+        protected override void _DeleteNotificationAddress(string address)
+        {
+            var mailbox = _GetMailbox(address);
+            if(mailbox != null)
+                _DeleteMailbox(mailbox);
         }
 
         #endregion

@@ -26,10 +26,10 @@
 
 ProgressStartUpManager = new function () {
     var scripts = [], returnUrl, progress = 0, totalScripts, percentage;
+    var progressTimeout;
 
     this.init = function (currentProgress) {
-        AjaxPro.StartUp.Start();
-        progress = currentProgress;
+        progress = currentProgress.ProgressPercent;
         showProgress();
         getProgress();
         jQuery.fn.ready = function (fn) { };
@@ -39,44 +39,56 @@ ProgressStartUpManager = new function () {
     function showProgress() {
         var $progressValue = jq(".asc-progress-value"),
             $progressText = jq(".asc-progress_percent");
-
-        $progressValue.animate({ "width": progress + "%" });
+        
+        $progressValue.animate({ "width": Math.floor(progress) + "%"}, Math.round(progress) == 100 ? 100 : 300 );
         $progressText.text(Math.floor(progress) + "% ");
-    };
-
-    function showError(er) {
-        jq("#progress-line").hide();
-        jq("#progress-error").text(er).show();
     };
 
     function getProgress() {
         AjaxPro.timeoutPeriod = 120000;
-        AjaxPro.onError = function () {
-            setTimeout(getProgress, 2000);
-        };
+        AjaxPro.onError = getProgressDelay;
 
-        AjaxPro.StartUp.GetStartUpProgress(function (response) {
-            if (response.error) {
-                //showError(response.error.Message);
-                location.reload();
-            } else if (response.value) {
-                var newProgress = Math.floor(response.value.ProgressPercent);
-                if (newProgress > progress) {
-                    showProgress();
-                    progress = newProgress;
-                }
+        AjaxPro.StartUp.GetStartUpProgress(getProgressResponseHandler);
+    }
 
-                if (response.value.Completed) {
-                    returnUrl = response.value.Link;
-                    scripts = response.value.Bundles;
-                    totalScripts = scripts.length;
-                    percentage = parseInt(response.value.Percentage);
-                    getScript();
-                } else {
-                    setTimeout(getProgress, 2000);
-                }
+    function getProgressDelay() {
+        setTimeout(getProgress, 2000);
+    }
+
+    function getProgressResponseHandler(response) {
+        if (response.error || !response.value) {
+            location.reload();
+            return;
+        }
+
+        var responseProgress = JSON.parse(response.value);
+        var newProgress = Math.floor(responseProgress.ProgressPercent);
+        if (newProgress > progress) {
+            progress = newProgress;
+            showProgress();
+
+            if (progressTimeout) {
+                clearTimeout(progressTimeout);
+                progressTimeout = 0;
             }
-        });
+
+        } else if (!progressTimeout) {
+            progressTimeout = setTimeout(function() { location.reload(); }, 60000);
+        }
+
+        if (responseProgress.Completed) {
+            onComplete(responseProgress);
+        } else {
+            getProgressDelay();
+        }
+    }
+
+    function onComplete(responseProgress) {
+        returnUrl = responseProgress.Link;
+        scripts = responseProgress.Bundles;
+        totalScripts = scripts.length;
+        percentage = parseInt(responseProgress.Percentage);
+        getScript();
     }
 
     function getScript() {
@@ -86,9 +98,12 @@ ProgressStartUpManager = new function () {
             return;
         }
 
-        jq.ajax({ url: item }).always(function () {
+        jq.ajax({ url: item, dataType: "text" }).always(function () {
             progress += (100 - percentage) / totalScripts;
-            showProgress();
+            if (Math.floor(progress) % 2 == 0) {
+                showProgress();
+            }
+
             getScript();
         });
     }

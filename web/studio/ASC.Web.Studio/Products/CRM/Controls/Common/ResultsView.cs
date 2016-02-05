@@ -67,12 +67,18 @@ namespace ASC.Web.CRM.Controls.Common
                 writer.AddAttribute(HtmlTextWriterAttribute.Class, "borderBase center-column");
                 writer.RenderBeginTag(HtmlTextWriterTag.Td);
 
-                writer.AddAttribute(HtmlTextWriterAttribute.Href, searchItemResult.URL);
-                writer.AddAttribute(HtmlTextWriterAttribute.Class, "link bold");
-                writer.RenderBeginTag(HtmlTextWriterTag.A);
-                writer.Write(HtmlUtil.SearchTextHighlight(Text, searchItemResult.Name.HtmlEncode()));
-                writer.RenderEndTag();
-
+                if (!string.IsNullOrEmpty(searchItemResult.URL))
+                {
+                    writer.AddAttribute(HtmlTextWriterAttribute.Href, searchItemResult.URL);
+                    writer.AddAttribute(HtmlTextWriterAttribute.Class, "link bold");
+                    writer.RenderBeginTag(HtmlTextWriterTag.A);
+                    writer.Write(HtmlUtil.SearchTextHighlight(Text, searchItemResult.Name.HtmlEncode()));
+                    writer.RenderEndTag();
+                }
+                else
+                {
+                    writer.Write(HtmlUtil.SearchTextHighlight(Text, searchItemResult.Name.HtmlEncode(), true));
+                }
                 if (!String.IsNullOrEmpty(relativeInfo))
                 {
                     writer.WriteBreak();

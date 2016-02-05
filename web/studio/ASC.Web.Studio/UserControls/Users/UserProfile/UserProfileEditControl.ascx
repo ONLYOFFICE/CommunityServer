@@ -95,10 +95,10 @@
                     <div class="popup_helper" id="AnswerForProjectTeam">
 
                         <div id="collaboratorCanBlock" class="can-description-block <%= IsVisitor ? "" : "display-none" %>">
-                            <%= CustomNamingPeople.Substitute(String.Format(Resource.CollaboratorCanDescribe, "<p>", "</p><ul><li>", "</li><li>", "</li><li>", "</li></ul>")) %>
+                            <%= CustomNamingPeople.Substitute(String.Format(Resource.CollaboratorCanDescribe.HtmlEncode(), "<p>", "</p><ul><li>", "</li><li>", "</li><li>", "</li></ul>")) %>
                         </div>
                         <div id="userCanBlock" class="can-description-block <%= IsVisitor ? "display-none" : "" %>">
-                            <%= CustomNamingPeople.Substitute(String.Format(Resource.UserCanDescribe, "<p>", "</p><ul><li>", "</li><li>", "</li><li>", "</li><li>", "</li></ul>")) %>
+                            <%= CustomNamingPeople.Substitute(String.Format(Resource.UserCanDescribe.HtmlEncode(), "<p>", "</p><ul><li>", "</li><li>", "</li><li>", "</li><li>", "</li></ul>")) %>
                         </div>
 
                     </div>

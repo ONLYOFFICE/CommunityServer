@@ -53,13 +53,13 @@ namespace ASC.Core.Notify.Signalr
 
         public void SendMessage(string callerUserName, string calleeUserName, string messageText, int tenantId, string domain)
         {
-            if (enableSignalr != "true" || !IsAvailable()) return;
-
-            using (var service = new SignalrServiceClientWcf())
+            try
             {
-                if (service != null)
+                if (enableSignalr != "true" || !IsAvailable()) return;
+
+                using (var service = new SignalrServiceClientWcf())
                 {
-                    try
+                    if (service != null)
                     {
                         if (fromTeamlabToOnlyOffice == "true" && domain.EndsWith(fromServerInJid))
                         {
@@ -73,24 +73,25 @@ namespace ASC.Core.Notify.Signalr
                             callerUserName, calleeUserName, messageText, tenantId, domain);
                         service.SendMessage(callerUserName, calleeUserName, messageText, tenantId, domain);
                     }
-                    catch (Exception error)
-                    {
-                        ProcessError(error);
-                    }
                 }
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
             }
         }
 
         public void SendInvite(string chatRoomName, string calleeUserName, string domain)
         {
-            if (enableSignalr != "true" || !IsAvailable()) return;
-
-            using (var service = new SignalrServiceClientWcf())
+            try
             {
-                if (service != null)
+                if (enableSignalr != "true" || !IsAvailable()) return;
+
+                using (var service = new SignalrServiceClientWcf())
                 {
-                    try
+                    if (service != null)
                     {
+                   
                         if (fromTeamlabToOnlyOffice == "true" && domain.EndsWith(fromServerInJid))
                         {
                             int place = domain.LastIndexOf(fromServerInJid);
@@ -103,153 +104,161 @@ namespace ASC.Core.Notify.Signalr
                             chatRoomName, calleeUserName, domain);
                         service.SendInvite(chatRoomName, calleeUserName, domain);
                     }
-                    catch (Exception error)
-                    {
-                        ProcessError(error);
-                    }
                 }
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
             }
         }
 
         public void SendState(string from, byte state, int tenantId, string domain)
         {
-            if (enableSignalr != "true" || !IsAvailable()) return;
-
-            using (var service = new SignalrServiceClientWcf())
+            try
             {
-                if (service != null)
+                if (enableSignalr != "true" || !IsAvailable()) return;
+
+                using (var service = new SignalrServiceClientWcf())
                 {
-                    try
+                    if (service != null)
                     {
-                        if (fromTeamlabToOnlyOffice == "true" && domain.EndsWith(fromServerInJid))
-                        {
-                            int place = domain.LastIndexOf(fromServerInJid);
-                            if (place >= 0)
+                            if (fromTeamlabToOnlyOffice == "true" && domain.EndsWith(fromServerInJid))
                             {
-                                domain = domain.Remove(place, fromServerInJid.Length).Insert(place, toServerInJid);
+                                int place = domain.LastIndexOf(fromServerInJid);
+                                if (place >= 0)
+                                {
+                                    domain = domain.Remove(place, fromServerInJid.Length).Insert(place, toServerInJid);
+                                }
                             }
-                        }
-                        log.DebugFormat("Send State from={0}, state={1}, tenantId={2}, domain={3}", from, state, tenantId, domain);
-                        service.SendState(from, state, tenantId, domain);
-                    }
-                    catch (Exception error)
-                    {
-                        ProcessError(error);
+                            log.DebugFormat("Send State from={0}, state={1}, tenantId={2}, domain={3}", from, state, tenantId, domain);
+                            service.SendState(from, state, tenantId, domain);
                     }
                 }
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
             }
         }
 
         public void SendOfflineMessages(string callerUserName, List<string> users, int tenantId)
         {
-            if (enableSignalr != "true" || !IsAvailable()) return;
-
-            using (var service = new SignalrServiceClientWcf())
+            try
             {
-                if (service != null)
+                if (enableSignalr != "true" || !IsAvailable()) return;
+
+                using (var service = new SignalrServiceClientWcf())
                 {
-                    log.DebugFormat("SendOfflineMessages callerUserName={0}, tenantId={1}", callerUserName, tenantId);
-                    try
+                    if (service != null)
                     {
-                        service.SendOfflineMessages(callerUserName, users, tenantId);
-                    }
-                    catch (Exception error)
-                    {
-                        ProcessError(error);
+                        log.DebugFormat("SendOfflineMessages callerUserName={0}, tenantId={1}", callerUserName, tenantId);
+                    
+                            service.SendOfflineMessages(callerUserName, users, tenantId);
+                    
                     }
                 }
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
             }
         }
 
         public void SendUnreadCounts(Dictionary<string, int> unreadCounts, string domain)
         {
-            if (enableSignalr != "true" || !IsAvailable()) return;
-
-            using (var service = new SignalrServiceClientWcf())
+            try
             {
-                if (service != null)
+                if (enableSignalr != "true" || !IsAvailable()) return;
+
+                using (var service = new SignalrServiceClientWcf())
                 {
-                    try
+                    if (service != null)
                     {
-                        if (fromTeamlabToOnlyOffice == "true" && domain.EndsWith(fromServerInJid))
-                        {
-                            int place = domain.LastIndexOf(fromServerInJid);
-                            if (place >= 0)
+                    
+                            if (fromTeamlabToOnlyOffice == "true" && domain.EndsWith(fromServerInJid))
                             {
-                                domain = domain.Remove(place, fromServerInJid.Length).Insert(place, toServerInJid);
+                                int place = domain.LastIndexOf(fromServerInJid);
+                                if (place >= 0)
+                                {
+                                    domain = domain.Remove(place, fromServerInJid.Length).Insert(place, toServerInJid);
+                                }
                             }
-                        }
-                        log.DebugFormat("SendUnreadCounts domain={0}", domain);
-                        service.SendUnreadCounts(unreadCounts, domain);
-                    }
-                    catch (Exception error)
-                    {
-                        ProcessError(error);
+                            log.DebugFormat("SendUnreadCounts domain={0}", domain);
+                            service.SendUnreadCounts(unreadCounts, domain);
                     }
                 }
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
             }
         }
 
         public void SendUnreadUsers(Dictionary<int, HashSet<Guid>> unreadUsers)
         {
-            if (enableSignalr != "true" || !IsAvailable()) return;
-
-            using (var service = new SignalrServiceClientWcf())
+            try
             {
-                if (service != null)
+                if (enableSignalr != "true" || !IsAvailable()) return;
+
+                using (var service = new SignalrServiceClientWcf())
                 {
-                    try
+                    if (service != null)
                     {
-                        log.Debug("Send Unread Users");
-                        service.SendUnreadUsers(unreadUsers);
-                    }
-                    catch (Exception error)
-                    {
-                        ProcessError(error);
+                    
+                            log.Debug("Send Unread Users");
+                            service.SendUnreadUsers(unreadUsers);
+                    
                     }
                 }
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
             }
         }
 
         public void SendUnreadUser(int tenant, string userId)
         {
-            if (enableSignalr != "true" || !IsAvailable()) return;
-
-            using (var service = new SignalrServiceClientWcf())
+            try
             {
-                if (service != null)
+                if (enableSignalr != "true" || !IsAvailable()) return;
+
+                using (var service = new SignalrServiceClientWcf())
                 {
-                    try
+                    if (service != null)
                     {
-                        log.Debug("Send Unread User");
-                        service.SendUnreadUser(tenant, userId);
-                    }
-                    catch (Exception error)
-                    {
-                        ProcessError(error);
+                    
+                            log.Debug("Send Unread User");
+                            service.SendUnreadUser(tenant, userId);
+                    
                     }
                 }
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
             }
         }
 
         public void SendMailNotification(int tenant, string userId, int state)
         {
-            if (enableSignalr != "true" || !IsAvailable()) return;
-
-            using (var service = new SignalrServiceClientWcf())
+            try
             {
-                if (service != null)
+                if (enableSignalr != "true" || !IsAvailable()) return;
+
+                using (var service = new SignalrServiceClientWcf())
                 {
-                    try
+                    if (service != null)
                     {
-                        log.Debug("Send Mail Notification");
-                        service.SendMailNotification(tenant, userId, state);
-                    }
-                    catch (Exception error)
-                    {
-                        ProcessError(error);
+                    
+                            log.Debug("Send Mail Notification");
+                            service.SendMailNotification(tenant, userId, state);
                     }
                 }
+            }
+            catch (Exception error)
+            {
+                ProcessError(error);
             }
         }
 

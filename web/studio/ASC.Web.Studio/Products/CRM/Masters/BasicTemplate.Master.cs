@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -57,8 +57,8 @@ namespace ASC.Web.CRM
         {
             SideNavigation.Controls.Add(LoadControl(NavigationSidePanel.Location));
 
-            Page.RegisterStyleControl(LoadControl(VirtualPathUtility.ToAbsolute("~/products/crm/masters/Styles.ascx")));
-            Page.RegisterBodyScripts(LoadControl(VirtualPathUtility.ToAbsolute("~/products/crm/masters/CommonBodyScripts.ascx")));
+            Page.RegisterStyleControl("~/products/crm/masters/Styles.ascx");
+            Page.RegisterBodyScriptsControl("~/products/crm/masters/CommonBodyScripts.ascx");
 
             RegisterScriptForTaskAction();
         }

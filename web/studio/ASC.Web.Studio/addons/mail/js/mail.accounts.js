@@ -24,10 +24,6 @@
 */
 
 
-/*
-    Copyright (c) Ascensio System SIA 2015. All rights reserved.
-    https://www.onlyoffice.com
-*/
 window.accountsManager = (function($) {
     var isInit = false,
         accountList = [],
@@ -39,7 +35,6 @@ window.accountsManager = (function($) {
             isInit = true;
 
             getAccountsHandler = serviceManager.bind(window.Teamlab.events.getAccounts, onGetMailAccounts);
-            serviceManager.bind(window.Teamlab.events.removeMailMailbox, onRemoveMailbox);
             serviceManager.bind(window.Teamlab.events.updateMailMailbox, onUpdateMailMailbox);
             serviceManager.bind(window.Teamlab.events.setMailMailboxState, onSetMailboxState);
             serviceManager.bind(window.Teamlab.events.updateMailboxSignature, onUpdateMailboxSignature);
@@ -47,8 +42,23 @@ window.accountsManager = (function($) {
 
             accountsModal.init();
             accountsPage.init();
-            accounts = $.map(window.MailAccounts, function (el) { return el; });
-            window.MailAccounts = null;
+
+            if (ASC.Mail.Presets.Accounts) {
+                var showDisabledAccountToast = false;
+                accounts = $.map(ASC.Mail.Presets.Accounts, function(el) {
+                    el.signature.html = TMMail.htmlDecode(el.signature.html);
+                    if (!el.enabled)
+                        showDisabledAccountToast = true;
+                    return el;
+                });
+
+                if (showDisabledAccountToast && !TMMail.pageIs('accounts')) {
+                    window.toastr.error(MailScriptResource.GoToAccountsOnDeactivationText.format("<a href=\"#accounts\">" + MailResource.AccountsSettingsLabel + "</a>"),
+                        MailScriptResource.DeactivatedAccountsNotification,
+                        { "closeButton": false, "timeOut": "0", "extendedTimeOut": "0" });
+                }
+            }
+
             initAccounts(accounts);
             accountsPage.loadAccounts(accounts);
             accountsPanel.init();
@@ -85,28 +95,44 @@ window.accountsManager = (function($) {
         });
     };
 
-    var onUpdateMailMailbox = function(params) {
+    var onUpdateMailMailbox = function(params, account) {
         accountsModal.hide();
-        for (var i = 0; i < accountList.length; i++) {
-            if (accountList[i].email == params.email.toLowerCase()) {
-                accountList[i].name = params.name;
-                break;
-            }
+
+        var i = getAccountIndexByAddress(account.email);
+
+        if (i > -1) {
+            var accountData = {
+                name: TMMail.ltgt(account.name),
+                email: TMMail.ltgt(account.email),
+                enabled: account.enabled,
+                signature: account.signature,
+                is_alias: account.isAlias,
+                is_group: account.isGroup,
+                oauth: account.oAuthConnection,
+                emailInFolder: account.eMailInFolder,
+                is_teamlab: account.isTeamlabMailbox,
+                mailbox_id: account.mailboxId,
+                is_default: account.isDefault,
+                is_shared_domain: account.isSharedDomainMailbox,
+                authError: account.authError,
+                quotaError: account.quotaError
+            };
+
+            accountList[i] = accountData;
         }
 
         if (params.activateOnSuccess) {
-            accountsModal.activateAccountWithoutQuestion(params.email.toLowerCase());
+            accountsModal.activateAccountWithoutQuestion(account.email);
         }
     };
 
-    var onRemoveMailbox = function(params, email) {
+    var removeAccount = function (email) {
         accountsPage.deleteAccount(email);
-        for (var i = 0; i < accountList.length; i++) {
-            if (accountList[i].email == email.toLowerCase()) {
-                accountList.splice(i, 1);
-                break;
-            }
+        var index = getAccountIndexByAddress(email);
+        if (index !== -1) {
+            accountList.splice(index, 1);
         }
+
         mailBox.markFolderAsChanged(TMMail.sysfolders.inbox.id);
         mailBox.markFolderAsChanged(TMMail.sysfolders.sent.id);
         mailBox.markFolderAsChanged(TMMail.sysfolders.drafts.id);
@@ -129,6 +155,10 @@ window.accountsManager = (function($) {
         if (TMMail.pageIs('writemessage')) {
             var account = getAccountByAddress(params.email);
             messagePage.updateFromAccountField(account);
+        }
+
+        if (params.onSuccessOperationCallback && $.isFunction(params.onSuccessOperationCallback)) {
+            params.onSuccessOperationCallback.call();
         }
     };
 
@@ -185,13 +215,22 @@ window.accountsManager = (function($) {
         accountsPanel.update();
     };
 
-    var getAccountByAddress = function(email) {
-        var mailBox = undefined;
+    var getAccountIndexByAddress = function (email) {
+        var index = -1;
         for (var i = 0; i < accountList.length; i++) {
             if (accountList[i].email == email.toLowerCase()) {
-                mailBox = accountList[i];
+                index = i;
                 break;
             }
+        }
+        return index;
+    };
+
+    var getAccountByAddress = function(email) {
+        var mailBox = undefined;
+        var i = getAccountIndexByAddress(email);
+        if (i > -1) {
+            mailBox = accountList[i];
         }
         return mailBox;
     };
@@ -239,7 +278,8 @@ window.accountsManager = (function($) {
         getAccountById: getAccountById,
         addAccount: addAccount,
         any: any,
-        enableMailbox: enableMailbox
+        enableMailbox: enableMailbox,
+        removeAccount: removeAccount
     };
 
 })(jQuery);

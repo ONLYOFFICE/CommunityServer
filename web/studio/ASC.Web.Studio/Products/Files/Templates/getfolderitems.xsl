@@ -134,7 +134,6 @@
                   "shared": <xsl:value-of select="shared" />,
                   "title": "<xsl:value-of select="title" />",
                   "isnew": <xsl:value-of select="isnew" />,
-                  "shareable": <xsl:value-of select="shareable" />,
                   "provider_key": "<xsl:value-of select="provider_key" />",
                   "provider_id": "<xsl:value-of select="provider_id" />",
                   "error": "<xsl:value-of select="error" />"
@@ -326,6 +325,11 @@
                     <input type="hidden" name="modified_by">
                       <xsl:attribute name="value">
                         <xsl:value-of select="modified_by" />
+                      </xsl:attribute>
+                    </input>
+                    <input type="hidden" name="comment">
+                      <xsl:attribute name="value">
+                        <xsl:value-of select="comment" />
                       </xsl:attribute>
                     </input>
                   </xsl:otherwise>

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -42,8 +42,8 @@ namespace ASC.Web.Studio.UserControls.Common
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/usercontrols/common/sharingsettings/js/sharingsettings.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/common/sharingsettings/css/sharingsettings.less"));
+            Page.RegisterBodyScripts("~/usercontrols/common/sharingsettings/js/sharingsettings.js");
+            Page.RegisterStyle("~/usercontrols/common/sharingsettings/css/sharingsettings.less");
 
             _sharingDialogContainer.Options.IsPopup = IsPopup;
             _sharingDialogContainer.Header.Visible = IsPopup;

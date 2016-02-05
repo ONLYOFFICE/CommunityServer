@@ -58,18 +58,5 @@ namespace ASC.Web.Projects.Classes
         }
 
         #endregion
-
-        #region Methods
-
-        public static string GetHTMLUserAvatar(UserInfo user)
-        {
-            var imgPath = user.GetBigPhotoURL();
-            if (imgPath != null)
-                return "<img class=\"userMiniPhoto\" alt='' src=\"" + imgPath + "\"/>";
-
-            return "";
-        }
-
-        #endregion
     }
 }

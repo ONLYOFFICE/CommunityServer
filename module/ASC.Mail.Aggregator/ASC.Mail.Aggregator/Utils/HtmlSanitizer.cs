@@ -285,27 +285,11 @@ namespace ASC.Mail.Aggregator.Utils
                 case "src":
                     if (!EmbeddedImagesPattern.Match(attribute.Value).Success)
                     {
-                        try
+                        if (baseHref != null)
                         {
-                            var val = attribute.Value.StartsWith("//")
-                                          ? "http:" + attribute.Value
-                                          : attribute.Value;
-
-                            var url = new Uri(val);
-                            if (url.Scheme != Uri.UriSchemeHttp && url.Scheme != Uri.UriSchemeHttps)
-                            {
-                                attrebutesToDelete.Add(attribute);
-                                break;
-                            }
-
                             newUrl = FixBaseLink(attribute.Value, baseHref);
                             if (!string.IsNullOrEmpty(newUrl))
                                 attribute.Value = newUrl;
-                        }
-                        catch
-                        {
-                            attrebutesToDelete.Add(attribute);
-                            break;
                         }
                     }
 
@@ -499,15 +483,17 @@ namespace ASC.Mail.Aggregator.Utils
             return tmp;
         }
 
-        private static readonly Regex RemoveHtml = new Regex("<html>(.*)</html>", RegexOptions.Singleline);
-        private static readonly Regex RemoveHead = new Regex("<head>.*?</head>", RegexOptions.Singleline);
-        private static readonly Regex RemoveBody = new Regex("<body(.*)</body>", RegexOptions.Singleline);
+        private static readonly Regex RemoveHtml = new Regex("<html>(.*)</html>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+        private static readonly Regex RemoveHead = new Regex("<head>.*?</head>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+        private static readonly Regex RemoveBody = new Regex("<body(.*)</body>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
+        private static readonly Regex RemoveStyle = new Regex("<style([^<]*)</style>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
         public static string SanitizeHtmlForEditor(string inHtml)
         {
             var res = RemoveHtml.Replace(inHtml, "$1");
             res = RemoveHead.Replace(res, "", 1);
             res = RemoveBody.Replace(res, "<div$1</div>");
+            res = RemoveStyle.Replace(res, "");
             return res.Trim();
         }
     }

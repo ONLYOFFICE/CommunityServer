@@ -64,6 +64,7 @@ namespace ASC.Web.Files.Controls
         {
             confirmRemoveDialog.Options.IsPopup = true;
             confirmOverwriteDialog.Options.IsPopup = true;
+            ConfirmMoveThirPartyDialog.Options.IsPopup = true;
 
             var contenList = (ContentList)LoadControl(ContentList.Location);
             contenList.FolderIDCurrentRoot = FolderIDCurrentRoot;
@@ -104,8 +105,9 @@ namespace ASC.Web.Files.Controls
                 var docService = ServiceLocator.Current.GetInstance<IFileStorageService>();
                 tasks = docService.GetTasksStatuses();
             }
-            catch
+            catch(Exception err)
             {
+                Global.Logger.Error(err);
                 return false;
             }
             if (tasks.Count == 0) return false;

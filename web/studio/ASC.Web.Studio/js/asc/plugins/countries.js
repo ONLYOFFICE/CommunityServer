@@ -1,8 +1,4 @@
-﻿/*
-Copyright (c) Ascensio System SIA 2013. All rights reserved.
-http://www.teamlab.com
-*/
-var CountriesManager = new function () {
+﻿var CountriesManager = new function () {
     var countriesList =
     [
         { title: ASC.Resources.Countries.Afghanistan, key: "AF", country_code: "+93" },

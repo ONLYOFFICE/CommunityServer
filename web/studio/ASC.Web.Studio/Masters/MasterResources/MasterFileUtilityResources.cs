@@ -41,34 +41,32 @@ namespace ASC.Web.Studio.Masters.MasterResources
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterObject("ExtsImagePreviewed", FileUtility.ExtsImagePreviewed);
-            yield return RegisterObject("ExtsWebPreviewed", FileUtility.ExtsWebPreviewed);
-            yield return RegisterObject("ExtsWebEdited", FileUtility.ExtsWebEdited);
-            yield return RegisterObject("ExtsCoAuthoring", FileUtility.ExtsCoAuthoring);
-
-            yield return RegisterObject("ExtsMustConvert", FileUtility.ExtsMustConvert);
-            yield return RegisterObject("ExtsConvertible", FileUtility.ExtsConvertible);
-            yield return RegisterObject("ExtsUploadable", FileUtility.ExtsUploadable);
-
-            yield return RegisterObject("ExtsArchive", FileUtility.ExtsArchive);
-            yield return RegisterObject("ExtsVideo", FileUtility.ExtsVideo);
-            yield return RegisterObject("ExtsAudio", FileUtility.ExtsAudio);
-            yield return RegisterObject("ExtsImage", FileUtility.ExtsImage);
-            yield return RegisterObject("ExtsSpreadsheet", FileUtility.ExtsSpreadsheet);
-            yield return RegisterObject("ExtsPresentation", FileUtility.ExtsPresentation);
-            yield return RegisterObject("ExtsDocument", FileUtility.ExtsDocument);
-
-            yield return RegisterObject("InternalFormats", FileUtility.InternalExtension);
-
-            yield return RegisterObject("ParamVersion", FilesLinkUtility.Version);
-            yield return RegisterObject("ParamOutType", FilesLinkUtility.OutType);
-
-            yield return RegisterObject("FileViewUrlString", FilesLinkUtility.FileViewUrlString);
-            yield return RegisterObject("FileDownloadUrlString", FilesLinkUtility.FileDownloadUrlString);
-            yield return RegisterObject("FileWebViewerUrlString", FilesLinkUtility.FileWebViewerUrlString);
-            yield return RegisterObject("FileWebViewerExternalUrlString", FilesLinkUtility.FileWebViewerExternalUrlString);
-            yield return RegisterObject("FileWebEditorUrlString", FilesLinkUtility.FileWebEditorUrlString);
-            yield return RegisterObject("FileWebEditorExternalUrlString", FilesLinkUtility.FileWebEditorExternalUrlString);
+            return new List<KeyValuePair<string, object>>(23)
+                   {
+                       RegisterObject("ExtsImagePreviewed", FileUtility.ExtsImagePreviewed),
+                       RegisterObject("ExtsWebPreviewed", FileUtility.ExtsWebPreviewed),
+                       RegisterObject("ExtsWebEdited", FileUtility.ExtsWebEdited),
+                       RegisterObject("ExtsCoAuthoring", FileUtility.ExtsCoAuthoring),
+                       RegisterObject("ExtsMustConvert", FileUtility.ExtsMustConvert),
+                       RegisterObject("ExtsConvertible", FileUtility.ExtsConvertible),
+                       RegisterObject("ExtsUploadable", FileUtility.ExtsUploadable),
+                       RegisterObject("ExtsArchive", FileUtility.ExtsArchive),
+                       RegisterObject("ExtsVideo", FileUtility.ExtsVideo),
+                       RegisterObject("ExtsAudio", FileUtility.ExtsAudio),
+                       RegisterObject("ExtsImage", FileUtility.ExtsImage),
+                       RegisterObject("ExtsSpreadsheet", FileUtility.ExtsSpreadsheet),
+                       RegisterObject("ExtsPresentation", FileUtility.ExtsPresentation),
+                       RegisterObject("ExtsDocument", FileUtility.ExtsDocument),
+                       RegisterObject("InternalFormats", FileUtility.InternalExtension),
+                       RegisterObject("ParamVersion", FilesLinkUtility.Version),
+                       RegisterObject("ParamOutType", FilesLinkUtility.OutType),
+                       RegisterObject("FileViewUrlString", FilesLinkUtility.FileViewUrlString),
+                       RegisterObject("FileDownloadUrlString", FilesLinkUtility.FileDownloadUrlString),
+                       RegisterObject("FileWebViewerUrlString", FilesLinkUtility.FileWebViewerUrlString),
+                       RegisterObject("FileWebViewerExternalUrlString", FilesLinkUtility.FileWebViewerExternalUrlString),
+                       RegisterObject("FileWebEditorUrlString", FilesLinkUtility.FileWebEditorUrlString),
+                       RegisterObject("FileWebEditorExternalUrlString", FilesLinkUtility.FileWebEditorExternalUrlString)
+                   };
         }
 
         protected override string GetCacheHash()

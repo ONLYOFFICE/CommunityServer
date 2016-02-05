@@ -34,7 +34,7 @@ namespace ASC.Web.Talk.UserControls
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/talk.roomscontainer.js"));
+            Page.RegisterBodyScripts("~/addons/talk/js/talk.roomscontainer.js");
 
             var script = new StringBuilder();
 

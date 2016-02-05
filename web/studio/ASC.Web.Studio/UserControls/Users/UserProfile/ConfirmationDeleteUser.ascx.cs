@@ -49,7 +49,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
         {
             _confirmationDeleteUserPanel.Options.IsPopup = true;
 
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/users/UserProfile/js/deleteuser.js"));
+            Page.RegisterBodyScripts("~/usercontrols/users/UserProfile/js/deleteuser.js");
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
         }

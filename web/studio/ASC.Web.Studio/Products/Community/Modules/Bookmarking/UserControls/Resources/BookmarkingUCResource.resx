@@ -112,34 +112,19 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddBookmarkLink" xml:space="preserve">
     <value>Create bookmark</value>
-  </data>
-  <data name="AddBookmarkMessage" xml:space="preserve">
-    <value>Please add your bookmarks {0}here{1}.</value>
   </data>
   <data name="AddBookmarkToFavouriteLinkTitle" xml:space="preserve">
     <value>Add bookmark to favorites</value>
   </data>
   <data name="AddToFavourite" xml:space="preserve">
     <value>Add to favorites</value>
-  </data>
-  <data name="AllBookmarks" xml:space="preserve">
-    <value>All Bookmarks</value>
-  </data>
-  <data name="AllBookmarksLink" xml:space="preserve">
-    <value>All Bookmarks</value>
-  </data>
-  <data name="AtoZ" xml:space="preserve">
-    <value>A-Z</value>
-  </data>
-  <data name="BookmaredBy" xml:space="preserve">
-    <value>Bookmarked by</value>
   </data>
   <data name="BookmarkCreationIsInProgressLabel" xml:space="preserve">
     <value>Creating Bookmark...</value>
@@ -189,9 +174,6 @@
   <data name="CommentsGenitiveSingular" xml:space="preserve">
     <value>Comments</value>
   </data>
-  <data name="CommentsLabel" xml:space="preserve">
-    <value>Comments</value>
-  </data>
   <data name="CommentsLinkTitle" xml:space="preserve">
     <value>Go to bookmark comments</value>
   </data>
@@ -219,11 +201,11 @@
   <data name="EmptyScreenCaption" xml:space="preserve">
     <value>No bookmarks have been added yet</value>
   </data>
-  <data name="EmptyScreenSearchCaption" xml:space="preserve">
-    <value>No bookmarks found</value>
-  </data>
   <data name="EmptyScreenLink" xml:space="preserve">
     <value>Create the first bookmark</value>
+  </data>
+  <data name="EmptyScreenSearchCaption" xml:space="preserve">
+    <value>No bookmarks found</value>
   </data>
   <data name="EmptyScreenText" xml:space="preserve">
     <value>Create your bookmarks, store and share useful information with your colleagues directly on your portal saving links to web resources which allow you to easily get back to your favorite place.</value>
@@ -236,12 +218,6 @@
   </data>
   <data name="MostRecentLabel" xml:space="preserve">
     <value>Most Recent</value>
-  </data>
-  <data name="NoBookmarksMessage" xml:space="preserve">
-    <value>There are no bookmarks.</value>
-  </data>
-  <data name="PageTitle" xml:space="preserve">
-    <value>Bookmarks</value>
   </data>
   <data name="PopularityLabel" xml:space="preserve">
     <value>Most Popular</value>
@@ -264,17 +240,14 @@
   <data name="Save" xml:space="preserve">
     <value>Save</value>
   </data>
-  <data name="SearchResults" xml:space="preserve">
-    <value>Search Results</value>
-  </data>
   <data name="ShowLabel" xml:space="preserve">
     <value>Show:</value>
   </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Show on page</value>
+  </data>
   <data name="SubscribeOnBookmarkComments" xml:space="preserve">
     <value>Subscribe to comments</value>
-  </data>
-  <data name="SubscribeOnRecentBookmarks" xml:space="preserve">
-    <value>Subscribe to bookmarks</value>
   </data>
   <data name="TagBookmarks" xml:space="preserve">
     <value>Tag</value>
@@ -285,11 +258,11 @@
   <data name="TopOfTheDayLabel" xml:space="preserve">
     <value>Top of the Day</value>
   </data>
+  <data name="TotalPages" xml:space="preserve">
+    <value>Total</value>
+  </data>
   <data name="UnSubscribeOnBookmarkComments" xml:space="preserve">
     <value>Unsubscribe from comments</value>
-  </data>
-  <data name="UnSubscribeOnRecentBookmarks" xml:space="preserve">
-    <value>Unsubscribe from bookmarks</value>
   </data>
   <data name="WeekLabel" xml:space="preserve">
     <value>Week</value>
@@ -297,13 +270,7 @@
   <data name="YearLabel" xml:space="preserve">
     <value>Year</value>
   </data>
-  <data name="ShowOnPage" xml:space="preserve">
-    <value>Show on page</value>
-  </data>
-  <data name="TotalPages" xml:space="preserve">
-    <value>Total</value>
-  </data>
-  <data name="AddNewBookmark" xml:space="preserve">
-    <value>Add new bookmark</value>
+  <data name="RemoveConfirmMessage" xml:space="preserve">
+    <value>Are you sure you want to remove the bookmark?</value>
   </data>
 </root>

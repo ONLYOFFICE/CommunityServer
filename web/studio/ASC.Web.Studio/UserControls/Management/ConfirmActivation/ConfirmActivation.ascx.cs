@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -64,8 +64,8 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(typeof(ConfirmActivation));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/confirmactivation/js/confirmactivation.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/ConfirmActivation/css/confirmactivation.less"));
+            Page.RegisterBodyScripts("~/usercontrols/management/confirmactivation/js/confirmactivation.js");
+            Page.RegisterStyle("~/usercontrols/management/ConfirmActivation/css/confirmactivation.less");
             Page.Title = HeaderStringHelper.GetPageTitle(Resource.Authorization);
             ButtonEmailAndPasswordOK.Text = Resource.EmailAndPasswordOK;
             btChangeEmail.Text = Resource.ChangeEmail;

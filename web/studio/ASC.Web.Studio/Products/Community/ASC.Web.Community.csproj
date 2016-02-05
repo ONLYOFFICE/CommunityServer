@@ -45,7 +45,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AjaxPro.2">
-      <HintPath>..\..\..\..\..\packages\AjaxPro.2.2.9.17.1\lib\net20\AjaxPro.2.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\AjaxPro.2.2.9.17.2\lib\net20\AjaxPro.2.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="FredCK.FCKeditorV2, Version=2.6.3.19702, Culture=neutral, PublicKeyToken=4f86767c9b519a06, processorArchitecture=MSIL">
@@ -61,7 +61,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -315,6 +315,7 @@
     <Compile Include="Modules\Bookmarking\UserControls\Common\ActionButton\ActionButton.cs" />
     <Compile Include="Modules\Bookmarking\UserControls\Common\BookmarkingSettings.cs" />
     <Compile Include="Modules\Bookmarking\UserControls\Common\BookmarkUserControlPath.cs" />
+    <Compile Include="Modules\Bookmarking\UserControls\Common\Presentation\BookmarkDisplayMode.cs" />
     <Compile Include="Modules\Bookmarking\UserControls\Common\Presentation\BookmarkInfoBase.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

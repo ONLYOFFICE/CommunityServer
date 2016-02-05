@@ -47,7 +47,7 @@ namespace ASC.MessagingSystem
         LoginFailViaSms = 1008,
         LoginFailViaApi = 1013,
         LoginFailViaApiSms = 1014,
-        LoginFailViaApiSocialAccount = 1020, //last
+        LoginFailViaApiSocialAccount = 1020,
         LoginFailIpSecurity = 1009,
         Logout = 1006,
 
@@ -127,7 +127,7 @@ namespace ASC.MessagingSystem
         ProjectTemplateUpdated = 2055,
         ProjectTemplateDeleted = 2056,
 
-        ProjectsImportedFromBasecamp = 2057, // last
+        ProjectsImportedFromBasecamp = 2057,
 
         #endregion
 
@@ -255,7 +255,7 @@ namespace ASC.MessagingSystem
         CurrencyRateUpdated = 3163,
         InvoiceDefaultTermsUpdated = 3164,
         InvoiceDownloaded = 3165,
-        CrmSmtpMailSent = 3166, //last
+        CrmSmtpMailSent = 3166,
 
         OrganizationProfileUpdatedCompanyName = 3101,
         OrganizationProfileUpdatedInvoiceLogo = 3102,
@@ -335,7 +335,7 @@ namespace ASC.MessagingSystem
         GuestActivated = 4005,
 
         UserUpdated = 4006,
-        UserUpdatedMobileNumber = 4029, //last
+        UserUpdatedMobileNumber = 4029,
         UserUpdatedLanguage = 4007,
         UserAddedAvatar = 4008,
         UserDeletedAvatar = 4009,
@@ -379,6 +379,7 @@ namespace ASC.MessagingSystem
         FileLocked = 5006,
         FileUnlocked = 5007,
         FileUpdatedAccess = 5008,
+        FileSendAccessLink = 5036,
 
         FileDownloaded = 5009,
         FileDownloadedAs = 5010,
@@ -412,7 +413,7 @@ namespace ASC.MessagingSystem
         DocumentsOverwritingSettingsUpdated = 5032,
         DocumentsUploadingFormatsSettingsUpdated = 5033,
 
-        FileConverted = 5035, // last
+        FileConverted = 5035,
 
         #endregion
 
@@ -463,6 +464,15 @@ namespace ASC.MessagingSystem
 
         PortalAccessSettingsUpdated = 6031,
 
+        DocumentServiceLocationSetting = 5037,
+        AuthorizationKeysSetting = 5038,
+        FullTextSearchSetting = 5039,
+
+        StartTransferSetting = 5040,
+        StartBackupSetting = 5041,
+
+        LicenseKeyUploaded = 5042, // last
+
         #endregion
 
         #region others
@@ -470,5 +480,28 @@ namespace ASC.MessagingSystem
         ContactAdminMailSent = 7000,
 
         #endregion
+
+        #region Partners
+
+        AcceptRequest = 8000,
+        RejectRequest = 8001,
+        BlockPartner = 8002,
+        UnblockPartner = 8003,
+        DeletePartner = 8004,
+        ChangePartner = 8005,
+        ConfirmPortal = 8006,
+        MarkInvoicePaid = 8007,
+        MarkInvoiceUnpaid = 8008,
+        AddHostedPartner = 8009,
+        RemoveHostedPartner = 8010,
+        MarkPartnerAuthorized = 8011,
+        MarkPartnerNotAuthorized = 8012,
+        ChangePartnerLevel = 8013,
+        ChangeHostedPartnerQuotas = 8014,
+        ChangeHostedPartner = 8015,
+        BillLumpSumInvoice = 8016,
+
+        #endregion
+
     }
 }

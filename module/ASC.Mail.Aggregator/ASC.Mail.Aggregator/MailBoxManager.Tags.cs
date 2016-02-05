@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -29,11 +29,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
-using ASC.Common.Data;
-using ASC.CRM.Core;
 using ASC.Core;
+using ASC.CRM.Core;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Collection;
 using ASC.Mail.Aggregator.Common.Extension;
@@ -186,7 +186,7 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        public List<MailTag> GetTagsList(int tenant, string user, bool mailOnly)
+        public List<MailTag> GetTags(int tenant, string user, bool mailOnly)
         {
             var tags = new Dictionary<int, MailTag>();
 
@@ -217,15 +217,9 @@ namespace ASC.Mail.Aggregator
 
             //TODO: Move to crm api
 
-            #region Set up connection to CRM sequrity
-            CoreContext.TenantManager.SetCurrentTenant(tenant);
-            SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(new Guid(user)));
-
             if (!WebItemSecurity.IsAvailableForUser(WebItemManager.CRMProductID.ToString(),
                                                     SecurityContext.CurrentAccount.ID))
                 return tags.Values.Where(p => p.Name != "").OrderByDescending(p => p.Id).ToList();
-
-            #endregion
 
             const string crm_tag_alias = "t";
 
@@ -495,7 +489,7 @@ namespace ASC.Mail.Aggregator
         }
 
         // Add tags from Teamlab CRM to mail if needed.
-        private void SetCrmTags(MailMessageItem mail, int tenant, string user)
+        private void SetCrmTags(MailMessage mail, int tenant, string user)
         {
             try
             {

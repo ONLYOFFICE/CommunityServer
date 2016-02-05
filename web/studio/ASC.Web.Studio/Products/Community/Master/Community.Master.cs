@@ -41,28 +41,6 @@ namespace ASC.Web.Community
             Page.RegisterBodyScripts(GetFileStaticRelativePath("common.js"));
 
             _sideNavigation.Controls.Add(LoadControl(NavigationSidePanel.Location));
-
-            if (!(Page is _Default))
-            {
-                var script = new StringBuilder();
-                script.Append("window.ASC=window.ASC||{};");
-                script.Append("window.ASC.Community=window.ASC.Community||{};");
-                script.Append("window.ASC.Community.Resources={};");
-                script.AppendFormat("window.ASC.Community.Resources.HelpTitleAddNew=\"{0}\";", CommunityResource.HelpTitleAddNew);
-                script.AppendFormat("window.ASC.Community.Resources.HelpContentAddNew=\"{0}\";", CommunityResource.HelpContentAddNew);
-                script.AppendFormat("window.ASC.Community.Resources.HelpTitleSettings=\"{0}\";", CommunityResource.HelpTitleSettings);
-                script.AppendFormat("window.ASC.Community.Resources.HelpContentSettings=\"{0}\";", CommunityResource.HelpContentSettings);
-                script.AppendFormat("window.ASC.Community.Resources.HelpTitleNavigateRead=\"{0}\";", CommunityResource.HelpTitleNavigateRead);
-                script.AppendFormat("window.ASC.Community.Resources.HelpContentNavigateRead=\"{0}\";", CommunityResource.HelpContentNavigateRead);
-                script.AppendFormat("window.ASC.Community.Resources.HelpTitleSwitchModules=\"{0}\";", CommunityResource.HelpTitleSwitchModules);
-                script.AppendFormat("window.ASC.Community.Resources.HelpContentSwitchModules=\"{0}\";", CommunityResource.HelpContentSwitchModules);
-
-                Page.RegisterInlineScript(script.ToString());
-            }
-            else
-            {
-                Master.DisabledHelpTour = true;
-            }
         }
 
         protected string GetFileStaticRelativePath(String fileName)

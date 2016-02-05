@@ -36,7 +36,7 @@ using System.Reflection;
 using ASC.Projects.Core.Domain.Reports;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Core;
-using ASC.Web.Core.CoBranding;
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Projects.Classes

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -63,7 +63,7 @@ namespace ASC.Web.Studio
             Master.TopStudioPanel.TopLogo = WebImageSupplier.GetAbsoluteWebPath("personal_logo/logo_personal_terms.png");
             Master.TopStudioPanel.DisableLoginPersonal = true;
             PersonalFooterHolder.Controls.Add(LoadControl(PersonalFooter.Location));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/skins/personal.less"));
+            Page.RegisterStyle("~/skins/personal.less");
         }
     }
 }

@@ -32,6 +32,7 @@ namespace ASC.Mail.Aggregator.Common
     [DataContract(Name = "attachment", Namespace = "")]
     public class MailAttachment
     {
+        private string _contentId;
         public MailAttachment()
         {
             data = new byte[0];
@@ -52,14 +53,17 @@ namespace ASC.Mail.Aggregator.Common
         public string contentType { get; set; }
         
         [DataMember(Name = "contentId", EmitDefaultValue = false)]
-        public string contentId { get; set; }
+        public string contentId {
+            get { return string.IsNullOrEmpty(_contentId) ? null : _contentId; }
+            set { _contentId = value; }
+        }
         
         [DataMember(Name = "fileNumber", EmitDefaultValue = false)]
         public int fileNumber { get; set; }
         
         [DataMember(Name = "storedName", EmitDefaultValue = false)]
         public string storedName { get; set; }
-        
+
         [DataMember(Name = "streamId", EmitDefaultValue = false)]
         public string streamId { get; set; }
 

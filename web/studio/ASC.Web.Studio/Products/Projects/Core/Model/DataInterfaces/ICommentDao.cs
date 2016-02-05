@@ -24,13 +24,9 @@
 */
 
 
-#region Usings
-
 using System;
 using System.Collections.Generic;
 using ASC.Projects.Core.Domain;
-
-#endregion
 
 namespace ASC.Projects.Core.DataInterfaces
 {
@@ -40,11 +36,9 @@ namespace ASC.Projects.Core.DataInterfaces
 
         Comment GetById(Guid id);
 
-        Comment GetLast(DomainObject<int> target);
-
         int Count(DomainObject<int> target);
 
-        List<int> GetCommentsCount(List<ProjectEntity> targets);
+        List<int> Count(List<ProjectEntity> targets);
 
         Comment Save(Comment comment);
 

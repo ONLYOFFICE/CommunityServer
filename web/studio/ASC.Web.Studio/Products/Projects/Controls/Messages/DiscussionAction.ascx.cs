@@ -34,11 +34,10 @@ using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility.HtmlUtility;
-using AjaxPro;
+
 
 namespace ASC.Web.Projects.Controls.Messages
 {
-    [AjaxNamespace("AjaxPro.DiscussionAction")]
     public partial class DiscussionAction : BaseUserControl
     {       
         public Project Project { get { return Page.Project; } }
@@ -49,8 +48,7 @@ namespace ASC.Web.Projects.Controls.Messages
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Utility.RegisterTypeForAjax(typeof(DiscussionAction), Page);
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/usercontrols/common/ckeditor/ckeditor-connector.js"));
+            Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
 
             Text = "";
             Author = CoreContext.UserManager.GetUsers(Page.Participant.ID);
@@ -58,7 +56,7 @@ namespace ASC.Web.Projects.Controls.Messages
             if (Discussion != null)
             {
                 discussionTitle.Text = Discussion.Title;
-                Text = Discussion.Content;
+                Text = Discussion.Description;
             }
         }
 
@@ -88,12 +86,6 @@ namespace ASC.Web.Projects.Controls.Messages
         protected bool CanReadDiscussion(Guid id)
         {
             return ProjectSecurity.CanRead(Discussion, id);
-        }
-
-        [AjaxMethod]
-        public string GetDiscussionPreview(string html)
-        {
-            return HtmlUtility.GetFull(html);
         }
     }
 }

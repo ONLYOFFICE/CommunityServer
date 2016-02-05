@@ -25,29 +25,28 @@
 
 
 using System;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Web;
-using System.Web.Configuration;
 using System.Web.UI;
 using ASC.Core;
+using ASC.Core.Billing;
 using ASC.Core.Users;
-using ASC.Web.Core.Client.Bundling;
+using ASC.Web.Core;
+using ASC.Web.Core.Mobile;
 using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Studio.Controls.Common;
+using ASC.Web.Core.WebZones;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Common;
 using ASC.Web.Studio.UserControls.Common.Banner;
-using System.Configuration;
-using ASC.Web.Core;
-using ASC.Web.Core.WebZones;
-using ASC.Web.Core.Mobile;
-using ASC.Web.Studio.Utility;
-using ASC.Core.Billing;
 using ASC.Web.Studio.UserControls.Management;
+using ASC.Web.Studio.UserControls.Statistics;
+using ASC.Web.Studio.Utility;
+using Resources;
 
 namespace ASC.Web.Studio.Masters
 {
@@ -57,26 +56,27 @@ namespace ASC.Web.Studio.Masters
         /// Block side panel
         /// </summary>
         /// 
-        protected string TariffNotify;
+        protected Tuple<string, string> TariffNotify;
 
-        protected string TariffNotifyText;
         public bool DisableTariffNotify { get; set; }
 
         public bool DisabledSidePanel { get; set; }
 
-        public bool DisabledHelpTour { get; set; }
-
         public bool DisabledTopStudioPanel { get; set; }
 
-        public bool EnabledWebChat { get; set; }
+        private bool? _enableWebChat;
+
+        public bool EnabledWebChat
+        {
+            get { return _enableWebChat.HasValue && _enableWebChat.Value; }
+            set { _enableWebChat = value; }
+        }
 
         public string HubUrl { get; set; }
 
         public bool IsMobile { get; set; }
 
         public TopStudioPanel TopStudioPanel;
-
-        private static Regex _browserNotSupported;
 
         protected bool DisablePartnerPanel { get; set; }
         private bool? IsAuthorizedPartner { get; set; }
@@ -86,19 +86,23 @@ namespace ASC.Web.Studio.Masters
         {
             base.OnInit(e);
             TopStudioPanel = (TopStudioPanel)LoadControl(TopStudioPanel.Location);
-            MetaKeywords.Content = Resources.Resource.MetaKeywords;
-            MetaDescription.Content = Resources.Resource.MetaDescription;
+            MetaKeywords.Content = Resource.MetaKeywords;
+            MetaDescription.Content = Resource.MetaDescription.HtmlEncode();
         }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             InitScripts();
             HubUrl = ConfigurationManager.AppSettings["web.hub"] ?? string.Empty;
-            EnabledWebChat = Convert.ToBoolean(ConfigurationManager.AppSettings["web.chat"] ?? "false") &&
+
+            if (!_enableWebChat.HasValue || _enableWebChat.Value)
+            {
+                EnabledWebChat = Convert.ToBoolean(ConfigurationManager.AppSettings["web.chat"] ?? "false") &&
                              WebItemManager.Instance.GetItems(WebZoneType.CustomProductList, ItemAvailableState.Normal).
                                             Any(id => id.ID == WebItemManager.TalkProductID) &&
                              !(Request.Browser != null && Request.Browser.Browser == "IE" &&
                                (Request.Browser.MajorVersion == 8 || Request.Browser.MajorVersion == 9 || Request.Browser.MajorVersion == 10));
+            }
 
             IsMobile = MobileDetector.IsMobile;
 
@@ -125,15 +129,6 @@ namespace ASC.Web.Studio.Masters
                 TopContent.Controls.Add(TopStudioPanel);
             }
 
-            if (_browserNotSupported == null && !string.IsNullOrEmpty(WebConfigurationManager.AppSettings["web.browser-not-supported"]))
-            {
-                _browserNotSupported = new Regex(WebConfigurationManager.AppSettings["web.browser-not-supported"], RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.Singleline | RegexOptions.CultureInvariant);
-            }
-            if (_browserNotSupported != null && !string.IsNullOrEmpty(Request.Headers["User-Agent"]) && _browserNotSupported.Match(Request.Headers["User-Agent"]).Success)
-            {
-                Response.Redirect("~/browser-not-supported.htm");
-            }
-
             if (!EmailActivated && !CoreContext.Configuration.Personal && SecurityContext.IsAuthenticated)
             {
                 activateEmailPanel.Controls.Add(LoadControl(ActivateEmailPanel.Location));
@@ -144,50 +139,178 @@ namespace ASC.Web.Studio.Masters
                 BannerHolder.Controls.Add(LoadControl(Banner.Location));
             }
 
-            DisabledHelpTour = true;
-            if (!DisabledHelpTour)
-            {
-                HeaderContent.Controls.Add(LoadControl(UserControls.Common.HelpTour.HelpTour.Location));
-            }
+            var curUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
 
-            if (!SecurityContext.IsAuthenticated || !TenantExtra.EnableTarrifSettings || CoreContext.Configuration.Personal
-                || CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
+            if (DisabledSidePanel)
             {
                 DisableTariffNotify = true;
+                DisablePartnerPanel = true;
             }
             else
             {
-                TariffNotify = TenantExtra.GetTariffNotify();
-                TariffNotifyText = TenantExtra.GetTariffNotifyText();
-                if (string.IsNullOrEmpty(TariffNotify) ||
-                    (TenantExtra.GetCurrentTariff().State == TariffState.Trial && TenantExtra.GetCurrentTariff().DueDate.Subtract(DateTime.Today.Date).Days > 5))
-                    DisableTariffNotify = true;
-            }
-
-            if (!DisableTariffNotify)
-            {
-                var stringBuilder = new StringBuilder();
-                stringBuilder.Append("if (jq('div.mainPageLayout table.mainPageTable').hasClass('with-mainPageTableSidePanel'))jq('#infoBoxTariffNotify').removeClass('display-none');");
-                Page.RegisterInlineScript(stringBuilder.ToString());
-            }
-
-            if (CoreContext.Configuration.PartnerHosted)
-            {
-                IsAuthorizedPartner = false;
-                var partner = CoreContext.PaymentManager.GetApprovedPartner();
-                if (partner != null)
+                if (!SecurityContext.IsAuthenticated || !TenantExtra.EnableTarrifSettings || CoreContext.Configuration.Personal
+                    || curUser.IsVisitor())
                 {
-                    IsAuthorizedPartner = !string.IsNullOrEmpty(partner.AuthorizedKey);
-                    Partner = partner;
+                    DisableTariffNotify = true;
+                }
+                else
+                {
+                    TariffNotify = GetTariffNotify();
+                    if (TariffNotify == null)
+                        DisableTariffNotify = true;
+                }
+
+                if (CoreContext.Configuration.PartnerHosted)
+                {
+                    IsAuthorizedPartner = false;
+                    var partner = CoreContext.PaymentManager.GetApprovedPartner();
+                    if (partner != null)
+                    {
+                        IsAuthorizedPartner = !string.IsNullOrEmpty(partner.AuthorizedKey);
+                        Partner = partner;
+                    }
+                }
+                DisablePartnerPanel = !(IsAuthorizedPartner.HasValue && !IsAuthorizedPartner.Value);
+            }
+
+            if (curUser.IsVisitor() && !curUser.IsOutsider())
+            {
+                var collaboratorPopupSettings = SettingsManager.Instance.LoadSettingsFor<CollaboratorSettings>(curUser.ID);
+                if (collaboratorPopupSettings.FirstVisit)
+                {
+                    AddBodyScripts(ResolveUrl("~/js/asc/core/collaborators.js"));
                 }
             }
-            DisablePartnerPanel = !(IsAuthorizedPartner.HasValue && !IsAuthorizedPartner.Value);
 
-            if (!DisablePartnerPanel)
+
+            #region third-party scripts
+
+            var GoogleTagManagerScriptLocation = "~/UserControls/Common/ThirdPartyScripts/GoogleTagManagerScript.ascx";
+            if (File.Exists(HttpContext.Current.Server.MapPath(GoogleTagManagerScriptLocation)) &&
+                !CoreContext.Configuration.Standalone && !CoreContext.Configuration.Personal && SetupInfo.CustomScripts.Length != 0)
             {
-                var stringBuilder = new StringBuilder();
-                stringBuilder.Append("if (jq('div.mainPageLayout table.mainPageTable').hasClass('with-mainPageTableSidePanel'))jq('#infoBoxPartnerPanel').removeClass('display-none');");
-                Page.RegisterInlineScript(stringBuilder.ToString());
+                GoogleTagManagerPlaceHolder.Controls.Add(LoadControl(GoogleTagManagerScriptLocation));
+            } else {
+                GoogleTagManagerPlaceHolder.Visible = false;
+            }
+
+            var GoogleAnalyticsScriptLocation = "~/UserControls/Common/ThirdPartyScripts/GoogleAnalyticsScript.ascx";
+            if (File.Exists(HttpContext.Current.Server.MapPath(GoogleAnalyticsScriptLocation)) &&
+                !CoreContext.Configuration.Standalone && !CoreContext.Configuration.Personal && SetupInfo.CustomScripts.Length != 0
+                && ASC.Core.SecurityContext.IsAuthenticated)
+            {
+                GoogleAnalyticsScriptPlaceHolder.Controls.Add(LoadControl(GoogleAnalyticsScriptLocation));
+            } else {
+                GoogleAnalyticsScriptPlaceHolder.Visible = false;
+            }
+            
+
+            var YandexMetrikaScriptLocation = "~/UserControls/Common/ThirdPartyScripts/YandexMetrikaScript.ascx";
+            if (File.Exists(HttpContext.Current.Server.MapPath(YandexMetrikaScriptLocation)) &&
+                !CoreContext.Configuration.Standalone && CoreContext.Configuration.Personal && SetupInfo.CustomScripts.Length != 0)
+            {
+                YandexMetrikaScriptPlaceHolder.Controls.Add(LoadControl(YandexMetrikaScriptLocation));
+            }
+            else
+            {
+                YandexMetrikaScriptPlaceHolder.Visible = false;
+            }
+
+
+            var GoogleConversionPersonScriptLocation = "~/UserControls/Common/ThirdPartyScripts/GoogleConversionPersonScript.ascx";
+            if (File.Exists(HttpContext.Current.Server.MapPath(GoogleConversionPersonScriptLocation)) &&
+                !CoreContext.Configuration.Standalone && CoreContext.Configuration.Personal && SetupInfo.CustomScripts.Length != 0)
+            {
+                GoogleConversionPersonScriptPlaceHolder.Controls.Add(LoadControl(GoogleConversionPersonScriptLocation));
+            }
+            else
+            {
+                GoogleConversionPersonScriptPlaceHolder.Visible = false;
+            }
+
+
+            #endregion
+        }
+
+        private static Tuple<string, string> GetTariffNotify()
+        {
+            var tariff = TenantExtra.GetCurrentTariff();
+
+            var count = tariff.DueDate.Date.Subtract(DateTime.Today).Days;
+            if (tariff.State == TariffState.Trial)
+            {
+                if (count <= 5)
+                {
+                    var text = String.Format(CoreContext.Configuration.Standalone ? Resource.TariffLinkStandalone : Resource.TrialPeriodInfoText,
+                                             "<a href=\"" + TenantExtra.GetTariffPageLink() + "\">", "</a>");
+
+                    if (count <= 0)
+                        return new Tuple<string, string>(Resource.TrialPeriodExpired, text);
+
+                    var end = GetNumeralResourceByCount(count, Resource.Day, Resource.DaysOne, Resource.DaysTwo);
+                    return new Tuple<string, string>(string.Format(Resource.TrialPeriod, count, end), text);
+                }
+
+                if (CoreContext.Configuration.Standalone)
+                {
+                    return new Tuple<string, string>(Resource.TrialPeriodInfoTextLicense, string.Empty);
+                }
+            }
+
+            if (tariff.State == TariffState.Paid)
+            {
+                if (CoreContext.Configuration.Standalone && count < 10)
+                {
+                    var text = String.Format(Resource.TariffLinkStandalone,
+                                             "<a href=\"" + TenantExtra.GetTariffPageLink() + "\">", "</a>");
+                    if (count <= 0)
+                        return new Tuple<string, string>(Resource.PaidPeriodExpiredStandalone, text);
+
+                    var end = GetNumeralResourceByCount(count, Resource.Day, Resource.DaysOne, Resource.DaysTwo);
+                    return new Tuple<string, string>(string.Format(Resource.PaidPeriodStandalone, count, end), text);
+                }
+
+                var quota = TenantExtra.GetTenantQuota();
+                long notifySize;
+                long.TryParse(ConfigurationManager.AppSettings["web.tariff-notify.storage"] ?? "314572800", out notifySize); //300 MB
+                if (notifySize > 0 && quota.MaxTotalSize - TenantStatisticsProvider.GetUsedSize() < notifySize)
+                {
+                    var head = string.Format(Resource.TariffExceedLimit, FileSizeComment.FilesSizeToString(quota.MaxTotalSize));
+                    var text = String.Format(Resource.TariffExceedLimitInfoText, "<a href=\"" + TenantExtra.GetTariffPageLink() + "\">", "</a>");
+                    return new Tuple<string, string>(head, text);
+                }
+            }
+
+            if (tariff.State == TariffState.Delay)
+            {
+                var text = String.Format(Resource.TariffPaymentDelayText,
+                                         "<a href=\"" + TenantExtra.GetTariffPageLink() + "\">", "</a>",
+                                         tariff.DelayDueDate.Date.ToLongDateString());
+                return new Tuple<string, string>(Resource.TariffPaymentDelay, text);
+            }
+
+            return null;
+        }
+
+        public static string GetNumeralResourceByCount(int count, string resource, string resourceOne, string resourceTwo)
+        {
+            var num = count % 100;
+            if (num >= 11 && num <= 19)
+            {
+                return resourceTwo;
+            }
+
+            var i = count % 10;
+            switch (i)
+            {
+                case (1):
+                    return resource;
+                case (2):
+                case (3):
+                case (4):
+                    return resourceOne;
+                default:
+                    return resourceTwo;
             }
         }
 
@@ -225,30 +348,18 @@ namespace ASC.Web.Studio.Masters
 
         private void InitScripts()
         {
-            AddStyles("~/skins/<theme_folder>/main.less", true);
+            AddStyles("~/skins/<theme_folder>/main.less");
 
-            AddClientScript(typeof(MasterResources.MasterSettingsResources));
-            AddClientScript(typeof(MasterResources.MasterUserResources));
-            AddClientScript(typeof(MasterResources.MasterFileUtilityResources));
-            AddClientScript(typeof(MasterResources.MasterCustomResources));
+            AddClientScript(typeof (MasterResources.MasterSettingsResources));
+            AddClientScript(typeof (MasterResources.MasterUserResources));
+            AddClientScript(typeof (MasterResources.MasterFileUtilityResources));
+            AddClientScript(typeof (MasterResources.MasterCustomResources));
 
             InitProductSettingsInlineScript();
             InitStudioSettingsInlineScript();
 
-            if (ClientLocalizationScript != null)
-            {
-                AddClientLocalizationScript(typeof(MasterResources.MasterLocalizationResources));
-                AddClientLocalizationScript(typeof(MasterResources.MasterTemplateResources));
-
-                if (clientScriptReference == null)
-                {
-                    clientScriptReference = new ClientScriptReference();
-                }
-                if (0 < clientScriptReference.Includes.Count)
-                {
-                    ClientLocalizationScript.Scripts.Add(clientScriptReference.GetLink(true));
-                }
-            }
+            AddClientLocalizationScript(typeof (MasterResources.MasterLocalizationResources));
+            AddClientLocalizationScript(typeof (MasterResources.MasterTemplateResources));
         }
 
         private void InitStudioSettingsInlineScript()
@@ -257,9 +368,8 @@ namespace ASC.Web.Studio.Masters
             var showTips = SettingsManager.Instance.LoadSettingsFor<TipsSettings>(SecurityContext.CurrentAccount.ID).Show;
 
             var script = new StringBuilder();
-            script.Append("window.StudioSettings=window.StudioSettings||{};");
-            script.AppendFormat("window.StudioSettings.ShowPromotions={0};", showPromotions.ToString().ToLowerInvariant());
-            script.AppendFormat("window.StudioSettings.ShowTips={0};", showTips.ToString().ToLowerInvariant());
+            script.AppendFormat("window.ASC.Resources.Master.ShowPromotions={0};", showPromotions.ToString().ToLowerInvariant());
+            script.AppendFormat("window.ASC.Resources.Master.ShowTips={0};", showTips.ToString().ToLowerInvariant());
 
             Page.RegisterInlineScript(script.ToString(), true, false);
         }
@@ -269,33 +379,23 @@ namespace ASC.Web.Studio.Masters
             var isAdmin = WebItemSecurity.IsProductAdministrator(CommonLinkUtility.GetProductID(), SecurityContext.CurrentAccount.ID);
 
             var script = new StringBuilder();
-            script.Append("window.ProductSettings=window.ProductSettings||{};");
-            script.AppendFormat("window.ProductSettings.IsProductAdmin={0};", isAdmin.ToString().ToLowerInvariant());
+            script.AppendFormat("window.ASC.Resources.Master.IsProductAdmin={0};", isAdmin.ToString().ToLowerInvariant());
 
             Page.RegisterInlineScript(script.ToString(), true, false);
         }
 
         #region Style
 
-        public void AddStyles(Control control, bool theme)
+        public void AddStyles(Control control)
         {
-            if (theme)
-            {
-                if (ThemeStyles == null) return;
+            if (HeadStyles == null) return;
 
-                ThemeStyles.Controls.Add(control);
-            }
-            else
-            {
-                if (HeadStyles == null) return;
-
-                HeadStyles.Controls.Add(control);
-            }
+            HeadStyles.Controls.Add(control);
         }
 
-        public void AddStyles(string src, bool theme)
+        public void AddStyles(string src)
         {
-            if (theme)
+            if (src.Contains(ColorThemesSettings.ThemeFolderTemplate))
             {
                 if (ThemeStyles == null) return;
 
@@ -317,12 +417,6 @@ namespace ASC.Web.Studio.Masters
         {
             if (BodyScripts == null) return;
             BodyScripts.Scripts.Add(src);
-        }
-
-        public void AddLocalizationScripts(string src)
-        {
-            if (ClientLocalizationScript == null) return;
-            ClientLocalizationScript.Scripts.Add(src);
         }
 
         public void AddBodyScripts(Control control)
@@ -364,14 +458,9 @@ namespace ASC.Web.Studio.Masters
             baseTemplateMasterScripts.Includes.Add(type);
         }
 
-        private ClientScriptReference clientScriptReference;
-
         public void AddClientLocalizationScript(Type type)
         {
-            if (clientScriptReference == null)
-                clientScriptReference = new ClientScriptReference();
-
-            clientScriptReference.Includes.Add(type);
+            clientLocalizationScript.Includes.Add(type);
         }
 
         #endregion

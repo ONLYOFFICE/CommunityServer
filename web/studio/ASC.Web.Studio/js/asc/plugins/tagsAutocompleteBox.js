@@ -1,8 +1,4 @@
 ﻿/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
-/*
 -- global variables
 
 LoaderPath - loader image path

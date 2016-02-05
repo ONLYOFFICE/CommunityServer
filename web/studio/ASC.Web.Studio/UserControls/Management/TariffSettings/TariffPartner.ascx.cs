@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -24,15 +24,16 @@
 */
 
 
+using AjaxPro;
+using ASC.Common.Caching;
+using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Web.Studio.UserControls.Statistics;
-using AjaxPro;
-using ASC.Core;
 using ASC.Web.Studio.Utility;
+using Resources;
 using System;
 using System.Web;
 using System.Web.UI;
-using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -52,19 +53,17 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/tariffsettings/js/tariffpartner.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/tariffsettings/css/tariffpartner.less"));
-
+            Page.RegisterBodyScripts("~/usercontrols/management/tariffsettings/js/tariffpartner.js");
+            Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tariffpartner.less");
             PartnerPayKeyContainer.Options.IsPopup = true;
             PartnerApplyContainer.Options.IsPopup = true;
             PartnerRequestContainer.Options.IsPopup = true;
             PartnerPayExceptionContainer.Options.IsPopup = true;
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            if (HttpRuntime.Cache.Get(PartnerCache) == null)
+            if (AscCache.Memory.Get<object>(PartnerCache) == null)
             {
-                HttpRuntime.Cache.Remove(PartnerCache);
-                HttpRuntime.Cache.Insert(PartnerCache, DateTime.UtcNow);
+                AscCache.Memory.Insert(PartnerCache, DateTime.UtcNow, DateTime.MaxValue);
             }
         }
 
@@ -88,10 +87,9 @@ namespace ASC.Web.Studio.UserControls.Management
 
             try
             {
-                if (!HttpRuntime.Cache.Get(PartnerCache).Equals(DateTime.UtcNow))
+                if (!((DateTime)AscCache.Memory.Get<object>(PartnerCache)).Equals(DateTime.UtcNow))
                 {
-                    HttpRuntime.Cache.Remove(PartnerCache);
-                    HttpRuntime.Cache.Insert(PartnerCache, DateTime.UtcNow);
+                    AscCache.Memory.Insert(PartnerCache, DateTime.UtcNow, DateTime.MaxValue);
                 }
                 var partner = CoreContext.PaymentManager.GetApprovedPartner();
                 if (partner == null || partner.PaymentMethod != PartnerPaymentMethod.PayPal)
@@ -112,7 +110,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 if (tenantQuota.Price > partner.AvailableCredit)
                 {
                     CoreContext.PaymentManager.RequestClientPayment(partner.Id, qoutaId, false);
-                    throw new Exception(Resource.PartnerRequestLimitInfo);
+                    throw new Exception(Resource.PartnerRequestLimitInfo.HtmlEncode());
                 }
 
                 var usersCount = TenantStatisticsProvider.GetUsersCount();

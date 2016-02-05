@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -26,13 +26,9 @@
 
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
-using System.Text;
+using ASC.Core;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
-using ASC.Core;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Dal.DbSchema;
 using ASC.Mail.Aggregator.DataStorage;
@@ -41,13 +37,6 @@ namespace ASC.Mail.Aggregator.Dal
 {
     public class CrmHistoryDal
     {
-        [DataContract]
-        internal class CrmHistoryContent
-        {
-            [DataMember]
-            public long message_id;
-        }
-
         private readonly int _tenant;
         private readonly Guid _user;
 
@@ -65,10 +54,10 @@ namespace ASC.Mail.Aggregator.Dal
             SecurityContext.AuthenticateMe(User);
         }
 
-        public void AddRelationshipEvents(MailMessageItem item)
+        public void AddRelationshipEvents(MailMessage message)
         {
             var factory = new DaoFactory(CoreContext.TenantManager.GetCurrentTenant().TenantId, CRMConstants.DatabaseId);
-            foreach (var contactEntity in item.LinkedCrmEntityIds)
+            foreach (var contactEntity in message.LinkedCrmEntityIds)
             {
                 switch (contactEntity.Type)
                 {
@@ -88,7 +77,7 @@ namespace ASC.Mail.Aggregator.Dal
 
                 var fileIds = new List<int>();
 
-                foreach (var attachment in item.Attachments.FindAll(attach => !attach.isEmbedded))
+                foreach (var attachment in message.Attachments.FindAll(attach => !attach.isEmbedded))
                 {
                     using (var file = AttachmentManager.GetAttachmentStream(attachment))
                     {
@@ -101,28 +90,8 @@ namespace ASC.Mail.Aggregator.Dal
                     }
                 }
 
-                var contentString = GetHistoryContentJson(item);
-
-                ApiHelper.AddToCrmHistory(item, contactEntity, contentString, fileIds);
+                ApiHelper.AddToCrmHistory(message, contactEntity, fileIds);
             }
-        }
-
-        private static string GetHistoryContentJson(MailMessageItem item)
-        {
-            string contentString;
-
-            var contentStruct = new CrmHistoryContent
-                {
-                    message_id = item.Id
-                };
-
-            var serializer = new DataContractJsonSerializer(typeof (CrmHistoryContent));
-            using (var stream = new MemoryStream())
-            {
-                serializer.WriteObject(stream, contentStruct);
-                contentString = Encoding.UTF8.GetString(stream.GetCorrectBuffer());
-            }
-            return contentString;
         }
     }
 }

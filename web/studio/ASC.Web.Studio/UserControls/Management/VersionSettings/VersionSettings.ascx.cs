@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -45,8 +45,8 @@ namespace ASC.Web.Studio.UserControls.Management.VersionSettings
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/versionsettings/css/versionsettings.less"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/Management/VersionSettings/js/script.js"));
+            Page.RegisterStyle("~/usercontrols/management/versionsettings/css/versionsettings.less");
+            Page.RegisterBodyScripts("~/usercontrols/Management/VersionSettings/js/script.js");
         }
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]

@@ -82,8 +82,8 @@ namespace ActiveUp.Net.Mail
             }
 
             // Prepare the request with HTTP header
-            string request = string.Format("POST /ctasd/{0} HTTP/1.0\r\nContent-Length: {1}\r\n\r\n", (reference ? "ClassifyMessage_File" : "ClassifyMessage_Inline"), content.Length)
-                + content;
+            string request = string.Format("POST /ctasd/{0} HTTP/1.0\r\nContent-Length: {1}\r\n\r\n {2}",
+                (reference ? "ClassifyMessage_File" : "ClassifyMessage_Inline"), content.Length, content);
 
             //try
             //{

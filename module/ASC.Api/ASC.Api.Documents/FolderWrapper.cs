@@ -57,7 +57,7 @@ namespace ASC.Api.Documents
 
         /// <summary>
         /// </summary>
-        [DataMember]
+        [DataMember(EmitDefaultValue = false, IsRequired = false)]
         public bool IsShareable { get; set; }
 
         /// <summary>

@@ -38,13 +38,12 @@ ASC.Projects.AllProject = (function () {
         linkViewMilestones = moduleLocationPath + 'milestones.aspx?prjID=',
         linkViewTasks = moduleLocationPath + 'tasks.aspx?prjID=',
         linkViewParticipants = moduleLocationPath + 'projectTeam.aspx?prjID=',
-        commonListContainer = jq("#CommonListContainer"),
         prjEmptyScreenForFilter = jq("#prjEmptyScreenForFilter"),
         emptyListProjects = jq("#emptyListProjects"),
         projectsAdvansedFilter,
-        filterContainer = jq('#filterContainer'),
         projectsTable = null,
-        describePanel = null;
+        describePanel = null,
+            self;
 
     var currentUserId;
 
@@ -56,32 +55,31 @@ ASC.Projects.AllProject = (function () {
 
     var initActionPanels = function () {
         if (!describePanel) {
-            commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "projectDescrPanel"})); // description panel
+            self.$commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "projectDescrPanel" })); // description panel
             describePanel = jq("#projectDescrPanel");
         }
         if (isSimpleView) return;
-
+        var resources = ASC.Projects.Resources.ProjectsJSResource;
         statusListObject.statuses = [
-            { cssClass: "open", text: ASC.Projects.Resources.ProjectsJSResource.StatusOpenProject },
-            { cssClass: "paused", text: ASC.Projects.Resources.ProjectsJSResource.StatusSuspendProject },
-            { cssClass: "closed", text: ASC.Projects.Resources.ProjectsJSResource.StatusClosedProject }
+            { cssClass: "open", text: resources.StatusOpenProject },
+            { cssClass: "paused", text: resources.StatusSuspendProject },
+            { cssClass: "closed", text: resources.StatusClosedProject }
         ];
         jq("#" + statusListObject.listId).remove();
-        commonListContainer.append(jq.tmpl("projects_statusChangePanel", statusListObject));
+        self.$commonListContainer.append(jq.tmpl("projects_statusChangePanel", statusListObject));
     };
-    
-    var self;
     
     //filter Set
     var init = function (isSimpleViewFlag) {
+        self = this;
         if (isInit === false) {
             isInit = true;
-            Teamlab.bind(Teamlab.events.getPrjProjects, onGetListProject);
+            self.cookiePagination = "projectsKeyForPagination";
         }
-        self = this;
+        
+        
         self.isFirstLoad = true;
-        jq(".mainPageContent").children(".loader-page").show();
-
+        self.showLoader();
         projectsTable = jq("#tableListProjects");
 
         isSimpleView = isSimpleViewFlag;
@@ -93,10 +91,8 @@ ASC.Projects.AllProject = (function () {
             projectsAdvansedFilter = createAdvansedFilter();
             this.setDocumentTitle(ASC.Projects.Resources.ProjectsJSResource.ProjectsModule);
             this.checkElementNotFound(ASC.Projects.Resources.ProjectsJSResource.ProjectNotFound);
-
-            self.showLoader();
-            //page navigator
-            this.initPageNavigator("projectsKeyForPagination");
+            
+            ASC.Projects.PageNavigator.init(self);
 
             projectsTable.on('click', "td.responsible span.userLink", function () {
                 var responsibleId = jq(this).attr('id');
@@ -108,11 +104,11 @@ ASC.Projects.AllProject = (function () {
             });
 
             // popup handlers
-            jq("#commonPopupContainer").on("click", ".gray", function () {
+            self.$commonPopupContainer.on("click", ".gray", function () {
                 jq.unblockUI();
                 return false;
             });
-            commonListContainer.on("click", "#statusList .dropdown-item", function () {
+            self.$commonListContainer.on("click", "#statusList .dropdown-item", function () {
                 changeStatus(this);
             });
         }
@@ -161,9 +157,7 @@ ASC.Projects.AllProject = (function () {
 
         /*--------events--------*/
 
-        jq("#countOfRows").change(function (evt) {
-            self.changeCountOfRows(this.value);
-        });
+
 
         jq('body').on("click.projectsInit", function (event) {
             var elt = (event.target) ? event.target : event.srcElement;
@@ -177,177 +171,159 @@ ASC.Projects.AllProject = (function () {
             }
         });
 
-        commonListContainer.on('click', 'td.action .canEdit', function (event) {
+        self.$commonListContainer.on('click', 'td.action .canEdit', function (event) {
             showListStatus(statusListObject.listId, this);
             return false;
-        });
-
-        // ga-track-events
-        if (!isSimpleView) {
-            //change status
-            jq("#statusList .open").trackEvent(ga_Categories.projects, ga_Actions.changeStatus, "open");
-            jq("#statusList .closed").trackEvent(ga_Categories.projects, ga_Actions.changeStatus, "closed");
-            jq("#statusList .paused").trackEvent(ga_Categories.projects, ga_Actions.changeStatus, "paused");
-
-            //PM
-            jq(".responsible .userLink").trackEvent(ga_Categories.projects, ga_Actions.userClick, "project-manager");
-
-            //end ga-track-events
-        }
+        });        
     };
 
     var unbindListEvents = function () {
         if (!isInit) return;
-        jq("#countOfRows").unbind();
         projectsTable.unbind();
         describePanel.unbind();
-        commonListContainer.unbind();
-        jq("#commonPopupContainer").unbind();
+        self.$commonListContainer.unbind();
+        self.$commonPopupContainer.unbind();
     };
 
     var createAdvansedFilter = function () {
-        var filters =
-                    [
-                // Team member
-                        {
-                            type: "person",
-                            id: "me_team_member",
-                            title: ASC.Projects.Resources.ProjectsFilterResource.Me,
-                            filtertitle: ASC.Projects.Resources.ProjectsFilterResource.TeamMember + ":",
-                            group: ASC.Projects.Resources.ProjectsFilterResource.TeamMember,
-                            hashmask: "person/{0}",
-                            groupby: "userid",
-                            bydefault: { id: currentUserId }
-                        },
-                        {
-                            type: "person",
-                            id: "team_member",
-                            filtertitle: ASC.Projects.Resources.ProjectsFilterResource.TeamMember + ":",
-                            title: ASC.Projects.Resources.ProjectsFilterResource.OtherUsers,
-                            group: ASC.Projects.Resources.ProjectsFilterResource.TeamMember,
-                            hashmask: "person/{0}",
-                            groupby: "userid"
-                        },
+        var resources = ASC.Projects.Resources.ProjectsFilterResource;
+        if (typeof self.filters == "undefined") {
+            var filters =
+            [
                 // Project manager
-                        {
-                            type: "person",
-                            id: "me_project_manager",
-                            title: ASC.Projects.Resources.ProjectsFilterResource.Me,
-                            filtertitle: ASC.Projects.Resources.ProjectsFilterResource.ProjectMenager + ":",
-                            group: ASC.Projects.Resources.ProjectsFilterResource.ProjectMenager,
-                            hashmask: "person/{0}",
-                            groupby: "managerid",
-                            bydefault: { id: currentUserId }
-                        },
-                        {
-                            type: "person",
-                            id: "project_manager",
-                            filtertitle: ASC.Projects.Resources.ProjectsFilterResource.ProjectMenager + ":",
-                            title: ASC.Projects.Resources.ProjectsFilterResource.OtherUsers,
-                            group: ASC.Projects.Resources.ProjectsFilterResource.ProjectMenager,
-                            hashmask: "person/{0}",
-                            groupby: "managerid"
-                        },
+                {
+                    type: "person",
+                    id: "me_project_manager",
+                    title: resources.Me,
+                    filtertitle: resources.ProjectMenager + ":",
+                    group: resources.ProjectMenager,
+                    hashmask: "person/{0}",
+                    groupby: "managerid",
+                    bydefault: { id: currentUserId }
+                },
+                {
+                    type: "person",
+                    id: "project_manager",
+                    filtertitle: resources.ProjectMenager + ":",
+                    title: resources.OtherUsers,
+                    group: resources.ProjectMenager,
+                    hashmask: "person/{0}",
+                    groupby: "managerid"
+                },
+                // Team member
+                {
+                    type: "person",
+                    id: "me_team_member",
+                    title: resources.Me,
+                    filtertitle: resources.TeamMember + ":",
+                    group: resources.TeamMember,
+                    hashmask: "person/{0}",
+                    groupby: "userid",
+                    bydefault: { id: currentUserId }
+                },
+                {
+                    type: "person",
+                    id: "team_member",
+                    filtertitle: resources.TeamMember + ":",
+                    title: resources.OtherUsers,
+                    group: resources.TeamMember,
+                    hashmask: "person/{0}",
+                    groupby: "userid"
+                },
+                {
+                    type: "group",
+                    id: "group",
+                    title: resources.Groups,
+                    filtertitle: resources.Group + ":",
+                    group: resources.TeamMember,
+                    hashmask: "group/{0}",
+                    groupby: "userid"
+                },
                 //Status
-                        {
-                            type: "combobox",
-                            id: "open",
-                            title: ASC.Projects.Resources.ProjectsFilterResource.StatusOpenProject,
-                            filtertitle: ASC.Projects.Resources.ProjectsFilterResource.ByStatus + ":",
-                            group: ASC.Projects.Resources.ProjectsFilterResource.ByStatus,
-                            hashmask: "combobox/{0}",
-                            groupby: "status",
-                            options:
-                                    [
-                                        { value: "open", title: ASC.Projects.Resources.ProjectsFilterResource.StatusOpenProject, def: true },
-                                        { value: "paused", title: ASC.Projects.Resources.ProjectsFilterResource.StatusSuspend },
-                                        { value: "closed", title: ASC.Projects.Resources.ProjectsFilterResource.StatusClosedProject }
-                                    ]
-                        },
-                        {
-                            type: "combobox",
-                            id: "paused",
-                            title: ASC.Projects.Resources.ProjectsFilterResource.StatusSuspend,
-                            filtertitle: ASC.Projects.Resources.ProjectsFilterResource.ByStatus + ":",
-                            group: ASC.Projects.Resources.ProjectsFilterResource.ByStatus,
-                            hashmask: "combobox/{0}",
-                            groupby: "status",
-                            options:
-                                [
-                                    { value: "open", title: ASC.Projects.Resources.ProjectsFilterResource.StatusOpenProject },
-                                    { value: "paused", title: ASC.Projects.Resources.ProjectsFilterResource.StatusSuspend, def: true },
-                                    { value: "closed", title: ASC.Projects.Resources.ProjectsFilterResource.StatusClosedProject }
-                                ]
-                        },
-                        {
-                            type: "combobox",
-                            id: "closed",
-                            title: ASC.Projects.Resources.ProjectsFilterResource.StatusClosedProject,
-                            filtertitle: ASC.Projects.Resources.ProjectsFilterResource.ByStatus + ":",
-                            group: ASC.Projects.Resources.ProjectsFilterResource.ByStatus,
-                            hashmask: "combobox/{0}",
-                            groupby: "status",
-                            options:
-                                [
-                                    { value: "open", title: ASC.Projects.Resources.ProjectsFilterResource.StatusOpenProject },
-                                    { value: "paused", title: ASC.Projects.Resources.ProjectsFilterResource.StatusSuspend },
-                                    { value: "closed", title: ASC.Projects.Resources.ProjectsFilterResource.StatusClosedProject, def: true }
-                                ]
-                        },
+                {
+                    type: "combobox",
+                    id: "open",
+                    title: resources.StatusOpenProject,
+                    filtertitle: resources.ByStatus + ":",
+                    group: resources.ByStatus,
+                    hashmask: "combobox/{0}",
+                    groupby: "status",
+                    options:
+                    [
+                        { value: "open", title: resources.StatusOpenProject, def: true },
+                        { value: "paused", title: resources.StatusSuspend },
+                        { value: "closed", title: resources.StatusClosedProject }
+                    ]
+                },
+                {
+                    type: "combobox",
+                    id: "paused",
+                    title: resources.StatusSuspend,
+                    filtertitle: resources.ByStatus + ":",
+                    group: resources.ByStatus,
+                    hashmask: "combobox/{0}",
+                    groupby: "status",
+                    options:
+                    [
+                        { value: "open", title: resources.StatusOpenProject },
+                        { value: "paused", title: resources.StatusSuspend, def: true },
+                        { value: "closed", title: resources.StatusClosedProject }
+                    ]
+                },
+                {
+                    type: "combobox",
+                    id: "closed",
+                    title: resources.StatusClosedProject,
+                    filtertitle: resources.ByStatus + ":",
+                    group: resources.ByStatus,
+                    hashmask: "combobox/{0}",
+                    groupby: "status",
+                    options:
+                    [
+                        { value: "open", title: resources.StatusOpenProject },
+                        { value: "paused", title: resources.StatusSuspend },
+                        { value: "closed", title: resources.StatusClosedProject, def: true }
+                    ]
+                },
                 // Other
-                        {
-                            type: "flag",
-                            id: "followed",
-                            title: ASC.Projects.Resources.ProjectsFilterResource.FollowProjects,
-                            group: ASC.Projects.Resources.ProjectsFilterResource.Other,
-                            hashmask: "followed"
-                        }
-                    ],
-                sorters =
-                [
-                    { id: "title", title: ASC.Projects.Resources.ProjectsFilterResource.ByTitle, sortOrder: "ascending", def: true },
-                    { id: "create_on", title: ASC.Projects.Resources.ProjectsFilterResource.ByCreateDate, sortOrder: "descending" }
-                ];
-        var tags = ASC.Projects.ProjectsAdvansedFilter.getTagsForFilter();
-        
-        if (tags.length) {
-            filters.push({
-                type: "combobox",
-                id: "tag",
-                title: ASC.Projects.Resources.ProjectsFilterResource.ByTag,
-                filtertitle: ASC.Projects.Resources.ProjectsFilterResource.Tag + ":",
-                group: ASC.Projects.Resources.ProjectsFilterResource.Other,
-                hashmask: "combobox/{0}",
-                options: ASC.Projects.ProjectsAdvansedFilter.getTagsForFilter(),
-                defaulttitle: ASC.Projects.Resources.ProjectsFilterResource.Select
-            });
+                {
+                    type: "flag",
+                    id: "followed",
+                    title: resources.FollowProjects,
+                    group: resources.Other,
+                    hashmask: "followed"
+                }
+            ];
+
+            var tags = ASC.Projects.ProjectsAdvansedFilter.getTagsForFilter();
+
+            if (tags.length) {
+                filters.push({
+                    type: "combobox",
+                    id: "tag",
+                    title: resources.ByTag,
+                    filtertitle: resources.Tag + ":",
+                    group: resources.Other,
+                    hashmask: "combobox/{0}",
+                    options: tags,
+                    defaulttitle: resources.Select
+                });
+            }
+            self.filters = filters;
         }
 
-        self.filters = filters;
-        self.sorters = sorters;
+        if (typeof self.sorters == "undefined") {
+            var sorters =
+            [
+                { id: "title", title: resources.ByTitle, sortOrder: "ascending", def: true },
+                { id: "create_on", title: resources.ByCreateDate, sortOrder: "descending" }
+            ];
+            self.sorters = sorters;
+        }
+
         self.colCount = 2;
 
-        var filter = ASC.Projects.ProjectsAdvansedFilter.init(self);
-
-        if (!isSimpleView) {
-            //filter
-            ASC.Projects.ProjectsAdvansedFilter.filter.one("adv-ready", function () {
-                var projectAdvansedFilterContainer = jq("#ProjectsAdvansedFilter .advansed-filter-list");
-                projectAdvansedFilterContainer.find("li[data-id='me_team_member'] .inner-text").trackEvent(ga_Categories.projects, ga_Actions.filterClick, 'me_team_member');
-                projectAdvansedFilterContainer.find("li[data-id='team_member'] .inner-text").trackEvent(ga_Categories.projects, ga_Actions.filterClick, 'team_member');
-                projectAdvansedFilterContainer.find("li[data-id='me_project_manager'] .inner-text").trackEvent(ga_Categories.projects, ga_Actions.filterClick, 'me_project_manager');
-                projectAdvansedFilterContainer.find("li[data-id='project_manager'] .inner-text").trackEvent(ga_Categories.projects, ga_Actions.filterClick, 'project_manager');
-                projectAdvansedFilterContainer.find("li[data-id='open'] .inner-text").trackEvent(ga_Categories.projects, ga_Actions.filterClick, 'open');
-                projectAdvansedFilterContainer.find("li[data-id='closed'] .inner-text").trackEvent(ga_Categories.projects, ga_Actions.filterClick, 'closed');
-                projectAdvansedFilterContainer.find("li[data-id='paused'] .inner-text").trackEvent(ga_Categories.projects, ga_Actions.filterClick, 'paused');
-                projectAdvansedFilterContainer.find("li[data-id='followed'] .inner-text").trackEvent(ga_Categories.projects, ga_Actions.filterClick, 'followed');
-                projectAdvansedFilterContainer.find("li[data-id='tag'] .inner-text").trackEvent(ga_Categories.projects, ga_Actions.filterClick, 'tag');
-                jq("#ProjectsAdvansedFilter .btn-toggle-sorter").trackEvent(ga_Categories.projects, ga_Actions.filterClick, 'sort');
-                jq("#ProjectsAdvansedFilter .advansed-filter-input").trackEvent(ga_Categories.projects, ga_Actions.filterClick, "search_text", "enter");
-            });
-        }
-        
-        return filter;
+        return ASC.Projects.ProjectsAdvansedFilter.init(self);
     };
 
 
@@ -360,7 +336,7 @@ ASC.Projects.AllProject = (function () {
 
         clearTimeout(projDescribeTimeout);
         overProjDescrPanel = false;
-        hideDescrPanel();
+        
 
         projectItem = getProjTmpl(projectItem);
         jq.tmpl("projects_projectTmpl", projectItem).prependTo($projectsTableBody);
@@ -409,7 +385,7 @@ ASC.Projects.AllProject = (function () {
             .on("click.projectsShowProjDescribePanel", function (event) {
             var elt = (event.target) ? event.target : event.srcElement;
             var isHide = true;
-            if (jq(elt).is('[id="#projectDescrPanel"]')) {
+            if (jq(elt).is('[id="#projectDescrPanel"]') || jq(elt).parents('#projectDescrPanel').length) {
                 isHide = false;
             }
 
@@ -422,40 +398,36 @@ ASC.Projects.AllProject = (function () {
                 });
 
             if (isHide) {
-                jq('.studio-action-panel').hide();
+                describePanel.hide();
             }
         });
     };
 
     var getData = function () {
         self.showLoader();
-        self.currentFilter.Count = self.entryCountOnPage;
-        self.currentFilter.StartIndex = self.entryCountOnPage * self.currentPage;
-
-        Teamlab.getPrjProjects({}, { filter: self.currentFilter });
+        self.currentFilter.Count = ASC.Projects.PageNavigator.entryCountOnPage;
+        self.currentFilter.StartIndex = ASC.Projects.PageNavigator.entryCountOnPage * ASC.Projects.PageNavigator.currentPage;
+        Teamlab.getPrjProjects({}, { filter: self.currentFilter, success: onGetListProject });
     };
 
     var onGetListProject = function (params, listProj) {
         $projectsTableBody = projectsTable.find('tbody');
-        if (typeof (isSimpleView) != "undefined" && isSimpleView == false) {
-            self.clearTables();
+
+        if (typeof (isSimpleView) != "undefined" && isSimpleView === false) {
             filterProjCount = params.__total != undefined ? params.__total : 0;
         }
-
+        
         clearTimeout(projDescribeTimeout);
         overProjDescrPanel = false;
-        hideDescrPanel();
-
-        $projectsTableBody.empty();
 
         if (listProj.length != 0) {
-            $projectsTableBody.append(jq.tmpl("projects_projectTmpl", listProj.map(getProjTmpl)));
+            $projectsTableBody.html(jq.tmpl("projects_projectTmpl", listProj.map(getProjTmpl)));
 
             prjEmptyScreenForFilter.hide();
             projectsTable.show();
         }
         else {
-            jq('#tableForNavigation').hide();
+            ASC.Projects.PageNavigator.hide();
             projectsTable.hide();
             if (ASC.Projects.ProjectsAdvansedFilter.baseFilter) {
                 prjEmptyScreenForFilter.hide();
@@ -467,11 +439,11 @@ ASC.Projects.AllProject = (function () {
                 projectsAdvansedFilter.show();
             }
         }
-        if (typeof(isSimpleView) != "undefined" && isSimpleView == false) {
-            self.updatePageNavigator(filterProjCount);
+
+        if (typeof (isSimpleView) != "undefined" && isSimpleView == false) {
+            ASC.Projects.PageNavigator.update(filterProjCount);
             self.hideLoader();
         }
-
     };
 
     var changeStatus = function (item) {
@@ -591,6 +563,6 @@ ASC.Projects.AllProject = (function () {
         createAdvansedFilter: createAdvansedFilter,
         unbindListEvents: unbindListEvents,
         basePath: 'sortBy=create_on&sortOrder=ascending'
-    }, ASC.Projects.Common);
+    }, ASC.Projects.Base);
 })(jQuery);
 

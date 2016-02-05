@@ -24,12 +24,12 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Files.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ASC.Files.Thirdparty.GoogleDrive
 {
@@ -65,37 +65,38 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         public IEnumerable<Tag> GetNewTags(Guid subject, Folder parentFolder, bool deepSearch)
         {
             var folderId = GoogleDriveDaoSelector.ConvertId(parentFolder.ID);
-
             var fakeFolderId = parentFolder.ID.ToString();
 
-            var entryIDs = DbManager.ExecuteList(Query("files_thirdparty_id_mapping")
-                                                     .Select("hash_id")
-                                                     .Where(Exp.Like("id", fakeFolderId, SqlLike.StartWith)))
-                                    .ConvertAll(x => x[0]);
+            using (var db = GetDb())
+            {
+                var entryIDs = db.ExecuteList(Query("files_thirdparty_id_mapping")
+                                                         .Select("hash_id")
+                                                         .Where(Exp.Like("id", fakeFolderId, SqlLike.StartWith)))
+                                        .ConvertAll(x => x[0]);
 
-            if (!entryIDs.Any()) return new List<Tag>();
+                if (!entryIDs.Any()) return new List<Tag>();
 
-            var sqlQuery = new SqlQuery("files_tag ft")
-                .Select("ft.name",
-                        "ft.flag",
-                        "ft.owner",
-                        "ftl.entry_id",
-                        "ftl.entry_type",
-                        "ftl.tag_count",
-                        "ft.id")
-                .Distinct()
-                .LeftOuterJoin("files_tag_link ftl",
-                               Exp.EqColumns("ft.tenant_id", "ftl.tenant_id") &
-                               Exp.EqColumns("ft.id", "ftl.tag_id"))
-                .Where(Exp.Eq("ft.tenant_id", TenantID) &
-                       Exp.Eq("ftl.tenant_id", TenantID) &
-                       Exp.Eq("ft.flag", (int)TagType.New) &
-                       Exp.In("ftl.entry_id", entryIDs));
+                var sqlQuery = new SqlQuery("files_tag ft")
+                    .Select("ft.name",
+                            "ft.flag",
+                            "ft.owner",
+                            "ftl.entry_id",
+                            "ftl.entry_type",
+                            "ftl.tag_count",
+                            "ft.id")
+                    .Distinct()
+                    .LeftOuterJoin("files_tag_link ftl",
+                                   Exp.EqColumns("ft.tenant_id", "ftl.tenant_id") &
+                                   Exp.EqColumns("ft.id", "ftl.tag_id"))
+                    .Where(Exp.Eq("ft.tenant_id", TenantID) &
+                           Exp.Eq("ftl.tenant_id", TenantID) &
+                           Exp.Eq("ft.flag", (int)TagType.New) &
+                           Exp.In("ftl.entry_id", entryIDs));
 
-            if (subject != Guid.Empty)
-                sqlQuery.Where(Exp.Eq("ft.owner", subject));
+                if (subject != Guid.Empty)
+                    sqlQuery.Where(Exp.Eq("ft.owner", subject));
 
-            var tags = DbManager.ExecuteList(sqlQuery).ConvertAll(r => new Tag
+                var tags = db.ExecuteList(sqlQuery).ConvertAll(r => new Tag
                 {
                     TagName = Convert.ToString(r[0]),
                     TagType = (TagType)r[1],
@@ -106,12 +107,13 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                     Id = Convert.ToInt32(r[6])
                 });
 
-            if (deepSearch) return tags;
+                if (deepSearch) return tags;
 
-            var folderFileIds = new[] { fakeFolderId }
-                .Concat(GetChildren(folderId));
+                var folderFileIds = new[] { fakeFolderId }
+                    .Concat(GetChildren(folderId));
 
-            return tags.Where(tag => folderFileIds.Contains(tag.EntryId.ToString()));
+                return tags.Where(tag => folderFileIds.Contains(tag.EntryId.ToString()));
+            }
         }
 
         public IEnumerable<Tag> GetNewTags(Guid subject, params FileEntry[] fileEntries)

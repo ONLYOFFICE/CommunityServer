@@ -347,8 +347,6 @@ namespace ASC.Files.Core.Security
                     if (action == FilesSecurityActions.Read && e.Access <= FileShare.Read) result.Add(e);
                     else if (action == FilesSecurityActions.Edit && e.Access <= FileShare.ReadWrite) result.Add(e);
                     else if (action == FilesSecurityActions.Create && e.Access <= FileShare.ReadWrite) result.Add(e);
-                        // can't delete in My other people's files
-                    else if (action == FilesSecurityActions.Delete && e.Access <= FileShare.ReadWrite && e.RootFolderType == FolderType.COMMON) result.Add(e);
                     else if (e.Access <= FileShare.Read && e.CreateBy == userId && (e is File || ((Folder) e).FolderType != FolderType.COMMON)) result.Add(e);
 
                     if (e.CreateBy == userId) e.Access = FileShare.None; //HACK: for client
@@ -473,7 +471,7 @@ namespace ASC.Files.Core.Security
             }
         }
 
-        public List<FileEntry> GetSharesForMe()
+        public List<FileEntry> GetSharesForMe(string searchText = "", bool searchSubfolders = false)
         {
             using (var folderDao = daoFactory.GetFolderDao())
             using (var fileDao = daoFactory.GetFileDao())
@@ -516,8 +514,8 @@ namespace ASC.Files.Core.Security
                                           x.Access = fileIds[x.ID];
                                   });
 
-                var folders = folderDao.GetFolders(folderIds.Keys.ToArray());
-
+                var folders = folderDao.GetFolders(folderIds.Keys.ToArray(), searchText, searchSubfolders);
+                folders = FilterRead(folders).ToList();
                 folders.ForEach(x =>
                                     {
                                         if (folderIds.ContainsKey(x.ID))
@@ -525,6 +523,13 @@ namespace ASC.Files.Core.Security
                                     });
 
                 var entries = files.Concat(folders.Cast<FileEntry>()).ToList();
+
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    var filesInSharedFolders = fileDao.GetFiles(folderIds.Keys.ToArray(), searchText, searchSubfolders);
+                    filesInSharedFolders = FilterRead(filesInSharedFolders).ToList();
+                    entries.AddRange(filesInSharedFolders);
+                }
 
                 var failedEntries = entries.Where(x => !String.IsNullOrEmpty(x.Error));
                 var failedRecords = new List<FileShareRecord>();
@@ -560,10 +565,14 @@ namespace ASC.Files.Core.Security
         public List<Guid> GetUserSubjects(Guid userId)
         {
             // priority order
-            // User, Departments, SystemGroups
-            return new[] {userId}
-                .Union(CoreContext.UserManager.GetUserGroups(userId, IncludeType.Distinct).Select(g => g.ID))
-                .ToList();
+            // User, Departments, admin, everyone
+
+            var result = new List<Guid> {userId};
+            result.AddRange(CoreContext.UserManager.GetUserGroups(userId).Select(g => g.ID));
+            if (IsAdministrator(userId)) result.Add(Constants.GroupAdmin.ID);
+            result.Add(Constants.GroupEveryone.ID);
+
+            return result;
         }
 
         private class SubjectComparer : IComparer<FileShareRecord>

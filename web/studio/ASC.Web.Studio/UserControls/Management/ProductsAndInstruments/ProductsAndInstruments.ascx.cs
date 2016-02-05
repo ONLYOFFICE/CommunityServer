@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -114,9 +114,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
         private void RegisterClientScript()
         {
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/productsandinstruments/js/productsandinstruments.js"));
-
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/productsandinstruments/css/productsandinstruments.less"));
+            Page.RegisterBodyScripts("~/usercontrols/management/productsandinstruments/js/productsandinstruments.js");
+            Page.RegisterStyle("~/usercontrols/management/productsandinstruments/css/productsandinstruments.less");
         }
 
         #endregion

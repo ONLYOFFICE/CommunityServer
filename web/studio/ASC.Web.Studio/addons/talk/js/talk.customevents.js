@@ -1,9 +1,4 @@
-﻿/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
-
-window.CustomEvent = function (newEvents) {
+﻿window.CustomEvent = function (newEvents) {
   if (typeof this.supportedEvents === 'undefined') {
     this.supportedEvents = [];
   }

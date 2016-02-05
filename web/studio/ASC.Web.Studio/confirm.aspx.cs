@@ -42,7 +42,7 @@ using ASC.Web.Studio.UserControls.FirstTime;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.Utility;
 using Resources;
-using ASC.Web.Core.CoBranding;
+using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.Studio
 {
@@ -62,8 +62,6 @@ namespace ASC.Web.Studio
         {
             get { return true; }
         }
-
-        protected TenantInfoSettings _tenantInfoSettings;
 
         public string ErrorMessage { get; set; }
 
@@ -97,8 +95,6 @@ namespace ASC.Web.Studio
             Master.TopStudioPanel.DisableSettings = true;
             Master.TopStudioPanel.DisableTariff = true;
             Master.TopStudioPanel.DisableLoginPersonal = true;
-
-            _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
 
             _email = Request["email"] ?? "";
 

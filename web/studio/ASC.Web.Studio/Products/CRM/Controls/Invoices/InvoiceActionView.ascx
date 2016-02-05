@@ -85,7 +85,7 @@
             <div class="header-bottom-splitter">
                 <span class="header-base-small headerPanelSmall"><%= CRMInvoiceResource.DueDate %>:</span>
                 <span class="HelpCenterSwitcher" id="duedatePresetHelpSwitcher"></span>
-                <div class="popup_helper" id="duedatePresetHelpInfo"><%= CRMInvoiceResource.DueDateHelpInfoText %></div>
+                <div class="popup_helper" id="duedatePresetHelpInfo"><%: CRMInvoiceResource.DueDateHelpInfoText %></div>
             </div>
             <input type="text" id="invoiceDueDate" class="textEdit textEditCalendar" name="invoiceDueDate" />
             <span class="splitter"></span>
@@ -145,9 +145,7 @@
             <a id="exchangeRateSaveBtn" class="button gray middle"><%= CRMCommonResource.Save %></a>
             <span class="splitter-buttons"></span>
             <span id="exchangeRateSavedText" class="gray display-none"><%= CRMSettingResource.SaveCompleted %></span>
-            <div class="popup_helper" id="currencyHelpInfo">
-                <%= CRMInvoiceResource.InvoiceCurrencyHelpInfo %>
-            </div>
+            <div class="popup_helper" id="currencyHelpInfo"><%= CRMInvoiceResource.InvoiceCurrencyHelpInfo %></div>
         </div>
 
         <div class="headerPanelSmall-splitter">
@@ -167,7 +165,7 @@
             <div class="header-bottom-splitter">
                 <span class="header-base-small headerPanelSmall"><%= CRMInvoiceResource.ClientNotes %>:</span>
                 <span class="HelpCenterSwitcher" id="clientNotesHelpSwitcher"></span>
-                <div class="popup_helper" id="clientNotesHelpInfo"><%= CRMInvoiceResource.ClientNotessHelpInfoText %></div>
+                <div class="popup_helper" id="clientNotesHelpInfo"><%: CRMInvoiceResource.ClientNotessHelpInfoText %></div>
             </div>
             <textarea id="invoiceDescription" name="invoiceDescription"></textarea>
         </div>

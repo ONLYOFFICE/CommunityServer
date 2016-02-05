@@ -46,7 +46,6 @@ if (typeof ASC.Mail.Utility === 'undefined') {
             if (is_init) return;
 
             window.Teamlab.bind(window.Teamlab.events.getAccounts, onGetMailAccounts);
-            window.Teamlab.bind(window.Teamlab.events.getMailRandomGuid, onGetMailStreamId);
             window.Teamlab.bind(window.Teamlab.events.saveMailMessage, onSaveMessage);
             window.Teamlab.bind(window.Teamlab.events.addMailDocument, onAttachDocument);
 
@@ -65,29 +64,21 @@ if (typeof ASC.Mail.Utility === 'undefined') {
                 return;
             }
             message.from = accounts[0].email;
-            window.Teamlab.getMailRandomGuid({ message: message }, { error: onApiError });
-        }
 
-        function onGetMailStreamId(parameters, guid) {
-            var message = parameters.message;
-                message.streamId = guid;
-            
             window.Teamlab.saveMailMessage(
                 { message: message },
                 message.id,
                 message.from,
-                message.subject,
                 message.to,
                 message.cc,
                 message.bcc,
+                message.mimeMessageId,
+                message.importance,
+                message.subject,
+                message.tags,
                 message.body,
                 message.attachments,
-                message.streamId,
-                message.mimeMessageId,
-                message.mimeReplyToId,
-                message.importance,
-                message.tags,
-                { error: onApiError });
+               { error: onApiError });
         }
 
         function onSaveMessage(parameters, savedMessage) {

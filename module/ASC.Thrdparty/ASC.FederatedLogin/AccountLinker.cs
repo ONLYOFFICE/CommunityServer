@@ -24,7 +24,7 @@
 */
 
 
-using ASC.Collections;
+using ASC.Common.Caching;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -36,62 +36,69 @@ namespace ASC.FederatedLogin
 {
     public class AccountLinker
     {
-        private readonly string _dbid;
-        private const string LinkTable = "account_links";
+        private static readonly ICache cache = AscCache.Memory;
+        private static readonly ICacheNotify notify = AscCache.Notify;
+        private readonly string dbid;
 
-        private static readonly CachedDictionary<IEnumerable<LoginProfile>> CacheEntry = new CachedDictionary<IEnumerable<LoginProfile>>("account_links", x => true);
+
+        static AccountLinker()
+        {
+            notify.Subscribe<LinkerCacheItem>((c, a) => cache.Remove(c.Obj));
+        }
+
 
         public AccountLinker(string dbid)
         {
-            _dbid = dbid;
+            this.dbid = dbid;
         }
 
         public IEnumerable<string> GetLinkedObjects(string id, string provider)
         {
-            return GetLinkedObjects(new LoginProfile {Id = id, Provider = provider});
+            return GetLinkedObjects(new LoginProfile { Id = id, Provider = provider });
         }
 
         public IEnumerable<string> GetLinkedObjects(LoginProfile profile)
         {
-            //Retrieve by uinque id
             return GetLinkedObjectsByHashId(profile.HashId);
         }
 
         public IEnumerable<string> GetLinkedObjectsByHashId(string hashid)
         {
-            //Retrieve by uinque id
-            using (var db = new DbManager(_dbid))
+            using (var db = new DbManager(dbid))
             {
-                var query = new SqlQuery(LinkTable)
+                var query = new SqlQuery("account_links")
                     .Select("id").Where("uid", hashid).Where(!Exp.Eq("provider", string.Empty));
-                return db.ExecuteList(query).ConvertAll(x => (string) x[0]);
+                return db.ExecuteList(query).ConvertAll(x => (string)x[0]);
             }
         }
 
         public IEnumerable<LoginProfile> GetLinkedProfiles(string obj)
         {
-            return CacheEntry.Get(obj, () => GetLinkedProfilesFromDB(obj));
+            var profiles = cache.Get<List<LoginProfile>>(obj);
+            if (profiles == null)
+            {
+                cache.Insert(obj, profiles = GetLinkedProfilesFromDB(obj), DateTime.UtcNow + TimeSpan.FromMinutes(10));
+            }
+            return profiles;
         }
 
-        private IEnumerable<LoginProfile> GetLinkedProfilesFromDB(string obj)
+        private List<LoginProfile> GetLinkedProfilesFromDB(string obj)
         {
             //Retrieve by uinque id
-            using (var db = new DbManager(_dbid))
+            using (var db = new DbManager(dbid))
             {
-                var query = new SqlQuery(LinkTable)
+                var query = new SqlQuery("account_links")
                     .Select("profile").Where("id", obj);
-                return db.ExecuteList(query).ConvertAll(x => LoginProfile.CreateFromSerializedString((string) x[0]));
+                return db.ExecuteList(query).ConvertAll(x => LoginProfile.CreateFromSerializedString((string)x[0]));
             }
         }
 
         public void AddLink(string obj, LoginProfile profile)
         {
-            CacheEntry.Reset(obj);
-
-            using (var db = new DbManager(_dbid))
+            using (var db = new DbManager(dbid))
             {
                 db.ExecuteScalar<int>(
-                    new SqlInsert(LinkTable, true)
+                    new SqlInsert("account_links", true)
                         .InColumnValue("id", obj)
                         .InColumnValue("uid", profile.HashId)
                         .InColumnValue("provider", profile.Provider)
@@ -99,16 +106,17 @@ namespace ASC.FederatedLogin
                         .InColumnValue("linked", DateTime.UtcNow)
                     );
             }
+            notify.Publish(new LinkerCacheItem { Obj = obj }, CacheNotifyAction.Remove);
         }
 
         public void AddLink(string obj, string id, string provider)
         {
-            AddLink(obj, new LoginProfile {Id = id, Provider = provider});
+            AddLink(obj, new LoginProfile { Id = id, Provider = provider });
         }
 
         public void RemoveLink(string obj, string id, string provider)
         {
-            RemoveLink(obj, new LoginProfile {Id = id, Provider = provider});
+            RemoveLink(obj, new LoginProfile { Id = id, Provider = provider });
         }
 
         public void RemoveLink(string obj, LoginProfile profile)
@@ -118,17 +126,23 @@ namespace ASC.FederatedLogin
 
         public void RemoveProvider(string obj, string provider = null, string hashId = null)
         {
-            CacheEntry.Reset(obj);
-
-            var sql = new SqlDelete(LinkTable).Where("id", obj);
+            var sql = new SqlDelete("account_links").Where("id", obj);
 
             if (!string.IsNullOrEmpty(provider)) sql.Where("provider", provider);
             if (!string.IsNullOrEmpty(hashId)) sql.Where("uid", hashId);
 
-            using (var db = new DbManager(_dbid))
+            using (var db = new DbManager(dbid))
             {
                 db.ExecuteScalar<int>(sql);
             }
+            notify.Publish(new LinkerCacheItem { Obj = obj }, CacheNotifyAction.Remove);
+        }
+
+
+        [Serializable]
+        class LinkerCacheItem
+        {
+            public string Obj { get; set; }
         }
     }
 }

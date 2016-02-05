@@ -35,15 +35,44 @@ body {
     margin: 0 auto;
 
     .head-subject {
-        margin: 20px 0 10px 30px;
+        margin: 20px 0 14px 0;
 
         .viewTitle {
             margin-left: 0;
         }
     }
 
+    .quote-hidden-msg {
+        color: #b2b2b2;
+    }
+
     .message-print-box {
         margin-bottom: 50px;
+
+        .head {
+            background-color: transparent;
+
+            .row {
+                padding: 0;
+                line-height: 20px;
+                min-height: 20px;
+
+                label {
+                    color: #333;
+                    width: auto;
+                    font-weight: bold;
+                }
+            }
+        }
+
+        .body {
+            margin-top: 14px;
+            margin-left: 48px;
+        }
+
+        .attachments {
+            margin-top: 10px;
+        }
 
         .attachments_list {
             .row:hover {

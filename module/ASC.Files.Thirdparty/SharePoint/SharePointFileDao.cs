@@ -28,7 +28,9 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ASC.Core;
 using ASC.Files.Core;
+using ASC.Web.Core.Files;
 using File = ASC.Files.Core.File;
 
 namespace ASC.Files.Thirdparty.SharePoint
@@ -73,6 +75,76 @@ namespace ASC.Files.Thirdparty.SharePoint
         public List<File> GetFiles(object[] fileIds)
         {
             return fileIds.Select(fileId => ProviderInfo.ToFile(ProviderInfo.GetFileById(fileId))).ToList();
+        }
+
+        public List<object> GetFiles(object parentId, bool withSubfolders)
+        {
+            return ProviderInfo.GetFolderFiles(parentId).Select(r => ProviderInfo.ToFile(r).ID).ToList();
+        }
+
+        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        {
+            return new List<File>();
+        }
+
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false)
+        {
+            //Get only files
+            var files = ProviderInfo.GetFolderFiles(parentId).Select(r => ProviderInfo.ToFile(r));
+            //Filter
+            switch (filterType)
+            {
+                case FilterType.ByUser:
+                    files = files.Where(x => x.CreateBy == subjectID);
+                    break;
+                case FilterType.ByDepartment:
+                    files = files.Where(x => CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID));
+                    break;
+                case FilterType.FoldersOnly:
+                    return new List<File>();
+                case FilterType.DocumentsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Document).ToList();
+                    break;
+                case FilterType.PresentationsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Presentation).ToList();
+                    break;
+                case FilterType.SpreadsheetsOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Spreadsheet).ToList();
+                    break;
+                case FilterType.ImagesOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Image).ToList();
+                    break;
+                case FilterType.ArchiveOnly:
+                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Archive).ToList();
+                    break;
+                case FilterType.ByExtension:
+                    if (!string.IsNullOrEmpty(searchText))
+                        files = files.Where(x => FileUtility.GetFileExtension(x.Title).Contains(searchText));
+                    break;
+            }
+
+            if (!string.IsNullOrEmpty(searchText))
+                files = files.Where(x => x.Title.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) != -1).ToList();
+
+            if (orderBy == null) orderBy = new OrderBy(SortedByType.DateAndTime, false);
+
+            switch (orderBy.SortedBy)
+            {
+                case SortedByType.Author:
+                    files = orderBy.IsAsc ? files.OrderBy(x => x.CreateBy) : files.OrderByDescending(x => x.CreateBy);
+                    break;
+                case SortedByType.AZ:
+                    files = orderBy.IsAsc ? files.OrderBy(x => x.Title) : files.OrderByDescending(x => x.Title);
+                    break;
+                case SortedByType.DateAndTime:
+                    files = orderBy.IsAsc ? files.OrderBy(x => x.CreateOn) : files.OrderByDescending(x => x.CreateOn);
+                    break;
+                default:
+                    files = orderBy.IsAsc ? files.OrderBy(x => x.Title) : files.OrderByDescending(x => x.Title);
+                    break;
+            }
+
+            return files.ToList();
         }
 
         public Stream GetFileStream(File file)
@@ -152,10 +224,10 @@ namespace ASC.Files.Thirdparty.SharePoint
             return ProviderInfo.ToFile(ProviderInfo.CopyFile(fileId, toFolderId));
         }
 
-        public object FileRename(object fileId, string newTitle)
+        public object FileRename(File file, string newTitle)
         {
-            var newFileId = ProviderInfo.RenameFile((string)fileId, newTitle);
-            UpdatePathInDB(ProviderInfo.MakeId((string)fileId), (string)newFileId);
+            var newFileId = ProviderInfo.RenameFile((string) file.ID, newTitle);
+            UpdatePathInDB(ProviderInfo.MakeId((string) file.ID), (string) newFileId);
             return newFileId;
         }
 
@@ -245,7 +317,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             return null;
         }
 
-        public string GetDifferenceUrl(File file)
+        public Stream GetDifferenceStream(File file)
         {
             return null;
         }

@@ -12,8 +12,8 @@
     <p>
         Every request to the API supports a certain number of parameters sent in the URL
         <br/>
-        I.e. the request <a class="underline" href="<%=Url.DocUrl("people", null, "get", "api/2.0/people", "portals")%>">api/2.0/people</a> can be appended with several parameters, 
-        for example <a class="underline" href="<%=Url.DocUrl("people", null, "get", "api/2.0/people", "portals")%>">api/2.0/people?startIndex=10&amp;count=25</a>
+        I.e. the request <a class="underline" href="<%= Url.DocUrl("people", null, "get", "api/2.0/people", "portals") %>">api/2.0/people</a> can be appended with several parameters, 
+        for example <a class="underline" href="<%= Url.DocUrl("people", null, "get", "api/2.0/people", "portals") %>">api/2.0/people?startIndex=10&amp;count=25</a>
     </p>
 
     <table class="table">
@@ -44,7 +44,7 @@
                 <td>sortOrder</td>
                 <td>
                     Sorting direction. Can be "descending" or "ascending". For example, used together with sortBy:<br/>
-                    <a class="underline" href="<%=Url.DocUrl("people", null, "get", "api/2.0/people", "portals")%>">api/2.0/people?sortBy=userName&amp;sortOrder=descending</a>                 
+                    <a class="underline" href="<%= Url.DocUrl("people", null, "get", "api/2.0/people", "portals") %>">api/2.0/people?sortBy=userName&amp;sortOrder=descending</a>                 
                 </td>
             </tr>
             <tr class="tablerow">
@@ -59,7 +59,7 @@
                 <td>filterValue</td>
                 <td>
                     Filter value. For example, used together with filterBy and filterOp:<br/>
-                    <a class="underline" href="<%=Url.DocUrl("people", null, "get", "api/2.0/people", "portals")%>">api/2.0/people?filterBy=userName&amp;filterOp=startsWith&amp;filterValue=Alex</a>                 
+                    <a class="underline" href="<%= Url.DocUrl("people", null, "get", "api/2.0/people", "portals") %>">api/2.0/people?filterBy=userName&amp;filterOp=startsWith&amp;filterValue=Alex</a>                 
                 </td>
             </tr>
             <tr class="tablerow">

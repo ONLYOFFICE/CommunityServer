@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Net;
 using System.Security.Cryptography;
@@ -35,6 +36,7 @@ using System.Xml;
 using System.Xml.Linq;
 using ASC.Common.Utils;
 using ASC.Core;
+using Newtonsoft.Json.Linq;
 
 namespace ASC.Web.Core.Files
 {
@@ -79,9 +81,10 @@ namespace ASC.Web.Core.Files
         /// <returns>Supported key</returns>
         public static string GenerateRevisionId(string expectedKey)
         {
+            expectedKey = expectedKey ?? "";
             const int maxLength = 20;
             if (expectedKey.Length > maxLength) expectedKey = Convert.ToBase64String(SHA256.Create().ComputeHash(Encoding.UTF8.GetBytes(expectedKey)));
-            var key = Regex.Replace(expectedKey, "[^0-9-.a-zA-Z_=]", "_");
+            var key = Regex.Replace(expectedKey, "[^0-9a-zA-Z_]", "_");
             return key.Substring(key.Length - Math.Min(key.Length, maxLength));
         }
 
@@ -133,13 +136,78 @@ namespace ASC.Web.Core.Files
             bool isAsync,
             out string convertedDocumentUri)
         {
-            var xDocumentResponse = Request(
-                documentConverterUrl,
-                documentUri,
-                fromExtension,
-                toExtension,
-                documentRevisionId,
-                isAsync);
+            fromExtension = string.IsNullOrEmpty(fromExtension) ? Path.GetExtension(documentUri) : fromExtension;
+            if (string.IsNullOrEmpty(fromExtension)) throw new ArgumentNullException("fromExtension", "Document's extension is not known");
+
+            var title = Path.GetFileName(documentUri ?? "");
+            title = string.IsNullOrEmpty(title) || title.Contains("?") ? Guid.NewGuid().ToString() : title;
+
+            documentRevisionId = string.IsNullOrEmpty(documentRevisionId)
+                                     ? documentUri
+                                     : documentRevisionId;
+            documentRevisionId = GenerateRevisionId(documentRevisionId);
+
+            var validateKey = GenerateValidateKey(documentRevisionId, string.Empty);
+
+            var urlDocumentService = documentConverterUrl + RequestParams;
+            var urlToConverter = String.Format(urlDocumentService,
+                                               HttpUtility.UrlEncode(documentUri),
+                                               (toExtension ?? "").Trim('.'),
+                                               fromExtension.Trim('.'),
+                                               HttpUtility.UrlEncode(title),
+                                               documentRevisionId,
+                                               validateKey);
+
+            if (isAsync)
+                urlToConverter += "&async=true";
+
+            var req = (HttpWebRequest) WebRequest.Create(urlToConverter);
+            req.Timeout = Timeout;
+
+            // hack. http://ubuntuforums.org/showthread.php?t=1841740
+            if (WorkContext.IsMono)
+            {
+                ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
+            }
+
+            Stream stream = null;
+            var countTry = 0;
+            XDocument xDocumentResponse;
+            WebResponse response = null;
+            try
+            {
+                while (countTry < MaxTry)
+                {
+                    try
+                    {
+                        countTry++;
+                        response = req.GetResponse();
+                        stream = response.GetResponseStream();
+                        break;
+                    }
+                    catch (WebException ex)
+                    {
+                        if (ex.Status != WebExceptionStatus.Timeout)
+                        {
+                            throw new HttpException((int) HttpStatusCode.BadRequest, ex.Message, ex);
+                        }
+                    }
+                }
+                if (countTry == MaxTry)
+                {
+                    throw new WebException("Timeout", WebExceptionStatus.Timeout);
+                }
+
+                if (stream == null) throw new WebException("Could not get an answer");
+                xDocumentResponse = XDocument.Load(new XmlTextReader(stream));
+                stream.Dispose();
+            }
+            finally
+            {
+                if (response != null)
+                    response.Dispose();
+            }
+
             return GetResponseUri(xDocumentResponse, out convertedDocumentUri);
         }
 
@@ -171,14 +239,19 @@ namespace ASC.Web.Core.Files
             var request = (HttpWebRequest)WebRequest.Create(urlTostorage);
             request.Method = "POST";
             request.ContentType = contentType;
-            request.ContentLength = fileStream.Length;
 
-            const int bufferSize = 2048;
-            var buffer = new byte[bufferSize];
-            int readed;
-            while ((readed = fileStream.Read(buffer, 0, bufferSize)) > 0)
+            if (fileStream != null)
             {
-                request.GetRequestStream().Write(buffer, 0, readed);
+                if (fileStream.Length > 0)
+                    request.ContentLength = fileStream.Length;
+
+                const int bufferSize = 2048;
+                var buffer = new byte[bufferSize];
+                int readed;
+                while ((readed = fileStream.Read(buffer, 0, bufferSize)) > 0)
+                {
+                    request.GetRequestStream().Write(buffer, 0, readed);
+                }
             }
 
             // hack. http://ubuntuforums.org/showthread.php?t=1841740
@@ -208,9 +281,9 @@ namespace ASC.Web.Core.Files
         /// <param name="users">users id for drop</param>
         /// <param name="status">saving status</param>
         /// <returns>Response</returns>
-        public string CommandRequest(
+        public CommandResultTypes CommandRequest(
             string documentTrackerUrl,
-            string method,
+            CommandMethod method,
             string documentRevisionId,
             string callbackUrl,
             string users,
@@ -220,7 +293,7 @@ namespace ASC.Web.Core.Files
 
             var urlDocumentService = documentTrackerUrl + RequestTrackParams;
             var urlToTrack = String.Format(urlDocumentService,
-                                           method,
+                                           method.ToString().ToLower(CultureInfo.InvariantCulture),
                                            documentRevisionId,
                                            validateKey,
                                            HttpUtility.UrlEncode(callbackUrl ?? ""),
@@ -230,18 +303,20 @@ namespace ASC.Web.Core.Files
             var request = (HttpWebRequest)WebRequest.Create(urlToTrack);
             request.Method = "GET";
 
-            string data;
-
             // hack. http://ubuntuforums.org/showthread.php?t=1841740
             if (WorkContext.IsMono)
             {
                 ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
             }
 
+            string data;
             using (var response = request.GetResponse())
             using (var stream = response.GetResponseStream())
             {
-                if (stream == null) return null;
+                if (stream == null)
+                {
+                    throw new Exception("Response is null");
+                }
 
                 using (var reader = new StreamReader(stream))
                 {
@@ -249,82 +324,33 @@ namespace ASC.Web.Core.Files
                 }
             }
 
-            return data;
+            var jResponse = JObject.Parse(data);
+
+            return (CommandResultTypes)jResponse.Value<int>("error");
         }
 
-        #region private
-
-        /// <summary>
-        /// Request for conversion to a service
-        /// </summary>
-        /// <param name="documentConverterUrl">Url to the service of conversion</param>
-        /// <param name="documentUri">Uri for the document to convert</param>
-        /// <param name="fromExtension">Document extension</param>
-        /// <param name="toExtension">Extension to which to convert</param>
-        /// <param name="documentRevisionId">Key for caching on service</param>
-        /// <param name="isAsync">Perform conversions asynchronously</param>
-        /// <returns>Xml document request result of conversion</returns>
-        private XDocument Request(string documentConverterUrl, string documentUri, string fromExtension, string toExtension, string documentRevisionId, bool isAsync)
+        public enum CommandMethod
         {
-            fromExtension = string.IsNullOrEmpty(fromExtension) ? Path.GetExtension(documentUri) : fromExtension;
-            if (string.IsNullOrEmpty(fromExtension)) throw new ArgumentNullException("fromExtension", "Document's extension is not known");
+            Info,
+            Drop,
+            Saved,
+            Test,
+        }
 
-            var title = Path.GetFileName(documentUri);
-            title = string.IsNullOrEmpty(title) || title.Contains("?") ? Guid.NewGuid().ToString() : title;
+        public enum CommandResultTypes
+        {
+            NoError = 0,
+            DocumentIdError = 1,
+            ParseError = 2,
+            CommandError = 3
+        }
 
-            documentRevisionId = string.IsNullOrEmpty(documentRevisionId)
-                                     ? documentUri
-                                     : documentRevisionId;
-            documentRevisionId = GenerateRevisionId(documentRevisionId);
-
-            var validateKey = GenerateValidateKey(documentRevisionId, string.Empty);
-
-            var urlDocumentService = documentConverterUrl + RequestParams;
-            var urlToConverter = String.Format(urlDocumentService,
-                                               HttpUtility.UrlEncode(documentUri),
-                                               toExtension.Trim('.'),
-                                               fromExtension.Trim('.'),
-                                               HttpUtility.UrlEncode(title),
-                                               documentRevisionId,
-                                               validateKey);
-
-            if (isAsync)
-                urlToConverter += "&async=true";
-
-            var req = (HttpWebRequest)WebRequest.Create(urlToConverter);
-            req.Timeout = Timeout;
-
-            // hack. http://ubuntuforums.org/showthread.php?t=1841740
-            if (WorkContext.IsMono)
+        public class DocumentServiceException : Exception
+        {
+            public DocumentServiceException(string message)
+                : base(message)
             {
-                ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
             }
-
-            Stream stream = null;
-            var countTry = 0;
-            while (countTry < MaxTry)
-            {
-                try
-                {
-                    countTry++;
-                    stream = req.GetResponse().GetResponseStream();
-                    break;
-                }
-                catch (WebException ex)
-                {
-                    if (ex.Status != WebExceptionStatus.Timeout)
-                    {
-                        throw new HttpException((int)HttpStatusCode.BadRequest, "Bad Request", ex);
-                    }
-                }
-            }
-            if (countTry == MaxTry)
-            {
-                throw new WebException("Timeout", WebExceptionStatus.Timeout);
-            }
-
-            if (stream == null) throw new WebException("Could not get an answer");
-            return XDocument.Load(new XmlTextReader(stream));
         }
 
         /// <summary>
@@ -407,9 +433,7 @@ namespace ASC.Web.Core.Files
                     break;
             }
 
-            throw new Exception(errorMessage);
+            throw new DocumentServiceException(errorMessage);
         }
-
-        #endregion
     }
 }

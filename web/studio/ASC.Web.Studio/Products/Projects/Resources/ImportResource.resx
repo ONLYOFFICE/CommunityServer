@@ -112,22 +112,16 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccessDenied" xml:space="preserve">
-    <value>No permissions for data import</value>
-  </data>
   <data name="Close" xml:space="preserve">
     <value>Close Window</value>
   </data>
   <data name="CompanyURL" xml:space="preserve">
     <value>The company URL</value>
-  </data>
-  <data name="EmptyToken" xml:space="preserve">
-    <value>The API Token field is empty</value>
   </data>
   <data name="EmptyURL" xml:space="preserve">
     <value>The URL field is empty</value>
@@ -146,21 +140,6 @@
   </data>
   <data name="ImportFromBasecamp" xml:space="preserve">
     <value>Import from Basecamp</value>
-  </data>
-  <data name="ImportInfoPanelContent" xml:space="preserve">
-    <value>Importing...</value>
-  </data>
-  <data name="ImportProjectsFromTheBaseCamp" xml:space="preserve">
-    <value>Import projects from Basecamp</value>
-  </data>
-  <data name="InfoModuleSettings" xml:space="preserve">
-    <value>You can block some Projects modules here</value>
-  </data>
-  <data name="InfoToken" xml:space="preserve">
-    <value>Basecamp access information is used only once for a single import and is not stored in the system</value>
-  </data>
-  <data name="ModuleSettings" xml:space="preserve">
-    <value>Module Settings</value>
   </data>
   <data name="OutOfThree" xml:space="preserve">
     <value>of 3</value>
@@ -183,53 +162,20 @@
   <data name="Projects" xml:space="preserve">
     <value>Projects</value>
   </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
   <data name="StartImport" xml:space="preserve">
     <value>Start Importing</value>
   </data>
   <data name="StatusAwaiting" xml:space="preserve">
     <value>awaiting</value>
   </data>
-  <data name="StatusImporting" xml:space="preserve">
-    <value>importing</value>
-  </data>
-  <data name="UserToken" xml:space="preserve">
-    <value>Your Basecamp API token</value>
-  </data>
-  <data name="ViewCalendar" xml:space="preserve">
-    <value>Show the Calendar module</value>
-  </data>
   <data name="ViewDetails" xml:space="preserve">
     <value>View Details</value>
-  </data>
-  <data name="ViewFiles" xml:space="preserve">
-    <value>Show the Files module</value>
-  </data>
-  <data name="ViewIssueTracker" xml:space="preserve">
-    <value>Show the Issues module</value>
-  </data>
-  <data name="ViewTimeTracking" xml:space="preserve">
-    <value>Show the Time Tracking module</value>
-  </data>
-  <data name="ImportInfo_Attention" xml:space="preserve">
-    <value>Please note that all the data imported from your Basecamp account will become public to all portal members as TeamLab doesn't provide access restrictions.</value>
-  </data>
-  <data name="ImportInfo_Notyfy" xml:space="preserve">
-    <value>All your portal members will receive e-mail invitations to TeamLab.</value>
   </data>
   <data name="FailedToSaveComment" xml:space="preserve">
     <value>Failed to save comment "{0}"</value>
   </data>
-  <data name="FailedToSaveFileCategory" xml:space="preserve">
-    <value>Failed to save file category "{0}"</value>
-  </data>
   <data name="FailedToSaveMessage" xml:space="preserve">
     <value>Failed to save message "{0}"</value>
-  </data>
-  <data name="FailedToSaveMilestone" xml:space="preserve">
-    <value>Failed to save milestone "{0}"</value>
   </data>
   <data name="FailedToSaveProject" xml:space="preserve">
     <value>Failed to save project "{0}"</value>
@@ -239,9 +185,6 @@
   </data>
   <data name="FailedToSaveTask" xml:space="preserve">
     <value>Faile to save task "{0}"</value>
-  </data>
-  <data name="FailedToSaveTimeSpend" xml:space="preserve">
-    <value>Faield to save time item "{0}"</value>
   </data>
   <data name="FailedToSaveUser" xml:space="preserve">
     <value>Failed to save user "{0}"</value>
@@ -261,23 +204,8 @@
   <data name="ImportStarted" xml:space="preserve">
     <value>Import started</value>
   </data>
-  <data name="MoreErrors" xml:space="preserve">
-    <value>more errors</value>
-  </data>
-  <data name="DefaultTab" xml:space="preserve">
-    <value>Default Tab</value>
-  </data>
-  <data name="DefaultTabInfo" xml:space="preserve">
-    <value>Select the tab that will be used as the default home page</value>
-  </data>
-  <data name="ImportInfo_Attention_PopUp" xml:space="preserve">
-    <value>Attention! After Import is completed, all your portal members will get an access to ALL the data from your Basecamp account. Do you agree to proceed?</value>
-  </data>
   <data name="SendInvitations" xml:space="preserve">
     <value>send e-mail invitations to TeamLab to all portal members</value>
-  </data>
-  <data name="YesStartImport" xml:space="preserve">
-    <value>Yes, Start Importing</value>
   </data>
   <data name="ImportAttantionPanelAgreement" xml:space="preserve">
     <value>Yes, I understand it</value>
@@ -290,9 +218,6 @@
   </data>
   <data name="MalformedUrl" xml:space="preserve">
     <value>The URL you entered is incorrect</value>
-  </data>
-  <data name="NotBasecampUrl" xml:space="preserve">
-    <value>The URL you entered is not Basecamp company URL</value>
   </data>
   <data name="Import" xml:space="preserve">
     <value>Import</value>
@@ -335,5 +260,8 @@
   </data>
   <data name="FailedSaveFileMaxSizeExid" xml:space="preserve">
     <value>Размер файла {0} превышает максимально допустимый размер {1}Mb. Он не будет загружен.</value>
+  </data>
+  <data name="CommentImport" xml:space="preserve">
+    <value>Imported</value>
   </data>
 </root>

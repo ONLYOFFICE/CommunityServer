@@ -143,17 +143,23 @@ CasesActionView.ascx
     }
 }
 
-@media all and (max-width: 1200px) {
-    #crm_caseMakerDialog .middle-button-container {
-       min-width: 670px;
-    }
-    #crm_caseMakerDialog .case_info {
-       width: 670px;
-    }
-    #crm_caseMakerDialog dl.assignedCasesContacts {
-        width: 674px;
+body.media-width-0-1200,
+body.media-width-min {
+    #crm_caseMakerDialog {
+        .middle-button-container {
+            min-width: 670px;
+        }
+
+        .case_info {
+            width: 670px;
+        }
+
+        dl.assignedCasesContacts {
+            width: 674px;
+        }
     }
 }
+
 
 #membersCasesSelectorsContainer > div {
     margin-bottom: 4px;

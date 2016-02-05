@@ -9,25 +9,33 @@
     <% { %>
         <div class="icon_ch_size display-none"></div>
     <% } %>
-    <div class="small_chat_top_panel display-none">
-        <input class="small_chat_search_field textEdit" type="text" placeholder="<%= ChatResource.Search %>"/>
-        <div class="search_icon search_icon_image" title="<%= ChatResource.Search %>"></div>
-        <div class="small_chat_status_menu" title="<%= ChatResource.StatusOnline %>">
-            <div class="small_chat_text_status unselect_text image_online"><%= ChatResource.StatusOnline %></div>
-            <div class="studio-action-panel" id="smallChatPopupID">
-                <ul class="dropdown-content">
-                    <li class="dropdown-item user_status online disable" title="<%= ChatResource.StatusOnline %>">
-                        <div class="small_chat_image_state image_online"></div><%= ChatResource.StatusOnline %></li>
-                    <li class="dropdown-item user_status away" title="<%= ChatResource.StatusAway %>">
-                        <div class="small_chat_image_state image_away"></div><%= ChatResource.StatusAway %></li>
-                    <li class="dropdown-item user_status not_available" title="<%= ChatResource.StatusNA %>">
-                        <div class="small_chat_image_state image_not_available"></div><%= ChatResource.StatusNA %></li>
-                    <li class="dropdown-item user_status offline" title="<%= ChatResource.StatusOffline %>">
-                        <div class="small_chat_image_state image_offline"></div><%= ChatResource.StatusOffline %></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+    <table class="small_chat_top_panel display-none">
+        <tbody>
+            <tr>
+                <td class="small_chat_search_field_container">
+                    <input class="small_chat_search_field textEdit" type="text" placeholder="<%= ChatResource.Search %>"/>
+                    <div class="search_icon search_icon_image" title="<%= ChatResource.Search %>"></div>
+                </td>
+                <td class="small_chat_status_menu_container">
+                    <div class="small_chat_status_menu" title="<%= ChatResource.StatusOnline %>">
+                        <div class="small_chat_text_status unselect_text image_online"><%= ChatResource.StatusOnline %></div>
+                        <div class="studio-action-panel" id="smallChatPopupID">
+                            <ul class="dropdown-content">
+                                <li class="dropdown-item user_status online disable" title="<%= ChatResource.StatusOnline %>">
+                                    <div class="small_chat_image_state image_online"></div><%= ChatResource.StatusOnline %></li>
+                                <li class="dropdown-item user_status away" title="<%= ChatResource.StatusAway %>">
+                                    <div class="small_chat_image_state image_away"></div><%= ChatResource.StatusAway %></li>
+                                <li class="dropdown-item user_status not_available" title="<%= ChatResource.StatusNA %>">
+                                    <div class="small_chat_image_state image_not_available"></div><%= ChatResource.StatusNA %></li>
+                                <li class="dropdown-item user_status offline" title="<%= ChatResource.StatusOffline %>">
+                                    <div class="small_chat_image_state image_offline"></div><%= ChatResource.StatusOffline %></li>
+                            </ul>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <div class="contact_container display-none webkit-scrollbar">
         <div class="small_chat_contact_not_found_record display-none"><%= ChatResource.UserNotFound %></div>
         <div class="chat_contact_loader display-none"></div>
@@ -35,13 +43,13 @@
     <div class="small_chat_down_panel">
         <div class="show_small_chat_icon small_chat_icon_white down_panel_icon" title="<%= ChatResource.ShowHideChatAltTitle %>"></div>
         <div class="extend_chat_icon down_panel_icon" title="<%= ChatResource.ExtendChatAltTitle %>"></div>
-        <% if(!IsMobile) %>
+        <% if (!IsMobile) %>
         <% { %>
             <div class="small_chat_option_icon down_panel_right_icon" title="<%= ChatResource.SmallChatOptionsAltTitle %>"></div>
         <% } %>
     </div>
 </div>
-<% if(!IsMobile) %>
+<% if (!IsMobile) %>
 <% { %>
     <div class="studio-action-panel" id="smallChatOptionsPopupID">
         <ul class="dropdown-content">

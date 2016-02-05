@@ -34,10 +34,7 @@ namespace ASC.Common.Threading.Progress
     {
         private double _percentage;
 
-        object ICloneable.Clone()
-        {
-            return MemberwiseClone();
-        }
+        protected int StepCount { get; set; }
 
         [DataMember]
         public object Id { get; set; }
@@ -56,6 +53,7 @@ namespace ASC.Common.Threading.Progress
         [DataMember]
         public virtual bool IsCompleted { get; set; }
 
+
         public void RunJob()
         {
             try
@@ -72,21 +70,17 @@ namespace ASC.Common.Threading.Progress
                 Percentage = 100;
                 IsCompleted = true;
             }
-
         }
 
         protected ProgressBase()
         {
-            //Random id
-            Id = Guid.NewGuid();
+            Id = Guid.NewGuid(); // random id
         }
 
         protected void ProgressAdd(double value)
         {
             Percentage += value;
         }
-
-        protected int StepCount { get; set; }
 
         protected void StepDone()
         {
@@ -96,6 +90,13 @@ namespace ASC.Common.Threading.Progress
             }
         }
 
+
         protected abstract void DoJob();
+
+
+        object ICloneable.Clone()
+        {
+            return MemberwiseClone();
+        }
     }
 }

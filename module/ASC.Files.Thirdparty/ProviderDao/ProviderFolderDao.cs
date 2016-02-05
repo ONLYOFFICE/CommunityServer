@@ -24,10 +24,10 @@
 */
 
 
+using ASC.Files.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ASC.Files.Core;
 
 namespace ASC.Files.Thirdparty.ProviderDao
 {
@@ -74,10 +74,10 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return selector.GetFolderDao(parentId).GetFolders(selector.ConvertId(parentId));
         }
 
-        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText)
+        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false)
         {
             var selector = GetSelector(parentId);
-            var result = selector.GetFolderDao(parentId).GetFolders(selector.ConvertId(parentId), orderBy, filterType, subjectID, searchText);
+            var result = selector.GetFolderDao(parentId).GetFolders(selector.ConvertId(parentId), orderBy, filterType, subjectID, searchText, searchSubfolders);
 
             if (!result.Any()) return new List<Folder>();
 
@@ -89,7 +89,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return result;
         }
 
-        public List<Folder> GetFolders(object[] folderIds)
+        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false)
         {
             var result = Enumerable.Empty<Folder>();
 
@@ -102,10 +102,10 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
                 result = result.Concat(mathedIds.GroupBy(selectorLocal.GetIdCode)
                                                 .SelectMany(y => selectorLocal.GetFolderDao(y.FirstOrDefault())
-                                                                              .GetFolders(y.Select(selectorLocal.ConvertId).ToArray())));
+                                                                              .GetFolders(y.Select(selectorLocal.ConvertId).ToArray(), searchText, searchSubfolders)));
             }
 
-            return result.ToList();
+            return result.Distinct().ToList();
         }
 
         public List<Folder> GetParentFolders(object folderId)
@@ -171,35 +171,19 @@ namespace ASC.Files.Thirdparty.ProviderDao
         {
             if (!folderIds.Any()) return new Dictionary<object, string>();
 
-            var selector = GetSelectors().FirstOrDefault(x => folderIds.All(x.IsMatch));
-            return selector.GetFolderDao(folderIds.FirstOrDefault()).CanMoveOrCopy(folderIds, to);
+            var selector = GetSelector(to);
+            var matchedIds = folderIds.Where(selector.IsMatch);
+
+            return selector.GetFolderDao(folderIds.FirstOrDefault()).CanMoveOrCopy(matchedIds.ToArray(), to);
         }
 
-        public object RenameFolder(object folderId, string newTitle)
+        public object RenameFolder(Folder folder, string newTitle)
         {
+            var folderId = folder.ID;
             var selector = GetSelector(folderId);
-            return selector.GetFolderDao(folderId).RenameFolder(selector.ConvertId(folderId), newTitle);
-        }
-
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText)
-        {
-            var selector = GetSelector(parentId);
-            var result = selector.GetFolderDao(parentId).GetFiles(selector.ConvertId(parentId), orderBy, filterType, subjectID, searchText);
-
-            if (!result.Any()) return new List<File>();
-
-            if (!Default.IsMatch(parentId))
-            {
-                SetSharedByMeProperty(result);
-            }
-
-            return result;
-        }
-
-        public List<object> GetFiles(object parentId, bool withSubfolders)
-        {
-            var selector = GetSelector(parentId);
-            return selector.GetFolderDao(parentId).GetFiles(selector.ConvertId(parentId), withSubfolders);
+            folder.ID = selector.ConvertId(folderId);
+            folder.ParentFolderID = selector.ConvertId(folder.ParentFolderID);
+            return selector.GetFolderDao(folderId).RenameFolder(folder, newTitle);
         }
 
         public int GetItemsCount(object folderId, bool withSubfoldes)

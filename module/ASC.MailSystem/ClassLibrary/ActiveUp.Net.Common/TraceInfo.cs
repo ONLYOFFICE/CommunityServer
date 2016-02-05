@@ -15,6 +15,7 @@
 // along with SharpMap; if not, write to the Free Software
 // Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA 
 
+using System.Text;
 using ActiveUp.Net.Mail;
 
 namespace ActiveUp.Net.Mail
@@ -152,15 +153,18 @@ namespace ActiveUp.Net.Mail
         }
         public override string ToString()
         {
-            string source = string.Empty;
-            if (!this.From.Equals(string.Empty)) source += " from " + this.From + "\r\n ";
-            if (!this.By.Equals(string.Empty)) source += " by " + this.By + "\r\n ";
-            if (!this.With.Equals(string.Empty)) source += " with " + this.With + "\r\n ";
-            if (!this.For.Equals(string.Empty)) source += " for " + this.For + "\r\n ";
-            if (!this.Via.Equals(string.Empty)) source += " via " + this.Via + "\r\n ";
-            if (!this.Id.Equals(string.Empty)) source += " id " + this.Id + "\r\n ";
-            
-            return source.Remove(0,source.Length - 3) + ";" + this.Date.ToString("r");
+            var source = new StringBuilder();
+
+            if (!this.From.Equals(string.Empty)) source.Append(" from ").Append(this.From).Append("\r\n ");
+            if (!this.By.Equals(string.Empty)) source.Append(" by ").Append(this.By).Append("\r\n ");
+            if (!this.With.Equals(string.Empty)) source.Append(" with ").Append(this.With).Append("\r\n ");
+            if (!this.For.Equals(string.Empty)) source.Append(" for ").Append(this.For).Append("\r\n ");
+            if (!this.Via.Equals(string.Empty)) source.Append(" via ").Append(this.Via).Append("\r\n ");
+            if (!this.Id.Equals(string.Empty)) source.Append(" id ").Append(this.Id).Append("\r\n ");
+
+            var str = source.ToString();
+
+            return string.Format("{0};{1}", str.Remove(0, str.Length - 3), this.Date.ToString("r"));
         }
         /// <summary>
         /// The date and time of the transaction.

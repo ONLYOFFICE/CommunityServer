@@ -41,6 +41,17 @@
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
       <HintPath>..\..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis">
+      <HintPath>..\..\redistributable\StackExchange.Redis\StackExchange.Redis.dll</HintPath>
+    </Reference>
+    <Reference Include="StackExchange.Redis.Extensions.Core, Version=1.1.12.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\StackExchange.Redis.Extensions.Core.1.1.12.0\lib\net45\StackExchange.Redis.Extensions.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
@@ -77,10 +88,13 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Caching\AscCache.cs" />
+    <Compile Include="Caching\CacheNotifyAction.cs" />
+    <Compile Include="Caching\ICache.cs" />
+    <Compile Include="Caching\ICacheNotify.cs" />
+    <Compile Include="Caching\RedisCache.cs" />
     <Compile Include="Collections\CachedDictionaryBase.cs" />
     <Compile Include="Collections\HttpRequestDictionary.cs" />
-    <Compile Include="Collections\ReadOnlyDictionary.cs" />
-    <Compile Include="Collections\SynchronizedDictionary.cs" />
     <Compile Include="Data\AdoProxy\DbCommandProxy.cs" />
     <Compile Include="Data\AdoProxy\DbConnectionProxy.cs" />
     <Compile Include="Data\AdoProxy\DbTransactionProxy.cs" />
@@ -210,7 +224,6 @@
     <Compile Include="Security\IRoleProvider.cs" />
     <Compile Include="Security\ISecurityObjectId.cs" />
     <Compile Include="Security\ISecurityObjectProvider.cs" />
-    <Compile Include="Tests\Collection\SynchronizedDictionary_Test.cs" />
     <Compile Include="Tests\Data\MultiRegionalDbTest.cs" />
     <Compile Include="Tests\Data\DataTest.cs" />
     <Compile Include="Tests\Data\ExpTest.cs" />
@@ -225,10 +238,13 @@
     <Compile Include="Tests\Utils\HtmlUtil_Test.cs" />
     <Compile Include="Tests\Utils\MimeHeaderUtilsTest.cs" />
     <Compile Include="Tests\Web\MimeMappingTest.cs" />
+    <Compile Include="Threading\DistributedTaskStatus.cs" />
+    <Compile Include="Threading\DistributedTask.cs" />
+    <Compile Include="Threading\LimitedConcurrencyLevelTaskScheduler.cs" />
     <Compile Include="Threading\Progress\IProgressItem.cs" />
     <Compile Include="Threading\Progress\ProgressBase.cs" />
     <Compile Include="Threading\Progress\ProgressQueue.cs" />
-    <Compile Include="Collections\CachedDictionary.cs" />
+    <Compile Include="Threading\DistributedTaskQueue.cs" />
     <Compile Include="Utils\HttpRequestExtensions.cs" />
     <Compile Include="Utils\MailAddressUtils.cs" />
     <Compile Include="Utils\MimeHeaderUtils.cs" />

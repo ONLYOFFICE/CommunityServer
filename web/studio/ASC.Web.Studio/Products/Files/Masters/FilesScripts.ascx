@@ -16,7 +16,6 @@
 <script type="text/javascript" src="<%= PathProvider.GetFileStaticRelativePath("auth.js") %>"></script>
 <script type="text/javascript" src="<%= PathProvider.GetFileStaticRelativePath("common.js") %>"></script>
 <script type="text/javascript" src="<%= PathProvider.GetFileStaticRelativePath("filter.js") %>"></script>
-<script type="text/javascript" src="<%= PathProvider.GetFileStaticRelativePath("xsltmanager.js") %>"></script>
 <script type="text/javascript" src="<%= PathProvider.GetFileStaticRelativePath("templatemanager.js") %>"></script>
 <script type="text/javascript" src="<%= PathProvider.GetFileStaticRelativePath("servicemanager.js") %>"></script>
 <script type="text/javascript" src="<%= PathProvider.GetFileStaticRelativePath("ui.js") %>"></script>

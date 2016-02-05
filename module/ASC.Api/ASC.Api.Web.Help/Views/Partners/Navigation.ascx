@@ -7,10 +7,10 @@
 <div class="treeheader">Get Started</div>
 <ul class="treeview root">
     <li>
-        <%=Html.MenuActionLink("Basic concepts", "basic", "partners", "selected")%>
+        <%= Html.MenuActionLink("Basic concepts", "basic", "partners", "selected") %>
     </li>
     <li>
-        <%=Html.MenuActionLink("Authentication", "authentication", "partners", "selected")%>
+        <%= Html.MenuActionLink("Authentication", "authentication", "partners", "selected") %>
     </li>
 </ul>
 

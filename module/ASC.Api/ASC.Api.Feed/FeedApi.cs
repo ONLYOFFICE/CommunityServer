@@ -24,24 +24,24 @@
 */
 
 
-using System;
 using ASC.Api.Attributes;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
+using ASC.Common.Caching;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Feed;
 using ASC.Feed.Data;
 using ASC.Specific;
+using System;
 using System.Linq;
-using ASC.Core.Caching;
 
 namespace ASC.Api.Feed
 {
     public class FeedApi : IApiEntryPoint
     {
         private const string newFeedsCountCacheKey = "newfeedscount";
-        private readonly ICache newFeedsCountCache = AscCache.Default;
+        private readonly ICache newFeedsCountCache = AscCache.Memory;
         
         private static string GetNewFeedsCountKey()
         {
@@ -136,11 +136,13 @@ namespace ASC.Api.Feed
         public object GetFreshNewsCount()
         {
             var cacheKey = GetNewFeedsCountKey();
-            var result = newFeedsCountCache.Get(cacheKey);
-            if (result == null)
+            var resultfromCache = newFeedsCountCache.Get<String>(cacheKey);
+            int result;
+            if (!int.TryParse(resultfromCache, out result))
             {
                 var lastTimeReaded = new FeedReadedDataProvider().GetTimeReaded();
-                newFeedsCountCache.Insert(cacheKey, result = FeedAggregateDataProvider.GetNewFeedsCount(lastTimeReaded), DateTime.UtcNow.AddMinutes(3));
+                result = FeedAggregateDataProvider.GetNewFeedsCount(lastTimeReaded);
+                newFeedsCountCache.Insert(cacheKey, result.ToString(), DateTime.UtcNow.AddMinutes(3));
             }
             return result;
         }

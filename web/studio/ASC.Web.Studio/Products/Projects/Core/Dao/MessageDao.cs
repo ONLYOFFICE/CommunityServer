@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -34,7 +34,6 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
 using ASC.FullTextIndex;
-using ASC.FullTextIndex.Service;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Services.NotifyService;
@@ -82,16 +81,19 @@ namespace ASC.Projects.Data.DAO
 
     class MessageDao : BaseDao, IMessageDao
     {
+        private readonly Converter<object[], Message> converter;
+
         public MessageDao(string dbId, int tenant)
             : base(dbId, tenant)
         {
+            converter = ToMessage;
         }
 
         public List<Message> GetAll()
         {
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(CreateQuery()).ConvertAll(ToMessage);
+                return db.ExecuteList(CreateQuery()).ConvertAll(converter);
             }
         }
 
@@ -100,7 +102,7 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 return db.ExecuteList(CreateQuery().Where("t.project_id", projectId).OrderBy("t.create_on", false))
-                    .ConvertAll(ToMessage);
+                    .ConvertAll(converter);
             }
         }
 
@@ -113,7 +115,7 @@ namespace ASC.Projects.Data.DAO
                     .SetFirstResult(startIndex)
                     .SetMaxResults(max);
 
-                return db.ExecuteList(query).ConvertAll(ToMessage);
+                return db.ExecuteList(query).ConvertAll(converter);
             }
         }
 
@@ -129,7 +131,7 @@ namespace ASC.Projects.Data.DAO
                 {
                     query.Where(Exp.In("t.project_id", projects));
                 }
-                return db.ExecuteList(query).ConvertAll(ToMessage);
+                return db.ExecuteList(query).ConvertAll(converter);
             }
         }
 
@@ -160,9 +162,9 @@ namespace ASC.Projects.Data.DAO
                     }
                 }
 
-                query = CreateQueryFilter(query, filter, isAdmin, checkAccess);
+                CreateQueryFilter(query, filter, isAdmin, checkAccess);
 
-                return db.ExecuteList(query).ConvertAll(ToMessage);
+                return db.ExecuteList(query).ConvertAll(converter);
             }
         }
 
@@ -188,7 +190,7 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 return db.ExecuteList(CreateQuery().Where("t.id", id))
-                    .ConvertAll(ToMessage)
+                    .ConvertAll(converter)
                     .SingleOrDefault();
             }
         }
@@ -215,7 +217,7 @@ namespace ASC.Projects.Data.DAO
                     .InColumnValue("create_on", TenantUtil.DateTimeToUtc(msg.CreateOn))
                     .InColumnValue("last_modified_by", msg.LastModifiedBy.ToString())
                     .InColumnValue("last_modified_on", TenantUtil.DateTimeToUtc(msg.LastModifiedOn))
-                    .InColumnValue("content", msg.Content)
+                    .InColumnValue("content", msg.Description)
                     .Identity(1, 0, true);
                 msg.ID = db.ExecuteScalar<int>(insert);
                 return msg;
@@ -253,11 +255,11 @@ namespace ASC.Projects.Data.DAO
         {
             if (filter.Follow)
             {
-                var objects = new List<String>(NotifySource.Instance.GetSubscriptionProvider().GetSubscriptions(NotifyConstants.Event_NewCommentForMessage, NotifySource.Instance.GetRecipientsProvider().GetRecipient(CurrentUserID.ToString())));
+                IEnumerable<string> objects = NotifySource.Instance.GetSubscriptionProvider().GetSubscriptions(NotifyConstants.Event_NewCommentForMessage, NotifySource.Instance.GetRecipientsProvider().GetRecipient(CurrentUserID.ToString()));
 
                 if (filter.ProjectIds.Count != 0)
                 {
-                    objects = objects.Where(r => r.Split('_')[2] == filter.ProjectIds[0].ToString(CultureInfo.InvariantCulture)).ToList();
+                    objects = objects.Where(r => r.Split('_')[2] == filter.ProjectIds[0].ToString(CultureInfo.InvariantCulture));
                 }
 
                 var ids = objects.Select(r => r.Split('_')[1]).ToArray();
@@ -306,12 +308,9 @@ namespace ASC.Projects.Data.DAO
 
             if (!string.IsNullOrEmpty(filter.SearchText))
             {
-                if (FullTextSearch.SupportModule(FullTextSearch.ProjectsMessagesModule, FullTextSearch.ProjectsCommentsModule))
+                if (FullTextSearch.SupportModule(FullTextSearch.ProjectsMessagesModule))
                 {
-                    var mIds = FullTextSearch.Search(
-                    FullTextSearch.ProjectsMessagesModule.Match(filter.SearchText),
-                    FullTextSearch.ProjectsCommentsModule.Match(filter.SearchText, "content")
-                    .Select("target_uniq_id").Match("Message_*", "target_uniq_id"));
+                    var mIds = FullTextSearch.Search(FullTextSearch.ProjectsMessagesModule.Match(filter.SearchText));
 
                     query.Where(Exp.In("t.id", mIds));
                 }
@@ -355,16 +354,16 @@ namespace ASC.Projects.Data.DAO
                            CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[4 + offset])),
                            LastModifiedBy = ToGuid(r[5 + offset]),
                            LastModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[6 + offset])),
-                           Content = (string) r[7 + offset]
+                           Description = (string) r[7 + offset]
                        };
         }
 
 
-        internal List<Message> GetMessages(Exp where)
+        internal IEnumerable<Message> GetMessages(Exp where)
         {
             using (var db = new DbManager(DatabaseId))
             {
-                return db.ExecuteList(CreateQuery().Where(where)).ConvertAll(ToMessage);
+                return db.ExecuteList(CreateQuery().Where(where)).ConvertAll(converter);
             }
         }
     }

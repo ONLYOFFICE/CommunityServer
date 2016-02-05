@@ -44,7 +44,6 @@ window.AttachmentManager = (function($) {
     var needAttachDocuments = false;
     var uploadContainerId = 'newMessage';
     var filesContainer = 'mail_attachments';
-    var initStreamId = '';
     var isSaving = false;
     var maxFileNameLen = 63;
     var supportedCustomEvents = { UploadComplete: 'on_upload_completed' };
@@ -67,8 +66,7 @@ window.AttachmentManager = (function($) {
 
     var $attachmentsClearBtn;
 
-    function init(streamId, loadedFiles) {
-        initStreamId = streamId;
+    function init(loadedFiles) {
         nextOrderNumber = 0;
 
         $attachmentsClearBtn = $('#attachments_clear_btn');
@@ -169,7 +167,6 @@ window.AttachmentManager = (function($) {
         file.status = uploadStatus.STARTED;
         jq(this).fileupload('option', 'formData', [{ name: 'name', value: file.name }]);
         jq(this).fileupload('option', 'url', generateSubmitUrl({
-            stream: initStreamId,
             messageId: mailBox.currentMessageId,
             copyToMy: file.attachAsLinkOffer ? 1 : 0
         }));
@@ -287,7 +284,8 @@ window.AttachmentManager = (function($) {
             .attr('id', 'fileupload')
             .attr('type', 'file')
             .attr('multiple', 'multiple')
-            .css('display', 'none');
+            .css("width", "0")
+            .css("height", "0");
 
         inputObj.appendTo(buttonObj.parent());
 
@@ -755,8 +753,7 @@ window.AttachmentManager = (function($) {
                 var data = {
                     fileId: document.id,
                     version: document.version,
-                    shareLink: document.downloadUrl,
-                    streamId: initStreamId
+                    shareLink: document.downloadUrl
                 };
 
                 serviceManager.attachDocuments(mailBox.currentMessageId, data, { attachment: attachment }, { error: onAttachDocumentError });
@@ -858,16 +855,7 @@ window.AttachmentManager = (function($) {
         for (i = 0; i < len; i++) {
             var file = attachments[i];
             if (file.fileId > 0) {
-                loadedAttachments.push(
-                    {
-                        fileId: file.fileId,
-                        fileName: file.fileName,
-                        size: file.size,
-                        contentType: file.contentType,
-                        fileNumber: file.fileNumber,
-                        storedName: file.storedName,
-                        streamId: file.streamId
-                    });
+                loadedAttachments.push(file);
             }
         }
         return loadedAttachments;
@@ -928,7 +916,7 @@ window.AttachmentManager = (function($) {
     }
 
     function generateSubmitUrl(data) {
-        var submitUrl = window.location.protocol + '//' + window.location.hostname + '/UploadProgress.ashx?submit=ASC.Web.Mail.HttpHandlers.FilesUploader,ASC.Web.Mail';
+        var submitUrl = 'UploadProgress.ashx?submit=ASC.Web.Mail.HttpHandlers.FilesUploader,ASC.Web.Mail';
         for (var prop in data) {
             submitUrl += '&{0}={1}'.format(prop, data[prop]);
         }
@@ -1111,7 +1099,7 @@ window.AttachmentManager = (function($) {
                         cb({});
                     }
 
-                    getCopyingFilesStatus(operationId, files, cb);
+                    getCopyingFilesStatus(operationId, files, ASC.Files.Constants.FOLDER_ID_MY_FILES, cb);
                 },
                 error: function(params, err) {
                     cb(err);
@@ -1119,16 +1107,21 @@ window.AttachmentManager = (function($) {
             });
     }
 
-    function getCopyingFilesStatus(operationId, files, cb) {
+    function getCopyingFilesStatus(operationId, files, folderId, cb) {
         window.Teamlab.getOperationStatuses({
             success: function(par, statuses) {
                 var status = getOperationStatus(statuses, operationId);
                 if (status != null && !status.error && status.progress == 100) {
-                    cb(null, status.files);
+                    var copyingFiles = [];
+                    for (var i = 0, len = status.files.length; i < len; i++) {
+                        if (status.files[i].folderId == folderId)
+                            copyingFiles.push(status.files[i]);
+                    }
+                    cb(null, copyingFiles);
                 } else if (status != null && !status.error) {
                     updateCopiedFileLinkdAttachmentsProgressStatus(files, status);
                     setTimeout(function() {
-                        getCopyingFilesStatus(operationId, files, cb);
+                        getCopyingFilesStatus(operationId, files, folderId, cb);
                     }, 250);
                 } else {
                     cb({});

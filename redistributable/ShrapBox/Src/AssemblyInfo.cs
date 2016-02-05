@@ -13,8 +13,8 @@ using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyVersion("1.1.0.440")]
-[assembly: AssemblyFileVersion("1.1.0.440")]
+[assembly: AssemblyVersion("1.1.0.442")]
+[assembly: AssemblyFileVersion("1.1.0.442")]
 [assembly: AssemblyTitle("SharpBox")]
 [assembly: AssemblyDescription("SharpBox - A cloud storage API")]
 [assembly: AssemblyCompany("sharpbox.codeplex.com")]

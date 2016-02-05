@@ -17,131 +17,610 @@
  *
  * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
  * relevant author attributions when distributing the software. If the display of the logo in its graphic 
- * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * form is not reasonably feasible for technical reasons, you must include the words 'Powered by ONLYOFFICE' 
  * in every copy of the program you distribute. 
  * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
  *
 */
 
 
-SmtpSettingsManager = new function () {
-    this.Initialize = function () {
+window.SmtpSettingsView = function($) {
+    var $view;
 
-        checkAuthFields();
+    var $settingsSwitch;
+    var $customSettingsRadio;
+    var $mailserverSettingsRadio;
 
-        jq('#smtpSettingsButtonSave').on("click", function () {
-            SmtpSettingsManager.Save();
-        });
+    var $customSettingsBox;
+    var $mailserverSettingsBox;
 
-        jq('#smtpSettingsButtonTest').on("click", function () {
-            SmtpSettingsManager.Test();
-        });
+    var emailRegex = /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i;
 
-        jq("#smtpSettingsButtonDefault").on("click", function () {
-            SmtpSettingsManager.RestoreDefaultSettings();
-        });
+    var passwordGenerator = function() {
+        var lowercase = 'abcdefghijklmnopqrstuvwxyz';
+        var uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var numbers = '0123456789';
+        var specials = '_';
 
-        jq('#smtpSettingsAuthentication').on("change", function () {
-            checkAuthFields();
-        });
-    };
+        var all = lowercase + uppercase + numbers + specials;
 
-    this.Save = function () {
-        var $settingsBlock = jq(".smtp-settings-block");
+        function generate() {
+            var password = '';
 
-        HideRequiredError();
+            password += pick(lowercase, 1);
+            password += pick(uppercase, 1);
+            password += pick(numbers, 1);
+            password += pick(specials, 1);
+            password += pick(all, 3, 8);
 
-        if (jq("#smtpSettingsAuthentication").is(":checked")) {
-            if (!$settingsBlock.find(".host-login").find(".smtp-settings-field").val()) {
-                ShowRequiredError(jq($settingsBlock.find(".host-login input")));
-                return;
+            password = shuffle(password);
+            
+            password += pick(uppercase, 1);
+
+            return password;
+        }
+
+        function pick(str, min, max) {
+            var n;
+            var chars = '';
+
+            if (typeof max === 'undefined') {
+                n = min;
+            } else {
+                n = min + Math.floor(Math.random() * (max - min));
             }
-            if (!$settingsBlock.find(".host-password").find(".smtp-settings-field").val()) {
-                ShowRequiredError(jq($settingsBlock.find(".host-password input")));
-                return;
+
+            for (var i = 0; i < n; i++) {
+                chars += str.charAt(Math.floor(Math.random() * str.length));
             }
+
+            return chars;
         }
         
-        blockFields();
-        SmtpSettings.Save(getSettings(), function(result) {
+        function shuffle(str) {
+            var chars = str.split('');
+            var tempChar;
+            var currentChar;
+            var topChar = chars.length;
+
+            if (topChar) {
+                while (--topChar) {
+                    currentChar = Math.floor(Math.random() * (topChar + 1));
+                    tempChar = chars[currentChar];
+                    chars[currentChar] = chars[topChar];
+                    chars[topChar] = tempChar;
+                }
+            } 
+
+            return chars.join('');
+        }
+
+        return {
+            generate: generate
+        };
+    }();
+
+    var currentSettings;
+
+    var server;
+    var domains = [];
+
+    function currentHostUseMailserver() {
+        return server && server.dns.mxRecord.host == currentSettings.Host;
+    }
+
+    function saveCurrentSettings(settings) {
+        settings.CredentialsUserPassword = '';
+        currentSettings = settings;
+    }
+
+    function init() {
+        window.LoadingBanner.displayLoading();
+
+        initElements();
+        bindEvents();
+
+        currentSettings = getInitCurrentSettings();
+
+        window.async.parallel([
+                function(cb) {
+                    window.Teamlab.getMailServer(null, {
+                        success: function(params, res) {
+                            if (res && res.id) {
+                                server = res;
+                                cb(null);
+                            } else {
+                                cb('mailserver does not exist');
+                            }
+                        },
+                        error: function () {
+                            cb(null);
+                        },
+                    });
+                },
+                function(cb) {
+                    window.Teamlab.getMailDomains(null, {
+                        success: function(params, res) {
+                            domains = res;
+                            cb(null);
+                        },
+                        error: function() {
+                            // ignore
+                            cb(null);
+                        }
+                    });
+                }
+            ], function(err) {
+                if (err) {
+                    toastr.error(err);
+                } else {
+                    renderView();
+                }
+
+                window.LoadingBanner.hideLoading();
+            });
+    }
+
+    function initElements() {
+        $view = $('#smtpSettingsView');
+
+        $settingsSwitch = $view.find('#settingsSwitch');
+
+        $customSettingsRadio = $settingsSwitch.find('#customSettingsRadio');
+        $mailserverSettingsRadio = $settingsSwitch.find('#mailserverSettingsRadio');
+
+        $customSettingsBox = $view.find('#customSettingsBox');
+        $mailserverSettingsBox = $view.find('#mailserverSettingsBox');
+    }
+
+    function bindEvents() {
+        $customSettingsRadio.on('change', switchToCustomSettingsBox);
+        $mailserverSettingsRadio.on('change', switchToMailserverSettingsBox);
+
+        $customSettingsBox.on('change', '#customSettingsAuthenticationRequired', changeSettingsAuthenticationRequired);
+
+        $customSettingsBox.on('click', '#saveCustomSettingsBtn', saveCustomSettings);
+        $customSettingsBox.on('click', '#saveDefaultCustomSettingsBtn', saveDefaultCustomSettings);
+        $customSettingsBox.on('click', '#sendTestMailBtn', sendTestMail);
+
+        $mailserverSettingsBox.on('click', '#saveMailserverSettingsBtn', saveMailserverSettings);
+    }
+
+    function renderView() {
+        if (currentHostUseMailserver()) {
+            renderCustomSettingsBox(getEmptyCustomSettings());
+            renderMailserverSettingsBox(currentSettings);
+
+            switchToMailserverSettingsBox();
+        } else {
+            renderCustomSettingsBox(currentSettings);
+            renderMailserverSettingsBox(getEmptyCustomSettings());
+            switchToCustomSettingsBox();
+        }
+
+/*        if (server) {
+            $settingsSwitch.show();
+        }*/
+        $view.show();
+    }
+
+    function renderCustomSettingsBox(settings) {
+        var html = $customSettingsBox.siblings('#customSettingsBoxTmpl').tmpl(settings);
+        $customSettingsBox.html(html);
+    }
+
+    function renderMailserverSettingsBox(settings) {
+        var customDomains = [];
+        for (var i = 0; i < domains.length; i++) {
+            if (!domains[i].isSharedDomain) {
+                customDomains.push(domains[i]);
+            }
+        }
+
+        var html = $mailserverSettingsBox.siblings('#mailserverSettingsBoxTmpl').tmpl(
+            {
+                domains: customDomains,
+                login: settings.CredentialsUserName || '',
+                password: settings.CredentialsUserPassword || '',
+                senderDisplayName: settings.SenderDisplayName || ''
+            });
+        $mailserverSettingsBox.html(html);
+    }
+
+    function switchToCustomSettingsBox() {
+        $customSettingsRadio.attr('checked', true);
+        $mailserverSettingsBox.hide();
+        $customSettingsBox.show();
+    }
+
+    function switchToMailserverSettingsBox() {
+        $mailserverSettingsRadio.attr('checked', true);
+        $customSettingsBox.hide();
+        $mailserverSettingsBox.show();
+    }
+
+    function changeSettingsAuthenticationRequired() {
+        var $el = $customSettingsBox.find('#customSettingsAuthenticationRequired');
+        if ($el.is(':checked')) {
+            $customSettingsBox.find('.host-login .textEdit').attr('disabled', false);
+            $customSettingsBox.find('.host-password .textEdit').attr('disabled', false);
+        } else {
+            $customSettingsBox.find('.host-login .textEdit').val('').attr('disabled', true);
+            $customSettingsBox.find('.host-password .textEdit').val('').attr('disabled', true);
+        }
+    }
+
+    function saveCustomSettings() {
+        clearCustomSettingsErrors();
+
+        var settings = getCustomSettingsForSave();
+        if (!settings) {
+            return false;
+        }
+
+        showOperationLoader();
+        if (currentHostUseMailserver()) {
+            window.async.waterfall([
+                    function(cb) {
+                        Teamlab.removeNotificationAddress(null, currentSettings.CredentialsUserName, {
+                            success: function() {
+                                cb(null);
+                            },
+                            error: function() {
+                                cb(ASC.Resources.Master.Resource.OperationFailedMsg);
+                            }
+                        });
+                    },
+                    function(cb) {
+                        window.SmtpSettings.Save(settings, function(result) {
+                            if (result.error != null) {
+                                cb(result.error.Message);
+                            } else {
+                                saveCurrentSettings(result.value);
+                                renderCustomSettingsBox(currentSettings);
+                                renderMailserverSettingsBox(getEmptyCustomSettings());
+                                cb(null);
+                            }
+                        });
+                    }
+                ], function(err) {
+                    if (err) {
+                        toastr.error(err);
+                    } else {
+                        toastr.success(ASC.Resources.Master.Resource.OperationSuccededMsg);
+                    }
+
+                    hideOperationLoader();
+                });
+        } else {
+            window.SmtpSettings.Save(settings, function(result) {
+                if (result.error != null) {
+                    toastr.error(result.error.Message);
+                } else {
+                    saveCurrentSettings(result.value);
+                    renderCustomSettingsBox(currentSettings);
+                    renderMailserverSettingsBox(getEmptyCustomSettings());
+                    toastr.success(ASC.Resources.Master.Resource.OperationSuccededMsg);
+                }
+
+                hideOperationLoader();
+            });
+        }
+
+        return false;
+    }
+
+    function getCustomSettingsForSave() {
+        var settingsCorrected = true;
+
+        var host = $customSettingsBox.find('.host .textEdit').val().trim();
+        if (!host) {
+            $customSettingsBox.find('.host .textEdit').addClass('with-error');
+            settingsCorrected = false;
+        }
+
+        var port = $customSettingsBox.find('.port .textEdit').val().trim();
+        if (port && parseInt(port) + '' !== port) {
+            $customSettingsBox.find('.port .textEdit').addClass('with-error');
+            settingsCorrected = false;
+        }
+        if (port == '') {
+            port = null;
+        }
+
+        var authenticationRequired = $customSettingsBox.find('#customSettingsAuthenticationRequired').is(':checked');
+
+        var credentialsUserName = $customSettingsBox.find('.host-login .textEdit').val().trim();
+        if (authenticationRequired && !emailRegex.test(credentialsUserName)) {
+            $customSettingsBox.find('.host-login .textEdit').addClass('with-error');
+            settingsCorrected = false;
+        }
+
+        var credentialsUserPassword = $customSettingsBox.find('.host-password .textEdit').val().trim();
+        if (authenticationRequired && !credentialsUserPassword) {
+            $customSettingsBox.find('.host-password .textEdit').addClass('with-error');
+            settingsCorrected = false;
+        }
+
+        var senderDisplayName = $customSettingsBox.find('.display-name .textEdit').val().trim();
+
+        var senderAddress = $customSettingsBox.find('.email-address .textEdit').val().trim();
+        if (!emailRegex.test(senderAddress)) {
+            $customSettingsBox.find('.email-address .textEdit').addClass('with-error');
+            settingsCorrected = false;
+        }
+
+        var enableSSL = $customSettingsBox.find('#customSettingsEnableSsl').is(':checked');
+
+        return settingsCorrected ? {
+            Host: host,
+            Port: port,
+            CredentialsUserName: credentialsUserName,
+            CredentialsUserPassword: credentialsUserPassword,
+            SenderDisplayName: senderDisplayName,
+            SenderAddress: senderAddress,
+            EnableSSL: enableSSL
+        } : null;
+    }
+
+    function clearCustomSettingsErrors() {
+        $customSettingsBox.find('.with-error').removeClass('with-error');
+    }
+
+    function getEmptyCustomSettings() {
+        return {
+            Host: '',
+            Port: '',
+            CredentialsUserName: '',
+            CredentialsUserPassword: '',
+            SenderDisplayName: '',
+            SenderAddress: '',
+            EnableSSL: false
+        };
+    }
+
+    function saveDefaultCustomSettings() {
+        showOperationLoader();
+        if (currentHostUseMailserver()) {
+            window.async.waterfall([
+                    function(cb) {
+                        Teamlab.removeNotificationAddress(null, currentSettings.CredentialsUserName, {
+                            success: function() {
+                                cb(null);
+                            },
+                            error: function() {
+                                cb(ASC.Resources.Master.Resource.OperationFailedMsg);
+                            }
+                        });
+                    },
+                    function(cb) {
+                        window.SmtpSettings.RestoreDefaults(function(result) {
+                            if (result.error) {
+                                cb(result.error.Message);
+                            } else {
+                                saveCurrentSettings(result.value);
+                                renderCustomSettingsBox(currentSettings);
+                                renderMailserverSettingsBox(currentSettings);
+                                cb(null);
+                            }
+                        });
+                    }
+                ], function(err) {
+                    if (err) {
+                        toastr.error(err);
+                    } else {
+                        toastr.success(ASC.Resources.Master.Resource.OperationSuccededMsg);
+                    }
+
+                    hideOperationLoader();
+                });
+        } else {
+            window.SmtpSettings.RestoreDefaults(function(result) {
+                if (result.error) {
+                    toastr.error(result.error.Message);
+                } else {
+                    saveCurrentSettings(result.value);
+                    renderCustomSettingsBox(currentSettings);
+                    toastr.success(ASC.Resources.Master.Resource.OperationSuccededMsg);
+                }
+                
+                hideOperationLoader();
+            });
+        }
+
+
+        return false;
+    }
+
+    function sendTestMail() {
+        clearCustomSettingsErrors();
+
+        var settings = getCustomSettingsForSave();
+        if (!settings) {
+            return false;
+        }
+
+        showOperationLoader();
+        window.SmtpSettings.Test(settings, function(result) {
             if (result.error != null) {
                 toastr.error(result.error.Message);
+            } else {
+                toastr.success(ASC.Resources.Master.Resource.OperationSuccededMsg);
             }
-            unblockFields();
+
+            hideOperationLoader();
         });
-    };
+        return false;
+    }
 
-    this.Test = function () {
-        blockFields();
-        SmtpSettings.Test(getSettings(), function(result) {
-            if (result.error != null) {
-                toastr.error(result.error.Message);
-            }
-            unblockFields();
-        });
-    };
+    function saveMailserverSettings() {
+        clearMaiserverSettingsErrors();
 
-    this.RestoreDefaultSettings = function() {
-        blockFields();
-        SmtpSettings.RestoreDefaults(function(response) {
-            if (response.error) {
-                toastr.error(response.error.Message);
-            }
-            clearSmtpSettings();
-            unblockFields();
-        });
-    };
-
-    var checkAuthFields = function() {
-        var $settingsBlock = jq(".smtp-settings-block"),
-            isDisable = !jq('#smtpSettingsAuthentication').is(':checked');
-        $settingsBlock.find(".host-login, .host-password").find(".smtp-settings-field").attr('disabled', isDisable);
-    };
-
-    var getSettings = function() {
-        var $settingsBlock = jq(".smtp-settings-block"),
-            data = {
-                Host: $settingsBlock.find(".host .smtp-settings-field").val(),
-                SenderDisplayName: $settingsBlock.find(".display-name .smtp-settings-field").val(),
-                SenderAddress: $settingsBlock.find(".email-address .smtp-settings-field").val(),
-                EnableSSL: jq('#smtpSettingsEnableSsl').is(':checked')
-            },
-            port = $settingsBlock.find(".port .smtp-settings-field").val();
-
-        if (port) {
-            data.Port = port;
+        var mailserverSettings = getMailserverSettingsForSave();
+        if (!mailserverSettings) {
+            return false;
         }
 
-        var requireAuthentication = jq('#smtpSettingsAuthentication').is(':checked');
-        if (requireAuthentication) {
-            data.CredentialsUserName = $settingsBlock.find(".host-login .smtp-settings-field").val();
-            data.CredentialsUserPassword = $settingsBlock.find(".host-password .smtp-settings-field").val();
+        showOperationLoader();
+        if (currentHostUseMailserver()) {
+            window.async.waterfall([
+                    function(cb) {
+                        Teamlab.removeNotificationAddress(null, currentSettings.CredentialsUserName, {
+                            success: function() {
+                                cb(null);
+                            },
+                            error: function() {
+                                cb(null);
+                            }
+                        });
+                    },
+                    function(cb) {
+                        Teamlab.createNotificationAddress(null, mailserverSettings.login, mailserverSettings.password, mailserverSettings.domain, {
+                            success: function(params, res) {
+                                cb(null, res);
+                            },
+                            error: function(params, err) {
+                                cb(err[0]);
+                            }
+                        });
+                    },
+                    function(res, cb) {
+                        var settings = {
+                            Host: res.smtp_server,
+                            Port: res.smtp_port,
+                            CredentialsUserName: res.smtp_account,
+                            CredentialsUserPassword: mailserverSettings.password,
+                            SenderDisplayName: mailserverSettings.senderDisplayName,
+                            SenderAddress: res.email,
+                            EnableSSL: res.smtp_encryption_type == 'STARTTLS'
+                        };
+
+                        window.SmtpSettings.Save(settings, function(result) {
+                            if (result.error != null) {
+                                toastr.error(result.error);
+                            } else {
+                                saveCurrentSettings(result.value);
+                                renderCustomSettingsBox(getEmptyCustomSettings());
+                                cb(null);
+                            }
+                        });
+                    }
+                ], function(err) {
+                    if (err) {
+                        toastr.error(err);
+                    } else {
+                        toastr.success(ASC.Resources.Master.Resource.OperationSuccededMsg);
+                    }
+
+                    hideOperationLoader();
+                });
+        } else {
+            window.async.waterfall([
+                    function(cb) {
+                        Teamlab.createNotificationAddress(null, mailserverSettings.login, mailserverSettings.password, mailserverSettings.domain, {
+                            success: function(params, res) {
+                                cb(null, res);
+                            },
+                            error: function(params, err) {
+                                cb(err[0]);
+                            }
+                        });
+                    }, function(res, cb) {
+                        var settings = {
+                            Host: res.smtp_server,
+                            Port: res.smtp_port,
+                            CredentialsUserName: res.smtp_account,
+                            CredentialsUserPassword: mailserverSettings.password,
+                            SenderDisplayName: 'TL Postman',
+                            SenderAddress: res.email,
+                            EnableSSL: res.smtp_encryption_type == 'STARTTLS'
+                        };
+
+                        window.SmtpSettings.Save(settings, function(result) {
+                            if (result.error != null) {
+                                toastr.error(result.error);
+                            } else {
+                                saveCurrentSettings(result.value);
+                                renderCustomSettingsBox(getEmptyCustomSettings());
+                                cb(null);
+                            }
+                        });
+                    }
+                ], function(err) {
+                    if (err) {
+                        toastr.error(err);
+                    } else {
+                        toastr.success(ASC.Resources.Master.Resource.OperationSuccededMsg);
+                    }
+
+                    hideOperationLoader();
+                });
         }
 
-        return data;
-    };
+        return false;
+    }
 
-    var blockFields = function() {
-        jq(".smtp-settings-block input").attr("disabled", true);
-        LoadingBanner.showLoaderBtn("#smtpSettingsContainer");
-    };
+    function getMailserverSettingsForSave() {
+        var settingsCorrected = true;
 
-    var unblockFields = function() {
-        var $settingsBlock = jq(".smtp-settings-block");
-        $settingsBlock.find("input").attr("disabled", false);
-        if (!jq("#smtpSettingsAuthentication").is(":checked")) {
-            $settingsBlock.find(".host-login, .host-password").find(".smtp-settings-field").attr('disabled', true);
+        var login = $mailserverSettingsBox.find('#notificationLogin').val().trim();
+        if (!login || login.indexOf('@') > -1) {
+            $mailserverSettingsBox.find('#notificationLogin').addClass('with-error');
+            settingsCorrected = false;
         }
-        LoadingBanner.hideLoaderBtn("#smtpSettingsContainer");
-    };
 
-    var clearSmtpSettings = function() {
-        jq(".smtp-settings-block").find(".smtp-settings-field").val("");
-        jq("#smtpSettingsAuthentication").removeAttr("checked");
-        jq("#smtpSettingsEnableSsl").removeAttr("checked");
+        var domain = $mailserverSettingsBox.find('#notificationDomain').val().trim();
+
+        var password = generatePassword();
+
+        var senderDisplayName = $mailserverSettingsBox.find('#notificationSenderDisplayName').val().trim();
+        if (!senderDisplayName) {
+            senderDisplayName = 'Teamlab Postman';
+        }
+
+        return settingsCorrected ? {
+            login: login,
+            domain: domain,
+            password: password,
+            senderDisplayName: senderDisplayName
+        } : null;
+    }
+
+    function generatePassword() {
+        return passwordGenerator.generate();
+    }
+
+    function clearMaiserverSettingsErrors() {
+        $mailserverSettingsBox.find('.with-error').removeClass('with-error');
+    }
+
+    function getInitCurrentSettings() {
+        var $box = $view.find('#currentSettingsBox');
+
+        return {
+            Host: $box.find('#currentHost').val(),
+            Port: $box.find('#currentPort').val(),
+            CredentialsUserName: $box.find('#currentCredentialsUserName').val(),
+            CredentialsUserPassword: $box.find('#currentCredentialsUserPassword').val(),
+            SenderDisplayName: $box.find('#currentSenderDisplayName').val(),
+            SenderAddress: $box.find('#currentSenderAddress').val(),
+            EnableSSL: $('#currentEnableSsl').val().toLowerCase() == 'true'
+        };
+    }
+
+    function showOperationLoader() {
+        window.LoadingBanner.displayLoading();
+    }
+
+    function hideOperationLoader() {
+        window.LoadingBanner.hideLoading();
+    }
+
+    return {
+        init: init
     };
-};
+}(jq);
 
 jq(function() {
-    SmtpSettingsManager.Initialize();
+    window.SmtpSettingsView.init();
 });

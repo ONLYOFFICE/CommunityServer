@@ -24,7 +24,11 @@
 */
 
 
-window.blankModal = (function($) {
+window.blankModal = (function ($) {
+    var show = function () {
+        $('[blank-page]').removeClass("hidden");
+    };
+
     var close = function() {
         $('[blank-page]').remove();
     };
@@ -47,6 +51,7 @@ window.blankModal = (function($) {
     };
 
     return {
+        show: show,
         close: close,
         addAccount: addAccount,
         setUpDomain: setUpDomain,

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -49,9 +49,9 @@ namespace ASC.Web.Studio.UserControls.Management
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/Management/AdminMessageSettings/js/admmess.js"));
+            Page.RegisterBodyScripts("~/usercontrols/Management/AdminMessageSettings/js/admmess.js");
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/AdminMessageSettings/css/admmess.less"));
+            Page.RegisterStyle("~/usercontrols/management/AdminMessageSettings/css/admmess.less");
 
             _studioAdmMessNotifSettings = SettingsManager.Instance.LoadSettings<StudioAdminMessageSettings>(TenantProvider.CurrentTenantID);
 

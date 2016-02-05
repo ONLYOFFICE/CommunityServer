@@ -166,6 +166,19 @@ function showHideRemoveButton(removeButton, flag) {
 ///////////////////////////////////////////////////////////////
 ///////			Remove Bookmark start
 ///////////////////////////////////////////////////////////////
+function removeBookmark(userBookmarkID) {
+    StudioBlockUIManager.blockUI('#removeBookmarkDialog', 400, 300, 0);
+    jq(".studio-action-panel").hide();
+    jq("#deleteBookmark").removeClass("active");
+    var removeButton = jq("#BookmarkingRemoveLink");
+    removeButton.off("click");
+    removeButton.on("click", function () {
+        BookmarkPage.RemoveBookmark(userBookmarkID, function() {
+            window.location.href = "default.aspx";
+        });
+    });
+}
+
 function removeBookmarkFromFavourite(userBookmarkID, singleBookmarkDivID, favouriteBookmarksMode, uniqueID) {
 	disableFieldForDeleteAjaxRequest(true);
 	if (favouriteBookmarksMode) {
@@ -774,6 +787,23 @@ jq(document).ready(function() {
     if (textInput.length)
         textInput.focus();
 
+    var $actionButton = jq('.bookmarksHeaderBlock .menu-small');
+    jq.dropdownToggle({
+        switcherSelector: '.bookmarksHeaderBlock .menu-small',
+        dropdownID: 'bookmarkActions',
+        addTop: 0,
+        addLeft: -11,
+        showFunction: function (switcherObj, dropdownItem) {
+            if (dropdownItem.is(':hidden')) {
+                switcherObj.addClass('active');
+            } else {
+                switcherObj.removeClass('active');
+            }
+        },
+        hideFunction: function () {
+            $actionButton.removeClass('active');
+        }
+    });
 });
 
 function createSearchHelper() {

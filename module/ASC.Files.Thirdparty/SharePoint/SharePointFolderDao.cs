@@ -31,7 +31,6 @@ using ASC.Common.Data;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Files.Core;
-using ASC.Web.Core.Files;
 
 namespace ASC.Files.Thirdparty.SharePoint
 {
@@ -72,7 +71,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             return ProviderInfo.GetFolderFolders(parentId).Select(r => ProviderInfo.ToFolder(r)).ToList();
         }
 
-        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText)
+        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false)
         {
             var folders = GetFolders(parentId).AsEnumerable(); 
             //Filter
@@ -115,7 +114,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             return folders.ToList();
         }
 
-        public List<Folder> GetFolders(object[] folderIds)
+        public List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false)
         {
             return folderIds.Select(GetFolder).ToList();
         }
@@ -200,11 +199,11 @@ namespace ASC.Files.Thirdparty.SharePoint
             return new Dictionary<object, string>();
         }
 
-        public object RenameFolder(object folderId, string newTitle)
+        public object RenameFolder(Folder folder, string newTitle)
         {
-            var oldId = ProviderInfo.MakeId((string)folderId);
+            var oldId = ProviderInfo.MakeId((string)folder.ID);
             var newFolderId = oldId;
-            if (ProviderInfo.SpRootFolderId.Equals(folderId))
+            if (ProviderInfo.SpRootFolderId.Equals(folder.ID))
             {
                 //It's root folder
                 SharePointDaoSelector.RenameProvider(ProviderInfo, newTitle);
@@ -212,71 +211,10 @@ namespace ASC.Files.Thirdparty.SharePoint
             }
             else
             {
-                newFolderId = (string)ProviderInfo.RenameFolder(folderId, newTitle);
+                newFolderId = (string)ProviderInfo.RenameFolder(folder.ID, newTitle);
             }
             UpdatePathInDB(oldId, newFolderId);
             return newFolderId;
-        }
-
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText)
-        {
-            //Get only files
-            var files = ProviderInfo.GetFolderFiles(parentId).Select(r => ProviderInfo.ToFile(r));
-            //Filter
-            switch (filterType)
-            {
-                case FilterType.ByUser:
-                    files = files.Where(x => x.CreateBy == subjectID);
-                    break;
-                case FilterType.ByDepartment:
-                    files = files.Where(x => CoreContext.UserManager.IsUserInGroup(x.CreateBy, subjectID));
-                    break;
-                case FilterType.FoldersOnly:
-                    return new List<File>();
-                case FilterType.DocumentsOnly:
-                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Document).ToList();
-                    break;
-                case FilterType.PresentationsOnly:
-                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Presentation).ToList();
-                    break;
-                case FilterType.SpreadsheetsOnly:
-                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Spreadsheet).ToList();
-                    break;
-                case FilterType.ImagesOnly:
-                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Image).ToList();
-                    break;
-                case FilterType.ArchiveOnly:
-                    files = files.Where(x => FileUtility.GetFileTypeByFileName(x.Title) == FileType.Archive).ToList();
-                    break;
-            }
-
-            if (!string.IsNullOrEmpty(searchText))
-                files = files.Where(x => x.Title.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) != -1).ToList();
-
-            if (orderBy == null) orderBy = new OrderBy(SortedByType.DateAndTime, false);
-
-            switch (orderBy.SortedBy)
-            {
-                case SortedByType.Author:
-                    files = orderBy.IsAsc ? files.OrderBy(x => x.CreateBy) : files.OrderByDescending(x => x.CreateBy);
-                    break;
-                case SortedByType.AZ:
-                    files = orderBy.IsAsc ? files.OrderBy(x => x.Title) : files.OrderByDescending(x => x.Title);
-                    break;
-                case SortedByType.DateAndTime:
-                    files = orderBy.IsAsc ? files.OrderBy(x => x.CreateOn) : files.OrderByDescending(x => x.CreateOn);
-                    break;
-                default:
-                    files = orderBy.IsAsc ? files.OrderBy(x => x.Title) : files.OrderByDescending(x => x.Title);
-                    break;
-            }
-
-            return files.ToList();
-        }
-
-        public List<object> GetFiles(object parentId, bool withSubfolders)
-        {
-            return ProviderInfo.GetFolderFiles(parentId).Select(r=> ProviderInfo.ToFile(r).ID).ToList();
         }
 
         public int GetItemsCount(object folderId, bool withSubfoldes)

@@ -1,9 +1,4 @@
-﻿/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
-
-window.ASC = window.ASC || {};
+﻿window.ASC = window.ASC || {};
 
 window.ASC.TMTalk = window.ASC.TMTalk || {};
 
@@ -216,10 +211,20 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
       //hrefstr = lnkstr.indexOf('\\') !== -1 ? 'file:' + lnkstr.replace(/\\/g, '/') : lnkstr;
       hrefstr = lnkstr;
       hrefstr = hrefstr.substring(0, 4) === 'www.' ? 'http://' + hrefstr : hrefstr;
+      // remove ',' from link if it is last character 
+      var beginIndex = reUrl.lastIndex - lnkstr.length,
+        endIndex = reUrl.lastIndex;
+      if (lnkstr.slice(-1) == ",") {
+        lnkstr = lnkstr.substring(0, lnkstr.length - 1);
+        hrefstr = hrefstr.substring(0, hrefstr.length - 1);
+        beginIndex--;
+        endIndex--;
+      }
+     
       foundLinks.push({
-        begin : reUrl.lastIndex - lnkstr.length,
-        end   : reUrl.lastIndex,
-        text  : '<a href="' + hrefstr + '" target="_blank">' + lnkstr + '</a>'
+        begin: beginIndex,
+        end: endIndex,
+        text: '<a href="' + hrefstr + '" target="_blank">' + lnkstr + '</a>'
       });
     }
 
@@ -438,14 +443,14 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
     var room = null;
     if ((room = getRoomByCid(jid)) !== null) {
       if (!lastChatMessageDates.hasOwnProperty(jid)) {
-        lastChatMessageDates[jid] = {date : null, name : null};
+        lastChatMessageDates[jid] = { date: null, ownMessage: null };
       }
       var needParagraph = true;
-      if (messageTimeout !== null && lastChatMessageDates[jid].date !== null && lastChatMessageDates[jid].name === name) {
+      if (messageTimeout !== null && lastChatMessageDates[jid].date !== null && lastChatMessageDates[jid].ownMessage) {
         needParagraph = date.getTime() - lastChatMessageDates[jid].date.getTime() > messageTimeout;
       }
       lastChatMessageDates[jid].date = date;
-      lastChatMessageDates[jid].name = name;
+      lastChatMessageDates[jid].ownMessage = true;
       addMessage(room, name, displaydate, textToHtml(body), true, needParagraph);
     }
   };
@@ -457,10 +462,10 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
       for (var i = 0, n = messages.length; i < n; i++) {
         message = messages[i];
         if (!lastChatMessageDates.hasOwnProperty(jid)) {
-          lastChatMessageDates[jid] = {date : null, name : null};
+          lastChatMessageDates[jid] = {date : null, ownMessage : null};
         }
         lastChatMessageDates[jid].date = message.date;
-        lastChatMessageDates[jid].name = message.displayName;
+        lastChatMessageDates[jid].ownMessage = false;
 
         addMessage(room, message.displayName, message.displayDate, textToHtml(message.body), false, true, true);
       }
@@ -474,14 +479,14 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
     var room = null;
     if ((room = getRoomByCid(jid)) !== null) {
       if (!lastChatMessageDates.hasOwnProperty(jid)) {
-        lastChatMessageDates[jid] = {date : null, name : null};
+          lastChatMessageDates[jid] = { date: null, ownMessage: null };
       }
       var needParagraph = true;
-      if (messageTimeout !== null && lastChatMessageDates[jid].date !== null && lastChatMessageDates[jid].name === name) {
+      if (messageTimeout !== null && lastChatMessageDates[jid].date !== null && !lastChatMessageDates[jid].ownMessage) {
         needParagraph = date.getTime() - lastChatMessageDates[jid].date.getTime() > messageTimeout;
       }
       lastChatMessageDates[jid].date = date;
-      lastChatMessageDates[jid].name = name;
+      lastChatMessageDates[jid].ownMessage = false;
       addMessage(room, name, displaydate, textToHtml(body), false, needParagraph);
     }
   };
@@ -490,14 +495,14 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
     var room = null;
     if ((room = getRoomByCid(roomjid)) !== null) {
       if (!lastChatMessageDates.hasOwnProperty(roomjid)) {
-        lastChatMessageDates[roomjid] = {date : null, name : null};
+          lastChatMessageDates[roomjid] = { date: null, ownMessage: null };
       }
       var needParagraph = true;
-      if (messageTimeout !== null && lastChatMessageDates[roomjid].date !== null && lastChatMessageDates[roomjid].name === name) {
+      if (messageTimeout !== null && lastChatMessageDates[roomjid].date !== null && lastChatMessageDates[roomjid].ownMessage === isMine) {
         needParagraph = date.getTime() - lastChatMessageDates[roomjid].date.getTime() > messageTimeout;
       }
       lastChatMessageDates[roomjid].date = date;
-      lastChatMessageDates[roomjid].name = name;
+      lastChatMessageDates[roomjid].ownMessage = isMine;
       addMessage(room, name, displaydate, textToHtml(body), isMine, needParagraph);
     }
   };
@@ -873,7 +878,7 @@ window.ASC.TMTalk.roomsContainer = (function ($) {
         }
       }
 
-      getFilteringHistory(jid, 0);
+      getFilteringHistory(jid, 2); // 2 - last month
       $(window).resize();
     }
   };

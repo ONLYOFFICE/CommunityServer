@@ -25,21 +25,7 @@
 
 
 .morefeatures-link {
-    background: url("img/logo_flat.png") no-repeat 0 0 transparent;
-    border: 1px solid #d1d1d1;
-    display: block;
-    height: 54px;
-    margin: 20px 0 0;
-    outline: medium none;
-    padding: 5px 5px 5px 60px;
-    text-decoration: none;
-
-    border-radius: 3px;
-    -moz-border-radius: 3px;
-    -webkit-border-radius: 3px;
-}
-.morefeatures-link:active {
-    text-decoration: none;
+    background-image: url("img/logo_flat.png");
 }
 .morefeatures-link span {
     font-weight: 600;

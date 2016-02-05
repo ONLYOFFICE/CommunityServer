@@ -82,3 +82,21 @@ var calculateWidthTitleBlock = function() {
     var titleWidth = commonWidth - 100;
     jq(".BlogsHeaderBlock").width(titleWidth);
 };
+
+if (typeof window.__doPostBack !== "function") {
+    function __doPostBack(eventTarget, eventArgument) {
+        var theForm = document.forms['aspnetForm'];
+        if (!theForm) {
+            theForm = document.aspnetForm;
+        }
+        if (!theForm.onsubmit || (theForm.onsubmit() != false)) {
+            if (eventTarget) {
+                theForm.__EVENTTARGET.value = eventTarget;
+            }
+            if (eventArgument) {
+                theForm.__EVENTARGUMENT.value = eventArgument;
+            }
+            theForm.submit();
+        }
+    }
+}

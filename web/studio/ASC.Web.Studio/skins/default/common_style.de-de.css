@@ -29,36 +29,33 @@ div.poll_variantDiv input.textEdit{width:83% !important;}
 #reportDescription{margin-left:480px;}
 
 
-@media all and (max-width: 1200px) {
-    .menuAction.menuSendInvite {
-        display: none;
-    }
 
-    .menuAction.otherFunctions li.menuSendInvite {
-        display: block;
-    }
+body.media-width-0-1200 .menuAction.menuSendInvite {
+    display: none;
 }
 
-@media all and (max-width: 1300px) {
-    .menuAction.menuWriteLetter  {
-        display: none;
-    }
-
-    .menuAction.otherFunctions li.menuWriteLetter  {
-        display: block;
-    }
+body.media-width-0-1200 .menuAction.otherFunctions li.menuSendInvite {
+    display: block;
 }
 
-@media all and (max-width: 1350px) {
-    .menuAction.otherFunctions {
-        display: block;
-    }
 
-    .menuAction.menuRemoveUsers {
-        display: none;
-    }
+body.media-width-0-1300 .menuAction.menuWriteLetter  {
+    display: none;
+}
 
-    .menuAction.otherFunctions li.menuRemoveUsers {
-        display: block;
-    }
+body.media-width-0-1300 .menuAction.otherFunctions li.menuWriteLetter  {
+    display: block;
+}
+
+
+body.media-width-0-1350 .menuAction.otherFunctions {
+    display: block;
+}
+
+body.media-width-0-1350 .menuAction.menuRemoveUsers {
+    display: none;
+}
+
+body.media-width-0-1350 .menuAction.otherFunctions li.menuRemoveUsers {
+    display: block;
 }

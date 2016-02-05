@@ -281,10 +281,10 @@ namespace ActiveUp.Net.Mail
         {
             ArrayList entries = LastEntries(30);
 
-            StringBuilder stringEntries = new StringBuilder();
+            var stringEntries = new StringBuilder();
 
             foreach(string entry in entries)
-                stringEntries.Append(entry + "\n");
+                stringEntries.Append(entry).Append("\n");
 
             return stringEntries.ToString();
         }

@@ -252,6 +252,8 @@ ASC.CRM.ListDealView = (function() {
         for (var i = 0, n = ASC.CRM.ListDealView.selectedItems.length; i < n; i++) {
             selectedIDs.push(ASC.CRM.ListDealView.selectedItems[i].id);
         }
+
+        ASC.CRM.ListDealView.bidList = [];
         for (var i = 0, n = opportunities.length; i < n; i++) {
             ASC.CRM.ListDealView._dealItemFactory(opportunities[i], selectedIDs);
         }
@@ -607,13 +609,16 @@ ASC.CRM.ListDealView = (function() {
 
 
         jq("#dealTable").unbind("contextmenu").bind("contextmenu", function(event) {
-            event.preventDefault();
+            var e = jq.fixEvent(event);
 
-            var e = ASC.CRM.Common.fixEvent(event),
-                target = jq(e.srcElement || e.target),
+            if (typeof e == "undefined" || !e) {
+                return true;
+            }
+
+            var target = jq(e.srcElement || e.target),
                 dealId = parseInt(target.closest("tr.with-entity-menu").attr("id").split('_')[1]);
             if (!dealId) {
-                return false;
+                return true;
             }
             _showActionMenu(dealId);
             jq("#dealTable .entity-menu.active").removeClass("active");
@@ -637,7 +642,7 @@ ASC.CRM.ListDealView = (function() {
                 });
             }
             $dropdownItem.show();
-            return true;
+            return false;
         });
     };
 
@@ -1319,12 +1324,13 @@ ASC.CRM.ListDealView = (function() {
                     deal.perPeriodValue = 0;
 
                 var isExist = false;
-                for (var j = 0, len = ASC.CRM.ListDealView.bidList.length; j < len; j++)
+                for (var j = 0, len = ASC.CRM.ListDealView.bidList.length; j < len; j++) {
                     if (ASC.CRM.ListDealView.bidList[j].bidCurrencyAbbreviation == deal.bidCurrency.abbreviation) {
                         ASC.CRM.ListDealView.bidList[j].bidValue += deal.bidValue * (deal.perPeriodValue != 0 ? deal.perPeriodValue : 1);
                         isExist = true;
                         break;
                     }
+                }
 
                 if (!isExist) {
                     ASC.CRM.ListDealView.bidList.push(
@@ -1370,6 +1376,7 @@ ASC.CRM.ListDealView = (function() {
 
         showExchangeRatePopUp: function() {
             if (ASC.CRM.ListDealView.bidList.length == 0) return;
+
             ASC.CRM.ExchangeRateView.init(ASC.CRM.ListDealView.bidList);
             jq("#ExchangeRateTabs>a:first").click();
             PopupKeyUpActionProvider.EnableEsc = false;

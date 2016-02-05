@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -46,8 +46,8 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             _emailChangerContainer.Options.IsPopup = true;
             AjaxPro.Utility.RegisterTypeForAjax(typeof(EmailOperationService));
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/users/userprofile/css/userprofilecontrol_style.less"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/users/userprofile/js/userprofilecontrol.js"));
+            Page.RegisterStyle("~/usercontrols/users/userprofile/css/userprofilecontrol_style.less");
+            Page.RegisterBodyScripts("~/usercontrols/users/userprofile/js/userprofilecontrol.js");
         }
     }
 }

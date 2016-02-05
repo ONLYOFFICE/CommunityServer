@@ -250,6 +250,7 @@ namespace ASC.Web.Core.Files
             {
                 throw new NotSupportedException("Method for server edition only.");
             }
+            value = (value ?? "").Trim();
             if (GetUrlSetting(key) != value)
                 CoreContext.Configuration.SaveSetting(GetSettingsKey(key), value);
         }

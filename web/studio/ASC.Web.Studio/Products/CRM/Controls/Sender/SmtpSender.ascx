@@ -10,7 +10,7 @@
 <div id="sendEmailPanel" style="display:none;">
     <div id="createContent">
         <div class="headerPanel-splitter">
-            <%= CRMCommonResource.ComposeMailDescription%>
+            <%: CRMCommonResource.ComposeMailDescription%>
         </div>
         <div class="headerPanel-splitter">
             <b style="padding-right:5px;"><%= CRMCommonResource.MailFrom%>:</b>
@@ -51,7 +51,7 @@
             <textarea id="ckEditor" name="ckEditor" style="width: 100%;height: 400px;"></textarea>
         </div>
         <div class="headerPanel-splitter">
-            <span class="text-medium-describe">*<%= CRMContactResource.TeamlabWatermarkInfo%></span>
+            <span class="text-medium-describe">*<%: CRMContactResource.TeamlabWatermarkInfo %></span>
         </div>
         <div class="clearFix">
             <% if (!MobileVer) { %>
@@ -79,7 +79,7 @@
     </div>
     <div id="previewContent" style="display:none;">
         <div class="headerPanel-splitter">
-            <%= CRMCommonResource.PreviewMailDescription%>
+            <%: CRMCommonResource.PreviewMailDescription%>
         </div>
         <div class="headerPanel-splitter">
             <b style="padding-right:5px;"><%= CRMCommonResource.MailFrom%>:</b>
@@ -135,7 +135,7 @@
                     <img src="<%=WebImageSupplier.GetAbsoluteWebPath("mail_send.png", ProductEntryPoint.ID)%>" alt=""/>
                 </td>
                 <td style="color: #787878;font-size: 17px;" colspan="2">
-                    <%= String.Format(CRMContactResource.MassSendInfo, "<br/>")%>
+                    <%= String.Format(CRMContactResource.MassSendInfo.HtmlEncode(), "<br/>")%>
                     <div id="sendProcessProgress" class="clearFix progress-container">
                         <div class="percent">0%</div>
                         <div class="progress-wrapper">

@@ -1,3 +1,4 @@
+﻿
 /*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
@@ -23,10 +24,10 @@
  *
 */
 
-
+using System.IO;
 using System.Text.RegularExpressions;
 using System.Web;
-using ASC.Files.Core;
+using File = ASC.Files.Core.File;
 
 namespace ASC.Web.Files.ThirdPartyApp
 {
@@ -34,13 +35,13 @@ namespace ASC.Web.Files.ThirdPartyApp
     {
         bool Request(HttpContext context);
 
-        Token RefreshToken(string refreshToken);
+        string GetRefreshUrl();
 
         File GetFile(string fileId, out bool editable);
 
         string GetFileStreamUrl(File file);
 
-        void SaveFile(string fileId, string downloadUrl);
+        void SaveFile(string fileId, string fileType, string downloadUrl, Stream stream);
     }
 
     public class ThirdPartySelector

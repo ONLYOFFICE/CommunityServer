@@ -24,12 +24,13 @@
 */
 
 
-using System.Collections;
+using System.Collections.Generic;
+using ASC.Projects.Core.Domain;
 
 namespace ASC.Projects.Core.DataInterfaces
 {
     public interface ISearchDao
     {
-         ICollection Search(string text, int projectId = 0);
+         IEnumerable<DomainObject<int>> Search(string text, int projectId = 0);
     }
 }

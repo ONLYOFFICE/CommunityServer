@@ -72,6 +72,7 @@ namespace ASC.Mail.Server.Administration.Interfaces
         public abstract void DeleteWebDomain(IWebDomain webDomain, IMailServerFactory factory);
         public abstract ICollection<IWebDomain> GetWebDomains(IMailServerFactory factory);
         public abstract IWebDomain GetWebDomain(int domainId, IMailServerFactory factory);
+        public abstract bool IsDomainExists(string name);
 
         public abstract IMailGroup CreateMailGroup(string groupName, IWebDomain domain, List<int> addressIds, IMailServerFactory factory);
         public abstract IMailGroup GetMailGroup(int id, IMailServerFactory factory);
@@ -83,8 +84,12 @@ namespace ASC.Mail.Server.Administration.Interfaces
         public abstract void DeleteMailbox(IMailbox mailbox);
         public abstract ICollection<IMailbox> GetMailboxes(IMailServerFactory factory);
         public abstract IMailbox GetMailbox(int mailboxId, IMailServerFactory factory);
+
+        public abstract INotificationAddress CreateNotificationAddress(string localpart, string password, IWebDomain domain, IMailServerFactory factory);
+        public abstract void DeleteNotificationAddress(string address);
+
         public abstract IDnsSettings GetFreeDnsRecords(IMailServerFactory factory);
-        public abstract bool IsDomainExists(string name);
+        
 
         // override object.Equals
         public override bool Equals(object obj)

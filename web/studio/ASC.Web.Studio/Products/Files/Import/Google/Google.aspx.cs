@@ -42,7 +42,6 @@ namespace ASC.Web.Files.Import.Google
         }
 
         private const string Source = "googledrive";
-        private const string GoogleDriveScope = "https://www.googleapis.com/auth/drive";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -65,7 +64,7 @@ namespace ASC.Web.Files.Import.Google
                                                    GoogleLoginProvider.GoogleOauthCodeUrl,
                                                    GoogleLoginProvider.GoogleOAuth20ClientId,
                                                    GoogleLoginProvider.GoogleOAuth20RedirectUrl,
-                                                   GoogleDriveScope,
+                                                   GoogleLoginProvider.GoogleScopeDrive,
                                                    new Dictionary<string, string>
                                                    {
                                                        { "access_type", "offline" },

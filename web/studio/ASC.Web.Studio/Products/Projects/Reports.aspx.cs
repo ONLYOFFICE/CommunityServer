@@ -64,7 +64,7 @@ namespace ASC.Web.Projects
                 }
             }
 
-            ListTemplates = Global.EngineFactory.GetReportEngine().GetTemplates(Participant.ID);
+            ListTemplates = EngineFactory.ReportEngine.GetTemplates(Participant.ID);
             SetReportList();
         }
 

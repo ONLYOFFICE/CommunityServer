@@ -24,34 +24,50 @@
 */
 
 
+using System.Collections.Specialized;
+using System.Globalization;
+using System.Net;
+using ASC.Api.Attributes;
+using ASC.Api.Collections;
+using ASC.Api.Employee;
+using ASC.Api.Interfaces;
+using ASC.Api.Utils;
+using ASC.Common.Threading.Progress;
+using ASC.Core;
+using ASC.Core.Billing;
+using ASC.Core.Tenants;
+using ASC.Core.Users;
+using ASC.IPSecurity;
+using ASC.MessagingSystem;
+using ASC.Web.Core;
+using ASC.Web.Core.Utility;
+using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Core.WhiteLabel;
+using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Core.SMS;
+using ASC.Web.Studio.UserControls.FirstTime;
+using ASC.Web.Studio.Utility;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ASC.Api.Attributes;
-using ASC.Api.Employee;
-using ASC.Api.Interfaces;
-using ASC.Api.Utils;
-using ASC.Core;
-using ASC.Core.Tenants;
-using ASC.IPSecurity;
-using ASC.MessagingSystem;
-using ASC.Web.Core;
-using ASC.Web.Studio.Core;
-using ASC.Api.Collections;
-using ASC.Web.Core.Utility.Settings;
-using ASC.Core.Users;
-using ASC.Web.Core.CoBranding;
-using ASC.Web.Studio.Core.SMS;
-using Resources;
+using log4net;
+using System.Web.Configuration;
+using System.Web.Hosting;
+using System.Configuration;
+
 
 namespace ASC.Api.Settings
 {
     ///<summary>
     /// Portal settings
     ///</summary>
-    public class SettingsApi : IApiEntryPoint
+    public partial class SettingsApi : IApiEntryPoint
     {
+        private const int ONE_THREAD = 1;
+        private static ProgressQueue ldapTasks = new ProgressQueue(ONE_THREAD, TimeSpan.FromMinutes(15), true);
+
         public string Name
         {
             get { return "settings"; }
@@ -70,6 +86,11 @@ namespace ASC.Api.Settings
         private static Guid CurrentUser
         {
             get { return SecurityContext.CurrentAccount.ID; }
+        }
+
+        private static ProgressQueue LdapTasks
+        {
+            get { return ldapTasks; }
         }
 
         ///<summary>
@@ -105,6 +126,17 @@ namespace ASC.Api.Settings
         {
             var diskQuota = CoreContext.TenantManager.GetTenantQuota(CoreContext.TenantManager.GetCurrentTenant().TenantId);
             return new QuotaWrapper(diskQuota, GetQuotaRows());
+        }
+
+        /// <summary>
+        /// Get build version
+        /// </summary>
+        /// <visible>false</visible>
+        /// <returns>Current onlyoffice, editor, mailserver versions</returns>
+        [Read("version/build")]
+        public BuildVersion GetBuildVersions()
+        {
+            return BuildVersion.GetCurrentBuildVersion();
         }
 
         /// <summary>
@@ -316,6 +348,183 @@ namespace ASC.Api.Settings
             return SettingsManager.Instance.LoadSettings<TenantInfoSettings>(CoreContext.TenantManager.GetCurrentTenant().TenantId).GetAbsoluteCompanyLogoPath();
         }
 
+
+        ///<visible>false</visible>
+        [Create("whitelabel/save")]
+        public void SaveWhiteLabelSettings(string logoText, IEnumerable<ItemKeyValuePair<int, string>> logo)
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            if (!TenantLogoManager.WhiteLabelEnabled || !TenantLogoManager.WhiteLabelPaid)
+            {
+                throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
+            }
+
+            var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+
+            if (logo != null)
+            {
+                var logoDict = new Dictionary<int, string>();
+                logo.ToList().ForEach(n => logoDict.Add(n.Key, n.Value));
+
+                _tenantWhiteLabelSettings.SetLogo(logoDict);
+            }
+
+            _tenantWhiteLabelSettings.LogoText = logoText;
+            _tenantWhiteLabelSettings.Save();
+
+        }
+
+
+        ///<visible>false</visible>
+        [Create("whitelabel/savefromfiles")]
+        public void SaveWhiteLabelSettingsFromFiles(IEnumerable<System.Web.HttpPostedFileBase> files)
+        {
+            if (files != null && files.Any())
+            {
+                var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+
+                foreach (var f in files)
+                {
+                    var parts = f.FileName.Split('.');
+
+                    WhiteLabelLogoTypeEnum logoType = (WhiteLabelLogoTypeEnum)(Convert.ToInt32(parts[0]));
+                    string fileExt = parts[1];
+                    _tenantWhiteLabelSettings.SetLogoFromStream(logoType, fileExt, f.InputStream);
+                }
+                _tenantWhiteLabelSettings.Save();
+            }
+            else
+            {
+                throw new InvalidOperationException("No input files");
+            }
+        }
+
+
+        ///<visible>false</visible>
+        [Read("whitelabel/sizes")]
+        public object GetWhiteLabelSizes()
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            if (!TenantLogoManager.WhiteLabelEnabled)
+            {
+                throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
+            }
+
+            return
+            new[]
+            {
+                new {type = (int)WhiteLabelLogoTypeEnum.Light, name = WhiteLabelLogoTypeEnum.Light.ToString(), height = TenantWhiteLabelSettings.logoLightSize.Height, width = TenantWhiteLabelSettings.logoLightSize.Width},
+                new {type = (int)WhiteLabelLogoTypeEnum.LightSmall, name = WhiteLabelLogoTypeEnum.LightSmall.ToString(), height = TenantWhiteLabelSettings.logoLightSmallSize.Height, width = TenantWhiteLabelSettings.logoLightSmallSize.Width},
+                new {type = (int)WhiteLabelLogoTypeEnum.Dark, name = WhiteLabelLogoTypeEnum.Dark.ToString(), height = TenantWhiteLabelSettings.logoDarkSize.Height, width = TenantWhiteLabelSettings.logoDarkSize.Width},
+                new {type = (int)WhiteLabelLogoTypeEnum.Favicon, name = WhiteLabelLogoTypeEnum.Favicon.ToString(), height = TenantWhiteLabelSettings.logoFaviconSize.Height, width = TenantWhiteLabelSettings.logoFaviconSize.Width},
+                new {type = (int)WhiteLabelLogoTypeEnum.DocsEditor, name = WhiteLabelLogoTypeEnum.DocsEditor.ToString(), height = TenantWhiteLabelSettings.logoDocsEditorSize.Height, width = TenantWhiteLabelSettings.logoDocsEditorSize.Width},
+                new {type = (int)WhiteLabelLogoTypeEnum.DocsEditorEmbedded, name = WhiteLabelLogoTypeEnum.DocsEditorEmbedded.ToString(), height = TenantWhiteLabelSettings.logoDocsEditorEmbeddedSize.Height, width = TenantWhiteLabelSettings.logoDocsEditorEmbeddedSize.Width}
+            };
+        }
+
+
+
+        ///<visible>false</visible>
+        [Read("whitelabel/logos")]
+        public Dictionary<int, string> GetWhiteLabelLogos(bool retina)
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            if (!TenantLogoManager.WhiteLabelEnabled)
+            {
+                throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
+            }
+
+            var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+
+
+            var result = new Dictionary<int, string>();
+
+            result.Add((int)WhiteLabelLogoTypeEnum.Light, CommonLinkUtility.GetFullAbsolutePath(_tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Light, !retina)));
+            result.Add((int)WhiteLabelLogoTypeEnum.LightSmall, CommonLinkUtility.GetFullAbsolutePath(_tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.LightSmall, !retina)));
+
+
+            var logoDarkPath = _tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Dark, !retina);
+            var defaultDarkLogoPath = TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Dark, !retina);
+
+            if (String.Equals(logoDarkPath, defaultDarkLogoPath, StringComparison.OrdinalIgnoreCase))
+            {
+                var _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
+                logoDarkPath = _tenantInfoSettings.GetAbsoluteCompanyLogoPath();
+            }
+
+            result.Add((int)WhiteLabelLogoTypeEnum.Dark, CommonLinkUtility.GetFullAbsolutePath(logoDarkPath));
+
+            result.Add((int)WhiteLabelLogoTypeEnum.Favicon, CommonLinkUtility.GetFullAbsolutePath(_tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Favicon, !retina)));
+            result.Add((int)WhiteLabelLogoTypeEnum.DocsEditor, CommonLinkUtility.GetFullAbsolutePath(_tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.DocsEditor, !retina)));
+            result.Add((int)WhiteLabelLogoTypeEnum.DocsEditorEmbedded, CommonLinkUtility.GetFullAbsolutePath(_tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.DocsEditorEmbedded, !retina)));
+
+            return result;
+        }
+
+        ///<visible>false</visible>
+        [Read("whitelabel/logotext")]
+        public string GetWhiteLabelLogoText()
+        {
+            if (!TenantLogoManager.WhiteLabelEnabled)
+            {
+                throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
+            }
+
+            var whiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+
+            return whiteLabelSettings.LogoText != null ? whiteLabelSettings.LogoText : TenantWhiteLabelSettings.DefaultLogo;
+        }
+
+
+        ///<visible>false</visible>
+        [Update("whitelabel/restore")]
+        public void RestoreWhiteLabelOptions()
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            if (!TenantLogoManager.WhiteLabelEnabled || !TenantLogoManager.WhiteLabelPaid)
+            {
+                throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
+            }
+
+            var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+            _tenantWhiteLabelSettings.RestoreDefault();
+
+            var _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
+            _tenantInfoSettings.RestoreDefaultLogo();
+            SettingsManager.Instance.SaveSettings(_tenantInfoSettings, TenantProvider.CurrentTenantID);
+        }
+
+        ///<visible>false</visible>
+        [Read("webconfig/basedomain")]
+        public string GetWebConfigBaseDomain()
+        {
+            if (String.IsNullOrEmpty(SetupInfo.ControlPanelUrl)
+                || CoreContext.Configuration.Personal
+                || !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin())
+                    throw new Exception(Resource.ErrorAccessDenied);
+
+            return CoreContext.Configuration.BaseDomain;
+        }
+
+        ///<visible>false</visible>
+        [Update("webconfig/basedomain")]
+        public string SetWebConfigBaseDomain(string domain)
+        {
+            if (String.IsNullOrEmpty(SetupInfo.ControlPanelUrl)
+                || CoreContext.Configuration.Personal
+                || !CoreContext.Configuration.Standalone)
+                    throw new Exception(Resource.ErrorAccessDenied);
+
+            ASC.Core.SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            CoreContext.Configuration.BaseDomain = domain;
+            return CoreContext.Configuration.BaseDomain;
+        }
+
         /// <summary>
         /// Get portal ip restrictions
         /// </summary>
@@ -365,6 +574,25 @@ namespace ASC.Api.Settings
         {
             var settings = new TipsSettings { Show = show };
             SettingsManager.Instance.SaveSettingsFor(settings, CurrentUser);
+
+            if (!show && !string.IsNullOrEmpty(SetupInfo.TipsAddress))
+            {
+                try
+                {
+                    using (var client = new WebClient())
+                    {
+                        var data = new NameValueCollection();
+                        data["userId"] = CurrentUser.ToString();
+                        data["tenantId"] = CurrentTenant.ToString(CultureInfo.InvariantCulture);
+
+                        client.UploadValues(string.Format("{0}/tips/deletereaded", SetupInfo.TipsAddress), data);
+                    }
+                }
+                catch (Exception e)
+                {
+                    LogManager.GetLogger(typeof(SettingsApi)).Error(e.Message, e);
+                }
+            }
 
             return settings;
         }
@@ -416,10 +644,76 @@ namespace ASC.Api.Settings
             return StudioSmsNotificationSettings.Enable;
         }
 
+        ///<visible>false</visible>
+        [Update("welcome/close")]
+        public void CloseWelcomePopup()
+        {
+            var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
+            var collaboratorPopupSettings = SettingsManager.Instance.LoadSettingsFor<CollaboratorSettings>(currentUser.ID);
+
+            if (!(currentUser.IsVisitor() && collaboratorPopupSettings.FirstVisit && !currentUser.IsOutsider()))
+                throw new NotSupportedException("Not available.");
+
+            collaboratorPopupSettings.FirstVisit = false;
+            SettingsManager.Instance.SaveSettingsFor(collaboratorPopupSettings, SecurityContext.CurrentAccount.ID);
+        }
+
+        ///<visible>false</visible>
+        [Update("firsttimetenantsettings")]
+        public void SetFirstTimeTenantSettings()
+        {
+            var currentUser = CoreContext.UserManager.GetUsers(CurrentUser);
+            if (!currentUser.IsOwner())
+                throw new NotSupportedException("Access Denied.");
+
+            FirstTimeTenantSettings.SetDefaultTenantSettings();
+            FirstTimeTenantSettings.SendInstallInfo(currentUser);
+        }
+
+        ///<visible>false</visible>
+        [Update("colortheme")]
+        public void SaveColorTheme(string theme)
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+            ColorThemesSettings.SaveColorTheme(theme);
+            MessageService.Send(HttpContext.Current.Request, MessageAction.ColorThemeChanged);
+        }
+
+        ///<visible>false</visible>
+        [Update("defaultpage")]
+        public string SaveDefaultPageSettings(string defaultProductID)
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            var defaultPageSettingsObj = new StudioDefaultPageSettings
+            {
+                DefaultProductID = new Guid(defaultProductID)
+            };
+            SettingsManager.Instance.SaveSettings(defaultPageSettingsObj, TenantProvider.CurrentTenantID);
+
+            MessageService.Send(HttpContext.Current.Request, MessageAction.DefaultStartPageSettingsUpdated);
+
+            return Resources.Resource.SuccessfullySaveSettingsMessage;
+        }
+
+
         private static string GetProductName(Guid productId)
         {
             var product = WebItemManager.Instance[productId] as IProduct;
             return productId == Guid.Empty ? "All" : product != null ? product.Name : productId.ToString();
+        }
+
+        /// <summary>
+        /// Refresh license
+        /// </summary>
+        /// <visible>false</visible>
+        [Read("license/refresh")]
+        public bool RefreshLicense()
+        {
+            if (!CoreContext.Configuration.Standalone) return false;
+            LicenseClient.RefreshLicense();
+            return true;
         }
     }
 }

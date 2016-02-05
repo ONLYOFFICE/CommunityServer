@@ -33,6 +33,7 @@ var VideoSaver = new function () {
             jq.dropdownToggle({
                 switcherSelector: ".menu-list .video-guides .new-label-menu",
                 dropdownID: "studio_videoPopupPanel",
+                inPopup: true,
                 addTop: 5,
                 addLeft: 0
             });

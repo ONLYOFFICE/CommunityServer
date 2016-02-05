@@ -25,18 +25,15 @@
 
 
 window.trustedAddresses = (function() {
-    var trustedAddresses = [];
+    var trustedAddresses = [],
+        isInit = false;
 
     function init() {
-        serviceManager.bind(window.Teamlab.events.getMailDisplayImagesAddresses, onGetMailDisplayImagesAddresses);
-
-        storeToLocalStorage([]);
-
-        window.Teamlab.getMailDisplayImagesAddresses();
-    }
-
-    function onGetMailDisplayImagesAddresses(params, addresses) {
-        loadTrustedAddresses(addresses);
+        if (!isInit) {
+            if (ASC.Mail.Presets.DisplayImagesAddresses) {
+                loadTrustedAddresses(ASC.Mail.Presets.DisplayImagesAddresses);
+            }
+        }
     }
 
     function loadTrustedAddresses(addresses) {
@@ -44,6 +41,9 @@ window.trustedAddresses = (function() {
         for (i = 0, len = addresses.length; i < len; i++) {
             loadAddress(addresses[i]);
         }
+        
+        if(addresses.length == 0)
+            storeToLocalStorage([]);
     }
 
     function loadAddress(address) {

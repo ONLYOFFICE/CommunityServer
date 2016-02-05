@@ -124,27 +124,9 @@
 
     </div>
 
-    <asp:PlaceHolder runat="server" ID="emptyScreen"></asp:PlaceHolder>
     <div id="peopleActionMenu" class="studio-action-panel" data-canedit="<%=Actions.AllowEdit %>" data-candel="<%=Actions.AllowAddOrDelete %>">        
     </div>
 
-
-    <div id="confirmationDeleteDepartmentPanel" style="display: none;">
-        <sc:Container id="_confirmationDeleteDepartmentPanel" runat="server">
-            <header>
-                <%= PeopleResource.Confirmation%>
-            </header>
-            <body>
-                <div class="confirmationAction">
-                </div>
-                <div class="middle-button-container">
-                    <a class="button blue middle"><%= PeopleResource.LblOKButton%></a>
-                    <span class="splitter-buttons"></span>
-                    <a class="button gray middle" onclick="jq.unblockUI();"><%= PeopleResource.LblCancelButton%></a>
-                </div>
-            </body>
-        </sc:Container>
-    </div>
 
     <asp:PlaceHolder ID="userEmailChange" runat="server"></asp:PlaceHolder>
     <asp:PlaceHolder ID="userPwdChange" runat="server"></asp:PlaceHolder>
@@ -166,57 +148,48 @@
         </ul>
     </div>
 
-    <div id="changeTypeDialog" style="display: none;">
-        <sc:Container id="_changeTypeDialog" runat="server">
-            <header>
-                <%= PeopleResource.ChangeTypeDialogHeader %>
-            </header>
-            <body>
-                <div id="userTypeInfo">
-                    <div class="block-cnt-splitter">
-                        <span class="tariff-limit"></span>
-                        <%= PeopleResource.ChangeTypeDialogConstraint %>&nbsp;
-                        <%= IsFreeTariff ? string.Format(PeopleResource.ReadAboutNonProfit,
-                            "<a class='link underline' href='http://helpcenter.onlyoffice.com/gettingstarted/configuration.aspx#PublicPortals' target='_blank'>",
-                            "</a>"): string.Empty%>
-                    </div>
-                    <div class="block-cnt-splitter action-info">
-                        <%= CustomNamingPeople.Substitute<PeopleResource>("ChangeTypeDialogToUser").HtmlEncode() %>
-                        <br/>
-                        <%= PeopleResource.ChangeTypeDialogRestriction %>
-                    </div>
-                </div>
-                <div id="visitorTypeInfo">
-                    <div class="block-cnt-splitter">
-                        <%= CustomNamingPeople.Substitute<PeopleResource>("ChangeTypeDialogToGuest").HtmlEncode() %>
-                        <br/>
-                        <%= PeopleResource.ChangeTypeDialogRestriction %>
-                    </div>
-                </div>
-                <div class="selected-users-info">
-                    <a class="link dotline showBtn">
-                        <%= PeopleResource.ShowSelectedUserList %>
-                    </a>
-                    <a class="link dotline hideBtn display-none">
-                        <%= PeopleResource.HideSelectedUserList %>
-                    </a>
-                    <div class="user-list-for-group-operation display-none">
-                    </div>
-                </div>
-                <div class="error-popup display-none"></div>
-                <div class="middle-button-container">
-                    <a id="changeTypeDialogTariff" class="blue button middle" href="<%= TenantExtra.GetTariffPageLink() %>">
-                        <%= UserControlsCommonResource.UpgradeButton %></a>
-                    <span class="splitter-buttons"></span>
-                    <a id="changeTypeDialogOk" class="button gray middle"><%= PeopleResource.ChangeType %></a>
-                    <span class="splitter-buttons"></span>
-                    <a id="changeTypeDialogCancel" class="button gray middle"><%= PeopleResource.LblCancelButton%></a>
-                </div>
-            </body>
-        </sc:Container>
+    <div id="changeTypeDialogBody" class="display-none">
+        <div id="userTypeInfo">
+            <div class="block-cnt-splitter">
+                <span class="tariff-limit"></span>
+                <%= PeopleResource.ChangeTypeDialogConstraint %>&nbsp;
+                <%= IsFreeTariff ? string.Format(PeopleResource.ReadAboutNonProfit,
+                    "<a class='link underline' href='http://helpcenter.onlyoffice.com/gettingstarted/configuration.aspx#PublicPortals' target='_blank'>",
+                    "</a>"): string.Empty%>
+            </div>
+            <div class="block-cnt-splitter action-info">
+                <%= CustomNamingPeople.Substitute<PeopleResource>("ChangeTypeDialogToUser").HtmlEncode() %>
+                <br/>
+                <%= PeopleResource.ChangeTypeDialogRestriction %>
+            </div>
+        </div>
+        <div id="visitorTypeInfo">
+            <div class="block-cnt-splitter">
+                <%= CustomNamingPeople.Substitute<PeopleResource>("ChangeTypeDialogToGuest").HtmlEncode() %>
+                <br/>
+                <%= PeopleResource.ChangeTypeDialogRestriction %>
+            </div>
+        </div>
+        <div class="selected-users-info">
+            <a class="link dotline showBtn">
+                <%= PeopleResource.ShowSelectedUserList %>
+            </a>
+            <a class="link dotline hideBtn display-none">
+                <%= PeopleResource.HideSelectedUserList %>
+            </a>
+            <div class="user-list-for-group-operation display-none">
+            </div>
+        </div>
+        <div class="error-popup display-none"></div>
+        <div class="middle-button-container">
+            <a id="changeTypeDialogTariff" class="blue button middle" href="<%= TenantExtra.GetTariffPageLink() %>">
+                <%= UserControlsCommonResource.UpgradeButton %></a>
+            <span class="splitter-buttons"></span>
+            <a id="changeTypeDialogOk" class="button gray middle"><%= PeopleResource.ChangeType %></a>
+            <span class="splitter-buttons"></span>
+            <a id="changeTypeDialogCancel" class="button gray middle"><%= PeopleResource.LblCancelButton%></a>
+        </div>
     </div>
-
-
 
     <div id="changeStatusPanel" class="studio-action-panel group-actions">
         <ul class="dropdown-content">
@@ -233,132 +206,61 @@
         </ul>
     </div>
     
-    <div id="changeStatusDialog" style="display: none;">
-        <sc:Container id="_changeStatusDialog" runat="server">
-            <header>
-                <%= PeopleResource.ChangeStatusDialogHeader %>
-            </header>
-            <body>
-                <div id="activeStatusInfo">
-                    <div class="block-cnt-splitter">
-                        <span class="tariff-limit"></span>
-                        <%= PeopleResource.ChangeStatusDialogConstraint %>&nbsp;
-                        <%= IsFreeTariff ? string.Format(PeopleResource.ReadAboutNonProfit,
-                            "<a class='link underline' href='http://helpcenter.onlyoffice.com/gettingstarted/configuration.aspx#PublicPortals' target='_blank'>",
-                            "</a>"): string.Empty%>
-                    </div>
-                    <div class="block-cnt-splitter action-info">
-                        <%= PeopleResource.ChangeStatusDialogToActive %>
-                        <br/>
-                        <%= PeopleResource.ChangeStatusDialogRestriction %>
-                    </div>
-                </div>
-                <div id="terminateStatusInfo" class="display-none">
-                    <div class="block-cnt-splitter">
-                        <%= PeopleResource.ChangeStatusDialogToTerminate %>
-                        <br/>
-                        <%= PeopleResource.ChangeStatusDialogRestriction %>
-                    </div>
-                </div>
-                <div class="selected-users-info">
-                    <a class="link dotline showBtn">
-                        <%= PeopleResource.ShowSelectedUserList %>
-                    </a>
-                    <a class="link dotline hideBtn display-none">
-                        <%= PeopleResource.HideSelectedUserList %>
-                    </a>
-                    <div class="user-list-for-group-operation display-none">
-                    </div>
-                </div>
-                <div class="error-popup display-none"></div>
-                <div class="middle-button-container">
-                    <a id="changeStatusTariff" class="blue button middle" href="<%= TenantExtra.GetTariffPageLink() %>">
-                        <%= UserControlsCommonResource.UpgradeButton %></a>
-                    <span class="splitter-buttons"></span>
-                    <a id="changeStatusOkBtn" class="button gray middle"><%= PeopleResource.ChangeStatusButton %></a>
-                    <span class="splitter-buttons"></span>
-                    <a id="changeStatusCancelBtn" class="button gray middle"><%= PeopleResource.LblCancelButton%></a>
-                </div>
-            </body>
-        </sc:Container>
+    <div id="changeStatusDialogBody" class="display-none">
+        <div id="activeStatusInfo">
+            <div class="block-cnt-splitter">
+                <span class="tariff-limit"></span>
+                <%= PeopleResource.ChangeStatusDialogConstraint %>&nbsp;
+                <%= IsFreeTariff ? string.Format(PeopleResource.ReadAboutNonProfit,
+                    "<a class='link underline' href='http://helpcenter.onlyoffice.com/gettingstarted/configuration.aspx#PublicPortals' target='_blank'>",
+                    "</a>"): string.Empty%>
+            </div>
+            <div class="block-cnt-splitter action-info">
+                <%= PeopleResource.ChangeStatusDialogToActive %>
+                <br/>
+                <%= PeopleResource.ChangeStatusDialogRestriction %>
+            </div>
+        </div>
+        <div id="terminateStatusInfo" class="display-none">
+            <div class="block-cnt-splitter">
+                <%= PeopleResource.ChangeStatusDialogToTerminate %>
+                <br/>
+                <%= PeopleResource.ChangeStatusDialogRestriction %>
+            </div>
+        </div>
+        <div class="selected-users-info">
+            <a class="link dotline showBtn">
+                <%= PeopleResource.ShowSelectedUserList %>
+            </a>
+            <a class="link dotline hideBtn display-none">
+                <%= PeopleResource.HideSelectedUserList %>
+            </a>
+            <div class="user-list-for-group-operation display-none">
+            </div>
+        </div>
+        <div class="error-popup display-none"></div>
+        <div class="middle-button-container">
+            <a id="changeStatusTariff" class="blue button middle" href="<%= TenantExtra.GetTariffPageLink() %>">
+                <%= UserControlsCommonResource.UpgradeButton %></a>
+            <span class="splitter-buttons"></span>
+            <a id="changeStatusOkBtn" class="button gray middle"><%= PeopleResource.ChangeStatusButton %></a>
+            <span class="splitter-buttons"></span>
+            <a id="changeStatusCancelBtn" class="button gray middle"><%= PeopleResource.LblCancelButton%></a>
+        </div>
     </div>
 
-    <div id="resendInviteDialog" style="display: none;">
-        <sc:Container id="_resendInviteDialog" runat="server">
-            <header>
-                <%= PeopleResource.ResendInviteDialogHeader %>
-            </header>
-            <body>
-                <div>
-                    <%= PeopleResource.ResendInviteDialogTargetUsers %>
-                </div>
-                <div>
-                    <%= PeopleResource.ResendInviteDialogAfterActivation %>
-                </div>
-                <a class="link dotline showBtn">
-                    <%= PeopleResource.ShowSelectedUserList %>
-                </a>
-                <a class="link dotline hideBtn display-none">
-                    <%= PeopleResource.HideSelectedUserList %>
-                </a>
-                <div class="user-list-for-group-operation display-none">
-                </div>
-
-                <div class="error-popup display-none"></div>
-                <div class="big-button-container">
-                    <a id="resentInviteOkBtn" class="button blue middle"><%= PeopleResource.LblOKButton%></a>
-                    <span class="splitter-buttons"></span>
-                    <a id="resentInviteCancelBtn" class="button gray middle"><%= PeopleResource.LblCancelButton%></a>
-                </div>
-            </body>
-        </sc:Container>
-    </div>
-
-    <div id="deleteUsersDialog" style="display: none;">
-        <sc:Container id="_deleteUsersDialog" runat="server">
-            <header>
-                <%= PeopleResource.DeleteUserProfiles %>
-            </header>
-            <body>
-               <div>
-                    <%= PeopleResource.DeleteUsersDescription %>
-                </div>
-                <a class="link dotline showBtn">
-                    <%= PeopleResource.ShowSelectedUserList %>
-                </a>
-                <a class="link dotline hideBtn display-none">
-                    <%= PeopleResource.HideSelectedUserList %>
-                </a>
-                <div class="user-list-for-group-operation display-none">
-                </div>
-                <div class="error-popup display-none"></div>
-                <div class="big-button-container">
-                    <a class="button blue middle"><%= PeopleResource.LblOKButton%></a>
-                    <span class="splitter-buttons"></span>
-                    <a class="button gray middle"><%= PeopleResource.LblCancelButton%></a>
-                </div>
-            </body>
-        </sc:Container>
-    </div>
     <% } %>
 
-    <div id="studio_deleteProfileDialog" class="display-none">
-        <sc:Container runat="server" ID="_deleteProfileContainer">
-            <Header>
-                <%= Resource.DeleteProfileTitle%>
-            </Header>
-            <Body>
-                <div id="remove_content">
-                    <div><%= Resource.DeleteProfileInfo%></div>
-                    <a target="_blank" href="" class="link blue underline email"></a>
-                </div>
-                <div class="clearFix middle-button-container">
-                    <a href="javascript:void(0);" class="button blue middle" onclick="SendInstrunctionsToRemoveProfile();"><%= Resource.SendButton %></a>
-                    <span class="splitter-buttons"></span>
-                    <a href="javascript:void(0);" class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();"><%= Resource.CloseButton %></a>
-                </div>
-            </Body>
-        </sc:Container>
+    <div id="studio_deleteProfileDialogBody" class="display-none" data-header="<%= Resource.DeleteProfileTitle%>">
+        <div id="remove_content">
+            <div><%= Resource.DeleteProfileInfo%></div>
+            <a target="_blank" href="" class="link blue underline email"></a>
+        </div>
+        <div class="clearFix middle-button-container">
+            <a href="javascript:void(0);" class="button blue middle" onclick="SendInstrunctionsToRemoveProfile();"><%= Resource.SendButton %></a>
+            <span class="splitter-buttons"></span>
+            <a href="javascript:void(0);" class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();"><%= Resource.CloseButton %></a>
+        </div>
     </div>
 
 </asp:Content>

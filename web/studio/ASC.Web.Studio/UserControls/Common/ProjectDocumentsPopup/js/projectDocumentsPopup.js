@@ -33,6 +33,15 @@ window.ProjectDocumentsPopup = (function() {
     var init = function(projectFolderId, projectName) {
         if (!isInit) {
             isInit = true;
+
+            jq.tmpl("template-emptyScreen",
+            {
+                ImgSrc: jq("#emptyFileList").attr("data-imgSrc"),
+                Header: ASC.Resources.Master.UserControlsCommonResource.ProjectDocuments,
+                HeaderDescribe: ASC.Resources.Master.UserControlsCommonResource.EmptyDocsHeaderDescription,
+                Describe: ASC.Resources.Master.UserControlsCommonResource.EmptyDocsDescription
+            }).appendTo("#emptyFileList");
+
             projId = jq(".fileContainer").attr("projId");
             rootFolderId = projectFolderId;
 

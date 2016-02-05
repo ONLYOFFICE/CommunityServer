@@ -311,12 +311,12 @@ Strophe = {
      *  doing.
      *
      *  TIMEOUT - Time to wait for a request to return.  This defaults to
-     *      70 seconds.
+     *      700 seconds.
      *  SECONDARY_TIMEOUT - Time to wait for immediate request return. This
-     *      defaults to 7 seconds.
+     *      defaults to 60 seconds.
      */
-    TIMEOUT: 70,
-    SECONDARY_TIMEOUT: 7,
+    TIMEOUT: 700,
+    SECONDARY_TIMEOUT: 60,
 
     /** Function: forEachChild
      *  Map a function over some or all child elements of a given element.

@@ -43,7 +43,7 @@ window.tlFilter = (function($) {
                         type: "combobox",
                         id: "group",
                         apiparamname: "group",
-                        title: FilterByGroupLocalize,
+                        title: ASC.Mail.Constants.FiLTER_BY_GROUP_LOCALIZE,
                         group: MailScriptResource.FilterShowGroup,
                         options: [],
                         defaulttitle: MailScriptResource.FilterChoose

@@ -34,8 +34,8 @@ namespace ASC.Web.Talk.UserControls
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/uploader/jquery.fileupload.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/talk.meseditorcontainer.js"));
+            Page.RegisterBodyScripts("~/js/uploader/jquery.fileupload.js");
+            Page.RegisterBodyScripts("~/addons/talk/js/talk.meseditorcontainer.js");
             Page.RegisterInlineScript("ASC.TMTalk.meseditorContainer.init('talkTextareaContainer', '" + GetMeseditorStyle() + "');");
 
             var cfg = new TalkConfiguration();

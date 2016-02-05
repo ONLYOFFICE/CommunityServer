@@ -27,40 +27,80 @@
 window.ASC.Files.FileChoice = (function () {
     var isInit = false;
 
-    var init = function () {
+    var init = function (folderId, onlyFolder, thirdParty, mailMerge) {
         if (isInit === false) {
             isInit = true;
 
-            ASC.Files.FileSelector.onSubmit = function (files) {
-                var file = files[0];
-                var fileExt = ASC.Files.Utility.GetFileExtension(file.title);
-                fileExt = fileExt.substring(fileExt.indexOf('.') + 1);
+            jq("#fileSelectorTree").css("visibility", "visible");
 
-                Teamlab.getPresignedUri(file.id, {
-                    success: function (params, url) {
-                        var data = {
-                            file: {
-                                fileType: fileExt,
-                                url: url
-                            }
-                        };
+            if (thirdParty) {
+                ASC.Files.FileSelector.toggleThirdParty(true);
 
-                        var message = JSON.stringify(data);
+                ASC.Files.FileSelector.createThirdPartyTree();
+            }
+
+            if (onlyFolder) {
+                jq("body").addClass("only-folder");
+
+                ASC.Files.FileSelector.onSubmit = function (selectedFolderId) {
+                    var folderTitle = ASC.Files.FileSelector.fileSelectorTree.getFolderTitle(selectedFolderId);
+
+                    var path = ASC.Files.FileSelector.fileSelectorTree.getPath(selectedFolderId);
+                    var pathId = jq(path).map(function (i, fId) {
+                        return ASC.Files.FileSelector.fileSelectorTree.getFolderTitle(fId);
+                    });
+
+                    pathId.push(folderTitle);
+                    var pathTitle = pathId.toArray().join(' > ');
+
+                    var message = JSON.stringify({
+                        folderId: selectedFolderId,
+                        pathTitle: pathTitle,
+                    });
+
+                    window.parent.postMessage(message, "*");
+                };
+            } else {
+                ASC.Files.FileSelector.onSubmit = function (files) {
+                    var file = files[0];
+                    var fileExt = ASC.Files.Utility.GetFileExtension(file.title);
+                    fileExt = fileExt.substring(fileExt.indexOf('.') + 1);
+
+                    if (!mailMerge) {
+                        var message = JSON.stringify({
+                            fileId: file.id,
+                            fileTitle: file.title,
+                        });
 
                         window.parent.postMessage(message, "*");
-                    },
-                    error: function (params, errors) {
-                        toastr.error(errors);
+                    } else {
+                        Teamlab.getPresignedUri(file.id, {
+                            success: function (params, url) {
+                                var data = {
+                                    file: {
+                                        fileType: fileExt,
+                                        url: url
+                                    }
+                                };
+
+                                message = JSON.stringify(data);
+
+                                window.parent.postMessage(message, "*");
+                            },
+                            error: function (params, errors) {
+                                toastr.error(errors);
+                            }
+                        });
                     }
-                });
-            };
+                };
+            }
 
             ASC.Files.FileSelector.onCancel = function () {
                 var message = JSON.stringify({file: null});
                 window.parent.postMessage(message, "*");
             };
-            
-            ASC.Files.FileSelector.openDialog(null, false, false);
+
+            ASC.Files.FileSelector.openDialog(folderId, onlyFolder, thirdParty);
         }
     };
 

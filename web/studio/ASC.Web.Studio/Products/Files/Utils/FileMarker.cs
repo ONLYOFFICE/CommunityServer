@@ -24,12 +24,7 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security;
-using System.Web;
-using System.Web.Caching;
+using ASC.Common.Caching;
 using ASC.Common.Threading.Workers;
 using ASC.Core;
 using ASC.Core.Users;
@@ -37,6 +32,10 @@ using ASC.Files.Core;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Utility;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security;
 using File = ASC.Files.Core.File;
 using SecurityContext = ASC.Core.SecurityContext;
 
@@ -44,25 +43,12 @@ namespace ASC.Web.Files.Utils
 {
     public static class FileMarker
     {
-        private class AsyncTaskData
-        {
-            public AsyncTaskData()
-            {
-                TenantID = TenantProvider.CurrentTenantID;
-                CurrentAccountId = SecurityContext.CurrentAccount.ID;
-            }
+        private static readonly object locker = new object();
+        private static readonly WorkerQueue<AsyncTaskData> tasks = new WorkerQueue<AsyncTaskData>(1, TimeSpan.FromSeconds(60), 1, false);
+        private static readonly ICache cache = AscCache.Default;
 
-            public int TenantID { get; private set; }
+        private const string CacheKeyFormat = "MarkedAsNew/{0}/folder_{1}";
 
-            public FileEntry FileEntry { get; set; }
-
-            public List<Guid> UserIDs { get; set; }
-
-            public Guid CurrentAccountId { get; set; }
-        }
-
-        private static readonly WorkerQueue<AsyncTaskData> AsyncTasks = new WorkerQueue<AsyncTaskData>(1, TimeSpan.FromSeconds(60), 1, true);
-        private static readonly object SyncObj = new object();
 
         private static void ExecMarkFileAsNew(AsyncTaskData obj)
         {
@@ -255,12 +241,12 @@ namespace ASC.Web.Files.Utils
                 taskData.UserIDs = projectTeam.ToList();
             }
 
-            lock (SyncObj)
+            lock (locker)
             {
-                AsyncTasks.Add(taskData);
+                tasks.Add(taskData);
 
-                if (!AsyncTasks.IsStarted)
-                    AsyncTasks.Start(ExecMarkFileAsNew);
+                if (!tasks.IsStarted)
+                    tasks.Start(ExecMarkFileAsNew);
             }
         }
 
@@ -611,37 +597,32 @@ namespace ASC.Web.Files.Utils
 
                     entries.ToList().ForEach(
                         entry =>
+                        {
+                            var folder = entry as Folder;
+                            if (folder != null)
                             {
-                                var folder = entry as Folder;
-                                if (folder != null)
-                                {
-                                    var curTag = totalTags.FirstOrDefault(tag => tag.EntryType == FileEntryType.Folder && tag.EntryId.Equals(folder.ID));
+                                var curTag = totalTags.FirstOrDefault(tag => tag.EntryType == FileEntryType.Folder && tag.EntryId.Equals(folder.ID));
 
-                                    folder.NewForMe = curTag != null ? curTag.Count : 0;
-                                }
-                            });
+                                folder.NewForMe = curTag != null ? curTag.Count : 0;
+                            }
+                        });
                 }
             }
 
             return entries;
         }
 
-        #region cache
-
-        private const string CacheKeyFormat = "MarkedAsNew/{0}/folder_{1}";
-
         private static void InsertToCahce(object folderId, int count)
         {
-            var cacheKey = string.Format(CacheKeyFormat, SecurityContext.CurrentAccount.ID, folderId);
-            HttpRuntime.Cache.Remove(cacheKey);
-            HttpRuntime.Cache.Insert(cacheKey, count, null, Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(10));
+            var key = string.Format(CacheKeyFormat, SecurityContext.CurrentAccount.ID, folderId);
+            cache.Insert(key, count.ToString(), TimeSpan.FromMinutes(10));
         }
 
         private static int GetCountFromCahce(object folderId)
         {
-            var cacheKey = string.Format(CacheKeyFormat, SecurityContext.CurrentAccount.ID, folderId);
-            var fromCache = HttpRuntime.Cache.Get(cacheKey);
-            return fromCache == null ? -1 : (int)fromCache;
+            var key = string.Format(CacheKeyFormat, SecurityContext.CurrentAccount.ID, folderId);
+            var count = cache.Get<string>(key);
+            return count == null ? -1 : int.Parse(count);
         }
 
         private static void RemoveFromCahce(object folderId)
@@ -651,10 +632,26 @@ namespace ASC.Web.Files.Utils
 
         private static void RemoveFromCahce(object folderId, Guid userId)
         {
-            var cacheKey = string.Format(CacheKeyFormat, userId, folderId);
-            HttpRuntime.Cache.Remove(cacheKey);
+            var key = string.Format(CacheKeyFormat, userId, folderId);
+            cache.Remove(key);
         }
 
-        #endregion
+
+        private class AsyncTaskData
+        {
+            public AsyncTaskData()
+            {
+                TenantID = TenantProvider.CurrentTenantID;
+                CurrentAccountId = SecurityContext.CurrentAccount.ID;
+            }
+
+            public int TenantID { get; private set; }
+
+            public FileEntry FileEntry { get; set; }
+
+            public List<Guid> UserIDs { get; set; }
+
+            public Guid CurrentAccountId { get; set; }
+        }
     }
 }

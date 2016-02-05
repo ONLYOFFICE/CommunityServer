@@ -24,11 +24,13 @@
 */
 
 
-using System;
-using ASC.Core;
-using ASC.Files.Core;
 using AppLimit.CloudComputing.SharpBox;
 using AppLimit.CloudComputing.SharpBox.StorageProvider;
+using ASC.Common.Web;
+using ASC.Core;
+using ASC.Files.Core;
+using System;
+using System.Web;
 
 namespace ASC.Files.Thirdparty.Sharpbox
 {
@@ -55,50 +57,48 @@ namespace ASC.Files.Thirdparty.Sharpbox
             CustomerTitle = customerTitle;
             Owner = owner == Guid.Empty ? SecurityContext.CurrentAccount.ID : owner;
 
-            _providerKey = (nSupportedCloudConfigurations) Enum.Parse(typeof (nSupportedCloudConfigurations), providerKey, true);
+            _providerKey = (nSupportedCloudConfigurations)Enum.Parse(typeof(nSupportedCloudConfigurations), providerKey, true);
             _authData = authData;
             _rootFolderType = rootFolderType;
             _createOn = createOn;
         }
 
-        private void CreateStorage()
+        private CloudStorage CreateStorage()
         {
             var prms = string.IsNullOrEmpty(_authData.Url) ? new object[] { } : new object[] { new Uri(_authData.Url) };
-            _storage = new CloudStorage();
+            var storage = new CloudStorage();
             var config = CloudStorage.GetCloudConfigurationEasy(_providerKey, prms);
             if (!string.IsNullOrEmpty(_authData.Token))
             {
                 if (_providerKey != nSupportedCloudConfigurations.BoxNet)
                 {
-                    var token = _storage.DeserializeSecurityTokenFromBase64(_authData.Token);
-                    _storage.Open(config, token);
+                    var token = storage.DeserializeSecurityTokenFromBase64(_authData.Token);
+                    storage.Open(config, token);
                 }
             }
             else
             {
-                _storage.Open(config, new GenericNetworkCredentials {Password = _authData.Password, UserName = _authData.Login});
+                storage.Open(config, new GenericNetworkCredentials { Password = _authData.Password, UserName = _authData.Login });
             }
+            return storage;
         }
-
-        private CloudStorage _storage;
 
         internal CloudStorage Storage
         {
             get
             {
-                if (_storage == null)
+                if (HttpContext.Current != null)
                 {
-                    CreateStorage();
-                }
-                else
-                {
-                    if (!_storage.IsOpened)
+                    var key = "__CLOUD_STORAGE" + ID;
+                    var wrapper = (StorageDisposableWrapper)DisposableHttpContext.Current[key];
+                    if (wrapper == null || !wrapper.Storage.IsOpened)
                     {
-                        //TODO: Check corrupted storage
-                        CreateStorage();
+                        wrapper = new StorageDisposableWrapper(CreateStorage());
+                        DisposableHttpContext.Current[key] = wrapper;
                     }
+                    return wrapper.Storage;
                 }
-                return _storage;
+                return CreateStorage();
             }
         }
 
@@ -133,10 +133,14 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
         public void InvalidateStorage()
         {
-            if (_storage != null)
+            if (HttpContext.Current != null)
             {
-                _storage.Close();
-                _storage = null;
+                var key = "__CLOUD_STORAGE" + ID;
+                var storage = (StorageDisposableWrapper)DisposableHttpContext.Current[key];
+                if (storage != null)
+                {
+                    storage.Dispose();
+                }
             }
         }
 
@@ -148,6 +152,23 @@ namespace ASC.Files.Thirdparty.Sharpbox
         public FolderType RootFolderType
         {
             get { return _rootFolderType; }
+        }
+
+
+        class StorageDisposableWrapper : IDisposable
+        {
+            public CloudStorage Storage { get; private set; }
+
+
+            public StorageDisposableWrapper(CloudStorage storage)
+            {
+                Storage = storage;
+            }
+
+            public void Dispose()
+            {
+                Storage.Close();
+            }
         }
     }
 }

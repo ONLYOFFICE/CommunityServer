@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -49,8 +49,8 @@ namespace ASC.Web.Studio.UserControls.Users.TipsSettings
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(ResolveUrl("~/UserControls/Users/TipsSettings/js/tipsSettings.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/UserControls/Users/TipsSettings/css/tipsSettings.less"));
+            Page.RegisterBodyScripts("~/UserControls/Users/TipsSettings/js/tipsSettings.js");
+            Page.RegisterStyle("~/UserControls/Users/TipsSettings/css/tipsSettings.less");
         }
     }
 }

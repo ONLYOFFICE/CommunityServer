@@ -17,7 +17,7 @@
     </div>
     <div class="popup_helper" id="NotFoundLanguage">
         <p>
-            <%= string.Format(Resource.NotFoundLanguage, "<a href=\"mailto:documentation@onlyoffice.com\">", "</a>") %>
+            <%= string.Format(Resource.NotFoundLanguage.HtmlEncode(), "<a href=\"mailto:documentation@onlyoffice.com\">", "</a>") %>
              <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
              { %>
             <a href="<%= CommonLinkUtility.GetHelpLink() + "guides/become-translator.aspx" %>" target="_blank">

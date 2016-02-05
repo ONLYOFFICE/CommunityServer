@@ -24,7 +24,6 @@
 */
 
 
-using System;
 using ASC.Web.Projects.Controls.Common;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Resources;
@@ -41,16 +40,19 @@ namespace ASC.Web.Projects
         {
             get
             {
+                var action = UrlParameters.ActionType;
+                if (!action.HasValue) return true;
+
                 if (RequestContext.IsInConcreteProject)
                 {
-                    if (string.Compare(UrlParameters.ActionType, "edit", StringComparison.OrdinalIgnoreCase) == 0)
+                    if (action.Value == UrlAction.Edit)
                     {
                         return ProjectSecurity.CanEdit(Project);
                     }
                 }
                 else
                 {
-                    if (string.Compare(UrlParameters.ActionType, "add", StringComparison.OrdinalIgnoreCase) == 0)
+                    if (action.Value == UrlAction.Add)
                     {
                         return ProjectSecurity.CanCreateProject();
                     }
@@ -62,20 +64,22 @@ namespace ASC.Web.Projects
 
         protected override void PageLoad()
         {
+            var action = UrlParameters.ActionType;
+
             if (RequestContext.IsInConcreteProject)
             {
-                if (string.Compare(UrlParameters.ActionType, "edit", StringComparison.OrdinalIgnoreCase) == 0)
+                if (action.HasValue && action.Value == UrlAction.Edit)
                 {
                     _content.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Projects/ProjectAction.ascx")));
                     Master.DisabledPrjNavPanel = true;
                     return;
                 }
 
-                Response.Redirect(String.Concat(PathProvider.BaseAbsolutePath, "tasks.aspx?prjID=" + RequestContext.GetCurrentProjectId()));
+                Response.Redirect(string.Concat(PathProvider.BaseAbsolutePath, "tasks.aspx?prjID=", RequestContext.GetCurrentProjectId().ToString()));
             }
             else
             {
-                if (string.Compare(UrlParameters.ActionType, "add", StringComparison.OrdinalIgnoreCase) == 0)
+                if (action.HasValue && action.Value == UrlAction.Add)
                 {
                     _content.Controls.Add(LoadControl(PathProvider.GetFileStaticRelativePath("Projects/ProjectAction.ascx")));
                     return;
@@ -92,7 +96,7 @@ namespace ASC.Web.Projects
             _content.Controls.Add(LoadControl(CommonList.Location));
             loaderHolder.Controls.Add(LoadControl(LoaderPage.Location));
 
-            if (RequestContext.AllProjectsCount <= 0 && ProjectSecurity.CanCreateProject())
+            if (ProjectSecurity.CanCreateProject() && EngineFactory.ProjectEngine.Count() <= 0)
             {
                 var emptyScreen = (ProjectsDashboardEmptyScreen)Page.LoadControl(ProjectsDashboardEmptyScreen.Location);
                 emptyScreen.IsAdmin = Participant.IsAdmin;

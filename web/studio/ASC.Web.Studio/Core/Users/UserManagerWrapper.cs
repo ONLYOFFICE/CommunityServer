@@ -44,11 +44,6 @@ namespace ASC.Web.Studio.Core.Users
     /// </summary>
     public sealed class UserManagerWrapper
     {
-        public static Guid AdminID
-        {
-            get { return new Guid("00000000-0000-0000-0000-000000000ace"); }
-        }
-
         private static bool TestUniqueUserName(string uniqueName)
         {
             if (String.IsNullOrEmpty(uniqueName))
@@ -99,7 +94,7 @@ namespace ASC.Web.Studio.Core.Users
                 userInfo.ActivationStatus = !afterInvite ? EmployeeActivationStatus.Pending : EmployeeActivationStatus.Activated;
             }
 
-            var newUserInfo = CoreContext.UserManager.SaveUserInfo(userInfo);
+            var newUserInfo = CoreContext.UserManager.SaveUserInfo(userInfo, isVisitor);
             CoreContext.Authentication.SetUserPassword(newUserInfo.ID, password);
 
             if (CoreContext.Configuration.Personal)

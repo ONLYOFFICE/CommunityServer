@@ -31,7 +31,7 @@
   </div>
   <div class="settings-help-block">
         <p>
-            <%= String.Format(Resource.HelpAnswerDefaultPageSettings, "<b>", "</b>") %>
+            <%= String.Format(Resource.HelpAnswerDefaultPageSettings.HtmlEncode(), "<b>", "</b>") %>
         </p>
       <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
            { %>

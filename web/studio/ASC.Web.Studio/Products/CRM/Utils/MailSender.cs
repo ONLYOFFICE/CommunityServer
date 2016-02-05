@@ -26,33 +26,30 @@
 
 #region Import
 
+using ASC.Common.Caching;
+using ASC.Common.Threading.Progress;
+using ASC.Core;
+using ASC.Core.Tenants;
+using ASC.CRM.Core;
+using ASC.CRM.Core.Dao;
+using ASC.CRM.Core.Entities;
+using ASC.Web.CRM.Resources;
+using ASC.Web.Files.Api;
+using ASC.Web.Studio.Utility;
+using log4net;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Net.Mime;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Web.Configuration;
-using ASC.CRM.Core;
-using ASC.CRM.Core.Dao;
-using ASC.CRM.Core.Entities;
-using ASC.Common.Threading.Progress;
-using ASC.Common.Utils;
-using ASC.Core.Tenants;
-using ASC.Data.Storage;
-using ASC.Files.Core;
-using ASC.Web.CRM.Resources;
-using ASC.Web.Files.Api;
-using ASC.Web.Studio.Utility;
-using Newtonsoft.Json.Linq;
-using log4net;
-using System.Runtime.Serialization;
-using File = System.IO.File;
 using System.Threading;
-using ASC.Core;
+using System.Web.Configuration;
+using File = System.IO.File;
 
 #endregion
 
@@ -166,6 +163,11 @@ namespace ASC.Web.CRM.Classes
                 CoreContext.TenantManager.SetCurrentTenant(_tenantID);
                 SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(_currUser));
 
+                var userCulture = CoreContext.UserManager.GetUsers(_currUser).GetCulture();
+
+                System.Threading.Thread.CurrentThread.CurrentCulture = userCulture;
+                System.Threading.Thread.CurrentThread.CurrentUICulture = userCulture;
+
                 var contactCount = _contactID.Count;
 
                 if (contactCount == 0)
@@ -173,6 +175,8 @@ namespace ASC.Web.CRM.Classes
                     Complete();
                     return;
                 }
+
+                MailSenderDataCache.Insert((SendBatchEmailsOperation) Clone());
 
                 var from = new MailAddress(_smtpSetting.SenderEmailAddress, _smtpSetting.SenderDisplayName, Encoding.UTF8);
                 var filePaths = new List<String>();
@@ -208,7 +212,7 @@ namespace ASC.Web.CRM.Classes
                     {
                         ServicePointManager.ServerCertificateValidationCallback = (s, c, h, e) => { return true; };
                     }
-                    
+
                     Error = String.Empty;
                     foreach (var contactID in _contactID)
                     {
@@ -293,15 +297,42 @@ namespace ASC.Web.CRM.Classes
 
                             _exactPercentageValue += 100.0 / contactCount;
                             Percentage = Math.Round(_exactPercentageValue);
+
+                            if (MailSenderDataCache.CheckCancelFlag())
+                            {
+                                MailSenderDataCache.ResetAll();
+
+                                throw new OperationCanceledException();
+                            }
+
+                            MailSenderDataCache.Insert((SendBatchEmailsOperation)Clone());
+
                             if (Percentage > 100)
                             {
                                 Percentage = 100;
+
+                                if (MailSenderDataCache.CheckCancelFlag())
+                                {
+                                    MailSenderDataCache.ResetAll();
+
+                                    throw new OperationCanceledException();
+                                }
+
+                                MailSenderDataCache.Insert((SendBatchEmailsOperation)Clone());
+
                             }
                         }
                     }
                 }
+                catch (OperationCanceledException)
+                {
+                    MailSenderDataCache.ResetAll();
+                    _log.Debug("cancel mail sender");
+                }
                 finally
                 {
+                    MailSenderDataCache.ResetAll();
+
                     if (smtpClient.EnableSsl && WorkContext.IsMono)
                     {
                         ServicePointManager.ServerCertificateValidationCallback = null;
@@ -393,6 +424,9 @@ namespace ASC.Web.CRM.Classes
             IsCompleted = true;
             Percentage = 100;
             _log.Debug("Completed");
+           
+            MailSenderDataCache.Insert((SendBatchEmailsOperation)Clone());
+
         }
 
         public override bool Equals(object obj)
@@ -414,6 +448,53 @@ namespace ASC.Web.CRM.Classes
         }
     }
 
+    class MailSenderDataCache
+    {
+        public static readonly ICache Cache = AscCache.Default;
+
+        public static String GetStateCacheKey()
+        {
+            return String.Format("{0}:crm:queue:sendbatchemails", TenantProvider.CurrentTenantID.ToString());
+        }
+
+        public static String GetCancelCacheKey()
+        {
+            return String.Format("{0}:crm:queue:sendbatchemails:cancel", TenantProvider.CurrentTenantID.ToString());
+        }
+
+        public static SendBatchEmailsOperation Get()
+        {
+            return Cache.Get<SendBatchEmailsOperation>(GetStateCacheKey());
+        }
+
+        public static void Insert(SendBatchEmailsOperation data)
+        {
+            Cache.Insert(GetStateCacheKey(), data, TimeSpan.FromMinutes(1));
+        }
+
+        public static bool CheckCancelFlag()
+        {
+            var fromCache = Cache.Get<String>(GetCancelCacheKey());
+
+            if (!String.IsNullOrEmpty(fromCache))
+                return true;
+
+            return false;
+
+        }
+
+        public static void SetCancelFlag()
+        {
+            Cache.Insert(GetCancelCacheKey(), true, TimeSpan.FromMinutes(1));
+        }
+
+        public static void ResetAll()
+        {
+            Cache.Remove(GetStateCacheKey());
+            Cache.Remove(GetCancelCacheKey());
+        }
+    }
+    
     public class MailSender
     {
         private static readonly Object _syncObj = new Object();
@@ -434,6 +515,15 @@ namespace ASC.Web.CRM.Classes
             lock (_syncObj)
             {
                 var operation = _mailQueue.GetStatus(TenantProvider.CurrentTenantID);
+
+                if (operation == null)
+                {
+                    var mailSender = MailSenderDataCache.Get();
+
+                    if (mailSender != null)
+                        return mailSender;
+                }
+                
                 if (operation == null)
                 {
                     if (fileID == null)
@@ -535,15 +625,31 @@ namespace ASC.Web.CRM.Classes
 
         public static IProgressItem GetStatus()
         {
-            return _mailQueue.GetStatus(TenantProvider.CurrentTenantID);
+            var result = _mailQueue.GetStatus(TenantProvider.CurrentTenantID);
+
+            if (result == null)
+                return MailSenderDataCache.Get();
+
+            return result;
         }
 
         public static void Cancel()
         {
             lock (_syncObj)
             {
-                _mailQueue.PostComplete(TenantProvider.CurrentTenantID);
-            }
+                var findedItem = _mailQueue.GetItems().Where(elem => (int)elem.Id == TenantProvider.CurrentTenantID);
+
+                if (findedItem.Any())
+                {
+                    _mailQueue.Remove(findedItem.ElementAt(0));
+
+                    MailSenderDataCache.ResetAll();
+                }
+                else
+                {
+                    MailSenderDataCache.SetCancelFlag();
+                }
+            }           
         }
     }
 

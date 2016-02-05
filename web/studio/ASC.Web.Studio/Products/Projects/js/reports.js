@@ -27,7 +27,7 @@
 ASC.Projects.ReportView = (function() {
     var tmplId = null;
     var init = function() {
-        ASC.Projects.Common.checkElementNotFound(ASC.Projects.Resources.ProjectsJSResource.ReportTmplNotFound);
+        ASC.Projects.Base.checkElementNotFound(ASC.Projects.Resources.ProjectsJSResource.ReportTmplNotFound);
         
         var params = location.href.split("?")[1];
         var paramsCount = params.split("&").length;

@@ -28,6 +28,7 @@ using System;
 using System.Linq;
 using System.ServiceProcess;
 using ASC.Mail.Aggregator.Common.Logging;
+using log4net.Config;
 
 namespace ASC.Mail.StorageCleaner
 {
@@ -54,9 +55,12 @@ namespace ASC.Mail.StorageCleaner
 
         private static void OnUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            // ToDo: getcurrentclasslogger were removed from here - should be refactored
-            var log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Nlog, "StorageCleaner");
+            XmlConfigurator.Configure();
+
+            var log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "StorageCleaner");
+
             log.Fatal("Unhandled exception: {0}", e.ExceptionObject.ToString());
+
             log.Flush();
         }
     }

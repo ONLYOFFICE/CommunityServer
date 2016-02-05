@@ -170,7 +170,7 @@ $__DateTime "$__AuthorName":"$__AuthorUrl" has granted you the access to "$Entit
 
 $__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the opportunity: $EntityTitle .
 
-#if($AdditionalData.get_item("OpportunityDescription"))
+#if($AdditionalData.get_item("OpportunityDescription")&amp;&amp;$AdditionalData.get_item("OpportunityDescription")!="")
 
 Opportunity description:
 $AdditionalData.get_item("OpportunityDescription")
@@ -201,11 +201,19 @@ $__DateTime "$__AuthorName":"$__AuthorUrl" has appointed you responsible for the
 
 Task category:  $AdditionalData.get_item("TaskCategory")
 #end
-#if($AdditionalData.get_item("LinkWithContact"))
+#if($AdditionalData.get_item("ContactRelativeUrl"))
 
-Link with contact: $AdditionalData.get_item("LinkWithContact")
+Link with contact: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
 #end
-#if($AdditionalData.get_item("TaskDescription"))
+#if($AdditionalData.get_item("CaseRelativeUrl"))
+
+Link with case: "$AdditionalData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+#end
+#if($AdditionalData.get_item("DealRelativeUrl"))
+
+Link with opportunity: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+#end
+#if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
 
 Task description:
 $AdditionalData.get_item("TaskDescription")
@@ -244,9 +252,9 @@ TeamLab Support Team
 ^You receive this email because you are a registered user of the "${__VirtualRootPath}":"${__VirtualRootPath}" portal. To change the notification type, please manage your "subscription settings":"$RecipientSubscriptionConfigURL".^</value>
   </data>
   <data name="pattern_CreateNewContact" xml:space="preserve">
-    <value>h1. CRM. New Contact Created Using the 'Website Contact Form' "$EntityTitle":"${__VirtualRootPath}/products/crm/default.aspx?ID=$EntityID"
+    <value>h1. CRM. New Contact Created Using the 'Website Contact Form' "$EntityTitle":"${__VirtualRootPath}/products/crm/default.aspx?id=$EntityID"
 
-$__DateTime A new contact has been created using the 'Website Contact Form' "$EntityTitle":"${__VirtualRootPath}/products/crm/default.aspx?ID=$EntityID"
+$__DateTime A new contact has been created using the 'Website Contact Form' "$EntityTitle":"${__VirtualRootPath}/products/crm/default.aspx?id=$EntityID"
 
 Contact information:
 
@@ -266,9 +274,31 @@ $contactInfo: $AdditionalData.get_item($contactInfo)
   </data>
   <data name="pattern_TaskReminder" xml:space="preserve">
     <value>h1. Оповещение о наступление задачи $EntityTitle
+#if($AdditionalData.get_item("TaskCategory"))
 
+Task category:  $AdditionalData.get_item("TaskCategory")
+#end
+#if($AdditionalData.get_item("ContactRelativeUrl"))
 
+Link with contact: "$AdditionalData.get_item("ContactTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("ContactRelativeUrl")"
+#end
+#if($AdditionalData.get_item("CaseRelativeUrl"))
+
+Link with case: "$AdditionalData.get_item("CaseTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("CaseRelativeUrl")"
+#end
+#if($AdditionalData.get_item("DealRelativeUrl"))
+
+Link with opportunity: "$AdditionalData.get_item("DealTitle")":"${__VirtualRootPath}/$AdditionalData.get_item("DealRelativeUrl")"
+#end
+#if($AdditionalData.get_item("TaskDescription")&amp;&amp;$AdditionalData.get_item("TaskDescription")!="")
+
+Task description:
 $AdditionalData.get_item("TaskDescription")
+#end
+
+Due date: $AdditionalData.get_item("DueDate")
+
+Go to the "Tasks":"${__VirtualRootPath}/products/crm/tasks.aspx" list.
 
 ^Вы получили это сообщение, так как зарегистрированы на портале "${__VirtualRootPath}":"${__VirtualRootPath}".^</value>
   </data>

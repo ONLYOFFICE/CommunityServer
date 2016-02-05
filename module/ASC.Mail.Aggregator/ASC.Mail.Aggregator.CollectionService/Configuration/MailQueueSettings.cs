@@ -37,13 +37,15 @@ namespace ASC.Mail.Aggregator.CollectionService.Configuration
         public TimeSpan CheckInterval { get; set; }
         public TimeSpan ActivityTimeout { get; set; }
         public TimeSpan OverdueAccountDelay { get; set; }
+        public TimeSpan QuotaEndedDelay { get; set; }
         public TimeSpan TenantCachingPeriod { get; set; }
         public int OverdueDays { get; set; }
         public List<string> WorkOnUsersOnly { get; set; }
-        public bool OnlyTeamlabTasks { get; set; }
+        public string AggregateMode { get; set; }
         public bool EnableSignalr { get; set; }
         public int InactiveMailboxesRatio { get; set; }
         public int CheckPop3UidlChunk { get; set; }
+        public long MinQuotaBalance { get; set; }
 
         public static readonly MailQueueSettings Default = new MailQueueSettings
                                                                {
@@ -52,13 +54,16 @@ namespace ASC.Mail.Aggregator.CollectionService.Configuration
                                                                    ConcurrentThreadCount = 5,
                                                                    ActivityTimeout = TimeSpan.FromSeconds(90),
                                                                    OverdueAccountDelay = TimeSpan.FromSeconds(600),
+                                                                   QuotaEndedDelay = TimeSpan.FromSeconds(600),
                                                                    TenantCachingPeriod = TimeSpan.FromSeconds(86400), // 1 day
                                                                    OverdueDays = 10,
                                                                    WorkOnUsersOnly = new List<string>(),
-                                                                   OnlyTeamlabTasks = false,
+                                                                   AggregateMode = "all",
                                                                    EnableSignalr = false,
                                                                    InactiveMailboxesRatio = 25,
-                                                                   CheckPop3UidlChunk = 100
+                                                                   CheckPop3UidlChunk = 100,
+                                                                   MinQuotaBalance = 26214400
+
                                                                };
 
         public static MailQueueSettings FromConfig
@@ -72,15 +77,17 @@ namespace ASC.Mail.Aggregator.CollectionService.Configuration
                 configured.MaxMessagesPerSession = section.QueueConfiguration.MaxNewMessages;
                 configured.ActivityTimeout = TimeSpan.FromSeconds(section.QueueConfiguration.ActivityTimeout);
                 configured.OverdueAccountDelay = TimeSpan.FromSeconds(section.QueueConfiguration.OverdueAccountDelay);
+                configured.QuotaEndedDelay = TimeSpan.FromSeconds(section.QueueConfiguration.QuotaEndedDelay);
                 configured.OverdueDays = section.QueueConfiguration.OverdueDays;
                 configured.TenantCachingPeriod = TimeSpan.FromSeconds(section.QueueConfiguration.TenantCachingPeriod);
-                configured.OnlyTeamlabTasks = ConfigurationManager.AppSettings["mail.OnlyTeamlabTasks"] != null &&
-                                              Convert.ToBoolean(ConfigurationManager.AppSettings["mail.OnlyTeamlabTasks"]);
+                configured.AggregateMode = Convert.ToString(ConfigurationManager.AppSettings["mail.aggregate-mode"] ?? "all");
                 configured.EnableSignalr = ConfigurationManager.AppSettings["web.enable-signalr"] != null &&
                                               Convert.ToBoolean(ConfigurationManager.AppSettings["web.enable-signalr"]);
                 configured.InactiveMailboxesRatio = section.QueueConfiguration.InactiveRatio;
                 configured.CheckPop3UidlChunk =
                     Convert.ToInt32(ConfigurationManager.AppSettings["mail.check-pop3-uidl-chunk"] ?? "100");
+                configured.MinQuotaBalance = 
+                    Convert.ToInt64(ConfigurationManager.AppSettings["mail.quota-rest"] ?? "26214400");
                 return configured;
             }
         }

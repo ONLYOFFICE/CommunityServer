@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -24,18 +24,18 @@
 */
 
 
+using ASC.Common.Caching;
+using ASC.Core;
+using ASC.MessagingSystem;
+using ASC.Web.Core;
+using ASC.Web.Studio.UserControls.Users.UserProfile;
+using ASC.Web.Studio.Utility;
+using Resources;
 using System;
 using System.Security.Authentication;
 using System.Threading;
 using System.Web;
 using System.Web.UI;
-using ASC.Core.Caching;
-using ASC.MessagingSystem;
-using ASC.Web.Core;
-using ASC.Web.Studio.UserControls.Users.UserProfile;
-using Resources;
-using ASC.Web.Studio.Utility;
-using ASC.Core;
 
 namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
 {
@@ -46,7 +46,7 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
             get { return "~/UserControls/Common/AuthorizeDocs/AuthorizeDocs.ascx"; }
         }
 
-        private readonly ICache cache = AscCache.Default;
+        private readonly ICache cache = AscCache.Memory;
         protected string Login;
 
         protected string LoginMessage;
@@ -56,12 +56,12 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
         {
             LoginMessage = Request["m"];
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/common/authorizedocs/css/authorizedocs.less"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/common/authorizedocs/js/authorizedocs.js"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/common/authorize/js/authorize.js"));
+            Page.RegisterStyle("~/usercontrols/common/authorizedocs/css/authorizedocs.less");
+            Page.RegisterBodyScripts("~/usercontrols/common/authorizedocs/js/authorizedocs.js");
+            Page.RegisterBodyScripts("~/usercontrols/common/authorize/js/authorize.js");
 
             Page.Title = Resource.AuthDocsTitlePage;
-            Page.MetaDescription = Resource.AuthDocsMetaDescription;
+            Page.MetaDescription = Resource.AuthDocsMetaDescription.HtmlEncode();
             Page.MetaKeywords = Resource.AuthDocsMetaKeywords;
 
             PersonalFooterHolder.Controls.Add(LoadControl(PersonalFooter.PersonalFooter.Location));
@@ -84,7 +84,10 @@ namespace ASC.Web.Studio.UserControls.Common.AuthorizeDocs
                     }
 
                     // защита от перебора: на 5-ый неправильный ввод делать Sleep
-                    var counter = (int)(cache.Get("loginsec/" + Login) ?? 0);
+                    var counter = 0;
+
+                    int.TryParse(cache.Get<string>("loginsec/" + Login), out counter);
+
                     if (++counter%5 == 0)
                     {
                         Thread.Sleep(TimeSpan.FromSeconds(10));

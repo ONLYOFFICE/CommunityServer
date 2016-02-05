@@ -50,6 +50,20 @@ namespace ASC.Web.Files.Services.NotifyService
             Instance = WorkContext.NotifyContext.NotifyService.RegisterClient(NotifySource.Instance);
         }
 
+        public static void SendMailMergeEnd(Guid userId, int countMails)
+        {
+            var recipient = NotifySource.Instance.GetRecipientsProvider().GetRecipient(userId.ToString());
+
+            Instance.SendNoticeToAsync(
+                NotifyConstants.Event_MailMergeEnd,
+                null,
+                new[] {recipient},
+                new[] {ASC.Core.Configuration.Constants.NotifyEMailSenderSysName},
+                null,
+                new TagValue(NotifyConstants.Tag_MailsCount, countMails)
+                );
+        }
+
         public static void SendLinkToEmail(File file, String url, String message, List<String> addressRecipients)
         {
             if (file == null || String.IsNullOrEmpty(url))
@@ -62,7 +76,7 @@ namespace ASC.Web.Files.Services.NotifyService
                     NotifyConstants.Event_LinkToEmail,
                     null,
                     new[] {recipients},
-                    new[] {"email.sender"},
+                    new[] {ASC.Core.Configuration.Constants.NotifyEMailSenderSysName},
                     null,
                     new TagValue(NotifyConstants.Tag_DocumentTitle, file.Title),
                     new TagValue(NotifyConstants.Tag_DocumentUrl, CommonLinkUtility.GetFullAbsolutePath(url)),

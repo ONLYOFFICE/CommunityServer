@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -44,7 +44,6 @@ using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
 using Resources;
-using AjaxPro;
 
 namespace ASC.Web.Studio.UserControls.Users
 {
@@ -62,7 +61,6 @@ namespace ASC.Web.Studio.UserControls.Users
         }
     }
 
-    [AjaxNamespace("AjaxPro.UserProfileControl")]
     public partial class UserProfileControl : UserControl
     {
         #region SavePhotoThumbnails
@@ -232,7 +230,6 @@ namespace ASC.Web.Studio.UserControls.Users
                 Response.Redirect(CommonLinkUtility.GetFullAbsolutePath("~/products/people/"), true);
             }
 
-            AjaxPro.Utility.RegisterTypeForAjax(GetType());
             Actions = new AllowedActions(UserInfo);
 
             HappyBirthday = CheckHappyBirthday();
@@ -251,7 +248,7 @@ namespace ASC.Web.Studio.UserControls.Users
 
             _deleteProfileContainer.Options.IsPopup = true;
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/users/userprofile/css/userprofilecontrol_style.less"));
+            Page.RegisterStyle("~/usercontrols/users/userprofile/css/userprofilecontrol_style.less");
             Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/usercontrols/users/userprofile/js/userprofilecontrol.js"));
 
             if (Actions.AllowEdit)
@@ -334,9 +331,6 @@ namespace ASC.Web.Studio.UserControls.Users
                 {
                     DepartmentsRepeater.Visible = false;
                 }
-                else {
-                   Groups.Sort((group1, group2) => String.Compare(group1.Name, group2.Name, StringComparison.Ordinal));
-                }
 
                 DepartmentsRepeater.DataSource = Groups;
                 DepartmentsRepeater.DataBind();
@@ -366,43 +360,5 @@ namespace ASC.Web.Studio.UserControls.Users
             }
             return (fest - today).Days;
         }
-
-        #region Ajax
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public object SendInstructionsToDelete()
-        {
-            try
-            {
-                var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-                StudioNotifyService.Instance.SendMsgProfileDeletion(user.Email);
-                MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentDeleteInstructions);
-
-                return new {Status = 1, Message = String.Format(Resource.SuccessfullySentNotificationDeleteUserInfoMessage, "<b>" + user.Email + "</b>")};
-            }
-            catch(Exception e)
-            {
-                return new {Status = 0, e.Message};
-            }
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public AjaxResponse JoinToAffiliateProgram()
-        {
-            var resp = new AjaxResponse();
-            try
-            {
-                resp.rs1 = "1";
-                resp.rs2 = AffiliateHelper.Join();
-            }
-            catch(Exception e)
-            {
-                resp.rs1 = "0";
-                resp.rs2 = HttpUtility.HtmlEncode(e.Message);
-            }
-            return resp;
-        }
-
-        #endregion
     }
 }

@@ -247,7 +247,8 @@ var FileUploadManager = new function() {
             .attr("id", "fileupload")
             .attr("type", "file")
             .attr("multiple", "multiple")
-            .css("display", "none");
+            .css("width", "0")
+            .css("height", "0");
 
         inputObj.appendTo(buttonObj.parent());
 

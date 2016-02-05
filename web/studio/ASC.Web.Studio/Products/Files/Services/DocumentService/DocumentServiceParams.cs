@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -68,14 +69,21 @@ namespace ASC.Web.Files.Services.DocumentService
 
         #region Constructor
 
-        private static Dictionary<string, Dictionary<FileType, Dictionary<string, string>>> _docTemplates;
+        private static Dictionary<CultureInfo, Dictionary<FileType, Dictionary<string, string>>> _docTemplates;
         private string _breadCrumbs;
         private string _folderUri;
         private string _fileUri;
 
+        private readonly UserInfo _user;
+
         private FileType _fileTypeCache = Web.Core.Files.FileType.Unknown;
 
         private string _key = string.Empty;
+
+        public DocumentServiceParams()
+        {
+            _user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+        }
 
         public bool ModeWrite = false;
         public EditorType Type = EditorType.Desktop;
@@ -86,6 +94,9 @@ namespace ASC.Web.Files.Services.DocumentService
 
         [DataMember(Name = "file")]
         public File File;
+
+        [DataMember(Name = "canEdit")]
+        public bool CanEdit;
 
         [DataMember(Name = "key")]
         public string Key
@@ -229,43 +240,43 @@ namespace ASC.Web.Files.Services.DocumentService
         public string FileType
         {
             set { }
-            get
-            {
-                return File.ConvertedExtension.Trim('.');
-            }
+            get { return File.ConvertedExtension.Trim('.'); }
         }
 
-        [DataMember(Name = "canEdit")]
-        public bool CanEdit;
-
         [DataMember(Name = "user")]
-        public KeyValuePair<Guid, string> User
+        public string[] User
         {
-            set { }
             get
             {
-                return SecurityContext.CurrentAccount.ID.Equals(ASC.Core.Configuration.Constants.Guest.ID)
-                           ? new KeyValuePair<Guid, string>(Guid.NewGuid(), FilesCommonResource.Guest)
-                           : new KeyValuePair<Guid, string>(SecurityContext.CurrentAccount.ID, CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).DisplayUserName(false));
+                return
+                    _user.ID.Equals(ASC.Core.Configuration.Constants.Guest.ID)
+                        ? new[] { Guid.NewGuid().ToString(), FilesCommonResource.Guest, string.Empty, FilesCommonResource.Guest }
+                        : new[] { _user.ID.ToString(), _user.FirstName, _user.LastName, _user.DisplayUserName(false) };
             }
+            set { }
         }
 
         [DataMember(Name = "lang")]
-        public string Lang = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture().Name;
+        public string Lang
+        {
+            get { return _user.GetCulture().Name; }
+            set { }
+        }
 
         [DataMember(Name = "templates")]
         public ItemDictionary<string, string> DocTemplates
         {
             get
             {
+                if (!SecurityContext.IsAuthenticated || _user.IsVisitor()) return new ItemDictionary<string, string>();
                 if (Type == EditorType.Embedded) return new ItemDictionary<string, string>();
-                var lang = Lang;
+                var lang = _user.GetCulture();
                 if (_docTemplates == null)
-                    _docTemplates = new Dictionary<string, Dictionary<FileType, Dictionary<string, string>>>();
+                    _docTemplates = new Dictionary<CultureInfo, Dictionary<FileType, Dictionary<string, string>>>();
                 if (!_docTemplates.ContainsKey(lang))
                     _docTemplates.Add(lang, new Dictionary<FileType, Dictionary<string, string>>());
                 if (!_docTemplates[lang].ContainsKey(GetFileType))
-                    _docTemplates[lang].Add(GetFileType, GetDocumentTemplates(GetFileType));
+                    _docTemplates[lang].Add(GetFileType, GetDocumentTemplates(lang, GetFileType));
 
                 return new ItemDictionary<string, string>(_docTemplates[lang][GetFileType]);
             }
@@ -287,6 +298,9 @@ namespace ASC.Web.Files.Services.DocumentService
         [DataMember(Name = "fileChoiceUrl", EmitDefaultValue = false)]
         public string FileChoiceUrl;
 
+        [DataMember(Name = "mergeFolderUrl", EmitDefaultValue = false)]
+        public string MergeFolderUrl;
+
         [DataMember(Name = "linkToEdit", EmitDefaultValue = false)]
         public string LinkToEdit;
 
@@ -294,17 +308,16 @@ namespace ASC.Web.Files.Services.DocumentService
 
         #region Methods
 
-        private static Dictionary<string, string> GetDocumentTemplates(FileType fileType)
+        private static Dictionary<string, string> GetDocumentTemplates(CultureInfo culture, FileType fileType)
         {
             var result = new Dictionary<string, string>();
 
             var storeTemplate = Global.GetStoreTemplate();
 
-            var lang = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture();
             var path = FileConstant.TemplateDocPath;
             if (!storeTemplate.IsDirectory(path))
                 return result;
-            path += lang + "/";
+            path += culture + "/";
             if (!storeTemplate.IsDirectory(path))
                 path = FileConstant.TemplateDocPath + "default/";
 

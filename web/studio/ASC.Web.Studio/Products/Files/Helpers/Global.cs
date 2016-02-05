@@ -24,16 +24,6 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Web;
-using System.Web.Configuration;
-using ASC.Collections;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Data.Storage;
@@ -41,7 +31,6 @@ using ASC.Data.Storage.S3;
 using ASC.Files.Core;
 using ASC.Files.Core.Data;
 using ASC.Files.Core.Security;
-using ASC.Thrdparty.Configuration;
 using ASC.Web.Core;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Utils;
@@ -52,6 +41,15 @@ using log4net;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Web.Configuration;
 using Constants = ASC.Core.Configuration.Constants;
 using File = ASC.Files.Core.File;
 
@@ -78,7 +76,7 @@ namespace ASC.Web.Files.Classes
 
         public const int MaxTitle = 170;
 
-        public static readonly Regex InvalidTitleChars = new Regex("[@#$%&*\\+:;\"'<>?|\\\\/]");
+        public static readonly Regex InvalidTitleChars = new Regex("[\t@#$%&*\\+:;\"'<>?|\\\\/]");
 
         public static bool EnableUploadFilter
         {
@@ -88,6 +86,17 @@ namespace ASC.Web.Files.Classes
         public static bool EnableEmbedded
         {
             get { return Boolean.TrueString.Equals(WebConfigurationManager.AppSettings["files.docservice.embedded"] ?? "true", StringComparison.InvariantCultureIgnoreCase); }
+        }
+
+        public static TimeSpan StreamUrlExpire
+        {
+            get
+            {
+                int validateTimespan;
+                int.TryParse(WebConfigurationManager.AppSettings["files.stream-url-minute"], out validateTimespan);
+                if (validateTimespan <= 0) validateTimespan = 5;
+                return TimeSpan.FromMinutes(validateTimespan);
+            }
         }
 
         public static bool IsAdministrator
@@ -116,7 +125,7 @@ namespace ASC.Web.Files.Classes
         #region GlobalFolderID
 
         private static readonly IDictionary<int, object> ProjectsRootFolderCache =
-            new SynchronizedDictionary<int, object>(); /*Use SYNCHRONIZED for cross thread blocks*/
+            new ConcurrentDictionary<int, object>(); /*Use SYNCHRONIZED for cross thread blocks*/
 
         public static object FolderProjects
         {
@@ -142,7 +151,7 @@ namespace ASC.Web.Files.Classes
         }
 
         private static readonly IDictionary<string, object> UserRootFolderCache =
-            new SynchronizedDictionary<string, object>(); /*Use SYNCHRONIZED for cross thread blocks*/
+            new ConcurrentDictionary<string, object>(); /*Use SYNCHRONIZED for cross thread blocks*/
 
         public static object FolderMy
         {
@@ -165,7 +174,7 @@ namespace ASC.Web.Files.Classes
         }
 
         private static readonly IDictionary<int, object> CommonFolderCache =
-            new SynchronizedDictionary<int, object>(); /*Use SYNCHRONIZED for cross thread blocks*/
+            new ConcurrentDictionary<int, object>(); /*Use SYNCHRONIZED for cross thread blocks*/
 
         public static object FolderCommon
         {
@@ -185,7 +194,7 @@ namespace ASC.Web.Files.Classes
         }
 
         private static readonly IDictionary<int, object> ShareFolderCache =
-            new SynchronizedDictionary<int, object>(); /*Use SYNCHRONIZED for cross thread blocks*/
+            new ConcurrentDictionary<int, object>(); /*Use SYNCHRONIZED for cross thread blocks*/
 
         public static object FolderShare
         {
@@ -211,7 +220,7 @@ namespace ASC.Web.Files.Classes
         }
 
         private static readonly IDictionary<string, object> TrashFolderCache =
-            new SynchronizedDictionary<string, object>(); /*Use SYNCHRONIZED for cross thread blocks*/
+            new ConcurrentDictionary<string, object>(); /*Use SYNCHRONIZED for cross thread blocks*/
 
         public static object FolderTrash
         {
@@ -243,9 +252,9 @@ namespace ASC.Web.Files.Classes
 
         public static IDaoFactory DaoFactory { get; private set; }
 
-        public static IDataStore GetStore()
+        public static IDataStore GetStore(bool currentTenant = true)
         {
-            return StorageFactory.GetStorage(TenantProvider.CurrentTenantID.ToString(), FileConstant.StorageModule);
+            return StorageFactory.GetStorage(currentTenant ? TenantProvider.CurrentTenantID.ToString() : string.Empty, FileConstant.StorageModule);
         }
 
         public static IDataStore GetStoreTemplate()
@@ -297,7 +306,7 @@ namespace ASC.Web.Files.Classes
             {
                 var id = my ? folderDao.GetFolderIDUser(false) : folderDao.GetFolderIDCommon(false);
 
-                if (Equals(id, 0) && (!CoreContext.Configuration.Standalone || WarmUp.Instance.Completed)) //TODO: think about 'null'
+                if (Equals(id, 0) && (!CoreContext.Configuration.Standalone || WarmUp.Instance.CheckCompleted())) //TODO: think about 'null'
                 {
                     id = my ? folderDao.GetFolderIDUser(true) : folderDao.GetFolderIDCommon(true);
 
@@ -377,6 +386,7 @@ namespace ASC.Web.Files.Classes
                         Title = fileName,
                         ContentLength = stream.Length,
                         FolderID = folder,
+                        Comment = FilesCommonResource.CommentCreate,
                     };
                 stream.Position = 0;
                 try

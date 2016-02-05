@@ -567,13 +567,16 @@ ASC.CRM.ListTaskView = new function() {
 
         if (!isTab) {
             jq("#taskTable").unbind("contextmenu").bind("contextmenu", function (event) {
-                event.preventDefault();
+                var e = jq.fixEvent(event);
 
-                var e = ASC.CRM.Common.fixEvent(event),
-                    target = jq(e.srcElement || e.target),
+                if (typeof e == "undefined" || !e) {
+                    return true;
+                }
+
+                var target = jq(e.srcElement || e.target),
                     taskId = parseInt(target.closest("tr.with-entity-menu").attr("id").split('_')[1]);
                 if (!taskId) {
-                    return false;
+                    return true;
                 }
                 ASC.CRM.ListTaskView.showActionMenu(taskId);
                 jq("#taskTable .entity-menu.active").removeClass("active");
@@ -596,7 +599,7 @@ ASC.CRM.ListTaskView = new function() {
                     });
                 }
                 $dropdownItem.show();
-                return true;
+                return false;
             });
         }
     };
@@ -1465,6 +1468,9 @@ ASC.CRM.TaskActionView = new function() {
                     }, 100);
                 }
             });
+
+            if (jq.browser.mobile)
+                jq("#ui-datepicker-div").addClass("blockMsg");
 
             _initTaskCategorySelector();
 

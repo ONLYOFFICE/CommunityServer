@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -40,13 +40,21 @@ namespace ASC.Web.Studio.UserControls.Management
     [AjaxNamespace("PasswordSettingsController")]
     public partial class PasswordSettings : UserControl
     {
-         public const string Location = "~/UserControls/Management/PasswordSettings/PasswordSettings.ascx"; 
+        public const string Location = "~/UserControls/Management/PasswordSettings/PasswordSettings.ascx";
+
+        protected bool Enabled
+        {
+            get { return SetupInfo.IsVisibleSettings("PasswordSettings"); }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!Enabled) return;
+
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/PasswordSettings/js/PasswordSettings.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/passwordsettings/css/passwordsettings.less"));
+            Page.RegisterBodyScripts("~/usercontrols/management/PasswordSettings/js/PasswordSettings.js");
+            Page.RegisterStyle("~/usercontrols/management/passwordsettings/css/passwordsettings.less");
         }
 
         [AjaxMethod]

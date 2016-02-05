@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -148,8 +148,8 @@ namespace ASC.Web.Studio.UserControls.Common.PollForm
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/common/pollform/js/pollform.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/common/pollform/css/style.css"));
+            Page.RegisterBodyScripts("~/usercontrols/common/pollform/js/pollform.js");
+            Page.RegisterStyle("~/usercontrols/common/pollform/css/style.css");
         }
 
         protected override void OnInit(EventArgs e)

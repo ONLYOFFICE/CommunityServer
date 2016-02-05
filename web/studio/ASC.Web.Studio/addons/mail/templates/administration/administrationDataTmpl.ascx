@@ -65,7 +65,7 @@
                 </td>
                 {{if !isSharedDomain }}
                     <td class="menu_column">
-                        <div class="menu" title="Actions" data_id="${id}"></div>
+                        <div class="menu menu-small" title="Actions" data_id="${id}"></div>
                     </td>
                     <td class="verify_dns_column">
                         <div class = "verify_dns {{if dns.isVerified == true}} hidden {{/if}}">

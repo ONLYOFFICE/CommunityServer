@@ -76,7 +76,7 @@ namespace ASC.Web.Studio.UserControls.Common.TabsNavigator
 
         protected void InitScripts()
         {
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/common/tabsnavigator/js/tabsnavigator.js"));
+            Page.RegisterBodyScripts("~/usercontrols/common/tabsnavigator/js/tabsnavigator.js");
         }
 
         protected override void Render(HtmlTextWriter writer)

@@ -55,7 +55,7 @@ namespace ASC.Web.Projects
 
         protected override void PageLoad()
         {
-            Page.RegisterBodyScripts(ResolveUrl("~/js/third-party/sorttable.js"));
+            Page.RegisterBodyScripts("~/js/third-party/sorttable.js");
             Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("reports.js"));
 
             exportReportPopup.Options.IsPopup = true;
@@ -64,16 +64,15 @@ namespace ASC.Web.Projects
             Master.DisabledSidePanel = true;
             Master.Master.DisabledTopStudioPanel = true;
 
-            int.TryParse(UrlParameters.ReportType, out GenerateReportType);
-            var repType = (ReportType) GenerateReportType;
+            var repType = UrlParameters.ReportType;
 
             var filter = TaskFilter.FromUri(HttpContext.Current.Request.GetUrlRewriter());
-            int templateID;
+            var templateID = UrlParameters.EntityID;
             var reportName = "";
 
-            if (int.TryParse(UrlParameters.EntityID, out templateID))
+            if (templateID >= 0)
             {
-                var template = Global.EngineFactory.GetReportEngine().GetTemplate(templateID);
+                var template = EngineFactory.ReportEngine.GetTemplate(templateID);
                 if (template != null)
                 {
                     filter = template.Filter;

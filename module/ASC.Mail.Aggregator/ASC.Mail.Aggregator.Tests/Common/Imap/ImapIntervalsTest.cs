@@ -27,9 +27,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using ASC.Mail.Aggregator.Common.Imap;
+using ASC.Mail.Aggregator.Common.Utils;
+using Newtonsoft.Json;
 using NUnit.Framework;
 
-namespace ASC.Mail.Aggregator.Tests.Common
+namespace ASC.Mail.Aggregator.Tests.Common.Imap
 {
     [TestFixture]
     class ImapIntervalsTest
@@ -281,6 +283,52 @@ namespace ASC.Mail.Aggregator.Tests.Common
                 new UidInterval(20, int.MaxValue)
             };
             AddUnhandledIntervalBaseTest(new[] { 20, int.MaxValue }, new UidInterval(1, 15), new[] { 1, 15, 20, int.MaxValue }, intervals.ToArray());
+        }
+
+        [Test]
+        public void ParseFromJson1()
+        {
+            const string json =
+                "{\"INBOX\":{\"BeginDateUid\":1,\"UnhandledUidIntervals\":[2,2147483647,2,2147483647,2,2147483647,2,2147483647]},\"Sent\":{\"BeginDateUid\":1,\"UnhandledUidIntervals\":[1,2147483647,1,2147483647,1,2147483647,1,2147483647]},\"Junk\":{\"BeginDateUid\":1,\"UnhandledUidIntervals\":[1,2147483647,1,2147483647,1,2147483647,1,2147483647]}}";
+
+            var imapIntervals = MailUtil.ParseImapIntervals(json);
+
+            Assert.AreEqual(3, imapIntervals.Count);
+        }
+
+        [Test]
+        public void ParseFromJson2()
+        {
+            const string json =
+                "[{\"Key\":\"INBOX\",\"Value\":{\"__type\":\"ImapFolderUids:#ASC.Mail.Aggregator.Common.Imap\",\"BeginDateUid\":9131,\"UnhandledUidIntervals\":[9385,2147483647]}}]";
+
+            var imapIntervals = MailUtil.ParseImapIntervals(json);
+
+            Assert.AreEqual(1, imapIntervals.Count);
+        }
+
+        [Test]
+        public void ParseFromJson3()
+        {
+            const string json =
+                "[{\"Key\":\"INBOX\",\"Value\":{\"BeginDateUid\":9131,\"UnhandledUidIntervals\":[9385,2147483647]}}]";
+
+            var imapIntervals = MailUtil.ParseImapIntervals(json);
+
+            Assert.AreEqual(1, imapIntervals.Count);
+
+        }
+
+        [Test]
+        public void ParseFromJson4()
+        {
+            const string json =
+                "[{\"Key\":\"Sent\",\"Value\":{\"BeginDateUid\":1,\"UnhandledUidIntervals\":[34,2147483647]}},{\"Key\":\"INBOX\",\"Value\":{\"BeginDateUid\":1,\"UnhandledUidIntervals\":[67,2147483647]}},{\"Key\":\"Junk\",\"Value\":{\"BeginDateUid\":1,\"UnhandledUidIntervals\":[1,2147483647]}}]";
+
+            var imapIntervals = MailUtil.ParseImapIntervals(json);
+
+            Assert.AreEqual(3, imapIntervals.Count);
+
         }
     }
 }

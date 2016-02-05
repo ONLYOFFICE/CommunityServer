@@ -88,6 +88,7 @@ namespace ASC.Web.Files.Utils
                 {
                     file.Title = fileName;
                     file.ConvertedType = null;
+                    file.Comment = FilesCommonResource.CommentUpload;
                     file.Version++;
 
                     return file;
@@ -109,7 +110,6 @@ namespace ASC.Web.Files.Utils
 
             var file = VerifyFileUpload(folderId, fileName, updateIfExists);
             file.ContentLength = fileSize;
-            file.Comment = string.Empty;
             return file;
         }
 
@@ -235,6 +235,10 @@ namespace ASC.Web.Files.Utils
             {
                 FileMarker.MarkAsNew(uploadSession.File);
                 ChunkedUploadSessionHolder.RemoveSession(uploadSession);
+            }
+            else
+            {
+                ChunkedUploadSessionHolder.StoreSession(uploadSession);
             }
 
             return uploadSession;

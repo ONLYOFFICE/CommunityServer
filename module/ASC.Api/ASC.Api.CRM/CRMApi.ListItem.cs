@@ -388,7 +388,7 @@ namespace ASC.Api.CRM
 
             var result = ToHistoryCategoryWrapper(listItem);
 
-            dao.DeleteItem(ListType.HistoryCategory, id);
+            dao.DeleteItem(ListType.HistoryCategory, id, 0);
             MessageService.Send(Request, MessageAction.HistoryEventCategoryDeleted, listItem.Title);
 
             return result;
@@ -539,15 +539,16 @@ namespace ASC.Api.CRM
         /// <short>Delete task category</short> 
         /// <category>Tasks</category>
         /// <param name="categoryid">Task category ID</param>
+        /// <param name="newcategoryid">Task category ID for replace in task with current category stage</param>
         ///<exception cref="ArgumentException"></exception>
         ///<exception cref="ItemNotFoundException"></exception>
         ///<exception cref="SecurityException"></exception>
         [Delete(@"task/category/{categoryid:[0-9]+}")]
-        public TaskCategoryWrapper DeleteTaskCategory(int categoryid)
+        public TaskCategoryWrapper DeleteTaskCategory(int categoryid, int newcategoryid)
         {
             if (!(CRMSecurity.IsAdmin)) throw CRMSecurity.CreateSecurityException();
 
-            if (categoryid <= 0) throw new ArgumentException();
+            if (categoryid <= 0 || newcategoryid < 0) throw new ArgumentException();
 
             var dao = DaoFactory.GetListItemDao();
             var listItem = dao.GetByID(categoryid);
@@ -557,7 +558,7 @@ namespace ASC.Api.CRM
                 throw new ArgumentException("The last task category cannot be deleted");
             }
 
-            dao.DeleteItem(ListType.TaskCategory, categoryid);
+             dao.DeleteItem(ListType.TaskCategory, categoryid, newcategoryid);
             MessageService.Send(Request, MessageAction.CrmTaskCategoryDeleted, listItem.Title);
 
             return ToTaskCategoryWrapper(listItem);
@@ -731,7 +732,7 @@ namespace ASC.Api.CRM
 
             var contactStatus = ToContactStatusWrapper(listItem);
 
-            dao.DeleteItem(ListType.ContactStatus, contactStatusid);
+            dao.DeleteItem(ListType.ContactStatus, contactStatusid, 0);
             MessageService.Send(Request, MessageAction.ContactTemperatureLevelDeleted, contactStatus.Title);
 
             return contactStatus;
@@ -888,7 +889,7 @@ namespace ASC.Api.CRM
             
             var contactType = ToContactTypeWrapper(listItem);
 
-            dao.DeleteItem(ListType.ContactType, contactTypeid);
+            dao.DeleteItem(ListType.ContactType, contactTypeid, 0);
             MessageService.Send(Request, MessageAction.ContactTypeDeleted, listItem.Title);
 
             return contactType;

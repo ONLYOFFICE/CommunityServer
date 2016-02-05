@@ -24,26 +24,14 @@
 */
 
 
-#region Usings
-
-using System;
-
-#endregion
 
 namespace ASC.Web.Projects.Classes
 {
     public static class UrlConstant
     {
-        public const string ProjectsFilter = "filter";
-        public const string ProjectsTag = "tag";
         public const string EntityID = "ID";
         public const string ProjectID = "prjID";
         public const string Action = "action";
-        public const string PageNumber = "page";
-        public const string UserID = "userID";
-        public const string Version = "version";
-        public const string Search = "search";
         public const string ReportType = "reportType";
-        public const string CategoryID = "cat";
     }
 }

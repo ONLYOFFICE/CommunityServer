@@ -24,11 +24,11 @@
 */
 
 
+using ASC.Files.Core;
+using ASC.Files.Core.Security;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ASC.Files.Core;
-using ASC.Files.Core.Security;
 
 namespace ASC.Files.Thirdparty.ProviderDao
 {

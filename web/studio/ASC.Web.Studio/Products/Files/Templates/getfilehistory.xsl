@@ -8,9 +8,12 @@
     <div id="contentVersions">
       <table class="not-preview" cellspacing="0" cellpadding="0" border="0">
         <thead>
-          <tr class="versionsTitle">
+          <tr class="versions-title">
             <th colspan="8">
               <resource name="fres.TitleVersionHistory" />
+            </th>
+            <th>
+              <span class="version-close"></span>
             </th>
           </tr>
         </thead>

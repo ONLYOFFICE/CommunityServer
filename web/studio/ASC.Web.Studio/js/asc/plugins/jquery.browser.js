@@ -1,9 +1,4 @@
-﻿/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
-
-(function (jQuery, window, undefined) {
+﻿(function (jQuery, window, undefined) {
 
     // Don't clobber any existing jQuery.browser in case it's different
     if (!jQuery.browser) {

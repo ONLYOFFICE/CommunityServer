@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -33,8 +33,6 @@ using ASC.Core.Tenants;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Services.NotifyService;
-using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Studio.Utility;
 using IDaoFactory = ASC.Projects.Core.DataInterfaces.IDaoFactory;
 
 namespace ASC.Projects.Engine
@@ -45,6 +43,7 @@ namespace ASC.Projects.Engine
         private readonly ITaskDao taskDao;
         private readonly IMilestoneDao milestoneDao;
         private readonly ISubtaskDao subtaskDao;
+        private readonly Func<Task, bool> canReadDelegate;
 
         public TaskEngine(IDaoFactory daoFactory, EngineFactory factory)
             : base(NotifyConstants.Event_NewCommentForTask, factory)
@@ -53,23 +52,24 @@ namespace ASC.Projects.Engine
             taskDao = daoFactory.GetTaskDao();
             milestoneDao = daoFactory.GetMilestoneDao();
             subtaskDao = daoFactory.GetSubtaskDao();
+            canReadDelegate = CanRead;
         }
 
         #region Get Tasks
 
         public IEnumerable<Task> GetAll()
         {
-            return taskDao.GetAll().Where(CanRead);
+            return taskDao.GetAll().Where(canReadDelegate);
         }
 
-        public List<Task> GetByProject(int projectId, TaskStatus? status, Guid participant)
+        public IEnumerable<Task> GetByProject(int projectId, TaskStatus? status, Guid participant)
         {
-            var listTask = taskDao.GetByProject(projectId, status, participant).Where(CanRead).ToList();
-            subtaskDao.GetSubtasks(ref listTask);
+            var listTask = taskDao.GetByProject(projectId, status, participant).Where(canReadDelegate).ToList();
+            subtaskDao.GetSubtasksForTasks(ref listTask);
             return listTask;
         }
 
-        public TaskFilterOperationResult GetByFilter (TaskFilter filter)
+        public TaskFilterOperationResult GetByFilter(TaskFilter filter)
         {
             if (filter.Offset < 0 || filter.Max < 0)
                 return null;
@@ -92,6 +92,8 @@ namespace ASC.Projects.Engine
             else if (filterOffset > count.TasksOpen && count.TasksClosed != 0)
             {
                 filter.TaskStatuses.Add(TaskStatus.Closed);
+                filter.SortBy = "status_changed";
+                filter.SortOrder = false;
                 filter.Offset = filterOffset - count.TasksOpen;
                 taskList = taskDao.GetByFilter(filter, isAdmin, anyOne);
             }
@@ -108,6 +110,8 @@ namespace ASC.Projects.Engine
                 {
                     filter.TaskStatuses.Clear();
                     filter.TaskStatuses.Add(TaskStatus.Closed);
+                    filter.SortBy = "status_changed";
+                    filter.SortOrder = false;
                     filter.Offset = 0;
                     filter.Max = filterLimit - taskList.Count;
                     taskList.AddRange(taskDao.GetByFilter(filter, isAdmin, anyOne));
@@ -118,21 +122,19 @@ namespace ASC.Projects.Engine
             filter.Max = filterLimit;
             filter.TaskStatuses.Clear();
 
-            subtaskDao.GetSubtasks(ref taskList);
+            subtaskDao.GetSubtasksForTasks(ref taskList);
 
-            var taskLinks = taskDao.GetLinks(taskList).ToList();
+            var taskLinks = taskDao.GetLinks(taskList);
 
-            taskList = taskList.GroupJoin(taskLinks, task => task.ID, link => link.DependenceTaskId, (task, linksCol) =>
-            {
-                task.Links.AddRange(linksCol);
-                return task;
-            }).ToList();
+            Func<Task, int> idSelector = task => task.ID;
+            Func<Task, IEnumerable<TaskLink>, Task> resultSelector = (task, linksCol) =>
+                                                          {
+                                                              task.Links.AddRange(linksCol);
+                                                              return task;
+                                                          };
 
-            taskList = taskList.GroupJoin(taskLinks, task => task.ID, link => link.ParentTaskId, (task, linksCol) =>
-            {
-                task.Links.AddRange(linksCol);
-                return task;
-            }).ToList();
+            taskList = taskList.GroupJoin(taskLinks, idSelector, link => link.DependenceTaskId, resultSelector).ToList();
+            taskList = taskList.GroupJoin(taskLinks, idSelector, link => link.ParentTaskId, resultSelector).ToList();
 
             return new TaskFilterOperationResult(taskList, count);
         }
@@ -142,18 +144,23 @@ namespace ASC.Projects.Engine
             return taskDao.GetByFilterCount(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled).TasksTotal;
         }
 
-        public List<Task> GetByResponsible(Guid responsibleId, params TaskStatus[] statuses)
+        public IEnumerable<Task> GetByResponsible(Guid responsibleId, params TaskStatus[] statuses)
         {
-            var listTask = taskDao.GetByResponsible(responsibleId, statuses).Where(CanRead).ToList();
-            subtaskDao.GetSubtasks(ref listTask);
+            var listTask = taskDao.GetByResponsible(responsibleId, statuses).Where(canReadDelegate).ToList();
+            subtaskDao.GetSubtasksForTasks(ref listTask);
             return listTask;
         }
 
-        public List<Task> GetMilestoneTasks(int milestoneId)
+        public IEnumerable<Task> GetMilestoneTasks(int milestoneId)
         {
-            var listTask = taskDao.GetMilestoneTasks(milestoneId).Where(CanRead).ToList();
-            subtaskDao.GetSubtasks(ref listTask);
+            var listTask = taskDao.GetMilestoneTasks(milestoneId).Where(canReadDelegate).ToList();
+            subtaskDao.GetSubtasksForTasks(ref listTask);
             return listTask;
+        }
+
+        public override ProjectEntity GetEntityByID(int id)
+        {
+            return GetByID(id);
         }
 
         public Task GetByID(int id)
@@ -177,10 +184,10 @@ namespace ASC.Projects.Engine
             return CanRead(task) ? task : null;
         }
 
-        public List<Task> GetByID(ICollection<int> ids)
+        public IEnumerable<Task> GetByID(ICollection<int> ids)
         {
-            var listTask = taskDao.GetById(ids).Where(CanRead).ToList();
-            subtaskDao.GetSubtasks(ref listTask);
+            var listTask = taskDao.GetById(ids).Where(canReadDelegate).ToList();
+            subtaskDao.GetSubtasksForTasks(ref listTask);
             return listTask;
 
         }
@@ -262,7 +269,7 @@ namespace ASC.Projects.Engine
             {
                 foreach (var attachedFileId in attachedFileIds)
                 {
-                    AttachFile(task, attachedFileId, false);
+                    AttachFile(task, attachedFileId);
                 }
             }
 

@@ -6,7 +6,7 @@
     <div id="message-print-view">
         {{if messages.length > 0}}
             <div class="head-subject">
-                <div class="viewTitle">${messages[0].subject}</div>
+                <div class="viewTitle">${messages[0].subject || MailScriptResource.NoSubject}</div>
             </div>
         {{/if}}
 
@@ -49,7 +49,9 @@
                 {{/if}}
             </div>
 
-            <div class="body"></div>
+            <div class="body">
+                {{html printedHtmlBody }}
+            </div>
             
             {{if hasAttachments == true}}
                 <div class="attachments">

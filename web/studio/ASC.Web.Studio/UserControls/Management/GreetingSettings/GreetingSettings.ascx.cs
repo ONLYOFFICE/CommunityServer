@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -27,18 +27,14 @@
 using System;
 using System.Web.UI;
 using System.Web;
-using System.Linq;
 using ASC.Web.Studio.Utility;
-using System.Web.Configuration;
 using ASC.Web.Studio.Core;
 using AjaxPro;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Core;
-using ASC.Web.Core.Users;
-using System.IO;
 using ASC.MessagingSystem;
 using Resources;
-using ASC.Web.Core.CoBranding;
+using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -52,12 +48,9 @@ namespace ASC.Web.Studio.UserControls.Management
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
             Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/greetingsettings/js/greetingsettings.js"));
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/greetingsettings/css/greetingsettings.less"));
-            if (TenantLogoManager.CoBrandingEnabled)
-            {
-                logoSettingsContainer.Controls.Add(LoadControl(ASC.Web.UserControls.CoBranding.CoBranding.Location));
-            }
-            else
+            Page.RegisterStyle("~/usercontrols/management/greetingsettings/css/greetingsettings.less");
+
+            if (GreetingLogoSettings.AvailableControl && !Web.UserControls.WhiteLabel.WhiteLabel.AvailableControl)
             {
                 logoSettingsContainer.Controls.Add(LoadControl(GreetingLogoSettings.Location));
             }
@@ -76,11 +69,11 @@ namespace ASC.Web.Studio.UserControls.Management
 
                 MessageService.Send(HttpContext.Current.Request, MessageAction.GreetingSettingsUpdated);
 
-                return new { Status = 1, Message = Resource.SuccessfullySaveGreetingSettingsMessage };
+                return new {Status = 1, Message = Resource.SuccessfullySaveGreetingSettingsMessage};
             }
             catch (Exception e)
             {
-                return new { Status = 0, Message = e.Message.HtmlEncode() };
+                return new {Status = 0, Message = e.Message.HtmlEncode()};
             }
         }
 
@@ -96,15 +89,15 @@ namespace ASC.Web.Studio.UserControls.Management
                 //SettingsManager.Instance.SaveSettings(_tenantInfoSettings, TenantProvider.CurrentTenantID);
 
                 return new
-                {
-                    Status = 1,
-                    Message = Resource.SuccessfullySaveGreetingSettingsMessage,
-                    CompanyName = CoreContext.TenantManager.GetCurrentTenant().Name
-                };
+                    {
+                        Status = 1,
+                        Message = Resource.SuccessfullySaveGreetingSettingsMessage,
+                        CompanyName = CoreContext.TenantManager.GetCurrentTenant().Name
+                    };
             }
             catch (Exception e)
             {
-                return new { Status = 0, Message = e.Message.HtmlEncode() };
+                return new {Status = 0, Message = e.Message.HtmlEncode()};
             }
         }
     }

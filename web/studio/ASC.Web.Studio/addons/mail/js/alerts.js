@@ -58,6 +58,12 @@ window.mailAlerts = (function($) {
             return;
         }
 
+        //do not show alerts on print page
+        if (TMMail.pageIs('print')) {
+            clearTimeout(timer);
+            return;
+        }
+
         if (TMMail.isPopupVisible()) {
             clearTimeout(timer);
             timer = setTimeout(showTopAlert, TMMail.showNextAlertTimeout);
@@ -71,6 +77,7 @@ window.mailAlerts = (function($) {
             clearTimeout(timer);
             timer = setTimeout(showTopAlert, TMMail.showNextAlertTimeout);
         });
+
     }
 
     function storeAlert(alert) {
@@ -93,7 +100,7 @@ window.mailAlerts = (function($) {
             okBtn = { text: MailScriptResource.OkBtnLabel, css_class: "blue cancel" };
 
         switch (alert.type) {
-            case ASC.Mail.AlertTypes.DeliveryFailure:
+            case ASC.Mail.Constants.Alerts.DeliveryFailure:
                 header = MailScriptResource.DeliveryFailurePopupHeader;
                 buttons = [{ href: "#draftitem/" + data.message_id, text: MailScriptResource.TryAgainButton, css_class: "blue tryagain" }, cancelBtn];
                 body = $($.tmpl("alertPopupBodyTmpl", {
@@ -107,7 +114,7 @@ window.mailAlerts = (function($) {
                 }));
                 body.find('.tryagain').click(function () { popup.hide(); });
                 break;
-            case ASC.Mail.AlertTypes.LinkFailure:
+            case ASC.Mail.Constants.Alerts.LinkFailure:
                 header = MailScriptResource.LinkFailurePopupHeader;
                 buttons = [okBtn];
                 body = $($.tmpl("alertPopupBodyTmpl", {
@@ -117,7 +124,7 @@ window.mailAlerts = (function($) {
                     buttons: buttons
                 }));
                 break;
-            case ASC.Mail.AlertTypes.ExportFailure:
+            case ASC.Mail.Constants.Alerts.ExportFailure:
                 header = MailScriptResource.ExportFailurePopupHeader;
                 buttons = [okBtn];
                 body = $($.tmpl("alertPopupBodyTmpl", {
@@ -127,9 +134,13 @@ window.mailAlerts = (function($) {
                     buttons: buttons
                 }));
                 break;
-            case ASC.Mail.AlertTypes.UploadFailure:
-                header = MailScriptResource.EmailInFailurePopupHeader;
+            case ASC.Mail.Constants.Alerts.UploadFailure:
                 account = accountsManager.getAccountById(alert.id_mailbox);
+                if (!account) {
+                    deleteAlert(alert.id);
+                    break;
+                }
+                header = MailScriptResource.EmailInFailurePopupHeader;
                 accountEmail = account ? account.email : "";
                 switch (data.error_type) {
                     case 1:
@@ -152,20 +163,24 @@ window.mailAlerts = (function($) {
                     buttons: buttons
                 }));
                 break;
-            case ASC.Mail.AlertTypes.DisableAllMailboxes:
+            case ASC.Mail.Constants.Alerts.DisableAllMailboxes:
                 header = MailScriptResource.DisableAllMailboxesPopupHeader;
                 buttons = [{ href: "#accounts", text: MailScriptResource.ManageAccountsLabel, css_class: "blue manage_accounts" }, closeBtn];
                 body = $($.tmpl("alertPopupBodyTmpl", {
                     errorBodyHeader: MailScriptResource.DisableAllMailboxesPopupBodyHeader,
-                    errorBody: MailScriptResource.DisableAllMailboxesPopupText,
+                    errorBody: TMMail.htmlEncode(MailScriptResource.DisableAllMailboxesPopupText),
                     errorBodyFooter: undefined,
                     buttons: buttons
                 }));
                 body.find('.manage_accounts').click(function () { popup.hide(); });
                 break;
-            case ASC.Mail.AlertTypes.AuthConnectFailure:
-                header = window.MailScriptResource.AccountCreationErrorHeader;
+            case ASC.Mail.Constants.Alerts.AuthConnectFailure:
                 account = accountsManager.getAccountById(alert.id_mailbox);
+                if (!account) {
+                    deleteAlert(alert.id);
+                    break;
+                }
+                header = window.MailScriptResource.AccountCreationErrorHeader;
                 accountEmail = account ? account.email : "";
                 buttons = [{ href: "#accounts", text: MailScriptResource.ChangeAccountSettingsBtn, css_class: "blue manage_account_settings" }, closeBtn];
                 body = $($.tmpl("alertPopupBodyTmpl", {
@@ -187,9 +202,13 @@ window.mailAlerts = (function($) {
                     accountsModal.editBox(account.email, alert.activateOnSuccess);
                 });
                 break;
-            case ASC.Mail.AlertTypes.TooManyAuthError:
-                header = window.MailScriptResource.AuthErrorDisablePopupHeader;
+            case ASC.Mail.Constants.Alerts.TooManyAuthError:
                 account = accountsManager.getAccountById(alert.id_mailbox);
+                if (!account) {
+                    deleteAlert(alert.id);
+                    break;
+                }
+                header = window.MailScriptResource.AuthErrorDisablePopupHeader;
                 accountEmail = account ? account.email : "";
                 window.accountsManager.enableMailbox(account.email, false);
                 buttons = [{ href: "#accounts", text: MailScriptResource.ManageAccountsLabel, css_class: "blue manage_accounts" }, closeBtn];
@@ -203,7 +222,7 @@ window.mailAlerts = (function($) {
                 }));
                 body.find('.manage_accounts').click(function () { popup.hide(); });
                 break;
-            case ASC.Mail.AlertTypes.QuotaError:
+            case ASC.Mail.Constants.Alerts.QuotaError:
                 header = window.MailScriptResource.QuotaPopupHeader;
                 buttons = [closeBtn];
                 body = $($.tmpl("alertPopupBodyTmpl", {
@@ -224,7 +243,9 @@ window.mailAlerts = (function($) {
 
     function showAlert(alert) {
         var alertPopup = getAlertPopup(alert);
-        popup.addBig(alertPopup.header, alertPopup.body);
+        if (alertPopup) {
+            popup.addBig(alertPopup.header, alertPopup.body);
+        }
     }
 
     function deleteAlert(id) {

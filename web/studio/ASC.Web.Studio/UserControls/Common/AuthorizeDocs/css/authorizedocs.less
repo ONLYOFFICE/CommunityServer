@@ -40,7 +40,7 @@ body {
     background: url("images/image_background.png") left bottom no-repeat transparent;
 }
 
-@media all and (max-width: 1450px) {
+body.media-width-0-1450 {
     .mainPageContent {
         background-image:none;
     }
@@ -310,37 +310,42 @@ input.auth-form-with_field {
         height: 54px;
 
         ul {
-            width: 130px;
-            height: 54px;
+            width: 186px;
+            height: 53px;
             li {
-                width: 54px;
-                height: 54px;
+                width: 53px;
+                height: 53px;
                 margin-right: 8px;
 
-                .google {
-                    background: url("images/sprite_F_G.png") no-repeat -1px -1px transparent;
-
-                    &:hover {
-                        background-position: -61px -1px;
-                    }
-                }
-
-                .facebook {
-                    background: url("images/sprite_F_G.png") no-repeat -1px -61px transparent;
-
-                    &:hover {
-                        background-position: -61px -61px;
-                    }
-                }
-
-                .twitter, .linkedin {
-                    display: none;
-                }
-
                 a {
-                    width: 54px;
-                    height: 54px;
+                    background: url("images/sprite_acc.png") no-repeat transparent;
+                    height: 53px;
                     margin: 0;
+                    width: 53px;
+
+                    &.google {
+                        background-position: 0 0;
+
+                        &:hover {
+                            background-position: -61px 0;
+                        }
+                    }
+
+                    &.facebook {
+                        background-position: 0 -61px;
+
+                        &:hover {
+                            background-position: -61px -61px;
+                        }
+                    }
+
+                    &.linkedin {
+                        background-position: 0 -122px;
+
+                        &:hover {
+                            background-position: -61px -122px;
+                        }
+                    }
                 }
             }
         }
@@ -779,10 +784,14 @@ input.auth-form-with_field {
         font-size: 12px;
     }
 
+    .social-login .account-links ul {
+        width: 189px;
+    }
+
     .auth-docs_btns_social .social-login .account-links ul li a {
-        height: 56px;
+        height: 55px;
         width: 55px;
-        background-image: url(images/sprite_F_G_2.png);
+        background-image: url(images/sprite_acc_ab.png);
     }
 
     .auth-form-with_hint {

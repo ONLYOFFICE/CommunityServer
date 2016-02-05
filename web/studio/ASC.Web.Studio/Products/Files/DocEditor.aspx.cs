@@ -33,9 +33,10 @@ using System.Text;
 using System.Web;
 using System.Web.Configuration;
 using ASC.Core;
+using ASC.Core.Billing;
 using ASC.Core.Users;
-using ASC.Files.Core;
-using ASC.Web.Core.CoBranding;
+using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Files.Classes;
@@ -183,7 +184,7 @@ namespace ASC.Web.Files
 
                         file = DocumentServiceHelper.GetParams(RequestFileId, ver, RequestShareLinkKey, _fileNew, editPossible, !RequestView, out _docParams);
 
-                        _fileNew = _fileNew && file.Version == 1 && file.ConvertedType != null && file.CreateOn == file.ModifiedOn;
+                        _fileNew = _fileNew && file.Version == 1 && file.CreateOn == file.ModifiedOn;
                     }
                     else
                     {
@@ -211,7 +212,14 @@ namespace ASC.Web.Files
                     {
                         try
                         {
-                            var webRequest = WebRequest.Create(RequestFileUrl);
+                            var webRequest = (HttpWebRequest)WebRequest.Create(RequestFileUrl);
+
+                            // hack. http://ubuntuforums.org/showthread.php?t=1841740
+                            if (WorkContext.IsMono)
+                            {
+                                ServicePointManager.ServerCertificateValidationCallback += (s, ce, ca, p) => true;
+                            }
+
                             using (var response = webRequest.GetResponse())
                             using (var responseStream = new ResponseStream(response))
                             {
@@ -240,6 +248,7 @@ namespace ASC.Web.Files
             }
             catch (Exception ex)
             {
+                Global.Logger.Error("DocEditor", ex);
                 _errorMessage = ex.Message;
                 return;
             }
@@ -250,10 +259,11 @@ namespace ASC.Web.Files
                 {
                     file = FileConverter.ExecDuplicate(file, RequestShareLinkKey);
                 }
-                catch (Exception e)
+                catch (Exception ex)
                 {
                     _docParams = null;
-                    _errorMessage = e.Message;
+                    Global.Logger.Error("DocEditor", ex);
+                    _errorMessage = ex.Message;
                     return;
                 }
 
@@ -304,10 +314,20 @@ namespace ASC.Web.Files
             {
                 _tabId = FileTracker.Add(file.ID, _fileNew);
                 _fixedVersion = FileTracker.FixedVersion(file.ID);
-                _docParams.FileChoiceUrl = CommonLinkUtility.GetFullAbsolutePath(FileChoice.Location) + "?" + FileChoice.DocumentTypeParam + "=" + FilterType.SpreadsheetsOnly;
+                if (SecurityContext.IsAuthenticated)
+                {
+                    _docParams.FileChoiceUrl = CommonLinkUtility.GetFullAbsolutePath(FileChoice.Location) + "?" + FileChoice.ParamFilterExt + "=xlsx&" + FileChoice.MailMergeParam + "=true";
+                    _docParams.MergeFolderUrl = CommonLinkUtility.GetFullAbsolutePath(MailMerge.GetUrl);
+                }
             }
             else
             {
+                if (!RequestView && FileTracker.IsEditingAlone(file.ID))
+                {
+                    var editingBy = FileTracker.GetEditingBy(file.ID).FirstOrDefault();
+                    _errorMessage = string.Format(FilesCommonResource.ErrorMassage_EditingMobile, Global.GetUserName(editingBy));
+                }
+
                 _docParams.LinkToEdit = _editByUrl
                                             ? CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileWebEditorExternalUrl(fileUri, file.Title))
                                             : CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.GetFileWebEditorUrl(file.ID));
@@ -321,15 +341,24 @@ namespace ASC.Web.Files
             var inlineScript = new StringBuilder();
 
             inlineScript.AppendFormat("\nASC.Files.Constants.URL_WCFSERVICE = \"{0}\";" +
-                                      "ASC.Files.Constants.URL_FILES_START = \"{1}\";",
+                                      "ASC.Files.Constants.URL_MAIL_ACCOUNTS = \"{1}\";",
                                       PathProvider.GetFileServicePath,
-                                      FilesLinkUtility.FilesBaseAbsolutePath);
+                                      CommonLinkUtility.GetFullAbsolutePath("~/addons/mail/#accounts"));
 
             if (SecurityContext.IsAuthenticated && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
             {
-                inlineScript.AppendFormat("\nASC.Files.Constants.URL_HANDLER_CREATE = \"{0}\";",
+                inlineScript.AppendFormat("ASC.Files.Constants.URL_HANDLER_CREATE = \"{0}\";",
                                           CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.FileHandlerPath));
             }
+
+            inlineScript.AppendFormat("\nASC.Files.Editor.brandingLogoUrl = \"{0}\";" +
+                                      "ASC.Files.Editor.brandingLogoEmbeddedUrl = \"{1}\";" +
+                                      "ASC.Files.Editor.brandingCustomerLogo = \"{2}\";" +
+                                      "ASC.Files.Editor.brandingCustomer = \"{3}\";",
+                                      CommonLinkUtility.GetFullAbsolutePath(TenantLogoHelper.GetLogo(WhiteLabelLogoTypeEnum.DocsEditor)),
+                                      CommonLinkUtility.GetFullAbsolutePath(TenantLogoHelper.GetLogo(WhiteLabelLogoTypeEnum.DocsEditorEmbedded)),
+                                      CommonLinkUtility.GetFullAbsolutePath(TenantLogoHelper.GetLogo(WhiteLabelLogoTypeEnum.Dark)),
+                                      (SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID).LogoText ?? "").Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("/", "\\/"));
 
             inlineScript.AppendFormat("\nASC.Files.Editor.docKeyForTrack = \"{0}\";" +
                                       "ASC.Files.Editor.shareLinkParam = \"{1}\";" +
@@ -337,22 +366,30 @@ namespace ASC.Web.Files
                                       "ASC.Files.Editor.editByUrl = ({3} == true);" +
                                       "ASC.Files.Editor.fixedVersion = ({4} == true);" +
                                       "ASC.Files.Editor.tabId = \"{5}\";" +
-                                      "ASC.Files.Editor.FileWebEditorExternalUrlString = \"{6}\";" +
-                                      "ASC.Files.Editor.thirdPartyApp = ({7} == true);" +
-                                      "ASC.Files.Editor.openinigDate = \"{8}\";" +
-                                      "ASC.Files.Editor.brandingLogoUrl = \"{9}\";" +
-                                      "ASC.Files.Editor.brandingCustomerLogo = \"{10}\";",
+                                      "ASC.Files.Editor.thirdPartyApp = ({6} == true);" +
+                                      "ASC.Files.Editor.openinigDate = \"{7}\";",
                                       _docKeyForTrack,
                                       string.IsNullOrEmpty(RequestShareLinkKey) ? string.Empty : "&" + FilesLinkUtility.DocShareKey + "=" + RequestShareLinkKey,
-                                      (_errorMessage ?? "").Replace("\"", "\\\""),
+                                      (_errorMessage ?? "").Replace("\n", "\\n").Replace("\r", "").Replace("\"", "\\\""),
                                       _editByUrl.ToString().ToLower(),
                                       _fixedVersion.ToString().ToLower(),
                                       _tabId,
-                                      FilesLinkUtility.FileWebEditorExternalUrlString,
                                       _thirdPartyApp.ToString().ToLower(),
-                                      DateTime.UtcNow.ToString(CultureInfo.InvariantCulture),
-                                      CommonLinkUtility.GetFullAbsolutePath("~/TenantLogo.ashx?logotype=" + (int) CoBrandingLogoTypeEnum.DocsEditor),
-                                      CommonLinkUtility.GetFullAbsolutePath("~/TenantLogo.ashx?logotype=" + (int) CoBrandingLogoTypeEnum.Dark));
+                                      DateTime.UtcNow.ToString(CultureInfo.InvariantCulture));
+
+            if (!CoreContext.Configuration.Standalone)
+            {
+                inlineScript.AppendFormat("\nASC.Files.Editor.showAbout = true;" +
+                                          "ASC.Files.Editor.feedbackUrl = \"{0}\";",
+                                          SetupInfo.SupportFeedback);
+            }
+            else if (_docParams != null)
+            {
+                inlineScript.AppendFormat("\nASC.Files.Editor.licenseUrl = \"{0}\";" +
+                                          "ASC.Files.Editor.customerId = \"{1}\";",
+                                          PathProvider.GetLicenseUrl(_docParams.File),
+                                          LicenseClient.CustomerId);
+            }
 
             inlineScript.Append(BuildOptions());
 

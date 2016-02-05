@@ -1,9 +1,86 @@
 /*
-Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
 For licensing, see LICENSE.md or http://ckeditor.com/license
 */
 
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:900,800,700,600,500,400,300&subset=latin,cyrillic-ext,cyrillic,latin-ext);
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 700;
+    src: url('../../../skins/default/opensansoffline/fonts/opensans-bold.eot');
+    src: local('Open Sans Bold'), local('OpenSans-Bold'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-bold.eot?#iefix') format('embedded-opentype'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-bold.woff2') format('woff2'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-bold.woff') format('woff'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-bold.ttf') format('truetype'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-bold.svg#open_sansbold') format('svg');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 800;
+    src: url('../../../skins/default/opensansoffline/fonts/opensans-extrabold.eot');
+    src: local('Open Sans Extrabold'), local('OpenSans-Extrabold'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-extrabold.eot?#iefix') format('embedded-opentype'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-extrabold.woff2') format('woff2'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-extrabold.woff') format('woff'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-extrabold.ttf') format('truetype'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-extrabold.svg#open_sansextrabold') format('svg');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 300;
+    src: url('../../../skins/default/opensansoffline/fonts/opensans-light.eot');
+    src: local('Open Sans Light'), local('OpenSans-Light'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-light.eot?#iefix') format('embedded-opentype'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-light.woff2') format('woff2'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-light.woff') format('woff'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-light.ttf') format('truetype'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-light.svg#open_sanslight') format('svg');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url('../../../skins/default/opensansoffline/fonts/opensans-regular.eot');
+    src: local('Open Sans'), local('OpenSans'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-regular.eot?#iefix') format('embedded-opentype'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-regular.woff2') format('woff2'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-regular.woff') format('woff'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-regular.ttf') format('truetype'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-regular.svg#open_sansregular') format('svg');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 500;
+    src: url('../../../skins/default/opensansoffline/fonts/opensans-regular.eot');
+    src: local('Open Sans'), local('OpenSans'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-regular.eot?#iefix') format('embedded-opentype'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-regular.woff2') format('woff2'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-regular.woff') format('woff'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-regular.ttf') format('truetype'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-regular.svg#open_sansregular') format('svg');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: 600;
+    src: url('../../../skins/default/opensansoffline/fonts/opensans-semibold.eot');
+    src: local('Open Sans Semibold'), local('OpenSans-Semibold'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-semibold.eot?#iefix') format('embedded-opentype'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-semibold.woff2') format('woff2'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-semibold.woff') format('woff'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-semibold.ttf') format('truetype'),
+        url('../../../skins/default/opensansoffline/fonts/opensans-semibold.svg#open_sanssemibold') format('svg');
+}
 
 body
 {
@@ -97,6 +174,8 @@ pre
 {
 	white-space: pre-wrap; /* CSS 2.1 */
 	word-wrap: break-word; /* IE7 */
+	-moz-tab-size: 4;
+	tab-size: 4;
 }
 
 .marker
@@ -117,13 +196,19 @@ figure
 	background: rgba(0,0,0,0.05);
 	padding: 10px;
 	margin: 10px 20px;
-	display: block; /* For IE8 */
+	display: inline-block;
 }
 
 figure figcaption
 {
 	text-align: center;
 	display: block; /* For IE8 */
+}
+
+a > img {
+	padding: 1px;
+	margin: 1px;
+	border: none;
 }
 
 /* teamlab styles */
@@ -189,20 +274,20 @@ input::-moz-focus-inner
     background-color: #e5e5e5 !important;
 }
 
-.mailmessage-filelink:hover .mailmessage-filelink-link {
-    text-decoration: underline !important;
+.mailmessage-filelink:hover .mailmessage-filelink-link > * {
+    border-bottom: 1px solid black;
 }
 
 .mailmessage-filelink .delete-btn {
-    margin: 4px 5px 0 0;
+    margin: 6px 5px 0 0;
     float: right;
     width: 16px;
     height: 16px;
-    background-image: url(../../../skins/default/imagescss/base_sprite.png);
-    background-position: -20px 0;
+    background-image: url(../../../skins/default/imagescss/remove_16.png);
+    background-position: -16px 0;
     cursor: pointer;
 }
         
 .mailmessage-filelink:hover .delete-btn {
-    background-position: -20px -20px;
+    background-position: 0 -16px;
 }

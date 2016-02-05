@@ -24,7 +24,7 @@
 */
 
 
-using ASC.Core.Caching;
+using ASC.Common.Caching;
 using ASC.Web.Studio.Utility;
 using Resources;
 using System;
@@ -51,7 +51,7 @@ namespace ASC.Web.Studio.Core.SMS
             lock (locker)
             {
                 var cacheKey = BuildCacheKey(phone);
-                var dic = cache.Get(cacheKey) as IDictionary<string, DateTime> ?? new Dictionary<string, DateTime>();
+                var dic = cache.Get<Dictionary<string, DateTime>>(cacheKey) ?? new Dictionary<string, DateTime>();
 
                 var key = random.Next((int)Math.Pow(10, KeyLength - 1), (int)Math.Pow(10, KeyLength)).ToString();
                 dic[key] = DateTime.UtcNow;
@@ -69,7 +69,7 @@ namespace ASC.Web.Studio.Core.SMS
 
             lock (locker)
             {
-                return cache.Get(BuildCacheKey(phone)) != null;
+                return cache.Get<Dictionary<string, DateTime>>(BuildCacheKey(phone)) != null;
             }
         }
 
@@ -84,7 +84,7 @@ namespace ASC.Web.Studio.Core.SMS
             lock (locker)
             {
                 var cacheKey = BuildCacheKey(phone);
-                var dic = cache.Get(cacheKey) as IDictionary<string, DateTime>;
+                var dic = cache.Get<Dictionary<string, DateTime>>(cacheKey);
                 if (dic == null)
                     throw new TimeoutException(Resource.SmsAuthenticationTimeout);
 

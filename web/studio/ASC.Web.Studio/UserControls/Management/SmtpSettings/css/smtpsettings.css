@@ -49,7 +49,7 @@
 .smtp-settings-field {
     width: 345px;
 }
-.smtp-settings-item .host{
+.smtp-settings-item .host {
     float: left;
     margin-right: 15px;
 }
@@ -64,4 +64,56 @@
 #smtpSettingsButtonTest
  {
     margin-bottom: 15px;
+}
+
+#smtpSettingsView .smtp-settings-item label {
+    font-weight: normal;
+}
+
+#smtpSettingsView .smtp-settings-title {
+    margin-bottom: 6px;
+}
+
+#smtpSettingsView .smtp-settings-item {
+    margin-bottom: 13px;
+}
+
+#smtpSettingsView .middle-button-container {
+    margin-top: 23px;
+}
+
+#settingsSwitch {
+    padding-left: 0;
+    margin-bottom: 11px;
+}
+
+#settingsSwitch #settingsSwitchHeader {
+    font-weight: bold;
+    margin-top: 2px;
+    margin-bottom: 15px;
+}
+
+#noDomainsMsg a {
+    text-decoration: underline;
+}
+
+#noDomainsMsg a:hover {
+    text-decoration: none;
+}
+
+#notificationLogin {
+    float: left;
+    width: 165px;
+    margin-bottom: 10px;
+}
+
+#notificationHostDomainSplitter {
+    float: left;
+    width: 11px;
+    margin: 0 2px;
+}
+
+#notificationDomain {
+    width: 165px;
+    height: 20px;
 }

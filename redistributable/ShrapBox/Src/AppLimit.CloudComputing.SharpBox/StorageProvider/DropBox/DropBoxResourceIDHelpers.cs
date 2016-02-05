@@ -9,10 +9,12 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox
             return GetResourcePath(resource, null);
         }
 
-        public static String GetResourcePath(ICloudFileSystemEntry parent, String nameOrId)
+        public static String GetResourcePath(ICloudFileSystemEntry parent, String nameOrId, string parentId = null)
         {
             nameOrId = !String.IsNullOrEmpty(nameOrId) ? nameOrId.Trim('/') : String.Empty;
-            var parentId = parent != null ? parent.Id.Trim('/') : String.Empty;
+            if (parent != null)
+                parentId = parent.Id;
+            parentId = (parentId ?? "").Trim('/');
             if (String.IsNullOrEmpty(parentId))
                 return nameOrId;
             if (String.IsNullOrEmpty(nameOrId))

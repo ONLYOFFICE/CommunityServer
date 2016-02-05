@@ -10,7 +10,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     <% var method = (Model as MethodViewModel).Method; %>
-    <%=!string.IsNullOrEmpty(method.ShortName) ? method.ShortName : method.Summary%>
+    <%= !string.IsNullOrEmpty(method.ShortName) ? method.ShortName : method.Summary %>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -18,7 +18,7 @@
        var method = model.Method; %>
     <h1>
         <a class="up" href="<%= Url.DocUrl(model.Section.Name, string.IsNullOrEmpty(method.Category) ? null : method.Category, null, null, Html.GetCurrentController()) %>"></a>
-        <span class="hdr"><%=method.HttpMethod + " " + method.Path%></span>
+        <span class="hdr"><%= method.HttpMethod + " " + method.Path %></span>
         <% if (method.Authentification)
           { %>
         <span class="auth">This function requires authentication</span>
@@ -28,7 +28,7 @@
     <% if (!string.IsNullOrEmpty(method.Summary))
           { %>
     <div class="header-gray">Description</div>
-    <p class="dscr"><%=method.Summary%></p>
+    <p class="dscr"><%= method.Summary %></p>
     <% } %>
     
     <div class="header-gray">Parameters</div>
@@ -84,19 +84,19 @@
     <%if (!string.IsNullOrEmpty(method.Remarks))
       { %>
     <div class="header-gray">Remark</div>
-    <p><%=method.Remarks %></p>
+    <p><%= method.Remarks %></p>
     <% } %>
     
     <%if (!string.IsNullOrEmpty(method.Notes))
       { %>
     <div class="header-gray">Notes</div>
-    <p><%=method.Notes %></p>
+    <p><%= method.Notes %></p>
     <% } %>
     
     <%if (!string.IsNullOrEmpty(method.Example))
       { %>
     <div class="header-gray">Example</div>
-    <pre><%=method.Example%></pre>
+    <pre><%= method.Example%></pre>
     <% } %>
 
     <div class="header-gray">
@@ -104,7 +104,7 @@
         <span id="clipLink">Get link to this headline</span>
         <a id="returns"></a>
     </div>
-    <p><%=method.Returns %></p>
+    <p><%= method.Returns %></p>
     
     <% if (method.Response.Any())
        { %>

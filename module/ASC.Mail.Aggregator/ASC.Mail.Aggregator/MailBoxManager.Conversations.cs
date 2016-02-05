@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -30,19 +30,19 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using ASC.CRM.Core;
-using ASC.CRM.Core.Dao;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
+using ASC.Core;
+using ASC.Core.Tenants;
+using ASC.CRM.Core;
+using ASC.CRM.Core.Dao;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Dal;
 using ASC.Mail.Aggregator.Dal.DbSchema;
 using ASC.Mail.Aggregator.Extension;
 using ASC.Mail.Aggregator.Filter;
-using ASC.Core.Tenants;
-using ASC.Core;
 using Newtonsoft.Json.Linq;
 
 namespace ASC.Mail.Aggregator
@@ -53,7 +53,7 @@ namespace ASC.Mail.Aggregator
 
         private const int CHUNK_SIZE = 3;
 
-        public List<MailMessageItem> GetConversations(
+        public List<MailMessage> GetConversations(
             int tenant,
             string user,
             MailFilter filter,
@@ -479,29 +479,8 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        public void UpdateCrmLinkedChainId(int mailboxId, int tenant, string oldChainId, string newChainId)
-        {
-            if (string.IsNullOrEmpty(oldChainId))
-                throw new ArgumentNullException("oldChainId");
-
-            if (string.IsNullOrEmpty(newChainId))
-                throw new ArgumentNullException("newChainId");
-
-            if (oldChainId.Equals(newChainId)) return;
-            
-            using (var db = GetDb())
-            {
-                var updateOldChainIdQuery = new SqlUpdate(ChainXCrmContactEntity.name)
-                    .Set(ChainXCrmContactEntity.Columns.id_chain, newChainId)
-                    .Where(ChainXCrmContactEntity.Columns.id_chain, oldChainId)
-                    .Where(ChainXCrmContactEntity.Columns.id_mailbox, mailboxId)
-                    .Where(ChainXCrmContactEntity.Columns.id_tenant, tenant);
-
-                db.ExecuteNonQuery(updateOldChainIdQuery);
-            }
-        }
-
-        public void UpdateCrmLinkedMailboxId(string chainId, int tenant, int oldMailboxId, int newMailboxId)
+        private void UpdateCrmLinkedMailboxId(DbManager db, string chainId, int tenant, int oldMailboxId,
+            int newMailboxId)
         {
             if (oldMailboxId < 1)
                 throw new ArgumentException("old_mailbox_id must be > 0");
@@ -511,16 +490,14 @@ namespace ASC.Mail.Aggregator
 
             if (oldMailboxId == newMailboxId) return;
 
-            using (var db = GetDb())
-            {
-                var updateOldChainIdQuery = new SqlUpdate(ChainXCrmContactEntity.name)
-                    .Set(ChainXCrmContactEntity.Columns.id_mailbox, newMailboxId)
-                    .Where(ChainXCrmContactEntity.Columns.id_chain, chainId)
-                    .Where(ChainXCrmContactEntity.Columns.id_mailbox, oldMailboxId)
-                    .Where(ChainXCrmContactEntity.Columns.id_tenant, tenant);
+            var updateOldChainIdQuery = new SqlUpdate(ChainXCrmContactEntity.name)
+                .Set(ChainXCrmContactEntity.Columns.id_mailbox, newMailboxId)
+                .Where(ChainXCrmContactEntity.Columns.id_chain, chainId)
+                .Where(ChainXCrmContactEntity.Columns.id_mailbox, oldMailboxId)
+                .Where(ChainXCrmContactEntity.Columns.id_tenant, tenant);
 
-                db.ExecuteNonQuery(updateOldChainIdQuery);
-            }
+            db.ExecuteNonQuery(updateOldChainIdQuery);
+
         }
 
         public void LinkChainToCrm(int messageId, int tenant, string user, List<CrmContactEntity> contactIds)
@@ -528,7 +505,6 @@ namespace ASC.Mail.Aggregator
             var factory = new DaoFactory(CoreContext.TenantManager.GetCurrentTenant().TenantId, CRMConstants.DatabaseId);
             foreach (var crmContactEntity in contactIds)
             {
-
                 switch (crmContactEntity.Type)
                 {
                     case ChainXCrmContactEntity.EntityTypes.Contact:
@@ -563,21 +539,33 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        private void AddChainMailsToCrmHistory(DbManager db, ChainInfo chainInfo, int tenant, string user, List<CrmContactEntity> contactIds)
+        private void AddChainMailsToCrmHistory(DbManager db, ChainInfo chainInfo, int tenant, string user,
+            List<CrmContactEntity> contactIds)
         {
             var searchFolders = new List<int> {MailFolder.Ids.inbox, MailFolder.Ids.sent};
             var selectChainedMails = GetQueryForChainMessagesSelection(chainInfo.mailbox, chainInfo.id, searchFolders);
             var crmDal = new CrmHistoryDal(tenant, user);
-            db.ExecuteList(selectChainedMails)
+            var linkingMessages = db.ExecuteList(selectChainedMails)
                 .ConvertAll(record =>
-                    {
-                        var item = GetMailInfo(db, tenant, user, Convert.ToInt32(record[0]), true, true);
-                        item.LinkedCrmEntityIds = contactIds;
-                        return item;
-                    })
-                .ForEach(crmDal.AddRelationshipEvents);
-        }
+                {
+                    var item = GetMailInfo(db, tenant, user, Convert.ToInt32(record[0]), true, true);
+                    item.LinkedCrmEntityIds = contactIds;
+                    return item;
+                });
 
+            foreach (var message in linkingMessages)
+            {
+                try
+                {
+                    crmDal.AddRelationshipEvents(message);
+                }
+                catch (ApiHelperException ex)
+                {
+                    if (!ex.Message.Equals("Already exists"))
+                        throw;
+                }
+            }
+        }
 
         public void UnmarkChainAsCrmLinked(int messageId, int tenant, string user, IEnumerable<CrmContactEntity> contactIds)
         {
@@ -590,9 +578,9 @@ namespace ASC.Mail.Aggregator
         #endregion
 
         #region private conversations methods
-        private List<MailMessageItem> GetFilteredChains(IDbManager db, int tenant, string user, MailFilter filter, DateTime? utcChainFromDate, int fromMessageId, bool? prevFlag, out bool hasMore)
+        private List<MailMessage> GetFilteredChains(IDbManager db, int tenant, string user, MailFilter filter, DateTime? utcChainFromDate, int fromMessageId, bool? prevFlag, out bool hasMore)
         {
-            var res = new List<MailMessageItem>();
+            var res = new List<MailMessage>();
             var chainsToSkip = new List<ChainInfo>();
             var skipFlag = false;
             var chunkIndex = 0;
@@ -602,31 +590,53 @@ namespace ASC.Mail.Aggregator
             if (prevFlag.GetValueOrDefault(false))
                 sortOrder = !sortOrder;
 
-            var queryMessages = new SqlQuery(MailTable.name)
+            const string mm_alias = "ch";
+            const string mtm_alias = "tm";
+
+            var queryMessages = new SqlQuery(MailTable.name.Alias(mm_alias))
                 .Select(
-                    MailTable.Columns.id,
-                    MailTable.Columns.from,
-                    MailTable.Columns.to,
-                    MailTable.Columns.reply,
-                    MailTable.Columns.subject,
-                    MailTable.Columns.importance,
-                    MailTable.Columns.date_sent,
-                    MailTable.Columns.size,
-                    MailTable.Columns.attach_count,
-                    MailTable.Columns.unread,
-                    MailTable.Columns.is_answered,
-                    MailTable.Columns.is_forwarded,
-                    MailTable.Columns.is_from_crm,
-                    MailTable.Columns.is_from_tl,
-                    MailTable.Columns.folder_restore,
-                    MailTable.Columns.folder,
-                    MailTable.Columns.chain_id,
-                    MailTable.Columns.id_mailbox,
-                    MailTable.Columns.chain_date)
-                .Where(GetUserWhere(user, tenant))
-                .Where(MailTable.Columns.is_removed, false)
-                .ApplyFilter(filter)
-                .OrderBy(MailTable.Columns.chain_date, sortOrder);
+                    MailTable.Columns.id.Prefix(mm_alias),
+                    MailTable.Columns.from.Prefix(mm_alias),
+                    MailTable.Columns.to.Prefix(mm_alias),
+                    MailTable.Columns.reply.Prefix(mm_alias),
+                    MailTable.Columns.subject.Prefix(mm_alias),
+                    MailTable.Columns.importance.Prefix(mm_alias),
+                    MailTable.Columns.date_sent.Prefix(mm_alias),
+                    MailTable.Columns.size.Prefix(mm_alias),
+                    MailTable.Columns.attach_count.Prefix(mm_alias),
+                    MailTable.Columns.unread.Prefix(mm_alias),
+                    MailTable.Columns.is_answered.Prefix(mm_alias),
+                    MailTable.Columns.is_forwarded.Prefix(mm_alias),
+                    MailTable.Columns.is_from_crm.Prefix(mm_alias),
+                    MailTable.Columns.is_from_tl.Prefix(mm_alias),
+                    MailTable.Columns.folder_restore.Prefix(mm_alias),
+                    MailTable.Columns.folder.Prefix(mm_alias),
+                    MailTable.Columns.chain_id.Prefix(mm_alias),
+                    MailTable.Columns.id_mailbox.Prefix(mm_alias),
+                    MailTable.Columns.chain_date.Prefix(mm_alias));
+
+            if (filter.CustomLabels != null && filter.CustomLabels.Count > 0)
+            {
+                queryMessages = queryMessages
+                    .InnerJoin(TagMailTable.name + " " + mtm_alias,
+                                Exp.EqColumns(MailTable.Columns.id.Prefix(mm_alias), TagMailTable.Columns.id_mail.Prefix(mtm_alias)))
+                    .Where(Exp.In(TagMailTable.Columns.id_tag.Prefix(mtm_alias), filter.CustomLabels));
+            }
+
+            queryMessages = queryMessages
+                .ApplyFilter(filter, mm_alias)
+                .Where(TagMailTable.Columns.id_tenant.Prefix(mm_alias), tenant)
+                .Where(TagMailTable.Columns.id_user.Prefix(mm_alias), user)
+                .Where(MailTable.Columns.is_removed.Prefix(mm_alias), false);
+
+            if (filter.CustomLabels != null && filter.CustomLabels.Count > 0)
+            {
+                queryMessages = queryMessages
+                    .GroupBy(1)
+                    .Having(Exp.Eq(string.Format("count({0})", MailTable.Columns.id.Prefix(mm_alias)), filter.CustomLabels.Count()));
+            }
+
+            queryMessages = queryMessages.OrderBy(MailTable.Columns.chain_date, sortOrder);
 
             if (null != utcChainFromDate)
             {
@@ -706,7 +716,7 @@ namespace ASC.Mail.Aggregator
             return res;
         }
 
-        private static MailMessageItem ConvertToConversation(object[] r, Tenant tenantInfo)
+        private static MailMessage ConvertToConversation(object[] r, Tenant tenantInfo)
         {
             var now = TenantUtil.DateTimeFromUtc(tenantInfo.TimeZone, DateTime.UtcNow);
             var date = TenantUtil.DateTimeFromUtc(tenantInfo.TimeZone, (DateTime)r[6]);
@@ -715,7 +725,7 @@ namespace ASC.Mail.Aggregator
             var isToday = (now.Year == date.Year && now.Date == date.Date);
             var isYesterday = (now.Year == date.Year && now.Date == date.Date.AddDays(1));
 
-            return new MailMessageItem
+            return new MailMessage
             {
                 Id = Convert.ToInt64(r[0]),
                 From = (string)r[1],

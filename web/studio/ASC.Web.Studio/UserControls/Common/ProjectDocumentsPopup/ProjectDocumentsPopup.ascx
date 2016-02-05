@@ -5,26 +5,25 @@
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <sc:Container id="_documentUploader" runat="server">
-        <header>
-        <%=PopupName %>    
-        </header>
-        <body>
-            <div class="popupContainerBreadCrumbs">
+    <header>
+    <%=PopupName %>    
+    </header>
+    <body>
+        <div class="popupContainerBreadCrumbs">
                 
+        </div>
+        <p class="containerCheckAll display-none"><input type="checkbox" title="<%=UserControlsCommonResource.CheckAll%>" id="checkAll"/><label for="checkAll"><%=UserControlsCommonResource.CheckAll%></label></p>
+        <div class="fileContainer" projId = "<%=ProjectId %>">
+            <img class="loader" src="<%= WebImageSupplier.GetAbsoluteWebPath("loader_32.gif")%>"/>
+            <div id="emptyFileList" class="display-none" data-imgSrc="<%= VirtualPathUtility.ToAbsolute("~/UserControls/Common/ProjectDocumentsPopup/Images/project-documents.png") %>">
             </div>
-            <p class="containerCheckAll display-none"><input type="checkbox" title="<%=UserControlsCommonResource.CheckAll%>" id="checkAll"/><label for="checkAll"><%=UserControlsCommonResource.CheckAll%></label></p>
-            <div class="fileContainer" projId = "<%=ProjectId %>">
-                <img class="loader" src="<%= WebImageSupplier.GetAbsoluteWebPath("loader_32.gif")%>"/>
-                <div id="emptyFileList" class="display-none">
-                    <asp:PlaceHolder runat="server" ID="_phEmptyDocView"></asp:PlaceHolder>
-                </div>
-                <ul class='fileList'>
-                </ul>
-            </div>
-            <div class="buttonContainer">
-                <a class="button blue disable"><%=UserControlsCommonResource.AttachFiles %></a>
-                <span class="splitter-buttons"></span>
-                <a class="button gray"><%=UserControlsCommonResource.CancelButton %></a>
-            </div>
-        </body>
-     </sc:Container>
+            <ul class='fileList'>
+            </ul>
+        </div>
+        <div class="buttonContainer">
+            <a class="button blue disable"><%=UserControlsCommonResource.AttachFiles %></a>
+            <span class="splitter-buttons"></span>
+            <a class="button gray"><%=UserControlsCommonResource.CancelButton %></a>
+        </div>
+    </body>
+    </sc:Container>

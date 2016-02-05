@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -58,9 +58,9 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/invitepanel/js/invitepanel.js"));
+            Page.RegisterBodyScripts("~/usercontrols/management/invitepanel/js/invitepanel.js");
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/invitepanel/css/invitepanel.less"));
+            Page.RegisterStyle("~/usercontrols/management/invitepanel/css/invitepanel.less");
 
             GeneratedUserLink = GenerateLink(EmployeeType.User);
             GeneratedVisitorLink = GenerateLink(EmployeeType.Visitor);

@@ -39,6 +39,8 @@ using ASC.Files.Core;
 using ASC.FullTextIndex;
 using ASC.Web.Files.Api;
 using OrderBy = ASC.CRM.Core.Entities.OrderBy;
+using System.Text.RegularExpressions;
+using System.Globalization;
 
 namespace ASC.CRM.Core.Dao
 {
@@ -165,8 +167,7 @@ namespace ASC.CRM.Core.Dao
                 throw new ArgumentException();
 
             // Delete relative  keys
-            _cache.Remove(_dealCacheKey);
-            _cache.Insert(_dealCacheKey, String.Empty);
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "deals.*"));
 
 
             var dealID = db.ExecuteScalar<int>(
@@ -377,7 +378,7 @@ namespace ASC.CRM.Core.Dao
                                   DateTime fromDate,
                                   DateTime toDate)
         {
-            var cacheKey = TenantID.ToString() +
+            var cacheKey = TenantID.ToString(CultureInfo.InvariantCulture) +
                         "deals" +
                         SecurityContext.CurrentAccount.ID.ToString() +
                         searchText +
@@ -400,7 +401,7 @@ namespace ASC.CRM.Core.Dao
             if (toDate != DateTime.MinValue)
                 cacheKey += toDate.ToString();
 
-            var fromCache = _cache.Get(cacheKey);
+            var fromCache = _cache.Get<string>(cacheKey);
 
             if (fromCache != null) return Convert.ToInt32(fromCache);
 
@@ -465,9 +466,7 @@ namespace ASC.CRM.Core.Dao
             }
             if (result > 0)
             {
-                _cache.Remove(cacheKey);
-                _cache.Insert(cacheKey, result, new CacheDependency(null, new[] { _dealCacheKey }), Cache.NoAbsoluteExpiration,
-                                      TimeSpan.FromSeconds(30));
+                _cache.Insert(cacheKey, result, TimeSpan.FromSeconds(30));
             }
             return result;
 
@@ -699,8 +698,7 @@ namespace ASC.CRM.Core.Dao
             CRMSecurity.DemandDelete(deal);
 
             // Delete relative  keys
-            _cache.Remove(_dealCacheKey);
-            _cache.Insert(_dealCacheKey, String.Empty);
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "deals.*"));
 
             DeleteBatchDealsExecute(new List<Deal>() { deal });
             return deal;
@@ -712,8 +710,7 @@ namespace ASC.CRM.Core.Dao
             if (!deals.Any()) return deals;
 
             // Delete relative  keys
-            _cache.Remove(_dealCacheKey);
-            _cache.Insert(_dealCacheKey, String.Empty);
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "deals.*"));
 
             DeleteBatchDealsExecute(deals);
             return deals;
@@ -725,8 +722,7 @@ namespace ASC.CRM.Core.Dao
             if (!deals.Any()) return deals;
 
             // Delete relative  keys
-            _cache.Remove(_dealCacheKey);
-            _cache.Insert(_dealCacheKey, String.Empty);
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "deals.*"));
 
             DeleteBatchDealsExecute(deals);
             return deals;

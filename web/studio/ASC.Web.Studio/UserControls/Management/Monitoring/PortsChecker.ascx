@@ -17,7 +17,7 @@
 <div class="clearFix">
     <div class="settings-block">
         <div class="header-base"><%= MonitoringResource.PortsTitle %></div>
-        <p class="monitoring-describe"><%= MonitoringResource.PortsText %></p>
+        <p class="monitoring-describe"><%: MonitoringResource.PortsText %></p>
         <table id="portStatusTable" class="table-list height32 monitoring-table">
             <% foreach (var port in Ports) %>
             <% { %>
@@ -29,7 +29,7 @@
         </table>
     </div>
     <div class="settings-help-block">
-        <p><%= MonitoringResource.PortsHelpText %></p>
+        <p><%: MonitoringResource.PortsHelpText %></p>
         <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
            { %>
         <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx" %>" target="_blank"> <%= Resource.LearnMore %></a>

@@ -112,25 +112,16 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddNewTopic" xml:space="preserve">
-    <value>Add new topic</value>
-  </data>
-  <data name="All" xml:space="preserve">
-    <value>All</value>
-  </data>
   <data name="ApproveButton" xml:space="preserve">
     <value>Allow</value>
   </data>
   <data name="AttachFiles" xml:space="preserve">
     <value>Attached Files</value>
-  </data>
-  <data name="BackLink" xml:space="preserve">
-    <value>Back</value>
   </data>
   <data name="CancelButton" xml:space="preserve">
     <value>Cancel</value>
@@ -162,9 +153,6 @@
   <data name="ErrorDeletePost" xml:space="preserve">
     <value>An error occurred when deleting the post</value>
   </data>
-  <data name="ErrorDeleteTopic" xml:space="preserve">
-    <value>An error occurred when deleting the topic</value>
-  </data>
   <data name="ErrorPollVariantCount" xml:space="preserve">
     <value>Enter at least two poll choices</value>
   </data>
@@ -174,18 +162,6 @@
   <data name="ErrorTextEmpty" xml:space="preserve">
     <value>Enter a message</value>
   </data>
-  <data name="ErrorUnknownCreateAttachment" xml:space="preserve">
-    <value>An unknown error occurred when attaching files</value>
-  </data>
-  <data name="ErrorUnknownCreatePost" xml:space="preserve">
-    <value>An unknown error occurred when creating a post</value>
-  </data>
-  <data name="ErrorUnknownCreateQuestion" xml:space="preserve">
-    <value>An unknown error occurred when creating a poll</value>
-  </data>
-  <data name="ErrorUnknownCreateTopic" xml:space="preserve">
-    <value>An unknown error occurred when creating a topic</value>
-  </data>
   <data name="ExistsReferencesChildPosts" xml:space="preserve">
     <value>The post cannot be deleted as there are other posts linking to this one</value>
   </data>
@@ -194,9 +170,6 @@
   </data>
   <data name="FileUploadAddButton" xml:space="preserve">
     <value>Attach file</value>
-  </data>
-  <data name="FileUploadPleaseWait" xml:space="preserve">
-    <value>Please wait...</value>
   </data>
   <data name="HelpForTags" xml:space="preserve">
     <value>Enter the needed tags separating them with commas</value>
@@ -228,18 +201,6 @@
   <data name="PagePreview" xml:space="preserve">
     <value>Preview</value>
   </data>
-  <data name="PleaseWaitMessage" xml:space="preserve">
-    <value>Please wait...</value>
-  </data>
-  <data name="PollActionText" xml:space="preserve">
-    <value>poll created</value>
-  </data>
-  <data name="PollVoteActionText" xml:space="preserve">
-    <value>vote added</value>
-  </data>
-  <data name="PostActionText" xml:space="preserve">
-    <value>post added</value>
-  </data>
   <data name="PostCount" xml:space="preserve">
     <value>Posts</value>
   </data>
@@ -269,9 +230,6 @@
   </data>
   <data name="SaveButton" xml:space="preserve">
     <value>Save</value>
-  </data>
-  <data name="SendMessageButton" xml:space="preserve">
-    <value>Send</value>
   </data>
   <data name="ShowOnPage" xml:space="preserve">
     <value>Show on page</value>
@@ -323,27 +281,6 @@
   </data>
   <data name="Topic" xml:space="preserve">
     <value>Topic</value>
-  </data>
-  <data name="TopicActionText" xml:space="preserve">
-    <value>topic created</value>
-  </data>
-  <data name="TopicClearStickyActionText" xml:space="preserve">
-    <value>topic unsticked</value>
-  </data>
-  <data name="TopicCloseActionText" xml:space="preserve">
-    <value>topic closed</value>
-  </data>
-  <data name="TopicEditActionText" xml:space="preserve">
-    <value>topic edited</value>
-  </data>
-  <data name="TopicOpenActionText" xml:space="preserve">
-    <value>topic opened</value>
-  </data>
-  <data name="TopicRemoveActionText" xml:space="preserve">
-    <value>topic deleted</value>
-  </data>
-  <data name="TopicStickyActionText" xml:space="preserve">
-    <value>topic sticked</value>
   </data>
   <data name="TotalPages" xml:space="preserve">
     <value>Total</value>

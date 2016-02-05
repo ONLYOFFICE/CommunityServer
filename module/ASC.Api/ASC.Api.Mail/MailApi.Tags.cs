@@ -27,9 +27,12 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using ASC.Api.Attributes;
-using ASC.Mail.Aggregator;
+using ASC.Api.Mail.DataContracts;
+using ASC.Api.Mail.Extensions;
 using ASC.Api.Mail.Resources;
+using ASC.Mail.Aggregator;
 
 namespace ASC.Api.Mail
 {
@@ -42,9 +45,9 @@ namespace ASC.Api.Mail
         /// <short>Get tags list</short> 
         /// <category>Tags</category>
         [Read(@"tags")]
-        public IEnumerable<MailTag> GetTags()
+        public IEnumerable<MailTagData> GetTags()
         {
-            return MailBoxManager.GetTagsList(TenantId, Username, false);
+            return MailBoxManager.GetTags(TenantId, Username, false).ToList().ToTagData();
         }
 
         /// <summary>
@@ -58,15 +61,18 @@ namespace ASC.Api.Mail
         /// <category>Tags</category>
         /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
         [Create(@"tags")]
-        public MailTag CreateTag(string name, string style, IEnumerable<string> addresses)
+        public MailTagData CreateTag(string name, string style, IEnumerable<string> addresses)
         {
+            Thread.CurrentThread.CurrentCulture = CurrentCulture;
+            Thread.CurrentThread.CurrentUICulture = CurrentCulture;
+
             if (String.IsNullOrEmpty(name))
                 throw new ArgumentException(MailApiResource.ErrorTagNameCantBeEmpty);
 
             if(MailBoxManager.TagExists(TenantId, Username, name))
                 throw new ArgumentException(MailApiResource.ErrorTagNameAlreadyExists.Replace("%1", "\"" + name + "\""));
 
-            return MailBoxManager.SaveMailTag(TenantId, Username, new MailTag(0, name, addresses.ToList(), style, 0));
+            return MailBoxManager.SaveMailTag(TenantId, Username, new MailTag(0, name, addresses.ToList(), style, 0)).ToTagData();
 
         }
 
@@ -82,10 +88,13 @@ namespace ASC.Api.Mail
         /// <category>Tags</category>
         /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
         [Update(@"tags/{id}")]
-        public MailTag UpdateTag(int id, string name, string style, IEnumerable<string> addresses)
+        public MailTagData UpdateTag(int id, string name, string style, IEnumerable<string> addresses)
         {
             if (id < 0)
                 throw new ArgumentException(@"Invalid tag id", "id");
+
+            Thread.CurrentThread.CurrentCulture = CurrentCulture;
+            Thread.CurrentThread.CurrentUICulture = CurrentCulture;
 
             if (String.IsNullOrEmpty(name))
                 throw new ArgumentException(MailApiResource.ErrorTagNameCantBeEmpty);
@@ -104,7 +113,7 @@ namespace ASC.Api.Mail
             tag.Addresses = new MailTag.AddressesList<string>(addresses);
             MailBoxManager.SaveMailTag(TenantId, Username, tag);
 
-            return tag;
+            return tag.ToTagData();
         }
 
         /// <summary>

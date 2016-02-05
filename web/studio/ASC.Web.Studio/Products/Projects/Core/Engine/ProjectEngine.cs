@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -43,72 +43,59 @@ namespace ASC.Projects.Engine
         private readonly EngineFactory factory;
         private readonly IProjectDao projectDao;
         private readonly IParticipantDao participantDao;
+        private readonly Func<Project, bool> canReadDelegate;
 
         public ProjectEngine(IDaoFactory daoFactory, EngineFactory factory)
         {
             this.factory = factory;
             projectDao = daoFactory.GetProjectDao();
             participantDao = daoFactory.GetParticipantDao();
+            canReadDelegate = CanRead;
         }
 
         #region Get Projects
 
-        public virtual List<Project> GetAll()
+        public IEnumerable<Project> GetAll()
         {
-            return projectDao.GetAll(null, 0)
-                .Where(CanRead)
-                .ToList();
+            return projectDao.GetAll(null, 0).Where(canReadDelegate);
         }
 
-        public virtual List<Project> GetAll(ProjectStatus status, int max)
+        public IEnumerable<Project> GetAll(ProjectStatus status, int max)
         {
             return projectDao.GetAll(status, max)
-                .Where(CanRead)
-                .ToList();
+                .Where(canReadDelegate);
         }
 
-        public virtual List<Project> GetLast(ProjectStatus status, int max)
+        public IEnumerable<Project> GetLast(ProjectStatus status, int max)
         {
             var offset = 0;
             var lastProjects = new List<Project>();
-            var projects = projectDao.GetLast(status, offset, max)
-                .Where(CanRead)
-                .ToList();
 
-            lastProjects.AddRange(projects);
-
-            while (lastProjects.Count < max)
+            do
             {
-                offset = offset + max;
-                projects = projectDao.GetLast(status, offset, max);
+                var projects = projectDao.GetLast(status, offset, max);
 
-                if (projects.Count == 0)
+                if (!projects.Any())
                     return lastProjects;
-                projects = projects
-                    .Where(CanRead)
-                    .ToList();
 
-                lastProjects.AddRange(projects);
-            }
+                lastProjects.AddRange(projects.Where(canReadDelegate));
+                offset = offset + max;
+            } while (lastProjects.Count < max);
 
             return lastProjects.Count == max ? lastProjects : lastProjects.GetRange(0, max);
         }
 
-        public virtual List<Project> GetOpenProjectsWithTasks(Guid participantId)
+        public IEnumerable<Project> GetOpenProjectsWithTasks(Guid participantId)
         {
-            return projectDao.GetOpenProjectsWithTasks(participantId)
-                .Where(CanRead)
-                .ToList();
+            return projectDao.GetOpenProjectsWithTasks(participantId).Where(canReadDelegate);
         }
 
-        public virtual List<Project> GetByParticipant(Guid participant)
+        public IEnumerable<Project> GetByParticipant(Guid participant)
         {
-            return projectDao.GetByParticipiant(participant, ProjectStatus.Open)
-                .Where(CanRead)
-                .ToList();
+            return projectDao.GetByParticipiant(participant, ProjectStatus.Open).Where(canReadDelegate);
         }
 
-        public virtual List<Project> GetByFilter(TaskFilter filter)
+        public IEnumerable<Project> GetByFilter(TaskFilter filter)
         {
             return projectDao.GetByFilter(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
         }
@@ -118,14 +105,12 @@ namespace ASC.Projects.Engine
             return projectDao.GetByFilterCount(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
         }
 
-        public virtual List<Project> GetFollowing(Guid participant)
+        public IEnumerable<Project> GetFollowing(Guid participant)
         {
-            return projectDao.GetFollowing(participant)
-                .Where(CanRead)
-                .ToList();
+            return projectDao.GetFollowing(participant).Where(canReadDelegate);
         }
 
-        public virtual Project GetByID(int projectID)
+        public Project GetByID(int projectID)
         {
             return GetByID(projectID, true);
         }
@@ -152,36 +137,34 @@ namespace ASC.Projects.Engine
                 MilestoneStatuses = new List<MilestoneStatus> { MilestoneStatus.Open },
                 TaskStatuses = new List<TaskStatus> { TaskStatus.Open }
             };
-            project.MilestoneCount = factory.GetMilestoneEngine().GetByFilterCount(filter);
-            project.TaskCount = factory.GetTaskEngine().GetByFilterCount(filter);
-            project.DiscussionCount = factory.GetMessageEngine().GetByFilterCount(filter);
+            project.MilestoneCount = factory.MilestoneEngine.GetByFilterCount(filter);
+            project.TaskCount = factory.TaskEngine.GetByFilterCount(filter);
+            project.DiscussionCount = factory.MessageEngine.GetByFilterCount(filter);
 
             using (var folderDao = FilesIntegration.GetFolderDao())
             {
-                var folderId = factory.GetFileEngine().GetRoot(projectID);
+                var folderId = factory.FileEngine.GetRoot(projectID);
                 project.DocumentsCount = folderDao.GetItemsCount(folderId, true);
             }
 
-            var time = factory.GetTimeTrackingEngine().GetByProject(projectID).Sum(r => r.Hours);
+            var time = factory.TimeTrackingEngine.GetByProject(projectID).Sum(r => r.Hours);
             var hours = (int)time;
             var minutes = (int)(Math.Round((time - hours) * 60));
             var result = hours + ":" + minutes.ToString("D2");
             
             project.TimeTrackingTotal = !result.Equals("0:00", StringComparison.InvariantCulture) ? result : "";
-            project.ParticipantCount = GetTeam(projectID).Count;
+            project.ParticipantCount = GetTeam(projectID).Count();
 
 
             return project;
         }
 
-        public virtual List<Project> GetByID(ICollection projectIDs)
+        public IEnumerable<Project> GetByID(ICollection projectIDs)
         {
-            return projectDao.GetById(projectIDs)
-                .Where(CanRead)
-                .ToList();
+            return projectDao.GetById(projectIDs).Where(canReadDelegate);
         }
 
-        public virtual bool IsExists(int projectID)
+        public bool IsExists(int projectID)
         {
             return projectDao.IsExists(projectID);
         }
@@ -214,27 +197,39 @@ namespace ASC.Projects.Engine
 
         #region Get Counts
 
-        public virtual int Count()
+        public virtual int CountOpen()
         {
-            return projectDao.Count();
+            return Count(ProjectStatus.Open);
         }
 
-        public virtual int GetTaskCount(int projectId, TaskStatus? taskStatus)
+        public int Count(ProjectStatus? status = null)
         {
-            return GetTaskCount(new List<int> { projectId }, taskStatus)[0];
+            var filter = new TaskFilter();
+
+            if (status.HasValue)
+            {
+                filter.ProjectStatuses = new List<ProjectStatus> {ProjectStatus.Open};
+            }
+
+            return GetByFilterCount(filter);
         }
 
-        public virtual List<int> GetTaskCount(List<int> projectId, TaskStatus? taskStatus)
+        public int GetTaskCount(int projectId, TaskStatus? taskStatus)
+        {
+            return GetTaskCount(new List<int> { projectId }, taskStatus).First();
+        }
+
+        public IEnumerable<int> GetTaskCount(List<int> projectId, TaskStatus? taskStatus)
         {
             return projectDao.GetTaskCount(projectId, taskStatus, ProjectSecurity.CurrentUserAdministrator);
         }
 
-        public virtual int GetMilestoneCount(int projectId, params MilestoneStatus[] milestoneStatus)
+        public int GetMilestoneCount(int projectId, params MilestoneStatus[] milestoneStatus)
         {
             return projectDao.GetMilestoneCount(projectId, milestoneStatus);
         }
 
-        public virtual int GetMessageCount(int projectId)
+        public int GetMessageCount(int projectId)
         {
             return projectDao.GetMessageCount(projectId);
         }
@@ -308,7 +303,7 @@ namespace ASC.Projects.Engine
 
             ProjectSecurity.DemandEdit(project);
 
-            factory.GetFileEngine().RemoveRoot(projectId);
+            factory.FileEngine.RemoveRoot(projectId);
 
             projectDao.Delete(projectId);
 
@@ -319,9 +314,9 @@ namespace ASC.Projects.Engine
 
         #region Contacts
 
-        public List<Project> GetProjectsByContactID(int contactId)
+        public IEnumerable<Project> GetProjectsByContactID(int contactId)
         {
-            return projectDao.GetByContactID(contactId).Where(CanRead).ToList();
+            return projectDao.GetByContactID(contactId).Where(canReadDelegate);
         }
 
         public void AddProjectContact(int projectId, int contactId)
@@ -338,27 +333,29 @@ namespace ASC.Projects.Engine
 
         #region Team
 
-        public virtual List<Participant> GetTeam(int project)
+        public IEnumerable<Participant> GetTeam(int projectId)
         {
-            return projectDao.GetTeam(project).Where(r => !r.UserInfo.Equals(ASC.Core.Users.Constants.LostUser)).ToList();
+            var project = GetByID(projectId);
+            return projectDao.GetTeam(project).Where(r => !r.UserInfo.Equals(ASC.Core.Users.Constants.LostUser));
         }
 
-        public virtual List<Participant> GetTeam(List<int> projects)
+        public IEnumerable<Participant> GetTeam(List<int> projectIds)
         {
-            return projectDao.GetTeam(projects).Where(r => !r.UserInfo.Equals(ASC.Core.Users.Constants.LostUser)).ToList();
+            var projects = GetByID(projectIds);
+            return projectDao.GetTeam(projects).Where(r => !r.UserInfo.Equals(ASC.Core.Users.Constants.LostUser));
         }
 
-        public virtual bool IsInTeam(int project, Guid participant)
+        public bool IsInTeam(int project, Guid participant)
         {
             return projectDao.IsInTeam(project, participant);
         }
 
-        public virtual bool IsFollow(int project, Guid participant)
+        public bool IsFollow(int project, Guid participant)
         {
             return projectDao.IsFollow(project, participant);
         }
 
-        public virtual void AddToTeam(Project project, Participant participant, bool sendNotification)
+        public void AddToTeam(Project project, Participant participant, bool sendNotification)
         {
             if (project == null) throw new ArgumentNullException("project");
             if (participant == null) throw new ArgumentNullException("participant");
@@ -370,7 +367,7 @@ namespace ASC.Projects.Engine
                 NotifyClient.Instance.SendInvaiteToProjectTeam(participant.ID, project);
         }
 
-        public virtual void RemoveFromTeam(Project project, Participant participant, bool sendNotification)
+        public void RemoveFromTeam(Project project, Participant participant, bool sendNotification)
         {
             if (project == null) throw new ArgumentNullException("project");
             if (participant == null) throw new ArgumentNullException("participant");
@@ -382,17 +379,17 @@ namespace ASC.Projects.Engine
                 NotifyClient.Instance.SendRemovingFromProjectTeam(participant.ID, project);
         }
 
-        public virtual void UpdateTeam(Project project, IEnumerable<Guid> participants, bool notify)
+        public void UpdateTeam(Project project, IEnumerable<Guid> participants, bool notify)
         {
             if (project == null) throw new ArgumentNullException("project");
             if (participants == null) throw new ArgumentNullException("participants");
 
             ProjectSecurity.DemandEditTeam(project);
 
-            var newTeam = participants.Select(p => new Participant(p)).ToList();
+            var newTeam = participants.Select(p => new Participant(p));
             var oldTeam = GetTeam(project.ID);
 
-            var removeFromTeam = oldTeam.Where(p => !newTeam.Contains(p)).Where(p => p.ID != project.Responsible).ToList();
+            var removeFromTeam = oldTeam.Where(p => !newTeam.Contains(p)).Where(p => p.ID != project.Responsible);
             var inviteToTeam = new List<Participant>();
 
             foreach (var participant in newTeam.Where(participant => !oldTeam.Contains(participant)))
@@ -412,7 +409,7 @@ namespace ASC.Projects.Engine
             }
         }
 
-        public virtual void SetTeamSecurity(Project project, Participant participant, ProjectTeamSecurity teamSecurity, bool visible)
+        public void SetTeamSecurity(Project project, Participant participant, ProjectTeamSecurity teamSecurity, bool visible)
         {
             if (project == null) throw new ArgumentNullException("project");
             if (participant == null) throw new ArgumentNullException("participant");
@@ -431,7 +428,7 @@ namespace ASC.Projects.Engine
             projectDao.SetTeamSecurity(project.ID, participant.ID, security);
         }
 
-        public virtual void ResetTeamSecurity(Project project)
+        public void ResetTeamSecurity(Project project)
         {
             if (project == null) throw new ArgumentNullException("project");
 
@@ -446,7 +443,7 @@ namespace ASC.Projects.Engine
 
         }
 
-        public virtual bool GetTeamSecurity(Project project, Participant participant, ProjectTeamSecurity teamSecurity)
+        public bool GetTeamSecurity(Project project, Participant participant, ProjectTeamSecurity teamSecurity)
         {
             if (project == null) throw new ArgumentNullException("project");
             if (participant == null) throw new ArgumentNullException("participant");
@@ -455,9 +452,9 @@ namespace ASC.Projects.Engine
             return (security & teamSecurity) != teamSecurity;
         }
 
-        public virtual List<ParticipantFull> GetTeamUpdates(DateTime from, DateTime to)
+        public IEnumerable<ParticipantFull> GetTeamUpdates(DateTime from, DateTime to)
         {
-            return projectDao.GetTeamUpdates(from, to).Where(x => CanRead(x.Project)).ToList();
+            return projectDao.GetTeamUpdates(from, to).Where(x => CanRead(x.Project));
         }
 
         public DateTime GetTeamMaxLastModified()

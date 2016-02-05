@@ -33,6 +33,16 @@ using ASC.Api.Wiki.Wrappers;
 using ASC.Web.UserControls.Wiki;
 using ASC.Web.UserControls.Wiki.Data;
 using File = ASC.Web.UserControls.Wiki.Data.File;
+using ASC.Web.Studio.UserControls.Common.Comments;
+using ASC.Core.Tenants;
+using ASC.Core;
+using ASC.Web.Studio.Utility;
+using ASC.Web.Core.Users;
+using ASC.Web.Community.Product;
+using ASC.Web.Community.Wiki.Common;
+using ASC.Web.Community.Blogs;
+using ASC.Common.Security.Authorizing;
+using ASC.Web.Studio.Utility.HtmlUtility;
 
 namespace ASC.Api.Community
 {
@@ -187,34 +197,6 @@ namespace ASC.Api.Community
         }
 
         /// <summary>
-        /// Updates the comment to the selected wiki page with the comment content specified in the request
-        /// </summary>
-        /// <short>Update comment</short>
-        /// <section>Comments</section>
-        /// <param name="id">Comment ID</param>
-        /// <param name="body">Comment content</param>
-        /// <returns>Comment info</returns>
-        /// <category>Wiki</category>
-        [Update("wiki/comment/{id}")]
-        public CommentWrapper UpdateComment(string id, string body)
-        {
-            return new CommentWrapper(_engine.UpdateComment(new Comment { Id = new Guid(id), Body = body }));
-        }
-
-        /// <summary>
-        /// Deletes the comment with the ID specified in the request from the selected wiki page
-        /// </summary>
-        /// <short>Delete comment</short>
-        /// <section>Comment</section>
-        /// <param name="id">Comment ID</param>
-        /// <category>Wiki</category>
-        [Delete("wiki/comment/{id}")]
-        public void DeleteComment(string id)
-        {
-            _engine.RemoveComment(new Guid(id));
-        }
-
-        /// <summary>
         /// Uploads the selected files to the wiki 'Files' section
         /// </summary>
         /// <short>Upload files</short>
@@ -254,5 +236,102 @@ namespace ASC.Api.Community
         {
             _engine.RemoveFile(name);
         }
+
+        /// <summary>
+        /// Get comment preview with the content specified in the request
+        /// </summary>
+        /// <short>Get comment preview</short>
+        /// <section>Comments</section>
+        /// <param name="commentid">Comment ID</param>
+        /// <param name="htmltext">Comment content</param>
+        /// <returns>Comment info</returns>
+        /// <category>Wiki</category>
+        [Create("wiki/comment/preview")]
+        public CommentInfo GetWikiCommentPreview(string commentid, string htmltext)
+        {
+            var comment = !string.IsNullOrEmpty(commentid) ? _engine.GetComment(new Guid(commentid)) : new Comment();
+            comment.Date = TenantUtil.DateTimeNow();
+            comment.UserId = SecurityContext.CurrentAccount.ID;
+            comment.Body = htmltext;
+
+            var info = GetCommentInfo(comment);
+            info.IsEditPermissions = false;
+            info.IsResponsePermissions = false;
+            return info;
+        }
+
+        /// <summary>
+        ///Remove comment with the id specified in the request
+        /// </summary>
+        /// <short>Remove comment</short>
+        /// <section>Comments</section>
+        /// <param name="commentid">Comment ID</param>
+        /// <returns>Comment info</returns>
+        /// <category>Wiki</category>
+        [Delete("wiki/comment/{commentid}")]
+        public string RemoveWikiComment(string commentid)
+        {
+            _engine.DeleteComment(new Guid(commentid));
+            return commentid;
+        }
+
+
+
+        /// <category>Wiki</category>
+        [Create("wiki/comment")]
+        public CommentInfo AddWikiComment(string parentcommentid, string entityid, string content)
+        {
+            CommunitySecurity.DemandPermissions(ASC.Web.Community.Wiki.Common.Constants.Action_AddComment);
+
+
+            var parentIdGuid = String.IsNullOrEmpty(parentcommentid) ? Guid.Empty : new Guid(parentcommentid);
+            var newComment = _engine.CreateComment(new Comment { Body = content, PageName = entityid, ParentId = parentIdGuid });
+
+            return GetCommentInfo(newComment);
+        }
+
+        /// <summary>
+        /// Updates the comment to the selected wiki page with the comment content specified in the request
+        /// </summary>
+        /// <short>Update comment</short>
+        /// <section>Comments</section>
+        /// <param name="commentid">Comment ID</param>
+        /// <param name="content">Comment content</param>
+        /// <returns></returns>
+        /// <category>Wiki</category>
+        [Update("wiki/comment/{commentid}")]
+        public string UpdateWikiComment(string commentid, string content)
+        {
+            if (string.IsNullOrEmpty(content)) throw new ArgumentException();
+
+            _engine.UpdateComment(new Comment { Id = new Guid(commentid), Body = content });
+            return HtmlUtility.GetFull(content);
+        }
+
+        private CommentInfo GetCommentInfo(Comment comment)
+        {
+            var info = new CommentInfo
+            {
+                CommentID = comment.Id.ToString(),
+                UserID = comment.UserId,
+                TimeStamp = comment.Date,
+                TimeStampStr = comment.Date.Ago(),
+                IsRead = true,
+                Inactive = comment.Inactive,
+                CommentBody = comment.Body,
+                UserFullName = DisplayUserSettings.GetFullUserName(comment.UserId),
+                UserProfileLink = CommonLinkUtility.GetUserProfile(comment.UserId),
+                UserAvatarPath = UserPhotoManager.GetBigPhotoURL(comment.UserId),
+                IsEditPermissions = CommunitySecurity.CheckPermissions(new WikiObjectsSecurityObject(comment), ASC.Web.Community.Wiki.Common.Constants.Action_EditRemoveComment),
+                IsResponsePermissions = CommunitySecurity.CheckPermissions(ASC.Web.Community.Wiki.Common.Constants.Action_AddComment),
+                UserPost = CoreContext.UserManager.GetUsers(comment.UserId).Title
+            };
+
+            return info;
+        }
+
+
+
+
     }
 }

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -50,13 +50,13 @@ namespace ASC.Web.Studio.UserControls.Common.SmallChat
         protected void Page_Load(object sender, EventArgs e)
         {
             SoundPath = WebPath.GetPath("usercontrols/common/smallchat/css/sounds/chat");
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/common/smallchat/css/smallchat.css"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/common/smallchat/css/jquery.cssemoticons.css"));
-            Page.RegisterBodyScripts(ResolveUrl("~/js/third-party/jquery/jquery.linkify.js"));
-            Page.RegisterBodyScripts(ResolveUrl("~/js/third-party/jquery/noty/jquery.noty.js"));
-            Page.RegisterBodyScripts(ResolveUrl("~/js/third-party/jquery/jquery.cssemoticons.js"));
-            Page.RegisterBodyScripts(ResolveUrl("~/js/third-party/jquery/jquery.autosize.js"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/common/smallchat/js/smallchat.js"));
+            Page.RegisterStyle("~/usercontrols/common/smallchat/css/smallchat.css");
+            Page.RegisterStyle("~/usercontrols/common/smallchat/css/jquery.cssemoticons.css");
+            Page.RegisterBodyScripts("~/js/third-party/jquery/jquery.linkify.js");
+            Page.RegisterBodyScripts("~/js/third-party/jquery/noty/jquery.noty.js");
+            Page.RegisterBodyScripts("~/js/third-party/jquery/jquery.cssemoticons.js");
+            Page.RegisterBodyScripts("~/js/third-party/jquery/jquery.autosize.js");
+            Page.RegisterBodyScripts("~/usercontrols/common/smallchat/js/smallchat.js");
             IsMobile = MobileDetector.IsMobile;
         }
     }

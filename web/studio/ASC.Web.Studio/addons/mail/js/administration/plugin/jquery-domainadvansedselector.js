@@ -1,10 +1,4 @@
-﻿
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
-
-(function($) {
+﻿(function($) {
     var domainadvancedSelector = function(element, options) {
         this.$element = $(element);
         this.options = $.extend({}, $.fn.domainadvancedSelector.defaults, options);

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -59,9 +59,8 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/Management/PortalAccessSettings/js/portalAccess.js"));
-
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/PortalAccessSettings/css/portalAccess.less"));
+            Page.RegisterBodyScripts("~/usercontrols/Management/PortalAccessSettings/js/portalAccess.js");
+            Page.RegisterStyle("~/usercontrols/management/PortalAccessSettings/css/portalAccess.less");
 
             var managementPage = Page as Studio.Management;
 

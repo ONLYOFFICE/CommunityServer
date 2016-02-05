@@ -24,15 +24,9 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Security;
-using System.Security.Principal;
-using System.Threading;
+using ASC.Common.Security.Authentication;
 using ASC.Common.Security.Authorizing;
-using ASC.Common.Threading.Progress;
+using ASC.Common.Threading;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Files.Core;
@@ -40,41 +34,40 @@ using ASC.Files.Core.Security;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
 using log4net;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Security;
+using System.Security.Principal;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace ASC.Web.Files.Services.WCFService.FileOperations
 {
-    internal abstract class FileOperation : IProgressItem
+    abstract class FileOperation
     {
-        private readonly IPrincipal _principal;
-        private readonly string _culture;
-        private double _step;
-        private int _processed;
-        private List<object> _completeFiles;
-        private List<object> _completeFolders;
+        public const string SPLIT_CHAR = ":";
+        public const string OWNER = "Owner";
+        public const string OPERATION_TYPE = "OperationType";
+        public const string SOURCE = "Source";
+        public const string PROGRESS = "Progress";
+        public const string RESULT = "Result";
+        public const string ERROR = "Error";
+        public const string PROCESSED = "Processed";
 
-        protected string SplitCharacter = ":";
-
-
-        public object Id { get; set; }
-
-        public bool IsCompleted { get; set; }
-
-        public double Percentage { get; set; }
-
-        public object Status { get; set; }
-
-        public object Error { get; set; }
-
-        public object Source { get; set; }
-
-        public Guid Owner { get; private set; }
-
-        public bool CountWithoutSubitems { get; protected set; }
+        private readonly IPrincipal principal;
+        private readonly string culture;
+        private int total;
+        private int processed;
+        private int successProcessed;
 
 
-        protected List<object> Folders { get; private set; }
+        protected DistributedTask TaskInfo { get; private set; }
 
-        protected List<object> Files { get; private set; }
+        protected string Status { get; set; }
+
+        protected string Error { get; set; }
 
         protected Tenant CurrentTenant { get; private set; }
 
@@ -90,194 +83,137 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
         protected ILog Logger { get; private set; }
 
-        protected bool Canceled { get; private set; }
+        protected CancellationToken CancellationToken { get; private set; }
 
-        protected FileOperation(Tenant tenant, List<object> folders, List<object> files)
+        protected List<object> Folders { get; private set; }
+
+        protected List<object> Files { get; private set; }
+
+        public abstract FileOperationType OperationType { get; }
+
+
+        protected FileOperation(List<object> folders, List<object> files, Tenant tenant = null)
         {
-            if (tenant == null) throw new ArgumentNullException("tenant");
-
-            Id = Guid.NewGuid().ToString();
-            CurrentTenant = tenant;
-            Owner = ASC.Core.SecurityContext.CurrentAccount.ID;
-            _principal = Thread.CurrentPrincipal;
-            _culture = Thread.CurrentThread.CurrentCulture.Name;
+            CurrentTenant = tenant ?? CoreContext.TenantManager.GetCurrentTenant();
+            principal = Thread.CurrentPrincipal;
+            culture = Thread.CurrentThread.CurrentCulture.Name;
 
             Folders = folders ?? new List<object>();
             Files = files ?? new List<object>();
-            Source = string.Join(SplitCharacter, Folders.Select(f => "folder_" + f).Concat(Files.Select(f => "file_" + f)).ToArray());
-            _completeFiles = new List<object>();
-            _completeFolders = new List<object>();
+
+            TaskInfo = new DistributedTask();
         }
 
-        public void RunJob()
+        public void RunJob(DistributedTask _, CancellationToken cancellationToken)
         {
-            IPrincipal oldPrincipal = null;
             try
             {
-                oldPrincipal = Thread.CurrentPrincipal;
-            }
-            catch
-            {
-            }
-            try
-            {
-                if (_principal != null)
-                {
-                    Thread.CurrentPrincipal = _principal;
-                }
+                CancellationToken = cancellationToken;
+
                 CoreContext.TenantManager.SetCurrentTenant(CurrentTenant);
-                Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(_culture);
-                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(_culture);
+                Thread.CurrentPrincipal = principal;
+                Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(culture);
+                Thread.CurrentThread.CurrentUICulture = CultureInfo.GetCultureInfo(culture);
+
                 FolderDao = Global.DaoFactory.GetFolderDao();
                 FileDao = Global.DaoFactory.GetFileDao();
                 TagDao = Global.DaoFactory.GetTagDao();
-                Logger = Global.Logger;
                 ProviderDao = Global.DaoFactory.GetProviderDao();
                 FilesSecurity = new FileSecurity(Global.DaoFactory);
 
-                try
-                {
-                    _step = InitProgressStep();
-                }
-                catch
-                {
-                }
+                Logger = Global.Logger;
+
+                total = InitTotalProgressSteps();
 
                 Do();
             }
-            catch(AuthorizingException authError)
+            catch (AuthorizingException authError)
             {
                 Error = FilesCommonResource.ErrorMassage_SecurityException;
-                Logger.Error(Error, new SecurityException(Error.ToString(), authError));
+                Logger.Error(Error, new SecurityException(Error, authError));
             }
-            catch(Exception error)
+            catch (AggregateException ae)
+            {
+                ae.Flatten().Handle(e => e is TaskCanceledException || e is OperationCanceledException);
+            }
+            catch (Exception error)
             {
                 Error = error.Message;
                 Logger.Error(error, error);
             }
             finally
             {
-                IsCompleted = true;
-                Percentage = 100;
                 try
                 {
-                    if (oldPrincipal != null) Thread.CurrentPrincipal = oldPrincipal;
+                    PublishTaskInfo();
+
                     FolderDao.Dispose();
                     FileDao.Dispose();
                     TagDao.Dispose();
                     ProviderDao.Dispose();
                 }
-                catch
-                {
-                }
+                catch { /* ignore */ }
             }
         }
 
-        public object Clone()
+        public virtual DistributedTask GetDistributedTask()
         {
-            return MemberwiseClone();
-        }
-
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
-
-        public override bool Equals(object obj)
-        {
-            var op = obj as FileOperation;
-            return op != null && op.Id == Id;
+            FillDistributedTask();
+            return TaskInfo;
         }
 
 
-        public FileOperationResult GetResult()
+        protected virtual void FillDistributedTask()
         {
-            var r = new FileOperationResult
-                {
-                    Id = Id.ToString(),
-                    OperationType = OperationType,
-                    Progress = (int) Percentage,
-                    Source = Source != null ? Source.ToString().Trim() : null,
-                    Result = Status != null ? Status.ToString().Trim() : null,
-                    Error = Error != null ? Error.ToString() : null,
-                    Processed = _processed.ToString(),
-                    FileIds = _completeFiles.ToArray(),
-                    FolderIds = _completeFolders.ToArray()
-                };
-#if !DEBUG
-            var error = Error as Exception;
-            if (error != null)
-            {
-                if (error is System.IO.IOException)
-                {
-                    r.Error = FilesCommonResource.ErrorMassage_FileNotFound;
-                }
-                else
-                {
-                    r.Error = error.Message;
-                }
-            }
-#endif
-            return r;
+            var progress = total != 0 ? 100 * processed / total : 0;
+
+            TaskInfo.SetProperty(SOURCE, string.Join(SPLIT_CHAR, Folders.Select(f => "folder_" + f).Concat(Files.Select(f => "file_" + f)).ToArray()));
+            TaskInfo.SetProperty(OPERATION_TYPE, OperationType);
+            TaskInfo.SetProperty(OWNER, ((IAccount)Thread.CurrentPrincipal.Identity).ID);
+            TaskInfo.SetProperty(PROGRESS, progress < 100 ? progress : 100);
+            TaskInfo.SetProperty(RESULT, Status);
+            TaskInfo.SetProperty(ERROR, Error);
+            TaskInfo.SetProperty(PROCESSED, successProcessed);
         }
 
-        public void Terminate()
+        protected virtual int InitTotalProgressSteps()
         {
-            Canceled = true;
-        }
-
-
-        protected virtual double InitProgressStep()
-        {
-            var count = Files.Count;
-
-            if (CountWithoutSubitems)
-                count += Folders.Count;
-            else
-                Folders.ForEach(f => count += FolderDao.GetItemsCount(f, true));
-
-            return count == 0 ? 100d : 100d / count;
+            return Files.Count + Folders.Count;
         }
 
         protected void ProgressStep()
         {
-            Percentage = Percentage + _step < 100d ? Percentage + _step : 99d;
+            processed++;
+            PublishTaskInfo();
         }
 
         protected bool ProcessedFolder(object folderId)
         {
-            _processed++;
+            successProcessed++;
             if (Folders.Contains(folderId))
             {
-                Status += string.Format("folder_{0}{1}", folderId, SplitCharacter);
+                Status += string.Format("folder_{0}{1}", folderId, SPLIT_CHAR);
                 return true;
             }
             return false;
-        }
-
-        protected void ResultedFolder(object folderId)
-        {
-            _completeFolders.Add(folderId);
         }
 
         protected bool ProcessedFile(object fileId)
         {
-            _processed++;
+            successProcessed++;
             if (Files.Contains(fileId))
             {
-                Status += string.Format("file_{0}{1}", fileId, SplitCharacter);
+                Status += string.Format("file_{0}{1}", fileId, SPLIT_CHAR);
                 return true;
             }
             return false;
         }
 
-        protected void ResultedFile(object fileId)
+        protected void PublishTaskInfo()
         {
-            _completeFiles.Add(fileId);
+            FillDistributedTask();
+            TaskInfo.PublishChanges();
         }
-
-
-        protected abstract FileOperationType OperationType { get; }
 
         protected abstract void Do();
     }

@@ -112,43 +112,16 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Active" xml:space="preserve">
-    <value>Active</value>
-  </data>
-  <data name="AddNewTask" xml:space="preserve">
-    <value>Add new task</value>
-  </data>
-  <data name="Closed" xml:space="preserve">
-    <value>Closed</value>
-  </data>
-  <data name="CreateNewMilestone" xml:space="preserve">
-    <value>Plan new milestone</value>
-  </data>
-  <data name="Date" xml:space="preserve">
-    <value>Date</value>
-  </data>
-  <data name="DaysAfterDeadLine" xml:space="preserve">
-    <value>{0} after due date</value>
-  </data>
-  <data name="DaysBeforeDeadLine" xml:space="preserve">
-    <value>{0} before due date</value>
-  </data>
   <data name="Delete" xml:space="preserve">
     <value>Delete milestone</value>
   </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit </value>
-  </data>
   <data name="Milestone" xml:space="preserve">
     <value>Milestone</value>
-  </data>
-  <data name="MilestoneDate" xml:space="preserve">
-    <value>Due Date</value>
   </data>
   <data name="Milestones" xml:space="preserve">
     <value>Milestones</value>
@@ -156,44 +129,14 @@
   <data name="Title" xml:space="preserve">
     <value>Title</value>
   </data>
-  <data name="MoveToMilestone" xml:space="preserve">
-    <value>Move to milestone</value>
-  </data>
-  <data name="Progress" xml:space="preserve">
-    <value>Progress</value>
-  </data>
   <data name="Status" xml:space="preserve">
     <value>Status</value>
-  </data>
-  <data name="TasksInThisMilestone" xml:space="preserve">
-    <value>Tasks in milestone</value>
-  </data>
-  <data name="TasksNotDone" xml:space="preserve">
-    <value>tasks not completed</value>
-  </data>
-  <data name="Total" xml:space="preserve">
-    <value>Total</value>
-  </data>
-  <data name="RestoreFromTrash" xml:space="preserve">
-    <value>Restore</value>
   </data>
   <data name="CloseMilestone" xml:space="preserve">
     <value>Close Milestone</value>
   </data>
-  <data name="ResumeMilestone" xml:space="preserve">
-    <value>Resume Milestone</value>
-  </data>
-  <data name="EmptyScreenHeaderContent" xml:space="preserve">
-    <value>Plan the first milestone for this project</value>
-  </data>
-  <data name="EmptyScreenHeaderDescribe" xml:space="preserve">
-    <value>Plan a milestone and set a date - the tasks will be completed on time.</value>
-  </data>
   <data name="RemindMe" xml:space="preserve">
     <value>Remind me 48 hours before the deadline</value>
-  </data>
-  <data name="InTrash" xml:space="preserve">
-    <value>In Trash</value>
   </data>
   <data name="StatusClosed" xml:space="preserve">
     <value>Closed</value>
@@ -201,101 +144,14 @@
   <data name="StatusOpen" xml:space="preserve">
     <value>Open</value>
   </data>
-  <data name="ChooseDeadline" xml:space="preserve">
-    <value>Choose the deadline</value>
-  </data>
-  <data name="Example" xml:space="preserve">
-    <value>For example, beta version release</value>
-  </data>
-  <data name="AddThisMilestone" xml:space="preserve">
-    <value>Add This Milestone</value>
-  </data>
-  <data name="DeadLine" xml:space="preserve">
-    <value>due date</value>
-  </data>
-  <data name="NoOneMilestoneInProject" xml:space="preserve">
-    <value>No milestones in project</value>
-  </data>
-  <data name="MilestoneAdded" xml:space="preserve">
-    <value>Adding milestone...</value>
-  </data>
-  <data name="ShiftMilestonesAnswer" xml:space="preserve">
-    <value>Yes, shift all the other milestones too</value>
-  </data>
-  <data name="ShiftMilestonesDescription" xml:space="preserve">
-    <value>You have changed the date for the current milestone. Would you like to shift all the other milestones the same number of days?</value>
-  </data>
-  <data name="ShiftMilestonesQuestion" xml:space="preserve">
-    <value>Shift all the other milestones?</value>
-  </data>
-  <data name="EditMilestone" xml:space="preserve">
-    <value>Edit milestone</value>
-  </data>
-  <data name="KeepShiftedMilestoneOffWeekend" xml:space="preserve">
-    <value>Do not set milestones for weekends</value>
-  </data>
-  <data name="ClosedMilestone" xml:space="preserve">
-    <value>Completed milestone</value>
-  </data>
-  <data name="LateMilestone" xml:space="preserve">
-    <value>Overdue milestone</value>
-  </data>
-  <data name="Legend" xml:space="preserve">
-    <value>Calendar Legend</value>
-  </data>
-  <data name="OpenMilestone" xml:space="preserve">
-    <value>Active milestone</value>
-  </data>
-  <data name="SaveMilestone" xml:space="preserve">
-    <value>Saving milestone...</value>
-  </data>
   <data name="RootMilestone" xml:space="preserve">
     <value>Key milestone</value>
-  </data>
-  <data name="MilestoneNotFound_Body" xml:space="preserve">
-    <value>Probably it has been deleted, or there are no milestones with such ID in the project</value>
   </data>
   <data name="MilestoneNotFound_Header" xml:space="preserve">
     <value>No milestones have been planned yet</value>
   </data>
-  <data name="MilestoneNotFound_RedirectTitle" xml:space="preserve">
-    <value>Go to the milestone list</value>
-  </data>
-  <data name="MilestoneDeadlineLateInfo" xml:space="preserve">
-    <value>Delayed since {0}</value>
-  </data>
-  <data name="MilestoneStatusLabel_Active" xml:space="preserve">
-    <value>{0}Active{1} till</value>
-  </data>
-  <data name="MilestoneStatusLabel_Closed" xml:space="preserve">
-    <value>{0}Closed{1} on</value>
-  </data>
-  <data name="MilestoneStatusLabel_Late" xml:space="preserve">
-    <value>{0}Overdue{1} since</value>
-  </data>
-  <data name="EmptyScreenMilestoneTemplate" xml:space="preserve">
-    <value>Set the first milestone for this project template</value>
-  </data>
-  <data name="EmptyScreenMilestoneTemplateDescription" xml:space="preserve">
-    <value>Plan a milestone and set a due date, adjust the project schedule.</value>
-  </data>
-  <data name="Period" xml:space="preserve">
-    <value>Срок</value>
-  </data>
-  <data name="ActiveTasks" xml:space="preserve">
-    <value>Active Tasks</value>
-  </data>
-  <data name="ActiveTill" xml:space="preserve">
-    <value>Active till</value>
-  </data>
-  <data name="AddTask" xml:space="preserve">
-    <value>Add task</value>
-  </data>
   <data name="ChooseProject" xml:space="preserve">
     <value>Choose the project</value>
-  </data>
-  <data name="ClosedTasks" xml:space="preserve">
-    <value>Closed Tasks</value>
   </data>
   <data name="DeadlineInMonth" xml:space="preserve">
     <value>Month</value>
@@ -318,42 +174,6 @@
   <data name="NoTitleMessage" xml:space="preserve">
     <value>Each milestone must have a title</value>
   </data>
-  <data name="SortByCreateDate" xml:space="preserve">
-    <value>By create date</value>
-  </data>
-  <data name="SortByDeadline" xml:space="preserve">
-    <value>By deadline</value>
-  </data>
-  <data name="SortByTitle" xml:space="preserve">
-    <value>By title</value>
-  </data>
-  <data name="StatusActive" xml:space="preserve">
-    <value>Active</value>
-  </data>
-  <data name="StatusAll" xml:space="preserve">
-    <value>All</value>
-  </data>
-  <data name="StatusLate" xml:space="preserve">
-    <value>Late</value>
-  </data>
-  <data name="Tag" xml:space="preserve">
-    <value>Tag</value>
-  </data>
-  <data name="AllMilestones" xml:space="preserve">
-    <value>All milestones</value>
-  </data>
-  <data name="Days" xml:space="preserve">
-    <value>{0} days</value>
-  </data>
-  <data name="MyMilestones" xml:space="preserve">
-    <value>Milestones</value>
-  </data>
-  <data name="Next" xml:space="preserve">
-    <value>Next</value>
-  </data>
-  <data name="Overdue" xml:space="preserve">
-    <value>Overdue</value>
-  </data>
   <data name="Responsible" xml:space="preserve">
     <value>Responsible</value>
   </data>
@@ -372,26 +192,8 @@
   <data name="DescrEmptyListMilFilter" xml:space="preserve">
     <value>No milestones matching your filter can be displayed in this section.</value>
   </data>
-  <data name="OpenClosedTasks" xml:space="preserve">
-    <value>Open/Closed Tasks</value>
-  </data>
   <data name="NotifyResponsible" xml:space="preserve">
     <value>Notify</value>
-  </data>
-  <data name="CreatedBy" xml:space="preserve">
-    <value>Created by</value>
-  </data>
-  <data name="CreatingDate" xml:space="preserve">
-    <value>Date of creation</value>
-  </data>
-  <data name="FinishMilestone" xml:space="preserve">
-    <value>Complete Milestone</value>
-  </data>
-  <data name="String" xml:space="preserve">
-    <value>CloseMilestoneMessage</value>
-  </data>
-  <data name="My" xml:space="preserve">
-    <value>Me</value>
   </data>
   <data name="DeleteMilestone" xml:space="preserve">
     <value>Delete Milestone</value>
@@ -401,11 +203,5 @@
   </data>
   <data name="NotCloseMilWithActiveTasks" xml:space="preserve">
     <value>You can not close the milestone with active tasks.</value>
-  </data>
-  <data name="DeadlineHeader" xml:space="preserve">
-    <value>Due Date</value>
-  </data>
-  <data name="NewMilestone" xml:space="preserve">
-    <value>New milestone</value>
   </data>
 </root>

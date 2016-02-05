@@ -1,0 +1,33 @@
+Microsoft Source License for ASP.NET Pre-Release Components
+
+This license governs use of the accompanying software. If you use the software, you accept this license. If you do not accept the license, do not use the software.
+
+1. Definitions
+
+The terms "reproduce," "reproduction" and "distribution" have the same meaning here as under U.S. copyright law.
+"You" means the licensee of the software.
+"Your company" means the company you worked for when you downloaded the software.
+"Reference use" means use of the software within your company as a reference, in read only form, for the sole purposes of debugging your products, maintaining your products, or enhancing the interoperability of your products with the software, and specifically excludes the right to distribute the software outside of your company.
+“Additional Use Rights” means a license to use the software, whether unchanged or (for the portions of the software that we supply in source code form) as modified by you, (a) within your company for the purposes of designing, developing and testing your products for use with the software, and (b) in a live operating environment to allow your customers to use, via a web interface, your products that need the software to run. “Additional Use Rights” specifically excludes the right to distribute the software outside of your company and, because the software is a pre-release version, also excludes the right to disclose the results of any benchmark tests of the software to any third party without Licensor’s prior written approval.
+"Licensed patents" means any Licensor patent claims which read directly on the software as distributed by the Licensor under this license.
+
+2. Grant of Rights
+
+(A) Copyright Grant - Subject to the terms of this license, the Licensor grants you a non-transferable, non-exclusive, worldwide, royalty-free copyright license to reproduce the software for reference use.
+(B) Patent Grant- Subject to the terms of this license, the Licensor grants you a non-transferable, non-exclusive, worldwide, royalty-free patent license under licensed patents for reference use.
+(C) Additional Use Rights – Subject to the terms of this license, including Sections 3(F) and 3(G), you may exercise Additional Use Rights.
+
+3. Limitations
+
+(A) No Trademark License- This license does not grant you any rights to use the Licensor’s name, logo, or trademarks.
+(B) If you begin patent litigation against the Licensor over patents that you think may apply to the software (including a cross-claim or counterclaim in a lawsuit), your license to the software ends automatically.
+(C) The software is licensed "as-is." You bear the risk of using it. The Licensor gives no express warranties, guarantees or conditions. You may have additional consumer rights under your local laws which this license cannot change. To the extent permitted under your local laws, the Licensor excludes the implied warranties of merchantability, fitness for a particular purpose and non-infringement.
+(D) Pre-Release Software – This is pre-release, unsupported software that may not operate correctly. It may not work the way a final version of the software will. We may change it (or one or more of its components) for a final, commercial version. We also may not release a commercial version. You are fully responsible for any and all damages that may result due to any failure of the software.
+(E) Feedback - If you give Microsoft (the “Licensor”) any feedback about the software, you give to Licensor, without charge, the right to use, share and commercialize your feedback in any way and for any purpose. You also give to third parties, without charge, any patent rights needed for their products or services to use or interface with any specific parts of Licensor’s software or services that include the feedback. You will not give feedback that is subject to a license that requires Licensor to license its software or documentation to third parties because Licensor includes your feedback in them. If Licensor provides you any support or other services related to the software, it may collect and use technical information gathered as part of those support or services to improve its products or services or provide customized services or technologies to you. Licensor may disclose this information to others, but not in a form that personally identifies you. The rights in this section 3(E) survive this license.
+(F) You are not obligated to exercise the Additional Use Rights. But if you do, the Additional Use Rights are subject to the following additional terms and conditions:
+• Update - If Licensor releases a final, commercial version of the software (or any of its component) for which you are exercising Additional Use Rights, you will incorporate such final, commercial version of the software (or such component) within a commercially reasonable period after Licensor’s commercial release.
+• Indemnification - You agree to indemnify, hold harmless, and defend Licensor from and against any claims, allegations, lawsuits, losses and costs (including attorneys’ fees), that arise or result from your exercise of Additional Use Rights.
+• Platform Limitation - The Additional Use Rights extend only to the software or permitted derivative works that you create that run on a Microsoft Windows operating system product. 
+(G) Object Code Files - The software may include certain object code files for which its source code is not included as part of the software, or that are packaged without the source code in an installable or executable package. As to these object code files, unless applicable law gives you more rights despite this limitation, you must comply with all technical limitations in those files that only allow you to use it in certain ways. You may not modify, work around any technical limitations in, or reverse engineer, decompile or disassemble these object code files, except and only to the extent that applicable law expressly permits, despite this limitation.
+
+Created Mar. 2008

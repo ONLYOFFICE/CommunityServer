@@ -73,10 +73,61 @@ namespace ASC.Core.Tenants
         [DataMember(Name = "Visible", Order = 100)]
         public bool Visible { get; set; }
 
+        [DataMember(Name = "Year", Order = 110)]
+        public bool Year
+        {
+            get { return GetFeature("year"); }
+            set { SetFeature("year", value); }
+        }
+
+        [DataMember(Name = "Year3", Order = 110)]
+        public bool Year3
+        {
+            get { return GetFeature("year3"); }
+            set { SetFeature("year3", value); }
+        }
+
+        public bool NonProfit
+        {
+            get { return GetFeature("non-profit"); }
+            set { SetFeature("non-profit", value); }
+        }
+
         public bool Trial
         {
             get { return GetFeature("trial"); }
             set { SetFeature("trial", value); }
+        }
+
+        public bool Free
+        {
+            get { return GetFeature("free"); }
+            set { SetFeature("free", value); }
+        }
+
+        public bool Open
+        {
+            get { return GetFeature("open"); }
+            set { SetFeature("open", value); }
+        }
+
+
+        public bool ControlPanel
+        {
+            get { return GetFeature("controlpanel"); }
+            set { SetFeature("controlpanel", value); }
+        }
+
+        public bool Audit
+        {
+            get { return GetFeature("audit"); }
+            set { SetFeature("audit", value); }
+        }
+
+        public bool DocsEdition
+        {
+            get { return GetFeature("docs"); }
+            set { SetFeature("docs", value); }
         }
 
         public bool HasBackup
@@ -91,23 +142,22 @@ namespace ASC.Core.Tenants
             set { SetFeature("domain", value); }
         }
 
-        public bool DocsEdition
+        public bool HealthCheck
         {
-            get { return GetFeature("docs"); }
-            set { SetFeature("docs", value); }
+            get { return GetFeature("healthcheck"); }
+            set { SetFeature("healthcheck", value); }
         }
 
-        [DataMember(Name = "Year", Order = 110)]
-        public bool Year
+        public bool HasMigration
         {
-            get { return GetFeature("year"); }
-            set { SetFeature("year", value); }
+            get { return GetFeature("migration"); }
+            set { SetFeature("migration", value); }
         }
 
-        public bool NonProfit
+        public bool Ldap
         {
-            get { return GetFeature("non-profit"); }
-            set { SetFeature("non-profit", value); }
+            get { return GetFeature("ldap"); }
+            set { SetFeature("ldap", value); }
         }
 
         public bool Sms
@@ -122,29 +172,18 @@ namespace ASC.Core.Tenants
             set { SetFeature("voip", value); }
         }
 
-        public bool Gantt
-        {
-            get { return GetFeature("gantt"); }
-            set { SetFeature("gantt", value); }
-        }
-
         public bool Visitor
         {
             get { return GetFeature("visitor"); }
             set { SetFeature("visitor", value); }
         }
 
-        public bool Free
+        public bool WhiteLabel
         {
-            get { return GetFeature("free"); }
-            set { SetFeature("free", value); }
+            get { return GetFeature("whitelabel"); }
+            set { SetFeature("whitelabel", value); }
         }
 
-        public bool Open
-        {
-            get { return GetFeature("open"); }
-            set { SetFeature("open", value); }
-        }
 
         public TenantQuota(int tenant)
         {

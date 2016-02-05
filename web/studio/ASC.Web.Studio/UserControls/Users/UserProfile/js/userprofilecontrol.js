@@ -97,7 +97,8 @@ jq(function () {
 
     jq("#loadPhotoImage").on("click", function () {
         if (!jq.browser.mobile) {
-            ASC.Controls.LoadPhotoImage.showPhotoDialog();
+            var curPhotoSrc = jq("#userProfilePhoto").find("img").attr("src");
+            ASC.Controls.LoadPhotoImage.showPhotoDialog(curPhotoSrc);
         }
     });
 
@@ -332,31 +333,33 @@ function ChangeUserPhoto (file, response) {
 }
 
 function JoinToAffilliate() {
-    var $button = jq("#joinToAffilliate");
-    AjaxPro.onLoading = function(b) {
-        if (b) {
-            $button.addClass("disable");
-            LoadingBanner.displayLoading();
-        } else {
-            $button.removeClass("disable");
-            LoadingBanner.hideLoading();
-        }
-    };
-    AjaxPro.timeoutPeriod = 1800000;
-    AjaxPro.UserProfileControl.JoinToAffiliateProgram(function(result) {
-        var res = result.value;
-        if (res.rs1 == "1" && res.rs2) {
-            location.href = res.rs2;
-        } else if (res.rs1 == "0") {
-            jq("#errorAffilliate").text(res.rs2);
-        }
-    });
+    Teamlab.joinAffiliate({},
+        {
+            before: function (params) {
+                jq("#joinToAffilliate").addClass("disable");
+                LoadingBanner.displayLoading();
+            },
+            after: function (params) {
+                jq("#joinToAffilliate").removeClass("disable");
+                LoadingBanner.hideLoading();
+            },
+            success: function (params, response) {
+                location.href = response;
+            },
+            error: function (params, errors) {
+                var err = errors[0];
+                jq("#errorAffilliate").text(err);
+            }
+        });
 }
 
 var SendInstrunctionsToRemoveProfile = function () {
-    AjaxPro.UserProfileControl.SendInstructionsToDelete(function (result) {
-        var value = result.value;
-        jq.unblockUI();
-        toastr.success(value.Message);
-    });
+
+    Teamlab.removeSelf({},
+        {
+            success: function (params, response) {
+                jq.unblockUI();
+                toastr.success(response);
+            }
+        });
 };

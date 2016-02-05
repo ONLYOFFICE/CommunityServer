@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -65,8 +65,13 @@ namespace ASC.Web.People
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-            AjaxPro.Utility.RegisterTypeForAjax(typeof(UserProfileControl));
-            this.Page.RegisterBodyScripts(LoadControl(VirtualPathUtility.ToAbsolute("~/products/people/masters/DefaultBodyScripts.ascx")));
+
+            this.Page.RegisterBodyScriptsControl("~/products/people/masters/DefaultBodyScripts.ascx");
+
+            this.Page.RegisterInlineScript(String.Format(" emptyScreenPeopleFilter = '{0}'; ",
+                                                        WebImageSupplier.GetAbsoluteWebPath("empty_screen_filter.png")),
+                                            onReady: false);
+
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -77,27 +82,6 @@ namespace ASC.Web.People
 
             var quota = TenantExtra.GetTenantQuota();
             IsFreeTariff = quota.Free && !quota.Open;
-
-            _confirmationDeleteDepartmentPanel.Options.IsPopup = true;
-            _resendInviteDialog.Options.IsPopup = true;
-            _changeStatusDialog.Options.IsPopup = true;
-            _changeTypeDialog.Options.IsPopup = true;
-            _deleteUsersDialog.Options.IsPopup = true;
-            _deleteProfileContainer.Options.IsPopup = true;
-
-            var emptyContentForPeopleFilter = new EmptyScreenControl
-                {
-                    ID = "emptyContentForPeopleFilter",
-                    ImgSrc = WebImageSupplier.GetAbsoluteWebPath("empty_screen_filter.png"),
-                    Header = PeopleResource.NotFoundTitle,
-                    Describe = PeopleResource.NotFoundDescription,
-                    ButtonHTML = String.Format(@"<a class='clearFilterButton link dotline' href='javascript:void(0);' 
-                                            onclick='ASC.People.PeopleController.resetAllFilters();'>{0}</a>",
-                                               PeopleResource.ClearButton),
-                    CssClass = "display-none"
-                };
-
-            emptyScreen.Controls.Add(emptyContentForPeopleFilter);
 
 
             var controlEmailChange = (UserEmailChange)LoadControl(UserEmailChange.Location);

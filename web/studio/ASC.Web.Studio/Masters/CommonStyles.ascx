@@ -5,7 +5,6 @@
 <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/skins/default/jquery_style.css") %>"/>
 <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/skins/default/common_style.css") %>" />
 <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/skins/default/filetype_style.css") %>" />
-<link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/skins/default/magnific-popup.css") %>" />
 <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/skins/default/magnific-popup.less") %>" />
 <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/skins/default/toastr.css") %>" />
 <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/skins/default/groupselector.css") %>" />

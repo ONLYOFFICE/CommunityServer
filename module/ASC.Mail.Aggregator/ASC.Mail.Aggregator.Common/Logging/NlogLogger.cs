@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -25,63 +25,87 @@
 
 
 using System;
+using NLog;
 
 namespace ASC.Mail.Aggregator.Common.Logging
 {
     class NlogLogger : ILogger
     {
-        private readonly NLog.Logger _logger;
+        private readonly Logger _logger;
 
-        public NlogLogger(NLog.Logger logger)
+        public NlogLogger(Logger logger)
         {
             _logger = logger;
         }
 
-        public void Fatal(string message, params object[] param)
+        public void Info(string message)
         {
-            _logger.Fatal(message, param);
+            _logger.Info(message);
         }
 
-        public void Fatal(Exception ex, string message, params object[] param)
+        public void Info(string message, params object[] args)
         {
-            var originalMessage = String.Format(message, param);
-            _logger.Fatal(originalMessage + " Exception: " + ex);
+            _logger.Info(message, args);
         }
 
-        public void Error(string message, object[] param)
+        public void Debug(string message)
         {
-            _logger.Error(message, param);
+            _logger.Debug(message);
         }
 
-        public void Error(Exception ex, string message, params object[] param)
+        public void Debug(string message, params object[] args)
         {
-            var originalMessage = String.Format(message, param);
-            _logger.Error(originalMessage + " Exception: " + ex);
+            _logger.Debug(message, args);
         }
 
-        public void Warn(string message, object[] param)
+        public void Warn(string message)
         {
-            _logger.Warn(message, param);
+            _logger.Warn(message);
         }
 
-        public void Debug(string message, object[] param)
+        public void Warn(string message, params object[] args)
         {
-            _logger.Debug(message, param);
+            _logger.Warn(message, args);
         }
 
-        public void WarnException(string format, Exception exception)
+        public void Warn(string message, Exception exception)
         {
-            _logger.WarnException(format, exception);
+            _logger.Warn(message, exception);
         }
 
-        public void Info(string message, params object[] param)
+        public void Error(string message)
         {
-            _logger.Info(message, param);
+            _logger.Error(message);
+        }
+
+        public void Error(string message, params object[] args)
+        {
+            _logger.Error(message, args);
+        }
+
+        public void Error(string message, Exception ex)
+        {
+            _logger.Error(message, ex);
+        }
+
+        public void Fatal(string message)
+        {
+            _logger.Fatal(message);
+        }
+
+        public void Fatal(string message, params object[] args)
+        {
+            _logger.Fatal(message, args);
+        }
+
+        public void Fatal(string message, Exception ex)
+        {
+            _logger.Fatal(message, ex);
         }
 
         public void Flush()
         {
-            NLog.LogManager.Flush();
+            LogManager.Flush();
         }
     }
 }

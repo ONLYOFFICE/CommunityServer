@@ -25,6 +25,7 @@
 
 
 using ASC.Core;
+using ASC.Mail.Aggregator;
 using ASC.Mail.Aggregator.Common.Logging;
 using ASC.Mail.Server.Administration.Interfaces;
 using ASC.Mail.Server.Dal;
@@ -39,6 +40,7 @@ namespace ASC.Api.MailServer
 {
     public partial class MailServerApi : Interfaces.IApiEntryPoint
     {
+        private MailBoxManager _mailBoxManager;
         private MailServerBase _mailServer;
         private ServerDal _serverDal;
         private IMailServerFactory _mailserverfactory;
@@ -50,6 +52,11 @@ namespace ASC.Api.MailServer
             {
                 return _log ?? (_log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "ASC.Api"));
             }
+        }
+
+        private MailBoxManager MailBoxManager
+        {
+            get { return _mailBoxManager ?? (_mailBoxManager = new MailBoxManager(Logger)); }
         }
 
         private IMailServerFactory MailServerFactory
@@ -143,7 +150,7 @@ namespace ASC.Api.MailServer
             }
         }
 
-        protected bool IsAdmin
+        private bool IsAdmin
         {
             get
             {
@@ -151,51 +158,51 @@ namespace ASC.Api.MailServer
             }
         }
 
-        protected string TxtRecordName
+        private string SpfRecordValue
         {
             get
             {
-                return ConfigurationManager.AppSettings["mail.server.txt-record-name"];
+                return ConfigurationManager.AppSettings["mail.server.spf-record-value"] ?? "v=spf1 +mx ~all";
             }
         }
 
-        protected string SpfRecordValue
+        private int MxRecordPriority
         {
             get
             {
-                return ConfigurationManager.AppSettings["mail.server.spf-record-value"];
+                return Convert.ToInt32(ConfigurationManager.AppSettings["mail.server.mx-record-priority"] ?? "0");
             }
         }
 
-        protected int MxRecordPriority
+        private int MailboxPerUserLimit
         {
             get
             {
-                return Convert.ToInt32(ConfigurationManager.AppSettings["mail.server.mx-record-priority"]);
+                return Convert.ToInt32(ConfigurationManager.AppSettings["mail.server-mailbox-limit-per-user"] ?? "2");
             }
         }
 
-        protected int MailboxPerUserLimit
+        private string DkimSelector
         {
             get
             {
-                return Convert.ToInt32(ConfigurationManager.AppSettings["mail.server-mailbox-limit-per-user"]);
+                return ConfigurationManager.AppSettings["mail.server-dkim-selector"] ?? "dkim";
             }
         }
 
-        protected string DkimSelector
+        private string DomainCheckPrefix
         {
             get
             {
-                return ConfigurationManager.AppSettings["mail.server-dkim-selector"];
+                return ConfigurationManager.AppSettings["mail.server-dns-check-prefix"] ?? "onlyoffice-domain";
             }
         }
 
-        protected string DomainCheckPrefix
+        private bool IsSignalRAvailable
         {
             get
             {
-                return ConfigurationManager.AppSettings["mail.server-dns-check-prefix"];
+                return !string.IsNullOrEmpty(ConfigurationManager.AppSettings["web.hub"]);
             }
         }
     }

@@ -55,8 +55,8 @@ namespace ASC.Web.UserControls.Forum
         public long TopicPagesCount { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
-        {            
-            var settings = ForumManager.GetSettings(SettingsID);
+        {
+            var settings = Community.Forum.ForumManager.Settings;
             PageSize = string.IsNullOrEmpty(Request["size"]) ? 20 : Convert.ToInt32(Request["size"]);
             //var pageSize = PageSize;            
             Topics = new List<Topic>();

@@ -37,6 +37,7 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Caching;
 using log4net;
+using ASC.Common.Caching;
 
 #endregion
 
@@ -49,18 +50,12 @@ namespace ASC.CRM.Core.Dao
         protected readonly List<EntityType> _supportedEntityType = new List<EntityType>();
         protected readonly ILog _log = LogManager.GetLogger("ASC.CRM");
 
-        protected readonly Cache _cache = HttpRuntime.Cache;
-
-        protected readonly String _contactCacheKey;
-        protected readonly String _dealCacheKey;
-        protected readonly String _caseCacheKey;
-        protected readonly String _taskCacheKey;
-
-        protected readonly String _invoiceCacheKey;
+        protected readonly ICache _cache = AscCache.Default;
+        /*
         protected readonly String _invoiceItemCacheKey;
         protected readonly String _invoiceTaxCacheKey;
         protected readonly String _invoiceLineCacheKey;
-
+        */
         protected AbstractDao(int tenantID, String storageKey)
         {
             TenantID = tenantID;
@@ -72,37 +67,11 @@ namespace ASC.CRM.Core.Dao
             _supportedEntityType.Add(EntityType.Opportunity);
             _supportedEntityType.Add(EntityType.Case);
             
-            _contactCacheKey = String.Concat(TenantID, "/contact");
-            _dealCacheKey = String.Concat(TenantID, "/deal");
-            _caseCacheKey = String.Concat(TenantID, "/case");
-            _taskCacheKey = String.Concat(TenantID, "/task");
-
-            _invoiceCacheKey = String.Concat(TenantID, "/invoice");
+            /*
             _invoiceItemCacheKey = String.Concat(TenantID, "/invoiceitem");
             _invoiceTaxCacheKey = String.Concat(TenantID, "/invoicetax");
             _invoiceLineCacheKey = String.Concat(TenantID, "/invoiceline");
-
-            if (_cache.Get(_contactCacheKey) == null)
-            {
-                _cache.Insert(_contactCacheKey, String.Empty);
-            }
-            if (_cache.Get(_dealCacheKey) == null)
-            {
-                _cache.Insert(_dealCacheKey, String.Empty);
-            }
-            if (_cache.Get(_caseCacheKey) == null)
-            {
-                _cache.Insert(_caseCacheKey, String.Empty);
-            }
-            if (_cache.Get(_taskCacheKey) == null)
-            {
-                _cache.Insert(_taskCacheKey, String.Empty);
-            }
-
-            if (_cache.Get(_invoiceCacheKey) == null)
-            {
-                _cache.Insert(_invoiceCacheKey, String.Empty);
-            }
+            
             if (_cache.Get(_invoiceItemCacheKey) == null)
             {
                 _cache.Insert(_invoiceItemCacheKey, String.Empty);
@@ -115,6 +84,7 @@ namespace ASC.CRM.Core.Dao
             {
                 _cache.Insert(_invoiceLineCacheKey, String.Empty);
             }
+             */
         }
 
         protected DbManager GetDb()

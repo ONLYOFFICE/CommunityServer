@@ -3,7 +3,9 @@
 <%@ Import Namespace="ASC.Web.Mail.Resources" %>
 
 <script id="composeSignatureTmpl" type="text/x-jquery-tmpl">
-  <div class="tlmail_signature" mailbox_id="${mailboxId}"><div>{{html html}}</div></div>
+  <div class="tlmail_signature" mailbox_id="${mailboxId}" style="font-family:open sans,sans-serif; font-size:12px; margin:0px;">
+      <div>{{html html}}</div>
+  </div>
 </script>
 
 

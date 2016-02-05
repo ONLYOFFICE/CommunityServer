@@ -41,82 +41,88 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
         protected const string RightParserResultsPath = @"..\..\Right_Parsing\";
         protected const string TestResultsPath = @"..\..\Out_Eml\";
 
-        protected readonly string utf8_charset = Encoding.UTF8.HeaderName;
+        protected readonly string utf8Charset = Encoding.UTF8.HeaderName;
 
-        protected void CreateRightResult(Message eml_message, string out_file_path)
+        protected void CreateRightResult(Message emlMessage, string outFilePath)
         {
             var result = new RightParserResult();
             result.From = new TestAddress();
 
-            result.From.Email = eml_message.From.Email;
-            result.From.Name = eml_message.From.Name;
+            result.From.Email = emlMessage.From.Email;
+            result.From.Name = emlMessage.From.Name;
 
             result.To = new List<TestAddress>();
-            foreach (var to_adresses in eml_message.To)
+            foreach (var to_adresses in emlMessage.To)
             {
                 result.To.Add(new TestAddress {Name = to_adresses.Name, Email = to_adresses.Email});
             }
 
             result.Cc = new List<TestAddress>();
-            foreach (var cc_adresses in eml_message.Cc)
+            foreach (var cc_adresses in emlMessage.Cc)
             {
                 result.Cc.Add(new TestAddress {Name = cc_adresses.Name, Email = cc_adresses.Email});
             }
 
-            result.Subject = eml_message.Subject;
-            result.AttachmentCount = eml_message.Attachments.Count;
-            result.UnknownPatsCount = eml_message.UnknownDispositionMimeParts.Count;
+            result.Subject = emlMessage.Subject;
+            result.AttachmentCount = emlMessage.Attachments.Count;
+            result.UnknownPatsCount = emlMessage.UnknownDispositionMimeParts.Count;
 
-            result.HtmlBody = eml_message.BodyHtml.Text;
-            result.HtmlCharset = eml_message.BodyHtml.Charset;
-            result.HtmlEncoding = eml_message.BodyHtml.ContentTransferEncoding;
+            result.HtmlBody = emlMessage.BodyHtml.Text;
+            result.HtmlCharset = emlMessage.BodyHtml.Charset;
+            result.HtmlEncoding = emlMessage.BodyHtml.ContentTransferEncoding;
 
-            result.TextBody = eml_message.BodyText.Text;
-            result.TextCharset = eml_message.BodyText.Charset;
-            result.TextEncoding = eml_message.BodyText.ContentTransferEncoding;
+            result.TextBody = emlMessage.BodyText.Text;
+            result.TextCharset = emlMessage.BodyText.Charset;
+            result.TextEncoding = emlMessage.BodyText.ContentTransferEncoding;
 
-            result.ToXml(out_file_path);
+            result.ToXml(outFilePath);
         }
 
-        protected void Test(string eml_file_name)
+        protected Message ParseEml(string emlFileName)
         {
-            var eml_message = Parser.ParseMessageFromFile(TestFolderPath + eml_file_name);
-            var right_result = RightParserResult.FromXml(RightParserResultsPath + eml_file_name.Replace(".eml", ".xml"));
+            var emlMessage = Parser.ParseMessageFromFile(TestFolderPath + emlFileName);
+            return emlMessage;
+        }
+
+        protected void Test(string emlFileName)
+        {
+            var emlMessage = ParseEml(emlFileName);
+            var rightResult = RightParserResult.FromXml(RightParserResultsPath + emlFileName.Replace(".eml", ".xml"));
 #if NEED_OUT
             eml_message.StoreToFile(test_results_path + eml_file_name);
 #endif
-            Assert.AreEqual(right_result.From.Email, eml_message.From.Email);
-            Assert.AreEqual(right_result.From.Name, eml_message.From.Name);
-            Assert.AreEqual(right_result.To.Count, eml_message.To.Count);
+            Assert.AreEqual(rightResult.From.Email, emlMessage.From.Email);
+            Assert.AreEqual(rightResult.From.Name, emlMessage.From.Name);
+            Assert.AreEqual(rightResult.To.Count, emlMessage.To.Count);
 
-            var to_enumerator = eml_message.To.OrderBy(x => x.Email).GetEnumerator();
-            foreach (var adress in right_result.To.OrderBy(x => x.Email))
+            var toEnumerator = emlMessage.To.OrderBy(x => x.Email).GetEnumerator();
+            foreach (var adress in rightResult.To.OrderBy(x => x.Email))
             {
-                to_enumerator.MoveNext();
-                Assert.AreEqual(adress.Email, to_enumerator.Current.Email);
-                Assert.AreEqual(adress.Name, to_enumerator.Current.Name);
+                toEnumerator.MoveNext();
+                Assert.AreEqual(adress.Email, toEnumerator.Current.Email);
+                Assert.AreEqual(adress.Name, toEnumerator.Current.Name);
             }
 
-            var cc_enumerator = eml_message.Cc.OrderBy(x=>x.Email).GetEnumerator();
-            foreach (var adress in right_result.Cc.OrderBy(x=>x.Email))
+            var ccEnumerator = emlMessage.Cc.OrderBy(x=>x.Email).GetEnumerator();
+            foreach (var adress in rightResult.Cc.OrderBy(x=>x.Email))
             {
-                cc_enumerator.MoveNext();
-                Assert.AreEqual(adress.Email, cc_enumerator.Current.Email);
-                Assert.AreEqual(adress.Name, cc_enumerator.Current.Name);
+                ccEnumerator.MoveNext();
+                Assert.AreEqual(adress.Email, ccEnumerator.Current.Email);
+                Assert.AreEqual(adress.Name, ccEnumerator.Current.Name);
             }
 
-            Assert.AreEqual(right_result.Subject, eml_message.Subject);
-            Assert.AreEqual(right_result.AttachmentCount, eml_message.Attachments.Count);
-            Assert.AreEqual(right_result.UnknownPatsCount, eml_message.UnknownDispositionMimeParts.Count);
+            Assert.AreEqual(rightResult.Subject, emlMessage.Subject);
+            Assert.AreEqual(rightResult.AttachmentCount, emlMessage.Attachments.Count);
+            Assert.AreEqual(rightResult.UnknownPatsCount, emlMessage.UnknownDispositionMimeParts.Count);
 
             //Replace needed for correct file loading
-            Assert.AreEqual(right_result.HtmlBody, eml_message.BodyHtml.Text);
-            Assert.AreEqual(right_result.HtmlEncoding, eml_message.BodyHtml.ContentTransferEncoding);
-            Assert.AreEqual(right_result.HtmlCharset, eml_message.BodyHtml.Charset);
+            Assert.AreEqual(rightResult.HtmlBody, emlMessage.BodyHtml.Text);
+            Assert.AreEqual(rightResult.HtmlEncoding, emlMessage.BodyHtml.ContentTransferEncoding);
+            Assert.AreEqual(rightResult.HtmlCharset, emlMessage.BodyHtml.Charset);
 
-            Assert.AreEqual(right_result.TextBody, eml_message.BodyText.Text);
-            Assert.AreEqual(right_result.TextCharset, eml_message.BodyText.Charset);
-            Assert.AreEqual(right_result.TextEncoding, eml_message.BodyText.ContentTransferEncoding);
+            Assert.AreEqual(rightResult.TextBody, emlMessage.BodyText.Text);
+            Assert.AreEqual(rightResult.TextCharset, emlMessage.BodyText.Charset);
+            Assert.AreEqual(rightResult.TextEncoding, emlMessage.BodyText.ContentTransferEncoding);
         }
     }
 

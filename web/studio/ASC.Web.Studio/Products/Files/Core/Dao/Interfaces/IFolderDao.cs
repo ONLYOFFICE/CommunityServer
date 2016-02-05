@@ -75,15 +75,18 @@ namespace ASC.Files.Core
         /// <param name="filterType"></param>
         /// <param name="subjectID"></param>
         /// <param name="searchText"></param>
+        /// <param name="searchSubfolders"></param>
         /// <returns></returns>
-        List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText);
+        List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false);
 
         /// <summary>
         /// Gets the folder (s) by ID (s)
         /// </summary>
         /// <param name="folderIds"></param>
+        /// <param name="searchText"></param>
+        /// <param name="searchSubfolders"></param>
         /// <returns></returns>
-        List<Folder> GetFolders(object[] folderIds);
+        List<Folder> GetFolders(object[] folderIds, string searchText = "", bool searchSubfolders = false);
 
         /// <summary>
         ///     Get folder, contains folder with id
@@ -134,31 +137,9 @@ namespace ASC.Files.Core
         /// <summary>
         ///     Rename folder
         /// </summary>
-        /// <param name="folderId">folder id</param>
+        /// <param name="folder"></param>
         /// <param name="newTitle">new name</param>
-        object RenameFolder(object folderId, String newTitle);
-
-        /// <summary>
-        ///     Get files in folder
-        /// </summary>
-        /// <param name="parentId">folder id</param>
-        /// <param name="orderBy"></param>
-        /// <param name="subjectID"></param>
-        /// <param name="filterType">filterType type</param>
-        /// <param name="searchText"> </param>
-        /// <returns>list of files</returns>
-        /// <remarks>
-        ///    Return only the latest versions of files of a folder
-        /// </remarks>
-        List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="parentId"></param>
-        /// <param name="withSubfolders"></param>
-        /// <returns></returns>
-        List<object> GetFiles(object parentId, bool withSubfolders);
+        object RenameFolder(Folder folder, string newTitle);
 
         /// <summary>
         ///    Gets the number of files and folders to the container in your

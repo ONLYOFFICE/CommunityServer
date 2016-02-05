@@ -4,12 +4,12 @@
 <%@ Import Namespace="Resources" %>
 
 <div id="manager-empty-screen">
-    <div class="header-base large"><%= string.Format(Resource.ManagerEmptyScreen_WelcomeHeader, CurrentUserName) %></div>
+    <div class="header-base large"><%= string.Format(Resource.ManagerEmptyScreen_WelcomeHeader.HtmlEncode(), CurrentUserName) %></div>
     <div class="header-base"><%= Resource.ManagerEmptyScreen_StepsHeader %></div>
 
     <% if (!IsVisitor && !ProductDisabled(WebItemManager.PeopleProductID))
        { %>
-    <div class="module-item">
+    <div class="module-item clearFix">
         <span class="main-title-icon people"></span>
         <a href="<%= VirtualPathUtility.ToAbsolute(PeopleProduct.GetStartURL()) %>" class="link underline medium" target="_blank">
             <%= Resource.ManagerEmptyScreen_PeopleLink %>
@@ -18,17 +18,17 @@
     </div>
     <% } %>
 
-    <div class="module-item">
+    <div class="module-item clearFix">
         <span class="main-title-icon documents"></span>
         <a href="<%= VirtualPathUtility.ToAbsolute(ASC.Web.Files.Classes.PathProvider.StartURL) %>" class="link underline medium" target="_blank">
             <%= Resource.ManagerEmptyScreen_DocumentsLink %>
         </a>
-        <div class="module-link-dscr"><%= Resource.ManagerEmptyScreen_DocumentsLinkDscr %></div>
+        <div class="module-link-dscr"><%= !IsVisitor ? Resource.ManagerEmptyScreen_DocumentsLinkDscr : string.Empty %></div>
     </div>
 
     <% if (!IsVisitor && !ProductDisabled(WebItemManager.CRMProductID))
        { %>
-    <div class="module-item">
+    <div class="module-item clearFix">
         <span class="main-title-icon crm"></span>
         <a href="<%= VirtualPathUtility.ToAbsolute(ASC.Web.CRM.PathProvider.StartURL()) %>" class="link underline medium" target="_blank">
             <%= Resource.ManagerEmptyScreen_CRMLink %>
@@ -39,12 +39,12 @@
 
     <% if (!ProductDisabled(WebItemManager.ProjectsProductID))
        { %>
-    <div class="module-item">
+    <div class="module-item clearFix">
         <span class="main-title-icon projects"></span>
         <a href="<%= VirtualPathUtility.ToAbsolute(ASC.Web.Projects.Classes.PathProvider.BaseVirtualPath) %>" class="link underline medium" target="_blank">
             <%= Resource.ManagerEmptyScreen_ProjectsLink %>
         </a>
-        <div class="module-link-dscr"><%= Resource.ManagerEmptyScreen_ProjectsLinkDscr %></div>
+        <div class="module-link-dscr"><%= !IsVisitor ? Resource.ManagerEmptyScreen_ProjectsLinkDscr : string.Empty %></div>
     </div>
     <% } %>
 </div>

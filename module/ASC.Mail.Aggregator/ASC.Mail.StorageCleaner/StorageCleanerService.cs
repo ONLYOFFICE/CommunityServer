@@ -41,7 +41,13 @@ namespace ASC.Mail.StorageCleaner
         private readonly ILogger _log;
         private Timer _intervalTimer;
         readonly ManualResetEvent _resetEvent;
+        readonly MailGarbageEraser _eraser;
         readonly TimeSpan _tsInterval;
+        readonly int _tenantCacheDays = 1;
+        readonly int _tenantOverdueDays = 30;
+        readonly int _garbageOverdueDays = 30;
+        readonly int _maxTasksAtOnce = 10;
+        readonly int _maxFilesToRemoveAtOnce = 100;
 
         #endregion
 
@@ -50,15 +56,25 @@ namespace ASC.Mail.StorageCleaner
         public StorageCleanerService()
         {
             CanStop = true;
+
             AutoLog = true;
 
             XmlConfigurator.Configure();
 
-            _log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "StorageCleaner");
+            _log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "MailCleaner");
+
             _resetEvent = new ManualResetEvent(false);
-            _tsInterval = TimeSpan.FromMinutes(Convert.ToInt32(ConfigurationManager.AppSettings["timer.wait-minutes"]));
+
+            _tsInterval = TimeSpan.FromMinutes(Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.timer-wait-minutes"]));
+            _maxTasksAtOnce = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.max-tasks-at-once"]);
+            _tenantCacheDays = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.tenant-cache-days"]);
+            _tenantOverdueDays = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.tenant-overdue-days"]);
+            _garbageOverdueDays = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.mailbox-garbage-overdue-days"]);
+            _maxFilesToRemoveAtOnce = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.files-remove-limit-at-once"]);
 
             _log.Info("Service will clear mail storage every {0} minutes\r\n", _tsInterval.TotalMinutes);
+
+            _eraser = new MailGarbageEraser(_maxTasksAtOnce, _maxFilesToRemoveAtOnce, _tenantCacheDays, _tenantOverdueDays, _garbageOverdueDays, _log);
         }
 
         #endregion
@@ -68,7 +84,9 @@ namespace ASC.Mail.StorageCleaner
         public void StartConsole()
         {
             OnStart(null);
+
             Console.CancelKeyPress += (sender, e) => OnStop();
+
             _resetEvent.WaitOne();
         }
 
@@ -77,6 +95,7 @@ namespace ASC.Mail.StorageCleaner
             try
             {
                 _log.Info("Start service\r\n");
+
                 _intervalTimer = new Timer(IntervalTimer_Elapsed, _resetEvent, 0, Timeout.Infinite);
             }
             catch (Exception)
@@ -94,16 +113,22 @@ namespace ASC.Mail.StorageCleaner
             if (_intervalTimer == null) return;
 
             _intervalTimer.Change(Timeout.Infinite, Timeout.Infinite);
+
             _intervalTimer.Dispose();
+
             _intervalTimer = null;
         }
 
         private void IntervalTimer_Elapsed(object state)
         {
             var resetEvent = (ManualResetEvent)state;
+
             _intervalTimer.Change(Timeout.Infinite, Timeout.Infinite);
-            var eraser = new MailGarbageEraser(_log);
-            eraser.ClearMailGarbage(resetEvent);
+
+            _eraser.ClearMailGarbage(resetEvent);
+
+            _log.Info("All mailboxes were processed. Go back to timer. Next start after {0} minutes.", _tsInterval.TotalMinutes);
+
             _intervalTimer.Change(_tsInterval, _tsInterval);
         }
 

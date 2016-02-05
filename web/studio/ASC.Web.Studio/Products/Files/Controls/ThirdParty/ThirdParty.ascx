@@ -11,7 +11,7 @@
     <% if (ImportConfiguration.SupportInclusion)%>
     <% { %>
     <a class="account-connect button middle blue">
-        <%= FilesUCResource.ThirdPartyConnectAccount %>
+        <%: FilesUCResource.ThirdPartyConnectAccount %>
     </a>
     <% } %>
 
@@ -28,13 +28,13 @@
         </header>
         <body>
             <div id="thirdPartyPanel">
-                <div><%=FilesUCResource.ThirdPartyFolderTitle%></div>
+                <div><%: FilesUCResource.ThirdPartyFolderTitle %></div>
                 <input type="text" id="thirdPartyTitle" maxlength="<%=Global.MaxTitle%>" class="textEdit" />
 
                 <%if (Global.IsAdministrator && !CoreContext.Configuration.Personal) %>
                 <% { %>
                 <label id="thirdPartyLabelCorporate">
-                    <input type="checkbox" id="thirdPartyCorporate" class="checkbox" /><%= FilesUCResource.ThirdPartySetCorporate %></label>
+                    <input type="checkbox" id="thirdPartyCorporate" class="checkbox" /><%: FilesUCResource.ThirdPartySetCorporate %></label>
                 <% } %>
             </div>
             <div class="middle-button-container">
@@ -53,17 +53,17 @@
 <div id="thirdPartyDelete" class="popup-modal">
     <sc:Container runat="server" id="ThirdPartyDeleteTmp">
         <header>
-            <%=FilesUCResource.ThirdPartyDeleteCaption%>
+            <%: FilesUCResource.ThirdPartyDeleteCaption %>
         </header>
         <body>
             <div id="thirdPartyDeleteDescr"></div>
             <div class="middle-button-container">
                 <a id="deleteThirdParty" class="button blue middle">
-                    <%=FilesUCResource.ButtonOk%>
+                    <%= FilesUCResource.ButtonOk %>
                 </a>
                 <span class="splitter-buttons"></span>
                 <a class="button gray middle" onclick="PopupKeyUpActionProvider.CloseDialog();return false;">
-                    <%=FilesUCResource.ButtonCancel%>
+                    <%= FilesUCResource.ButtonCancel %>
                 </a>
             </div>
         </body>
@@ -73,10 +73,10 @@
 <div id="thirdPartyNewAccount" class="popup-modal">
     <sc:Container runat="server" id="ThirdPartyNewAccountTmp">
         <header>
-            <%=FilesUCResource.ThirdPartyConnectingAccount%>
+            <%: FilesUCResource.ThirdPartyConnectingAccount %>
         </header>
         <body>
-            <%=FilesUCResource.ThirdPartyConnectAccountsDescription%>
+            <%: FilesUCResource.ThirdPartyConnectAccountsDescription %>
             <div class="clearFix">
                 <% if (ImportConfiguration.SupportGoogleDriveInclusion) %>
                 <% { %>

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -25,9 +25,7 @@
 
 
 using ASC.CRM.Core.Entities;
-using ASC.Web.Core.Files;
-using ASC.Web.Studio.Core;
-using ASC.Web.Studio.UserControls.Statistics;
+using ASC.Web.Files.Services.DocumentService;
 using Ionic.Zip;
 using System;
 using System.Linq;
@@ -36,9 +34,9 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Web;
-using System.Web.Configuration;
 using System.Xml;
 using ASC.Web.CRM.Resources;
+using File = ASC.Files.Core.File;
 
 namespace ASC.Web.CRM.Classes
 {
@@ -80,7 +78,7 @@ namespace ASC.Web.CRM.Classes
 
                 log.DebugFormat("PdfCreator. CreateAndSaveFile. Invoice ID = {0}. UrlToFile = {1}", invoiceId, urlToFile);
 
-                var file = new ASC.Files.Core.File
+                var file = new File
                     {
                         Title = string.Format("{0}{1}", invoice.Number, FormatPdf),
                         FolderID = Global.DaoFactory.GetFileDao().GetRoot()
@@ -115,7 +113,7 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        public static ASC.Files.Core.File CreateFile(Invoice data)
+        public static File CreateFile(Invoice data)
         {
             var log = log4net.LogManager.GetLogger("ASC.CRM");
             try
@@ -135,14 +133,13 @@ namespace ASC.Web.CRM.Classes
 
         private static string GetUrlToFile(Stream docxStream)
         {
-            var documentService = new DocumentService(StudioKeySettings.GetKey(), StudioKeySettings.GetSKey(), TenantStatisticsProvider.GetUsersCount());
-            var revisionId = DocumentService.GenerateRevisionId(Guid.NewGuid().ToString());
+            var revisionId = DocumentServiceConnector.GenerateRevisionId(Guid.NewGuid().ToString());
 
-            var externalUri = documentService.GetExternalUri(FilesLinkUtility.DocServiceStorageUrl, docxStream, "text/plain", revisionId);
+            var externalUri = DocumentServiceConnector.GetExternalUri(docxStream, "text/plain", revisionId);
             log4net.LogManager.GetLogger("ASC.CRM").DebugFormat("PdfCreator. GetUrlToFile. externalUri = {0}", externalUri);
 
             string urlToFile;
-            documentService.GetConvertedUri(FilesLinkUtility.DocServiceConverterUrl, externalUri, FormatDocx, FormatPdf, revisionId, false, out urlToFile);
+            DocumentServiceConnector.GetConvertedUri(externalUri, FormatDocx, FormatPdf, revisionId, false, out urlToFile);
 
             log4net.LogManager.GetLogger("ASC.CRM").DebugFormat("PdfCreator. GetUrlToFile. urlToFile = {0}", urlToFile);
             return urlToFile;
@@ -152,36 +149,31 @@ namespace ASC.Web.CRM.Classes
         {
             using (var docxStream = GetStreamDocx(data))
             {
-                var documentService = new DocumentService(StudioKeySettings.GetKey(), StudioKeySettings.GetSKey(), TenantStatisticsProvider.GetUsersCount());
-                var revisionId = DocumentService.GenerateRevisionId(Guid.NewGuid().ToString());
+                var revisionId = DocumentServiceConnector.GenerateRevisionId(Guid.NewGuid().ToString());
 
-                var externalUri = documentService.GetExternalUri(FilesLinkUtility.DocServiceStorageUrl, docxStream, "text/plain", revisionId);
+                var externalUri = DocumentServiceConnector.GetExternalUri(docxStream, MimeMapping.GetMimeMapping(FormatDocx), revisionId);
 
                 string urlToFile;
-                documentService.GetConvertedUri(FilesLinkUtility.DocServiceConverterUrl, externalUri, FormatDocx, FormatPdf, revisionId, true, out urlToFile);
+                DocumentServiceConnector.GetConvertedUri(externalUri, FormatDocx, FormatPdf, revisionId, true, out urlToFile);
 
                 return new ConverterData
                     {
-                        ConverterUrl = FilesLinkUtility.DocServiceConverterUrl,
                         StorageUrl = externalUri,
                         RevisionId = revisionId,
                         InvoiceId = data.ID,
-                        UrlToFile = urlToFile
                     };
             }
         }
 
-        public static ASC.Files.Core.File GetConvertedFile(ConverterData data)
+        public static File GetConvertedFile(ConverterData data)
         {
-            if (string.IsNullOrEmpty(data.ConverterUrl) || string.IsNullOrEmpty(data.StorageUrl) || string.IsNullOrEmpty(data.RevisionId))
+            if (string.IsNullOrEmpty(data.StorageUrl) || string.IsNullOrEmpty(data.RevisionId))
             {
                 return null;
             }
             
-            var documentService = new DocumentService(StudioKeySettings.GetKey(), StudioKeySettings.GetSKey(), TenantStatisticsProvider.GetUsersCount());
-            
             string urlToFile;
-            documentService.GetConvertedUri(data.ConverterUrl, data.StorageUrl, FormatDocx, FormatPdf, data.RevisionId, true, out urlToFile);
+            DocumentServiceConnector.GetConvertedUri(data.StorageUrl, FormatDocx, FormatPdf, data.RevisionId, true, out urlToFile);
 
             if (string.IsNullOrEmpty(urlToFile))
             {
@@ -193,9 +185,9 @@ namespace ASC.Web.CRM.Classes
             return SaveFile(invoice, urlToFile);
         }
 
-        private static ASC.Files.Core.File SaveFile(Invoice data, string url)
+        private static File SaveFile(Invoice data, string url)
         {
-            ASC.Files.Core.File file = null;
+            File file = null;
 
             var request = (HttpWebRequest)WebRequest.Create(url);
 
@@ -205,7 +197,7 @@ namespace ASC.Web.CRM.Classes
                 {
                     if (stream != null)
                     {
-                        var document = new ASC.Files.Core.File
+                        var document = new File
                         {
                             Title = string.Format("{0}{1}", data.Number, FormatPdf),
                             FolderID = Global.DaoFactory.GetFileDao().GetRoot(),
@@ -705,10 +697,8 @@ namespace ASC.Web.CRM.Classes
 
     public class ConverterData
     {
-        public string ConverterUrl { get; set; }
         public string StorageUrl { get; set; }
         public string RevisionId { get; set; }
-        public string UrlToFile { get; set; }
         public int InvoiceId { get; set; }
         public int FileId { get; set; }
     }

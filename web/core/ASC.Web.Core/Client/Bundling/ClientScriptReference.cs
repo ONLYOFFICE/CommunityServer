@@ -24,18 +24,17 @@
 */
 
 
+using ASC.Common.Caching;
 using ASC.Core;
 using ASC.Web.Core.Client.HttpHandlers;
 using log4net;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
 using System.Web.UI;
@@ -46,14 +45,8 @@ namespace ASC.Web.Core.Client.Bundling
     [ToolboxData("<{0}:ClientScriptReference runat=server></{0}:ClientScriptReference>")]
     public class ClientScriptReference : WebControl
     {
-        private static readonly ConcurrentDictionary<string, List<ClientScript>> cache = new ConcurrentDictionary<string, List<ClientScript>>(StringComparer.InvariantCultureIgnoreCase);
-
-
-        public virtual ICollection<Type> Includes
-        {
-            get;
-            private set;
-        }
+        private static readonly ICache cache = AscCache.Default;
+        public virtual ICollection<Type> Includes { get; private set; }
 
 
         public ClientScriptReference()
@@ -61,36 +54,16 @@ namespace ASC.Web.Core.Client.Bundling
             Includes = new HashSet<Type>();
         }
 
-
-        public override void RenderBeginTag(HtmlTextWriter writer)
-        {
-        }
-
-        public override void RenderEndTag(HtmlTextWriter writer)
-        {
-        }
+        public override void RenderBeginTag(HtmlTextWriter writer) { }
+        public override void RenderEndTag(HtmlTextWriter writer) { }
 
         protected override void RenderContents(HtmlTextWriter output)
         {
-            var link = GetLink(false);
-            if (ClientSettings.BundlingEnabled)
-            {
-                var bundle = BundleHelper.GetJsBundle(link);
-                if (bundle == null)
-                {
-                    bundle = BundleHelper.JsBundle(link).Include(link, true);
-                    bundle.UseCache = false;
-                    BundleHelper.AddBundle(bundle);
-                }
-                output.Write(BundleHelper.HtmlScript(link));
-            }
-            else
-            {
-                output.Write(BundleHelper.HtmlScript(VirtualPathUtility.ToAbsolute(link), false, false));
-            }
+            var link = GetLink();
+            output.Write(BundleHelper.HtmlScript(VirtualPathUtility.ToAbsolute(link), false, false));
         }
 
-        public string GetLink(bool onlyLocalization)
+        public string GetLink()
         {
             var filename = string.Empty;
             foreach (var type in Includes)
@@ -99,15 +72,12 @@ namespace ASC.Web.Core.Client.Bundling
             }
             var filenameHash = GetHash(filename) + "_" + CultureInfo.CurrentCulture.Name.ToLowerInvariant();
 
-            var scripts = new List<ClientScript>();
-            if (!cache.TryGetValue(filenameHash, out scripts))
+            var scripts = cache.Get<List<string>>(filenameHash);
+            if (scripts == null)
             {
-                scripts = Includes.Select(type => (ClientScript)Activator.CreateInstance(type)).ToList();
-                cache.TryAdd(filenameHash, scripts);
-                if (onlyLocalization && scripts.Any(s => !(s is ClientScriptLocalization)))
-                {
-                    throw new InvalidOperationException("Only localization script available.");
-                }
+
+                scripts = Includes.Select(type => type.AssemblyQualifiedName).ToList();
+                cache.Insert(filenameHash, scripts, DateTime.MaxValue);
             }
 
             return string.Format("~{0}{1}.js?ver={2}", BundleHelper.CLIENT_SCRIPT_VPATH, filenameHash, GetContentHash(filenameHash));
@@ -123,7 +93,7 @@ namespace ASC.Web.Core.Client.Bundling
                 {
                     var cultureName = uri.Split('_').Last().Split('.').FirstOrDefault();
                     var culture = CultureInfo.GetCultureInfo(cultureName);
-                    if (culture != CultureInfo.CurrentCulture)
+                    if (!Equals(culture, CultureInfo.CurrentCulture))
                     {
                         oldCulture = CultureInfo.CurrentCulture;
                         Thread.CurrentThread.CurrentCulture = culture;
@@ -142,15 +112,7 @@ namespace ASC.Web.Core.Client.Bundling
             {
                 var fileName = uri.Split('.').FirstOrDefault();
                 fileName = Path.GetFileNameWithoutExtension(fileName ?? uri);
-
-                List<ClientScript> scripts;
-
-                if (!cache.TryGetValue(fileName, out scripts))
-                {
-                    throw new Exception(string.Format("scripts {0} is empty", fileName));
-                }
-
-                foreach (var script in scripts)
+                foreach (var script in GetClientScriptListFromCache(fileName))
                 {
                     content.Append(script.GetData(HttpContext.Current));
                 }
@@ -167,7 +129,7 @@ namespace ASC.Web.Core.Client.Bundling
                 Thread.CurrentThread.CurrentUICulture = oldCulture;
             }
             
-            return content.ToString();
+            return new JsTransform(true).Process("", content.ToString());
         }
 
         public static string GetContentHash(string uri)
@@ -175,9 +137,9 @@ namespace ASC.Web.Core.Client.Bundling
             var version = string.Empty;
             var types = new List<Type>();
             var fileName = uri.Split('.').FirstOrDefault();
-            fileName = Path.GetFileNameWithoutExtension(fileName != null ? fileName : uri);
+            fileName = Path.GetFileNameWithoutExtension(fileName ?? uri);
 
-            foreach (var s in cache[fileName])
+            foreach (var s in GetClientScriptListFromCache(fileName))
             {
                 version += s.GetCacheHash();
                 types.Add(s.GetType());
@@ -186,7 +148,7 @@ namespace ASC.Web.Core.Client.Bundling
             var tenant = CoreContext.TenantManager.GetCurrentTenant(false);
             if (tenant != null && types.All(r => r.BaseType != typeof(ClientScriptLocalization)))
             {
-                version = String.Join(string.Empty, new[] { ToString(tenant.TenantId), ToString(tenant.Version), ToString(tenant.LastModified.Ticks), version });
+                version = string.Join(string.Empty, ToString(tenant.TenantId), ToString(tenant.Version), ToString(tenant.LastModified.Ticks), version);
             }
 
             return GetHash(version);
@@ -201,5 +163,14 @@ namespace ASC.Web.Core.Client.Bundling
         {
             return HttpServerUtility.UrlTokenEncode(MD5.Create().ComputeHash(Encoding.ASCII.GetBytes(s)));
         }
+
+        private static IEnumerable<ClientScript> GetClientScriptListFromCache(string fileName)
+        {
+            return cache.Get<List<string>>(fileName).Select(r =>
+            {
+                var rSplit = r.Split(',');
+                return (ClientScript)Activator.CreateInstance(rSplit[1].Trim(), rSplit[0].Trim()).Unwrap();
+            });
+        } 
     }
 }

@@ -27,7 +27,7 @@
 using ASC.Xmpp.Core.protocol.client;
 using ASC.Xmpp.Core.protocol.extensions.bytestreams;
 using ASC.Xmpp.Core.protocol.extensions.filetransfer;
-using ASC.Xmpp.Core.protocol.extensions.ibb;
+using XmppIbb = ASC.Xmpp.Core.protocol.extensions.ibb;
 using ASC.Xmpp.Core.protocol.extensions.jivesoftware.phone;
 using ASC.Xmpp.Core.protocol.extensions.si;
 using ASC.Xmpp.Core.protocol.iq.jingle;
@@ -51,10 +51,10 @@ namespace ASC.Xmpp.Server.Services.Jabber
     [XmppHandler(typeof(Range))]
 
     //ibb
-    [XmppHandler(typeof(Base))]
-    [XmppHandler(typeof(Close))]
-    [XmppHandler(typeof(Data))]
-    [XmppHandler(typeof(Open))]
+    [XmppHandler(typeof(XmppIbb.Base))]
+    [XmppHandler(typeof(XmppIbb.Close))]
+    [XmppHandler(typeof(XmppIbb.Data))]
+    [XmppHandler(typeof(XmppIbb.Open))]
 
     //livesoftware.phone
     [XmppHandler(typeof(PhoneAction))]

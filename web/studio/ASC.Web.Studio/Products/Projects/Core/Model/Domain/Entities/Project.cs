@@ -36,6 +36,10 @@ namespace ASC.Projects.Core.Domain
     [DebuggerDisplay("Project: ID = {ID}, Title = {Title}")]
     public class Project : DomainObject<Int32>
     {
+        public override EntityType EntityType { get { return EntityType.Project; } }
+
+        public override string ItemPath { get { return "{0}tasks.aspx?prjID={1}"; } }
+
         public string Title { get; set; }
 
         public string HtmlTitle

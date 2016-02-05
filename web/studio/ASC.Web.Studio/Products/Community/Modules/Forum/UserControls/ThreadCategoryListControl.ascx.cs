@@ -52,7 +52,7 @@ namespace ASC.Web.UserControls.Forum
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            _settings = ForumManager.GetSettings(SettingsID);
+            _settings = Community.Forum.ForumManager.Settings;
 
             _categoryRepeater.DataSource = Categories;
             _categoryRepeater.ItemDataBound += new RepeaterItemEventHandler(CategoryRepeater_ItemDataBound);

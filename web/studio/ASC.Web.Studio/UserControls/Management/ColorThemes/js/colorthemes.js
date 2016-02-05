@@ -52,10 +52,11 @@ ASC.Controls.ColorThemesSettings = function () {
 
         var saveColorThemeSettings = function() {
             var color = jq("input[name='colorTheme']:checked").val();
-            ColorThemeController.SaveColorTheme(color, function(result) {
-                jq("body").addClass(color);
-                window.location.reload(true);
-                console.log(result);
+            Teamlab.setColorTheme({ color: color }, color, {
+                success: function (params, response) {
+                    jq("body").addClass(params.color);
+                    window.location.reload(true);
+                }
             });
         };
     };

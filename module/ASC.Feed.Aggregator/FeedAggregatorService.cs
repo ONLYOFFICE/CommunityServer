@@ -24,16 +24,11 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Web;
+using ASC.Common.Caching;
 using ASC.Common.Data;
 using ASC.Common.Web;
 using ASC.Core;
-using ASC.Core.Caching;
+using ASC.Core.Notify.Signalr;
 using ASC.Feed.Aggregator.Config;
 using ASC.Feed.Aggregator.Modules;
 using ASC.Feed.Aggregator.Modules.Community;
@@ -46,7 +41,12 @@ using ASC.Web.Core;
 using ASC.Web.Studio.Utility;
 using log4net;
 using Newtonsoft.Json;
-using ASC.Core.Notify.Signalr;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading;
+using System.Web;
 
 namespace ASC.Feed.Aggregator
 {
@@ -140,7 +140,7 @@ namespace ASC.Feed.Aggregator
                     {
                         // Warning! There is hack here!
                         // clearing the cache to get the correct acl
-                        var cache = AscCache.Default;
+                        var cache = AscCache.Memory;
                         cache.Remove("acl" + tenant);
                         cache.Remove("/webitemsecurity/" + tenant);
                         cache.Remove(string.Format("sub/{0}/{1}/{2}", tenant, "6045b68c-2c2e-42db-9e53-c272e814c4ad", NotifyConstants.Event_NewCommentForMessage.ID));

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -26,7 +26,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Web.UI;
 using ASC.Core;
@@ -35,7 +34,6 @@ using ASC.Core.Users;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 using AjaxPro;
-using System.Text.RegularExpressions;
 using System.Web;
 using ASC.Web.Studio.Core.Backup;
 
@@ -47,12 +45,12 @@ namespace ASC.Web.Studio.UserControls.Management
     {
         public const string Location = "~/UserControls/Management/TransferPortal/TransferPortal.ascx";
 
-        protected class TransferRegionWithName : TransferRegion
+        public class TransferRegionWithName : TransferRegion
         {
             public string FullName { get; set; }
         }
 
-        private List<TransferRegionWithName> _transferRegions;
+        private static List<TransferRegionWithName> _transferRegions;
 
         protected string CurrentRegion
         {
@@ -64,7 +62,7 @@ namespace ASC.Web.Studio.UserControls.Management
             get { return TransferRegions.Where(x => x.IsCurrentRegion).Select(x => x.BaseDomain).FirstOrDefault() ?? string.Empty; }
         }
 
-        protected List<TransferRegionWithName> TransferRegions
+        public static List<TransferRegionWithName> TransferRegions
         {
             get { return _transferRegions ?? (_transferRegions = GetRegions()); }
         }
@@ -73,17 +71,25 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             get
             {
-                return (ConfigurationManager.AppSettings["web.migration.status"] == "true") && TransferRegions.Count > 1;
+                return SetupInfo.IsVisibleSettings(ManagementType.Migration.ToString())
+                    && TransferRegions.Count > 1;
             }
         }
 
-        protected bool EnableMigration
+        protected bool PaidMigration
         {
             get
             {
                 var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-                var quota = TenantExtra.GetTenantQuota();
-                return SetupInfo.IsSecretEmail(currentUser.Email) || currentUser.IsOwner() && !quota.Trial && !quota.Free;
+                return SetupInfo.IsSecretEmail(currentUser.Email) || TenantExtra.GetTenantQuota().HasMigration;
+            }
+        }
+
+        protected bool OwnerMigration
+        {
+            get
+            {
+                return CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsOwner();
             }
         }
 
@@ -91,8 +97,8 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             AjaxPro.Utility.RegisterTypeForAjax(typeof(BackupAjaxHandler), Page);
 
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/TransferPortal/js/transferportal.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/transferportal/css/transferportal.less"));
+            Page.RegisterBodyScripts("~/usercontrols/management/TransferPortal/js/transferportal.js");
+            Page.RegisterStyle("~/usercontrols/management/transferportal/css/transferportal.less");
 
             popupTransferStart.Options.IsPopup = true;
         }

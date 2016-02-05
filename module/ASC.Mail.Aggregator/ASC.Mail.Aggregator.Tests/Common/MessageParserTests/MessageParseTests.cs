@@ -53,7 +53,7 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
         {
             var message = ParseMessage(FILE_PATH);
             
-            var mailMessageItem = new MailMessageItem(message);
+            var mailMessageItem = new MailMessage(message);
 
             Assert.IsNotNull(mailMessageItem);
         }
@@ -63,7 +63,7 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
         {
             var message = ParseMessage(FILE_PATH);
 
-            var mailMessageItem = new MailMessageItem(message);
+            var mailMessageItem = new MailMessage(message);
 
             var htmlBodyWithReplacedEmbedded = MailBoxManager.ReplaceEmbeddedImages(mailMessageItem);
 

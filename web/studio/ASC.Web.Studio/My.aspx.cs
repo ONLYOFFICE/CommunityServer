@@ -64,7 +64,7 @@ namespace ASC.Web.Studio
         protected void Page_Load(object sender, EventArgs e)
         {
             InitScripts();
-            Page.RegisterBodyScripts(ResolveUrl("~/js/uploader/ajaxupload.js"));
+            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js");
 
             Master.DisabledSidePanel = true;
 

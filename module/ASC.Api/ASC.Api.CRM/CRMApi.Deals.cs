@@ -536,6 +536,10 @@ namespace ASC.Api.CRM
             SetAccessToDeal(deal, isPrivate, accessList, isNotify, false);
 
             var membersList = members != null ? members.ToList() : new List<int>();
+
+            if (deal.ContactID > 0)
+                membersList.Add(deal.ContactID);
+
             if (membersList.Any())
             {
                 var contacts = DaoFactory.GetContactDao().GetContacts(membersList.ToArray()).Where(CRMSecurity.CanAccessTo).ToList();

@@ -58,15 +58,6 @@ namespace ASC.Web.CRM.Classes
             get { return !string.IsNullOrEmpty(KeyStorage.Get(SocialMediaConstants.ConfigKeyFacebookDefaultAccessToken)); }
         }
 
-        private static bool IsLinkedInSearchEnabled
-        {
-            get { return !string.IsNullOrEmpty(KeyStorage.Get("linkedInKey"))
-                && !string.IsNullOrEmpty(KeyStorage.Get("linkedInSecret"))
-                && !string.IsNullOrEmpty(KeyStorage.Get("linkedInAccessToken_Default"))
-                && !string.IsNullOrEmpty(KeyStorage.Get("linkedInAccessTokenSecret_Default"));
-            }
-        }
-
         private static bool IsTwitterSearchEnabled
         {
             get { return !string.IsNullOrEmpty(KeyStorage.Get("twitterKey")) 
@@ -249,11 +240,10 @@ namespace ASC.Web.CRM.Classes
                                 var presetCompanyForPersonJson = '{5}';
                                 var presetPersonsForCompanyJson = '{6}';
                                 var facebokSearchEnabled = {7};
-                                var linkedinSearchEnabled = {8};
-                                var twitterSearchEnabled = {9};
-                                var contactActionCurrencies = {10};
-                                var countryListExt = {11};
-                                var currentCultureName = '{12}'; ",
+                                var twitterSearchEnabled = {8};
+                                var contactActionCurrencies = {9};
+                                var countryListExt = {10};
+                                var currentCultureName = '{11}'; ",
                               json,
                               JsonConvert.SerializeObject(networks),
                               JsonConvert.SerializeObject(tags.ToList().ConvertAll(t => t.HtmlEncode())),
@@ -267,7 +257,6 @@ namespace ASC.Web.CRM.Classes
                               presetCompanyForPersonJson,
                               presetPersonsForCompanyJson,
                               IsFacebookSearchEnabled.ToString().ToLower(),
-                              IsLinkedInSearchEnabled.ToString().ToLower(),
                               IsTwitterSearchEnabled.ToString().ToLower(),
                               JsonConvert.SerializeObject(CurrencyProvider.GetAll()),
                               JsonConvert.SerializeObject(Global.GetCountryListExt()),

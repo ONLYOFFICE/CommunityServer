@@ -84,7 +84,7 @@
     <EmbeddedResource Include="Resources\style.css">
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\TemplateResource.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>TemplateResource.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </EmbeddedResource>

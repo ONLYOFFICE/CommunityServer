@@ -33,6 +33,8 @@ using ASC.Web.Core.Helpers;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.UserControls.Bookmarking.Common.Util;
 using ASC.Web.UserControls.Bookmarking.Resources;
+using ASC.Bookmarking.Common;
+using ASC.Bookmarking;
 
 namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
 {
@@ -206,11 +208,13 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
         {
             get
             {
-                switch (ServiceHelper.DisplayMode)
+                BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                    BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+                switch (displayMode)
                 {
-                    case BookmarkingServiceHelper.BookmarkDisplayMode.AllBookmarks:
+                    case BookmarkDisplayMode.AllBookmarks:
                         return true;
-                    case BookmarkingServiceHelper.BookmarkDisplayMode.SelectedBookmark:
+                    case BookmarkDisplayMode.SelectedBookmark:
                         return true;
                 }
                 return false;
@@ -386,17 +390,29 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
 
         public bool IsAllBookmarksMode()
         {
-            return BookmarkingServiceHelper.BookmarkDisplayMode.AllBookmarks == ServiceHelper.DisplayMode;
+            BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+            return BookmarkDisplayMode.AllBookmarks == displayMode;
         }
 
         public bool IsBookmarkInfoMode
         {
-            get { return BookmarkingServiceHelper.BookmarkDisplayMode.SelectedBookmark == ServiceHelper.DisplayMode; }
+            get
+            {
+                BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                    BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+                return BookmarkDisplayMode.SelectedBookmark == displayMode;
+            }
         }
 
         public string FavouriteBookmarksMode
         {
-            get { return (BookmarkingServiceHelper.BookmarkDisplayMode.Favourites == ServiceHelper.DisplayMode).ToString().ToLower(); }
+            get
+            {
+                BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                    BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+                return (BookmarkDisplayMode.Favourites == displayMode).ToString().ToLower();
+            }
         }
 
         #endregion

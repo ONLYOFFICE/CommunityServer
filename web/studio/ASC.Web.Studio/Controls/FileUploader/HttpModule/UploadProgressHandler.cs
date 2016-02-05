@@ -80,21 +80,8 @@ namespace ASC.Web.Studio.Controls.FileUploader.HttpModule
             }
             else
             {
-                context.Response.ContentType = "application/json";
-                var id = context.Request.QueryString[UploadProgressStatistic.UploadIdField];
-                var us = UploadProgressStatistic.GetStatistic(id);
-
-                if (!string.IsNullOrEmpty(context.Request["limit"]))
-                {
-                    var limit = long.Parse(context.Request["limit"]);
-                    if (us.TotalBytes > limit)
-                    {
-                        us.ReturnCode = 1;
-                        us.IsFinished = true;
-                    }
-                }
-
-                context.Response.Write(us.ToJson());
+                context.Response.StatusCode = 400;
+                context.Response.Write("Not found submit parameter.");
             }
         }
     }

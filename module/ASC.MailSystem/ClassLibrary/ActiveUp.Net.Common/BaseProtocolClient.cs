@@ -3,21 +3,27 @@ using System.IO;
 using System.Linq;
 using System.Net.Security;
 using System.Net.Sockets;
-using System.Security.Authentication;
-using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using ActiveUp.Net.Mail;
-
+using ActiveUp.Net.Security;
 
 namespace ActiveUp.Net.Common
 {
     public abstract class BaseProtocolClient : TcpClient
     {
+        public const int MIN_RESPONSE_CAPACITY = 1000;
+        public const int MAX_RESPONSE_CAPACITY = 8000;
+
 #if !PocketPC
-        protected System.Net.Security.SslStream _sslStream;
+        protected SslStream _sslStream;
 #endif
+
+        public bool LoadOriginalData { get; set; }
+
+        public int TcpSendTimeout { get; set; }
+
+        public int TcpReceiveTimeout { get; set; }
 
         public bool CertificatePermit { get; set; }
 
@@ -34,11 +40,11 @@ namespace ActiveUp.Net.Common
                 var hostEntry = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
                 var ip = (
                            from addr in hostEntry.AddressList
-                           where addr.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork
+                           where addr.AddressFamily == AddressFamily.InterNetwork
                            select addr.ToString()
                     ).FirstOrDefault();
 
-                if (!string.IsNullOrEmpty(ip)) domain = "[" + ip + "]";
+                if (!string.IsNullOrEmpty(ip)) domain = string.Format("[{0}]", ip);
             }
             catch
             {
@@ -54,7 +60,7 @@ namespace ActiveUp.Net.Common
             }
         }
 
-        public new System.IO.Stream GetStream()
+        public new Stream GetStream()
         {
 #if !PocketPC
             if (this._sslStream != null && this._sslStream.IsAuthenticated)
@@ -65,14 +71,14 @@ namespace ActiveUp.Net.Common
 
         public virtual string Command(string command, int expectedResponseCode)
         {
-            GetStream().Write(Encoding.GetEncoding("iso-8859-1").GetBytes(command + "\r\n"), 0, command.Length + 2);
+            GetStream()
+                .Write(Encoding.GetEncoding("iso-8859-1").GetBytes(string.Format("{0}\r\n", command)), 0,
+                    command.Length + 2);
 
             using (var sr = new StreamReader(GetStream(), Encoding.GetEncoding("iso-8859-1"), false,
                                                        Client.ReceiveBufferSize, true))
             {
-                sr.BaseStream.ReadTimeout = Client.ReceiveTimeout;
-
-                var buffer = new StringBuilder();
+                var buffer = new StringBuilder(MIN_RESPONSE_CAPACITY);
 
                 while (true)
                 {
@@ -83,16 +89,16 @@ namespace ActiveUp.Net.Common
 
                     if (line.StartsWith(expectedResponseCode + "-"))
                     {
-                        buffer.Append(line + "\r\n");
+                        buffer.Append(line).Append("\r\n");
                     }
                     else if (line.StartsWith(expectedResponseCode + " "))
                     {
-                        buffer.Append(line + "\r\n");
+                        buffer.Append(line).Append("\r\n");
                         break;
                     }
                     else
-                        throw new Exception("Command \"" + (command.Length < 200 ? command : "Data") +
-                                            "\" failed : " + line);
+                        throw new Exception(string.Format("Command \"{0}\" failed {1}",
+                            (command.Length < 200 ? command : "Data"), line));
                 }
 
                 return buffer.ToString();
@@ -101,19 +107,19 @@ namespace ActiveUp.Net.Common
 
         public virtual string Ehlo(string domain)
         {
-            return this.Command("ehlo " + domain, 250);
+            return this.Command(string.Format("ehlo {0}", domain), 250);
         }
 
 
         public virtual string Helo(string domain)
         {
-            return this.Command("helo " + domain, 250);
+            return this.Command(string.Format("helo {0}", domain), 250);
         }
 
-        protected virtual void DoSslHandShake(ActiveUp.Net.Security.SslHandShake sslHandShake)
+        protected virtual void DoSslHandShake(SslHandShake sslHandShake)
         {
             Logger.AddEntry("DoSslHandShake:Creating SslStream...", 2);
-            this._sslStream = new System.Net.Security.SslStream(base.GetStream(), false,
+            this._sslStream = new SslStream(base.GetStream(), false,
                                                                 CertificatePermit
                                                                     ? (sender, certificate, chain, sslPolicyErrors) => true
                                                                     : sslHandShake.ServerCertificateValidationCallback,
@@ -154,7 +160,7 @@ namespace ActiveUp.Net.Common
 
         public virtual string EndAsyncOperation(IAsyncResult result)
         {
-            ActiveUp.Net.Mail.Logger.AddEntry("EndAsyncOperation...", 2);
+            Logger.AddEntry("EndAsyncOperation...", 2);
             return (string)result.AsyncState.GetType().GetMethod("EndInvoke").Invoke(result.AsyncState, new object[] { result });
         }
 

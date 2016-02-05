@@ -24,15 +24,6 @@
 */
 
 
-// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="" file="MucHelpers.cs">
-//   
-// </copyright>
-// <summary>
-//   (c) Copyright Ascensio System Limited 2008-2009
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-
 using ASC.Xmpp.Core.protocol.client;
 using ASC.Xmpp.Core.protocol.x.muc;
 

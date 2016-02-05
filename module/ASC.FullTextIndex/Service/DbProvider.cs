@@ -56,11 +56,15 @@ namespace ASC.FullTextIndex.Service
             }
         }
 
-        public static void UpdateLastDeltaIndexDate(ModuleInfo module)
+        public static void UpdateLastIndexDate(string moduleName, DateTime lastModified)
         {
             using (var db = new DbManager("default"))
             {
-                db.ExecuteNonQuery(new SqlInsert("webstudio_index", true).InColumnValue("index_name", module.Delta));
+                var query = new SqlInsert("webstudio_index", true)
+                    .InColumnValue("index_name", moduleName)
+                    .InColumnValue("last_modified", lastModified);
+
+                db.ExecuteNonQuery(query);
             }
         }
 
@@ -80,12 +84,11 @@ namespace ASC.FullTextIndex.Service
             }
         }
 
-        public static bool CheckDeltaIndexNotEmpty(ModuleInfo module)
+        public static IEnumerable<int> GetDeltaTenantId(ModuleInfo module)
         {
             using (var db = new DbManager(TextIndexCfg.ConnectionStringName))
             {
-                var query = new SqlQuery(module.Delta).SelectCount();
-                return db.ExecuteScalar<int>(query) > 0;
+                return db.ExecuteList(new SqlQuery(module.Delta).Select("tenant_id")).ConvertAll(r => GetId(r[0]));
             }
         }
 

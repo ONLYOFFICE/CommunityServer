@@ -27,11 +27,11 @@
 using System;
 using System.IO;
 using System.Web;
+using ASC.CRM.Core;
 using ASC.VoipService;
 using ASC.Web.CRM.Classes;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Utility;
-using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Core.Voip;
 using ASC.Web.Studio.Utility;
 
@@ -43,6 +43,10 @@ namespace ASC.Web.CRM.Controls.Settings
 
         public FileUploadResult ProcessUpload(HttpContext context)
         {
+            if (!VoipPaymentSettings.IsEnabled
+                || !CRMSecurity.IsAdmin)
+                throw CRMSecurity.CreateSecurityException();
+
             if (context.Request.Files.Count == 0)
             {
                 return Error("No files.");
@@ -114,7 +118,7 @@ namespace ASC.Web.CRM.Controls.Settings
             }
 
             buyNumberContainer.Options.IsPopup = true;
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/asc/core/voip.countries.js"));
+            Page.RegisterBodyScripts("~/js/asc/core/voip.countries.js");
             Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("voip.quick.js"));
         }
     }

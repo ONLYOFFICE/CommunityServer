@@ -4,11 +4,13 @@
 
 <%@ Page Language="C#" MasterPageFile="~/Products/Files/Masters/BasicTemplate.Master" EnableViewState="false" EnableViewStateMac="false" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Files._Default" %>
 
-<%@ Import Namespace="System.Threading" %>
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
 <%@ Import Namespace="ASC.Web.Files.Import" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
+<%@ Import Namespace="ASC.Web.Files.Utils" %>
+
+<%@ MasterType TypeName="ASC.Web.Files.Masters.BasicTemplate" %>
 
 <asp:Content runat="server" ContentPlaceHolderID="BTSidePanel">
     <div class="page-menu">
@@ -17,13 +19,13 @@
 
     <% if (CoreContext.Configuration.Personal)
        { %>
-    <a href="#more" class="morefeatures-link gray-text"><%= string.Format(FilesUCResource.MoreFeatures, "<br>", "<span>", "</span>") %></a>
+    <a href="#more" class="morefeatures-link banner-link gray-text"><%= string.Format(FilesUCResource.MoreFeatures, "<br>", "<span>", "</span>") %></a>
     <% } %>
 
     <% if (DisplayAppsBanner)
        { %>
-    <a class="mobile-app-banner <%= Thread.CurrentThread.CurrentUICulture.Name %>" target="_blank"
-        href="https://itunes.apple.com/us/app/onlyoffice-documents/id944896972"></a>
+    <a href="https://itunes.apple.com/app/onlyoffice-documents/id944896972?mt=8" target="_blank"
+        class="mobile-app-banner banner-link gray-text"><%= string.Format(FilesUCResource.AppStore, "<br>", "<span>", "</span>") %></a>
     <% } %>
 </asp:Content>
 
@@ -34,7 +36,7 @@
     <%--Panels--%>
 
     <div id="settingCommon">
-        <% if (Global.IsAdministrator && !CoreContext.Configuration.Personal && ImportConfiguration.SupportInclusion)%>
+        <% if (Global.IsAdministrator && !CoreContext.Configuration.Personal && ImportConfiguration.SupportInclusion && !Desktop)%>
         <% { %>
         <span class="header-base"><%= FilesUCResource.ThirdPartyAccounts %></span>
         <br />
@@ -55,12 +57,15 @@
             <input type="checkbox" class="update-if-exist float-left checkbox" <%= FilesSettings.UpdateIfExist ? "checked=\"checked\"" : string.Empty %> />
             <%= string.Format(FilesUCResource.ConfirmUpdateIfExist, "<br/><span class=\"text-medium-describe\">", "</span>")%>
         </label>
+        <% if (FileConverter.EnableAsUploaded)
+           { %>
         <br />
         <br />
         <label>
             <input type="checkbox" class="store-original checkbox" <%= FilesSettings.StoreOriginalFiles ? "checked=\"checked\"" : string.Empty %> />
             <%= FilesUCResource.ConfirmStoreOriginalUploadCbxLabelText %>
         </label>
+        <% } %>
     </div>
 
     <div id="settingThirdPartyPanel">
@@ -69,46 +74,6 @@
 
     <div id="helpPanel"></div>
 
-    <% if (AddCustomScript)
-       { %>
+    <asp:PlaceHolder ID="ThirdPartyScriptsPlaceHolder" runat="server"></asp:PlaceHolder>
 
-    <% if ((string)Session["campaign"] == "personal")
-       {
-           Session["campaign"] = ""; %>
-
-    <!-- Google Code for Personal_Onlyoffice Conversion Page -->
-    <script type="text/javascript">
-        /* <![CDATA[ */
-        var google_conversion_id = 1025072253;
-        var google_conversion_language = "en";
-        var google_conversion_format = "2";
-        var google_conversion_color = "ffffff";
-        var google_conversion_label = "YQ8-COb9m1YQ_bjl6AM";
-        var google_remarketing_only = false;
-        /* ]]> */
-    </script>
-    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
-    </script>
-    <noscript>
-        <div style="display: inline;">
-            <img height="1" width="1" style="border-style: none;" alt="" src="//www.googleadservices.com/pagead/conversion/1025072253/?label=YQ8-COb9m1YQ_bjl6AM&guid=ON&script=0" />
-        </div>
-    </noscript>
-
-    <% } %>
-
-    <% Page.RegisterInlineScript(@"
-        try {
-            if (window.ga) {
-                 window.ga('send', 'pageview', '/Account_Registered');
-            }
-        } catch (err) { }
-
-        try {
-            if ((typeof window.yaCounter23426227 !== 'undefined') && (yaCounter23426227!=null)) {
-                yaCounter23426227.reachGoal('Account_Registered'); 
-            }
-         } catch (e) { }
-    "); %>
-    <% } %>
 </asp:Content>

@@ -98,7 +98,7 @@ window.tagsDropdown = (function($) {
         TMMail.setRequiredError('addTagsPanel', false);
 
         arrow = $(obj).find('.down_arrow').offset() != null ? $(obj).find('.down_arrow') : $(obj).find('.arrow-down');
-        popup.css({ left: $(obj).offset().left, top: arrow.offset().top + 8 }).show();
+        popup.css({ left: $(obj).offset().left - 24, top: arrow.offset().top - 64 }).show();
 
         $(popupId).find('.popup-corner').removeClass('bottom');
 
@@ -119,7 +119,7 @@ window.tagsDropdown = (function($) {
     };
 
     var onScroll = function() {
-        popup.css({ top: arrow.offset().top + 8 });
+        popup.css({ top: arrow.offset().top - 64 });
     };
 
     var showMarkRecipientsCheckbox = function() {
@@ -230,7 +230,7 @@ window.tagsDropdown = (function($) {
     };
 
     var createLabel = function() {
-        var tagName = $.trim(TMMail.ltgt(popup.find('input[type="text"]').val()));
+        var tagName = $.trim(popup.find('input[type="text"]').val());
         if (tagName.length == 0) {
             TMMail.setRequiredError('addTagsPanel', true);
             return false;

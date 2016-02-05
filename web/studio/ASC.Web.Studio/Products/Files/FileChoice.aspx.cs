@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -42,18 +42,32 @@ namespace ASC.Web.Files
             get { return FilesLinkUtility.FilesBaseAbsolutePath + "filechoice.aspx"; }
         }
 
+        public const string ParamFilterExt = "fileType";
+        public const string MailMergeParam = "mailmerge";
+        public const string RootParam = "root";
+        public const string ThirdPartyParam = "thirdParty";
         public const string DocumentTypeParam = "documentType";
+
+        protected string RequestExt
+        {
+            get { return (Request[ParamFilterExt] ?? "").Trim().ToLower(); }
+        }
+
+        private bool OnlyFolder
+        {
+            get { return !string.IsNullOrEmpty(Request["onlyFolder"]); }
+        }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Master.Master.DisabledHelpTour = true;
             Master.Master.DisabledSidePanel = true;
             Master.Master.DisabledTopStudioPanel = true;
 
-            Page.RegisterStyleControl(PathProvider.GetFileStaticRelativePath("filechoice.css"));
+            Page.RegisterStyle(PathProvider.GetFileStaticRelativePath("filechoice.css"));
 
             var fileSelector = (FileSelector) LoadControl(FileSelector.Location);
             fileSelector.IsFlat = true;
+            fileSelector.OnlyFolder = OnlyFolder;
             CommonContainerHolder.Controls.Add(fileSelector);
 
             InitScript();
@@ -64,12 +78,43 @@ namespace ASC.Web.Files
             Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("filechoice.js"));
 
             var script = new StringBuilder();
+
+            FolderType folderType;
+            if (Enum.TryParse(Request[RootParam], true, out folderType))
+            {
+                object rootId = null;
+                switch (folderType)
+                {
+                    case FolderType.COMMON:
+                        rootId = Classes.Global.FolderCommon;
+                        break;
+                    case FolderType.USER:
+                        rootId = Classes.Global.FolderMy;
+                        break;
+                }
+                if (rootId != null)
+                    script.AppendFormat("jq(\"#fileSelectorTree > ul > li.tree-node:not([data-id=\\\"{0}\\\"])\").remove();", rootId);
+            }
+
+            if (!string.IsNullOrEmpty(RequestExt))
+            {
+                script.AppendFormat(";ASC.Files.FileSelector.filesFilter = ASC.Files.Constants.FilterType.ByExtension;"
+                                    + "ASC.Files.FileSelector.filesFilterText = \"{0}\";",
+                                    RequestExt.Replace("\"", "\\\""));
+            }
+
             FilterType filter;
             if (Enum.TryParse(Request[DocumentTypeParam], out filter))
             {
                 script.AppendFormat("ASC.Files.FileSelector.filesFilter = ASC.Files.Constants.FilterType[\"{0}\"] || ASC.Files.Constants.FilterType.None;", filter);
             }
-            script.Append("ASC.Files.FileChoice.init();");
+
+            script.AppendFormat("ASC.Files.FileChoice.init(\"{0}\", ({1} == true), ({2} == true), ({3} == true));",
+                                Request[FilesLinkUtility.FolderId],
+                                OnlyFolder.ToString().ToLower(),
+                                (!string.IsNullOrEmpty(Request[ThirdPartyParam])).ToString().ToLower(),
+                                (!string.IsNullOrEmpty(Request[MailMergeParam])).ToString().ToLower());
+
             Page.RegisterInlineScript(script.ToString());
         }
     }

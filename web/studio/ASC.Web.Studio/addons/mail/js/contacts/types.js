@@ -24,9 +24,9 @@
 */
 
 
-window.contactTypes = (function($) {
+window.contactStages = (function($) {
     var initFlag = false;
-    var types = [];
+    var stages = [];
     var events = $({});
     var init = function() {
         if (!initFlag) {
@@ -35,26 +35,26 @@ window.contactTypes = (function($) {
         }
     };
 
-    var onGetTypes = function(params, contactTypes) {
-        types = [];
-        $.each(contactTypes, function(index, value) {
-            types.push({ id: value.id, title: value.title, color: value.color });
+    var onGetStages = function(params, contactStages) {
+        stages = [{ id: 0, title: MailScriptResource.FilterContactStageNotSpecified, color: '#ffffff' }];
+        $.each(contactStages, function(index, value) {
+            stages.push({ id: value.id, title: value.title, color: value.color });
         });
         events.trigger('update');
     };
 
     var update = function() {
-        serviceManager.getCrmContactStatus({}, { success: onGetTypes });
+        serviceManager.getCrmContactStatus({}, { success: onGetStages });
     };
 
-    var getTypes = function() {
-        return types;
+    var getStages = function() {
+        return stages;
     };
 
     return {
         init: init,
         update: update,
-        getTypes: getTypes,
+        getStages: getStages,
         events: events
     };
 })(jQuery);

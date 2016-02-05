@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -28,12 +28,13 @@ using AjaxPro;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Tenants;
-using ASC.Core.Users;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.Voip;
+using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using log4net;
@@ -46,6 +47,7 @@ using System.Threading;
 using System.Web;
 using System.Web.Configuration;
 using System.Web.UI;
+using Constants = ASC.Core.Users.Constants;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -60,18 +62,19 @@ namespace ASC.Web.Studio.UserControls.Management
         protected Partner Partner;
 
         protected bool HideBuyRecommendation;
-        protected bool HideAnnualRecomendation;
-        protected TenantQuota AnnualQuotaForDisplay;
         protected Dictionary<string, bool> ListStarRemark = new Dictionary<string, bool>();
 
         protected int UsersCount;
         protected long UsedSize;
         protected bool SmsEnable;
         protected bool VoipEnable;
-        protected bool AnnualDiscount;
 
         protected Tariff CurrentTariff;
         protected TenantQuota CurrentQuota;
+
+        protected bool MonthIsDisable;
+        protected bool YearIsDisable;
+        protected int MinActiveUser;
 
         private RegionInfo _region = new RegionInfo("US");
         protected decimal RateRuble;
@@ -80,6 +83,8 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             get { return _region.CurrencySymbol; }
         }
+
+        private string _currencyFormat = "{currency}{price}";
 
         private IEnumerable<TenantQuota> _quotaList;
         protected List<TenantQuota> QuotasYear;
@@ -107,8 +112,9 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/tariffsettings/js/tariffusage.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/tariffsettings/css/tariffusage.less"));
+            Page.RegisterBodyScripts("~/usercontrols/management/tariffsettings/js/tariffusage.js");
+            Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tariff.less");
+            Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tariffusage.less");
 
             UsersCount = TenantStatisticsProvider.GetUsersCount();
             UsedSize = TenantStatisticsProvider.GetUsedSize();
@@ -145,38 +151,16 @@ namespace ASC.Web.Studio.UserControls.Management
             _quotaList = _quotaList.OrderBy(r => r.ActiveUsers).ToList().Where(r => !r.Trial);
             QuotasYear = _quotaList.Where(r => r.Year).ToList();
 
-            HideBuyRecommendation = CurrentTariff.Autorenewal || TariffSettings.HideRecommendation || Partner != null;
+            MonthIsDisable = !CurrentQuota.Free && (CurrentQuota.Year || CurrentQuota.Year3) && CurrentTariff.State == TariffState.Paid;
+            YearIsDisable = !CurrentQuota.Free && CurrentQuota.Year3 && CurrentTariff.State == TariffState.Paid;
 
-            AnnualDiscount = QuotasYear.All(q => q.Price2 != decimal.Zero);
-            HideAnnualRecomendation = !AnnualDiscount
-                                      || (CurrentQuota.Year && !CurrentQuota.Free && !CurrentQuota.Trial)
-                                      || TariffSettings.HideAnnualRecomendation
-                                      || CurrentQuota.NonProfit;
-            if (!HideAnnualRecomendation)
-            {
-                AnnualQuotaForDisplay = QuotaForDisplay;
-                if (AnnualQuotaForDisplay == null
-                    || AnnualQuotaForDisplay.Free
-                    || AnnualQuotaForDisplay.Trial
-                    || !AnnualQuotaForDisplay.Visible)
-                {
-                    HideAnnualRecomendation = true;
-                }
-                else if (!AnnualQuotaForDisplay.Year)
-                {
-                    AnnualQuotaForDisplay = _quotaList.FirstOrDefault(r =>
-                                                                      r.ActiveUsers == AnnualQuotaForDisplay.ActiveUsers
-                                                                      && r.Year);
-                    if (AnnualQuotaForDisplay == null)
-                    {
-                        HideAnnualRecomendation = true;
-                    }
-                }
-            }
+            var minYearQuota = QuotasYear.FirstOrDefault(q => q.ActiveUsers >= UsersCount && q.MaxTotalSize >= UsedSize);
+            MinActiveUser = minYearQuota != null ? minYearQuota.ActiveUsers : (QuotasYear.Last().ActiveUsers + 1);
+
+            HideBuyRecommendation = CurrentTariff.Autorenewal || TariffSettings.HideRecommendation || Partner != null;
 
             downgradeInfoContainer.Options.IsPopup = true;
             buyRecommendationContainer.Options.IsPopup = true;
-            annualRecomendationContainer.Options.IsPopup = true;
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
             if (StudioSmsNotificationSettings.IsVisibleSettings
@@ -207,6 +191,7 @@ namespace ASC.Web.Studio.UserControls.Management
             if (Partner == null && Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
             {
                 _region = new RegionInfo("RU");
+                _currencyFormat = "{price}{currency}";
                 RateRuble = SetupInfo.ExchangeRateRuble;
 
                 SetStar(string.Format(Resource.TariffsCurrencyRu, RateRuble));
@@ -215,28 +200,17 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected string TariffDescription()
         {
-            if (CoreContext.Configuration.Standalone && CurrentTariff.QuotaId.Equals(Tenant.DEFAULT_TENANT))
-            {
-                return string.Format(UserControlsCommonResource.TariffServerCE, "<b>", "</b>")
-                       + "</b><br/><br>"
-                       + string.Format(UserControlsCommonResource.TariffLicenseOverReason,
-                                       "<br/>",
-                                       "<a href=\"http://www.onlyoffice.com/online-editor.aspx\" class=\"link underline medium\" >",
-                                       "</a>",
-                                       SetStar(UserControlsCommonResource.TariffServerCEstar));
-            }
-
             if (CurrentQuota.Trial)
             {
                 if (CurrentTariff.State == TariffState.Trial)
                 {
                     return "<b>" + Resource.TariffTrial + "</b> "
                            + (CurrentTariff.DueDate.Date != DateTime.MaxValue.Date
-                                  ? string.Format(Resource.TariffExpiredDate, CurrentTariff.DueDate.ToLongDateString())
+                                  ? string.Format(Resource.TariffExpiredDate, CurrentTariff.DueDate.Date.ToLongDateString())
                                   : "")
                            + "<br />" + Resource.TariffChooseLabel;
                 }
-                return String.Format(Resource.TariffTrialOverdue,
+                return String.Format(Resource.TariffTrialOverdue.HtmlEncode(),
                                      "<span class='tarifff-marked'>",
                                      "</span>",
                                      "<br />", string.Empty, string.Empty);
@@ -247,7 +221,8 @@ namespace ASC.Web.Studio.UserControls.Management
                 return "<b>" + Resource.TariffFree + "</b><br />" + Resource.TariffChooseLabel;
             }
 
-            if (CurrentTariff.State == TariffState.Paid)
+            if (CurrentTariff.State == TariffState.Paid
+                && CurrentTariff.DueDate.Date >= DateTime.Today)
             {
                 if (CurrentQuota.NonProfit)
                 {
@@ -257,20 +232,20 @@ namespace ASC.Web.Studio.UserControls.Management
                 var str = "<b>"
                           + String.Format(UserControlsCommonResource.TariffPaid,
                                           GetPriceString(CurrentQuota.Price),
-                                          CurrentQuota.Year ? UserControlsCommonResource.TariffPerYear : UserControlsCommonResource.TariffPerMonth,
+                                          CurrentQuota.Year3 ? UserControlsCommonResource.TariffPerYear3 : CurrentQuota.Year ? UserControlsCommonResource.TariffPerYear : UserControlsCommonResource.TariffPerMonth,
                                           SetStar(CurrentQuota.Visible ? Resource.TariffRemarkPrice : Resource.TariffPeriodExpired))
                           + "</b> ";
                 if (CurrentTariff.DueDate.Date != DateTime.MaxValue.Date)
-                    str += string.Format(Resource.TariffExpiredDate, CurrentTariff.DueDate.ToLongDateString());
+                    str += string.Format(Resource.TariffExpiredDate, CurrentTariff.DueDate.Date.ToLongDateString());
 
                 if (CurrentTariff.Autorenewal) return str;
                 str += "<br />" + Resource.TariffCanProlong;
                 return str;
             }
 
-            return String.Format(UserControlsCommonResource.TariffOverdue,
+            return String.Format(UserControlsCommonResource.TariffOverdue.HtmlEncode(),
                                  GetPriceString(CurrentQuota.Price),
-                                 CurrentQuota.Year ? UserControlsCommonResource.TariffPerYear : UserControlsCommonResource.TariffPerMonth,
+                                 CurrentQuota.Year3 ? UserControlsCommonResource.TariffPerYear3 : CurrentQuota.Year ? UserControlsCommonResource.TariffPerYear : UserControlsCommonResource.TariffPerMonth,
                                  SetStar(CurrentQuota.Visible ? Resource.TariffRemarkPrice : Resource.TariffPeriodExpired),
                                  "<span class='tariff-marked'>",
                                  "</span>",
@@ -281,36 +256,82 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             return _quotaList.FirstOrDefault(r =>
                                              r.ActiveUsers == quota.ActiveUsers
-                                             && (!r.Year || quota.Free));
+                                             && (!r.Year || quota.Free)
+                                             && !r.Year3);
         }
 
-        protected string GetTypeLink(TenantQuota quota)
+        protected TenantQuota GetQuotaYear3(TenantQuota quota)
         {
-            return quota.ActiveUsers >= UsersCount
-                   && quota.MaxTotalSize >= UsedSize
-                       ? !quota.Free
-                             ? (CurrentQuota.Trial
-                                || CurrentQuota.Free
-                                || CoreContext.Configuration.Standalone && CurrentTariff.QuotaId.Equals(Tenant.DEFAULT_TENANT)
-                                || Equals(quota.Id, CurrentQuota.Id))
-                                   ? "pay"
-                                   : "change"
-                             : CurrentTariff.State == TariffState.NotPaid
-                                   ? "free"
-                                   : "stopfree"
-                       : "limit";
+            return _quotaList.FirstOrDefault(r =>
+                                             r.ActiveUsers == quota.ActiveUsers
+                                             && r.Year3);
         }
 
-        protected string GetShoppingUri(TenantQuota quota)
+        protected Tuple<string, string, string> GetBuyAttr(TenantQuota quota)
+        {
+            var cssList = new List<string>();
+            var getHref = true;
+            var text = Resource.TariffButtonBuy;
+
+            if (quota != null)
+            {
+                cssList.Add(CurrentTariff.State >= TariffState.NotPaid ? "red" : "blue");
+
+                if (quota.ActiveUsers < UsersCount || quota.MaxTotalSize < UsedSize)
+                {
+                    cssList.Add("disable");
+                    getHref = false;
+                }
+                else if (Equals(quota.Id, CurrentQuota.Id))
+                {
+                    text = Resource.TariffButtonExtend;
+                    if (!CurrentTariff.Prolongable)
+                    {
+                        cssList.Add("disable");
+                        getHref = false;
+                    }
+                    else if (CurrentTariff.Autorenewal)
+                    {
+                        cssList.Add("disable");
+                        getHref = false;
+                        text = Resource.TariffEnabledAutorenew + SetStar(Resource.TariffRemarkProlongEnable);
+                    }
+                }
+                else if (CurrentTariff.Prolongable)
+                {
+                    text = Resource.TariffButtonBuy + SetStar(Resource.TariffRemarkProlongDisable);
+                }
+
+                if (!quota.Year3)
+                {
+                    if (quota.Year && YearIsDisable || !quota.Year && MonthIsDisable)
+                    {
+                        cssList.Add("disable");
+                        getHref = false;
+                        text = Resource.TariffButtonBuy;
+                    }
+                }
+            }
+            else
+            {
+                cssList.Add("disable");
+                getHref = false;
+            }
+
+            var href = getHref ? GetShoppingUri(quota) : string.Empty;
+            var cssClass = string.Join(" ", cssList.Distinct());
+            var result = new Tuple<string, string, string>(cssClass, href, text);
+            return result;
+        }
+
+        private string GetShoppingUri(TenantQuota quota)
         {
             var uri = string.Empty;
-            if (quota != null
-                && quota.ActiveUsers >= TenantStatisticsProvider.GetUsersCount()
-                && quota.MaxTotalSize >= TenantStatisticsProvider.GetUsedSize())
+            if (quota != null)
             {
                 if (Partner == null)
                 {
-                    var link = CoreContext.PaymentManager.GetShoppingUri(TenantProvider.CurrentTenantID, quota.Id);
+                    var link = CoreContext.PaymentManager.GetShoppingUri(quota.Id);
                     if (link == null)
                     {
                         LogManager.GetLogger("ASC.Web.Billing").Error(string.Format("GetShoppingUri return null for tenant {0} and quota {1}", TenantProvider.CurrentTenantID, quota == null ? 0 : quota.Id));
@@ -332,15 +353,6 @@ namespace ASC.Web.Studio.UserControls.Management
                 }
             }
             return uri;
-        }
-
-        protected string WithFullRemarks()
-        {
-            if (CurrentTariff.Autorenewal)
-                return SetStar(Resource.TariffRemarkProlongEnable);
-            if (CurrentTariff.Prolongable)
-                return SetStar(Resource.TariffRemarkProlongDisable);
-            return "";
         }
 
         protected string SetStar(string starType, bool withHighlight = false)
@@ -390,11 +402,6 @@ namespace ASC.Web.Studio.UserControls.Management
             return result;
         }
 
-        protected bool MonthIsDisable()
-        {
-            return !CurrentQuota.Free && CurrentQuota.Year && CurrentTariff.State == TariffState.Paid;
-        }
-
         protected string GetChatBannerPath()
         {
             var lng = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName.ToLower();
@@ -409,49 +416,15 @@ namespace ASC.Web.Studio.UserControls.Management
             return WebImageSupplier.GetAbsoluteWebPath(imgName);
         }
 
-        protected string GetAnnualSaleDate()
+        protected string GetSaleDate()
         {
-            var date = DateTime.UtcNow;
-            string saleDate;
-
-            DateTime endSale;
-            if (date.Month > 2 && date.Month < 6)
-            {
-                saleDate = UserControlsCommonResource.AnnualDiscountSpring;
-                endSale = new DateTime(date.Year, 6, 1);
-            }
-            else if (date.Month < 9)
-            {
-                saleDate = UserControlsCommonResource.AnnualDiscountSummer;
-                endSale = new DateTime(date.Year, 9, 1);
-            }
-            else if (date.Month < 12)
-            {
-                saleDate = UserControlsCommonResource.AnnualDiscountAutumn;
-                endSale = new DateTime(date.Year, 12, 1);
-            }
-            else
-            {
-                saleDate = UserControlsCommonResource.AnnualDiscountWinter;
-                endSale = new DateTime(date.Year + (date.Month < 3 ? 0 : 1), 3, 1);
-            }
-
-            var star = SetStar(string.Format(Resource.TariffRemarkSale, endSale.ToString(Thread.CurrentThread.CurrentCulture.DateTimeFormat.MonthDayPattern)), true);
-
-            return saleDate + star;
-        }
-
-        protected string GetSaleDateStar()
-        {
-            if (AnnualDiscount) return string.Empty;
-
             DateTime date;
             if (!DateTime.TryParse(WebConfigurationManager.AppSettings["web.payment-sale"], out date))
             {
-                date = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1).AddMonths(1);
+                date = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, 1).AddMonths(1).AddDays(-1);
             }
 
-            return SetStar(string.Format(Resource.TariffRemarkSale, date.ToString(Thread.CurrentThread.CurrentCulture.DateTimeFormat.MonthDayPattern)), true);
+            return date.ToString(Thread.CurrentThread.CurrentCulture.DateTimeFormat.MonthDayPattern);
         }
 
         protected string GetPriceString(decimal price)
@@ -460,7 +433,9 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 price = price*RateRuble;
             }
-            return (int)price + "<span class='tariff-price-cur'>" + CurrencySymbol + "</span>";
+            return _currencyFormat
+                .Replace("{currency}", "<span class='tariff-price-cur'>" + CurrencySymbol + "</span>")
+                .Replace("{price}", ((int) price).ToString());
         }
 
         [AjaxMethod]
@@ -470,28 +445,17 @@ namespace ASC.Web.Studio.UserControls.Management
         }
 
         [AjaxMethod]
-        public void SaveAnnualRecomendation(bool hide)
+        public void RequestTariff(string name, string email, string message)
         {
-            TariffSettings.HideAnnualRecomendation = hide;
-        }
+            var key = HttpContext.Current.Request.UserHostAddress + "requesttariff";
+            var count = Convert.ToInt32(HttpContext.Current.Cache[key]);
+            if (2 < count)
+            {
+                throw new ArgumentOutOfRangeException("Messages count", "Rate limit exceeded.");
+            }
+            HttpContext.Current.Cache.Insert(key, ++count, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(2));
 
-        [AjaxMethod]
-        public void GetFree()
-        {
-            var quota = TenantExtra.GetTenantQuota();
-            var usersCount = TenantStatisticsProvider.GetUsersCount();
-            var usedSize = TenantStatisticsProvider.GetUsedSize();
-            if (!quota.Free
-                && quota.ActiveUsers >= usersCount
-                && quota.MaxTotalSize >= usedSize)
-                TenantExtra.FreeRequest();
-        }
-
-        [AjaxMethod]
-        public void GetTrial()
-        {
-            if (CoreContext.Configuration.Standalone && string.IsNullOrEmpty(StudioKeySettings.GetSKey()))
-                TenantExtra.TrialRequest();
+            StudioNotifyService.Instance.SendRequestTariff(name, email, message);
         }
 
         private void RegisterScript()

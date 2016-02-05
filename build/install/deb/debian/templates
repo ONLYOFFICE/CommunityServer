@@ -1,0 +1,24 @@
+Template: onlyoffice/db-host
+Type: string
+Default: localhost
+Description: MySQL host:
+
+Template: onlyoffice/db-user
+Type: string
+Default: root
+Description: MySQL user:
+
+Template: onlyoffice/db-pwd
+Type: password
+Description: MySQL password:
+
+Template: onlyoffice/db-name
+Type: string
+Default: onlyoffice
+Description: MySQL database name:
+
+Template: onlyoffice/remove-db
+Type: boolean
+Default: false
+Description: Remove database?
+ This operation will remove the database which contain all ONLYOFFICE data. It is recommended to take backup before removing the database.

@@ -43,7 +43,6 @@ ASC.Projects.TimeSpendActionPage = (function() {
     var totalTimeContainer,
         selectedStatusCombobox,
         timerList = jq("#timeSpendsList"),
-        commonListContainer = jq("#CommonListContainer"),
         describePanel = null,
         timeActionPanel = null,
         groupeMenu = "";
@@ -157,7 +156,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
         // Responsible
 
         if (currentProjectId) {
-            if (self.userInProjectTeam(Teamlab.profile.id)) {
+            if (ASC.Projects.Common.userInProjectTeam(Teamlab.profile.id)) {
                 ttfilters.push({
                     type: "combobox",
                     id: "me_tasks_responsible",
@@ -302,51 +301,29 @@ ASC.Projects.TimeSpendActionPage = (function() {
         ];
 
         ASC.Projects.ProjectsAdvansedFilter.init(self);
-        
-        //filter
-        ASC.Projects.ProjectsAdvansedFilter.filter.one("adv-ready", function () {
-            var projectAdvansedFilterContainer = jq("#ProjectsAdvansedFilter .advansed-filter-list");
-            projectAdvansedFilterContainer.find("li[data-id='myprojects'] .inner-text").trackEvent(ga_Categories.timeTrack, ga_Actions.filterClick, 'my_projects');
-            projectAdvansedFilterContainer.find("li[data-id='project'] .inner-text").trackEvent(ga_Categories.timeTrack, ga_Actions.filterClick, 'other_projects');
-            projectAdvansedFilterContainer.find("li[data-id='tag'] .inner-text").trackEvent(ga_Categories.timeTrack, ga_Actions.filterClick, 'with_tag');
-            projectAdvansedFilterContainer.find("li[data-id='notChargeable'] .inner-text").trackEvent(ga_Categories.timeTrack, ga_Actions.filterClick, 'not_chargeable');
-            projectAdvansedFilterContainer.find("li[data-id='notBilled'] .inner-text").trackEvent(ga_Categories.timeTrack, ga_Actions.filterClick, 'not_billed');
-            projectAdvansedFilterContainer.find("li[data-id='billed'] .inner-text").trackEvent(ga_Categories.timeTrack, ga_Actions.filterClick, 'billed');
-            projectAdvansedFilterContainer.find("li[data-id='mymilestones'] .inner-text").trackEvent(ga_Categories.timeTrack, ga_Actions.filterClick, 'my_milestones');
-            projectAdvansedFilterContainer.find("li[data-id='milestone'] .inner-text").trackEvent(ga_Categories.timeTrack, ga_Actions.filterClick, 'other_milestones');
-            projectAdvansedFilterContainer.find("li[data-id='previousweek2'] .inner-text").trackEvent(ga_Categories.timeTrack, ga_Actions.filterClick, 'previous_week');
-            projectAdvansedFilterContainer.find("li[data-id='previousmonth2'] .inner-text").trackEvent(ga_Categories.timeTrack, ga_Actions.filterClick, 'previous_month');
-            projectAdvansedFilterContainer.find("li[data-id='period2'] .inner-text").trackEvent(ga_Categories.timeTrack, ga_Actions.filterClick, 'custom_period');
-            projectAdvansedFilterContainer.find("li[data-id='me_tasks_responsible'] .inner-text").trackEvent(ga_Categories.timeTrack, ga_Actions.filterClick, 'me-tasks-responsible');
-            projectAdvansedFilterContainer.find("li[data-id='tasks_responsible'] .inner-text").trackEvent(ga_Categories.timeTrack, ga_Actions.filterClick, 'tasks-responsible');
-            projectAdvansedFilterContainer.find("li[data-id='group'] .inner-text").trackEvent(ga_Categories.timeTrack, ga_Actions.filterClick, 'group');
-
-            jq("#ProjectsAdvansedFilter .btn-toggle-sorter").trackEvent(ga_Categories.timeTrack, ga_Actions.filterClick, 'sort');
-            jq("#ProjectsAdvansedFilter .advansed-filter-input").trackEvent(ga_Categories.timeTrack, ga_Actions.filterClick, "search_text", "enter");
-        });
     };
 
     var initPanelsAndPopups = function () {
         if (!describePanel) {
-            commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "timeTrackingDescrPanel" })); // description panel
+            self.$commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "timeTrackingDescrPanel" })); // description panel
             describePanel = jq("#timeTrackingDescrPanel");
         }
         //status list
         jq("#" + statusListObject.listId).remove();
-        commonListContainer.append(jq.tmpl("projects_statusChangePanel", statusListObject));
+        self.$commonListContainer.append(jq.tmpl("projects_statusChangePanel", statusListObject));
         //action panel
-        commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "timeActionPanel" }));
+        self.$commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "timeActionPanel" }));
         timeActionPanel = jq("#timeActionPanel");
         timeActionPanel.find(".panel-content").empty().append(jq.tmpl("projects_actionMenuContent", actionMenuItems));
         // group action panel
         var userIsManager = jq("#managerNameInfo").data("managerid") == currentUserId;
         if (Teamlab.profile.isAdmin || (currentProjectId && userIsManager)) {
-            commonListContainer.append(jq.tmpl("projects_timeTrakingGroupActionMenu", {}));
+            self.$commonListContainer.append(jq.tmpl("projects_timeTrakingGroupActionMenu", {}));
             groupeMenu = jq("#timeTrakingGroupActionMenu");
         }
 
-        if (!commonListContainer.find("#totalTimeText").length) {
-            totalTimeContainer = commonListContainer.prepend("<div class='total-time-forFilter' id='totalTimeText'></div>").find("#totalTimeText");
+        if (!self.$commonListContainer.find("#totalTimeText").length) {
+            totalTimeContainer = self.$commonListContainer.prepend("<div class='total-time-forFilter' id='totalTimeText'></div>").find("#totalTimeText");
             //var content = 
             totalTimeContainer.append(jq.tmpl("projects_totalTimeText", {}));
         }
@@ -359,7 +336,8 @@ ASC.Projects.TimeSpendActionPage = (function() {
         }
         self = this;
         self.isFirstLoad = true;
-        jq(".mainPageContent").children(".loader-page").show();
+        self.cookiePagination = "timeKeyForPagination";
+        self.showLoader();
 
         self.setDocumentTitle(ASC.Projects.Resources.CommonResource.TimeTracking);
 
@@ -389,9 +367,6 @@ ASC.Projects.TimeSpendActionPage = (function() {
             Teamlab.getPrjTime({}, taskid, {
                 success: function (data, times) {
                     self.hideLoader();
-                    if(self.isFirstLoad) {
-                        
-                    }
                     if (times.length) {
                         jq.each(times, function(i, time) {
                             times[i].showCheckbox = showCheckboxFlag;
@@ -406,16 +381,11 @@ ASC.Projects.TimeSpendActionPage = (function() {
             totalTimeText = textSpan.data("tasktext");
         } else {
             isTask = false;
-            self.initPageNavigator("timeKeyForPagination");
-
+            ASC.Projects.PageNavigator.init(self);
             self.showLoader();
 
             // waiting data from api
             createAdvansedFilter();
-            
-            jq("#countOfRows").change(function (evt) {
-                self.changeCountOfRows(this.value);
-            });
             
             timerList.addClass("forProject");
             totalTimeText = textSpan.data("listtext");
@@ -493,12 +463,12 @@ ASC.Projects.TimeSpendActionPage = (function() {
         jq('#emptyListTimers .addFirstElement').click(function () {
             if (isTask) {
                 var taskId = jq.getURLParam("ID");
-                self.showTimer('timer.aspx?prjID=' + currentProjectId + '&ID=' + taskId);
+                ASC.Projects.Common.showTimer('timer.aspx?prjID=' + currentProjectId + '&ID=' + taskId);
             } else {
                 if (currentProjectId != null) {
-                    self.showTimer('timer.aspx?prjID=' + currentProjectId);
+                    ASC.Projects.Common.showTimer('timer.aspx?prjID=' + currentProjectId);
                 } else {
-                    self.showTimer('timer.aspx');
+                    ASC.Projects.Common.showTimer('timer.aspx');
                 }
             }
         });
@@ -583,7 +553,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
 
         // group menu
 
-        jq("#commonPopupContainer").on("click", "#deleteTimersButton", function() {
+        self.$commonPopupContainer.on("click", "#deleteTimersButton", function () {
             jq.unblockUI();
             removeChackedTimers();
             return false;
@@ -604,7 +574,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
             }
         });
 
-        jq("#commonPopupContainer").on("click", ".cancel", function () {
+        self.$commonPopupContainer.on("click", ".cancel", function () {
             jq.unblockUI();
             return false;
         });
@@ -673,13 +643,6 @@ ASC.Projects.TimeSpendActionPage = (function() {
             rows.removeClass("checked-row");
             lockActionButtons();
         });
-
-        //ga-track-events
-        //show next
-        //responsible
-        jq("td[id^=person_]").trackEvent(ga_Categories.timeTrack, ga_Actions.userClick, "tasks-responsible");
-
-        //end ga-track-events
     };
     var getCountCheckedTimers = function() {
         return timerList.find("input:checked").length;
@@ -843,17 +806,17 @@ ASC.Projects.TimeSpendActionPage = (function() {
             }
         } else {
             if (isItems) {
-                jq('.noContentBlock').hide();
-                jq('#ProjectsAdvansedFilter').show();
-                jq('#tableForNavigation').show();
+                self.$noContentBlock.hide();
+                ASC.Projects.ProjectsAdvansedFilter.show();
+                ASC.Projects.PageNavigator.show();
                 jq("#timeTrakingGroupActionMenu").show();
             } else {
                 if (filterTimesCount == undefined || filterTimesCount == 0) {
                     jq("#timeTrakingGroupActionMenu").hide();
                     jq(emptyScreen).show();
-                    jq('#tableForNavigation').hide();
+                    ASC.Projects.PageNavigator.hide();
                     if (emptyScreen == '#emptyListTimers') {
-                        jq('#ProjectsAdvansedFilter').hide();
+                        ASC.Projects.ProjectsAdvansedFilter.hide();
                         jq('#timeEmptyScreenForFilter').hide();
                     }
                 }
@@ -869,8 +832,8 @@ ASC.Projects.TimeSpendActionPage = (function() {
 
     var getData = function () {
         self.showLoader();
-        self.currentFilter.Count = self.entryCountOnPage;
-        self.currentFilter.StartIndex = self.entryCountOnPage * self.currentPage;
+        self.currentFilter.Count = ASC.Projects.PageNavigator.entryCountOnPage;
+        self.currentFilter.StartIndex = ASC.Projects.PageNavigator.entryCountOnPage * ASC.Projects.PageNavigator.currentPage;
 
         Teamlab.getPrjTime({}, null, { filter: self.currentFilter, success: onGetTimes });
         
@@ -893,7 +856,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
         self.clearTables();
 
         if (Object.keys(params.__filter).length > 4) {
-            totalTimeContainer = commonListContainer.prepend("<div class='total-time-forFilter' id='totalTimeText'></div>").find("#totalTimeText");
+            totalTimeContainer = self.$commonListContainer.prepend("<div class='total-time-forFilter' id='totalTimeText'></div>").find("#totalTimeText");
             totalTimeContainer.append(jq.tmpl("projects_totalTimeText", {}));
             getTotalTimeByFilter({}, params.__filter);
 
@@ -920,7 +883,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
         timerList.show();
 
         filterTimesCount = params.__total != undefined ? params.__total : 0;
-        self.updatePageNavigator(filterTimesCount, jq(".menu-action-simple-pagenav"));
+        ASC.Projects.PageNavigator.update(filterTimesCount, jq(".menu-action-simple-pagenav"));
         showEmptyScreen(count);
         self.hideLoader("#timeTrakingGroupActionMenu");
     };
@@ -953,7 +916,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
     };
 
     var onUpdateTime = function (params, time) {
-        self.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.TimeUpdated);
+        ASC.Projects.Common.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.TimeUpdated);
         time.showCheckbox = showCheckboxFlag;
         jq('#timeSpendsList .timeSpendRecord[timeid=' + time.id + ']').replaceWith(jq.tmpl("projects_timeTrackingTmpl", time));
         if (!params.oldTime || !currentProjectId) return;
@@ -982,7 +945,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
         ASC.Projects.projectNavPanel.changeCommonProjectTime({ hours: -parseInt(timeText[0], 10), minutes: -parseInt(timeText[1], 10) });
 
         LoadingBanner.hideLoading();
-        self.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.TimeRemoved);
+        ASC.Projects.Common.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.TimeRemoved);
     };
     
     var onUpdatePrjTimeError = function(params, data) {
@@ -1048,10 +1011,9 @@ ASC.Projects.TimeSpendActionPage = (function() {
 
     var unbindListEvents = function () {
         if (!isInit) return;
-        jq("#countOfRows").unbind();
         timerList.unbind();
-        commonListContainer.unbind();
-        jq("#commonPopupContainer").unbind();
+        self.$commonListContainer.unbind();
+        self.$commonPopupContainer.unbind();
         describePanel.unbind();
         jq("#groupActionContainer").hide();
     };
@@ -1060,5 +1022,5 @@ ASC.Projects.TimeSpendActionPage = (function() {
         init: init,
         getData: getData,
         unbindListEvents: unbindListEvents
-    }, ASC.Projects.Common);
+    }, ASC.Projects.Base);
 })(jQuery);

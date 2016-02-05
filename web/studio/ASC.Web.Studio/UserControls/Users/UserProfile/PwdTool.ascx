@@ -17,11 +17,11 @@
             <div id="studio_pwdReminderContent">
                 <input type="hidden" id="studio_pwdReminderInfoID" value="<%=_pwdRemainderContainer.ClientID%>_InfoPanel" />
                 <div id="pswdRecoveryDialogText" class="display-none">
-                    <%= Resource.MessageSendPasswordRecoveryInstructionsOnEmail %>
+                    <%= Resource.MessageSendPasswordRecoveryInstructionsOnEmail.HtmlEncode() %>
                     <input type="email" id="studio_emailPwdReminder" class="textEdit" />
                 </div>
                 <div id="pswdChangeDialogText" class="display-none">
-                    <%= String.Format(Resource.MessageSendPasswordChangeInstructionsOnEmail, "<a target=\"_blank\" name=\"userEmail\"></a>")%>
+                    <%= String.Format(Resource.MessageSendPasswordChangeInstructionsOnEmail.HtmlEncode(), "<a target=\"_blank\" name=\"userEmail\"></a>")%>
                 </div>
                 <div id="pwd_rem_panel_buttons" class="middle-button-container">
                     <a class="button blue" onclick="PasswordTool.RemindPwd();">

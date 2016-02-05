@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -65,12 +65,12 @@ namespace ASC.Web.Studio.UserControls.Users
             base.OnInit(e);
             try
             {
-                Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/users/usersubscriptions/js/subscription_manager.js"));
+                Page.RegisterBodyScripts("~/usercontrols/users/usersubscriptions/js/subscription_manager.js");
 
                 Page.RegisterInlineScript("CommonSubscriptionManager.InitNotifyByComboboxes();");
 
                 //styles
-                Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/users/usersubscriptions/css/subscriptions.less"));
+                Page.RegisterStyle("~/usercontrols/users/usersubscriptions/css/subscriptions.less");
             }
             catch
             {
@@ -303,7 +303,7 @@ namespace ASC.Web.Studio.UserControls.Users
 
         protected string RenderWhatsNewSubscriptionState()
         {
-            return RenderWhatsNewSubscriptionState(StudioNotifyService.Instance.IsSubscribeToWhatsNew(SecurityContext.CurrentAccount.ID));
+            return RenderWhatsNewSubscriptionState(StudioWhatsNewService.Instance.IsSubscribeToWhatsNew(SecurityContext.CurrentAccount.ID));
         }
 
         protected string RenderWhatsNewSubscriptionState(bool isSubscribe)
@@ -355,9 +355,9 @@ namespace ASC.Web.Studio.UserControls.Users
             var resp = new AjaxResponse { rs1 = "0" };
             try
             {
-                var isSubscribe = StudioNotifyService.Instance.IsSubscribeToWhatsNew(SecurityContext.CurrentAccount.ID);
+                var isSubscribe = StudioWhatsNewService.Instance.IsSubscribeToWhatsNew(SecurityContext.CurrentAccount.ID);
 
-                StudioNotifyService.Instance.SubscribeToWhatsNew(SecurityContext.CurrentAccount.ID, !isSubscribe);
+                StudioWhatsNewService.Instance.SubscribeToWhatsNew(SecurityContext.CurrentAccount.ID, !isSubscribe);
                 resp.rs2 = RenderWhatsNewSubscriptionState(!isSubscribe);
 
                 resp.rs1 = "1";

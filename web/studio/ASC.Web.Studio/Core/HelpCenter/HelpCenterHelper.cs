@@ -53,7 +53,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
             var data = GetVideoGuidesAll();
             var wathced = UserVideoSettings.GetUserVideoGuide();
 
-            data.RemoveAll(r => wathced.Contains(r.Id));
+            data.RemoveAll(r => r != null && wathced.Contains(r.Id));
             if (!UserHelpTourHelper.IsNewUser)
             {
                 data.RemoveAll(r => r.Status == "default");
@@ -133,7 +133,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
                     var link = helpLinkBlock + needTitle.Element("a").Attributes["href"].Value.Substring(1);
                     var status = needTitle.Attributes["data-status"].Value;
 
-                    data.Add(new VideoGuideItem {Title = title, Id = id, Link = link, Status = status});
+                    data.Add(new VideoGuideItem { Title = title, Id = id, Link = link, Status = status });
                 }
             }
             catch (Exception e)
@@ -305,7 +305,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
                     if (titles != null && contents != null)
                     {
-                        helpCenterItems.Add(new HelpCenterItem {Title = titles.InnerText, Content = contents.InnerHtml});
+                        helpCenterItems.Add(new HelpCenterItem { Title = titles.InnerText, Content = contents.InnerHtml });
                     }
                 }
             }
@@ -333,7 +333,8 @@ namespace ASC.Web.Studio.Core.HelpCenter
                     return storage.GetUri(imagePath).ToString();
 
                 var req = (HttpWebRequest)WebRequest.Create(externalUrl);
-                using (var fileStream = req.GetResponse().GetResponseStream().GetBuffered())
+                using (var response = req.GetResponse())
+                using (var fileStream = response.GetResponseStream())
                 {
                     return storage.Save(imagePath, fileStream).ToString();
                 }
@@ -359,7 +360,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
                 using (var httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
                 using (var stream = httpWebResponse.GetResponseStream())
-                using (var reader = new StreamReader(stream.GetBuffered(), Encoding.GetEncoding(httpWebResponse.CharacterSet)))
+                using (var reader = new StreamReader(stream, Encoding.GetEncoding(httpWebResponse.CharacterSet)))
                 {
                     return reader.ReadToEnd();
                 }

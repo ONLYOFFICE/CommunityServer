@@ -1,9 +1,4 @@
-﻿/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
-
-if (!ASC.Controls.TalkNavigationItem) {
+﻿if (!ASC.Controls.TalkNavigationItem) {
     ASC.Controls.TalkNavigationItem = {
         checkMessagesTimeout: 1000,
         currentValue: -1,
@@ -81,12 +76,12 @@ if (!ASC.Controls.JabberClient) {
             }
 
             try {
-                hWnd = window.open('', this.winName, this.params)
+                hWnd = window.open('', this.winName, this.params);
             } catch (err) {
             }
 
             try {
-                isExist = typeof hWnd.ASC === 'undefined' ? false : true;
+                isExist = !hWnd || typeof hWnd.ASC === 'undefined' ? false : true;
             } catch (err) {
                 isExist = true;
             }
@@ -101,7 +96,8 @@ if (!ASC.Controls.JabberClient) {
             }
 
             try {
-                hWnd.focus()
+                if (hWnd)
+                    hWnd.focus();
             } catch (err) {
             }
 

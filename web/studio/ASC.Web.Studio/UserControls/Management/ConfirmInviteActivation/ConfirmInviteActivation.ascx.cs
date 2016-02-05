@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -49,7 +49,7 @@ using ASC.Web.Studio.Utility;
 using Resources;
 using System.Text.RegularExpressions;
 using System.Configuration;
-using ASC.Web.Core.CoBranding;
+using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -62,7 +62,6 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected string _errorMessage;
 
-        protected TenantInfoSettings _tenantInfoSettings;
         protected string _userName;
         protected string _userPost;
         protected string _userAvatar;
@@ -153,11 +152,9 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/confirminviteactivation/js/confirm_invite_activation.js"));
+            Page.RegisterBodyScripts("~/usercontrols/management/confirminviteactivation/js/confirm_invite_activation.js");
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/confirminviteactivation/css/confirm_invite_activation.less"));
-
-            _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
+            Page.RegisterStyle("~/usercontrols/management/confirminviteactivation/css/confirm_invite_activation.less");
 
             var uid = Guid.Empty;
             try

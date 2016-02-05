@@ -237,7 +237,6 @@ window.ASC.Files.Folders = (function () {
                     access: 0,
                     shared: false,
                     isnew: 0,
-                    shareable: false
                 }
         };
         var stringData = ASC.Files.Common.jsonToXml(emptyFolder);
@@ -615,10 +614,6 @@ window.ASC.Files.Folders = (function () {
             return;
         }
 
-        if (fileObj.find(".version").length == 0) {
-            return;
-        }
-
         if (jq("#contentVersions:visible").length != 0) {
             var close = fileObj.find("#contentVersions").length != 0;
             ASC.Files.Folders.closeVersions();
@@ -733,7 +728,7 @@ window.ASC.Files.Folders = (function () {
         });
 
         jq(document).on("click.Comment", function (e) {
-            e = ASC.Files.Common.fixEvent(e);
+            e = jq.fixEvent(e);
             if (!jq(e.target || e.srcElement).is(".version-comment:has(#promptVersionComment) *")) {
                 ASC.Files.Folders.eraseComment();
                 jq(document).off("click.Comment");
@@ -835,7 +830,7 @@ window.ASC.Files.Folders = (function () {
         PopupKeyUpActionProvider.CloseDialogAction = "jq(\"#buttonCancelOverwrite\").click();";
     };
 
-    var curItemFolderMoveTo = function (folderToId, folderToTitle, pathDest) {
+    var curItemFolderMoveTo = function (folderToId, folderToTitle, pathDest, confirmedThirdParty) {
         if (folderToId === ASC.Files.Folders.currentFolder.entryId) {
             ASC.Files.Actions.hideAllActionPanels();
             ASC.Files.Folders.isCopyTo = false;
@@ -843,6 +838,16 @@ window.ASC.Files.Folders = (function () {
         }
 
         var thirdParty = typeof ASC.Files.ThirdParty != "undefined";
+
+        if (!confirmedThirdParty
+            && !ASC.Files.Folders.isCopyTo
+            && thirdParty
+            && ASC.Files.ThirdParty.isThirdParty()
+            && ASC.Files.ThirdParty.isDifferentThirdParty(folderToId, ASC.Files.Folders.currentFolder.entryId)) {
+            ASC.Files.ThirdParty.showMoveThirdPartyMessage(folderToId, folderToTitle, pathDest);
+            return;
+        }
+
         var takeThirdParty = thirdParty && (ASC.Files.Folders.isCopyTo == true || ASC.Files.ThirdParty.isThirdParty());
         var moveAccessDeny = false;
 
@@ -862,7 +867,7 @@ window.ASC.Files.Folders = (function () {
                 if (ASC.Files.Folders.isCopyTo == false && !ASC.Files.UI.accessDelete(entryObj)) {
                     moveAccessDeny = true;
                 } else {
-                    if (jq.inArray(entryId, pathDest) != -1) {
+                    if (entryType == "folder" && jq.inArray(entryId, pathDest) != -1) {
                         ASC.Files.UI.displayInfoPanel(((ASC.Files.Folders.isCopyTo == true) ? ASC.Files.FilesJSResources.InfoFolderCopyError : ASC.Files.FilesJSResources.InfoFolderMoveError), true);
                     } else {
                         if (takeThirdParty
@@ -1195,6 +1200,12 @@ window.ASC.Files.Folders = (function () {
             return false;
         });
 
+        jq("#filesMainContent").on("click", ".version-close", function () {
+            ASC.Files.Actions.hideAllActionPanels();
+            ASC.Files.Folders.closeVersions();
+            return false;
+        });
+
         jq("#filesMainContent").on("click", ".folder-row:not(.error-entry) .entry-title .name a, .folder-row:not(.error-entry) .thumb-folder", function () {
             var folderId = ASC.Files.UI.getObjectData(this).id;
             if (folderId != 0) {
@@ -1253,7 +1264,7 @@ window.ASC.Files.Folders = (function () {
             ASC.Files.Folders.versionComplete(fileId, version, continueVersion);
         });
 
-        jq("#filesMainContent").on("click", ".version-group-head .version-sublist span", function () {
+        jq("#filesMainContent").on("click", ".version-group-head .version-sublist-toggle", function () {
             var versionGroup = jq(this).closest(".version-row").attr("data-version-group");
             ASC.Files.Folders.toggleVersionSublist(versionGroup);
             return false;

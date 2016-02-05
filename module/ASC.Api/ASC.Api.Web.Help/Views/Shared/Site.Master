@@ -5,7 +5,7 @@
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8"> <![endif]-->
 <!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
-<html lang="en" class="no-js" <% if (string.Equals(ConfigurationManager.AppSettings["offline_cache"], bool.TrueString, StringComparison.OrdinalIgnoreCase)) { %>manifest="<%=Url.RouteUrl("Cache")%>"<% } %>>
+<html lang="en" class="no-js" <% if (string.Equals(ConfigurationManager.AppSettings["offline_cache"], bool.TrueString, StringComparison.OrdinalIgnoreCase)) { %>manifest="<%= Url.RouteUrl("Cache") %>"<% } %>>
 <!--<![endif]-->
 <head>
     <meta charset="UTF-8" />
@@ -18,11 +18,11 @@
     </title>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:900,800,700,600,500,400,300&subset=latin,cyrillic-ext,cyrillic,latin-ext" rel="stylesheet" type="text/css" />
-    <link rel="icon" href="<%=Url.Content("~/favicon.ico") %>" type="image/x-icon" />
+    <link rel="icon" href="<%= Url.Content("~/favicon.ico") %>" type="image/x-icon" />
 
     <%= System.Web.Optimization.Styles.Render("~/content/styles") %>
 
-    <script type="text/javascript" src="<%=Url.Content("~/scripts/modernizr/modernizr-1.7.min.js") %>"></script>
+    <script type="text/javascript" src="<%= Url.Content("~/scripts/modernizr/modernizr-1.7.min.js") %>"></script>
 </head>
 <body>
     <table class="layout-table">
@@ -55,14 +55,9 @@
 
     <script type="text/javascript">
         var Config = {
-            BaseUrl: "<%=string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~")) %>",
-            ZeroclipboardSwfUrl: "<%=Url.Content("~/scripts/zeroclipboard/zeroclipboard10.swf") %>",
+            BaseUrl: "<%= string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~")) %>",
+            ZeroclipboardSwfUrl: "<%= Url.Content("~/scripts/zeroclipboard/zeroclipboard10.swf") %>",
             TreeviewCollapsed: Boolean(<%= Html.IfController("editors") ? 0 : 1 %>),
-            DocumentDemoUrl: "<%= ConfigurationManager.AppSettings["document_demo_url"] ?? "" %>",
-            SpreadsheetDemoUrl: "<%= ConfigurationManager.AppSettings["spreadsheet_demo_url"] ?? "" %>",
-            PresentationDemoUrl: "<%= ConfigurationManager.AppSettings["presentation_demo_url"] ?? "" %>",
-            EditorKeyId: "<%= ConfigurationManager.AppSettings["editor_key_id"] ?? "" %>",
-            EditorKeySecret: "<%= ConfigurationManager.AppSettings["editor_key_secret"] ?? "" %>"
         };
     </script>
 

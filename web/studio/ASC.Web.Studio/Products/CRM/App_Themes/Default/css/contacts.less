@@ -238,16 +238,41 @@ img.contact-info-link-img {
     cursor: pointer;
     background-color: transparent !important;
 }
+body.media-width-0-1300 {
+    #companyTable {
+        .contactTitle {
+            max-width: 380px;
+        }
 
-@media all and (max-width: 1200px) {
-    #companyTable .contactTitle {
-        max-width: 200px;
+       .primaryDataContainer {
+            width: 128px;
+        }
+       .addPrimaryDataInput {
+            width: 123px;
+        }
+
+        .nearestTask {
+            width: 110px;
+        }
     }
-    #companyTable .primaryDataContainer{
-        width: 118px;
-    }
-    #companyTable .nearestTask {   
-        width: 100px;
+}
+body.media-width-0-1200,
+body.media-width-min {
+    #companyTable {
+        .contactTitle {
+            max-width: 200px;
+        }
+
+        .primaryDataContainer {
+            width: 118px;
+        }
+        .addPrimaryDataInput {
+            width: 113px;
+        }
+
+        .nearestTask {
+            width: 100px;
+        }
     }
 }
 #previewAttachments label.previewAttachment{
@@ -354,36 +379,6 @@ ContactActionView.ascx
 
     dt.headerToggleBlock {
         margin: 24px 0 8px;
-    }
-
-    .findInSocialMediaButton_Disabled,
-    .findInSocialMediaButton_Enabled {
-        clear: both;
-        position: relative;
-        float: left;
-        margin-left: 20px;
-    }
-
-    .findInSocialMediaButton_Disabled {
-        cursor: default;
-        color: #AAAAAA;
-
-        &:after {
-            .crm-img-pseudo-base(50%, -20px);
-            margin-top: -8px;
-            background: url( "../images/icons.png") 0 -346px no-repeat transparent;
-        }
-    }
-
-    .findInSocialMediaButton_Enabled {
-        cursor: pointer;
-        color: #333333;
-
-        &:after {
-            .crm-img-pseudo-base(50%, -20px);
-            margin-top: -8px;
-            background: url( "../images/icons.png") 0 -330px no-repeat transparent;
-        }
     }
 
     .additionInfo {
@@ -598,18 +593,14 @@ ContactActionView.ascx
     }
 }
 
-@media all and (max-width: 1200px) {
-    #contactProfileEdit .name-container-block input[type="text"] {
-        width: 140px;
-    }
-}
+
 /*
 #contactPhoto .contact_photo, #contactProfile .contact_photo {
     border: 1px solid #C7C7C7;
     margin-bottom: 5px;
     max-width: 150px;
 }
-    */
+*/
 
 #addressContainer {
     .address-tbl {
@@ -618,8 +609,11 @@ ContactActionView.ascx
         max-width: 500px;
     }
 }
-
-@media all and (max-width: 1200px) {
+body.media-width-0-1200,
+body.media-width-min {
+    #contactProfileEdit .name-container-block input[type="text"] {
+        width: 140px;
+    }
     #contactProfileEdit {
         min-width: 680px;
     }    
@@ -851,7 +845,7 @@ SocialMedia
 /********************************************************************************
 Page Navigation
 ********************************************************************************/
-@media all and (max-width: 1200px) {
+body.media-width-0-1200 {
     .page-nav-info {
         display: block;
     }

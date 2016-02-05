@@ -15,7 +15,7 @@
                 <% if (IsConvert)
                    { %>
 
-                <%= FilesCommonResource.AppConvertCopy %>
+                <%: FilesCommonResource.AppConvertCopy %>
                 <asp:CheckBox runat="server" ID="ConvertCheck" CssClass="files-app-checkbox" />
                 <asp:Button runat="server" ID="ButtonConvert" CssClass="files-app-convert button big blue" />
 

@@ -34,7 +34,6 @@ using ASC.Notify.Recipients;
 using ASC.Web.Community.News.Code.Module;
 using ASC.Web.Studio.UserControls.Common.Comments;
 using ASC.Web.Studio.Utility.HtmlUtility;
-using AjaxPro;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Web.Community.News.Code;
@@ -47,10 +46,10 @@ using ASC.Web.Studio;
 using ASC.Web.Studio.Controls.Common;
 using ASC.Web.Studio.Utility;
 using FeedNS = ASC.Web.Community.News.Code;
+using Newtonsoft.Json;
 
 namespace ASC.Web.Community.News
 {
-    [AjaxNamespace("Default")]
     public partial class Default : MainPage
     {
         //private BBCodeParser.Parser postParser = new BBCodeParser.Parser(CommonControlsConfigurer.SimpleTextConfig);
@@ -87,7 +86,6 @@ namespace ASC.Web.Community.News
 
         protected void Page_Load(object sender, EventArgs e)
         {            
-            Utility.RegisterTypeForAjax(typeof(Default), Page);
             commentList.Visible = CommunitySecurity.CheckPermissions(NewsConst.Action_Comment);
 
             pgNavigator.EntryCount = 1;
@@ -126,8 +124,11 @@ namespace ASC.Web.Community.News
                                                                string.Format(CultureInfo.CurrentCulture,
                                                                              "<a id=\"statusSubscribe\" class=\"follow-status " +
                                                                              (isSubsribedOnComments ? "subscribed" : "unsubscribed") +
-                                                                             "\" title=\"{0}\" href=\"#\" onclick=\"SubscribeOnComments('{1}');\"></a>",
-                                                                             (isSubsribedOnComments ? NewsResource.UnsubscribeFromNewComments : NewsResource.SubscribeOnNewComments), feed.Id));
+                                                                             "\" title=\"{0}\" href=\"#\" onclick=\"SubscribeOnComments(this,'{1}','{2}','{3}');\"></a>",
+                                                                             (isSubsribedOnComments ? NewsResource.UnsubscribeFromNewComments : NewsResource.SubscribeOnNewComments),
+                                                                             feed.Id,
+                                                                             NewsResource.SubscribeOnNewComments.ReplaceSingleQuote(),
+                                                                             NewsResource.UnsubscribeFromNewComments.ReplaceSingleQuote()));
 
                         SubscribeLinkBlock.Text = SubscribeTopicLink;
 
@@ -166,22 +167,16 @@ namespace ASC.Web.Community.News
 
             ConfigureComments(commentList, feed);
             commentList.Items = comments;
-            commentList.CommentsCountTitle = GetCommentsCount(comments).ToString(CultureInfo.CurrentCulture);
             commentList.TotalCount = GetCommentsCount(comments);
         }
 
         private static void ConfigureComments(CommentsList commentList, FeedNS.Feed feed)
         {
             CommonControlsConfigurer.CommentsConfigure(commentList);
-            commentList.Simple = false;
+
             commentList.BehaviorID = "_commentsObj";
             commentList.FckDomainName = "news_comments";
-
-            commentList.JavaScriptAddCommentFunctionName = "Default.AddComment";
-            commentList.JavaScriptPreviewCommentFunctionName = "Default.GetPreview";
-            commentList.JavaScriptRemoveCommentFunctionName = "Default.RemoveComment";
-            commentList.JavaScriptUpdateCommentFunctionName = "Default.UpdateComment";
-            commentList.JavaScriptLoadBBcodeCommentFunctionName = "Default.LoadCommentText";
+            commentList.ModuleName = "news";
 
             commentList.ObjectID = feed != null ? feed.Id.ToString(CultureInfo.CurrentCulture) : "";
         }
@@ -196,13 +191,6 @@ namespace ASC.Web.Community.News
             return count;
         }
 
-        public static string GetHtmlImgUserAvatar(Guid userId)
-        {
-            var imgPath = UserPhotoManager.GetBigPhotoURL(userId);
-            if (imgPath != null) return "<img class=\"userMiniPhoto\"  src=\"" + imgPath + "\"/>";
-            return string.Empty;
-        }
-
         private static CommentInfo GetCommentInfo(FeedComment comment)
         {
             var info = new CommentInfo
@@ -215,7 +203,8 @@ namespace ASC.Web.Community.News
                     Inactive = comment.Inactive,
                     CommentBody = comment.Comment,
                     UserFullName = DisplayUserSettings.GetFullUserName(new Guid(comment.Creator)),
-                    UserAvatar = GetHtmlImgUserAvatar(new Guid(comment.Creator)),
+                    UserProfileLink = CommonLinkUtility.GetUserProfile(comment.Creator),
+                    UserAvatarPath = UserPhotoManager.GetBigPhotoURL(new Guid(comment.Creator)),
                     IsEditPermissions = CommunitySecurity.CheckPermissions(comment, NewsConst.Action_Edit),
                     IsResponsePermissions = CommunitySecurity.CheckPermissions(NewsConst.Action_Comment),
                     UserPost = CoreContext.UserManager.GetUsers((new Guid(comment.Creator))).Title
@@ -223,112 +212,6 @@ namespace ASC.Web.Community.News
 
             return info;
         }
-
-        #region Ajax functions for comments management
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public string RemoveComment(string commentId, string pid)
-        {
-            var storage = FeedStorageFactory.Create();
-            var comment = storage.GetFeedComment(long.Parse(commentId, CultureInfo.CurrentCulture));
-            if (!CommunitySecurity.CheckPermissions(comment, NewsConst.Action_Edit))
-            {
-                return null;
-            }
-
-            comment.Inactive = true;
-            storage.RemoveFeedComment(comment);
-            return commentId;
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public AjaxResponse AddComment(string parentCommentId, string newsId, string text, string pid)
-        {
-            var resp = new AjaxResponse { rs1 = parentCommentId };
-
-            var comment = new FeedComment(long.Parse(newsId));
-            comment.Comment = text;
-            var storage = FeedStorageFactory.Create();
-            if (!string.IsNullOrEmpty(parentCommentId))
-                comment.ParentId = Convert.ToInt64(parentCommentId);
-
-            var feed = storage.GetFeed(long.Parse(newsId, CultureInfo.CurrentCulture));
-            comment = storage.SaveFeedComment(feed, comment);
-
-            var commentInfo = GetCommentInfo(comment);
-            var defComment = new CommentsList();
-            ConfigureComments(defComment, feed);
-
-            var visibleCommentsCount = 0;
-            storage.GetFeedComments(feed.Id).ForEach((cmm) => { visibleCommentsCount += (cmm.Inactive ? 0 : 1); });
-
-            resp.rs2 = CommentsHelper.GetOneCommentHtmlWithContainer(
-                defComment, commentInfo, comment.IsRoot(), visibleCommentsCount%2 == 1);
-
-            return resp;
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public AjaxResponse UpdateComment(string commentId, string text, string pid)
-        {
-            var resp = new AjaxResponse();
-            if (string.IsNullOrEmpty(text)) return resp;
-
-            var storage = FeedStorageFactory.Create();
-            var comment = storage.GetFeedComment(long.Parse(commentId, CultureInfo.CurrentCulture));
-            if (!CommunitySecurity.CheckPermissions(comment, NewsConst.Action_Edit))
-            {
-                return resp;
-            }
-
-            comment.Comment = text;
-            storage.UpdateFeedComment(comment);
-
-            resp.rs1 = commentId;
-            resp.rs2 = HtmlUtility.GetFull(text);
-
-            return resp;
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public string LoadCommentText(string commentId, string pid)
-        {
-            var storage = FeedStorageFactory.Create();
-            var comment = storage.GetFeedComment(long.Parse(commentId, CultureInfo.CurrentCulture));
-            return comment.Comment;
-        }
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public string GetPreview(string text, string commentID)
-        {
-            var storage = FeedStorageFactory.Create();
-
-            var comment = new FeedComment(1)
-                {
-                    Date = TenantUtil.DateTimeNow(),
-                    Creator = SecurityContext.CurrentAccount.ID.ToString()
-                };
-
-            if (!string.IsNullOrEmpty(commentID))
-            {
-                comment = storage.GetFeedComment(long.Parse(commentID, CultureInfo.CurrentCulture));
-            }
-
-            comment.Comment = text;
-
-            var commentInfo = GetCommentInfo(comment);
-
-            commentInfo.IsEditPermissions = false;
-            commentInfo.IsResponsePermissions = false;
-
-            var defComment = new CommentsList();
-            ConfigureComments(defComment, null);
-
-            return CommentsHelper.GetOneCommentHtmlWithContainer(
-                defComment, commentInfo, true, false);
-        }
-
-        #endregion
 
         private static List<CommentInfo> BuildCommentsList(List<FeedComment> loaded)
         {

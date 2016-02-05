@@ -29,7 +29,7 @@ using ASC.Xmpp.Core.protocol.Base;
 using ASC.Xmpp.Core.protocol.client;
 using ASC.Xmpp.Core.protocol.iq.disco;
 using ASC.Xmpp.Core.protocol.iq.vcard;
-using ASC.Xmpp.Core.protocol.x.data;
+using XmppData = ASC.Xmpp.Core.protocol.x.data;
 using ASC.Xmpp.Core.protocol.x.muc;
 using ASC.Xmpp.Core.protocol.x.muc.iq.admin;
 using ASC.Xmpp.Core.protocol.x.muc.iq.owner;
@@ -655,10 +655,10 @@ namespace ASC.Xmpp.Server.Services.Muc2.Room
                     owner.AddChild(RoomSettings.GetDataForm(member.Jid));
                 }
 
-                Data dataSubmit = (Data)owner.SelectSingleElement(typeof(Data));
+                XmppData.Data dataSubmit = (XmppData.Data)owner.SelectSingleElement(typeof(XmppData.Data));
 
                 // form config
-                if (dataSubmit != null && dataSubmit.Type == XDataFormType.submit)
+                if (dataSubmit != null && dataSubmit.Type == XmppData.XDataFormType.submit)
                 {
                     RoomSettings.SubmitForm(dataSubmit);
                     SettingsSave();

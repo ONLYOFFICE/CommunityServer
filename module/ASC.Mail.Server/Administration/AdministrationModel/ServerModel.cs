@@ -27,11 +27,14 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using ASC.Core;
 using ASC.Mail.Server.Administration.Interfaces;
 using ASC.Mail.Server.Administration.ServerModel.Base;
 using ASC.Mail.Server.Dal;
+using ASC.Web.Core.Utility.Settings;
+using ServerType = ASC.Mail.Server.Administration.Interfaces.ServerType;
 
 namespace ASC.Mail.Server.Administration.ServerModel
 {
@@ -65,6 +68,15 @@ namespace ASC.Mail.Server.Administration.ServerModel
         private DnsDal TeamlabDnsDal
         {
             get { return _dkimDal ?? (_dkimDal = new DnsDal(Tenant, User)); }
+        }
+
+        private ServerDal _serverDal;
+        private ServerDal TeamlabServerDal
+        {
+            get
+            {
+                return _serverDal ?? (_serverDal = new ServerDal(Tenant));
+            }
         }
 
         protected ServerModel(ServerSetup setup)
@@ -106,7 +118,7 @@ namespace ASC.Mail.Server.Administration.ServerModel
             var domainDto = TeamlabDomainDal.GetDomain(domainId);
 
             if (domainDto == null)
-                return null;
+                throw new Exception("Domain is missing");
 
             var domainBase = _GetWebDomain(domainDto.name);
 
@@ -220,7 +232,7 @@ namespace ASC.Mail.Server.Administration.ServerModel
 
         }
 
-        protected abstract MailboxBase _CreateMailbox(string login, string password, string localpart, string domain);
+        protected abstract MailboxBase _CreateMailbox(string login, string password, string localpart, string domain, bool enableImap = true, bool enablePop = true);
 
         public override ICollection<IMailbox> GetMailboxes(IMailServerFactory factory)
         {
@@ -506,6 +518,87 @@ namespace ASC.Mail.Server.Administration.ServerModel
 
            return dns;
         }
+
+        #endregion
+
+        #region .Notification
+
+        public override INotificationAddress CreateNotificationAddress(string localpart, string password, IWebDomain domain,
+                                                               IMailServerFactory factory)
+        {
+            if (string.IsNullOrEmpty(localpart))
+                throw new ArgumentNullException("localpart");
+
+            if (string.IsNullOrEmpty(password))
+                throw new ArgumentNullException("password");
+
+            if (domain == null)
+                throw new ArgumentNullException("domain");
+
+            if (localpart.Length + domain.Name.Length > 318) // 318 because of @ sign
+                throw new ArgumentException("Address of mailbox exceed limitation of 319 characters.", "localpart");
+
+            var notificationAddressBase = new MailAddressBase(localpart, new WebDomainBase(domain));
+
+            var address = notificationAddressBase.ToString();
+
+            var smtpSettings = TeamlabServerDal.GetTenantServerSettings().FirstOrDefault(s => s.type == ServerType.Smtp);
+
+            if (smtpSettings == null)
+                throw new Exception("No smtp settings.");
+
+            var smtpLogin = smtpSettings.smtpLoginFormat.Replace("%EMAILADDRESS%", address)
+                         .Replace("%EMAILLOCALPART%", localpart)
+                         .Replace("%EMAILDOMAIN%", notificationAddressBase.Domain.Name.ToLowerInvariant())
+                         .Replace("%EMAILHOSTNAME%", Path.GetFileNameWithoutExtension(notificationAddressBase.Domain.Name.ToLowerInvariant()));
+
+            var notificationAddressSettings =
+                                SettingsManager.Instance.LoadSettings<NotificationAddressSettings>(Tenant);
+
+            if (!string.IsNullOrEmpty(notificationAddressSettings.NotificationAddress))
+                throw new Exception("Setting already exists. Remove first.");
+
+            _CreateNotificationAddress(address, password, localpart, domain.Name);
+
+            notificationAddressSettings = new NotificationAddressSettings {NotificationAddress = address};
+
+            if (!SettingsManager.Instance.SaveSettings(notificationAddressSettings, Tenant))
+            {
+                _DeleteNotificationAddress(address);
+                throw new Exception("Could not save notification address setting.");
+            }
+
+            var notificationAddress =
+                                factory.CreateNotificationAddress(localpart, domain, smtpSettings.hostname, smtpSettings.port,
+                                                                  smtpLogin,
+                                                                  true, smtpSettings.socket_type, smtpSettings.authentication_type);
+
+            return notificationAddress;
+        }
+
+        protected abstract MailboxBase _CreateNotificationAddress(string login, string password, string localpart, string domain);
+
+        public override void DeleteNotificationAddress(string address)
+        {
+            if (string.IsNullOrEmpty(address))
+                throw new ArgumentNullException("address", "ServerModel::DeleteNotificationAddress");
+
+            var deleteAddress = address.ToLowerInvariant();
+            var notificationAddressSettings =
+                                SettingsManager.Instance.LoadSettings<NotificationAddressSettings>(Tenant);
+
+            if (notificationAddressSettings.NotificationAddress != deleteAddress)
+                throw new ArgumentException("Mailbox not exists");
+
+            _DeleteNotificationAddress(address);
+
+            if (!SettingsManager.Instance.SaveSettings(notificationAddressSettings.GetDefault(), Tenant))
+            {
+                throw new Exception("Could not delete notification address setting.");
+            }
+        }
+
+        protected abstract void _DeleteNotificationAddress(string address);
 
         #endregion
     }

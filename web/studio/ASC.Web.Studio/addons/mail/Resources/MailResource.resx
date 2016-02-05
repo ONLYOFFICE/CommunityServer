@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,134 +117,23 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccessRightsSettings" xml:space="preserve">
+    <value>Portal. Access Rights.</value>
+  </data>
+  <data name="AccountCreationErrorBody" xml:space="preserve">
+    <value>Please, check all the account settings you entered. If you are sure your settings are correct, sign in to the mail service you use and confirm any verification questions, in case there are some. After then try again.</value>
+  </data>
   <data name="AccountLabel" xml:space="preserve">
     <value>Your name</value>
   </data>
-  <data name="AttachFileLabel" xml:space="preserve">
-    <value>Attach File</value>
+  <data name="AccountsCommonInformationText" xml:space="preserve">
+    <value>Create mailbox for the default domain and manage the accounts and adjust their settings using this list.</value>
   </data>
-  <data name="BCCLabel" xml:space="preserve">
-    <value>BCC</value>
+  <data name="AccountsCommonNotificationText" xml:space="preserve">
+    <value>The settings for the accounts connected using OAuth cannot be edited. You can only change the account name for them.</value>
   </data>
-  <data name="CopyLabel" xml:space="preserve">
-    <value>Copy</value>
-  </data>
-  <data name="EMailLabel" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="MailTitle" xml:space="preserve">
-    <value>Mail</value>
-  </data>
-  <data name="PopServerLabel" xml:space="preserve">
-    <value>POP Server</value>
-  </data>
-  <data name="RemoveQuestion" xml:space="preserve">
-    <value>Do you want to remove {0}?</value>
-  </data>
-  <data name="SmtpServerLabel" xml:space="preserve">
-    <value>SMTP Server</value>
-  </data>
-  <data name="MarkAsLabel" xml:space="preserve">
-    <value>Mark As</value>
-  </data>
-  <data name="MoveToLabel" xml:space="preserve">
-    <value>Move To</value>
-  </data>
-  <data name="ClearBtnLabel" xml:space="preserve">
-    <value>Clear</value>
-  </data>
-  <data name="DeleteBtnLabel" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="ReplyBtnLabel" xml:space="preserve">
-    <value>Reply</value>
-  </data>
-  <data name="SaveBtnLabel" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="SendBtnLabel" xml:space="preserve">
-    <value>Send</value>
-  </data>
-  <data name="WriteNewLetterBtnLabel" xml:space="preserve">
-    <value>Create New E-Mail</value>
-  </data>
-  <data name="RefreshBtnHint" xml:space="preserve">
-    <value>Refresh</value>
-  </data>
-  <data name="MailDescription" xml:space="preserve">
-    <value>Description</value>
-  </data>
-  <data name="MailSearch" xml:space="preserve">
-    <value>search</value>
-  </data>
-  <data name="AddCopy" xml:space="preserve">
-    <value>Add copy</value>
-  </data>
-  <data name="SavedAt" xml:space="preserve">
-    <value>Saved at</value>
-  </data>
-  <data name="Authorization" xml:space="preserve">
-    <value>Authorization</value>
-  </data>
-  <data name="ForwardLabel" xml:space="preserve">
-    <value>Forward</value>
-  </data>
-  <data name="Login" xml:space="preserve">
-    <value>Login</value>
-  </data>
-  <data name="MarkFrom" xml:space="preserve">
-    <value>Mark all messages from</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="Port" xml:space="preserve">
-    <value>Port</value>
-  </data>
-  <data name="ReceiveMailLabel" xml:space="preserve">
-    <value>Receive mail</value>
-  </data>
-  <data name="SecureConnection" xml:space="preserve">
-    <value>Secure connection</value>
-  </data>
-  <data name="SendMail" xml:space="preserve">
-    <value>Send mail</value>
-  </data>
-  <data name="WriteLetter" xml:space="preserve">
-    <value>Write Letter</value>
-  </data>
-  <data name="AddTag" xml:space="preserve">
-    <value>Add Tag</value>
-  </data>
-  <data name="AllLettersFrom" xml:space="preserve">
-    <value>All letters From</value>
-  </data>
-  <data name="NewTag" xml:space="preserve">
-    <value>New Tag</value>
-  </data>
-  <data name="TagEdit" xml:space="preserve">
-    <value>Tag edit</value>
-  </data>
-  <data name="Ready" xml:space="preserve">
-    <value>Ready</value>
-  </data>
-  <data name="DeleteAccount" xml:space="preserve">
-    <value>Delete account</value>
-  </data>
-  <data name="DeleteTag" xml:space="preserve">
-    <value>Delete tag</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
-  </data>
-  <data name="Attachments" xml:space="preserve">
-    <value>Attachments</value>
-  </data>
-  <data name="Color" xml:space="preserve">
-    <value>Color</value>
-  </data>
-  <data name="DeleteTagAttention" xml:space="preserve">
-    <value>If you delete the tag from the list, it will also be removed from the contacts and messages marked with it.</value>
+  <data name="AccountsSettingsLabel" xml:space="preserve">
+    <value>Accounts Management</value>
   </data>
   <data name="ActivateAccountAttention" xml:space="preserve">
     <value>After activating your account you will resume receiving mail on it.</value>
@@ -252,50 +141,23 @@
   <data name="ActivateAccountLabel" xml:space="preserve">
     <value>Activate account</value>
   </data>
+  <data name="TurnOnAccountLabel" xml:space="preserve">
+    <value>Turn it on.</value>
+  </data>
   <data name="ActivateBtnLabel" xml:space="preserve">
     <value>Activate</value>
   </data>
-  <data name="SelectAttachmentsFolderLabel" xml:space="preserve">
-    <value>Folder for Attachments</value>
+  <data name="AddCopy" xml:space="preserve">
+    <value>Add copy</value>
   </data>
-  <data name="DeactivateAccountAttention" xml:space="preserve">
-    <value>After deactivation of an account you will no longer receive mail from it.</value>
+  <data name="AddEmailAddressHint" xml:space="preserve">
+    <value>Add email address</value>
   </data>
-  <data name="DeactivateAccountLabel" xml:space="preserve">
-    <value>Deactivate account</value>
+  <data name="AddEmailPlaceholder" xml:space="preserve">
+    <value>Add email</value>
   </data>
-  <data name="DeactovateBtnLabel" xml:space="preserve">
-    <value>Deactivate</value>
-  </data>
-  <data name="DeleteAccountAttention" xml:space="preserve">
-    <value>If you delete your account all the letters removed from the mailbox.</value>
-  </data>
-  <data name="DeleteAccountLabel" xml:space="preserve">
-    <value>Delete account</value>
-  </data>
-  <data name="EditAccountLabel" xml:space="preserve">
-    <value>Edit account</value>
-  </data>
-  <data name="NoAddress" xml:space="preserve">
-    <value>&lt;noaddress@noadress.com&gt;</value>
-  </data>
-  <data name="NoSubject" xml:space="preserve">
-    <value>no subject</value>
-  </data>
-  <data name="Select" xml:space="preserve">
-    <value>Select</value>
-  </data>
-  <data name="SelectAll" xml:space="preserve">
-    <value>Select all</value>
-  </data>
-  <data name="ShowOnPage" xml:space="preserve">
-    <value>Show on page</value>
-  </data>
-  <data name="Edit" xml:space="preserve">
-    <value>Edit</value>
-  </data>
-  <data name="ViewContact" xml:space="preserve">
-    <value>View contact's profile</value>
+  <data name="AddTag" xml:space="preserve">
+    <value>Add Tag</value>
   </data>
   <data name="AddToCRMContacts" xml:space="preserve">
     <value>Add to CRM contacts</value>
@@ -303,23 +165,35 @@
   <data name="AdvancedLinkLabel" xml:space="preserve">
     <value>Advanced</value>
   </data>
-  <data name="TagNamePlaceholder" xml:space="preserve">
-    <value>Tag name</value>
+  <data name="AlwaysDisplayImagesLabel" xml:space="preserve">
+    <value>Always display images from</value>
   </data>
-  <data name="AddEmailPlaceholder" xml:space="preserve">
-    <value>Add email</value>
+  <data name="AttachDeleteAllLabel" xml:space="preserve">
+    <value>Delete All</value>
   </data>
-  <data name="CreateNewTagLabel" xml:space="preserve">
-    <value>Create new Tag:</value>
+  <data name="AttachDownloadAll" xml:space="preserve">
+    <value>Download All</value>
   </data>
-  <data name="ErrorEmailExist" xml:space="preserve">
-    <value>This address already exists</value>
+  <data name="AttachemntsUnauthorizedError" xml:space="preserve">
+    <value>You are not authorized. Authorize first.</value>
   </data>
-  <data name="ErrorEmailIncorrect" xml:space="preserve">
-    <value>Incorrect address</value>
+  <data name="AttachFilesAsLinksLabel" xml:space="preserve">
+    <value>Attach links to files</value>
   </data>
-  <data name="SelectColorLabel" xml:space="preserve">
-    <value>Select color</value>
+  <data name="AttachFilesFromDocsLabel" xml:space="preserve">
+    <value>Attach from Docs</value>
+  </data>
+  <data name="Attachments" xml:space="preserve">
+    <value>Attachments</value>
+  </data>
+  <data name="AttacToCRMContact" xml:space="preserve">
+    <value>Attach to CRM Contact</value>
+  </data>
+  <data name="AuthenticationType" xml:space="preserve">
+    <value>Authentication Type</value>
+  </data>
+  <data name="BCCLabel" xml:space="preserve">
+    <value>BCC</value>
   </data>
   <data name="BlankModalAccountsTip1" xml:space="preserve">
     <value>Add one or several email accounts to your portal profile</value>
@@ -336,6 +210,9 @@
   <data name="BlankModalCreateBtn" xml:space="preserve">
     <value>Create New Account</value>
   </data>
+  <data name="BlankModalCreateMailboxBtn" xml:space="preserve">
+    <value>Create mailbox</value>
+  </data>
   <data name="BlankModalCRMTip1" xml:space="preserve">
     <value>See all your CRM contacts in your mailling list</value>
   </data>
@@ -348,11 +225,23 @@
   <data name="BlankModalCRMTitle" xml:space="preserve">
     <value>CRM Integration</value>
   </data>
-  <data name="BlankModalGoNowLnk" xml:space="preserve">
-    <value>Go to Mail Client Now</value>
-  </data>
   <data name="BlankModalHeader" xml:space="preserve">
     <value>Manage Email on the Portal:</value>
+  </data>
+  <data name="BlankModalMailServerTip1" xml:space="preserve">
+    <value>Configure a mail server for your own corporate domain</value>
+  </data>
+  <data name="BlankModalMailServerTip2" xml:space="preserve">
+    <value>Give your employees or users custom mailbox addresses</value>
+  </data>
+  <data name="BlankModalMailServerTip3" xml:space="preserve">
+    <value>Assign aliases to the users and organize them into groups</value>
+  </data>
+  <data name="BlankModalMailServerTitle" xml:space="preserve">
+    <value>Mail Server</value>
+  </data>
+  <data name="BlankModalSetUpDomainBtn" xml:space="preserve">
+    <value>Set up domain</value>
   </data>
   <data name="BlankModalTagsTip1" xml:space="preserve">
     <value>Organize mail using own tags for every message</value>
@@ -366,11 +255,122 @@
   <data name="BlankModalTagsTitle" xml:space="preserve">
     <value>Tags</value>
   </data>
-  <data name="ImportanceLabel" xml:space="preserve">
-    <value>Importance</value>
+  <data name="BlockedContentWarning" xml:space="preserve">
+    <value>Images are disabled.</value>
   </data>
-  <data name="GetDefaultSettingsLinkLabel" xml:space="preserve">
-    <value>Get default settings</value>
+  <data name="ClearBtnLabel" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="CopyFilesToMyDocumentsBtn" xml:space="preserve">
+    <value>Copy to My Documents</value>
+  </data>
+  <data name="CopyLabel" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="CreateEmailToSenderLabel" xml:space="preserve">
+    <value>Create Email to Sender</value>
+  </data>
+  <data name="CreateMailboxBtn" xml:space="preserve">
+    <value>Create Mailbox</value>
+  </data>
+  <data name="CreateNewAccountBtn" xml:space="preserve">
+    <value>Create New Account</value>
+  </data>
+  <data name="CreateNewTagBtn" xml:space="preserve">
+    <value>Create New Tag</value>
+  </data>
+  <data name="CreateNewTagLabel" xml:space="preserve">
+    <value>Create new Tag:</value>
+  </data>
+  <data name="DeactivateAccountAttention" xml:space="preserve">
+    <value>After deactivation of an account you will no longer receive mail from it.</value>
+  </data>
+  <data name="DeactivateAccountLabel" xml:space="preserve">
+    <value>Deactivate account</value>
+  </data>
+  <data name="DeactovateBtnLabel" xml:space="preserve">
+    <value>Deactivate</value>
+  </data>
+  <data name="DeleteAccount" xml:space="preserve">
+    <value>Delete account</value>
+  </data>
+  <data name="DeleteAccountAttention" xml:space="preserve">
+    <value>If you delete your account all the letters removed from the mailbox.</value>
+  </data>
+  <data name="DeleteAccountLabel" xml:space="preserve">
+    <value>Delete account</value>
+  </data>
+  <data name="DeleteAttachment" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteBtnLabel" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="DeleteTag" xml:space="preserve">
+    <value>Delete tag</value>
+  </data>
+  <data name="DeleteTagAttention" xml:space="preserve">
+    <value>If you delete the tag from the list, it will also be removed from the contacts and messages marked with it.</value>
+  </data>
+  <data name="DisplayImagesLabel" xml:space="preserve">
+    <value>Display images</value>
+  </data>
+  <data name="DomainHelperInformationText_1" xml:space="preserve">
+    <value>The ready-made free default domain is provided for you to create your new mailbox right away.</value>
+  </data>
+  <data name="DomainHelperInformationText_2" xml:space="preserve">
+    <value>This domain is common for all portals, so it is recommended that your corporate domain was used for corporate email correspondence</value>
+  </data>
+  <data name="DownloadAttachment" xml:space="preserve">
+    <value>Download</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="EditAccountLabel" xml:space="preserve">
+    <value>Edit account</value>
+  </data>
+  <data name="EditAttachment" xml:space="preserve">
+    <value>Open in document editor</value>
+  </data>
+  <data name="EMailLabel" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="EncryptedPaswordAuthentication" xml:space="preserve">
+    <value>Encrypted Password</value>
+  </data>
+  <data name="ErrorEmailExist" xml:space="preserve">
+    <value>This address already exists</value>
+  </data>
+  <data name="ExportAttachmentsToMyDocuments" xml:space="preserve">
+    <value>Save all in My Documents</value>
+  </data>
+  <data name="ExportMessagePopupChooseMessage" xml:space="preserve">
+    <value>Please, choose CRM items which this message will be attached to:</value>
+  </data>
+  <data name="ExportMessagePopupExportBtnLbl" xml:space="preserve">
+    <value>Export</value>
+  </data>
+  <data name="ExportMessagePopupExportLabel" xml:space="preserve">
+    <value>Export to:</value>
+  </data>
+  <data name="ExportMessagePopupInfoMessage" xml:space="preserve">
+    <value>Mailing history will be avaliable to CRM users according to access rights.</value>
+  </data>
+  <data name="ExportMessageToCRM" xml:space="preserve">
+    <value>Export To CRM</value>
+  </data>
+  <data name="FilesCannotBeAttachedAsLinks_Body" xml:space="preserve">
+    <value>You have "View Only" access rights for some attached file, thus you will not be able to share them with others. {0}{0} These files can be copied to ''My Documents" folder and attached as links afterwards. {0}{0} Alternatively you can ask document owners to give you "Full Access" permissions to the files you want to attach as links and repeat the operation once again.</value>
+  </data>
+  <data name="FilesCannotBeAttachedAsLinks_Header" xml:space="preserve">
+    <value>Some files cannot be attached as links.</value>
+  </data>
+  <data name="FilesFolderUnlinkButton" xml:space="preserve">
+    <value>Unlink folder</value>
+  </data>
+  <data name="FilterByGroup" xml:space="preserve">
+    <value>{!Group}</value>
   </data>
   <data name="FolderNameDrafts" xml:space="preserve">
     <value>Drafts</value>
@@ -387,59 +387,140 @@
   <data name="FolderNameTrash" xml:space="preserve">
     <value>Trash</value>
   </data>
-  <data name="AddEmailAddressHint" xml:space="preserve">
-    <value>Add email address</value>
+  <data name="ForwardLabel" xml:space="preserve">
+    <value>Forward</value>
   </data>
-  <data name="ShowMoreTags" xml:space="preserve">
-    <value>Show more tags</value>
-  </data>
-  <data name="AccountsSettingsLabel" xml:space="preserve">
-    <value>Accounts Management</value>
-  </data>
-  <data name="MoreMenuButton" xml:space="preserve">
-    <value>More</value>
-  </data>
-  <data name="TagsSettingsLabel" xml:space="preserve">
-    <value>Tags Management</value>
-  </data>
-  <data name="CreateNewAccountBtn" xml:space="preserve">
-    <value>Create New Account</value>
-  </data>
-  <data name="CreateNewTagBtn" xml:space="preserve">
-    <value>Create New Tag</value>
-  </data>
-  <data name="AttacToCRMContact" xml:space="preserve">
-    <value>Attach to CRM Contact</value>
-  </data>
-  <data name="DownloadAttachment" xml:space="preserve">
-    <value>Download</value>
-  </data>
-  <data name="SaveAttachToMyDocs" xml:space="preserve">
-    <value>Save to My Docs</value>
-  </data>
-  <data name="SaveAttachToProjDocs" xml:space="preserve">
-    <value>Save to Projects Docs</value>
-  </data>
-  <data name="ViewAttachment" xml:space="preserve">
-    <value>View</value>
-  </data>
-  <data name="HaveNoContactsLabel" xml:space="preserve">
-    <value>No Contacts</value>
+  <data name="FullAccess" xml:space="preserve">
+    <value>Full Access</value>
   </data>
   <data name="FullSize" xml:space="preserve">
     <value>Full size</value>
   </data>
-  <data name="DeliveryFailureReason" xml:space="preserve">
-    <value>Reason</value>
+  <data name="GetDefaultSettingsLinkLabel" xml:space="preserve">
+    <value>Get default settings</value>
   </data>
-  <data name="DeliveryFailureSubject" xml:space="preserve">
-    <value>Message Delivery Failure</value>
+  <data name="GoToNextMessage" xml:space="preserve">
+    <value>Next</value>
+  </data>
+  <data name="GoToPrevMessage" xml:space="preserve">
+    <value>Previous</value>
+  </data>
+  <data name="GroupNotificationText" xml:space="preserve">
+    <value>Mailgroup, edited in administration panel only</value>
+  </data>
+  <data name="ImapServerLabel" xml:space="preserve">
+    <value>IMAP Server</value>
+  </data>
+  <data name="ImportanceLabel" xml:space="preserve">
+    <value>Importance</value>
+  </data>
+  <data name="LinkChainWithCRM" xml:space="preserve">
+    <value>Link with CRM</value>
+  </data>
+  <data name="LinkConversationChooseContactsLabel" xml:space="preserve">
+    <value>Choose item:</value>
+  </data>
+  <data name="LinkConversationLinkButtonLabel" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="LinkConversationOptionCasesLbl" xml:space="preserve">
+    <value>Case</value>
+  </data>
+  <data name="LinkConversationOptionContactsLbl" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="LinkConversationOptionOpportunitiesLbl" xml:space="preserve">
+    <value>Opportunity</value>
+  </data>
+  <data name="LinkConversationPopupChooseMessage" xml:space="preserve">
+    <value>Please, choose CRM items which this conversation will be attached to:</value>
+  </data>
+  <data name="LinkConversationPopupInfoMessage" xml:space="preserve">
+    <value>All letters from this conversation (including future letters) will be showed in CRM. Mailing history will be avaliable to CRM users according to access rights.</value>
+  </data>
+  <data name="LinkConversationPopupLinkLabel" xml:space="preserve">
+    <value>Link to:</value>
+  </data>
+  <data name="LinkConversationSearchPlaceHolderLabel" xml:space="preserve">
+    <value>Find by name</value>
+  </data>
+  <data name="LinkConversationUnlinkAllBtnLabel" xml:space="preserve">
+    <value>Unlink all</value>
+  </data>
+  <data name="LoadingLabel" xml:space="preserve">
+    <value>Loading...</value>
+  </data>
+  <data name="Login" xml:space="preserve">
+    <value>Login</value>
+  </data>
+  <data name="MailDescription" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="MailLimitLabel" xml:space="preserve">
+    <value>Import messages only for the last 30 days</value>
+  </data>
+  <data name="MailTitle" xml:space="preserve">
+    <value>Mail</value>
+  </data>
+  <data name="MarkAsImportant" xml:space="preserve">
+    <value>Mark as Important</value>
+  </data>
+  <data name="MarkAsNotImportant" xml:space="preserve">
+    <value>Mark as Not Important</value>
+  </data>
+  <data name="MarkAsRead" xml:space="preserve">
+    <value>Mark as Read</value>
+  </data>
+  <data name="MarkAsUnread" xml:space="preserve">
+    <value>Mark as Unread</value>
+  </data>
+  <data name="MarkFrom" xml:space="preserve">
+    <value>Mark all messages from</value>
   </data>
   <data name="MessageFromWarning" xml:space="preserve">
     <value>This account has been deactivated.</value>
   </data>
-  <data name="BlockedContentWarning" xml:space="preserve">
-    <value>Images are disabled.</value>
+  <data name="AccountDisableForReceiving" xml:space="preserve">
+    <value>This account is not receiving mail.</value>
+  </data>
+  <data name="AccountDisableForSending" xml:space="preserve">
+    <value>This account is not sending mail.</value>
+  </data>
+  <data name="MoreLabel" xml:space="preserve">
+    <value>more</value>
+  </data>
+  <data name="MoreMenuButton" xml:space="preserve">
+    <value>More</value>
+  </data>
+  <data name="NewTag" xml:space="preserve">
+    <value>New Tag</value>
+  </data>
+  <data name="NoAddress" xml:space="preserve">
+    <value>&lt;noaddress@noadress.com&gt;</value>
+  </data>
+  <data name="NoEcncryptionNeeded" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="NonePasswordAuthentication" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="NoSubject" xml:space="preserve">
+    <value>no subject</value>
+  </data>
+  <data name="OAuthLabel" xml:space="preserve">
+    <value>or link with:</value>
+  </data>
+  <data name="OnTopLabel" xml:space="preserve">
+    <value>On top</value>
+  </data>
+  <data name="OpenBtnLabel" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="OpenInNewTabBtnLabel" xml:space="preserve">
+    <value>Open in new tab</value>
+  </data>
+  <data name="Or" xml:space="preserve">
+    <value>or</value>
   </data>
   <data name="OverallConceptAll" xml:space="preserve">
     <value>all</value>
@@ -474,20 +555,101 @@
   <data name="OverallSelected" xml:space="preserve">
     <value>selected</value>
   </data>
-  <data name="AttachmentsCountExceeded" xml:space="preserve">
-    <value>Total count of  files exceeds limit!\nPlease remove some files.</value>
+  <data name="Password" xml:space="preserve">
+    <value>Password</value>
   </data>
-  <data name="AttachFilesFromDocsLabel" xml:space="preserve">
-    <value>Attach from Docs</value>
+  <data name="PopServerLabel" xml:space="preserve">
+    <value>POP Server</value>
   </data>
-  <data name="AccessRightsSettings" xml:space="preserve">
-    <value>Portal. Access Rights.</value>
+  <data name="Port" xml:space="preserve">
+    <value>Port</value>
   </data>
-  <data name="EditAttachment" xml:space="preserve">
-    <value>Open in document editor</value>
+  <data name="ProductName" xml:space="preserve">
+    <value>Mail</value>
   </data>
-  <data name="AccountCreationErrorBody" xml:space="preserve">
-    <value>Please, check all the account settings you entered. If you are sure your settings are correct, sign in to the mail service you use and confirm any verification questions, in case there are some. After then try again.</value>
+  <data name="ReadOnly" xml:space="preserve">
+    <value>Read Only</value>
+  </data>
+  <data name="ReceiveMailLabel" xml:space="preserve">
+    <value>Receive mail</value>
+  </data>
+  <data name="RefreshBtnHint" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
+  <data name="ReplyAllBtnLabel" xml:space="preserve">
+    <value>Reply All</value>
+  </data>
+  <data name="ReplyBtnLabel" xml:space="preserve">
+    <value>Reply</value>
+  </data>
+  <data name="SaveAndSendMessageBtn" xml:space="preserve">
+    <value>Save &amp; Send Message</value>
+  </data>
+  <data name="SaveAttachToMyDocs" xml:space="preserve">
+    <value>Save to My Docs</value>
+  </data>
+  <data name="SaveAttachToProjDocs" xml:space="preserve">
+    <value>Save to Projects Docs</value>
+  </data>
+  <data name="SaveBtnLabel" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SavedAt" xml:space="preserve">
+    <value>Saved at</value>
+  </data>
+  <data name="SearchInToCcBccFieldsPlaceHolderLabel" xml:space="preserve">
+    <value>Find in Teamlab CRM, People or mail contacts</value>
+  </data>
+  <data name="Select" xml:space="preserve">
+    <value>Select</value>
+  </data>
+  <data name="SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="SelectAttachmentsFolderLabel" xml:space="preserve">
+    <value>Folder for Attachments</value>
+  </data>
+  <data name="SelectFolderDialogTitle" xml:space="preserve">
+    <value>Folder for Attachments</value>
+  </data>
+  <data name="SendBtnLabel" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="SendMail" xml:space="preserve">
+    <value>Send mail</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SharingSettingForFileLinks_Body" xml:space="preserve">
+    <value>The file(s) you attached as link(s) will be shared for email recipient(s) via link for people outside the portal. You can change access rights to the files in the Documents module later/</value>
+  </data>
+  <data name="SharingSettingForFileLinks_Header" xml:space="preserve">
+    <value>Set up access rights for file(s) attached as links for email recipient(s):</value>
+  </data>
+  <data name="ShowMoreAccounts" xml:space="preserve">
+    <value>Show more accounts</value>
+  </data>
+  <data name="ShowMoreTags" xml:space="preserve">
+    <value>Show more tags</value>
+  </data>
+  <data name="ShowOnPage" xml:space="preserve">
+    <value>Show on page</value>
+  </data>
+  <data name="SimplePasswordAuthentication" xml:space="preserve">
+    <value>Simple Password</value>
+  </data>
+  <data name="SingleViewLabel" xml:space="preserve">
+    <value>View singly</value>
+  </data>
+  <data name="SmtpServerLabel" xml:space="preserve">
+    <value>SMTP Server</value>
+  </data>
+  <data name="TagEdit" xml:space="preserve">
+    <value>Tag edit</value>
+  </data>
+  <data name="TagNamePlaceholder" xml:space="preserve">
+    <value>Tag name</value>
   </data>
   <data name="TagsCommonInformationText" xml:space="preserve">
     <value>You can mark messages and contacts using the tags. It will ease the search for the necessary ones using the tag filtering option in future.</value>
@@ -495,155 +657,11 @@
   <data name="TagsCommonNotificationText" xml:space="preserve">
     <value>You can edit and delete the tags created in Mail only. The tags imported from the CRM module cannot be either edited or deleted. They can be changed right in the CRM module by an administrator.</value>
   </data>
-  <data name="LoadingMail" xml:space="preserve">
-    <value>Loading Mail</value>
-  </data>
-  <data name="AttachemntsUnauthorizedError" xml:space="preserve">
-    <value>You are not authorized. Authorize first.</value>
-  </data>
-  <data name="FilterByGroup" xml:space="preserve">
-    <value>{!Group}</value>
-  </data>
-  <data name="ProductName" xml:space="preserve">
-    <value>Mail</value>
-  </data>
-  <data name="SingleViewLabel" xml:space="preserve">
-    <value>View singly</value>
-  </data>
-  <data name="MailLimitLabel" xml:space="preserve">
-    <value>Import messages only for the last 30 days</value>
-  </data>
-  <data name="ImapServerLabel" xml:space="preserve">
-    <value>IMAP Server</value>
-  </data>
-  <data name="MoreLabel" xml:space="preserve">
-    <value>more</value>
-  </data>
-  <data name="PleaseWaitLabel" xml:space="preserve">
-    <value>Please wait...</value>
-  </data>
-  <data name="LoadingLabel" xml:space="preserve">
-    <value>Loading...</value>
+  <data name="TagsSettingsLabel" xml:space="preserve">
+    <value>Tags Management</value>
   </data>
   <data name="TodayLabel" xml:space="preserve">
     <value>Today</value>
-  </data>
-  <data name="YesterdayLabel" xml:space="preserve">
-    <value>Yesterday</value>
-  </data>
-  <data name="UseImapSSL" xml:space="preserve">
-    <value>Encryption for IMAP Server</value>
-  </data>
-  <data name="UsePOP3SSL" xml:space="preserve">
-    <value>Encryption for POP Server</value>
-  </data>
-  <data name="UseSmtpSSL" xml:space="preserve">
-    <value>Encryption for SMTP Server</value>
-  </data>
-  <data name="OAuthLabel" xml:space="preserve">
-    <value>or link with:</value>
-  </data>
-  <data name="NoEcncryptionNeeded" xml:space="preserve">
-    <value>None</value>
-  </data>
-  <data name="AuthenticationType" xml:space="preserve">
-    <value>Authentication Type</value>
-  </data>
-  <data name="EncryptedPaswordAuthentication" xml:space="preserve">
-    <value>Encrypted Password</value>
-  </data>
-  <data name="NonePasswordAuthentication" xml:space="preserve">
-    <value>None</value>
-  </data>
-  <data name="SimplePasswordAuthentication" xml:space="preserve">
-    <value>Simple Password</value>
-  </data>
-  <data name="AttachDeleteAllLabel" xml:space="preserve">
-    <value>Delete All</value>
-  </data>
-  <data name="BasicUploaderLabel" xml:space="preserve">
-    <value>Basic Uploader</value>
-  </data>
-  <data name="DeleteAttachment" xml:space="preserve">
-    <value>Delete</value>
-  </data>
-  <data name="OnTopLabel" xml:space="preserve">
-    <value>On top</value>
-  </data>
-  <data name="ReplyAllBtnLabel" xml:space="preserve">
-    <value>Reply All</value>
-  </data>
-  <data name="AccountsCommonInformationText" xml:space="preserve">
-    <value>Create mailbox for the default domain and manage the accounts and adjust their settings using this list.</value>
-  </data>
-  <data name="AccountsCommonNotificationText" xml:space="preserve">
-    <value>The settings for the accounts connected using OAuth cannot be edited. You can only change the account name for them.</value>
-  </data>
-  <data name="AlwaysDisplayImagesLabel" xml:space="preserve">
-    <value>Always display images from</value>
-  </data>
-  <data name="DisplayImagesLabel" xml:space="preserve">
-    <value>Display images</value>
-  </data>
-  <data name="GoToNextMessage" xml:space="preserve">
-    <value>Next</value>
-  </data>
-  <data name="GoToPrevMessage" xml:space="preserve">
-    <value>Previous</value>
-  </data>
-  <data name="ShowMoreAccounts" xml:space="preserve">
-    <value>Show more accounts</value>
-  </data>
-  <data name="LinkChainWithCRM" xml:space="preserve">
-    <value>Link with CRM</value>
-  </data>
-  <data name="UnlinkChainWithCRM" xml:space="preserve">
-    <value>Unlink from CRM</value>
-  </data>
-  <data name="ExportMessageToCRM" xml:space="preserve">
-    <value>Export To CRM</value>
-  </data>
-  <data name="LinkConversationOptionCasesLbl" xml:space="preserve">
-    <value>Case</value>
-  </data>
-  <data name="LinkConversationOptionContactsLbl" xml:space="preserve">
-    <value>Contact</value>
-  </data>
-  <data name="LinkConversationOptionOpportunitiesLbl" xml:space="preserve">
-    <value>Opportunity</value>
-  </data>
-  <data name="LinkConversationPopupChooseMessage" xml:space="preserve">
-    <value>Please, choose CRM items which this conversation will be attached to:</value>
-  </data>
-  <data name="LinkConversationPopupInfoMessage" xml:space="preserve">
-    <value>All letters from this conversation (including future letters) will be showed in CRM. Mailing history will be avaliable to CRM users according to access rights.</value>
-  </data>
-  <data name="LinkConversationPopupLinkLabel" xml:space="preserve">
-    <value>Link to:</value>
-  </data>
-  <data name="LinkConversationChooseContactsLabel" xml:space="preserve">
-    <value>Choose item:</value>
-  </data>
-  <data name="ExportMessagePopupChooseMessage" xml:space="preserve">
-    <value>Please, choose CRM items which this message will be attached to:</value>
-  </data>
-  <data name="ExportMessagePopupExportLabel" xml:space="preserve">
-    <value>Export to:</value>
-  </data>
-  <data name="ExportMessagePopupInfoMessage" xml:space="preserve">
-    <value>Mailing history will be avaliable to CRM users according to access rights.</value>
-  </data>
-  <data name="LinkConversationLinkButtonLabel" xml:space="preserve">
-    <value>Save</value>
-  </data>
-  <data name="LinkConversationSearchPlaceHolderLabel" xml:space="preserve">
-    <value>Find by name</value>
-  </data>
-  <data name="LinkConversationUnlinkAllBtnLabel" xml:space="preserve">
-    <value>Unlink all</value>
-  </data>
-  <data name="ExportMessagePopupExportBtnLbl" xml:space="preserve">
-    <value>Export</value>
   </data>
   <data name="UnlinkAllConfirmationMessage" xml:space="preserve">
     <value>Do you really want to unlink this conversation from CRM?</value>
@@ -655,103 +673,31 @@ All messages which were received before, will left in the CRM mailing history, b
   <data name="UnlinkAllPopupUnlinkBtnLabel" xml:space="preserve">
     <value>Unlink</value>
   </data>
-  <data name="AttachDownloadAll" xml:space="preserve">
-    <value>Download All</value>
-  </data>
-  <data name="OpenBtnLabel" xml:space="preserve">
-    <value>Open</value>
-  </data>
-  <data name="CreateEmailToSenderLabel" xml:space="preserve">
-    <value>Create Email to Sender</value>
-  </data>
-  <data name="MarkAsImportant" xml:space="preserve">
-    <value>Mark as Important</value>
-  </data>
-  <data name="MarkAsNotImportant" xml:space="preserve">
-    <value>Mark as Not Important</value>
-  </data>
-  <data name="MarkAsRead" xml:space="preserve">
-    <value>Mark as Read</value>
-  </data>
-  <data name="MarkAsUnread" xml:space="preserve">
-    <value>Mark as Unread</value>
-  </data>
-  <data name="ExportAttachmentsToMyDocuments" xml:space="preserve">
-    <value>Save all in My Documents</value>
-  </data>
-  <data name="SelectFolderDialogTitle" xml:space="preserve">
-    <value>Folder for Attachments</value>
-  </data>
-  <data name="SearchInToCcBccFieldsPlaceHolderLabel" xml:space="preserve">
-    <value>Find in Teamlab CRM, People or mail contacts</value>
-  </data>
-  <data name="FilesFolderUnlinkButton" xml:space="preserve">
-    <value>Unlink folder</value>
-  </data>
-  <data name="OpenInNewTabBtnLabel" xml:space="preserve">
-    <value>Open in new tab</value>
-  </data>
-  <data name="GroupNotificationText" xml:space="preserve">
-    <value>Mailgroup, edited in administration panel only</value>
-  </data>
-  <data name="BlankModalMailServerTip1" xml:space="preserve">
-    <value>Configure a mail server for your own corporate domain</value>
-  </data>
-  <data name="BlankModalMailServerTip2" xml:space="preserve">
-    <value>Give your employees or users custom mailbox addresses</value>
-  </data>
-  <data name="BlankModalMailServerTip3" xml:space="preserve">
-    <value>Assign aliases to the users and organize them into groups</value>
-  </data>
-  <data name="BlankModalMailServerTitle" xml:space="preserve">
-    <value>Mail Server</value>
-  </data>
-  <data name="BlankModalSetUpDomainBtn" xml:space="preserve">
-    <value>Set up domain</value>
-  </data>
-  <data name="Or" xml:space="preserve">
-    <value>or</value>
-  </data>
-  <data name="FilesCannotBeAttachedAsLinks_Body" xml:space="preserve">
-    <value>You have "View Only" access rights for some attached file, thus you will not be able to share them with others. {0}{0} These files can be copied to ''My Documents" folder and attached as links afterwards. {0}{0} Alternatively you can ask document owners to give you "Full Access" permissions to the files you want to attach as links and repeat the operation once again.</value>
-  </data>
-  <data name="FilesCannotBeAttachedAsLinks_Header" xml:space="preserve">
-    <value>Some files cannot be attached as links.</value>
-  </data>
-  <data name="AttachFilesAsLinksLabel" xml:space="preserve">
-    <value>Attach links to files</value>
-  </data>
-  <data name="CopyFilesToMyDocumentsBtn" xml:space="preserve">
-    <value>Copy to My Documents</value>
-  </data>
-  <data name="FullAccess" xml:space="preserve">
-    <value>Full Access</value>
-  </data>
-  <data name="ReadOnly" xml:space="preserve">
-    <value>Read Only</value>
-  </data>
-  <data name="SaveAndSendMessageBtn" xml:space="preserve">
-    <value>Save &amp; Send Message</value>
-  </data>
-  <data name="SharingSettingForFileLinks_Body" xml:space="preserve">
-    <value>The file(s) you attached as link(s) will be shared for email recipient(s) via link for people outside the portal. You can change access rights to the files in the Documents module later/</value>
-  </data>
-  <data name="SharingSettingForFileLinks_Header" xml:space="preserve">
-    <value>Set up access rights for file(s) attached as links for email recipient(s):</value>
-  </data>
   <data name="UploadFileLabel" xml:space="preserve">
     <value>Upload file</value>
   </data>
-  <data name="BlankModalCreateMailboxBtn" xml:space="preserve">
-    <value>Create mailbox</value>
+  <data name="UseImapSSL" xml:space="preserve">
+    <value>Encryption for IMAP Server</value>
   </data>
-  <data name="CreateMailboxBtn" xml:space="preserve">
-    <value>Create Mailbox</value>
+  <data name="UsePOP3SSL" xml:space="preserve">
+    <value>Encryption for POP Server</value>
   </data>
-  <data name="DomainHelperInformationText_1" xml:space="preserve">
-    <value>The ready-made free default domain is provided for you to create your new mailbox right away.</value>
+  <data name="UseSmtpSSL" xml:space="preserve">
+    <value>Encryption for SMTP Server</value>
   </data>
-  <data name="DomainHelperInformationText_2" xml:space="preserve">
-    <value>This domain is common for all portals, so it is recommended that your corporate domain was used for corporate email correspondence</value>
+  <data name="ViewAttachment" xml:space="preserve">
+    <value>View</value>
+  </data>
+  <data name="ViewContact" xml:space="preserve">
+    <value>View contact's profile</value>
+  </data>
+  <data name="WriteLetter" xml:space="preserve">
+    <value>Write Letter</value>
+  </data>
+  <data name="WriteNewLetterBtnLabel" xml:space="preserve">
+    <value>Create New E-Mail</value>
+  </data>
+  <data name="YesterdayLabel" xml:space="preserve">
+    <value>Yesterday</value>
   </data>
 </root>

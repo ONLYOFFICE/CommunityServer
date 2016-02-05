@@ -27,9 +27,7 @@
 using System;
 using System.Web.UI;
 using System.Web;
-using System.Linq;
 using ASC.Web.Studio.Utility;
-using System.Web.Configuration;
 using ASC.Web.Studio.Core;
 using AjaxPro;
 using ASC.Web.Core.Utility.Settings;
@@ -38,7 +36,7 @@ using ASC.Web.Core.Users;
 using System.IO;
 using ASC.MessagingSystem;
 using Resources;
-using ASC.Web.Core.CoBranding;
+using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -47,13 +45,27 @@ namespace ASC.Web.Studio.UserControls.Management
     {
         public const string Location = "~/UserControls/Management/GreetingSettings/GreetingLogoSettings.ascx";
 
+        public static bool AvailableControl
+        {
+            get
+            {
+                return !TenantLogoManager.WhiteLabelEnabled;
+            }
+        }
+
         protected TenantInfoSettings _tenantInfoSettings;
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!AvailableControl)
+            {
+                Response.Redirect(CommonLinkUtility.GetDefault(), true);
+                return;
+            }
+
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/uploader/ajaxupload.js"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/greetingsettings/js/greetinglogosettings.js"));
+            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js");
+            Page.RegisterBodyScripts("~/usercontrols/management/greetingsettings/js/greetinglogosettings.js");
 
             _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
 
@@ -107,11 +119,11 @@ namespace ASC.Web.Studio.UserControls.Management
                 _tenantInfoSettings.RestoreDefault();
                 SettingsManager.Instance.SaveSettings(_tenantInfoSettings, TenantProvider.CurrentTenantID);
 
-                if (TenantLogoManager.CoBrandingEnabled)
+                if (TenantLogoManager.WhiteLabelEnabled)
                 {
-                    var _tenantCoBrandingSettings = SettingsManager.Instance.LoadSettings<TenantCoBrandingSettings>(TenantProvider.CurrentTenantID);
-                    _tenantCoBrandingSettings.RestoreDefault(CoBrandingLogoTypeEnum.Dark);
-                    SettingsManager.Instance.SaveSettings(_tenantCoBrandingSettings, TenantProvider.CurrentTenantID);
+                    var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+                    _tenantWhiteLabelSettings.RestoreDefault(WhiteLabelLogoTypeEnum.Dark);
+                    _tenantWhiteLabelSettings.Save();
                 }
 
                 return new

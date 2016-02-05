@@ -142,9 +142,10 @@ namespace ASC.Web.CRM.Controls.Contacts
 
                     foreach (var filterItem in jsonArray)
                     {
+
                         var filterObj = JObject.Parse(filterItem);
 
-                        var filterParam = JObject.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(filterObj.Value<string>("params"))));
+                        JObject filterParam = Global.JObjectParseWithDateAsString(Encoding.UTF8.GetString(Convert.FromBase64String(filterObj.Value<string>("params"))));
 
                         switch (filterObj.Value<string>("id"))
                         {
@@ -157,6 +158,7 @@ namespace ASC.Web.CRM.Controls.Contacts
                                 break;
                             case "my":
                             case "responsibleID":
+                            case "noresponsible":
                                 result.ResponsibleID = new Guid(filterParam.Value<string>("value"));
                                 break;
                             case "tags":
@@ -184,14 +186,14 @@ namespace ASC.Web.CRM.Controls.Contacts
                                 if (fromToArray.Count != 2) continue;
                                 result.FromDateString = fromToArray[0];
                                 result.ToDateString = fromToArray[1];
-                                result.FromDate = UrlParameters.ApiDateTimeParse(result.FromDateString);
-                                result.ToDate = UrlParameters.ApiDateTimeParse(result.ToDateString);
+                                result.FromDate = Global.ApiDateTimeParse(result.FromDateString);
+                                result.ToDate = Global.ApiDateTimeParse(result.ToDateString);
                                 break;
                             case "fromToDate":
                                 result.FromDateString = filterParam.Value<string>("from");
                                 result.ToDateString = filterParam.Value<string>("to");
-                                result.FromDate = UrlParameters.ApiDateTimeParse(result.FromDateString);
-                                result.ToDate = UrlParameters.ApiDateTimeParse(result.ToDateString);
+                                result.FromDate = Global.ApiDateTimeParse(result.FromDateString);
+                                result.ToDate = Global.ApiDateTimeParse(result.ToDateString);
                                 break;
                             case "restricted":
                             case "shared":

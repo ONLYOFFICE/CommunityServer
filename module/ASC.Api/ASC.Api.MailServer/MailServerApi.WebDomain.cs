@@ -183,7 +183,10 @@ namespace ASC.Api.MailServer
             if (dns == null)
                 return new DnsData();
 
-            dns.CheckDnsStatus();
+            var isVerified = dns.CheckDnsStatus();
+
+            if (domain.IsVerified != isVerified)
+                domain.SetVerified(isVerified);
 
             return dns.ToDnsData();
         }

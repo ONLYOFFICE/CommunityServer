@@ -23,35 +23,42 @@
  *
 */
 
-
 window.printPage = (function($) {
     var conversationId;
     var messageId;
+    var showImagesIds;
+    var showQuotesIds;
+    var sortAsc;
 
     var viewTmpl = 'message-print-tmpl';
 
     var $html;
     var $pageContent;
     var $view;
+    var $title;
 
-    var renderedBodyFramesQueueSize;
-    var loadedImagesFrameQueueSize;
+    function init(conversation, id, simIds, squIds, asc) {
+        showImagesIds = simIds;
+        showQuotesIds = squIds;
+        sortAsc = asc;
 
-    function init(conversation, id, simIds) {
         initElements();
 
         if (conversation) {
             conversationId = id;
+            getConversation(conversationId, function(messages) {
+                if (!sortAsc) {
+                    messages.reverse();
+                }
 
-            getConversation(conversationId, simIds, function (messages) {
-                renderView(messages, simIds);
+                renderView(messages);
+                printView();
             });
         } else {
             messageId = id;
-
-            getMessage(messageId, simIds, function (message) {
-
-                renderView([message], simIds);
+            getMessage(messageId, function(message) {
+                renderView([message]);
+                printView();
             });
         }
     }
@@ -59,22 +66,22 @@ window.printPage = (function($) {
     function initElements() {
         $html = $('html');
         $pageContent = $('#studioPageContent');
+        $title = $html.find('title');
     }
 
-    function getMessage(id, simIds, cb) {
-        var unblocked = (simIds.indexOf(id.toString()) != -1) ? true : false;
-        return serviceManager.getMessage(id, unblocked, true, {}, {
+    function getMessage(id, cb) {
+        return serviceManager.getMessage(id, false, true, {}, {
             success: function(params, message) {
                 messagePage.preprocessMessages(null, [message]);
                 cb(message);
-            }, 
-            error: function () {
+            },
+            error: function() {
                 showErrorMessage();
             }
         });
     }
 
-    function getConversation(id, simIds, cb) {
+    function getConversation(id, cb) {
         return serviceManager.getConversation(id, true, {}, {
             success: function(params, messages) {
                 messagePage.preprocessMessages(null, messages);
@@ -86,8 +93,12 @@ window.printPage = (function($) {
         });
     }
 
-    function renderView(messages, simIds) {
-        $html.find('title').text(messages[0].subject);
+    function renderView(messages) {
+        $title.text(messages[0].subject || MailScriptResource.NoSubject);
+
+        for (var i = 0; i < messages.length; i++) {
+            messages[i].printedHtmlBody = getMessageBodyForPrint(messages[i]);
+        }
 
         $view = $.tmpl(viewTmpl, { messages: messages }, {
             fileSizeToStr: AttachmentManager.GetSizeString,
@@ -95,64 +106,53 @@ window.printPage = (function($) {
             getFileNameWithoutExt: AttachmentManager.GetFileName,
             getFileExtension: AttachmentManager.GetFileExtension
         });
+
+        hideLoader();
         $pageContent.append($view);
-
-        renderedBodyFramesQueueSize = messages.length;
-        loadedImagesFrameQueueSize = messages.length;
-
-        $.each(messages, function(i, message) {
-            var $messageBody = $view.find('.message-print-box[data-messageid="' + message.id + '"] .body');
-
-            var showImages = (simIds.indexOf(message.id.toString()) != -1) ? true : false;
-
-            var senderAddress = TMMail.parseEmailFromFullAddress(message.from);
-            if (trustedAddresses.isTrusted(senderAddress)) {
-                showImages = true;
-            }
-
-            var delayPrint = false;
-            var content = "";
-            if (message.textBodyOnly) {
-                content = message.htmlBody;
-            } else {
-                content = messagePage.createBodyIFrame(message, showImages, renderBodyFrameHandler, loadImagesFrameHandler);
-                delayPrint = true;
-            }
-
-            $messageBody.append(content);
-
-            if (!delayPrint)
-                window.print();
-        });
     }
 
-    function renderBodyFrameHandler($frame) {
-        showBlockquotes($frame);
+    function getMessageBodyForPrint(message) {
+        var $body = $('<div/>').html(message.htmlBody);
 
-        if (--renderedBodyFramesQueueSize == 0 && loadedImagesFrameQueueSize == -1) {
-            setTimeout(function() {
-                window.print();
-            }, 0);
+        // remove br tags from the end
+        var $lastEl = $body.children(':last-child');
+        $lastEl.prevUntil(':not(br)').remove();
+        if ($lastEl.is('br')) {
+            $lastEl.remove();
         }
-    }
 
-    function loadImagesFrameHandler() {
-        if (--loadedImagesFrameQueueSize == 0 ) {
-            if (renderedBodyFramesQueueSize == 0) {
-                setTimeout(function() {
-                    window.print();
-                }, 0);
-            } else {
-                --loadedImagesFrameQueueSize;
-            }
+        //set up links
+        $body.find('a').attr('target', '_blank');
+
+        //set up images
+        var showImages = showImagesIds.indexOf(message.id.toString()) != -1;
+        var senderAddress = TMMail.parseEmailFromFullAddress(message.from);
+        if (trustedAddresses.isTrusted(senderAddress) || showImages) {
+            $body.find('img[tl_disabled_src]').each(function() {
+                var $el = $(this);
+                $el.attr('src', $el.attr('tl_disabled_src'));
+            });
         }
+        
+        //set up quotes
+        var showQuotes = showQuotesIds.indexOf(message.id.toString()) != -1;
+        if (!showQuotes) {
+            var $quote = $body.find('div.gmail_quote:first, div.yahoo_quoted:first, blockquote:first, div:has(hr#stopSpelling):last');
+            $quote.after('<div class="quote-hidden-msg">' + MailScriptResource.QuotedTextHiddenMsg + '</div>');
+            $quote.hide();
+        }
+
+        return $body.html();
     }
 
-    function showBlockquotes($frame) {
-        var $blockquoteControlBtn = $frame.contents().find('.tl-controll-blockquote');
+    function printView() {
+        setTimeout(function() {
+            window.print();
+        }, 300);
+    }
 
-        $blockquoteControlBtn.click();
-        $blockquoteControlBtn.remove();
+    function hideLoader() {
+        $('.loader-page').remove();
     }
 
     function showErrorMessage() {

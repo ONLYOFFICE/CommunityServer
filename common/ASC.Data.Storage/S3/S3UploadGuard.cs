@@ -31,6 +31,7 @@ using ASC.Data.Storage.Configuration;
 using Amazon;
 using Amazon.S3;
 using Amazon.S3.Model;
+using ASC.Core;
 
 namespace ASC.Data.Storage.S3
 {
@@ -120,7 +121,7 @@ namespace ASC.Data.Storage.S3
                     secretAccessKey = props["secretaccesskey"];
                     region = props["region"];
                 }
-                configErrors = string.IsNullOrEmpty(ConfigurationManager.AppSettings["core.base-domain"]) //localhost
+                configErrors = string.IsNullOrEmpty(CoreContext.Configuration.BaseDomain) //localhost
                                 || string.IsNullOrEmpty(accessKey)
                                 || string.IsNullOrEmpty(secretAccessKey)
                                 || string.IsNullOrEmpty(bucket)

@@ -105,11 +105,11 @@
       <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
-      <HintPath>..\..\..\packages\MySql.Data.6.8.3\lib\net45\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\packages\MySql.Data.6.9.7\lib\net45\MySql.Data.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -147,13 +147,9 @@
     <Compile Include="AggregatorService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="AggregatorServiceInstaller.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="Configuration\MailQueueConfigurationElement.cs" />
     <Compile Include="Configuration\CollectionServiceConfigurationSection.cs" />
     <Compile Include="Configuration\Schema.cs" />
-    <Compile Include="Tasks\LimitedConcurrencyLevelTaskScheduler.cs" />
     <Compile Include="Configuration\MailQueueSettings.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Program.Options.cs" />
@@ -164,6 +160,10 @@
     <Compile Include="Workers\Pop3Worker.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\..\..\web\studio\ASC.Web.Studio\web.consumers.config">
+      <Link>web.consumers.config</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>

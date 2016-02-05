@@ -83,35 +83,6 @@ namespace ASC.Web.UserControls.Forum.Common
             _settingsCollection = Hashtable.Synchronized(new Hashtable());
         }
 
-        internal static void RegistrySettings(Settings settings)
-        {
-            lock (_syncObj)
-            {
-                if (!_settingsCollection.ContainsKey(settings.ID))
-                    _settingsCollection.Add(settings.ID, settings);
-            }
-        }
-
-        internal static void UnRegistrySettings(Guid settingsID)
-        {
-            lock (_syncObj)
-            {
-                if (!_settingsCollection.ContainsKey(settingsID))
-                    _settingsCollection.Remove(settingsID);
-            }
-        }
-
-        public static Settings GetSettings(Guid settingsID)
-        {
-            lock (_syncObj)
-            {
-                if (_settingsCollection.ContainsKey(settingsID))
-                    return _settingsCollection[settingsID] as Settings;
-            }
-
-            return null;
-        }
-
         public static ForumManager GetForumManager(Guid settingsID)
         {
             lock (_syncObj)

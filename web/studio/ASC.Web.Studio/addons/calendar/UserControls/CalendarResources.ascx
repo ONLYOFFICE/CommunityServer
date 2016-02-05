@@ -205,8 +205,8 @@ var g_fcOptions = {
             dialogDescription:                    "<%=Resources.CalendarJSResource.icalStream_description%>",
             
             dialogImportExportLabel:              "<%=Resources.CalendarJSResource.icalStream_importExport%>",
-            dialogStreamLink:                     "<%=Resources.CalendarJSResource.icalStream_exportLink%>",
-            dialogImportLabel:                    "<%=Resources.CalendarJSResource.icalStream_importtLink%>",
+            dialogStreamLink:                     "<%: Resources.CalendarJSResource.icalStream_exportLink%>",
+            dialogImportLabel:                    "<%: Resources.CalendarJSResource.icalStream_importtLink%>",
             
             dialogButton_fileSelected:            "<%=Resources.CalendarJSResource.icalStream_fileSelected%>",
             dialogButton_fileNotSelected:         "<%=Resources.CalendarJSResource.icalStream_fileNotSelected%>",

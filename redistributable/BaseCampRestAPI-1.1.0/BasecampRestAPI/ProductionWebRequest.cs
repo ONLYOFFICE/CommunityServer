@@ -6,47 +6,47 @@ using Newtonsoft.Json.Linq;
 
 namespace BasecampRestAPI
 {
-	class ProductionWebRequest : IWebRequest
-	{
-		private readonly HttpWebRequest _request;
-		private JArray _response;
+    class ProductionWebRequest : IWebRequest
+    {
+        private readonly HttpWebRequest _request;
+        private JArray _response;
 
-		public static ProductionWebRequest GetInstance(string url)
-		{
-			return new ProductionWebRequest(url);
-		}
-		private ProductionWebRequest(string url)
-		{
-			_request = (HttpWebRequest)WebRequest.Create(url);
+        public static ProductionWebRequest GetInstance(string url)
+        {
+            return new ProductionWebRequest(url);
+        }
+        private ProductionWebRequest(string url)
+        {
+            _request = (HttpWebRequest)WebRequest.Create(url);
             _request.ContentType = "application/json";
-			_request.ServicePoint.Expect100Continue = false;
-		    _request.UserAgent = "http://www.tm.com";
-		}
+            _request.ServicePoint.Expect100Continue = false;
+            _request.UserAgent = "http://www.tm.com";
+        }
 
-		#region Implementation of IWebRequest
-		public HttpVerb Method
-		{
-			set { _request.Method = value.ToString().ToUpper(); }
-		}
+        #region Implementation of IWebRequest
+        public HttpVerb Method
+        {
+            set { _request.Method = value.ToString().ToUpper(); }
+        }
 
-		public string BasicAuthorization
-		{
-			set { _request.Headers.Add("Authorization", string.Format("Basic {0}", value)); }
-		}
+        public string BasicAuthorization
+        {
+            set { _request.Headers.Add("Authorization", string.Format("Basic {0}", value)); }
+        }
 
-		public string RequestText
-		{
-			set
-			{
-				using (var writer = new StreamWriter(_request.GetRequestStream()))
-				{
-					writer.WriteLine(value);
-				}
-			}
-		}
+        public string RequestText
+        {
+            set
+            {
+                using (var writer = new StreamWriter(_request.GetRequestStream()))
+                {
+                    writer.WriteLine(value);
+                }
+            }
+        }
 
-		public JArray Response
-		{
+        public JArray Response
+        {
             get
             {
                 try
@@ -57,39 +57,39 @@ namespace BasecampRestAPI
                 {
                     return _response ?? (_response = new JArray(JObject.Parse(ResponseText)));
                 }
-                    
+
             }
-		}
+        }
 
-		public string Location
-		{
-			get
-			{
-				if (_location == null)
-				{
-					GetResponse();
-					if (_location == null)
-					{
-						_location = string.Empty;
-					}
-				}
-				return _location;
-			}
-		}
+        public string Location
+        {
+            get
+            {
+                if (_location == null)
+                {
+                    GetResponse();
+                    if (_location == null)
+                    {
+                        _location = string.Empty;
+                    }
+                }
+                return _location;
+            }
+        }
 
-		#endregion
+        #endregion
 
-		public string ResponseText
-		{
-			get
-			{
-				if (_responseText == null)
-				{
-					GetResponse();
-				}
-				return _responseText;
-			}
-		}
+        public string ResponseText
+        {
+            get
+            {
+                if (_responseText == null)
+                {
+                    GetResponse();
+                }
+                return _responseText;
+            }
+        }
 
         public HttpWebRequest HttpWebRequest
         {
@@ -99,33 +99,35 @@ namespace BasecampRestAPI
             }
         }
 
-	    private void GetResponse()
-	    {
-	        GetResponse(0);
-	    }
+        private void GetResponse()
+        {
+            GetResponse(0);
+        }
 
-	    private void GetResponse(int numRetries)
-		{
-		    try
-		    {
-                var response = _request.GetResponse();
-                _location = response.Headers["Location"];
-                if (_location != null)
+        private void GetResponse(int numRetries)
+        {
+            try
+            {
+                using (var response = _request.GetResponse())
                 {
-                    _location = (new Uri(_location)).AbsolutePath;
+                    _location = response.Headers["Location"];
+                    if (_location != null)
+                    {
+                        _location = (new Uri(_location)).AbsolutePath;
+                    }
+                    using (var reader = new StreamReader(response.GetResponseStream()))
+                    {
+                        _responseText = reader.ReadToEnd();
+                    }
                 }
-                using (var reader = new StreamReader(response.GetResponseStream()))
-                {
-                    _responseText = reader.ReadToEnd();
-                }
-		    }
-		    catch (WebException e)
-		    {
+            }
+            catch (WebException e)
+            {
                 if (numRetries > 5)
                     throw;
 
-		        var httpResponce = e.Response as HttpWebResponse;
-                if (httpResponce!=null) 
+                var httpResponce = e.Response as HttpWebResponse;
+                if (httpResponce != null)
                 {
                     if (httpResponce.StatusCode == HttpStatusCode.ServiceUnavailable)
                     {
@@ -159,10 +161,10 @@ namespace BasecampRestAPI
                 {
                     throw;
                 }
-		    }
-		}
+            }
+        }
 
-		private string _responseText;
-		private string _location;
-	}
+        private string _responseText;
+        private string _location;
+    }
 }

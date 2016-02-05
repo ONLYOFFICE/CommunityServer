@@ -1,7 +1,3 @@
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 (function ($, win, doc, body) {
     var supportedClient = true,
         blockClassname = "tl-block",
@@ -69,6 +65,20 @@
     }
 
     $.fn.tlBlock = function (opt) {
+
+        if (opt && typeof opt === 'string') {
+            switch (opt) {
+                case 'resize':
+                    return this.each(function () {
+                        if (supportedClient) {
+                            resizeBlock($(this));
+                        }
+                    });
+
+            }
+            return this;
+        }
+
         opt = $.extend({
             title: "",
             classname: ""

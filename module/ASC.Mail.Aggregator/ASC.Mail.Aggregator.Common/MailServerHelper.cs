@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -26,9 +26,9 @@
 
 using System;
 using System.Reflection;
-using ASC.Mail.Aggregator.Common.Extension;
 using ActiveUp.Net.Common;
 using ActiveUp.Net.Mail;
+using ASC.Mail.Aggregator.Common.Extension;
 
 namespace ASC.Mail.Aggregator.Common
 {
@@ -127,9 +127,55 @@ namespace ASC.Mail.Aggregator.Common
             }
         }
 
+        public static bool TestOAuth(BaseProtocolClient client, MailBox account)
+        {
+            if (string.IsNullOrEmpty(account.RefreshToken)) return false;
+
+            try
+            {
+                var imap4Client = client as Imap4Client;
+                if (imap4Client != null)
+                {
+                    imap4Client.AuthenticateImapGoogleOAuth2(account);
+
+                    return true;
+                }
+
+                var smtpClient = client as SmtpClient;
+                if (smtpClient != null)
+                {
+                    smtpClient.AuthenticateSmtpGoogleOAuth2(account);
+
+                    return true;
+                }
+
+            }
+            finally
+            {
+                if (client.IsConnected)
+                {
+                    try
+                    {
+                        client.Disconnect();
+                    }
+                    catch { }
+
+                }
+            }
+
+            return false;
+        }
+
         public static bool Test(MailBox account)
         {
             var ingoingClient = account.Imap ? (BaseProtocolClient) MailClientBuilder.Imap() : MailClientBuilder.Pop();
+
+            var outgoingClient = MailClientBuilder.Smtp();
+
+            if (!string.IsNullOrEmpty(account.RefreshToken))
+            {
+                return TestOAuth(ingoingClient, account) && TestOAuth(outgoingClient, account);
+            }
 
             Test(ingoingClient, new MailServerSettings
             {
@@ -141,8 +187,6 @@ namespace ASC.Mail.Aggregator.Common
                 EncryptionType = account.IncomingEncryptionType,
                 MailServerOperationTimeoutInMilliseconds = 10000
             });
-
-            var outgoingClient = MailClientBuilder.Smtp();
 
             Test(outgoingClient, new MailServerSettings
             {

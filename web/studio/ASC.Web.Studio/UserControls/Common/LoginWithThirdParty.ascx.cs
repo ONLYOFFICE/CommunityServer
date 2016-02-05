@@ -192,7 +192,7 @@ namespace ASC.Web.Studio.UserControls.Common
             return true;
         }
 
-        private static UserInfo JoinByThirdPartyAccount(LoginProfile loginProfile)
+        public static UserInfo ProfileToUserInfo(LoginProfile loginProfile)
         {
             if (string.IsNullOrEmpty(loginProfile.EMail)) throw new Exception(Resource.ErrorNotCorrectEmail);
 
@@ -209,6 +209,19 @@ namespace ASC.Web.Studio.UserControls.Common
                     CultureName = Thread.CurrentThread.CurrentUICulture.Name,
                     ActivationStatus = EmployeeActivationStatus.Activated,
                 };
+
+            var gender = loginProfile.Gender;
+            if (!string.IsNullOrEmpty(gender))
+            {
+                userInfo.Sex = gender == "male";
+            }
+
+            return userInfo;
+        }
+
+        private static UserInfo JoinByThirdPartyAccount(LoginProfile loginProfile)
+        {
+            var userInfo = ProfileToUserInfo(loginProfile);
 
             var pwd = UserManagerWrapper.GeneratePassword();
 

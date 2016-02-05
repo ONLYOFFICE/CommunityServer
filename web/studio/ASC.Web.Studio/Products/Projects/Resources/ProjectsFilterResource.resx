@@ -168,44 +168,14 @@
   <data name="ByTag" xml:space="preserve">
     <value>With tag</value>
   </data>
-  <data name="ByTeam" xml:space="preserve">
-    <value>Team</value>
-  </data>
   <data name="ByTitle" xml:space="preserve">
     <value>Title</value>
-  </data>
-  <data name="ByType" xml:space="preserve">
-    <value>Type</value>
-  </data>
-  <data name="ByUser" xml:space="preserve">
-    <value>User</value>
-  </data>
-  <data name="Choose" xml:space="preserve">
-    <value>Choose</value>
   </data>
   <data name="ClearFilter" xml:space="preserve">
     <value>Reset filter</value>
   </data>
-  <data name="Comment" xml:space="preserve">
-    <value>Comment</value>
-  </data>
-  <data name="CurrentMonth" xml:space="preserve">
-    <value>Current month</value>
-  </data>
-  <data name="CurrentWeek" xml:space="preserve">
-    <value>Current week</value>
-  </data>
-  <data name="CurrentYear" xml:space="preserve">
-    <value>Current year</value>
-  </data>
   <data name="CustomPeriod" xml:space="preserve">
     <value>Custom period</value>
-  </data>
-  <data name="Discussion" xml:space="preserve">
-    <value>Discussion</value>
-  </data>
-  <data name="DiscussionFollow" xml:space="preserve">
-    <value>Discussions I follow</value>
   </data>
   <data name="DueDate" xml:space="preserve">
     <value>Due date</value>
@@ -216,26 +186,14 @@
   <data name="FollowProjects" xml:space="preserve">
     <value>Followed</value>
   </data>
-  <data name="FollowTasks" xml:space="preserve">
-    <value>Followed</value>
-  </data>
   <data name="Group" xml:space="preserve">
     <value>Group</value>
   </data>
   <data name="Groups" xml:space="preserve">
     <value>Groups</value>
   </data>
-  <data name="LatestDiscussions" xml:space="preserve">
-    <value>Latest discussions</value>
-  </data>
   <data name="Me" xml:space="preserve">
     <value>Me</value>
-  </data>
-  <data name="Milestone" xml:space="preserve">
-    <value>Milestone</value>
-  </data>
-  <data name="MilestonesInMyProj" xml:space="preserve">
-    <value>Milestones in my projects</value>
   </data>
   <data name="My" xml:space="preserve">
     <value>My</value>
@@ -252,14 +210,8 @@
   <data name="MyTasks" xml:space="preserve">
     <value>My tasks</value>
   </data>
-  <data name="Next" xml:space="preserve">
-    <value>Next</value>
-  </data>
   <data name="NoResponsible" xml:space="preserve">
     <value>No responsible</value>
-  </data>
-  <data name="OpenProjects" xml:space="preserve">
-    <value>Open projects</value>
   </data>
   <data name="Other" xml:space="preserve">
     <value>Other</value>
@@ -297,32 +249,17 @@
   <data name="PreviousWeek" xml:space="preserve">
     <value>Previous week</value>
   </data>
-  <data name="PreviousYear" xml:space="preserve">
-    <value>Previous year</value>
-  </data>
   <data name="Project" xml:space="preserve">
     <value>Project</value>
   </data>
   <data name="ProjectMenager" xml:space="preserve">
     <value>Project manager</value>
   </data>
-  <data name="ProjectsFollow" xml:space="preserve">
-    <value>Projects I follow</value>
-  </data>
   <data name="Recent" xml:space="preserve">
     <value>Last 7 days</value>
   </data>
-  <data name="Responsible" xml:space="preserve">
-    <value>Responsible</value>
-  </data>
   <data name="Select" xml:space="preserve">
     <value>Select</value>
-  </data>
-  <data name="StatusActive" xml:space="preserve">
-    <value>Active</value>
-  </data>
-  <data name="StatusAll" xml:space="preserve">
-    <value>All</value>
   </data>
   <data name="StatusArchivedDiscussion" xml:space="preserve">
     <value>Archived</value>
@@ -335,12 +272,6 @@
   </data>
   <data name="StatusClosedTask" xml:space="preserve">
     <value>Closed</value>
-  </data>
-  <data name="StatusInactive" xml:space="preserve">
-    <value>Inactive</value>
-  </data>
-  <data name="StatusLate" xml:space="preserve">
-    <value>Late</value>
   </data>
   <data name="StatusOpenDiscussion" xml:space="preserve">
     <value>Open</value>
@@ -356,9 +287,6 @@
   </data>
   <data name="StatusSuspend" xml:space="preserve">
     <value>Paused</value>
-  </data>
-  <data name="Subtask" xml:space="preserve">
-    <value>Subtask</value>
   </data>
   <data name="Tag" xml:space="preserve">
     <value>Tag</value>
@@ -389,11 +317,5 @@
   </data>
   <data name="UpcomingMilestones" xml:space="preserve">
     <value>Upcoming milestones</value>
-  </data>
-  <data name="Users" xml:space="preserve">
-    <value>Users</value>
-  </data>
-  <data name="Yesterday" xml:space="preserve">
-    <value>Yesterday</value>
   </data>
 </root>

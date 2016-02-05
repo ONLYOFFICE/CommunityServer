@@ -31,6 +31,9 @@ using ASC.Bookmarking.Pojo;
 using ASC.Web.Community.Product;
 using ASC.Web.UserControls.Bookmarking.Common;
 using ASC.Web.UserControls.Bookmarking.Common.Presentation;
+using ASC.Bookmarking.Common;
+using ASC.Bookmarking;
+using System;
 
 namespace ASC.Web.UserControls.Bookmarking
 {
@@ -82,7 +85,9 @@ namespace ASC.Web.UserControls.Bookmarking
 		{
 			get
 			{
-				return ASC.Web.UserControls.Bookmarking.Common.Presentation.BookmarkingServiceHelper.BookmarkDisplayMode.Favourites.Equals(ServiceHelper.DisplayMode);
+                BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
+                    BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+				return BookmarkDisplayMode.Favourites.Equals(displayMode);
 			}
 		}
 

@@ -33,13 +33,14 @@ namespace ASC.Web.Projects.Controls.Templates
 {
     public partial class EditTemplate : BaseUserControl
     {
-        private int projectTmplId;
+        protected int ProjectTmplId;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             var title = ProjectTemplatesResource.CreateProjTmpl;
+            ProjectTmplId = UrlParameters.EntityID;
 
-            if (Int32.TryParse(UrlParameters.EntityID, out projectTmplId))
+            if (ProjectTmplId >= 0)
             {
                 title = ProjectTemplatesResource.EditProjTmpl;
             }
@@ -49,7 +50,7 @@ namespace ASC.Web.Projects.Controls.Templates
 
         protected string GetPageTitle()
         {
-            return projectTmplId == 0 ? ProjectTemplatesResource.CreateProjTmpl : ProjectTemplatesResource.EditProjTmpl;
+            return ProjectTmplId == 0 ? ProjectTemplatesResource.CreateProjTmpl : ProjectTemplatesResource.EditProjTmpl;
         }
     }
 }

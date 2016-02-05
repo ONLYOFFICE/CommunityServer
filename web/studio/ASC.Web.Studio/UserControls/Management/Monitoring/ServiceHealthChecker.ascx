@@ -6,7 +6,7 @@
 <div class="clearFix">
     <div id="serviceStatusContainer" class="settings-block">
         <div class="header-base"><%= MonitoringResource.ServicesTitle %></div>
-        <p class="monitoring-describe"><%= MonitoringResource.ServicesText %></p>
+        <p class="monitoring-describe"><%: MonitoringResource.ServicesText %></p>
         <table id="serviceStatusTable" class="table-list height32 monitoring-table">
             <% foreach (string serviceName in GetServiceNames()) %>
             <% { %>
@@ -19,7 +19,7 @@
         </table>
     </div>
     <div class="settings-help-block">
-        <p><%= MonitoringResource.ServicesHelpText %></p>
+        <p><%: MonitoringResource.ServicesHelpText %></p>
          <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
            { %>
         <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx" %>" target="_blank"> <%= Resource.LearnMore %></a>
@@ -36,6 +36,6 @@
         </div>
     </div>
     <div class="settings-help-block">
-        <p><%= MonitoringResource.CacheHelpText %></p>
+        <p><%: MonitoringResource.CacheHelpText %></p>
     </div>
 </div>

@@ -25,8 +25,8 @@
 
 
 using ASC.Api.Attributes;
-using ASC.Api.Mail.Helpers;
 using ASC.Mail.Aggregator.Dal;
+using ASC.Mail.Aggregator.Managers;
 
 namespace ASC.Api.Mail
 {

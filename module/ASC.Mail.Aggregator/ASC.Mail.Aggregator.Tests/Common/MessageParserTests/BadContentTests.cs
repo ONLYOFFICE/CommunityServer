@@ -201,5 +201,30 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
         {
             Test("nct_attachment_not_parsed.eml");
         }
+
+        [Test]
+        public void BadContentType()
+        {
+            Test("bad_content_type.eml");
+        }
+
+        [Test]
+        [ExpectedException(ExpectedExceptionName = "ActiveUp.Net.Mail.ParsingException")]
+        public void BadAttachBody()
+        {
+            ParseEml("empty_attach_body.eml");
+        }
+
+        [Test]
+        public void ShouldParseContentFilenameRfc5987()
+        {
+            Test("content_disposition_filename_rfc5987.eml");
+        }
+        
+        [Test]
+        public void ShouldParseEmbeddedMessageRfc822()
+        {
+            Test("yandex_with_embedded_message_in.eml");
+        }
     }
 }

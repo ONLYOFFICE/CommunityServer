@@ -49,6 +49,11 @@ using log4net;
 using ASC.Web.Core;
 using SecurityContext = ASC.Core.SecurityContext;
 using System.Net;
+using Resources;
+using ASC.FederatedLogin;
+using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Studio.Core;
+using ASC.FederatedLogin.Profile;
 
 namespace ASC.Api.Employee
 {
@@ -150,7 +155,7 @@ namespace ASC.Api.Employee
         ///</short>
         ///<param name="email">User email</param>
         ///<returns>User profile</returns>
-        [Read("email/{email}")]
+        [Read("email")]
         public EmployeeWraperFull GetByEmail(string email)
         {
             if (CoreContext.Configuration.Personal && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsOwner())
@@ -661,7 +666,7 @@ namespace ASC.Api.Employee
                 }
             }
 
-            CoreContext.UserManager.SaveUserInfo(user);
+            CoreContext.UserManager.SaveUserInfo(user, isVisitor);
             MessageService.Send(Request, MessageAction.UserUpdated, user.DisplayUserName(false));
 
             return new EmployeeWraperFull(user);
@@ -827,7 +832,7 @@ namespace ASC.Api.Employee
         /// </short>
         /// <param name="email">User email</param>     
         /// <returns></returns>
-        [Read("{userid}/password")]
+        [Read("{email}/password")]
         public void SendUserPassword(string email)
         {
             if (String.IsNullOrEmpty(email)) throw new ArgumentNullException("email");
@@ -1096,5 +1101,130 @@ namespace ASC.Api.Employee
 
             return users.Select(user => new EmployeeWraperFull(user)).ToSmartList();
         }
+
+
+        /// <summary>
+        /// Send instructions for delete user own profile
+        /// </summary>
+        /// <short>
+        /// Send delete instructions
+        /// </short>
+        /// <returns>Info message</returns>
+        [Update("self/delete")]
+        public string SendInstructionsToDelete()
+        {
+            var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+            StudioNotifyService.Instance.SendMsgProfileDeletion(user.Email);
+            MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentDeleteInstructions);
+
+            return String.Format(Resource.SuccessfullySentNotificationDeleteUserInfoMessage, "<b>" + user.Email + "</b>");
+        }
+
+        /// <summary>
+        /// Join to affiliate programm
+        /// </summary>
+        /// <short>
+        /// Join to affiliate programm
+        /// </short>
+        /// <returns>Link to affiliate programm</returns>
+        [Update("self/joinaffiliate")]
+        public string JoinToAffiliateProgram()
+        {
+            return AffiliateHelper.Join();
+        }
+
+        #region Auth page hidden methods
+ 
+        ///<visible>false</visible>
+        [Update("remindpwd", RequiresAuthorization = false)]
+        public string RemindPwd(string email)
+        {
+            if (!email.TestEmailRegex())
+            {
+                throw new Exception("<div>" + Resource.ErrorNotCorrectEmail + "</div>");
+            }
+
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
+            if (tenant != null)
+            {
+                var settings = SettingsManager.Instance.LoadSettings<IPRestrictionsSettings>(tenant.TenantId);
+                if (settings.Enable && !IPSecurity.IPSecurity.Verify(tenant.TenantId))
+                {
+                    throw new Exception("<div>" + Resource.ErrorAccessRestricted + "</div>");
+                }
+            }
+
+
+            UserManagerWrapper.SendUserPassword(email);
+
+
+            var userInfo = CoreContext.UserManager.GetUserByEmail(email);
+            if (userInfo.Sid != null)
+            {
+                throw new Exception("<div>" + Resource.CouldNotRecoverPasswordForLdapUser + "</div>");
+            }
+
+            string displayUserName = userInfo.DisplayUserName(false);
+            MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentPasswordChangeInstructions, displayUserName);
+
+
+            return String.Format(Resource.MessageYourPasswordSuccessfullySendedToEmail, "<b>" + email + "</b>");
+        }
+
+
+        ///<visible>false</visible>
+        [Update("thirdparty/linkaccount")]
+        public void LinkAccount(string serializedProfile)
+        {
+            var profile = new LoginProfile(serializedProfile);
+
+            if (string.IsNullOrEmpty(profile.AuthorizationError))
+            {
+                GetLinker().AddLink(SecurityContext.CurrentAccount.ID.ToString(), profile);
+                MessageService.Send(HttpContext.Current.Request, MessageAction.UserLinkedSocialAccount, GetMeaningfulProviderName(profile.Provider));
+            }
+            else
+            {
+                // ignore cancellation
+                if (profile.AuthorizationError != "Canceled at provider")
+                {
+                    throw new Exception(profile.AuthorizationError);
+                }
+            }
+        }
+
+        ///<visible>false</visible>
+        [Delete("thirdparty/unlinkaccount")]
+        public void UnlinkAccount(string provider)
+        {
+            GetLinker().RemoveProvider(SecurityContext.CurrentAccount.ID.ToString(), provider);
+            MessageService.Send(HttpContext.Current.Request, MessageAction.UserUnlinkedSocialAccount, GetMeaningfulProviderName(provider));
+        }
+
+        private static AccountLinker GetLinker()
+        {
+            return new AccountLinker("webstudio");
+        }
+
+        private static string GetMeaningfulProviderName(string providerName)
+        {
+            switch (providerName)
+            {
+                case "google":
+                case "openid":
+                    return "Google";
+                case "facebook":
+                    return "Facebook";
+                case "twitter":
+                    return "Twitter";
+                case "linkedin":
+                    return "LinkedIn";
+                default:
+                    return "Unknown Provider";
+            }
+        }
+
+        #endregion
+
     }
 }

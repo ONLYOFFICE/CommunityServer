@@ -43,7 +43,7 @@ using ASC.Web.Core.Helpers;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
-using ASC.Web.Core.CoBranding;
+using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.Studio.Services.WhatsNew
 {
@@ -120,14 +120,6 @@ namespace ASC.Web.Studio.Services.WhatsNew
                 TenantProvider.CurrentTenantID.ToString(),
                 new DateTimeOffset(lastUpdate),
                 feedItems);
-
-            var tenantSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
-            var url = tenantSettings.GetAbsoluteCompanyLogoPath();
-            if (!string.IsNullOrEmpty(url))
-            {
-                feed.ImageUrl = new Uri(CommonLinkUtility.GetFullAbsolutePath(url));
-            }
-
 
             var rssFormatter = new Atom10FeedFormatter(feed);
             var settings = new XmlWriterSettings

@@ -130,6 +130,7 @@ namespace ASC.Core
                 TimeZone = ri.TimeZoneInfo,
                 HostedRegion = ri.HostedRegion,
                 PartnerId = ri.PartnerId,
+                AffiliateId = ri.AffiliateId,
                 Industry = ri.Industry
             };
 

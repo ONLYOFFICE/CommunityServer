@@ -24,11 +24,14 @@
 */
 
 
-using System;
 using ASC.Core.Tenants;
+using System;
+using System.Diagnostics;
 
 namespace ASC.Core.Billing
 {
+    [DebuggerDisplay("{QuotaId} ({State} before {DueDate})")]
+    [Serializable]
     public class Tariff
     {
         public int QuotaId { get; set; }
@@ -36,6 +39,8 @@ namespace ASC.Core.Billing
         public TariffState State { get; set; }
 
         public DateTime DueDate { get; set; }
+
+        public DateTime DelayDueDate { get; set; }
 
         public bool Autorenewal { get; set; }
 
@@ -49,6 +54,7 @@ namespace ASC.Core.Billing
                     QuotaId = Tenant.DEFAULT_TENANT,
                     State = TariffState.Paid,
                     DueDate = DateTime.MaxValue,
+                    DelayDueDate = DateTime.MaxValue,
                 };
         }
 

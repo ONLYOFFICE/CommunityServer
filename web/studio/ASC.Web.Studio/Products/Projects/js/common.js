@@ -38,31 +38,25 @@ ASC.Projects.Common = (function () {
     this.initApi = false;
     this.initMobileBanner = false;
     this.ckEditor = null;
-    this.isFirstLoad = true;
-    
+
     var init = function () {
-        clearTables();
+        if (ASC.Projects.Base) {
+            ASC.Projects.Base.clearTables();
+        }
 
         if (!this.initMobileBanner && jq(".mobileApp-banner").length) {
             initMobileBanner();
             this.initMobileBanner = true;
         }
+
         bindApi();
         initApiData();
         initPages();
         bindCommonEvents();
-
         MoveTaskQuestionPopup.init();
     };
 
-    var clearTables = function () {
-        jq("#tableListProjects tbody, #milestonesList tbody, .taskList, #discussionsList, #timeSpendsList tbody").empty();
-        jq("#tableListProjects, #milestonesList, .taskList, #discussionsList, #timeSpendsList, #tableForNavigation").hide();
-        jq("#totalTimeText").remove();
-        jq("[id$='EmptyScreenForFilter']").hide();
-        jq("[id^='emptyList']").hide();
-        jq(".simplePageNavigator").html("");
-    };
+
 
     var bindApi = function () {
         jq('body').off('click.milestonesInit');
@@ -71,11 +65,9 @@ ASC.Projects.Common = (function () {
     };
 
     var bindCommonEvents = function () {
-        jq("body").on("click", ".clearFilterButton", function () {
-            jq('#ProjectsAdvansedFilter').advansedFilter(null);
-            return false;
-        });
-
+        if (ASC.Projects.ProjectsAdvansedFilter) {
+            ASC.Projects.ProjectsAdvansedFilter.bindEvents();
+        }
         Teamlab.unbind(Teamlab.events.getException);
         Teamlab.bind(Teamlab.events.getException, function(params, errors) {
             if (errors && errors[0] == "unauthorized request") {
@@ -86,6 +78,8 @@ ASC.Projects.Common = (function () {
 
     var unbindEvents = function () {
         if (location.href.indexOf("ganttchart.aspx") > 0) return;
+        ASC.Projects.ProjectsAdvansedFilter.unbindEvents();
+        ASC.Projects.PageNavigator.unbindListEvents();
         ASC.Projects.AllProject.unbindListEvents();
         ASC.Projects.AllMilestones.unbindListEvents();
         ASC.Projects.Discussions.unbindListEvents();
@@ -128,7 +122,7 @@ ASC.Projects.Common = (function () {
             if (action) {
                 ASC.Projects.DiscussionAction.init();
                 ckeditorConnector.onReady(function () {
-                    ASC.Projects.Common.ckEditor = jq("#ckEditor").ckeditor({ toolbar: 'PrjMessage', extraPlugins: 'oembed,teamlabcut', removePlugins: 'div', filebrowserUploadUrl: 'fckuploader.ashx?newEditor=true&esid=projects_comments' }).editor;
+                    ASC.Projects.Common.ckEditor = jq("#ckEditor").ckeditor({ toolbar: 'PrjMessage', extraPlugins: 'oembed,teamlabcut,codemirror', removePlugins: 'div', filebrowserUploadUrl: 'fckuploader.ashx?newEditor=true&esid=projects_comments' }).editor;
                     ASC.Projects.Common.ckEditor.on("change", ASC.Projects.DiscussionAction.showHidePreview);
                 });
             }
@@ -236,91 +230,9 @@ ASC.Projects.Common = (function () {
     };
 
     var initMobileBanner = function () {
-        jq(".mobileApp-banner_btn.app-store").trackEvent("mobileApp-banner", ga_Actions.actionClick, "app-store");
-        jq(".mobileApp-banner_btn.google-play").trackEvent("mobileApp-banner", ga_Actions.actionClick, "google-play");
+        jq(".mobileApp-banner_btn.app-store").trackEvent("mobileApp-banner", "action-click", "app-store");
+        jq(".mobileApp-banner_btn.google-play").trackEvent("mobileApp-banner", "action-click", "google-play");
     };
-
-    var initPageNavigator = function (cookiePaginationKey, small) {
-        var pagination = getPaginationCookie(cookiePaginationKey);
-        if (pagination != null) {
-            this.entryCountOnPage = pagination.countOnPage;
-            this.currentPage = pagination.currentPage || 0;
-        } else {
-            this.entryCountOnPage = cookiePaginationKey == "discussionsKeyForPagination" ? 10 : ASC.Projects.Master.EntryCountOnPage;
-            this.currentPage = 0;
-        }
-        
-        this.cookiePaginationKey = cookiePaginationKey;
-
-        jq("#countOfRows").val(this.entryCountOnPage).tlCombobox();
-        if (small) {
-            jq("#tableForNavigation .option-item[data-value=25], .option-item[data-value=50], .option-item[data-value=75], .option-item[data-value=100]").remove();
-        } else {
-            jq("#tableForNavigation .option-item[data-value=10], .option-item[data-value=20], .option-item[data-value=30], .option-item[data-value=40]").remove();
-        }
-
-        window.pgNavigator = new ASC.Controls.PageNavigator.init("pgNavigator", "#divForTaskPager", this.entryCountOnPage, ASC.Projects.Master.VisiblePageCount, this.currentPage + 1,
-            ASC.Projects.Resources.ProjectsJSResource.PreviousPage, ASC.Projects.Resources.ProjectsJSResource.NextPage);
-        pgNavigator.NavigatorParent = '#divForTaskPager';
-        var self = this;
-        pgNavigator.changePageCallback = function (page) {
-            LoadingBanner.displayLoading();
-            self.currentPage = page - 1;
-            self.getData(true);
-            setPaginationCookie.apply(self);
-        };
-    };
-
-    var updatePageNavigator = function (filterCount, nav) {
-        jq("#totalCount").text(filterCount);
-        pgNavigator.drawPageNavigator(this.currentPage + 1, filterCount);
-
-        setPaginationCookie.apply(this);
-
-        if (filterCount)
-            jq("#tableForNavigation").show();
-        renderSimplePageNavigator(nav);
-    };
-
-    var changeCountOfRows = function (newValue) {
-        if (isNaN(newValue)) {
-            return;
-        }
-        var newCountOfRows = newValue * 1;
-        this.entryCountOnPage = newCountOfRows;
-        this.currentPage = 0;
-        pgNavigator.EntryCountOnPage = newCountOfRows;
-
-        LoadingBanner.displayLoading();
-        this.getData(false);
-    };
-
-    var renderSimplePageNavigator = function (nav) {
-        var navig = nav || jq(".simplePageNavigator");
-        navig.html("");
-        var $simplePN = jq("<div></div>");
-        var lengthOfLinks = 0;
-        if (jq("#tableForNavigation .pagerPrevButtonCSSClass").length != 0) {
-            lengthOfLinks++;
-            jq("#tableForNavigation .pagerPrevButtonCSSClass").clone().appendTo($simplePN);
-        }
-        if (jq("#tableForNavigation .pagerNextButtonCSSClass").length != 0) {
-            lengthOfLinks++;
-            if (lengthOfLinks === 2) {
-                jq("<span style='padding: 0 8px;'>&nbsp;</span>").clone().appendTo($simplePN);
-            }
-            jq("#tableForNavigation .pagerNextButtonCSSClass").clone().appendTo($simplePN);
-        }
-        
-        if ($simplePN.children().length != 0) {
-            $simplePN.appendTo(navig);
-            navig.show();
-        }
-        else {
-            navig.hide();
-        }
-    };
-
 
     var bind = function (eventName, handler) {
         jq(document).bind(eventName, handler);
@@ -330,6 +242,15 @@ ASC.Projects.Common = (function () {
         return team.filter(function(item) {
             return item.status == 1;
         });
+    };
+    var removeComment = function () {
+        if (location.href.toLowerCase().indexOf("tasks.aspx") > 0) {
+            ASC.Projects.TaskDescroptionPage.onDeleteComment();
+        }
+
+        if (location.href.toLowerCase().indexOf("messages.aspx") > 0) {
+            ASC.Projects.DiscussionDetails.removeComment();
+        }
     };
 
     var showTimer = function (url) {
@@ -350,29 +271,34 @@ ASC.Projects.Common = (function () {
         if (jq.browser.chrome) {
             height = 658;
         }
+
+        var params = "width=" + width + ",height=" + height + ",resizable=yes";
         var hWnd = null;
         var isExist = false;
 
         try {
-            hWnd = window.open('', "displayTimerWindow", "width=" + width + ",height=" + height + ",resizable=yes");
+            hWnd = window.open('', "displayTimerWindow", params);
         } catch (err) {
         }
+
         try {
-            isExist = typeof hWnd.ASC === 'undefined' ? false : true;
+            isExist = !hWnd || typeof hWnd.ASC === 'undefined' ? false : true;
         } catch (err) {
             isExist = true;
         }
 
         if (!isExist) {
-            hWnd = window.open(url, "displayTimerWindow", "width=" + width + ",height=" + height + ",resizable=yes");
+            hWnd = window.open(url, "displayTimerWindow", params);
             isExist = true;
         }
 
         if (!isExist) {
             return undefined;
         }
+
         try {
-            hWnd.focus();
+            if (hWnd)
+                hWnd.focus();
         } catch (err) {
         }
     };
@@ -381,20 +307,6 @@ ASC.Projects.Common = (function () {
         return users.filter(function(user) {
             return !user.isVisitor;
         });
-    };
-
-    var setPaginationCookie = function () {
-        if (this.cookiePaginationKey && this.cookiePaginationKey != "") {
-            var cookie = {
-                countOnPage: this.entryCountOnPage,
-                currentPage: this.currentPage
-            };
-            jq.cookies.set(this.cookiePaginationKey, cookie);
-        }
-    };
-
-    var getPaginationCookie = function (cookieKey) {
-        return jq.cookies.get(cookieKey);
     };
 
     var userInProjectTeam = function (userId) {
@@ -477,28 +389,13 @@ ASC.Projects.Common = (function () {
             toastr.success(str);
         }
     };
-    var checkElementNotFound = function (str) {
-        if (location.hash.indexOf("elementNotFound") > 0) {
-            ASC.Projects.Common.displayInfoPanel(str, true);
-        }
-    };
-
-    var setDocumentTitle = function (module) {
-        document.title = jq.format("{0} - {1}", module, ASC.Projects.Resources.ProjectsJSResource.ProductName);
-    };
 
     var emptyGuid = "00000000-0000-0000-0000-000000000000";
     var defaultPageURL = "projects.aspx";
 
-    var showCommonPopup = function (tmplName, width, height, position) {
-        var $commonPopupContainer = jq("#commonPopupContainer");
-        $commonPopupContainer.find(".commonPopupContent").empty().append(jq.tmpl(tmplName, {}));
-        $commonPopupContainer.find(".commonPopupHeaderTitle").empty().text($commonPopupContainer.find(".hidden-title-text").text());
-
-        StudioBlockUIManager.blockUI(jq('#commonPopupContainer'), width, height, position);
-    };
-
+    var projectsForFilter;
     var getProjectsForFilter = function () {
+        if (projectsForFilter) return projectsForFilter;
         var currentUserProjects = [];
         var otherProjects = [];
 
@@ -517,7 +414,8 @@ ASC.Projects.Common = (function () {
             currentUserProjects[currentUserProjects.length - 1]['classname'] = 'separator';
         }
 
-        return currentUserProjects.concat(otherProjects);
+        projectsForFilter = currentUserProjects.concat(otherProjects);
+        return projectsForFilter;
     };
 
     var milestoneSort = function (a, b) {
@@ -529,42 +427,10 @@ ASC.Projects.Common = (function () {
         if (asc) return (a < b) ? -1 : (a > b) ? 1 : 0;
         return (a < b) ? 1 : (a > b) ? -1 : 0;
     };
-
-    var showLoader = function () {
-        if (this.isFirstLoad) {
-            jq("#filterContainer, #CommonListContainer").hide();
-            jq(".mainPageContent").children(".loader-page").show();
-        } else {
-            LoadingBanner.displayLoading();
-        }
-    };
-
-    var hideLoader = function (groupPanel) {
-        if (this.isFirstLoad) {
-            this.isFirstLoad = false;
-            jq(".mainPageContent").children(".loader-page").hide();
-            jq("#filterContainer, #CommonListContainer").show();
-            if(groupPanel) {
-                ScrolledGroupMenu.resizeContentHeaderWidth(groupPanel);
-            }
-            jq('#ProjectsAdvansedFilter').advansedFilter("resize");
-        } else {
-            LoadingBanner.hideLoading();
-        }
-    };
     
     return {
         bind: bind,
-        
-        changeCountOfRows: changeCountOfRows,
-        checkElementNotFound: checkElementNotFound,
-        clearAdvansedFilter: function () {
-            jq("#ProjectsAdvansedFilter").empty();
-            jq("#ProjectsAdvansedFilter").removeAttr("class");
-            delete window.userSelector;
-            ASC.Projects.ProjectsAdvansedFilter.firstload = true;
-        },
-        clearTables: clearTables,
+
         currentUserIsModuleAdmin: currentUserIsModuleAdmin,
         currentUserIsProjectManager: function (projectId) {
             return ASC.Projects.Master.Projects.some(function(item) {
@@ -578,8 +444,6 @@ ASC.Projects.Common = (function () {
         emptyGuid: emptyGuid,
         events: { loadTags: "loadTags", loadProjects: "loadProjects", loadTeam: "loadTeam", loadMilestones: "loadMilestones" },
         excludeVisitors: excludeVisitors,
-        
-        isFirstLoad: isFirstLoad,
 
         filterParamsForListProjects: { sortBy: "title", sortOrder: "ascending", status: "open", fields: "id,title,security,isPrivate,status,responsible" },
         filterParamsForListMilestones: { sortBy: "deadline", sortOrder: "descending", status: "open", fields: "id,title,deadline" },
@@ -589,30 +453,17 @@ ASC.Projects.Common = (function () {
         getProjectsForFilter: getProjectsForFilter,
         getUserById: getUserById,
         
-        hideAdvansedFilter: function () { jq("#ProjectsAdvansedFilter").hide(); },
-        hideLoader: hideLoader,
-        
         baseInit: init,
-        initPageNavigator: initPageNavigator,
         
         linkTypeEnum: linkTypeEnum,
         milestoneSort: milestoneSort,
 
         removeBlockedUsersFromTeam: removeBlockedUsersFromTeam,
-        
-        setDocumentTitle: setDocumentTitle,
-        showAdvansedFilter: function () {
-            jq("#ProjectsAdvansedFilter").show();
-            jq("#ProjectsAdvansedFilter").advansedFilter("resize");
-        },
-        showLoader: showLoader,
-        showCommonPopup: showCommonPopup,
+        removeComment: removeComment,
+
         showTimer: showTimer,
         
-        
-        updatePageNavigator: updatePageNavigator,
-        userInProjectTeam: userInProjectTeam,
-
+        userInProjectTeam: userInProjectTeam
     };
 
 })();
@@ -665,30 +516,3 @@ var MoveTaskQuestionPopup = (function () {
 jq(document).ready(function () {
     ASC.Projects.Common.baseInit();
 });
-
-
-// Google Analytics const
-var ga_Categories = {
-    projects: "projects",
-    milestones: "projects_milestones",
-    tasks: "projects_tasks",
-    subtask: "projects_subtask",
-    discussions: "projects_discussions",
-    timeTrack: "projects_time-track",
-    dashboard: "projects_dashboard",
-    projectTemplate: "projects_template"
-};
-
-var ga_Actions = {
-    filterClick: "filter-click",
-    createNew: "create-new",
-    remove: "remove",
-    edit: "edit",
-    view: "view",
-    changeStatus: "change-status",
-    next: "next",
-    userClick: "user-click",
-    actionClick: "action-click",
-    quickAction: "quick-action"
-};
-// end Google Analytics

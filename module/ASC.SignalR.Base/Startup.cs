@@ -102,8 +102,8 @@ namespace ASC.SignalR.Base
 
         public void Configuration(IAppBuilder app)
         {
-            GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new CustomUserIdProvider());          
-
+            GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new CustomUserIdProvider());
+            GlobalHost.Configuration.TransportConnectTimeout = TimeSpan.FromSeconds(15);
             app.Map("/signalr", map =>
             {
                 map.UseCors(CorsOptions.AllowAll);

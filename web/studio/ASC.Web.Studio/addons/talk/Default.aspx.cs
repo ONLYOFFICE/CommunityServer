@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -38,7 +38,7 @@ namespace ASC.Web.Talk
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/addons/talk/css/default/talk.overview.css"));
+            Page.RegisterStyle("~/addons/talk/css/default/talk.overview.css");
 
             Title = HeaderStringHelper.GetPageTitle(TalkResource.ProductName);
             Master.DisabledSidePanel = true;

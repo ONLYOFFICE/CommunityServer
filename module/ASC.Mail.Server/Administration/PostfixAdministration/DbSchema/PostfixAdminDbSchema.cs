@@ -169,11 +169,17 @@ namespace ASC.Mail.Server.PostfixAdministration.DbSchema
             public const string maildir = "maildir";
             public const string maxquota = "maxquota";
             public const string quota = "quota";
-            public const string local_part = "local_part";
+            public const string localPart = "local_part";
             public const string domain = "domain";
             public const string created = "created";
             public const string modified = "modified";
             public const string active = "active";
+            public const string enableImap = "enableimap";
+            public const string enableImapSecured = "enableimapsecured";
+            public const string enablePop = "enablepop3";
+            public const string enablePopSecured = "enablepop3secured";
+            public const string enableDeliver = "enabledeliver";
+            public const string enableLda = "enablelda";
         }
     }
     // ReSharper restore MemberHidesStaticFromOuterClass

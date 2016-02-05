@@ -43,6 +43,16 @@ window.tagsManager = (function($) {
             tagsDropdown.init();
             tagsModal.init();
             tagsPage.init();
+
+            if (ASC.Mail.Presets.Tags) {
+                var tagList = $.map(ASC.Mail.Presets.Tags, function (el) {
+                    el.name = TMMail.htmlDecode(el.name);
+                    return el;
+                });
+
+                onGetMailTags({}, tagList);
+            }
+
         }
     };
 

@@ -103,6 +103,7 @@ namespace ASC.Core.Security.Authorizing
                     }
                 }
             }
+
             return denyActions.ToArray();
         }
 

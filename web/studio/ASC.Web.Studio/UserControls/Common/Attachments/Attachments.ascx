@@ -6,70 +6,60 @@
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
-<%if(CanAddFile) {%>  
+<% if(CanAddFile) {%>  
 <div class="infoPanelAttachFile" >
     <div id="fileMaxSize"><%=ASC.Web.Studio.Core.FileSizeComment.GetFileSizeNote()%></div>
     <div class="warn" id="errorFileUpload"></div>
     <div class="warn" id="wrongSign"><%=UserControlsCommonResource.ErrorMassage_SpecCharacter %></div>
 </div>
 <div id="files_newDocumentPanel" class="studio-action-panel" >
-        <ul class="dropdown-content">
-            <li id="files_create_text" >
-                <a onclick="Attachments.createNewDocument('<%= FileUtility.InternalExtension[FileType.Document] %>');" class="dropdown-item">
-                    <%= UserControlsCommonResource.ButtonCreateText%>
-                </a>
-            </li>
-            <li id="files_create_spreadsheet">
-                <a onclick="Attachments.createNewDocument('<%= FileUtility.InternalExtension[FileType.Spreadsheet] %>');" class="dropdown-item">
-                    <%= UserControlsCommonResource.ButtonCreateSpreadsheet%>
-                </a>
-            </li>
-            <li id="files_create_presentation">
-                <a onclick="Attachments.createNewDocument('<%= FileUtility.InternalExtension[FileType.Presentation] %>');" class="dropdown-item">
-                    <%= UserControlsCommonResource.ButtonCreatePresentation%>
-                </a>
-            </li>
-        </ul>
+    <ul class="dropdown-content">
+        <li id="files_create_text" >
+            <a onclick="Attachments.createNewDocument('<%= FileUtility.InternalExtension[FileType.Document] %>');" class="dropdown-item">
+                <%= UserControlsCommonResource.ButtonCreateText%>
+            </a>
+        </li>
+        <li id="files_create_spreadsheet">
+            <a onclick="Attachments.createNewDocument('<%= FileUtility.InternalExtension[FileType.Spreadsheet] %>');" class="dropdown-item">
+                <%= UserControlsCommonResource.ButtonCreateSpreadsheet%>
+            </a>
+        </li>
+        <li id="files_create_presentation">
+            <a onclick="Attachments.createNewDocument('<%= FileUtility.InternalExtension[FileType.Presentation] %>');" class="dropdown-item">
+                <%= UserControlsCommonResource.ButtonCreatePresentation%>
+            </a>
+        </li>
+    </ul>
 </div>
          
-    <div id="actionPanel" runat="server" class="containerAction">
-        <span id="showDocumentPanel" >
-            <a class="baseLinkAction"><%=MenuNewDocument %></a>
-            <span class="sort-down-black newDocComb"></span>
-        </span>
-        <span id="linkNewDocumentUpload"><a class="baseLinkAction"><%=MenuUploadFile %></a></span>
+<div id="actionPanel" runat="server" class="containerAction">
+    <span id="showDocumentPanel" >
+        <a class="baseLinkAction"><%=MenuNewDocument %></a>
+        <span class="sort-down-black newDocComb"></span>
+    </span>
+    <span id="linkNewDocumentUpload"><a class="baseLinkAction"><%=MenuUploadFile %></a></span>
         
-        <%if (PortalDocUploaderVisible)
-          {%>
-        <span id="portalDocUploader" class="linkAttachFile" onclick="ProjectDocumentsPopup.showPortalDocUploader()" href="javascript: false;"><a class="baseLinkAction"><%=MenuProjectDocuments %></a></span>
-        <% } %>
-        
-    </div>
+    <%if (PortalDocUploaderVisible)
+        {%>
+    <span id="portalDocUploader" class="linkAttachFile" onclick="ProjectDocumentsPopup.showPortalDocUploader()" href="javascript: false;"><a class="baseLinkAction"><%=MenuProjectDocuments %></a></span>
+    <% } %>
+</div>
 
+<% if (EnableAsUploaded)
+   { %>
 <div class="information-upload-panel clearFix">
     <div class="gray-text"><%= UserControlsCommonResource.ConfirmStoreOriginalUploadTitleAC %></div>
     <div class="checkbox-container">
         <input id="storeOriginalFileFlag" type="checkbox" checked="checked"/>
-        <label for="storeOriginalFileFlag" class="gray-text"><%=UserControlsCommonResource.ConfirmStoreOriginalUploadCbxLabelTextAC %></label>
+        <label for="storeOriginalFileFlag" class="gray-text"><%= UserControlsCommonResource.ConfirmStoreOriginalUploadCbxLabelTextAC %></label>
     </div>
 </div>
-<%} %>
-<div id="questionWindowAttachments" style="display: none;">
-    <sc:Container ID="_hintPopup" runat="server">
-    <Header>
-    <%=UserControlsCommonResource.DeleteFile %>
-    </Header>
-    <Body>        
-        <p><%=UserControlsCommonResource.QuestionDeleteFile%></p>
-        <p><%=UserControlsCommonResource.NotBeUndone%></p>
-        <p><a class="button blue marginLikeButton" id="okButton"><%=UserControlsCommonResource.DeleteFile%></a><a id="noButton" class="button gray"><%=UserControlsCommonResource.CancelButton %></a></p>    
-    </Body>
-    </sc:Container>
-</div>
+<% } %>
+<% } %>
 
 <asp:PlaceHolder runat="server" ID="TariffDocsEditionPlaceHolder"></asp:PlaceHolder>
 
-<%if (EmptyScreenVisible){ %>
+<%if (EmptyScreenVisible) { %>
 <%-- popup window --%>
 <div id="files_hintCreatePanel" class="hintDescriptionPanel">
     <%= string.Format(UserControlsCommonResource.TooltipCreate,
@@ -106,61 +96,3 @@
 <div id="popupDocumentUploader">
     <asp:PlaceHolder id="_phDocUploader" runat="server"></asp:PlaceHolder>
 </div>
-
-<script id="newFileTmpl" type="text/x-jquery-tmpl">
-    <tr class="newDoc">
-        <td class="${tdclass}" colspan="2">
-            <input id="newDocTitle" type="text" class="textEdit" data="<%= UserControlsCommonResource.NewDocument%>" maxlength="165" value="<%= UserControlsCommonResource.NewDocument%>"/>
-            <span id="${type}" onclick="Attachments.createFile();" class="button gray btn-action __apply createFile" title="<%= Resource.AddButton%>"></span>
-            <span onclick="Attachments.removeNewDocument();" title="<%= UserControlsCommonResource.QuickLinksDeleteLink%>" class="button gray btn-action __reset remove"></span>
-        </td>        
-    </tr>
-</script>
-
-<script id="fileAttachTmpl" type="text/x-jquery-tmpl">
-
-<tr>
-    <td id="af_${id}">
-        {{if type=="image"}}
-        
-            <a href="${viewUrl}" rel="imageGalery" class="screenzoom ${exttype}" title="${title}">
-                <div class="attachmentsTitle">${title}</div>
-                {{if versionGroup > 1}}
-                        <span class="version"><%= UserControlsCommonResource.Version%>${versionGroup}</span>
-                {{/if}}
-            </a>
-            
-        {{else}}
-            {{if type == "editedFile" || type == "viewedFile"}}
-                <a href="${docViewUrl}" class="${exttype}" title="${title}" target="_blank">
-                    <div class="attachmentsTitle">${title}</div>
-                    {{if versionGroup > 1}}
-                        <span class="version"><%= UserControlsCommonResource.Version%>${versionGroup}</span>
-                    {{/if}}
-                </a>
-            {{else}}
-                <a href="${downloadUrl}" class="${exttype} noEdit" title="${title}" target="_blank">
-                    <div class="attachmentsTitle">${title}</div>
-                    {{if versionGroup > 1}}
-                        <span class="version"><%= UserControlsCommonResource.Version%>${versionGroup}</span>
-                    {{/if}}
-                </a>
-            {{/if}}
-            
-        {{/if}}
-    </td>
-    
-    <td class="editFile">
-        {{if (access==0 || access==1)}}
-            <a class="{{if trashAction == "delete"}}deleteDoc{{else}}unlinkDoc{{/if}}" title="{{if trashAction == "delete"}}<%= UserControlsCommonResource.DeleteFile%>{{else}}<%= UserControlsCommonResource.RemoveFromList%>{{/if}}" data-fileId="${id}"></a>
-        {{/if}}
-        {{if (!jq.browser.mobile)}}
-        <a class="downloadLink" title="<%= UserControlsCommonResource.DownloadFile%>" href="${downloadUrl}"></a>
-        {{/if}}
-        {{if (type == "editedFile")&&(access==0 || access==1)}}
-            <a id="editDoc_${id}" title="<%= UserControlsCommonResource.EditFile%>" target="_blank" href="${editUrl}"></a>
-        {{/if}}
-    </td>
-</tr>
-
-</script>

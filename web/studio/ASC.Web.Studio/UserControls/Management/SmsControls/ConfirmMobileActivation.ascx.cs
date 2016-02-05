@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -72,8 +72,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/Management/SmsControls/js/confirmmobile.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/SmsControls/css/confirmmobile.less"));
+            Page.RegisterBodyScripts("~/usercontrols/Management/SmsControls/js/confirmmobile.js");
+            Page.RegisterStyle("~/usercontrols/management/SmsControls/css/confirmmobile.less");
 
             Context.Session["SmsAuthData"] = User.ID;
 
@@ -97,13 +97,11 @@ namespace ASC.Web.Studio.UserControls.Management
                 var ipGeolocationInfo = new GeolocationHelper("teamlabsite").GetIPGeolocationFromHttpContext();
                 if (ipGeolocationInfo != null) Country = ipGeolocationInfo.Key;
 
-                var clientScriptReference = new ClientScriptReference();
-                clientScriptReference.Includes.Add(typeof(CountriesResources));
-                Page.RegisterBodyScripts(clientScriptReference);
+                Page.RegisterClientLocalizationScript(typeof(CountriesResources));
 
-                Page.RegisterBodyScripts(ResolveUrl("~/js/asc/plugins/countries.js"));
-                Page.RegisterBodyScripts(ResolveUrl("~/js/asc/plugins/phonecontroller.js"));
-                Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/skins/default/phonecontroller.css"));
+                Page.RegisterBodyScripts("~/js/asc/plugins/countries.js");
+                Page.RegisterBodyScripts("~/js/asc/plugins/phonecontroller.js");
+                Page.RegisterStyle("~/skins/default/phonecontroller.css");
             }
         }
 

@@ -70,7 +70,7 @@ namespace ASC.Files.Core.Data
                 .Select("t.name", "t.flag", "t.owner", "entry_id", "entry_type", "tag_count", "t.id")
                 .Where("l.tenant_id", TenantID)
                 .Where("l.entry_type", (int)entryType)
-                .Where(Exp.Eq("l.entry_id", MappingID(entryID)))
+                .Where(Exp.Eq("l.entry_id", MappingID(entryID).ToString()))
                 .Where("t.flag", (int)tagType);
 
             return SelectTagByQuery(q);
@@ -233,7 +233,7 @@ namespace ASC.Files.Core.Data
                                 .Set("tag_count", tag.Count)
                                 .Where("tag_id", tag.Id)
                                 .Where("entry_type", (int)tag.EntryType)
-                                .Where("entry_id", MappingID(tag.EntryId))
+                                .Where(Exp.Eq("entry_id", MappingID(tag.EntryId).ToString()))
                             );
                     }
                     tx.Commit();
@@ -261,7 +261,7 @@ namespace ASC.Files.Core.Data
                         {
                             var d = Delete("files_tag_link")
                                 .Where("tag_id", id)
-                                .Where("entry_id", MappingID(t.EntryId))
+                                .Where(Exp.Eq("entry_id", MappingID(t.EntryId).ToString()))
                                 .Where("entry_type", (int)t.EntryType);
                             DbManager.ExecuteNonQuery(d);
 
@@ -423,7 +423,7 @@ namespace ASC.Files.Core.Data
                                                Exp.EqColumns("f.tenant_id", "ftl.tenant_id") &
                                                !Exp.Eq("f.create_by", subject) &
                                                Exp.EqColumns("f.id", "ftl.entry_id") &
-                                               Exp.Eq("ftl.entry_type", FileEntryType.File))
+                                               Exp.Eq("ftl.entry_type", (int)FileEntryType.File))
                                     .Select(GetRootFolderType("folder_id")))
                                                     .Where(r => ParseRootFolderType(r[7]) == FolderType.USER).ToList()
                                                     .ConvertAll(ToTag);
@@ -435,7 +435,7 @@ namespace ASC.Files.Core.Data
                                                Exp.EqColumns("f.tenant_id", "ftl.tenant_id") &
                                                !Exp.Eq("f.create_by", subject) &
                                                Exp.EqColumns("f.id", "ftl.entry_id") &
-                                               Exp.Eq("ftl.entry_type", FileEntryType.Folder))
+                                               Exp.Eq("ftl.entry_type", (int)FileEntryType.Folder))
                                     .Select(GetRootFolderType("parent_id")))
                                                       .Where(r => ParseRootFolderType(r[7]) == FolderType.USER).ToList()
                                                       .ConvertAll(ToTag);

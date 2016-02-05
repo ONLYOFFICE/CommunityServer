@@ -29,7 +29,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ASC.Common.Security;
 using ASC.Common.Security.Authorizing;
-using ASC.Core.Common.Caching;
+using ASC.Core.Caching;
 
 namespace ASC.Core
 {

@@ -87,7 +87,7 @@ namespace ActiveUp.Net.Mail
             foreach (MimePart mimePart in this)
             {
                 //mimePart.StoreToFile(path.TrimEnd('\\') + "\\" + (!string.IsNullOrEmpty(mimePart.Filename) ? mimePart.Filename : mimePart.ContentName));
-                mimePart.StoreToFile(path.TrimEnd('\\') + "\\" + mimePart.Filename);
+                mimePart.StoreToFile(string.Format("{0}\\{1}", path.TrimEnd('\\'), mimePart.Filename));
             }
         }
     }

@@ -44,6 +44,7 @@ namespace ASC.Web.UserControls.Bookmarking.Util
     {
         private static IThumbnailHelper _processHelper = new WebSiteThumbnailHelper();
         private static IThumbnailHelper _serviceHelper = new ServiceThumbnailHelper();
+        private static IThumbnailHelper _nullHelper = new NullThumbnailHelper();
 
         public static bool HasService
         {
@@ -54,7 +55,17 @@ namespace ASC.Web.UserControls.Bookmarking.Util
         {
             get
             {
-                return HasService ? _serviceHelper : _processHelper;
+                if (HasService)
+                {
+                    return _serviceHelper;
+                }
+                if (Environment.OSVersion.Platform == PlatformID.MacOSX ||
+                    Environment.OSVersion.Platform == PlatformID.Unix ||
+                    Environment.OSVersion.Platform == PlatformID.Xbox)
+                {
+                    return _nullHelper;
+                }
+                return _processHelper;
             }
         }
     }
@@ -101,6 +112,27 @@ namespace ASC.Web.UserControls.Bookmarking.Util
         public void DeleteThumbnail(string Url)
         {
 
+        }
+    }
+
+    internal class NullThumbnailHelper : IThumbnailHelper
+    {
+        public void MakeThumbnail(string url, bool async, bool notOverride, HttpContext context, int tenantID)
+        {            
+        }
+
+        public void DeleteThumbnail(string Url)
+        {
+        }
+
+        public string GetThumbnailUrl(string Url, BookmarkingThumbnailSize size)
+        {
+            return null;
+        }
+
+        public string GetThumbnailUrlForUpdate(string Url, BookmarkingThumbnailSize size)
+        {
+            return GetThumbnailUrl(Url, size);
         }
     }
 }

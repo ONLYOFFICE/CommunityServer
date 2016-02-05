@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -24,18 +24,15 @@
 */
 
 
-#region Usings
-
 using System;
-
-#endregion
 
 namespace ASC.Projects.Core.Domain
 {
-    public class Comment : DomainObject<Guid>
+    public class Comment : DomainObject<int>
     {
-        //fulltextSearch
-        public int AutoIncrementID { get; set; }
+        public override EntityType EntityType { get { return EntityType.Comment; } }
+
+        public Guid OldGuidId { get; set; }
 
         public Guid Parent { get; set; }
 
@@ -45,14 +42,13 @@ namespace ASC.Projects.Core.Domain
 
 
         public string TargetUniqID { get; set; }
-
+        public int TargetID { get { return Convert.ToInt32(TargetUniqID.Split('_')[1]); } }
+        public string TargetType { get { return TargetUniqID.Split('_')[0]; } }
 
         public Guid CreateBy { get; set; }
 
         public DateTime CreateOn { get; set; }
 
-
-        public string ProjectTitle { get; set; }
 
         public override int GetHashCode()
         {

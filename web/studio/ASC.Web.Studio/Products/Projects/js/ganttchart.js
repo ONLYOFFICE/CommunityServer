@@ -24,11 +24,6 @@
 */
 
 
-/*
- Copyright (c) Ascensio System SIA 2014. All rights reserved.
- http://www.teamlab.com
- */
-
 (function (window) {
 
     'use strict';

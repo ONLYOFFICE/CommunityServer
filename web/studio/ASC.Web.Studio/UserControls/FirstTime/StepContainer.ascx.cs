@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -42,8 +42,8 @@ namespace ASC.Web.Studio.UserControls.FirstTime
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/firsttime/js/view.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/firsttime/css/stepcontainer.less"));
+            Page.RegisterBodyScripts("~/usercontrols/firsttime/js/view.js");
+            Page.RegisterStyle("~/usercontrols/firsttime/css/stepcontainer.less");
 
             SaveButtonEvent = "ASC.Controls.FirstTimeView.SaveRequiredStep();";
             content1.Controls.Add(LoadControl(EmailAndPassword.Location));

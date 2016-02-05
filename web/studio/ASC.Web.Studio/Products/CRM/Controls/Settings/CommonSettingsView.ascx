@@ -10,12 +10,12 @@
 
 <div class="header-base settingsHeader" style="margin-top:5px;"><%= CRMSettingResource.SMTPSettings%></div>
 <div id="smtpSettingsContent">
-    <p><%= CRMSettingResource.SMTPSettingsDescription%></p>
+    <p><%: CRMSettingResource.SMTPSettingsDescription%></p>
     <div class="clearFix">
         <div id="SMTPSettingsPannel" class="float-left">
         </div>
         <div class="settings-help-block">
-            <p><%= String.Format(CRMSettingResource.SMTPSettingsHelp, "<br/><br/>")%></p>
+            <p><%= String.Format(CRMSettingResource.SMTPSettingsHelp.HtmlEncode(), "<br/><br/>")%></p>
             <!--<a href="<%= CommonLinkUtility.GetHelpLink(true) + "administratorguides/mass-mailing.aspx" %>" target="_blank">
                 <%=CRMSettingResource.LearnMore%>
             </a>-->
@@ -34,8 +34,8 @@
 
 <div class="header-base settingsHeader"><%=CRMSettingResource.CurrencySettings%></div>
 <div>
-    <p><%= CRMSettingResource.CurrencySettingsDescription%></p>
-    <p><%= CRMSettingResource.CurrencySettingsInvoiceDescription%></p>
+    <p><%: CRMSettingResource.CurrencySettingsDescription%></p>
+    <p><%: CRMSettingResource.CurrencySettingsInvoiceDescription%></p>
     <div class="header-base-small headerTitle">
         <%= CRMSettingResource.DefaultCurrency%>:
     </div>

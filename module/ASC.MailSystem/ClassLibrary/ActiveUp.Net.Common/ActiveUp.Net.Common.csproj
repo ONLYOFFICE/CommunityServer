@@ -58,6 +58,7 @@
     <NoWarn>
     </NoWarn>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -69,6 +70,7 @@
     </DocumentationFile>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Trial|AnyCPU' ">
     <DefineConstants>TRACE;TRIAL</DefineConstants>
@@ -175,7 +177,6 @@
     <Compile Include="OperatorType.cs" />
     <Compile Include="PaddingDirection.cs" />
     <Compile Include="Parser.cs" />
-    <None Include="Parserv1.cs" />
     <Compile Include="ParsingException.cs" />
     <Compile Include="ProductHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

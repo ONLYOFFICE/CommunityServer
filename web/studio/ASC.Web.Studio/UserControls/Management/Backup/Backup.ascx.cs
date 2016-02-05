@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -24,18 +24,19 @@
 */
 
 
-using Amazon;
-using ASC.Core;
-using ASC.Core.Tenants;
-using ASC.Web.Studio.Core.Backup;
-using ASC.Web.Studio.UserControls.Common.ChooseTimePeriod;
-using ASC.Web.Studio.UserControls.Statistics;
-using ASC.Web.Studio.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+
+using ASC.Core;
+using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Core.Backup;
+using ASC.Web.Studio.UserControls.Common.ChooseTimePeriod;
+using ASC.Web.Studio.Utility;
+
+using Amazon;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -44,15 +45,19 @@ namespace ASC.Web.Studio.UserControls.Management
     {
         public const string Location = "~/UserControls/Management/Backup/Backup.ascx";
 
-        protected readonly long AvailableZipSize = 4 * 1024 * 1024 * 1024L;
-        protected BackupAvailableSize AvailableStatus = BackupAvailableSize.Available;
+        protected bool PaidBackup
+        {
+            get { return TenantExtra.GetTenantQuota().HasBackup; }
+        }
 
-        private readonly Guid _mailStorageTag = new Guid("666ceac1-4532-4f8c-9cba-8f510eca2fd1");
-                
-        
         protected bool EnableBackup
         {
-            get { return (TenantExtra.GetTenantQuota().HasBackup); }
+            get { return SetupInfo.IsVisibleSettings(ManagementType.Backup.ToString()); }
+        }
+
+        protected bool EnableAutoBackup
+        {
+            get { return SetupInfo.IsVisibleSettings("AutoBackup"); }
         }
 
         protected List<RegionEndpoint> Regions
@@ -60,41 +65,28 @@ namespace ASC.Web.Studio.UserControls.Management
             get { return RegionEndpoint.EnumerableAllRegions.ToList(); }
         }
 
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (CoreContext.Configuration.Standalone || !SetupInfo.IsVisibleSettings(ManagementType.Backup.ToString()))
+            {
+                Response.Redirect(CommonLinkUtility.GetDefault(), true);
+                return;
+            }
+
             AjaxPro.Utility.RegisterTypeForAjax(typeof (BackupAjaxHandler), Page);
 
-            Page.RegisterStyleControl(ResolveUrl("~/usercontrols/management/backup/css/backup.less"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/backup/js/backup.js"));
+            Page.RegisterStyle("~/usercontrols/management/backup/css/backup.less");
+            Page.RegisterBodyScripts("~/usercontrols/management/backup/js/backup.js");
 
             FolderSelectorHolder.Controls.Add(LoadControl(CommonLinkUtility.ToAbsolute("~/products/files/controls/fileselector/fileselector.ascx")));
 
             BackupTimePeriod.Controls.Add(LoadControl(ChooseTimePeriod.Location));
-            RestoreHolder.Controls.Add(LoadControl(Restore.Location));
 
-            var size = CoreContext.TenantManager.FindTenantQuotaRows(new TenantQuotaRowQuery(TenantProvider.CurrentTenantID))
-                                  .Where(r => !string.IsNullOrEmpty(r.Tag) && new Guid(r.Tag) != Guid.Empty && !new Guid(r.Tag).Equals(_mailStorageTag))
-                                  .Sum(r => r.Counter);
-            if (size > AvailableZipSize)
+            if (!CoreContext.Configuration.Standalone && SetupInfo.IsVisibleSettings("Restore"))
             {
-                AvailableStatus = BackupAvailableSize.NotAvailable;
+                RestoreHolder.Controls.Add(LoadControl(Restore.Location));
             }
-            else
-            {
-                size = TenantStatisticsProvider.GetUsedSize();
-                if (size > AvailableZipSize)
-                {
-                    AvailableStatus = BackupAvailableSize.WithoutMail;
-                }
-            }
-        }
-
-        protected enum BackupAvailableSize
-        {
-            Available,
-            WithoutMail,
-            NotAvailable,
         }
     }
 }

@@ -81,12 +81,14 @@ namespace ASC.Web.Studio.Masters.MasterResources
             var hubLogging = ConfigurationManager.AppSettings["web.chat.logging"] ?? "false";
             var webChat = ConfigurationManager.AppSettings["web.chat"] ?? "false";
             var voipEnabled = ConfigurationManager.AppSettings["voip.enabled"] ?? "false";
-            yield return RegisterObject("Hub",
-                new { Token = hubToken, Url = hubUrl, WebChat = webChat, VoipEnabled = voipEnabled, Logging = hubLogging });
 
-            yield return RegisterObject("ApiResponsesMyProfile", new {response = user});
-            yield return RegisterObject("ApiResponses_Profiles", new {response = users});
-            yield return RegisterObject("ApiResponses_Groups", new {response = groups});
+            return new List<KeyValuePair<string, object>>(4)
+                   {
+                       RegisterObject("Hub", new { Token = hubToken, Url = hubUrl, WebChat = webChat, VoipEnabled = voipEnabled, Logging = hubLogging }),
+                       RegisterObject("ApiResponsesMyProfile", new {response = user}),
+                       RegisterObject("ApiResponses_Profiles", new {response = users}),
+                       RegisterObject("ApiResponses_Groups", new {response = groups})
+                   };
         }
 
         protected override string GetCacheHash()

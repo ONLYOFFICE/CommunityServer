@@ -75,30 +75,15 @@ namespace ActiveUp.Net.Mail
         {
             get
             {
-                /*#if TRIAL
-                                if (string.IsNullOrEmpty(this._text))
-                                    return this._text;
-
-                                if (this.Format == BodyFormat.Html)
-                                    return ProductHelper.GetTrialString(string.Empty, TrialStringType.LongHtml)
-                                    + this._text + ProductHelper.GetTrialString(string.Empty, TrialStringType.LongHtml);
-                                else
-                                    return ProductHelper.GetTrialString(this._text, TrialStringType.LongText);
-                #else
-                                string ret = this._text;
-                                ret = ret.Replace("FLAGS (Seen)", string.Empty);
-                                return ret;
-                
-                #endif*/
-               return _text;
+                return _text;
             }
             set
             {
-                this._text = value;
+                this._text = string.IsNullOrEmpty(value) ? "" : value;
             }
         }
 
-        static readonly Regex _htmlRegex = new Regex("<[^>]*>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        static readonly Regex HtmlRegex = new Regex("<[^>]*>", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         
         /// <summary>
         /// The body's text (content) stripped (without HTML tags).
@@ -107,9 +92,13 @@ namespace ActiveUp.Net.Mail
         {
             get
             {
-                string newText = _text.Replace("</p>", "\n\n").Replace("</P>", "\n\n").Replace("<br>", "\n").Replace("<BR>", "\n").Replace("&nbsp;", " ");
-                //System.Text.RegularExpressions.Regex regex = new System.Text.RegularExpressions.Regex("<[^>]*>");
-                newText = _htmlRegex.Replace(newText, string.Empty);
+                var newText =
+                    _text.Replace("</p>", "\n\n")
+                        .Replace("</P>", "\n\n")
+                        .Replace("<br>", "\n")
+                        .Replace("<BR>", "\n")
+                        .Replace("&nbsp;", " ");
+                newText = HtmlRegex.Replace(newText, string.Empty);
                 return newText;
             }
         }

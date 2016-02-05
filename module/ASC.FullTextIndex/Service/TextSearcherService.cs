@@ -46,11 +46,11 @@ namespace ASC.FullTextIndex.Service
             return modules.All(m => indexedModules.Any(im => im.StartsWith(m)));
         }
 
-        public Dictionary<string, IEnumerable<int>> Search(IEnumerable<ModuleInfo> modules)
+        public Dictionary<string, IEnumerable<int>> Search(IEnumerable<ModuleInfo> modules, int tenantID)
         {
             try
             {
-                return TextSearcher.Instance.Search(modules);
+                return TextSearcher.Instance.Search(modules, tenantID);
             }
             catch (Exception ex)
             {

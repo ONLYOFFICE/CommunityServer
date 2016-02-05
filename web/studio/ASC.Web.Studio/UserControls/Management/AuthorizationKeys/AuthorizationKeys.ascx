@@ -3,9 +3,9 @@
 <%@ Import Namespace="Resources" %>
 
 <div id="authKeysContainer">
-    <div class="header-base"><%=Resource.AuthorizationKeys %></div>
+    <div class="header-base"><%= Resource.AuthorizationKeys %></div>
 
-    <p class="auth-service-text"><%= Resource.AuthorizationKeysText %> <br />
+    <p class="auth-service-text"><%: Resource.AuthorizationKeysText %> <br />
         <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
            { %>
         <a href="<%= CommonLinkUtility.GetHelpLink(true) + "tipstricks/authorization-keys.aspx" %>" target="_blank"><% = Resource.LearnMore %></a>

@@ -17,6 +17,7 @@
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/mail.accountsmodal.js") %>" type="text/javascript"></script>
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/mail.accountspage.js") %>" type="text/javascript"></script>
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/wysiwyg.js") %>" type="text/javascript"></script>
+<script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/mail.cache.js") %>" type="text/javascript"></script>
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/mail.messagepage.js") %>" type="text/javascript"></script>
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/mail.printpage.js") %>" type="text/javascript"></script>
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/mail.navigation.js") %>" type="text/javascript"></script>
@@ -64,4 +65,4 @@
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/helpcenter/page.js") %>" type="text/javascript"></script>
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/administration/plugin/jquery-mailboxadvansedselector.js") %>" type="text/javascript"></script>
 <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/administration/plugin/jquery-domainadvansedselector.js") %>" type="text/javascript"></script>
-
+<script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/js/mail/model/model.js") %>" type="text/javascript"></script>

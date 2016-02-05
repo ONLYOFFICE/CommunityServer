@@ -1,0 +1,18 @@
+[Unit]
+Description=Start ONLYOFFICE Autoreply Service
+After=syslog.target
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/mono-service -d:/var/www/onlyoffice/Services/TeamLabSvc -l:/tmp/onlyofficeMailAutoreply /var/www/onlyoffice/Services/TeamLabSvc/TeamLabSvc.exe --service \"ASC.Mail.Autoreply.AutoreplyServiceController, ASC.Mail.Autoreply\" --log MailAutoreply
+Environment=MONO_IOMAP=all MONO_ASPNET_WEBCONFIG_CACHESIZE=1000
+User=onlyoffice
+Group=onlyoffice
+# Give up if ping don't get an answer
+TimeoutSec=600
+
+Restart=always
+PrivateTmp=false
+
+[Install]
+WantedBy=multi-user.target

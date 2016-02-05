@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
@@ -38,7 +39,7 @@ namespace ASC.Mail.Aggregator
     {
         static MailQueueItemSettings()
         {
-            using (var db = new DbManager(MailBoxManager.CONNECTION_STRING_NAME))
+            using (var db = new DbManager(MailBoxManager.ConnectionStringName))
             {
                 var imapFlags = db.ExecuteList(new SqlQuery(Dal.DbSchema.ImapFlags.name)
                                                     .Select(Dal.DbSchema.ImapFlags.Columns.folder_id,
@@ -82,11 +83,43 @@ namespace ASC.Mail.Aggregator
                                         .ConvertAll(r => (string) r[0])
                                         .ToArray();
             }
+
+            DefaultFolders = GetDefaultFolders();
+        }
+
+        private static Dictionary<string, int> GetDefaultFolders()
+        {
+            var list = new Dictionary<string, int>
+                {
+                    {"sent", 2},
+                    {"drafts", 3},
+                    {"trash", 4},
+                    {"spam", 5},
+                    {"junk", 5}
+                };
+
+            try
+            {
+                if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["mail.folders-mapping"]))
+                // "sent:2|"drafts:3|trash:4|spam:5|junk:5"
+                {
+                    list = ConfigurationManager.AppSettings["mail.folders-mapping"]
+                        .Split('|')
+                        .Select(s => s.Split(':'))
+                        .ToDictionary(s => s[0].ToLower(), s => Convert.ToInt32(s[1]));
+                }
+            }
+            catch
+            {
+                //ignore
+            }
+            return list;
         }
 
         public static Dictionary<string, int> ImapFlags { get; private set; }
         public static string[] SkipImapFlags { get; private set; }
         public static string[] PopUnorderedDomains { get; private set; }
         public static Dictionary<string, Dictionary<string, ImapExtensions.MailboxInfo>> SpecialDomainFolders { get; private set; }
+        public static Dictionary<string, int> DefaultFolders { get; private set; }
     }
 }

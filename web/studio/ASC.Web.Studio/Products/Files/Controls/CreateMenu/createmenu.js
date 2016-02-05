@@ -35,6 +35,7 @@ window.ASC.Files.CreateMenu = (function () {
         jq.dropdownToggle({
             switcherSelector: "#menuCreateNewButton:not(.disable)",
             dropdownID: "newDocumentPanel",
+            inPopup: true,
             addTop: 4
         });
     };

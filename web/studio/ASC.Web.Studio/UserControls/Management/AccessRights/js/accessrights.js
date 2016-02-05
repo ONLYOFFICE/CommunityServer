@@ -33,7 +33,6 @@ if (typeof ASC.Settings === "undefined")
 ASC.Settings.AccessRights = new function() {
 
     var pNameList = [];
-    var gsLinkText = "";
     
 
     var getSelectedUsers = function (pName) {
@@ -44,14 +43,16 @@ ASC.Settings.AccessRights = new function() {
     };
 
     return {
-        init: function (products, linkText) {
+        init: function (products) {
             pNameList = products;
-            gsLinkText = linkText;
 
             jq("#changeOwnerBtn").click(ASC.Settings.AccessRights.changeOwner);
             jq("#adminTable tbody tr").remove();
             jq("#adminTmpl").tmpl(window.adminList).prependTo("#adminTable tbody");
 
+            if (window.adminList.length) {
+                jq("#adminTable").removeClass("display-none");
+            }
 
             var items = jq("[id^=switcherAccessRights]"), 
                 pName;
@@ -142,6 +143,7 @@ ASC.Settings.AccessRights = new function() {
                 }
                 window.adminList.push(res.value);
                 jq("#adminTmpl").tmpl(res.value).appendTo("#adminTable tbody");
+                jq("#adminTable").removeClass("display-none");
 
                 jq("#adminAdvancedSelector").useradvancedSelector("disable", [uId]);
                 ASC.Settings.AccessRights.hideUserFromAll(uId, true);
@@ -189,22 +191,32 @@ ASC.Settings.AccessRights = new function() {
             jq(obj).find("img:last").hide();
         },
         
-        initProduct: function (pId, pName, pIsPuplic) {
+        initProduct: function (pItem) {
+            var pItem = jq.parseJSON(jq.base64.decode(pItem)),
+                pId = pItem.ID,
+                pName = pItem.ItemName,
+                pIsPuplic = pItem.SelectedUsers.length == 0 && pItem.SelectedGroups.length == 0,
+
+                su = getSelectedUsers(pName);
+                sg = getSelectedGroups(pName);
+
+            for (var i = 0, n = pItem.SelectedUsers.length; i < n; i++){
+                var ind = su.IDs.indexOf(pItem.SelectedUsers[i].ID);
+                pItem.SelectedUsers[i].DisplayUserName = ind != -1 ? su.Names[ind] : "";
+            }
+
+            jq.tmpl("template-productItem", pItem).appendTo("#studioPageContent .mainPageContent:first");
 
             var us = jq("#userSelector_" + pName);
             var gs = jq("#groupSelector_" + pName);
 
-            var su = getSelectedUsers(pName);
-            var sg = getSelectedGroups(pName);
 
             us.useradvancedSelector({
                 showGroups: true,
                 withGuests: (pId !== ("6743007c-6f95-4d20-8c88-a8601ce5e76d" || "f4d98afd-d336-4332-8778-3c6945c81ea0"))
             }).on("showList", ASC.Settings.AccessRights.pushUserIntoList)
 
-            gs.groupadvancedSelector({
-                witheveryone: true
-            }).on("showList", ASC.Settings.AccessRights.pushGroupIntoList)
+            gs.groupadvancedSelector().on("showList", ASC.Settings.AccessRights.pushGroupIntoList)
 
             us.useradvancedSelector("disable", su.IDs);
             gs.groupadvancedSelector("disable", sg.IDs);

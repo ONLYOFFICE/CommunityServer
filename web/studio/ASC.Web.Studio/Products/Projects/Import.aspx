@@ -41,21 +41,21 @@
         </div>
         <div class="checkbox-container">
             <input type="checkbox" id="chooseProjects" autocomplete="off"/>
-            <label for="chooseProjects"><%=ImportResource.ChooseBasecampProjects%></label>
+            <label for="chooseProjects"><%: ImportResource.ChooseBasecampProjects %></label>
         </div>
         <div class="checkbox-container">     
             <input type="checkbox" id="importClosed" value="false" autocomplete="off"/>
-            <label for="importClosed"><%=ImportResource.ImportClosedTasks%></label>
+            <label for="importClosed"><%: ImportResource.ImportClosedTasks %></label>
         </div>
         <div class="checkbox-container"> 
             <input type="checkbox" id="sendInvitations" autocomplete="off"/>
-            <label for="sendInvitations"><%=ImportResource.SendInvitations%></label>    
+            <label for="sendInvitations"><%: ImportResource.SendInvitations %></label>    
         </div>
         <div class="checkbox-container"> 
             <input type="checkbox" id="importAsCollaborators" <%if(QuotaEndFlag){ %> checked="checked" disabled="disabled"<%} %> />
             <label for="importAsCollaborators"><%= Resources.Resource.InviteUsersAsCollaborators%></label><div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'answerForHelpInviteGuests',position: 'fixed'});"></div>
             <div class="popup_helper" id="answerForHelpInviteGuests">
-                <p><%=string.Format(Resources.Resource.NoteForInviteCollaborator, "<b>","</b>")%> 
+                <p><%=string.Format(Resources.Resource.NoteForInviteCollaborator.HtmlEncode(), "<b>","</b>")%> 
                      <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
                        { %>
                     <a href="<%= CommonLinkUtility.GetHelpLink() %>" target="_blank"><%=Resources.Resource.LearnMore%></a>
@@ -66,15 +66,15 @@
         
         <div class="block-cnt-splitter big-margin-top">
             <div class="header-base pm-projectSettings-container red-text">
-                <%=ImportResource.ImportAttantionPanelTitle%>
+                <%= ImportResource.ImportAttantionPanelTitle %>
             </div>
             <div class="pm-projectSettings-container min-margin-top">
-                <%=ImportResource.ImportAttantionPanelBody%>
+                <%: ImportResource.ImportAttantionPanelBody %>
             </div>
             <div class="checkbox-container middle-margin-top">
                 <input type="checkbox" id="agreement" autocomplete="off"/>
                 <label for="agreement">
-                    <%=ImportResource.ImportAttantionPanelAgreement%>
+                    <%: ImportResource.ImportAttantionPanelAgreement %>
                 </label>
             </div>
         </div>
@@ -148,7 +148,7 @@
                     </div>
                 </div>
                 <div class="block-cnt-splitter">
-                    <%=String.Format(ImportResource.PopupPanelBody,"<br/>")%>
+                    <%= String.Format(ImportResource.PopupPanelBody.HtmlEncode(),"<br/>") %>
                     <div class="import-statuses-container">
                         <div id="popupPanelBodyError" style="display: none;">
                         </div>

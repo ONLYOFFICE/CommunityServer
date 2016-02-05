@@ -281,18 +281,28 @@ body .OwnCloud {
 /***************************************\
     Width
 \***************************************/
-@media (min-width: 1260px) and (max-width: 1420px) {
-    .account-customer-title, .account-provider-error {
-        width: 320px;
-    }
+
+media-width-0-1160
+
+body.media-width-0-1260:not(.media-width-0-1200) .account-customer-title,
+body.media-width-0-1260:not(.media-width-0-1200) .account-provider-error {
+    width: 280px;
 }
-@media (min-width: 1420px) and (max-width: 1620px) {
-    .account-customer-title, .account-provider-error {
-        width: 400px;
-    }
+
+body.media-width-0-1300:not(.media-width-0-1260) .account-customer-title,
+body.media-width-0-1300:not(.media-width-0-1260) .account-provider-error {
+    width: 300px;
 }
-@media (min-width: 1620px) {
-    .account-customer-title, .account-provider-error {
-        width: 500px;
-    }
+
+body.media-width-0-1420:not(.media-width-0-1300) .account-customer-title,
+body.media-width-0-1420:not(.media-width-0-1300) .account-provider-error {
+    width: 320px;
+}
+body.media-width-0-1620:not(.media-width-0-1420) .account-customer-title,
+body.media-width-0-1620:not(.media-width-0-1420) .account-provider-error {
+    width: 400px;
+}
+body.media-width-1620-0 .account-customer-title,
+body.media-width-1620-0  .account-provider-error {
+    width: 500px;
 }

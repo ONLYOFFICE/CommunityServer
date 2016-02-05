@@ -32,7 +32,7 @@ using ASC.Core.Notify.Senders;
 
 namespace ASC.Notify.Config
 {
-    static class NotifyServiceCfg
+    public static class NotifyServiceCfg
     {
         public static string ConnectionStringName
         {
@@ -82,7 +82,7 @@ namespace ASC.Notify.Config
             private set;
         }
 
-        public static bool DeleteSendedMessages
+        public static int StoreMessagesDays
         {
             get;
             private set;
@@ -118,7 +118,7 @@ namespace ASC.Notify.Config
                 Schedulers[element.Name] = type.GetMethod(typeName.Substring(typeName.LastIndexOf('.') + 1), BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
             }
             ServerRoot = section.Schedulers.ServerRoot;
-            DeleteSendedMessages = section.DeleteSendedMessages;
+            StoreMessagesDays = section.StoreMessagesDays;
         }
     }
 }

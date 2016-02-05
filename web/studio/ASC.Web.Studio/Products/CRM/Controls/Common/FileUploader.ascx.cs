@@ -41,8 +41,8 @@ namespace ASC.Web.CRM.Controls.Common
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/uploader/jquery.fileupload.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/uploader/jquery.fileuploadManager.js"));
+            Page.RegisterBodyScripts("~/js/uploader/jquery.fileupload.js");
+            Page.RegisterBodyScripts("~/js/uploader/jquery.fileuploadManager.js");
 
             RegisterScript();
         }

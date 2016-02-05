@@ -30,7 +30,9 @@ namespace ASC.Projects.Core.Domain
 {
     public class Message : ProjectEntity
     {
-        public string Content { get; set; }
+        public override EntityType EntityType { get { return EntityType.Message; } }
+
+        public override string ItemPath { get { return "{0}messages.aspx?prjID={1}&ID={2}"; } }
 
         public int CommentsCount { get; set; }
 

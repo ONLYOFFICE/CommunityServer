@@ -255,7 +255,6 @@ namespace ASC.Data.Storage.S3
                     Headers =
                     {
                         CacheControl = string.Format("public, maxage={0}", (int)TimeSpan.FromDays(cacheDays).TotalSeconds),
-                        ContentMD5 = Hasher.Base64Hash(buffered.GetCorrectBuffer(), HashAlg.MD5),
                         Expires = DateTime.UtcNow.Add(TimeSpan.FromDays(cacheDays))
                     }
                 };
@@ -314,8 +313,7 @@ namespace ASC.Data.Storage.S3
                     Headers =
                     {
                         CacheControl = string.Format("public, maxage={0}", (int)TimeSpan.FromDays(5).TotalSeconds),
-                        ContentMD5 = Hasher.Base64Hash(buffered.GetCorrectBuffer(), HashAlg.MD5),
-                        Expires = DateTime.UtcNow.Add(TimeSpan.FromDays(5))
+                        Expires = DateTime.UtcNow.Add(TimeSpan.FromDays(5)),
                     }
                 };
 
@@ -530,6 +528,57 @@ namespace ASC.Data.Storage.S3
             return 0;
         }
 
+        public override void DeleteFiles(string domain, List<string> paths)
+        {
+            if(!paths.Any()) return;
+
+            var keysToDel = new List<string>();
+
+            long quotaUsed = 0;
+
+            foreach (var path in paths)
+            {
+                try
+                {
+                    //var obj = GetS3Objects(domain, path).FirstOrDefault();
+
+                    var key = MakePath(domain, path);
+
+                    if (QuotaController != null)
+                    {
+                        quotaUsed += GetFileSize(domain, path);
+                    }
+
+                    keysToDel.Add(key);
+
+                    //objsToDel.Add(obj);
+                }
+                catch (FileNotFoundException)
+                {
+
+                }
+            }
+
+            if (!keysToDel.Any())
+                return;
+
+            if (QuotaController != null && quotaUsed > 0)
+            {
+                QuotaController.QuotaUsedDelete(_modulename, domain, _dataList.GetData(domain), quotaUsed);
+            }
+
+            using (var client = GetClient())
+            {
+                var deleteRequest = new DeleteObjectsRequest
+                    {
+                        BucketName = _bucket,
+                        Objects = keysToDel.Select(key => new KeyVersion { Key = key }).ToList()
+                    };
+
+                client.DeleteObjects(deleteRequest);
+            }
+        }
+
         public override void DeleteFiles(string domain, string path, string pattern, bool recursive)
         {
             var objToDel = GetS3Objects(domain, path)
@@ -650,14 +699,13 @@ namespace ASC.Data.Storage.S3
                         CacheControl = string.Format("public, maxage={0}", (int)TimeSpan.FromDays(5).TotalSeconds),
                         Expires = DateTime.UtcNow.Add(TimeSpan.FromDays(5)),
                         ContentDisposition = "attachment",
-                        ContentMD5 = Hasher.Base64Hash(buffered.GetCorrectBuffer(), HashAlg.MD5)
                     }
                 };
 
 
                 request.Metadata.Add("private-expire", expires.ToFileTimeUtc().ToString(CultureInfo.InvariantCulture));
 
-                new Amazon.S3.Transfer.TransferUtility(client).Upload(request);
+                new TransferUtility(client).Upload(request);
 
                 //Get presigned url                
                 var pUrlRequest = new GetPreSignedUrlRequest
@@ -863,7 +911,7 @@ namespace ASC.Data.Storage.S3
 
         public override Uri[] ListFiles(string domain, string path, string pattern, bool recursive)
         {
-            return GetS3Objects(domain, path, true)
+            return GetS3Objects(domain, path)
                 .Where(x => Wildcard.IsMatch(pattern, Path.GetFileName(x.Key)))
                 .Select(x => GetUriInternal(x.Key))
                 .ToArray();

@@ -24,18 +24,25 @@
 */
 
 
-using System;
+using ASC.Common.Caching;
 using ASC.Core;
-using ASC.Core.Caching;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
+using System;
 
 namespace ASC.Projects.Engine
 {
     public class CachedProjectEngine : ProjectEngine
     {
-        private static readonly ICache cache = AscCache.Default;
-        private static readonly TimeSpan CacheExpiration = TimeSpan.FromMinutes(10);
+        private static readonly ICache cache = AscCache.Memory;
+        private static readonly ICacheNotify notify = AscCache.Notify;
+        private static readonly TimeSpan expiration = TimeSpan.FromMinutes(10);
+
+
+        static CachedProjectEngine()
+        {
+            notify.Subscribe<ProjectCacheItem>((i, a) => cache.Remove(GetCountKey(i.Tenant)));
+        }
 
 
         public CachedProjectEngine(IDaoFactory daoFactory, EngineFactory factory)
@@ -43,35 +50,43 @@ namespace ASC.Projects.Engine
         {
         }
 
-        public override int Count()
+        public override int CountOpen()
         {
-            var key = GetCountKey();
-            var value = cache.Get(key);
-            if (value != null)
+            var key = GetCountKey(CoreContext.TenantManager.GetCurrentTenant().TenantId);
+            var value = cache.Get<string>(key);
+
+            if (!String.IsNullOrEmpty(value))
             {
-                return (int)value;
+                return Convert.ToInt32(value);
             }
-            var count = base.Count();
-            cache.Insert(key, count, DateTime.UtcNow.Add(CacheExpiration));
+            var count = base.CountOpen();
+            cache.Insert(key, count, DateTime.UtcNow.Add(expiration));
             return count;
         }
 
         public override Project SaveOrUpdate(Project project, bool notifyManager, bool isImport)
         {
             var p = base.SaveOrUpdate(project, notifyManager, isImport);
-            cache.Remove(GetCountKey());
+            notify.Publish(new ProjectCacheItem { Tenant = CoreContext.TenantManager.GetCurrentTenant().TenantId }, CacheNotifyAction.InsertOrUpdate);
             return p;
         }
 
         public override void Delete(int projectId)
         {
             base.Delete(projectId);
-            cache.Remove(GetCountKey());
+            notify.Publish(new ProjectCacheItem { Tenant = CoreContext.TenantManager.GetCurrentTenant().TenantId }, CacheNotifyAction.Remove);
         }
 
-        private static string GetCountKey()
+        private static string GetCountKey(int tenant)
         {
-            return CoreContext.TenantManager.GetCurrentTenant().TenantId + "/projects/count";
+            return tenant + "/projects/count";
+        }
+
+
+        [Serializable]
+        class ProjectCacheItem
+        {
+            public int Tenant { get; set; }
         }
     }
 }

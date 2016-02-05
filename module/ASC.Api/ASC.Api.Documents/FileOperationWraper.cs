@@ -53,12 +53,6 @@ namespace ASC.Api.Documents
         [DataMember(Name = "progress", IsRequired = false)]
         public int Progress { get; set; }
 
-        //[DataMember(Name = "source", IsRequired = false)]
-        //public string Source { get; set; }
-
-        //[DataMember(Name = "result", IsRequired = false)]
-        //public object Result { get; set; }
-
         /// <summary>
         /// </summary>
         [DataMember(Name = "error", IsRequired = false)]
@@ -93,23 +87,27 @@ namespace ASC.Api.Documents
             Id = o.Id;
             OperationType = o.OperationType;
             Progress = o.Progress;
-            //Source = o.Source;
-            //Result = o.Result;
             Error = o.Error;
             Processed = o.Processed;
 
-            if (o.FileIds != null)
+            if (!string.IsNullOrEmpty(o.Result))
             {
-                using (var fileDao = Global.DaoFactory.GetFileDao())
+                var arr = o.Result.Split(':');
+                var folders = arr.Where(s => s.StartsWith("folder_")).Select(s => s.Substring(7));
+                if (folders.Any())
                 {
-                    Files = fileDao.GetFiles(o.FileIds).Select(r => new FileWrapper(r)).ToList();
+                    using (var folderDao = Global.DaoFactory.GetFolderDao())
+                    {
+                        Folders = folderDao.GetFolders(folders.ToArray()).Select(r => new FolderWrapper(r)).ToList();
+                    }
                 }
-            }
-            if (o.FolderIds != null)
-            {
-                using (var folderDao = Global.DaoFactory.GetFolderDao())
+                var files = arr.Where(s => s.StartsWith("file_")).Select(s => s.Substring(5));
+                if (files.Any())
                 {
-                    Folders = folderDao.GetFolders(o.FolderIds).Select(r => new FolderWrapper(r)).ToList();
+                    using (var fileDao = Global.DaoFactory.GetFileDao())
+                    {
+                        Files = fileDao.GetFiles(files.ToArray()).Select(r => new FileWrapper(r)).ToList();
+                    }
                 }
             }
         }
@@ -128,8 +126,8 @@ namespace ASC.Api.Documents
                     //Result = "folder_1,file_1",
                     Error = "",
                     Processed = "1",
-                    Files = new List<FileWrapper> {FileWrapper.GetSample()},
-                    Folders = new List<FolderWrapper> {FolderWrapper.GetSample()}
+                    Files = new List<FileWrapper> { FileWrapper.GetSample() },
+                    Folders = new List<FolderWrapper> { FolderWrapper.GetSample() }
                 };
         }
     }

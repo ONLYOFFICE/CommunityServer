@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -25,9 +25,8 @@
 
 
 using ASC.Files.Core.Security;
-using ASC.Projects.Data;
+using ASC.Projects.Core.DataInterfaces;
 using ASC.Web.Projects.Classes;
-using ASC.Web.Studio.Utility;
 
 namespace ASC.Projects.Engine
 {
@@ -39,9 +38,9 @@ namespace ASC.Projects.Engine
             return int.TryParse(data, out id) ? GetFileSecurity(id) : null;
         }
 
-        public static IFileSecurity GetFileSecurity(int projectId)
+        public IFileSecurity GetFileSecurity(int projectId)
         {
-            return new SecurityAdapter(new DaoFactory("projects", TenantProvider.CurrentTenantID), projectId);
+            return new SecurityAdapter(projectId);
         }
     }
 }

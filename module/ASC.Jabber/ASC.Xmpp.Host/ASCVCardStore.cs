@@ -24,6 +24,15 @@
 */
 
 
+using ASC.Common.Caching;
+using ASC.Core;
+using ASC.Core.Users;
+using ASC.Xmpp.Core.protocol;
+using ASC.Xmpp.Core.protocol.client;
+using ASC.Xmpp.Core.protocol.iq.vcard;
+using ASC.Xmpp.Server;
+using ASC.Xmpp.Server.Storage;
+using ASC.Xmpp.Server.Storage.Interface;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -32,15 +41,6 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Web;
-using ASC.Core;
-using ASC.Core.Caching;
-using ASC.Core.Users;
-using ASC.Xmpp.Core.protocol;
-using ASC.Xmpp.Core.protocol.client;
-using ASC.Xmpp.Core.protocol.iq.vcard;
-using ASC.Xmpp.Server;
-using ASC.Xmpp.Server.Storage;
-using ASC.Xmpp.Server.Storage.Interface;
 
 namespace ASC.Xmpp.Host
 {
@@ -50,7 +50,7 @@ namespace ASC.Xmpp.Host
 
         private TimeSpan CACHE_TIMEOUT = TimeSpan.FromHours(1);
 
-        private readonly ICache cache = AscCache.Default;
+        private readonly ICache cache = AscCache.Memory;
 
 
         public override void Configure(IDictionary<string, string> properties)
@@ -66,7 +66,11 @@ namespace ASC.Xmpp.Host
         public override void SetVCard(Jid jid, Vcard vcard)
         {
             ASCContext.SetCurrentTenant(jid.Server);
-            if (ASCContext.UserManager.IsUserNameExists(jid.User)) throw new JabberException(ErrorCode.Forbidden);
+            var tenant = ASCContext.GetCurrentTenant();
+            if (tenant == null || ASCContext.UserManager.IsUserNameExists(jid.User))
+            {
+                throw new JabberException(ErrorCode.Forbidden);
+            }
             base.SetVCard(jid, vcard);
         }
 
@@ -74,13 +78,19 @@ namespace ASC.Xmpp.Host
         {
             ASCContext.SetCurrentTenant(jid.Server);
 
+            var tenant = ASCContext.GetCurrentTenant();
+            if (tenant == null)
+            {
+                return new Vcard();
+            }
+
             jid = new Jid(jid.Bare.ToLowerInvariant());
             var ui = ASCContext.UserManager.GetUserByUserName(jid.User);
 
             if (ui != null)
             {
 
-                var vcard = (Vcard)cache.Get(jid.ToString());
+                var vcard = cache.Get<Vcard>(jid.ToString());
                 if (vcard != null)
                 {
                     return vcard;
@@ -105,7 +115,6 @@ namespace ASC.Xmpp.Host
                 }
                 vcard.AddEmailAddress(new Email(EmailType.INTERNET, ui.Email, true));
 
-                var tenant = ASCContext.GetCurrentTenant();
                 var departments = string.Join(", ", CoreContext.UserManager.GetUserGroups(ui.ID).Select(d => HttpUtility.HtmlEncode(d.Name)).ToArray());
                 if (tenant != null) vcard.Organization = new Organization(tenant.Name, departments);
                 vcard.Title = ui.Title;

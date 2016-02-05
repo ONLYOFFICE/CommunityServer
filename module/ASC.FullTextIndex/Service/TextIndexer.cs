@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -24,22 +24,25 @@
 */
 
 
-using log4net;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using ASC.FullTextIndex.Service.Config;
+using log4net;
 
 namespace ASC.FullTextIndex.Service
 {
-    class TextIndexer
+    internal class TextIndexer
     {
-        private readonly ModuleInfo module;
-        private readonly ILog log = LogManager.GetLogger(typeof(TextIndexer));
+        protected readonly ModuleInfo Module;
+        protected readonly TextIndexerCommand Indexer;
 
         public TextIndexer(ModuleInfo module)
         {
-            this.module = module;
+            Module = module;
+            Indexer = new TextIndexerCommand();
 
             var names = module.Name.Split('_');
             var path = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TextIndexCfg.DataPath), names[0], names[1]);
@@ -49,56 +52,113 @@ namespace ASC.FullTextIndex.Service
             }
         }
 
-        public void FirstTimeIndex()
+        public virtual int RotateMain()
         {
-            var exitCode = IndexMain();
-            if (exitCode == 0)
-                IndexDelta();
+            return Indexer.Rotate(Module.Main);
         }
 
-        public void Rotate()
+        public int RotateDelta()
         {
-            var exitCode = IndexDelta();
-            if (!(exitCode == 0 && TextSearcher.Instance.CheckDeltaIndexNotEmpty(module))) return;
+            return Indexer.Rotate(Module.Delta);
+        }
 
-            exitCode = Merge();
+        public virtual int Merge()
+        {
+            var tenantids = DbProvider.GetDeltaTenantId(Module);
+            if (!tenantids.Any()) return 100;
+
+            var exitCode = Indexer.Merge(Module.Main, Module.Delta);
             if (exitCode != 0)
             {
-                IndexMain();
-                return;
+                exitCode = Indexer.Rotate(Module.Main);
+            }
+            return exitCode;
+        }
+    }
+
+    class TextIndexerDistributed : TextIndexer
+    {
+        public TextIndexerDistributed(ModuleInfo module)
+            : base(module)
+        {
+        }
+
+        public override int RotateMain()
+        {
+            var result = 0;
+            for (var part = 1; part <= TextIndexCfg.Chunks; part ++)
+            {
+                result += Indexer.Rotate(Module.GetChunk(part));
+                if (result != 0) break;
+            }
+            return result;
+        }
+
+        public override int Merge()
+        {
+            var chunks = GetChunksForMerge();
+            if (!chunks.Any()) return 100;
+
+            var result = 0;
+            foreach (var part in chunks)
+            {
+                var exitCode = Indexer.Merge(part, Module.Delta);
+                if (exitCode != 0)
+                {
+                    exitCode = Indexer.Rotate(part);
+                }
+                result += exitCode;
             }
 
-            DbProvider.UpdateLastDeltaIndexDate(module);
+            return result;
         }
 
-        private int IndexMain()
+        private IEnumerable<string> GetChunksForMerge()
         {
-            return StartIndexer(string.Format("--rotate {0} --verbose", module.Main));
-        }
+            var result = new HashSet<string>();
 
-        private int IndexDelta()
+            for (var i = 1; i <= TextIndexCfg.Chunks; i++)
+            {
+                result.Add(Module.GetChunk(i));
+            }
+
+            return result;
+        }
+    }
+
+    class TextIndexerCommand
+    {
+        private readonly ILog log = LogManager.GetLogger(typeof(TextIndexerCommand));
+
+        public int Merge(string main, string delta)
         {
-            return StartIndexer(string.Format("--rotate {0} --verbose", module.Delta));
+            log.Debug("Merge");
+            var exitCode = Start(string.Format("--merge {0} {1} --rotate --verbose --sighup-each", main, delta));
+            log.DebugFormat("Merge {0} and {1}, exitCode: {2}", main, delta, exitCode);
+            return exitCode;
         }
 
-        private int Merge()
+        public int Rotate(string indexName)
         {
-            return StartIndexer(string.Format("--merge {0} {1} --rotate --verbose", module.Main, module.Delta));
+            log.Debug("Rotate");
+            var exitCode = Start(string.Format("--rotate {0} --verbose --sighup-each", indexName));
+            log.DebugFormat("Rotate {0}, exitCode: {1}", indexName, exitCode);
+            return exitCode;
         }
 
-        private int StartIndexer(string command)
+        public int Start(string command)
         {
             try
             {
                 var startInfo = new ProcessStartInfo
-                {
-                    CreateNoWindow = false,
-                    UseShellExecute = false,
-                    FileName = TextIndexCfg.IndexerName,
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    Arguments = string.Format("{0} --config \"{1}\"", command, TextIndexCfg.ConfPath),
-                    WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
-                };
+                                    {
+                                        CreateNoWindow = false,
+                                        UseShellExecute = false,
+                                        FileName = TextIndexCfg.IndexerName,
+                                        WindowStyle = ProcessWindowStyle.Hidden,
+                                        Arguments = string.Format("{0} --config \"{1}\"", command, TextIndexCfg.ConfPath),
+                                        WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
+                                    };
 
                 using (var exeProcess = Process.Start(startInfo))
                 {

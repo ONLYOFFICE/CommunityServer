@@ -348,23 +348,16 @@ table.listContainer td.stretch {
     max-width: 1000px;
 }
 
-@media all and (max-width: 1575px) {
-    #essenceTitle.truncated-text {
-        max-width: 800px;
-    }
+body.media-width-0-1575:not(.media-width-0-1350) #essenceTitle.truncated-text {
+    max-width: 800px;
+}
+body.media-width-0-1350 #essenceTitle.truncated-text {
+    max-width: 600px;
+}
+body.media-width-0-1150 #essenceTitle.truncated-text {
+    max-width: 400px;
 }
 
-@media all and (max-width: 1350px) {
-    #essenceTitle.truncated-text {
-        max-width: 600px;
-    }
-}
-
-@media all and (max-width: 1150px) {
-    #essenceTitle.truncated-text {
-        max-width: 400px;
-    }
-}
 
 /*---popup Project Info----*/
 .projectDescriptionPopup {

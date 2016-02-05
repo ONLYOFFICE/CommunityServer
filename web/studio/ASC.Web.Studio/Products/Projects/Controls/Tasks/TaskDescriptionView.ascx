@@ -177,7 +177,7 @@
     <div id="commentsTab" class="tabs-section">
         <span class="header-base">
             <%=ProjectResource.Comments %>
-            <span class="count"></span>
+            <span class="count"><%=CommentsCountTitle %></span>
         </span>
         <span id="switcherTaskCommentsButton" style="display: none" class="toggle-button" data-switcher="0" 
             data-showtext="<%= ProjectsCommonResource.Show %>" data-hidetext="<%= ProjectsCommonResource.Hide %>">

@@ -40,11 +40,11 @@ namespace ASC.Web.Projects
     {
         protected override void PageLoad()
         {
-            int taskID;
+            var taskID = UrlParameters.EntityID;
 
-            if (Int32.TryParse(UrlParameters.EntityID, out taskID))
+            if (taskID >= 0)
             {
-                var task = Global.EngineFactory.GetTaskEngine().GetByID(taskID);
+                var task = EngineFactory.TaskEngine.GetByID(taskID);
 
                 if (task == null || task.Project.ID != Project.ID)
                 {
@@ -71,7 +71,7 @@ namespace ASC.Web.Projects
             _content.Controls.Add(taskDescriptionView);
 
             EssenceTitle = task.Title;
-            IsSubcribed = Global.EngineFactory.GetTaskEngine().IsSubscribed(task);
+            IsSubcribed = EngineFactory.TaskEngine.IsSubscribed(task);
 
             if ((int)task.Status == 2)
             {

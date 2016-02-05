@@ -23,9 +23,7 @@
  *
 */
 
-
 using System.Configuration;
-using System.Xml;
 
 namespace ASC.FullTextIndex.Service.Config
 {
@@ -36,17 +34,6 @@ namespace ASC.FullTextIndex.Service.Config
         {
             get { return (string)this["name"]; }
             set { this["name"] = value; }
-        }
-
-        protected override void DeserializeElement(XmlReader reader, bool serializeCollectionKey)
-        {
-            reader.MoveToAttribute("name");
-            Name = reader.Value;
-
-            while (reader.Read())
-            {
-                if (reader.NodeType == XmlNodeType.EndElement) break;
-            }
         }
     }
 }

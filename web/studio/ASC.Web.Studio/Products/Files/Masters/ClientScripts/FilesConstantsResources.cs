@@ -53,10 +53,6 @@ namespace ASC.Web.Files.Masters.ClientScripts
             yield return RegisterObject("URL_OAUTH_DROPBOX", Import.DropBox.Dropbox.Location.ToLower());
             yield return RegisterObject("URL_OAUTH_SKYDRIVE", Import.OneDrive.OneDriveOAuth.Location.ToLower());
 
-            yield return RegisterObject("URL_SHARE_GOOGLE_PLUS", "https://plus.google.com/share?url={0}");
-            yield return RegisterObject("URL_SHARE_TWITTER", "https://twitter.com/intent/tweet?text={0}");
-            yield return RegisterObject("URL_SHARE_FACEBOOK", "http://www.facebook.com/sharer.php?s=100&p[url]={0}&p[title]={1}&p[images][0]={2}&p[summary]={3}");
-
             yield return RegisterObject("URL_BASE", FilesLinkUtility.FilesBaseAbsolutePath);
             yield return RegisterObject("URL_WCFSERVICE", PathProvider.GetFileServicePath);
             yield return RegisterObject("URL_TEMPLATES_HANDLER", CommonLinkUtility.ToAbsolute("~/template.ashx") + "?id=" + PathProvider.TemplatePath + "&name=collection&ver=" + ClientSettings.ResetCacheKey);
@@ -65,7 +61,6 @@ namespace ASC.Web.Files.Masters.ClientScripts
             yield return RegisterObject("MAX_NAME_LENGTH", Global.MaxTitle);
             yield return RegisterObject("CHUNK_UPLOAD_SIZE", SetupInfo.ChunkUploadSize);
             yield return RegisterObject("UPLOAD_FILTER", Global.EnableUploadFilter);
-            yield return RegisterObject("REQUEST_CONVERT_DELAY", FileConverter.TimerConvertPeriod);
             yield return RegisterObject("ENABLE_UPLOAD_CONVERT", FileConverter.EnableAsUploaded);
 
             yield return RegisterObject("FOLDER_ID_MY_FILES", Global.FolderMy);
@@ -94,6 +89,7 @@ namespace ASC.Web.Files.Masters.ClientScripts
             yield return RegisterObject("FilterType.ArchiveOnly", FilterType.ArchiveOnly);
             yield return RegisterObject("FilterType.ByUser", FilterType.ByUser);
             yield return RegisterObject("FilterType.ByDepartment", FilterType.ByDepartment);
+            yield return RegisterObject("FilterType.ByExtension", FilterType.ByExtension);
         }
 
         protected override string GetCacheHash()

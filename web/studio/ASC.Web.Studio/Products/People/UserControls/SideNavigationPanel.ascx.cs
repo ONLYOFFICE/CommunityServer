@@ -62,7 +62,7 @@ namespace ASC.Web.People.UserControls
         {
             InitData();
 
-            Page.RegisterBodyScripts(ResolveUrl("~/products/people/js/sideNavigationPanel.js"));
+            Page.RegisterBodyScripts("~/products/people/js/sideNavigationPanel.js");
 
             GroupRepeater.DataSource = Groups;
             GroupRepeater.DataBind();

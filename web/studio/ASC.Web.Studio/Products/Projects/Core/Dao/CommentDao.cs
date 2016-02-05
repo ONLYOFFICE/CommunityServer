@@ -24,6 +24,9 @@
 */
 
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
@@ -31,9 +34,6 @@ using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using log4net;
 using Microsoft.Security.Application;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace ASC.Projects.Data.DAO
 {
@@ -83,23 +83,7 @@ namespace ASC.Projects.Data.DAO
             }
         }
 
-        public Comment GetLast(DomainObject<Int32> target)
-        {
-            using (var db = new DbManager(DatabaseId))
-            {
-                return db.ExecuteList(
-                    Query(CommentsTable)
-                        .Select(columns)
-                        .Where("target_uniq_id", target.UniqID)
-                        .Where("inactive", false)
-                        .OrderBy("create_on", false)
-                        .SetMaxResults(1))
-                         .ConvertAll(ToComment)
-                         .SingleOrDefault();
-            }
-        }
-
-        public List<int> GetCommentsCount(List<ProjectEntity> targets)
+        public List<int> Count(List<ProjectEntity> targets)
         {
             using (var db = new DbManager(DatabaseId))
             {
@@ -120,6 +104,20 @@ namespace ASC.Projects.Data.DAO
             }
         }
 
+        public List<Comment> GetComments(Exp where)
+        {
+            using (var db = new DbManager(DatabaseId))
+            {
+                return db.ExecuteList(
+                    Query(CommentsTable)
+                        .Select(columns)
+                        .Where(where)
+                        .Where("inactive", false)
+                        .OrderBy("create_on", false))
+                    .ConvertAll(ToComment);
+            }
+        }
+
         public int Count(DomainObject<Int32> target)
         {
             using (var db = new DbManager(DatabaseId))
@@ -137,7 +135,7 @@ namespace ASC.Projects.Data.DAO
         {
             using (var db = new DbManager(DatabaseId))
             {
-                if (comment.ID == default(Guid)) comment.ID = Guid.NewGuid();
+                if (comment.OldGuidId == default(Guid)) comment.OldGuidId = Guid.NewGuid();
 
                 if (!string.IsNullOrWhiteSpace(comment.Content) && comment.Content.Contains("<w:WordDocument>"))
                 {
@@ -154,14 +152,15 @@ namespace ASC.Projects.Data.DAO
                 var insert = Insert(CommentsTable)
                     .InColumns(columns)
                     .Values(
-                        comment.ID,
+                        comment.OldGuidId,
                         comment.TargetUniqID,
                         comment.Content,
                         comment.Inactive,
                         comment.CreateBy.ToString(),
                         TenantUtil.DateTimeToUtc(comment.CreateOn),
                         comment.Parent.ToString(),
-                        comment.AutoIncrementID);
+                        comment.ID
+                        );
                 db.ExecuteNonQuery(insert);
                 return comment;
             }
@@ -180,14 +179,14 @@ namespace ASC.Projects.Data.DAO
         {
             return new Comment
                 {
-                    ID = ToGuid(r[0]),
+                    OldGuidId = ToGuid(r[0]),
                     TargetUniqID = (string)r[1],
                     Content = (string)r[2],
                     Inactive = Convert.ToBoolean(r[3]),
                     CreateBy = ToGuid(r[4]),
                     CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[5])),
                     Parent = ToGuid(r[6]),
-                    AutoIncrementID = Convert.ToInt32(r[7])
+                    ID = Convert.ToInt32(r[7])
                 };
         }
     }

@@ -50,5 +50,7 @@ namespace ASC.Files.Core
         [EnumMember] ByDepartment = 9,
 
         [EnumMember] ArchiveOnly = 10,
+
+        [EnumMember] ByExtension = 11,
     }
 }

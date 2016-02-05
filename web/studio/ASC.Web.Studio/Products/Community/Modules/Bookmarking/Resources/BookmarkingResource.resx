@@ -112,24 +112,15 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AddonDescriptionResourceKey" xml:space="preserve">
     <value>Shared bookmarks</value>
   </data>
   <data name="AddonName" xml:space="preserve">
-    <value>Bookmarks</value>
-  </data>
-  <data name="BookmarkingWidgetDescription" xml:space="preserve">
-    <value>shows the newly created bookmarks</value>
-  </data>
-  <data name="BookmarkingWidgetTitle" xml:space="preserve">
-    <value>Bookmarks</value>
-  </data>
-  <data name="ModuleName" xml:space="preserve">
     <value>Bookmarks</value>
   </data>
   <data name="PageTitle" xml:space="preserve">

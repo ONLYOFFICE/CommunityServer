@@ -37,7 +37,7 @@
      </div>
      <div class="settings-help-block">
          <p>
-            <%= String.Format(Resource.SmsAuthDescription, "<b>", "</b>", "<br/>", "<br/>", "<b>", "</b>") %>
+            <%= String.Format(Resource.SmsAuthDescription.HtmlEncode(), "<b>", "</b>", "<br/>", "<br/>", "<b>", "</b>") %>
          </p>
      </div>
 </div>

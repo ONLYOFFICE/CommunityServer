@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -24,10 +24,12 @@
 */
 
 
+using System.IO;
 using ASC.Files.Core;
 using ASC.Web.Files.Services.WCFService.FileOperations;
 using System;
 using System.Collections.Generic;
+using File = ASC.Files.Core.File;
 
 namespace ASC.Web.Files.Services.WCFService
 {
@@ -129,7 +131,7 @@ namespace ASC.Web.Files.Services.WCFService
 
         //[OperationContract]
         //[WebGet(UriTemplate = UriTemplates.JSONGetSaveEditing, ResponseFormat = WebMessageFormat.Json)]
-        File SaveEditing(String fileId, int version, Guid tabId, string fileuri, bool asNew, String shareLinkKey);
+        File SaveEditing(String fileId, int version, Guid tabId, string fileType, string fileuri, Stream stream, bool asNew, String shareLinkKey);
 
         //[OperationContract]
         //[WebGet(UriTemplate = UriTemplates.JSONGetStartEdit, ResponseFormat = WebMessageFormat.Json)]
@@ -236,6 +238,12 @@ namespace ASC.Web.Files.Services.WCFService
         //[OperationContract]
         //[WebGet(UriTemplate = UriTemplates.JSONGetChangeAccessToThirdparty, ResponseFormat = WebMessageFormat.Json)]
         bool ChangeAccessToThirdparty(bool enableThirdpartySettings);
+
+        #endregion
+
+        #region MailMerge
+
+        ItemList<String> GetMailAccounts();
 
         #endregion
     }

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -49,11 +49,17 @@ namespace ASC.Web.Studio
             }
         }
 
+
+        protected override bool CheckWizardCompleted { get { return false; } }
+
         protected override bool RedirectToStartup { get { return false; } }
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!CoreContext.Configuration.Standalone || WarmUp.Instance.Completed)
+            if (Request.QueryString["stop"] == "true")
+                WarmUp.Instance.Terminate();
+
+            if (!CoreContext.Configuration.Standalone || WarmUp.Instance.CheckCompleted())
                 Response.Redirect(CommonLinkUtility.GetDefault(), true);
 
             if (!SecurityContext.IsAuthenticated)
@@ -76,26 +82,15 @@ namespace ASC.Web.Studio
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/common/startup/css/startup.less"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/common/startup/js/startup.js"));
-            Page.RegisterInlineScript(string.Format("ProgressStartUpManager.init({0});", WarmUp.Instance.Progress.ProgressPercent));
-
-            if(Request.QueryString["sync"] == "true")
-                WarmUp.Instance.StartSync();
+            Page.RegisterStyle("~/usercontrols/common/startup/css/startup.less");
+            Page.RegisterBodyScripts("~/usercontrols/common/startup/js/startup.js");
+            Page.RegisterInlineScript(string.Format("ProgressStartUpManager.init({0});", WarmUp.Instance.GetSerializedProgress()));
         }
 
         [AjaxMethod]
-        public StartupProgress GetStartUpProgress()
+        public string GetStartUpProgress()
         {
-            return WarmUp.Instance.Progress;
-        }
-
-        [AjaxMethod]
-        public void Start()
-        {
-            WarmUp.Instance.Start();
+            return WarmUp.Instance.GetSerializedProgress();
         }
     }
-
-
 }

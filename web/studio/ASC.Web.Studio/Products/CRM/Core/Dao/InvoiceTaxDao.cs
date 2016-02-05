@@ -156,8 +156,8 @@ namespace ASC.CRM.Core.Dao
 
         public virtual InvoiceTax SaveOrUpdateInvoiceTax(InvoiceTax invoiceTax)
         {
-            _cache.Remove(_invoiceItemCacheKey);
-            _cache.Insert(_invoiceTaxCacheKey, String.Empty);
+            /*_cache.Remove(_invoiceItemCacheKey);
+            _cache.Insert(_invoiceTaxCacheKey, String.Empty);*/
 
             using (var db = GetDb())
             {
@@ -229,8 +229,8 @@ namespace ASC.CRM.Core.Dao
                 db.ExecuteNonQuery(Delete("crm_invoice_tax").Where("id", invoiceTaxID));
             }
 
-            _cache.Remove(_invoiceItemCacheKey);
-            _cache.Insert(_invoiceTaxCacheKey, String.Empty);
+           /* _cache.Remove(_invoiceItemCacheKey);
+            _cache.Insert(_invoiceTaxCacheKey, String.Empty);*/
             return invoiceTax;
         }
 

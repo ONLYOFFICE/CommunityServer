@@ -24,11 +24,6 @@
 */
 
 
-/*
-    Copyright (c) Ascensio System SIA 2015. All rights reserved.
-    https://www.onlyoffice.com
-*/
-
 var SmallChat = (function () {
     var chat = jq.connection.c,
         currentAccount = null,
@@ -57,13 +52,11 @@ var SmallChat = (function () {
         ENTER_KEY_CODE = 13,
         CONVERSATION_BLOCK_HEIGHT = 300,
         CONVERSATION_BLOCK_WIDTH = 282,
-        LEFT_PANEL_AND_INDENT_WIDTH = 370,
         MESSAGE_WINDOW_ITEM_HEIGHT = 21,
         currentStatus = ONLINE,
         currentImage = IMAGE_ONLINE,
         NUMBER_OF_RECENT_MSGS = 10,
         oldWindowHeight = jq(window).height(),
-        oldWindowWidth = jq(window).width(),
         originalTitle = null,
         isActive = false,
         titleTimerId = null,
@@ -185,8 +178,8 @@ var SmallChat = (function () {
                     flashBlocks[offlineBuffer[i]] = result;
                 }
             }
+            loadMessageDialogs(offlineBuffer);
             offlineBuffer = [];
-            loadMessageDialogs();
             jq(".extend_chat_icon").off("click").on("click", extendChat);
             ASC.Controls.JabberClient.extendChat = extendChat;
             setPingSending();
@@ -465,22 +458,24 @@ var SmallChat = (function () {
         }
     }
 
-    function loadMessageDialogs() {
+    function loadMessageDialogs(offlineBuffer) {
         var userName,
             dialogsNumber = sessionStorageManager.getItem("dialogsNumber"),
             dialogsNumberInMenu = sessionStorageManager.getItem("dialogsNumberInMenu");
         if (dialogsNumber) {
             for (var i = 0; i < dialogsNumber; i++) {
                 userName = sessionStorageManager.getItem("userName" + i);
-                openMessageDialog(userName, true, i);
-                // if user was disabled
-                if (disableUser) {
-                    i--;
-                    dialogsNumber--;
-                    disableUser = false;
-                }
-                if (sessionStorageManager.getItem("MiniCB" + userName)) {
-                    minimize(jq(".conversation_block[data-username='" + userName + "']"));
+                if (jq.inArray(userName, offlineBuffer) == -1) {
+                    openMessageDialog(userName, true, i);
+                    // if user was disabled
+                    if (disableUser) {
+                        i--;
+                        dialogsNumber--;
+                        disableUser = false;
+                    }
+                    if (sessionStorageManager.getItem("MiniCB" + userName)) {
+                        minimize(jq(".conversation_block[data-username='" + userName + "']"));
+                    }
                 }
             }
         }
@@ -488,22 +483,24 @@ var SmallChat = (function () {
         if (dialogsNumberInMenu) {
             for (var i = 0; i < dialogsNumberInMenu; i++) {
                 userName = sessionStorageManager.getItem("dn_userName" + i);
-                var $contactRecord = jq(".contact_block[data-username='" + userName + "']").find(".contact_record");
-                // if user was disabled
-                if (!$contactRecord.length) {
-                    sessionStorageManager.setItem("dialogsNumberInMenu", dialogsNumberInMenu - 1);
-                    for(var j = i; j < dialogsNumberInMenu - 1; j++) {
-                        sessionStorageManager.setItem("dn_userName" + j, sessionStorageManager.getItem("dn_userName" + (j + 1)));
+                if (jq.inArray(userName, offlineBuffer) == -1) {
+                    var $contactRecord = jq(".contact_block[data-username='" + userName + "']").find(".contact_record");
+                    // if user was disabled
+                    if (!$contactRecord.length) {
+                        sessionStorageManager.setItem("dialogsNumberInMenu", dialogsNumberInMenu - 1);
+                        for (var j = i; j < dialogsNumberInMenu - 1; j++) {
+                            sessionStorageManager.setItem("dn_userName" + j, sessionStorageManager.getItem("dn_userName" + (j + 1)));
+                        }
+                        sessionStorageManager.removeItem("dn_userName" + (dialogsNumberInMenu - 1));
+                        i--;
+                        dialogsNumberInMenu--;
+                        continue;
                     }
-                    sessionStorageManager.removeItem("dn_userName" + (dialogsNumberInMenu - 1));
-                    i--;
-                    dialogsNumberInMenu--;
-                    continue;
+                    addToMenu({
+                        UserName: userName,
+                        ShowUserName: $contactRecord.text(),
+                    }, true, sessionStorageManager.getItem("messageInMenu" + userName));
                 }
-                addToMenu({
-                    UserName: userName,
-                    ShowUserName: $contactRecord.text(),
-                }, true, sessionStorageManager.getItem("messageInMenu" + userName));
             }
             // if user was disabled
             if (getMaxDialogNumber() > sessionStorageManager.getItem("dialogsNumber")) {
@@ -1211,7 +1208,7 @@ var SmallChat = (function () {
     }
 
     function getMaxDialogNumber() {
-        var max = 0|((jq(window).width() - LEFT_PANEL_AND_INDENT_WIDTH) / CONVERSATION_BLOCK_WIDTH);
+        var max = 0 | ((jq(window).width() - (jq(".mainPageTableSidePanel:first").width() + 130)) / CONVERSATION_BLOCK_WIDTH);
         return max < 0 ? 0 : max;
     }
 
@@ -2373,7 +2370,9 @@ var SmallChat = (function () {
             if (isActive) {
                 isActive = false;
             }
-        }).resize(function () {
+        });
+        
+        $window.on("resizeWinTimer", function () {
             if (sessionStorageManager.getItem("WasConnected")) {
                 if ($window.outerHeight(true) - 58 >= CONVERSATION_BLOCK_HEIGHT && oldWindowHeight - 58 < CONVERSATION_BLOCK_HEIGHT) {
                     restoreConversationsBlocks();
@@ -2394,42 +2393,42 @@ var SmallChat = (function () {
                     }
                 }
             }
-            if ($window.width() != oldWindowWidth) {
-                oldWindowWidth = $window.width();
-                maxDialogNumber = getMaxDialogNumber();
-                var dialogsNumber = sessionStorageManager.getItem("dialogsNumber"),
-                    diff = dialogsNumber - maxDialogNumber,
-                    userName;
-                if (!diff) {
-                    return;
-                }
-                if (diff > 0) {
-                    for (var i = 0; i < diff; i++) {
-                        userName = sessionStorageManager.getItem("userName" + (dialogsNumber - 1));
-                        if (userName) {
-                            var message = sessionStorageManager.getItem("message" + userName);
-                            closeConversationBlock(userName);
-                            addToMenu({
-                                UserName: userName,
-                                ShowUserName: jq(".contact_block[data-username='" + userName + "']").find(".contact_record").text(),
-                            }, null, message);
-                            dialogsNumber = sessionStorageManager.getItem("dialogsNumber");
-                        }
+
+            maxDialogNumber = getMaxDialogNumber();
+
+            var dialogsNumber = sessionStorageManager.getItem("dialogsNumber"),
+                diff = dialogsNumber - maxDialogNumber,
+                userName;
+            if (!diff) {
+                return;
+            }
+            if (diff > 0) {
+                for (var i = 0; i < diff; i++) {
+                    userName = sessionStorageManager.getItem("userName" + (dialogsNumber - 1));
+                    if (userName) {
+                        var message = sessionStorageManager.getItem("message" + userName);
+                        closeConversationBlock(userName);
+                        addToMenu({
+                            UserName: userName,
+                            ShowUserName: jq(".contact_block[data-username='" + userName + "']").find(".contact_record").text(),
+                        }, null, message);
+                        dialogsNumber = sessionStorageManager.getItem("dialogsNumber");
                     }
-                } else {
-                    var dialogsNumberInMenu;
-                    diff = -diff;
-                    for (var i = 0; i < diff; i++) {
-                        dialogsNumberInMenu = sessionStorageManager.getItem("dialogsNumberInMenu");
-                        if (dialogsNumberInMenu) {
-                            userName = sessionStorageManager.getItem("dn_userName" + (dialogsNumberInMenu - 1));
-                            if (userName) {
-                                showMessageDialogFromMenu(userName, dialogsNumber, maxDialogNumber);
-                            }
+                }
+            } else {
+                var dialogsNumberInMenu;
+                diff = -diff;
+                for (var i = 0; i < diff; i++) {
+                    dialogsNumberInMenu = sessionStorageManager.getItem("dialogsNumberInMenu");
+                    if (dialogsNumberInMenu) {
+                        userName = sessionStorageManager.getItem("dn_userName" + (dialogsNumberInMenu - 1));
+                        if (userName) {
+                            showMessageDialogFromMenu(userName, dialogsNumber, maxDialogNumber);
                         }
                     }
                 }
             }
+
         });
         if (!isMobile) {
             $mainPageContent.on("click", ".message_bus_container", function (e) {
@@ -2439,10 +2438,16 @@ var SmallChat = (function () {
                     $conversationBlock.find(".message_input_area").focus();
                 }
             });
+
+            var addTop = 0;
+            if (jq("#smallChatOptionsPopupID").parents(".mainPageTableSidePanel:first").hasClass("ui-resizable")) {
+                addTop = -jq("#smallChatOptionsPopupID").parents(".mainPageTableSidePanel:first").position().top;
+            }
+
             jq.dropdownToggle({
                 switcherSelector: ".small_chat_option_icon",
                 dropdownID: "smallChatOptionsPopupID",
-                addTop: 0,
+                addTop: addTop,
                 addLeft: -6,
                 alwaysUp: true
             });

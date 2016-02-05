@@ -34,6 +34,7 @@ using ASC.Web.Core;
 using System.Web;
 using System.IO;
 using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Projects.Classes;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Projects.Engine
@@ -304,6 +305,31 @@ namespace ASC.Projects.Engine
             return CanRead(message, CurrentUserId);
         }
 
+        public static bool CanRead(DomainObject<int> entity, Guid userId)
+        {
+            switch (entity.EntityType)
+            {
+                case EntityType.Project:
+                    return CanRead((Project) entity);
+                case EntityType.Task:
+                    return CanRead((Task) entity);
+                case EntityType.Message:
+                    return CanRead((Message) entity);
+                case EntityType.Milestone:
+                    return CanRead((Milestone) entity);
+                case EntityType.SubTask:
+                case EntityType.Comment:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        public static bool CanRead(DomainObject<int> entity)
+        {
+            return CanRead(entity, CurrentUserId);
+        }
+
         public static bool CanReadGantt(Project project)
         {
             if (!ganttJsExists.HasValue && HttpContext.Current != null)
@@ -368,14 +394,13 @@ namespace ASC.Projects.Engine
                     task.Responsibles.Contains(CurrentUserId));
         }
 
-        public static bool CanCreateComment()
+        public static bool CanCreateComment(ProjectEntity entity)
         {
-            return IsProjectsEnabled(CurrentUserId) && SecurityContext.IsAuthenticated && !CurrentUserIsOutsider;
-        }
-
-        public static bool CanCreateComment(Message message)
-        {
-            return message.Status == MessageStatus.Open && CanCreateComment();
+            var message = entity as Message;
+            return (message == null || message.Status == MessageStatus.Open) && 
+                IsProjectsEnabled(CurrentUserId) && 
+                SecurityContext.IsAuthenticated && 
+                !CurrentUserIsOutsider;
         }
 
         public static bool CanCreateTimeSpend(Project project)
@@ -459,9 +484,10 @@ namespace ASC.Projects.Engine
             return comment.CreateBy == CurrentUserId || IsProjectManager(project);
         }
 
-        public static bool CanEditComment(Message message, Comment comment)
+        public static bool CanEditComment(ProjectEntity entity, Comment comment)
         {
-            return message.Status == MessageStatus.Open && CanEditComment(message.Project, comment);
+            var message = entity as Message;
+            return (message == null || message.Status == MessageStatus.Open) && CanEditComment(entity.Project, comment);
         }
 
         public static bool CanEdit(TimeSpend timeSpend)
@@ -537,16 +563,10 @@ namespace ASC.Projects.Engine
             if (!CanCreateTask(project)) throw CreateSecurityException();
         }
 
-        public static void DemandCreateComment()
+        public static void DemandCreateComment(ProjectEntity entity)
         {
-            if (!CanCreateComment()) throw CreateSecurityException();
+            if (!CanCreateComment(entity)) throw CreateSecurityException();
         }
-
-        public static void DemandCreateComment(Message message)
-        {
-            if (!CanCreateComment(message)) throw CreateSecurityException();
-        }
-
 
         public static void DemandRead(Milestone milestone)
         {
@@ -655,7 +675,7 @@ namespace ASC.Projects.Engine
 
         private static Core.DataInterfaces.IDaoFactory GetFactory()
         {
-            return new DaoFactory("projects", CoreContext.TenantManager.GetCurrentTenant().TenantId);
+            return new DaoFactory(Global.DbID, CoreContext.TenantManager.GetCurrentTenant().TenantId);
         }
 
         #endregion

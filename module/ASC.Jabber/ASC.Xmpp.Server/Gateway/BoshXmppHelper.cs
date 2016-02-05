@@ -27,6 +27,7 @@
 using System;
 using System.IO;
 using System.IO.Compression;
+using System.Linq;
 using System.Net;
 using System.Text;
 using ASC.Xmpp.Core.protocol.extensions.bosh;
@@ -142,7 +143,8 @@ namespace ASC.Xmpp.Server.Gateway
 
                 if (CompressResponse)
                 {
-                    if (Array.Exists<string>(ctx.Request.Headers.GetValues("Accept-Encoding"), v => v == "gzip"))
+                    var headerValues = ctx.Request.Headers.GetValues("Accept-Encoding");
+                    if (headerValues != null && headerValues.Contains("gzip", StringComparer.InvariantCultureIgnoreCase))
                     {
                         response.AddHeader("Content-Encoding", "gzip");
                         var ms = new MemoryStream();

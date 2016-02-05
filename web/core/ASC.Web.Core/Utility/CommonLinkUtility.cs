@@ -60,7 +60,8 @@ namespace ASC.Web.Studio.Utility
         DeletionPortal = 15,
         HelpCenter = 16,
         DocService = 17,
-        FullTextSearch = 18
+        FullTextSearch = 18,
+        WhiteLabel = 19
     }
 
     //  emp-invite - confirm ivite by email
@@ -89,11 +90,11 @@ namespace ASC.Web.Studio.Utility
 
     public static class CommonLinkUtility
     {
+        private const string LOCALHOST = "localhost";
         private static readonly Regex RegFilePathTrim = new Regex("/[^/]*\\.aspx", RegexOptions.IgnoreCase | RegexOptions.Compiled);
 
-        private static Uri _serverRoot;
+        private static UriBuilder _serverRoot;
         private static string _vpath;
-        private static string _hostname;
 
         public const string ParamName_ProductSysName = "product";
         public const string ParamName_UserUserName = "user";
@@ -103,34 +104,29 @@ namespace ASC.Web.Studio.Utility
         {
             try
             {
-                var uriBuilder = new UriBuilder(Uri.UriSchemeHttp, "localhost");
+                var uriBuilder = new UriBuilder(Uri.UriSchemeHttp, LOCALHOST);
                 if (HttpContext.Current != null && HttpContext.Current.Request != null)
                 {
                     var u = HttpContext.Current.Request.GetUrlRewriter();
-                    uriBuilder = new UriBuilder(u.Scheme, "localhost", u.Port);
+                    uriBuilder = new UriBuilder(u.Scheme, LOCALHOST, u.Port);
                 }
-                _serverRoot = uriBuilder.Uri;
-
-                try
-                {
-                    _hostname = Dns.GetHostName();
-                }
-                catch
-                {
-                }
+                _serverRoot = uriBuilder;
             }
             catch (Exception error)
             {
-                LogManager.GetLogger("ASC.Web").Error(error.StackTrace);
+                LogManager.GetLogger("ASC.Web").Error(error);
             }
         }
 
         public static void Initialize(string serverUri)
         {
-            if (string.IsNullOrEmpty(serverUri)) throw new ArgumentNullException("serverUri");
+            if (string.IsNullOrEmpty(serverUri))
+            {
+                throw new ArgumentNullException("serverUri");
+            }
 
             var uri = new Uri(serverUri.Replace('*', 'x').Replace('+', 'x'));
-            _serverRoot = new UriBuilder(uri.Scheme, _serverRoot.Host, uri.Port).Uri;
+            _serverRoot = new UriBuilder(uri.Scheme, LOCALHOST, uri.Port);
             _vpath = "/" + uri.AbsolutePath.Trim('/');
         }
 
@@ -143,45 +139,47 @@ namespace ASC.Web.Studio.Utility
         {
             get
             {
-                /*
-                 * NOTE: fixed bug with warning on SSL certificate when coming from Email to teamlab. 
-                 * Valid only for users that have custom domain set. For that users we should use a http scheme
-                 * Like https://mydomain.com that maps to <alias>.teamlab.com
-                */
-                var basedomain = WebConfigurationManager.AppSettings["core.base-domain"];
-                var tenantDomain = CoreContext.TenantManager.GetCurrentTenant().TenantDomain;
-                var http = !string.IsNullOrEmpty(basedomain) && !tenantDomain.EndsWith("." + basedomain, StringComparison.OrdinalIgnoreCase);
+                var result = new UriBuilder(_serverRoot.Uri);
 
-                var u = _serverRoot;
-                if (HttpContext.Current != null)
+                // first, take from current request
+                if (HttpContext.Current != null && HttpContext.Current.Request != null)
                 {
-                    u = HttpContext.Current.Request.GetUrlRewriter();
-                    if (u.Host != tenantDomain)
+                    var u = HttpContext.Current.Request.GetUrlRewriter();
+                    result = new UriBuilder(u.Scheme, u.Host, u.Port);
+
+                    if (CoreContext.Configuration.Standalone && !result.Uri.IsLoopback)
                     {
-                        http = (u.Scheme == Uri.UriSchemeHttp);
+                        // save for stanalone
+                        _serverRoot.Host = result.Host;
                     }
                 }
 
-                var uriBuilder = new UriBuilder(http ? Uri.UriSchemeHttp : u.Scheme, u.Host, http && u.IsDefaultPort ? 80 : u.Port);
-
-                if (uriBuilder.Uri.IsLoopback || CoreContext.Configuration.Standalone)
+                if (result.Uri.IsLoopback)
                 {
+                    // take values from db if localhost or no http context thread
                     var tenant = CoreContext.TenantManager.GetCurrentTenant();
+                    result.Host = tenant.TenantDomain;
+
+#if DEBUG
+                    // for Visual Studio debug
+                    if (tenant.TenantAlias == LOCALHOST)
+                    {
+                        result.Host = LOCALHOST;
+                    }
+#endif
+
                     if (!string.IsNullOrEmpty(tenant.MappedDomain))
                     {
-                        uriBuilder = new UriBuilder(Uri.UriSchemeHttp + Uri.SchemeDelimiter + tenant.TenantDomain); // use TenantDomain, not MappedDomain
+                        var mapped = tenant.MappedDomain.ToLowerInvariant();
+                        if (!mapped.Contains(Uri.SchemeDelimiter))
+                        {
+                            mapped = Uri.UriSchemeHttp + Uri.SchemeDelimiter + mapped;
+                        }
+                        result = new UriBuilder(mapped);
                     }
-                    else if (!CoreContext.Configuration.Standalone)
-                    {
-                        uriBuilder.Host = tenant.TenantDomain;
-                    }
-                }
-                if (uriBuilder.Uri.IsLoopback && !string.IsNullOrEmpty(_hostname))
-                {
-                    uriBuilder.Host = _hostname;
                 }
 
-                return uriBuilder.Uri.ToString().TrimEnd('/');
+                return result.Uri.ToString().TrimEnd('/');
             }
         }
 
@@ -598,7 +596,7 @@ namespace ASC.Web.Studio.Utility
                 link += "&email=" + HttpUtility.UrlEncode(email);
             }
 
-            if (userId != default (Guid))
+            if (userId != default(Guid))
             {
                 link += "&uid=" + userId;
             }

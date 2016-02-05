@@ -1,8 +1,4 @@
-﻿/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
-PopupBoxManager = new function() {
+﻿PopupBoxManager = new function() {
     this.Collection = new Array();
     this.TimerCollection = new Array();
 

@@ -273,6 +273,9 @@
   <data name="ConfirmOverwrite" xml:space="preserve">
     <value>Overwrite confirmation</value>
   </data>
+  <data name="ConfirmThirdPartyMove" xml:space="preserve">
+    <value>Move confirmation</value>
+  </data>
   <data name="Folders" xml:space="preserve">
     <value>Folders</value>
   </data>
@@ -618,9 +621,6 @@
   <data name="AddAccount" xml:space="preserve">
     <value>Add account</value>
   </data>
-  <data name="ButtonShowMore" xml:space="preserve">
-    <value>Show more</value>
-  </data>
   <data name="ShowMore" xml:space="preserve">
     <value>Show more</value>
   </data>
@@ -629,6 +629,9 @@
   </data>
   <data name="GetGreeAccountBtn" xml:space="preserve">
     <value>Get free account</value>
+  </data>
+  <data name="AppStore" xml:space="preserve">
+    <value>Mobile Documents {0} available on the {1}App Store{2}</value>
   </data>
   <data name="MoreFeatures" xml:space="preserve">
     <value>Have a team {0}to collaborate with? {0}{1}Learn more{2}</value>
@@ -659,5 +662,14 @@
   </data>
   <data name="ButtonAddOwnCloud" xml:space="preserve">
     <value>Add OwnCloud account</value>
+  </data>
+  <data name="RecipientsFormat" xml:space="preserve">
+    <value>Select the data source file in {0} format</value>
+  </data>
+  <data name="MailMergeFileTitle" xml:space="preserve">
+    <value>File name</value>
+  </data>
+  <data name="MailMergeOpenTab" xml:space="preserve">
+    <value>Open merge document in new tab</value>
   </data>
 </root>

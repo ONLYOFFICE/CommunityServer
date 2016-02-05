@@ -92,7 +92,7 @@
             <div class="leftPart">
                 <div class="borderBase tintMedium portalInfo">
                     <a href="auth.aspx">
-                        <img class="logo" src="<%= _tenantInfoSettings.GetAbsoluteCompanyLogoPath() %>" border="0" alt="" />
+                        <img class="logo" src="/TenantLogo.ashx?logotype=2" border="0" alt="" />
                     </a>
                     <div class="header-base big blue-text">
                         <%= ASC.Core.CoreContext.TenantManager.GetCurrentTenant().Name.HtmlEncode() %></div>
@@ -107,7 +107,7 @@
                     </div>
                 </div>
                 <div class="description">
-                    <%= String.Format(Resource.InviteDescription, "<b>", "</b>") %>
+                    <%= String.Format(Resource.InviteDescription.HtmlEncode(), "<b>", "</b>") %>
                 </div>
             </div>
             <%} %>

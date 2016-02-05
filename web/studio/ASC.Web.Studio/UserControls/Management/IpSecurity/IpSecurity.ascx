@@ -1,6 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="IpSecurity.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.IpSecurity.IpSecurity" %>
 <%@ Import Namespace="Resources" %>
 
+<% if (Enabled)
+   { %>
 <div id="iprestrictions-view">
     <script id="restriction-tmpl" type="text/x-jquery-tmpl">
         <div class="restriction clearFix" data-restrictionid="${id}">
@@ -13,7 +15,7 @@
             </div>
         </div>
     </script>
-    
+
     <div class="clearFix">
         <div class="settings-block">
             <div class="header-base clearFix">
@@ -47,7 +49,8 @@
 
         </div>
         <div class="settings-help-block">
-            <p><%= string.Format(Resource.IpSecurityHelp, "<b>", "</b>") %></p>
+            <p><%= string.Format(Resource.IpSecurityHelp.HtmlEncode(), "<b>", "</b>") %></p>
         </div>
     </div>
 </div>
+<% } %>

@@ -83,7 +83,6 @@ ASC.Projects.projectNavPanel = (function() {
         jq("body").click(function () {
             jq(".project-title .menu-small").removeClass("active");
         });
-        jq(".gant-chart-link").trackEvent("gantt-chart", ga_Actions.actionClick, "gantt-btn");
         
         var dropdownId = "";
         var id = jq.getURLParam('id');

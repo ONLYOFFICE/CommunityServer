@@ -36,6 +36,7 @@ namespace ASC.Mail.Server.Utils
         private static readonly Regex RegxEmail = new Regex("<(.|[.])*?>", RegexOptions.Compiled | RegexOptions.CultureInvariant);
         private static readonly Regex RegxDomain = new Regex(@"(?=^.{5,254}$)(^(?:(?!\d+\.)[a-zA-Z0-9_\-]{1,63}\.?)+\.(?:[a-zA-Z]{2,})$)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex RegxEmailLocalPart = new Regex(@"^([a-zA-Z0-9]+)([_\-\.][a-zA-Z0-9]+)*$", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnoreCase);
+        private static readonly Regex RegxPasswordValidation = new Regex(@"^[a-zA-Z]\w{5,14}$", RegexOptions.Compiled | RegexOptions.Singleline);
 
         /// <summary>
         /// Parses the address.
@@ -116,6 +117,16 @@ namespace ASC.Mail.Server.Utils
         internal static string Clean(string input)
         {
             return RegxClean.Replace(input, "").Trim(' ');
+        }
+
+        /// <summary>
+        /// Check password validity.
+        /// </summary>
+        /// <param name="password">The password's first character must be a letter, it must contain at least 6 characters and no more than 15 characters and no characters other than letters, numbers and the underscore may be used</param>
+        /// <returns>true - valid, false - invalid</returns>
+        public static bool IsPasswordValid(string password)
+        {
+            return RegxPasswordValidation.IsMatch(password);
         }
     }
 }

@@ -37,6 +37,15 @@ using ASC.Web.Community.News;
 using ASC.Web.Community.News.Code;
 using ASC.Web.Community.News.Code.DAO;
 using ASC.Web.Community.Product;
+using ASC.Web.Community.News.Code.Module;
+using ASC.Notify.Recipients;
+using ASC.Web.Studio.UserControls.Common.Comments;
+using ASC.Core.Tenants;
+using System.Globalization;
+using ASC.Web.Core.Users;
+using ASC.Web.Studio.Utility;
+using ASC.Web.Community.Blogs;
+using ASC.Web.Studio.Utility.HtmlUtility;
 
 namespace ASC.Api.Community
 {
@@ -289,5 +298,159 @@ namespace ASC.Api.Community
 
             return new EventWrapperFull(feed);
         }
+
+
+        ///<summary>
+        /// Subscribe or unsubscribe on comments of event with the ID specified
+        ///</summary>
+        ///<short>
+        /// Subscribe/unsubscribe on comments
+        ///</short>
+        ///<param name="isSubscribe">is already subscribed or unsubscribed</param>
+        ///<param name="feedid">Feed ID</param>
+        ///<returns>Boolean value</returns>
+        ///<category>Events</category>
+        [Create("event/{feedid}/subscribe")]
+        public bool SubscribeOnComments(bool isSubscribe, string feedid)
+        {
+            var subscriptionProvider = NewsNotifySource.Instance.GetSubscriptionProvider();
+
+            var IAmAsRecipient = (IDirectRecipient)NewsNotifySource.Instance.GetRecipientsProvider().GetRecipient(SecurityContext.CurrentAccount.ID.ToString());
+            
+            if (IAmAsRecipient == null)
+            {
+                return false;
+            }
+            if (!isSubscribe)
+            {
+                subscriptionProvider.Subscribe(NewsConst.NewComment, feedid, IAmAsRecipient);
+                return true;
+            }
+            else
+            {
+                subscriptionProvider.UnSubscribe(NewsConst.NewComment, feedid, IAmAsRecipient);
+                return false;
+            }
+        }
+
+
+        /// <summary>
+        /// Get comment preview with the content specified in the request
+        /// </summary>
+        /// <short>Get comment preview</short>
+        /// <section>Comments</section>
+        /// <param name="commentid">Comment ID</param>
+        /// <param name="htmltext">Comment content</param>
+        /// <returns>Comment info</returns>
+        /// <category>Events</category>
+        [Create("event/comment/preview")]
+        public CommentInfo GetEventCommentPreview(string commentid, string htmltext)
+        {
+            var storage = FeedStorageFactory.Create();
+
+            var comment = new FeedComment(1)
+            {
+                Date = TenantUtil.DateTimeNow(),
+                Creator = SecurityContext.CurrentAccount.ID.ToString()
+            };
+
+            if (!string.IsNullOrEmpty(commentid))
+            {
+                comment = storage.GetFeedComment(long.Parse(commentid, CultureInfo.CurrentCulture));
+            }
+
+            comment.Comment = htmltext;
+
+            var commentInfo = GetCommentInfo(comment);
+
+            commentInfo.IsEditPermissions = false;
+            commentInfo.IsResponsePermissions = false;
+
+            return commentInfo;
+        }
+
+
+        /// <summary>
+        ///Remove comment with the id specified in the request
+        /// </summary>
+        /// <short>Remove comment</short>
+        /// <section>Comments</section>
+        /// <param name="commentid">Comment ID</param>
+        /// <returns>Comment info</returns>
+        /// <category>Events</category>
+        [Delete("event/comment/{commentid}")]
+        public string RemoveEventComment(string commentid)
+        {
+            var storage = FeedStorageFactory.Create();
+            var comment = storage.GetFeedComment(long.Parse(commentid, CultureInfo.CurrentCulture));
+            if (!CommunitySecurity.CheckPermissions(comment, NewsConst.Action_Edit))
+            {
+                return null;
+            }
+
+            comment.Inactive = true;
+            storage.RemoveFeedComment(comment);
+            return commentid;
+        }
+
+
+        /// <category>Events</category>
+        [Create("event/comment")]
+        public CommentInfo AddEventComment(string parentcommentid, string entityid, string content)
+        {
+            if (String.IsNullOrEmpty(content)) throw new ArgumentException();
+
+            var comment = new FeedComment(long.Parse(entityid));
+            comment.Comment = content;
+            var storage = FeedStorageFactory.Create();
+            if (!string.IsNullOrEmpty(parentcommentid))
+                comment.ParentId = Convert.ToInt64(parentcommentid);
+
+            var feed = storage.GetFeed(long.Parse(entityid, CultureInfo.CurrentCulture));
+            comment = storage.SaveFeedComment(feed, comment);
+
+            return GetCommentInfo(comment);
+        }
+
+        /// <category>Events</category>
+        [Update("event/comment/{commentid}")]
+        public string UpdateComment(string commentid, string content)
+        {
+            if (string.IsNullOrEmpty(content)) throw new ArgumentException();
+
+            var storage = FeedStorageFactory.Create();
+            var comment = storage.GetFeedComment(long.Parse(commentid, CultureInfo.CurrentCulture));
+            if (!CommunitySecurity.CheckPermissions(comment, NewsConst.Action_Edit))
+                throw new ArgumentException();
+
+            comment.Comment = content;
+            storage.UpdateFeedComment(comment);
+
+            return HtmlUtility.GetFull(content);
+        }
+
+
+        private static CommentInfo GetCommentInfo(FeedComment comment)
+        {
+            var info = new CommentInfo
+            {
+                CommentID = comment.Id.ToString(CultureInfo.CurrentCulture),
+                UserID = new Guid(comment.Creator),
+                TimeStamp = comment.Date,
+                TimeStampStr = comment.Date.Ago(),
+                IsRead = true,
+                Inactive = comment.Inactive,
+                CommentBody = comment.Comment,
+                UserFullName = DisplayUserSettings.GetFullUserName(new Guid(comment.Creator)),
+                UserProfileLink = CommonLinkUtility.GetUserProfile(comment.Creator),
+                UserAvatarPath = UserPhotoManager.GetBigPhotoURL(new Guid(comment.Creator)),
+                IsEditPermissions = CommunitySecurity.CheckPermissions(comment, NewsConst.Action_Edit),
+                IsResponsePermissions = CommunitySecurity.CheckPermissions(NewsConst.Action_Comment),
+                UserPost = CoreContext.UserManager.GetUsers((new Guid(comment.Creator))).Title
+            };
+
+            return info;
+        }
+
     }
 }

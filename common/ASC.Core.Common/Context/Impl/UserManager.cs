@@ -27,7 +27,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ASC.Common.Security;
+using ASC.Common.Data;
+using ASC.Core.Billing;
+using ASC.Core.Data;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Core.Caching;
@@ -38,12 +40,17 @@ namespace ASC.Core
     {
         private readonly IUserService userService;
 
+        // HACK: for license
+        private readonly DbUserService dbUserService;
+
         private readonly IDictionary<Guid, UserInfo> systemUsers;
 
 
         public UserManager(IUserService service)
         {
-            this.userService = service;
+            userService = service;
+
+            dbUserService = new DbUserService(DbRegistry.GetConnectionString("core"));
 
             systemUsers = Configuration.Constants.SystemAccounts.ToDictionary(a => a.ID, a => new UserInfo { ID = a.ID, LastName = a.Name });
             systemUsers[Constants.LostUser.ID] = Constants.LostUser;
@@ -189,7 +196,7 @@ namespace ASC.Core
             return findUsers.ToArray();
         }
 
-        public UserInfo SaveUserInfo(UserInfo u)
+        public UserInfo SaveUserInfo(UserInfo u, bool isVisitor = false)
         {
             if (IsSystemUser(u.ID)) return systemUsers[u.ID];
             if (u.ID == Guid.Empty) SecurityContext.DemandPermissions(Constants.Action_AddRemoveUser);
@@ -204,7 +211,39 @@ namespace ASC.Core
                 }
             }
 
-            return userService.SaveUser(CoreContext.TenantManager.GetCurrentTenant().TenantId, u);
+            var doRefreshLicense = false;
+            if (CoreContext.Configuration.Standalone && !isVisitor)
+            {
+                var curUser = dbUserService.GetUser(CoreContext.TenantManager.GetCurrentTenant().TenantId, u.ID);
+                
+                if (u.Status == EmployeeStatus.Active)
+                {
+                    if (curUser == null || curUser.Equals(Constants.LostUser) || curUser.Status != EmployeeStatus.Active)
+                    {
+                        //new
+                        doRefreshLicense = true;
+                    }
+                    else if (!curUser.FirstName.Equals(u.FirstName) || !curUser.LastName.Equals(u.LastName))
+                    {
+                        //rename
+                        doRefreshLicense = true;
+                    }
+                }
+                else if (curUser.Status == EmployeeStatus.Active)
+                {
+                    //delete
+                    doRefreshLicense = true;
+                }
+            }
+
+            var newUser = userService.SaveUser(CoreContext.TenantManager.GetCurrentTenant().TenantId, u);
+
+            if (doRefreshLicense)
+            {
+                LicenseClient.RefreshLicense();
+            }
+
+            return newUser;
         }
 
         public void DeleteUser(Guid id)
@@ -216,7 +255,19 @@ namespace ASC.Core
                 throw new InvalidOperationException("Can not remove tenant owner.");
             }
 
+            var doRefreshLicense = false;
+            var u = userService.GetUser(CoreContext.TenantManager.GetCurrentTenant().TenantId, id);
+            if (u.Status == EmployeeStatus.Active && CoreContext.Configuration.Standalone)
+            {
+                doRefreshLicense = true;
+            }
+
             userService.RemoveUser(CoreContext.TenantManager.GetCurrentTenant().TenantId, id);
+
+            if (doRefreshLicense)
+            {
+                LicenseClient.RefreshLicense();
+            }
         }
 
         public void SaveUserPhoto(Guid id, Guid notused, byte[] photo)
@@ -273,6 +324,8 @@ namespace ASC.Core
             {
                 result.AddRange(distinctUserGroups);
             }
+
+            result.Sort((group1, group2) => String.Compare(group1.Name, group2.Name, StringComparison.Ordinal));
 
             return result.ToArray();
         }
@@ -401,7 +454,7 @@ namespace ASC.Core
             SecurityContext.DemandPermissions(Constants.Action_EditGroups);
 
             var newGroup = userService.SaveGroup(CoreContext.TenantManager.GetCurrentTenant().TenantId, ToGroup(g));
-            return GetGroupInfo(newGroup.Id);
+            return new GroupInfo(newGroup.CategoryId) { ID = newGroup.Id, Name = newGroup.Name, Sid = newGroup.Sid };
         }
 
         public void DeleteGroup(Guid id)

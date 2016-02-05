@@ -42,7 +42,7 @@
 .subtask.with-entity-menu  .entity-menu 
 {
     float: right;
-    margin: 4px 10px 0 15px;
+    margin: 4px 8px 0 14px;
 }
 .subtask:hover .entity-menu.show, .subtask .entity-menu.show,
 .subtask.menuopen  .entity-menu, .subtask.menuopen .entity-menu:hover,
@@ -74,40 +74,39 @@
 
 .subtask:hover,
 .subtask.menuopen  {
-  background: #f2f2f2;
+    background: #f2f2f2;
 }
 .subtask.last {
-  border-bottom: none;
+    border-bottom: none;
 }
 .subtask .check {
-  float:left;
-  width:13px;
-  height:29px; 
-  margin-left: 7px; 
+    float:left;
+    width:13px;
+    height:29px; 
+    margin-left: 7px; 
 }
 .subtask .check input {
-  margin-top:5px;
-  margin-left:0px;
+    margin-top:5px;
+    margin-left:0px;
 }
 *:first-child+html .subtask .check input {
-  margin-top:5px;
+    margin-top:5px;
 }
 .subtask .check input, #ie#fix {
-  margin-top:8px;
+    margin-top:8px;
 }
 .subtask .taskName {
-  float:left;
-  width:66.5%;
-  margin-left:10px;
-  line-height:29px;
-  overflow:hidden;
-  padding-bottom: 7px;
+    float:left;
+    width:66.5%;
+    margin-left:10px;
+    line-height:29px;
+    overflow:hidden;
+    padding-bottom: 7px;
 }
-@media all and (max-width: 1200px) {
-    .subtask .taskName {
-         width:60.5%;
-    }
+body.media-width-0-1200 .subtask .taskName {
+    width:60.5%;
 }
+
 .subtask .taskName span {
 	display: block;
 	margin-top: 7px;
@@ -209,14 +208,13 @@
 .subtask-responsible .tl-combobox .combobox-container{
     max-width: 256px;
 }
-@media all and (max-width: 1200px)
+
+body.media-width-0-1200 .subtask-responsible-selector
 {
-    .subtask-responsible-selector
-    {
-        max-width: 136px;
-        float: left;
-    }
+    max-width: 136px;
+    float: left;
 }
+
 .add-subtask-field-wrapper .subtask-add-button {
     width: 40px;
     padding-left: 8px;
@@ -319,7 +317,7 @@
 /*-------Comments & subtasks------*/
 
 #commentContainer #commentsTitle{
-	display: none;
+	display: none !important;
 }
 #commentsListWrapper{
     margin-top: 15px

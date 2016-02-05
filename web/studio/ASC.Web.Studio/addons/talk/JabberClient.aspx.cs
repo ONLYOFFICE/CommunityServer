@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -67,51 +67,51 @@ namespace ASC.Web.Talk
 
             Master.DisabledSidePanel = true;
             Master.DisabledTopStudioPanel = true;
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/gears.init.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/gears.init.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/iscroll.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/talk.customevents.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/js/third-party/jquery/jquery.notification.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/talk.common.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/talk.navigationitem.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/talk.msmanager.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/talk.mucmanager.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/talk.roomsmanager.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/talk.contactsmanager.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/talk.messagesmanager.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/talk.connectiomanager.js"));
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/talk.default.js"));
+            Page.RegisterBodyScripts("~/addons/talk/js/gears.init.js");
+            Page.RegisterBodyScripts("~/addons/talk/js/gears.init.js");
+            Page.RegisterBodyScripts("~/addons/talk/js/iscroll.js");
+            Page.RegisterBodyScripts("~/addons/talk/js/talk.customevents.js");
+            Page.RegisterBodyScripts("~/js/third-party/jquery/jquery.notification.js");
+            Page.RegisterBodyScripts("~/addons/talk/js/talk.common.js");
+            Page.RegisterBodyScripts("~/addons/talk/js/talk.navigationitem.js");
+            Page.RegisterBodyScripts("~/addons/talk/js/talk.msmanager.js");
+            Page.RegisterBodyScripts("~/addons/talk/js/talk.mucmanager.js");
+            Page.RegisterBodyScripts("~/addons/talk/js/talk.roomsmanager.js");
+            Page.RegisterBodyScripts("~/addons/talk/js/talk.contactsmanager.js");
+            Page.RegisterBodyScripts("~/addons/talk/js/talk.messagesmanager.js");
+            Page.RegisterBodyScripts("~/addons/talk/js/talk.connectiomanager.js");
+            Page.RegisterBodyScripts("~/addons/talk/js/talk.default.js");
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/addons/talk/css/default/talk.style.css"));
+            Page.RegisterStyle("~/addons/talk/css/default/talk.style.css");
             var virtPath = "~/addons/talk/css/default/talk.style." + CultureInfo.CurrentCulture.Name.ToLower() + ".css";
             if (File.Exists(Server.MapPath(virtPath)))
             {
-                Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute(virtPath));
+                Page.RegisterStyle(virtPath);
             }
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/addons/talk/css/default/talk.text-overflow.css"));
+            Page.RegisterStyle("~/addons/talk/css/default/talk.text-overflow.css");
 
 
             switch (_cfg.RequestTransportType.ToLower())
             {
                 case "flash":
-                    Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/jlib/plugins/strophe.flxhr.js"));
+                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/plugins/strophe.flxhr.js");
 
-                    Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/jlib/flxhr/checkplayer.js"));
-                    Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/jlib/flxhr/flensed.js"));
-                    Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/jlib/flxhr/flxhr.js"));
-                    Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/jlib/flxhr/swfobject.js"));
+                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/flxhr/checkplayer.js");
+                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/flxhr/flensed.js");
+                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/flxhr/flxhr.js");
+                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/flxhr/swfobject.js");
 
-                    Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/jlib/strophe/base64.js"));
-                    Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/jlib/strophe/md5.js"));
-                    Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/jlib/strophe/core.js"));
+                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/strophe/base64.js");
+                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/strophe/md5.js");
+                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/strophe/core.js");
 
                     break;
                 default:
-                    Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/jlib/strophe/base64.js"));
-                    Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/jlib/strophe/md5.js"));
-                    Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/jlib/strophe/core.js"));
+                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/strophe/base64.js");
+                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/strophe/md5.js");
+                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/strophe/core.js");
 
-                    Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/jlib/flxhr/swfobject.js"));
+                    Page.RegisterBodyScripts("~/addons/talk/js/jlib/flxhr/swfobject.js");
                     break;
             }
 

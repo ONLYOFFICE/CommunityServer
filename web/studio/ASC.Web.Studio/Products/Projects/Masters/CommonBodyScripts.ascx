@@ -7,6 +7,7 @@
 <!--common -->
 <script type="text/javascript" src="<%=PathProvider.GetFileStaticRelativePath("jq_projects_extensions.js") %>"></script>  
 <script type="text/javascript" src="<%=PathProvider.GetFileStaticRelativePath("common.js") %>"></script> 
+<script type="text/javascript" src="<%=PathProvider.GetFileStaticRelativePath("base.js") %>"></script> 
 <script type="text/javascript" src="<%=PathProvider.GetFileStaticRelativePath("navsidepanel.js") %>"></script>
 <script type="text/javascript" src="<%=ResolveUrl("~/js/third-party/jquery/jquery.autosize.js") %>"></script>
 <script type="text/javascript" src="<%=PathProvider.GetFileStaticRelativePath("taskaction.js") %>"></script>

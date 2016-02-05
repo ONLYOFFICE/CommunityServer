@@ -188,7 +188,7 @@ window.accountsPanel = (function($) {
             }
 
             if (TMMail.pageIs('sysfolders')) {
-                var folder = TMMail.GetSysFolderNameById(MailFilter.getFolder());
+                var folder = TMMail.getSysFolderNameById(MailFilter.getFolder());
                 var filterTo = (MailFilter.getTo() || '').toLowerCase();
                 var sysfolderAnchor = '#' + folder + MailFilter.toAnchor(false, { to: filterTo == account.email.toLowerCase() ? '' : account.email }, true);
                 ASC.Controls.AnchorController.move(sysfolderAnchor);

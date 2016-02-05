@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -41,7 +41,7 @@ namespace ASC.Web.Studio.UserControls.Common.LoaderPage
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/common/loaderpage/css/loaderpage.less"));
+            Page.RegisterStyle("~/usercontrols/common/loaderpage/css/loaderpage.less");
         }
     }
 }

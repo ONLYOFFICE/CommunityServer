@@ -58,6 +58,13 @@
     <Reference Include="log4net">
       <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Mono.Security">
+      <HintPath>..\..\..\packages\Mono.Security.3.2.3.0\lib\net45\Mono.Security.dll</HintPath>
+      <Aliases>MonoAlias</Aliases>
+    </Reference>
+    <Reference Include="Novell.Directory.LDAP">
+      <HintPath>..\..\..\packages\Novell.Directory.LDAP.2.2.2.0\lib\net45\Novell.Directory.LDAP.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
@@ -76,6 +83,9 @@
     <Compile Include="Authorization\AuthIQHandler.cs" />
     <Compile Include="Authorization\AuthHandshakeHandler.cs" />
     <Compile Include="Authorization\AuthTMTokenHandler.cs" />
+    <Compile Include="Authorization\ILdapHelper.cs" />
+    <Compile Include="Authorization\NovellLdapHelper.cs" />
+    <Compile Include="Authorization\SystemLdapHelper.cs" />
     <Compile Include="Authorization\XmppFailureError.cs" />
     <Compile Include="Configuration\IConfigurable.cs" />
     <Compile Include="Configuration\JabberConfiguration.cs" />
@@ -88,7 +98,9 @@
     <Compile Include="Gateway\SignalRXmppConnection.cs" />
     <Compile Include="Gateway\SignalRXmppListener.cs" />
     <Compile Include="Gateway\TcpSslXmppConnection.cs" />
+    <Compile Include="Gateway\XmppStartTlsOption.cs" />
     <Compile Include="JabberException.cs" />
+    <Compile Include="Services\Jabber\StartTlsHandler.cs" />
     <Compile Include="SignalrServiceClient.cs" />
     <Compile Include="Services\Jabber\CommandHandler.cs" />
     <Compile Include="Services\Jabber\TransferHandler.cs" />
@@ -238,6 +250,10 @@
     <ProjectReference Include="..\..\..\common\ASC.Core.Common\ASC.Core.Common.csproj">
       <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
       <Name>ASC.Core.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\common\ASC.Data.Storage\ASC.Data.Storage.csproj">
+      <Project>{3f6b420f-abd3-4b5a-9f4c-5d61ffbb01de}</Project>
+      <Name>ASC.Data.Storage</Name>
     </ProjectReference>
     <ProjectReference Include="..\ASC.Xmpp.Core\ASC.Xmpp.Core.csproj">
       <Project>{91ea0d0b-d3ba-497f-afeb-2cad59deba0e}</Project>

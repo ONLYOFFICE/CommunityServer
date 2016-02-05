@@ -91,7 +91,8 @@ RestoreManager = new function () {
         var inputObj = jq("<input/>")
             .attr("id", "fileupload")
             .attr("type", "file")
-            .css("display", "none");
+            .css("width", "0")
+            .css("height", "0");
 
         inputObj.appendTo(buttonObj.parent());
 
@@ -121,17 +122,13 @@ RestoreManager = new function () {
             .bind("fileuploaddone", function (e, data) {
                 var source = RestoreManager.getSourceRestore();
                 source.params.FilePath = jq.parseJSON(data.result).Data;
-                RestoreManager.StartRestore(RestoreManager.getSourceRestore());
+                RestoreManager.StartRestore(source);
             })
             .bind("fileuploadfail", function () {
                 uploadData = null;
                 jq("#restoreChosenFileField").val("");
                 unlockRestoreBlock();
             });
-
-        jq('#startRestoreBtn').on('click', function () {
-            if (uploadData) uploadData.submit();
-        });
     };
 
     function initChooseStorage () {
@@ -288,6 +285,7 @@ RestoreManager = new function () {
     };
 
     this.onClickRestoreBtn = function () {
+        if (uploadData) uploadData.submit();
         var source = RestoreManager.getSourceRestore();
 
         if (!source || jq(this).hasClass("disable")) {

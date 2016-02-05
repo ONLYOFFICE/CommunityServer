@@ -26,15 +26,16 @@
 
 using System;
 using System.Linq;
+
 using ASC.Notify;
 using ASC.Notify.Engine;
 using ASC.Projects.Core.Services.NotifyService;
 using ASC.Projects.Engine;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility;
-using ASC.Web.Files.Api;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Resources;
+
 using log4net;
 
 
@@ -75,12 +76,11 @@ namespace ASC.Web.Projects.Configuration
         public override string Description
         {
             get { return ProjectsCommonResource.ProductDescription; }
-
         }
 
         public override string StartURL
         {
-            get { return PathProvider.BaseVirtualPath; }
+            get { return string.Concat(PathProvider.BaseVirtualPath, "projects.aspx"); }
         }
 
         public override string ProductClassName
@@ -109,7 +109,7 @@ namespace ASC.Web.Projects.Configuration
                               HasComplexHierarchyOfAccessRights = true,
                           };
 
-            FilesIntegration.RegisterFileSecurityProvider("projects", "project", new SecurityAdapterProvider());
+            FileEngine.RegisterFileSecurityProvider();
             SearchHandlerManager.Registry(new SearchHandler());
 
             var securityInterceptor = new SendInterceptorSkeleton(
@@ -132,31 +132,31 @@ namespace ASC.Web.Projects.Configuration
                             switch (entityType)
                             {
                                 case "Task":
-                                    var task = Global.EngineFactory.GetTaskEngine().GetByID(entityId, false);
+                                    var task = Global.EngineFactory.TaskEngine.GetByID(entityId, false);
 
                                     if (task == null && projectId != 0)
                                     {
-                                        var project = Global.EngineFactory.GetProjectEngine().GetByID(projectId, false);
+                                        var project = Global.EngineFactory.ProjectEngine.GetByID(projectId, false);
                                         return !ProjectSecurity.CanRead(project, new Guid(r.Recipient.ID));
                                     }
 
                                     return !ProjectSecurity.CanRead(task, new Guid(r.Recipient.ID));
                                 case "Message":
-                                    var discussion = Global.EngineFactory.GetMessageEngine().GetByID(entityId, false);
+                                    var discussion = Global.EngineFactory.MessageEngine.GetByID(entityId, false);
 
                                     if (discussion == null && projectId != 0)
                                     {
-                                        var project = Global.EngineFactory.GetProjectEngine().GetByID(projectId, false);
+                                        var project = Global.EngineFactory.ProjectEngine.GetByID(projectId, false);
                                         return !ProjectSecurity.CanRead(project, new Guid(r.Recipient.ID));
                                     }
 
                                     return !ProjectSecurity.CanRead(discussion, new Guid(r.Recipient.ID));
                                 case "Milestone":
-                                    var milestone = Global.EngineFactory.GetMilestoneEngine().GetByID(entityId, false);
+                                    var milestone = Global.EngineFactory.MilestoneEngine.GetByID(entityId, false);
 
                                     if (milestone == null && projectId != 0)
                                     {
-                                        var project = Global.EngineFactory.GetProjectEngine().GetByID(projectId, false);
+                                        var project = Global.EngineFactory.ProjectEngine.GetByID(projectId, false);
                                         return !ProjectSecurity.CanRead(project, new Guid(r.Recipient.ID));
                                     }
 

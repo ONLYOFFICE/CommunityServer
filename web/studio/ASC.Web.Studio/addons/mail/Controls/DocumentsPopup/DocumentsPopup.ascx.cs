@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -42,8 +42,8 @@ namespace ASC.Web.Mail.Controls
 
         private void InitScripts()
         {
-            Page.RegisterStyleControl(ResolveUrl("~/addons/mail/controls/documentspopup/css/documentsPopup.less"));
-            Page.RegisterBodyScripts(ResolveUrl("~/addons/mail/controls/documentspopup/js/documentsPopup.js"));
+            Page.RegisterStyle("~/addons/mail/controls/documentspopup/css/documentsPopup.less");
+            Page.RegisterBodyScripts("~/addons/mail/controls/documentspopup/js/documentsPopup.js");
         }
 
         protected void Page_Load(object sender, EventArgs e)

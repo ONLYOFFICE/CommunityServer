@@ -54,7 +54,8 @@ CKEDITOR.editorConfig = function( config ) {
 
     config.toolbar_Comment = jq.map(this.getBaseConfig(), function (value) {
         if (value.name == "insert") {
-            value.items.splice(4, 0, "Blockquote"); // Add 'Blockquote'
+            value.items.splice(5, 0, "Blockquote"); // Add 'Blockquote'
+            value.items.splice(6, 0, "Source"); // Add 'Source'
         }
         return value;
     });
@@ -64,6 +65,7 @@ CKEDITOR.editorConfig = function( config ) {
             value.items.splice(4, 0, 'Outdent', 'Indent'); // Add 'Outdent', 'Indent'
         }
         if (value.name == "insert") {
+            value.items.splice(5, 0, "Source"); // Add 'Source'
             value.items.splice(4, 0, "Blockquote"); // Add 'Blockquote'
         }
         return value;
@@ -112,7 +114,7 @@ CKEDITOR.editorConfig = function( config ) {
     ];
 
     //--------extraPlugins settings
-    config.extraPlugins = 'oembed,teamlabcut,teamlabquote';
+    config.extraPlugins = 'oembed,teamlabcut,teamlabquote,codemirror';
     config.oembed_maxWidth = '640';
     config.oembed_maxHeight = '480';
     config.oembed_WrapperClass = 'embeded-content';

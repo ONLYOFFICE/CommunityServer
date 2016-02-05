@@ -399,7 +399,7 @@ namespace ASC.CRM.Core.Dao
 
                             if (task == null || !CRMSecurity.CanAccessTo(task)) continue;
 
-                            url = String.Format("tasks.aspx?id={0}", id);
+                            url = "";
 
                             imageRef = WebImageSupplier.GetAbsoluteWebPath("tasks_widget.png",
                                                                          ProductEntryPoint.ID);
@@ -426,7 +426,7 @@ namespace ASC.CRM.Core.Dao
                 {
                     Name = Convert.ToString(row[2]),
                     Description = HtmlUtil.GetText(Convert.ToString(row[3]), 120),
-                    URL = String.Concat(PathProvider.BaseAbsolutePath, url),
+                    URL = !string.IsNullOrEmpty(url) ? String.Concat(PathProvider.BaseAbsolutePath, url) : string.Empty,
                     Date = TenantUtil.DateTimeFromUtc(DateTime.Parse(Convert.ToString(row[7]))),
                     Additional = new Dictionary<String, Object> 
                                         { { "imageRef", imageRef },

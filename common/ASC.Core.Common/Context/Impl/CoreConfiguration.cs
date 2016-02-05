@@ -99,6 +99,30 @@ namespace ASC.Core
             }
         }
 
+        public string BaseDomain
+        {
+            get
+            {
+                var result = String.Empty;
+                if (Standalone)
+                {
+                    result = GetSetting("BaseDomain") ?? ConfigurationManager.AppSettings["core.base-domain"] ?? string.Empty;
+                }
+                else
+                {
+                    result = ConfigurationManager.AppSettings["core.base-domain"] ?? string.Empty;
+                }
+                return result;
+            }
+            set
+            {
+                if (Standalone)
+                {
+                    SaveSetting("BaseDomain", value);
+                }
+            }
+        }
+
 
         public CoreConfiguration(ITenantService service)
         {
@@ -163,6 +187,15 @@ namespace ASC.Core
                 }
                 return prefix + ConfigurationManager.AppSettings["core.payment-region"] + tenant;
             }
+        }
+
+        public string GetAffiliateId(int tenant)
+        {
+            var t = tenantService.GetTenant(tenant);
+            if (t != null && !string.IsNullOrWhiteSpace(t.AffiliateId))
+                return t.AffiliateId;
+
+            return null;
         }
 
         public T GetSection<T>() where T : class

@@ -186,7 +186,7 @@
                                     <span id="errorAffilliate" class="errorText"></span>
                                 </span>
                                 <div class="popup_helper" id="HelpJoinToAffilliate">
-                                    <p><%= Resource.HelpJoinToAffilliate %></p>
+                                    <p><%: Resource.HelpJoinToAffilliate %></p>
                                 </div>
                             </div>
                             <% } %>
@@ -312,7 +312,7 @@
         </Header>
         <Body>
             <div id="remove_content">
-                <div><%= Resource.DeleteProfileInfo%></div>
+                <div><%: Resource.DeleteProfileInfo %></div>
                 <a target="_blank" href="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/#composeto/email=" + UserInfo.Email.ToLower())%>" class="link blue underline email"><%= UserInfo.Email %></a>
             </div>
             <div class="clearFix middle-button-container">

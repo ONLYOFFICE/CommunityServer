@@ -71,7 +71,7 @@ namespace ASC.Web.UserControls.Bookmarking.Common
         protected override void OnPreRender(EventArgs e)
         {
             base.OnPreRender(e);
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/products/community/modules/bookmarking/UserControls/Common/ActionButton/js/actionbutton.js"));
+            Page.RegisterBodyScripts("~/products/community/modules/bookmarking/UserControls/Common/ActionButton/js/actionbutton.js");
         }
     }
 }

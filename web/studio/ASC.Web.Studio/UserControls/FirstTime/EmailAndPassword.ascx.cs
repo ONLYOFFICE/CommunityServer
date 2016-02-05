@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -26,32 +26,51 @@
 
 using AjaxPro;
 using ASC.Core;
+using ASC.Core.Billing;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
+using ASC.MessagingSystem;
 using ASC.Web.Core;
 using ASC.Web.Core.Security;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Management;
+using ASC.Web.Studio.Utility;
 using log4net;
+using Resources;
 using System;
 using System.Globalization;
 using System.Text;
 using System.Threading;
 using System.Web;
+using System.Web.UI;
+using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.Studio.UserControls.FirstTime
 {
     [AjaxNamespace("EmailAndPasswordController")]
-    public partial class EmailAndPassword : System.Web.UI.UserControl
+    public partial class EmailAndPassword : UserControl
     {
-        public static string Location { get { return "~/UserControls/FirstTime/EmailAndPassword.ascx"; } }
+        public static string Location
+        {
+            get { return "~/UserControls/FirstTime/EmailAndPassword.ascx"; }
+        }
 
-        protected Tenant _curTenant;
+        protected bool IsVisiblePromocode
+        {
+            get
+            {
+                return
+                    SetupInfo.IsVisibleSettings("Promocode")
+                    && !CoreContext.Configuration.Standalone
+                    && string.IsNullOrEmpty(CoreContext.TenantManager.GetCurrentTenant().PartnerId);
+            }
+        }
 
-        protected bool IsVisiblePromocode {
-            get { return (string.IsNullOrEmpty(CoreContext.TenantManager.GetCurrentTenant().PartnerId) && !CoreContext.Configuration.Standalone); }
+        protected bool Enterprise
+        {
+            get { return CoreContext.Configuration.Standalone && TenantExtra.EnableTarrifSettings; }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -60,8 +79,6 @@ namespace ASC.Web.Studio.UserControls.FirstTime
 
             InitScript();
 
-            _curTenant = CoreContext.TenantManager.GetCurrentTenant();
-
             var timeAndLanguage = (TimeAndLanguage)LoadControl(TimeAndLanguage.Location);
             timeAndLanguage.WithoutButton = true;
             _dateandtimeHolder.Controls.Add(timeAndLanguage);
@@ -69,25 +86,26 @@ namespace ASC.Web.Studio.UserControls.FirstTime
 
         private void InitScript()
         {
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/firsttime/js/manager.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/firsttime/css/EmailAndPassword.less"));
+            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js");
+            Page.RegisterBodyScripts("~/usercontrols/firsttime/js/manager.js");
+            Page.RegisterStyle("~/usercontrols/firsttime/css/EmailAndPassword.less");
 
             var script = new StringBuilder();
 
             script.AppendFormat(@"ASC.Controls.EmailAndPasswordManager.init('{0}','{1}','{2}','{3}','{4}');",
-                Resources.Resource.EmailAndPasswordTypeChangeIt.ReplaceSingleQuote(),
-                Resources.Resource.EmailAndPasswordOK.ReplaceSingleQuote(),
-                Resources.Resource.EmailAndPasswordWrongPassword.ReplaceSingleQuote(),
-                Resources.Resource.EmailAndPasswordEmptyPassword.ReplaceSingleQuote(),
-                Resources.Resource.EmailAndPasswordIncorrectEmail.ReplaceSingleQuote()
-            );
+                                Resource.EmailAndPasswordTypeChangeIt.ReplaceSingleQuote(),
+                                Resource.EmailAndPasswordOK.ReplaceSingleQuote(),
+                                Resource.EmailAndPasswordWrongPassword.ReplaceSingleQuote(),
+                                Resource.EmailAndPasswordEmptyPassword.ReplaceSingleQuote(),
+                                Resource.EmailAndPasswordIncorrectEmail.ReplaceSingleQuote()
+                );
 
             Page.RegisterInlineScript(script.ToString());
         }
 
         [AjaxMethod]
         [SecurityPassthrough]
-        public object SaveData(string email, string pwd, string lng, string promocode)
+        public object SaveData(string email, string pwd, string lng, string promocode, string licenseKey)
         {
             try
             {
@@ -95,7 +113,7 @@ namespace ASC.Web.Studio.UserControls.FirstTime
                 var settings = SettingsManager.Instance.LoadSettings<WizardSettings>(tenant.TenantId);
                 if (settings.Completed)
                 {
-                    return new { Status = 0, Message = "Wizard passed." };
+                    throw new Exception("Wizard passed.");
                 }
 
                 if (tenant.OwnerId == Guid.Empty)
@@ -114,7 +132,7 @@ namespace ASC.Web.Studio.UserControls.FirstTime
 
                 if (!UserManagerWrapper.ValidateEmail(email))
                 {
-                    return new { Status = 0, Message = Resources.Resource.EmailAndPasswordIncorrectEmail };
+                    throw new Exception(Resource.EmailAndPasswordIncorrectEmail);
                 }
 
                 UserManagerWrapper.SetUserPassword(currentUser.ID, pwd);
@@ -135,9 +153,22 @@ namespace ASC.Web.Studio.UserControls.FirstTime
                     }
                     catch (Exception err)
                     {
-                        LogManager.GetLogger("ASC.Web.FirstTime").ErrorFormat("Incorrect Promo: {0}\r\n{1}", promocode, err);
-                        return new { Status = 0, Message = Resources.Resource.EmailAndPasswordIncorrectPromocode };
+                        LogManager.GetLogger("ASC.Web.FirstTime").Error("Incorrect Promo: " + promocode, err);
+                        throw new Exception(Resource.EmailAndPasswordIncorrectPromocode);
                     }
+                }
+
+                if (Enterprise)
+                {
+                    if (string.IsNullOrEmpty(licenseKey)) throw new ArgumentNullException("licenseKey", UserControlsCommonResource.LicenseKeyNotFound);
+
+                    TariffSettings.LicenseAccept = true;
+
+                    var licenseKeys = licenseKey.Split('|');
+
+                    MessageService.Send(HttpContext.Current.Request, MessageAction.LicenseKeyUploaded);
+
+                    LicenseClient.SetLicenseKeys(licenseKeys[0], licenseKeys.Length > 1 ? licenseKeys[1] : null);
                 }
 
                 settings.Completed = true;
@@ -147,7 +178,19 @@ namespace ASC.Web.Studio.UserControls.FirstTime
                 FirstTimeTenantSettings.SetDefaultTenantSettings();
                 FirstTimeTenantSettings.SendInstallInfo(currentUser);
 
-                return new { Status = 1, Message = Resources.Resource.EmailAndPasswordSaved };
+                return new { Status = 1, Message = Resource.EmailAndPasswordSaved };
+            }
+            catch (BillingNotConfiguredException)
+            {
+                return new { Status = 0, Message = UserControlsCommonResource.LicenseKeyNotCorrect };
+            }
+            catch (BillingNotFoundException)
+            {
+                return new { Status = 0, Message = UserControlsCommonResource.LicenseKeyNotCorrect };
+            }
+            catch (BillingException)
+            {
+                return new { Status = 0, Message = UserControlsCommonResource.LicenseException };
             }
             catch (Exception ex)
             {
@@ -155,25 +198,18 @@ namespace ASC.Web.Studio.UserControls.FirstTime
             }
         }
 
-        public string GetEmail()
+        private static void TrySetLanguage(Tenant tenant, string lng)
         {
-            var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-            return currentUser.Email;
-        }
+            if (string.IsNullOrEmpty(lng)) return;
 
-        private void TrySetLanguage(Tenant tenant, string lng)
-        {
-            if (!string.IsNullOrEmpty(lng))
+            try
             {
-                try
-                {
-                    var culture = CultureInfo.GetCultureInfo(lng);
-                    tenant.Language = culture.Name;
-                }
-                catch (Exception err)
-                {
-                    LogManager.GetLogger("ASC.Web.FirstTime").Error(err);
-                }
+                var culture = CultureInfo.GetCultureInfo(lng);
+                tenant.Language = culture.Name;
+            }
+            catch (Exception err)
+            {
+                LogManager.GetLogger("ASC.Web.FirstTime").Error(err);
             }
         }
     }

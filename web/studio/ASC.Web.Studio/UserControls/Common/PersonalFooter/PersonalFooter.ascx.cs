@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -39,8 +39,8 @@ namespace ASC.Web.Studio.UserControls.Common.PersonalFooter
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/common/personalfooter/css/personalfooter.less"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/common/personalfooter/js/personalfooter.js"));
+            Page.RegisterStyle("~/usercontrols/common/personalfooter/css/personalfooter.less");
+            Page.RegisterBodyScripts("~/usercontrols/common/personalfooter/js/personalfooter.js");
         }
     }
 }

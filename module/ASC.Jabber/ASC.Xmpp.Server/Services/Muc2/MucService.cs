@@ -24,15 +24,6 @@
 */
 
 
-// --------------------------------------------------------------------------------------------------------------------
-// <copyright company="" file="MucService.cs">
-//   
-// </copyright>
-// <summary>
-//   (c) Copyright Ascensio System Limited 2008-2009
-// </summary>
-// --------------------------------------------------------------------------------------------------------------------
-
 using ASC.Xmpp.Core.protocol;
 using ASC.Xmpp.Core.protocol.iq.disco;
 using ASC.Xmpp.Server.Handler;

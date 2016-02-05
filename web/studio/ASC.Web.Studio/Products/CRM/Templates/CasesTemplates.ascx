@@ -77,7 +77,7 @@
         </table>
     </div>
 
-    <div id="addTagCasesDialog" class="studio-action-panel addTagDialog">
+    <div id="addTagCasesDialog" class="studio-action-panel group-actions addTagDialog">
         <ul class="dropdown-content mobile-overflow"></ul>
         <div class="h_line">&nbsp;</div>
         <div style="margin-bottom:5px;"><%= CRMCommonResource.CreateNewTag%>:</div>

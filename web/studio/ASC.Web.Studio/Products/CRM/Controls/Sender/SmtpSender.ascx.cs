@@ -91,7 +91,7 @@ namespace ASC.Web.CRM.Controls.Sender
 
             if (!MobileVer)
             {
-                Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/usercontrols/common/ckeditor/ckeditor-connector.js"));
+                Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
             }
 
             var sb = new StringBuilder();

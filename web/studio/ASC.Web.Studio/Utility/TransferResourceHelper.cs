@@ -46,6 +46,9 @@ namespace ASC.Web.Studio.Utility
                 case "sg":
                     result = Resources.Resource.SgServerRegion;
                     break;
+                case "org":
+                    result = Resources.Resource.OrgServerRegion;
+                    break;
                 default:
                     break;
 

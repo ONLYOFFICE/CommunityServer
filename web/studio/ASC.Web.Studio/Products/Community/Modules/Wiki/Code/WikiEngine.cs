@@ -49,6 +49,7 @@ using File = ASC.Web.UserControls.Wiki.Data.File;
 using ASC.Web.Community.Product;
 using ASC.Web.Community.Wiki.Common;
 using ASC.Web.Studio.Core.Notify;
+using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.UserControls.Wiki
 {
@@ -450,6 +451,7 @@ namespace ASC.Web.UserControls.Wiki
                                 Body = WikiUCResource.HelpPage_DefaultBody
                             };
                     }
+
                 }
                 return page;
             }

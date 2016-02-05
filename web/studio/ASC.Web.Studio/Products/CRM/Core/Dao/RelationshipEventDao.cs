@@ -351,7 +351,7 @@ namespace ASC.CRM.Core.Dao
                     String.Format("{0}mail/messages/{1}.json?id={1}&unblocked=true&is_need_to_sanitize_html=true", SetupInfo.WebApiBaseUrl, messageId), "GET");
 
                 if (msg == null)
-                    throw new ArgumentException();
+                    throw new ArgumentException("Mail message cannot be found");
 
                 var msgResponseWrapper = JObject.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(msg)));
                 var msgRequestObj = msgResponseWrapper.Value<JObject>("response");
@@ -370,6 +370,7 @@ namespace ASC.CRM.Core.Dao
                 }
 
                 var msg_date_created = msgRequestObj.Value<String>("date");
+                var message_id = msgRequestObj.Value<Int32>("id");
                 item.Content = JsonConvert.SerializeObject(new
                      {
                          @from = msgRequestObj.Value<String>("from"),
@@ -382,11 +383,24 @@ namespace ASC.CRM.Core.Dao
                          is_sended = msgRequestObj.Value<Int32>("folder") != 1,
                          date_created = msg_date_created,
                          introduction = msgRequestObj.Value<String>("introduction"),
-                         message_id = msgRequestObj.Value<Int32>("id"),
+                         message_id = message_id,
                          message_url = messageUrl
                      });
 
                 item.CreateOn = DateTime.Parse(msg_date_created, CultureInfo.InvariantCulture);
+
+                using (var db = GetDb())
+                {
+                    var sqlQueryFindMailsAlready = Query("crm_relationship_event")
+                                                    .SelectCount()
+                                                    .Where("contact_id", item.ContactID)
+                                                    .Where(Exp.Like("content", string.Format("\"message_id\":{0},", message_id)))
+                                                    .Where("entity_type", (int)item.EntityType)
+                                                    .Where("entity_id", item.EntityID)
+                                                    .Where("category_id", item.CategoryID);
+                    if (db.ExecuteScalar<int>(sqlQueryFindMailsAlready) > 0)
+                        throw new Exception("Already exists");
+                }
             }
 
             using (var db = GetDb())
@@ -659,8 +673,6 @@ namespace ASC.CRM.Core.Dao
 
         private static string GetHistoryContentJson(JObject apiResponse)
         {
-            string content_string;
-
             var content_struct = new CrmHistoryContent
                 {
                     @from = apiResponse.Value<String>("from"),
@@ -677,13 +689,11 @@ namespace ASC.CRM.Core.Dao
                 };
 
             var serializer = new DataContractJsonSerializer(typeof(CrmHistoryContent));
-            using (var stream = new System.IO.MemoryStream())
+            using (var stream = new MemoryStream())
             {
                 serializer.WriteObject(stream, content_struct);
-                content_string = Encoding.UTF8.GetString(stream.GetCorrectBuffer());
+                return Encoding.UTF8.GetString(stream.ToArray());
             }
-            //JsonConvert.SerializeObject
-            return content_string;
         }
     }
 }

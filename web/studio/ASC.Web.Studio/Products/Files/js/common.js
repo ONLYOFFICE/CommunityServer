@@ -43,6 +43,7 @@ if (typeof (ASC.Files.Constants) === 'undefined') {
 }
 
 ASC.Files.Constants.REQUEST_STATUS_DELAY = 2000;
+ASC.Files.Constants.REQUEST_CONVERT_DELAY = 500;
 ASC.Files.Constants.COUNT_ON_PAGE = 30,
 ASC.Files.Constants.entryIdRegExpStr = "(\\d+|[a-z]+-\\d+(-.+)*)",
 ASC.Files.Constants.storageKeyRecent = "TeamLabRecentDocuments",
@@ -95,12 +96,12 @@ ASC.Files.Common = (function () {
         } else if (typeof o === "string") {
             xml = o;
             if (typeof parent !== "undefined") {
-                xml = "<" + parent + ">" + xml + "</" + parent + ">";
+                xml = "<" + parent + ">" + Encoder.htmlEncode(xml) + "</" + parent + ">";
             }
         } else if (typeof o !== "undefined" && typeof o.toString !== "undefined") {
             xml = o.toString();
             if (typeof parent !== "undefined") {
-                xml = "<" + parent + ">" + xml + "</" + parent + ">";
+                xml = "<" + parent + ">" + Encoder.htmlEncode(xml) + "</" + parent + ">";
             }
         }
         return xml;
@@ -127,45 +128,25 @@ ASC.Files.Common = (function () {
         }
     };
 
-    var fixEvent = function (e) {
-        e = e || window.event;
-        if (!e) {
-            return {};
-        }
-        if (e.pageX == null && e.clientX != null) {
-            var html = document.documentElement;
-            var body = document.body;
-            e.pageX = e.clientX + (html && html.scrollLeft || body && body.scrollLeft || 0) - (html.clientLeft || 0);
-            e.pageY = e.clientY + (html && html.scrollTop || body && body.scrollTop || 0) - (html.clientTop || 0);
-        }
-
-        if (!e.which && e.button) {
-            e.which = e.button & 1 ? 1 : (e.button & 2 ? 3 : (e.button & 4 ? 2 : 0));
-        }
-
-        return e;
-    };
-
     var characterString = "@#$%&*+:;\"'<>?|\/";
-    var characterRegExp = new RegExp("[@#$%&*\+:;\"'<>?|\\\\/]", "gim");
+    var characterRegExp = new RegExp("[\t@#$%&*\+:;\"'<>?|\\\\/]", "gim");
 
     var replaceSpecCharacter = function (str) {
         return (str || "").trim().replace(ASC.Files.Common.characterRegExp, "_");
     };
 
     var fixHash = function (hash) {
-        if (!jq.browser.mobile && (jq.browser.mozilla || jq.browser.safari)) {
+        if (!jq.browser.mobile && jq.browser.safari) {
             hash = encodeURIComponent(hash || "");
         }
         return hash;
     };
 
-    var keyCode = { enter: 13, esc: 27, spaceBar: 32, pageUP: 33, pageDown: 34, end: 35, home: 36, left: 37, up: 38, right: 39, down: 40, deleteKey: 46, a: 65, f: 70, n: 78 };
+    var keyCode = { enter: 13, esc: 27, spaceBar: 32, pageUP: 33, pageDown: 34, end: 35, home: 36, left: 37, up: 38, right: 39, down: 40, insertKey: 45, deleteKey: 46, a: 65, f: 70, n: 78 };
 
     return {
         getSitePath: getSitePath,
         cancelBubble: cancelBubble,
-        fixEvent: fixEvent,
         keyCode: keyCode,
 
         characterString: characterString,

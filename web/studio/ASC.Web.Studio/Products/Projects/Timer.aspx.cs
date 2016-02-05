@@ -27,11 +27,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ASC.Web.Projects.Classes;
-using ASC.Projects.Core.Domain;
 using System.Globalization;
 
 using ASC.Core.Users;
+using ASC.Projects.Core.Domain;
 using ASC.Web.Core.Users;
 using ASC.Web.Studio.Utility;
 using ASC.Web.Projects.Resources;
@@ -46,7 +45,7 @@ namespace ASC.Web.Projects
 
         protected List<Participant> Users { get; set; }
 
-        protected List<Project> UserProjects { get; set; }
+        protected IEnumerable<Project> UserProjects { get; set; }
 
         protected IEnumerable<Task> OpenUserTasks { get; set; }
 
@@ -55,19 +54,6 @@ namespace ASC.Web.Projects
         protected string DecimalSeparator
         {
             get { return CultureInfo.CurrentCulture.NumberFormat.CurrencyDecimalSeparator; }
-        }
-
-        public static int TaskID
-        {
-            get
-            {
-                int id;
-                if (Int32.TryParse(UrlParameters.EntityID, out id))
-                {
-                    return id;
-                }
-                return -1;
-            }
         }
 
         #endregion
@@ -98,37 +84,21 @@ namespace ASC.Web.Projects
             if (!Participant.IsAdmin)
                 participantId = Participant.ID;
 
-            UserProjects = Global.EngineFactory.GetProjectEngine().GetOpenProjectsWithTasks(participantId);
+            UserProjects = EngineFactory.ProjectEngine.GetOpenProjectsWithTasks(participantId);
 
             if (UserProjects.Any() && (Project == null || !UserProjects.Contains(Project)))
-                Project = UserProjects[0];
+                Project = UserProjects.First();
 
-            var tasks = Global.EngineFactory.GetTaskEngine().GetByProject(Project.ID, null, Participant.IsVisitor ? participantId : Guid.Empty);
+            var tasks = EngineFactory.TaskEngine.GetByProject(Project.ID, null, Participant.IsVisitor ? participantId : Guid.Empty);
 
             OpenUserTasks = tasks.Where(r => r.Status == TaskStatus.Open).OrderBy(r => r.Title);
             ClosedUserTasks = tasks.Where(r => r.Status == TaskStatus.Closed).OrderBy(r => r.Title);
 
-            Users = Global.EngineFactory.GetProjectEngine().GetTeam(Project.ID).OrderBy(r => DisplayUserSettings.GetFullUserName(r.UserInfo)).Where(r => r.UserInfo.IsVisitor() != true).ToList();
+            Users = EngineFactory.ProjectEngine.GetTeam(Project.ID).OrderBy(r => DisplayUserSettings.GetFullUserName(r.UserInfo)).Where(r => r.UserInfo.IsVisitor() != true).ToList();
 
             if (!string.IsNullOrEmpty(Request.QueryString["taskId"]))
             {
                 Target = int.Parse(Request.QueryString["taskId"]);
-            }
-        }
-
-        private void GetTargetTaskId()
-        {
-            Target = -1;
-            int id;
-            if (Int32.TryParse(UrlParameters.EntityID, out id))
-            {
-                Target = id;
-            }
-
-            if (Target > 0)
-            {
-                var t = Global.EngineFactory.GetTaskEngine().GetByID(Target);
-                if (t == null || t.Status == TaskStatus.Closed) Target = -1;
             }
         }
 

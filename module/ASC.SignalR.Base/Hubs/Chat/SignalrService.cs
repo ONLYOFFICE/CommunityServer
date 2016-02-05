@@ -203,7 +203,7 @@ namespace ASC.SignalR.Base.Hubs.Chat
                     new MailBoxManager(LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "SignalrService"));
 
                 List<MailBoxManager.MailFolderInfo> mailFolderInfos =
-                    MailBoxManager.GetFoldersList(tenant, userId, true);
+                    MailBoxManager.GetFolders(tenant, userId, true);
                 foreach (var mailFolderInfo in mailFolderInfos)
                 {
                     if (mailFolderInfo.id == MailFolder.Ids.inbox)

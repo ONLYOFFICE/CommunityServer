@@ -26,14 +26,20 @@
 
 $(function() {
     function initDemo () {
+        if (!!window.docEditor) {
+            location.reload();
+            return;
+        }
         if (location.href.indexOf("demopreview") > -1 && $("#embeddedEditor").length) {
             $(".layout-content").css("max-width", "1085px");
             var hash = location.hash.replace("#", "") || "text";
-            $(".layout-side .treeview a").removeClass("selected");
-            $("#" + hash + "Demo").addClass("selected");
+            $(".demo-tab-panel a").removeClass("active");
+            $("#" + hash + "Demo").addClass("active");
             $("#embeddedEditor").html("<div id=\"placeholder\"></div>");
             window.docKey = null;
-            initEditor(null, null, "edit", "desktop");
+            var docKey = window.Config.EditorKey;
+            var docVkey = window.Config.EditorVKey;
+            initEditor(docKey, docVkey);
         }
     }
 

@@ -53,7 +53,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -79,10 +79,7 @@
     <Compile Include="ASCBasicAuthorization.cs" />
     <Compile Include="AuthorizationApi\AuthenticationEntryPoint.cs" />
     <Compile Include="AuthorizationApi\AuthenticationTokenData.cs" />
-    <Compile Include="GloabalFilters\AccessControlFilter.cs" />
-    <Compile Include="GloabalFilters\Analytics\MethodAccessCsvLogFilter.cs" />
-    <Compile Include="GloabalFilters\ProductSecurityFilter.cs" />
-    <Compile Include="GloabalFilters\UserCultureFilter.cs" />
+    <Compile Include="GlobalFilters\ProductSecurityFilter.cs" />
     <Compile Include="IApiSortableDate.cs" />
     <Compile Include="Log4netLog.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

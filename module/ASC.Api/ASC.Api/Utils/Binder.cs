@@ -24,8 +24,10 @@
 */
 
 
+using ASC.Collections;
 using System;
 using System.Collections;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -33,7 +35,6 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
-using ASC.Collections;
 
 namespace ASC.Api.Utils
 {
@@ -215,7 +216,7 @@ namespace ASC.Api.Utils
             return values[keys.SingleOrDefault() ?? string.Empty];
         }
 
-        private static readonly CachedDictionary<Regex> CollectionPrefixCache = new CachedDictionary<Regex>("prefix-regex-cache");
+        private static readonly ConcurrentDictionary<string, Regex> CollectionPrefixCache = new ConcurrentDictionary<string, Regex>();
 
         private static void BindCollection(string prefix, IList collection, NameValueCollection values)
         {
@@ -274,11 +275,15 @@ namespace ASC.Api.Utils
 
         private static Regex GetParseRegex(string prefix)
         {
-            return CollectionPrefixCache.Get(prefix,
-                                             () => new Regex(
-                                                       "(?'prefix'^" + Regex.Escape(prefix) +
-                                                       @"(?'arrleft'\[){0,1}(?'pos'[\d]+){0,1}(?'arrright'\]){0,1})(?'suffix'.+){0,1}",
-                                                       RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled));
+            Regex value = null;
+            if (!CollectionPrefixCache.TryGetValue(prefix, out value))
+            {
+                value = new Regex("(?'prefix'^" + Regex.Escape(prefix) +
+                    @"(?'arrleft'\[){0,1}(?'pos'[\d]+){0,1}(?'arrright'\]){0,1})(?'suffix'.+){0,1}",
+                    RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+                CollectionPrefixCache.TryAdd(prefix, value);
+            }
+            return value;
         }
 
         public static bool IsCollection(Type type)
@@ -291,7 +296,7 @@ namespace ASC.Api.Utils
             return type.GetInterfaces().Any(x => x == interfaceType);
         }
 
-        private static readonly IDictionary<Type, bool> SimpleMap = new SynchronizedDictionary<Type, bool>();
+        private static readonly IDictionary<Type, bool> SimpleMap = new ConcurrentDictionary<Type, bool>();
 
         private static bool IsSimple(Type type)
         {
@@ -302,7 +307,7 @@ namespace ASC.Api.Utils
             {
                 var converter = TypeDescriptor.GetConverter(type);//TODO: optimize?
                 simple = converter.CanConvertFrom(typeof(string));
-                SimpleMap.Add(type, simple);
+                SimpleMap[type] = simple;
             }
             return simple;
         }

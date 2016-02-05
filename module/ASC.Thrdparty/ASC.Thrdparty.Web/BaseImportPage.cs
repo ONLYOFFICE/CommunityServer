@@ -143,11 +143,6 @@ namespace ASC.Thrdparty.Web
             SubmitData(ToJson(_contacts.Distinct().ToList()));
         }
 
-        protected void SubmitEmailInfo(EmailAccessInfo emailInfo)
-        {
-            SubmitData(ToJson(emailInfo));
-        }
-
         protected void SubmitError(string message)
         {
             SubmitData(string.Empty, message);

@@ -1,7 +1,3 @@
-/*
-    Copyright (c) Ascensio System SIA 2013. All rights reserved.
-    http://www.teamlab.com
-*/
 (function (jq, win, doc, body) {
     jq.fn.helper = function(opts) {
         var options = jQuery.extend({

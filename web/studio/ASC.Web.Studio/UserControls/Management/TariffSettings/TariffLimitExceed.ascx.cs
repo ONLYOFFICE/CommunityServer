@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -52,8 +52,8 @@ namespace ASC.Web.Studio.UserControls.Management
             if (CoreContext.Configuration.PartnerHosted && WebConfigurationManager.AppSettings["files.onlyauthorized"] != "false")
                 HostedPartner = CoreContext.PaymentManager.GetApprovedPartner() ?? new Partner();
 
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/tariffsettings/js/tarifflimitexceed.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/tariffsettings/css/tarifflimitexceed.less"));
+            Page.RegisterBodyScripts("~/usercontrols/management/tariffsettings/js/tarifflimitexceed.js");
+            Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tarifflimitexceed.less");
 
             tariffLimitExceedUsersDialog.Options.IsPopup = true;
             tariffLimitExceedStorageDialog.Options.IsPopup = true;

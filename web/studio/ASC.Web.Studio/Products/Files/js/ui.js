@@ -44,6 +44,12 @@ window.ASC.Files.UI = (function () {
         }
 
         jq(window).resize(function () {
+            fixContentHeaderLeft();
+            ASC.Files.UI.fixContentHeaderWidth();
+        });
+
+        jq(window).bind("resizeWinTimerWithMaxDelay", function (event) {
+            fixContentHeaderLeft();
             ASC.Files.UI.fixContentHeaderWidth();
         });
     };
@@ -87,6 +93,7 @@ window.ASC.Files.UI = (function () {
         resulat.entryType = (resulat.entryType === "file" ? "file" : "folder");
         resulat.create_by = entryObject.find("input:hidden[name=\"create_by\"]").val();
         resulat.modified_by = entryObject.find("input:hidden[name=\"modified_by\"]").val();
+        resulat.comment = entryObject.find("input:hidden[name=\"comment\"]").val();
         resulat.entryObject = entryObject;
         resulat.error = (resulat.error != "" ? resulat.error : false);
         resulat.title = (resulat.title || "").trim();
@@ -169,6 +176,14 @@ window.ASC.Files.UI = (function () {
             headerFixed.parent().innerWidth()
                 - parseInt(headerFixed.css("margin-left"))
                 - parseInt(headerFixed.css("margin-right")));
+    };
+
+    var fixContentHeaderLeft = function () {
+        var headerFixed = jq("#mainContentHeader.stick-panel:visible"),
+            jqWindow = jq(window);
+        if (headerFixed.length == 0) return;
+
+        headerFixed.css("left", (headerFixed.parent().offset().left - jqWindow.scrollLeft()));
     };
 
     var stickContentHeader = function () {
@@ -375,10 +390,14 @@ window.ASC.Files.UI = (function () {
                     if (ASC.Files.Folders.folderContainer != "trash") {
                         var entryUrl = ASC.Files.Utility.GetFileDownloadUrl(entryId);
 
-                        if ((ASC.Files.Utility.CanWebView(entryTitle) || ASC.Files.Utility.CanWebEdit(entryTitle))
+                        if (ASC.Files.Utility.CanWebEdit(entryTitle)
                             && !ASC.Files.Utility.MustConvert(entryTitle)
                             && ASC.Resources.Master.TenantTariffDocsEdition) {
                             entryUrl = ASC.Files.Utility.GetFileWebEditorUrl(entryId);
+                            rowLink.attr("href", entryUrl).attr("target", "_blank");
+                        } else if (ASC.Files.Utility.CanWebView(entryTitle)
+                            && ASC.Resources.Master.TenantTariffDocsEdition) {
+                            entryUrl = ASC.Files.Utility.GetFileWebViewerUrl(entryId);
                             rowLink.attr("href", entryUrl).attr("target", "_blank");
                         } else if (typeof ASC.Files.ImageViewer != "undefined" && ASC.Files.Utility.CanImageView(entryTitle)) {
                             entryUrl = "#" + ASC.Files.ImageViewer.getPreviewHash(entryId);
@@ -436,7 +455,8 @@ window.ASC.Files.UI = (function () {
 
                 if (!jq("#filesMainContent").hasClass("without-share")
                     && (ASC.Files.Folders.folderContainer == "forme" && !ASC.Files.UI.accessEdit(entryData, entryObj)
-                        || ASC.Resources.Master.Personal && entryType == "folder")) {
+                        || ASC.Resources.Master.Personal && entryType == "folder"
+                        || Teamlab.profile.isVisitor === true)) {
                     entryObj.addClass("without-share");
                 }
 
@@ -452,7 +472,7 @@ window.ASC.Files.UI = (function () {
     };
 
     var clickRow = function (event, target) {
-        var e = ASC.Files.Common.fixEvent(event);
+        var e = jq.fixEvent(event);
 
         if (!(e.button == 0 || (jq.browser.msie && e.button == 1))) {
             return true;
@@ -776,7 +796,8 @@ window.ASC.Files.UI = (function () {
 
                     provider_key: entryData.provider_key,
                     total_files: parseInt(entryObj.find(".countFiles").html()) || 0, //folder
-                    total_sub_folder: parseInt(entryObj.find(".countFolders").html()) || 0//folder
+                    total_sub_folder: parseInt(entryObj.find(".countFolders").html()) || 0,//folder
+                    comment: entryData.comment,
                 }
         };
         Encoder.EncodeType = "entity";
@@ -908,23 +929,33 @@ window.ASC.Files.UI = (function () {
     };
 
     var displayTariffDocsEdition = function () {
+        if (!jq("#tariffLimitDocsEditionPanel").length) {
+            return false;
+        }
         ASC.Files.UI.blockUI("#tariffLimitDocsEditionPanel", 500, 300, 0);
+        return true;
     };
 
     var displayHostedPartnerUnauthorized = function () {
-        if (!jq("#UnauthorizedPartnerPanel").length)
+        if (!jq("#UnauthorizedPartnerPanel").length) {
             return false;
+        }
         ASC.Files.UI.blockUI("#UnauthorizedPartnerPanel", 500, 300, 0);
         return true;
     };
 
     var displayTariffLimitStorageExceed = function () {
+        if (!jq("#tariffLimitExceedStoragePanel").length) {
+            return false;
+        }
         ASC.Files.UI.blockUI("#tariffLimitExceedStoragePanel", 500, 300, 0);
+        return true;
     };
 
     var displayTariffFileSizeExceed = function () {
-        if (!jq("#tariffLimitExceedFileSizePanel").length)
+        if (!jq("#tariffLimitExceedFileSizePanel").length) {
             return false;
+        }
         ASC.Files.UI.blockUI("#tariffLimitExceedFileSizePanel", 500, 300, 0);
         return true;
     };
@@ -1098,7 +1129,7 @@ window.ASC.Files.UI = (function () {
                 var e = event;
             }
 
-            e = ASC.Files.Common.fixEvent(e);
+            e = jq.fixEvent(e);
 
             var target = e.target || e.srcElement;
             try {
@@ -1137,7 +1168,7 @@ window.ASC.Files.UI = (function () {
                 var e = event;
             }
 
-            e = ASC.Files.Common.fixEvent(e);
+            e = jq.fixEvent(e);
 
             var target = e.target || e.srcElement;
             try {
@@ -1151,7 +1182,7 @@ window.ASC.Files.UI = (function () {
             var code = e.keyCode || e.which;
 
             if (ASC.Files.Folders) {
-                if (code == ASC.Files.Common.keyCode.deleteKey) {
+                if (code == ASC.Files.Common.keyCode.deleteKey && !e.shiftKey) {
                     ASC.Files.Folders.deleteItem();
                     return false;
                 }

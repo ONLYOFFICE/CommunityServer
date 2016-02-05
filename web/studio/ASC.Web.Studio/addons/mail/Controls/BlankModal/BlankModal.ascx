@@ -5,9 +5,9 @@
 <%@ Import Namespace="ASC.Web.Mail.Resources" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 
-<div class="backdrop" blank-page=""></div>
+<div class="backdrop hidden" blank-page=""></div>
 
-<div id="content" blank-page="" class="dashboard-center-box mail <%= IsAdmin() ? "for-admin" : "for-user" %>">
+<div blank-page="" class="dashboard-center-box mail <%= IsAdmin() ? "for-admin" : "for-user" %> hidden">
     <div class="header">
         <span class="close" onclick=" blankModal.close(); "></span><%= MailResource.BlankModalHeader %>
     </div>

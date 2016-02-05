@@ -30,23 +30,23 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AppLimit.CloudComputing.SharpBox">
-      <HintPath>..\..\packages\AppLimit.CloudComputing.SharpBox.1.1.0.440\lib\net45\AppLimit.CloudComputing.SharpBox.dll</HintPath>
+      <HintPath>..\..\packages\AppLimit.CloudComputing.SharpBox.1.1.0.442\lib\net45\AppLimit.CloudComputing.SharpBox.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis">
-      <HintPath>..\..\packages\Google.Apis.1.8.1\lib\net40\Google.Apis.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Google.Apis, Version=1.8.1.31687, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Google.Apis.1.9.1\lib\net40\Google.Apis.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Auth">
-      <HintPath>..\..\packages\Google.Apis.Auth.1.8.1\lib\net40\Google.Apis.Auth.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Google.Apis.Auth, Version=1.8.1.31688, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Google.Apis.Auth.1.9.1\lib\net40\Google.Apis.Auth.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Core">
-      <HintPath>..\..\packages\Google.Apis.Core.1.8.1\lib\portable-net4+sl4+wp71+win8\Google.Apis.Core.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Google.Apis.Core, Version=1.8.1.31685, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Google.Apis.Core.1.9.1\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Drive.v2">
-      <HintPath>..\..\packages\Google.Apis.Drive.v2.1.8.1.1270\lib\portable-net4+sl4+wp71+win8\Google.Apis.Drive.v2.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Google.Apis.Drive.v2, Version=1.9.0.165, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\packages\Google.Apis.Drive.v2.1.9.0.1670\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Drive.v2.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <SpecificVersion>False</SpecificVersion>
@@ -64,7 +64,7 @@
       <HintPath>..\..\packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -89,15 +89,16 @@
     <Compile Include="GoogleDrive\GoogleDriveStorage.cs" />
     <Compile Include="GoogleDrive\GoogleDriveTagDao.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ProviderDao\DbDaoSelector.cs" />
-    <Compile Include="ProviderDao\IDaoSelector.cs" />
+    <Compile Include="DbDaoSelector.cs" />
+    <Compile Include="IDaoSelector.cs" />
+    <Compile Include="CachedProviderAccountDao.cs" />
     <Compile Include="ProviderDao\ProviderDaoBase.cs" />
     <Compile Include="ProviderDao\ProviderFileDao.cs" />
     <Compile Include="ProviderDao\ProviderFolderDao.cs" />
     <Compile Include="ProviderDao\ProviderSecutiryDao.cs" />
     <Compile Include="ProviderDao\ProviderTagDao.cs" />
-    <Compile Include="ProviderDao\RegexDaoSelectorBase.cs" />
-    <Compile Include="ProviderDaoFactory.cs" />
+    <Compile Include="RegexDaoSelectorBase.cs" />
+    <Compile Include="ProviderDao\ProviderDaoFactory.cs" />
     <Compile Include="SharePoint\SharePointDaoBase.cs" />
     <Compile Include="SharePoint\SharePointDaoSelector.cs" />
     <Compile Include="SharePoint\SharePointErrorEntry.cs" />

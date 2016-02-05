@@ -29,12 +29,12 @@ using System.Web;
 
 namespace ASC.Web.Talk.UserControls
 {
-  public partial class ContactsContainer : System.Web.UI.UserControl
-  {
-      protected void Page_Load(object sender, EventArgs e)
-      {
-          Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/addons/talk/js/talk.contactscontainer.js"));
-          Page.RegisterInlineScript("ASC.TMTalk.contactsContainer.init();");
-      }
-  }
+    public partial class ContactsContainer : System.Web.UI.UserControl
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            Page.RegisterBodyScripts("~/addons/talk/js/talk.contactscontainer.js");
+            Page.RegisterInlineScript("ASC.TMTalk.contactsContainer.init();");
+        }
+    }
 }

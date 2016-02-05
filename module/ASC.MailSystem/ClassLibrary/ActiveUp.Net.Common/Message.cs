@@ -52,10 +52,12 @@ namespace ActiveUp.Net.Mail
         MimePart _partTreeRoot = new MimePart();
         MimeBody _bodyHtml = new MimeBody(BodyFormat.Html);
         MimeBody _bodyText = new MimeBody(BodyFormat.Text);
+        MimeBody _bodyCalendar = new MimeBody(BodyFormat.Calendar);
         string _preamble, _epilogue;
         Signatures _signatures = new Signatures();
 
-        bool _isSmimeEncrypted, _hasDomainKeySignature, _hasSmimeSignature, _hasSmimeDetachedSignature, _hasParseError;
+        private bool _isSmimeEncrypted, _hasDomainKeySignature, _hasSmimeSignature, _hasSmimeDetachedSignature;
+        private Exception _parseError;
 
         #endregion
 
@@ -400,6 +402,18 @@ namespace ActiveUp.Net.Mail
             }
         }
 
+        public MimeBody BodyCalendar
+        {
+            get
+            {
+                return _bodyCalendar;
+            }
+            set
+            {
+                _bodyCalendar = value;
+            }
+        }
+
         public string Preamble
         {
             get
@@ -447,23 +461,26 @@ namespace ActiveUp.Net.Mail
         {
             get
             {
-                string msg = (this.From.Email != "") ? this.From.Link : this.Sender.Link;
-                msg += "<br />";
-                msg += "To : " + this.To.Links + "<br />";
-                if (this.Cc != null) msg += "Cc : " + this.Cc.Links + "<br />";
-                msg += "Subject : " + this.Subject + "<br />";
-                msg += "Received : " + this.DateString + "<br />";
-                msg += "Body : <br />" + this.BodyText.Text;
-                return msg;
+                var sb = new StringBuilder();
+                sb.Append((this.From.Email != "") ? this.From.Link : this.Sender.Link);
+                sb.Append("<br />");
+                sb.AppendFormat("To : {0}<br />", this.To.Links);
+                if (this.Cc != null) 
+                    sb.AppendFormat("Cc : {0}<br />", this.Cc.Links);
+                sb.AppendFormat("Subject : {0}<br />", this.Subject);
+                sb.AppendFormat("Received : {0}<br />", this.DateString);
+                sb.AppendFormat("Body : {0}<br />", this.BodyText.Text);
+
+                return sb.ToString();
             }
         }
 
         /// <summary>
         /// Indicates whether the message has parsed with errors.
         /// </summary>
-        public bool HasParseError {
-            get { return _hasParseError; }
-            set { _hasParseError = value; }
+        public Exception ParseException {
+            get { return _parseError; }
+            set { _parseError = value; }
         }
 
         #endregion
@@ -498,31 +515,50 @@ namespace ActiveUp.Net.Mail
 
         private string GetEncodedMimePart(MimePart part)
         {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            var sb = new StringBuilder();
             try
             {
                 sb.Append(part.ToMimeString());
-                if (part.ContentTransferEncoding == ContentTransferEncoding.Base64) sb.Append("\r\n\r\n" + System.Text.RegularExpressions.Regex.Replace(System.Convert.ToBase64String(part.BinaryContent, 0, part.BinaryContent.Length), "(?<found>[^\n]{100})", "${found}\n"));
-                else if (part.ContentTransferEncoding == ContentTransferEncoding.QuotedPrintable) sb.Append("\r\n\r\n" + Codec.ToQuotedPrintable(System.Text.Encoding.ASCII.GetString(part.BinaryContent, 0, part.BinaryContent.Length), part.Charset));
-                else if (part.ContentTransferEncoding == ContentTransferEncoding.SevenBits) sb.Append("\r\n\r\n" + System.Text.Encoding.UTF7.GetString(part.BinaryContent, 0, part.BinaryContent.Length));
-                else if (part.ContentTransferEncoding == ContentTransferEncoding.EightBits) sb.Append("\r\n\r\n" + System.Text.Encoding.UTF8.GetString(part.BinaryContent, 0, part.BinaryContent.Length));
-                else sb.Append("\r\n\r\n" + System.Text.Encoding.ASCII.GetString(part.BinaryContent,0,part.BinaryContent.Length));
+                if (part.ContentTransferEncoding == ContentTransferEncoding.Base64)
+                    sb.Append("\r\n\r\n").Append(
+                        Regex.Replace(
+                            Convert.ToBase64String(part.BinaryContent, 0, part.BinaryContent.Length),
+                            "(?<found>[^\n]{100})", "${found}\n"));
+                else if (part.ContentTransferEncoding == ContentTransferEncoding.QuotedPrintable)
+                    sb.Append("\r\n\r\n").Append(
+                        Codec.ToQuotedPrintable(
+                            Encoding.ASCII.GetString(part.BinaryContent, 0,
+                                part.BinaryContent.Length), part.Charset));
+                else if (part.ContentTransferEncoding == ContentTransferEncoding.SevenBits)
+                    sb.Append("\r\n\r\n").Append(
+                        Encoding.UTF7.GetString(part.BinaryContent, 0,
+                            part.BinaryContent.Length));
+                else if (part.ContentTransferEncoding == ContentTransferEncoding.EightBits)
+                    sb.Append("\r\n\r\n").Append(
+                        Encoding.UTF8.GetString(part.BinaryContent, 0,
+                            part.BinaryContent.Length));
+                else
+                    sb.Append("\r\n\r\n").Append(
+                        Encoding.ASCII.GetString(part.BinaryContent, 0,
+                            part.BinaryContent.Length));
             }
-            catch (System.Exception) { }
+            catch (Exception)
+            {
+            }
             return sb.ToString();
         }
 
         private string GetEmbeddedObjects(string boundary)
         {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            foreach (MimePart part in this.EmbeddedObjects) sb.Append(boundary + part.ToMimeString());
+            var sb = new StringBuilder();
+            foreach (MimePart part in this.EmbeddedObjects) sb.Append(boundary).Append(part.ToMimeString());
             return sb.ToString();
         }
 
         private string GetAttachments(string boundary)
         {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-            foreach (MimePart part in this.Attachments) sb.Append(boundary + part.ToMimeString());
+            var sb = new StringBuilder();
+            foreach (MimePart part in this.Attachments) sb.Append(boundary).Append(part.ToMimeString());
             return sb.ToString();
         }
 
@@ -539,7 +575,7 @@ namespace ActiveUp.Net.Mail
                 bodies.ContentType.MimeType = "multipart/alternative";
 
                 string unique = Codec.GetUniqueString();
-                string boundary = "---AU_MimePart_" + unique;
+                string boundary = string.Format("---AU_MimePart_{0}", unique);
                 bodies.ContentType.Parameters.Add("boundary", boundary);
 
                 bodies.SubParts.Add(this.BodyText.ToMimePart());
@@ -566,7 +602,7 @@ namespace ActiveUp.Net.Mail
                 part.ContentType.MimeType = "multipart/related";
 
                 string unique = Codec.GetUniqueString();
-                string boundary = "---AU_MimePart_" + unique;
+                string boundary = string.Format("---AU_MimePart_{0}", unique);
                 part.ContentType.Parameters.Add("boundary", boundary);
 
                 part.ContentType.Parameters.Add("type", "\"multipart/alternative\"");
@@ -592,7 +628,7 @@ namespace ActiveUp.Net.Mail
                 part.ContentType.MimeType = "multipart/mixed";
 
                 string unique = Codec.GetUniqueString();
-                string boundary = "---AU_MimePart_" + unique;
+                string boundary = string.Format("---AU_MimePart_{0}", unique);
                 part.ContentType.Parameters.Add("boundary", boundary);
 
                 part.SubParts.Add(this.GetMultipartRelatedContainer());
@@ -646,7 +682,7 @@ namespace ActiveUp.Net.Mail
                 part.Charset = this.Charset;
                 part.ContentTransferEncoding = ContentTransferEncoding.SevenBits;
                 part.ContentDisposition.Disposition = "attachment";
-                part.ContentDisposition.FileName = this.Subject.Trim(' ').Replace(" ", "_") + ".eml";
+                part.ContentDisposition.FileName = string.Format("{0}.eml", this.Subject.Trim(' ').Replace(" ", "_"));
                 part.ContentType.MimeType = "message/rfc822";
                 part.TextContent = this.ToMimeString();
             }
@@ -899,7 +935,7 @@ namespace ActiveUp.Net.Mail
         /// </summary>
         public string GetMidReference()
         {
-            return "mid:" + System.Web.HttpUtility.UrlEncode(this.MessageId.Trim('<', '>'));
+            return string.Format("mid:{0}", System.Web.HttpUtility.UrlEncode(this.MessageId.Trim('<', '>')));
         }
 
 #endif
@@ -1451,7 +1487,7 @@ namespace ActiveUp.Net.Mail
         public void SmimeAttachSignatureBy(CmsSigner signer)
         {
             string body = this.PartTreeRoot.ToMimeString();
-            byte[] tosign = Encoding.ASCII.GetBytes(body.TrimEnd('\r', '\n') + "\r\n");
+            byte[] tosign = Encoding.ASCII.GetBytes(string.Format("{0}\r\n", body.TrimEnd('\r', '\n')));
 
             SignedCms cms = new SignedCms(new ContentInfo(tosign), true);
             cms.ComputeSignature(signer);
@@ -1463,7 +1499,7 @@ namespace ActiveUp.Net.Mail
             envelope.ContentType.Parameters.Add("protocol", "\"application/x-pkcs7-signature\"");
             envelope.ContentType.Parameters.Add("micalg", cms.SignerInfos[0].DigestAlgorithm.FriendlyName);
             string unique = Codec.GetUniqueString();
-            string boundary = "---AU_MimePart_" + unique;
+            string boundary = string.Format("---AU_MimePart_{0}", unique);
             envelope.ContentType.Parameters.Add("boundary", boundary);
 
             envelope.SubParts.Add(this.PartTreeRoot);
@@ -1489,7 +1525,7 @@ namespace ActiveUp.Net.Mail
             message.From = this.To[0];
 
             // Create the subject
-            message.Subject = "Read: " + this.Subject;
+            message.Subject = string.Format("Read: {0}", this.Subject);
 
             // Adds the original message ID
             

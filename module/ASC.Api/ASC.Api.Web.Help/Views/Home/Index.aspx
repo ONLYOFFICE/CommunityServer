@@ -12,7 +12,7 @@
                 <span class="hdr">Welcome to onlyoffice api</span>
             </h1>
             <p>
-                The ONLYOFFICE™ Common Server API is implemented as REST over HTTP using GET/POST/PUT/DELETE.<br />
+                The ONLYOFFICE™ Community Server API is implemented as REST over HTTP using GET/POST/PUT/DELETE.<br />
                 All the resources, like posts or comments, have their own URLs and are designed to be manipulated in isolation.
             </p>
         </div>
@@ -24,7 +24,7 @@
             <div class="product">
                 <a href="<%= Url.Action("basic", "portals") %>">
                     <img src="<%= Url.Content("~/content/img/portals.png") %>">
-                    Common Server
+                    Community Server
                 </a>
             </div>
             <% } %>

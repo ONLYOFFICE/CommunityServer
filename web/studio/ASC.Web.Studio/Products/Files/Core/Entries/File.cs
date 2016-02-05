@@ -29,7 +29,6 @@ using ASC.Web.Files.Services.WCFService;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 using System.Text;
@@ -53,6 +52,7 @@ namespace ASC.Files.Core
         [EnumMember] IsEditingAlone = 0x10
     }
 
+    [Serializable]
     [DataContract(Name = "file", Namespace = "")]
     [DebuggerDisplay("{Title} ({ID} v{Version})")]
     public class File : FileEntry
@@ -187,14 +187,17 @@ namespace ASC.Files.Core
                 if (string.IsNullOrEmpty(ConvertedType)) return FileUtility.GetFileExtension(Title);
 
                 //hack: Use only for old internal format
+                ConvertedType = ConvertedType.Trim('.');
 
                 var curFileType = FileUtility.GetFileTypeByFileName(Title);
                 switch (curFileType)
                 {
                     case FileType.Image:
-                        return ConvertedType == ".zip" ? ".pptt" : ConvertedType;
+                        return ConvertedType == "zip" ? ".pptt" : ConvertedType;
                     case FileType.Spreadsheet:
-                        return ConvertedType != ".xlsx" ? ".xlst" : ConvertedType;
+                        return ConvertedType != "xlsx" ? ".xlst" : ConvertedType;
+                    case FileType.Document:
+                        return ConvertedType == "zip" ? ".doct" : ConvertedType;
                 }
                 return ConvertedType;
             }

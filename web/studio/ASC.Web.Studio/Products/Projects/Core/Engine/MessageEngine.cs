@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using ASC.Core;
@@ -33,8 +34,6 @@ using ASC.Files.Core;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Services.NotifyService;
-using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Studio.Utility;
 using IDaoFactory = ASC.Projects.Core.DataInterfaces.IDaoFactory;
 
 namespace ASC.Projects.Engine
@@ -55,6 +54,11 @@ namespace ASC.Projects.Engine
 
         #region Get Discussion
 
+        public override ProjectEntity GetEntityByID(int id)
+        {
+            return GetByID(id);
+        }
+
         public Message GetByID(int id)
         {
             return GetByID(id, true);
@@ -65,7 +69,7 @@ namespace ASC.Projects.Engine
             var message = messageDao.GetById(id);
 
             if (message != null)
-                message.CommentsCount = commentDao.GetCommentsCount(new List<ProjectEntity> {message}).FirstOrDefault();
+                message.CommentsCount = commentDao.Count(new List<ProjectEntity> { message }).FirstOrDefault();
 
             if (!checkSecurity)
                 return message;
@@ -78,47 +82,47 @@ namespace ASC.Projects.Engine
             return messageDao.GetAll().Where(CanRead);
         }
 
-        public List<Message> GetByProject(int projectID)
+        public IEnumerable<Message> GetByProject(int projectID)
         {
             var messages = messageDao.GetByProject(projectID)
                 .Where(CanRead)
                 .ToList();
-            var commentsCount = commentDao.GetCommentsCount(messages.ConvertAll(r => (ProjectEntity)r));
+            var commentsCount = commentDao.Count(messages.ConvertAll(r => (ProjectEntity)r));
 
             return messages.Select((message, index) =>
             { 
                                                     message.CommentsCount = commentsCount[index];
                                                     return message;
-            }).ToList();
+            });
 
         }
 
-        public List<Message> GetMessages(int startIndex,int maxResult)
+        public IEnumerable<Message> GetMessages(int startIndex, int maxResult)
         {
             var messages = messageDao.GetMessages(startIndex, maxResult)
                 .Where(CanRead)
                 .ToList();
-            var commentsCount = commentDao.GetCommentsCount(messages.Select(r => (ProjectEntity)r).ToList());
+            var commentsCount = commentDao.Count(messages.Select(r => (ProjectEntity)r).ToList());
 
             return messages.Select((message, index) =>
             {
                 message.CommentsCount = commentsCount[index];
                 return message;
-            }).ToList();
+            });
             
         }
 
-        public List<Message> GetByFilter(TaskFilter filter)
+        public IEnumerable<Message> GetByFilter(TaskFilter filter)
         {
             var messages = messageDao.GetByFilter(filter, ProjectSecurity.CurrentUserAdministrator, ProjectSecurity.IsPrivateDisabled);
 
-            var commentsCount = commentDao.GetCommentsCount(messages.Select(r => (ProjectEntity)r).ToList());
+            var commentsCount = commentDao.Count(messages.Select(r => (ProjectEntity)r).ToList());
 
             return messages.Select((message, index) =>
             {
                 message.CommentsCount = commentsCount[index];
                 return message;
-            }).ToList();
+            });
         }
 
         public int GetByFilterCount(TaskFilter filter)
@@ -140,7 +144,7 @@ namespace ASC.Projects.Engine
 
         #region Save, Delete, Attach
 
-        public Message SaveOrUpdate(Message message, bool notify, IEnumerable<Guid> participant, IEnumerable<int> fileIds)
+        public Message SaveOrUpdate(Message message, bool notify, IEnumerable<Guid> participant, IEnumerable<int> fileIds = null)
         {
             if (message == null) throw new ArgumentNullException("message");
 
@@ -167,7 +171,7 @@ namespace ASC.Projects.Engine
             {
                 foreach (var fileId in fileIds)
                 {
-                    AttachFile(message, fileId, false);
+                    AttachFile(message, fileId);
                 }
             }
 

@@ -24,6 +24,7 @@
 */
 
 
+using System.Collections.Generic;
 using ASC.Api.Attributes;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
@@ -35,10 +36,23 @@ using ASC.Core.Notify.Jabber;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core.Mobile;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Backup;
 using ASC.Web.Studio.Utility;
 using System;
 using System.Linq;
+using Resources;
+using System.Security;
+using SecurityContext = ASC.Core.SecurityContext;
+using System.Net;
+using System.IO;
+using Newtonsoft.Json.Linq;
+using System.Configuration;
+using System.Security.Cryptography;
+using System.Text;
+using System.Web;
+using ASC.Web.Studio.Core.Notify;
+using ASC.Web.Studio.PublicResources;
 
 namespace ASC.Api.Portal
 {
@@ -57,6 +71,11 @@ namespace ASC.Api.Portal
         public string Name
         {
             get { return "portal"; }
+        }
+
+        private static HttpRequest Request
+        {
+            get { return HttpContext.Current.Request; }
         }
 
         public PortalApi(ApiContext context)
@@ -91,6 +110,30 @@ namespace ASC.Api.Portal
         {
             return CoreContext.UserManager.GetUsers(userID);
         }
+
+
+        ///<summary>
+        /// Returns invitational link to the portal
+        ///</summary>
+        ///<short>
+        /// Returns invitational link to the portal
+        ///</short>
+        /// <param name="employeeType">
+        ///  User or Visitor
+        /// </param>
+        ///<category>
+        /// Portal info
+        ///</category>
+        ///<returns>
+        /// Invite link
+        ///</returns>
+        [Read("users/invite/{employeeType}")]
+        public string GeInviteLink(EmployeeType employeeType)
+        {
+            return CommonLinkUtility.GetConfirmationUrl(string.Empty, ConfirmType.LinkInvite, (int)employeeType, SecurityContext.CurrentAccount.ID)
+                   + String.Format("&emplType={0}", (int)employeeType);
+        }
+
 
         ///<summary>
         ///Returns the used space of the current portal
@@ -166,11 +209,11 @@ namespace ASC.Api.Portal
             var needUsersCount = GetUsersCount();
 
             return CoreContext.TenantManager.GetTenantQuotas().OrderBy(r => r.Price)
-                                    .FirstOrDefault(quota =>
-                                                    quota.ActiveUsers > needUsersCount
-                                                    && quota.MaxTotalSize > usedSpace
-                                                    && quota.DocsEdition
-                                                    && !quota.Year);
+                              .FirstOrDefault(quota =>
+                                              quota.ActiveUsers > needUsersCount
+                                              && quota.MaxTotalSize > usedSpace
+                                              && quota.DocsEdition
+                                              && !quota.Year);
         }
 
         ///<summary>
@@ -197,7 +240,9 @@ namespace ASC.Api.Portal
                 var username = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).UserName;
                 return new JabberServiceClient().GetNewMessagesCount(TenantProvider.CurrentTenantID, username);
             }
-            catch { }
+            catch
+            {
+            }
             return 0;
         }
 
@@ -209,45 +254,346 @@ namespace ASC.Api.Portal
         }
 
 
-        [Create("createbackup")]
-        public BackupProgress CreateBackup(bool withMail = true)
+        /// <summary>
+        /// Returns the backup schedule of the current portal
+        /// </summary>
+        /// <returns>Backup Schedule</returns>
+        [Read("getbackupschedule")]
+        public BackupAjaxHandler.Schedule GetBackupSchedule()
         {
-            return backupHandler.StartBackup(BackupStorageType.DataStore, null, withMail);
+            return backupHandler.GetSchedule();
         }
 
-        [Create("restorebackup")]
-        public BackupProgress RestoreBackup(string backupfile)
+        /// <summary>
+        /// Create the backup schedule of the current portal
+        /// </summary>
+        /// <param name="storageType">Storage type</param>
+        /// <param name="storageParams">Storage parameters</param>
+        /// <param name="backupsStored">Max of the backup's stored copies</param>
+        /// <param name="cronParams">Cron parameters</param>
+        /// <param name="backupMail">Include mail in the backup</param>
+        [Create("createbackupschedule")]
+        public void CreateBackupSchedule(BackupStorageType storageType, BackupAjaxHandler.StorageParams storageParams, int backupsStored, BackupAjaxHandler.CronParams cronParams, bool backupMail)
         {
-            if (!CoreContext.Configuration.Standalone)
-            {
-                throw new NotSupportedException("Restore backup not available.");
-            }
-
-            return backupHandler.StartRestore(
-                null,
-                BackupStorageType.Local,
-                new BackupAjaxHandler.StorageParams
-                {
-                    FilePath = backupfile,
-                },
-                false);
+            backupHandler.CreateSchedule(storageType, storageParams, backupsStored, cronParams, backupMail);
         }
 
-        [Read("backupprogress")]
-        public BackupProgress BackupProgress()
+        /// <summary>
+        /// Delete the backup schedule of the current portal
+        /// </summary>
+        [Delete("deletebackupschedule")]
+        public void DeleteBackupSchedule()
+        {
+            backupHandler.DeleteSchedule();
+        }
+
+        /// <summary>
+        /// Start a backup of the current portal
+        /// </summary>
+        /// <param name="storageType">Storage Type</param>
+        /// <param name="storageParams">Storage Params</param>
+        /// <param name="backupMail">Include mail in the backup</param>
+        /// <returns>Backup Progress</returns>
+        [Create("startbackup")]
+        public BackupProgress StartBackup(BackupStorageType storageType, BackupAjaxHandler.StorageParams storageParams, bool backupMail)
+        {
+            return backupHandler.StartBackup(storageType, storageParams, backupMail);
+        }
+
+        /// <summary>
+        /// Returns the progress of the started backup
+        /// </summary>
+        /// <returns>Backup Progress</returns>
+        [Read("getbackupprogress")]
+        public BackupProgress GetBackupProgress()
         {
             return backupHandler.GetBackupProgress();
         }
 
-        [Read("restoreprogress")]
-        public BackupProgress RestoreProgress()
+        /// <summary>
+        /// Returns the backup history of the started backup
+        /// </summary>
+        /// <returns>Backup History</returns>
+        [Read("getbackuphistory")]
+        public List<BackupHistoryRecord> GetBackupHistory()
         {
-            if (!CoreContext.Configuration.Standalone)
+            return backupHandler.GetBackupHistory();
+        }
+
+        /// <summary>
+        /// Delete the backup with the specified id
+        /// </summary>
+        [Delete("deletebackup/{id}")]
+        public void DeleteBackup(Guid id)
+        {
+            backupHandler.DeleteBackup(id);
+        }
+
+        /// <summary>
+        /// Delete all backups of the current portal
+        /// </summary>
+        /// <returns>Backup History</returns>
+        [Delete("deletebackuphistory")]
+        public void DeleteBackupHistory()
+        {
+            backupHandler.DeleteAllBackups();
+        }
+
+        /// <summary>
+        /// Start a data restore of the current portal
+        /// </summary>
+        /// <param name="backupId">Backup Id</param>
+        /// <param name="storageType">Storage Type</param>
+        /// <param name="storageParams">Storage Params</param>
+        /// <param name="notify">Notify about backup to users</param>
+        /// <returns>Restore Progress</returns>
+        [Create("startrestore")]
+        public BackupProgress StartBackupRestore(string backupId, BackupStorageType storageType, BackupAjaxHandler.StorageParams storageParams, bool notify)
+        {
+            return backupHandler.StartRestore(backupId, storageType, storageParams, notify);
+        }
+
+        /// <summary>
+        /// Returns the progress of the started restore
+        /// </summary>
+        /// <returns>Restore Progress</returns>
+        [Read("getrestoreprogress")]
+        public BackupProgress GetRestoreProgress()
+        {
+            return backupHandler.GetRestoreProgress();
+        }
+
+
+
+        ///<visible>false</visible>
+        [Update("portalrename")]
+        public object UpdatePortalName(string alias)
+        {
+            var enabled = SetupInfo.IsVisibleSettings("PortalRename");
+            if (!enabled)
+                throw new SecurityException(Resources.Resource.PortalAccessSettingsTariffException);
+
+            if (CoreContext.Configuration.Personal)
+                throw new Exception(Resource.ErrorAccessDenied);
+
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
+            if (String.IsNullOrEmpty(alias)) throw new ArgumentException();
+
+
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
+            var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
+            var newAlias = alias.ToLowerInvariant();
+            var oldAlias = tenant.TenantAlias;
+            var oldVirtualRootPath = CommonLinkUtility.GetFullAbsolutePath("~").TrimEnd('/');
+
+            if (!String.Equals(newAlias, oldAlias, StringComparison.InvariantCultureIgnoreCase))
             {
-                throw new NotSupportedException("Restore backup not available.");
+                var hostedSolution = new HostedSolution(ConfigurationManager.ConnectionStrings["default"]);
+                if (!String.IsNullOrEmpty(SetupInfo.ApiSystemUrl))
+                {
+                    ValidatePortalName(newAlias);
+                }
+                else
+                {
+                    hostedSolution.CheckTenantAddress(newAlias.Trim());
+                }
+
+
+                if (!String.IsNullOrEmpty(SetupInfo.ApiCacheUrl))
+                {
+                    AddTenantToCache(newAlias);
+                }
+
+                tenant.TenantAlias = alias;
+                tenant = hostedSolution.SaveTenant(tenant);
+
+
+                if (!String.IsNullOrEmpty(SetupInfo.ApiCacheUrl))
+                {
+                    RemoveTenantFromCache(oldAlias);
+                }
+
+                StudioNotifyService.Instance.PortalRenameNotify(oldVirtualRootPath);
+            }
+            else
+            {
+                throw new Exception(ResourceJS.ErrorPortalNameWasNotChanged);
             }
 
-            return backupHandler.GetRestoreProgress();
+            var reference = CreateReference(Request, tenant.TenantDomain, tenant.TenantId, user.Email);
+
+            return new {
+                message = Resources.Resource.SuccessfullyPortalRenameMessage,
+                reference = reference
+            };
+        }
+
+
+        private void ValidatePortalName(string domain)
+        {
+            var absoluteApiSystemUrl = SetupInfo.ApiSystemUrl;
+            Uri uri;
+            if (!Uri.TryCreate(absoluteApiSystemUrl, UriKind.Absolute, out uri))
+            {
+                var appUrl = CommonLinkUtility.GetFullAbsolutePath("/");
+                absoluteApiSystemUrl = string.Format("{0}/{1}", appUrl.TrimEnd('/'), absoluteApiSystemUrl.TrimStart('/')).TrimEnd('/');
+            }
+
+            var data = string.Format("portalName={0}", domain);
+            var url = String.Format("{0}/registration/validateportalname", absoluteApiSystemUrl);
+
+            var webRequest = (HttpWebRequest)WebRequest.Create(url);
+            webRequest.Method = WebRequestMethods.Http.Post;
+            webRequest.ContentType = "application/x-www-form-urlencoded";
+            webRequest.ContentLength = data.Length;
+
+            using (var writer = new StreamWriter(webRequest.GetRequestStream()))
+            {
+                writer.Write(data);
+            }
+
+            var result = "";
+
+            using (var response = webRequest.GetResponse())
+            using (var stream = response.GetResponseStream())
+            using (var reader = new StreamReader(stream, Encoding.UTF8))
+            {
+                result = reader.ReadToEnd();
+
+                var resObj = JObject.Parse(result);
+                if (resObj["errors"] != null && resObj["errors"].HasValues)
+                {
+                    throw new Exception(result);
+                }
+            }
+        }
+
+        #region api cache
+
+        private static string CreateApiCacheAuthToken(string pkey)
+        {
+            var skey = ConfigurationManager.AppSettings["core.machinekey"];
+
+            using (var hasher = new HMACSHA1(Encoding.UTF8.GetBytes(skey)))
+            {
+                var now = DateTime.UtcNow.ToString("yyyyMMddHHmmss");
+                var hash = HttpServerUtility.UrlTokenEncode(hasher.ComputeHash(Encoding.UTF8.GetBytes(string.Join("\n", now, pkey))));
+                return string.Format("ASC {0}:{1}:{2}", pkey, now, hash);
+            }
+        }
+
+        private void AddTenantToCache(string domain)
+        {
+            SendApiToCache("addportal", WebRequestMethods.Http.Post, string.Format("={0}", domain));
+        }
+
+        private void RemoveTenantFromCache(string domain)
+        {
+            SendApiToCache("removeportal", WebRequestMethods.Http.Post, string.Format("={0}", domain));
+        }
+
+        private void SendApiToCache(string apiPath, string httpMethod, string data)
+        {
+            var absoluteApiCacheUrl = SetupInfo.ApiCacheUrl;
+            Uri uri;
+            if (!Uri.TryCreate(absoluteApiCacheUrl, UriKind.Absolute, out uri)) {
+                var appUrl = CommonLinkUtility.GetFullAbsolutePath("/");
+                absoluteApiCacheUrl = string.Format("{0}/{1}", appUrl.TrimEnd('/'), absoluteApiCacheUrl.TrimStart('/')).TrimEnd('/');
+            }
+
+            var url = String.Format("{0}/cache/{1}", absoluteApiCacheUrl, apiPath);
+
+            var webRequest = (HttpWebRequest)WebRequest.Create(url);
+            webRequest.Method = httpMethod;
+            webRequest.ContentType = "application/x-www-form-urlencoded";
+            webRequest.ContentLength = data.Length;
+
+            webRequest.Headers.Add(HttpRequestHeader.Authorization, CreateApiCacheAuthToken(SecurityContext.CurrentAccount.ID.ToString()));
+
+            using (var writer = new StreamWriter(webRequest.GetRequestStream()))
+            {
+                writer.Write(data);
+            }
+
+            using (var webResponse = webRequest.GetResponse())
+            using (var reader = new StreamReader(webResponse.GetResponseStream()))
+            {
+                var response = reader.ReadToEnd();
+                var resObj = JObject.Parse(response);
+                if (resObj["errors"] != null && resObj["errors"].HasValues)
+                {
+                    throw new Exception(response);
+                }
+            }
+        }
+
+        #endregion
+
+        #region create reference for auth on renamed tenant
+
+        private static string CreateReference(HttpRequest request, string tenantDomain, int tenantId, string email)
+        {
+            return String.Format("{0}{1}{2}/{3}",
+                                 request != null && request.UrlReferrer != null ? request.UrlReferrer.Scheme : Uri.UriSchemeHttp,
+                                 Uri.SchemeDelimiter,
+                                 tenantDomain,
+                                 CommonLinkUtility.GetConfirmationUrlRelative(tenantId, email, ConfirmType.Auth)
+                );
+        }
+
+        #endregion
+
+
+        ///<visible>false</visible>
+        [Update("fcke/comment/removecomplete")]
+        public object RemoveCommentComplete(string commentid, string domain)
+        {
+            try
+            {
+                CommonControlsConfigurer.FCKUploadsRemoveForItem(domain, commentid);
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        ///<visible>false</visible>
+        [Update("fcke/comment/cancelcomplete")]
+        public object CancelCommentComplete(string commentid, string domain, bool isedit)
+        {
+            try
+            {
+                if (isedit)
+                    CommonControlsConfigurer.FCKEditingCancel(domain, commentid);
+                else
+                    CommonControlsConfigurer.FCKEditingCancel(domain);
+
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        ///<visible>false</visible>
+        [Update("fcke/comment/editcomplete")]
+        public object EditCommentComplete(string commentid, string domain, string html, bool isedit)
+        {
+            try
+            {
+                CommonControlsConfigurer.FCKEditingComplete(domain, commentid, html, isedit);
+                return 1;
+            }
+
+            catch
+            {
+                return 0;
+            }
         }
     }
 }

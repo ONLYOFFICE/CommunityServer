@@ -24,7 +24,7 @@
 */
 
 
-using ASC.Core.Caching;
+using ASC.Common.Caching;
 using ASC.Data.Storage;
 using ASC.Web.Core.Client;
 using log4net;
@@ -40,32 +40,38 @@ namespace ASC.Web.Studio.Core.HelpCenter
     [DataContract(Name = "VideoGuideItem", Namespace = "")]
     public class VideoGuideItem
     {
-        [DataMember(Name = "Title")] public string Title;
+        [DataMember(Name = "Title")]
+        public string Title;
 
-        [DataMember(Name = "Id")] public string Id;
+        [DataMember(Name = "Id")]
+        public string Id;
 
-        [DataMember(Name = "Link")] public string Link;
+        [DataMember(Name = "Link")]
+        public string Link;
 
-        [DataMember(Name = "Status")] public string Status;
+        [DataMember(Name = "Status")]
+        public string Status;
     }
+
 
     [Serializable]
     [DataContract(Name = "VideoGuideStorageItem", Namespace = "")]
     public class VideoGuideData
     {
-        [DataMember(Name = "ListItems")] public List<VideoGuideItem> ListItems;
+        [DataMember(Name = "ListItems")]
+        public List<VideoGuideItem> ListItems;
 
-        [DataMember(Name = "ResetCacheKey")] public String ResetCacheKey;
+        [DataMember(Name = "ResetCacheKey")]
+        public String ResetCacheKey;
     }
+
 
     public class VideoGuideStorage
     {
+        private const string cacheKey = "videoguide";
+        private static readonly ICache cache = AscCache.Memory;
+        private static readonly TimeSpan timeout = TimeSpan.FromDays(1);
         private static readonly string filepath = ClientSettings.StorePath.Trim('/') + "/helpcenter/videoguide.html";
-
-        private static IDataStore GetStore()
-        {
-            return StorageFactory.GetStorage("-1", "common_static");
-        }
 
         public static Dictionary<string, VideoGuideData> GetVideoGuide()
         {
@@ -77,7 +83,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
                 {
                     using (var stream = GetStore().GetReadStream(filepath))
                     {
-                        data = (Dictionary<string, VideoGuideData>) FromStream(stream);
+                        data = (Dictionary<string, VideoGuideData>)FromStream(stream);
                     }
                     ToCache(data);
                 }
@@ -105,32 +111,33 @@ namespace ASC.Web.Studio.Core.HelpCenter
             }
         }
 
-        private static MemoryStream ToStream(object objectType)
+        private static IDataStore GetStore()
+        {
+            return StorageFactory.GetStorage("-1", "common_static");
+        }
+
+        private static MemoryStream ToStream(object obj)
         {
             var stream = new MemoryStream();
-            IFormatter formatter = new BinaryFormatter();
-            formatter.Serialize(stream, objectType);
+            var formatter = new BinaryFormatter();
+            formatter.Serialize(stream, obj);
             return stream;
         }
 
         private static object FromStream(Stream stream)
         {
-            IFormatter formatter = new BinaryFormatter();
+            var formatter = new BinaryFormatter();
             return formatter.Deserialize(stream);
         }
 
-        private static readonly ICache cache = AscCache.Default;
-        private static readonly TimeSpan ExpirationTimeout = TimeSpan.FromDays(1);
-        private const string CacheKey = "videoguide";
-
         private static void ToCache(Dictionary<string, VideoGuideData> obj)
         {
-            cache.Insert(CacheKey, obj, DateTime.UtcNow.Add(ExpirationTimeout));
+            cache.Insert(cacheKey, obj, DateTime.UtcNow + timeout);
         }
 
         private static Dictionary<string, VideoGuideData> FromCache()
         {
-            return cache.Get(CacheKey) as Dictionary<string, VideoGuideData>;
+            return cache.Get<Dictionary<string, VideoGuideData>>(cacheKey);
         }
     }
 }

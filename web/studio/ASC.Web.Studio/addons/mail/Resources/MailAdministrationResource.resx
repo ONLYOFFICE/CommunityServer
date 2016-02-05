@@ -117,56 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddNewDomainButton" xml:space="preserve">
-    <value>Add your own domain</value>
-  </data>
   <data name="AddButton" xml:space="preserve">
     <value>Add</value>
-  </data>
-  <data name="AliasLabel" xml:space="preserve">
-    <value>Alias</value>
-  </data>
-  <data name="MailboxAliasLabel" xml:space="preserve">
-    <value>Mailbox alias</value>
-  </data>
-  <data name="MailboxAddressLabel" xml:space="preserve">
-    <value>Mailbox address</value>
-  </data>
-  <data name="MailboxUserLabel" xml:space="preserve">
-    <value>Mailbox user</value>
-  </data>
-  <data name="MailgroupAddressLabel" xml:space="preserve">
-    <value>Mailgroup address</value>
-  </data>
-  <data name="MailgroupMailboxesLabel" xml:space="preserve">
-    <value>Mailgroup mailboxes</value>
-  </data>
-  <data name="CreateMailboxPopupHeader" xml:space="preserve">
-    <value>You need to enter the mailbox address and choose the user who the mailbox will be created for.</value>
-  </data>
-  <data name="CreateMailgroupPopupHeader" xml:space="preserve">
-    <value>You need to enter the mailgroup address and choose mailboxes that will be included in this mailgroup.</value>
-  </data>
-  <data name="WebDomainLabel" xml:space="preserve">
-    <value>Domain</value>
-  </data>
-  <data name="DeleteGroupLabel" xml:space="preserve">
-    <value>Delete mailgroup</value>
-  </data>
-  <data name="DeleteMailboxLabel" xml:space="preserve">
-    <value>Delete mailbox</value>
-  </data>
-  <data name="EditGroupAddressesLabel" xml:space="preserve">
-    <value>Edit mailgroup addresses</value>
-  </data>
-  <data name="EditMailboxAliasesLabel" xml:space="preserve">
-    <value>Edit mailbox aliases</value>
   </data>
   <data name="AddMailboxLabel" xml:space="preserve">
     <value>Add new mailbox</value>
   </data>
+  <data name="AddMailgroupLabel" xml:space="preserve">
+    <value>Add new mailgroup</value>
+  </data>
+  <data name="AddNewDomainButton" xml:space="preserve">
+    <value>Add your own domain</value>
+  </data>
   <data name="AddUserLabel" xml:space="preserve">
     <value>Add user</value>
+  </data>
+  <data name="AliasLabel" xml:space="preserve">
+    <value>Alias</value>
+  </data>
+  <data name="CreateMailboxHeaderInfo" xml:space="preserve">
+    <value>Create new mailbox</value>
+  </data>
+  <data name="CreateMailboxPopupHeader" xml:space="preserve">
+    <value>You need to enter the mailbox address and choose the user who the mailbox will be created for.</value>
+  </data>
+  <data name="CreateMailgroupHeaderInfo" xml:space="preserve">
+    <value>Create new mailgroup</value>
+  </data>
+  <data name="CreateMailgroupPopupHeader" xml:space="preserve">
+    <value>You need to enter the mailgroup address and choose mailboxes that will be included in this mailgroup.</value>
   </data>
   <data name="DeleteDomain" xml:space="preserve">
     <value>Delete domain</value>
@@ -174,14 +153,35 @@
   <data name="DeleteDomainAttention" xml:space="preserve">
     <value>If you delete your domain all mailboxes and groups with this domain will also be removed.</value>
   </data>
+  <data name="DeleteGroupAttention" xml:space="preserve">
+    <value>Mail group deletion will not in any way affect the mailboxes within it</value>
+  </data>
+  <data name="DeleteGroupLabel" xml:space="preserve">
+    <value>Delete mailgroup</value>
+  </data>
+  <data name="DeleteMailboxAttention" xml:space="preserve">
+    <value>If you delete server mailbox all the letters removed from the mailbox.</value>
+  </data>
+  <data name="DeleteMailboxLabel" xml:space="preserve">
+    <value>Delete mailbox</value>
+  </data>
   <data name="DeleteShureText" xml:space="preserve">
     <value>Do you want to delete %1?</value>
   </data>
+  <data name="DNSSettingsLabel" xml:space="preserve">
+    <value>DNS settings</value>
+  </data>
+  <data name="DomainAddedPopupHeader" xml:space="preserve">
+    <value>Domain has been added</value>
+  </data>
+  <data name="DomainDnsSettingsPopupHeader" xml:space="preserve">
+    <value>%1 domain settings</value>
+  </data>
+  <data name="DomainWizardAddRecord" xml:space="preserve">
+    <value>Now you need to add %1-record in the control panel of your own domain.</value>
+  </data>
   <data name="DomainWizardCompleteBtn" xml:space="preserve">
     <value>Complete</value>
-  </data>
-  <data name="DomainWizardOwnershpCheckRecord" xml:space="preserve">
-    <value>Your domain ownership record</value>
   </data>
   <data name="DomainWizardCopyInfo" xml:space="preserve">
     <value>Just open the control panel of your domain in another browser tab and simply copy the bold text info the appropriate fields or select the most suitable one from the available variants:</value>
@@ -192,11 +192,14 @@
   <data name="DomainWizardDomainAlreadyExists" xml:space="preserve">
     <value>Domain "{0}" already in use.</value>
   </data>
+  <data name="DomainWizardDomainNameSymbolInfo" xml:space="preserve">
+    <value>In some cases DNS management service does not allow to use '@' as domain/subdomain name. Use your domain name with the '.' at the end, e.g.: '%1.'</value>
+  </data>
   <data name="DomainWizardDomainNotVerified" xml:space="preserve">
     <value>Domain "{0}" is not verified.</value>
   </data>
-  <data name="DomainWizardProveDomainOwnershipInfo" xml:space="preserve">
-    <value>Before you can start create your corporate email-addresses, you need to add TXT-record in the control panel of your own domain in order to prove your domain ownership.</value>
+  <data name="DomainWizardGoNextStep" xml:space="preserve">
+    <value>If you have already done that, just go to the next step.</value>
   </data>
   <data name="DomainWizardMXRecord" xml:space="preserve">
     <value>MX (Mail Exchange) record</value>
@@ -207,17 +210,26 @@
   <data name="DomainWizardNextBtn" xml:space="preserve">
     <value>Next</value>
   </data>
+  <data name="DomainWizardOwnershpCheckRecord" xml:space="preserve">
+    <value>Your domain ownership record</value>
+  </data>
+  <data name="DomainWizardPopupHeader" xml:space="preserve">
+    <value>Add domain</value>
+  </data>
   <data name="DomainWizardPrevBtn" xml:space="preserve">
     <value>Previous</value>
   </data>
   <data name="DomainWizardPriority" xml:space="preserve">
     <value>Priority:</value>
   </data>
-  <data name="DomainWizardAddRecord" xml:space="preserve">
-    <value>Now you need to add %1-record in the control panel of your own domain.</value>
+  <data name="DomainWizardProveDomainOwnershipInfo" xml:space="preserve">
+    <value>Before you can start create your corporate email-addresses, you need to add TXT-record in the control panel of your own domain in order to prove your domain ownership.</value>
   </data>
   <data name="DomainWizardSPFRecord" xml:space="preserve">
     <value>SPF (Sender Policy Framework) record</value>
+  </data>
+  <data name="DomainWizardStep" xml:space="preserve">
+    <value>step %1 of %2</value>
   </data>
   <data name="DomainWizardTextOrValue" xml:space="preserve">
     <value>Text/Value:</value>
@@ -228,11 +240,35 @@
   <data name="DomainWizardType" xml:space="preserve">
     <value>Type:</value>
   </data>
+  <data name="DomainWizardWaitDNSrefrashInfo" xml:space="preserve">
+    <value>Please note: DNS record update can take from several minutes to several hours. Please wait some time, if you changed the record not long ago.</value>
+  </data>
   <data name="DomainWizardWriteDomainName" xml:space="preserve">
     <value>Write your company domain name in the field below:</value>
   </data>
-  <data name="DomainWizardGoNextStep" xml:space="preserve">
-    <value>If you have already done that, just go to the next step.</value>
+  <data name="EditGroupAddressesLabel" xml:space="preserve">
+    <value>Edit mailgroup addresses</value>
+  </data>
+  <data name="EditMailboxAliasesLabel" xml:space="preserve">
+    <value>Edit mailbox aliases</value>
+  </data>
+  <data name="GroupLabel" xml:space="preserve">
+    <value>Group</value>
+  </data>
+  <data name="MailboxAddressLabel" xml:space="preserve">
+    <value>Mailbox address</value>
+  </data>
+  <data name="MailboxAliasLabel" xml:space="preserve">
+    <value>Mailbox alias</value>
+  </data>
+  <data name="MailboxUserLabel" xml:space="preserve">
+    <value>Mailbox user</value>
+  </data>
+  <data name="MailgroupAddressLabel" xml:space="preserve">
+    <value>Mailgroup address</value>
+  </data>
+  <data name="MailgroupMailboxesLabel" xml:space="preserve">
+    <value>Mailgroup mailboxes</value>
   </data>
   <data name="NoDomainSetUpButton" xml:space="preserve">
     <value>Set up the first domain</value>
@@ -243,17 +279,20 @@
   <data name="NoDomainSetUpHeader" xml:space="preserve">
     <value>No domain is set up yet</value>
   </data>
-  <data name="DomainAddedPopupHeader" xml:space="preserve">
-    <value>Domain has been added</value>
-  </data>
-  <data name="DomainWizardPopupHeader" xml:space="preserve">
-    <value>Add domain</value>
+  <data name="NotInGroupLabel" xml:space="preserve">
+    <value>not in group</value>
   </data>
   <data name="UnverifiedDomainAddedPopupBody" xml:space="preserve">
     <value>Now you can create mailboxes like {0}.</value>
   </data>
   <data name="UnverifiedDomainAddedPopupHeader" xml:space="preserve">
     <value>Your domain has been added successfully.</value>
+  </data>
+  <data name="UnverifiedDomainRecordExplain" xml:space="preserve">
+    <value>Please check</value>
+  </data>
+  <data name="UnverifiedDomainRecordWarning" xml:space="preserve">
+    <value>The settings of one or several DNS records for your domain are incorrect. Please go to your domain settings panel and check the presence of the below records there.</value>
   </data>
   <data name="VerifiedDomainAddedPopupBody" xml:space="preserve">
     <value>We have added your domain to the mail domain list, but you cannot use it right now to create your mail boxes. The reason might be that the necessary time has not passed yet. Please wait a little, some servers can take up to 24 hours to update DNS information.</value>
@@ -264,52 +303,10 @@
   <data name="VerifiedDomainAddedPopupHeader" xml:space="preserve">
     <value>Your domain has been added successfully, but you will be able to use it later.</value>
   </data>
-  <data name="UnverifiedDomainRecordExplain" xml:space="preserve">
-    <value>Please check</value>
-  </data>
-  <data name="DNSSettingsLabel" xml:space="preserve">
-    <value>DNS settings</value>
-  </data>
   <data name="VerifyButton" xml:space="preserve">
     <value>Verify</value>
   </data>
-  <data name="DomainDnsSettingsPopupHeader" xml:space="preserve">
-    <value>%1 domain settings</value>
-  </data>
-  <data name="AddMailgroupLabel" xml:space="preserve">
-    <value>Add new mailgroup</value>
-  </data>
-  <data name="NotInGroupLabel" xml:space="preserve">
-    <value>not in group</value>
-  </data>
-  <data name="GroupLabel" xml:space="preserve">
-    <value>Group</value>
-  </data>
-  <data name="CreateMailboxHeaderInfo" xml:space="preserve">
-    <value>Create new mailbox</value>
-  </data>
-  <data name="CreateMailgroupHeaderInfo" xml:space="preserve">
-    <value>Create new mailgroup</value>
-  </data>
-  <data name="DeleteGroupAttention" xml:space="preserve">
-    <value>Mail group deletion will not in any way affect the mailboxes within it</value>
-  </data>
-  <data name="DeleteMailboxAttention" xml:space="preserve">
-    <value>If you delete server mailbox all the letters removed from the mailbox.</value>
-  </data>
-  <data name="UnverifiedDomainRecordWarning" xml:space="preserve">
-    <value>The settings of one or several DNS records for your domain are incorrect. Please go to your domain settings panel and check the presence of the below records there.</value>
-  </data>
-  <data name="DomainWizardStep" xml:space="preserve">
-    <value>step %1 of %2</value>
-  </data>
-  <data name="DomainWizardDomainNameSymbolInfo" xml:space="preserve">
-    <value>In some cases DNS management service does not allow to use '@' as domain/subdomain name. Use your domain name with the '.' at the end, e.g.: '%1.'</value>
-  </data>
-  <data name="DomainWizardWaitDNSrefrashInfo" xml:space="preserve">
-    <value>Please note: DNS record update can take from several minutes to several hours. Please wait some time, if you changed the record not long ago.</value>
-  </data>
-  <data name="SharedDomainNotificationText" xml:space="preserve">
-    <value>You can not create mailbox aliases for shared domain</value>
+  <data name="WebDomainLabel" xml:space="preserve">
+    <value>Domain</value>
   </data>
 </root>

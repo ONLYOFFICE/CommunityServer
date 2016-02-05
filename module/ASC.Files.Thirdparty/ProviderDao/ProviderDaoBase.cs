@@ -183,9 +183,12 @@ namespace ASC.Files.Thirdparty.ProviderDao
                                                 ? FileConverter.Exec(fromFile)
                                                 : fromFileDao.GetFileStream(fromFile))
                 {
-                    fromFile.ID = null; //Reset id, so it can be created by apropriate provider
-                    fromFile.FolderID = toSelector.ConvertId(toFolderId);
-                    toFile = toFileDao.SaveFile(fromFile, fromFileStream);
+                    toFile = toFileDao.SaveFile(new File
+                        {
+                            Title = fromFile.Title,
+                            FolderID = toSelector.ConvertId(toFolderId),
+                            ContentLength = fromFile.ContentLength,
+                        }, fromFileStream);
                 }
             }
 
@@ -220,6 +223,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             var toSelector = GetSelector(toRootFolderId);
 
             var fromFolderDao = fromSelector.GetFolderDao(fromFolderId);
+            var fromFileDao = fromSelector.GetFileDao(fromFolderId);
             //Create new folder in 'to' folder
             var toFolderDao = toSelector.GetFolderDao(toRootFolderId);
             //Ohh
@@ -236,7 +240,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                                          });
 
             var foldersToCopy = fromFolderDao.GetFolders(fromSelector.ConvertId(fromFolderId));
-            var filesToCopy = fromFolderDao.GetFiles(fromSelector.ConvertId(fromFolderId), false);
+            var filesToCopy = fromFileDao.GetFiles(fromSelector.ConvertId(fromFolderId), false);
             //Copy files first
             foreach (var file in filesToCopy)
             {

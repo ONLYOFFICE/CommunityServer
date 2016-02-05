@@ -45,23 +45,19 @@
       <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Runtime.Caching" />
     <Reference Include="System.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssemblyWork.cs" />
-    <Compile Include="DBResourceSet.cs" />
     <Compile Include="JsonManager.cs" />
     <Compile Include="Model\Author.cs" />
-    <Compile Include="DBResourceReader.cs" />
-    <Compile Include="DBResourceManager.cs" />
-    <Compile Include="GetResource.cs" />
     <Compile Include="Model\ResCurrent.cs" />
     <Compile Include="Model\ResWord.cs" />
     <Compile Include="Model\ResModule.cs" />
@@ -78,6 +74,10 @@
     <ProjectReference Include="..\..\ASC.Common\ASC.Common.csproj">
       <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>
       <Name>ASC.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\ASC.Core.Common\ASC.Core.Common.csproj">
+      <Project>{a51d0454-4afa-46de-89d4-b03d37e1816c}</Project>
+      <Name>ASC.Core.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

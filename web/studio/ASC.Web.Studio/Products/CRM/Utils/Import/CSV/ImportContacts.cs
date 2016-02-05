@@ -35,6 +35,7 @@ using ASC.Web.CRM.Core.Enums;
 using LumenWorks.Framework.IO.Csv;
 using Newtonsoft.Json.Linq;
 using ASC.CRM.Core.Dao;
+using ASC.Common.Threading.Progress;
 
 #endregion
 
@@ -113,6 +114,16 @@ namespace ASC.Web.CRM.Classes
 
                 Percentage = 37.5;
 
+                if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
+                {
+                    ImportDataCache.ResetAll(EntityType.Contact);
+
+                    throw new OperationCanceledException();
+                }
+
+                ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());               
+
+
                 #region Processing duplicate rule
 
                 _DuplicateRecordRuleProcess(ref findedContacts, ref personFakeIdCompanyNameHash, ref findedContactInfos, ref findedCustomField, ref findedTags);
@@ -121,6 +132,15 @@ namespace ASC.Web.CRM.Classes
 
                 Percentage += 12.5;
 
+                if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
+                {
+                    ImportDataCache.ResetAll(EntityType.Contact);
+
+                    throw new OperationCanceledException();
+                }
+
+                ImportDataCache.Insert(EntityType.Contact,(ImportDataOperation)Clone());               
+                
                 var findedCompanies = findedContacts.Where(x => x.Value is Company).ToDictionary(x => x.Key, y => y.Value);
                 var findedPeoples = findedContacts.Where(x => x.Value is Person).ToDictionary(x => x.Key, y => y.Value);
 
@@ -185,6 +205,16 @@ namespace ASC.Web.CRM.Classes
 
                 Percentage += 12.5;
 
+                if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
+                {
+                    ImportDataCache.ResetAll(EntityType.Contact);
+
+                    throw new OperationCanceledException();
+                }
+
+                ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());               
+
+
                 #region Save contact infos
 
                 findedContactInfos.ForEach(item => item.ContactID = fakeRealContactIdHash[item.ContactID]);
@@ -194,6 +224,15 @@ namespace ASC.Web.CRM.Classes
 
                 Percentage += 12.5;
 
+                if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
+                {
+                    ImportDataCache.ResetAll(EntityType.Contact);
+
+                    throw new OperationCanceledException();
+                }
+
+                ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());               
+                
                 #region Save custom fields
 
                 findedCustomField.ForEach(item => item.EntityID = fakeRealContactIdHash[item.EntityID]);
@@ -202,6 +241,16 @@ namespace ASC.Web.CRM.Classes
                 #endregion
 
                 Percentage += 12.5;
+
+                if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
+                {
+                    ImportDataCache.ResetAll(EntityType.Contact);
+
+                    throw new OperationCanceledException();
+                }
+
+                ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());               
+
 
                 #region Save tags
                 foreach (var findedTagKey in findedTags.Keys)
@@ -217,6 +266,15 @@ namespace ASC.Web.CRM.Classes
                 #endregion
 
                 Percentage += 12.5;
+
+                if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
+                {
+                    ImportDataCache.ResetAll(EntityType.Contact);
+
+                    throw new OperationCanceledException();
+                }
+
+                ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());      
             }
 
             Complete();

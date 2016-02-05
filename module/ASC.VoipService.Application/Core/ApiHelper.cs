@@ -38,6 +38,7 @@ using ASC.Data.Storage;
 using Newtonsoft.Json.Linq;
 using Twilio;
 using log4net;
+using System.IO;
 
 namespace ASC.VoipService.Application
 {
@@ -159,13 +160,13 @@ namespace ASC.VoipService.Application
             {
                 Thread.Sleep(10000);
                 CoreContext.TenantManager.SetCurrentTenant(Tenant);
-                var stream = new WebClient().OpenRead(recordUrl);
                 var storage = StorageFactory.GetStorage(Tenant.TenantId.ToString(CultureInfo.InvariantCulture), "crm");
-                var newRecordUri = storage.Save(recordUrl.Split('/').Last() + ".wav", stream.GetBuffered());
-                if (stream != null)
-                    stream.Close();
-
-                SaveOrUpdateCallHistory(callId, parentCallId, recordUrl: newRecordUri.AbsoluteUri);
+                using (var stream = new WebClient().OpenRead(recordUrl))
+                using (var buffered = new BufferedStream(stream))
+                {
+                    var newRecordUri = storage.Save(recordUrl.Split('/').Last() + ".wav", buffered);
+                    SaveOrUpdateCallHistory(callId, parentCallId, recordUrl: newRecordUri.AbsoluteUri);
+                }
             }
             catch (Exception e)
             {

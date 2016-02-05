@@ -22,11 +22,11 @@
     <act:AddMilestoneContainer runat="server" Edit="True"/>
     <div class="buttonContainer big-button-container">
         <a id="saveTemplate" class="button blue big">
-            <%= !String.IsNullOrEmpty(UrlParameters.EntityID) ? ProjectTemplatesResource.SaveChanges :  ProjectTemplatesResource.SaveTemplate%>
+            <%= ProjectTmplId >= 0 ? ProjectTemplatesResource.SaveChanges :  ProjectTemplatesResource.SaveTemplate%>
         </a>
         <span class="splitter-buttons"></span>
         <a id="createProject" href="javascript:void(0)" class="button gray big">
-            <%= !String.IsNullOrEmpty(UrlParameters.EntityID) ? ProjectTemplatesResource.CreateProject : ProjectTemplatesResource.SaveAndCreateProjFromTmpl%>
+            <%= ProjectTmplId >= 0 ? ProjectTemplatesResource.CreateProject : ProjectTemplatesResource.SaveAndCreateProjFromTmpl%>
         </a>
         <span class="splitter-buttons"></span>
         <a id="cancelCreateProjectTemplate" class="button gray big" href="projectTemplates.aspx"><%=ProjectsCommonResource.Cancel%></a>

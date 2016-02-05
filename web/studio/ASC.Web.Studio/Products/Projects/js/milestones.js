@@ -33,10 +33,8 @@ ASC.Projects.AllMilestones = (function () {
         milestoneActionContainer,
         milestoneDescribePanel,
         // cache DOM elements
-        commonListContainer = jq("#CommonListContainer"),
         milestoneList = jq('#milestonesList'),
-        milestoneListBody = milestoneList.find("tbody"),
-        commonPopupContainer = jq("#commonPopupContainer");
+        milestoneListBody = milestoneList.find("tbody");
 
     var currentProjectId;
 
@@ -60,10 +58,6 @@ ASC.Projects.AllMilestones = (function () {
 
     var getCurrentProjectId = function () {
         return currentProjectId;
-    };
-
-    var setCurrentFilter = function (filter) {
-        self.currentFilter = filter;
     };
 
     var showNewMilestoneButton = function () {
@@ -90,14 +84,14 @@ ASC.Projects.AllMilestones = (function () {
 
     var initActionPanels = function () {
         if(!milestoneDescribePanel){
-            commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "milestoneDescrPanel"})); // description panel
+            self.$commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "milestoneDescrPanel" })); // description panel
             milestoneDescribePanel = jq("#milestoneDescrPanel");
         }
 
         jq("#" + statusListObject.listId).remove();
-        commonListContainer.append(jq.tmpl("projects_statusChangePanel", statusListObject));
+        self.$commonListContainer.append(jq.tmpl("projects_statusChangePanel", statusListObject));
         //action panel
-        commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "milestoneActionContainer"}));
+        self.$commonListContainer.append(jq.tmpl("projects_panelFrame", { panelId: "milestoneActionContainer" }));
         jq("#milestoneActionContainer .panel-content").empty().append(jq.tmpl("projects_actionMenuContent", actionMenuItems));
 
     };
@@ -113,12 +107,12 @@ ASC.Projects.AllMilestones = (function () {
         
         self = this;
         self.isFirstLoad = true;
-        jq(".mainPageContent").children(".loader-page").show();
+        self.cookiePagination = "milestonesKeyForPagination";
         self.setDocumentTitle(ASC.Projects.Resources.ProjectsJSResource.MilestonesModule);
 
         currentProjectId = jq.getURLParam('prjID');
         //page navigator
-        self.initPageNavigator("milestonesKeyForPagination");
+        ASC.Projects.PageNavigator.init(self);
 
         self.showLoader();
         createAdvansedFilter();
@@ -130,24 +124,20 @@ ASC.Projects.AllMilestones = (function () {
 
         // Events
 
-        jq("#countOfRows").change(function (evt) {
-            self.changeCountOfRows(this.value);
-        });
-
         jq('#emptyListMilestone').on('click', '.addFirstElement', function () {
             ASC.Projects.MilestoneAction.showNewMilestonePopup();
         });
 
         // popup
-        commonPopupContainer.on("click", ".remove", function () {
+        self.$commonPopupContainer.on("click", ".remove", function () {
             LoadingBanner.displayLoading();
-            var milestoneId = jq("#commonPopupContainer").attr("milestoneId");
+            var milestoneId = self.$commonPopupContainer.attr("milestoneId");
             deleteMilestone(milestoneId);
-            jq("#commonPopupContainer").removeAttr("milestoneId");
+            self.$commonPopupContainer.removeAttr("milestoneId");
             jq.unblockUI();
             return false;
         });
-        commonPopupContainer.on("click", ".gray", function () {
+        self.$commonPopupContainer.on("click", ".gray", function () {
             jq.unblockUI();
             return false;
         });
@@ -155,7 +145,7 @@ ASC.Projects.AllMilestones = (function () {
         jq('body').on('click.milestonesInit', function (event) {
             var target = (event.target) ? event.target : event.srcElement;
             var element = jq(target);
-            if (!element.is('.entity-menu')) {
+            if (!element.is('.entity-menu') || jq(elt).parents('#milestoneDescrPanel').length === 0) {
                 hideMilestoneActionContainer();
             }
             if (!(element.is('span.overdue') || element.is('span.active') || element.is('span.closed'))) {
@@ -180,7 +170,7 @@ ASC.Projects.AllMilestones = (function () {
             return false;
         });
 
-        commonListContainer.find('#' + statusListObject.listId).on('click', 'li', function () {
+        self.$commonListContainer.find('#' + statusListObject.listId).on('click', 'li', function () {
             if (jq(this).is('.selected')) return;
             var milestoneId = jq('#' + statusListObject.listId).attr('milestoneId');
             var status = jq(this).attr('class').split(" ")[0];
@@ -244,7 +234,7 @@ ASC.Projects.AllMilestones = (function () {
             hideDescriptionPanel();
         });
 
-        commonListContainer.on('click', '.project .value', function () {
+        self.$commonListContainer.on('click', '.project .value', function () {
             overDescriptionPanel = false;
             hideDescriptionPanel();
             var projectId = jq(this).attr('projectId');
@@ -276,9 +266,6 @@ ASC.Projects.AllMilestones = (function () {
             }
             milestoneList.find(".menuopen").removeClass("menuopen");
             milestoneList.find("#" + selectedActionCombobox.attr('milestoneId')).addClass("menuopen");
-
-            // ga-track
-            trackingGoogleAnalitics(ga_Categories.milestones, ga_Actions.actionClick, "milestone-menu");
         }
 
         milestoneList.on('click', 'td.actions .entity-menu', function () {
@@ -334,19 +321,6 @@ ASC.Projects.AllMilestones = (function () {
 
             ASC.Projects.MilestoneAction.onGetMilestoneBeforeUpdate(milestone);
         });
-
-        // ga-track-events
-        //change status
-        jq("#statusListContainer .open").trackEvent(ga_Categories.milestones, ga_Actions.changeStatus, "open");
-        jq("#statusListContainer .closed").trackEvent(ga_Categories.milestones, ga_Actions.changeStatus, "closed");
-
-        //responsible
-        jq(".responsible span").trackEvent(ga_Categories.milestones, ga_Actions.userClick, "milestone-responsible");
-
-        //actions
-        jq("#addMilestoneTaskButton").trackEvent(ga_Categories.milestones, ga_Actions.actionClick, "add-task-in-milestone");
-
-        //end ga-track-events
     };
 
     var createAdvansedFilter = function () {
@@ -360,7 +334,7 @@ ASC.Projects.AllMilestones = (function () {
         // Responsible
 
         if (currentProjectId) {
-            if (self.userInProjectTeam(currentUserId)) {
+            if (ASC.Projects.Common.userInProjectTeam(currentUserId)) {
                 filters.push({
                     type: "combobox",
                     id: "me_responsible_for_milestone",
@@ -465,7 +439,7 @@ ASC.Projects.AllMilestones = (function () {
                 title: ASC.Projects.Resources.ProjectsFilterResource.OtherProjects,
                 filtertitle: ASC.Projects.Resources.ProjectsFilterResource.ByProject + ":",
                 group: ASC.Projects.Resources.ProjectsFilterResource.ByProject,
-                options: self.getProjectsForFilter(),
+                options: ASC.Projects.Common.getProjectsForFilter(),
                 groupby: "projects",
                 defaulttitle: ASC.Projects.Resources.ProjectsFilterResource.Select
             });
@@ -560,56 +534,32 @@ ASC.Projects.AllMilestones = (function () {
         ];
 
         ASC.Projects.ProjectsAdvansedFilter.init(self);
-
-        // ga-track-events
-
-        //filter
-        ASC.Projects.ProjectsAdvansedFilter.filter.one("adv-ready", function () {
-            var projectAdvansedFilterContainer = jq("#ProjectsAdvansedFilter .advansed-filter-list");
-            projectAdvansedFilterContainer.find("li[data-id='me_responsible_for_milestone'] .inner-text").trackEvent(ga_Categories.milestones, ga_Actions.filterClick, 'me_responsible_for_milestone');
-            projectAdvansedFilterContainer.find("li[data-id='responsible_for_milestone'] .inner-text").trackEvent(ga_Categories.milestones, ga_Actions.filterClick, 'responsible_for_milestone');
-            projectAdvansedFilterContainer.find("li[data-id='me_tasks'] .inner-text").trackEvent(ga_Categories.milestones, ga_Actions.filterClick, 'me_tasks');
-            projectAdvansedFilterContainer.find("li[data-id='user_tasks'] .inner-text").trackEvent(ga_Categories.milestones, ga_Actions.filterClick, 'user_tasks');
-            projectAdvansedFilterContainer.find("li[data-id='open'] .inner-text").trackEvent(ga_Categories.milestones, ga_Actions.filterClick, 'open');
-            projectAdvansedFilterContainer.find("li[data-id='closed'] .inner-text").trackEvent(ga_Categories.milestones, ga_Actions.filterClick, 'closed');
-            projectAdvansedFilterContainer.find("li[data-id='myprojects'] .inner-text").trackEvent(ga_Categories.milestones, ga_Actions.filterClick, 'myprojects');
-            projectAdvansedFilterContainer.find("li[data-id='project'] .inner-text").trackEvent(ga_Categories.milestones, ga_Actions.filterClick, 'project');
-            projectAdvansedFilterContainer.find("li[data-id='tag'] .inner-text").trackEvent(ga_Categories.milestones, ga_Actions.filterClick, 'tag');
-
-            projectAdvansedFilterContainer.find("li[data-id='overdue'] .inner-text").trackEvent(ga_Categories.milestones, ga_Actions.filterClick, 'overdue');
-            projectAdvansedFilterContainer.find("li[data-id='today'] .inner-text").trackEvent(ga_Categories.milestones, ga_Actions.filterClick, 'today');
-            projectAdvansedFilterContainer.find("li[data-id='upcoming'] .inner-text").trackEvent(ga_Categories.milestones, ga_Actions.filterClick, 'upcoming');
-            projectAdvansedFilterContainer.find("li[data-id='deadline'] .inner-text").trackEvent(ga_Categories.milestones, ga_Actions.filterClick, 'user-period');
-
-            jq("#ProjectsAdvansedFilter .btn-toggle-sorter").trackEvent(ga_Categories.milestones, ga_Actions.filterClick, 'sort');
-            jq("#ProjectsAdvansedFilter .advansed-filter-input").trackEvent(ga_Categories.milestones, ga_Actions.filterClick, "search_text", "enter");
-        });
     };
 
     var getData = function () {
         self.showLoader();
-        self.currentFilter.Count = self.entryCountOnPage;
-        self.currentFilter.StartIndex = self.entryCountOnPage * self.currentPage;
+        self.currentFilter.Count = ASC.Projects.PageNavigator.entryCountOnPage;
+        self.currentFilter.StartIndex = ASC.Projects.PageNavigator.entryCountOnPage * ASC.Projects.PageNavigator.currentPage;
 
         Teamlab.getPrjMilestones({}, { filter: self.currentFilter, success: onGetMilestones });
     };
 
     var showOrHideEmptyScreen = function (milestonesCount) {
         if (milestonesCount) {
-            self.showAdvansedFilter();
+            ASC.Projects.ProjectsAdvansedFilter.show();
             showNewMilestoneButton();
-            jq('.noContentBlock').hide();
+            self.$noContentBlock.hide();
             milestoneList.show();
         } else {
-            jq("#tableForNavigation").hide();
+            ASC.Projects.PageNavigator.hide();
             if (ASC.Projects.ProjectsAdvansedFilter.baseFilter) {
                 jq('#mileEmptyScreenForFilter').hide();
                 jq('#emptyListMilestone').show();
                 hideNewMilestoneButton();
-                self.hideAdvansedFilter();
+                ASC.Projects.ProjectsAdvansedFilter.hide();
             } else {
                 jq('#emptyListMilestone').hide();
-                self.showAdvansedFilter();
+                ASC.Projects.ProjectsAdvansedFilter.show();
                 jq('#mileEmptyScreenForFilter').show();
             }
         }
@@ -636,7 +586,7 @@ ASC.Projects.AllMilestones = (function () {
             milestoneListBody.append(jq.tmpl("projects_milestoneTemplate", listTmplMiles));
             milestoneList.show();
         }
-        self.updatePageNavigator(filterMilestoneCount);
+        ASC.Projects.PageNavigator.update(filterMilestoneCount);
         self.hideLoader();
     };
 
@@ -734,7 +684,7 @@ ASC.Projects.AllMilestones = (function () {
 
     var showQuestionWindowMilestoneRemove = function (milestoneId) {
         self.showCommonPopup("projects_milestoneRemoveWarning", 400, 200, 0);
-        commonPopupContainer.attr("milestoneId", milestoneId);
+        self.$commonPopupContainer.attr("milestoneId", milestoneId);
     };
 
     var showDescriptionPanel = function (obj) {
@@ -831,7 +781,7 @@ ASC.Projects.AllMilestones = (function () {
 
     var onAddMilestone = function (params, milestone) {
         filterMilestoneCount++;
-        self.updatePageNavigator(filterMilestoneCount);
+        ASC.Projects.PageNavigator.update(filterMilestoneCount);
 
         var milestoneTemplate = getMilestoneTemplate(milestone);
 
@@ -862,7 +812,7 @@ ASC.Projects.AllMilestones = (function () {
         newMilestone.yellowFade();
         ASC.Projects.MilestoneAction.unlockMilestoneActionPage();
         jq.unblockUI();
-        self.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.MilestoneUpdated);
+        ASC.Projects.Common.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.MilestoneUpdated);
     };
 
     var onUpdateMilestoneError = function (params, error) {
@@ -874,7 +824,7 @@ ASC.Projects.AllMilestones = (function () {
         if (error[0] == "Can not close a milestone with open tasks") {
             showQuestionWindow(params.milestoneId);
         } else {
-            self.displayInfoPanel(error[0], true);
+            ASC.Projects.Common.displayInfoPanel(error[0], true);
         }
     };
 
@@ -894,12 +844,12 @@ ASC.Projects.AllMilestones = (function () {
         }
 
         filterMilestoneCount--;
-        self.updatePageNavigator(filterMilestoneCount);
+        ASC.Projects.PageNavigator.update(filterMilestoneCount);
 
         if (milestoneListBody.children("tr").length == 0) {
             clearTimeout(descriptionTimeout);
             milestoneDescribePanel.hide();
-            jq('#tableForNavigation').hide();
+            ASC.Projects.PageNavigator.hide();
 
             if (filterMilestoneCount == 0) {
                 showOrHideEmptyScreen(0);
@@ -911,7 +861,7 @@ ASC.Projects.AllMilestones = (function () {
         }
         
         LoadingBanner.hideLoading();
-        self.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.MilestoneRemoved);
+        ASC.Projects.Common.displayInfoPanel(ASC.Projects.Resources.ProjectsJSResource.MilestoneRemoved);
     };
 
     var onAddTask = function (params, task) {
@@ -933,18 +883,16 @@ ASC.Projects.AllMilestones = (function () {
 
     var unbindListEvents = function () {
         if (!isInit) return;
-        jq("#countOfRows").unbind();
         milestoneList.unbind();
-        commonListContainer.unbind();
+        self.$commonListContainer.unbind();
         milestoneDescribePanel.unbind();
-        commonPopupContainer.unbind();
+        self.$commonPopupContainer.unbind();
         jq('#' + statusListObject.listId).unbind();
     };
 
     return jq.extend({
         init: init,
         getCurrentProjectId: getCurrentProjectId,
-        setCurrentFilter: setCurrentFilter,
         onAddMilestone: onAddMilestone,
         onUpdateMilestone: onUpdateMilestone,
         onUpdateMilestoneError: onUpdateMilestoneError,
@@ -955,5 +903,5 @@ ASC.Projects.AllMilestones = (function () {
         getData: getData,
         unbindListEvents: unbindListEvents,
         basePath: 'sortBy=deadline&sortOrder=ascending'
-    }, ASC.Projects.Common);
+    }, ASC.Projects.Base);
 })(jQuery);

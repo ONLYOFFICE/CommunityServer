@@ -33,7 +33,7 @@ using System.Web.UI.WebControls;
 using ASC.Web.Studio.Core.Backup;
 using Resources;
 using ASC.Web.Studio.Core;
-using ASC.Web.Core.CoBranding;
+using ASC.Web.Core.WhiteLabel;
 
 namespace ASC.Web.Studio.UserControls.Common
 {

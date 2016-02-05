@@ -5,92 +5,116 @@
   <register type="ASC.Web.Files.Resources.FilesCommonResource,ASC.Web.Files" alias="fres" />
 
   <xsl:template match="entryTooltip">
-    <dl>
-
-      <dt>
-        <xsl:choose>
-          <xsl:when test="type = 'file'">
-            <resource name="fres.DocumentName" />:
-          </xsl:when>
-          <xsl:when test="type = 'folder'">
-            <resource name="fres.FolderName" />:
-          </xsl:when>
-        </xsl:choose>
-      </dt>
-      <dd>
-        <xsl:value-of select="title" />
-      </dd>
-
-      <xsl:choose>
-        <xsl:when test="error = 'true'">
-          <dt>
-            <resource name="fres.ErrorEntry" />:
-          </dt>
-          <dd>
-            <xsl:value-of select="error" />
-          </dd>
-        </xsl:when>
-        <xsl:otherwise>
-
-          <dt>
-            <resource name="fres.Author" />:
-          </dt>
-          <dd>
-            <span class="userLink">
-              <xsl:value-of select="create_by" />
-            </span>
-          </dd>
-          <dt>
+    <table cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr>
+          <td>
             <xsl:choose>
-              <xsl:when test="date_type = 'upload'">
-                <resource name="fres.TitleUploaded" />:
+              <xsl:when test="type = 'file'">
+                <resource name="fres.DocumentName" />:
               </xsl:when>
-              <xsl:when test="date_type = 'update'">
-                <resource name="fres.TitleModified" />:
-              </xsl:when>
-              <xsl:when test="date_type = 'remove'">
-                <resource name="fres.TitleRemoved" />:
-              </xsl:when>
-              <xsl:when test="date_type = 'create'">
-                <resource name="fres.TitleCreated" />:
+
+              <xsl:when test="type = 'folder'">
+                <resource name="fres.FolderName" />:
               </xsl:when>
             </xsl:choose>
-          </dt>
-          <dd>
-            <xsl:value-of select="modified_on" />
-          </dd>
+          </td>
+          <td>
+            <xsl:value-of select="title" />
+          </td>
+        </tr>
+        <xsl:choose>
+          <xsl:when test="error = 'true'">
+            <tr>
+              <td>
+                <resource name="fres.ErrorEntry" />:
+              </td>
+              <td>
+                <xsl:value-of select="error" />
+              </td>
+            </tr>
+          </xsl:when>
 
-          <xsl:choose>
-            <xsl:when test="type = 'file'">
+          <xsl:otherwise>
+            <tr>
+              <td>
+                <resource name="fres.Author" />:
+              </td>
+              <td>
+                <span class="userLink">
+                  <xsl:value-of select="create_by" />
+                </span>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <xsl:choose>
+                  <xsl:when test="date_type = 'upload'">
+                    <resource name="fres.TitleUploaded" />:
+                  </xsl:when>
+                  <xsl:when test="date_type = 'update'">
+                    <resource name="fres.TitleModified" />:
+                  </xsl:when>
+                  <xsl:when test="date_type = 'remove'">
+                    <resource name="fres.TitleRemoved" />:
+                  </xsl:when>
+                  <xsl:when test="date_type = 'create'">
+                    <resource name="fres.TitleCreated" />:
+                  </xsl:when>
+                </xsl:choose>
+              </td>
+              <td>
+                <xsl:value-of select="modified_on" />
+              </td>
+            </tr>
 
-              <dt>
-                <resource name="fres.Size" />:
-              </dt>
-              <dd>
-                <xsl:value-of select="length" />
-              </dd>
+            <xsl:choose>
+              <xsl:when test="type = 'file'">
+                <tr>
+                  <td>
+                    <resource name="fres.Size" />:
+                  </td>
+                  <td>
+                    <xsl:value-of select="length" />
+                  </td>
+                </tr>
 
-            </xsl:when>
-            <xsl:when test="type = 'folder' and (not(provider_key) or provider_key = '')">
-              <dt>
-                <resource name="fres.TitleFiles" />:
-              </dt>
-              <dd>
-                <xsl:value-of select="total_files" />
-              </dd>
-              <dt>
-                <resource name="fres.TitleSubfolders" />:
-              </dt>
-              <dd>
-                <xsl:value-of select="total_sub_folder" />
-              </dd>
-            </xsl:when>
-          </xsl:choose>
+                <xsl:if test="comment and comment != ''">
+                  <tr>
+                    <td>
+                      <resource name="fres.Comment" />:
+                    </td>
+                    <td>
+                      <xsl:value-of select="comment" />
+                    </td>
+                  </tr>
+                </xsl:if>
+              </xsl:when>
 
-        </xsl:otherwise>
-      </xsl:choose>
+              <xsl:when test="type = 'folder' and (not(provider_key) or provider_key = '')">
+                <tr>
+                  <td>
+                    <resource name="fres.TitleFiles" />:
+                  </td>
+                  <td>
+                    <xsl:value-of select="total_files" />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <resource name="fres.TitleSubfolders" />:
+                  </td>
+                  <td>
+                    <xsl:value-of select="total_sub_folder" />
+                  </td>
+                </tr>
+              </xsl:when>
+            </xsl:choose>
 
-    </dl>
+          </xsl:otherwise>
+        </xsl:choose>
+      </tbody>
+    </table>
   </xsl:template>
 
 </xsl:stylesheet>

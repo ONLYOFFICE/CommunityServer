@@ -46,6 +46,7 @@ namespace ASC.Web.Talk.HttpHandlers
             // This keeps the handler in memory.
             get { return false; }
         }
+
         private readonly static JabberServiceClient _jabberServiceClient = new JabberServiceClient();
 
         public void ProcessRequest(HttpContext context)

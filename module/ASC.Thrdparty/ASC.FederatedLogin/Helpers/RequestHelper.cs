@@ -34,7 +34,7 @@ namespace ASC.FederatedLogin.Helpers
 {
     public class RequestHelper
     {
-        public static String PerformRequest(String uri, String contentType = "", String method = "GET", String body = "", Dictionary<string, string> headers = null, int timeout = 5000)
+        public static String PerformRequest(String uri, String contentType = "", String method = "GET", String body = "", Dictionary<string, string> headers = null, int timeout = 30000)
         {
             if (String.IsNullOrEmpty(uri)) throw new ArgumentNullException("uri");
 

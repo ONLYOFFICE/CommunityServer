@@ -121,7 +121,7 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public void RenameProvider(SharePointProviderInfo sharePointProviderInfo, string newTitle)
         {
-            using (var dbDao = new ProviderAccountDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, FileConstant.DatabaseId))
+            using (var dbDao = new CachedProviderAccountDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, FileConstant.DatabaseId))
             {
                 dbDao.UpdateProviderInfo(sharePointProviderInfo.ID, newTitle, sharePointProviderInfo.RootFolderType);
                 sharePointProviderInfo.UpdateTitle(newTitle); //This will update cached version too

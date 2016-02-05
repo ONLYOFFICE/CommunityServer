@@ -209,10 +209,13 @@ namespace ASC.Common.Web
             AddMimeMapping(".funk", "audio/make");
             AddMimeMapping(".g", "text/plain");
             AddMimeMapping(".g3", "image/g3fax");
+            AddMimeMapping(".gdoc", "application/vnd.google-apps.document");
             AddMimeMapping(".gif", "image/gif");
             AddMimeMapping(".gl", "video/gl");
             AddMimeMapping(".gl", "video/x-gl");
             AddMimeMapping(".gsd", "audio/x-gsm");
+            AddMimeMapping(".gsheet", "application/vnd.google-apps.spreadsheet");
+            AddMimeMapping(".gslides", "application/vnd.google-apps.presentation");
             AddMimeMapping(".gsm", "audio/x-gsm");
             AddMimeMapping(".gsp", "application/x-gsp");
             AddMimeMapping(".gss", "application/x-gss");

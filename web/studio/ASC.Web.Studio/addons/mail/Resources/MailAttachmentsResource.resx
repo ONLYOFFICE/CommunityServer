@@ -117,46 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="PL_FILE_EXTENSION_ERROR" xml:space="preserve">
-    <value>File extension error.</value>
+  <data name="AttachViaLinkBtn" xml:space="preserve">
+    <value>Attach via link</value>
   </data>
   <data name="PL_FILE_SIZE_ERROR" xml:space="preserve">
     <value>Size of attachment exceeds limit.</value>
   </data>
-  <data name="PL_GENERIC_ERROR" xml:space="preserve">
-    <value>Generic error for example if an exception is thrown inside Silverlight.</value>
-  </data>
-  <data name="PL_HTTP_ERROR" xml:space="preserve">
-    <value>HTTP transport error.</value>
-  </data>
-  <data name="PL_IMAGE_DIMENSIONS_ERROR" xml:space="preserve">
-    <value>Image dimensions error.</value>
-  </data>
-  <data name="PL_IMAGE_FORMAT_ERROR" xml:space="preserve">
-    <value>Image format error.</value>
-  </data>
-  <data name="PL_IMAGE_MEMORY_ERROR" xml:space="preserve">
-    <value>Image memoy error.</value>
-  </data>
-  <data name="PL_INIT_ERROR" xml:space="preserve">
-    <value>Initialization error.</value>
-  </data>
-  <data name="PL_IO_ERROR" xml:space="preserve">
-    <value>Generic I/O error.</value>
-  </data>
-  <data name="PL_SECURITY_ERROR" xml:space="preserve">
-    <value>Generic I/O security error.</value>
+  <data name="UploadedLabel" xml:space="preserve">
+    <value>Uploaded</value>
   </data>
   <data name="UploadingLabel" xml:space="preserve">
     <value>Uploading</value>
   </data>
-  <data name="UploadedLabel" xml:space="preserve">
-    <value>Uploaded</value>
-  </data>
   <data name="WarningLabel" xml:space="preserve">
     <value>Warning</value>
-  </data>
-  <data name="AttachViaLinkBtn" xml:space="preserve">
-    <value>Attach via link</value>
   </data>
 </root>

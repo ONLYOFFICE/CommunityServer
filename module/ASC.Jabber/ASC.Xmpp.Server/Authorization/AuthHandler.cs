@@ -24,6 +24,7 @@
 */
 
 
+using ASC.Core;
 using ASC.Xmpp.Core.authorization.DigestMD5;
 using ASC.Xmpp.Core.protocol;
 using ASC.Xmpp.Core.protocol.sasl;
@@ -44,7 +45,7 @@ namespace ASC.Xmpp.Server.Authorization
     [XmppHandler(typeof(Abort))]
     class AuthHandler : XmppStreamHandler
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(AuthHandler));
+        private readonly ILog log = LogManager.GetLogger(typeof(AuthHandler));
         private IDictionary<string, AuthData> authData = new Dictionary<string, AuthData>();
 
         public override void StreamEndHandle(XmppStream stream, ICollection<Node> notSendedBuffer, XmppHandlerContext context)
@@ -101,45 +102,52 @@ namespace ASC.Xmpp.Server.Authorization
                     {
                         string userName = array[1];
                         string password = array[2];
-                        var storage = new DbLdapSettingsStore();
-                        storage.GetLdapSettings(stream.Domain);
+                        bool isAuth = false;
                         User user = context.UserManager.GetUser(new Jid(userName, stream.Domain, null));
                         if (user != null)
                         {
                             if (user.Sid != null)
                             {
-                                var accountName = storage.getAccountNameBySid(user.Sid);
-                                if (accountName != null && storage.CheckCredentials(accountName, password))
+                                if (!user.Sid.StartsWith("l"))
                                 {
-                                    // ldap user
-                                    lock (authData)
+                                    var storage = new DbLdapSettingsStore();
+                                    storage.GetLdapSettings(stream.Domain);
+                                    ILdapHelper ldapHelper = !WorkContext.IsMono ?
+                                        (ILdapHelper)new SystemLdapHelper() : new NovellLdapHelper();
+                                    var accountName = ldapHelper.GetAccountNameBySid(user.Sid, storage.Authentication,
+                                        storage.Login, storage.Password, storage.Server, storage.PortNumber,
+                                        storage.UserDN, storage.LoginAttribute, storage.StartTls);
+                                    if (accountName != null && ldapHelper.CheckCredentials(accountName,
+                                        password, storage.Server, storage.PortNumber, storage.Login, storage.StartTls))
                                     {
-                                        authData[stream.Id] = new AuthData(true);
-                                        authData[stream.Id].UserName = userName;
-                                        authData[stream.Id].IsAuth = true;
+                                        // ldap user
+                                        isAuth = true;
                                     }
                                 }
                             }
                             else if (user.Password == password)
                             {
                                 // usual user
-                                lock (authData)
-                                {
-                                    authData[stream.Id] = new AuthData(true);
-                                    authData[stream.Id].UserName = userName;
-                                    authData[stream.Id].IsAuth = true;
-                                }
+                                isAuth = true;
                             }
                         }
-                    }
-                    lock (authData)
-                    {
-                        if (!authData.ContainsKey(stream.Id))
+                        if (isAuth)
                         {
-                            authData[stream.Id] = new AuthData(true);
+                            log.DebugFormat("User {0} authorized, Domain = {1}", userName, stream.Domain);
+                            context.Sender.ResetStream(stream);
+                            stream.Authenticate(userName);
+                            context.Sender.SendTo(stream, new Success());
+                        }
+                        else
+                        {
+                            log.DebugFormat("User {0} not authorized, Domain = {1}", userName, stream.Domain);
+                            context.Sender.SendToAndClose(stream, XmppFailureError.NotAuthorized);
                         }
                     }
-                    context.Sender.SendTo(stream, new Challenge());
+                    else
+                    {
+                        context.Sender.SendToAndClose(stream, XmppFailureError.TemporaryAuthFailure);
+                    }
                 }
             }
             else
@@ -184,25 +192,6 @@ namespace ASC.Xmpp.Server.Authorization
                 else
                 {
                     context.Sender.SendToAndClose(stream, XmppFailureError.TemporaryAuthFailure);
-                }
-            }
-            else
-            {
-                if (authStep.IsAuth)
-                {
-                    lock (authData)
-                    {
-                        stream.Authenticate(authData[stream.Id].UserName);
-                        authData.Remove(stream.Id);
-                    }
-                    log.DebugFormat("User authorized");
-                    context.Sender.ResetStream(stream);
-                    context.Sender.SendTo(stream, new Success());
-                }
-                else
-                {
-                    log.DebugFormat("User not authorized");
-                    context.Sender.SendTo(stream, new Failure(FailureCondition.not_authorized));
                 }
             }
         }
@@ -297,12 +286,6 @@ namespace ASC.Xmpp.Server.Authorization
             public bool IsPlain
             {
                 get;
-                set; 
-            }
-
-            public bool IsAuth 
-            {
-                get; 
                 set; 
             }
 

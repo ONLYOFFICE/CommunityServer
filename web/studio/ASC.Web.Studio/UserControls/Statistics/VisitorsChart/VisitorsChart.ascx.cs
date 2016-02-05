@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -57,13 +57,12 @@ namespace ASC.Web.Studio.UserControls.Statistics
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/statistics/visitorschart/css/visitorschart_style.less"));
+            Page.RegisterStyle("~/usercontrols/statistics/visitorschart/css/visitorschart_style.less");
 
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/statistics/visitorschart/js/excanvas.min.js"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/statistics/visitorschart/js/jquery.flot.js"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/statistics/visitorschart/js/jquery.flot.resize.js"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/statistics/visitorschart/js/tooltip.js"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/statistics/visitorschart/js/visitorschart.js"));
+            Page.RegisterBodyScripts("~/usercontrols/statistics/visitorschart/js/excanvas.min.js");
+            Page.RegisterBodyScripts("~/usercontrols/statistics/visitorschart/js/jquery.flot.js");
+            Page.RegisterBodyScripts("~/usercontrols/statistics/visitorschart/js/tooltip.js");
+            Page.RegisterBodyScripts("~/usercontrols/statistics/visitorschart/js/visitorschart.js");
 
             var jsResources = new StringBuilder();
             jsResources.Append("jq(document).ready(function(){");

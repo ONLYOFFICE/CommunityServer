@@ -24,12 +24,13 @@
 */
 
 
-using System.Web.Configuration;
+using System;
+using System.Configuration;
+using System.Globalization;
 using ASC.Api.Impl;
 using ASC.Api.Interfaces;
 using ASC.Core;
 using ASC.Mail.Aggregator;
-using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Logging;
 
 namespace ASC.Api.Mail
@@ -39,9 +40,7 @@ namespace ASC.Api.Mail
         private readonly ApiContext _context;
 
         private MailBoxManager _mailBoxManager;
-        private MailSendQueue _mailSendQueue;
         private ILogger _log;
-
 
         ///<summary>
         /// Api name entry
@@ -51,7 +50,6 @@ namespace ASC.Api.Mail
             get { return "mail"; }
         }
 
-
         private MailBoxManager MailBoxManager
         {
             get { return _mailBoxManager ?? (_mailBoxManager = new MailBoxManager(Logger)); }
@@ -60,11 +58,6 @@ namespace ASC.Api.Mail
         private ILogger Logger
         {
             get { return _log ?? (_log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "ASC.Api")); }
-        }
-
-        private MailSendQueue SendQueue
-        {
-            get { return _mailSendQueue ?? (_mailSendQueue = new MailSendQueue(MailBoxManager, Logger)); }
         }
 
         private int TenantId
@@ -77,9 +70,26 @@ namespace ASC.Api.Mail
             get { return SecurityContext.CurrentAccount.ID.ToString(); }
         }
 
+        private CultureInfo CurrentCulture
+        {
+            get
+            {
+                var u = CoreContext.UserManager.GetUsers(new Guid(Username));
+
+                var culture = !string.IsNullOrEmpty(u.CultureName) ? u.GetCulture() : CoreContext.TenantManager.GetCurrentTenant().GetCulture();
+
+                return culture;
+            }
+        }
+
         private bool IsSignalRAvailable
         {
-            get { return !string.IsNullOrEmpty(WebConfigurationManager.AppSettings["web.hub"]); }
+            get { return !string.IsNullOrEmpty(ConfigurationManager.AppSettings["web.hub"]); }
+        }
+
+        private string MailDaemonEmail
+        {
+            get { return ConfigurationManager.AppSettings["mail.daemon-email"] ?? "mail-daemon@onlyoffice.com"; }
         }
 
         ///<summary>

@@ -1,7 +1,4 @@
-﻿<%@ Import Namespace="ASC.Web.Core.Users" %>
-<%@ Import Namespace="ASC.Core" %>
-<%@ Import Namespace="ASC.Core.Users" %>
-<%@ Import Namespace="ASC.Web.Studio.Core" %>
+﻿<%@ Import Namespace="ASC.Core.Users" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UserEmailControl.ascx.cs"
     Inherits="ASC.Web.Studio.UserControls.Users.UserProfile.UserEmailControl" %>
 
@@ -12,7 +9,7 @@
     <% if (Viewer.IsAdmin() || Viewer.ID == User.ID) {
         if (User.ActivationStatus == EmployeeActivationStatus.Activated) { %>
         <div>
-            <a class="mail" target="_blank" href="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/#composeto/email=" + User.Email.ToLower())%>" title="<%=HttpUtility.HtmlEncode(User.Email.ToLower())%>">
+            <a class="mail" <%= RenderMailLinkAttribute() %> title="<%=HttpUtility.HtmlEncode(User.Email.ToLower())%>">
                 <%=HttpUtility.HtmlEncode(User.Email.ToLower())%>
             </a>
             <% if (User.Status != EmployeeStatus.Terminated && (!User.IsOwner() || Viewer.IsOwner()))
@@ -22,7 +19,7 @@
         </div>
       <% } else if (User.ActivationStatus == EmployeeActivationStatus.NotActivated) {%>
         <div class="tintMedium">
-            <a class="mail" target="_blank" href="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/#composeto/email=" + User.Email.ToLower())%>" title="<%=HttpUtility.HtmlEncode(User.Email.ToLower())%>">
+            <a class="mail" <%= RenderMailLinkAttribute() %> title="<%=HttpUtility.HtmlEncode(User.Email.ToLower())%>">
                 <%=HttpUtility.HtmlEncode(User.Email.ToLower())%>
             </a>
             <% if (User.Status != EmployeeStatus.Terminated && (!User.IsOwner() || Viewer.IsOwner()))
@@ -37,7 +34,7 @@
         </div>
       <% } else if (User.ActivationStatus == EmployeeActivationStatus.Pending) { %>
         <div class="tintMedium">
-            <a class="mail" target="_blank" href="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/#composeto/email=" + User.Email.ToLower())%>" title="<%=HttpUtility.HtmlEncode(User.Email.ToLower())%>">
+            <a class="mail" <%= RenderMailLinkAttribute() %> title="<%=HttpUtility.HtmlEncode(User.Email.ToLower())%>">
                 <%=HttpUtility.HtmlEncode(User.Email.ToLower())%>
             </a>
             <% if (User.Status != EmployeeStatus.Terminated && (!User.IsOwner() || Viewer.IsOwner()))
@@ -55,7 +52,7 @@
       <% } %>
     <% } else {%>
         <div>
-            <a class="mail" target="_blank" href="<%=VirtualPathUtility.ToAbsolute("~/addons/mail/#composeto/email=" + User.Email.ToLower())%>" title="<%=HttpUtility.HtmlEncode(User.Email.ToLower())%>">
+            <a class="mail" <%= RenderMailLinkAttribute() %> title="<%=HttpUtility.HtmlEncode(User.Email.ToLower())%>">
                 <%=HttpUtility.HtmlEncode(User.Email.ToLower())%>
             </a>
         </div>

@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -29,22 +29,12 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Net;
-using System.Web;
 using System.Linq;
-using ASC.CRM.Core.Entities;
-using ASC.Collections;
+using ASC.Common.Caching;
 using ASC.Common.Threading.Workers;
 using ASC.Data.Storage;
-using ASC.MessagingSystem;
 using ASC.Web.CRM.Configuration;
-using ASC.Web.Core.Files;
-using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Skins;
-using ASC.Web.Studio.Controls.FileUploader;
-using ASC.Web.Studio.Core;
-using System.Drawing.Imaging;
-using ASC.Web.CRM.Resources;
-using ASC.Web.Core.Users;
 using ASC.Web.Core;
 
 namespace ASC.Web.CRM.Classes
@@ -85,9 +75,10 @@ namespace ASC.Web.CRM.Classes
         private const string PhotosBaseDirName = "photos";
         private const string PhotosDefaultTmpDirName = "temp";
 
-        private static readonly SynchronizedDictionary<int, IDictionary<Size, string>> _photoCache = new SynchronizedDictionary<int, IDictionary<Size, string>>();
+        private static readonly Dictionary<int, IDictionary<Size, string>> _photoCache = new Dictionary<int, IDictionary<Size, string>>();
 
         private static readonly WorkerQueue<ResizeWorkerItem> ResizeQueue = new WorkerQueue<ResizeWorkerItem>(2, TimeSpan.FromSeconds(30), 1, true);
+        private static readonly ICacheNotify cachyNotify; 
 
         private static readonly Size _oldBigSize = new Size(145, 145);
 
@@ -95,32 +86,60 @@ namespace ASC.Web.CRM.Classes
         private static readonly Size _mediumSize = new Size(82, 82);
         private static readonly Size _smallSize = new Size(40, 40);
 
-        private static readonly Object _synchronizedObj = new Object();
+        private static readonly object locker = new object();
 
         #endregion
 
         #region Cache and DataStore Methods
 
+        static ContactPhotoManager()
+        {
+            cachyNotify = AscCache.Notify;
+            cachyNotify.Subscribe<KeyValuePair<int, KeyValuePair<Size, string>>>(
+                (item, action) =>
+                {
+                    var contactID = item.Key;
+                    var sizeUriPair = item.Value;
+
+                    switch (action)
+                    {
+                        case CacheNotifyAction.InsertOrUpdate:
+                            ToPrivateCache(contactID, sizeUriPair.Value, sizeUriPair.Key);
+                            break;
+                        case CacheNotifyAction.Remove:
+                            RemoveFromPrivateCache(contactID);
+                            break;
+                    }
+                });
+        }
+
         private static String FromCache(int contactID, Size photoSize)
         {
-            if (_photoCache.ContainsKey(contactID))
+            lock (locker)
             {
-                if (_photoCache[contactID].ContainsKey(photoSize))
+                if (_photoCache.ContainsKey(contactID))
                 {
-                    return _photoCache[contactID][photoSize];
-                }
-                if (photoSize == _bigSize && _photoCache[contactID].ContainsKey(_oldBigSize))
-                {
-                    return _photoCache[contactID][_oldBigSize];
+                    if (_photoCache[contactID].ContainsKey(photoSize))
+                    {
+                        return _photoCache[contactID][photoSize];
+                    }
+                    if (photoSize == _bigSize && _photoCache[contactID].ContainsKey(_oldBigSize))
+                    {
+                        return _photoCache[contactID][_oldBigSize];
+                    }
                 }
             }
-
             return String.Empty;
         }
 
         private static void RemoveFromCache(int contactID)
         {
-            lock (_synchronizedObj)
+            cachyNotify.Publish(CreateCacheItem(contactID, "", Size.Empty), CacheNotifyAction.Remove);
+        }
+
+        private static void RemoveFromPrivateCache(int contactID)
+        {
+            lock (locker)
             {
                 _photoCache.Remove(contactID);
             }
@@ -128,7 +147,12 @@ namespace ASC.Web.CRM.Classes
 
         private static void ToCache(int contactID, String photoUri, Size photoSize)
         {
-            lock (_synchronizedObj)
+            cachyNotify.Publish(CreateCacheItem(contactID, photoUri, photoSize), CacheNotifyAction.InsertOrUpdate);
+        }
+
+        private static void ToPrivateCache(int contactID, String photoUri, Size photoSize)
+        {
+            lock (locker)
             {
                 if (_photoCache.ContainsKey(contactID))
                     if (_photoCache[contactID].ContainsKey(photoSize))
@@ -138,6 +162,12 @@ namespace ASC.Web.CRM.Classes
                 else
                     _photoCache.Add(contactID, new Dictionary<Size, string> {{photoSize, photoUri}});
             }
+        }
+
+        private static KeyValuePair<int, KeyValuePair<Size, string>> CreateCacheItem(int contactID, String photoUri, Size photoSize)
+        {
+            var sizeUriPair = new KeyValuePair<Size, string>(photoSize, photoUri);
+            return new KeyValuePair<int, KeyValuePair<Size, string>>(contactID, sizeUriPair);
         }
 
         private static String FromDataStore(int contactID, Size photoSize)
@@ -336,7 +366,7 @@ namespace ASC.Web.CRM.Classes
             if (contactID == 0)
                 throw new ArgumentException();
 
-            lock (_synchronizedObj)
+            lock (locker)
             {
                 ResizeQueue.GetItems().Where(item => item.ContactID == contactID)
                            .All(item =>

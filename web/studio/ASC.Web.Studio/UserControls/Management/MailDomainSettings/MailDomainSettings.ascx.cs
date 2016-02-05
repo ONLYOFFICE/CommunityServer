@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -57,8 +57,8 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/maildomainsettings/js/maildomainsettings.js"));
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/management/maildomainsettings/css/maildomainsettings.less"));
+            Page.RegisterBodyScripts("~/usercontrols/management/maildomainsettings/js/maildomainsettings.js");
+            Page.RegisterStyle("~/usercontrols/management/maildomainsettings/css/maildomainsettings.less");
 
             _currentTenant = CoreContext.TenantManager.GetCurrentTenant();
             _studioTrustedDomainSettings = SettingsManager.Instance.LoadSettings<StudioTrustedDomainSettings>(TenantProvider.CurrentTenantID);

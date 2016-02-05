@@ -43,7 +43,7 @@ namespace ASC.Web.Files.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/products/files/controls/accessrights/accessrights.js"));
+            Page.RegisterBodyScripts("~/products/files/controls/accessrights/accessrights.js");
 
             var sharingSetting = (SharingSettings) LoadControl(SharingSettings.Location);
             sharingSetting.EnableShareMessage = true;

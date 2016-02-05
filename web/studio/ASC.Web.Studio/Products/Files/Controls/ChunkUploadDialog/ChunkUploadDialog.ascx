@@ -64,7 +64,7 @@
                else
                { %>
             <span class="free-space gray-text"></span>
-            <% if (!CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
+            <% if (TenantExtra.EnableTarrifSettings && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
                { %>
             <span class="splitter"></span>
             <a class="link underline gray" target="_blank" href="<%= TenantExtra.GetTariffPageLink() %>">

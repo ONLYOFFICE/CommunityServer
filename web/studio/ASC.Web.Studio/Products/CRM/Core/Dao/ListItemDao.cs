@@ -71,11 +71,11 @@ namespace ASC.CRM.Core.Dao
             base.ChangeColor(id, newColor);
         }
 
-        public override void DeleteItem(ListType listType, int itemID)
+        public override void DeleteItem(ListType listType, int itemID, int toItemID)
         {
             ResetCache(itemID);
 
-            base.DeleteItem(listType, itemID);
+            base.DeleteItem(listType, itemID, toItemID);
         }
 
         public override void ChangePicture(int id, string newPicture)
@@ -512,8 +512,6 @@ namespace ASC.CRM.Core.Dao
 
         public void ChangeRelativeItemsLink(ListType listType, int fromItemID, int toItemID)
         {
-
-
             if (!IsExist(fromItemID))
                 throw new ArgumentException("", "toItemID");
            
@@ -556,9 +554,8 @@ namespace ASC.CRM.Core.Dao
             }
         }
 
-        public virtual void DeleteItem(ListType listType, int itemID)
+        public virtual void DeleteItem(ListType listType, int itemID, int toItemID)
         {
-
             if (HaveRelativeItemsLink(listType, itemID))
             {
                 switch (listType)
@@ -567,7 +564,10 @@ namespace ASC.CRM.Core.Dao
                     case ListType.ContactType:
                         throw new ArgumentException(String.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeDeleted, CRMErrorsResource.HasRelatedContacts));
                     case ListType.TaskCategory:
-                        throw new ArgumentException(String.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeDeleted, CRMErrorsResource.TaskCategoryHasRelatedTasks));
+                        var exMsg = String.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeDeleted, CRMErrorsResource.TaskCategoryHasRelatedTasks);
+                        if (itemID == toItemID) throw new ArgumentException(exMsg);
+                        ChangeRelativeItemsLink(listType, itemID, toItemID);
+                        break;
                     case ListType.HistoryCategory:
                         throw new ArgumentException(String.Format("{0}. {1}.", CRMErrorsResource.BasicCannotBeDeleted, CRMErrorsResource.HistoryCategoryHasRelatedEvents));
                     default:

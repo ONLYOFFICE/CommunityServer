@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -32,14 +32,12 @@ using ASC.Core;
 using ASC.MessagingSystem;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
-using AjaxPro;
 using ASC.Web.Core.Utility;
 using Resources;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
     [ManagementControl(ManagementType.Customization, Location, SortOrder = 100)]
-    [AjaxNamespace("ColorThemeController")]
     public partial class ColorThemes : UserControl
     {
         public const string Location = "~/UserControls/Management/ColorThemes/ColorThemes.ascx";
@@ -50,9 +48,8 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            AjaxPro.Utility.RegisterTypeForAjax(GetType());
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/Management/ColorThemes/js/colorthemes.js"));
-            Page.RegisterStyleControl(ResolveUrl("~/usercontrols/management/ColorThemes/css/colorthemes.css"));
+            Page.RegisterBodyScripts("~/usercontrols/Management/ColorThemes/js/colorthemes.js");
+            Page.RegisterStyle("~/usercontrols/management/ColorThemes/css/colorthemes.css");
 
             ChosenTheme = ColorThemesSettings.GetColorThemesSettings();
 
@@ -60,13 +57,13 @@ namespace ASC.Web.Studio.UserControls.Management
                 {
                     new PortalColorTheme
                         {
-                            Title = Resource.ColorThemeDefault,
-                            Value = "default"
+                            Title = Resource.ColorThemePureOrange,
+                            Value = "pure-orange"
                         },
                     new PortalColorTheme
                         {
-                            Title = Resource.ColorThemePureOrange,
-                            Value = "pure-orange"
+                            Title = Resource.ColorThemeDefault,
+                            Value = "default"
                         },
                     new PortalColorTheme
                         {
@@ -89,14 +86,6 @@ namespace ASC.Web.Studio.UserControls.Management
                             Value = "bright-blue"
                         }
                 };
-        }
-
-        [AjaxMethod]
-        public void SaveColorTheme(string theme)
-        {
-            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
-            ColorThemesSettings.SaveColorTheme(theme);
-            MessageService.Send(HttpContext.Current.Request, MessageAction.ColorThemeChanged);
         }
 
         public class PortalColorTheme

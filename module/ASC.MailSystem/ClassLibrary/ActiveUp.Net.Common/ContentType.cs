@@ -42,7 +42,7 @@ namespace ActiveUp.Net.Mail
             }
             set
             {
-                this._mimeType = value + "/" + this.SubType;
+                this._mimeType = string.Format("{0}/{1}", value, this.SubType);
             }
         }
         public string SubType
@@ -53,7 +53,7 @@ namespace ActiveUp.Net.Mail
             }
             set
             {
-                this._mimeType = this.Type + "/" + value;
+                this._mimeType = string.Format("{0}/{1}", this.Type, value);
             }
         }
         public string MimeType
@@ -69,18 +69,24 @@ namespace ActiveUp.Net.Mail
         }
         public override string ToString()
         {
-            string str = string.Empty;
-            str += "Content-Type: " + this.MimeType;
-            foreach (string key in this.Parameters.AllKeys)
-            {
-                string value = string.Empty;
-                
-                if (key.Equals("boundary")) value = "\"" + this.Parameters[key] + "\"";
-                else value = this.Parameters[key];
+            var sb = new StringBuilder();
 
-                str += ";\r\n\t" + key + "=" + value;
+            sb.Append("Content-Type: ")
+                .Append(this.MimeType);
+
+            foreach (var key in this.Parameters.AllKeys)
+            {
+                sb.Append(";\r\n\t").Append(key).Append("=");
+
+                if (key.Equals("boundary"))
+                {
+                    sb.Append("\"").Append(this.Parameters[key]).Append("\"");
+                }
+                else sb.Append(this.Parameters[key]);
+
             }
-            return str;
+
+            return sb.ToString();
         }
     }
 }

@@ -120,20 +120,11 @@
   <data name="ActiveProject" xml:space="preserve">
     <value>Active</value>
   </data>
-  <data name="ActiveProjects" xml:space="preserve">
-    <value>Active Projects</value>
-  </data>
   <data name="AddNewProject" xml:space="preserve">
     <value>Add This Project</value>
   </data>
   <data name="AllProjects" xml:space="preserve">
     <value>All Projects</value>
-  </data>
-  <data name="ArchiveProjects" xml:space="preserve">
-    <value>Completed Projects</value>
-  </data>
-  <data name="ChoosenUsers" xml:space="preserve">
-    <value>Members</value>
   </data>
   <data name="ClosedProject" xml:space="preserve">
     <value>Closed</value>
@@ -141,71 +132,14 @@
   <data name="CreateNewProject" xml:space="preserve">
     <value>Create new project</value>
   </data>
-  <data name="NewProject" xml:space="preserve">
-    <value>New project</value>
-  </data>
-  <data name="Dashboard" xml:space="preserve">
-    <value>Dashboard</value>
-  </data>
-  <data name="EmptyScreenHeaderContent" xml:space="preserve">
-    <value>Create the first project</value>
-  </data>
-  <data name="EmptyScreenHeaderDescribe" xml:space="preserve">
-    <value>Prepare templates for similar projects: schedule milestones, build teams and assign tasks.</value>
-  </data>
-  <data name="Example" xml:space="preserve">
-    <value>As a rule, the name of the project, client, department ...</value>
-  </data>
-  <data name="InfoMessageText" xml:space="preserve">
-    <value>This information will be sent to the administrator as a New Project request.</value>
-  </data>
-  <data name="InfoMessageText2" xml:space="preserve">
-    <value>This information will be sent to the administrator as a Project Change request.</value>
-  </data>
-  <data name="Information" xml:space="preserve">
-    <value>When deleting a project, be aware that it will be deleted completely with no possibility to restore.</value>
-  </data>
   <data name="IUnerstand" xml:space="preserve">
     <value>I understand it - DELETE this project.</value>
-  </data>
-  <data name="LastActivity" xml:space="preserve">
-    <value>Recent Activity</value>
-  </data>
-  <data name="LeadPerson" xml:space="preserve">
-    <value>Responsible</value>
   </data>
   <data name="ManagmentTeam" xml:space="preserve">
     <value>Manage Team</value>
   </data>
-  <data name="Milestones" xml:space="preserve">
-    <value>milestone(s)</value>
-  </data>
-  <data name="MyProjects" xml:space="preserve">
-    <value>My Projects</value>
-  </data>
-  <data name="NingNoActivity" xml:space="preserve">
-    <value>No activity</value>
-  </data>
-  <data name="NotifyProjectLeader" xml:space="preserve">
-    <value>Notify project manager by e-mail</value>
-  </data>
-  <data name="NotifyProjectTeam" xml:space="preserve">
-    <value>Notify project team</value>
-  </data>
-  <data name="NotInvolvedInAnyProject" xml:space="preserve">
-    <value>Doesn't take part in any project</value>
-  </data>
-  <data name="PeopleOnThisProject" xml:space="preserve">
-    <value>Project Team</value>
-  </data>
   <data name="Project" xml:space="preserve">
     <value>Project</value>
-  </data>
-  <data name="ProjectAdded" xml:space="preserve">
-    <value>Add Project</value>
-  </data>
-  <data name="ProjectDeleteButton" xml:space="preserve">
-    <value>Delete This Project</value>
   </data>
   <data name="ProjectDeleted" xml:space="preserve">
     <value>Delete Project</value>
@@ -228,86 +162,17 @@
   <data name="SaveProject" xml:space="preserve">
     <value>Save Project</value>
   </data>
-  <data name="SeeAllProjectsMilestone" xml:space="preserve">
-    <value>View all project's milestones</value>
-  </data>
-  <data name="SeeHistory" xml:space="preserve">
-    <value>View history </value>
-  </data>
-  <data name="SeeMore" xml:space="preserve">
-    <value>View all</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>Project Settings</value>
-  </data>
-  <data name="Statistics" xml:space="preserve">
-    <value>Statistics</value>
-  </data>
-  <data name="Tasks" xml:space="preserve">
-    <value>task(s)</value>
-  </data>
   <data name="Team" xml:space="preserve">
     <value>Team</value>
   </data>
-  <data name="NewProjects" xml:space="preserve">
-    <value>New Projects</value>
-  </data>
-  <data name="FollowingLinkTitle" xml:space="preserve">
-    <value>The project news will be included into your What's New notification e-mail, the project will be available on the Projects tab in the Projects I Follow section and in the All Projects drop-down list on the top.</value>
-  </data>
   <data name="FollowingProjects" xml:space="preserve">
     <value>Follow this project</value>
-  </data>
-  <data name="ProjectsKeepTrack" xml:space="preserve">
-    <value>Projects I Follow</value>
-  </data>
-  <data name="UnFollowingProjects" xml:space="preserve">
-    <value>Unfollow this project</value>
-  </data>
-  <data name="NoActivity" xml:space="preserve">
-    <value>No Activity</value>
-  </data>
-  <data name="EmptyScreenAllActiveProjectsHeaderContent" xml:space="preserve">
-    <value>No active projects</value>
-  </data>
-  <data name="EmptyScreenAllProjectsHeaderContent" xml:space="preserve">
-    <value>No projects</value>
-  </data>
-  <data name="EmptyScreenByLabelActiveProjectsHeaderContent" xml:space="preserve">
-    <value>No active projects with this tag</value>
-  </data>
-  <data name="EmptyScreenByLabelProjectsHeaderContent" xml:space="preserve">
-    <value>No projects with this tag</value>
-  </data>
-  <data name="EmptyScreenKeepTrackActiveProjectsHeaderContent" xml:space="preserve">
-    <value>You Follow No Active Projects</value>
-  </data>
-  <data name="EmptyScreenKeepTrackProjectsHeaderContent" xml:space="preserve">
-    <value>You Follow No Projects</value>
-  </data>
-  <data name="EmptyScreenMyActiveProjectsHeaderContent" xml:space="preserve">
-    <value>You do not participate in any active project</value>
-  </data>
-  <data name="EmptyScreenMyProjectsHeaderContent" xml:space="preserve">
-    <value>You do not participate in any project</value>
-  </data>
-  <data name="HideClosedProjects" xml:space="preserve">
-    <value>Hide Closed Projects</value>
-  </data>
-  <data name="ProjectsByLabelCaption" xml:space="preserve">
-    <value>Projects By Tag «{0}»</value>
-  </data>
-  <data name="ShowClosedProjects" xml:space="preserve">
-    <value>Show Closed Projects</value>
   </data>
   <data name="EnterTheTags" xml:space="preserve">
     <value>Enter the needed tags separating them with commas</value>
   </data>
   <data name="Tags" xml:space="preserve">
     <value>Tags</value>
-  </data>
-  <data name="ProjectsByLabel" xml:space="preserve">
-    <value>Projects By Tag</value>
   </data>
   <data name="HiddenProject" xml:space="preserve">
     <value>Private Project</value>
@@ -321,113 +186,17 @@
   <data name="Create" xml:space="preserve">
     <value>Create</value>
   </data>
-  <data name="CreateProjectTemplate" xml:space="preserve">
-    <value>Create project template</value>
-  </data>
-  <data name="InvalidProjectTemplateTitle" xml:space="preserve">
-    <value>Invalid project template title</value>
-  </data>
-  <data name="DeleteProjectTemplate" xml:space="preserve">
-    <value>Delete project template</value>
-  </data>
-  <data name="CreateProjectFromTemplate" xml:space="preserve">
-    <value>Create project from template</value>
-  </data>
-  <data name="AllProjectTemplates" xml:space="preserve">
-    <value>All Project Templates</value>
-  </data>
   <data name="SelectProjectTemplate" xml:space="preserve">
     <value>Select project template</value>
   </data>
-  <data name="EmptyScreenProjectTemplates" xml:space="preserve">
-    <value>Create the first project template</value>
-  </data>
-  <data name="EmptyScreenProjectTemplatesDescribe" xml:space="preserve">
-    <value>Send messages, add tasks, plan milestones, manage your team.</value>
-  </data>
-  <data name="TemplateModeAttention" xml:space="preserve">
-    <value>Note: templates are not projects themselves</value>
-  </data>
-  <data name="AppliedTemplate" xml:space="preserve">
-    <value>Applied Template {0}</value>
-  </data>
-  <data name="Clear" xml:space="preserve">
-    <value>Clear</value>
-  </data>
-  <data name="CreateFromTemplate" xml:space="preserve">
-    <value>Create from Template</value>
-  </data>
   <data name="ProjectTemplate" xml:space="preserve">
     <value>Project template</value>
-  </data>
-  <data name="AddThisTemplate" xml:space="preserve">
-    <value>Add this template</value>
-  </data>
-  <data name="ProjectTemplateTitleExample" xml:space="preserve">
-    <value>For example, Redesign Template or Seminar Template, etc</value>
-  </data>
-  <data name="TemplateCreationIsInProgress" xml:space="preserve">
-    <value>Template is being created</value>
-  </data>
-  <data name="ProjectTemplateSetUpDescription" xml:space="preserve">
-    <value>A project template contains a set of messages,  milestones, members and tasks to base new projects on.{0}When you create a new project all templates are available from the dropdown menu saving your time and effort.</value>
-  </data>
-  <data name="ProjectTemplateSetUpLabel" xml:space="preserve">
-    <value>Now it's time to customize your Project Template!</value>
-  </data>
-  <data name="ProjectTemplateSetupDiscussion" xml:space="preserve">
-    <value>Start the first discussion</value>
-  </data>
-  <data name="ProjectTemplateSetupMilestone" xml:space="preserve">
-    <value>Set the first milestone</value>
-  </data>
-  <data name="ProjectTemplateSetupTask" xml:space="preserve">
-    <value>Assign the first task</value>
-  </data>
-  <data name="ProjectTemplateSetupTeam" xml:space="preserve">
-    <value>Build a team</value>
-  </data>
-  <data name="EmptyScreenProjectTemplateTeam" xml:space="preserve">
-    <value>Build a team for this project template</value>
-  </data>
-  <data name="EmptyScreenProjectTemplateTeamDescription" xml:space="preserve">
-    <value>Select the participants for this project.</value>
-  </data>
-  <data name="ClosedProjectTeamDocumentButtonTooltip" xml:space="preserve">
-    <value>on/off documents</value>
-  </data>
-  <data name="ClosedProjectTeamMessageButtonTooltip" xml:space="preserve">
-    <value>on/off discussions</value>
-  </data>
-  <data name="ClosedProjectTeamTaskButtonTooltip" xml:space="preserve">
-    <value>on/off tasks</value>
   </data>
   <data name="ClosedProjectTeamWriteInMessenger" xml:space="preserve">
     <value>Contact via Talk</value>
   </data>
   <data name="ClosedProjectTeamWriteMail" xml:space="preserve">
     <value>Send Email</value>
-  </data>
-  <data name="EmployeesAndPermissions" xml:space="preserve">
-    <value>{!Users} and Access Rights</value>
-  </data>
-  <data name="ClosedProjectTeamMilestoneButtonTooltip" xml:space="preserve">
-    <value>on/off milestones</value>
-  </data>
-  <data name="InformationForHidden" xml:space="preserve">
-    <value>Private project is available only to project manager and project members with corresponding rights.</value>
-  </data>
-  <data name="IUnerstandForHidden" xml:space="preserve">
-    <value>Yes, I understand it - Add the project as private</value>
-  </data>
-  <data name="ClosedProjectTeamAllTasksInfoPanel" xml:space="preserve">
-    <value>If this option is enabled, a project member can view all tasks and set tasks to other teammates. If this option is disabled, a project member can access tasks assigned to him only.</value>
-  </data>
-  <data name="ClosedProjectTeamDiscussionsInfoPanel" xml:space="preserve">
-    <value>If this option is enabled, a project member can view and add discussions.</value>
-  </data>
-  <data name="ClosedProjectTeamDocumentsInfoPanel" xml:space="preserve">
-    <value>If this option is enabled, a project member can view and add documents.</value>
   </data>
   <data name="ClosedProjectTeamManagerPermission" xml:space="preserve">
     <value>Project Manager can</value>
@@ -441,17 +210,8 @@
   <data name="ClosedProjectTeamManagerPermissionArticleC" xml:space="preserve">
     <value>manage (create, edit, delete) milestones, tasks, discussions, documents and {2}{0}restrict access to them{1}</value>
   </data>
-  <data name="ClosedProjectTeamMilestonesInfoPanel" xml:space="preserve">
-    <value>If this option is enabled, a project member can view all milestones in the project. If this option is disabled, a project member can access milestones with tasks assigned to him only.</value>
-  </data>
   <data name="IUnerstandForEditHidden" xml:space="preserve">
     <value>Yes, I understand it - Save this project as private</value>
-  </data>
-  <data name="LoadingProcessing" xml:space="preserve">
-    <value>Loading...</value>
-  </data>
-  <data name="LoadingWait" xml:space="preserve">
-    <value>Please wait...</value>
   </data>
   <data name="PausedProject" xml:space="preserve">
     <value>Paused</value>
@@ -459,26 +219,8 @@
   <data name="Comments" xml:space="preserve">
     <value>Comments</value>
   </data>
-  <data name="Files" xml:space="preserve">
-    <value>Files</value>
-  </data>
   <data name="AddTask" xml:space="preserve">
     <value>Add Task</value>
-  </data>
-  <data name="AddFirstComment" xml:space="preserve">
-    <value>Add first comment</value>
-  </data>
-  <data name="CommentsDescriptionEmptyList" xml:space="preserve">
-    <value>Добавляйте комментарии, что бы написать о ходе работы над задачей или добавить какие-то уточнения</value>
-  </data>
-  <data name="CommentsEmptyList" xml:space="preserve">
-    <value>The list of comments is empty</value>
-  </data>
-  <data name="CreateNewProjectRequest" xml:space="preserve">
-    <value>Request to create project</value>
-  </data>
-  <data name="SendRequest" xml:space="preserve">
-    <value>Send request</value>
   </data>
   <data name="CloseProject" xml:space="preserve">
     <value>Close Project</value>
@@ -486,50 +228,14 @@
   <data name="EditProject" xml:space="preserve">
     <value>Edit project</value>
   </data>
-  <data name="EditProjectRequest" xml:space="preserve">
-    <value>Request to edit project</value>
-  </data>
-  <data name="PauseProject" xml:space="preserve">
-    <value>Pause Project</value>
-  </data>
   <data name="AddMilestone" xml:space="preserve">
     <value>Add milestone</value>
-  </data>
-  <data name="UpdateProject" xml:space="preserve">
-    <value>Update project</value>
-  </data>
-  <data name="OverdueTasks" xml:space="preserve">
-    <value>Overdue tasks</value>
-  </data>
-  <data name="OverdueMilestones" xml:space="preserve">
-    <value>Overdue milestones</value>
-  </data>
-  <data name="Responsibles" xml:space="preserve">
-    <value>responsibles</value>
-  </data>
-  <data name="ProjectMilestones" xml:space="preserve">
-    <value>Milestones of the project</value>
-  </data>
-  <data name="ProjectTasks" xml:space="preserve">
-    <value>Tasks of the project</value>
-  </data>
-  <data name="ProjectsAndTasks" xml:space="preserve">
-    <value>Projects and Tasks</value>
   </data>
   <data name="My" xml:space="preserve">
     <value>Me</value>
   </data>
-  <data name="TasksInFollowProjects" xml:space="preserve">
-    <value>Tasks in the projects I follow</value>
-  </data>
   <data name="ProjectStatus" xml:space="preserve">
     <value>Project Status</value>
-  </data>
-  <data name="MilestonesNumber" xml:space="preserve">
-    <value>Number of milestones</value>
-  </data>
-  <data name="TasksNumber" xml:space="preserve">
-    <value>Number of tasks</value>
   </data>
   <data name="OkButton" xml:space="preserve">
     <value>Ok</value>
@@ -540,9 +246,6 @@
   <data name="NotifyProjectManager" xml:space="preserve">
     <value>Notify project manager by e-mail</value>
   </data>
-  <data name="SaveProjectPrivate" xml:space="preserve">
-    <value>Save the project as private</value>
-  </data>
   <data name="CreateFirstProject" xml:space="preserve">
     <value>Create the First Project</value>
   </data>
@@ -551,9 +254,6 @@
   </data>
   <data name="EmptyListProjHeader" xml:space="preserve">
     <value>The Projects list is empty</value>
-  </data>
-  <data name="Me" xml:space="preserve">
-    <value>Me</value>
   </data>
   <data name="DeleteProject" xml:space="preserve">
     <value>Delete project</value>
@@ -573,26 +273,8 @@
   <data name="ViewActiveMilestones" xml:space="preserve">
     <value>View active milestones</value>
   </data>
-  <data name="LastActivityDate" xml:space="preserve">
-    <value>Last Activity</value>
-  </data>
   <data name="ManualTimeInput" xml:space="preserve">
     <value>Manual Time Input</value>
-  </data>
-  <data name="EmptyScreenMyActiveProjectsDecscriptionContent" xml:space="preserve">
-    <value>Projects help you organize your workflow, make plans and manage all the team work on the portal. You currently do not participate in any projects. Take part in some projects or follow the projects you do not participate in to be in the know of what's going on</value>
-  </data>
-  <data name="FollowProjects" xml:space="preserve">
-    <value>Follow Projects</value>
-  </data>
-  <data name="DescrEmptyListActivitiesFilter" xml:space="preserve">
-    <value>No activities matching your filter can be displayed in this section</value>
-  </data>
-  <data name="FilterNoActivities" xml:space="preserve">
-    <value>There are no acivities matching this filter</value>
-  </data>
-  <data name="ShowNextActivities" xml:space="preserve">
-    <value>Show next activities</value>
   </data>
   <data name="TitleProjectManager" xml:space="preserve">
     <value>Project manager. Click to view all projects managed by the current user.</value>
@@ -704,9 +386,6 @@
   </data>
   <data name="RefreshChart" xml:space="preserve">
     <value>Refresh chart</value>
-  </data>
-  <data name="GanttActions" xml:space="preserve">
-    <value>Actions</value>
   </data>
   <data name="GanttAssignResponsible" xml:space="preserve">
     <value>Assign responsible users</value>

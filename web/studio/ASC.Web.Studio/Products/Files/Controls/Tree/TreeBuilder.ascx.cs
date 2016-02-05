@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -51,9 +51,9 @@ namespace ASC.Web.Files.Controls
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/products/files/controls/tree/treebuilder.js"));
+            Page.RegisterBodyScripts("~/products/files/controls/tree/treebuilder.js");
 
-            Page.RegisterStyleControl(FilesLinkUtility.FilesBaseAbsolutePath + "controls/tree/treebuilder.css");
+            Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/tree/treebuilder.css");
 
             var treeViewContainer = (Tree)LoadControl(Tree.Location);
             treeViewContainer.ID = "treeViewContainer";

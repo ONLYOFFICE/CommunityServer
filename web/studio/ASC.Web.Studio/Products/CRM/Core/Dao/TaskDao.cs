@@ -37,6 +37,7 @@ using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.CRM.Core.Entities;
 using ASC.FullTextIndex;
+using System.Text.RegularExpressions;
 
 namespace ASC.CRM.Core.Dao
 {
@@ -197,8 +198,12 @@ namespace ASC.CRM.Core.Dao
                     "alert_value",
                     "responsible_id"
                    )
-                .Where(Exp.Between("DATE_ADD(deadline, interval -alert_value minute)", scheduleDate.AddHours(-1), scheduleDate.AddHours(1)) & Exp.Eq("exec_alert", false)
-                  & !Exp.Eq("alert_value", 0));
+                .Where(
+                    Exp.Eq("is_closed", false) &
+                    !Exp.Eq("alert_value", 0) &
+                    Exp.Eq("exec_alert", false) &
+                    Exp.Between("DATE_ADD(deadline, interval -alert_value minute)", scheduleDate.AddHours(-1), scheduleDate.AddHours(1))
+                );
 
             using (var db = GetDb())
             {
@@ -381,9 +386,7 @@ namespace ASC.CRM.Core.Dao
 
             if (result > 0)
             {
-                _cache.Remove(cacheKey);
-                _cache.Insert(cacheKey, result, new CacheDependency(null, new[] { _taskCacheKey }), Cache.NoAbsoluteExpiration,
-                                      TimeSpan.FromMinutes(1));
+                _cache.Insert(cacheKey, result, TimeSpan.FromMinutes(1));
             }
             return result;
         }
@@ -613,9 +616,7 @@ namespace ASC.CRM.Core.Dao
 
         public virtual Task SaveOrUpdateTask(Task newTask)
         {
-            _cache.Remove(_taskCacheKey);
-            _cache.Insert(_taskCacheKey, String.Empty);
-
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "tasks.*"));
             using (var db = GetDb())
             {
                 return SaveOrUpdateTask(newTask, db);
@@ -624,8 +625,7 @@ namespace ASC.CRM.Core.Dao
 
         public virtual Task[] SaveOrUpdateTaskList(List<Task> newTasks)
         {
-            _cache.Remove(_taskCacheKey);
-            _cache.Insert(_taskCacheKey, String.Empty);
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "tasks.*"));
             var result = new List<Task>();
             using (var db = GetDb())
             {
@@ -684,6 +684,8 @@ namespace ASC.CRM.Core.Dao
                 newTask.LastModifedOn = DateTime.UtcNow;
                 newTask.LastModifedBy = ASC.Core.SecurityContext.CurrentAccount.ID;
 
+                newTask.IsClosed = oldTask.IsClosed;
+
                 db.ExecuteNonQuery(
                                 Update("crm_task")
                                 .Set("title", newTask.Title)
@@ -706,9 +708,7 @@ namespace ASC.CRM.Core.Dao
 
         public virtual int SaveTask(Task newTask)
         {
-            _cache.Remove(_taskCacheKey);
-            _cache.Insert(_taskCacheKey, String.Empty);
-
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "tasks.*"));
             using (var db = GetDb())
             {
                 return SaveTask(newTask, db);
@@ -773,8 +773,7 @@ namespace ASC.CRM.Core.Dao
                 db.ExecuteNonQuery(Delete("crm_task").Where("id", taskID));
             }
 
-            _cache.Remove(_taskCacheKey);
-            _cache.Insert(_taskCacheKey, String.Empty);
+            _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "tasks.*"));
         }
 
         public List<Task> CreateByTemplate(List<TaskTemplate> templateItems, EntityType entityType, int entityID)

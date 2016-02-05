@@ -49,8 +49,8 @@
                 </div>
                    </td>
                    <td class="teamlab-cut">
-                        <div class="title-teamlab-cut"><%= BlogsResource.TeamlabCutTitle %></div>
-                        <div class="text-teamlab-cut"><%= BlogsResource.TeamlabCutText %></div>
+                        <div class="title-teamlab-cut"><%: BlogsResource.TeamlabCutTitle %></div>
+                        <div class="text-teamlab-cut"><%: BlogsResource.TeamlabCutText %></div>
                     </td>
                     </tr>
                     </table>

@@ -34,6 +34,7 @@ namespace ASC.Files.Core
     [DataContract(Name = "entry", Namespace = "")]
     [KnownType(typeof (Folder))]
     [KnownType(typeof (File))]
+    [Serializable]
     public abstract class FileEntry : ICloneable
     {
         [DataMember(Name = "id")]

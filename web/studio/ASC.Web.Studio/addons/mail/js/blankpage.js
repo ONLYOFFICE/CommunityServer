@@ -43,7 +43,7 @@ window.blankPages = (function($) {
                 href: null
             }];
 
-        if (window.mailCommonDomainAvailable)
+        if (ASC.Mail.Constants.COMMON_DOMAIN_AVAILABLE)
             buttons.push({
                 text: MailScriptResource.CreateMailboxBtn,
                 cssClass: "addFirstElement",
@@ -226,7 +226,7 @@ window.blankPages = (function($) {
             {
                 ImgCss: imgClass,
                 Header: header,
-                Describe: description,
+                Describe: TMMail.htmlEncode(description),
                 ButtonHTML: buttonHtml
             });
 

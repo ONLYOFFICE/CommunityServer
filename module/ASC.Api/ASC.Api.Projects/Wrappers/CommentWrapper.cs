@@ -50,9 +50,6 @@ namespace ASC.Api.Projects.Wrappers
         [DataMember(Order = 9)]
         public EmployeeWraper CreatedBy { get; set; }
 
-        [DataMember(Order = 10)]
-        public string ProjectTitle { get; set; }
-
         [DataMember(Order = 50, EmitDefaultValue = false)]
         public ApiDateTime Updated { get; set; }
 
@@ -65,7 +62,7 @@ namespace ASC.Api.Projects.Wrappers
 
         public CommentWrapper(Comment comment)
         {
-            Id = comment.ID;
+            Id = comment.OldGuidId;
             ParentId = comment.Parent;
             Text = comment.Content;
             Created = Updated = (ApiDateTime)comment.CreateOn;

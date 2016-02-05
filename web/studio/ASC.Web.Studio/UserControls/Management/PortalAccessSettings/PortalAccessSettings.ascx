@@ -29,7 +29,7 @@
         </div>
     </div>
     <div class="settings-help-block">
-        <p><%= String.Format(Resource.HelpAnswerPortalAccessSettings, "<br />", "<b>", "</b>") %></p>
+        <p><%= String.Format(Resource.HelpAnswerPortalAccessSettings.HtmlEncode(), "<br />", "<b>", "</b>") %></p>
         <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
            { %>
              <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#PublicPortals" %>" target="_blank"><%= Resource.LearnMore %></a>

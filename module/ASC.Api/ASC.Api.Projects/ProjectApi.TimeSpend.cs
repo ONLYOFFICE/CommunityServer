@@ -27,8 +27,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using ASC.Api.Attributes;
-using ASC.Api.Collections;
 using ASC.Api.Exceptions;
 using ASC.Api.Projects.Wrappers;
 using ASC.Api.Utils;
@@ -74,37 +74,26 @@ namespace ASC.Api.Projects
             int lastId,
             PaymentStatus? status)
         {
-            var taskFilter = new TaskFilter
-                {
-                    DepartmentId = departament,
-                    UserId = participant,
-                    FromDate = createdStart,
-                    ToDate = createdStop,
-                    SortBy = _context.SortBy,
-                    SortOrder = !_context.SortDescending,
-                    SearchText = _context.FilterValue,
-                    TagId = tag,
-                    Offset = _context.StartIndex,
-                    Max = _context.Count,
-                    LastId = lastId,
-                    MyProjects = myProjects,
-                    MyMilestones = myMilestones,
-                    Milestone = milestone
-                };
+            var filter = CreateFilter();
+            filter.DepartmentId = departament;
+            filter.UserId = participant;
+            filter.FromDate = createdStart;
+            filter.ToDate = createdStop;
+            filter.TagId = tag;
+            filter.LastId = lastId;
+            filter.MyProjects = myProjects;
+            filter.MyMilestones = myMilestones;
+            filter.Milestone = milestone;
 
             if (projectid != 0)
-                taskFilter.ProjectIds.Add(projectid);
+                filter.ProjectIds.Add(projectid);
 
             if (status.HasValue)
-                taskFilter.PaymentStatuses.Add(status.Value);
+                filter.PaymentStatuses.Add(status.Value);
 
-            _context.SetDataPaginated();
-            _context.SetDataFiltered();
-            _context.SetDataSorted();
+            SetTotalCount(EngineFactory.TimeTrackingEngine.GetByFilterCount(filter));
 
-            _context.TotalCount = EngineFactory.GetTimeTrackingEngine().GetByFilterCount(taskFilter);
-
-            return EngineFactory.GetTimeTrackingEngine().GetByFilter(taskFilter).NotFoundIfNull().Select(r => new TimeWrapper(r)).ToSmartList();
+            return EngineFactory.TimeTrackingEngine.GetByFilter(filter).NotFoundIfNull().Select(r => new TimeWrapper(r));
         }
 
         ///<summary>
@@ -141,37 +130,28 @@ namespace ASC.Api.Projects
             int lastId,
             PaymentStatus? status)
         {
-            var taskFilter = new TaskFilter
-                {
-                    DepartmentId = departament,
-                    UserId = participant,
-                    FromDate = createdStart,
-                    ToDate = createdStop,
-                    SortBy = _context.SortBy,
-                    SortOrder = !_context.SortDescending,
-                    SearchText = _context.FilterValue,
-                    TagId = tag,
-                    LastId = lastId,
-                    MyProjects = myProjects,
-                    MyMilestones = myMilestones,
-                    Milestone = milestone
-                };
+            var filter = CreateFilter();
+            filter.DepartmentId = departament;
+            filter.UserId = participant;
+            filter.FromDate = createdStart;
+            filter.ToDate = createdStop;
+            filter.TagId = tag;
+            filter.LastId = lastId;
+            filter.MyProjects = myProjects;
+            filter.MyMilestones = myMilestones;
+            filter.Milestone = milestone;
 
             if (projectid != 0)
             {
-                taskFilter.ProjectIds.Add(projectid);
+                filter.ProjectIds.Add(projectid);
             }
 
             if (status.HasValue)
             {
-                taskFilter.PaymentStatuses.Add(status.Value);
+                filter.PaymentStatuses.Add(status.Value);
             }
 
-            _context.SetDataPaginated();
-            _context.SetDataFiltered();
-            _context.SetDataSorted();
-
-            return EngineFactory.GetTimeTrackingEngine().GetByFilterTotal(taskFilter);
+            return EngineFactory.TimeTrackingEngine.GetByFilterTotal(filter);
         }
 
         ///<summary>
@@ -187,8 +167,8 @@ namespace ASC.Api.Projects
         [Read(@"task/{taskid:[0-9]+}/time")]
         public IEnumerable<TimeWrapper> GetTaskTime(int taskid)
         {
-            if (!EngineFactory.GetTaskEngine().IsExists(taskid)) throw new ItemNotFoundException();
-            return EngineFactory.GetTimeTrackingEngine().GetByTask(taskid).NotFoundIfNull().Select(x => new TimeWrapper(x)).ToSmartList();
+            if (!EngineFactory.TaskEngine.IsExists(taskid)) throw new ItemNotFoundException();
+            return EngineFactory.TimeTrackingEngine.GetByTask(taskid).NotFoundIfNull().Select(x => new TimeWrapper(x));
         }
 
         ///<summary>
@@ -213,11 +193,11 @@ namespace ASC.Api.Projects
             if (date == DateTime.MinValue) throw new ArgumentException("date can't be empty");
             if (personId == Guid.Empty) throw new ArgumentException("person can't be empty");
 
-            var task = EngineFactory.GetTaskEngine().GetByID(taskid);
+            var task = EngineFactory.TaskEngine.GetByID(taskid);
 
             if (task == null) throw new ItemNotFoundException();
 
-            if (!EngineFactory.GetProjectEngine().IsExists(projectId)) throw new ItemNotFoundException("project");
+            if (!EngineFactory.ProjectEngine.IsExists(projectId)) throw new ItemNotFoundException("project");
 
             var ts = new TimeSpend
                 {
@@ -228,7 +208,7 @@ namespace ASC.Api.Projects
                     Task = task
                 };
 
-            ts = EngineFactory.GetTimeTrackingEngine().SaveOrUpdate(ts);
+            ts = EngineFactory.TimeTrackingEngine.SaveOrUpdate(ts);
             MessageService.Send(Request, MessageAction.TaskTimeCreated, task.Project.Title, task.Title, ts.Note);
 
             return new TimeWrapper(ts);
@@ -255,7 +235,7 @@ namespace ASC.Api.Projects
             if (date == DateTime.MinValue) throw new ArgumentException("date can't be empty");
             if (personId == Guid.Empty) throw new ArgumentException("person can't be empty");
 
-            var timeTrackingEngine = EngineFactory.GetTimeTrackingEngine();
+            var timeTrackingEngine = EngineFactory.TimeTrackingEngine;
 
             var time = timeTrackingEngine.GetByID(timeid).NotFoundIfNull();
 
@@ -264,7 +244,7 @@ namespace ASC.Api.Projects
             time.Hours = hours;
             time.Note = note;
 
-            time = timeTrackingEngine.SaveOrUpdate(time);
+            timeTrackingEngine.SaveOrUpdate(time);
             MessageService.Send(Request, MessageAction.TaskTimeUpdated, time.Task.Project.Title, time.Task.Title, time.Note);
 
             return new TimeWrapper(time);
@@ -284,7 +264,7 @@ namespace ASC.Api.Projects
         [Update(@"time/times/status")]
         public List<TimeWrapper> UpdateTimes(int[] timeids, PaymentStatus status)
         {
-            var timeTrackingEngine = EngineFactory.GetTimeTrackingEngine();
+            var timeTrackingEngine = EngineFactory.TimeTrackingEngine;
             var times = new List<TimeWrapper>();
 
             foreach (var timeid in timeids)
@@ -315,7 +295,7 @@ namespace ASC.Api.Projects
             var listDeletedTimers = new List<TimeWrapper>();
             foreach (var timeid in timeids.Distinct())
             {
-                var timeTrackingEngine = EngineFactory.GetTimeTrackingEngine();
+                var timeTrackingEngine = EngineFactory.TimeTrackingEngine;
                 var time = timeTrackingEngine.GetByID(timeid).NotFoundIfNull();
 
                 timeTrackingEngine.Delete(time);

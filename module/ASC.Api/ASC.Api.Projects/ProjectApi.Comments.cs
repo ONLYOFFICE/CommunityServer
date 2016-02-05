@@ -30,6 +30,16 @@ using ASC.Api.Exceptions;
 using ASC.Api.Projects.Wrappers;
 using ASC.Api.Utils;
 using ASC.Projects.Core.Domain;
+using ASC.Web.Studio.UserControls.Common.Comments;
+using ASC.Projects.Engine;
+using ASC.Core.Tenants;
+using ASC.Core;
+using ASC.Web.Core.Users;
+using ASC.Core.Users;
+using ASC.MessagingSystem;
+using ASC.Web.Studio.Utility;
+using ASC.Web.Studio.Utility.HtmlUtility;
+using System.Collections.Generic;
 
 namespace ASC.Api.Projects
 {
@@ -50,91 +60,195 @@ namespace ASC.Api.Projects
         [Read(@"comment/{commentid}")]
         public CommentWrapper GetComment(Guid commentid)
         {
-            return new CommentWrapper(EngineFactory.GetCommentEngine().GetByID(commentid).NotFoundIfNull());
+            return new CommentWrapper(EngineFactory.CommentEngine.GetByID(commentid).NotFoundIfNull());
         }
 
+        /////<summary>
+        /////Updates the seleted comment using the comment text specified in the request
+        /////</summary>
+        /////<short>
+        /////Update comment
+        /////</short>
+        ///// <category>Comments</category>
+        /////<param name="commentid">comment ID</param>
+        /////<param name="content">comment text</param>
+        /////<returns>Comment</returns>
+        ///// <exception cref="ItemNotFoundException"></exception>
+        ///// <example>
+        ///// <![CDATA[
+        ///// Sending data in application/json:
+        ///// 
+        ///// {
+        /////     text:"My comment text",
+        /////     
+        ///// }
+        ///// 
+        ///// Sending data in application/x-www-form-urlencoded
+        ///// content=My%20comment%20text
+        ///// ]]>
+        ///// </example>
+        //[Update(@"comment/{commentid}")]
+        //public CommentWrapper UpdateComments(Guid commentid, string content)
+        //{
+        //    var comment = EngineFactory.CommentEngine.GetByID(commentid).NotFoundIfNull();
+        //    comment.Content = Update.IfNotEquals(comment.Content, content);
+
+        //    string type;
+        //    comment = SaveComment(comment, out type);
+
+        //    return new CommentWrapper(comment);
+        //}
+
         ///<summary>
-        ///Updates the seleted comment using the comment text specified in the request
+        ///Get preview
         ///</summary>
         ///<short>
-        ///Update comment
+        ///Get preview
         ///</short>
         /// <category>Comments</category>
-        ///<param name="commentid">comment ID</param>
-        ///<param name="content">comment text</param>
-        ///<returns>Comment</returns>
-        /// <exception cref="ItemNotFoundException"></exception>
-        /// <example>
-        /// <![CDATA[
-        /// Sending data in application/json:
-        /// 
-        /// {
-        ///     text:"My comment text",
-        ///     
-        /// }
-        /// 
-        /// Sending data in application/x-www-form-urlencoded
-        /// content=My%20comment%20text
-        /// ]]>
-        /// </example>
-        [Update(@"comment/{commentid}")]
-        public CommentWrapper UpdateComments(Guid commentid, string content)
+        ///<param name="htmltext">html to create preview</param>
+        ///<param name="commentid">guid of editing comment or empty string if comment is new</param>
+        [Create(@"comment/preview")]
+        public CommentInfo GetProjectCommentPreview(string htmltext, string commentid)
         {
-            var comment = EngineFactory.GetCommentEngine().GetByID(commentid).NotFoundIfNull();
-            comment.Content = Update.IfNotEquals(comment.Content, content);
+            ProjectSecurity.DemandAuthentication();
 
-            string type;
-            comment = SaveComment(comment, out type);
+            var commentEngine = EngineFactory.CommentEngine;
 
-            return new CommentWrapper(comment);
+            Comment comment;
+            if (!string.IsNullOrEmpty(commentid))
+            {
+                comment = commentEngine.GetByID(new Guid(commentid));
+                comment.Content = htmltext;
+            }
+            else
+            {
+                comment = new Comment
+                {
+                    Content = htmltext,
+                    CreateOn = TenantUtil.DateTimeNow(),
+                    CreateBy = SecurityContext.CurrentAccount.ID
+                };
+            }
+
+            var creator = EngineFactory.ParticipantEngine.GetByID(comment.CreateBy).UserInfo;
+            var info = new CommentInfo
+            {
+                CommentID = comment.OldGuidId.ToString(),
+                UserID = comment.CreateBy,
+                TimeStamp = comment.CreateOn,
+                TimeStampStr = comment.CreateOn.Ago(),
+                UserPost = creator.Title,
+                Inactive = comment.Inactive,
+                CommentBody = comment.Content,
+                UserFullName = DisplayUserSettings.GetFullUserName(creator),
+                UserProfileLink = creator.GetUserProfilePageURL(),
+                UserAvatarPath = creator.GetBigPhotoURL()
+            };
+
+            return info;
         }
 
-        ///<summary>
-        ///Delete the comment with the ID specified in the request from the portal
-        ///</summary>
-        ///<short>
-        ///Delete comment
-        ///</short>
+        /// <summary>
+        ///Remove comment with the id specified in the request
+        /// </summary>
+        /// <short>Remove comment</short>
+        /// <section>Comments</section>
+        /// <param name="commentid">Comment ID</param>
+        /// <returns>Comment id</returns>
         /// <category>Comments</category>
-        ///<param name="commentid">comment ID</param>
-        /// <exception cref="ItemNotFoundException"></exception>
-        [Delete(@"comment/{commentid}")]
-        public CommentWrapper DeleteComments(Guid commentid)
+        [Delete("comment/{commentid}")]
+        public string RemoveProjectComment(string commentid)
         {
-            var comment = EngineFactory.GetCommentEngine().GetByID(commentid).NotFoundIfNull();
+            var commentEngine = EngineFactory.CommentEngine;
+
+            var comment = commentEngine.GetByID(new Guid(commentid));
             comment.Inactive = true;
 
-            string type;
-            comment = SaveComment(comment, out type);
+            var entity = commentEngine.GetEntityByTargetUniqId(comment);
+            if (entity == null) return "";
 
-            return new CommentWrapper(comment);
+            ProjectSecurity.DemandEditComment(entity.Project, comment);
+
+            commentEngine.SaveOrUpdate(comment);
+            MessageService.Send(Request, MessageAction.TaskCommentDeleted, entity.Project.Title, entity.Title);
+
+            return commentid;
+        }
+
+        /// <category>Comments</category>
+        [Create("comment")]
+        public CommentInfo AddProjectComment(string parentcommentid, int entityid, string content, string type)
+        {
+            if (string.IsNullOrEmpty(type) || !(new List<string> { "message", "task" }).Contains(type.ToLower()))
+                throw new ArgumentException();
+
+            var comment = type.ToLower().Equals("message")
+                ? new Comment {Content = content, TargetUniqID = ProjectEntity.BuildUniqId<Message>(entityid)}
+                : new Comment {Content = content, TargetUniqID = ProjectEntity.BuildUniqId<Task>(entityid)};
+            
+
+            if (!string.IsNullOrEmpty(parentcommentid))
+                comment.Parent = new Guid(parentcommentid);
+
+            var commentEngine = EngineFactory.CommentEngine;
+            var entity = commentEngine.GetEntityByTargetUniqId(comment);
+            if (entity == null) throw new Exception("Access denied.");
+            ProjectSecurity.DemandCreateComment(entity);
+
+            comment = commentEngine.SaveOrUpdateComment(entity, comment);
+            MessageService.Send(Request, MessageAction.TaskCommentCreated, entity.Project.Title, entity.Title);
+
+            return GetCommentInfo(comment, entity);
+        }
+
+        /// <category>Comments</category>
+        [Update("comment/{commentid}")]
+        public string UpdateComment(string commentid, string content)
+        {
+            var commentEngine = EngineFactory.CommentEngine;
+            var comment = commentEngine.GetByID(new Guid(commentid));
+            comment.Content = content;
+
+            var entity = commentEngine.GetEntityByTargetUniqId(comment);
+            if (entity == null) throw new Exception("Access denied.");
+
+            ProjectSecurity.DemandEditComment(entity.Project, comment);
+
+            commentEngine.SaveOrUpdateComment(entity, comment);
+            MessageService.Send(Request, MessageAction.TaskCommentUpdated, entity.Project.Title, entity.Title);
+
+            return HtmlUtility.GetFull(content);
+        }
+
+        private CommentInfo GetCommentInfo(Comment comment, ProjectEntity entity)
+        {
+            var creator = EngineFactory.ParticipantEngine.GetByID(comment.CreateBy).UserInfo;
+            var oCommentInfo = new CommentInfo
+            {
+                TimeStamp = comment.CreateOn,
+                TimeStampStr = comment.CreateOn.Ago(),
+                CommentBody = comment.Content,
+                CommentID = comment.OldGuidId.ToString(),
+                UserID = comment.CreateBy,
+                UserFullName = creator.DisplayUserName(),
+                UserProfileLink = creator.GetUserProfilePageURL(),
+                Inactive = comment.Inactive,
+                IsEditPermissions = ProjectSecurity.CanEditComment(entity != null ? entity.Project : null, comment),
+                IsResponsePermissions = ProjectSecurity.CanCreateComment(entity),
+                IsRead = true,
+                UserAvatarPath = creator.GetBigPhotoURL(),
+                UserPost = creator.Title
+            };
+
+            return oCommentInfo;
         }
 
         private Comment SaveComment(Comment comment, out string type)
         {
-            var targetUniqID = comment.TargetUniqID.Split('_');
-            var entityType = targetUniqID[0];
-            var entityId = targetUniqID[1];
-
-            type = null;
-            switch (entityType)
-            {
-                case "Task":
-                    var taskEngine = EngineFactory.GetTaskEngine();
-                    var task = taskEngine.GetByID(Convert.ToInt32(entityId)).NotFoundIfNull();
-                    comment = taskEngine.SaveOrUpdateComment(task, comment);
-                    type = "Task";
-                    break;
-
-                case "Message":
-                    var messageEngine = EngineFactory.GetMessageEngine();
-                    var message = messageEngine.GetByID(Convert.ToInt32(entityId)).NotFoundIfNull();
-                    comment = messageEngine.SaveOrUpdateComment(message, comment);
-                    type = "Message";
-                    break;
-            }
-
-            return comment;
+            var entity = EngineFactory.CommentEngine.GetEntityByTargetUniqId(comment).NotFoundIfNull();
+            type = comment.TargetType;
+            return EngineFactory.CommentEngine.SaveOrUpdateComment(entity, comment);
         }
 
         #endregion

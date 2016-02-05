@@ -124,11 +124,6 @@ namespace ASC.Notify
                 {
                     var d = new SqlDelete("notify_info").Where("notify_id", id);
                     db.ExecuteNonQuery(d);
-                    if (NotifyServiceCfg.DeleteSendedMessages)
-                    {
-                        d = new SqlDelete("notify_queue").Where("notify_id", id);
-                        db.ExecuteNonQuery(d);
-                    }
                 }
                 else
                 {

@@ -17,6 +17,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
+using System.Text;
 using System.Text.RegularExpressions;
 using Ude;
 
@@ -36,7 +39,13 @@ namespace ActiveUp.Net.Mail
         /// Detect encoded words as stated by RFC2047
         /// </summary>
         private static Regex encodedWord = new Regex(@"(=\?)(?<charset>[^\?]*)(\?)(?<encoding>[BbQq])(\?)(?<message>[^\?]*)(\?=)", RegexOptions.CultureInvariant);
-        
+
+        /// <summary>
+        /// Regex for the encoded string format detailed in
+        /// http://tools.ietf.org/html/rfc5987
+        /// </summary>
+        private static readonly Regex encodedRfc5987 = new Regex(@"(?:(?<charset>.*?))'(?<language>.*?)?'(?<encodeddata>.*?)$", RegexOptions.Compiled);
+
         public static string GetUniqueString()
         {
             return System.Diagnostics.Process.GetCurrentProcess().Id.ToString()+System.DateTime.Now.ToString("yyMMddhhmmss")+System.DateTime.Now.Millisecond.ToString()+(new Random().GetHashCode());
@@ -132,7 +141,7 @@ namespace ActiveUp.Net.Mail
         public static string RFC2047Encode(string input)
         {
             var emcoding = System.Text.Encoding.UTF8;
-            return "=?" + emcoding.HeaderName + "?B?" + System.Convert.ToBase64String(emcoding.GetBytes(input)) + "?=";
+            return string.Format("=?{0}?B?{1}?=", emcoding.HeaderName, System.Convert.ToBase64String(emcoding.GetBytes(input)));
         }
         /// <summary>
         /// Return encoding based on encoding name
@@ -229,7 +238,7 @@ namespace ActiveUp.Net.Mail
                                 catch
                                 {
                                     //TODO: Need refactoring
-                                    var index = message.LastIndexOf("=", System.StringComparison.Ordinal);
+                                    var index = message.LastIndexOf("=", StringComparison.Ordinal);
 
                                     if (index != -1)
                                     {
@@ -245,7 +254,7 @@ namespace ActiveUp.Net.Mail
                                             }
                                             catch
                                             {
-                                                index = message.LastIndexOf("=", System.StringComparison.Ordinal);
+                                                index = message.LastIndexOf("=", StringComparison.Ordinal);
                                             }
                                         }
                                     }
@@ -253,20 +262,25 @@ namespace ActiveUp.Net.Mail
                                     {
                                         index = 0;
 
+                                        var buffer = new StringBuilder(message.Length + 2);
+
+                                        buffer.Append(message);
+
                                         while (index < 2)
                                         {
                                             // add the extra character. max = 2
 
-                                            message = message + '=';
+                                            buffer.Append('=');
                                             try
                                             {
-                                                return encoder.GetString(Convert.FromBase64String(message));
+                                                return encoder.GetString(Convert.FromBase64String(buffer.ToString()));
                                             }
                                             catch
                                             {
                                                 index++;
                                             }
                                         }
+
                                     }
 
                                     throw;
@@ -275,7 +289,19 @@ namespace ActiveUp.Net.Mail
                             else
                             {
                                 string tmpbuffer = curRes.Groups["message"].Value.Replace("_", " ");
-                                return Codec.FromQuotedPrintable(tmpbuffer, curRes.Groups["charset"].Value);
+
+                                try
+                                {
+                                    //We have the QuotedPrintable string so we can decode it.
+                                    var bytes = Converter.FromQuotedPrintableString(tmpbuffer);
+
+                                    return
+                                        GetEncoding(curRes.Groups["charset"].Value).GetString(bytes).TrimEnd('=');
+                                }
+                                catch (Exception)
+                                {
+                                    return tmpbuffer;
+                                }
                             }
                         });
                 //SUPPORT_CODE_BEGIN
@@ -283,13 +309,13 @@ namespace ActiveUp.Net.Mail
             else
             {
                 var encoder = GetEncoding("");
-                byte[] text_in_bytes = encoder.GetBytes(text);
-                var charset_detector = new CharsetDetector();
-                charset_detector.Feed(text_in_bytes, 0, text_in_bytes.Length);
-                charset_detector.DataEnd();
-                if (charset_detector.Charset != null)
+                byte[] textInBytes = encoder.GetBytes(text);
+                var charsetDetector = new CharsetDetector();
+                charsetDetector.Feed(textInBytes, 0, textInBytes.Length);
+                charsetDetector.DataEnd();
+                if (charsetDetector.Charset != null)
                 {
-                    text = GetEncoding(charset_detector.Charset).GetString(text_in_bytes);
+                    text = GetEncoding(charsetDetector.Charset).GetString(textInBytes);
                 }
             }
             //SUPPORT_CODE_END
@@ -302,34 +328,34 @@ namespace ActiveUp.Net.Mail
         /// <returns>conmbined encoded string</returns>
         private static string DecodeSameEncodedParts(string input)
         {
-            var decoded_bytes = new Dictionary<string, List<byte>>();
+            var decodedBytes = new List<KeyValuePair<string, List<byte>>>();
 
-            string decoded_result = CombineSameEncodedParts(input, decoded_bytes);
+            var decodedResult = CombineSameEncodedParts(input, decodedBytes);
 
             var i = 0;
 
-            foreach (var item in decoded_bytes)
+            foreach (var item in decodedBytes)
             {
-                string encoding = item.Key.Split(new char[] { '?' }, StringSplitOptions.RemoveEmptyEntries)[1];
+                var encoding = item.Key.Split(new[] { '?' }, StringSplitOptions.RemoveEmptyEntries)[1];
 
                 var encoder = GetEncoding(encoding);
 
-                var decoded_string = encoder.GetString(item.Value.ToArray());
+                var decodedString = encoder.GetString(item.Value.ToArray());
 
-                decoded_result = decoded_result.Replace(string.Format("{0}%{1}%?=", item.Key, i), decoded_string);
+                decodedResult = decodedResult.Replace(string.Format("{0}%{1}%?=", item.Key, i), decodedString);
 
                 i++;
             }
 
-            return decoded_result;
+            return decodedResult;
         }
         /// <summary>
         /// Combine same encoded parts of string in one
         /// </summary>
         /// <param name="input">encoded string</param>
-        /// <param name="decoded_bytes">dictionary with key = content_type and value = byte array</param>
+        /// <param name="decodedBytes">dictionary with key = content_type and value = byte array</param>
         /// <returns>conmbined encoded string</returns>
-        private static string CombineSameEncodedParts(string input, IDictionary<string, List<byte>> decoded_bytes)
+        private static string CombineSameEncodedParts(string input, List<KeyValuePair<string, List<byte>>> decodedBytes)
         {
             while (input.Contains("?==?"))
             {
@@ -337,52 +363,61 @@ namespace ActiveUp.Net.Mail
 
                 if (matches.Count > 1)
                 {
-                    var last_encoding = matches[0].Groups["encoding"].Value.ToLower();
-                    var last_content_type = string.Format("=?{0}?{1}?", matches[0].Groups["charset"].Value.ToLower(), last_encoding);
+                    var lastEncoding = matches[0].Groups["encoding"].Value.ToLower();
+                    var lastContentType = string.Format("=?{0}?{1}?", matches[0].Groups["charset"].Value.ToLower(), lastEncoding);
 
-                    var continue_cycle = false;
+                    var continueCycle = false;
 
                     for (var i = 1; i < matches.Count; i++)
                     {
-                        var cur_encoding = matches[i].Groups["encoding"].Value.ToLower();
-                        var cur_content_type = string.Format("=?{0}?{1}?", matches[i].Groups["charset"].Value.ToLower(), cur_encoding);
+                        var curEncoding = matches[i].Groups["encoding"].Value.ToLower();
+                        var curContentType = string.Format("=?{0}?{1}?", matches[i].Groups["charset"].Value.ToLower(), curEncoding);
 
-                        if (last_content_type != cur_content_type)
+                        if (lastContentType != curContentType)
                         {
-                            last_encoding = cur_encoding;
-                            last_content_type = cur_content_type;
+                            lastEncoding = curEncoding;
+                            lastContentType = curContentType;
                         }
                         else if (input[matches[i].Index - 1] == '=' && input[matches[i].Index - 2] == '?')
                         {
-                            var last_message = matches[i - 1].Groups["message"];
-                            var cur_message = matches[i].Groups["message"];
+                            var lastMessage = matches[i - 1].Groups["message"];
+                            var curMessage = matches[i].Groups["message"];
 
-                            if (!last_message.Value.StartsWith(string.Format("%{0}%", decoded_bytes.Count == 0 ? 0 : decoded_bytes.Count - 1)))
+                            if (!lastMessage.Value.StartsWith(string.Format("%{0}%", decodedBytes.Count == 0 ? 0 : decodedBytes.Count - 1)))
                             {
-                                var tmp_array = String2DecodedArray(last_message.Value, last_encoding);
+                                var tmpArray = String2DecodedArray(lastMessage.Value, lastEncoding);
 
-                                if (decoded_bytes.ContainsKey(last_content_type))
+                                var lastItem = decodedBytes.LastOrDefault(r => r.Key == lastContentType);
+
+                                if (!lastItem.Equals(default(KeyValuePair<string, List<byte>>)) &&
+                                    (i - 2 >= 0 &&
+                                     (matches[i - 2].Index + matches[i - 2].Length == matches[i - 1].Index)))
                                 {
-                                    decoded_bytes[last_content_type].AddRange(tmp_array);
+                                    lastItem.Value.AddRange(tmpArray);
                                 }
                                 else
-                                    decoded_bytes.Add(last_content_type, new List<byte>(tmp_array));
+                                    decodedBytes.Add(new KeyValuePair<string, List<byte>>(lastContentType,
+                                        new List<byte>(tmpArray)));
                             }
 
-                            if (decoded_bytes.ContainsKey(cur_content_type))
-                                decoded_bytes[cur_content_type].AddRange(String2DecodedArray(cur_message.Value, cur_encoding));
+                            var curItem = decodedBytes.LastOrDefault(r => r.Key == curContentType);
+
+                            if (!curItem.Equals(default(KeyValuePair<string, List<byte>>)))
+                            {
+                                curItem.Value.AddRange(String2DecodedArray(curMessage.Value, curEncoding));
+                            }
                             else
                                 throw new Exception("Smth wrong! Bad algorithm!");
 
                             input = input.Remove(matches[i - 1].Index, matches[i - 1].Length + matches[i].Length);
-                            input = input.Insert(matches[i - 1].Index, string.Format("{0}%{1}%?=", last_content_type, decoded_bytes.Count - 1));
+                            input = input.Insert(matches[i - 1].Index, string.Format("{0}%{1}%?=", lastContentType, decodedBytes.Count - 1));
 
-                            continue_cycle = true;
+                            continueCycle = true;
                             break;
                         }
                     }
 
-                    if (continue_cycle)
+                    if (continueCycle)
                         continue;
                 }
 
@@ -421,112 +456,21 @@ namespace ActiveUp.Net.Mail
                 if (string.IsNullOrEmpty(input))
                     return new byte[0];
 
-                tmpArray = ConvertFromQuotedPrintableString(preparedInput);
+                try
+                {
+                    tmpArray = Converter.FromQuotedPrintableString(preparedInput);
+                }
+                catch (Exception)
+                {
+                    tmpArray = new byte[] {};
+                }
             }
                 
             return tmpArray;
         }
-        /// <summary>
-        /// Decodes text from quoted-printable format defined in RFC 2045 and RFC 2046.
-        /// </summary>
-        /// <param name="toCharset">The original charset of input.</param>
-        /// <param name="input">Data to be decoded.</param>
-        /// <returns>The decoded data.</returns>
-        /// <example>
-        /// The example below illustrates the decoding of a string from quoted-printable.
-        /// <code>
-        /// C#
-        ///
-        /// string input = "A=\r\nctiveMail rocks ! Here are some weird characters =3D=E7.";
-        /// string output = Codec.FromQuotedPrintable(input,"iso-8859-1");
-        /// </code>
-        ///
-        /// output returns ActiveMail rocks ! Here are some weird characters =ç.
-        /// </example>
-        public static string FromQuotedPrintable(string input, string toCharset)
-        {
-            try
-            {
-                var decoded = ConvertFromQuotedPrintableString(input);
 
-                if (decoded == null)
-                    throw new Exception("Illigal characters found");
 
-                var result = GetEncoding(toCharset).GetString(decoded).TrimEnd('=');
-
-                return result;
-            }
-            catch (Exception)
-            {
-                return input;
-            }
-        }
-        /// <summary>
-        /// Decodes text from quoted-printable format defined in RFC 2045 and RFC 2046.
-        /// </summary>
-        /// <param name="toCharset">The original charset of input.</param>
-        /// <param name="input">Data to be decoded.</param>
-        /// <returns>The decoded data.</returns>
-        /// <example>
-        /// The example below illustrates the decoding of a string from quoted-printable.
-        /// <code>
-        /// C#
-        ///
-        /// string input = "A=\r\nctiveMail rocks ! Here are some weird characters =3D=E7.";
-        /// string output = Codec.FromQuotedPrintable(input,"iso-8859-1");
-        /// </code>
-        ///
-        /// output returns ActiveMail rocks ! Here are some weird characters =ç.
-        /// </example>
-        public static byte[] ConvertFromQuotedPrintableString(string input)
-        {
-            var arr = new List<byte>();
-
-            try
-            {
-                input = input.Replace("=\r\n", "") + "==";
-                int i = 0;
-
-                while (true)
-                {
-                    if (i <= (input.Length) - 3)
-                    {
-                        if (input[i] == '=' && input[i + 1] != '=')
-                        {
-                            try
-                            {
-                                arr.Add(System.Convert.ToByte(
-                                    System.Int32.Parse(
-                                        String.Concat((char)input[i + 1], 
-                                        (char)input[i + 2]), 
-                                        System.Globalization.NumberStyles.HexNumber)));
-
-                                i += 3;
-                            }
-                            catch (Exception)
-                            {
-                                arr.Add((byte)input[i]);
-                                i++;
-                            }
-                        }
-                        else
-                        {
-                            arr.Add((byte)input[i]);
-                            i++;
-                        }
-                    }
-                    else break;
-                }
-            }
-            catch (Exception)
-            {
-                /* BAD QUOTED PRINTABLE STRING */
-            }
-
-            return arr.ToArray();
-        }
-
-        private static string fileNameCleanerExpression = "[" + string.Join("", Array.ConvertAll(System.IO.Path.GetInvalidFileNameChars(), x => Regex.Escape(x.ToString()))) + "]";
+        private static string fileNameCleanerExpression = string.Format("[{0}]",string.Join("", Array.ConvertAll(System.IO.Path.GetInvalidFileNameChars(), x => Regex.Escape(x.ToString()))));
         private static Regex fileNameCleaner = new Regex(fileNameCleanerExpression, RegexOptions.Compiled);
 
         public static string CleanFileName(string fileName)
@@ -547,10 +491,18 @@ namespace ActiveUp.Net.Mail
         }
         internal static string Capitalize(string input)
         {
-            string output = string.Empty;
-            string[] parts = input.Split('-');
-            foreach (string str in parts) output += str[0].ToString().ToUpper() + str.Substring(1) + "-";
-            return output.TrimEnd('-');
+            var output = new StringBuilder();
+
+            var parts = input.Split('-');
+
+            foreach (var str in parts)
+            {
+                output.Append(str[0].ToString().ToUpper())
+                    .Append(str.Substring(1))
+                    .Append("-");
+            }
+
+            return output.ToString().TrimEnd('-');
         }
         /// <summary>
         /// Wraps the given string to a set of lines of a maximum given length.
@@ -562,13 +514,15 @@ namespace ActiveUp.Net.Mail
         public static string Wrap(string input, int totalchars)
         {
             totalchars -= 3;
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+            var sb = new StringBuilder();
             int i = 0;
             for (i = 0; (i + totalchars) < input.Length; i += totalchars)
             {
-                sb.Append(string.Concat("\r\n", input.Substring(i, totalchars)));
+                sb.Append("\r\n").Append(input.Substring(i, totalchars));
             }
-            return (string.Concat(sb.ToString(),"\r\n",input.Substring(i,input.Length-i))).TrimStart(new char[] {'\r','\n'});
+            sb.Append("\r\n").Append(input.Substring(i, input.Length - i));
+
+            return sb.ToString().TrimStart('\r', '\n');
 
             //totalchars -= 3; // NOT HERE: this value can be 78 or 77, so 78-3=75 or 77-3=74
             //System.Text.StringBuilder sb = new System.Text.StringBuilder(); // NOT HERE
@@ -616,7 +570,7 @@ namespace ActiveUp.Net.Mail
         }
         public static string ToRadix64(byte[] input)
         {
-            return Convert.ToBase64String(input) + "\r\n=" + GetCRCBase64(input);
+            return string.Format("{0}\r\n={1}", Convert.ToBase64String(input), GetCRCBase64(input));
         }
         public static byte[] FromRadix64(string input)
         {
@@ -695,6 +649,69 @@ namespace ActiveUp.Net.Mail
             if (input[1].Equals('1')) output += 64;
             if (input[0].Equals('1')) output += 128;
             return output;
+        }
+
+        public static string DetectCharset(byte[] bytes)
+        {
+            try
+            {
+                var charsetDetector = new CharsetDetector();
+
+                charsetDetector.Feed(bytes, 0, bytes.Length);
+
+                charsetDetector.DataEnd();
+
+                return charsetDetector.Charset == null ? null : charsetDetector.Charset.ToLowerInvariant();
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
+        public static string RFC5987Decode(string input)
+        {
+            return encodedRfc5987.Replace(
+                input,
+                m =>
+                {
+                    var characterSet = m.Groups["charset"].Value;
+                    var encodedData = m.Groups["encodeddata"].Value;
+
+                    var encoding = string.IsNullOrEmpty(characterSet) ? Encoding.UTF8 : GetEncoding(characterSet);
+
+                    return encoding.GetString(GetDecodedBytes(encodedData).ToArray());
+                });
+        }
+
+        /// <summary>
+        /// Get the decoded bytes from the encoded data string
+        /// </summary>
+        /// <param name="encodedData">Encoded data</param>
+        /// <returns>Decoded bytes</returns>
+        private static IEnumerable<byte> GetDecodedBytes(string encodedData)
+        {
+            var encodedCharacters = encodedData.ToCharArray();
+            int i, len = encodedCharacters.Length;
+            for (i = 0; i < len; i++)
+            {
+                if (encodedCharacters[i] == '%')
+                {
+                    var hexString = new string(encodedCharacters, i + 1, 2);
+
+                    i += 2;
+
+                    int characterValue;
+                    if (int.TryParse(hexString, NumberStyles.HexNumber, CultureInfo.InvariantCulture, out characterValue))
+                    {
+                        yield return (byte)characterValue;
+                    }
+                }
+                else
+                {
+                    yield return (byte)encodedCharacters[i];
+                }
+            }
         }
     }
 }

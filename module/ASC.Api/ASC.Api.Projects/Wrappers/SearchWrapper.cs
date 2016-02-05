@@ -24,7 +24,6 @@
 */
 
 
-using System.Linq;
 using System.Runtime.Serialization;
 using ASC.Projects.Engine;
 
@@ -34,23 +33,23 @@ namespace ASC.Api.Projects.Wrappers
     public class SearchWrapper
     {
         [DataMember(Order = 10)]
-        public SearchItemWrapper[] Items { get; set; }
+        public SearchItemWrapper Item { get; set; }
 
         [DataMember(Order = 14)]
-        public SimpleProjectWrapper ProjectOwner { get; set; }
+        public SearchItemWrapper Owner { get; set; }
 
 
         private SearchWrapper()
         {
         }
 
-        public SearchWrapper(SearchGroup searchGroup)
+        public SearchWrapper(SearchItem searchItem)
         {
-            if (searchGroup.Items != null)
+            Item = new SearchItemWrapper(searchItem);
+            if (searchItem.Container != null)
             {
-                Items = searchGroup.Items.Select(x => new SearchItemWrapper(x)).ToArray();
+                Owner = new SearchItemWrapper(searchItem.Container);   
             }
-            ProjectOwner = new SimpleProjectWrapper(searchGroup.ProjectID, searchGroup.ProjectTitle);
         }
 
 
@@ -58,13 +57,7 @@ namespace ASC.Api.Projects.Wrappers
         {
             return new SearchWrapper
                 {
-                    Items = new[]
-                        {
-                            SearchItemWrapper.GetSample(),
-                            SearchItemWrapper.GetSample(),
-                            SearchItemWrapper.GetSample()
-                        },
-                    ProjectOwner = SimpleProjectWrapper.GetSample()
+                    Item = SearchItemWrapper.GetSample()
                 };
         }
     }

@@ -34,7 +34,7 @@
                 <ItemTemplate>
                     <label class="text">
                         <input type="radio" name="smsPackageOption" <%# Container.ItemIndex == 0 ? "checked" : "" %>
-                            data-quota-link="<%# CoreContext.PaymentManager.GetShoppingUri(TenantProvider.CurrentTenantID, ((ASC.Core.Tenants.TenantQuota)Container.DataItem).Id) %>" />
+                            data-quota-link="<%# CoreContext.PaymentManager.GetShoppingUri(((ASC.Core.Tenants.TenantQuota)Container.DataItem).Id) %>" />
                         <%# string.Format(Resource.SmsPackage,
                                 "<span class=\"header-base medium bold\">" + ((ASC.Core.Tenants.TenantQuota)Container.DataItem).ActiveUsers + "</span>",
                                 "<span class=\"header-base medium\">" + (int) ((ASC.Core.Tenants.TenantQuota)Container.DataItem).Price + CurrencySymbol + "</span>") %>

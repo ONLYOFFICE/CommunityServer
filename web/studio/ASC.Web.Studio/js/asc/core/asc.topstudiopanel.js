@@ -90,6 +90,44 @@ jq(document).ready(function () {
         return false;
     });
     UnreadMailManager.Init();
+
+
+    var $aboutBtn = jq("#studio_myStaffPopupPanel .dropdown-about-btn:first");
+    jq.tmpl("template-blockUIPanel", {
+        id: "aboutCompanyPopup",
+        headerTest: jq.trim($aboutBtn.text())
+    })
+    .insertAfter($aboutBtn)
+    .addClass("confirmation-popup");
+
+    jq("#aboutCompanyPopup .containerBodyBlock:first")
+        .replaceWith(jq("#aboutCompanyPopupBody").removeClass("display-none").addClass("containerBodyBlock"));
+
+    $aboutBtn.on("click", function () {
+        StudioBlockUIManager.blockUI('#aboutCompanyPopup', 680, 600);
+        jq('.studio-action-panel').hide();
+    });
+
+
+    if (jq("#debugInfoPopUpBody").length == 1) {
+        var $debugBtn = jq("#studio_myStaffPopupPanel .dropdown-debuginfo-btn:first");
+        jq.tmpl("template-blockUIPanel", {
+            id: "debugInfoPopUp",
+            headerTest: jq.trim($debugBtn.text()),
+            innerHtmlText: ["<div style=\"height: 500px; overflow-y: scroll;\">", jq("#debugInfoPopUpBody").val().replace(/\n\r/g, "<br/>").replace(/\n/g, "<br/>"), "</div>"].join(''),
+            OKBtn: 'Ok',
+        })
+        .insertAfter($debugBtn);
+
+        jq("#debugInfoPopUp .button.blue.middle").on("click", function(){jq.unblockUI();});
+
+        $debugBtn.on("click", function () {
+            StudioBlockUIManager.blockUI('#debugInfoPopUp', 1000, 300, -300);
+            jq('.studio-action-panel').hide();
+        });
+    }
+
+
 });
 
 var Searcher = new function () {
@@ -144,7 +182,11 @@ var UnreadMailManager = new function () {
                     unread: true
                 },
                 {
-                    success: onGetDropMail
+                    success: onGetDropMail,
+                    error: function(p, e) {
+                        jq("#studio_dropMailPopupPanel").hide();
+                        window.toastr.error(e[0]);
+                    }
                 });
                 event.preventDefault();
             } else {

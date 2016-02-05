@@ -1,11 +1,9 @@
-﻿<%@ 
-    Page
+﻿<%@ Page
     Title=""
     Language="C#"
     MasterPageFile="~/Views/Shared/Site.Master"
     Inherits="System.Web.Mvc.ViewPage"
-    ContentType="text/html"
-%>
+    ContentType="text/html" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="TitleContent" runat="server">
     Document Info
@@ -16,14 +14,17 @@
         <%= Html.ActionLink(" ", "document", null, new {@class = "up"}) %>
         <span class="hdr">Document Info</span>
     </h1>
-    
+
+    <div class="header-gray">Description</div>
+    <p class="dscr">The document info section allows to change additional parameters for the document (document author, folder where the document is stored, creation date, sharing settings)</p>
+
     <div class="header-gray">Parameters</div>
     <table class="table">
         <colgroup>
-            <col style="width: 20%"/>
-            <col/>
-            <col style="width: 110px"/>
-            <col style="width: 20%"/>
+            <col class="table-name" />
+            <col />
+            <col class="table-type" />
+            <col class="table-example" />
         </colgroup>
         <thead>
             <tr class="tablerow">
@@ -38,7 +39,13 @@
                 <td>author</td>
                 <td>the name of the document author/creator</td>
                 <td>string</td>
-                <td>"Joey Jordison"</td>
+                <td>"John Smith"</td>
+            </tr>
+            <tr class="tablerow">
+                <td>created</td>
+                <td>defines the document creation date</td>
+                <td>string</td>
+                <td>"2010-07-07 3:46 PM"</td>
             </tr>
             <tr class="tablerow">
                 <td>folder</td>
@@ -47,55 +54,63 @@
                 <td>"Example Files"</td>
             </tr>
             <tr class="tablerow">
-                <td>created</td>
-                <td>defines the document creation date</td>
-                <td>string</td>
-                <td>"12/12/2012 3:46 PM"</td>
-            </tr>
-            <tr class="tablerow">
                 <td>sharingSettings</td>
                 <td>defines the settings which will allow to share the document with other users:
-			        <ul>
-				        <li>
-				            <b>user</b> - the name of the user the document will be shared with
-					        <br/>
+                    <ul>
+                        <li>
+                            <b>permissions</b> - the access rights for the user with the name above. Can be <b>Full Access</b>, <b>Read Only</b> or <b>Deny Access</b>
+                            <br />
                             <b>type</b>: string
-			            </li>
-				        <li>
-				            <b>permissions</b> - the access rights for the user with the name above. Can be <b>Full Access</b>, <b>Read Only</b> or <b>Deny Access</b>
-					        <br/>
+                            <br />
+                            <b>example</b>: "Full Access"
+                        </li>
+                        <li>
+                            <b>user</b> - the name of the user the document will be shared with
+                            <br />
                             <b>type</b>: string
-			            </li>
-			        </ul>
+                            <br />
+                            <b>example</b>: "John Smith"
+                        </li>
+                    </ul>
                 </td>
-                <td>
-                    Collection of object
+                <td>Collection of object
                     <div class="infotext">Collection</div>
                 </td>
                 <td></td>
+            </tr>
+            <tr class="tablerow">
+                <td colspan="4">
+                    <img src="/Content/img/Editor/info.png" alt=""/>
+                </td>
             </tr>
         </tbody>
     </table>
 
     <div class="header-gray">Example</div>
     <pre>
-    var docEditor = new DocsAPI.DocEditor('placeholder', {
-       document: {
-          info: {
-             author: 'Joey Jordison',
-             folder: 'Example Files',
-             created: '12/12/2012 3:46 PM',
-             sharingSettings: [
-                   {
-                      user: 'John Smith',
-                      permissions: 'Full Access'
-                   },
-                   ...
-             ]
-          }
-       }
-    });
-    </pre>
+var docEditor = new DocsAPI.DocEditor('placeholder', {
+    ...
+    document: {
+        ...
+        info: {
+            author: 'John Smith',
+            created: '2010-07-07 3:46 PM',
+            folder: 'Example Files',
+            sharingSettings: [
+                {
+                    permissions: 'Full Access',
+                    user: 'John Smith',
+                },
+                {
+                    permissions: 'Read Only',
+                    user: 'Kate Cage',
+                },
+                ...
+            ],
+        },
+    },
+});
+</pre>
 
 </asp:Content>
 

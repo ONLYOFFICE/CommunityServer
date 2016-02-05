@@ -38,25 +38,27 @@
     </div>
 </script>
 
-<script id="messageOpenErrorTmpl" type="text/x-jquery-tmpl">
-    ${errorBodyHeader = '<%: MailScriptResource.ErrorOpenMessage %>', ""}
-    ${errorBody = '<%= Server.HtmlEncode(MailScriptResource.ErrorOpenMessageHelp)
-                                                .Replace("{0}", "<a href=\"" + MailPage.GetMailSupportUri() + "\" target=\"_blank\">")
-                                                .Replace("{1}", "</a>")%>', ""}
-    <div class="body-error">
-        {{tmpl({
-                errorBodyHeader : errorBodyHeader,
-                errorBody       : errorBody
-            }) "errorBodyTmpl"}}
-
+<script id="messageOpenErrorBodyTmpl" type="text/x-jquery-tmpl">
+    <div>
+        <%= String.Format(
+         Server.HtmlEncode(MailScriptResource.ErrorOpenMessageHelp)
+            , "<a href=\"" + MailPage.GetMailSupportUri() + "\" target=\"_blank\">"
+            , "</a>")%>
     </div>
 </script>
 
-<script id="messageParseErrorTmpl" type="text/x-jquery-tmpl">
-    ${errorBodyHeader = '<%: MailScriptResource.ErrorOpenMessage %>', ""}
-    ${errorBody = '<%= Server.HtmlEncode(MailScriptResource.ErrorParseMessageHelp)
-                                                .Replace("{0}", "<a href=\"" + MailPage.GetMailSupportUri() + "\" target=\"_blank\">")
-                                                .Replace("{1}", "</a>")%>', ""}
+<script id="messageParseErrorBodyTmpl" type="text/x-jquery-tmpl">
+    <div>
+    <%= String.Format(
+            Server.HtmlEncode(MailScriptResource.ErrorParseMessageHelp)
+            , "<a href=\"" + MailPage.GetMailSupportUri() + "\" target=\"_blank\">"
+            , "</a>")%>
+    </div>
+</script>
+
+<script id="filesFolderOpenErrorTmpl" type="text/x-jquery-tmpl">
+    ${errorBodyHeader = '<%: MailScriptResource.ErrorOpenFolderHeader %>', ""}
+    ${errorBody = '<%: MailScriptResource.ErrorOpenFolderDescription%>', ""}
     <div class="body-error">
         {{tmpl({
                 errorBodyHeader : errorBodyHeader,

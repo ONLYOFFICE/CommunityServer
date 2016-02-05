@@ -33,10 +33,10 @@ namespace ASC.Mail.Aggregator.Iterators
     /// </summary>
     interface IMailboxMessagesIterator
     {
-        MailMessageItem First();
-        MailMessageItem Next();
+        MailMessage First(bool unremoved = false);
+        MailMessage Next(bool unremoved = false);
         bool IsDone { get; }
-        MailMessageItem Current { get; }
+        MailMessage Current { get; }
     }
 
     /// <summary>
@@ -58,19 +58,19 @@ namespace ASC.Mail.Aggregator.Iterators
         }
 
         // Gets first item
-        public MailMessageItem First()
+        public MailMessage First(bool onlyUnremoved = false)
         {
             Current = _mailBoxManager.GetMailInfo(_currentMailBox.TenantId, _currentMailBox.UserId, _minMessageId,
-                                                   false, false, false);
+                                                   false, false, onlyUnremoved);
             return Current;
         }
 
         // Gets next item
-        public MailMessageItem Next()
+        public MailMessage Next(bool onlyUnremoved = false)
         {
             if (!IsDone)
             {
-                Current = _mailBoxManager.GetNextMailBoxNessage(_currentMailBox, (int) Current.Id);
+                Current = _mailBoxManager.GetNextMailBoxNessage(_currentMailBox, (int)Current.Id, onlyUnremoved);
                 return Current;
             }
 
@@ -78,7 +78,7 @@ namespace ASC.Mail.Aggregator.Iterators
         }
 
         // Gets current iterator item
-        public MailMessageItem Current { get; private set; }
+        public MailMessage Current { get; private set; }
 
         // Gets whether iteration is complete
         public bool IsDone

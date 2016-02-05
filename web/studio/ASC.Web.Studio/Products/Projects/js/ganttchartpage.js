@@ -24,11 +24,6 @@
 */
 
 
-/*
- Copyright (c) Ascensio System SIA 2013. All rights reserved.
- http://www.teamlab.com
-*/
-
 ASC.Projects.GantChartPage = (function () {
 
     // data for initialize chart
@@ -347,7 +342,7 @@ ASC.Projects.GantChartPage = (function () {
 
     var initResponsibleSelector = function (team, inputType) {
         var i = 0,
-            teamWithoutVisitors = ASC.Projects.Common.removeBlockedUsersFromTeam(team),
+            teamWithoutVisitors = ASC.Projects.Common.removeBlockedUsersFromTeam(ASC.Projects.Common.excludeVisitors(team)),
             teamInd = teamWithoutVisitors ? teamWithoutVisitors.length : 0,
             list = setResponsibleMenu.find(".dropdown-content");
 
@@ -481,12 +476,13 @@ ASC.Projects.GantChartPage = (function () {
                 return false;
             }
             setZoomScale();
-            localStorageManager.set("ganttZoomScale", jq(this).val());
+            localStorageManager.setItem("ganttZoomScale", jq(this).val());
         });
 
         jq("#todayPreset").click(function () {
             if (chart) {
                 chart.viewController().strafeToDay();
+                updateZoomElement();
             }
         });
 

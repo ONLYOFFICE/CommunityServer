@@ -106,7 +106,14 @@ namespace ASC.Web.CRM.Classes
 
         public static IProgressItem GetStatus(EntityType entityType)
         {
-            return _importQueue.GetStatus(String.Format("{0}_{1}", TenantProvider.CurrentTenantID, (int)entityType));
+            var result = _importQueue.GetStatus(String.Format("{0}_{1}", TenantProvider.CurrentTenantID, (int)entityType));
+
+            if (result == null)
+            {
+                return ImportDataCache.Get(entityType);              
+            }
+
+            return result;
         }
 
         public static IProgressItem Start(EntityType entityType, String CSVFileURI, String importSettingsJSON)
@@ -114,6 +121,15 @@ namespace ASC.Web.CRM.Classes
             lock (_syncObj)
             {
                 var operation = GetStatus(entityType);
+
+                if (operation == null)
+                {
+                    var fromCache = ImportDataCache.Get(entityType);
+
+                    if (fromCache != null)
+                        return fromCache;
+                }
+
 
                 if (operation == null)
                 {

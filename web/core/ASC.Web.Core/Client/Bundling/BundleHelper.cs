@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Optimization;
@@ -37,7 +38,7 @@ namespace ASC.Web.Core.Client.Bundling
     static class BundleHelper
     {
         public const string BUNDLE_VPATH = "/bundle/";
-        public const string CLIENT_SCRIPT_VPATH = BUNDLE_VPATH + "clientscript/";
+        public const string CLIENT_SCRIPT_VPATH = "/clientscript/";
 
 
         public static ASCStyleBundle GetCssBundle(string path)
@@ -53,6 +54,10 @@ namespace ASC.Web.Core.Client.Bundling
         public static void AddBundle(Bundle bundle)
         {
             BundleTable.Bundles.Add(bundle);
+            if (((ASCBundle)bundle).UseDisc)
+            {
+                bundle.GenerateBundleResponse(new BundleContext(new HttpContextWrapper(HttpContext.Current), BundleTable.Bundles, bundle.Path));
+            }
         }
 
         public static ASCStyleBundle CssBundle(string virtualPath)
@@ -141,23 +146,20 @@ namespace ASC.Web.Core.Client.Bundling
         internal class ASCBundle : Bundle
         {
             protected virtual string ContentType { get { return ""; } }
-            protected string BundlePath;
+            public bool UseDisc;
 
             protected ASCBundle(string virtualPath, params IBundleTransform[] transforms)
                 : base(virtualPath, transforms)
             {
                 Transforms.Add(new CopyrigthTransform());
-                BundlePath = Path;
 
-                if (!BundleTable.Bundles.UseCdn || virtualPath.Contains(CLIENT_SCRIPT_VPATH)) return;
+                if (!BundleTable.Bundles.UseCdn) return;
 
                 if (CoreContext.Configuration.Standalone)
                 {
+                    UseDisc = true;
                     Transforms.Add(new DiscTransform());
-
-                    BundlePath = DiscTransform.GetFullFileName(Path, ContentType);
-                    if (DiscTransform.BundleExist(BundlePath))
-                        CdnPath = BundlePath;
+                    CdnPath = DiscTransform.GetUri(Path, ContentType);
                 }
                 else
                 {
@@ -177,7 +179,7 @@ namespace ASC.Web.Core.Client.Bundling
 
             public Bundle Include(string path)
             {
-                return Include(ToVirtualPath(path), new CssTransform(BundlePath));
+                return Include(ToVirtualPath(path), new CssTransform(UseDisc ? CdnPath : Path));
             }
         }
 

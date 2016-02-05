@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -43,7 +43,7 @@ namespace ASC.Web.Projects
         protected override void PageLoad()
         {
             var mainContent = (MainContent)LoadControl(MainContent.Location);
-            mainContent.FolderIDCurrentRoot = Project == null ? Files.Classes.Global.FolderProjects : FileEngine2.GetRoot(Project.ID);
+            mainContent.FolderIDCurrentRoot = Project == null ? Files.Classes.Global.FolderProjects : EngineFactory.FileEngine.GetRoot(Project.ID);
             mainContent.TitlePage = ProjectsCommonResource.ModuleName;
             CommonContainerHolder.Controls.Add(mainContent);
 
@@ -51,8 +51,8 @@ namespace ASC.Web.Projects
 
             Title = HeaderStringHelper.GetPageTitle(ProjectsFileResource.Files);
 
-            Page.RegisterStyleControl(LoadControl(VirtualPathUtility.ToAbsolute("~/products/files/masters/styles.ascx")));
-            Page.RegisterBodyScripts(LoadControl(VirtualPathUtility.ToAbsolute("~/products/files/masters/FilesScripts.ascx")));
+            Page.RegisterStyleControl("~/products/files/masters/styles.ascx");
+            Page.RegisterBodyScriptsControl("~/products/files/masters/FilesScripts.ascx");
             Page.RegisterClientLocalizationScript(typeof(Files.Masters.ClientScripts.FilesLocalizationResources));
             Page.RegisterClientScript(typeof(Files.Masters.ClientScripts.FilesConstantsResources));
             Page.RegisterInlineScript("if (typeof ZeroClipboard != 'undefined') {ZeroClipboard.setMoviePath('" + CommonLinkUtility.ToAbsolute("~/js/flash/zeroclipboard/zeroclipboard10.swf") + "');}");

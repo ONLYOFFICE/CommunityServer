@@ -76,7 +76,7 @@ namespace TMResourceData
                 {
                     filter.Language = new ResCulture {Title = language};
 
-                    var words = GetResource.GetListResWords(filter, string.Empty).GroupBy(x => x.ResFile.FileID).ToList();
+                    var words = ResourceData.GetListResWords(filter, string.Empty).GroupBy(x => x.ResFile.FileID).ToList();
                     if (!words.Any())
                     {
                         Console.WriteLine("Error!!! Can't find appropriate project and module. Possibly wrong names!");

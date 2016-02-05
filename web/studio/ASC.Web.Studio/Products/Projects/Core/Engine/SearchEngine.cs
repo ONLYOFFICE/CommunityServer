@@ -27,12 +27,16 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
+using System.Web;
+using ASC.Common.Utils;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
 using ASC.Web.Core.Files;
+using ASC.Web.Core.Security;
 using ASC.Web.Files.Api;
-using ASC.Web.Files.Classes;
+using ASC.Web.Projects.Classes;
 using log4net;
 
 namespace ASC.Projects.Engine
@@ -40,111 +44,124 @@ namespace ASC.Projects.Engine
     [DebuggerDisplay("SearchItem: EntityType = {EntityType}, ID = {ID}, Title = {Title}")]
     public class SearchItem
     {
-        public EntityType EntityType { get; set; }
-        public String ID { get; set; }
-        public String Title { get; set; }
-        public String Description { get; set; }
-        public DateTime CreateOn { get; set; }
+        public EntityType EntityType { get; private set; }
+        public string ItemPath { get; private set; }
+        public string ID { get; private set; }
+        public string Title { get; private set; }
+        public string Description { get; private set; }
+        public DateTime CreateOn { get; private set; }
+        public SearchItem Container { get; set; }
 
-        public SearchItem()
+        public SearchItem(EntityType entityType, string id, string title, DateTime createOn, SearchItem container = null, string desc = "", string itemPath = "")
         {
-        }
-
-        public SearchItem(EntityType entityType, int id, string title, string desc, DateTime createon)
-        {
+            Container = container;
             EntityType = entityType;
-            ID = id.ToString();
+            ID = id;
             Title = title;
             Description = desc;
-            CreateOn = createon;
+            CreateOn = createOn;
+            
+            if (!string.IsNullOrEmpty(itemPath))
+            {
+                ItemPath = ItemPathToAbsolute(itemPath);
+            }
+            else if(container != null)
+            {
+                ItemPath = container.ItemPath;
+            }
         }
-    }
 
-    [DebuggerDisplay("SearchGroup: ID = {ProjectID}, Title = {ProjectTitle}")]
-    public class SearchGroup
-    {
-        public string ProjectTitle { get; private set; }
-
-        public int ProjectID { get; private set; }
-
-        public List<SearchItem> Items { get; private set; }
-
-        public SearchGroup(int id, string title)
+        public SearchItem(ProjectEntity entity)
+            : this(entity.EntityType, entity.ID.ToString(CultureInfo.InvariantCulture), entity.Title, entity.CreateOn, new SearchItem(entity.Project), entity.Description, entity.ItemPath)
         {
-            ProjectID = id;
-            ProjectTitle = title;
-            Items = new List<SearchItem>();
+        }
+
+        public SearchItem(Project entity)
+            : this(entity.EntityType, entity.ID.ToString(CultureInfo.InvariantCulture), entity.Title, entity.CreateOn, desc: entity.Description, itemPath: entity.ItemPath)
+        {
+        }
+
+        public Dictionary<string, object> GetAdditional()
+        {
+            var result = new Dictionary<string, object>
+                             {
+                                 { "Type", EntityType },
+                                 { "Hint", LocalizedEnumConverter.ConvertToString(EntityType) }
+                             };
+
+            if (Container != null)
+            {
+                result.Add("ContainerValue", Container.Title);
+                result.Add("ContainerTitle", LocalizedEnumConverter.ConvertToString(Container.EntityType));
+                result.Add("ContainerPath", Container.ItemPath);
+            }
+
+            return result;
+        }
+
+        private string ItemPathToAbsolute(string itemPath)
+        {
+            var projectID = ID;
+            var container = Container;
+
+            while (true)
+            {
+                if(container == null) break;
+
+                projectID = container.ID;
+
+                container = container.Container;
+            }
+
+            return string.Format(itemPath, VirtualPathUtility.ToAbsolute(PathProvider.BaseVirtualPath), projectID, ID);
         }
     }
 
     public class SearchEngine
     {
-        private readonly ISearchDao _searchDao;
-        private readonly IProjectDao _projDao;
+        private readonly ISearchDao searchDao;
+        private readonly IProjectDao projDao;
+        private readonly EngineFactory factory;
+        private readonly List<SearchItem> searchItems;
 
-
-        public SearchEngine(IDaoFactory daoFactory)
+        public SearchEngine(IDaoFactory daoFactory, EngineFactory factory)
         {
-            _searchDao = daoFactory.GetSearchDao();
-            _projDao = daoFactory.GetProjectDao();
+            searchDao = daoFactory.GetSearchDao();
+            projDao = daoFactory.GetProjectDao();
+            this.factory = factory;
+            searchItems = new List<SearchItem>();
         }
 
-        public List<SearchGroup> Search(String searchText, int projectId = 0)
+        public IEnumerable<SearchItem> Search(string searchText, int projectId = 0)
         {
-            var queryResult = _searchDao.Search(searchText, projectId);
+            var queryResult = searchDao.Search(searchText, projectId);
 
-            var groups = new Dictionary<int, SearchGroup>();
-            foreach (var r in queryResult)
+            foreach (var r in queryResult.Where(ProjectSecurity.CanRead))
             {
-                var projId = 0;
-                SearchItem item = null;
+                switch (r.EntityType)
+                {
+                    case EntityType.Project:
+                        searchItems.Add(new SearchItem((Project) r));
+                        continue;
+                    case EntityType.Milestone:
+                    case EntityType.Message:
+                    case EntityType.Task:
+                        searchItems.Add(new SearchItem((ProjectEntity)r));
+                        continue;
+                    case EntityType.Comment:
+                        var comment = (Comment) r;
+                        var entity = factory.CommentEngine.GetEntityByTargetUniqId(comment);
+                        if (entity == null)continue;
 
-                if (r is Project)
-                {
-                    var p = (Project) r;
-                    if (ProjectSecurity.CanRead(p))
-                    {
-                        projId = p.ID;
-                        if (!groups.ContainsKey(projId)) groups[projId] = new SearchGroup(projId, p.Title);
-                        item = new SearchItem(EntityType.Project, p.ID, p.Title, p.Description, p.CreateOn);
-                    }
-                }
-                else
-                {
-                    if (r is Milestone)
-                    {
-                        var m = (Milestone) r;
-                        if (ProjectSecurity.CanRead(m))
-                        {
-                            projId = m.Project.ID;
-                            if (!groups.ContainsKey(projId)) groups[projId] = new SearchGroup(projId, m.Project.Title);
-                            item = new SearchItem(EntityType.Milestone, m.ID, m.Title, null, m.CreateOn);
-                        }
-                    }
-                    else if (r is Message)
-                    {
-                        var m = (Message) r;
-                        if (ProjectSecurity.CanReadMessages(m.Project))
-                        {
-                            projId = m.Project.ID;
-                            if (!groups.ContainsKey(projId)) groups[projId] = new SearchGroup(projId, m.Project.Title);
-                            item = new SearchItem(EntityType.Message, m.ID, m.Title, m.Content, m.CreateOn);
-                        }
-                    }
-                    else if (r is Task)
-                    {
-                        var t = (Task) r;
-                        if (ProjectSecurity.CanRead(t))
-                        {
-                            projId = t.Project.ID;
-                            if (!groups.ContainsKey(projId)) groups[projId] = new SearchGroup(projId, t.Project.Title);
-                            item = new SearchItem(EntityType.Task, t.ID, t.Title, t.Description, t.CreateOn);
-                        }
-                    }
-                }
-                if (0 < projId && item != null)
-                {
-                    groups[projId].Items.Add(item);
+                        searchItems.Add(new SearchItem(comment.EntityType, comment.ID.ToString(CultureInfo.InvariantCulture), HtmlUtil.GetText(comment.Content), comment.CreateOn, new SearchItem(entity)));
+                        continue;
+                    case EntityType.SubTask:
+                        var subtask = (Subtask) r;
+                        var parentTask = factory.TaskEngine.GetByID(subtask.Task);
+                        if(parentTask == null) continue;
+
+                        searchItems.Add(new SearchItem(subtask.EntityType, subtask.ID.ToString(CultureInfo.InvariantCulture), subtask.Title, subtask.CreateOn, new SearchItem(parentTask)));
+                        continue;
                 }
             }
 
@@ -155,8 +172,8 @@ namespace ASC.Projects.Engine
                 using (var folderDao = FilesIntegration.GetFolderDao())
                 using (var fileDao = FilesIntegration.GetFileDao())
                 {
-                    fileEntries.AddRange(folderDao.Search(searchText, Files.Core.FolderType.BUNCH).Cast<Files.Core.FileEntry>());
-                    fileEntries.AddRange(fileDao.Search(searchText, Files.Core.FolderType.BUNCH).Cast<Files.Core.FileEntry>());
+                    fileEntries.AddRange(folderDao.Search(searchText, Files.Core.FolderType.BUNCH));
+                    fileEntries.AddRange(fileDao.Search(searchText, Files.Core.FolderType.BUNCH));
 
                     var projectIds = projectId != 0
                                          ? new List<int> {projectId}
@@ -164,9 +181,9 @@ namespace ASC.Projects.Engine
                                                .Select(g => folderDao.GetFolder(g.Key))
                                                .Select(f => f != null ? folderDao.GetBunchObjectID(f.RootFolderId).Split('/').Last() : null)
                                                .Where(s => !string.IsNullOrEmpty(s))
-                                               .Select(s => int.Parse(s));
+                                               .Select(int.Parse);
 
-                    var rootProject = projectIds.ToDictionary(id => FilesIntegration.RegisterBunch("projects", "project", id.ToString()));
+                    var rootProject = projectIds.ToDictionary(id => FilesIntegration.RegisterBunch("projects", "project", id.ToString(CultureInfo.InvariantCulture)));
                     fileEntries.RemoveAll(f => !rootProject.ContainsKey(f.RootFolderId));
 
                     var security = FilesIntegration.GetFileSecurity();
@@ -175,28 +192,15 @@ namespace ASC.Projects.Engine
                     foreach (var f in fileEntries)
                     {
                         var id = rootProject[f.RootFolderId];
-                        if (!groups.ContainsKey(id))
+                        var project = projDao.GetById(id);
+
+                        if (ProjectSecurity.CanReadFiles(project))
                         {
-                            var project = _projDao.GetById(id);
-                            if (project != null && ProjectSecurity.CanRead(project) && ProjectSecurity.CanReadFiles(project))
-                            {
-                                groups[id] = new SearchGroup(id, project.Title);
-                            }
-                            else
-                            {
-                                continue;
-                            }
+                            var itemId = f is Files.Core.File
+                                             ? FilesLinkUtility.GetFileWebPreviewUrl(f.Title, f.ID)
+                                             : Web.Files.Classes.PathProvider.GetFolderUrl((Files.Core.Folder) f);
+                            searchItems.Add(new SearchItem(EntityType.File, itemId, f.Title, f.CreateOn, new SearchItem(project), itemPath: "{2}"));
                         }
-                        var item = new SearchItem
-                                       {
-                                           EntityType = EntityType.File,
-                                           ID = f is Files.Core.File
-                                                    ? FilesLinkUtility.GetFileWebPreviewUrl(f.Title, f.ID)
-                                                    : PathProvider.GetFolderUrl((Files.Core.Folder) f),
-                                           Title = f.Title,
-                                           CreateOn = f.CreateOn,
-                                       };
-                        groups[id].Items.Add(item);
                     }
                 }
             }
@@ -204,7 +208,7 @@ namespace ASC.Projects.Engine
             {
                 LogManager.GetLogger("ASC.Web").Error(err);
             }
-            return new List<SearchGroup>(groups.Values);
+            return searchItems;
         }
     }
 }

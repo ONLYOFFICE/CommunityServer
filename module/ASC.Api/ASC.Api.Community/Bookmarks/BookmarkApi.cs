@@ -34,6 +34,13 @@ using ASC.Api.Exceptions;
 using ASC.Bookmarking.Business;
 using ASC.Bookmarking.Pojo;
 using ASC.Core;
+using ASC.Web.Studio.UserControls.Common.Comments;
+using ASC.Web.UserControls.Bookmarking.Common.Presentation;
+using ASC.Web.UserControls.Bookmarking.Common.Util;
+using ASC.Bookmarking.Business.Permissions;
+using ASC.Web.Studio.Utility;
+using ASC.Web.Studio.Utility.HtmlUtility;
+using ASC.Web.Studio.Controls.Common;
 
 namespace ASC.Api.Community
 {
@@ -334,5 +341,108 @@ namespace ASC.Api.Community
             BookmarkingDao.AddBookmark(bookmark, !string.IsNullOrEmpty(tags) ? tags.Split(',').Select(x => new Tag {Name = x}).ToList() : new List<Tag>());
             return new BookmarkWrapper(bookmark);
         }
+
+
+        /// <summary>
+        /// Get comment preview with the content specified in the request
+        /// </summary>
+        /// <short>Get comment preview</short>
+        /// <section>Comments</section>
+        /// <param name="commentid">Comment ID</param>
+        /// <param name="htmltext">Comment content</param>
+        /// <returns>Comment info</returns>
+        /// <category>Bookmarks</category>
+        [Create("bookmark/comment/preview")]
+        public CommentInfo GetBookmarkCommentPreview(string commentid, string htmltext)
+        {
+            var comment = new Comment
+            {
+                Datetime = ASC.Core.Tenants.TenantUtil.DateTimeNow(),
+                UserID = SecurityContext.CurrentAccount.ID
+            };
+
+            if (!String.IsNullOrEmpty(commentid))
+            {
+                comment = BookmarkingServiceHelper.GetCurrentInstanse().GetCommentById(commentid);
+
+                comment.Parent = string.Empty;
+            }
+            comment.Content = htmltext;
+
+            var ci = BookmarkingConverter.ConvertComment(comment, new List<Comment>());
+            ci.IsEditPermissions = false;
+            ci.IsResponsePermissions = false;
+
+            //var isRoot = string.IsNullOrEmpty(comment.Parent) || comment.Parent.Equals(Guid.Empty.ToString(), StringComparison.CurrentCultureIgnoreCase);
+
+            return ci;
+        }
+
+
+        /// <summary>
+        ///Remove comment with the id specified in the request
+        /// </summary>
+        /// <short>Remove comment</short>
+        /// <section>Comments</section>
+        /// <param name="commentid">Comment ID</param>
+        /// <returns>Comment id</returns>
+        /// <category>Bookmarks</category>
+        [Delete("bookmark/comment/{commentid}")]
+        public string RemoveBookmarkComment(string commentid)
+        {
+            var comment = BookmarkingServiceHelper.GetCurrentInstanse().GetCommentById(commentid);
+            if (comment != null && BookmarkingPermissionsCheck.PermissionCheckEditComment(comment))
+            {
+                BookmarkingServiceHelper.GetCurrentInstanse().RemoveComment(commentid);
+                return commentid;
+            }
+            return null;
+        }
+
+        /// <category>Bookmarks</category>
+        [Create("bookmark/comment")]
+        public CommentInfo AddBookmarkComment(string parentcommentid, long entityid, string content)
+        {
+            var comment = new Comment
+            {
+                Content = content,
+                Datetime = ASC.Core.Tenants.TenantUtil.DateTimeNow(),
+                UserID = SecurityContext.CurrentAccount.ID
+            };
+
+            var parentID = Guid.Empty;
+            try
+            {
+                if (!string.IsNullOrEmpty(parentcommentid))
+                {
+                    parentID = new Guid(parentcommentid);
+                }
+            }
+            catch
+            {
+                parentID = Guid.Empty;
+            }
+            comment.Parent = parentID.ToString();
+            comment.BookmarkID = entityid;
+            comment.ID = Guid.NewGuid();
+
+            BookmarkingServiceHelper.GetCurrentInstanse().AddComment(comment);
+
+            return BookmarkingConverter.ConvertComment(comment, new List<Comment>());
+        }
+
+        /// <category>Bookmarks</category>
+        [Update("bookmark/comment/{commentid}")]
+        public string UpdateBookmarkComment(string commentid, string content)
+        {
+            var comment = BookmarkingServiceHelper.GetCurrentInstanse().GetCommentById(commentid);
+            if (comment == null || !BookmarkingPermissionsCheck.PermissionCheckEditComment(comment)) throw new ArgumentException();
+
+            BookmarkingServiceHelper.GetCurrentInstanse().UpdateComment(commentid, content);
+            return HtmlUtility.GetFull(content);
+        }
+
+
+
     }
 }

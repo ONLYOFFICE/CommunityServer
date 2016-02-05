@@ -29,15 +29,14 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net.Sockets;
 using System.Threading;
+using ActiveUp.Net.Common;
+using ActiveUp.Net.Mail;
 using ASC.Core.Tenants;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Common.Logging;
 using ASC.Mail.Aggregator.Exceptions;
-using ActiveUp.Net.Common;
-using ActiveUp.Net.Mail;
 
 namespace ASC.Mail.Aggregator.CollectionService.Workers
 {
@@ -45,9 +44,12 @@ namespace ASC.Mail.Aggregator.CollectionService.Workers
     {
         private bool _isUidlSupported;
 
-        public Pop3Worker(MailBoxManager mailBoxManager, MailBox mailBox, TasksConfig tasksConfig, CancellationToken cancelToken, ILogger log = null)
+        public bool LoadOriginalEmlData { get; set; }
+
+        public Pop3Worker(MailBoxManager mailBoxManager, MailBox mailBox, TasksConfig tasksConfig, CancellationToken cancelToken, bool loadOriginalEml, ILogger log = null)
             : base(mailBoxManager, mailBox, tasksConfig, cancelToken, log)
         {
+            LoadOriginalEmlData = loadOriginalEml;
         }
 
         protected override BaseProtocolClient Connect()
@@ -69,6 +71,8 @@ namespace ASC.Mail.Aggregator.CollectionService.Workers
                     Url = Account.Server
                 }, Account.AuthorizeTimeoutInMilliseconds, log);
 
+                pop.LoadOriginalData = LoadOriginalEmlData;
+
                 return pop;
             }
             catch (Exception)
@@ -80,8 +84,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Workers
             }
             finally
             {
-                var expires = DateTime.UtcNow.AddSeconds(Account.ServerLoginDelay);
-                mailBoxManager.SetEmailLoginDelayExpires(Account.EMail.ToString(), expires);
+                mailBoxManager.SetEmailLoginDelayExpires(Account.EMail.ToString(), Account.ServerLoginDelay);
             }
         }
 
@@ -173,12 +176,14 @@ namespace ASC.Mail.Aggregator.CollectionService.Workers
 
                             var message = client.RetrieveMessageObject(newMessage.Key);
 
-                            if (message.HasParseError)
+                            if (message.ParseException != null)
                             {
-                                log.Error("ActiveUp: message parsed with some errors.");
+                                log.Error(
+                                    "ActiveUp: message parsed with some errors. MailboxId = {0} Message UID = \"{1}\" Error: {2}",
+                                    Account.MailBoxId, newMessage.Value, message.ParseException.ToString());
+
                                 hasParseError = true;
                             }
-
 
                             UpdateTimeCheckedIfNeeded();
 

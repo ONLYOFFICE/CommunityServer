@@ -83,9 +83,9 @@ namespace ASC.Projects.Core.DataInterfaces
 
         bool IsInTeam(int projectId, Guid participantId);
 
-        List<Participant> GetTeam(int projectId);
+        List<Participant> GetTeam(Project project);
 
-        List<Participant> GetTeam(List<int> projectId);
+        List<Participant> GetTeam(IEnumerable<Project> projects);
 
         List<ParticipantFull> GetTeamUpdates(DateTime from, DateTime to);
 

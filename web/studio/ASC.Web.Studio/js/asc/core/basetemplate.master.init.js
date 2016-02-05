@@ -22,6 +22,66 @@
  * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
  *
 */
+var defineBodyMediaClass = function () {
+    var $body = jq("body"),
+               list = [
+               { min: 0,    max: 1024, classname: 'media-width-0-1024' },
+               { min: 0,    max: 1030, classname: 'media-width-0-1030' },
+               { min: 0,    max: 1048, classname: 'media-width-0-1048' },
+               { min: 0,    max: 1072, classname: 'media-width-0-1072' },
+               { min: 0,    max: 1080, classname: 'media-width-0-1080' },
+               { min: 0,    max: 1096, classname: 'media-width-0-1096' },
+
+               { min: 0,    max: 1100, classname: 'media-width-0-1100' },
+               { min: 0,    max: 1120, classname: 'media-width-0-1120' },
+               { min: 0,    max: 1140, classname: 'media-width-0-1140' },
+               { min: 0,    max: 1144, classname: 'media-width-0-1144' },
+               { min: 0,    max: 1150, classname: 'media-width-0-1150' },
+               { min: 0,    max: 1160, classname: 'media-width-0-1160' },
+               { min: 0,    max: 1180, classname: 'media-width-0-1180' },
+
+               { min: 0,    max: 1200, classname: 'media-width-0-1200' },
+               { min: 0,    max: 1210, classname: 'media-width-0-1210' },
+               { min: 1145, max: 0,    classname: 'media-width-1145-0' },
+               { min: 0,    max: 1250, classname: 'media-width-0-1250' },
+               { min: 0,    max: 1260, classname: 'media-width-0-1260' },
+               { min: 0,    max: 1270, classname: 'media-width-0-1270' },
+
+               { min: 0,    max: 1300, classname: 'media-width-0-1300' },
+               { min: 0,    max: 1340, classname: 'media-width-0-1340' },
+               { min: 0,    max: 1350, classname: 'media-width-0-1350' },
+               { min: 0,    max: 1390, classname: 'media-width-0-1390' },
+
+               { min: 0,    max: 1400, classname: 'media-width-0-1400' },
+               { min: 0,    max: 1410, classname: 'media-width-0-1410' },
+               { min: 0,    max: 1420, classname: 'media-width-0-1420' },
+               { min: 0,    max: 1450, classname: 'media-width-0-1450' },
+               { min: 0,    max: 1470, classname: 'media-width-0-1470' },
+
+               { min: 0,    max: 1500, classname: 'media-width-0-1500' },
+               { min: 0,    max: 1575, classname: 'media-width-0-1575' },
+              
+               { min: 0,    max: 1620, classname: 'media-width-0-1620' },
+               { min: 0,    max: 1650, classname: 'media-width-0-1650' },
+               { min: 1620, max: 0,    classname: 'media-width-1620-0' },
+
+
+               ],
+
+        width = jq("#studioPageContent").width() - jq(".mainPageTableSidePanel").width() + 240;
+
+
+    for (var i = 0, n = list.length; i < n; i++) {
+        if (width >= list[i].min && (list[i].max == 0 || width < list[i].max)) {
+            if (!$body.hasClass(list[i].classname))
+                $body.addClass(list[i].classname);
+        } else {
+            if ($body.hasClass(list[i].classname))
+                $body.removeClass(list[i].classname);
+        }
+    }
+    $body.removeClass('media-width-min');
+};
 
 
 (function() {
@@ -126,7 +186,7 @@
                 "&userCreated=",
                 ASC.Resources.Master.ApiResponsesMyProfile.response.created,
                 "&promo=",
-                window.StudioSettings ? window.StudioSettings.ShowPromotions : ""
+                ASC.Resources.Master.ShowPromotions
             ].join(""));
     }
 
@@ -135,8 +195,7 @@
         ASC.Resources.Master.IsAuthenticated == true &&
         ASC.Resources.Master.ApiResponsesMyProfile.response &&
         !ASC.Resources.Master.ApiResponsesMyProfile.response.isOutsider &&
-        window.StudioSettings &&
-        window.StudioSettings.ShowTips) {
+        ASC.Resources.Master.ShowTips) {
 
         jq.getScript(
             [
@@ -152,7 +211,7 @@
                 "&admin=",
                 ASC.Resources.Master.IsAdmin,
                 "&productAdmin=",
-                window.ProductSettings ? window.ProductSettings.IsProductAdmin : "",
+                ASC.Resources.Master.IsProductAdmin,
                 "&visitor=",
                 ASC.Resources.Master.IsVisitor,
                 "&userCreatedDate=",
@@ -204,24 +263,111 @@
     }
 
 
+
+    /***workaround for media screen***/
+    defineBodyMediaClass();
+    /******/
+
+    /***resizable left navigation menu***/
+    var sidePanelMinW = 240,
+        mainPageContentMinOuterW = // 711
+               1024 // min-width for #studioPageContent
+               - 24 * 2 // - padding for .mainPageLayout
+               - sidePanelMinW // 240
+               - 24 - 1;//  - 'padding-right' - 'border-width' for .mainPageTableSidePanel 
+
+    var setResizableMaxWidth = function () {
+        var sidePanelMaxW = jq("#studioPageContent").width()
+                 - 24 * 2 // - padding for .mainPageLayout
+                 - mainPageContentMinOuterW
+                 - 24 - 1; // - 'padding-right' - 'border-width' for .mainPageTableSidePanel 
+
+        jq(".mainPageTableSidePanel").resizable("option", "maxWidth", sidePanelMaxW);
+    }
+
+
+    if (jq(".mainPageTableSidePanel").length == 1) {
+        jq(".mainPageTableSidePanel").resizable({
+            maxWidth: sidePanelMinW,
+            minWidth: sidePanelMinW,
+            handles: 'e',
+            start: function (event) {
+                jq("body:not(.media-width-min)").addClass('media-width-min');
+                jq(".popup_helper").hide();
+            },
+            resize: function (event, ui) {
+                jq("#studio_sidePanel").css("width", ui.size.width);
+
+                jq(window).trigger("resizeSidePanel", [event, ui]);
+            },
+            create: function () {
+            },
+            stop: function (event, ui) {
+            }
+        });
+        setResizableMaxWidth();
+    }
+    /******/
+
+
+
+    jq(window).on("resize", function () {
+        // hide all popup's
+        jq(".studio-action-panel:not(.freeze-display)").hide();
+
+        jq("body:not(.media-width-min)").addClass('media-width-min');
+
+        clearTimeout(jq.data(this, 'resizeWinTimer'));
+        jq.data(this, 'resizeWinTimer', setTimeout(function () {
+
+            defineBodyMediaClass();
+
+            /***resizable left navigation menu***/
+            if (jq(".mainPageTableSidePanel").length == 1) {
+                setResizableMaxWidth();
+                if (jq("#studioPageContent").width() < jq(".mainPageTable.with-mainPageTableSidePanel").width() ||
+                    jq(".mainPageTable.with-mainPageTableSidePanel .mainPageContent").outerWidth() < mainPageContentMinOuterW) {
+                    jq("#studio_sidePanel").width(sidePanelMinW);
+                    jq(".mainPageTableSidePanel").width(sidePanelMinW);
+                }
+            }
+            /******/
+
+            jq(window).trigger("resizeWinTimer", null);
+
+            jq("table.mainPageTable").tlBlock('resize');
+
+
+            jq("div.advansed-filter").each(function () {
+                jq(this).advansedFilter('resize');
+            });
+
+        }, 51));
+
+        clearTimeout(jq.data(this, 'resizeWinTimerWithMaxDelay'));
+        jq.data(this, 'resizeWinTimerWithMaxDelay', setTimeout(function () {
+            defineBodyMediaClass();
+
+            jq(window).trigger("resizeWinTimerWithMaxDelay", null);
+
+            jq("table.mainPageTable").tlBlock('resize');
+        }, 91));
+    });
+
+
 })();
+
 
 jq("table.mainPageTable").tlBlock();
 
 //hack for resizing filter
 setTimeout("jq(window).resize()", 500);
 
-jq(window).on("resize", function() {
-    // hide all popup's
-    jq(".studio-action-panel:not(.freeze-display)").hide();
-
-    clearTimeout(jq.data(this, 'resizeFilterTimer'));
-    jq.data(this, 'resizeFilterTimer', setTimeout(function() {
-        jq("div.advansed-filter").each(function() {
-            jq(this).advansedFilter('resize');
-        });
-    }, 50));
-
+jq(window).one("resize", function () {
+    clearTimeout(jq.data(this, 'resizeWinTimer'));
+    jq.data(this, 'resizeWinTimer', setTimeout(function () {
+        defineBodyMediaClass();
+    }, 51));
 });
 
 // init uvOptions

@@ -25,101 +25,58 @@
 
 
 jq(function () {
-    jq("#docServiceButtonSave").click(function () {
+    var saveUrls = function () {
         var docServiceUrlApi = jq("#docServiceUrlApi").val();
         var docServiceUrlCommand = jq("#docServiceUrlCommand").val();
         var docServiceUrlStorage = jq("#docServiceUrlStorage").val();
         var docServiceUrlConverter = jq("#docServiceUrlConverter").val();
 
-        jq("#docServiceBlock").block();
-        DocService.SaveUrls(docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, function (result) {
-            if (result.error != null) {
-                toastr.error(result.error.Message);
+        Teamlab.saveDocServiceUrl(docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, {
+            success: function () {
+                LoadingBanner.showMesInfoBtn("#docServiceBlock", ASC.Resources.Master.Resource.SuccessfullySaveSettingsMessage, "success");
+                jq("#docServiceBlock").unblock();
+            },
+            error: function (params, error) {
+                LoadingBanner.showMesInfoBtn("#docServiceBlock", error[0], "error");
+                jq("#docServiceBlock").unblock();
             }
-            jq("#docServiceBlock").unblock();
         });
-    });
-
-    jq(document).on("click", "#docServiceButtonTest:not(.disable)", function () {
-        TestDocService();
-    });
-});
-
-var TestDocServiceAPI = function () {
-    var testResult = function () {
-        var result = typeof DocsAPI != "undefined";
-
-        jq("#docServiceUrlApi").toggleClass("complete-input", result).data("done", true);
-        checkTestDocServiceDone();
     };
 
-    delete DocsAPI;
-    testResult();
-    jq("#docServiceUrlApi").data("done", false);
+    var testDocServiceApi = function () {
+        var testApiResult = function () {
+            var result = typeof DocsAPI != "undefined";
 
-    jq("#scripDocServiceAddress").remove();
+            if (result) {
+                saveUrls();
+            } else {
+                LoadingBanner.showMesInfoBtn("#docServiceBlock", "Api url: Service is not defined", "error");
+                jq("#docServiceBlock").unblock();
+            }
+        };
 
-    var js = document.createElement("script");
-    js.setAttribute("type", "text/javascript");
-    js.setAttribute("id", "scripDocServiceAddress");
-    document.getElementsByTagName("head")[0].appendChild(js);
+        delete DocsAPI;
 
-    var scriptAddress = jq("#scripDocServiceAddress");
+        jq("#scripDocServiceAddress").remove();
 
-    scriptAddress.load(testResult).error(testResult);
+        var js = document.createElement("script");
+        js.setAttribute("type", "text/javascript");
+        js.setAttribute("id", "scripDocServiceAddress");
+        document.getElementsByTagName("head")[0].appendChild(js);
 
-    var docServiceUrlApi = jq("#docServiceUrlApi").val();
+        var scriptAddress = jq("#scripDocServiceAddress");
 
-    scriptAddress.attr("src", docServiceUrlApi);
-};
+        scriptAddress.load(testApiResult).error(testApiResult);
 
+        var docServiceUrlApi = jq("#docServiceUrlApi").val();
 
-var TestDocServiceCommand = function () {
-    TestDocServiceInput("docServiceUrlCommand");
-};
-var TestDocServiceStorage = function () {
-    TestDocServiceInput("docServiceUrlStorage");
-};
-var TestDocServiceConverter = function () {
-    TestDocServiceInput("docServiceUrlConverter");
-};
+        scriptAddress.attr("src", docServiceUrlApi);
+    };
 
-var TestDocServiceInput = function (inputId) {
-    jq("#" + inputId).removeClass("complete-input").data("error", false).data("done", false);
+    jq("#docServiceButtonSave").click(function () {
+        jq("#docServiceBlock").block();
+        testDocServiceApi();
 
-    var docServiceUrlStorage = jq("#" + inputId).val();
-    if (!docServiceUrlStorage.length) {
-        jq("#" + inputId).data("error", true).removeClass("complete-input").data("done", true);
-        checkTestDocServiceDone();
-        return;
-    }
-
-    jq.ajax({
-        type: "get",
-        url: docServiceUrlStorage,
-        complete: function () {
-            jq("#" + inputId).toggleClass("complete-input", !jq("#" + inputId).data("error")).data("done", true);
-            checkTestDocServiceDone();
-        },
-        error: function () {
-            jq("#" + inputId).data("error", true);
-        }
+        return false;
     });
-};
-
-var checkTestDocServiceDone = function () {
-    if (jq("#docServiceUrlApi").data("done")
-        && jq("#docServiceUrlCommand").data("done")
-        && jq("#docServiceUrlStorage").data("done")
-        && jq("#docServiceUrlConverter").data("done")) {
-        jq("#docServiceButtonTest").removeClass("disable");
-    }
-};
-
-var TestDocService = function () {
-    jq("#docServiceButtonTest").addClass("disable");
-    TestDocServiceAPI();
-    TestDocServiceCommand();
-    TestDocServiceStorage();
-    TestDocServiceConverter();
-};
+});

@@ -31,7 +31,6 @@ using ASC.Core;
 using ASC.MessagingSystem;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
-using AjaxPro;
 using ASC.Web.Core.Security;
 using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.Utility;
@@ -40,7 +39,6 @@ using ASC.Core.Users;
 
 namespace ASC.Web.Studio.UserControls.Users.UserProfile
 {
-    [AjaxNamespace("PwdTool")]
     public partial class PwdTool : UserControl
     {
         public static string Location
@@ -56,58 +54,7 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             _pwdRemainderContainer.Options.InfoMessageText = "";
             _pwdRemainderContainer.Options.InfoType = InfoType.Info;
 
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/users/UserProfile/js/pwdtool.js"));
-
-            AjaxPro.Utility.RegisterTypeForAjax(GetType());
-        }
-
-        [SecurityPassthrough]
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public AjaxResponse RemindPwd(string email)
-        {
-            var response = new AjaxResponse {rs1 = "0"};
-
-            if (!email.TestEmailRegex())
-            {
-                response.rs2 = "<div>" + Resource.ErrorNotCorrectEmail + "</div>";
-                return response;
-            }
-
-            var tenant = CoreContext.TenantManager.GetCurrentTenant();
-            if (tenant != null)
-            {
-                var settings = SettingsManager.Instance.LoadSettings<IPRestrictionsSettings>(tenant.TenantId);
-                if (settings.Enable && !IPSecurity.IPSecurity.Verify(tenant.TenantId))
-                {
-                    response.rs2 = "<div>" + Resource.ErrorAccessRestricted + "</div>";
-                    return response;
-                }
-            }
-
-            try
-            {
-                UserManagerWrapper.SendUserPassword(email);
-
-                response.rs1 = "1";
-                response.rs2 = String.Format(Resource.MessageYourPasswordSuccessfullySendedToEmail, "<b>" + email + "</b>");
-                var userInfo = CoreContext.UserManager.GetUserByEmail(email);
-
-                if (userInfo.Sid != null)
-                {
-                    response.rs2 = "<div>" + Resource.CouldNotRecoverPasswordForLdapUser + "</div>";
-                    return response;
-                }
-
-                string displayUserName = userInfo.DisplayUserName(false);
-
-                MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentPasswordChangeInstructions, displayUserName);
-            }
-            catch(Exception ex)
-            {
-                response.rs2 = "<div>" + HttpUtility.HtmlEncode(ex.Message) + "</div>";
-            }
-
-            return response;
+            Page.RegisterBodyScripts("~/usercontrols/users/UserProfile/js/pwdtool.js");
         }
     }
 }

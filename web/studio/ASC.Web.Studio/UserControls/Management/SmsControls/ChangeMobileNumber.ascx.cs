@@ -51,7 +51,7 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             _changePhoneContainer.Options.IsPopup = true;
 
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/smscontrols/js/changemobile.js"));
+            Page.RegisterBodyScripts("~/usercontrols/management/smscontrols/js/changemobile.js");
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
         }

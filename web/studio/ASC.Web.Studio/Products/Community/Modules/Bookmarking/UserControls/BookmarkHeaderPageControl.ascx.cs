@@ -26,26 +26,27 @@
 
 using System;
 using System.Web.UI;
+using ASC.Core;
+using ASC.Web.Community.Product;
 using ASC.Web.UserControls.Bookmarking.Resources;
 
 namespace ASC.Web.Community.Bookmarking.UserControls
 {
     public partial class BookmarkHeaderPageControl : UserControl
     {
-        public string SubscribeOnBookmarkComments
-        {
-            get { return BookmarkingUCResource.SubscribeOnBookmarkComments; }
-        }
-
-        public string UnsubscribeOnBookmarkComments
-        {
-            get { return BookmarkingUCResource.UnSubscribeOnBookmarkComments; }
-        }
-
         public string Title { get; set; }
+        public long BookmarkID { get; set; }
+        public Guid Author { get; set; }
+
+        protected string SubscribeOnBookmarkComments { get { return BookmarkingUCResource.SubscribeOnBookmarkComments; } }
+        protected string UnsubscribeOnBookmarkComments { get { return BookmarkingUCResource.UnSubscribeOnBookmarkComments; } }
+        protected bool IsAdmin { get; set; }
+        protected bool IsAuthor { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            IsAdmin = CommunitySecurity.IsAdministrator();
+            IsAuthor = Author.Equals(SecurityContext.CurrentAccount.ID);
         }
     }
 }

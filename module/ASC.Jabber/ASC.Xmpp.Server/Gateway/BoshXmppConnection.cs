@@ -24,23 +24,25 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
-using System.Threading;
+using ASC.Core;
 using ASC.Xmpp.Core.protocol;
 using ASC.Xmpp.Core.protocol.extensions.bosh;
 using ASC.Xmpp.Core.utils.Xml.Dom;
 using ASC.Xmpp.Server.Utils;
 using log4net;
+using System;
+using System.Collections.Concurrent;
+using System.Net;
+using System.Text;
+using System.Threading;
 using Uri = ASC.Xmpp.Core.protocol.Uri;
-using ASC.Core;
 
 namespace ASC.Xmpp.Server.Gateway
 {
     public class BoshXmppConnection : IXmppConnection
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(BoshXmppConnection));
+
         private TimeSpan waitPeriod = TimeSpan.FromSeconds(60);
 
         private TimeSpan inactivityPeriod = TimeSpan.FromSeconds(60);
@@ -49,15 +51,11 @@ namespace ASC.Xmpp.Server.Gateway
 
         private int window = 5;
 
-        private Queue<Node> sendBuffer = new Queue<Node>();
+        private ConcurrentQueue<Node> sendBuffer = new ConcurrentQueue<Node>();
 
-        private AutoResetEvent waitAnswer = new AutoResetEvent(false);
+        private readonly object wait = new object();
 
-        private AutoResetEvent waitDrop = new AutoResetEvent(false);
-
-        private volatile bool closed = false;
-
-        private static readonly ILog log = LogManager.GetLogger(typeof(BoshXmppConnection));
+        private int closed;
 
 
         public BoshXmppConnection()
@@ -82,14 +80,12 @@ namespace ASC.Xmpp.Server.Gateway
 
         public void Close()
         {
-            lock (sendBuffer)
+            if (Interlocked.CompareExchange(ref closed, 1, 0) == 0)
             {
-                if (closed) return;
-                closed = true;
-
-                waitDrop.Set();
-                waitDrop.Close();
-                waitAnswer.Close();
+                lock (wait)
+                {
+                    Monitor.PulseAll(wait);
+                }
                 IdleWatcher.StopWatch(Id);
 
                 try
@@ -100,7 +96,7 @@ namespace ASC.Xmpp.Server.Gateway
                 catch { }
                 finally
                 {
-                    sendBuffer.Clear();
+                    sendBuffer = new ConcurrentQueue<Node>();
                 }
 
                 try
@@ -116,14 +112,13 @@ namespace ASC.Xmpp.Server.Gateway
 
         public void Send(Node node, Encoding encoding)
         {
-            if (closed) return;
-            lock (sendBuffer)
-            {
-                var text = node.ToString();
-                if (log.IsDebugEnabled) log.DebugFormat("Add node {0} to send buffer connection {1}", 200 < text.Length ? text.Substring(0, 195) + " ... " : text, Id);
+            var text = node.ToString();
+            if (log.IsDebugEnabled) log.DebugFormat("Add node {0} to send buffer connection {1}", 200 < text.Length ? text.Substring(0, 195) + " ... " : text, Id);
 
-                sendBuffer.Enqueue(node);
-                waitAnswer.Set();
+            sendBuffer.Enqueue(node);
+            lock (wait)
+            {
+                Monitor.PulseAll(wait);
             }
         }
 
@@ -184,6 +179,7 @@ namespace ASC.Xmpp.Server.Gateway
                 WriteBodyHeaders(body);
 
                 log.DebugFormat("Connection {0} WAIT ...", Id);
+
                 var waitResult = WaitAnswerOrDrop();
 
                 if (waitResult == WaitResult.Success)
@@ -213,7 +209,7 @@ namespace ASC.Xmpp.Server.Gateway
             if (0 < body.Window) window = body.Window;
             if (0 < body.Polling) window = body.Polling;
 
-            if (closed) return false;
+            if (Volatile.Read(ref closed) == 1) return false;
             if (rid != 0 && window < Math.Abs(body.Rid - rid)) return false;
             return true;
         }
@@ -245,47 +241,46 @@ namespace ASC.Xmpp.Server.Gateway
 
         private WaitResult WaitAnswerOrDrop()
         {
-            lock (sendBuffer)
+            lock (wait)
             {
-                if (0 < sendBuffer.Count)
+                Monitor.PulseAll(wait);
+                if (!sendBuffer.IsEmpty)
                 {
                     return WaitResult.Success;
                 }
+                Monitor.Wait(wait, waitPeriod);
             }
-            lock (waitDrop)
-            {
-                waitDrop.Set();
-                // Mono hack for thread switching
-                if (WorkContext.IsMono)
-                {
-                    Thread.Sleep(10);
-                }
-                waitDrop.Reset();
-            }
-            int waitResult = WaitHandle.WaitAny(new[] { waitAnswer, waitDrop }, waitPeriod, false);
 
-            if (closed) return WaitResult.Terminate;
-            if (waitResult == 0) return WaitResult.Success;
-            return WaitResult.Timeout;
+            if (Volatile.Read(ref closed) == 1)
+            {
+                // connection close
+                return WaitResult.Terminate;
+            }
+
+            if (!sendBuffer.IsEmpty)
+            {
+                // connection not closed and need to send message
+                return WaitResult.Success;
+            }
+
+            return WaitResult.Timeout; // ok, timeout, continue polling
         }
 
         private void SendAnswer(Body body, HttpListenerContext ctx)
         {
             try
             {
-                lock (sendBuffer)
+                var copy = Interlocked.Exchange(ref sendBuffer, new ConcurrentQueue<Node>());
+                foreach (var node in copy)
                 {
-                    foreach (var node in sendBuffer)
-                    {
-                        body.AddChild(node);
-                        if (node.Namespace == Uri.STREAM) body.SetAttribute("xmlns:stream", Uri.STREAM);
-                    }
-
-                    if (closed) body.Type = BoshType.terminate;
-                    BoshXmppHelper.SendAndCloseResponse(ctx, body.ToString(), true, null);
-                    sendBuffer.Clear();
-                    log.DebugFormat("Connection {0} Send buffer:\r\n{1}", Id, body);
+                    body.AddChild(node);
+                    if (node.Namespace == Uri.STREAM) body.SetAttribute("xmlns:stream", Uri.STREAM);
                 }
+
+                if (Volatile.Read(ref closed) == 1) body.Type = BoshType.terminate;
+                BoshXmppHelper.SendAndCloseResponse(ctx, body.ToString(), true, null);
+
+                log.DebugFormat("Connection {0} Send buffer:\r\n{1}", Id, body);
             }
             catch (Exception e)
             {

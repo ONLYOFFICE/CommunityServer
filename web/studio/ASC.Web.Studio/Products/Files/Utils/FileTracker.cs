@@ -24,45 +24,41 @@
 */
 
 
+using ASC.Common.Caching;
+using ASC.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ASC.Core;
+using System.Runtime.Serialization;
 
 namespace ASC.Web.Files.Utils
 {
+    [DataContract]
     public class FileTracker
     {
-        internal class TrackInfo
-        {
-            public DateTime CheckRightTime;
-            public DateTime TrackTime;
-            public Guid UserId;
-            public bool NewScheme;
-            public bool EditingAlone;
+        private const string TRACKER = "filesTracker";
+        private static readonly ICache cache = AscCache.Default;
 
-            public TrackInfo(Guid userId, bool newScheme, bool editingAlone)
-            {
-                CheckRightTime = DateTime.UtcNow;
-                TrackTime = DateTime.UtcNow;
-                NewScheme = newScheme;
-                UserId = userId;
-                EditingAlone = editingAlone;
-            }
-        }
-
-        private static readonly Dictionary<string, FileTracker> NowEditing = new Dictionary<string, FileTracker>();
         public static readonly TimeSpan TrackTimeout = TimeSpan.FromSeconds(12);
+        public static readonly TimeSpan CacheTimeout = TimeSpan.FromSeconds(30);
         public static readonly TimeSpan CheckRightTimeout = TimeSpan.FromMinutes(1);
 
+        [DataMember]
         private readonly Dictionary<Guid, TrackInfo> _editingBy;
-        private bool _fixedVersion;
+        [DataMember]
+        private bool _fixedVersion = false;
+
+
+        private FileTracker()
+        {
+
+        }
 
         private FileTracker(Guid tabId, Guid userId, bool newScheme, bool editingAlone)
         {
-            _fixedVersion = false;
             _editingBy = new Dictionary<Guid, TrackInfo> { { tabId, new TrackInfo(userId, newScheme, editingAlone) } };
         }
+
 
         public static Guid Add(object fileId, bool fixedVersion)
         {
@@ -74,161 +70,201 @@ namespace ASC.Web.Files.Utils
         public static bool ProlongEditing(object fileId, Guid tabId, bool fixedVersion, Guid userId, bool editingAlone = false)
         {
             var checkRight = true;
-            lock (NowEditing)
+            var tracker = GetTracker(fileId);
+            if (tracker != null && IsEditing(fileId))
             {
-                if (IsEditing(fileId))
+                if (tracker._editingBy.Keys.Contains(tabId))
                 {
-                    if (NowEditing[fileId.ToString()]._editingBy.Keys.Contains(tabId))
-                    {
-                        NowEditing[fileId.ToString()]._editingBy[tabId].TrackTime = DateTime.UtcNow;
-                        checkRight = (DateTime.UtcNow - NowEditing[fileId.ToString()]._editingBy[tabId].CheckRightTime > CheckRightTimeout);
-                    }
-                    else
-                    {
-                        NowEditing[fileId.ToString()]._editingBy.Add(tabId, new TrackInfo(userId, tabId == userId, editingAlone));
-                    }
+                    tracker._editingBy[tabId].TrackTime = DateTime.UtcNow;
+                    checkRight = (DateTime.UtcNow - tracker._editingBy[tabId].CheckRightTime > CheckRightTimeout);
                 }
                 else
                 {
-                    NowEditing[fileId.ToString()] = new FileTracker(tabId, userId, tabId == userId, editingAlone);
+                    tracker._editingBy.Add(tabId, new TrackInfo(userId, tabId == userId, editingAlone));
                 }
-
-                if (fixedVersion)
-                    NowEditing[fileId.ToString()]._fixedVersion = true;
             }
+            else
+            {
+                tracker = new FileTracker(tabId, userId, tabId == userId, editingAlone);
+            }
+
+            if (fixedVersion)
+            {
+                tracker._fixedVersion = true;
+            }
+
+            SetTracker(fileId, tracker);
+
             return checkRight;
         }
 
-        public static void Remove(object fileId, Guid tabId = default(Guid), Guid userId = default (Guid))
+        public static void Remove(object fileId, Guid tabId = default(Guid), Guid userId = default(Guid))
         {
-            lock (NowEditing)
+            var tracker = GetTracker(fileId);
+            if (tracker != null)
             {
-                if (NowEditing.ContainsKey(fileId.ToString()))
+                if (tabId != default(Guid))
                 {
-                    if (tabId != default(Guid)
-                        && NowEditing[fileId.ToString()]._editingBy.ContainsKey(tabId))
-                    {
-                        NowEditing[fileId.ToString()]._editingBy.Remove(tabId);
-                        return;
-                    }
-
-                    if (userId != default(Guid))
-                    {
-                        var listForRemove = NowEditing[fileId.ToString()]
-                            ._editingBy
-                            .ToList() //create copy list
-                            .Where(editTab => NowEditing[fileId.ToString()]._editingBy[editTab.Key].UserId == userId);
-                        foreach (var editTab in listForRemove)
-                        {
-                            NowEditing[fileId.ToString()]._editingBy.Remove(editTab.Key);
-                        }
-                        return;
-                    }
-
-                    NowEditing.Remove(fileId.ToString());
+                    tracker._editingBy.Remove(tabId);
+                    SetTracker(fileId, tracker);
+                    return;
                 }
+                if (userId != default(Guid))
+                {
+                    var listForRemove = tracker._editingBy
+                        .Where(b => tracker._editingBy[b.Key].UserId == userId)
+                        .ToList();
+                    foreach (var editTab in listForRemove)
+                    {
+                        tracker._editingBy.Remove(editTab.Key);
+                    }
+                    SetTracker(fileId, tracker);
+                    return;
+                }
+
+                SetTracker(fileId, null);
             }
         }
 
         public static void RemoveAllOther(object fileId)
         {
-            lock (NowEditing)
+            var tracker = GetTracker(fileId);
+            if (tracker != null)
             {
-                if (NowEditing.ContainsKey(fileId.ToString()))
+                var listForRemove = tracker._editingBy
+                    .Where(b => b.Value.UserId != SecurityContext.CurrentAccount.ID)
+                    .ToList();
+                if (listForRemove.Count() != tracker._editingBy.Count)
                 {
-                    var listForRemove = NowEditing[fileId.ToString()]._editingBy.Where(editTab => editTab.Value.UserId != SecurityContext.CurrentAccount.ID).ToList();
-                    if (listForRemove.Count() != NowEditing[fileId.ToString()]._editingBy.Count)
+                    foreach (var forRemove in listForRemove)
                     {
-                        foreach (var forRemove in listForRemove)
-                        {
-                            NowEditing[fileId.ToString()]._editingBy.Remove(forRemove.Key);
-                        }
+                        tracker._editingBy.Remove(forRemove.Key);
                     }
-                    else
-                    {
-                        NowEditing.Remove(fileId.ToString());
-                    }
+                    SetTracker(fileId, tracker);
+                }
+                else
+                {
+                    SetTracker(fileId, null);
                 }
             }
         }
 
         public static bool IsEditing(object fileId)
         {
-            lock (NowEditing)
+            var tracker = GetTracker(fileId);
+            if (tracker != null)
             {
-                if (fileId != null && NowEditing.ContainsKey(fileId.ToString()))
+                var listForRemove = tracker._editingBy
+                    .Where(e => !e.Value.NewScheme && (DateTime.UtcNow - e.Value.TrackTime).Duration() > TrackTimeout)
+                    .ToList();
+                foreach (var editTab in listForRemove)
                 {
-                    var listForRemove = NowEditing[fileId.ToString()]
-                        ._editingBy
-                        .ToList() //create copy list
-                        .Where(editTab => !editTab.Value.NewScheme && (DateTime.UtcNow - editTab.Value.TrackTime).Duration() > TrackTimeout);
-                    foreach (var editTab in listForRemove)
-                    {
-                        NowEditing[fileId.ToString()]._editingBy.Remove(editTab.Key);
-                    }
-
-                    if (NowEditing[fileId.ToString()]._editingBy.Count == 0)
-                    {
-                        NowEditing.Remove(fileId.ToString());
-                        return false;
-                    }
-
-                    return true;
+                    tracker._editingBy.Remove(editTab.Key);
                 }
+
+                if (tracker._editingBy.Count == 0)
+                {
+                    SetTracker(fileId, null);
+                    return false;
+                }
+
+                SetTracker(fileId, tracker);
+                return true;
             }
             return false;
         }
 
         public static bool IsEditingAlone(object fileId)
         {
-            lock (NowEditing)
-            {
-                return
-                    fileId != null
-                    && NowEditing.ContainsKey(fileId.ToString())
-                    && NowEditing[fileId.ToString()]._editingBy.Count == 1
-                    && NowEditing[fileId.ToString()]._editingBy.FirstOrDefault().Value.EditingAlone;
-            }
+            var tracker = GetTracker(fileId);
+            return tracker != null && tracker._editingBy.Count == 1 && tracker._editingBy.FirstOrDefault().Value.EditingAlone;
         }
 
         public static bool FixedVersion(object fileId)
         {
-            lock (NowEditing)
-            {
-                if (fileId != null && NowEditing.ContainsKey(fileId.ToString()))
-                {
-                    return NowEditing[fileId.ToString()]._fixedVersion;
-                }
-            }
-            return false;
+            var tracker = GetTracker(fileId);
+            return tracker != null && tracker._fixedVersion;
         }
 
         public static void ChangeRight(object fileId, Guid userId, bool check)
         {
-            lock (NowEditing)
+            var tracker = GetTracker(fileId);
+            if (tracker != null)
             {
-                if (fileId == null || !NowEditing.ContainsKey(fileId.ToString())) return;
 
-                NowEditing[fileId.ToString()]._editingBy.Values.ToList()
-                                             .ForEach(trackInfo =>
-                                                          {
-                                                              if (trackInfo.UserId == userId || userId == Guid.Empty)
-                                                              {
-                                                                  trackInfo.CheckRightTime =
-                                                                      check ? DateTime.MinValue : DateTime.UtcNow;
-                                                              }
-                                                          });
+                tracker._editingBy.Values
+                    .ToList()
+                    .ForEach(i =>
+                    {
+                        if (i.UserId == userId || userId == Guid.Empty)
+                        {
+                            i.CheckRightTime = check ? DateTime.MinValue : DateTime.UtcNow;
+                        }
+                    });
+                SetTracker(fileId, tracker);
             }
         }
 
         public static List<Guid> GetEditingBy(object fileId)
         {
-            lock (NowEditing)
+            var tracker = GetTracker(fileId);
+            return tracker != null && IsEditing(fileId) ? tracker._editingBy.Values.Select(i => i.UserId).Distinct().ToList() : new List<Guid>();
+        }
+
+        private static FileTracker GetTracker(object fileId)
+        {
+            if (fileId != null)
             {
-                return IsEditing(fileId)
-                           ? NowEditing[fileId.ToString()]._editingBy.Values
-                                                          .Select(trackInfo => trackInfo.UserId).Distinct().ToList()
-                           : new List<Guid>();
+                return cache.Get<FileTracker>(TRACKER + fileId);
+            }
+            return null;
+        }
+
+        private static void SetTracker(object fileId, FileTracker tracker)
+        {
+            if (fileId != null)
+            {
+                if (tracker != null)
+                {
+                    cache.Insert(TRACKER + fileId, tracker, CacheTimeout);
+                }
+                else
+                {
+                    cache.Remove(TRACKER + fileId);
+                }
+            }
+        }
+
+
+        [DataContract]
+        internal class TrackInfo
+        {
+            [DataMember]
+            public DateTime CheckRightTime;
+
+            [DataMember]
+            public DateTime TrackTime;
+
+            [DataMember]
+            public Guid UserId;
+
+            [DataMember]
+            public bool NewScheme;
+
+            [DataMember]
+            public bool EditingAlone;
+
+            public TrackInfo()
+            {
+            }
+
+            public TrackInfo(Guid userId, bool newScheme, bool editingAlone)
+            {
+                CheckRightTime = DateTime.UtcNow;
+                TrackTime = DateTime.UtcNow;
+                NewScheme = newScheme;
+                UserId = userId;
+                EditingAlone = editingAlone;
             }
         }
     }

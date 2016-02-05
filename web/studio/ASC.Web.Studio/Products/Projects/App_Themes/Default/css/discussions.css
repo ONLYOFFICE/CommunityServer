@@ -271,7 +271,7 @@
 	display: none !important;
 }
 
-#discussionCommentsContainer #mainContainer
+#discussionCommentsContainer #mainCommentsContainer
 {
 	width: 100% !important;
 }

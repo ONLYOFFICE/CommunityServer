@@ -24,12 +24,13 @@
 */
 
 
-using ASC.Collections;
+using ASC.Common.Caching;
 using ASC.Core.Tenants;
 using ASC.Files.Core;
 using ASC.Web.Files.Classes;
 using Microsoft.SharePoint.Client;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -43,9 +44,9 @@ namespace ASC.Files.Thirdparty.SharePoint
 {
     public class SharePointProviderInfo : IProviderInfo, IDisposable
     {
-        private static readonly CachedDictionary<File> FileCache = new CachedDictionary<File>("shpoint-files", x => true);
-
-        private static readonly CachedDictionary<Folder> FolderCache = new CachedDictionary<Folder>("shpoint-folders", x => true);
+        private static readonly ICacheNotify notify = AscCache.Notify;
+        private static readonly ConcurrentDictionary<string, File> FileCache = new ConcurrentDictionary<string, File>();
+        private static readonly ConcurrentDictionary<string, Folder> FolderCache = new ConcurrentDictionary<string, Folder>();
 
         private ClientContext clientContext;
 
@@ -58,6 +59,30 @@ namespace ASC.Files.Thirdparty.SharePoint
         public object RootFolderId { get; private set; }
 
         public string SpRootFolderId = "/Shared Documents";
+
+
+        static SharePointProviderInfo()
+        {
+            notify.Subscribe<SharePointProviderCacheItem>((i, o) =>
+            {
+                if (!string.IsNullOrEmpty(i.FileKey))
+                {
+                    File f;
+                    FileCache.TryRemove(i.FileKey, out f);
+                }
+                if (!string.IsNullOrEmpty(i.FolderKey))
+                {
+                    Folder d;
+                    FolderCache.TryRemove(i.FolderKey, out d);
+                }
+                if (string.IsNullOrEmpty(i.FileKey) && string.IsNullOrEmpty(i.FolderKey))
+                {
+                    FileCache.Clear();
+                    FolderCache.Clear();
+                }
+            });
+        }
+
 
         public SharePointProviderInfo(int id, string providerKey, string customerTitle, AuthData authData, Guid owner,
                                       FolderType rootFolderType, DateTime createOn)
@@ -97,8 +122,7 @@ namespace ASC.Files.Thirdparty.SharePoint
         public void InvalidateStorage()
         {
             clientContext.Dispose();
-            FolderCache.Clear();
-            FileCache.Clear();
+            notify.Publish(new SharePointProviderCacheItem(), CacheNotifyAction.Remove);
         }
 
         internal void UpdateTitle(string newtitle)
@@ -137,24 +161,33 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public File GetFileById(object id)
         {
-            return FileCache.Get(MakeId(id), () =>
-                {
-                    var file = clientContext.Web.GetFileByServerRelativeUrl((string)id);
-                    clientContext.Load(file);
-                    clientContext.Load(file.ListItemAllFields);
-                    
-                    try
-                    {
-                        clientContext.ExecuteQuery();
-                    }
-                    catch (Exception e)
-                    {
-                        FolderCache.Reset(MakeId(GetParentFolderId(id)));
-                        return new SharePointFileErrorEntry(file.Context, file.Path) { Error = e.Message, ID = id };
-                    }
+            File file = null;
+            string key = MakeId(id);
+            if (!FileCache.TryGetValue(key, out file))
+            {
+                file = GetFile(id);
+                FileCache.TryAdd(key, file);
+            }
+            return file;
+        }
 
-                    return file;
-                });
+        private File GetFile(object id)
+        {
+            var file = clientContext.Web.GetFileByServerRelativeUrl((string)id);
+            clientContext.Load(file);
+            clientContext.Load(file.ListItemAllFields);
+
+            try
+            {
+                clientContext.ExecuteQuery();
+            }
+            catch (Exception e)
+            {
+                notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(GetParentFolderId(id)) }, CacheNotifyAction.Remove);
+                return new SharePointFileErrorEntry(file.Context, file.Path) { Error = e.Message, ID = id };
+            }
+
+            return file;
         }
 
         public Stream GetFileStream(object id)
@@ -181,16 +214,15 @@ namespace ASC.Files.Thirdparty.SharePoint
             clientContext.Load(file.ListItemAllFields);
             clientContext.ExecuteQuery();
 
-            FileCache.Add(MakeId(id), file);
-            FolderCache.Reset(MakeId(GetParentFolderId(id)));
+            FileCache.TryAdd(MakeId(id), file);
+            notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(GetParentFolderId(id)) }, CacheNotifyAction.Remove);
 
             return file;
         }
 
         public void DeleteFile(string id)
         {
-            FileCache.Reset(MakeId(id));
-            FolderCache.Reset(MakeId(GetParentFolderId(id)));
+            notify.Publish(new SharePointProviderCacheItem { FileKey = MakeId(id), FolderKey = MakeId(GetParentFolderId(id)) }, CacheNotifyAction.Remove);
 
             var file = GetFileById(id);
 
@@ -201,9 +233,8 @@ namespace ASC.Files.Thirdparty.SharePoint
         }
 
         public object RenameFile(string id, string newTitle)
-        {            
-            FileCache.Reset(MakeId(id));
-            FolderCache.Reset(MakeId(GetParentFolderId(id)));
+        {
+            notify.Publish(new SharePointProviderCacheItem { FileKey = MakeId(id), FolderKey = MakeId(GetParentFolderId(id)) }, CacheNotifyAction.Remove);
 
             var file = GetFileById(id);
 
@@ -218,9 +249,8 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public object MoveFile(object id, object toFolderId)
         {
-            FileCache.Reset(MakeId(id));
-            FolderCache.Reset(MakeId(GetParentFolderId(id)));
-            FolderCache.Reset(MakeId(toFolderId));
+            notify.Publish(new SharePointProviderCacheItem { FileKey = MakeId(id), FolderKey = MakeId(GetParentFolderId(id)) }, CacheNotifyAction.Remove);
+            notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(toFolderId) }, CacheNotifyAction.Remove);
 
             var file = GetFileById(id);
 
@@ -235,8 +265,8 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public File CopyFile(object id, object toFolderId)
         {
-            FolderCache.Reset(MakeId(toFolderId));
-            FolderCache.Reset(MakeId(GetParentFolderId(id)));
+            notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(GetParentFolderId(id)) }, CacheNotifyAction.Remove);
+            notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(toFolderId) }, CacheNotifyAction.Remove);
 
             var file = GetFileById(id);
 
@@ -299,7 +329,7 @@ namespace ASC.Files.Thirdparty.SharePoint
             {
                 result.ContentLength = file.Length;
             }
-            else if(file.IsObjectPropertyInstantiated("ListItemAllFields"))
+            else if (file.IsObjectPropertyInstantiated("ListItemAllFields"))
             {
                 result.ContentLength = Convert.ToInt64(file.ListItemAllFields["File_x0020_Size"]);
             }
@@ -315,32 +345,47 @@ namespace ASC.Files.Thirdparty.SharePoint
         {
             get
             {
-                return FolderCache.Get(MakeId(), () => GetFolderById(SpRootFolderId));
+                Folder value;
+                string key = MakeId();
+                if (!FolderCache.TryGetValue(key, out value))
+                {
+                    value = GetFolderById(SpRootFolderId);
+                    FolderCache.TryAdd(key, value);
+                }
+                return value;
             }
         }
 
         public Folder GetFolderById(object id)
-        {   
-            return FolderCache.Get(MakeId(id), () =>
-                {
-                    if ((string)id == "") id = SpRootFolderId;
-                    var folder = clientContext.Web.GetFolderByServerRelativeUrl((string)id);
-                    clientContext.Load(folder);
-                    clientContext.Load(folder.Files, collection => collection.IncludeWithDefaultProperties(r => r.ListItemAllFields));
-                    clientContext.Load(folder.Folders);
+        {
+            Folder folder;
+            string key = MakeId(id);
+            if (!FolderCache.TryGetValue(key, out folder))
+            {
+                FolderCache.TryAdd(key, GetFolder(id));
+            }
+            return folder;
+        }
 
-                    try
-                    {
-                        clientContext.ExecuteQuery();
-                    }
-                    catch (Exception e)
-                    {
-                        FolderCache.Reset(MakeId(GetParentFolderId(id)));
-                        return new SharePointFolderErrorEntry(folder.Context, folder.Path) { Error = e.Message, ID = id };
-                    }
+        private Folder GetFolder(object id)
+        {
+            if ((string)id == "") id = SpRootFolderId;
+            var folder = clientContext.Web.GetFolderByServerRelativeUrl((string)id);
+            clientContext.Load(folder);
+            clientContext.Load(folder.Files, collection => collection.IncludeWithDefaultProperties(r => r.ListItemAllFields));
+            clientContext.Load(folder.Folders);
 
-                    return folder;
-                });
+            try
+            {
+                clientContext.ExecuteQuery();
+            }
+            catch (Exception e)
+            {
+                notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(GetParentFolderId(id)) }, CacheNotifyAction.Remove);
+                return new SharePointFolderErrorEntry(folder.Context, folder.Path) { Error = e.Message, ID = id };
+            }
+
+            return folder;
         }
 
         public Folder GetParentFolder(string serverRelativeUrl)
@@ -366,8 +411,8 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public object RenameFolder(object id, string newTitle)
         {
-            FolderCache.Reset(MakeId(id));
-            FolderCache.Reset(MakeId(GetParentFolderId(id)));
+            notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(GetParentFolderId(id)) }, CacheNotifyAction.Remove);
+            notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(id) }, CacheNotifyAction.Remove);
 
             var folder = GetFolderById(id);
             if (folder is SharePointFolderErrorEntry) return MakeId(id);
@@ -377,9 +422,9 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public object MoveFolder(object id, object toFolderId)
         {
-            FolderCache.Reset(MakeId(id));
-            FolderCache.Reset(MakeId(GetParentFolderId(id)));
-            FolderCache.Reset(MakeId(toFolderId));
+            notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(id) }, CacheNotifyAction.Remove);
+            notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(GetParentFolderId(id)) }, CacheNotifyAction.Remove);
+            notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(toFolderId) }, CacheNotifyAction.Remove);
 
             var folder = GetFolderById(id);
             if (folder is SharePointFolderErrorEntry) return MakeId(id);
@@ -389,7 +434,7 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public Folder CopyFolder(object id, object toFolderId)
         {
-            FolderCache.Reset(MakeId(toFolderId));
+            notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(toFolderId) }, CacheNotifyAction.Remove);
 
             var folder = GetFolderById(id);
             if (folder is SharePointFolderErrorEntry) return folder;
@@ -420,21 +465,21 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         public Folder CreateFolder(string id)
         {
-            FolderCache.Reset(MakeId(GetParentFolderId(id)));
+            notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(GetParentFolderId(id)) }, CacheNotifyAction.Remove);
 
             var folder = clientContext.Web.RootFolder.Folders.Add(id);
             clientContext.Load(folder);
             clientContext.ExecuteQuery();
 
-            FolderCache.Add(id, folder);
+            FolderCache.TryAdd(id, folder);
 
             return folder;
         }
 
         public void DeleteFolder(string id)
         {
-            FolderCache.Reset(id);
-            FolderCache.Reset(MakeId(GetParentFolderId(id)));
+            notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(id) }, CacheNotifyAction.Remove);
+            notify.Publish(new SharePointProviderCacheItem { FolderKey = MakeId(GetParentFolderId(id)) }, CacheNotifyAction.Remove);
 
             var folder = GetFolderById(id);
 
@@ -473,24 +518,24 @@ namespace ASC.Files.Thirdparty.SharePoint
 
             var isRoot = folder.ServerRelativeUrl == SpRootFolderId;
             return new Core.Folder
-                {
-                    ID = MakeId(isRoot ? "" : folder.ServerRelativeUrl),
-                    ParentFolderID = isRoot ? null : MakeId(GetParentFolderId(folder.ServerRelativeUrl)),
-                    CreateBy = Owner,
-                    CreateOn = CreateOn,
-                    FolderType = FolderType.DEFAULT,
-                    ModifiedBy = Owner,
-                    ModifiedOn = CreateOn,
-                    ProviderId = ID,
-                    ProviderKey = ProviderKey,
-                    RootFolderCreator = Owner,
-                    RootFolderId = MakeId(RootFolder.ServerRelativeUrl),
-                    RootFolderType = RootFolderType,
-                    Shareable = false,
-                    Title = isRoot ? CustomerTitle : MakeTitle(folder.Name),
-                    TotalFiles = 0,
-                    TotalSubFolders = 0,
-                };
+            {
+                ID = MakeId(isRoot ? "" : folder.ServerRelativeUrl),
+                ParentFolderID = isRoot ? null : MakeId(GetParentFolderId(folder.ServerRelativeUrl)),
+                CreateBy = Owner,
+                CreateOn = CreateOn,
+                FolderType = FolderType.DEFAULT,
+                ModifiedBy = Owner,
+                ModifiedOn = CreateOn,
+                ProviderId = ID,
+                ProviderKey = ProviderKey,
+                RootFolderCreator = Owner,
+                RootFolderId = MakeId(RootFolder.ServerRelativeUrl),
+                RootFolderType = RootFolderType,
+                Shareable = false,
+                Title = isRoot ? CustomerTitle : MakeTitle(folder.Name),
+                TotalFiles = 0,
+                TotalSubFolders = 0,
+            };
         }
 
         #endregion
@@ -503,7 +548,7 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         private string MakeId(object path)
         {
-            return MakeId((string) path);
+            return MakeId((string)path);
         }
 
         protected string MakeTitle(string name)
@@ -532,6 +577,14 @@ namespace ASC.Files.Thirdparty.SharePoint
         public void Dispose()
         {
             clientContext.Dispose();
+        }
+
+
+        class SharePointProviderCacheItem
+        {
+            public string FileKey { get; set; }
+
+            public string FolderKey { get; set; }
         }
     }
 }

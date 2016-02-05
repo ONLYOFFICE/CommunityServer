@@ -51,7 +51,7 @@ namespace ASC.Projects.Engine
             this.factory = factory;
             subtaskDao = daoFactory.GetSubtaskDao();
             taskDao = daoFactory.GetTaskDao();
-            taskEngine = factory.GetTaskEngine();
+            taskEngine = factory.TaskEngine;
         }
 
         #region get 

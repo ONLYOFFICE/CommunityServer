@@ -1,4 +1,4 @@
-/*
+﻿/*
  *
  * (c) Copyright Ascensio System Limited 2010-2015
  *
@@ -42,8 +42,8 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterStyleControl(VirtualPathUtility.ToAbsolute("~/usercontrols/users/userprofile/css/loadphoto_style.less"));
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/users/userprofile/js/loadphoto.js"));
+            Page.RegisterStyle("~/usercontrols/users/userprofile/css/loadphoto_style.less");
+            Page.RegisterBodyScripts("~/usercontrols/users/userprofile/js/loadphoto.js");
             _ctrlLoadPhotoContainer.Options.IsPopup = true;
         }
     }

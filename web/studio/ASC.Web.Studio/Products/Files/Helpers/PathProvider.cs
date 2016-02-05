@@ -27,9 +27,8 @@
 using System;
 using System.Globalization;
 using System.Linq;
-using System.Net;
 using System.Web;
-using System.Web.Configuration;
+using ASC.Core;
 using ASC.Files.Core;
 using ASC.Security.Cryptography;
 using ASC.Web.Core.Files;
@@ -91,10 +90,9 @@ namespace ASC.Web.Files.Classes
 
                         if (String.IsNullOrEmpty(projectID)) return String.Empty;
 
-                        return String.Format("{0}?prjid={1}#{2}", CommonLinkUtility.ToAbsolute(ProjectVirtualPath),
-                                             projectID, folder.ID);
+                        return CommonLinkUtility.GetFullAbsolutePath(String.Format("{0}?prjid={1}#{2}", ProjectVirtualPath, projectID, folder.ID));
                     default:
-                        return FilesLinkUtility.FilesBaseAbsolutePath + "#" + HttpUtility.UrlPathEncode(folder.ID.ToString());
+                        return CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.FilesBaseAbsolutePath + "#" + HttpUtility.UrlPathEncode(folder.ID.ToString()));
                 }
             }
         }
@@ -111,6 +109,8 @@ namespace ASC.Web.Files.Classes
 
         public static string GetFileStreamUrl(File file)
         {
+            if (file == null) throw new ArgumentNullException("file", FilesCommonResource.ErrorMassage_FileNotFound);
+
             const int uriLengthLimit = 1024;
             string fileUri = null;
             if (!DocumentServiceHelper.HaveExternalIP())
@@ -123,10 +123,7 @@ namespace ASC.Web.Files.Classes
             {
                 if (fileDao.IsSupportedPreSignedUri(file))
                 {
-                    int validateTimespan;
-                    int.TryParse(WebConfigurationManager.AppSettings["files.stream-url-minute"], out validateTimespan);
-                    if (validateTimespan <= 0) validateTimespan = 10;
-                    var uri = fileDao.GetPreSignedUri(file, TimeSpan.FromMinutes(validateTimespan)).ToString();
+                    var uri = fileDao.GetPreSignedUri(file, Global.StreamUrlExpire).ToString();
                     if (uri.Length < uriLengthLimit) return uri;
                     Global.Logger.Debug("Very long link: " + uri.Length);
                 }
@@ -134,11 +131,41 @@ namespace ASC.Web.Files.Classes
 
             //NOTE: Always build path to handler!
             var uriBuilder = new UriBuilder(CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.FileHandlerPath));
+            Global.Logger.Debug("FileStreamUrl: " + uriBuilder.Uri);
             var query = uriBuilder.Query;
             query += FilesLinkUtility.Action + "=stream&";
             query += FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(file.ID.ToString()) + "&";
             query += FilesLinkUtility.Version + "=" + file.Version + "&";
             query += FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(file.ID + file.Version.ToString(CultureInfo.InvariantCulture));
+
+            return uriBuilder.Uri + "?" + query;
+        }
+
+        public static string GetFileDifferenceUrl(File file)
+        {
+            if (file == null) throw new ArgumentNullException("file", FilesCommonResource.ErrorMassage_FileNotFound);
+
+            var uriBuilder = new UriBuilder(CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.FileHandlerPath));
+            var query = uriBuilder.Query;
+            query += FilesLinkUtility.Action + "=diff&";
+            query += FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(file.ID.ToString()) + "&";
+            query += FilesLinkUtility.Version + "=" + file.Version + "&";
+            query += FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(file.ID + file.Version.ToString(CultureInfo.InvariantCulture));
+
+            return uriBuilder.Uri + "?" + query;
+        }
+
+        public static string GetLicenseUrl(File file)
+        {
+            if (!CoreContext.Configuration.Standalone) return string.Empty;
+            if (file == null) return string.Empty;
+
+            //NOTE: Always build path to handler!
+            var uriBuilder = new UriBuilder(CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.FileHandlerPath));
+            var query = uriBuilder.Query;
+            query += FilesLinkUtility.Action + "=license&";
+            query += FilesLinkUtility.FileId + "=" + HttpUtility.UrlEncode(file.ID.ToString()) + "&";
+            query += FilesLinkUtility.AuthKey + "=" + EmailValidationKeyProvider.GetEmailKey(file.ID.ToString());
 
             return uriBuilder.Uri + "?" + query;
         }

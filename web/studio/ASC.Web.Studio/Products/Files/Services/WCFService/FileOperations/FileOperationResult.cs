@@ -24,57 +24,32 @@
 */
 
 
-using System;
 using System.Runtime.Serialization;
-using System.Diagnostics;
 
 namespace ASC.Web.Files.Services.WCFService.FileOperations
 {
     [DataContract(Name = "operation_result", Namespace = "")]
-    [DebuggerDisplay("Id = {Id}, Op = {OperationType}, Progress = {Progress}, Result = {Result}, Error = {Error}")]
     public class FileOperationResult
     {
-        public FileOperationResult()
-        {
-            Id = String.Empty;
-            Processed = String.Empty;
-            Progress = 0;
-            Error = String.Empty;
-        }
-
-        public FileOperationResult(FileOperationResult fileOperationResult)
-        {
-            Id = fileOperationResult.Id;
-            OperationType = fileOperationResult.OperationType;
-            Progress = fileOperationResult.Progress;
-            Source = fileOperationResult.Source;
-            Result = fileOperationResult.Result;
-            Error = fileOperationResult.Error;
-            Processed = fileOperationResult.Processed;
-        }
-
-        [DataMember(Name = "id", IsRequired = false)]
+        [DataMember(Name = "id")]
         public string Id { get; set; }
 
-        [DataMember(Name = "operation", IsRequired = false)]
+        [DataMember(Name = "operation")]
         public FileOperationType OperationType { get; set; }
 
-        [DataMember(Name = "progress", IsRequired = false)]
+        [DataMember(Name = "progress")]
         public int Progress { get; set; }
 
-        [DataMember(Name = "source", IsRequired = false)]
+        [DataMember(Name = "source")]
         public string Source { get; set; }
 
-        [DataMember(Name = "result", IsRequired = false)]
-        public object Result { get; set; }
+        [DataMember(Name = "result")]
+        public string Result { get; set; }
 
-        [DataMember(Name = "error", IsRequired = false)]
+        [DataMember(Name = "error")]
         public string Error { get; set; }
 
-        [DataMember(Name = "processed", IsRequired = false)]
+        [DataMember(Name = "processed")]
         public string Processed { get; set; }
-
-        public object[] FileIds { get; set; }
-        public object[] FolderIds { get; set; }
     }
 }

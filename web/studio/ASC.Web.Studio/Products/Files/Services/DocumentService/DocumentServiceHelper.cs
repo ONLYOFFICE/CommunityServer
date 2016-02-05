@@ -24,15 +24,9 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security;
-using System.Text;
+using ASC.Common.Caching;
 using ASC.Common.Web;
 using ASC.Core;
-using ASC.Core.Caching;
 using ASC.Core.Users;
 using ASC.Files.Core;
 using ASC.Security.Cryptography;
@@ -40,7 +34,14 @@ using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Utils;
+using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Security;
+using System.Text;
 using File = ASC.Files.Core.File;
 using FileShare = ASC.Files.Core.Security.FileShare;
 using SecurityContext = ASC.Core.SecurityContext;
@@ -77,7 +78,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 {
                     var curFile = fileDao.GetFile(fileId);
 
-                    if (0 < version && version < curFile.Version)
+                    if (curFile != null && 0 < version && version < curFile.Version)
                     {
                         file = fileDao.GetFile(fileId, version);
                         lastVersion = false;
@@ -117,6 +118,8 @@ namespace ASC.Web.Files.Services.DocumentService
 
             if (file.RootFolderType == FolderType.TRASH) throw new Exception(FilesCommonResource.ErrorMassage_ViewTrashItem);
 
+            if (file.ContentLength > SetupInfo.AvailableFileSize) throw new Exception(string.Format(FilesCommonResource.ErrorMassage_FileSizeEdit, FileSizeComment.FilesSizeToString(SetupInfo.AvailableFileSize)));
+
             rightToEdit = rightToEdit && !EntryManager.FileLockedForMe(file.ID);
             if (editPossible && !rightToEdit)
             {
@@ -140,13 +143,10 @@ namespace ASC.Web.Files.Services.DocumentService
 
             var versionForKey = file.Version;
 
-            if (!FileTracker.FixedVersion(file.ID))
-                versionForKey++;
-
             //CreateNewDoc
-            if (itsNew && file.Version == 1 && file.ConvertedType != null && file.CreateOn == file.ModifiedOn)
+            if ((itsNew || FileTracker.FixedVersion(file.ID)) && file.Version == 1 && file.CreateOn == file.ModifiedOn)
             {
-                versionForKey = 1;
+                versionForKey = 0;
             }
 
             var docKey = GetDocKey(file.ID, versionForKey, file.ProviderEntry ? file.ModifiedOn : file.CreateOn);
@@ -179,8 +179,38 @@ namespace ASC.Web.Files.Services.DocumentService
             return DocumentServiceConnector.GenerateRevisionId(Hasher.Base64Hash(keyDoc, HashAlg.SHA256));
         }
 
+        public static void CheckUsersForDrop(File file, Guid userId)
+        {
+            //??? how distinguish auth user via sharelink
+            if (Global.GetFilesSecurity().CanEdit(file, FileConstant.ShareLinkId)) return;
 
-        private static readonly ICache CacheUri = AscCache.Default;
+            var usersDrop = new List<Guid>();
+            if (userId.Equals(Guid.Empty))
+            {
+                usersDrop = FileTracker.GetEditingBy(file.ID).Where(uid => !Global.GetFilesSecurity().CanEdit(file, uid)).ToList();
+            }
+            else
+            {
+                if (!FileTracker.GetEditingBy(file.ID).Contains(userId)) return;
+                if (Global.GetFilesSecurity().CanEdit(file, userId)) return;
+
+                usersDrop.Add(userId);
+            }
+
+            var versionForKey = file.Version;
+
+            //NewDoc
+            if (FileTracker.FixedVersion(file.ID) && file.Version == 1 && file.CreateOn == file.ModifiedOn)
+            {
+                versionForKey = 0;
+            }
+
+            var docKey = GetDocKey(file.ID, versionForKey, file.ProviderEntry ? file.ModifiedOn : file.CreateOn);
+            DocumentServiceTracker.Drop(docKey, usersDrop, file.ID);
+        }
+
+
+        private static readonly ICache CacheUri = AscCache.Memory;
 
         public static string GetExternalUri(File file)
         {
@@ -191,7 +221,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 {
                     var docKey = GetDocKey(file.ID, file.Version, file.ModifiedOn);
 
-                    var uri = CacheUri.Get(docKey) as string;
+                    var uri = CacheUri.Get<string>(docKey);
                     if (string.IsNullOrEmpty(uri))
                     {
                         uri = DocumentServiceConnector.GetExternalUri(fileStream, MimeMapping.GetMimeMapping(file.Title), docKey);
@@ -234,6 +264,7 @@ namespace ASC.Web.Files.Services.DocumentService
             }
 
             var result = !string.IsNullOrEmpty(convertUri);
+            Global.Logger.Info("HaveExternalIP result " + result);
             FilesSettings.CheckHaveExternalIP = new KeyValuePair<bool, DateTime>(result, DateTime.UtcNow);
             return result;
         }

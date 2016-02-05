@@ -230,7 +230,7 @@ namespace ASC.CRM.Core.Dao
                            SecurityContext.CurrentAccount.ID.ToString() +
                            searchText;
 
-            var fromCache = _cache.Get(cacheKey);
+            var fromCache = _cache.Get<string>(cacheKey);
 
             if (fromCache != null) return Convert.ToInt32(fromCache);
 
@@ -267,9 +267,7 @@ namespace ASC.CRM.Core.Dao
 
             if (result > 0)
             {
-                _cache.Remove(cacheKey);
-                _cache.Insert(cacheKey, result, new CacheDependency(null, new[] { _invoiceCacheKey }), Cache.NoAbsoluteExpiration,
-                                      TimeSpan.FromSeconds(30));
+                _cache.Insert(cacheKey, result, TimeSpan.FromSeconds(30));
             }
             return result;
         }
@@ -281,8 +279,8 @@ namespace ASC.CRM.Core.Dao
 
         public virtual InvoiceItem SaveOrUpdateInvoiceItem(InvoiceItem invoiceItem)
         {
-            _cache.Remove(_invoiceItemCacheKey);
-            _cache.Insert(_invoiceItemCacheKey, String.Empty);
+            /*_cache.Remove(_invoiceItemCacheKey);
+            _cache.Insert(_invoiceItemCacheKey, String.Empty);*/
 
             using (var db = GetDb())
             {
@@ -380,8 +378,8 @@ namespace ASC.CRM.Core.Dao
                 db.ExecuteNonQuery(Delete("crm_invoice_item").Where("id", invoiceItemID));
             }
 
-            _cache.Remove(_invoiceItemCacheKey);
-            _cache.Insert(_invoiceItemCacheKey, String.Empty);
+            /*_cache.Remove(_invoiceItemCacheKey);
+            _cache.Insert(_invoiceItemCacheKey, String.Empty);*/
 
             return invoiceItem;
         }
@@ -394,8 +392,8 @@ namespace ASC.CRM.Core.Dao
             if (!items.Any()) return items;
 
             // Delete relative  keys
-            _cache.Remove(_invoiceItemCacheKey);
-            _cache.Insert(_invoiceItemCacheKey, String.Empty);
+            /*_cache.Remove(_invoiceItemCacheKey);
+            _cache.Insert(_invoiceItemCacheKey, String.Empty);*/
 
             DeleteBatchItemsExecute(items);
 

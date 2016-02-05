@@ -27,6 +27,7 @@
 using ASC.Common.Security;
 using ASC.Common.Security.Authentication;
 using ASC.Common.Security.Authorizing;
+using ASC.Core.Billing;
 using ASC.Core.Security.Authentication;
 using ASC.Core.Security.Authorizing;
 using ASC.Core.Users;
@@ -155,9 +156,16 @@ namespace ASC.Core
                     throw new SecurityException("Account disabled.");
                 }
                 // for LDAP users only
-                if (u.Sid != null && u.Sid.StartsWith("l"))
+                if (u.Sid != null)
                 {
-                    throw new SecurityException("LDAP settings were changed.");
+                    if (u.Sid.StartsWith("l"))
+                    {
+                        throw new SecurityException("LDAP settings were changed.");
+                    }
+                    if (!CoreContext.TenantManager.GetTenantQuota(CoreContext.TenantManager.GetCurrentTenant().TenantId).Ldap)
+                    {
+                        throw new BillingException("Your tariff plan does not support this option.", "Ldap");
+                    }
                 }
                 if (CoreContext.UserManager.IsUserInGroup(u.ID, Users.Constants.GroupAdmin.ID))
                 {
