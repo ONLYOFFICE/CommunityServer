@@ -48,7 +48,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="StackExchange.Redis">
-      <HintPath>..\..\redistributable\StackExchange.Redis\StackExchange.Redis.dll</HintPath>
+      <HintPath>..\..\packages\StackExchange.Redis.9.9.9.0\lib\net45\StackExchange.Redis.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="StackExchange.Redis.Extensions.Core">

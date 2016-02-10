@@ -68,7 +68,7 @@
     <ServiceFiles Include="$(RootDir)packages\Zlib.Portable.1.9.1.2\lib\portable-net4+sl4+wp71+win8\Zlib.Portable.dll" />
     <ServiceFiles Include="$(RootDir)packages\NLog.2.1.0\lib\net45\NLog.dll" />
     <ServiceFiles Include="$(RootDir)packages\sharpcompress.0.11.1\lib\net40\SharpCompress.dll" />
-    <ServiceFiles Include="$(RootDir)redistributable\StackExchange.Redis\StackExchange.Redis.dll" />
+    <ServiceFiles Include="$(RootDir)packages\StackExchange.Redis.9.9.9.0\lib\net45\StackExchange.Redis.dll" />
     <ServiceFiles Include="$(RootDir)packages\StackExchange.Redis.Extensions.Core.1.1.12.0\lib\net45\StackExchange.Redis.Extensions.Core.dll" />
     <ServiceFiles Include="$(BinDir)ASC.*.dll" />
     <ServiceFiles Include="$(RootDir)module\ASC.SignalR.Base\bin\$(Configuration)\ASC.SignalR.Base.dll" />

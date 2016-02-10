@@ -126,7 +126,7 @@
     </Reference>
     <Reference Include="StackExchange.Redis">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\redistributable\StackExchange.Redis\StackExchange.Redis.dll</HintPath>
+      <HintPath>..\..\..\packages\StackExchange.Redis.9.9.9.0\lib\net45\StackExchange.Redis.dll</HintPath>
     </Reference>
     <Reference Include="StackExchange.Redis.Extensions.Core">
       <HintPath>..\..\..\packages\StackExchange.Redis.Extensions.Core.1.1.12.0\lib\net45\StackExchange.Redis.Extensions.Core.dll</HintPath>
