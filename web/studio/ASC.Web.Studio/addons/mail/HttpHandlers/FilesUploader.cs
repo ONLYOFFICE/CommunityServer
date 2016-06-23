@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -32,7 +32,7 @@ using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Mail.Aggregator;
 using ASC.Mail.Aggregator.Common;
-using ASC.Mail.Aggregator.Exceptions;
+using ASC.Mail.Aggregator.Common.Exceptions;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Utils;
@@ -86,7 +86,7 @@ namespace ASC.Web.Mail.HttpHandlers
 
                         if (mailId < 1) throw new AttachmentsException(AttachmentsException.Types.MessageNotFound, "Message not yet saved!");
 
-                        var item = MailBoxManager.GetMailInfo(TenantId, Username, mailId, false, false);
+                        var item = MailBoxManager.GetMailInfo(TenantId, Username, mailId, new MailMessage.Options());
                         if (item == null)
                             throw new AttachmentsException(AttachmentsException.Types.MessageNotFound, "Message not found.");
 
@@ -115,16 +115,6 @@ namespace ASC.Web.Mail.HttpHandlers
                                         }
                                 };
                         }
-
-                        attachment = new MailAttachment
-                            {
-                                fileId = -1,
-                                size = postedFile.ContentLength,
-                                fileName = fileName,
-                                streamId = item.StreamId,
-                                tenant = TenantId,
-                                user = Username
-                            };
 
                         attachment = MailBoxManager.AttachFile(TenantId, Username, mailId, fileName, postedFile.InputStream);
 

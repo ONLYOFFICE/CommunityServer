@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -31,6 +31,7 @@ window.MailFilter = (function($) {
         tags,
         from,
         importance,
+        withCalendar,
         pageSize,
         periodFrom,
         periodTo,
@@ -66,6 +67,7 @@ window.MailFilter = (function($) {
             fromDate = undefined;
             fromMessage = undefined;
             prevFlag = false;
+            withCalendar = false;
 
             reset();
         }
@@ -204,6 +206,14 @@ window.MailFilter = (function($) {
     };
 
 
+    var setWithCalendar = function(withCalendarFlag) {
+        withCalendar = withCalendarFlag;
+    };
+
+    var getWithCalendar = function () {
+        return withCalendar;
+    };
+
     /*primary folder*/
     var setFolder = function(folderParam) {
         folder = folderParam;
@@ -310,14 +320,15 @@ window.MailFilter = (function($) {
             pageSizeParam,
             fromDateParam,
             fromMessageParam,
-            prevFlagParam;
+            prevFlagParam,
+            withCalendarParam;
 
         if (typeof params !== 'undefined') {
             toParam = TMMail.getParamsValue(params, /to=([^\/]+)/);
             tagsParam = TMMail.getParamsValue(params, /tag=([^\/]+)/);
-            importanceParam = TMMail.getParamsValue(params, /(importance)/);
+            importanceParam = TMMail.getParamsValue(params, /(importance\/)/);
             unreadParam = TMMail.getParamsValue(params, /unread=([^\/]+)/);
-            attachmentsParam = TMMail.getParamsValue(params, /(attachments)/);
+            attachmentsParam = TMMail.getParamsValue(params, /(attachments\/)/);
             fromParam = TMMail.getParamsValue(params, /from=([^\/]+)/);
             pageSizeParam = TMMail.getParamsValue(params, /page_size=(\d+)/);
             period = TMMail.getParamsValue(params, /period=([^\/]+)/);
@@ -328,6 +339,7 @@ window.MailFilter = (function($) {
             fromDateParam = TMMail.getParamsValue(params, /from_date=([^\/]+)/);
             fromMessageParam = TMMail.getParamsValue(params, /from_message=([^\/]+)/);
             prevFlagParam = TMMail.getParamsValue(params, /prev=([^\/]+)/);
+            withCalendarParam = TMMail.getParamsValue(params, /(calendar\/)/);
         }
 
         var itemId = TMMail.getSysFolderIdByName(folderParam, TMMail.sysfolders.inbox.id);
@@ -425,6 +437,13 @@ window.MailFilter = (function($) {
         } else {
             setPageSize(TMMail.option('MessagesPageSize'));
         }
+
+        if (withCalendarParam) {
+            setWithCalendar(true);
+        } else {
+            setWithCalendar(false);
+        }
+
     };
 
     var toAnchor = function(includePagingInfo, data, skipPrevNext) {
@@ -445,6 +464,7 @@ window.MailFilter = (function($) {
         f.from_date = fromDate;
         f.from_message = fromMessage;
         f.prev_flag = prevFlag;
+        f.with_calendar = getWithCalendar();
 
         $.extend(f, data);
 
@@ -473,6 +493,10 @@ window.MailFilter = (function($) {
 
         if (f.attachments) {
             res += 'attachments/';
+        }
+
+        if (f.with_calendar) {
+            res += 'calendar/';
         }
 
         if (f.to) {
@@ -544,7 +568,8 @@ window.MailFilter = (function($) {
             withinPeriod != '' ||
             periodTo != 0 ||
             search != '' ||
-            unread != undefined) {
+            unread != undefined ||
+            withCalendar != false) {
             return false;
         }
 
@@ -618,6 +643,11 @@ window.MailFilter = (function($) {
         if (true === prevFlag) {
             res.prev_flag = true;
         }
+
+        if (getWithCalendar()) {
+            res.with_calendar = true;
+        }
+
         return res;
     }
 
@@ -644,6 +674,9 @@ window.MailFilter = (function($) {
 
         getImportance: getImportance,
         setImportance: setImportance,
+
+        getWithCalendar: getWithCalendar,
+        setWithCalendar: setWithCalendar,
 
         getFolder: getFolder,
 

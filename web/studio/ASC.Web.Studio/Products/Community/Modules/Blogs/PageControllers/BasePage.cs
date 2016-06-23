@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -78,8 +78,8 @@ namespace ASC.Web.Community.Blogs
 
         protected void RenderScripts()
         {
-            Page.RegisterBodyScripts("~/products/community/modules/blogs/js/blogs.js");
-            Page.RegisterBodyScripts("~/js/asc/plugins/tagsautocompletebox.js");
+            Page.RegisterBodyScripts("~/products/community/modules/blogs/js/blogs.js",
+                "~/js/asc/plugins/tagsautocompletebox.js");
             Page.RegisterStyle("~/products/community/modules/blogs/app_themes/default/blogstyle.css");
             Page.RegisterInlineScript(@"
 function createSearchHelper() {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
@@ -33,6 +34,7 @@ using System.Web;
 using System.Web.UI;
 using ASC.Core;
 using ASC.Core.Billing;
+using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core;
 using ASC.Web.Core.Mobile;
@@ -117,11 +119,10 @@ namespace ASC.Web.Studio.Masters
                 InvitePanelHolder.Controls.Add(LoadControl(InvitePanel.Location));
             }
 
-            if ((!DisabledSidePanel || !DisabledTopStudioPanel)
-                && HubUrl != string.Empty && !Request.Path.Equals("/auth.aspx", StringComparison.InvariantCultureIgnoreCase))
+            if ((!DisabledSidePanel || !DisabledTopStudioPanel) && !TopStudioPanel.DisableSettings &&
+                HubUrl != string.Empty && SecurityContext.IsAuthenticated)
             {
-                AddBodyScripts(ResolveUrl("~/js/third-party/jquery/jquery.signalr.js"));
-                AddBodyScripts(ResolveUrl("~/js/third-party/jquery/jquery.hubs.js"));
+                AddBodyScripts(ResolveUrl, "~/js/third-party/jquery/jquery.signalr.js", "~/js/asc/plugins/jquery.hubs.js");
             }
 
             if (!DisabledTopStudioPanel)
@@ -178,7 +179,7 @@ namespace ASC.Web.Studio.Masters
                 var collaboratorPopupSettings = SettingsManager.Instance.LoadSettingsFor<CollaboratorSettings>(curUser.ID);
                 if (collaboratorPopupSettings.FirstVisit)
                 {
-                    AddBodyScripts(ResolveUrl("~/js/asc/core/collaborators.js"));
+                    AddBodyScripts(ResolveUrl, "~/js/asc/core/collaborators.js");
                 }
             }
 
@@ -259,25 +260,37 @@ namespace ASC.Web.Studio.Masters
 
             if (tariff.State == TariffState.Paid)
             {
-                if (CoreContext.Configuration.Standalone && count < 10)
+                if (CoreContext.Configuration.Standalone)
                 {
-                    var text = String.Format(Resource.TariffLinkStandalone,
-                                             "<a href=\"" + TenantExtra.GetTariffPageLink() + "\">", "</a>");
-                    if (count <= 0)
-                        return new Tuple<string, string>(Resource.PaidPeriodExpiredStandalone, text);
+                    if (count < 10)
+                    {
+                        var text = String.Format(Resource.TariffLinkStandalone,
+                                                 "<a href=\"" + TenantExtra.GetTariffPageLink() + "\">", "</a>");
+                        if (count <= 0)
+                            return new Tuple<string, string>(Resource.PaidPeriodExpiredStandalone, text);
 
-                    var end = GetNumeralResourceByCount(count, Resource.Day, Resource.DaysOne, Resource.DaysTwo);
-                    return new Tuple<string, string>(string.Format(Resource.PaidPeriodStandalone, count, end), text);
+                        var end = GetNumeralResourceByCount(count, Resource.Day, Resource.DaysOne, Resource.DaysTwo);
+                        return new Tuple<string, string>(string.Format(Resource.PaidPeriodStandalone, count, end), text);
+                    }
+
+                    if (tariff.QuotaId.Equals(Tenant.DEFAULT_TENANT) && TenantExtra.EnableTarrifSettings)
+                    {
+                        var text = String.Format(Resource.TariffLinkStandalone,
+                                                 "<a href=\"" + TenantExtra.GetTariffPageLink() + "\">", "</a>");
+                        return new Tuple<string, string>(Resource.TariffOverdueStandalone, text);
+                    }
                 }
-
-                var quota = TenantExtra.GetTenantQuota();
-                long notifySize;
-                long.TryParse(ConfigurationManager.AppSettings["web.tariff-notify.storage"] ?? "314572800", out notifySize); //300 MB
-                if (notifySize > 0 && quota.MaxTotalSize - TenantStatisticsProvider.GetUsedSize() < notifySize)
+                else
                 {
-                    var head = string.Format(Resource.TariffExceedLimit, FileSizeComment.FilesSizeToString(quota.MaxTotalSize));
-                    var text = String.Format(Resource.TariffExceedLimitInfoText, "<a href=\"" + TenantExtra.GetTariffPageLink() + "\">", "</a>");
-                    return new Tuple<string, string>(head, text);
+                    var quota = TenantExtra.GetTenantQuota();
+                    long notifySize;
+                    long.TryParse(ConfigurationManager.AppSettings["web.tariff-notify.storage"] ?? "314572800", out notifySize); //300 MB
+                    if (notifySize > 0 && quota.MaxTotalSize - TenantStatisticsProvider.GetUsedSize() < notifySize)
+                    {
+                        var head = string.Format(Resource.TariffExceedLimit, FileSizeComment.FilesSizeToString(quota.MaxTotalSize));
+                        var text = String.Format(Resource.TariffExceedLimitInfoText, "<a href=\"" + TenantExtra.GetTariffPageLink() + "\">", "</a>");
+                        return new Tuple<string, string>(head, text);
+                    }
                 }
             }
 
@@ -336,7 +349,11 @@ namespace ASC.Web.Studio.Masters
 
         protected bool EmailActivated
         {
-            get { return CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).ActivationStatus == EmployeeActivationStatus.Activated; }
+            get
+            {
+                var usr = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+                return usr.CreateDate.Date <= DateTime.UtcNow.Date || usr.ActivationStatus == EmployeeActivationStatus.Activated;
+            }
         }
 
         protected string ColorThemeClass
@@ -386,11 +403,17 @@ namespace ASC.Web.Studio.Masters
 
         #region Style
 
-        public void AddStyles(Control control)
+        public void AddStyles(params string[] src)
         {
-            if (HeadStyles == null) return;
+            foreach (var s in src)
+            {
+                AddStyles(s);
+            }
+        }
 
-            HeadStyles.Controls.Add(control);
+        public void AddStyles(Func<string, string> converter, params string[] src)
+        {
+            AddStyles(src.Select(converter).ToArray());
         }
 
         public void AddStyles(string src)
@@ -413,16 +436,15 @@ namespace ASC.Web.Studio.Masters
 
         #region Scripts
 
-        public void AddBodyScripts(string src)
+        public void AddBodyScripts(params string[] src)
         {
             if (BodyScripts == null) return;
-            BodyScripts.Scripts.Add(src);
+            BodyScripts.Scripts.AddRange(src);
         }
 
-        public void AddBodyScripts(Control control)
+        public void AddBodyScripts(Func<string, string> converter, params string[] src)
         {
-            if (BodyScripts == null) return;
-            BodyScripts.Controls.Add(control);
+            AddBodyScripts(src.Select(converter).ToArray());
         }
 
 

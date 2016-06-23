@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -29,27 +29,42 @@ window.mailAlerts = (function($) {
         storedAlerts = [],
         timer = null;
 
-    function check() {
+    function check(options) {
         if (true === lock) {
             return;
         }
+
+        if (!options)
+            options = {}
+
         lock = true;
-        serviceManager.getAlerts({}, { success: onGetAlerts });
+        serviceManager.getAlerts(options, { success: onGetAlerts });
     }
 
     function onGetAlerts(options, alerts) {
         lock = false;
-        storeAlerts(alerts);
+        storeAlerts(alerts, options);
         showTopAlert();
     }
 
-    function storeAlerts(alerts) {
+    function storeAlerts(alerts, options) {
         if (!alerts || 0 == alerts.length) {
             return;
         }
         storedAlerts = [];
-        $.each(alerts, function(index, value) {
-            storeAlert(value);
+        $.each(alerts, function (index, value) {
+
+            if (options &&
+                    options.showFailureOnlyMessageId &&
+                    value.type === ASC.Mail.Constants.Alerts.DeliveryFailure) {
+                var data = $.parseJSON(value.data);
+
+                if (data.message_id === options.showFailureOnlyMessageId) {
+                    storeAlert(value);
+                }
+            } else {
+                storeAlert(value);
+            }
         });
     }
 
@@ -102,11 +117,18 @@ window.mailAlerts = (function($) {
         switch (alert.type) {
             case ASC.Mail.Constants.Alerts.DeliveryFailure:
                 header = MailScriptResource.DeliveryFailurePopupHeader;
-                buttons = [{ href: "#draftitem/" + data.message_id, text: MailScriptResource.TryAgainButton, css_class: "blue tryagain" }, cancelBtn];
+                buttons = [];
+                if (data.failure_id) {
+                    buttons.push({ href: "#conversation/" + data.failure_id, text: MailScriptResource.MoreDetailsLabel, css_class: "blue tryagain" });
+                } else {
+                    buttons.push({ href: "#draftitem/" + data.message_id, text: MailScriptResource.TryAgainButton, css_class: "blue tryagain" });
+                }
+
+                buttons.push(cancelBtn);
                 body = $($.tmpl("alertPopupBodyTmpl", {
-                    errorBodyHeader: data.subject.Length > 0 ? MailScriptResource.DeliveryFailurePopupBodyHeader.replace(/{subject}/g, data.subject) : MailScriptResource.DeliveryFailurePopupBodyHeader.replace(/ "{subject}"/g, ''),
+                    errorBodyHeader: data.subject && data.subject.length > 0 ? MailScriptResource.DeliveryFailurePopupBodyHeader.replace(/{subject}/g, data.subject) : MailScriptResource.DeliveryFailurePopupBodyHeader.replace(/ "{subject}"/g, ''),
                     errorBody: MailScriptResource.DeliveryFailurePopupBody
-                        .replace(/{account_name}/g, '<b>' + data.from + '</b>'),
+                        .replace(/{account_name}/g, '<b>' + TMMail.htmlEncode(data.from) + '</b>'),
                     errorBodyFooter: MailScriptResource.DeliveryFailurePopupBodyFooter
                         .replace(/{faq_link_open_tag}/g, "<a class=\"linkDescribe\" target=\"blank\" href=\"" + TMMail.getFaqLink(data.from) + "\">")
                         .replace(/{faq_link_close_tag}/g, "</a>"),
@@ -154,7 +176,7 @@ window.mailAlerts = (function($) {
                     default:
                         return null;
                 }
-                content = content.replace(/{account}/g, '<b>' + accountEmail + '</b>');
+                content = content.replace(/{account}/g, '<b>' + TMMail.htmlEncode(accountEmail) + '</b>');
                 buttons = [okBtn];
                 body = $($.tmpl("alertPopupBodyTmpl", {
                     errorBodyHeader: MailScriptResource.EmailInFailurePopupBodyHeader,
@@ -186,7 +208,7 @@ window.mailAlerts = (function($) {
                 body = $($.tmpl("alertPopupBodyTmpl", {
                     errorBodyHeader: window.MailScriptResource.AuthErrorPopupBodyHeader,
                     errorBody: window.MailScriptResource.AuthErrorPopupBody
-                        .replace('{0}', '<b>' + accountEmail + '</b>')
+                        .replace('{0}', '<b>' + TMMail.htmlEncode(accountEmail) + '</b>')
                         .replace('{1}', '<br><br>'),
                     errorBodyFooter: window.MailScriptResource.AuthErrorPopupBodyFooter
                         .replace('{2}', '<a class=\"linkDescribe\" target=\"blank\" href="' + TMMail.getFaqLink(accountEmail) + '">')
@@ -215,7 +237,7 @@ window.mailAlerts = (function($) {
                 body = $($.tmpl("alertPopupBodyTmpl", {
                     errorBodyHeader: window.MailScriptResource.AuthErrorDisablePopupBodyHeader,
                     errorBody: window.MailScriptResource.AuthErrorDisablePopupBody
-                        .replace('{0}', '<b>' + accountEmail + '</b>')
+                        .replace('{0}', '<b>' + TMMail.htmlEncode(accountEmail) + '</b>')
                         .replace('{1}', '<br><br>'),
                     errorBodyFooter: undefined,
                     buttons: buttons

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,7 +24,6 @@
 */
 
 
-using System.Web;
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
 using ASC.Api.Exceptions;
@@ -49,13 +48,14 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mime;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using FileShare = ASC.Files.Core.Security.FileShare;
+using FilesNS = ASC.Web.Files.Services.WCFService;
 using MimeMapping = ASC.Common.Web.MimeMapping;
 using SortedByType = ASC.Files.Core.SortedByType;
-using FilesNS = ASC.Web.Files.Services.WCFService;
-using System.Runtime.Serialization;
 
 namespace ASC.Api.Documents
 {
@@ -164,14 +164,14 @@ namespace ASC.Api.Documents
         /// Folder by ID
         /// </short>
         /// <category>Folders</category>
-        /// <param name="folderid">Folder ID</param>
+        /// <param name="folderId">Folder ID</param>
         /// <param name="userIdOrGroupId" optional="true">User or group ID</param>
         /// <param name="filterType" optional="true" remark="Allowed values: None (0), FilesOnly (1), FoldersOnly (2), DocumentsOnly (3), PresentationsOnly (4), SpreadsheetsOnly (5) or ImagesOnly (7)">Filter type</param>
         /// <returns>Folder contents</returns>
-        [Read("{folderid}")]
-        public FolderContentWrapper GetFolder(String folderid, Guid userIdOrGroupId, FilterType filterType)
+        [Read("{folderId}")]
+        public FolderContentWrapper GetFolder(String folderId, Guid userIdOrGroupId, FilterType filterType)
         {
-            return ToFolderContentWrapper(folderid, userIdOrGroupId, filterType).NotFoundIfNull();
+            return ToFolderContentWrapper(folderId, userIdOrGroupId, filterType).NotFoundIfNull();
 
         }
 
@@ -237,7 +237,7 @@ namespace ASC.Api.Documents
         /// <li>Using standart multipart/form-data method</li>
         /// </ol>]]>
         /// </remarks>
-        /// <param name="folderid">Folder ID to upload to</param>
+        /// <param name="folderId">Folder ID to upload to</param>
         /// <param name="file" visible="false">Request Input stream</param>
         /// <param name="contentType" visible="false">Content-Type Header</param>
         /// <param name="contentDisposition" visible="false">Content-Disposition Header</param>
@@ -245,8 +245,8 @@ namespace ASC.Api.Documents
         /// <param name="createNewIfExist" visible="false">Create New If Exist</param>
         /// <param name="storeOriginalFileFlag" visible="false">If True, upload documents in original formats as well</param>
         /// <returns>Uploaded file</returns>
-        [Create("{folderid}/upload")]
-        public object UploadFile(string folderid, Stream file, ContentType contentType, ContentDisposition contentDisposition, IEnumerable<System.Web.HttpPostedFileBase> files, bool createNewIfExist, bool storeOriginalFileFlag)
+        [Create("{folderId}/upload")]
+        public object UploadFile(string folderId, Stream file, ContentType contentType, ContentDisposition contentDisposition, IEnumerable<System.Web.HttpPostedFileBase> files, bool createNewIfExist, bool storeOriginalFileFlag)
         {
             FilesSettings.StoreOriginalFiles = storeOriginalFileFlag;
 
@@ -256,10 +256,10 @@ namespace ASC.Api.Documents
                 {
                     //Only one file. return it
                     var postedFile = files.First();
-                    return InsertFile(folderid, postedFile.InputStream, postedFile.FileName, createNewIfExist);
+                    return InsertFile(folderId, postedFile.InputStream, postedFile.FileName, createNewIfExist);
                 }
                 //For case with multiple files
-                return files.Select(postedFile => InsertFile(folderid, postedFile.InputStream, postedFile.FileName, createNewIfExist)).ToList();
+                return files.Select(postedFile => InsertFile(folderId, postedFile.InputStream, postedFile.FileName, createNewIfExist)).ToList();
             }
             if (file != null)
             {
@@ -269,7 +269,7 @@ namespace ASC.Api.Documents
                     fileName = contentDisposition.FileName;
                 }
 
-                return InsertFile(folderid, file, fileName, createNewIfExist);
+                return InsertFile(folderId, file, fileName, createNewIfExist);
             }
             throw new InvalidOperationException("No input files");
         }
@@ -311,7 +311,7 @@ namespace ASC.Api.Documents
         /// <param name="createNewIfExist" visible="false">Create New If Exist</param>
         /// <category>Uploads</category>
         /// <returns></returns>
-        [Create("{folderid}/insert")]
+        [Create("{folderId}/insert")]
         public FileWrapper InsertFile(string folderId, Stream file, string title, bool createNewIfExist)
         {
             try
@@ -333,46 +333,50 @@ namespace ASC.Api.Documents
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="fileId"></param>
+        /// <param name="fileId">File ID</param>
         /// <param name="version"></param>
         /// <param name="tabId"></param>
-        /// <param name="fileType"></param>
+        /// <param name="fileExtension"></param>
         /// <param name="downloadUri"></param>
         /// <param name="stream"></param>
         /// <param name="asNew"></param>
         /// <param name="doc"></param>
-        [Update("file/{fileid}/saveediting")]
-        public FileWrapper SaveEditing(String fileId, int version, Guid tabId, string fileType, string downloadUri, Stream stream, bool asNew, String doc)
+        /// <category>Files</category>
+        /// <returns></returns>
+        [Update("file/{fileId}/saveediting")]
+        public FileWrapper SaveEditing(String fileId, int version, Guid tabId, string fileExtension, string downloadUri, Stream stream, bool asNew, String doc)
         {
-            return new FileWrapper(_fileStorageService.SaveEditing(fileId, version, tabId, fileType, downloadUri, stream, asNew, doc));
+            return new FileWrapper(_fileStorageService.SaveEditing(fileId, version, tabId, fileExtension, downloadUri, stream, asNew, doc));
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="fileid"></param>
+        /// <param name="fileId">File ID</param>
         /// <param name="docKeyForTrack"></param>
         /// <param name="asNew"></param>
         /// <param name="editingAlone"></param>
         /// <param name="doc"></param>
+        /// <category>Files</category>
         /// <returns></returns>
-        [Create("file/{fileid}/startedit")]
-        public string StartEdit(String fileid, String docKeyForTrack, bool asNew, bool editingAlone, String doc)
+        [Create("file/{fileId}/startedit")]
+        public string StartEdit(String fileId, String docKeyForTrack, bool asNew, bool editingAlone, String doc)
         {
-            return _fileStorageService.StartEdit(fileid, docKeyForTrack, asNew, editingAlone, doc);
+            return _fileStorageService.StartEdit(fileId, docKeyForTrack, asNew, editingAlone, doc);
         }
 
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="fileId"></param>
+        /// <param name="fileId">File ID</param>
         /// <param name="tabId"></param>
         /// <param name="docKeyForTrack"></param>
         /// <param name="shareLinkKey"></param>
         /// <param name="isFinish"></param>
         /// <param name="fixedVersion"></param>
+        /// <category>Files</category>
         /// <returns></returns>
-        [Read("file/{fileid}/trackeditfile")]
+        [Read("file/{fileId}/trackeditfile")]
         public KeyValuePair<bool, String> TrackEditFile(String fileId, Guid tabId, String docKeyForTrack, String shareLinkKey, bool isFinish, bool fixedVersion)
         {
             return _fileStorageService.TrackEditFile(fileId, tabId, docKeyForTrack, shareLinkKey, isFinish, fixedVersion);
@@ -410,7 +414,7 @@ namespace ASC.Api.Documents
         /// </ul>
         /// ]]>
         /// </returns>
-        [Create("{folderid}/upload/create_session")]
+        [Create("{folderId}/upload/create_session")]
         public string CreateUploadSession(string folderId, string fileName, long fileSize, string relativePath)
         {
             var file = FileUploader.VerifyChunkedUpload(folderId, fileName, fileSize, FilesSettings.UpdateIfExist, relativePath);
@@ -486,12 +490,12 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <short>Create txt</short>
         /// <category>File Creation</category>
-        /// <param name="folderid">Folder ID</param>
+        /// <param name="folderId">Folder ID</param>
         /// <param name="title">File title</param>
         /// <param name="content">File contents</param>
         /// <returns>Folder contents</returns>
-        [Create("{folderid}/text")]
-        public FileWrapper CreateTextFile(string folderid, string title, string content)
+        [Create("{folderId}/text")]
+        public FileWrapper CreateTextFile(string folderId, string title, string content)
         {
             if (title == null) throw new ArgumentNullException("title");
             //Try detect content
@@ -503,14 +507,14 @@ namespace ASC.Api.Documents
                     extension = ".html";
                 }
             }
-            return CreateFile(folderid, title, content, extension);
+            return CreateFile(folderId, title, content, extension);
         }
 
-        private static FileWrapper CreateFile(string folderid, string title, string content, string extension)
+        private static FileWrapper CreateFile(string folderId, string title, string content, string extension)
         {
             using (var memStream = new MemoryStream(Encoding.UTF8.GetBytes(content)))
             {
-                var file = FileUploader.Exec(folderid,
+                var file = FileUploader.Exec(folderId,
                                   title.EndsWith(extension, StringComparison.OrdinalIgnoreCase) ? title : (title + extension),
                                   memStream.Length, memStream);
                 return new FileWrapper(file);
@@ -522,15 +526,15 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <short>Create html</short>
         /// <category>File Creation</category>
-        /// <param name="folderid">Folder ID</param>
+        /// <param name="folderId">Folder ID</param>
         /// <param name="title">File title</param>
         /// <param name="content">File contents</param>
         /// <returns>Folder contents</returns>
-        [Create("{folderid}/html")]
-        public FileWrapper CreateHtmlFile(string folderid, string title, string content)
+        [Create("{folderId}/html")]
+        public FileWrapper CreateHtmlFile(string folderId, string title, string content)
         {
             if (title == null) throw new ArgumentNullException("title");
-            return CreateFile(folderid, title, content, ".html");
+            return CreateFile(folderId, title, content, ".html");
         }
 
         /// <summary>
@@ -570,13 +574,13 @@ namespace ASC.Api.Documents
         /// New folder
         /// </short>
         /// <category>Folders</category>
-        /// <param name="folderid">Parent folder ID</param>
+        /// <param name="folderId">Parent folder ID</param>
         /// <param name="title">Title of new folder</param>
         /// <returns>New folder contents</returns>
-        [Create("folder/{folderid}")]
-        public FolderWrapper CreateFolder(string folderid, string title)
+        [Create("folder/{folderId}")]
+        public FolderWrapper CreateFolder(string folderId, string title)
         {
-            var folder = _fileStorageService.CreateNewFolder(folderid, title);
+            var folder = _fileStorageService.CreateNewFolder(folderId, title);
             return new FolderWrapper(folder);
         }
 
@@ -599,14 +603,14 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <short>Create file</short>
         /// <category>File Creation</category>
-        /// <param name="folderid">Folder ID</param>
+        /// <param name="folderId">Folder ID</param>
         /// <param name="title" remark="Allowed values: the file must have one of the following extensions: DOCX, XLSX, PPTX">File title</param>
         /// <remarks>In case the extension for the file title differs from DOCX/XLSX/PPTX and belongs to one of the known text, spreadsheet or presentation formats, it will be changed to DOCX/XLSX/PPTX accordingly. If the file extension is not set or is unknown, the DOCX extension will be added to the file title.</remarks>
         /// <returns>New file info</returns>
-        [Create("{folderid}/file")]
-        public FileWrapper CreateFile(string folderid, string title)
+        [Create("{folderId}/file")]
+        public FileWrapper CreateFile(string folderId, string title)
         {
-            var file = _fileStorageService.CreateNewFile(folderid, title);
+            var file = _fileStorageService.CreateNewFile(folderId, title);
             return new FileWrapper(file);
         }
 
@@ -617,13 +621,13 @@ namespace ASC.Api.Documents
         /// Rename folder
         /// </short>
         /// <category>Folders</category>
-        /// <param name="folderid">Folder ID</param>
+        /// <param name="folderId">Folder ID</param>
         /// <param name="title">New title</param>
         /// <returns>Folder contents</returns>
-        [Update("folder/{folderid}")]
-        public FolderWrapper RenameFolder(string folderid, string title)
+        [Update("folder/{folderId}")]
+        public FolderWrapper RenameFolder(string folderId, string title)
         {
-            var folder = _fileStorageService.FolderRename(folderid, title);
+            var folder = _fileStorageService.FolderRename(folderId, title);
             return new FolderWrapper(folder);
         }
 
@@ -633,10 +637,10 @@ namespace ASC.Api.Documents
         /// <short>Folder information</short>
         /// <category>Folders</category>
         /// <returns>Folder info</returns>
-        [Read("folder/{folderid}")]
-        public FolderWrapper GetFolderInfo(string folderid)
+        [Read("folder/{folderId}")]
+        public FolderWrapper GetFolderInfo(string folderId)
         {
-            var folder = _fileStorageService.GetFolder(folderid).NotFoundIfNull("Folder not found");
+            var folder = _fileStorageService.GetFolder(folderId).NotFoundIfNull("Folder not found");
 
             return new FolderWrapper(folder);
         }
@@ -644,13 +648,13 @@ namespace ASC.Api.Documents
         /// <summary>
         /// Returns parent folders
         /// </summary>
-        /// <param name="folderid"></param>
+        /// <param name="folderId"></param>
         /// <category>Folders</category>
         /// <returns>Parent folders</returns>
-        [Read("folder/{folderid}/path")]
-        public IEnumerable<FolderWrapper> GetFolderPath(string folderid)
+        [Read("folder/{folderId}/path")]
+        public IEnumerable<FolderWrapper> GetFolderPath(string folderId)
         {
-            return EntryManager.GetBreadCrumbs(folderid).Select(f => new FolderWrapper(f)).ToSmartList();
+            return EntryManager.GetBreadCrumbs(folderId).Select(f => new FolderWrapper(f)).ToSmartList();
         }
 
         /// <summary>
@@ -659,10 +663,10 @@ namespace ASC.Api.Documents
         /// <short>File information</short>
         /// <category>Files</category>
         /// <returns>File info</returns>
-        [Read("file/{fileid}")]
-        public FileWrapper GetFileInfo(string fileid, int version = -1)
+        [Read("file/{fileId}")]
+        public FileWrapper GetFileInfo(string fileId, int version = -1)
         {
-            var file = _fileStorageService.GetFile(fileid, version).NotFoundIfNull("File not found");
+            var file = _fileStorageService.GetFile(fileId, version).NotFoundIfNull("File not found");
             return new FileWrapper(file);
         }
 
@@ -671,20 +675,20 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <short>Update file info</short>
         /// <category>Files</category>
-        /// <param name="fileid">File ID</param>
+        /// <param name="fileId">File ID</param>
         /// <param name="title">New title</param>
         /// <param name="lastVersion">File last version number</param>
         /// <returns>File info</returns>
-        [Update("file/{fileid}")]
-        public FileWrapper UpdateFile(String fileid, String title, int lastVersion)
+        [Update("file/{fileId}")]
+        public FileWrapper UpdateFile(String fileId, String title, int lastVersion)
         {
             if (!String.IsNullOrEmpty(title))
-                _fileStorageService.FileRename(fileid.ToString(CultureInfo.InvariantCulture), title);
+                _fileStorageService.FileRename(fileId.ToString(CultureInfo.InvariantCulture), title);
 
             if (lastVersion > 0)
-                _fileStorageService.UpdateToVersion(fileid.ToString(CultureInfo.InvariantCulture), lastVersion);
+                _fileStorageService.UpdateToVersion(fileId.ToString(CultureInfo.InvariantCulture), lastVersion);
 
-            return GetFileInfo(fileid);
+            return GetFileInfo(fileId);
         }
 
         /// <summary>
@@ -692,12 +696,12 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <short>Delete file</short>
         /// <category>Files</category>
-        /// <param name="fileid">File ID</param>
+        /// <param name="fileId">File ID</param>
         /// <returns>Operation result</returns>
-        [Delete("file/{fileid}")]
-        public IEnumerable<FileOperationWraper> DeleteFile(String fileid)
+        [Delete("file/{fileId}")]
+        public IEnumerable<FileOperationWraper> DeleteFile(String fileId)
         {
-            return DeleteBatchItems(null, new[] { fileid });
+            return DeleteBatchItems(null, new[] { fileId });
         }
 
         /// <summary>
@@ -705,12 +709,12 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <short>Convert</short>
         /// <category>File operations</category>
-        /// <param name="fileid"></param>
+        /// <param name="fileId"></param>
         /// <returns>Operation result</returns>
-        [Update("file/{fileid}/checkconversion")]
-        public IEnumerable<ConversationResult> StartConversion(String fileid)
+        [Update("file/{fileId}/checkconversion")]
+        public IEnumerable<ConversationResult> StartConversion(String fileId)
         {
-            return CheckConversion(fileid, true);
+            return CheckConversion(fileId, true);
         }
 
         /// <summary>
@@ -718,15 +722,15 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <short>Convert</short>
         /// <category>File operations</category>
-        /// <param name="fileid"></param>
+        /// <param name="fileId"></param>
         /// <param name="start"></param>
         /// <returns>Operation result</returns>
-        [Read("file/{fileid}/checkconversion")]
-        public IEnumerable<ConversationResult> CheckConversion(String fileid, bool start)
+        [Read("file/{fileId}/checkconversion")]
+        public IEnumerable<ConversationResult> CheckConversion(String fileId, bool start)
         {
             return _fileStorageService.CheckConversion(new FilesNS.ItemList<FilesNS.ItemList<string>>
             {
-                new FilesNS.ItemList<string> { fileid, "0", start.ToString() }
+                new FilesNS.ItemList<string> { fileId, "0", start.ToString() }
             })
             .Select(r =>
             {
@@ -741,8 +745,8 @@ namespace ASC.Api.Documents
                 };
                 if (!string.IsNullOrEmpty(r.Result))
                 {
-                    var file = JObject.Parse(r.Result).Value<JObject>("file");
-                    o.File = GetFileInfo(file.Value<string>("id"), file.Value<int>("version"));
+                    var jResult = JObject.Parse(r.Result);
+                    o.File = GetFileInfo(jResult.Value<string>("id"), jResult.Value<int>("version"));
                 }
                 return o;
             });
@@ -751,13 +755,14 @@ namespace ASC.Api.Documents
         /// <summary>
         /// Get presigned Uri
         /// </summary>
-        /// <param name="fileid">File ID</param>
+        /// <param name="fileId">File ID</param>
         /// <returns>Url</returns>
-        [Read("file/{fileid}/presigned")]
-        public string GetPresignedUri(String fileid)
+        /// <visible>false</visible>
+        [Read("file/{fileId}/presigned")]
+        public string GetPresignedUri(String fileId)
         {
-            var file = _fileStorageService.GetFile(fileid, -1).NotFoundIfNull("File not found");
-            return PathProvider.GetFileStreamUrl(file);
+            var file = _fileStorageService.GetFile(fileId, -1).NotFoundIfNull("File not found");
+            return DocumentServiceConnector.ReplaceCommunityAdress(PathProvider.GetFileStreamUrl(file));
         }
 
         /// <summary>
@@ -765,12 +770,12 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <short>Delete folder</short>
         /// <category>Folders</category>
-        /// <param name="folderid">Folder ID</param>
+        /// <param name="folderId">Folder ID</param>
         /// <returns>Operation result</returns>
-        [Delete("folder/{folderid}")]
-        public IEnumerable<FileOperationWraper> DeleteFolder(String folderid)
+        [Delete("folder/{folderId}")]
+        public IEnumerable<FileOperationWraper> DeleteFolder(String folderId)
         {
-            return DeleteBatchItems(new[] { folderid }, null);
+            return DeleteBatchItems(new[] { folderId }, null);
         }
 
         /// <summary>
@@ -883,30 +888,35 @@ namespace ASC.Api.Documents
         /// Start downlaod process of files and folders with ID
         /// </summary>
         /// <short>Finish file operations</short>
+        /// <param name="fileConvertIds" visible="false">File ID list for download with convert to format</param>
         /// <param name="fileIds">File ID list</param>
         /// <param name="folderIds">Folder ID list</param>
         /// <category>File operations</category>
         /// <returns>Operation result</returns>
         [Update("fileops/bulkdownload")]
-        public IEnumerable<FileOperationResult> BulkDownload(
-            IEnumerable<ItemKeyValuePair<String, String>> fileIds,
+        public IEnumerable<FileOperationWraper> BulkDownload(
+            IEnumerable<ItemKeyValuePair<String, String>> fileConvertIds,
+            IEnumerable<String> fileIds,
             IEnumerable<String> folderIds)
         {
             var itemList = new Dictionary<String, String>();
 
-            foreach (var fileid in fileIds)
+            foreach (var fileId in fileConvertIds.Where(fileId => !itemList.ContainsKey(fileId.Key)))
             {
-                if (!itemList.ContainsKey(fileid.Key))
-                    itemList.Add(fileid.Key, fileid.Value);
+                itemList.Add("file_" + fileId.Key, fileId.Value);
             }
 
-            foreach (var folderId in folderIds)
+            foreach (var fileId in fileIds.Where(fileId => !itemList.ContainsKey(fileId)))
             {
-                if (!itemList.ContainsKey(folderId))
-                    itemList.Add(folderId, String.Empty);
+                itemList.Add("file_" + fileId, string.Empty);
             }
 
-            return _fileStorageService.BulkDownload(itemList);
+            foreach (var folderId in folderIds.Where(folderId => !itemList.ContainsKey(folderId)))
+            {
+                itemList.Add("folder_" + folderId, String.Empty);
+            }
+
+            return _fileStorageService.BulkDownload(itemList).Select(o => new FileOperationWraper(o));
         }
 
         /// <summary>
@@ -945,26 +955,26 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <short>File versions</short>
         /// <category>Files</category>
-        /// <param name="fileid">File ID</param>
+        /// <param name="fileId">File ID</param>
         /// <returns>File information</returns>
-        [Read("file/{fileid}/history")]
-        public IEnumerable<FileWrapper> GetFileVersionInfo(string fileid)
+        [Read("file/{fileId}/history")]
+        public IEnumerable<FileWrapper> GetFileVersionInfo(string fileId)
         {
-            var files = _fileStorageService.GetFileHistory(fileid);
+            var files = _fileStorageService.GetFileHistory(fileId);
             return files.Select(x => new FileWrapper(x)).ToSmartList();
         }
 
         /// <summary>
         /// Change version history
         /// </summary>
-        /// <param name="fileid">File ID</param>
+        /// <param name="fileId">File ID</param>
         /// <param name="version">Version of history</param>
         /// <param name="continueVersion">Mark as version or revision</param>
         /// <returns></returns>
-        [Update("file/{fileid}/history")]
-        public IEnumerable<FileWrapper> ChangeHistory(string fileid, int version, bool continueVersion)
+        [Update("file/{fileId}/history")]
+        public IEnumerable<FileWrapper> ChangeHistory(string fileId, int version, bool continueVersion)
         {
-            var history = _fileStorageService.CompleteVersion(fileid, version, continueVersion).Value;
+            var history = _fileStorageService.CompleteVersion(fileId, version, continueVersion).Value;
             return history.Select(x => new FileWrapper(x)).ToSmartList();
         }
 
@@ -973,12 +983,12 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <short>File sharing</short>
         /// <category>Sharing</category>
-        /// <param name="fileid">File ID</param>
+        /// <param name="fileId">File ID</param>
         /// <returns>Shared file information</returns>
-        [Read("file/{fileid}/share")]
-        public IEnumerable<FileShareWrapper> GetFileSecurityInfo(string fileid)
+        [Read("file/{fileId}/share")]
+        public IEnumerable<FileShareWrapper> GetFileSecurityInfo(string fileId)
         {
-            var fileShares = _fileStorageService.GetSharedInfo(new Web.Files.Services.WCFService.ItemList<string> { String.Format("file_{0}", fileid) });
+            var fileShares = _fileStorageService.GetSharedInfo(new Web.Files.Services.WCFService.ItemList<string> { String.Format("file_{0}", fileId) });
             return fileShares.Select(x => new FileShareWrapper(x)).ToSmartList();
         }
 
@@ -986,20 +996,20 @@ namespace ASC.Api.Documents
         /// Returns the detailed information about shared folder with the ID specified in the request
         /// </summary>
         /// <short>Folder sharing</short>
-        /// <param name="folderid">Folder ID</param>
+        /// <param name="folderId">Folder ID</param>
         /// <category>Sharing</category>
         /// <returns>Shared folder information</returns>
-        [Read("folder/{folderid}/share")]
-        public IEnumerable<FileShareWrapper> GetFolderSecurityInfo(string folderid)
+        [Read("folder/{folderId}/share")]
+        public IEnumerable<FileShareWrapper> GetFolderSecurityInfo(string folderId)
         {
-            var fileShares = _fileStorageService.GetSharedInfo(new Web.Files.Services.WCFService.ItemList<string> { String.Format("folder_{0}", folderid) });
+            var fileShares = _fileStorageService.GetSharedInfo(new Web.Files.Services.WCFService.ItemList<string> { String.Format("folder_{0}", folderId) });
             return fileShares.Select(x => new FileShareWrapper(x)).ToSmartList();
         }
 
         /// <summary>
         /// Sets sharing settings for the file with the ID specified in the request
         /// </summary>
-        /// <param name="fileid">File ID</param>
+        /// <param name="fileId">File ID</param>
         /// <param name="share">Collection of sharing rights</param>
         /// <param name="notify">Should notify people</param>
         /// <param name="sharingMessage">Sharing message to send when notifying</param>
@@ -1009,28 +1019,28 @@ namespace ASC.Api.Documents
         /// Each of the FileShareParams must contain two parameters: 'ShareTo' - ID of the user with whom we want to share and 'Access' - access type which we want to grant to the user (Read, ReadWrite, etc) 
         /// </remarks>
         /// <returns>Shared file information</returns>
-        [Update("file/{fileid}/share")]
-        public IEnumerable<FileShareWrapper> SetFileSecurityInfo(string fileid, IEnumerable<FileShareParams> share, bool notify, string sharingMessage)
+        [Update("file/{fileId}/share")]
+        public IEnumerable<FileShareWrapper> SetFileSecurityInfo(string fileId, IEnumerable<FileShareParams> share, bool notify, string sharingMessage)
         {
             if (share != null && share.Any())
             {
                 var list = new Web.Files.Services.WCFService.ItemList<AceWrapper>(share.Select(x => x.ToAceObject()));
                 var aceCollection = new AceCollection
                     {
-                        Entries = new Web.Files.Services.WCFService.ItemList<string> { "file_" + fileid },
+                        Entries = new Web.Files.Services.WCFService.ItemList<string> { "file_" + fileId },
                         Aces = list,
                         Message = sharingMessage
                     };
                 _fileStorageService.SetAceObject(aceCollection, notify);
             }
-            return GetFileSecurityInfo(fileid);
+            return GetFileSecurityInfo(fileId);
         }
 
         /// <summary>
         /// Sets sharing settings for the folder with the ID specified in the request
         /// </summary>
         /// <short>Share folder</short>
-        /// <param name="folderid">Folder ID</param>
+        /// <param name="folderId">Folder ID</param>
         /// <param name="share">Collection of sharing rights</param>
         /// <param name="notify">Should notify people</param>
         /// <param name="sharingMessage">Sharing message to send when notifying</param>
@@ -1039,22 +1049,22 @@ namespace ASC.Api.Documents
         /// </remarks>
         /// <category>Sharing</category>
         /// <returns>Shared folder information</returns>
-        [Update("folder/{folderid}/share")]
-        public IEnumerable<FileShareWrapper> SetFolderSecurityInfo(string folderid, IEnumerable<FileShareParams> share, bool notify, string sharingMessage)
+        [Update("folder/{folderId}/share")]
+        public IEnumerable<FileShareWrapper> SetFolderSecurityInfo(string folderId, IEnumerable<FileShareParams> share, bool notify, string sharingMessage)
         {
             if (share != null && share.Any())
             {
                 var list = new Web.Files.Services.WCFService.ItemList<AceWrapper>(share.Select(x => x.ToAceObject()));
                 var aceCollection = new AceCollection
                     {
-                        Entries = new Web.Files.Services.WCFService.ItemList<string> { "folder_" + folderid },
+                        Entries = new Web.Files.Services.WCFService.ItemList<string> { "folder_" + folderId },
                         Aces = list,
                         Message = sharingMessage
                     };
                 _fileStorageService.SetAceObject(aceCollection, notify);
             }
 
-            return GetFolderSecurityInfo(folderid);
+            return GetFolderSecurityInfo(folderId);
         }
 
         /// <summary>
@@ -1084,16 +1094,16 @@ namespace ASC.Api.Documents
         /// <summary>
         ///   File external link
         /// </summary>
-        /// <param name="fileid">File ID</param>
+        /// <param name="fileId">File ID</param>
         /// <param name="share">Access right</param>
         /// <returns>Shared file link</returns>
-        [Update("{fileid}/sharedlink")]
-        public string GenerateSharedLink(string fileid, FileShare share)
+        [Update("{fileId}/sharedlink")]
+        public string GenerateSharedLink(string fileId, FileShare share)
         {
-            var file = GetFileInfo(fileid);
+            var file = GetFileInfo(fileId);
 
-            var objectid = "file_" + file.Id;
-            var sharedInfo = _fileStorageService.GetSharedInfo(new Web.Files.Services.WCFService.ItemList<string> { objectid }).Find(r => r.SubjectId == FileConstant.ShareLinkId);
+            var objectId = "file_" + file.Id;
+            var sharedInfo = _fileStorageService.GetSharedInfo(new Web.Files.Services.WCFService.ItemList<string> { objectId }).Find(r => r.SubjectId == FileConstant.ShareLinkId);
             if (sharedInfo == null || sharedInfo.Share != share)
             {
                 var list = new Web.Files.Services.WCFService.ItemList<AceWrapper>
@@ -1107,11 +1117,11 @@ namespace ASC.Api.Documents
                     };
                 var aceCollection = new AceCollection
                     {
-                        Entries = new Web.Files.Services.WCFService.ItemList<string> { objectid },
+                        Entries = new Web.Files.Services.WCFService.ItemList<string> { objectId },
                         Aces = list
                     };
                 _fileStorageService.SetAceObject(aceCollection, false);
-                sharedInfo = _fileStorageService.GetSharedInfo(new Web.Files.Services.WCFService.ItemList<string> { objectid }).Find(r => r.SubjectId == FileConstant.ShareLinkId);
+                sharedInfo = _fileStorageService.GetSharedInfo(new Web.Files.Services.WCFService.ItemList<string> { objectId }).Find(r => r.SubjectId == FileConstant.ShareLinkId);
             }
 
             return sharedInfo.SubjectName;
@@ -1128,10 +1138,10 @@ namespace ASC.Api.Documents
         /// <param name="isCorporate"></param>
         /// <param name="customerTitle">Title</param>
         /// <param name="providerKey">Provider Key</param>
-        /// <param name="providerid">Provider ID</param>
+        /// <param name="providerId">Provider ID</param>
         /// <category>Third-Party Integration</category>
         /// <returns>Folder contents</returns>
-        /// <remarks> List of provider key: DropBox, BoxNet, WebDav, Google, Yandex, SkyDrive, SharePoint, GoogleDrive</remarks>
+        /// <remarks> List of provider key: DropBox, Box, WebDav, Yandex, SkyDrive, SharePoint, GoogleDrive</remarks>
         /// <exception cref="ArgumentException"></exception>
         [Create("thirdparty")]
         public FolderWrapper SaveThirdParty(
@@ -1142,14 +1152,14 @@ namespace ASC.Api.Documents
             bool isCorporate,
             String customerTitle,
             String providerKey,
-            String providerid)
+            String providerId)
         {
             var thirdPartyParams = new ThirdPartyParams
                 {
                     AuthData = new AuthData(url, login, password, token),
                     Corporate = isCorporate,
                     CustomerTitle = customerTitle,
-                    ProviderId = providerid,
+                    ProviderId = providerId,
                     ProviderKey = providerKey,
                 };
 
@@ -1245,18 +1255,20 @@ namespace ASC.Api.Documents
         /// <param name="docServiceUrlCommand">Document command service Address</param>
         /// <param name="docServiceUrlStorage">Document storage service Address</param>
         /// <param name="docServiceUrlConverter">Document conversion service Address</param>
+        /// <param name="docServiceUrlPortal">Community Server Address</param>
         /// <returns></returns>
         [Read("savedocservice")]
-        public bool CheckDocServiceUrl(string docServiceUrlApi, string docServiceUrlCommand, string docServiceUrlStorage, string docServiceUrlConverter)
+        public bool CheckDocServiceUrl(string docServiceUrlApi, string docServiceUrlCommand, string docServiceUrlStorage, string docServiceUrlConverter, string docServiceUrlPortal)
         {
             FilesLinkUtility.DocServiceApiUrl = docServiceUrlApi;
             FilesLinkUtility.DocServiceCommandUrl = docServiceUrlCommand;
             FilesLinkUtility.DocServiceStorageUrl = docServiceUrlStorage;
             FilesLinkUtility.DocServiceConverterUrl = docServiceUrlConverter;
+            FilesLinkUtility.DocServicePortalUrl = docServiceUrlPortal;
 
             MessageService.Send(HttpContext.Current.Request, MessageAction.DocumentServiceLocationSetting);
 
-            return DocumentServiceConnector.CheckDocServiceUrl(docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter);
+            return DocumentServiceConnector.CheckDocServiceUrl(docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, docServiceUrlPortal);
         }
 
         /// <visible>false</visible>
@@ -1269,13 +1281,18 @@ namespace ASC.Api.Documents
 
         private FolderContentWrapper ToFolderContentWrapper(object folderId, Guid userIdOrGroupId, FilterType filterType)
         {
+            SortedByType sortBy;
+            if (!Enum.TryParse(_context.SortBy, true, out sortBy))
+                sortBy = SortedByType.AZ;
+            var startIndex = Convert.ToInt32(_context.StartIndex);
             return new FolderContentWrapper(_fileStorageService.GetFolderItems(folderId.ToString(),
-                                                                               Convert.ToInt32(_context.StartIndex),
+                                                                               startIndex,
                                                                                Convert.ToInt32(_context.Count) - 1, //NOTE: in ApiContext +1
                                                                                filterType,
-                                                                               new OrderBy(SortedByType.AZ, true),
+                                                                               new OrderBy(sortBy, !_context.SortDescending),
                                                                                userIdOrGroupId.ToString(),
-                                                                               _context.FilterValue));
+                                                                               _context.FilterValue),
+                                            startIndex);
         }
 
 

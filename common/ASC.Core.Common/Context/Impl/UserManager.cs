@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -27,9 +27,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ASC.Common.Data;
-using ASC.Core.Billing;
-using ASC.Core.Data;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Core.Caching;
@@ -40,17 +37,12 @@ namespace ASC.Core
     {
         private readonly IUserService userService;
 
-        // HACK: for license
-        private readonly DbUserService dbUserService;
-
         private readonly IDictionary<Guid, UserInfo> systemUsers;
 
 
         public UserManager(IUserService service)
         {
             userService = service;
-
-            dbUserService = new DbUserService(DbRegistry.GetConnectionString("core"));
 
             systemUsers = Configuration.Constants.SystemAccounts.ToDictionary(a => a.ID, a => new UserInfo { ID = a.ID, LastName = a.Name });
             systemUsers[Constants.LostUser.ID] = Constants.LostUser;
@@ -211,37 +203,7 @@ namespace ASC.Core
                 }
             }
 
-            var doRefreshLicense = false;
-            if (CoreContext.Configuration.Standalone && !isVisitor)
-            {
-                var curUser = dbUserService.GetUser(CoreContext.TenantManager.GetCurrentTenant().TenantId, u.ID);
-                
-                if (u.Status == EmployeeStatus.Active)
-                {
-                    if (curUser == null || curUser.Equals(Constants.LostUser) || curUser.Status != EmployeeStatus.Active)
-                    {
-                        //new
-                        doRefreshLicense = true;
-                    }
-                    else if (!curUser.FirstName.Equals(u.FirstName) || !curUser.LastName.Equals(u.LastName))
-                    {
-                        //rename
-                        doRefreshLicense = true;
-                    }
-                }
-                else if (curUser.Status == EmployeeStatus.Active)
-                {
-                    //delete
-                    doRefreshLicense = true;
-                }
-            }
-
             var newUser = userService.SaveUser(CoreContext.TenantManager.GetCurrentTenant().TenantId, u);
-
-            if (doRefreshLicense)
-            {
-                LicenseClient.RefreshLicense();
-            }
 
             return newUser;
         }
@@ -255,19 +217,7 @@ namespace ASC.Core
                 throw new InvalidOperationException("Can not remove tenant owner.");
             }
 
-            var doRefreshLicense = false;
-            var u = userService.GetUser(CoreContext.TenantManager.GetCurrentTenant().TenantId, id);
-            if (u.Status == EmployeeStatus.Active && CoreContext.Configuration.Standalone)
-            {
-                doRefreshLicense = true;
-            }
-
             userService.RemoveUser(CoreContext.TenantManager.GetCurrentTenant().TenantId, id);
-
-            if (doRefreshLicense)
-            {
-                LicenseClient.RefreshLicense();
-            }
         }
 
         public void SaveUserPhoto(Guid id, Guid notused, byte[] photo)

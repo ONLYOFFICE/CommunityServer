@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,18 +24,24 @@
 */
 
 
-using System;
-using System.Web;
-using System.Web.UI;
+using AjaxPro;
+using Amazon.SecurityToken.Model;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.MessagingSystem;
-using ASC.Web.Studio.Utility;
+using ASC.Security.Cryptography;
+using ASC.Web.Core.Security;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
-using AjaxPro;
-using Newtonsoft.Json;
+using ASC.Web.Studio.Utility;
 using log4net;
+using Newtonsoft.Json;
+using Resources;
+using System;
+using System.Linq;
+using System.ServiceModel.Security;
+using System.Web;
+using System.Web.UI;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -64,28 +70,40 @@ namespace ASC.Web.Studio.UserControls.Management
             switch (_type)
             {
                 case ConfirmType.PortalContinue:
-                    _buttonTitle = Resources.Resource.ReactivatePortalButton;
-                    _title = Resources.Resource.ConfirmReactivatePortalTitle;
+                    if (TenantExtra.Enterprise)
+                    {
+                        var countPortals = TenantExtra.GetTenantQuota().CountPortals;
+                        var activePortals = CoreContext.TenantManager.GetTenants().Count(t => t.Status == TenantStatus.Active);
+                        if (countPortals <= activePortals)
+                        {
+                            _successMessage = UserControlsCommonResource.TariffPortalLimitHeaer;
+                            _confirmContentHolder.Visible = false;
+                            return;
+                        }
+                    }
+
+                    _buttonTitle = Resource.ReactivatePortalButton;
+                    _title = Resource.ConfirmReactivatePortalTitle;
                     break;
                 case ConfirmType.PortalRemove:
-                    _buttonTitle = Resources.Resource.DeletePortalButton;
-                    _title = Resources.Resource.ConfirmDeletePortalTitle;
+                    _buttonTitle = Resource.DeletePortalButton;
+                    _title = Resource.ConfirmDeletePortalTitle;
                     AjaxPro.Utility.RegisterTypeForAjax(GetType());
                     break;
 
                 case ConfirmType.PortalSuspend:
-                    _buttonTitle = Resources.Resource.DeactivatePortalButton;
-                    _title = Resources.Resource.ConfirmDeactivatePortalTitle;
+                    _buttonTitle = Resource.DeactivatePortalButton;
+                    _title = Resource.ConfirmDeactivatePortalTitle;
                     break;
 
                 case ConfirmType.DnsChange:
-                    _buttonTitle = Resources.Resource.SaveButton;
+                    _buttonTitle = Resource.SaveButton;
                     var portalAddress = GenerateLink(GetTenantBasePath(alias));
                     if (!string.IsNullOrEmpty(dns))
                     {
                         portalAddress += string.Format(" ({0})", GenerateLink(dns));
                     }
-                    _title = string.Format(Resources.Resource.ConfirmDnsUpdateTitle, portalAddress);
+                    _title = string.Format(Resource.ConfirmDnsUpdateTitle, portalAddress);
                     break;
             }
 
@@ -102,12 +120,12 @@ namespace ASC.Web.Studio.UserControls.Management
                 {
                     case ConfirmType.PortalContinue:
                         curTenant.SetStatus(TenantStatus.Active);
-                        _successMessage = string.Format(Resources.Resource.ReactivatePortalSuccessMessage, "<br/>", "<a href=\"{0}\">", "</a>");
+                        _successMessage = string.Format(Resource.ReactivatePortalSuccessMessage, "<br/>", "<a href=\"{0}\">", "</a>");
                         break;
 
                     case ConfirmType.PortalSuspend:
                         curTenant.SetStatus(TenantStatus.Suspended);
-                        _successMessage = string.Format(Resources.Resource.DeactivatePortalSuccessMessage, "<br/>", "<a href=\"{0}\">", "</a>");
+                        _successMessage = string.Format(Resource.DeactivatePortalSuccessMessage, "<br/>", "<a href=\"{0}\">", "</a>");
                         messageAction = MessageAction.PortalDeactivated;
                         break;
 
@@ -129,7 +147,7 @@ namespace ASC.Web.Studio.UserControls.Management
                             }
                             curTenant.TenantAlias = alias;
                         }
-                        _successMessage = string.Format(Resources.Resource.DeactivatePortalSuccessMessage, "<br/>", "<a href=\"{0}\">", "</a>");
+                        _successMessage = string.Format(Resource.DeactivatePortalSuccessMessage, "<br/>", "<a href=\"{0}\">", "</a>");
                         break;
                 }
 
@@ -196,9 +214,27 @@ namespace ASC.Web.Studio.UserControls.Management
             }
         }
 
+        [SecurityPassthrough]
         [AjaxMethod]
-        public string PortalRemove()
+        public string PortalRemove(string email, string key)
         {
+            if (!string.IsNullOrEmpty(email) && !email.TestEmailRegex())
+            {
+                throw new ArgumentException(Resource.ErrorNotCorrectEmail);
+            }
+
+            var checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(email + ConfirmType.PortalRemove, key, SetupInfo.ValidEamilKeyInterval);
+
+            if (checkKeyResult == EmailValidationKeyProvider.ValidationResult.Expired)
+            {
+                throw new ExpiredTokenException(Resource.ErrorExpiredActivationLink);
+            }
+
+            if (checkKeyResult == EmailValidationKeyProvider.ValidationResult.Invalid)
+            {
+                throw new SecurityAccessDeniedException(Resource.ErrorConfirmURLError);
+            }
+
             var curTenant = CoreContext.TenantManager.GetCurrentTenant();
             var tariff = CoreContext.TenantManager.GetTenantQuota(curTenant.TenantId);
 
@@ -211,7 +247,7 @@ namespace ASC.Web.Studio.UserControls.Management
                                                                                     "\",\"alias\":\"" + curTenant.TenantAlias +
                                                                                     "\",\"email\":\"" + currentUser.Email + "\"}"));
 
-            bool authed = false;
+            var authed = false;
             try
             {
                 if (!SecurityContext.IsAuthenticated)
@@ -228,7 +264,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 if (authed) SecurityContext.Logout();
             }
 
-            _successMessage = string.Format(Resources.Resource.DeletePortalSuccessMessage, "<br/>", "<a href=\"{0}\">", "</a>");
+            _successMessage = string.Format(Resource.DeletePortalSuccessMessage, "<br/>", "<a href=\"{0}\">", "</a>");
             _successMessage = string.Format(_successMessage, redirectLink);
 
             StudioNotifyService.Instance.SendMsgPortalDeletionSuccess(curTenant, tariff, redirectLink);
@@ -238,7 +274,6 @@ namespace ASC.Web.Studio.UserControls.Management
                     successMessage = _successMessage,
                     redirectLink = redirectLink }
                 );
-
         }
 
 

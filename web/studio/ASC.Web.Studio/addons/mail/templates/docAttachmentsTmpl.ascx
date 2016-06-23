@@ -11,10 +11,8 @@
     {{else}}
             <li title='${title} (${size_string})' onclick='DocumentsPopup.selectFile("${id}");'>
                 <input type='checkbox' onclick='DocumentsPopup.selectFile("${id}");' version='${version}' access='${access}' id='${id}' size='${size}'/>
-                <label class='${exttype}'>${title}</label>
-                {{if access == ASC.Files.Constants.AceStatusEnum.None || access == ASC.Files.Constants.AceStatusEnum.ReadWrite }}
-                    <span class="share-can"></span>
-                {{/if}}
+                <label class="${exttype}"><a href="${webUrl}" class="link" target="_blank">${title}</a></label>
+                <span {{if access == ASC.Files.Constants.AceStatusEnum.None || access == ASC.Files.Constants.AceStatusEnum.ReadWrite }}class="share-allow" title="<%= MailResource.PublicShareAllowTitle %>"{{else}}class="share-deny"  title="<%= MailResource.PublicShareDenyTitle %>"{{/if}}></span>
             </li>
     {{/if}}
 </script>
@@ -143,6 +141,10 @@
             <label for="shareReadWriteFileLinks" class="radiobox">
                 <input id="shareReadWriteFileLinks" name="shareFileLinksAccessSelector" type="radio" value="${ASC.Files.Constants.AceStatusEnum.ReadWrite}" />
                 <%= MailResource.FullAccess %>
+            </label>
+            <label for="shareReviewFileLinks" class="radiobox">
+                <input id="shareReviewFileLinks" name="shareFileLinksAccessSelector" type="radio" value="${ASC.Files.Constants.AceStatusEnum.Review}" />
+                <%= MailResource.Review %>
             </label>
         </div>
 

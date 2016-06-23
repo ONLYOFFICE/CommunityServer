@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,6 +25,7 @@
 
 
 using ASC.Core;
+using ASC.Core.Billing;
 using ASC.Core.Tenants;
 using ASC.Web.Core;
 using ASC.Web.Core.Client;
@@ -36,10 +37,10 @@ using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Backup;
 using ASC.Web.Studio.Utility;
 using System;
-using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Runtime.Remoting.Messaging;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
@@ -51,6 +52,7 @@ namespace ASC.Web.Studio
         private static readonly object locker = new object();
         private static volatile bool applicationStarted;
 
+
         protected void Application_BeginRequest(object sender, EventArgs e)
         {
             if (!applicationStarted)
@@ -61,6 +63,8 @@ namespace ASC.Web.Studio
                     {
                         applicationStarted = true;
                         Startup.Configure();
+                        TMResourceData.DBResourceManager.WhiteLableEnabled = true;
+                        WhiteLabelHelper.ApplyPartnerWhiteLableSettings();
                     }
                 }
             }
@@ -74,8 +78,14 @@ namespace ASC.Web.Studio
             Authenticate();
             ResolveUserCulture();
 
+            BlockNotPaidPortal(tenant);
             BlockIPSecurityPortal(tenant);
-            ApplyWhiteLableSettings(tenant);
+            TenantWhiteLabelSettings.Apply(tenant.TenantId);
+        }
+
+        protected void Application_EndRequest(object sender, EventArgs e)
+        {
+            CallContext.FreeNamedDataSlot(TenantManager.CURRENT_TENANT);
         }
 
         protected void Application_AcquireRequestState(object sender, EventArgs e)
@@ -194,7 +204,7 @@ namespace ASC.Web.Studio
             return authenticated;
         }
 
-        private void ResolveUserCulture()
+        private static void ResolveUserCulture()
         {
             CultureInfo culture = null;
 
@@ -210,27 +220,30 @@ namespace ASC.Web.Studio
                 culture = CultureInfo.GetCultureInfo(user.CultureName);
             }
 
-            if (culture != null && Thread.CurrentThread.CurrentCulture != culture)
+            if (culture != null && !Equals(Thread.CurrentThread.CurrentCulture, culture))
             {
                 Thread.CurrentThread.CurrentCulture = culture;
             }
-            if (culture != null && Thread.CurrentThread.CurrentUICulture != culture)
+            if (culture != null && !Equals(Thread.CurrentThread.CurrentUICulture, culture))
             {
                 Thread.CurrentThread.CurrentUICulture = culture;
             }
-        }
-
-        private bool RestrictRewriter(Uri uri)
-        {
-            return uri.AbsolutePath.IndexOf(".svc", StringComparison.OrdinalIgnoreCase) != -1;
         }
 
         private void BlockNotFoundPortal(Tenant tenant)
         {
             if (tenant == null)
             {
-                var redirectUrl = string.Format("{0}?url={1}", SetupInfo.NoTenantRedirectURL, Request.GetUrlRewriter().Host);
-                Response.Redirect(redirectUrl, true);
+                if (string.IsNullOrEmpty(SetupInfo.NoTenantRedirectURL))
+                {
+                    Response.StatusCode = (int) HttpStatusCode.NotFound;
+                    Response.End();
+                }
+                else
+                {
+                    var redirectUrl = string.Format("{0}?url={1}", SetupInfo.NoTenantRedirectURL, Request.GetUrlRewriter().Host);
+                    ResponseRedirect(redirectUrl, HttpStatusCode.NotFound);
+                }
             }
         }
 
@@ -247,7 +260,16 @@ namespace ASC.Web.Studio
                 return;
             }
 
-            Response.Redirect(SetupInfo.NoTenantRedirectURL + "?url=" + Request.GetUrlRewriter().Host, true);
+            if (string.IsNullOrEmpty(SetupInfo.NoTenantRedirectURL))
+            {
+                Response.StatusCode = (int) HttpStatusCode.NotFound;
+                Response.End();
+            }
+            else
+            {
+                var redirectUrl = string.Format("{0}?url={1}", SetupInfo.NoTenantRedirectURL, Request.GetUrlRewriter().Host);
+                ResponseRedirect(redirectUrl, HttpStatusCode.NotFound);
+            }
         }
 
         private void BlockTransferingOrRestoringPortal(Tenant tenant)
@@ -267,15 +289,32 @@ namespace ASC.Web.Studio
                 return;
             }
 
-            if (Request.Url.AbsolutePath.StartsWith(SetupInfo.WebApiBaseUrl, StringComparison.InvariantCultureIgnoreCase) ||
-                Request.Url.AbsolutePath.EndsWith(".svc", StringComparison.InvariantCultureIgnoreCase) ||
-                Request.Url.AbsolutePath.EndsWith(".ashx", StringComparison.InvariantCultureIgnoreCase))
+            ResponseRedirect("~/PreparationPortal.aspx?type=" + (tenant.Status == TenantStatus.Transfering ? "0" : "1"), HttpStatusCode.ServiceUnavailable);
+        }
+
+        private void BlockNotPaidPortal(Tenant tenant)
+        {
+            if (tenant == null) return;
+
+            var passthroughtRequestEndings = new[] { ".htm", ".ashx", ".png", ".ico" };
+            if (passthroughtRequestEndings.Any(path => Request.Url.AbsolutePath.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)))
             {
-                // we shouldn't redirect
-                Response.StatusCode = (int)HttpStatusCode.ServiceUnavailable;
-                Response.End();
+                return;
             }
-            Response.Redirect("~/PreparationPortal.aspx?type=" + (tenant.Status == TenantStatus.Transfering ? "0" : "1"), true);
+
+            if (!TenantExtra.EnableTarrifSettings && TenantExtra.GetCurrentTariff().State >= TariffState.NotPaid)
+            {
+                ResponseRedirect("~/402.htm", HttpStatusCode.PaymentRequired);
+            }
+
+            if (CoreContext.Configuration.Standalone)
+            {
+                var licenseDay = TenantExtra.GetCurrentTariff().LicenseDate.Date;
+                if (licenseDay < DateTime.Today && licenseDay < TenantExtra.VersionReleaseDate)
+                {
+                    ResponseRedirect("~/402.htm", HttpStatusCode.PaymentRequired);
+                }
+            }
         }
 
         private void BlockIPSecurityPortal(Tenant tenant)
@@ -286,17 +325,23 @@ namespace ASC.Web.Studio
             if (settings.Enable && SecurityContext.IsAuthenticated && !IPSecurity.IPSecurity.Verify(tenant.TenantId))
             {
                 Auth.ProcessLogout();
-                Response.Redirect("~/auth.aspx?error=ipsecurity", true);
+
+                ResponseRedirect("~/auth.aspx?error=ipsecurity", HttpStatusCode.Forbidden);
             }
         }
 
-        private void ApplyWhiteLableSettings(Tenant tenant)
+        private void ResponseRedirect(string url, HttpStatusCode httpStatusCode)
         {
-            if (ConfigurationManager.AppSettings["resources.from-db"] == "true")
+            if (Request.Url.AbsolutePath.StartsWith(SetupInfo.WebApiBaseUrl, StringComparison.InvariantCultureIgnoreCase) ||
+                Request.Url.AbsolutePath.EndsWith(".svc", StringComparison.InvariantCultureIgnoreCase) ||
+                Request.Url.AbsolutePath.EndsWith(".ashx", StringComparison.InvariantCultureIgnoreCase))
             {
-                var whiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(tenant.TenantId);
-                whiteLabelSettings.SetNewLogoText();
+                // we shouldn't redirect
+                Response.StatusCode = (int)httpStatusCode;
+                Response.End();
             }
+
+            Response.Redirect(url, true);
         }
     }
 }

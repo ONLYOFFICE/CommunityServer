@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -152,7 +152,7 @@ ASC.Projects.projectNavPanel = (function() {
         if (project.security.canReadFiles) {
             tabs.push(
                 {
-                    title: createTitle(ASC.Projects.Resources.ProjectsJSResource.DocumentsModule, project.documentsCount),
+                    title: createTitle(ASC.Projects.Resources.ProjectsJSResource.DocumentsModule, (location.href.indexOf('tmdocs.aspx') > 0 ? 0 : project.documentsCount)),
                     selected: location.href.indexOf('tmdocs.aspx') > 0,
                     href: "tmdocs.aspx?prjID=" + project.id,
                     divID: projectModulesNames.docs

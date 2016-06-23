@@ -29,70 +29,67 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
-using Novell.Directory.Ldap;
 using Novell.Directory.Ldap.Asn1;
+using System;
+using System.IO;
 
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> Represents an Ldap Search Result Entry.
-	/// 
-	/// <pre>
-	/// SearchResultEntry ::= [APPLICATION 4] SEQUENCE {
-	/// objectName      LdapDN,
-	/// attributes      PartialAttributeList }
-	/// </pre>
-	/// </summary>
-	public class RfcSearchResultEntry:Asn1Sequence
-	{
-		/// <summary> </summary>
-		virtual public Asn1OctetString ObjectName
-		{
-			get
-			{
-				return (Asn1OctetString) get_Renamed(0);
-			}
-			
-		}
-		/// <summary> </summary>
-		virtual public Asn1Sequence Attributes
-		{
-			get
-			{
-				return (Asn1Sequence) get_Renamed(1);
-			}
-			
-		}
-		
-		//*************************************************************************
-		// Constructors for SearchResultEntry
-		//*************************************************************************
-		
-		/// <summary> The only time a client will create a SearchResultEntry is when it is
-		/// decoding it from an InputStream
-		/// </summary>
-		[CLSCompliantAttribute(false)]
-		public RfcSearchResultEntry(Asn1Decoder dec, System.IO.Stream in_Renamed, int len):base(dec, in_Renamed, len)
-		{
-			
-			// Decode objectName
-			//      set(0, new RfcLdapDN(((Asn1OctetString)get(0)).stringValue()));
-			
-			// Create PartitalAttributeList. This does not need to be decoded, only
-			// typecast.
-			//      set(1, new PartitalAttributeList());
-			return ;
-		}
-		
-		//*************************************************************************
-		// Accessors
-		//*************************************************************************
-		
-		/// <summary> Override getIdentifier to return an application-wide id.</summary>
-		public override Asn1Identifier getIdentifier()
-		{
-			return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.SEARCH_RESPONSE);
-		}
-	}
+    /// <summary> Represents an Ldap Search Result Entry.
+    /// 
+    /// <pre>
+    /// SearchResultEntry ::= [APPLICATION 4] SEQUENCE {
+    /// objectName      LdapDN,
+    /// attributes      PartialAttributeList }
+    /// </pre>
+    /// </summary>
+    public class RfcSearchResultEntry : Asn1Sequence
+    {
+        /// <summary> </summary>
+        virtual public Asn1OctetString ObjectName
+        {
+            get
+            {
+                return (Asn1OctetString)get_Renamed(0);
+            }
+        }
+
+        /// <summary> </summary>
+        virtual public Asn1Sequence Attributes
+        {
+            get
+            {
+                return (Asn1Sequence)get_Renamed(1);
+            }
+        }
+
+        //*************************************************************************
+        // Constructors for SearchResultEntry
+        //*************************************************************************
+
+        /// <summary> The only time a client will create a SearchResultEntry is when it is
+        /// decoding it from an InputStream
+        /// </summary>
+        [CLSCompliantAttribute(false)]
+        public RfcSearchResultEntry(Asn1Decoder dec, Stream in_Renamed, int len)
+            : base(dec, in_Renamed, len)
+        {
+            // Decode objectName
+            //      set(0, new RfcLdapDN(((Asn1OctetString)get(0)).stringValue()));
+
+            // Create PartitalAttributeList. This does not need to be decoded, only
+            // typecast.
+            //      set(1, new PartitalAttributeList());
+        }
+
+        //*************************************************************************
+        // Accessors
+        //*************************************************************************
+
+        /// <summary> Override getIdentifier to return an application-wide id.</summary>
+        public override Asn1Identifier getIdentifier()
+        {
+            return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.SEARCH_RESPONSE);
+        }
+    }
 }

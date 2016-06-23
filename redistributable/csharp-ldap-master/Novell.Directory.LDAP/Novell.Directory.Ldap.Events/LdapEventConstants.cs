@@ -34,26 +34,26 @@ using Novell.Directory.Ldap.Controls;
 namespace Novell.Directory.Ldap.Events
 {
 
-  /// <summary>
-  /// Event Classifiers
-  /// </summary>
-  public enum EventClassifiers
-  {
-    CLASSIFICATION_UNKNOWN = -1,
-    CLASSIFICATION_LDAP_PSEARCH = 0,
-    CLASSIFICATION_EDIR_EVENT = 1
-  }
+    /// <summary>
+    /// Event Classifiers
+    /// </summary>
+    public enum EventClassifiers
+    {
+        CLASSIFICATION_UNKNOWN = -1,
+        CLASSIFICATION_LDAP_PSEARCH = 0,
+        CLASSIFICATION_EDIR_EVENT = 1
+    }
 
-  /// <summary>
-  /// Types of Ldap Events
-  /// </summary>
-  public enum LdapEventType
-  {
-    TYPE_UNKNOWN = LdapEventSource.EVENT_TYPE_UNKNOWN,
-    LDAP_PSEARCH_ADD = LdapPersistSearchControl.ADD,
-    LDAP_PSEARCH_DELETE = LdapPersistSearchControl.DELETE,
-    LDAP_PSEARCH_MODIFY = LdapPersistSearchControl.MODIFY,
-    LDAP_PSEARCH_MODDN = LdapPersistSearchControl.MODDN,
-    LDAP_PSEARCH_ANY = LDAP_PSEARCH_ADD | LDAP_PSEARCH_DELETE | LDAP_PSEARCH_MODIFY | LDAP_PSEARCH_MODDN
-  }
+    /// <summary>
+    /// Types of Ldap Events
+    /// </summary>
+    public enum LdapEventType
+    {
+        TYPE_UNKNOWN = LdapEventSource.EVENT_TYPE_UNKNOWN,
+        LDAP_PSEARCH_ADD = LdapPersistSearchControl.ADD,
+        LDAP_PSEARCH_DELETE = LdapPersistSearchControl.DELETE,
+        LDAP_PSEARCH_MODIFY = LdapPersistSearchControl.MODIFY,
+        LDAP_PSEARCH_MODDN = LdapPersistSearchControl.MODDN,
+        LDAP_PSEARCH_ANY = LDAP_PSEARCH_ADD | LDAP_PSEARCH_DELETE | LDAP_PSEARCH_MODIFY | LDAP_PSEARCH_MODDN
+    }
 }

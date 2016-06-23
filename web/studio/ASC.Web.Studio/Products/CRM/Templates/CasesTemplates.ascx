@@ -43,7 +43,7 @@
         <div class="header-menu-spacer">&nbsp;</div>
 
 
-        <table id="caseTable" class="tableBase" cellpadding="4" cellspacing="0">
+        <table id="caseTable" class="table-list" cellpadding="4" cellspacing="0">
             <colgroup>
                 <col style="width: 30px;"/>
                 <col/>
@@ -115,13 +115,13 @@
 
 <script id="caseTmpl" type="text/x-jquery-tmpl">
     <tr id="caseItem_${id}" class="with-entity-menu">
-        <td class="borderBase" style="padding: 0 0 0 6px;">
+        <td style="padding: 0 0 0 6px;">
             <input type="checkbox" id="checkCase_${id}" onclick="ASC.CRM.ListCasesView.selectItem(this);"
                  {{if isChecked == true}}checked="checked"{{/if}} />
             <div id="loaderImg_${id}" class="loader-middle baseList_loaderImg"></div>
         </td>
 
-        <td class="borderBase">
+        <td>
             {{if isPrivate == true}}
                 <label class="crm-private-lock"></label>
             {{/if}}
@@ -129,7 +129,7 @@
                 ${title}
             </a>
         </td>
-        <td class="borderBase" style="padding:5px;">
+        <td style="padding:5px;">
             <div id="caseMenu_${id}" class="entity-menu" title="<%= CRMCommonResource.Actions %>"></div>
         </td>
     </tr>

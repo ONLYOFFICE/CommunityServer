@@ -29,61 +29,61 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
 using Novell.Directory.Ldap.Asn1;
-using Novell.Directory.Ldap;
+using System;
+using System.IO;
 
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> Represents an Ldap Modify Response.
-	/// 
-	/// <pre>
-	/// ModifyResponse ::= [APPLICATION 7] LdapResult
-	/// </pre>
-	/// </summary>
-	public class RfcModifyResponse:RfcLdapResult
-	{
-		
-		//*************************************************************************
-		// Constructor for ModifyResponse
-		//*************************************************************************
-		
-		/// <summary> The only time a client will create a ModifyResponse is when it is
-		/// decoding it from an InputStream
-		/// </summary>
-		[CLSCompliantAttribute(false)]
-		public RfcModifyResponse(Asn1Decoder dec, System.IO.Stream in_Renamed, int len):base(dec, in_Renamed, len)
-		{
-		}
-		
-		/// <summary> Constructs an RfcModifyResponse from parameters.
-		/// 
-		/// </summary>
-		/// <param name="resultCode">the result code of the operation
-		/// 
-		/// </param>
-		/// <param name="matchedDN">the matched DN returned from the server
-		/// 
-		/// </param>
-		/// <param name="errorMessage">the diagnostic message returned from the server
-		/// 
-		/// </param>
-		/// <param name="referral">the referral(s) returned by the server
-		/// </param>
-		public RfcModifyResponse(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage, RfcReferral referral):base(resultCode, matchedDN, errorMessage, referral)
-		{
-			return ;
-		}
-		
-		//*************************************************************************
-		// Accessors
-		//*************************************************************************
-		
-		/// <summary> Override getIdentifier to return an application-wide id.</summary>
-		public override Asn1Identifier getIdentifier()
-		{
-			return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.MODIFY_RESPONSE);
-		}
-	}
+
+    /// <summary> Represents an Ldap Modify Response.
+    /// 
+    /// <pre>
+    /// ModifyResponse ::= [APPLICATION 7] LdapResult
+    /// </pre>
+    /// </summary>
+    public class RfcModifyResponse : RfcLdapResult
+    {
+        //*************************************************************************
+        // Constructor for ModifyResponse
+        //*************************************************************************
+
+        /// <summary> The only time a client will create a ModifyResponse is when it is
+        /// decoding it from an InputStream
+        /// </summary>
+        [CLSCompliantAttribute(false)]
+        public RfcModifyResponse(Asn1Decoder dec, Stream in_Renamed, int len)
+            : base(dec, in_Renamed, len)
+        {
+        }
+
+        /// <summary> Constructs an RfcModifyResponse from parameters.
+        /// 
+        /// </summary>
+        /// <param name="resultCode">the result code of the operation
+        /// 
+        /// </param>
+        /// <param name="matchedDN">the matched DN returned from the server
+        /// 
+        /// </param>
+        /// <param name="errorMessage">the diagnostic message returned from the server
+        /// 
+        /// </param>
+        /// <param name="referral">the referral(s) returned by the server
+        /// </param>
+        public RfcModifyResponse(Asn1Enumerated resultCode, RfcLdapDN matchedDN, RfcLdapString errorMessage, RfcReferral referral)
+            : base(resultCode, matchedDN, errorMessage, referral)
+        {
+        }
+
+        //*************************************************************************
+        // Accessors
+        //*************************************************************************
+
+        /// <summary> Override getIdentifier to return an application-wide id.</summary>
+        public override Asn1Identifier getIdentifier()
+        {
+            return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.MODIFY_RESPONSE);
+        }
+    }
 }

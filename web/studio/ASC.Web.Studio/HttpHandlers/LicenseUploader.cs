@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -49,15 +49,10 @@ namespace ASC.Web.Studio.HttpHandlers
                 if (!SecurityContext.IsAuthenticated && SettingsManager.Instance.LoadSettings<WizardSettings>(TenantProvider.CurrentTenantID).Completed) throw new SecurityException(Resource.PortalSecurity);
                 if (context.Request.Files.Count == 0) throw new Exception(Resource.ErrorEmptyUploadFileSelected);
 
-                string licenseString;
-
                 var licenseFile = context.Request.Files[0];
-                using (var reader = new StreamReader(licenseFile.InputStream))
-                {
-                    licenseString = reader.ReadToEnd();
-                }
+                LicenseReader.SaveLicenseTemp(licenseFile.InputStream);
 
-                result.Message = licenseString;
+                result.Message = Resource.LicenseUploaded;
                 result.Success = true;
             }
             catch (Exception ex)

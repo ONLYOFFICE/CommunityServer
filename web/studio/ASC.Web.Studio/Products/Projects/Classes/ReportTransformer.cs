@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -34,6 +34,7 @@ using System.Xml.Xsl;
 using System.Reflection;
 
 using ASC.Projects.Core.Domain.Reports;
+using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Core;
 using ASC.Web.Core.WhiteLabel;
@@ -149,7 +150,8 @@ namespace ASC.Web.Projects.Classes
         {
             var parameters = new XsltArgumentList();
             var columns = report.GetColumns(view, templateID);
-            var logo = string.IsNullOrEmpty(SetupInfo.MainLogoMailTmplURL) ? CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoLight(true)) : SetupInfo.MainLogoMailTmplURL;
+            var logo = string.IsNullOrEmpty(SetupInfo.MainLogoMailTmplURL) ? CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoDark(true)) : SetupInfo.MainLogoMailTmplURL;
+            var logoText = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID).LogoText;
 
             for (var i = 0; i < columns.Count; i++)
             {
@@ -158,6 +160,7 @@ namespace ASC.Web.Projects.Classes
 
             parameters.AddParam("p" + columns.Count, string.Empty, Global.ReportCsvDelimiter.Value);
             parameters.AddParam("logo", string.Empty, logo);
+            parameters.AddParam("logoText", string.Empty, logoText);
 
             return parameters;
         }

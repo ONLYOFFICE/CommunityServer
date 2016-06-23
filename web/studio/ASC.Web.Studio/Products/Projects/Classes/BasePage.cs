@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,8 +24,6 @@
 */
 
 
-using System;
-using System.Runtime.Remoting.Messaging;
 using ASC.Core;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
@@ -33,6 +31,7 @@ using ASC.Web.Core;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Masters;
 using ASC.Web.Studio;
+using System;
 using Global = ASC.Web.Projects.Classes.Global;
 
 namespace ASC.Web.Projects
@@ -66,15 +65,12 @@ namespace ASC.Web.Projects
             PreInit += PagePreInit;
             EngineFactory = Global.EngineFactory;
             RequestContext = new RequestContext(EngineFactory);
+            EssenceTitle = "";
+            EssenceStatus = "";
         }
 
         protected void PagePreInit(object sender, EventArgs e)
         {
-            if (CallContext.GetData("CURRENT_ACCOUNT") == null && SecurityContext.IsAuthenticated)
-            {
-                CallContext.SetData("CURRENT_ACCOUNT", SecurityContext.CurrentAccount.ID);
-            }
-
             if (!SecurityContext.IsAuthenticated) return;
 
             Participant = EngineFactory.ParticipantEngine.GetByID(SecurityContext.CurrentAccount.ID);
@@ -94,9 +90,13 @@ namespace ASC.Web.Projects
                 {
                     Response.Redirect("projects.aspx?prjID=" + Project.ID, true);
                 }
-
-                EssenceTitle = Project.Title;
-                EssenceStatus = Project.Status != ProjectStatus.Open ? LocalizedEnumConverter.ConvertToString(Project.Status).ToLower() : "";
+                if (!RequestContext.IsInConcreteProjectModule)
+                {
+                    EssenceTitle = Project.Title;
+                    EssenceStatus = Project.Status != ProjectStatus.Open
+                        ? LocalizedEnumConverter.ConvertToString(Project.Status).ToLower()
+                        : "";
+                }
 
                 if (!RequestContext.IsInConcreteProjectModule)
                 {

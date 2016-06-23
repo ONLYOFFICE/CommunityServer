@@ -30,17 +30,19 @@
 
         {{if $item.messages.length == 1}}
             {{tmpl($item.messages[0], {
-                fileSizeToStr   : $item.fileSizeToStr,
-                cutFileName: $item.cutFileName,
-                getFileNameWithoutExt: $item.getFileNameWithoutExt,
-                getFileExtension: $item.getFileExtension,
-                htmlEncode      : $item.htmlEncode,
-                isSingleMessage : true
+                fileSizeToStr           : $item.fileSizeToStr,
+                cutFileName             : $item.cutFileName,
+                getFileNameWithoutExt   : $item.getFileNameWithoutExt,
+                getFileExtension        : $item.getFileExtension,
+                htmlEncode              : $item.htmlEncode,
+                isSingleMessage         : true,
+                folder                  : $item.folder
             }) $item.messages[0].template_name}}
         {{else}}
             {{tmpl({}, {
                 needBottomBorder : false,
-                needSortButton   : true
+                needSortButton   : true,
+                folder           : $item.folder
             }) "messageTopButtons"}}
 
             {{each $item.messages}}
@@ -70,7 +72,7 @@
 
 <script id="messageShortTmpl" type="text/x-jquery-tmpl">
     <div class="message-wrap{{if visible != true}} hidden{{/if}}" message_id="${id}" folder="${folder}" restore_folder_id="${restoreFolderId}">
-        <table class="short-view" message_id="${id}">
+        <table class="short-view{{if visible == true && wasNew == true}} new{{/if}}" message_id="${id}">
             <tbody>
                 <tr class="message_short" data_id="${id}">
                     <td class="from_label">
@@ -87,7 +89,7 @@
                     </td>
                     <td class="icon">
                         {{if attachments.length > 0}}
-                            <i class="icon-attachment"></i>
+                            <i class="{{if calendarUid != null }}icon-calendar{{else}}icon-attachment{{/if}}"></i>
                         {{/if}}
                     </td>
                     <td class="date-time">
@@ -109,54 +111,97 @@
                 </tr>
             </tbody>
         </table>
-        <div class="full-view hidden" message_id="${id}" content_blocked="${contentIsBlocked}">
+        <div class="full-view hidden" message_id="${id}" content_blocked="${contentIsBlocked}" is_crm="true" is_personal="true" is_single="false">
             {{if $item.isSingleMessage == true}}
                 {{tmpl($item.data, {
                     needBottomBorder : true,
-                    needSortButton   : false
+                    needSortButton   : false,
+                    folder           : $item.folder
                 }) "messageTopButtons"}}
             {{/if}}
-            <div class="head" message_id="${id}">
-                <div class="row" data_id="${id}">
-                    <div class="menu menu-small" data_id="${id}" title="<%: MailScriptResource.Actions %>"></div>
-                    <label><%: MailScriptResource.FromLabel %>:</label>
-                    <div class="value">
-                        <a class="from" href="javascript:void(0);">${from}</a>
-                        {{if ASC.Mail.Constants.CRM_AVAILABLE == true && isFromCRM == false && folder == 1 && from != ASC.Mail.Constants.MAIL_DAEMON_EMAIL}}
-                            <span class="AddToCRMContacts addUserLink">
-                                <a class="link dotline"><%: MailResource.AddToCRMContacts %></a>
-                                <span class="sort-down-black down_arrow"></span>
-                            </span>
+            <div class="head with-entity-menu" message_id="${id}">
+                <table>
+                    <tbody>
+                        <tr class="row" data_id="${id}">
+                            <td class="header-label">
+                                <%: MailScriptResource.FromLabel %>:
+                            </td>
+                            <td class="header-value">
+                                <div class="value">
+                                    <a class="from" href="javascript:void(0);">${from}</a>
+                                    <span style="display:none; margin-left: 16px;" class="red-text from-disabled-warning">
+                                        <%: MailResource.MessageFromWarning %>&nbsp;
+                                        <a class="link dotline red-text" onclick="javascript:accountsModal.activateAccount('${address}', true);"><%: MailResource.ActivateAccountLabel %></a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="header-menu">
+                                <div class="entity-menu" data_id="${id}" title="<%: MailScriptResource.Actions %>"></div>
+                            </td>
+                        </tr>
+                        <tr class="row" data_id="${id}">
+                            <td class="header-label">
+                                <%: MailScriptResource.ToLabel %>:
+                            </td>
+                            <td class="header-value" colspan="2"">
+                                <div class="value to-addresses">${to}</div>
+                            </td>
+                        </tr>
+                        {{if cc }}
+                            <tr class="row" data_id="${id}">
+                                <td class="header-label">
+                                    <%: MailResource.CopyLabel %>:
+                                </td>
+                                <td class="header-value" colspan="2">
+                                    <div class="value cc-addresses">${cc}</div>
+                                </td>
+                            </tr>
                         {{/if}}
-                    </div>
-                </div>
-                <div class="row" data_id="${id}">
-                    <label><%: MailScriptResource.ToLabel %>:</label>
-                    <div class="value to-addresses">${to}</div>
-                </div>
-                {{if cc }}
-                    <div class="row" data_id="${id}">
-                        <label><%: MailResource.CopyLabel %>:</label>
-                        <div class="value cc-addresses">${cc}</div>
-                    </div>
-                {{/if}}
-                {{if bcc }}
-                    <div class="row" data_id="${id}">
-                        <label><%: MailResource.BCCLabel %>:</label>
-                        <div class="value bcc-addresses">${bcc}</div>
-                    </div>
-                {{/if}}
-                <div class="row" data_id="${id}">
-                    <label><%: MailScriptResource.DateLabel %>:</label>
-                    <div class="value">
-                        <span>${displayDate}</span>
-                        <span style="margin-left: 5px">${displayTime}</span>
-                    </div>
-                </div>
-                <div class="row tags hidden" data_id="${id}">
-                    <label><%: MailScriptResource.Tags %>:</label>
-                    <div class="value"><div class="itemTags"></div></div>
-                </div>
+                        {{if bcc }}
+                            <tr class="row" data_id="${id}">
+                                <td class="header-label">
+                                    <%: MailResource.BCCLabel %>:
+                                </td>
+                                <td class="header-value" colspan="2">
+                                    <div class="value bcc-addresses">${bcc}</div>
+                                </td>
+                            </tr>
+                        {{/if}}
+                        <tr class="row" data_id="${id}">
+                            <td class="header-label">
+                                <%: MailScriptResource.DateLabel %>:
+                            </td>
+                            <td class="header-value" colspan="2">
+                                <div class="value">
+                                    <span>${displayDate}</span>
+                                    <span style="margin-left: 5px">${displayTime}</span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="row tags hidden" data_id="${id}">
+                            <td class="header-label">
+                                <%: MailScriptResource.Tags %>:
+                            </td>
+                            <td class="header-value" colspan="2">
+                                <div class="value"><div class="itemTags"></div></div>
+                            </td>
+                        </tr>
+                        <tr class="row calendar hidden">
+                            <td class="header-label">
+                                <%: MailScriptResource.CalendarLabel %>:
+                            </td>
+                            <td class="header-value" colspan="2">
+                                <div class="value error" style="display: none;">
+                                    <span style="color:#cc0000;"><%: MailScriptResource.ErrorUnsupportedFileFormat %></span>
+                                </div>
+                                <div class="value loader-fx" style="padding-top: 3px;">
+                                    <div class="loader-middle"></div>
+                                    <div class="loader-middle-lable"><%: MailResource.LoadingLabel %></div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
 
             {{if contentIsBlocked == true}}
@@ -193,12 +238,12 @@
                         attach_to_crm_attachment="<%: MailResource.AttacToCRMContact %>">
                         <tbody>
                             {{each attachments}}
-                                <tr class="row" data_id="${$value.fileId}">
+                                <tr class="row with-entity-menu" data_id="${$value.fileId}">
                                     <td class="file_icon">
                                         <div class="attachmentImage ${$value.iconCls}"/>
                                     </td>
                                     <td class="file_info">
-                                        <a target="_blank" href="${$value.handlerUrl}" title="${$value.fileName}" 
+                                        <a {{if $value.handlerUrl.slice(0, 11) !== 'javascript:'}}target="_blank"{{/if}} href="${$value.handlerUrl}" title="${$value.fileName}" 
                                             {{if $value.isImage == true}}
                                                 class="screenzoom" 
                                             {{else}} 
@@ -217,7 +262,7 @@
                                         {{/if}}
                                     </td>
                                     <td class="menu_column">
-                                        <div class="menu menu-small" data_id="${$value.fileId}" name="${$value.fileName}" title="<%: MailScriptResource.Actions %>" />
+                                        <div class="entity-menu" data_id="${$value.fileId}" name="${$value.fileName}" title="<%: MailScriptResource.Actions %>" />
                                     </td>
                                 </tr>
                             {{/each}}
@@ -234,7 +279,7 @@
             <span class="text"><%: MailResource.BlockedContentWarning %></span>
             <a id="id-btn-block-content-${id}" class="link dotline" href="#" onclick="return false;"><%: MailResource.DisplayImagesLabel %></a>
             <a id="id-btn-always-block-content-${id}" class="link dotline" href="#" onclick="return false;" style="margin-left: 8px;"><%: MailResource.AlwaysDisplayImagesLabel %> "${sender_address}"</a>
-            <a class="close-info-popup" href="#" onclick="jq('#id_block_content_popup_${id}').hide(); return false;"></a>
+            <a class="close-info-popup" href="#" onclick="jq('#id_block_content_popup_${id}').hide(); return false;">&times;</a>
     </div>
 </script>
 
@@ -242,30 +287,51 @@
     <div class="messageHeader" {{if $item.needBottomBorder == false}}style="border-bottom:none;"{{/if}}>
         <div class="contentMenuWrapper">
             <ul class="clearFix contentMenu contentMenuDisplayAll" id="MessageGroupButtons">
-                <li class="menuAction btnReply unlockAction">
-                    <span title="<%: MailResource.ReplyBtnLabel %>"><%: MailResource.ReplyBtnLabel %></span>
-                </li>
-                <li class="menuAction btnReplyAll unlockAction">
-                    <span title="<%: MailResource.ReplyAllBtnLabel %>"><%: MailResource.ReplyAllBtnLabel %></span>
-                </li>
-                <li class="menuAction btnForward unlockAction">
-                    <span title="<%: MailResource.ForwardLabel %>"><%: MailResource.ForwardLabel %></span>
-                </li>
+                {{if $item.folder != 4 && $item.folder != 5 }}
+                    <li class="menuAction btnReply unlockAction">
+                        <span title="<%: MailResource.ReplyBtnLabel %>"><%: MailResource.ReplyBtnLabel %></span>
+                    </li>
+                    <li class="menuAction btnReplyAll unlockAction">
+                        <span title="<%: MailResource.ReplyAllBtnLabel %>"><%: MailResource.ReplyAllBtnLabel %></span>
+                    </li>
+                    <li class="menuAction btnForward unlockAction">
+                        <span title="<%: MailResource.ForwardLabel %>"><%: MailResource.ForwardLabel %></span>
+                    </li>
+                {{/if}}
                 <li class="menuAction btnDelete unlockAction">
                     <span title="<%: MailResource.DeleteBtnLabel %>"><%: MailResource.DeleteBtnLabel %></span>
                 </li>
-                <li class="menuAction btnAddTag unlockAction">
-                    <span title="<%: MailResource.AddTag %>"><%: MailResource.AddTag %></span>
-                    <div class="down_arrow"></div>
-                </li>
+                {{if $item.folder != 4 && $item.folder != 5 }}
+                    {{if $item.folder == 1 }}
+                         <li class="menuAction btnSpam unlockAction">
+                            <span title="<%: MailScriptResource.SpamLabel %>"><%: MailScriptResource.SpamLabel %></span>
+                        </li>
+                    {{/if}}
+                    <li class="menuAction btnAddTag unlockAction">
+                        <span title="<%: MailResource.AddTag %>"><%: MailResource.AddTag %></span>
+                        <div class="down_arrow"></div>
+                    </li>
+                {{else}}
+                    {{if $item.folder == 4 }}
+                        <li class="menuAction btnRestore unlockAction">
+                            <span title="<%: MailScriptResource.RestoreBtnLabel %>"><%: MailScriptResource.RestoreBtnLabel %></span>
+                        </li>
+                    {{else}}
+                        <li class="menuAction btnNotSpam unlockAction">
+                            <span title="<%: MailScriptResource.NotSpamLabel %>"><%: MailScriptResource.NotSpamLabel %></span>
+                        </li>
+                    {{/if}}
+                {{/if}}
                 <li class="menuAction btnMore unlockAction">
-                    <span title="<%: MailResource.MoreMenuButton %>"><%: MailResource.MoreMenuButton %></span>
-                    <div class="down_arrow"></div>
+                    <span title="<%: MailResource.MoreMenuButton %>">...</span>
+
                 </li>
-                <li class="menu-action-simple-pagenav">
-                    <a class="pagerPrevButtonCSSClass" href=""><%: MailResource.GoToPrevMessage %></a>
-                    <a class="pagerNextButtonCSSClass" href=""><%: MailResource.GoToNextMessage %></a>
-                </li>
+                <li class="menuAction btnNext unlockAction pull-right" title="<%: MailResource.GoToNextMessage %>">
+                    <div class="arrow-right"></div>
+                 </li>
+                <li class="menuAction btnPrev unlockAction pull-right" title="<%: MailResource.GoToPrevMessage %>">
+                    <div class="arrow-left"></div>
+                 </li>                
                 {{if typeof($item.needSortButton)!=='undefined' && $item.needSortButton}}
                 <li class="menu-action-simple-pagenav">
                     <span id="sort-conversation" class="sort-icon hidden-min"></span>
@@ -289,7 +355,7 @@
             ${text}
         </div>
         <div class="buttons">
-            <button class="button middle blue print" type="button">
+            <button class="button middle blue okBtn" type="button">
                 <%= MailScriptResource.OkBtnLabel %></button>
             <button class="button middle gray cancel" type="button">
                 <%= MailScriptResource.CancelBtnLabel %>

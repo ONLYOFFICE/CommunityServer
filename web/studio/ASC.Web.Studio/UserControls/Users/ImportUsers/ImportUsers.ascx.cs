@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -133,12 +133,15 @@ namespace ASC.Web.Studio.UserControls.Users
 
         protected bool FreeTariff { get; set; }
 
+        protected string HelpLink { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             var quota = TenantExtra.GetTenantQuota();
 
             PeopleLimit = Math.Min(quota.ActiveUsers - TenantStatisticsProvider.GetUsersCount(), 0);
             FreeTariff = (quota.Free || quota.NonProfit || quota.Trial) && !quota.Open;
+            HelpLink = CommonLinkUtility.GetHelpLink();
 
             icon.Options.IsPopup = true;
             icon.Options.PopupContainerCssClass = "okcss popupContainerClass";
@@ -156,8 +159,8 @@ namespace ASC.Web.Studio.UserControls.Users
         {
             Page.RegisterStyle("~/usercontrols/users/importusers/css/import.less");
 
-            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js");
-            Page.RegisterBodyScripts("~/usercontrols/users/ImportUsers/js/ImportUsers.js");
+            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js",
+                "~/usercontrols/users/ImportUsers/js/ImportUsers.js");
 
             var script = new StringBuilder();
 

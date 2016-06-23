@@ -24,7 +24,7 @@
             jq(".big-button-container .button.blue:first").addClass("disable");
 
             LoadingBanner.displayLoading();
-            AjaxPro.ConfirmPortalActivity.PortalRemove(function (response) {
+            AjaxPro.ConfirmPortalActivity.PortalRemove("<%= Request["email"] ?? "" %>", "<%= Request["key"] ?? "" %>", function (response) {
                 LoadingBanner.hideLoading();
                 if (typeof (response.error) != "undefined" && response.error != null) {
                     toastr.error(response.error.Message);

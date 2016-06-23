@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,13 +26,15 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
+using System.Configuration;
 using System.Drawing;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-
+using ASC.Core.Tenants;
 using ASC.Data.Storage;
+using ASC.Web.Core.Client;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Core.Users;
@@ -46,12 +48,9 @@ namespace ASC.Web.Core.WhiteLabel
     [DataContract]
     public class TenantWhiteLabelSettings : ISettings
     {
-        #region Logos information: extension, isDefault, text for img auto generating
+        public const string DefaultLogo = "ONLYOFFICE";
 
-        [DataMember(Name = "LogoLightExt")]
-        private string _logoLightExt;
-        [DataMember(Name = "DefaultLogoLight")]
-        private bool _isDefaultLogoLight { get; set; }
+        #region Logos information: extension, isDefault, text for img auto generating
 
         [DataMember(Name = "LogoLightSmallExt")]
         private string _logoLightSmallExt;
@@ -74,14 +73,21 @@ namespace ASC.Web.Core.WhiteLabel
         private bool _isDefaultLogoDocsEditor { get; set; }
 
 
-        [DataMember(Name = "LogoDocsEditorEmbeddedExt")]
-        private string _logoDocsEditorEmbeddedExt;
-        [DataMember(Name = "DefaultLogoDocsEditorEmbedded")]
-        private bool _isDefaultLogoDocsEditorEmbedded { get; set; }
-
-
         [DataMember(Name = "LogoText")]
-        public string LogoText { get; set; }
+        public string _logoText { get; set; }
+
+        public string LogoText
+        {
+            get
+            {
+                if (!String.IsNullOrEmpty(_logoText) && _logoText != DefaultLogo)
+                    return _logoText;
+
+                var partnerSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(Tenant.DEFAULT_TENANT);
+                return String.IsNullOrEmpty(partnerSettings._logoText) ? DefaultLogo : partnerSettings._logoText;
+            }
+            set { _logoText = value; }
+        }
 
         private const String moduleName = "whitelabel";
 
@@ -89,15 +95,10 @@ namespace ASC.Web.Core.WhiteLabel
 
         #region Logo available sizes
 
-        public static readonly Size logoLightSize = new Size(432, 70);
         public static readonly Size logoLightSmallSize = new Size(284, 46);
-
         public static readonly Size logoDarkSize = new Size(432, 70);
-
         public static readonly Size logoFaviconSize = new Size(32, 32);
         public static readonly Size logoDocsEditorSize = new Size(172, 40);
-
-        public static readonly Size logoDocsEditorEmbeddedSize = new Size(248, 40);
 
         #endregion
 
@@ -105,15 +106,20 @@ namespace ASC.Web.Core.WhiteLabel
 
         public ISettings GetDefault()
         {
-            return new TenantWhiteLabelSettings()
-            {
-                        _isDefaultLogoLight = true,
-                        _isDefaultLogoLightSmall = true,
-                        _isDefaultLogoDark = true,
-                        _isDefaultLogoFavicon = true,
-                        _isDefaultLogoDocsEditor = true,
-                        LogoText = null
-                    };
+            return new TenantWhiteLabelSettings
+                {
+                    _logoLightSmallExt = null,
+                    _logoDarkExt = null,
+                    _logoFaviconExt = null,
+                    _logoDocsEditorExt = null,
+
+                    _isDefaultLogoLightSmall = true,
+                    _isDefaultLogoDark = true,
+                    _isDefaultLogoFavicon = true,
+                    _isDefaultLogoDocsEditor = true,
+
+                    LogoText = null
+                };
         }
         #endregion
 
@@ -121,18 +127,20 @@ namespace ASC.Web.Core.WhiteLabel
 
         public void RestoreDefault()
         {
-            _isDefaultLogoLight = true;
+            _logoLightSmallExt = null;
+            _logoDarkExt = null;
+            _logoFaviconExt = null;
+            _logoDocsEditorExt = null;
+
             _isDefaultLogoLightSmall = true;
-
             _isDefaultLogoDark = true;
-
             _isDefaultLogoFavicon = true;
             _isDefaultLogoDocsEditor = true;
-            _isDefaultLogoDocsEditorEmbedded = true;
 
             LogoText = null;
 
-            var store = StorageFactory.GetStorage(TenantProvider.CurrentTenantID.ToString(), moduleName);
+            var tenantId = TenantProvider.CurrentTenantID;
+            var store = StorageFactory.GetStorage(tenantId.ToString(), moduleName);
             try
             {
                 store.DeleteFiles("", "*", false);
@@ -142,7 +150,7 @@ namespace ASC.Web.Core.WhiteLabel
                 log4net.LogManager.GetLogger("ASC").Error(e);
             }
 
-            Save(true);
+            Save(tenantId, true);
         }
 
         public void RestoreDefault(WhiteLabelLogoTypeEnum type)
@@ -203,41 +211,6 @@ namespace ASC.Web.Core.WhiteLabel
             var generalSize = GetSize(type, true);
             var generalFileName = BuildLogoFileName(type, logoFileExt, true);
             ResizeLogo(type, generalFileName, data, -1, generalSize, store);
-
-            #region docs embedded logo from logo for about/login page
-
-            if (type == WhiteLabelLogoTypeEnum.Dark) {
-
-                isAlreadyHaveBeenChanged = !GetIsDefault(WhiteLabelLogoTypeEnum.DocsEditorEmbedded);
-
-                if (isAlreadyHaveBeenChanged)
-                {
-                    try
-                    {
-                        DeleteLogoFromStore(store, WhiteLabelLogoTypeEnum.DocsEditorEmbedded);
-                    }
-                    catch (Exception e)
-                    {
-                        log4net.LogManager.GetLogger("ASC").Error(e);
-                    }
-                }
-
-
-                var tmpSize = GetSize(WhiteLabelLogoTypeEnum.DocsEditorEmbedded, false);
-                var tmpFileName = BuildLogoFileName(WhiteLabelLogoTypeEnum.DocsEditorEmbedded, logoFileExt, false);
-
-                ResizeLogo(WhiteLabelLogoTypeEnum.DocsEditorEmbedded, tmpFileName, data, -1, tmpSize, store);
-
-                tmpSize = GetSize(WhiteLabelLogoTypeEnum.DocsEditorEmbedded, true);
-                tmpFileName = BuildLogoFileName(WhiteLabelLogoTypeEnum.DocsEditorEmbedded, logoFileExt, true);
-
-                ResizeLogo(WhiteLabelLogoTypeEnum.DocsEditorEmbedded, tmpFileName, data, -1, tmpSize, store);
-
-                SetExt(WhiteLabelLogoTypeEnum.DocsEditorEmbedded, logoFileExt);
-                SetIsDefault(WhiteLabelLogoTypeEnum.DocsEditorEmbedded, false);
-
-            }
-            #endregion
         }
 
         public void SetLogo(Dictionary<int, string> logo)
@@ -305,8 +278,6 @@ namespace ASC.Web.Core.WhiteLabel
         {
             switch (type)
             {
-                case WhiteLabelLogoTypeEnum.Light:
-                    return _isDefaultLogoLight;
                 case WhiteLabelLogoTypeEnum.LightSmall:
                     return _isDefaultLogoLightSmall;
                 case WhiteLabelLogoTypeEnum.Dark:
@@ -315,8 +286,6 @@ namespace ASC.Web.Core.WhiteLabel
                     return _isDefaultLogoFavicon;
                 case WhiteLabelLogoTypeEnum.DocsEditor:
                     return _isDefaultLogoDocsEditor;
-                case WhiteLabelLogoTypeEnum.DocsEditorEmbedded:
-                    return _isDefaultLogoDocsEditorEmbedded;
             }
             return true;
         }
@@ -325,9 +294,6 @@ namespace ASC.Web.Core.WhiteLabel
         {
             switch (type)
             {
-                case WhiteLabelLogoTypeEnum.Light:
-                    _isDefaultLogoLight = value;
-                    break;
                 case WhiteLabelLogoTypeEnum.LightSmall:
                     _isDefaultLogoLightSmall = value;
                     break;
@@ -340,9 +306,6 @@ namespace ASC.Web.Core.WhiteLabel
                 case WhiteLabelLogoTypeEnum.DocsEditor:
                     _isDefaultLogoDocsEditor = value;
                     break;
-                case WhiteLabelLogoTypeEnum.DocsEditorEmbedded:
-                    _isDefaultLogoDocsEditorEmbedded = value;
-                    break;
             }
         }
 
@@ -350,8 +313,6 @@ namespace ASC.Web.Core.WhiteLabel
         {
             switch (type)
             {
-                case WhiteLabelLogoTypeEnum.Light:
-                    return _logoLightExt;
                 case WhiteLabelLogoTypeEnum.LightSmall:
                     return _logoLightSmallExt;
                 case WhiteLabelLogoTypeEnum.Dark:
@@ -360,8 +321,6 @@ namespace ASC.Web.Core.WhiteLabel
                     return _logoFaviconExt;
                 case WhiteLabelLogoTypeEnum.DocsEditor:
                     return _logoDocsEditorExt;
-                case WhiteLabelLogoTypeEnum.DocsEditorEmbedded:
-                    return _logoDocsEditorEmbeddedExt;
             }
             return "";
         }
@@ -370,9 +329,6 @@ namespace ASC.Web.Core.WhiteLabel
         {
             switch (type)
             {
-                case WhiteLabelLogoTypeEnum.Light:
-                    _logoLightExt = fileExt;
-                    break;
                 case WhiteLabelLogoTypeEnum.LightSmall:
                     _logoLightSmallExt = fileExt;
                     break;
@@ -384,9 +340,6 @@ namespace ASC.Web.Core.WhiteLabel
                     break;
                 case WhiteLabelLogoTypeEnum.DocsEditor:
                     _logoDocsEditorExt = fileExt;
-                    break;
-                case WhiteLabelLogoTypeEnum.DocsEditorEmbedded:
-                    _logoDocsEditorEmbeddedExt = fileExt;
                     break;
             }
         }
@@ -419,10 +372,12 @@ namespace ASC.Web.Core.WhiteLabel
 
         public static string GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum type, bool general)
         {
+            var partnerLogoPath = GetPartnerStorageLogoPath(type, general);
+            if (!String.IsNullOrEmpty(partnerLogoPath))
+                return partnerLogoPath;
+
             switch (type)
             {
-                case WhiteLabelLogoTypeEnum.Light:
-                    return general ? WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/light_general.png") : WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/light.png");
                 case WhiteLabelLogoTypeEnum.LightSmall:
                     return general ? WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/light_small_general.png") : WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/light_small.png");
                 case WhiteLabelLogoTypeEnum.Dark:
@@ -431,19 +386,29 @@ namespace ASC.Web.Core.WhiteLabel
                     return general ? WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/editor_logo_general.png") : WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/editor_logo.png");
                 case WhiteLabelLogoTypeEnum.Favicon:
                     return general ? WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/favicon_general.ico") : WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/favicon.ico");
-                case WhiteLabelLogoTypeEnum.DocsEditorEmbedded:
-                    return general ? WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/editor_embedded_logo_general.png") : WebImageSupplier.GetAbsoluteWebPath("onlyoffice_logo/editor_embedded_logo.png");
-
             }
             return "";
+        }
+
+        private static string GetPartnerStorageLogoPath(WhiteLabelLogoTypeEnum type, bool general)
+        {
+            var partnerSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(Tenant.DEFAULT_TENANT);
+
+            if (partnerSettings.GetIsDefault(type)) return null;
+
+            var partnerStorage = StorageFactory.GetStorage(Tenant.DEFAULT_TENANT.ToString(CultureInfo.InvariantCulture), "static_partnerdata");
+
+            if (partnerStorage == null) return null;
+
+            var logoPath = BuildLogoFileName(type, partnerSettings.GetExt(type), general);
+
+            return partnerStorage.IsFile(logoPath) ? partnerStorage.GetUri(logoPath).ToString() : null;
         }
 
         #endregion
 
         public static string BuildLogoFileName(WhiteLabelLogoTypeEnum type, String fileExt, bool general)
         {
-            if (type == WhiteLabelLogoTypeEnum.Favicon) { fileExt = "ico"; }
-
             return String.Format("logo_{0}{2}.{1}", type.ToString().ToLowerInvariant(), fileExt, general ? "_general" : "");
         }
 
@@ -451,10 +416,6 @@ namespace ASC.Web.Core.WhiteLabel
         {
             switch (type)
             {
-                case WhiteLabelLogoTypeEnum.Light:
-                    return new Size(
-                        general ? TenantWhiteLabelSettings.logoLightSize.Width / 2 : TenantWhiteLabelSettings.logoLightSize.Width,
-                        general ? TenantWhiteLabelSettings.logoLightSize.Height / 2 : TenantWhiteLabelSettings.logoLightSize.Height);
                 case WhiteLabelLogoTypeEnum.LightSmall:
                     return new Size(
                         general ? TenantWhiteLabelSettings.logoLightSmallSize.Width / 2 : TenantWhiteLabelSettings.logoLightSmallSize.Width,
@@ -471,10 +432,6 @@ namespace ASC.Web.Core.WhiteLabel
                     return new Size(
                         general ? TenantWhiteLabelSettings.logoDocsEditorSize.Width / 2 : TenantWhiteLabelSettings.logoDocsEditorSize.Width,
                         general ? TenantWhiteLabelSettings.logoDocsEditorSize.Height / 2 : TenantWhiteLabelSettings.logoDocsEditorSize.Height);
-                case WhiteLabelLogoTypeEnum.DocsEditorEmbedded:
-                    return new Size(
-                        general ? TenantWhiteLabelSettings.logoDocsEditorEmbeddedSize.Width / 2 : TenantWhiteLabelSettings.logoDocsEditorEmbeddedSize.Width,
-                        general ? TenantWhiteLabelSettings.logoDocsEditorEmbeddedSize.Height / 2 : TenantWhiteLabelSettings.logoDocsEditorEmbeddedSize.Height);
             }
             return new Size(0, 0);
         }
@@ -528,24 +485,30 @@ namespace ASC.Web.Core.WhiteLabel
 
         #region Save for Resource replacement
 
-        public void Save(bool restore = false)
+        public static void Apply(int tenantId)
         {
-            SettingsManager.Instance.SaveSettings(this, TenantProvider.CurrentTenantID);
-            SetNewLogoText(restore);
+            if (ConfigurationManager.AppSettings["resources.from-db"] != "true") return;
+
+            var whiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(tenantId);
+            whiteLabelSettings.SetNewLogoText(tenantId);
         }
 
-        public const string DefaultLogo = "OnlyOffice";
+        public void Save(int tenantId, bool restore = false)
+        {
+            SettingsManager.Instance.SaveSettings(this, tenantId);
+            SetNewLogoText(tenantId, restore);
+        }
 
-        public void SetNewLogoText(bool restore = false)
+        private void SetNewLogoText(int tenantId, bool restore = false)
         {
             WhiteLabelHelper.DefaultLogo = DefaultLogo;
             if (restore)
             {
-                WhiteLabelHelper.RestoreOldText();
+                WhiteLabelHelper.RestoreOldText(tenantId);
             }
             else if(!string.IsNullOrEmpty(LogoText))
             {
-                WhiteLabelHelper.SetNewText(LogoText);
+                WhiteLabelHelper.SetNewText(tenantId, LogoText);
             }
         }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,25 +26,25 @@
 
 using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Diagnostics;
 using System.Linq;
 using System.Net.Mail;
 using System.Threading;
+using System.Web;
 using ASC.Api.Attributes;
 using ASC.Api.Exceptions;
 using ASC.Api.Mail.Extensions;
 using ASC.Api.Mail.Resources;
-using ASC.Core;
 using ASC.Files.Core.Security;
 using ASC.Mail.Aggregator;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Collection;
+using ASC.Mail.Aggregator.Common.Exceptions;
+using ASC.Mail.Aggregator.Common.Utils;
+using ASC.Mail.Aggregator.Core;
 using ASC.Mail.Aggregator.Dal;
-using ASC.Mail.Aggregator.Dal.DbSchema;
 using ASC.Mail.Aggregator.Exceptions;
 using ASC.Mail.Aggregator.Filter;
-using ASC.Mail.Aggregator.Managers;
-using ASC.Mail.Aggregator.Utils;
 using MailMessage = ASC.Mail.Aggregator.Common.MailMessage;
 
 namespace ASC.Api.Mail
@@ -65,6 +65,7 @@ namespace ASC.Api.Mail
         /// <param optional="true" name="tags">Message tags</param>
         /// <param optional="true" name="search">Text to search in messages</param>
         /// <param optional="true" name="page">Page number</param>
+        /// <param optional="true" name="with_calendar">Message has сalendar flag. bool flag.</param>
         /// <param optional="true" name="page_size">Number of messages on page</param>
         /// <param name="sort">Sort</param>
         /// <param name="sortorder">Sort order</param>
@@ -85,8 +86,8 @@ namespace ASC.Api.Mail
             int? page,
             int? page_size,
             string sort,
-            string sortorder
-            )
+            string sortorder,
+            bool? with_calendar)
         {
             var filter = new MailFilter
             {
@@ -101,7 +102,8 @@ namespace ASC.Api.Mail
                 CustomLabels = new ItemList<int>(tags),
                 SearchFilter = search,
                 PageSize = page_size.GetValueOrDefault(25),
-                SortOrder = sortorder
+                SortOrder = sortorder,
+                WithCalendar = with_calendar.GetValueOrDefault(false)
             };
 
             long totalMessages;
@@ -115,32 +117,51 @@ namespace ASC.Api.Mail
         ///    Returns the detailed information about message with the ID specified in the request
         /// </summary>
         /// <param name="id">Message ID</param>
-        /// <param optional="true" name="unblocked">Unblock suspicious content or not</param>
-        /// <param optional="true" name="is_need_to_sanitize_html">Flag specifies is needed to prepare html for FCKeditor</param>
-        /// <param optional="true" name="mark_read">Mark message as read</param>
+        /// <param optional="true" name="loadImages">Unblock suspicious content or not</param>
+        /// <param optional="true" name="needSanitize">Flag specifies is needed to prepare html for FCKeditor</param>
+        /// <param optional="true" name="markRead">Mark message as read</param>
         /// <returns>MailMessageItem</returns>
         /// <short>Get message</short>
         /// <category>Messages</category>
         /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
         /// <exception cref="ItemNotFoundException">Exception happens when message with specified id wasn't founded.</exception>
         [Read(@"messages/{id:[0-9]+}")]
-        public MailMessage GetMessage(int id, bool? unblocked, bool? is_need_to_sanitize_html, bool? mark_read)
+        public MailMessage GetMessage(int id, bool? loadImages, bool? needSanitize, bool? markRead)
         {
             if (id <= 0)
                 throw new ArgumentException(@"Invalid message id", "id");
 
-            var unblockedFlag = unblocked.GetValueOrDefault(false);
-            var needSanitizeHtml = is_need_to_sanitize_html.GetValueOrDefault(false);
+            var needSanitizeHtml = needSanitize.GetValueOrDefault(false);
 
-            var item = MailBoxManager.GetMailInfo(TenantId, Username, id, unblockedFlag, true);
+            var watch = new Stopwatch();
+            watch.Start();
+
+            var item = MailBoxManager.GetMailInfo(TenantId, Username, id, new MailMessage.Options
+            {
+                LoadImages = loadImages.GetValueOrDefault(false),
+                LoadBody = true,
+                NeedProxyHttp = NeedProxyHttp,
+                NeedSanitizer = needSanitizeHtml
+            });
+
             if (item == null)
-                throw new ItemNotFoundException(String.Format("Message with {0} wasn't founded.", id));
+            {
+                watch.Stop();
+                Logger.Debug("Mail->GetMessage(id={0})->Elapsed {1}ms [NotFound] (NeedProxyHttp={2}, NeedSanitizer={3})", id, watch.Elapsed.TotalMilliseconds, NeedProxyHttp, needSanitizeHtml);
+                throw new ItemNotFoundException(string.Format("Message with {0} wasn't founded.", id));
+            }
 
-            if (item.WasNew && mark_read.HasValue && mark_read.Value)
+            if (item.WasNew && markRead.HasValue && markRead.Value)
                 MailBoxManager.SetMessagesReadFlags(TenantId, Username, new List<int> {(int) item.Id}, true);
 
             if (needSanitizeHtml)
-                item.HtmlBody = HtmlSanitizer.SanitizeHtmlForEditor(item.HtmlBody);
+            {
+                var htmlSanitizer = new HtmlSanitizer();
+                item.HtmlBody = htmlSanitizer.SanitizeHtmlForEditor(item.HtmlBody);
+            }
+
+            watch.Stop();
+            Logger.Debug("Mail->GetMessage(id={0})->Elapsed {1}ms (NeedProxyHttp={2}, NeedSanitizer={3})", id, watch.Elapsed.TotalMilliseconds, NeedProxyHttp, needSanitizeHtml);
 
             return item;
         }
@@ -313,11 +334,13 @@ namespace ASC.Api.Mail
         /// <param name="body">Message body as html string.</param>
         /// <param name="attachments">List of attachments represented as MailAttachment object</param>
         /// <param name="fileLinksShareMode">Share mode for attached file links</param>
+        /// <param name="calendarIcs">Calendar event ical-format for sending</param>
+        /// <param name="isAutoreply">Indicate that message is autoreply or not</param>
         /// <returns>message id</returns>
         /// <short>Send message</short> 
         /// <category>Messages</category>
         [Update(@"messages/send")]
-        public int SendMessage(int id,
+        public long SendMessage(int id,
             string from,
             List<string> to,
             List<string> cc,
@@ -328,8 +351,9 @@ namespace ASC.Api.Mail
             List<int> tags,
             string body,
             List<MailAttachment> attachments,
-            FileShare fileLinksShareMode
-            )
+            FileShare fileLinksShareMode,
+            string calendarIcs,
+            bool isAutoreply)
         {
             if (id < 1)
                 id = 0;
@@ -354,6 +378,9 @@ namespace ASC.Api.Mail
 
             if (mbox == null)
                 throw new ArgumentException("no such mailbox");
+
+            if(!mbox.Enabled)
+                throw new InvalidOperationException("Sending emails from a disabled account is forbidden");
 
             string mimeMessageId, streamId;
 
@@ -381,12 +408,14 @@ namespace ASC.Api.Mail
             }
             else
             {
-                mimeMessageId = MailBoxManager.CreateMessageId();
-                streamId = MailBoxManager.CreateStreamId();
+                mimeMessageId = MailUtil.CreateMessageId();
+                streamId = MailUtil.CreateStreamId();
             }
 
-            var draft = new MailDraft(id, mbox, from, to, cc, bcc, subject, mimeMessageId, mimeReplyToId, importance,
-                                     tags, body, streamId, attachments)
+            var fromAddress = MailUtil.CreateFullEmail(mbox.Name, mailAddress.Address);
+
+            var draft = new MailDraft(id, mbox, fromAddress, to, cc, bcc, subject, mimeMessageId, mimeReplyToId, importance,
+                                     tags, body, streamId, attachments, calendarIcs)
                 {
                     FileLinksShareMode = fileLinksShareMode,
                     PreviousMailboxId = previousMailboxId
@@ -409,7 +438,7 @@ namespace ASC.Api.Mail
                         MailApiResource.DeliveryFailureFAQInformation,
                         MailApiResource.DeliveryFailureReason);
 
-                var draftsManager = new DraftManager(MailBoxManager, Logger, daemonLabels);
+                var draftsManager = new DraftManager(MailBoxManager, Logger, daemonLabels, isAutoreply);
 
                 return draftsManager.Send(draft);
             }
@@ -461,6 +490,7 @@ namespace ASC.Api.Mail
         /// <param name="tags">List of tags id added to message</param>
         /// <param name="body">Message body as html string.</param>
         /// <param name="attachments">List of attachments represented as MailAttachment object</param>
+        /// <param name="calendarIcs">Calendar event ical-format for sending</param>
         /// <returns>Saved message id</returns>
         /// <short>SaveToDraft message</short> 
         /// <category>Messages</category>
@@ -475,8 +505,8 @@ namespace ASC.Api.Mail
             string subject,
             List<int> tags,
             string body,
-            List<MailAttachment> attachments
-            )
+            List<MailAttachment> attachments,
+            string calendarIcs)
         {
             if (id < 1)
                 id = 0;
@@ -530,12 +560,14 @@ namespace ASC.Api.Mail
             }
             else
             {
-                mimeMessageId = MailBoxManager.CreateMessageId();
-                streamId = MailBoxManager.CreateStreamId();
+                mimeMessageId = MailUtil.CreateMessageId();
+                streamId = MailUtil.CreateStreamId();
             }
 
-            var draft = new MailDraft(id, mbox, from, to, cc, bcc, subject, mimeMessageId, mimeReplyToId, importance,
-                                      tags, body, streamId, attachments)
+            var fromAddress = MailUtil.CreateFullEmail(mbox.Name, mbox.EMail.Address);
+
+            var draft = new MailDraft(id, mbox, fromAddress, to, cc, bcc, subject, mimeMessageId, mimeReplyToId, importance,
+                                      tags, body, streamId, attachments, calendarIcs)
                 {
                     PreviousMailboxId = previousMailboxId
                 };
@@ -569,7 +601,6 @@ namespace ASC.Api.Mail
                         throw;
                 }
             }
-
         }
 
         /// <summary>
@@ -611,7 +642,7 @@ namespace ASC.Api.Mail
                 MimeMessageId = "",
                 MimeReplyToId = "",
                 To = "",
-                StreamId = MailBoxManager.CreateStreamId()
+                StreamId = MailUtil.CreateStreamId()
             };
             return sendTemplate;
         }
@@ -690,11 +721,18 @@ namespace ASC.Api.Mail
             if (crm_contact_ids == null)
                 throw new ArgumentException(@"Invalid contact ids list", "crm_contact_ids");
 
-            var messageItem = MailBoxManager.GetMailInfo(TenantId, Username, id_message, true, true);
+            var messageItem = MailBoxManager.GetMailInfo(TenantId, Username, id_message, new MailMessage.Options
+            {
+                LoadImages = true,
+                LoadBody = true,
+                NeedProxyHttp = false
+            });
 
             messageItem.LinkedCrmEntityIds = crm_contact_ids.ToList();
 
-            var crmDal = new CrmHistoryDal(TenantId, Username);
+            var scheme = HttpContext.Current == null ? Uri.UriSchemeHttp : HttpContext.Current.Request.GetUrlRewriter().Scheme;
+
+            var crmDal = new CrmHistoryDal(TenantId, Username, scheme);
 
             crmDal.AddRelationshipEvents(messageItem);
         }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,11 +24,11 @@
 */
 
 
-using System;
-using System.Collections.Generic;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.FullTextIndex.Service.Config;
+using System;
+using System.Collections.Generic;
 
 namespace ASC.FullTextIndex.Service
 {
@@ -68,19 +68,11 @@ namespace ASC.FullTextIndex.Service
             }
         }
 
-        public static DateTime GetLastDeltaIndexDate(ModuleInfo module)
-        {
-            using (var db = new DbManager("default"))
-            {
-                return db.ExecuteScalar<DateTime>(new SqlQuery("webstudio_index").Select("last_modified").Where("index_name", module.Delta));
-            }
-        }
-
-        public static IEnumerable<int> Search(ModuleInfo module)
+        public static IEnumerable<int> Search(string sql)
         {
             using (var db = new DbManager(TextIndexCfg.ConnectionStringName))
             {
-                return db.ExecuteList(module.SqlQuery).ConvertAll(r => GetId(r[0]));
+                return db.ExecuteList(sql).ConvertAll(r => GetId(r[0]));
             }
         }
 
@@ -94,14 +86,8 @@ namespace ASC.FullTextIndex.Service
 
         private static int GetId(object r)
         {
-            try
-            {
-                return Convert.ToInt32(r);
-            }
-            catch
-            {
-                return Convert.ToInt32(Convert.ToString(r).Split('_')[1]);
-            }
+            var s = Convert.ToString(r);
+            return Convert.ToInt32(s.Contains("_") ? s.Split('_')[1] : s);
         }
     }
 }

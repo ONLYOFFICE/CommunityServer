@@ -33,7 +33,6 @@ using System;
 
 namespace Novell.Directory.Ldap.Utilclass
 {
-	
 	/// <summary>
 	/// Specifies the types of Tokens.
 	/// </summary>
@@ -47,6 +46,5 @@ namespace Novell.Directory.Ldap.Utilclass
 		REAL	= -4,
 		STRING = -5
 	}
-
 }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -185,17 +185,10 @@
         .menu_column {
             padding-right: @message-spliter-width;
 
-            .menu-small {
-                //background-color: transparent;
-                //background: url("@{base-icon-sprite-url}") no-repeat 0 -90px;
-                //width: 24px;
-                //height: 24px;
+            .entity-menu {
                 float: right;
                 right: 0px;
                 margin: 0;
-                //cursor: pointer;
-                //margin-left: 24px;
-                //display: inline-block;
             }
         }
 
@@ -211,10 +204,6 @@
         &.selected {
             .notification {
                 display: inline-block;
-            }
-
-            .menu-small {
-                background-position: center bottom;
             }
 
             .more_lnk {
@@ -291,16 +280,14 @@
 }
 
 .tagEditEmailList {
-    margin-top: 24px;
-    max-height: 122px;
-    padding-bottom: 1px;
     overflow-y: auto;
     overflow-x: hidden;
-
+    width: 100%;
     #mail_EmailsContainer {
-        width: 100%;
-
-        .linked_address {
+        margin-top: 24px;
+        max-height: 122px;
+        padding-bottom: 1px;
+        .tagAddress {
             line-height: 20px;
             display: inline-block;
             float: left;
@@ -310,13 +297,12 @@
             max-width: 256px;
         }
 
-        .delete_tag_address {
+        .removeTagAddress {
             background: url("@{base-icon-sprite-url}") -20px 0 no-repeat;
             width: 16px;
             height: 16px;
             display: inline-block;
             cursor: pointer;
-            float: left;
             margin: 2px 0 0 8px;
 
             &:hover {

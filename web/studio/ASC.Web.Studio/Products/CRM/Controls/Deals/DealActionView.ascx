@@ -26,7 +26,7 @@
 
             <dt style="margin:20px 0;" class="assignedDealContacts hiddenFields">
                 <div id="dealsContactListBox">
-                    <table id="contactTable" class="tableBase" cellpadding="4" cellspacing="0">
+                    <table id="contactTable" class="table-list" cellpadding="4" cellspacing="0">
                         <tbody>
                         </tbody>
                     </table>

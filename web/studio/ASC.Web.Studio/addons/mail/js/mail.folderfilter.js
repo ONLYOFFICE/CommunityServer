@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -158,6 +158,12 @@ window.folderFilter = (function($) {
                         title: MailScriptResource.FilterPeriodCustom,
                         filtertitle: MailScriptResource.FilterPeriodCustom,
                         group: MailScriptResource.FilterPeriodGroup
+                    },
+                    {
+                        type: 'flag',
+                        id: 'calendar',
+                        title: MailScriptResource.FilterWithCalendar,
+                        group: MailScriptResource.FilterAnotherGroup
                     }
                 ]
             };
@@ -207,6 +213,9 @@ window.folderFilter = (function($) {
                 break;
             case 'important':
                 MailFilter.setImportance(true);
+                break;
+            case 'calendar':
+                MailFilter.setWithCalendar(true);
                 break;
             case 'attachments':
                 MailFilter.setAttachments(true);
@@ -302,6 +311,9 @@ window.folderFilter = (function($) {
             case 'important':
                 MailFilter.setImportance(false);
                 break;
+            case 'calendar':
+                MailFilter.setWithCalendar(false);
+                break;
             case 'attachments':
                 MailFilter.setAttachments(false);
                 break;
@@ -336,6 +348,7 @@ window.folderFilter = (function($) {
 
     var reset = function() {
         MailFilter.setImportance(false);
+        MailFilter.setWithCalendar(false);
         MailFilter.setAttachments(false);
         MailFilter.setTo('');
         MailFilter.setFrom('');
@@ -384,6 +397,14 @@ window.folderFilter = (function($) {
             showItem('important');
         } else {
             hideItem('important');
+        }
+    };
+
+    var setWithCalendar = function (withCalendar) {
+        if (withCalendar) {
+            showItem('calendar');
+        } else {
+            hideItem('calendar');
         }
     };
 
@@ -560,6 +581,7 @@ window.folderFilter = (function($) {
 
         setUnread: setUnread,
         setImportance: setImportance,
+        setWithCalendar: setWithCalendar,
         setAttachments: setAttachments,
         setTo: setTo,
         setFrom: setFrom,

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -72,6 +72,8 @@ namespace ASC.Web.Studio.Core.Notify
 
         private static void NotifyClientRegisterCallback(Context context, INotifyClient client)
         {
+            #region url correction
+
             var absoluteUrl = new SendInterceptorSkeleton(
                 "Web.UrlAbsoluter",
                 InterceptorPlace.MessageSend,
@@ -105,6 +107,10 @@ namespace ASC.Web.Studio.Core.Notify
                     return false;
                 });
             client.AddInterceptor(absoluteUrl);
+
+            #endregion
+
+            #region security and culture
 
             var securityAndCulture = new SendInterceptorSkeleton(
                 "ProductSecurityInterceptor",
@@ -182,6 +188,45 @@ namespace ASC.Web.Studio.Core.Notify
                      return false;
                  });
             client.AddInterceptor(securityAndCulture);
+
+            #endregion
+
+            #region white label correction
+
+            var whiteLabel = new SendInterceptorSkeleton(
+                "WhiteLabelInterceptor",
+                 InterceptorPlace.MessageSend,
+                 InterceptorLifetime.Global,
+                 (r, p) =>
+                 {
+                     try
+                     {
+                         var tags = r.Arguments;
+
+                         var logoTextTag = tags.FirstOrDefault(a => a.Tag == Constants.LetterLogoText);
+                         var logoTextTagTM = tags.FirstOrDefault(a => a.Tag == Constants.LetterLogoTextTM);
+
+                         var logoText = logoTextTag != null ? (String)logoTextTag.Value : string.Empty;
+                         var logoTextTM = logoTextTagTM != null ? (String)logoTextTagTM.Value : string.Empty;
+
+                         if (!string.IsNullOrEmpty(logoText) && !string.IsNullOrEmpty(logoTextTM))
+                         {
+                             var body = r.CurrentMessage.Body
+                                     .Replace(string.Format("${{{0}}}", Constants.LetterLogoTextTM), logoTextTM)
+                                     .Replace(string.Format("${{{0}}}", Constants.LetterLogoText), logoText);
+                             r.CurrentMessage.Body = body;
+
+                         }
+                     }
+                     catch (Exception error)
+                     {
+                         LogManager.GetLogger(typeof(NotifyConfiguration)).Error(error);
+                     }
+                     return false;
+                 });
+            client.AddInterceptor(whiteLabel);
+
+            #endregion
         }
 
         private static string GetPartnerInfo()
@@ -242,7 +287,7 @@ namespace ASC.Web.Studio.Core.Notify
             {
                 partnerInfo += "<div style=\"font-size: 22px;\">" + partner.DisplayName + "</div>";
             }
-            partnerInfo += "<i style=\"color: #808080; font-size: 13px;\">" + WebstudioPatternResource.TextForPartnerFooter + "</i>";
+            partnerInfo += "<i style=\"color: #808080; font-size: 13px;\">" + WebstudioNotifyPatternResource.TextForPartnerFooter + "</i>";
             partnerInfo += "</td></tr><tr>";
 
             if (!string.IsNullOrEmpty(partner.Address) || !string.IsNullOrEmpty(partner.SupportPhone) ||
@@ -276,12 +321,12 @@ namespace ASC.Web.Studio.Core.Notify
                 {
                     if (!string.IsNullOrEmpty(partner.SalesEmail))
                     {
-                        partnerInfo += "<p style=\"font-size:12px; color:#808080; margin:0; padding:0;\">" + WebstudioPatternResource.SalesDepartment + ":</p>";
+                        partnerInfo += "<p style=\"font-size:12px; color:#808080; margin:0; padding:0;\">" + WebstudioNotifyPatternResource.SalesDepartment + ":</p>";
                         partnerInfo += "<a style=\"font-size:12px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; display:inline-block; margin-bottom: 8px;\" href=\"mailto:" + partner.SalesEmail + "\">" + partner.SalesEmail + "</a>";
                     }
                     if (!string.IsNullOrEmpty(partner.SupportEmail))
                     {
-                        partnerInfo += "<p style=\"font-size:12px; color:#808080; margin:0; padding:0;\">" + WebstudioPatternResource.TechnicalSupport + ":</p>";
+                        partnerInfo += "<p style=\"font-size:12px; color:#808080; margin:0; padding:0;\">" + WebstudioNotifyPatternResource.TechnicalSupport + ":</p>";
                         partnerInfo += "<a style=\"font-size:12px; max-width: 180px; overflow: hidden; text-overflow: ellipsis; display:inline-block;\" href=\"mailto:" + partner.SupportEmail + "\">" + partner.SupportEmail + "</a>";
                     }
                 }
@@ -319,6 +364,11 @@ namespace ASC.Web.Studio.Core.Notify
                 product = WebItemManager.Instance[(Guid)CallContext.GetData("asc.web.product_id")] as IProduct;
             }
 
+            var logoText = TenantLogoManager.GetLogoText();
+            var logoTextTM = String.Equals(logoText, TenantWhiteLabelSettings.DefaultLogo, StringComparison.Ordinal)
+                ? String.Format("{0}™", logoText.ToUpper())
+                : logoText;
+
             request.Arguments.Add(new TagValue(CommonTags.AuthorID, aid));
             request.Arguments.Add(new TagValue(CommonTags.AuthorName, aname));
             request.Arguments.Add(new TagValue(CommonTags.AuthorUrl, CommonLinkUtility.GetFullAbsolutePath(CommonLinkUtility.GetUserProfile(aid))));
@@ -331,7 +381,10 @@ namespace ASC.Web.Studio.Core.Notify
             request.Arguments.Add(new TagValue(CommonTags.RecipientID, Context.SYS_RECIPIENT_ID));
             request.Arguments.Add(new TagValue(CommonTags.RecipientSubscriptionConfigURL, CommonLinkUtility.GetMyStaff()));
             request.Arguments.Add(new TagValue("Partner", GetPartnerInfo()));
-            request.Arguments.Add(new TagValue(Constants.LetterLogo, CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoLight(true))));
+            request.Arguments.Add(new TagValue(Constants.LetterLogo, CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoDark(true))));
+            request.Arguments.Add(new TagValue(Constants.LetterLogoText, logoText));
+            request.Arguments.Add(new TagValue(Constants.LetterLogoTextTM, logoTextTM));
+            request.Arguments.Add(new TagValue(Constants.MailWhiteLabelSettings, MailWhiteLabelSettings.Instance));
 
             if (!request.Arguments.Any(x => CommonTags.SendFrom.Equals(x.Tag)))
             {

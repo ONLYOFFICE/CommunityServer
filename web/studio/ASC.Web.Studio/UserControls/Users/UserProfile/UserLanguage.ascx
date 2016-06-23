@@ -1,7 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="UserLanguage.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Users.UserLanguage" %>
-<%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 <%@ Import Namespace="System.Globalization" %>
 
@@ -10,17 +8,19 @@
     <span class="field-value usrLang <%= CultureInfo.CurrentCulture.Name %>">
         <span class="val"><%= CultureInfo.CurrentCulture.DisplayName %></span>        
     </span>
+    <% if (ShowHelper) { %>
     <div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'NotFoundLanguage'});"></div>
     <div class="popup_helper" id="NotFoundLanguage">
         <p>
             <%= string.Format(Resource.NotFoundLanguage.HtmlEncode(), "<a href=\"mailto:documentation@onlyoffice.com\">", "</a>") %>
-            <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+            <% if (!string.IsNullOrEmpty(HelpLink))
              { %>
-            <a href="<%= CommonLinkUtility.GetHelpLink() + "guides/become-translator.aspx" %>" target="_blank">
+            <a href="<%= HelpLink + "/guides/become-translator.aspx" %>" target="_blank">
                 <%= Resource.LearnMore %></a>
             <% } %>
         </p>
     </div>
+    <% } %>
 </div>
 
 <div id="languageMenu" class="languageMenu studio-action-panel">

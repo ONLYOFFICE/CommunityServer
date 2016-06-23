@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -366,6 +366,27 @@ namespace ASC.Api.CRM
             }
 
             _context.SetTotalCount(totalCount);
+
+            return result;
+        }
+
+        /// <summary>
+        ///    Returns the list of the contacts for auto complete feature.
+        /// </summary>
+        /// <param name="term">String part of contact name, lastname or email.</param>
+        /// <param name="maxCount">Max result count</param>
+        /// <short>Search contact list</short> 
+        /// <category>Contacts</category>
+        /// <returns>
+        ///    Contact list
+        /// </returns>
+        /// <visible>false</visible>
+        [Read(@"contact/simple/byEmail")]
+        public IEnumerable<ContactWithTaskWrapper> SearchContactsByEmail(string term, int maxCount)
+        {
+            var result = ToSimpleListContactWrapper(DaoFactory.GetContactDao().SearchContactsByEmail(
+                term,
+                maxCount));
 
             return result;
         }

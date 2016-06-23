@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -33,15 +33,14 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web.Configuration;
-using System.Xml.Linq;
-
-using ASC.Core;
+using System.Xml;
 using ASC.CRM.Core;
-using ASC.Web.Core.Client;
 using ASC.Web.CRM.Resources;
-
 using log4net;
+using System.Security.Principal;
+using System.Xml.Linq;
 
 #endregion
 
@@ -182,12 +181,11 @@ namespace ASC.Web.CRM.Classes
             return _exchangeRates == null || (DateTime.UtcNow.Date.Subtract(_publisherDate.Date).Days > 0);
         }
 
-        private static string GetExchangesTempPath()
-        {
-            return CoreContext.Configuration.Standalone ?
-                Path.GetDirectoryName(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ClientSettings.StorePath.Trim('/') + "/exchanges/")) : 
-                Path.Combine(Path.GetTempPath(), Path.Combine("onlyoffice", "exchanges"));
+        private static string GetExchangesTempPath() {
+            return Path.Combine(Path.GetTempPath(), Path.Combine("onlyoffice", "exchanges"));
         }
+
+        private static Regex CurRateRegex = new Regex("<td id=\"(?<Currency>[a-zA-Z]{3})\">(?<Rate>[\\d\\.]+)</td>");
 
         private static Dictionary<String, Decimal> GetExchangeRates()
         {
@@ -205,45 +203,41 @@ namespace ASC.Web.CRM.Classes
 
                             TryToReadPublisherDate(tmppath);
 
-                            var regex = new Regex("= (?<Currency>([\\s\\.\\,\\d]*))");
+
                             var updateEnable = WebConfigurationManager.AppSettings["crm.update.currency.info.enable"] != "false";
+                            var ratesUpdatedFlag = false;
+
                             foreach (var ci in _currencies.Values.Where(c => c.IsConvertable))
                             {
-                                var filepath = Path.Combine(tmppath, ci.Abbreviation + ".xml");
+                                var filepath = Path.Combine(tmppath, ci.Abbreviation + ".html");
 
                                 if (updateEnable && 0 < (DateTime.UtcNow.Date - _publisherDate.Date).TotalDays || !File.Exists(filepath))
                                 {
-                                    DownloadRSS(ci.Abbreviation, filepath);
+                                    var filepath_temp = Path.Combine(tmppath, ci.Abbreviation + "_temp.html");
+
+                                    DownloadCurrencyPage(ci.Abbreviation, filepath_temp);
+
+                                    if (File.Exists(filepath_temp))
+                                    {
+                                        if (TryGetRatesFromFile(filepath_temp, ci))
+                                        {
+                                            ratesUpdatedFlag = true;
+                                            File.Copy(filepath_temp, filepath, true);
+                                        }
+                                        File.Delete(filepath_temp);
+                                        continue;
+                                    }
                                 }
 
-                                if (!File.Exists(filepath))
+                                if (File.Exists(filepath) && TryGetRatesFromFile(filepath, ci))
                                 {
-                                    continue;
-                                }
-
-                                var currencyXml = XDocument.Load(filepath);
-                                if (currencyXml.Root == null) continue;
-
-                                var channel = currencyXml.Root.Element("channel");
-                                if (channel == null || channel.Element("lastBuildDate") == null) continue;
-
-                                var lastBuildDate = channel.Element("lastBuildDate").Value.Trim();
-                                var items = channel.Elements("item").ToList();
-
-                                _publisherDate = new RSSDateTimeParser().Parse(lastBuildDate);
-                                foreach (var item in items)
-                                {
-                                    var title = item.Element("title");
-                                    var description = item.Element("description");
-                                    if (title == null || description == null) continue;
-
-                                    var currency = regex.Match(description.Value.Trim()).Groups["Currency"].Value.Trim();
-                                    _exchangeRates.Add(title.Value.Trim(), Convert.ToDecimal(currency, CultureInfo.InvariantCulture.NumberFormat));
+                                    ratesUpdatedFlag = true;
                                 }
                             }
 
-                            if (updateEnable)
+                            if (ratesUpdatedFlag)
                             {
+                                _publisherDate = DateTime.UtcNow;
                                 WritePublisherDate(tmppath);
                             }
 
@@ -258,6 +252,33 @@ namespace ASC.Web.CRM.Classes
             }
 
             return _exchangeRates;
+        }
+
+        private static bool TryGetRatesFromFile(string filepath, CurrencyInfo curCI)
+        {
+            var success = false;
+            var currencyLines = File.ReadAllLines(filepath);
+            foreach (var line in currencyLines)
+            {
+                if (line.Contains("id=\"major-currencies\"") || line.Contains("id=\"minor-currencies\"") || line.Contains("id=\"exotic-currencies\""))
+                {
+                    var currencyInfos = CurRateRegex.Matches(line);
+
+                    if (currencyInfos != null && currencyInfos.Count > 0)
+                    {
+                        foreach (var curInfo in currencyInfos)
+                        {
+                            _exchangeRates.Add(
+                                String.Format("{0}/{1}", (curInfo as Match).Groups["Currency"].Value.Trim(), curCI.Abbreviation),
+                                Convert.ToDecimal((curInfo as Match).Groups["Rate"].Value.Trim(), CultureInfo.InvariantCulture.NumberFormat));
+
+                            success = true;
+                        }
+                    }
+                }
+            }
+
+            return success;
         }
 
 
@@ -294,7 +315,7 @@ namespace ASC.Web.CRM.Classes
             }
         }
 
-        private static void DownloadRSS(string currency, string filepath)
+        private static void DownloadCurrencyPage(string currency, string filepath)
         {
 
             try
@@ -306,7 +327,7 @@ namespace ASC.Web.CRM.Classes
                     Directory.CreateDirectory(dir);
                 }
 
-                var destinationURI = new Uri(String.Format("http://themoneyconverter.com/rss-feed/{0}/rss.xml", currency));
+                var destinationURI = new Uri(String.Format("http://themoneyconverter.com/{0}/{0}.aspx", currency));
 
                 var request = (HttpWebRequest)WebRequest.Create(destinationURI);
                 request.Method = "GET";
@@ -330,37 +351,5 @@ namespace ASC.Web.CRM.Classes
         }
 
         #endregion
-
-        internal class RSSDateTimeParser
-        {
-            private static string[] _dateFormats = new[] {
-                    @"ddd, dd MMM yyyy hh':'mm':'ss tt 'GMT'",
-                    @"ddd, dd MMM yyyy HH':'mm':'ss 'GMT'",
-                };
-
-            private static DateTimeStyles _styles = DateTimeStyles.AllowLeadingWhite
-                | DateTimeStyles.AllowInnerWhite
-                | DateTimeStyles.AllowTrailingWhite
-                | DateTimeStyles.AllowWhiteSpaces;
-
-            public DateTime Parse(string dateTime)
-            {
-                // Attempt default DateTime parse
-                DateTime dt;
-                if (!DateTime.TryParse(dateTime, out dt))
-                {
-                    // Parse using custom formats
-                    if (!DateTime.TryParseExact(dateTime, _dateFormats,
-                        CultureInfo.InvariantCulture, _styles, out dt))
-                    {
-                        // Throw exception if custom formats can't parse the string.
-                        throw new FormatException(CRMErrorsResource.DateTimeFormatInvalid);
-                    }
-                }
-
-                return dt.ToUniversalTime();
-            }
-        }
-
     }
 }

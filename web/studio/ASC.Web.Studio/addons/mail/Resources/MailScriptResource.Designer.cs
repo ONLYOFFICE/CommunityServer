@@ -340,11 +340,191 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to disable.
+        /// </summary>
+        public static string AutoreplyDisable {
+            get {
+                return ResourceManager.GetString("AutoreplyDisable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to B.
         /// </summary>
         public static string Bytes {
             get {
                 return ResourceManager.GetString("Bytes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Agenda.
+        /// </summary>
+        public static string CalendarAgendaLabel {
+            get {
+                return ResourceManager.GetString("CalendarAgendaLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No later events.
+        /// </summary>
+        public static string CalendarAgendaNoEventsAfterLabel {
+            get {
+                return ResourceManager.GetString("CalendarAgendaNoEventsAfterLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No earlier events.
+        /// </summary>
+        public static string CalendarAgendaNoEventsBeforeLabel {
+            get {
+                return ResourceManager.GetString("CalendarAgendaNoEventsBeforeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All day.
+        /// </summary>
+        public static string CalendarEventAllDayLabel {
+            get {
+                return ResourceManager.GetString("CalendarEventAllDayLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prev day.
+        /// </summary>
+        public static string CalendarEventPrevDayLabel {
+            get {
+                return ResourceManager.GetString("CalendarEventPrevDayLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calendar.
+        /// </summary>
+        public static string CalendarLabel {
+            get {
+                return ResourceManager.GetString("CalendarLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to map.
+        /// </summary>
+        public static string CalendarMapLabel {
+            get {
+                return ResourceManager.GetString("CalendarMapLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to more details.
+        /// </summary>
+        public static string CalendarMoreDetailsLabel {
+            get {
+                return ResourceManager.GetString("CalendarMoreDetailsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No location.
+        /// </summary>
+        public static string CalendarNoLocationLabel {
+            get {
+                return ResourceManager.GetString("CalendarNoLocationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Organizer.
+        /// </summary>
+        public static string CalendarOrganizerLabel {
+            get {
+                return ResourceManager.GetString("CalendarOrganizerLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Participants.
+        /// </summary>
+        public static string CalendarParticipantsLabel {
+            get {
+                return ResourceManager.GetString("CalendarParticipantsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recurrence.
+        /// </summary>
+        public static string CalendarRecurrenceLabel {
+            get {
+                return ResourceManager.GetString("CalendarRecurrenceLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reply.
+        /// </summary>
+        public static string CalendarReplyLabel {
+            get {
+                return ResourceManager.GetString("CalendarReplyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maybe.
+        /// </summary>
+        public static string CalendarReplyMaybeLabel {
+            get {
+                return ResourceManager.GetString("CalendarReplyMaybeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string CalendarReplyNoLabel {
+            get {
+                return ResourceManager.GetString("CalendarReplyNoLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string CalendarReplyYesLabel {
+            get {
+                return ResourceManager.GetString("CalendarReplyYesLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When.
+        /// </summary>
+        public static string CalendarWhenLabel {
+            get {
+                return ResourceManager.GetString("CalendarWhenLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Where.
+        /// </summary>
+        public static string CalendarWhereLabel {
+            get {
+                return ResourceManager.GetString("CalendarWhereLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Who.
+        /// </summary>
+        public static string CalendarWhoLabel {
+            get {
+                return ResourceManager.GetString("CalendarWhoLabel", resourceCulture);
             }
         }
         
@@ -439,6 +619,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create contact.
+        /// </summary>
+        public static string CreateContactButton {
+            get {
+                return ResourceManager.GetString("CreateContactButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create mailbox.
         /// </summary>
         public static string CreateMailboxBtn {
@@ -475,6 +664,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Create new contact.
+        /// </summary>
+        public static string CreateNewContactLabel {
+            get {
+                return ResourceManager.GetString("CreateNewContactLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create new CRM company.
         /// </summary>
         public static string CreateNewCRMCompany {
@@ -489,6 +687,24 @@ namespace ASC.Web.Mail.Resources {
         public static string CreateNewCRMPerson {
             get {
                 return ResourceManager.GetString("CreateNewCRMPerson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create personal contact.
+        /// </summary>
+        public static string CreatePersonalContact {
+            get {
+                return ResourceManager.GetString("CreatePersonalContact", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Company.
+        /// </summary>
+        public static string CRMCompany {
+            get {
+                return ResourceManager.GetString("CRMCompany", resourceCulture);
             }
         }
         
@@ -646,6 +862,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit contact.
+        /// </summary>
+        public static string EditContactcLabel {
+            get {
+                return ResourceManager.GetString("EditContactcLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Uploading attachment to selected folder failed..
         /// </summary>
         public static string EmailInFailurePopupBodyHeader {
@@ -790,6 +1015,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This contact list will show all your personal contacts from the address book. You have not entered any contacts there yet..
+        /// </summary>
+        public static string EmptyScrMailContactsDescription {
+            get {
+                return ResourceManager.GetString("EmptyScrMailContactsDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create New Mail Tag.
         /// </summary>
         public static string EmptyScrTagsButton {
@@ -880,11 +1114,29 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mail autoreply is enabled.
+        /// </summary>
+        public static string EnabledAutoreplyNotification {
+            get {
+                return ResourceManager.GetString("EnabledAutoreplyNotification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This account already exists in TeamLab Mail..
         /// </summary>
         public static string ErrorAccountAlreadyExists {
             get {
                 return ResourceManager.GetString("ErrorAccountAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Calendar is unreachable.
+        /// </summary>
+        public static string ErrorCalendarIsUnreachable {
+            get {
+                return ResourceManager.GetString("ErrorCalendarIsUnreachable", resourceCulture);
             }
         }
         
@@ -1006,6 +1258,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This phone number already exists.
+        /// </summary>
+        public static string ErrorPhoneExist {
+            get {
+                return ResourceManager.GetString("ErrorPhoneExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A problem has occurred while trying to send this message..
         /// </summary>
         public static string ErrorSendMessage {
@@ -1020,6 +1281,15 @@ namespace ASC.Web.Mail.Resources {
         public static string ErrorTagNameAlreadyExists {
             get {
                 return ResourceManager.GetString("ErrorTagNameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unsupported file format.
+        /// </summary>
+        public static string ErrorUnsupportedFileFormat {
+            get {
+                return ResourceManager.GetString("ErrorUnsupportedFileFormat", resourceCulture);
             }
         }
         
@@ -1177,6 +1447,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Frequently contacted.
+        /// </summary>
+        public static string FilterFrequentlyContacted {
+            get {
+                return ResourceManager.GetString("FilterFrequentlyContacted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From sender.
         /// </summary>
         public static string FilterFromSender {
@@ -1249,6 +1528,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Personal contacts.
+        /// </summary>
+        public static string FilterPersonalContacts {
+            get {
+                return ResourceManager.GetString("FilterPersonalContacts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Read.
         /// </summary>
         public static string FilterRead {
@@ -1299,6 +1587,15 @@ namespace ASC.Web.Mail.Resources {
         public static string FilterWithAttachments {
             get {
                 return ResourceManager.GetString("FilterWithAttachments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to With calendar.
+        /// </summary>
+        public static string FilterWithCalendar {
+            get {
+                return ResourceManager.GetString("FilterWithCalendar", resourceCulture);
             }
         }
         
@@ -1357,11 +1654,38 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You can {0} or change it in {1}.
+        /// </summary>
+        public static string GoToAccountsForChangeAutoreply {
+            get {
+                return ResourceManager.GetString("GoToAccountsForChangeAutoreply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Go to {0} to enable them..
         /// </summary>
         public static string GoToAccountsOnDeactivationText {
             get {
                 return ResourceManager.GetString("GoToAccountsOnDeactivationText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to Calendar.
+        /// </summary>
+        public static string GoToCalendarLink {
+            get {
+                return ResourceManager.GetString("GoToCalendarLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to Event.
+        /// </summary>
+        public static string GoToEventLink {
+            get {
+                return ResourceManager.GetString("GoToEventLink", resourceCulture);
             }
         }
         
@@ -1528,6 +1852,33 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to From.
+        /// </summary>
+        public static string MailAutoreplyFromDateLabel {
+            get {
+                return ResourceManager.GetString("MailAutoreplyFromDateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mail Autoreply.
+        /// </summary>
+        public static string MailAutoreplyLabel {
+            get {
+                return ResourceManager.GetString("MailAutoreplyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To.
+        /// </summary>
+        public static string MailAutoreplyToDateLabel {
+            get {
+                return ResourceManager.GetString("MailAutoreplyToDateLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mailbox creation....
         /// </summary>
         public static string MailboxCreation {
@@ -1591,6 +1942,24 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This message contains images that cannot be displayed at the moment. Do you want to continue?.
+        /// </summary>
+        public static string MessageImagesBlockedContinuePopupBody {
+            get {
+                return ResourceManager.GetString("MessageImagesBlockedContinuePopupBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Continue without images.
+        /// </summary>
+        public static string MessageImagesBlockedContinuePopupHeader {
+            get {
+                return ResourceManager.GetString("MessageImagesBlockedContinuePopupHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This message contains images that cannot be displayed at the moment. Do you want to print it?.
         /// </summary>
         public static string MessageImagesBlockedPopupBody {
@@ -1623,6 +1992,15 @@ namespace ASC.Web.Mail.Resources {
         public static string More {
             get {
                 return ResourceManager.GetString("More", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to More Details.
+        /// </summary>
+        public static string MoreDetailsLabel {
+            get {
+                return ResourceManager.GetString("MoreDetailsLabel", resourceCulture);
             }
         }
         
@@ -1762,6 +2140,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Personal Contacts.
+        /// </summary>
+        public static string PersonalContactsLabel {
+            get {
+                return ResourceManager.GetString("PersonalContactsLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Print all.
         /// </summary>
         public static string PrintAllBtnLabel {
@@ -1888,6 +2275,24 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No contacts matching the selected filter could be found. Please select another filter or clear this one to view all contacts..
+        /// </summary>
+        public static string ResetMailContactsFilterDescription {
+            get {
+                return ResourceManager.GetString("ResetMailContactsFilterDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There are no contacts matching this filter.
+        /// </summary>
+        public static string ResetMailContactsFilterHeader {
+            get {
+                return ResourceManager.GetString("ResetMailContactsFilterHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No portal contacts matching your filter can be displayed on this page. Please select other filter options or clear filter to view all the portal contacts..
         /// </summary>
         public static string ResetTlContactsFilterDescription {
@@ -1938,6 +2343,24 @@ namespace ASC.Web.Mail.Resources {
         public static string SaveAttachmentsToDocumentsFailure {
             get {
                 return ResourceManager.GetString("SaveAttachmentsToDocumentsFailure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;%file_name%&apos; is successfully saved in Calendar..
+        /// </summary>
+        public static string SaveAttachmentToCalendarSuccess {
+            get {
+                return ResourceManager.GetString("SaveAttachmentToCalendarSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &apos;%file_name%&apos; is successfully saved in &apos;%folder_name%&apos;..
+        /// </summary>
+        public static string SaveAttachmentToDocsSuccess {
+            get {
+                return ResourceManager.GetString("SaveAttachmentToDocsSuccess", resourceCulture);
             }
         }
         

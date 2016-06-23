@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -236,7 +236,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
         {
             try
             {
-                _log.Debug("SaveQueueToDump('{0}')", _dumpPath);
+                _log.Debug("SaveQueueToDump()");
 
                 if (File.Exists(_dumpPath))
                     File.Delete(_dumpPath);
@@ -362,7 +362,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
                     _log.Debug("Tenant {0} isn't in cache", mailbox.TenantId);
                     try
                     {
-                        var type = mailbox.GetTenantStatus(_tasksConfig.TenantOverdueDays, _log);
+                        var type = mailbox.GetTenantStatus(_tasksConfig.TenantOverdueDays, _tasksConfig.DefaultApiSchema, _log);
 
                         switch (type)
                         {
@@ -414,7 +414,7 @@ namespace ASC.Mail.Aggregator.CollectionService.Queue
                     _log.Debug("Tenant {0} is in cache", mailbox.TenantId);
                 }
 
-                if (mailbox.IsTenantQuotaEnded(_tasksConfig.MinQuotaBalance, _log))
+                if (mailbox.IsTenantQuotaEnded(_tasksConfig.TenantMinQuotaBalance, _log))
                 {
                     _log.Info("Tenant = {0} User = {1}. Quota is ended.", mailbox.TenantId, mailbox.UserId);
                     if (!mailbox.QuotaError)

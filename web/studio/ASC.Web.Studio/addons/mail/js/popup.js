@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -28,8 +28,6 @@ window.popup = (function($) {
     var $el;
     var popupQueue = [];
     var onUnblock;
-
-    var notificationHtml = '<div class="toast-popup-container"><div class="toast {0}"><div class="toast-message">{1}</div></div></div>';
 
     function init() {
         $el = $('#commonPopup');
@@ -94,8 +92,8 @@ window.popup = (function($) {
     }
 
     function addPopup(header, body, size, unblockCallback, toBegining, blockuiOpts) {
-        if (!$el.is(':visible') || header != $el.find('div.containerHeaderBlock:first td:first')[0].innerHTML ||
-            body != $el.find('div.containerBodyBlock:first')[0].innerHTML) {
+        if (!$el.is(':visible') || header !== $el.find('div.containerHeaderBlock:first td:first')[0].innerHTML ||
+            body !== $el.find('div.containerBodyBlock:first')[0].innerHTML) {
             var item = { header: header, body: body, onUnblock: unblockCallback, size: size, blockui_opts: blockuiOpts };
             if (toBegining) {
                 popupQueue.unshift(item);
@@ -108,7 +106,7 @@ window.popup = (function($) {
 
     function disableCancel(disable) {
         var cancelX = $el.find('.popupCancel .cancelButton');
-        if (cancelX.length != 0) {
+        if (cancelX.length !== 0) {
             TMMail.disableButton(cancelX, disable);
             if (disable) {
                 cancelX.css('cursor', 'default');
@@ -120,36 +118,29 @@ window.popup = (function($) {
     
     function success(text) {
         if (!$el.is(':visible')) return;
-
-        var successHtml = notificationHtml.format('toast-success', text);
-        showNotification(successHtml);
+        showNotification("toast-success", text);
     }
     
     function info(text) {
         if (!$el.is(':visible')) return;
-
-        var infoHtml = notificationHtml.format('toast-info', text);
-        showNotification(infoHtml);
+        showNotification("toast-info", text);
     }
 
-    function warning() {
+    function warning(text) {
         if (!$el.is(':visible')) return;
-
-        var warningHtml = notificationHtml.format('toast-warning', text);
-        showNotification(warningHtml);
+        showNotification("toast-warning", text);
     }
 
     function error(text) {
         if (!$el.is(':visible')) return;
-
-        var errorHtml = notificationHtml.format('toast-error', text);
-        showNotification(errorHtml);
+        showNotification("toast-error", text);
     }
 
-    function showNotification(html) {
+    function showNotification(cssClass, text) {
+        var $notification = $.tmpl("popupNotificationTmpl", { cssClass: cssClass, text: text });
+
         $el.find('.toast-popup-container').remove();
 
-        var $notification = $(html);
         var $progressBox = $el.find('.progressContainer');
         var $buttonsBox = $el.find('.buttons');
 

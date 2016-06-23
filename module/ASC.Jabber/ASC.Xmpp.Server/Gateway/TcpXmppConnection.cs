@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -90,6 +90,8 @@ namespace ASC.Xmpp.Server.Gateway
             streamParser.OnStreamStart += StreamParserOnStreamStart;
             streamParser.OnStreamElement += StreamParserOnStreamElement;
             streamParser.OnStreamEnd += StreamParserOnStreamEnd;
+            streamParser.OnStreamError += StreamParserOnStreamError;
+            streamParser.OnError += StreamParserOnError;
 
             buffer = new byte[socket.ReceiveBufferSize];
             remoteEndPoint = socket.RemoteEndPoint;
@@ -292,6 +294,18 @@ namespace ASC.Xmpp.Server.Gateway
         {
             packetSize = 0;
             OnStreamEnd();
+        }
+
+        private void StreamParserOnStreamError(object sender, Exception ex)
+        {
+            var streamParser = (StreamParser)sender;
+            log.ErrorFormat("StreamParserOnStreamError {0}, streamParser.Current = {1}", ex, streamParser.Current);
+        }
+
+        private void StreamParserOnError(object sender, Exception ex)
+        {
+            var streamParser = (StreamParser)sender;
+            log.ErrorFormat("StreamParserOnError {0}, streamParser.Current = {1}", ex, streamParser.Current);
         }
 
         private void OnStreamEnd()

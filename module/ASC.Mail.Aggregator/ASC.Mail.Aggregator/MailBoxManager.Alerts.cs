@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -32,7 +32,7 @@ using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Mail.Aggregator.Common.Utils;
-using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Aggregator.DbSchema;
 
 namespace ASC.Mail.Aggregator
 {
@@ -84,6 +84,8 @@ namespace ASC.Mail.Aggregator
             public string from;
             [DataMember]
             public int message_id;
+            [DataMember]
+            public int failure_id;
         }
 
         [DataContract]
@@ -112,13 +114,14 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        public int CreateDeliveryFailureAlert(int tenant, string user, string subject, string from, int messageId)
+        public int CreateDeliveryFailureAlert(int tenant, string user, string subject, string from, int messageId, int mailDaemonMessageid)
         {
             var data = new DeliveryFailure
                 {
                     @from = @from,
                     message_id = messageId,
-                    subject = subject
+                    subject = subject,
+                    failure_id = mailDaemonMessageid
                 };
 
             return CreateAlert(tenant, user, -1, AlertTypes.DeliveryFailure, data);
@@ -179,17 +182,17 @@ namespace ASC.Mail.Aggregator
                     return;
 
                 db.ExecuteNonQuery(
-                    new SqlDelete(MailAlertsTable.name)
+                    new SqlDelete(MailAlertsTable.Name)
                         .Where(GetUserWhere(user, tenant))
-                        .Where(MailAlertsTable.Columns.id, alertId));
+                        .Where(MailAlertsTable.Columns.Id, alertId));
 
                 if (alert.type == AlertTypes.QuotaError)
                 {
-                    db.ExecuteNonQuery(new SqlUpdate(MailboxTable.name)
-                                           .Where(MailboxTable.Columns.id_tenant, tenant)
-                                           .Where(MailboxTable.Columns.id_user, user)
-                                           .Where(MailboxTable.Columns.is_removed, false)
-                                           .Set(MailboxTable.Columns.quota_error, false));
+                    db.ExecuteNonQuery(new SqlUpdate(MailboxTable.Name)
+                                           .Where(MailboxTable.Columns.Tenant, tenant)
+                                           .Where(MailboxTable.Columns.User, user)
+                                           .Where(MailboxTable.Columns.IsRemoved, false)
+                                           .Set(MailboxTable.Columns.QuotaError, false));
                 }
             }
         }
@@ -197,22 +200,22 @@ namespace ASC.Mail.Aggregator
         public void DeleteAlerts(IDbManager db, int tenant, string user, List<long> alertIds)
         {
             db.ExecuteNonQuery(
-                new SqlDelete(MailAlertsTable.name)
+                new SqlDelete(MailAlertsTable.Name)
                     .Where(GetUserWhere(user, tenant))
-                    .Where(Exp.In(MailAlertsTable.Columns.id, alertIds)));
+                    .Where(Exp.In(MailAlertsTable.Columns.Id, alertIds)));
         }
 
         public List<MailAlert> FindAlerts(IDbManager db, int tenant, string user, int mailboxId = -1, AlertTypes type = AlertTypes.Empty)
         {
-            var searchQuery = new SqlQuery(MailAlertsTable.name)
-                    .Select(MailAlertsTable.Columns.id, MailAlertsTable.Columns.type, MailAlertsTable.Columns.id_mailbox, MailAlertsTable.Columns.data)
+            var searchQuery = new SqlQuery(MailAlertsTable.Name)
+                    .Select(MailAlertsTable.Columns.Id, MailAlertsTable.Columns.Type, MailAlertsTable.Columns.MailboxId, MailAlertsTable.Columns.Data)
                     .Where(GetUserWhere(user, tenant));
 
             if (mailboxId > 0)
-                searchQuery.Where(MailAlertsTable.Columns.id_mailbox, mailboxId);
+                searchQuery.Where(MailAlertsTable.Columns.MailboxId, mailboxId);
 
             if (type != AlertTypes.Empty)
-                searchQuery.Where(MailAlertsTable.Columns.type, (int)type);
+                searchQuery.Where(MailAlertsTable.Columns.Type, (int)type);
 
             var foundAlerts = db.ExecuteList(searchQuery)
                 .ConvertAll(x => new MailAlert
@@ -228,9 +231,9 @@ namespace ASC.Mail.Aggregator
 
         public MailAlert GetAlert(IDbManager db, int tenant, string user, long alertId)
         {
-            var searchQuery = new SqlQuery(MailAlertsTable.name)
-                    .Select(MailAlertsTable.Columns.id, MailAlertsTable.Columns.type, MailAlertsTable.Columns.id_mailbox, MailAlertsTable.Columns.data)
-                    .Where(MailAlertsTable.Columns.id, alertId)
+            var searchQuery = new SqlQuery(MailAlertsTable.Name)
+                    .Select(MailAlertsTable.Columns.Id, MailAlertsTable.Columns.Type, MailAlertsTable.Columns.MailboxId, MailAlertsTable.Columns.Data)
+                    .Where(MailAlertsTable.Columns.Id, alertId)
                     .Where(GetUserWhere(user, tenant));
 
             var foundAlert = db.ExecuteList(searchQuery)
@@ -258,12 +261,12 @@ namespace ASC.Mail.Aggregator
 
             var jsonData = MailUtil.GetJsonString(data);
 
-            var insertQuery = new SqlInsert(MailAlertsTable.name)
-                .InColumnValue(MailAlertsTable.Columns.id_tenant, tenant)
-                .InColumnValue(MailAlertsTable.Columns.id_user, user)
-                .InColumnValue(MailAlertsTable.Columns.id_mailbox, mailboxId)
-                .InColumnValue(MailAlertsTable.Columns.type, (int)type)
-                .InColumnValue(MailAlertsTable.Columns.data, jsonData);
+            var insertQuery = new SqlInsert(MailAlertsTable.Name)
+                .InColumnValue(MailAlertsTable.Columns.Tenant, tenant)
+                .InColumnValue(MailAlertsTable.Columns.User, user)
+                .InColumnValue(MailAlertsTable.Columns.MailboxId, mailboxId)
+                .InColumnValue(MailAlertsTable.Columns.Type, (int)type)
+                .InColumnValue(MailAlertsTable.Columns.Data, jsonData);
 
             return db.ExecuteNonQuery(insertQuery);
         }
@@ -282,12 +285,12 @@ namespace ASC.Mail.Aggregator
             {
                 var jsonData = MailUtil.GetJsonString(data);
 
-                var insertQuery = new SqlInsert(MailAlertsTable.name)
-                    .InColumnValue(MailAlertsTable.Columns.id_tenant, tenant)
-                    .InColumnValue(MailAlertsTable.Columns.id_user, user)
-                    .InColumnValue(MailAlertsTable.Columns.id_mailbox, mailboxId)
-                    .InColumnValue(MailAlertsTable.Columns.type, (int)type)
-                    .InColumnValue(MailAlertsTable.Columns.data, jsonData);
+                var insertQuery = new SqlInsert(MailAlertsTable.Name)
+                    .InColumnValue(MailAlertsTable.Columns.Tenant, tenant)
+                    .InColumnValue(MailAlertsTable.Columns.User, user)
+                    .InColumnValue(MailAlertsTable.Columns.MailboxId, mailboxId)
+                    .InColumnValue(MailAlertsTable.Columns.Type, (int)type)
+                    .InColumnValue(MailAlertsTable.Columns.Data, jsonData);
 
                 return db.ExecuteNonQuery(insertQuery);
             }
@@ -311,13 +314,13 @@ namespace ASC.Mail.Aggregator
                 var jsonData = MailUtil.GetJsonString(data);
 
                 CreateInsertDelegate createInsertQuery = ()
-                => new SqlInsert(MailAlertsTable.name)
+                => new SqlInsert(MailAlertsTable.Name)
                         .IgnoreExists(true)
-                        .InColumns(MailAlertsTable.Columns.id_tenant,
-                                   MailAlertsTable.Columns.id_user,
-                                   MailAlertsTable.Columns.id_mailbox,
-                                   MailAlertsTable.Columns.type,
-                                   MailAlertsTable.Columns.data);
+                        .InColumns(MailAlertsTable.Columns.Tenant,
+                                   MailAlertsTable.Columns.User,
+                                   MailAlertsTable.Columns.MailboxId,
+                                   MailAlertsTable.Columns.Type,
+                                   MailAlertsTable.Columns.Data);
 
                 var insertQuery = createInsertQuery();
 

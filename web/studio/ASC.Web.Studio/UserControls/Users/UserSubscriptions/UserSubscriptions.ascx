@@ -124,7 +124,7 @@
             {{/if}}
           </div>
             <span class="subs-notice-text"><%=Resources.Resource.SubscriptionNoticeVia%> </span>
-            <select id="NotifyByCombobox_${item.Id}" class="comboBox notify-by-combobox display-none" onchange="CommonSubscriptionManager.SetNotifyByMethod('${item.Id}', jq(this).val());">
+            <select id="NotifyByCombobox_${item.Id}" class="comboBox notify-by-combobox" onchange="CommonSubscriptionManager.SetNotifyByMethod('${item.Id}', jq(this).val());">
               {{if item.NotifyType == 0}}
                 <option class="optionItem" value="0" selected="selected">
               {{else}}

@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -169,7 +169,7 @@ namespace ASC.Common.Caching
                 return JsonConvert.DeserializeObject(s, typeof(object), settings);
             }
 
-            public T Deserialize<T>(byte[] obj) where T : class
+            public T Deserialize<T>(byte[] obj)
             {
                 var resolver = new ContractResolver();
                 var settings = new JsonSerializerSettings { ContractResolver = resolver };
@@ -187,7 +187,7 @@ namespace ASC.Common.Caching
                 return Task.Factory.StartNew(() => Deserialize(obj));
             }
 
-            public Task<T> DeserializeAsync<T>(byte[] obj) where T : class
+            public Task<T> DeserializeAsync<T>(byte[] obj) 
             {
                 return Task.Factory.StartNew(() => Deserialize<T>(obj));
             }

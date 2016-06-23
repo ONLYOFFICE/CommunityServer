@@ -198,6 +198,9 @@
   <data name="ErrorMassage_SharpBoxException" xml:space="preserve">
     <value>The content of third party folder are not available. Try to reconnect the account.</value>
   </data>
+  <data name="ErrorMassage_ConvertTimeout" xml:space="preserve">
+    <value>Conversion takes too long.</value>
+  </data>
   <data name="IsNew" xml:space="preserve">
     <value>new</value>
   </data>
@@ -260,9 +263,6 @@
   </data>
   <data name="ErrorMassage_FileNotFound" xml:space="preserve">
     <value>The required file was not found</value>
-  </data>
-  <data name="ErrorMassage_PayTariffDocsEdition" xml:space="preserve">
-    <value>To use the edit documents pay tariff Docs Edition</value>
   </data>
   <data name="Author_Me" xml:space="preserve">
     <value>Me</value>
@@ -329,6 +329,9 @@
   </data>
   <data name="AceStatusEnum_Restrict" xml:space="preserve">
     <value>Deny Access</value>
+  </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Review</value>
   </data>
   <data name="AceShareLink" xml:space="preserve">
     <value>Outside portal</value>
@@ -408,6 +411,12 @@
   <data name="ErrorMassage_FileSizeEdit" xml:space="preserve">
     <value>File larger than {0} will not be edited</value>
   </data>
+  <data name="ErrorMassage_FileSizeMove" xml:space="preserve">
+    <value>File larger than {0} will not be moved</value>
+  </data>
+  <data name="ErrorMassage_FileSizeCopy" xml:space="preserve">
+    <value>File larger than {0} will not be copied</value>
+  </data>
   <data name="ErrorMassage_DocServiceException" xml:space="preserve">
     <value>Error occurred in the Documents Service</value>
   </data>
@@ -437,9 +446,6 @@
   </data>
   <data name="AppEnterType" xml:space="preserve">
     <value>Select Filetype</value>
-  </data>
-  <data name="AppDriveSpreadsheetException" xml:space="preserve">
-    <value>Google Drive doesn't allow to access the requested spreadsheet as it was created in a new format</value>
   </data>
   <data name="ErrorMassage_SecurityException_EditFileTwice" xml:space="preserve">
     <value>This document is being edited</value>

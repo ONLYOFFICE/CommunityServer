@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -583,7 +583,8 @@ ASC.Projects.TaskDescroptionPage = (function() {
         }
     };
 
-    var showEditLinkBox = function(editFlag, taskId) {              
+    var showEditLinkBox = function (editFlag, taskId) {
+        jq(".entity-menu").hide();
         if (editFlag) {
             var taskCont = relatedTasksCont.find("tr[data-taskid="+taskId+"]");
             editLinkBox.css("position", "absolute");

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,21 +24,13 @@
 */
 
 
-using System;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Web;
-using System.Web.Configuration;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Users;
-using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Core.Files;
 using ASC.Web.Core.Mobile;
+using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Core;
 using ASC.Web.Files.Resources;
@@ -49,6 +41,13 @@ using ASC.Web.Studio;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 using Newtonsoft.Json;
+using System;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Web;
 using File = ASC.Files.Core.File;
 using Global = ASC.Web.Files.Classes.Global;
 using SecurityContext = ASC.Core.SecurityContext;
@@ -126,20 +125,6 @@ namespace ASC.Web.Files
 
             _valideShareLink = !string.IsNullOrEmpty(FileShareLink.Parse(RequestShareLinkKey));
             CheckAuth();
-
-            if (!TenantExtra.GetTenantQuota().DocsEdition)
-                Response.Redirect(FilesLinkUtility.FileHandlerPath + "?" + Context.Request.QueryString
-                                  + (string.IsNullOrEmpty(Context.Request[FilesLinkUtility.Action]) ? "&" + FilesLinkUtility.Action + "=view" : string.Empty));
-
-            if (CoreContext.Configuration.PartnerHosted && WebConfigurationManager.AppSettings["files.onlyauthorized"] != "false")
-            {
-                var hostedPartner = CoreContext.PaymentManager.GetApprovedPartner();
-                if (hostedPartner == null || string.IsNullOrEmpty(hostedPartner.AuthorizedKey))
-                {
-                    Response.Redirect(FilesLinkUtility.FileHandlerPath + "?" + Context.Request.QueryString
-                                      + (string.IsNullOrEmpty(Context.Request[FilesLinkUtility.Action]) ? "&" + FilesLinkUtility.Action + "=view" : string.Empty));
-                }
-            }
         }
 
         private void CheckAuth()
@@ -193,7 +178,7 @@ namespace ASC.Web.Files
                         bool editable;
                         _thirdPartyApp = true;
                         file = app.GetFile(RequestFileId, out editable);
-                        file = DocumentServiceHelper.GetParams(file, true, true, true, editable, editable, editable, out _docParams);
+                        file = DocumentServiceHelper.GetParams(file, true, true, true, editable, editable, editable, editable, out _docParams);
 
                         _docParams.FileUri = app.GetFileStreamUrl(file);
                         _docParams.FolderUrl = string.Empty;
@@ -239,8 +224,9 @@ namespace ASC.Web.Files
                             Title = Global.ReplaceInvalidCharsAndTruncate(fileTitle)
                         };
 
-                    file = DocumentServiceHelper.GetParams(file, true, true, true, false, false, false, out _docParams);
+                    file = DocumentServiceHelper.GetParams(file, true, true, true, false, false, false, false, out _docParams);
                     _docParams.CanEdit = editPossible && !CoreContext.Configuration.Standalone;
+                    _docParams.CanReview = _docParams.CanEdit;
                     _editByUrl = true;
 
                     _docParams.FileUri = fileUri;
@@ -340,25 +326,38 @@ namespace ASC.Web.Files
         {
             var inlineScript = new StringBuilder();
 
-            inlineScript.AppendFormat("\nASC.Files.Constants.URL_WCFSERVICE = \"{0}\";" +
-                                      "ASC.Files.Constants.URL_MAIL_ACCOUNTS = \"{1}\";",
-                                      PathProvider.GetFileServicePath,
-                                      CommonLinkUtility.GetFullAbsolutePath("~/addons/mail/#accounts"));
+            inlineScript.AppendFormat("\nASC.Files.Constants.URL_WCFSERVICE = \"{0}\";",
+                                      PathProvider.GetFileServicePath);
+
+            if (!CoreContext.Configuration.Personal)
+            {
+                inlineScript.AppendFormat("\nASC.Files.Constants.URL_MAIL_ACCOUNTS = \"{0}\";",
+                                          CommonLinkUtility.GetFullAbsolutePath("~/addons/mail/#accounts"));
+            }
 
             if (SecurityContext.IsAuthenticated && !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
             {
-                inlineScript.AppendFormat("ASC.Files.Constants.URL_HANDLER_CREATE = \"{0}\";",
-                                          CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.FileHandlerPath));
+                inlineScript.AppendFormat("ASC.Files.Constants.URL_HANDLER_CREATE = \"{0}\";" +
+                                          "ASC.Files.Constants.TitleNewFileText = \"{1}\";" +
+                                          "ASC.Files.Constants.TitleNewFileSpreadsheet = \"{2}\";" +
+                                          "ASC.Files.Constants.TitleNewFilePresentation = \"{3}\";",
+                                          CommonLinkUtility.GetFullAbsolutePath(FilesLinkUtility.FileHandlerPath),
+                                          FilesJSResource.TitleNewFileText,
+                                          FilesJSResource.TitleNewFileSpreadsheet,
+                                          FilesJSResource.TitleNewFilePresentation);
             }
 
+            var isRetina = TenantLogoManager.IsRetina(Request);
             inlineScript.AppendFormat("\nASC.Files.Editor.brandingLogoUrl = \"{0}\";" +
                                       "ASC.Files.Editor.brandingLogoEmbeddedUrl = \"{1}\";" +
                                       "ASC.Files.Editor.brandingCustomerLogo = \"{2}\";" +
-                                      "ASC.Files.Editor.brandingCustomer = \"{3}\";",
-                                      CommonLinkUtility.GetFullAbsolutePath(TenantLogoHelper.GetLogo(WhiteLabelLogoTypeEnum.DocsEditor)),
-                                      CommonLinkUtility.GetFullAbsolutePath(TenantLogoHelper.GetLogo(WhiteLabelLogoTypeEnum.DocsEditorEmbedded)),
-                                      CommonLinkUtility.GetFullAbsolutePath(TenantLogoHelper.GetLogo(WhiteLabelLogoTypeEnum.Dark)),
-                                      (SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID).LogoText ?? "").Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("/", "\\/"));
+                                      "ASC.Files.Editor.brandingCustomer = \"{3}\";" +
+                                      "ASC.Files.Editor.brandingSite = \"{4}\";",
+                                      CommonLinkUtility.GetFullAbsolutePath(TenantLogoHelper.GetLogo(WhiteLabelLogoTypeEnum.DocsEditor, !isRetina)),
+                                      CommonLinkUtility.GetFullAbsolutePath(TenantLogoHelper.GetLogo(WhiteLabelLogoTypeEnum.Dark, !isRetina)),
+                                      CommonLinkUtility.GetFullAbsolutePath(TenantLogoHelper.GetLogo(WhiteLabelLogoTypeEnum.Dark, !isRetina)),
+                                      (SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID).LogoText ?? "").Replace("\\", "\\\\").Replace("\"", "\\\"").Replace("/", "\\/"),
+                                      CompanyWhiteLabelSettings.Instance.Site);
 
             inlineScript.AppendFormat("\nASC.Files.Editor.docKeyForTrack = \"{0}\";" +
                                       "ASC.Files.Editor.shareLinkParam = \"{1}\";" +
@@ -381,14 +380,18 @@ namespace ASC.Web.Files
             {
                 inlineScript.AppendFormat("\nASC.Files.Editor.showAbout = true;" +
                                           "ASC.Files.Editor.feedbackUrl = \"{0}\";",
-                                          SetupInfo.SupportFeedback);
+                                          AdditionalWhiteLabelSettings.Instance.FeedbackAndSupportEnabled
+                                              ? CommonLinkUtility.GetRegionalUrl(
+                                                  AdditionalWhiteLabelSettings.Instance.FeedbackAndSupportUrl,
+                                                  CultureInfo.CurrentCulture.TwoLetterISOLanguageName)
+                                              : string.Empty);
             }
             else if (_docParams != null)
             {
                 inlineScript.AppendFormat("\nASC.Files.Editor.licenseUrl = \"{0}\";" +
                                           "ASC.Files.Editor.customerId = \"{1}\";",
                                           PathProvider.GetLicenseUrl(_docParams.File),
-                                          LicenseClient.CustomerId);
+                                          LicenseReader.CustomerId);
             }
 
             inlineScript.Append(BuildOptions());

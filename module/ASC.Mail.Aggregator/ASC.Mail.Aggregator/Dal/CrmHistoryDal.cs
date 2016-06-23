@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -30,8 +30,7 @@ using ASC.Core;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
 using ASC.Mail.Aggregator.Common;
-using ASC.Mail.Aggregator.Dal.DbSchema;
-using ASC.Mail.Aggregator.DataStorage;
+using ASC.Mail.Aggregator.Common.DataStorage;
 
 namespace ASC.Mail.Aggregator.Dal
 {
@@ -42,11 +41,13 @@ namespace ASC.Mail.Aggregator.Dal
 
         private int Tenant { get { return _tenant; } }
         private Guid User { get { return _user; } }
+        private string HttpContextScheme { get; set; }
 
-        public CrmHistoryDal(int tenant, string user)
+        public CrmHistoryDal(int tenant, string user, string httpContextScheme)
         {
             _tenant = tenant;
             _user = new Guid(user);
+            HttpContextScheme = httpContextScheme;
 
             if (SecurityContext.IsAuthenticated) return;
 
@@ -61,15 +62,15 @@ namespace ASC.Mail.Aggregator.Dal
             {
                 switch (contactEntity.Type)
                 {
-                    case ChainXCrmContactEntity.EntityTypes.Contact:
+                    case CrmContactEntity.EntityTypes.Contact:
                         var crmContact = factory.GetContactDao().GetByID(contactEntity.Id);
                         CRMSecurity.DemandAccessTo(crmContact);
                         break;
-                    case ChainXCrmContactEntity.EntityTypes.Case:
+                    case CrmContactEntity.EntityTypes.Case:
                         var crmCase = factory.GetCasesDao().GetByID(contactEntity.Id);
                         CRMSecurity.DemandAccessTo(crmCase);
                         break;
-                    case ChainXCrmContactEntity.EntityTypes.Opportunity:
+                    case CrmContactEntity.EntityTypes.Opportunity:
                         var crmOpportunity = factory.GetDealDao().GetByID(contactEntity.Id);
                         CRMSecurity.DemandAccessTo(crmOpportunity);
                         break;
@@ -77,11 +78,13 @@ namespace ASC.Mail.Aggregator.Dal
 
                 var fileIds = new List<int>();
 
+                var apiHelper = new ApiHelper(HttpContextScheme);
+
                 foreach (var attachment in message.Attachments.FindAll(attach => !attach.isEmbedded))
                 {
                     using (var file = AttachmentManager.GetAttachmentStream(attachment))
                     {
-                        var uploadedFileId = ApiHelper.UploadToCrm(file.FileStream, file.FileName,
+                        var uploadedFileId = apiHelper.UploadToCrm(file.FileStream, file.FileName,
                                                                        attachment.contentType, contactEntity);
                         if (uploadedFileId > 0)
                         {
@@ -90,7 +93,7 @@ namespace ASC.Mail.Aggregator.Dal
                     }
                 }
 
-                ApiHelper.AddToCrmHistory(message, contactEntity, fileIds);
+                apiHelper.AddToCrmHistory(message, contactEntity, fileIds);
             }
         }
     }

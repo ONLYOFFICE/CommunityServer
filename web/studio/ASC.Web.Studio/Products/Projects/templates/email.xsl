@@ -17,6 +17,7 @@
   <xsl:param name="p0"/>
   <xsl:param name="p1"/>
   <xsl:param name="logo"/>
+  <xsl:param name="logoText"/>
 
   <xsl:template match="/">
     <html>
@@ -117,12 +118,10 @@
         </style>
       </head>
       <body>
-        <div style="background-color:#31a3d3; height:50px;">
-          <div style="height: 45px; margin: 0px; display: block; padding: 5px 0px 0px 30px; width: 470px; background-image: url('http://cdn.teamlab.com/media/newsletters/images/01.jpg');">
-            <img src="{$logo}" alt="ONLYOFFICE™" style="border: 0; margin: 0; padding: 0; color: #fff; font-size: 26px; font-weight: 700; display: block;" />
-          </div>
+        <div style="background-color: #fff;text-align: left; height: 75px; width: 600px; margin: 0px;padding:0;">
+            <img src="{$logo}" alt="{$logoText}" style="border: 0px none; width: 215px; height: 35px; margin: 10px 0px 0px 30px;" />
         </div>
-        <div style="margin:0px 40px;">
+        <div style="padding:0px 40px;margin:0;background-color: #f6f6f6;-moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;">
           <xsl:copy>
             <xsl:apply-templates select="@*|node()"/>
           </xsl:copy>

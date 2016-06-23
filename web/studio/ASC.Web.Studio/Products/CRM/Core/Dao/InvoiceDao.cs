@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -35,6 +35,7 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
 using ASC.CRM.Core.Entities;
+using ASC.FullTextIndex;
 using ASC.Web.CRM.Classes;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Utility;
@@ -904,15 +905,12 @@ namespace ASC.CRM.Core.Dao
                    .ToArray();
 
                 if (keywords.Length > 0)
-                    //if (FullTextSearch.SupportModule(FullTextSearch.CRMInvoiceModule))
-                    //{
-                    //    ids = FullTextSearch.Search(searchText, FullTextSearch.CRMInvoiceModule)
-                    //        .GetIdentifiers()
-                    //        .Select(item => Convert.ToInt32(item.Split('_')[1])).Distinct().ToList();
-
-                    //    if (ids.Count == 0) return null;
-                    //}
-                    //else
+                    if (FullTextSearch.SupportModule(FullTextSearch.CRMInvoicesModule))
+                    {
+                        var ids = FullTextSearch.Search(FullTextSearch.CRMInvoicesModule.Match(searchText));
+                        conditions.Add(Exp.In(tblAliasPrefix + "id", ids));
+                    }
+                    else
                     conditions.Add(BuildLike(new[] { tblAliasPrefix + "number", tblAliasPrefix + "description" }, keywords));
             }
 

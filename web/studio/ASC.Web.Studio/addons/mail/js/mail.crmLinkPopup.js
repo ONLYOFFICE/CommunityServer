@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -270,6 +270,11 @@ window.crmLinkPopup = (function($) {
         var loadingIcon = '.crm_search_loading_icon';
 
         var onGetCrmContactsByPrefix = function(params, contacts) {
+
+            var cache = $(input).data("cache");
+            cache.contactCache[params.searchText] = contacts;
+            $(input).data("cache", cache);
+
             var alreadyLinkedContacts = getAlreadyLinkedContacts();
             var names = contacts.map(function(val) {
                 if (!alreadyLinkedContacts["1:".concat(val.id)]) {
@@ -290,6 +295,11 @@ window.crmLinkPopup = (function($) {
         };
 
         var onGetCrmCaseByPrefix = function(params, cases) {
+
+            var cache = $(input).data("cache");
+            cache.caseCache[params.searchText] = cases;
+            $(input).data("cache", cache);
+
             var alreadyLinkedContacts = getAlreadyLinkedContacts();
             var names = cases.map(function(val) {
                 if (!alreadyLinkedContacts["2:".concat(val.id)]) {
@@ -308,9 +318,14 @@ window.crmLinkPopup = (function($) {
             $(loadingIcon).hide();
         };
 
-        var onGetCrmOpportunityByPrefix = function(params, cases) {
+        var onGetCrmOpportunityByPrefix = function(params, opportunities) {
+
+            var cache = $(input).data("cache");
+            cache.opportunityCache[params.searchText] = opportunities;
+            $(input).data("cache", cache);
+
             var alreadyLinkedContacts = getAlreadyLinkedContacts();
-            var names = cases.map(function(val) {
+            var names = opportunities.map(function (val) {
                 if (!alreadyLinkedContacts["3:".concat(val.id)]) {
                     return {
                         label: val.title,
@@ -325,6 +340,22 @@ window.crmLinkPopup = (function($) {
             params.responseFunction(names);
             $(searchIcon).show();
             $(loadingIcon).hide();
+        };
+
+        var fromCache = function(term, cache, params, callback) {
+            if (term in cache) {
+                callback(params, cache[term]);
+                return true;
+            } else {
+                for (var cacheterm in cache) {
+                    if (cache[cacheterm].length == 0 && term.indexOf(cacheterm) == 0) {
+                        callback(params, []);
+                        return true;
+                    }
+                }
+            }
+
+            return false;
         };
 
         html.find(input).autocomplete({
@@ -353,31 +384,47 @@ window.crmLinkPopup = (function($) {
             },
             source: function(request, response) {
                 var term = request.term;
+                
                 $(searchIcon).hide();
                 $(loadingIcon).show();
-                var data;
+
+                var params = { searchText: term, responseFunction: response, input: input };
+                var cache = $(input).data("cache");
+
                 if (getSelectedEntityType() == contactType) {
-                    data = {
+                    if (fromCache(term, cache.contactCache, params, onGetCrmContactsByPrefix))
+                        return;
+
+                    window.Teamlab.getCrmContactsByPrefix(params, {
                         filter: { prefix: term, searchType: -1 },
                         success: onGetCrmContactsByPrefix
-                    };
-                    window.Teamlab.getCrmContactsByPrefix({ searchText: term, responseFunction: response, input: input }, data);
+                    });
                 }
                 if (getSelectedEntityType() == caseType) {
-                    data = {
+                    if (fromCache(term, cache.caseCache, params, onGetCrmCaseByPrefix))
+                        return;
+
+                    window.Teamlab.getCrmCasesByPrefix(params, {
                         filter: { prefix: term, searchType: -1 },
                         success: onGetCrmCaseByPrefix
-                    };
-                    window.Teamlab.getCrmCasesByPrefix({ searchText: term, responseFunction: response, input: input }, data);
+                    });
                 }
                 if (getSelectedEntityType() == opportunityType) {
-                    data = {
+                    if (fromCache(term, cache.opportunityCache, params, onGetCrmOpportunityByPrefix))
+                        return;
+
+                    window.Teamlab.getCrmOpportunitiesByPrefix(params, {
                         filter: { prefix: term },
                         success: onGetCrmOpportunityByPrefix
-                    };
-                    window.Teamlab.getCrmOpportunitiesByPrefix({ searchText: term, responseFunction: response, input: input }, data);
+                    });
                 }
             }
+        });
+
+        html.find(input).data("cache", {
+            contactCache: {},
+            caseCache: {},
+            opportunityCache: {},
         });
     }
 

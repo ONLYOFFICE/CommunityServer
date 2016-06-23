@@ -6,7 +6,6 @@
     Inherits="ASC.Web.Projects.Controls.Messages.DiscussionDetails" %>
 
 <%@ Import Namespace="ASC.Projects.Core.Domain"%>
-<%@ Import Namespace="ASC.Web.Projects.Classes" %>
 <%@ Import Namespace="ASC.Web.Projects.Configuration" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility.HtmlUtility" %>

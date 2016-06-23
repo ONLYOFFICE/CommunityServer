@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -77,6 +77,7 @@ namespace ASC.Api.MailServer
             var mailgroupName = name.ToLowerInvariant();
 
             var mailgroup = MailServer.CreateMailGroup(mailgroupName, domain, address_ids, MailServerFactory);
+            MailBoxManager.CachedAccounts.ClearAll();
 
             return mailgroup.ToMailGroupData();
         }
@@ -107,6 +108,7 @@ namespace ASC.Api.MailServer
                 throw new ArgumentException("Mailgroup not exists");
 
             mailgroup.AddMember(address_id, MailServerFactory);
+            MailBoxManager.CachedAccounts.ClearAll();
 
             return mailgroup.ToMailGroupData();
         }
@@ -137,6 +139,7 @@ namespace ASC.Api.MailServer
                 throw new ArgumentException("Mailgroup not exists");
 
             mailgroup.RemoveMember(address_id);
+            MailBoxManager.CachedAccounts.ClearAll();
 
             return address_id;
         }
@@ -177,6 +180,7 @@ namespace ASC.Api.MailServer
                 throw new ArgumentException(@"Invalid mailgroup id.", "id");
 
             MailServer.DeleteMailGroup(id, MailServerFactory);
+            MailBoxManager.CachedAccounts.ClearAll();
 
             return id;
         }

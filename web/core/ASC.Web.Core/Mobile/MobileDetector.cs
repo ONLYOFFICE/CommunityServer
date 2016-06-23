@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -95,16 +95,17 @@ namespace ASC.Web.Core.Mobile
             var regex = forMobileVersion ? uaRedirectRegex : uaMobileRegex;
             if (!string.IsNullOrEmpty(ua) && regex != null)
             {
-                var key = "mobileDetetor/" + ua.GetHashCode();
+                var key = "mobileDetector/" + ua.GetHashCode() + forMobileVersion;
 
                 bool fromCache;
 
                 if (bool.TryParse(cache.Get<string>(key), out fromCache))
-                    result = fromCache;
-
-                if (result == null)
                 {
-                    cache.Insert(key, result = regex.IsMatch(ua), TimeSpan.FromMinutes(10));
+                    result = fromCache;
+                }
+                else
+                {
+                    cache.Insert(key, (result = regex.IsMatch(ua)).ToString(), TimeSpan.FromMinutes(10));
                 }
             }
             return result.GetValueOrDefault();

@@ -21,6 +21,8 @@
     <% } %>
     
     <asp:PlaceHolder ID="loaderHolder" runat="server"></asp:PlaceHolder>
+    
+    <script type="text/javascript" src="<%=VirtualPathUtility.ToAbsolute("~/js/third-party/ical.js") %>" type="text/javascript"></script>
 </asp:Content>
 
 <asp:Content ID="MailSideContent" ContentPlaceHolderID="SidePanel" runat="server">
@@ -52,28 +54,85 @@
             </li>
         </ul>
         <ul class="menu-list" id="foldersContainer">
-            <li class="menu-item none-sub-list" folderid="1" unread="0"><span class="menu-item-icon inbox"></span><a class="menu-item-label outer-text text-overflow" href="#inbox" folderid="1"><span class="menu-item-label inner-text"><%= MailResource.FolderNameInbox %></span></a>
-                <div class="lattersCount counter"></div>
+            <li class="menu-item none-sub-list" folderid="1" unread="0">
+                <table>
+                    <tr>
+                        <td width="100%">
+                            <a class="menu-item-label outer-text text-overflow" href="#inbox" folderid="1">
+                                <span class="menu-item-icon inbox"></span>
+                                <span class="menu-item-label inner-text"><%= MailResource.FolderNameInbox %></span>
+                            </a>
+                        </td>
+                        <td>
+                            <div class="lattersCount counter"></div>
+                        </td>
+                    </tr>
+                </table>
             </li>
-            <li class="menu-item none-sub-list" folderid="2" unread="0"><span class="menu-item-icon sent"></span><a class="menu-item-label outer-text text-overflow" href="#sent" folderid="2"><span class="menu-item-label inner-text"><%= MailResource.FolderNameSent %></span></a>
-                <div class="lattersCount counter"></div>
+            <li class="menu-item none-sub-list" folderid="2" unread="0">
+                <table>
+                    <tr>
+                        <td width="100%">
+                            <a class="menu-item-label outer-text text-overflow" href="#sent" folderid="2">
+                                <span class="menu-item-icon sent"></span>
+                                <span class="menu-item-label inner-text"><%= MailResource.FolderNameSent %></span>
+                            </a>
+                        </td>
+                        <td>
+                            <div class="lattersCount counter"></div>
+                        </td>
+                    </tr>
+                </table>
             </li>
-            <li class="menu-item none-sub-list" folderid="3" unread="0"><span class="menu-item-icon drafts"></span><a class="menu-item-label outer-text text-overflow" href="#drafts" folderid="3"><span class="menu-item-label inner-text"><%= MailResource.FolderNameDrafts %></span></a>
-                <div class="lattersCount counter"></div>
+            <li class="menu-item none-sub-list" folderid="3" unread="0">
+                <table>
+                    <tr>
+                        <td width="100%">
+                            <a class="menu-item-label outer-text text-overflow" href="#drafts" folderid="3">
+                                <span class="menu-item-icon drafts"></span>
+                                <span class="menu-item-label inner-text"><%= MailResource.FolderNameDrafts %></span>
+                            </a>
+                        </td>
+                        <td>
+                            <div class="lattersCount counter"></div>
+                        </td>
+                    </tr>
+                </table>
             </li>
-            <li class="menu-item none-sub-list" folderid="4" unread="0"><span class="menu-item-icon trash"></span><a class="menu-item-label outer-text text-overflow" href="#trash" folderid="4"><span class="menu-item-label inner-text"><%= MailResource.FolderNameTrash %></span></a>
-                <div class="lattersCount counter">
-                    <div style="padding-top: 3px;"></div>
-                </div>
+            <li class="menu-item none-sub-list" folderid="4" unread="0">
+                <table>
+                    <tr>
+                        <td width="100%">
+                            <a class="menu-item-label outer-text text-overflow" href="#trash" folderid="4">
+                                <span class="menu-item-icon trash"></span>
+                                <span class="menu-item-label inner-text"><%= MailResource.FolderNameTrash %></span>
+                            </a>
+                        </td>
+                        <td>
+                            <div class="lattersCount counter"></div>
+                        </td>
+                    </tr>
+                </table>
             </li>
-            <li class="menu-item none-sub-list" folderid="5" unread="0"><span class="menu-item-icon spam"></span><a class="menu-item-label outer-text text-overflow" href="#spam" folderid="5"><span class="menu-item-label inner-text"><%= MailResource.FolderNameSpam %></span></a>
-                <div class="lattersCount counter">
-                    <div style="padding-top: 3px;"></div>
-                </div>
+            <li class="menu-item none-sub-list" folderid="5" unread="0">
+                <table>
+                    <tr>
+                        <td width="100%">
+                            <a class="menu-item-label outer-text text-overflow" href="#spam" folderid="5">
+                                <span class="menu-item-icon spam"></span>
+                                <span class="menu-item-label inner-text"><%= MailResource.FolderNameSpam %></span>
+                            </a>
+                        </td>
+                        <td>
+                            <div class="lattersCount counter"></div>
+                        </td>
+                    </tr>
+                </table>
             </li>
         </ul>
         <asp:PlaceHolder ID="MailSidePanelContainer" runat="server" />
         
+
         <div id="accountsPanel" class="expandable top-margin-menu hidden" <% if (Accounts.Count > 1)
                                                                              { %> style="display: block;" <% } %>>
             <div class="content" style="max-height: 250px;">
@@ -86,19 +145,32 @@
             </div>
         </div>
 
-        <ul class="menu-list top-margin-menu" id="customContactPanel" <% if (!IsCrmAvailable() && !IsPeopleAvailable())
-                                                                         { %> style="display: none;" <% } %>>
-            <li class="menu-item none-sub-list" runat="server" id="tlContactsContainer">
-                <span class="menu-item-icon group"></span>
-                <a class="menu-item-label outer-text text-overflow" id="teamlab" href="#tlcontact">
-                    <span class="menu-item-label inner-text"><%: MailScriptResource.TeamLabContactsLabel %></span>
+        <ul class="menu-list with-expander">
+            <li  class="menu-item sub-list add-block">
+            <div class="category-wrapper">
+                <span class="expander"></span>
+                <a class="menu-item-label outer-text text-overflow" id="addressBookLabel" href="javascript:void(0);">
+                     <span class="menu-item-icon group"></span><span class="menu-item-label inner-text"><%= MailResource.AddressBook %></span>
                 </a>
-            </li>
-            <li class="menu-item none-sub-list" runat="server" id="crmContactsContainer">
-                <span class="menu-item-icon company"></span>
-                <a class="menu-item-label outer-text text-overflow" id="crm" href="#crmcontact">
-                    <span class="menu-item-label inner-text"><%: MailScriptResource.CRMContactsLabel %></span>
-                </a>
+            </div>
+            <ul id="customContactPanel" class="menu-sub-list">
+                <li class="menu-sub-item" runat="server" id="customContactsContainer">
+                    <a class="menu-item-label outer-text text-overflow" id="custom" href="#customcontact">
+                        <span class="menu-item-label inner-text"><%: MailScriptResource.PersonalContactsLabel %></span>
+                    </a>
+                </li>
+
+                <li class="menu-sub-item" runat="server" id="tlContactsContainer">
+                    <a class="menu-item-label outer-text text-overflow" id="teamlab" href="#tlcontact">
+                        <span class="menu-item-label inner-text"><%: MailScriptResource.TeamLabContactsLabel %></span>
+                    </a>
+                </li>
+                <li class="menu-sub-item" runat="server" id="crmContactsContainer">
+                    <a class="menu-item-label outer-text text-overflow" id="crm" href="#crmcontact">
+                        <span class="menu-item-label inner-text"><%: MailScriptResource.CRMContactsLabel %></span>
+                    </a>
+                </li>
+            </ul>
             </li>
         </ul>
 

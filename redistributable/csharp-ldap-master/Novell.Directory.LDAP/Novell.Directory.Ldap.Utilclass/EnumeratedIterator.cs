@@ -29,63 +29,63 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
+using System.Collections;
 
 namespace Novell.Directory.Ldap.Utilclass
 {
-	/// <summary> wrappers a class of type Iterator and makes it act as an Enumerator.  This
-	/// is used when the API requires enumerations be used but we may be using
-	/// JDK1.2 collections, which return iterators instead of enumerators.  Used by
-	/// LdapSchema and LdapSchemaElement
-	/// 
-	/// </summary>
-	/// <seealso cref="Novell.Directory.Ldap.LdapSchema.AttributeSchemas">
-	/// </seealso>
-	/// <seealso cref="Novell.Directory.Ldap.LdapSchemaElement.QualifierNames">
-	/// </seealso>
-	
-	public class EnumeratedIterator : System.Collections.IEnumerator
-	{
-		private System.Object tempAuxObj;
-		public virtual bool MoveNext()
-		{
-			bool result = hasMoreElements();
-			if (result)
-			{
-				tempAuxObj = nextElement();
-			}
-			return result;
-		}
-		public virtual void  Reset()
-		{
-			tempAuxObj = null;
-		}
-		public virtual System.Object Current
-		{
-			get
-			{
-				return tempAuxObj;
-			}
-			
-		}
-		private System.Collections.IEnumerator i;
-		
-		public EnumeratedIterator(System.Collections.IEnumerator iterator)
-		{
-			i = iterator;
-			return ;
-		}
-		
-		/// <summary> Enumeration method that maps to Iterator.hasNext()</summary>
-		public bool hasMoreElements()
-		{
-			return i.MoveNext();
-		}
-		
-		/// <summary> Enumeration method that maps to Iterator.next()</summary>
-		public System.Object nextElement()
-		{
-			return i.Current;
-		}
-	}
+    /// <summary> wrappers a class of type Iterator and makes it act as an Enumerator.  This
+    /// is used when the API requires enumerations be used but we may be using
+    /// JDK1.2 collections, which return iterators instead of enumerators.  Used by
+    /// LdapSchema and LdapSchemaElement
+    /// 
+    /// </summary>
+    /// <seealso cref="Novell.Directory.Ldap.LdapSchema.AttributeSchemas">
+    /// </seealso>
+    /// <seealso cref="Novell.Directory.Ldap.LdapSchemaElement.QualifierNames">
+    /// </seealso>
+    public class EnumeratedIterator : IEnumerator
+    {
+        private object tempAuxObj;
+        public virtual bool MoveNext()
+        {
+            bool result = hasMoreElements();
+            if (result)
+            {
+                tempAuxObj = nextElement();
+            }
+            return result;
+        }
+
+        public virtual void Reset()
+        {
+            tempAuxObj = null;
+        }
+
+        public virtual object Current
+        {
+            get
+            {
+                return tempAuxObj;
+            }
+        }
+
+        private IEnumerator i;
+
+        public EnumeratedIterator(IEnumerator iterator)
+        {
+            i = iterator;
+        }
+
+        /// <summary> Enumeration method that maps to Iterator.hasNext()</summary>
+        public bool hasMoreElements()
+        {
+            return i.MoveNext();
+        }
+
+        /// <summary> Enumeration method that maps to Iterator.next()</summary>
+        public object nextElement()
+        {
+            return i.Current;
+        }
+    }
 }

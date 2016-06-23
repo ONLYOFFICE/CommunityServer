@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -30,8 +30,8 @@ using System.Configuration;
 using System.Linq;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
-using ASC.Mail.Aggregator.Common.Extension;
-using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Aggregator.Common;
+using ASC.Mail.Aggregator.DbSchema;
 
 namespace ASC.Mail.Aggregator
 {
@@ -41,10 +41,10 @@ namespace ASC.Mail.Aggregator
         {
             using (var db = new DbManager(MailBoxManager.ConnectionStringName))
             {
-                var imapFlags = db.ExecuteList(new SqlQuery(Dal.DbSchema.ImapFlags.name)
-                                                    .Select(Dal.DbSchema.ImapFlags.Columns.folder_id,
-                                                            Dal.DbSchema.ImapFlags.Columns.name,
-                                                            Dal.DbSchema.ImapFlags.Columns.skip))
+                var imapFlags = db.ExecuteList(new SqlQuery(DbSchema.ImapFlags.Name)
+                                                    .Select(DbSchema.ImapFlags.Columns.FolderId,
+                                                            DbSchema.ImapFlags.Columns.FlagName,
+                                                            DbSchema.ImapFlags.Columns.Skip))
                                    .ConvertAll(r => new
                                        {
                                            folder_id = Convert.ToInt32(r[0]),
@@ -57,17 +57,17 @@ namespace ASC.Mail.Aggregator
                 ImapFlags = new Dictionary<string, int>();
                 imapFlags.FindAll(i => !i.skip).ForEach(i => { ImapFlags[i.name] = i.folder_id; });
 
-                SpecialDomainFolders = new Dictionary<string, Dictionary<string, ImapExtensions.MailboxInfo>>();
-                db.ExecuteList(new SqlQuery(ImapSpecialMailbox.name)
-                                   .Select(ImapSpecialMailbox.Columns.server,
-                                           ImapSpecialMailbox.Columns.name,
-                                           ImapSpecialMailbox.Columns.folder_id,
-                                           ImapSpecialMailbox.Columns.skip))
+                SpecialDomainFolders = new Dictionary<string, Dictionary<string, MailBox.MailboxInfo>>();
+                db.ExecuteList(new SqlQuery(ImapSpecialMailbox.Name)
+                                   .Select(ImapSpecialMailbox.Columns.Server,
+                                           ImapSpecialMailbox.Columns.MailboxName,
+                                           ImapSpecialMailbox.Columns.FolderId,
+                                           ImapSpecialMailbox.Columns.Skip))
                   .ForEach(r =>
                       {
                           var server = ((string) r[0]).ToLower();
                           var name = ((string)r[1]).ToLower();
-                          var mb = new ImapExtensions.MailboxInfo
+                          var mb = new MailBox.MailboxInfo
                               {
                                   folder_id = Convert.ToInt32(r[2]),
                                   skip = Convert.ToBoolean(r[3])
@@ -75,11 +75,11 @@ namespace ASC.Mail.Aggregator
                           if (SpecialDomainFolders.Keys.Contains(server))
                               SpecialDomainFolders[server][name] = mb;
                           else
-                              SpecialDomainFolders[server] = new Dictionary<string, ImapExtensions.MailboxInfo> { { name, mb } };
+                              SpecialDomainFolders[server] = new Dictionary<string, MailBox.MailboxInfo> { { name, mb } };
                       });
 
-                PopUnorderedDomains = db.ExecuteList(new SqlQuery(PopUnorderedDomain.name)
-                                                         .Select(PopUnorderedDomain.Columns.server))
+                PopUnorderedDomains = db.ExecuteList(new SqlQuery(PopUnorderedDomain.Name)
+                                                         .Select(PopUnorderedDomain.Columns.Server))
                                         .ConvertAll(r => (string) r[0])
                                         .ToArray();
             }
@@ -119,7 +119,7 @@ namespace ASC.Mail.Aggregator
         public static Dictionary<string, int> ImapFlags { get; private set; }
         public static string[] SkipImapFlags { get; private set; }
         public static string[] PopUnorderedDomains { get; private set; }
-        public static Dictionary<string, Dictionary<string, ImapExtensions.MailboxInfo>> SpecialDomainFolders { get; private set; }
+        public static Dictionary<string, Dictionary<string, MailBox.MailboxInfo>> SpecialDomainFolders { get; private set; }
         public static Dictionary<string, int> DefaultFolders { get; private set; }
     }
 }

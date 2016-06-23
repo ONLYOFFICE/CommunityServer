@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -894,8 +894,7 @@ namespace ASC.Web.UserControls.Wiki
                     }
 
                     result = string.Format(@"{0}<span _wikiIgnore="""" class=""LinkTOCNr"">[{1}]</span>", result, i);
-                    result = string.Format(@"{0}<a _wikiIgnore="""" href=""{1}{2}"">{2}</a>", result, arrRef[i],
-                                           strProt, arrRef[i]);
+                    result = string.Format(@"{0}<a _wikiIgnore="""" href=""{1}{2}"">{2}</a>", result, arrRef[i], strProt);
                 }
 
                 result = string.Format(@"{0}</div>", result);

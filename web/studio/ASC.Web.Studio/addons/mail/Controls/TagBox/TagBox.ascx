@@ -51,8 +51,8 @@
                    <a class="plus plusmail" title="<%=MailResource.AddEmailAddressHint%>"></a>
                 </div>
             </div>
-            <div class="tagEditEmailList save" style="display: none;">
-                <table id="mail_EmailsContainer"></table>
+            <div class="tagEditEmailList save">
+                <table id="mail_EmailsContainer" style="display: none;"></table>
             </div>
             <div class="del">
                 <p><%=MailResource.DeleteTagAttention%></p>

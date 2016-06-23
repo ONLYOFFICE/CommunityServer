@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -128,8 +128,7 @@ window.ASC.Files.Anchor = (function () {
 
     /* Methods */
     var move = function (hash, safe) {
-        hash = ASC.Files.Common.fixHash(hash);
-
+        hash = ASC.Files.Common.getCorrectHash(hash);
         if (safe) {
             ASC.Controls.AnchorController.safemove(hash);
         } else {
@@ -194,7 +193,7 @@ window.ASC.Files.Anchor = (function () {
 
         move: move,
         navigationSet: navigationSet,
-        defaultFolderSet: defaultFolderSet
+        defaultFolderSet: defaultFolderSet,
     };
 })();
 

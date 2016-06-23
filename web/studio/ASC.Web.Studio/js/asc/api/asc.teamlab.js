@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -101,7 +101,6 @@ window.Teamlab = (function() {
         getMailMessage: 'ongetmailmessage',
         getNextMailMessageId: 'ongetnextmailmessageid',
         getPrevMailMessageId: 'ongetprevmailmessageid',
-        getMailMessageTemplate: 'ongetmailmessagetemplate',
         removeMailFolderMessages: 'onremovemailfoldermessages',
         restoreMailMessages: 'onrestoremailmessages',
         moveMailMessages: 'onmovemailmessages',
@@ -127,7 +126,12 @@ window.Teamlab = (function() {
         removeMailMessageAttachment: 'onremovemailmessageattachment',
         sendMailMessage: 'onsendmailmessage',
         saveMailMessage: 'onsavemailmessage',
-        getMailContacts: 'ongetmailcontacts',
+        searchEmails: 'ongetSearchEmails',
+        getMailContacts: 'ongetMailContacts',
+        getMailContactsByInfo: 'ongetMailContactsByInfo',
+        createMailContact: 'oncreateMailContact',
+        deleteMailContacts: 'ondeleteMailContacts',
+        updateMailContact: 'onupdateMailContact',
         getMailAlerts: 'ongetmailalerts',
         deleteMailAlert: 'ondeletemailalert',
         moveMailConversations: 'onmovemailconversations',
@@ -142,12 +146,15 @@ window.Teamlab = (function() {
         linkChainToCrm: 'onlinkchaintocrm',
         markChainAsCrmLinked: 'onmarkchainascrmlinked',
         unmarkChainAsCrmLinked: 'onunmarkchainascrmlinked',
-        isConversationLinkedWithCrm: 'oncompleteconversationcheckforlinkingwithcrm',
+        isConversationLinkedWithCrm: 'ongetcrmlinked',
         exportMessageToCrm: 'onexportmessagetocrm',
         getMailboxSignature: 'ongetmailboxsignature',
         updateMailboxSignature: 'onupdatemailboxsignature',
+        updateMailboxAutoreply: 'onupdatemailboxautoreply',
         exportAllAttachmentsToMyDocuments: 'exportallattachmentstomydocuments',
+        exportAllAttachmentsToDocuments: 'exportallattachmentstodocuments',
         exportAttachmentToMyDocuments: 'exportattachmenttomydocuments',
+        exportAttachmentToDocuments: 'exportAttachmentToDocuments',
         setEMailInFolder: 'onsetemailinfolder',
         getMailServer: 'getmailserver',
         getMailServerFullInfo: 'getmailserverfullinfo',
@@ -159,6 +166,7 @@ window.Teamlab = (function() {
         getMailboxes: 'getmailboxes',
         removeMailbox: 'removeMailbox',
         addMailBoxAlias: 'addmailboxalias',
+        updateMailbox: 'updateMailbox',
         removeMailBoxAlias: 'removemailboxalias',
         addMailGroup: 'addmailgroup',
         addMailGroupAddress: 'addmailgroupaddress',
@@ -170,13 +178,19 @@ window.Teamlab = (function() {
         getDomainDnsSettings: 'getdomaindnssettings',
         createNotificationAddress: 'createnotificationaddress',
         removeNotificationAddress: 'removenotificationaddress',
+        addCalendarBody: 'addcalendarbody',
 
         getFolderPath: 'ongetfolderpath',
 
         getTalkUnreadMessages: 'gettalkunreadmessages',
         registerUserOnPersonal: 'registeruseronpersonal',
         saveWhiteLabelSettings: 'onsavewhitelabelsettings',
-        restoreWhiteLabelSettings: 'onrestorewhitelabelsettings'
+        restoreWhiteLabelSettings: 'onrestorewhitelabelsettings',
+
+        getCalendars: 'getcalendars',
+        getCalendarEventByUid: 'getcalendareventbyuid',
+        getCalendarEventById: 'getcalendareventbyid',
+        importCalendarEventIcs: 'importcalendareventics'
     },
         customEventsHash = {},
         eventManager = new CustomEvent(customEvents);
@@ -629,6 +643,10 @@ window.Teamlab = (function() {
         return returnValue(ServiceManager.fckeEditCommentComplete(customEvents.fckeEditCommentComplete, params, data, options));
     };
 
+    var getShortenLink = function (params, link, options) {
+        return returnValue(ServiceManager.getShortenLink(customEvents.getShortenLink, params, link, options));
+    };
+
     var updatePortalName = function (params, alias, options) {
         return returnValue(ServiceManager.updatePortalName(customEvents.updatePortalName, params, alias, options));
     };
@@ -999,8 +1017,8 @@ window.Teamlab = (function() {
         return returnValue(ServiceManager.getPresignedUri(customEvents.getPresignedUri, fileId, options));
     };
 
-    var saveDocServiceUrl = function (docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, options) {
-        return returnValue(ServiceManager.saveDocServiceUrl(customEvents.saveDocServiceUrl, docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, options));
+    var saveDocServiceUrl = function (docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, docServiceUrlPortal, options) {
+        return returnValue(ServiceManager.saveDocServiceUrl(customEvents.saveDocServiceUrl, docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, docServiceUrlPortal, options));
     };
 
     /* </documents> */
@@ -1880,6 +1898,10 @@ window.Teamlab = (function() {
         return _single_sm_request('updateMailboxSignature', params, id, data, options);
     }
 
+    var updateMailboxAutoreply = function (params, id, data, options) {
+        return _single_sm_request('updateMailboxAutoreply', params, id, data, options);
+    }
+
     var getLinkedCrmEntitiesInfo = function(params, data, options) {
         return _single_sm_request('getLinkedCrmEntitiesInfo', params, data, options);
     };
@@ -1902,10 +1924,6 @@ window.Teamlab = (function() {
 
     var getPrevMailConversationId = function(params, id, filter_data, options) {
         return _single_sm_request('getPrevMailConversationId', params, id, filter_data, options);
-    };
-
-    var getMailMessageTemplate = function(params, options) {
-        return _single_sm_request('getMailMessageTemplate', params, options);
     };
 
     var removeMailFolderMessages = function(params, folder_id, options) {
@@ -2004,20 +2022,37 @@ window.Teamlab = (function() {
         return _single_sm_request('removeMailMessageAttachment', params, message_id, attachment_id, options);
     };
 
-    var sendMailMessage = function (params, id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags, body, attachments,
-                                    fileLinksShareMode, options) {
-        return _single_sm_request('sendMailMessage', params, id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags, body, attachments,
-                                    fileLinksShareMode, options);
+    var sendMailMessage = function (params, message, options) {
+        return _single_sm_request('sendMailMessage', params, message, options);
     };
 
-    var saveMailMessage = function (params, id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags, body, attachments, options) {
-        return _single_sm_request('saveMailMessage', params, id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags, body, attachments, options);
+    var saveMailMessage = function (params, message, options) {
+        return _single_sm_request('saveMailMessage', params, message, options);
     };
 
-    var getMailContacts = function(params, term, options) {
-        return _single_sm_request('getMailContacts', params, term, options);
+    var searchEmails = function (params, term, options) {
+        return _single_sm_request('searchEmails', params, term, options);
     };
 
+    var getMailContacts = function (params, filter_data, options) {
+        return _single_sm_request('getMailContacts', params, filter_data, options);
+    };
+
+    var getMailContactsByInfo = function (params, data, options) {
+        return _single_sm_request('getMailContactsByInfo', params, data, options);
+    };
+
+    var createMailContact = function (params, name, description, emails, phoneNumbers, options) {
+        return _single_sm_request('createMailContact', params, name, description, emails, phoneNumbers, options);
+    };
+
+    var deleteMailContacts = function (params, ids, options) {
+        return _single_sm_request('deleteMailContacts', params, ids, options);
+    };
+
+    var updateMailContact = function (params, id, name, description, emails, phoneNumbers, options) {
+        return _single_sm_request('updateMailContact', params, id, name, description, emails, phoneNumbers, options);
+    };
 
     var getMailAlerts = function(params, options) {
         return _single_sm_request('getMailAlerts', params, options);
@@ -2075,8 +2110,8 @@ window.Teamlab = (function() {
         return _single_sm_request('exportMessageToCrm', params, id_message, crm_contact_ids, options);
     };
 
-    var isConversationLinkedWithCrm = function(params, message_id, options) {
-        return _single_sm_request('isConversationLinkedWithCrm', params, message_id, options);
+    var isConversationLinkedWithCrm = function(params, messageId, options) {
+        return _single_sm_request('isConversationLinkedWithCrm', params, messageId, options);
     };
 
     var getMailHelpCenterHtml = function(params, options) {
@@ -2087,10 +2122,17 @@ window.Teamlab = (function() {
         return _single_sm_request('exportAllAttachmentsToMyDocuments', params, id_message, options);
     };
 
+    var exportAllAttachmentsToDocuments = function (params, id_message, id_folder, options) {
+        return _single_sm_request('exportAllAttachmentsToDocuments', params, id_message, id_folder, options);
+    };
+
     var exportAttachmentToMyDocuments = function (params, id_attachment, options) {
         return _single_sm_request('exportAttachmentToMyDocuments', params, id_attachment, options);
     };
 
+    var exportAttachmentToDocuments = function (params, id_attachment, id_folder, options) {
+        return _single_sm_request('exportAttachmentToDocuments', params, id_attachment, id_folder, options);
+    };
     var setEMailInFolder = function (params, id_account, email_in_folder, options) {
         return _single_sm_request('setEMailInFolder', params, id_account, email_in_folder, options);
     };
@@ -2122,8 +2164,8 @@ window.Teamlab = (function() {
         return _single_sm_request('removeMailDomain', params, id_domain, options);
     };
 
-    var addMailbox = function (params, mailbox_name, domain_id, user_id, options) {
-        return _single_sm_request('addMailbox', params, mailbox_name, domain_id, user_id, options);
+    var addMailbox = function (params, name, local_part, domain_id, user_id, options) {
+        return _single_sm_request('addMailbox', params, name, local_part, domain_id, user_id, options);
     };
 
     var addMyMailbox = function (params, mailbox_name, options) {
@@ -2140,6 +2182,10 @@ window.Teamlab = (function() {
 
     var addMailBoxAlias = function (params, mailbox_id, alias_name, options) {
         return _single_sm_request('addMailBoxAlias', params, mailbox_id, alias_name, options);
+    };
+
+    var updateMailbox = function (params, mailbox_id, name, options) {
+        return _single_sm_request('updateMailbox', params, mailbox_id, name, options);
     };
 
     var removeMailBoxAlias = function (params, mailbox_id, address_id, options) {
@@ -2189,6 +2235,11 @@ window.Teamlab = (function() {
     var removeNotificationAddress = function (params, address, options) {
         return _single_sm_request('removeNotificationAddress', params, address, options);
     };
+
+    var addCalendarBody = function (params, id_message, ical_body, options) {
+        return _single_sm_request('addCalendarBody', params, id_message, ical_body, options);
+    };
+
     /* </mail> */
 
     /* <settings> */
@@ -2287,6 +2338,24 @@ window.Teamlab = (function() {
     var restoreWhiteLabelSettings = function (params, options) {
         return returnValue(ServiceManager.restoreWhiteLabelSettings(customEvents.restoreWhiteLabelSettings, params, options));
     };
+
+    /* <calendar> */
+    var getCalendars = function (params, dateStart, dateEnd, options) {
+        return returnValue(ServiceManager.getCalendars(customEvents.getCalendars, params, dateStart, dateEnd, options));
+    };
+
+    var getCalendarEventByUid = function (params, eventUid, options) {
+        return returnValue(ServiceManager.getCalendarEventByUid(customEvents.getCalendarEventByUid, params, eventUid, options));
+    };
+
+    var getCalendarEventById = function (params, eventId, options) {
+        return returnValue(ServiceManager.getCalendarEventById(customEvents.getCalendarEventById, params, eventId, options));
+    };
+
+    var importCalendarEventIcs = function (params, calendarId, ics, options) {
+        return returnValue(ServiceManager.importCalendarEventIcs(customEvents.importCalendarEventIcs, params, calendarId, ics, options));
+    };
+    /* </calendar> */
 
     return {
         events: customEvents,
@@ -2411,6 +2480,7 @@ window.Teamlab = (function() {
         fckeRemoveCommentComplete: fckeRemoveCommentComplete,
         fckeCancelCommentComplete: fckeCancelCommentComplete,
         fckeEditCommentComplete: fckeEditCommentComplete,
+        getShortenLink: getShortenLink,
         updatePortalName: updatePortalName,
 
         addPrjEntityFiles: addPrjEntityFiles,
@@ -2729,7 +2799,6 @@ window.Teamlab = (function() {
         getMailConversation: getMailConversation,
         getNextMailConversationId: getNextMailConversationId,
         getPrevMailConversationId: getPrevMailConversationId,
-        getMailMessageTemplate: getMailMessageTemplate,
         removeMailFolderMessages: removeMailFolderMessages,
         restoreMailMessages: restoreMailMessages,
         moveMailMessages: moveMailMessages,
@@ -2755,7 +2824,12 @@ window.Teamlab = (function() {
         removeMailMessageAttachment: removeMailMessageAttachment,
         sendMailMessage: sendMailMessage,
         saveMailMessage: saveMailMessage,
+        searchEmails: searchEmails,
         getMailContacts: getMailContacts,
+        getMailContactsByInfo: getMailContactsByInfo,
+        createMailContact: createMailContact,
+        deleteMailContacts: deleteMailContacts,
+        updateMailContact: updateMailContact,
         getMailAlerts: getMailAlerts,
         deleteMailAlert: deleteMailAlert,
         getMailFilteredConversations: getMailFilteredConversations,
@@ -2775,8 +2849,11 @@ window.Teamlab = (function() {
         getMailHelpCenterHtml: getMailHelpCenterHtml,
         getMailboxSignature: getMailboxSignature,
         updateMailboxSignature: updateMailboxSignature,
+        updateMailboxAutoreply: updateMailboxAutoreply,
         exportAllAttachmentsToMyDocuments: exportAllAttachmentsToMyDocuments,
+        exportAllAttachmentsToDocuments: exportAllAttachmentsToDocuments,
         exportAttachmentToMyDocuments: exportAttachmentToMyDocuments,
+        exportAttachmentToDocuments: exportAttachmentToDocuments,
         setEMailInFolder: setEMailInFolder,
         getMailServer: getMailServer,
         getMailServerFullInfo: getMailServerFullInfo,
@@ -2790,6 +2867,7 @@ window.Teamlab = (function() {
         getMailboxes: getMailboxes,
         removeMailbox: removeMailbox,
         addMailBoxAlias: addMailBoxAlias,
+        updateMailbox: updateMailbox,
         removeMailBoxAlias: removeMailBoxAlias,
         addMailGroup: addMailGroup,
         addMailGroupAddress: addMailGroupAddress,
@@ -2801,7 +2879,7 @@ window.Teamlab = (function() {
         getDomainDnsSettings: getDomainDnsSettings,
         createNotificationAddress: createNotificationAddress,
         removeNotificationAddress: removeNotificationAddress,
-        
+        addCalendarBody: addCalendarBody,
 
         getWebItemSecurityInfo: getWebItemSecurityInfo,
         setWebItemSecurity: setWebItemSecurity,
@@ -2829,6 +2907,11 @@ window.Teamlab = (function() {
         registerUserOnPersonal: registerUserOnPersonal,
 
         saveWhiteLabelSettings: saveWhiteLabelSettings,
-        restoreWhiteLabelSettings: restoreWhiteLabelSettings
+        restoreWhiteLabelSettings: restoreWhiteLabelSettings,
+
+        getCalendars: getCalendars,
+        getCalendarEventByUid: getCalendarEventByUid,
+        getCalendarEventById: getCalendarEventById,
+        importCalendarEventIcs: importCalendarEventIcs,
     };
 })();

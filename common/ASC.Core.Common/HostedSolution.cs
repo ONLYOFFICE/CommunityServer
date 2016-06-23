@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -118,8 +118,8 @@ namespace ASC.Core
             if (string.IsNullOrEmpty(ri.Address)) throw new Exception("Address can not be empty");
 
             if (string.IsNullOrEmpty(ri.Email)) throw new Exception("Account email can not be empty");
-            if (string.IsNullOrEmpty(ri.FirstName)) throw new Exception("Account firstname can not be empty");
-            if (string.IsNullOrEmpty(ri.LastName)) throw new Exception("Account lastname can not be empty");
+            if (ri.FirstName == null) throw new Exception("Account firstname can not be empty");
+            if (ri.LastName == null) throw new Exception("Account lastname can not be empty");
             if (string.IsNullOrEmpty(ri.Password)) ri.Password = Crypto.GeneratePassword(6);
 
             // create tenant
@@ -161,6 +161,11 @@ namespace ASC.Core
             return tenantService.SaveTenant(tenant);
         }
 
+        public void RemoveTenant(Tenant tenant)
+        {
+            tenantService.RemoveTenant(tenant.TenantId);
+        }
+
         public string CreateAuthenticationCookie(int tenantId, string login, string password)
         {
             var passwordhash = Hasher.Base64Hash(password, HashAlg.SHA256);
@@ -184,6 +189,11 @@ namespace ASC.Core
         public TenantQuota GetTenantQuota(int tenant)
         {
             return clientTenantManager.GetTenantQuota(tenant);
+        }
+
+        public TenantQuota SaveTenantQuota(TenantQuota quota)
+        {
+            return clientTenantManager.SaveTenantQuota(quota);
         }
 
         public void SetTariff(int tenant, bool paid)

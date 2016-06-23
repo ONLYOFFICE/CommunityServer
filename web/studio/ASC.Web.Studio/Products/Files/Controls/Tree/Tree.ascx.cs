@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -55,16 +55,19 @@ namespace ASC.Web.Files.Controls
 
             if (!WithoutBaseScripts)
             {
-                Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("common.js"));
-                Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("templatemanager.js"));
-                Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("servicemanager.js"));
+                Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, 
+                    "common.js", 
+                    "templatemanager.js",
+                    "servicemanager.js");
 
                 Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/thirdparty/thirdparty.css");
             }
             Page.RegisterBodyScripts("~/products/files/controls/tree/tree.js");
 
-            Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/tree/tree.css");
-            Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "app_themes/<theme_folder>/leftmenu.less");
+            Page.RegisterStyle(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                "controls/tree/tree.css",
+                "app_themes/<theme_folder>/leftmenu.less");
+
             if (Global.IsOutsider)
                 WithoutTrash = true;
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,6 +26,7 @@
 
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.Text;
 using Newtonsoft.Json.Linq;
 
@@ -109,11 +110,17 @@ namespace ASC.FederatedLogin
             if (long.TryParse(parser.Value<string>("expires_in"), out expiresIn))
                 token.ExpiresIn = expiresIn;
 
-            DateTime timestamp;
-            token.Timestamp =
-                DateTime.TryParse(parser.Value<string>("timestamp"), out timestamp)
-                    ? timestamp
-                    : DateTime.UtcNow;
+            try
+            {
+                token.Timestamp =
+                    !string.IsNullOrEmpty(parser.Value<string>("timestamp"))
+                        ? parser.Value<DateTime>("timestamp")
+                        : DateTime.UtcNow;
+            }
+            catch (Exception)
+            {
+                token.Timestamp = DateTime.MinValue;
+            }
 
             return token;
         }
@@ -128,7 +135,7 @@ namespace ASC.FederatedLogin
             sb.AppendFormat(", \"client_id\": \"{0}\"", ClientID);
             sb.AppendFormat(", \"client_secret\": \"{0}\"", ClientSecret);
             sb.AppendFormat(", \"redirect_uri\": \"{0}\"", RedirectUri);
-            sb.AppendFormat(", \"timestamp\": \"{0}\"", Timestamp);
+            sb.AppendFormat(", \"timestamp\": \"{0}\"", Timestamp.ToString("o", new CultureInfo("en-US")));
             sb.Append("}");
             return sb.ToString();
         }

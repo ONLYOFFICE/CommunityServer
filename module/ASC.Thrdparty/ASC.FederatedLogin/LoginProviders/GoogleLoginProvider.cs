@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -47,12 +47,13 @@ namespace ASC.FederatedLogin.LoginProviders
         public const string GoogleScopeProfile = "https://www.googleapis.com/auth/userinfo.email";
 
         public const string GoogleUrlContacts = "https://www.google.com/m8/feeds/contacts/default/full/";
-        public const string GoogleUrlFile = "https://www.googleapis.com/drive/v2/files/";
-        public const string GoogleUrlFileUpload = "https://www.googleapis.com/upload/drive/v2/files";
+        public const string GoogleUrlFile = "https://www.googleapis.com/drive/v3/files/";
+        public const string GoogleUrlFileUpload = "https://www.googleapis.com/upload/drive/v3/files";
         public const string GoogleUrlProfile = "https://www.googleapis.com/plus/v1/people/";
 
         public static readonly string[] GoogleDriveExt = new[] { ".gdoc", ".gsheet", ".gslides" };
         public static string GoogleDriveMimeTypeFolder = "application/vnd.google-apps.folder";
+        public static string FilesField = "id,name,mimeType,parents,createdTime,modifiedTime,owners/displayName,lastModifyingUser/displayName,capabilities/canEdit,size";
 
 
         public static string GoogleOAuth20ClientId

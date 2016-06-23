@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -28,11 +28,9 @@ namespace ASC.Web.Core.WhiteLabel
 {
     public enum WhiteLabelLogoTypeEnum
     {
-        Light = 0,
         LightSmall = 1,
         Dark = 2,
         Favicon = 3,
-        DocsEditor = 4,
-        DocsEditorEmbedded = 5
+        DocsEditor = 4
     }
 }

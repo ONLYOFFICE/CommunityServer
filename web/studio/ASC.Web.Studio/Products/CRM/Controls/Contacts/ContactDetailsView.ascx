@@ -25,7 +25,7 @@
         <div class="bold" style="margin-bottom:5px;"><%= CRMContactResource.AssignPersonFromExisting%>:</div>
     </div>
     <div id="contactListBox">
-        <table id="contactTable" class="tableBase" cellpadding="4" cellspacing="0">
+        <table id="contactTable" class="table-list" cellpadding="4" cellspacing="0">
             <tbody>
             </tbody>
         </table>
@@ -62,7 +62,7 @@
     </div>
 </div>
 <div id="invoicesTab" class="display-none">
-    <table id="invoiceTable" class="tableBase" cellpadding="4" cellspacing="0">
+    <table id="invoiceTable" class="table-list" cellpadding="4" cellspacing="0">
         <colgroup>
             <col style="width: 1%;"/>
             <col/>
@@ -80,9 +80,7 @@
             <% if (Global.CanDownloadInvoices) { %>
             <li><a class="downloadLink dropdown-item"><%= CRMInvoiceResource.Download %></a></li>
             <% } %>
-            <% if (!MobileVer) { %>
             <li><a class="printLink dropdown-item"><%= CRMInvoiceResource.Print %></a></li>
-            <% } %>
             <% if (Global.CanDownloadInvoices) { %>
             <li><a class="sendLink dropdown-item"><%= CRMInvoiceResource.SendByEmail %></a></li>
             <% } %>
@@ -120,7 +118,7 @@
             <% } %>
         </tr>
     </table>
-    <table id="tableListProjects" class="simple-view-table">
+    <table id="tableListProjects" class="simple-view-table table-list height40">
         <tbody>
         </tbody>
     </table>
@@ -160,14 +158,11 @@
                 <%= (TargetContact is Company) ? CRMContactResource.EditProfileCompany : CRMContactResource.EditProfilePerson %>
             </a>
         </li>
-        <% if (!MobileVer) %>
-        <% { %>
         <li>
             <a class="dropdown-item" onclick="ASC.CRM.ContactFullCardView.showMergePanel();">
                 <%= CRMContactResource.MergeButtonText %>
             </a>
         </li>
-        <% } %>
     </ul>
 </div>
 
@@ -176,11 +171,7 @@
 <div id="dealSelectorContainer" class="studio-action-panel display-none">
     <ul class="dropdown-content"></ul>
 </div>
-<% } %>
 
-
-<% if (!MobileVer) %>
-<% { %>
 <div id="projectSelectorContainer" class="studio-action-panel display-none">
     <ul class="dropdown-content"></ul>
 </div>

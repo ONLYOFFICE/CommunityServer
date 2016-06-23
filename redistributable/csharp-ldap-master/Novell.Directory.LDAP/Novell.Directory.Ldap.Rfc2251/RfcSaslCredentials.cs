@@ -29,38 +29,38 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
 using Novell.Directory.Ldap.Asn1;
 
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> Represents Ldap Sasl Credentials.
-	/// 
-	/// <pre>
-	/// SaslCredentials ::= SEQUENCE {
-	/// mechanism               LdapString,
-	/// credentials             OCTET STRING OPTIONAL }
-	/// </pre>
-	/// </summary>
-	public class RfcSaslCredentials:Asn1Sequence
-	{
-		
-		//*************************************************************************
-		// Constructors for SaslCredentials
-		//*************************************************************************
-		
-		/// <summary> </summary>
-		public RfcSaslCredentials(RfcLdapString mechanism):this(mechanism, null)
-		{
-		}
-		
-		/// <summary> </summary>
-		public RfcSaslCredentials(RfcLdapString mechanism, Asn1OctetString credentials):base(2)
-		{
-			add(mechanism);
-			if (credentials != null)
-				add(credentials);
-		}
-	}
+
+    /// <summary> Represents Ldap Sasl Credentials.
+    /// 
+    /// <pre>
+    /// SaslCredentials ::= SEQUENCE {
+    /// mechanism               LdapString,
+    /// credentials             OCTET STRING OPTIONAL }
+    /// </pre>
+    /// </summary>
+    public class RfcSaslCredentials : Asn1Sequence
+    {
+        //*************************************************************************
+        // Constructors for SaslCredentials
+        //*************************************************************************
+
+        /// <summary> </summary>
+        public RfcSaslCredentials(RfcLdapString mechanism)
+            : this(mechanism, null)
+        {
+        }
+
+        /// <summary> </summary>
+        public RfcSaslCredentials(RfcLdapString mechanism, Asn1OctetString credentials)
+            : base(2)
+        {
+            add(mechanism);
+            if (credentials != null)
+                add(credentials);
+        }
+    }
 }

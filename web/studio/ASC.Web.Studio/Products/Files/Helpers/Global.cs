@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -32,6 +32,7 @@ using ASC.Files.Core;
 using ASC.Files.Core.Data;
 using ASC.Files.Core.Security;
 using ASC.Web.Core;
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
@@ -40,15 +41,12 @@ using ASC.Web.Studio.Utility;
 using log4net;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Unity.Configuration;
-using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
+using System.Web;
 using System.Web.Configuration;
 using Constants = ASC.Core.Configuration.Constants;
 using File = ASC.Files.Core.File;
@@ -306,47 +304,59 @@ namespace ASC.Web.Files.Classes
             {
                 var id = my ? folderDao.GetFolderIDUser(false) : folderDao.GetFolderIDCommon(false);
 
-                if (Equals(id, 0) && (!CoreContext.Configuration.Standalone || WarmUp.Instance.CheckCompleted())) //TODO: think about 'null'
+                if (Equals(id, 0)) //TODO: think about 'null'
+                {
+                    var isWarmup = HttpContext.Current != null && HttpContext.Current.Request.QueryString["warmup"] == "true" && !WarmUp.Instance.CheckCompleted();
+
+                    if ((!CoreContext.Configuration.Standalone || !isWarmup))
                 {
                     id = my ? folderDao.GetFolderIDUser(true) : folderDao.GetFolderIDCommon(true);
 
                     //Copy start document
-                    try
+                    if (AdditionalWhiteLabelSettings.Instance.StartDocsEnabled)
                     {
-                        var path = string.Empty;
-                        IDataStore storeTemplate = null;
-                        if (my)
+                        try
                         {
-                            var partner = CoreContext.PaymentManager.GetApprovedPartner();
-                            if (partner != null)
+                            var path = string.Empty;
+                            IDataStore storeTemplate = null;
+                            if (my)
                             {
-                                path = FileConstant.StoragePartnerDocuments + "/" + partner.Id + "/";
-                                storeTemplate = StorageFactory.GetStorage(string.Empty, FileConstant.StoragePartnerDocuments);
-                                if (!storeTemplate.IsDirectory(path)
-                                    || storeTemplate.ListFilesRelative("", path, "*", false).Length == 0)
+                                var partner = CoreContext.PaymentManager.GetApprovedPartner();
+                                if (partner != null)
                                 {
-                                    storeTemplate = null;
+                                    path = FileConstant.StoragePartnerDocuments + "/" + partner.Id + "/";
+                                    storeTemplate = StorageFactory.GetStorage(string.Empty,
+                                                                              FileConstant.StoragePartnerDocuments);
+                                    if (!storeTemplate.IsDirectory(path)
+                                        || storeTemplate.ListFilesRelative("", path, "*", false).Length == 0)
+                                    {
+                                        storeTemplate = null;
+                                    }
                                 }
                             }
-                        }
 
-                        if (storeTemplate == null)
+                            if (storeTemplate == null)
+                            {
+                                storeTemplate = GetStoreTemplate();
+                                var culture = my
+                                                  ? CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID)
+                                                               .GetCulture()
+                                                  : CoreContext.TenantManager.GetCurrentTenant().GetCulture();
+
+                                path = FileConstant.StartDocPath + culture + "/";
+                                if (!storeTemplate.IsDirectory(path))
+                                    path = FileConstant.StartDocPath + "default/";
+                                path += my ? "my/" : "corporate/";
+                            }
+
+                            SaveStartDocument(folderDao, fileDao, id, path, storeTemplate);
+                        }
+                        catch (Exception ex)
                         {
-                            storeTemplate = GetStoreTemplate();
-                            var culture = my ? CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).GetCulture() : CoreContext.TenantManager.GetCurrentTenant().GetCulture();
-
-                            path = FileConstant.StartDocPath + culture + "/";
-                            if (!storeTemplate.IsDirectory(path))
-                                path = FileConstant.StartDocPath + "default/";
-                            path += my ? "my/" : "corporate/";
+                            Logger.Error(ex);
                         }
-
-                        SaveStartDocument(folderDao, fileDao, id, path, storeTemplate);
                     }
-                    catch (Exception ex)
-                    {
-                        Logger.Error(ex);
-                    }
+                }
                 }
 
                 return id;
@@ -378,7 +388,7 @@ namespace ASC.Web.Files.Classes
 
         private static void SaveFile(IFileDao fileDao, object folder, string filePath, IDataStore storeTemp)
         {
-            using (var stream = storeTemp.IronReadStream("", filePath, 10))
+            using (var stream = storeTemp.GetReadStream("", filePath))
             {
                 var fileName = Path.GetFileName(filePath);
                 var file = new File
@@ -403,56 +413,5 @@ namespace ASC.Web.Files.Classes
         }
 
         #endregion
-
-        public static IEnumerable<Guid> GetProjectTeam(FileEntry fileEntry)
-        {
-            using (var folderDao = DaoFactory.GetFolderDao())
-            {
-                var path = folderDao.GetBunchObjectID(fileEntry.RootFolderId);
-                var projectID = path.Split('/').Last();
-                if (!string.IsNullOrEmpty(projectID))
-                {
-                    var json = GetApiResponse(CommonLinkUtility.GetFullAbsolutePath(string.Format("{0}project/{1}/team.json", SetupInfo.WebApiBaseUrl, projectID)));
-                    if (!string.IsNullOrEmpty(json))
-                    {
-                        var responseApi = JToken.Parse(json)["response"];
-                        if (responseApi is JArray)
-                        {
-                            return responseApi.Children()
-                                .Where(x => x["canReadFiles"].Value<bool>())
-                                .Select(x => new Guid(x["id"].Value<String>()))
-                                .Where(id => id != SecurityContext.CurrentAccount.ID);
-                        }
-                    }
-                }
-                return new List<Guid>();
-            }
-        }
-
-        private static string GetApiResponse(string apiUrl)
-        {
-            try
-            {
-                using (var webClient = new WebClient())
-                {
-                    webClient.Headers.Add("Authorization", GetAuthCookie());
-                    var data = webClient.DownloadData(apiUrl);
-                    if (data != null)
-                    {
-                        return Encoding.UTF8.GetString(data);
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                Logger.ErrorFormat("User: {0} GetApiResponse({1}): {2}", SecurityContext.CurrentAccount.ID, apiUrl, e);
-            }
-            return null;
-        }
-
-        private static string GetAuthCookie()
-        {
-            return SecurityContext.AuthenticateMe(SecurityContext.CurrentAccount.ID);
-        }
     }
 }

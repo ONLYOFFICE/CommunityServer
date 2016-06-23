@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -44,9 +44,14 @@
                     pretreatment: pretreatment
                 });
                 amData = $this.data('actionMenu');
-                amData['hide'] = function() {
+                amData['hide'] = function(event) {
+                    var e = $.fixEvent(event);
+                    if (e.button == 2) {
+                        return;
+                    }
+
                     $("#" + dropdownItemId).hide();
-                    $this.find(".menu-small.active").removeClass("active");
+                    $this.find(".entity-menu.active").removeClass("active");
                     dropdown.unregHide(amData['hide']);
                 };
             } else {
@@ -63,7 +68,7 @@
                 return methods._onClick(e, $dropdownItem, amData);
             });
 
-            $this.find('.menu-small').off('click').on('click', function (e) {
+            $this.find('.entity-menu').off('click').on('click', function (e) {
                 var $thisEl = $(this);
                 if (!$thisEl.is('.active')) {
                     $thisEl.addClass('active');
@@ -87,7 +92,7 @@
             $(window).click(); // initiate global event for other dropdowns close
 
             var target = $(e.srcElement || e.target),
-                id = target.is(".menu-small") ? target.attr("data_id") : target.closest(".row").attr("data_id");
+                id = target.is(".entity-menu") ? target.attr("data_id") : target.closest(".row").attr("data_id");
 
             if (!id || target.closest(".row").hasClass('inactive')) {
                 $dropdownItem.hide();
@@ -97,26 +102,11 @@
             showActionMenu(amData.dropdownItemId, amData.items, id);
             $("menu.active").removeClass("active");
 
-            $dropdownItem.show();
-
             if (amData.pretreatment) {
                 amData.pretreatment(id, amData.dropdownItemId);
             }
 
-            if (target.is(".menu-small")) {
-                target.addClass("active");
-                $dropdownItem.css({
-                    "top": target.offset().top + target.outerHeight(),
-                    "left": target.offset().left - $dropdownItem.outerWidth() + target.outerWidth(),
-                    "right": "auto"
-                });
-            } else {
-                $dropdownItem.css({
-                    "top": e.pageY + 3,
-                    "left": e.pageX - 5,
-                    "right": "auto"
-                });
-            }
+            jq.showDropDownByContext(e, target, $dropdownItem);
 
             dropdown.regHide(amData['hide']);
             return false;
@@ -142,7 +132,7 @@
                 }
 
                 $("#" + dropdownItemId).hide();
-                $(".menu-small.active").removeClass("active");
+                $(".entity-menu.active").removeClass("active");
                 item.handler(id);
 
             });

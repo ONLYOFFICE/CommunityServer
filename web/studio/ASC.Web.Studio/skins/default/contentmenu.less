@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -71,7 +71,7 @@ li.menuActionSelectAll
     padding: 1px 5px 1px;
     text-align: center;
     white-space: nowrap;
-    .bg-vertical-gradient(@bg-button-default-disable-start, @bg-button-default-disable-end);
+    background-color: @bg-button-default-disable;
     .borderButtons(@border-button-default-disable);
     .borderRadius();
 
@@ -95,7 +95,7 @@ li.menuActionSelectAll
         float: left;
         overflow: hidden;
         padding: 0 2px;
-        text-overflow: ellipsis;
+        .textOverflowEllipsis();
     }
 
     .down_arrow {
@@ -117,7 +117,7 @@ li.menuActionSelectAll
     }
 
         &.menuActionBack span {
-            background: url("@{imagesBaseUrl}contentmenu/back_sprite.png") no-repeat 0 0 transparent;
+            background: url("@{imagesBaseUrl}back_sprite.png") no-repeat 0 0 transparent;
             text-decoration: underline;
             padding-left: 22px;
             margin-left: -4px;
@@ -128,22 +128,26 @@ li.menuActionSelectAll
         position: relative;
 
         &:after {
-            background: url('@{img-change-url}/plus_12.png') no-repeat scroll 0 0 transparent;
-            content: "";
+            content: "+";
             cursor: pointer;
             display: block;
             height: 12px;
+            line-height: 12px;
             left: 3px;
             position: absolute;
-            top: 20%;
+            top: 50%;
+            margin-top: -7px;
             width: 12px;
+            font-weight: 700;
+            font-size: 17px;
+            color: @plusOnGrayBtn;
         }
     }
 
     &.blue {
         border: none;
         color: @defaultButtonTextColor;
-        .bg-vertical-gradient(@bg-button-action-disable-start, @bg-button-action-disable-end);
+        background-color: @bg-button-action-disable;
         padding-top: 2px;
         padding-bottom: 2px;
 
@@ -268,4 +272,48 @@ body.media-width-0-1030 .contentMenu {
 }
 body.media-width-0-1024 .contentMenu {   
      max-width: 687px;
+}
+
+
+.menuSwitchViewFolder {
+    float: right;
+
+    .switchToNormal,
+    .switchToCompact {
+        background-color: transparent;
+        background-repeat: no-repeat;
+        background-image: url("@{img-change-url}switch_view.png");
+        display: inline-block;
+        height: 21px;
+        width: 24px;
+    }
+
+    .switchToNormal {
+        margin-right: -3px;
+    }
+
+    .switchToCompact {
+        background-position: -29px -26px;
+        cursor: pointer;
+
+        &:hover {
+            background-position: -29px -52px;
+        }
+    }
+
+    &.compact {
+        .switchToNormal {
+            background-position: 0 -26px;
+            cursor: pointer;
+
+            &:hover {
+                background-position: 0 -52px;
+            }
+        }
+
+        .switchToCompact {
+            background-position: -29px 0;
+            cursor: default;
+        }
+    }
 }

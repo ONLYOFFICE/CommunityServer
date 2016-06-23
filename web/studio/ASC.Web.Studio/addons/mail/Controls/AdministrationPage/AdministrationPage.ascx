@@ -14,7 +14,7 @@
 
 <div id="mailboxActionMenu" class="studio-action-panel">
     <ul class="dropdown-content">
-        <li><a class="editMailbox dropdown-item"><%= MailAdministrationResource.EditMailboxAliasesLabel %></a></li>
+        <li><a class="editMailbox dropdown-item"><%= MailAdministrationResource.EditMailboxLabel %></a></li>
         <li><a class="deleteMailbox dropdown-item"><%= MailAdministrationResource.DeleteMailboxLabel %></a></li>
     </ul>
 </div>

@@ -7,7 +7,7 @@
         <div class="footer clearFix">
                 <div class="big-button-container">
                     <a class="button blue big" id="saveSettingsBtn" href="javascript:void(0)" onclick="<%= this.SaveButtonEvent %>">
-                        <%= Resources.Resource.SaveButton%></a>
+                        <%= Resources.Resource.ContinueButton %></a>
                 </div>
         </div>
 </div>

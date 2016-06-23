@@ -1,0 +1,286 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2016
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+
+#tableListProjects {
+    margin-bottom: 20px;
+    display: none;
+    table-layout: fixed;
+
+
+    tr {
+        .openList {
+            background-color: #F2F2F2;
+        }
+
+        th {
+            font-weight: normal;
+            padding-bottom: 8px;
+        }
+
+        .action {
+            width: 40px;
+        }
+
+        .nameProject {
+            padding-left: 10px;
+        }
+
+        &.noActiveProj {
+            color: #83888D;
+
+            .nameProject a,
+            .responsible .userLink,
+            .responsible .userLink.my,
+            .responsible .participants,
+            .milestoneCount a,
+            .taskCount a {
+                color: #83888D;
+            }
+
+            .responsible span {
+                border-bottom-color: #83888D;
+            }
+        }
+
+        .nameProject {
+            span.private {
+                background: url("../images/small-icons.png") -1px -36px no-repeat;
+                margin-right: 3px;
+                display: block;
+                float: left;
+                width: 16px;
+                height: 16px;
+            }
+
+            span.description {
+                display: none;
+            }
+
+            a {
+                font-weight: bold;
+                font-size: 12px;
+                color: #333333;
+                display: block;
+                float: left;
+                width: 93%;
+                overflow: hidden;
+                text-decoration: none;
+                text-overflow: ellipsis;
+
+                &:hover {
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .milestoneCount,
+        .lastActivity {
+            width: 70px;
+            text-align: center;
+        }
+
+        .taskCount {
+            width: 70px;
+            text-align: center;
+        }
+
+            .milestoneCount a,
+            .taskCount a {
+                color: #333333;
+                text-decoration: none;
+            }
+
+        .responsible {
+            width: 200px;
+        }
+
+        td.responsible {
+            .userLink.my {
+                color: #666;
+                font-weight: bold;
+            }
+
+            a.participants {
+                margin-right: 8px;
+                color: #666;
+                float: right;
+                text-decoration: none;
+            }
+        }
+
+        .trash {
+            width: 25px;
+            padding-left: 5px;
+
+            img[title] {
+                cursor: pointer;
+            }
+        }
+
+        &:hover td.responsible a.participants {
+            text-decoration: underline;
+        }
+
+        .milestoneCount a:hover,
+        &:hover .milestoneCount a,
+        .taskCount a:hover,
+        &:hover .taskCount a {
+            text-decoration: underline;
+        }
+    }
+
+        tr td.responsible .userLink,
+        &.simple-view-table tr td.responsible .userLink {
+            float: left;
+            max-width: 160px;
+            height: 16px;
+            overflow: hidden;
+            white-space: nowrap;
+            border-bottom: 1px dotted transparent;
+            background-image: none;
+            padding-left: 0;
+            cursor: pointer;
+            text-overflow: ellipsis;
+        }
+
+    &.simple-view-table tr td.responsible .userLink {
+        cursor: default;
+    }
+
+    tr:hover td.responsible .userLink,
+    tr:hover td.responsible .userLink:hover {
+        border-bottom: 1px dotted;
+    }
+
+        &.simple-view-table tr:hover td.responsible .userLink,
+        &.simple-view-table tr td.responsible .userLink:hover,
+        tr:hover td.responsible .userLink.not-action,
+        tr td.responsible .userLink.not-action:hover {
+            border-bottom: 1px dotted transparent;
+            cursor: default;
+        }
+}
+
+
+/*------status combobox-------*/
+
+#tableListProjects {
+    .statusContainer {
+        position: relative;
+
+        span[id^='statusCombobox_'] {
+            display: block;
+            width: 38px;
+            height: 22px;
+            margin: 3px 0px 3px 5px;
+            text-align: center;
+
+            span {
+                background: url('../images/projects_entity_statuses.png') no-repeat;
+                background-repeat: no-repeat;
+                display: inline-block;
+                width: 16px;
+                height: 16px;
+                margin: 3px 0 0 2px;
+                *display: inline;
+                *zoom: 1;
+            }
+
+            .open {
+                background-position: 0 -60px;
+            }
+
+            .closed {
+                background-position: 0 -80px;
+            }
+
+            .paused {
+                background-position: 0 -98px;
+            }
+
+            &[class="canEdit"] {
+                border: 1px solid #d1d1d1;
+                border-radius: 3px;
+                -moz-border-radius: 3px;
+                -webkit-border-radius: 3px;
+                cursor: pointer;
+
+                span.arrow {
+                    background-image: none;
+                    height: 7px;
+                    width: 7px;
+                    display: inline-block;
+                    margin: 0 4px 4px 1px;
+                    position: relative;
+                    *inline: inline;
+                    *zoom: 1;
+
+                    &:after {
+                        display: block;
+                        border-left: 4px solid transparent;
+                        border-right: 4px solid transparent;
+                        border-top: 4px solid #B8B8B8;
+                        content: "";
+                        height: 0;
+                        position: absolute;
+                        right: -1px;
+                        top: 50%;
+                        margin-top: -2px;
+                        width: 0;
+                        text-align: center;
+                    }
+                }
+            }
+
+            &[class="noEdit"] {
+                border: 1px solid transparent;
+                background-image: none;
+                background-color: transparent;
+
+                &:hover {
+                    background-image: none;
+                    background-color: transparent;
+                    border: 1px solid transparent;
+                }
+            }
+        }
+    }
+
+        .statusContainer span[id^='statusCombobox_'][class="canEdit"]:hover,
+        tr:hover .statusContainer span[id^='statusCombobox_'][class="canEdit"],
+        tr.openList div.statusContainer span[id^='statusCombobox_'][class="canEdit"] {
+            background-color: #eaeaea;
+            border-color: #a8a8a8;
+
+            span.arrow:after {
+                border-top-color: #999999;
+            }
+        }
+}
+
+#filterContainer {
+    display: none;
+}

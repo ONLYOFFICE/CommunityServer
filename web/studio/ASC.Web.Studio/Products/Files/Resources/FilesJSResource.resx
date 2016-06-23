@@ -336,6 +336,9 @@
   <data name="AceStatusEnum_Varies" xml:space="preserve">
     <value>Varies</value>
   </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Review</value>
+  </data>
   <data name="ErrorMassage_SecurityException" xml:space="preserve">
     <value>You don't have enough permission to perform the operation</value>
   </data>
@@ -362,9 +365,6 @@
   </data>
   <data name="TitleLockedFileBy" xml:space="preserve">
     <value>Заблокировал: {0}</value>
-  </data>
-  <data name="ErrorMassage_MobileDownload" xml:space="preserve">
-    <value>Not allowed to download on mobile device</value>
   </data>
   <data name="FolderTitleBoxNet" xml:space="preserve">
     <value>BoxNet directory</value>

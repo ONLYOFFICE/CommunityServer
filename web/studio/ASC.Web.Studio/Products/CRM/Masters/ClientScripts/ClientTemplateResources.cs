@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -39,19 +39,19 @@ namespace ASC.Web.CRM.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterClientTemplatesPath("~/products/crm/templates/CasesTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/crm/templates/CommonCustomFieldsTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/crm/templates/CommonTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/crm/templates/ContactsTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/crm/templates/DealsTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/crm/templates/SimpleContactListTemplate.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/crm/templates/TasksTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/crm/templates/ContactSelectorTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/crm/templates/ContactInfoCardTemplate.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/crm/templates/SettingsTemplates.ascx", context);
-            yield return RegisterClientTemplatesPath("~/products/crm/templates/InvoicesTemplates.ascx", context);
-
-            yield return RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ListProjectsTemplates.ascx", context);
+            return RegisterClientTemplatesPath(context,
+                "~/products/crm/templates/CasesTemplates.ascx",
+                "~/products/crm/templates/CommonCustomFieldsTemplates.ascx",
+                "~/products/crm/templates/CommonTemplates.ascx",
+                "~/products/crm/templates/ContactsTemplates.ascx",
+                "~/products/crm/templates/DealsTemplates.ascx",
+                "~/products/crm/templates/SimpleContactListTemplate.ascx",
+                "~/products/crm/templates/TasksTemplates.ascx",
+                "~/products/crm/templates/ContactSelectorTemplates.ascx",
+                "~/products/crm/templates/ContactInfoCardTemplate.ascx",
+                "~/products/crm/templates/SettingsTemplates.ascx",
+                "~/products/crm/templates/InvoicesTemplates.ascx",
+                "~/products/projects/ProjectsTemplates/ListProjectsTemplates.ascx");
         }
     }
 }

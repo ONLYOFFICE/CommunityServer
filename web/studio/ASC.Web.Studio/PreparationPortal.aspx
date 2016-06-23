@@ -10,7 +10,6 @@
         <%= string.Format("<link href='{0}' rel='icon' type='image/x-icon' />", ASC.Web.Core.WhiteLabel.TenantLogoManager.GetFavicon(true, true)) %>
         
         <link type="text/css" rel="stylesheet" href="<%= VirtualPathUtility.ToAbsolute("~/usercontrols/common/preparationportal/css/preparationportal.css") %>"/>
-        <title>ONLYOFFICE™</title>
     </head>
     <body>
     <asp:PlaceHolder runat="server" ID="PreparationPortalContent" />

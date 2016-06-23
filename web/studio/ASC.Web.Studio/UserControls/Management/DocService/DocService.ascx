@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DocService.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.DocService" %>
 <%@ Import Namespace="ASC.Web.Core.Files" %>
+<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
 <div id="docServiceBlock" class="settings-block">
@@ -33,11 +34,17 @@
             value="<%= FilesLinkUtility.DocServiceConverterUrl %>" placeholder="https://<editors-dns-name>/ConvertService.ashx" />
         <div class="gray-text"><%= string.Format(Resource.DocServiceUrlExample, "https://&lt;editors-dns-name&gt;/ConvertService.ashx") %> </div>
     </div>
+    <div class="doc-service-item">
+        <div class="header-base-small"><%= Resource.DocServiceUrlPortal %></div>
+        <input id="docServiceUrlPortal" type="text" class="doc-service-value textEdit"
+            value="<%= FilesLinkUtility.DocServicePortalUrl %>" placeholder="<%= CommonLinkUtility.ServerRootPath %>" />
+        <div class="gray-text"><%= string.Format(Resource.DocServiceUrlExample, CommonLinkUtility.ServerRootPath) %> </div>
+    </div>
 
     <div class="middle-button-container">
         <span id="docServiceButtonSave" class="button blue"><%= Resource.SaveButton %></span>
     </div>
 </div>
 <div class="settings-help-block">
-    <p><%=String.Format(Resource.DocServiceUrlHelp.HtmlEncode(), "<br />","<b>","</b>")%></p>
+    <p><%= String.Format(Resource.DocServiceUrlHelp.HtmlEncode(), "<br />", "<b>", "</b>") %></p>
 </div>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -48,6 +48,28 @@
     -moz-border-radius: @value;
     -webkit-border-radius: @value;
 }
+.borderRadiusTop (@value: 3px) {
+    border-top-left-radius: @value;
+    border-top-right-radius: @value;
+    -moz-border-radius-topleft: @value;
+    -moz-border-radius-topright: @value;
+    -webkit-border-top-left-radius: @value;
+    -webkit-border-top-right-radius: @value;
+    -khtml-border-top-left-radius: @value;
+    -khtml-border-top-right-radius: @value;
+}
+.borderRadiusBottom (@value: 3px) {
+    border-bottom-left-radius: @value;
+    border-bottom-right-radius: @value;
+    -moz-border-radius-bottomleft: @value;
+    -moz-border-radius-bottomright: @value;
+    -webkit-border-bottom-left-radius: @value;
+    -webkit-border-bottom-right-radius: @value;
+    -khtml-border-bottom-left-radius: @value;
+    -khtml-border-bottom-right-radius: @value;
+}
+
+
 .borderButtons (@colorValue: #000) {
     border-width: 1px;
     border-style: solid;
@@ -59,6 +81,12 @@
     -webkit-box-shadow:0 2px @radius rgba(0, 0, 0, 0.3);
 }
 
+.shadowFullCustomizable (@byX: 0, @byY: 2px, @radius: 4px, @color: rgba(0, 0, 0, 0.5)) {
+    box-shadow: @byX @byY @radius @color;
+    -moz-box-shadow: @byX @byY @radius @color;
+    -webkit-box-shadow: @byX @byY @radius @color;
+}
+
 .boxShadow (@blurRadius: 4px) {
     background: #FFF;
     border: 1px solid #D1D1D1;
@@ -67,13 +95,13 @@
 
 // Text overflow
 // Requires inline-block or block for proper styling
-
-.text-overflow() {
+.textOverflowEllipsis () {
+    text-overflow: ellipsis; -o-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis;
+}
+.text-overflow () {
    overflow: hidden;
-   -ms-text-overflow: ellipsis;
-   -o-text-overflow: ellipsis;
-   text-overflow: ellipsis;
    white-space: nowrap;
+   .textOverflowEllipsis();
 }
 
 .linkStyle (@colorLink: #333){
@@ -88,14 +116,12 @@
     font-size: @sizeText;
 }
 
-.textDotted(){
+.textDotted (){
     border-bottom:1px dotted;
     text-decoration:none;
 }
 
-.textOverflowEllipsis () {
-    text-overflow: ellipsis; -o-text-overflow: ellipsis; -moz-text-overflow: ellipsis; -webkit-text-overflow: ellipsis;
-}
+
 .textButtonsStyle (@colorValue: #FFF) {
     color: @colorValue;
     font-weight: normal;
@@ -207,4 +233,17 @@
     -webkit-animation:spin @time linear infinite;
     -moz-animation:spin @time linear infinite;
     animation:spin @time linear infinite;
+}
+
+.customApearance (@value: none){
+   -webkit-appearance: @value;
+   -moz-appearance:    @value;
+   appearance:         @value;
+}
+
+.rotateTransform(@deg) {
+    -webkit-transform: rotate(@deg);
+    -moz-transform: rotate(@deg);
+    -ms-transform: rotate(@deg);
+    -o-transform: rotate(@deg);
 }

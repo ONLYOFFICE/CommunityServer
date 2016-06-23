@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,6 +25,7 @@
 
 
 using AppLimit.CloudComputing.SharpBox;
+using AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -33,11 +34,13 @@ using ASC.Core.Tenants;
 using ASC.FederatedLogin.Helpers;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.Files.Core;
+using ASC.Files.Thirdparty.Box;
 using ASC.Files.Thirdparty.GoogleDrive;
 using ASC.Files.Thirdparty.SharePoint;
 using ASC.Files.Thirdparty.Sharpbox;
 using ASC.Security.Cryptography;
 using ASC.Web.Files.Classes;
+using ASC.Web.Files.Import;
 using ASC.Web.Files.Resources;
 using System;
 using System.Collections.Generic;
@@ -49,6 +52,7 @@ namespace ASC.Files.Thirdparty
     {
         private enum ProviderTypes
         {
+            Box,
             DropBox,
             BoxNet,
             WebDav,
@@ -81,9 +85,9 @@ namespace ASC.Files.Thirdparty
             return GetProvidersInfoInternal();
         }
 
-        public virtual List<IProviderInfo> GetProvidersInfo(FolderType folderType)
+        public virtual List<IProviderInfo> GetProvidersInfo(FolderType folderType, string searchText = null)
         {
-            return GetProvidersInfoInternal(folderType: folderType);
+            return GetProvidersInfoInternal(folderType: folderType, searchText: searchText);
         }
 
 
@@ -92,7 +96,7 @@ namespace ASC.Files.Thirdparty
             return new DbManager(storageKey);
         }
 
-        private List<IProviderInfo> GetProvidersInfoInternal(int linkId = -1, FolderType folderType = FolderType.DEFAULT)
+        private List<IProviderInfo> GetProvidersInfoInternal(int linkId = -1, FolderType folderType = FolderType.DEFAULT, string searchText = null)
         {
             var querySelect = new SqlQuery(TableTitle)
                 .Select("id", "provider", "customer_title", "user_name", "password", "token", "user_id", "folder_type", "create_on", "url")
@@ -107,17 +111,20 @@ namespace ASC.Files.Thirdparty
             if (folderType != FolderType.DEFAULT)
                 querySelect.Where("folder_type", (int)folderType);
 
+            if (!string.IsNullOrEmpty(searchText))
+                querySelect.Where(Exp.Like("lower(customer_title)", searchText.ToLower().Trim()));
+
             try
             {
                 using (var db = GetDb())
                 {
-                    return db.ExecuteList(querySelect).ConvertAll(ToProviderInfo);
+                    return db.ExecuteList(querySelect).ConvertAll(ToProviderInfo).Where(p => p != null).ToList();
                 }
             }
             catch (Exception e)
             {
-                Global.Logger
-                      .Error("GetProvidersInfoInternal: linkId = " + linkId + " , folderType = " + folderType + " , user = " + SecurityContext.CurrentAccount.ID, e);
+                Global.Logger.Error(string.Format("GetProvidersInfoInternal: linkId = {0} , folderType = {1} , user = {2}",
+                                                  linkId, folderType, SecurityContext.CurrentAccount.ID), e);
                 return new List<IProviderInfo>();
             }
         }
@@ -144,13 +151,13 @@ namespace ASC.Files.Thirdparty
                 .InColumnValue("tenant_id", TenantID)
                 .InColumnValue("provider", prKey.ToString())
                 .InColumnValue("customer_title", Global.ReplaceInvalidCharsAndTruncate(customerTitle))
-                .InColumnValue("user_name", authData.Login)
+                .InColumnValue("user_name", authData.Login ?? "")
                 .InColumnValue("password", EncryptPassword(authData.Password))
                 .InColumnValue("folder_type", (int)folderType)
                 .InColumnValue("create_on", TenantUtil.DateTimeToUtc(TenantUtil.DateTimeNow()))
                 .InColumnValue("user_id", SecurityContext.CurrentAccount.ID.ToString())
-                .InColumnValue("token", authData.Token)
-                .InColumnValue("url", authData.Url)
+                .InColumnValue("token", EncryptPassword(authData.Token ?? ""))
+                .InColumnValue("url", authData.Url ?? "")
                 .Identity(0, 0, true);
             using (var db = GetDb())
             {
@@ -161,6 +168,22 @@ namespace ASC.Files.Thirdparty
         public bool CheckProviderInfo(IProviderInfo providerInfo)
         {
             return providerInfo != null && providerInfo.CheckAccess();
+        }
+
+        public virtual int UpdateProviderInfo(int linkId, AuthData authData)
+        {
+            var queryUpdate = new SqlUpdate(TableTitle)
+                .Set("user_name", authData.Login ?? "")
+                .Set("password", EncryptPassword(authData.Password))
+                .Set("token", EncryptPassword(authData.Token ?? ""))
+                .Set("url", authData.Url ?? "")
+                .Where("id", linkId)
+                .Where("tenant_id", TenantID);
+
+            using (var db = GetDb())
+            {
+                return db.ExecuteNonQuery(queryUpdate) == 1 ? linkId : default(int);
+            }
         }
 
         public virtual int UpdateProviderInfo(int linkId, string customerTitle, FolderType folderType)
@@ -214,50 +237,65 @@ namespace ASC.Files.Thirdparty
 
         private static IProviderInfo ToProviderInfo(int id, string providerKey, string customerTitle, AuthData authData, string owner, FolderType type, DateTime createOn)
         {
-            return ToProviderInfo(new object[] { id, providerKey, customerTitle, authData.Login, EncryptPassword(authData.Password), authData.Token, owner, (int)type, createOn, authData.Url });
+            return ToProviderInfo(new object[] { id, providerKey, customerTitle, authData.Login, EncryptPassword(authData.Password), EncryptPassword(authData.Token), owner, (int)type, createOn, authData.Url });
         }
 
         private static IProviderInfo ToProviderInfo(object[] input)
         {
-            var key = (ProviderTypes)Enum.Parse(typeof(ProviderTypes), (string)input[1], true);
+            ProviderTypes key;
+            if (!Enum.TryParse((string) input[1], true, out key)) return null;
 
-            if (string.IsNullOrEmpty((string)input[2]))
+            var id = Convert.ToInt32(input[0]);
+            var providerTitle = (string) input[2] ?? string.Empty;
+            var token = DecryptToken(input[5] as string);
+            var owner = input[6] == null ? Guid.Empty : new Guid((input[6] as string) ?? "");
+            var folderType = (FolderType) Convert.ToInt32(input[7]);
+            var createOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(input[8]));
+
+            if (key == ProviderTypes.Box)
             {
-                throw new ArgumentException("Unrecognize customerTitle");
+                return new BoxProviderInfo(
+                    id,
+                    key.ToString(),
+                    providerTitle,
+                    token,
+                    owner,
+                    folderType,
+                    createOn);
             }
 
             if (key == ProviderTypes.SharePoint)
             {
                 return new SharePointProviderInfo(
-                    Convert.ToInt32(input[0]),
-                    input[1] as string,
-                    input[2] as string,
-                    new AuthData(input[9] as string, input[3] as string, DecryptPassword(input[4] as string), input[5] as string),
-                    input[6] == null ? Guid.Empty : new Guid((input[6] as string) ?? ""),
-                    (FolderType)Convert.ToInt32(input[7]),
-                    TenantUtil.DateTimeFromUtc(Convert.ToDateTime(input[8])));
+                    id,
+                    key.ToString(),
+                    providerTitle,
+                    new AuthData(input[9] as string, input[3] as string, DecryptPassword(input[4] as string), token),
+                    owner,
+                    folderType,
+                    createOn);
             }
 
             if (key == ProviderTypes.GoogleDrive)
             {
                 return new GoogleDriveProviderInfo(
-                    Convert.ToInt32(input[0]),
-                    input[1] as string,
-                    input[2] as string,
-                    DecryptPassword(input[5] as string),
-                    input[6] == null ? Guid.Empty : new Guid((input[6] as string) ?? ""),
-                    (FolderType)Convert.ToInt32(input[7]),
-                    TenantUtil.DateTimeFromUtc(Convert.ToDateTime(input[8])));
+                    id,
+                    key.ToString(),
+                    providerTitle,
+                    token,
+                    owner,
+                    folderType,
+                    createOn);
             }
 
             return new SharpBoxProviderInfo(
-                Convert.ToInt32(input[0]),
-                input[1] as string,
-                input[2] as string,
-                new AuthData(input[9] as string, input[3] as string, DecryptPassword(input[4] as string), input[5] as string),
-                input[6] == null ? Guid.Empty : new Guid((input[6] as string) ?? ""),
-                (FolderType)Convert.ToInt32(input[7]),
-                TenantUtil.DateTimeFromUtc(Convert.ToDateTime(input[8])));
+                id,
+                key.ToString(),
+                providerTitle,
+                new AuthData(input[9] as string, input[3] as string, DecryptPassword(input[4] as string), token),
+                owner,
+                folderType,
+                createOn);
         }
 
         public void Dispose()
@@ -280,9 +318,36 @@ namespace ASC.Files.Thirdparty
 
                     if (token == null) throw new UnauthorizedAccessException(string.Format(FilesCommonResource.ErrorMassage_SecurityException_Auth, provider));
 
-                    authData.Token = EncryptPassword(token.ToJson());
+                    return new AuthData(token: token.ToJson());
 
-                    break;
+                case ProviderTypes.Box:
+
+                    code = authData.Token;
+
+                    token = OAuth20TokenHelper.GetAccessToken(BoxLoginProvider.BoxOauthTokenUrl,
+                                                              BoxLoginProvider.BoxOAuth20ClientId,
+                                                              BoxLoginProvider.BoxOAuth20ClientSecret,
+                                                              BoxLoginProvider.BoxOAuth20RedirectUrl,
+                                                              code);
+
+                    if (token == null) throw new UnauthorizedAccessException(string.Format(FilesCommonResource.ErrorMassage_SecurityException_Auth, provider));
+
+                    return new AuthData(token: token.ToJson());
+
+                case ProviderTypes.DropBox:
+
+                    var dropBoxRequestToken = DropBoxRequestToken.Parse(authData.Token);
+
+                    var config = CloudStorage.GetCloudConfigurationEasy(nSupportedCloudConfigurations.DropBox);
+                    var accessToken = DropBoxStorageProviderTools.ExchangeDropBoxRequestTokenIntoAccessToken(config as DropBoxConfiguration,
+                                                                                                             ImportConfiguration.DropboxAppKey,
+                                                                                                             ImportConfiguration.DropboxAppSecret,
+                                                                                                             dropBoxRequestToken);
+
+                    var base64Token = new CloudStorage().SerializeSecurityTokenToBase64Ex(accessToken, config.GetType(), new Dictionary<string, string>());
+
+                    return new AuthData(token: base64Token);
+
                 case ProviderTypes.SkyDrive:
 
                     code = authData.Token;
@@ -295,18 +360,20 @@ namespace ASC.Files.Thirdparty
 
                     if (token == null) throw new UnauthorizedAccessException(string.Format(FilesCommonResource.ErrorMassage_SecurityException_Auth, provider));
 
-                    var accessToken = AppLimit.CloudComputing.SharpBox.Common.Net.oAuth20.OAuth20Token.FromJson(token.ToJson());
+                    accessToken = AppLimit.CloudComputing.SharpBox.Common.Net.oAuth20.OAuth20Token.FromJson(token.ToJson());
 
-                    var config = CloudStorage.GetCloudConfigurationEasy(nSupportedCloudConfigurations.SkyDrive);
+                    if (accessToken == null) throw new UnauthorizedAccessException(string.Format(FilesCommonResource.ErrorMassage_SecurityException_Auth, provider));
+
+                    config = CloudStorage.GetCloudConfigurationEasy(nSupportedCloudConfigurations.SkyDrive);
                     var storage = new CloudStorage();
-                    var base64AccessToken = storage.SerializeSecurityTokenToBase64Ex(accessToken, config.GetType(), new Dictionary<string, string>());
+                    base64Token = storage.SerializeSecurityTokenToBase64Ex(accessToken, config.GetType(), new Dictionary<string, string>());
 
-                    authData.Token = base64AccessToken;
+                    return new AuthData(token: base64Token);
 
-                    break;
                 case ProviderTypes.SharePoint:
                 case ProviderTypes.WebDav:
                     break;
+
                 default:
                     authData.Url = null;
                     break;
@@ -323,6 +390,19 @@ namespace ASC.Files.Thirdparty
         private static string DecryptPassword(string password)
         {
             return string.IsNullOrEmpty(password) ? string.Empty : InstanceCrypto.Decrypt(password);
+        }
+
+        private static string DecryptToken(string token)
+        {
+            try
+            {
+                return DecryptPassword(token);
+            }
+            catch
+            {
+                //old token in base64 without encrypt
+                return token ?? "";
+            }
         }
     }
 }

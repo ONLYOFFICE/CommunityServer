@@ -201,4 +201,22 @@
   <data name="restoreOneMessageTo" xml:space="preserve">
     <value>The message has been restored to the %folder%.</value>
   </data>
+  <data name="AddContactSuccess" xml:space="preserve">
+    <value>New contact was added successfully.</value>
+  </data>
+  <data name="DeleteOneContact" xml:space="preserve">
+    <value>The contact has been deleted.</value>
+  </data>
+  <data name="DeleteManyContacts" xml:space="preserve">
+    <value>%count% contacts have been deleted.</value>
+  </data>
+  <data name="EditContactSuccess" xml:space="preserve">
+    <value>The contact was successfully changed.</value>
+  </data>
+  <data name="updateMailboxSuccess" xml:space="preserve">
+    <value>Mailbox "{0}" was updated successfully.</value>
+  </data>
+  <data name="updateMailGroupSuccess" xml:space="preserve">
+    <value>Mailgroup "{0}" was updated successfully.</value>
+  </data>
 </root>

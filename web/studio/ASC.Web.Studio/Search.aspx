@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Masters/basetemplate.master" AutoEventWireup="true" EnableViewState="false" CodeBehind="Search.aspx.cs" Inherits="ASC.Web.Studio.Search" Title="ONLYOFFICE™" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Masters/basetemplate.master" AutoEventWireup="true" EnableViewState="false" CodeBehind="Search.aspx.cs" Inherits="ASC.Web.Studio.Search" %>
 
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>

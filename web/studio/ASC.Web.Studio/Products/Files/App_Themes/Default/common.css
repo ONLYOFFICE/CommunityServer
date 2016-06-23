@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -80,8 +80,10 @@ body .may-drop-to {
     height: 54px;
     margin: 20px 0 0;
     outline: medium none;
+    overflow: hidden;
     padding: 5px 5px 5px 60px;
     text-decoration: none;
+    width: 173px;
 
     border-radius: 3px;
     -moz-border-radius: 3px;
@@ -90,16 +92,14 @@ body .may-drop-to {
 .banner-link:active {
     text-decoration: none;
 }
+.banner-link span {
+    font-size: 14px;
+    font-weight: 600;
+}
 .mobile-app-banner {
     background-image: url("images/documents_appstore.png");
     height: 45px;
     padding-top: 14px;
-    width: 173px;
-    overflow: hidden;
-}
-.mobile-app-banner span {
-    font-size: 14px;
-    font-weight: 600;
 }
 
 /*******************************************************************************

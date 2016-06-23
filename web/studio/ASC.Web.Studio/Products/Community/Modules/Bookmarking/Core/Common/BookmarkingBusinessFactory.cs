@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -69,16 +69,22 @@ namespace ASC.Bookmarking.Common
             }
         }
 
-        public static void UpdateObjectInCookies(string key, string obj)
-        {
-            HttpContext.Current.Request.Cookies.Remove(key);
-            HttpContext.Current.Request.Cookies.Add(new HttpCookie(key, obj));
-        }
+	    public static void UpdateDisplayMode(BookmarkDisplayMode mode)
+	    {
+	        var key = typeof (BookmarkDisplayMode).Name;
 
-        public static string GetObjectFromCookies(string key)
-        {
-            HttpCookie cookie = HttpContext.Current.Request.Cookies[key];
-            return cookie != null ? cookie.Value : null;
-        }
+	        if (HttpContext.Current != null && HttpContext.Current.Session != null)
+	            HttpContext.Current.Session.Add(key, mode);
+	    }
+
+	    public static BookmarkDisplayMode GetDisplayMode()
+	    {
+	        var key = typeof (BookmarkDisplayMode).Name;
+
+	        if (HttpContext.Current != null && HttpContext.Current.Session != null)
+	            return (BookmarkDisplayMode) HttpContext.Current.Session[key];
+
+	        return BookmarkDisplayMode.AllBookmarks;
+	    }
 	}
 }

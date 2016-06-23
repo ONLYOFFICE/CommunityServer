@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -188,7 +188,7 @@ namespace ASC.Mail.Server.Administration.ServerModel
 
         #region .Mailboxes
 
-        public override IMailbox CreateMailbox(string localpart, string password, IWebDomain domain, IMailAccount account, IMailServerFactory factory)
+        public override IMailbox CreateMailbox(string name, string localpart, string password, IWebDomain domain, IMailAccount account, IMailServerFactory factory)
         {
             if (string.IsNullOrEmpty(localpart))
                 throw new ArgumentNullException("localpart");
@@ -203,22 +203,20 @@ namespace ASC.Mail.Server.Administration.ServerModel
                 throw new ArgumentException("Address of mailbox exceed limitation of 319 characters.", "localpart");
 
             var mailboxBase = new MailboxBase(new MailAccountBase(account.Login),
-                                   new MailAddressBase(localpart, new WebDomainBase(domain)),
-                                   new List<MailAddressBase>())
-                {
-                    DateCreated = DateTime.UtcNow
-                };
+                                              new MailAddressBase(localpart, new WebDomainBase(domain)),
+                                              name,
+                                              new List<MailAddressBase>()) {Address = {DateCreated = DateTime.UtcNow}};
 
             MailboxWithAddressDto mailboxWithAddressDto;
 
             using (var dbContextWithTran = TeamlabMailboxDal.CreateMailDbContext(true))
             {
-                mailboxWithAddressDto = TeamlabMailboxDal.CreateMailbox(account.TeamlabAccount,
+                mailboxWithAddressDto = TeamlabMailboxDal.CreateMailbox(account.TeamlabAccount, mailboxBase.Name,
                                                                            mailboxBase.Address.ToString(), password,
                                                                            mailboxBase.Address.LocalPart,
                                                                            mailboxBase.Address.DateCreated,
                                                                            domain.Id, domain.Name, domain.IsVerified, dbContextWithTran.DbManager);
-                _CreateMailbox(account.Login, password, localpart, domain.Name);
+                _CreateMailbox(account.Login, password, localpart, domain.Name, name);
 
                 dbContextWithTran.CommitTransaction();
             }
@@ -226,13 +224,14 @@ namespace ASC.Mail.Server.Administration.ServerModel
             var mailboxAddress = factory.CreateMailAddress(mailboxWithAddressDto.mailbox_address.id, mailboxWithAddressDto.mailbox_address.tenant, mailboxWithAddressDto.mailbox_address.name, domain) ;
 
             var mailbox = factory.CreateMailbox(mailboxWithAddressDto.mailbox.id, mailboxWithAddressDto.mailbox.tenant,
-                mailboxAddress, account, new List<IMailAddress>(), this);
+                mailboxAddress, mailboxWithAddressDto.mailbox.name, account, new List<IMailAddress>(), this);
 
             return mailbox;
 
         }
 
-        protected abstract MailboxBase _CreateMailbox(string login, string password, string localpart, string domain, bool enableImap = true, bool enablePop = true);
+        protected abstract MailboxBase _CreateMailbox(string login, string password, string localpart, string domain, string name, 
+                                                      bool enableImap = true, bool enablePop = true);
 
         public override ICollection<IMailbox> GetMailboxes(IMailServerFactory factory)
         {
@@ -255,7 +254,8 @@ namespace ASC.Mail.Server.Administration.ServerModel
                                       let aliases = aliasesDtoList.Select(a => factory.CreateMailAddress(a.id, a.tenant, a.name, domain)).ToList()
                                       let teamlabAccount = CoreContext.Authentication.GetAccountByID(new Guid(mailboxDto.mailbox.user))
                                       let account = factory.CreateMailAccount(teamlabAccount, serverMailbox.Account.Login)
-                                      select factory.CreateMailbox(mailboxDto.mailbox.id, mailboxDto.mailbox.tenant, mailboxAddress, account, aliases.ToList(), this));
+                                      select factory.CreateMailbox(mailboxDto.mailbox.id, mailboxDto.mailbox.tenant, mailboxAddress,
+                                                                   mailboxDto.mailbox.name, account, aliases.ToList(), this));
             }
 
             return mailboxList;
@@ -303,7 +303,7 @@ namespace ASC.Mail.Server.Administration.ServerModel
                     .ToList();
 
             var mailbox = factory.CreateMailbox(mailboxDto.mailbox.id, mailboxDto.mailbox.tenant, 
-                mailboxAddress, mailboxAccount, mailboxAliases.ToList(), this);
+                                                mailboxAddress, mailboxDto.mailbox.name, mailboxAccount, mailboxAliases.ToList(), this);
 
             return mailbox;
 
@@ -311,9 +311,19 @@ namespace ASC.Mail.Server.Administration.ServerModel
 
         public abstract MailboxBase _GetMailbox(string mailboxAddress);
 
-        public override void UpdateMailbox(IMailbox mailbox)
+        public override void UpdateMailbox(IMailbox mailbox, string name, IMailServerFactory factory)
         {
-            _UpdateMailbox(new MailboxBase(mailbox));
+            var newMailbox = factory.CreateMailbox(mailbox.Id, mailbox.Tenant, mailbox.Address, name,
+                                                             mailbox.Account, mailbox.Aliases.ToList(), this);
+
+            using (var dbContextWithTran = TeamlabMailboxDal.CreateMailDbContext(true))
+            {
+                TeamlabMailboxDal.UpdateMailbox(newMailbox.Account.TeamlabAccount, newMailbox.Id, newMailbox.Name, dbContextWithTran.DbManager);
+
+                _UpdateMailbox(new MailboxBase(newMailbox));
+
+                dbContextWithTran.CommitTransaction();
+            }
         }
 
         protected abstract void _UpdateMailbox(MailboxBase mailbox);
@@ -329,7 +339,6 @@ namespace ASC.Mail.Server.Administration.ServerModel
                 _DeleteMailbox(new MailboxBase(mailbox));
                 dbContextWithTran.CommitTransaction();
             }
-
         }
 
         protected abstract void _DeleteMailbox(MailboxBase mailbox);
@@ -369,7 +378,8 @@ namespace ASC.Mail.Server.Administration.ServerModel
                         .ToList();
 
                 var mailgroupBase = new MailGroupBase(new MailAddressBase(groupName, new WebDomainBase(domain)),
-                                                       addressBaseList);
+                                                       addressBaseList) {Address = {DateCreated = DateTime.UtcNow}};
+
                 mailgroupDto = TeamlabMailGroupDal.SaveMailGroup(mailgroupBase.Address.LocalPart,
                                                                   mailgroupBase.Address.DateCreated,
                                                                   domain.Id,

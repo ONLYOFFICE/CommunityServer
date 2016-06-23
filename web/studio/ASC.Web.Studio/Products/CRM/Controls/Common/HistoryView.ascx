@@ -40,7 +40,6 @@
                 <div id ="historyViewUserSelector"></div>
             </td>
             <td width="100%" align="right">
-                <% if(!MobileVer) {%>
                 <div style="float:right;">
                     <a id="attachShowButton" class="attachLink baseLinkAction linkMedium" onclick="ASC.CRM.HistoryView.showAttachmentPanel(true)" >
                         <%= CRMCommonResource.ShowAttachPanel%>
@@ -49,21 +48,18 @@
                         <%= CRMCommonResource.HideAttachPanel%>
                     </a>
                 </div>
-                <% } %>
             </td>
         </tr>
         </table>
         <div id="selectedUsers_HistoryUserSelector_Container" class="clearFix" style="margin-top: 10px;"></div>
     </div>
 
-    <% if(!MobileVer) {%>
     <div id="attachOptions" style="display:none;margin-top: 10px;">
         <asp:PlaceHolder ID="_phfileUploader" runat="server" />
     </div>
-    <% } %>
 
     <div class="middle-button-container">
-        <a class="button blue middle disable" onclick="ASC.CRM.HistoryView.addEvent(this)">
+        <a class="button blue middle disable" onclick="ASC.CRM.HistoryView.addEvent(this); return false;">
             <%= CRMCommonResource.AddThisNote %>
         </a>
         <span class="describe-text display-none lond-data-text" style="padding-left: 24px;"></span>
@@ -77,7 +73,7 @@
         <br />
 
         <div id="eventsList">
-            <table id="eventsTable" cellpadding="10" cellspacing="0">
+            <table id="eventsTable" class="table-list" cellpadding="10" cellspacing="0">
                 <tbody>
                 </tbody>
             </table>

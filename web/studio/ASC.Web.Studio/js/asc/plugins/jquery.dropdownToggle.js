@@ -26,6 +26,8 @@
 
             var _toggle = function(switcherObj, dropdownID, addTop, addLeft, fixWinSize, position, anchorSelector, showFunction, alwaysUp, simpleToggle, beforeShowFunction, afterShowFunction, toggle) {
                 var dropdownItem = jq("#" + dropdownID),
+                    ddiOuterHeight = 0,
+                    ddiOuterWidth = 0,
                     targetPos = null,
                     elemPosLeft = 0,
                     elemPosTop = 0,
@@ -38,7 +40,6 @@
                 if (typeof beforeShowFunction === "function") {
                     beforeShowFunction(switcherObj, dropdownItem);
                 }
-
 
                 if (typeof(simpleToggle) == "undefined" || simpleToggle === false) {
                     fixWinSize = fixWinSize === true;
@@ -55,8 +56,11 @@
 
                     elemPosLeft = targetPos.left;
                     elemPosTop = targetPos.top + jq(anchorSelector || switcherObj).outerHeight();
+                    ddiOuterHeight = dropdownItem.outerHeight();
+                    ddiOuterWidth = dropdownItem.outerWidth();
+
                     if (options.rightPos) {
-                        elemPosLeft = Math.max(0, targetPos.left - dropdownItem.outerWidth() + jq(anchorSelector || switcherObj).outerWidth());
+                        elemPosLeft = Math.max(0, targetPos.left - ddiOuterWidth + jq(anchorSelector || switcherObj).outerWidth());
                     }
 
                     w = jq(window);
@@ -72,15 +76,14 @@
                     scrHeight = w.height();
 
                     if (fixWinSize && (!options.rightPos)
-                        && (targetPos.left + addLeft + dropdownItem.outerWidth()) > (leftPadding + scrWidth)) {
-                        elemPosLeft = Math.max(0, leftPadding + scrWidth - dropdownItem.outerWidth()) - addLeft;
+                        && (targetPos.left + addLeft + ddiOuterWidth) > (leftPadding + scrWidth)) {
+                        elemPosLeft = Math.max(0, leftPadding + scrWidth - ddiOuterWidth) - addLeft;
                     }
 
-                    if (fixWinSize
-                        && (elemPosTop + dropdownItem.outerHeight()) > (topPadding + scrHeight)
-                        && (targetPos.top - dropdownItem.outerHeight()) > topPadding
-                        || alwaysUp) {
-                        elemPosTop = targetPos.top - dropdownItem.outerHeight();
+                    if (alwaysUp || fixWinSize
+                        && (elemPosTop + ddiOuterHeight) > (topPadding + scrHeight)
+                        && (targetPos.top - ddiOuterHeight) > topPadding) {
+                        elemPosTop = targetPos.top - ddiOuterHeight;
                     }
 
                     dropdownItem.css(
@@ -105,10 +108,14 @@
                 if (jq(dropdownSelector).is(":visible")) {
                     var $targetElement = jq((event.target) ? event.target : event.srcElement);
                     if (!$targetElement.parents().addBack().is(switcherSelector + ", " + dropdownSelector)) {
+                        var e = jq.fixEvent(event);
                         if (typeof hideFunction === "function") {
-                            if (hideFunction(event) === false) {
+                            if (hideFunction(e) === false) {
                                 return;
                             }
+                        }
+                        if (e.button == 2) {
+                            return;
                         }
                         jq(dropdownSelector).hide();
                     }

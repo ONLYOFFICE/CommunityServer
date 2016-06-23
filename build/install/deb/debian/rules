@@ -10,8 +10,11 @@
 override_dh_installinit:
 	dh_installinit --name=monoserve
 	dh_installinit --name=monoserve2
+	dh_installinit --name=monoserveApiSystem
+	dh_installinit --name=onlyofficeAutoreply
 	dh_installinit --name=onlyofficeFeed
 	dh_installinit --name=onlyofficeJabber
+	dh_installinit --name=onlyofficeSignalR
 	dh_installinit --name=onlyofficeIndex
 	dh_installinit --name=onlyofficeNotify
 	dh_installinit --name=onlyofficeBackup

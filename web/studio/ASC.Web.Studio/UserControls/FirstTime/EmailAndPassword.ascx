@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EmailAndPassword.ascx.cs" Inherits="ASC.Web.Studio.UserControls.FirstTime.EmailAndPassword" %>
-<%@ Import Namespace="System.Globalization" %>
+
 <%@ Import Namespace="ASC.Core" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
+<%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="Resources" %>
 
 <div id="requiredStep" class="clearFix">
@@ -34,7 +34,7 @@
             </div>
             <% } %>
         </div>
-        <% if (Enterprise)
+        <% if (RequestLicense)
             { %>
         <br />
         <br />
@@ -43,9 +43,9 @@
             <div class="label">
                 <%= UserControlsCommonResource.LicenseKeyLabel %><span>*</span>
             </div>
-            <div>
-                <input type="text" id="licenseKeyText" class="textEdit" maxlength="100" />
+            <div class="clearFix">
                 <a id="licenseKey" class="button gray"><%= UserControlsCommonResource.UploadFile %></a>
+                <span id="licenseKeyText"></span>
             </div>
         </div>
         <% } %>
@@ -72,25 +72,43 @@
             </span>
             <span class="domainname">
                 <%= CoreContext.TenantManager.GetCurrentTenant().TenantDomain %>
+                <% if (ShowPortalRename)
+                   { %>
+                <span class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'ChangeAliasHelper'});"></span>
+                <% } %>
             </span>
         </div>
+        <% if (ShowPortalRename)
+           { %>
+        <div class="popup_helper" id="ChangeAliasHelper">
+            <p>
+                <%= UserControlsCommonResource.ChangeAliasHelper %>
+            </p>
+        </div>
+        <% } %>
+
         <div class="header-base"><%= Resource.WizardGenTimeLang %></div>
         <asp:PlaceHolder ID="_dateandtimeHolder" runat="server"></asp:PlaceHolder>
     </div>
 </div>
 
-<% if (Enterprise)
-    { %>
+<% if (RequestLicense && RequestLicenseAccept)
+   { %>
 <div class="license-accept">
     <input type="checkbox" id="policyAccepted">
-    <%
-        var licenseUrl = "http://onlyo.co/1HRBEvK";
-        if (CultureInfo.CurrentUICulture.TwoLetterISOLanguageName == "ru")
-        {
-            licenseUrl = "http://onlyo.co/1l7Hkx9";
-        }
-    %>
     <label for="policyAccepted">
-        By checking this box you accept the terms of the <a href="<%= licenseUrl %>" target="_blank">License Agreements</a></label>
+        <%= string.Format(UserControlsCommonResource.LicenseAgreements,
+                          "<a href=\"" + Settings.LicenseAgreementsUrl + "\" target=\"_blank\">",
+                          "</a>") %></label>
+</div>
+<% }
+   else if (CoreContext.Configuration.Standalone && String.IsNullOrEmpty(SetupInfo.ControlPanelUrl))
+   { %>
+<div class="license-accept">
+    <input type="checkbox" id="policyAcceptedOpenSource">
+    <label for="policyAcceptedOpenSource">
+        <%= string.Format(UserControlsCommonResource.LicenseAgreements,
+                          "<a href=\"https://www.gnu.org/licenses/agpl-3.0.html\" target=\"_blank\">",
+                          "</a>") %></label>
 </div>
 <% } %>

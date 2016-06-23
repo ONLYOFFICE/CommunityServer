@@ -140,17 +140,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Themes\Default\css\people.master.less" />
-    <Content Include="App_Themes\Default\imgs\icon-collaborator.png" />
     <Content Include="Help.aspx" />
-    <Content Include="Masters\CommonBodyScripts.ascx" />
-    <Content Include="Masters\DefaultBodyScripts.ascx" />
     <Content Include="Masters\PeopleBaseTemplate.Master" />
-    <Content Include="Masters\Styles.ascx" />
     <Content Include="ProfileAction.aspx" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Themes\Default\images\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\common\ASC.Common\ASC.Common.csproj">
       <Project>{76de7717-3d4b-4a5b-b740-15b8913df0cb}</Project>

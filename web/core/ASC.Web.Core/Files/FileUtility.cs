@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -104,6 +104,11 @@ namespace ASC.Web.Core.Files
             return ExtsWebEdited.Contains(GetFileExtension(fileName), StringComparer.CurrentCultureIgnoreCase);
         }
 
+        public static bool CanWebReview(string fileName)
+        {
+            return ExtsWebReviewed.Contains(GetFileExtension(fileName), StringComparer.CurrentCultureIgnoreCase);
+        }
+
         public static bool CanCoAuhtoring(string fileName)
         {
             return ExtsCoAuthoring.Contains(GetFileExtension(fileName), StringComparer.CurrentCultureIgnoreCase);
@@ -169,47 +174,43 @@ namespace ASC.Web.Core.Files
             }
         }
 
+
+        private readonly static List<string> extsImagePreviewed = (WebConfigurationManager.AppSettings["files.viewed-images"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        private readonly static List<string> extsWebPreviewed = (WebConfigurationManager.AppSettings["files.docservice.viewed-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        private readonly static List<string> extsWebEdited = (WebConfigurationManager.AppSettings["files.docservice.edited-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        private readonly static List<string> extsWebReviewed = (WebConfigurationManager.AppSettings["files.docservice.reviewed-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        private readonly static List<string> extsMustConvert = (WebConfigurationManager.AppSettings["files.docservice.convert-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+        private readonly static List<string> extsCoAuthoring = (WebConfigurationManager.AppSettings["files.docservice.coauthor-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
+
+
         public static List<string> ExtsImagePreviewed
         {
-            get { return (WebConfigurationManager.AppSettings["files.viewed-images"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList(); }
+            get { return extsImagePreviewed; }
         }
 
         public static List<string> ExtsWebPreviewed
         {
-            get
-            {
-                return
-                    string.IsNullOrEmpty(FilesLinkUtility.DocServiceApiUrl) ?
-                        new List<string>()
-                        : (WebConfigurationManager.AppSettings["files.docservice.viewed-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            }
+            get { return string.IsNullOrEmpty(FilesLinkUtility.DocServiceApiUrl) ? new List<string>() : extsWebPreviewed; }
         }
 
         public static List<string> ExtsWebEdited
         {
-            get
-            {
-                return
-                    string.IsNullOrEmpty(FilesLinkUtility.DocServiceApiUrl) ?
-                        new List<string>()
-                        : (WebConfigurationManager.AppSettings["files.docservice.edited-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            }
+            get { return string.IsNullOrEmpty(FilesLinkUtility.DocServiceApiUrl) ? new List<string>() : extsWebEdited; }
+        }
+
+        public static List<string> ExtsWebReviewed
+        {
+            get { return string.IsNullOrEmpty(FilesLinkUtility.DocServiceApiUrl) ? new List<string>() : extsWebReviewed; }
         }
 
         public static List<string> ExtsMustConvert
         {
-            get
-            {
-                return
-                    string.IsNullOrEmpty(FilesLinkUtility.DocServiceConverterUrl)
-                        ? new List<string>()
-                        : (WebConfigurationManager.AppSettings["files.docservice.convert-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList();
-            }
+            get { return string.IsNullOrEmpty(FilesLinkUtility.DocServiceConverterUrl) ? new List<string>() : extsMustConvert; }
         }
 
         public static List<string> ExtsCoAuthoring
         {
-            get { return (WebConfigurationManager.AppSettings["files.docservice.coauthor-docs"] ?? "").Split(new char[] { '|', ',' }, StringSplitOptions.RemoveEmptyEntries).ToList(); }
+            get { return extsCoAuthoring; }
         }
 
         public static readonly List<string> ExtsArchive = new List<string>
@@ -217,7 +218,7 @@ namespace ASC.Web.Core.Files
                 ".zip", ".rar", ".ace", ".arc", ".arj",
                 ".bh", ".cab", ".enc", ".gz", ".ha",
                 ".jar", ".lha", ".lzh", ".pak", ".pk3",
-                ".tar", ".tgz", ".uu", ".uue", ".xxe",
+                ".tar", ".tgz", ".gz", ".uu", ".uue", ".xxe",
                 ".z", ".zoo"
             };
 

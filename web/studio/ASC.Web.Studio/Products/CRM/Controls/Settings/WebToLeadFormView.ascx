@@ -155,14 +155,14 @@
 <div id="userSelectorListViewContainer">
 </div>
 
-<div style="margin-top: 28px;">
+<div class="middle-button-container">
     <a class="button blue middle" onclick="javascript: ASC.CRM.SettingsPage.WebToLeadFormView.generateSampleForm();">
         <%= CRMSettingResource.GenerateForm %>
     </a>
 </div>
 <div id="resultContainer" class="panelSplitter" style="display: none;">
-    <div class="panelSplitter">
-        <div class="taskRow header-base">
+    <br/><div class="panelSplitter">
+        <div class="header-base">
             <%= CRMSettingResource.FormCode %>
         </div>
         <div class="describe-text">
@@ -172,7 +172,7 @@
     <textarea onclick="this.select()" style="width: 100%; resize: none;" rows="10"></textarea>
 </div>
 <div class="panelSplitter" id="previewHeader" style="display: none;">
-    <div class="taskRow header-base">
+    <br/><div class="header-base">
         <%= CRMSettingResource.FormPreview%>
     </div>
     <div class="describe-text">

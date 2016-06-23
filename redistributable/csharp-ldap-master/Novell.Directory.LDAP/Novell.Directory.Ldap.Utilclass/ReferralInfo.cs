@@ -35,70 +35,69 @@ using LdapUrl = Novell.Directory.Ldap.LdapUrl;
 
 namespace Novell.Directory.Ldap.Utilclass
 {
-	
-	/// <summary> This class encapsulates the combination of LdapReferral URL and
-	/// the connection opened to service this URL
-	/// </summary>
-	public class ReferralInfo
-	{
-		/// <summary>Returns the referral URL
-		/// 
-		/// </summary>
-		/// <returns> the Referral URL
-		/// </returns>
-		virtual public LdapUrl ReferralUrl
-		{
-			get
-			{
-				return referralUrl;
-			}
-			
-		}
-		/// <summary>Returns the referral Connection
-		/// 
-		/// </summary>
-		/// <returns> the Referral Connection
-		/// </returns>
-		virtual public LdapConnection ReferralConnection
-		{
-			get
-			{
-				return conn;
-			}
-			
-		}
-		/// <summary>Returns the referral list
-		/// 
-		/// </summary>
-		/// <returns> the Referral list
-		/// </returns>
-		virtual public System.String[] ReferralList
-		{
-			get
-			{
-				return referralList;
-			}
-			
-		}
-//		private DirectoryEntry conn;
-		private LdapConnection conn;
-		private LdapUrl referralUrl;
-		private System.String[] referralList;
-		
-		/// <summary> Construct the ReferralInfo class
-		/// 
-		/// </summary>
-		/// <param name="lc">The DirectoryEntry opened to process this referral
-		/// 
-		/// </param>
-		/// <param name="refUrl">The URL string associated with this connection
-		/// </param>
-		public ReferralInfo(LdapConnection lc, System.String[] refList, LdapUrl refUrl)
-		{
-			conn = lc;
-			referralUrl = refUrl;
-			referralList = refList;
-			return ;
-		}
-	}
+
+    /// <summary> This class encapsulates the combination of LdapReferral URL and
+    /// the connection opened to service this URL
+    /// </summary>
+    public class ReferralInfo
+    {
+        /// <summary>Returns the referral URL
+        /// 
+        /// </summary>
+        /// <returns> the Referral URL
+        /// </returns>
+        virtual public LdapUrl ReferralUrl
+        {
+            get
+            {
+                return referralUrl;
+            }
+        }
+
+        /// <summary>Returns the referral Connection
+        /// 
+        /// </summary>
+        /// <returns> the Referral Connection
+        /// </returns>
+        virtual public LdapConnection ReferralConnection
+        {
+            get
+            {
+                return conn;
+            }
+        }
+
+        /// <summary>Returns the referral list
+        /// 
+        /// </summary>
+        /// <returns> the Referral list
+        /// </returns>
+        virtual public string[] ReferralList
+        {
+            get
+            {
+                return referralList;
+            }
+        }
+
+        //		private DirectoryEntry conn;
+        private LdapConnection conn;
+        private LdapUrl referralUrl;
+        private string[] referralList;
+
+        /// <summary> Construct the ReferralInfo class
+        /// 
+        /// </summary>
+        /// <param name="lc">The DirectoryEntry opened to process this referral
+        /// 
+        /// </param>
+        /// <param name="refUrl">The URL string associated with this connection
+        /// </param>
+        public ReferralInfo(LdapConnection lc, string[] refList, LdapUrl refUrl)
+        {
+            conn = lc;
+            referralUrl = refUrl;
+            referralList = refList;
+        }
+    }
 }

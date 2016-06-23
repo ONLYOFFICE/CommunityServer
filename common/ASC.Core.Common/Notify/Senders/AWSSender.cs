@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -35,6 +35,7 @@ using log4net;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 
@@ -146,7 +147,12 @@ namespace ASC.Core.Notify.Senders
             }
 
             ThrottleIfNeeded();
-
+              
+            if (WorkContext.IsMono)
+            {
+                ServicePointManager.ServerCertificateValidationCallback = (s, cert, c, p) => true;
+            }
+                     
             var response = ses.SendEmail(request);
             lastSend = DateTime.UtcNow;
 
@@ -183,6 +189,11 @@ namespace ASC.Core.Notify.Senders
                     lastRefresh = DateTime.UtcNow.AddMinutes(1);
                     try
                     {
+                        if (WorkContext.IsMono)
+                        {
+                            ServicePointManager.ServerCertificateValidationCallback = (s, cert, c, p) => true;
+                        }
+
                         var r = new GetSendQuotaRequest();
                         quota = ses.GetSendQuota(r);
                         sendWindow = TimeSpan.FromSeconds(1.0 / quota.MaxSendRate);

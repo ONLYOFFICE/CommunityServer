@@ -29,28 +29,27 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
 
 namespace Novell.Directory.Ldap
 {
-	
-	/// <summary> 
-	/// An object that implements this interface can be notified when
-	/// unsolicited messages arrive from the server. A client registers the
-	/// object with LdapConnection.AddUnsolicitedNotificationListener. 
-	/// 
-	/// </summary>
-	public interface LdapUnsolicitedNotificationListener
-		{
-			
-			/// <summary> The method is called when an unsolicited message arrives from a
-			/// server, if the object has registered with LdapCo
-			/// LdapConnection.AddUnsolicitedNotificationListener.
-			/// 
-			/// </summary>
-			/// <param name="msg">    An unsolicited message received from the server.
-			/// 
-			/// </param>
-			void  messageReceived(LdapExtendedResponse msg);
-		}
+
+    /// <summary> 
+    /// An object that implements this interface can be notified when
+    /// unsolicited messages arrive from the server. A client registers the
+    /// object with LdapConnection.AddUnsolicitedNotificationListener. 
+    /// 
+    /// </summary>
+    public interface LdapUnsolicitedNotificationListener
+    {
+
+        /// <summary> The method is called when an unsolicited message arrives from a
+        /// server, if the object has registered with LdapCo
+        /// LdapConnection.AddUnsolicitedNotificationListener.
+        /// 
+        /// </summary>
+        /// <param name="msg">    An unsolicited message received from the server.
+        /// 
+        /// </param>
+        void messageReceived(LdapExtendedResponse msg);
+    }
 }

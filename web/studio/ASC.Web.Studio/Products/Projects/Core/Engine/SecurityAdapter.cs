@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,12 +24,14 @@
 */
 
 
-using System;
 using ASC.Core.Caching;
 using ASC.Files.Core;
 using ASC.Files.Core.Security;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ASC.Web.Projects.Classes
 {
@@ -81,10 +83,15 @@ namespace ASC.Web.Projects.Classes
 
         private bool Can(FileEntry fileEntry, Guid userId, SecurityAction action)
         {
+            if (fileEntry == null || Project == null) return false;
+
             if (!ProjectSecurity.CanReadFiles(Project, userId)) return false;
 
+            if (Project.Status != ProjectStatus.Open
+                && action != SecurityAction.Read)
+                return false;
+
             if (ProjectSecurity.IsAdministrator(userId)) return true;
-            if (fileEntry == null || Project == null) return false;
 
             var folder = fileEntry as Folder;
             if (folder != null && folder.FolderType == FolderType.DEFAULT && folder.CreateBy == userId) return true;
@@ -105,6 +112,11 @@ namespace ASC.Web.Projects.Classes
                 default:
                     return false;
             }
+        }
+
+        public IEnumerable<Guid> WhoCanRead(FileEntry fileEntry)
+        {
+            return Global.EngineFactory.ProjectEngine.GetTeam(Project.ID).Select(p => p.ID);
         }
 
         private enum SecurityAction

@@ -30,70 +30,70 @@
 //
 
 using System;
+
 namespace Novell.Directory.Ldap
 {
-	
-	/// <summary>  An implementation of LdapAuthHandler must be able to provide an
-	/// LdapAuthProvider object at the time of a referral.  The class
-	/// encapsulates information that is used by the client for authentication
-	/// when following referrals automatically.
-	/// 
-	/// </summary>
-	/// <seealso cref="LdapAuthHandler">
-	/// </seealso>
-	/// <seealso cref="LdapBindHandler">
-	/// </seealso>
-	public class LdapAuthProvider
-	{
-		/// <summary> Returns the distinguished name to be used for authentication on
-		/// automatic referral following.
-		/// 
-		/// </summary>
-		/// <returns> The distinguished name from the object.
-		/// </returns>
-		virtual public System.String DN
-		{
-			get
-			{
-				return dn;
-			}
-			
-		}
-		/// <summary> Returns the password to be used for authentication on automatic
-		/// referral following.
-		/// 
-		/// </summary>
-		/// <returns> The byte[] value (UTF-8) of the password from the object.
-		/// </returns>
-		[CLSCompliantAttribute(false)]
-		virtual public sbyte[] Password
-		{
-			get
-			{
-				return password;
-			}
-			
-		}
-		
-		private System.String dn;
-		private sbyte[] password;
-		
-		/// <summary> Constructs information that is used by the client for authentication
-		/// when following referrals automatically.
-		/// 
-		/// </summary>
-		/// <param name="dn">          The distinguished name to use when authenticating to
-		/// a server.
-		/// 
-		/// </param>
-		/// <param name="password">    The password to use when authenticating to a server.
-		/// </param>
-		[CLSCompliantAttribute(false)]
-		public LdapAuthProvider(System.String dn, sbyte[] password)
-		{
-			this.dn = dn;
-			this.password = password;
-			return ;
-		}
-	}
+
+    /// <summary>  An implementation of LdapAuthHandler must be able to provide an
+    /// LdapAuthProvider object at the time of a referral.  The class
+    /// encapsulates information that is used by the client for authentication
+    /// when following referrals automatically.
+    /// 
+    /// </summary>
+    /// <seealso cref="LdapAuthHandler">
+    /// </seealso>
+    /// <seealso cref="LdapBindHandler">
+    /// </seealso>
+    public class LdapAuthProvider
+    {
+        /// <summary> Returns the distinguished name to be used for authentication on
+        /// automatic referral following.
+        /// 
+        /// </summary>
+        /// <returns> The distinguished name from the object.
+        /// </returns>
+        virtual public string DN
+        {
+            get
+            {
+                return dn;
+            }
+        }
+
+        /// <summary> Returns the password to be used for authentication on automatic
+        /// referral following.
+        /// 
+        /// </summary>
+        /// <returns> The byte[] value (UTF-8) of the password from the object.
+        /// </returns>
+        [CLSCompliantAttribute(false)]
+        virtual public sbyte[] Password
+        {
+            get
+            {
+                return password;
+            }
+        }
+
+        private string dn;
+        private sbyte[] password;
+
+        /// <summary> Constructs information that is used by the client for authentication
+        /// when following referrals automatically.
+        /// 
+        /// </summary>
+        /// <param name="dn">          The distinguished name to use when authenticating to
+        /// a server.
+        /// 
+        /// </param>
+        /// <param name="password">    The password to use when authenticating to a server.
+        /// </param>
+        [CLSCompliantAttribute(false)]
+        public LdapAuthProvider(string dn, sbyte[] password)
+        {
+            this.dn = dn;
+            this.password = password;
+            return;
+        }
+    }
 }

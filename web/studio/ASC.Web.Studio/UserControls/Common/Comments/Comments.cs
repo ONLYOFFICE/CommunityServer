@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -162,11 +162,11 @@ namespace ASC.Web.Studio.UserControls.Common.Comments
 
         private void RegisterClientScripts()
         {
-            Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
-            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js");
-            Page.RegisterBodyScripts("~/usercontrols/common/comments/js/comments.js");
+            Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js",
+                "~/js/uploader/ajaxupload.js",
+                "~/usercontrols/common/comments/js/comments.js",
+                "~/js/third-party/highlight.pack.js");
 
-            Page.RegisterBodyScripts("~/js/third-party/highlight.pack.js");
             Page.RegisterInlineScript("hljs.initHighlightingOnLoad();");
             Page.RegisterStyle("~/app_themes/codehighlighter/vs.css");
 

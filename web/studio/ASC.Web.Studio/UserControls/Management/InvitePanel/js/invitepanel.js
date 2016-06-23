@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -51,10 +51,7 @@ ASC.InvitePanel = (function () {
             var $target = jq(this),
                 defaultLink = "";
 
-            if (clip != null) {
-                clip.destroy();
-                delete window.ZeroClipboard.clients[clip.id];
-            }
+            ASC.Clipboard.destroy(clip);
 
             if ($target.is(".button.blue")) { PopupKeyUpActionProvider.CloseDialog(); }
 
@@ -70,6 +67,9 @@ ASC.InvitePanel = (function () {
             }
 
             jq("#shareInviteUserLink").val(defaultLink);
+
+            ASC.InvitePanel.bindClipboardEvent();
+
             updateSocialLink(defaultLink);
             if ($target.is(".button.blue")) { return false; }
         });
@@ -80,54 +80,41 @@ ASC.InvitePanel = (function () {
             });
         }
 
-        if (jq("#getShortenInviteLink").length != 0 && jq("#shareInviteUserLinkCopy").length != 0) {
+        if (jq("#getShortenInviteLink").length != 0) {
             jq("#getShortenInviteLink").on("click", function () {
                 getShortenLink(jq("#shareInviteUserLink").val());
             });
         }
 
         updateSocialLink(jq("#shareInviteUserLink").val());
-    };
-
-    var bindClipboardEvent = function () {
-        if (!isInit) return;
-
-        var deviceAgent = navigator.userAgent.toLowerCase(),
-            agentID = deviceAgent.match(/(ipad)/);
-        if (jq.browser.mobile && agentID || !jq.browser.flashEnabled()) {
-            jq("#shareInviteUserLinkCopy").hide();
-        } else {
-            if (jq("#shareInviteUserLinkCopy").length != 0) {
-                if (typeof ZeroClipboard != 'undefined' && ZeroClipboard.moviePath === 'ZeroClipboard.swf') {
-                    ZeroClipboard.setMoviePath(ASC.Resources.Master.ZeroClipboardMoviePath);
-                }
-
-                clip = new window.ZeroClipboard.Client();
-
-                clip.addEventListener("mouseDown",
-                    function () {
-                        var url = jq("#shareInviteUserLink").val();
-                        clip.setText(url);
-                    });
-
-                clip.addEventListener("onComplete",
-                    function () {
-                        if (typeof (window.toastr) !== "undefined") {
-                            toastr.success(ASC.Resources.Master.Resource.LinkCopySuccess);
-                        } else {
-                            jq("#shareInviteUserLink, #shareInviteUserLinkCopy").yellowFade();
-                        }
-                    });
-
-                clip.glue("shareInviteUserLinkCopy", "shareInviteUserLinkPanel");
-            }
-        }
-
 
         jq("#shareInviteLinkViaSocPanel").on("click", "a", function () {
             window.open(jq(this).attr("href"), "new", "height=600,width=1020,fullscreen=0,resizable=0,status=0,toolbar=0,menubar=0,location=1");
             return false;
         });
+    };
+
+    var bindClipboardEvent = function () {
+        if (!isInit) return;
+
+        if (!ASC.Clipboard.enable) {
+            jq("#shareInviteUserLinkCopy").remove();
+        } else {
+
+            ASC.Clipboard.destroy(clip);
+
+            var url = jq("#shareInviteUserLink").val();
+            clip = ASC.Clipboard.create(url, "shareInviteUserLinkCopy", {
+                panelId: "shareInviteUserLinkPanel",
+                onComplete: function () {
+                    if (typeof(window.toastr) !== "undefined") {
+                        toastr.success(ASC.Resources.Master.Resource.LinkCopySuccess);
+                    } else {
+                        jq("#shareInviteUserLink, #shareInviteUserLinkCopy").yellowFade();
+                    }
+                }
+            });
+        }
     };
 
     function changeEmployeeType(obj) {
@@ -137,33 +124,37 @@ ASC.InvitePanel = (function () {
             getShortenLink(newLink);
         } else {
             jq("#shareInviteUserLink").val(newLink);
+
+            ASC.InvitePanel.bindClipboardEvent();
+
             updateSocialLink(newLink);
         }
     };
 
     function getShortenLink(link) {
-        AjaxPro.onLoading = function (b) {
-            if (b) {
-                LoadingBanner.showLoaderBtn("#inviteLinkContainer");
-            } else {
-                LoadingBanner.hideLoaderBtn("#inviteLinkContainer");
-            }
-        };
 
-        AjaxPro.InvitePanelController.GetShortenLink(link, function (response) {
-            if (response.hasOwnProperty("error") && response.error != null && response.error.hasOwnProperty("Message")) {
-                toastr.error(response.error.Message);
-                jq("#getShortenInviteLink").remove();
-            } else if (response.hasOwnProperty("value")) {
-                jq("#getShortenInviteLink").hide();
-                jq("#shareInviteUserLink").val(response.value);
-                updateSocialLink(jq("#shareInviteUserLink").val());
-            }
+        Teamlab.getShortenLink({}, link,
+             {
+                 before: function () {
+                     LoadingBanner.showLoaderBtn("#inviteLinkContainer");
+                 },
+                 after: function () {
+                     LoadingBanner.hideLoaderBtn("#inviteLinkContainer");
+                 },
+                 error: function (params, errors) {
+                     toastr.error(errors[0]);
+                     jq("#getShortenInviteLink").remove();
+                 },
+                 success: function (params, response) {
+                    jq("#getShortenInviteLink").hide();
+                    jq("#shareInviteUserLink").val(response);
 
-            
-            isShortenSelected = true;
-        });
+                    ASC.InvitePanel.bindClipboardEvent();
 
+                    updateSocialLink(jq("#shareInviteUserLink").val());
+                    isShortenSelected = true;
+                 }
+             });
     };
 
     function updateSocialLink(url) {

@@ -61,11 +61,11 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+    <Reference Include="log4net">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -82,7 +82,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuildVersion.cs" />
-    <Compile Include="LdapSettingsApi.cs" Condition=" Exists('..\..\..\module\ASC.Api\ASC.Api.Settings\LdapSettingsApi.cs') " />
+    <Compile Include="LdapSettingsApi.cs" />
     <Compile Include="SecurityWrapper.cs" />
     <Compile Include="QuotaUsage.cs" />
     <Compile Include="QuotaWrapper.cs" />
@@ -105,7 +105,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\common\ASC.ActiveDirectory\ASC.ActiveDirectory.csproj" Condition=" Exists('..\..\..\common\ASC.ActiveDirectory\ASC.ActiveDirectory.csproj') ">
+    <ProjectReference Include="..\..\..\common\ASC.ActiveDirectory\ASC.ActiveDirectory.csproj">
       <Project>{e588e818-f163-470c-802c-3a6e45b36080}</Project>
       <Name>ASC.ActiveDirectory</Name>
     </ProjectReference>

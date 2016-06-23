@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -48,13 +48,14 @@ namespace ASC.Api.MailServer
         ///    Create mailbox
         /// </summary>
         /// <param name="name"></param>
+        /// <param name="local_part"></param>
         /// <param name="domain_id"></param>
         /// <param name="user_id"></param>
         /// <returns>MailboxData associated with tenant</returns>
         /// <short>Create mailbox</short> 
         /// <category>Mailboxes</category>
         [Create(@"mailboxes/add")]
-        public MailboxData CreateMailbox(string name, int domain_id, string user_id)
+        public MailboxData CreateMailbox(string name, string local_part, int domain_id, string user_id)
         {
             var domain = MailServer.GetWebDomain(domain_id, MailServerFactory);
             var isSharedDomain = domain.Tenant == Defines.SHARED_TENANT_ID;
@@ -62,11 +63,14 @@ namespace ASC.Api.MailServer
             if (!IsAdmin && !isSharedDomain)
                 throw new SecurityException("Need admin privileges.");
 
-            if (string.IsNullOrEmpty(name))
-                throw new ArgumentException(@"Invalid mailbox name.", "name");
+            if (string.IsNullOrEmpty(local_part))
+                throw new ArgumentException(@"Invalid local part.", "local_part");
 
             if (domain_id < 0)
                 throw new ArgumentException(@"Invalid domain id.", "domain_id");
+
+            if (name.Length > 255)
+                throw new ArgumentException(@"Sender name exceed limitation of 64 characters.", "name");
 
             Guid user;
 
@@ -86,22 +90,24 @@ namespace ASC.Api.MailServer
             if(userInfo.IsVisitor())
                 throw new InvalidDataException("User is visitor.");
 
-            if (name.Length > 64)
-                throw new ArgumentException(@"Local part of mailbox localpart exceed limitation of 64 characters.", "name");
+            if (local_part.Length > 64)
+                throw new ArgumentException(@"Local part of mailbox exceed limitation of 64 characters.", "local_part");
 
-            if (!Parser.IsEmailLocalPartValid(name))
-                throw new ArgumentException("Incorrect mailbox name.");
+            if (!Parser.IsEmailLocalPartValid(local_part))
+                throw new ArgumentException("Incorrect local part of mailbox.");
 
-            var mailboxName = name.ToLowerInvariant();
+            var mailboxLocalPart = local_part.ToLowerInvariant();
 
-            var login = string.Format("{0}@{1}", mailboxName, domain.Name);
+            var login = string.Format("{0}@{1}", mailboxLocalPart, domain.Name);
 
             var password = PasswordGenerator.GenerateNewPassword(12);
 
             var account = MailServerFactory.CreateMailAccount(teamlabAccount, login);
 
-            var mailbox = MailServer.CreateMailbox(mailboxName, password, domain, account, MailServerFactory);
-            
+            var mailbox = MailServer.CreateMailbox(name, mailboxLocalPart, password, domain, account, MailServerFactory);
+
+            MailBoxManager.CachedAccounts.Clear(mailbox.Account.TeamlabAccount.ID.ToString());
+
             return mailbox.ToMailboxData();
         }
 
@@ -150,10 +156,12 @@ namespace ASC.Api.MailServer
 
             var account = MailServerFactory.CreateMailAccount(teamlabAccount, login);
 
-            var mailbox = MailServer.CreateMailbox(mailboxName, password, domain, account, MailServerFactory);
+            var mailbox = MailServer.CreateMailbox(account.TeamlabAccount.Name, mailboxName, password, domain, account, MailServerFactory);
 
             if (IsSignalRAvailable)
                 MailBoxManager.UpdateUserActivity(TenantId, UserId);
+
+            MailBoxManager.CachedAccounts.Clear(mailbox.Account.TeamlabAccount.ID.ToString());
 
             return mailbox.ToMailboxData();
         }
@@ -221,7 +229,41 @@ namespace ASC.Api.MailServer
 
             MailServer.DeleteMailbox(mailbox);
 
+            MailBoxManager.CachedAccounts.Clear(mailbox.Account.TeamlabAccount.ID.ToString());
+
             return id;
+        }
+
+        /// <summary>
+        ///    Update mailbox
+        /// </summary>
+        /// <param name="mailbox_id">id of mailbox</param>
+        /// <param name="name">sender name</param>
+        /// <returns>Updated MailboxData</returns>
+        /// <short>Update mailbox</short>
+        /// <category>Mailboxes</category>
+        [Update(@"mailboxes/update")]
+        public MailboxData UpdateMailbox(int mailbox_id, string name)
+        {
+            if (!IsAdmin)
+                throw new SecurityException("Need admin privileges.");
+
+            if (mailbox_id < 0)
+                throw new ArgumentException(@"Invalid mailbox id.", "mailbox_id");
+
+            if (name.Length > 255)
+                throw new ArgumentException(@"Sender name exceed limitation of 64 characters.", "name");
+
+            var mailbox = MailServer.GetMailbox(mailbox_id, MailServerFactory);
+
+            if (mailbox == null)
+                throw new ArgumentException("Mailbox not exists");
+
+            MailServer.UpdateMailbox(mailbox, name, MailServerFactory);
+
+            MailBoxManager.CachedAccounts.Clear(mailbox.Account.TeamlabAccount.ID.ToString());
+
+            return mailbox.ToMailboxData();
         }
 
         /// <summary>
@@ -262,6 +304,8 @@ namespace ASC.Api.MailServer
 
             var alias = mailbox.AddAlias(mailboxAliasName, mailbox.Address.Domain, MailServerFactory);
 
+            MailBoxManager.CachedAccounts.Clear(mailbox.Account.TeamlabAccount.ID.ToString());
+
             return alias.ToAddressData();
         }
 
@@ -291,6 +335,7 @@ namespace ASC.Api.MailServer
                 throw new ArgumentException("Mailbox not exists");
 
             mailbox.RemoveAlias(address_id);
+            MailBoxManager.CachedAccounts.Clear(mailbox.Account.TeamlabAccount.ID.ToString());
 
             return mailbox_id;
         }

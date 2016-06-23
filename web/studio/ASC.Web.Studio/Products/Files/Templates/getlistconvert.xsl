@@ -12,7 +12,7 @@
           <div class="cnvrt-file-block-head">
             <xsl:if test="count(blockFormats / format) > 0">
               <div class="cnvrt-format-title-content">
-                <select>
+                <select class="select-format">
                   <xsl:for-each select="blockFormats/format">
                     <option>
                       <xsl:attribute name="value">
@@ -64,7 +64,7 @@
                       </input>
                     </xsl:when>
                     <xsl:otherwise>
-                      <select>
+                      <select class="select-format">
                         <xsl:attribute name="file-id">
                           <xsl:value-of select="fileId"/>
                         </xsl:attribute>

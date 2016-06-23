@@ -29,27 +29,24 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
-
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> Represents an Ldap URL.
-	/// 
-	/// <pre>
-	/// LdapURL ::= LdapString -- limited to characters permitted in URLs
-	/// </pre>
-	/// </summary>
-	public class RfcLdapURL:RfcLdapString
-	{
-		
-		//*************************************************************************
-		// Constructor for RfcLdapURL
-		//*************************************************************************
-		
-		/// <summary> </summary>
-		public RfcLdapURL(System.String s):base(s)
-		{
-		}
-	}
+    /// <summary> Represents an Ldap URL.
+    /// 
+    /// <pre>
+    /// LdapURL ::= LdapString -- limited to characters permitted in URLs
+    /// </pre>
+    /// </summary>
+    public class RfcLdapURL : RfcLdapString
+    {
+        //*************************************************************************
+        // Constructor for RfcLdapURL
+        //*************************************************************************
+
+        /// <summary> </summary>
+        public RfcLdapURL(string s)
+            : base(s)
+        {
+        }
+    }
 }

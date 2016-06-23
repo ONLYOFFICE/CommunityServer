@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -68,16 +68,52 @@
     vertical-align: middle;
     width: 12px;
 }
+
+.jstree-icon.jstree-expander {
+    background-image: none;
+    position: relative;
+}
+
+.jstree-icon.jstree-expander:after {
+    border-bottom: 4px solid transparent;
+    border-left: 4px solid #696969;
+    border-top: 4px solid transparent;
+    content: "";
+    height: 0;
+    left: 3px;
+    margin-top: -6px;
+    position: absolute;
+    top: 50%;
+    width: 0;
+}
 .jstree-empty > .jstree-icon.jstree-expander {
     visibility: hidden;
 }
 .jstree-open > .jstree-icon.jstree-expander {
-    background-position: -20px 0;
 }
+.jstree-open > .jstree-icon.jstree-expander:after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #696969;
+    content: "";
+    height: 0;
+    left: 0px;
+    margin-top: -4px;
+    position: absolute;
+    top: 50%;
+    width: 0;
+}
+
 .jstree-closed > .jstree-icon.jstree-expander.jstree-load-node {
     background-image: url("images/loader_12.gif");
     background-position: center;
 }
+.jstree-closed > .jstree-icon.jstree-expander.jstree-load-node:after {
+    border: 0 none;
+}
+
+
+
 .jstree a {
     color: #333;
     cursor: pointer;

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -61,6 +61,7 @@ namespace ASC.Mail.Server.Administration.TestCases
         }
 
         [Test]
+        [ExpectedException("System.Exception", UserMessage = "Domain is missing")]
         public virtual void CreateAndDeleteDomain()
         {
             Assert.IsNotNull(peter_domain, "Newly created peter_domain object shouldn't be null.");
@@ -68,7 +69,7 @@ namespace ASC.Mail.Server.Administration.TestCases
             Assert.Greater(peter_domain.Id, -1, "Domain id must be");
             Assert.IsTrue(server.GetWebDomain(peter_domain.Id, TestContext.ServerFactory) != null, "Server web domains list should contains created one.");
             server.DeleteWebDomain(peter_domain, TestContext.ServerFactory);
-            Assert.IsFalse(server.GetWebDomain(peter_domain.Id, TestContext.ServerFactory) != null, "Server web domains list shouldn't contain deleted peter_domain.");
+            server.GetWebDomain(peter_domain.Id, TestContext.ServerFactory);
         }
 
         [Test]
@@ -136,7 +137,8 @@ namespace ASC.Mail.Server.Administration.TestCases
         public virtual void DeleteGroupsWithDomain()
         {
             var account = TestContext.GetMailAccount("login", _peterDomainName);
-            var mailbox = server.CreateMailbox(PETER_LOGIN, PETER_PASSWORD, peter_domain, account, TestContext.ServerFactory);
+            var mailbox = server.CreateMailbox(account.TeamlabAccount.Name, PETER_LOGIN, 
+                                               PETER_PASSWORD, peter_domain, account, TestContext.ServerFactory);
             var mailgroup = server.CreateMailGroup(GROUP_LOGIN, peter_domain, new List<int> { mailbox.Address.Id }, TestContext.ServerFactory);
             server.DeleteWebDomain(peter_domain, TestContext.ServerFactory);
             Assert.IsNull(server.GetMailGroup(mailgroup.Id, TestContext.ServerFactory));
@@ -150,8 +152,10 @@ namespace ASC.Mail.Server.Administration.TestCases
             var secondDomain = server.CreateWebDomain(secondTestDomainName, IS_VERIFIED, TestContext.ServerFactory);
 
             var account = TestContext.GetMailAccount("login", _peterDomainName);
-            var mailbox = server.CreateMailbox(PETER_LOGIN, PETER_PASSWORD, peter_domain, account, TestContext.ServerFactory);
-            var secondMailbox = server.CreateMailbox(BOB_LOGIN, PETER_PASSWORD, secondDomain, account, TestContext.ServerFactory);
+            var mailbox = server.CreateMailbox(account.TeamlabAccount.Name, PETER_LOGIN, 
+                                               PETER_PASSWORD, peter_domain, account, TestContext.ServerFactory);
+            var secondMailbox = server.CreateMailbox(account.TeamlabAccount.Name, BOB_LOGIN, 
+                                                     PETER_PASSWORD, secondDomain, account, TestContext.ServerFactory);
 
             var firstMailGroup = server.CreateMailGroup(GROUP_LOGIN, peter_domain, new List<int> { mailbox.Address.Id }, TestContext.ServerFactory);
             var secondMailGroup = server.CreateMailGroup(GROUP_LOGIN, secondDomain, new List<int> { secondMailbox.Address.Id }, TestContext.ServerFactory);

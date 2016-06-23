@@ -14,7 +14,7 @@
 <div id="chunkUploadDialog" class="progress-dialog">
 
     <div class="progress-dialog-header menu-upload-icon">
-        <a class="actions-container close"></a>
+        <a class="actions-container close">&times;</a>
         <a class="actions-container minimize"></a>
         <a class="actions-container maximize"></a>
         <span id="chunkUploadDialogHeader"></span>
@@ -48,7 +48,7 @@
             <%= FilesUCResource.ConfirmStoreOriginalUploadCbxLabelText %>
         </label>
         <% } %>
-        <div class="info-container">
+        <div class="upload-info-container">
             <% if (FileConverter.EnableAsUploaded) %>
             <% { %>
             <div class="info-content">

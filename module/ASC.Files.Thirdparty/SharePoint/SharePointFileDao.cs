@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -77,18 +77,15 @@ namespace ASC.Files.Thirdparty.SharePoint
             return fileIds.Select(fileId => ProviderInfo.ToFile(ProviderInfo.GetFileById(fileId))).ToList();
         }
 
-        public List<object> GetFiles(object parentId, bool withSubfolders)
+        public List<object> GetFiles(object parentId)
         {
             return ProviderInfo.GetFolderFiles(parentId).Select(r => ProviderInfo.ToFile(r).ID).ToList();
         }
 
-        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
         {
-            return new List<File>();
-        }
+            if (filterType == FilterType.FoldersOnly) return new List<File>();
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false)
-        {
             //Get only files
             var files = ProviderInfo.GetFolderFiles(parentId).Select(r => ProviderInfo.ToFile(r));
             //Filter
@@ -160,7 +157,7 @@ namespace ASC.Files.Thirdparty.SharePoint
 
             var fileStream = ProviderInfo.GetFileStream(fileToDownload.ServerRelativeUrl);
 
-            if (offset > 0)
+            if (fileStream != null && offset > 0)
                 fileStream.Seek(offset, SeekOrigin.Begin);
 
             return fileStream;
@@ -286,6 +283,11 @@ namespace ASC.Files.Thirdparty.SharePoint
         }
 
         #region Only in TMFileDao
+
+        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        {
+            return new List<File>();
+        }
 
         public IEnumerable<File> Search(string text, FolderType folderType)
         {

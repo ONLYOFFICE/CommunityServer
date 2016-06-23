@@ -615,6 +615,12 @@
   <data name="MessageImagesBlockedPopupHeader" xml:space="preserve">
     <value>Confirm printing without images</value>
   </data>
+  <data name="MessageImagesBlockedContinuePopupBody" xml:space="preserve">
+    <value>This message contains images that cannot be displayed at the moment. Do you want to continue?</value>
+  </data>
+   <data name="MessageImagesBlockedContinuePopupHeader" xml:space="preserve">
+    <value>Continue without images</value>
+  </data>
   <data name="MessageNotSent" xml:space="preserve">
     <value>The message has not been sent. Are you sure you want to delete it?</value>
   </data>
@@ -726,6 +732,9 @@
   <data name="SaveAttachmentToMyDocsSuccess" xml:space="preserve">
     <value>'%file_name%' is successfully saved in My Documents.</value>
   </data>
+  <data name="SaveAttachmentToDocsSuccess" xml:space="preserve">
+    <value>'%file_name%' is successfully saved in '%folder_name%'.</value>
+  </data>
   <data name="SavingMessage" xml:space="preserve">
     <value>Saving message</value>
   </data>
@@ -825,6 +834,24 @@
   <data name="ErrorOpenFolderHeader" xml:space="preserve">
     <value>The contents of the folder are not available.</value>
   </data>
+  <data name="CRMCompany" xml:space="preserve">
+    <value>Company</value>
+  </data>
+  <data name="PersonalContactsLabel" xml:space="preserve">
+    <value>Personal Contacts</value>
+  </data>
+  <data name="CreatePersonalContact" xml:space="preserve">
+    <value>Create personal contact</value>
+  </data>
+  <data name="CreateNewContactLabel" xml:space="preserve">
+    <value>Create new contact</value>
+  </data>
+  <data name="ErrorPhoneExist" xml:space="preserve">
+    <value>This phone number already exists</value>
+  </data>
+  <data name="EditContactcLabel" xml:space="preserve">
+    <value>Edit contact</value>
+  </data>
   <data name="DeactivatedAccountsNotification" xml:space="preserve">
     <value>Some of your accounts are not receiving mail.</value>
   </data>
@@ -833,5 +860,119 @@
   </data>
   <data name="GoToAccountsOnDeactivationText" xml:space="preserve">
     <value>Go to {0} to enable them.</value>
+  </data>
+  <data name="MailAutoreplyLabel" xml:space="preserve">
+    <value>Mail Autoreply</value>
+  </data>
+  <data name="EnabledAutoreplyNotification" xml:space="preserve">
+    <value>Mail autoreply is enabled</value>
+  </data>
+  <data name="GoToAccountsForChangeAutoreply" xml:space="preserve">
+    <value>You can {0} or change it in {1}</value>
+  </data>
+  <data name="AutoreplyDisable" xml:space="preserve">
+    <value>disable</value>
+  </data>
+  <data name="FilterWithCalendar" xml:space="preserve">
+    <value>With calendar</value>
+  </data>
+  <data name="SaveAttachmentToCalendarSuccess" xml:space="preserve">
+    <value>'%file_name%' is successfully saved in Calendar.</value>
+  </data>
+  <data name="CalendarAgendaLabel" xml:space="preserve">
+    <value>Agenda</value>
+  </data>
+  <data name="CalendarAgendaNoEventsAfterLabel" xml:space="preserve">
+    <value>No later events</value>
+  </data>
+  <data name="CalendarAgendaNoEventsBeforeLabel" xml:space="preserve">
+    <value>No earlier events</value>
+  </data>
+  <data name="CalendarMapLabel" xml:space="preserve">
+    <value>map</value>
+  </data>
+  <data name="CalendarMoreDetailsLabel" xml:space="preserve">
+    <value>more details</value>
+  </data>
+  <data name="MoreDetailsLabel" xml:space="preserve">
+    <value>More Details</value>
+  </data>
+  <data name="CalendarNoLocationLabel" xml:space="preserve">
+    <value>No location</value>
+  </data>
+  <data name="CalendarOrganizerLabel" xml:space="preserve">
+    <value>Organizer</value>
+  </data>
+  <data name="CalendarParticipantsLabel" xml:space="preserve">
+    <value>Participants</value>
+  </data>
+  <data name="CalendarReplyLabel" xml:space="preserve">
+    <value>Reply</value>
+  </data>
+  <data name="CalendarReplyMaybeLabel" xml:space="preserve">
+    <value>Maybe</value>
+  </data>
+  <data name="CalendarReplyNoLabel" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="CalendarReplyYesLabel" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="CalendarWhenLabel" xml:space="preserve">
+    <value>When</value>
+  </data>
+  <data name="CalendarRecurrenceLabel" xml:space="preserve">
+    <value>Recurrence</value>
+  </data>
+  <data name="CalendarWhereLabel" xml:space="preserve">
+    <value>Where</value>
+  </data>
+  <data name="CalendarWhoLabel" xml:space="preserve">
+    <value>Who</value>
+  </data>
+  <data name="ErrorCalendarIsUnreachable" xml:space="preserve">
+    <value>Calendar is unreachable</value>
+  </data>
+  <data name="ErrorUnsupportedFileFormat" xml:space="preserve">
+    <value>Unsupported file format</value>
+  </data>
+  <data name="CreateContactButton" xml:space="preserve">
+    <value>Create contact</value>
+  </data>
+  <data name="EmptyScrMailContactsDescription" xml:space="preserve">
+    <value>This contact list will show all your personal contacts from the address book. You have not entered any contacts there yet.</value>
+  </data>
+  <data name="ResetMailContactsFilterDescription" xml:space="preserve">
+    <value>No contacts matching the selected filter could be found. Please select another filter or clear this one to view all contacts.</value>
+  </data>
+  <data name="ResetMailContactsFilterHeader" xml:space="preserve">
+    <value>There are no contacts matching this filter</value>
+  </data>
+  <data name="CalendarEventAllDayLabel" xml:space="preserve">
+    <value>All day</value>
+  </data>
+  <data name="CalendarEventPrevDayLabel" xml:space="preserve">
+    <value>Prev day</value>
+  </data>
+  <data name="GoToCalendarLink" xml:space="preserve">
+    <value>Go to Calendar</value>
+  </data>
+   <data name="GoToEventLink" xml:space="preserve">
+    <value>Go to Event</value>
+  </data>
+  <data name="CalendarLabel" xml:space="preserve">
+    <value>Calendar</value>
+  </data>
+  <data name="FilterFrequentlyContacted" xml:space="preserve">
+    <value>Frequently contacted</value>
+  </data>
+  <data name="FilterPersonalContacts" xml:space="preserve">
+    <value>Personal contacts</value>
+  </data>
+  <data name="MailAutoreplyFromDateLabel" xml:space="preserve">
+    <value>From</value>
+  </data>
+  <data name="MailAutoreplyToDateLabel" xml:space="preserve">
+    <value>To</value>
   </data>
 </root>

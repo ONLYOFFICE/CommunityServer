@@ -171,4 +171,7 @@
   <data name="WrongiCalFeedLink" xml:space="preserve">
     <value>An invalid reference to iCal</value>
   </data>
+  <data name="ErrorAccessDenied" xml:space="preserve">
+    <value>Access Denied</value>
+  </data>
 </root>

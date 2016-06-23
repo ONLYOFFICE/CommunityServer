@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -35,6 +35,7 @@ using ASC.Web.Core;
 using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Runtime.Remoting.Messaging;
 using System.Web;
 
@@ -107,16 +108,16 @@ namespace ASC.Specific.GlobalFilters
                 var tenantStatus = tenant.Status;
                 if (tenantStatus == TenantStatus.Transfering)
                 {
-                    context.RequestContext.HttpContext.Response.StatusCode = 503;
-                    context.RequestContext.HttpContext.Response.StatusDescription = "Service Unavailable";
+                    context.RequestContext.HttpContext.Response.StatusCode = (int) HttpStatusCode.ServiceUnavailable;
+                    context.RequestContext.HttpContext.Response.StatusDescription = HttpStatusCode.ServiceUnavailable.ToString();
                     log.Warn("Portal {0} is transfering to another region", context.RequestContext.HttpContext.Request.Url);
                 }
 
                 var tariff = CoreContext.PaymentManager.GetTariff(tenant.TenantId);
                 if (tenantStatus != TenantStatus.Active || tariff.State >= TariffState.NotPaid)
                 {
-                    context.RequestContext.HttpContext.Response.StatusCode = 402;
-                    context.RequestContext.HttpContext.Response.StatusDescription = "Payment Required.";
+                    context.RequestContext.HttpContext.Response.StatusCode = (int) HttpStatusCode.PaymentRequired;
+                    context.RequestContext.HttpContext.Response.StatusDescription = HttpStatusCode.PaymentRequired.ToString();
                     log.Warn("Payment Required {0}.", context.RequestContext.HttpContext.Request.Url);
                 }
             }
@@ -132,8 +133,8 @@ namespace ASC.Specific.GlobalFilters
                 }
                 if (!WebItemSecurity.IsAvailableForUser(pid.ToString(), SecurityContext.CurrentAccount.ID))
                 {
-                    context.RequestContext.HttpContext.Response.StatusCode = 403;
-                    context.RequestContext.HttpContext.Response.StatusDescription = "Access denied.";
+                    context.RequestContext.HttpContext.Response.StatusCode = (int) HttpStatusCode.Forbidden;
+                    context.RequestContext.HttpContext.Response.StatusDescription = HttpStatusCode.Forbidden.ToString();
                     log.Warn("Product {0} denied for user {1}", method.Name, SecurityContext.CurrentAccount);
                 }
             }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -54,8 +54,8 @@ namespace ASC.Mail.Server.Administration.TestCases
             peter_mail_group_address = TestContext.CreateRandomMailAddress(peter_domain);
             var peterMailboxAddress = TestContext.CreateRandomMailAddress(peter_domain);
             var peterAccount = TestContext.GetMailAccount(peterMailboxAddress.LocalPart, _peterDomainName);
-            peter_mailbox = server.CreateMailbox(peterMailboxAddress.LocalPart, PETER_PASSWORD, peterMailboxAddress.Domain, peterAccount,
-                                                 TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peterAccount.TeamlabAccount.Name, peterMailboxAddress.LocalPart, 
+                                                 PETER_PASSWORD, peterMailboxAddress.Domain, peterAccount, TestContext.ServerFactory);
             peter_mail_group = server.CreateMailGroup(peter_mail_group_address.LocalPart, peter_mail_group_address.Domain, new List<int> { peter_mailbox.Address.Id }, TestContext.ServerFactory);
         }
 
@@ -135,7 +135,9 @@ namespace ASC.Mail.Server.Administration.TestCases
         public virtual void AddMemberToMailGroup()
         {
             var peterAddress = TestContext.CreateRandomMailAddress(peter_domain);
-            peter_mailbox = server.CreateMailbox(peterAddress.LocalPart, PETER_PASSWORD, peterAddress.Domain, TestContext.GetMailAccount(peterAddress.LocalPart, _peterDomainName), TestContext.ServerFactory);
+            var account = TestContext.GetMailAccount(peterAddress.LocalPart, _peterDomainName);
+            peter_mailbox = server.CreateMailbox(account.TeamlabAccount.Name, peterAddress.LocalPart, 
+                                                 PETER_PASSWORD, peterAddress.Domain, account, TestContext.ServerFactory);
             peter_mail_group.AddMember(peter_mailbox.Address.Id, TestContext.ServerFactory);
             var mailGroupMembers = peter_mail_group.GetMembers(TestContext.ServerFactory);
             Assert.Greater(mailGroupMembers.Count, 0);
@@ -146,7 +148,9 @@ namespace ASC.Mail.Server.Administration.TestCases
         public virtual void DoubleAddMemberToMailGroup()
         {
             var peterAddress = TestContext.CreateRandomMailAddress(peter_domain);
-            peter_mailbox = server.CreateMailbox(peterAddress.LocalPart, PETER_PASSWORD, peterAddress.Domain, TestContext.GetMailAccount(peterAddress.LocalPart, _peterDomainName), TestContext.ServerFactory);
+            var account = TestContext.GetMailAccount(peterAddress.LocalPart, _peterDomainName);
+            peter_mailbox = server.CreateMailbox(account.TeamlabAccount.Name, peterAddress.LocalPart, 
+                                                 PETER_PASSWORD, peterAddress.Domain, account, TestContext.ServerFactory);
             peter_mail_group.AddMember(peter_mailbox.Address.Id, TestContext.ServerFactory);
             var mailGroupMembers = peter_mail_group.GetMembers(TestContext.ServerFactory);
             Assert.Greater(mailGroupMembers.Count, 0);

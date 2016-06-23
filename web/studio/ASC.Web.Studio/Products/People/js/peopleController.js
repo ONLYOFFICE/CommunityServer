@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -486,7 +486,7 @@ ASC.People.PeopleController = (function() {
                 switcherSelector: "#peopleData .entity-menu",
                 addTop: 0,
                 addLeft: leftForFix,
-                fixWinSize: false,
+                fixWinSize: true,
                 showFunction: function(switcherObj, dropdownItem) {
                     var personId = switcherObj.attr("id").split('_')[1];
                     if (!personId) {
@@ -1093,9 +1093,11 @@ ASC.People.PeopleController = (function() {
         if (_selectedType == 1) {
             jq("#userTypeInfo").removeClass("display-none");
             jq("#visitorTypeInfo").addClass("display-none");
-            
-            jq("#changeTypeDialogTariff").show();
-            jq("#changeTypeDialogOk").removeClass("blue").addClass("gray");
+
+            if (jq("#changeTypeDialogTariff").length) {
+                jq("#changeTypeDialogTariff").show();
+                jq("#changeTypeDialogOk").removeClass("blue").addClass("gray");
+            }
 
             //GET QUOTA & SET TO INTERFACE
             var quota = _tenantQuota.availableUsersCount;
@@ -1106,7 +1108,7 @@ ASC.People.PeopleController = (function() {
                 jq("#userTypeInfo .action-info").addClass("display-none");
                 jq("#changeTypeDialog .selected-users-info").addClass("display-none");
             }
-        }else if (_selectedType == 2) {
+        } else if (_selectedType == 2) {
             jq("#userTypeInfo").addClass("display-none");
             jq("#visitorTypeInfo").removeClass("display-none");
         }
@@ -1207,19 +1209,21 @@ ASC.People.PeopleController = (function() {
             jq("#activeStatusInfo").removeClass("display-none");
             jq("#terminateStatusInfo").addClass("display-none");
 
+            if (jq("#changeStatusTariff").length) {
+                jq("#changeStatusTariff").show();
+                jq("#changeStatusOkBtn").removeClass("blue").addClass("gray");
+            }
+
             //GET QUOTA & SET TO INTERFACE
             var quota = _tenantQuota.availableUsersCount;
             jq("#activeStatusInfo .tariff-limit").html(jq.format(PeopleManager.UserLimit, "<b>", quota, "</b>"));
-
-            jq("#changeStatusTariff").show();
-            jq("#changeStatusOkBtn").removeClass("blue").addClass("gray");
             updateUserListByQuota(container, quota);
 
             if (quota == 0) {
                 jq("#activeStatusInfo .action-info").addClass("display-none");
                 jq("#changeStatusDialog .selected-users-info").addClass("display-none");
             }
-        }else if (_selectedStatus == 2) {
+        } else if (_selectedStatus == 2) {
             jq("#activeStatusInfo").addClass("display-none");
             jq("#terminateStatusInfo").removeClass("display-none");
         }
@@ -1874,23 +1878,9 @@ ASC.People.PeopleController = (function() {
                      var $dropdownItem = jq("#peopleActionMenu");
                      $dropdownItem.show();
                      $dropdownItem.hide();
-                     if (target.is(".entity-menu")) {
-                         if ($dropdownItem.is(":hidden")) {
-                             target.addClass('active');
-                         }
-                         $dropdownItem.css({
-                             "top": target.offset().top + target.outerHeight() - 2,
-                             "left": target.offset().left,
-                             "right": "auto"
-                         });
-                     } else {
-                         $dropdownItem.css({
-                             "top": e.pageY + 3,
-                             "left": e.pageX,
-                             "right": "auto"
-                         });
-                     }
-                     $dropdownItem.show();
+
+                     jq.showDropDownByContext(e, target, $dropdownItem)
+
                      return false;
                  }
                  return true;

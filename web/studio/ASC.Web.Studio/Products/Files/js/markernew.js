@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -54,7 +54,7 @@ window.ASC.Files.Marker = (function () {
             var folderId = xmlKey.textContent || xmlKey.text;
             var valueNew = xmlValue.textContent || xmlValue.text;
             if (valueNew > 0) {
-                jq("#studio_sidePanel .page-menu .is-new[data-id=\"" + folderId + "\"]").text(valueNew).show();
+                jq("#studio_sidePanel .page-menu .is-new" + ASC.Files.UI.getSelectorId(folderId)).text(valueNew).show();
             }
         });
 
@@ -76,7 +76,7 @@ window.ASC.Files.Marker = (function () {
                 : countNew - (newsObj.html() | 0));
 
             var rootId = ASC.Files.Tree.pathParts[0];
-            var rootObj = jq("#studio_sidePanel .page-menu .is-new[data-id=\"" + rootId + "\"]");
+            var rootObj = jq("#studio_sidePanel .page-menu .is-new" + ASC.Files.UI.getSelectorId(rootId));
             var prevCount = rootObj.html() | 0;
             var rootCountNew = prevCount + diffCount;
 
@@ -98,7 +98,7 @@ window.ASC.Files.Marker = (function () {
         }
 
         if (entryType === "folder") {
-            newsObj = jq("#studio_sidePanel .page-menu .is-new[data-id=\"" + entryId + "\"]");
+            newsObj = jq("#studio_sidePanel .page-menu .is-new" + ASC.Files.UI.getSelectorId(entryId));
             if (newsObj.is(":visible")) {
                 newsObj.html(countNew > 0 ? countNew : 0);
                 if (isUpdate) {
@@ -191,7 +191,7 @@ window.ASC.Files.Marker = (function () {
                     var folderId = itemData.key;
                     var valueNew = itemData.value;
                     if (valueNew > 0) {
-                        jq("#studio_sidePanel .page-menu .is-new[data-id=\"" + folderId + "\"]").text(valueNew).show();
+                        jq("#studio_sidePanel .page-menu .is-new" + ASC.Files.UI.getSelectorId(folderId)).text(valueNew).show();
                     }
                 }
                 continue;
@@ -243,22 +243,20 @@ window.ASC.Files.Marker = (function () {
                     var entryUrl = ASC.Files.Utility.GetFileDownloadUrl(entryId);
 
                     if (ASC.Files.Utility.CanWebEdit(entryTitle)
-                        && !ASC.Files.Utility.MustConvert(entryTitle)
-                        && ASC.Resources.Master.TenantTariffDocsEdition) {
+                        && !ASC.Files.Utility.MustConvert(entryTitle)) {
                         entryUrl = ASC.Files.Utility.GetFileWebEditorUrl(entryId);
                         rowLink.attr("href", entryUrl).attr("target", "_blank");
-                    } else if (ASC.Files.Utility.CanWebView(entryTitle)
-                            && ASC.Resources.Master.TenantTariffDocsEdition) {
+                    } else if (ASC.Files.Utility.CanWebView(entryTitle)) {
                         entryUrl = ASC.Files.Utility.GetFileWebViewerUrl(entryId);
                         rowLink.attr("href", entryUrl).attr("target", "_blank");
                     } else if (typeof ASC.Files.ImageViewer != "undefined" && ASC.Files.Utility.CanImageView(entryTitle)) {
-                        entryUrl = "#" + ASC.Files.ImageViewer.getPreviewHash(entryId);
+                        entryUrl = "#" + ASC.Files.Common.getCorrectHash(ASC.Files.ImageViewer.getPreviewHash(entryId));
                         rowLink.attr("href", entryUrl);
                     } else {
-                        rowLink.attr("href", jq.browser.mobile ? "" : entryUrl);
+                        rowLink.attr("href", entryUrl);
                     }
                 } else {
-                    entryUrl = ASC.Files.Constants.URL_BASE + "#" + ASC.Files.Common.fixHash(entryId);
+                    entryUrl = ASC.Files.Constants.URL_BASE + "#" + ASC.Files.Common.getCorrectHash(entryId);
                     rowLink.attr("href", entryUrl);
                 }
             });
@@ -331,7 +329,7 @@ window.ASC.Files.Marker = (function () {
 
             if (!updated) {
                 var newFolderId = jq("#filesNewsPanel").attr("data-id");
-                var newObj = jq(".is-new[data-id=\"" + newFolderId + "\"]");
+                var newObj = jq(".is-new" + ASC.Files.UI.getSelectorId(newFolderId));
                 if (!newObj.is(":visible")) {
                     newObj = ASC.Files.UI.getEntryObject("folder", newFolderId).find(".is-new");
                 }

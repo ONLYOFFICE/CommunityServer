@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -50,7 +50,6 @@ namespace ASC.Web.Studio
         protected static readonly Lazy<Dictionary<ManagementType, ManagementControlAttribute[]>> ManagementModules =
             new Lazy<Dictionary<ManagementType, ManagementControlAttribute[]>>(LoadModules, LazyThreadSafetyMode.PublicationOnly);
 
-        private readonly bool auditTrailEnabled = true;
         public TenantAccessSettings TenantAccess { get; private set; }
         protected ManagementType CurrentModule { get; private set; }
         protected List<ManagementType> NavigationList { get; private set; }
@@ -161,31 +160,29 @@ namespace ASC.Web.Studio
 
         protected static bool DisplayModule(ManagementType module)
         {
-            var tenantAccessAnyone = SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID);
+            if (!SetupInfo.IsVisibleSettings(module.ToString())) return false;
+
             switch (module)
             {
                 case ManagementType.Migration:
-                    return SetupInfo.IsVisibleSettings(module.ToString()) && TransferPortal.TransferRegions.Count > 1;
-
+                    return TransferPortal.TransferRegions.Count > 1;
                 case ManagementType.Backup:
                     //only SaaS features
-                    return !CoreContext.Configuration.Standalone
-                           && !tenantAccessAnyone.Anyone && SetupInfo.IsVisibleSettings(module.ToString());
-
+                    return !CoreContext.Configuration.Standalone && 
+                        !SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone;
                 case ManagementType.AuditTrail:
                 case ManagementType.LoginHistory:
                 case ManagementType.LdapSettings:
-                case ManagementType.DeletionPortal:
-                    //only SaaS features
-                    return !CoreContext.Configuration.Standalone && SetupInfo.IsVisibleSettings(module.ToString());
                 case ManagementType.WhiteLabel:
-                    return Web.UserControls.WhiteLabel.WhiteLabel.AvailableControl;
                 case ManagementType.SingleSignOnSettings:
+                    //only SaaS features
                     return !CoreContext.Configuration.Standalone;
-
-                default:
-                    return SetupInfo.IsVisibleSettings(module.ToString());
+                case ManagementType.DeletionPortal:
+                    //only SaaS or Server+ControlPanel
+                    return !CoreContext.Configuration.Standalone || !string.IsNullOrEmpty(SetupInfo.ControlPanelUrl);
             }
+
+            return true;
         }
 
         protected bool DisplayModuleList(CategorySettings category)
@@ -231,16 +228,14 @@ namespace ASC.Web.Studio
             var securityCategorySettings = new CategorySettings(new[]
                                                                 {
                                                                     ManagementType.PortalSecurity,
-                                                                    ManagementType.AccessRights
+                                                                    ManagementType.AccessRights,
+                                                                    ManagementType.LoginHistory,
+                                                                    ManagementType.AuditTrail
                                                                 })
                                            {
                                                Title = Resource.ManagementCategorySecurity,
                                                ClassName = "security"
                                            };
-            if (auditTrailEnabled)
-            {
-                securityCategorySettings.AddModules(ManagementType.LoginHistory, ManagementType.AuditTrail);
-            }
 
             var generalSettings = new CategorySettings(new[]
                                                        {
@@ -295,7 +290,7 @@ namespace ASC.Web.Studio
                                          ClassName = "monitoring"
                                      };
 
-            return new List<CategorySettings>
+            var result = new List<CategorySettings>
                    {
                        generalSettings,
                        securityCategorySettings,
@@ -304,6 +299,8 @@ namespace ASC.Web.Studio
                        statisticSettings,
                        monitoringSettings
                    };
+
+            return result;
         }
 
         private static Dictionary<ManagementType, ManagementControlAttribute[]> LoadModules()

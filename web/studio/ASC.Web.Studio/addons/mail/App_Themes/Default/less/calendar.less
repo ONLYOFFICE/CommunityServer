@@ -1,0 +1,244 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2016
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+@import "settings.less";
+
+.calendarView {
+    border-collapse: collapse;
+    color: rgb(34, 34, 34);
+    margin: 0 8px 4px 8px;
+    cursor: default;
+    padding-bottom: 8px;
+     
+    > table {
+        background-color: white;
+        border: 1px solid rgb(229, 229, 229);
+        width: 100%;
+        border-collapse: separate;
+    }
+
+    .line-through {
+        text-decoration: line-through;
+    }
+
+    .cal_info,
+    .cal_agenda {
+        vertical-align: top;
+        border-spacing: 2px 2px;
+        padding: 8px 16px 8px 16px;
+        overflow: hidden;
+    }
+
+    .cal_summary,
+    .agenda_label {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border: 0px none rgb(34, 34, 34);
+        border-spacing: 2px 2px;
+        margin-bottom: 8px;
+
+        p {
+            font: normal 18px 'Open Sans', sans-serif;
+        }
+    }
+
+    .cal_details,
+    .agenda_date {
+        color: @messages-muted-font-color;
+        height: 18px;
+        border: 0px none rgb(153, 153, 153);
+        border-spacing: 2px 2px;
+        margin-bottom: 16px;
+    }
+
+    .agenda_loading {
+        width: 100px;
+    }
+
+    .cal_info {
+        width: 52%;
+        border: 0px none rgb(34, 34, 34);
+
+        .cal_buttons_row {
+
+            .card_label {
+                vertical-align: middle;
+            }
+
+            .cal_buttons {
+                white-space: nowrap;
+                border: 0px none rgb(34, 34, 34);
+                border-spacing: 2px 2px;
+                padding: 8px 0 8px 0;
+            }
+        }
+    }
+
+    .cal_agenda {
+        width: 48%;
+        border-top: 0px none rgb(34, 34, 34);
+        border-right: 0px none rgb(34, 34, 34);
+        border-bottom: 0px none rgb(34, 34, 34);
+        border-left: 1px solid rgb(229, 229, 229);
+    }
+
+    .cal_card,
+    .agenda_card {
+        max-height: 120px;
+        overflow-x: hidden;
+        overflow-y: auto;
+        tbody {
+            border: 0px none rgb(128, 128, 128);
+            border-spacing: 2px 2px;
+        }
+    }
+
+    .card_row,
+    .agenda_row {
+        height: 26px;
+        vertical-align: top;
+        border: 0px none rgb(128, 128, 128);
+        border-spacing: 2px 2px;
+    }
+
+    .card_row {
+        .card_label {
+            color: rgb(153, 153, 153);
+            height: 18px;
+            width: 48px;
+            white-space: nowrap;
+            border: 0px none rgb(153, 153, 153);
+            border-spacing: 2px 2px;
+            padding-right: 8px;
+            vertical-align: top;
+
+            .HelpCenterSwitcher:after {
+                top: 2px;
+            }
+        }
+
+        .card_value {
+            height: 18px;
+            border: 0px none rgb(34, 34, 34);
+            border-spacing: 2px 2px;
+            vertical-align: top;
+        }
+    }
+
+    .agenda_row {
+        .time {
+            color: rgb(153, 153, 153);
+            padding-right: 16px;
+            white-space: nowrap;
+            border: 0px none rgb(153, 153, 153);
+            border-spacing: 2px 2px;
+        }
+
+        .title {
+            color: rgb(153, 153, 153);
+            border: 0px none rgb(153, 153, 153);
+            border-spacing: 2px 2px;
+
+            .link {
+                color: rgb(153, 153, 153);
+            }
+        }
+    }
+
+    .agenda_row.no_events {
+        color: @messages-muted-font-color;
+    }
+
+    .agenda_row.active {
+        .time {
+            color: rgb(34, 34, 34);
+            vertical-align: top;
+            border: 0px none rgb(34, 34, 34);
+        }
+
+        .title {
+            color: rgb(34, 34, 34);
+            border: 0px none rgb(34, 34, 34);
+
+            .link {
+                color: rgb(34, 34, 34);
+            }
+        }
+    }
+}
+
+.calendarPopView {
+    > table {
+        max-width: 480px;
+        vertical-align: middle;
+    }
+
+    .cal_info {
+        vertical-align: top;
+        padding-bottom: 16px;
+
+        .cal_action {
+            min-height: 14px;
+            font: normal 14px 'Open Sans', sans-serif;
+            padding-bottom: 8px;
+        }
+
+        .cal_summary {
+            padding-bottom: 16px;
+
+            p {
+                font: normal 18px 'Open Sans', sans-serif;
+            }
+        }
+
+        .cal_card {
+
+            tbody {
+                border: 0px none rgb(128, 128, 128);
+                border-spacing: 2px 2px;
+            }
+
+            .card_row {
+                vertical-align: middle;
+
+                .card_label {
+                    color: rgb(153, 153, 153);
+                    height: 18px;
+                    width: 48px;
+                    vertical-align: top;
+                    white-space: nowrap;
+                    padding: 2px 10px 6px 0px;
+                    vertical-align: top
+                }
+
+                .card_value {
+                    height: 18px;
+                    vertical-align: top;
+                    padding: 2px 1px 1px 0px;
+                    vertical-align: top
+                }
+            }
+        }
+    }
+}

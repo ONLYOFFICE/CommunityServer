@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -143,8 +143,8 @@ namespace ASC.Projects.Data.DAO
 
                 if (filter.Max > 0 && filter.Max < 150000)
                 {
-                    query.SetFirstResult((int) filter.Offset);
-                    query.SetMaxResults((int) filter.Max);
+                    query.SetFirstResult((int)filter.Offset);
+                    query.SetMaxResults((int)filter.Max);
                 }
 
                 query.OrderBy("t.status", true);
@@ -227,14 +227,12 @@ namespace ASC.Projects.Data.DAO
         public virtual void Delete(int id)
         {
             using (var db = new DbManager(DatabaseId))
+            using (var tx = db.BeginTransaction())
             {
-                using (var tx = db.BeginTransaction())
-                {
-                    db.ExecuteNonQuery(Delete(CommentsTable).Where("target_uniq_id", ProjectEntity.BuildUniqId<Message>(id)));
-                    db.ExecuteNonQuery(Delete(MessagesTable).Where("id", id));
+                db.ExecuteNonQuery(Delete(CommentsTable).Where("target_uniq_id", ProjectEntity.BuildUniqId<Message>(id)));
+                db.ExecuteNonQuery(Delete(MessagesTable).Where("id", id));
 
-                    tx.Commit();
-                }
+                tx.Commit();
             }
         }
 
@@ -345,17 +343,17 @@ namespace ASC.Projects.Data.DAO
         {
             var offset = ProjectDao.ProjectColumns.Length;
             return new Message
-                       {
-                           Project = r[0] != null ? ProjectDao.ToProject(r) : null,
-                           ID = Convert.ToInt32(r[0 + offset]),
-                           Title = (string) r[1 + offset],
-                           Status = (MessageStatus)Convert.ToInt32(r[2 + offset]),
-                           CreateBy = ToGuid(r[3 + offset]),
-                           CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[4 + offset])),
-                           LastModifiedBy = ToGuid(r[5 + offset]),
-                           LastModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[6 + offset])),
-                           Description = (string) r[7 + offset]
-                       };
+            {
+                Project = r[0] != null ? ProjectDao.ToProject(r) : null,
+                ID = Convert.ToInt32(r[0 + offset]),
+                Title = (string)r[1 + offset],
+                Status = (MessageStatus)Convert.ToInt32(r[2 + offset]),
+                CreateBy = ToGuid(r[3 + offset]),
+                CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[4 + offset])),
+                LastModifiedBy = ToGuid(r[5 + offset]),
+                LastModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[6 + offset])),
+                Description = (string)r[7 + offset]
+            };
         }
 
 

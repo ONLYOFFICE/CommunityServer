@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,9 +24,10 @@
 */
 
 
+using System.Globalization;
 using ASC.Common.Caching;
+using ASC.Core.Tenants;
 using ASC.Data.Storage;
-using ASC.Web.Core.Client;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -56,15 +57,16 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
     public class HelpCenterStorage
     {
-        private static readonly string Filepath = ClientSettings.StorePath.Trim('/') + "/helpcenter/helpcenter.html";
-        private static readonly ICache cache = AscCache.Memory;
-        private static readonly TimeSpan ExpirationTimeout = TimeSpan.FromDays(1);
+        private const string FilePath = "helpcenter.html";
         private const string CacheKey = "helpcenter";
+
+        private static readonly ICache Cache = AscCache.Memory;
+        private static readonly TimeSpan ExpirationTimeout = TimeSpan.FromDays(1);
 
 
         private static IDataStore GetStore()
         {
-            return StorageFactory.GetStorage("-1", "common_static");
+            return StorageFactory.GetStorage(Tenant.DEFAULT_TENANT.ToString(CultureInfo.InvariantCulture), "static_helpcenter");
         }
 
         public static Dictionary<string, HelpCenterData> GetHelpCenter()
@@ -73,9 +75,9 @@ namespace ASC.Web.Studio.Core.HelpCenter
             try
             {
                 data = FromCache();
-                if (data == null && GetStore().IsFile(Filepath))
+                if (data == null && GetStore().IsFile(FilePath))
                 {
-                    using (var stream = GetStore().GetReadStream(Filepath))
+                    using (var stream = GetStore().GetReadStream(FilePath))
                     {
                         data = (Dictionary<string, HelpCenterData>) FromStream(stream);
                     }
@@ -95,7 +97,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
             {
                 using (var stream = ToStream(data))
                 {
-                    GetStore().Save(Filepath, stream);
+                    GetStore().Save(FilePath, stream);
                 }
                 ToCache(data);
             }
@@ -120,12 +122,12 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
         private static void ToCache(Dictionary<string, HelpCenterData> obj)
         {
-            cache.Insert(CacheKey, obj, DateTime.UtcNow.Add(ExpirationTimeout));
+            Cache.Insert(CacheKey, obj, DateTime.UtcNow.Add(ExpirationTimeout));
         }
 
         private static Dictionary<string, HelpCenterData> FromCache()
         {
-            return cache.Get<Dictionary<string, HelpCenterData>>(CacheKey);
+            return Cache.Get<Dictionary<string, HelpCenterData>>(CacheKey);
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -134,6 +134,18 @@ namespace ASC.Api.Portal
                    + String.Format("&emplType={0}", (int)employeeType);
         }
 
+        /// <summary>
+        /// Returns shorten link
+        /// </summary>
+        /// <param name="link">Link for shortening</param>
+        ///<returns>link</returns>
+        ///<visible>false</visible>
+        [Update("getshortenlink")]
+        public String GetShortenLink(string link)
+        {
+            return ASC.Common.Utils.LinkShorterUtil.GetShortenLink(link, log4net.LogManager.GetLogger("ASC.Web"));
+        }
+
 
         ///<summary>
         ///Returns the used space of the current portal
@@ -212,7 +224,6 @@ namespace ASC.Api.Portal
                               .FirstOrDefault(quota =>
                                               quota.ActiveUsers > needUsersCount
                                               && quota.MaxTotalSize > usedSpace
-                                              && quota.DocsEdition
                                               && !quota.Year);
         }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -42,7 +42,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using DriveFile = Google.Apis.Drive.v2.Data.File;
+using DriveFile = Google.Apis.Drive.v3.Data.File;
 using File = ASC.Files.Core.File;
 
 namespace ASC.Files.Thirdparty.GoogleDrive
@@ -162,7 +162,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         {
             const string tenant = "tenant_id";
             if (!table.Contains(" ")) return tenant;
-            return table.Substring(table.IndexOf(" ")).Trim() + "." + tenant;
+            return table.Substring(table.IndexOf(" ", StringComparison.InvariantCulture)).Trim() + "." + tenant;
         }
 
 
@@ -178,7 +178,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         {
             return driveEntry == null || driveEntry.Parents == null || driveEntry.Parents.Count == 0
                        ? null
-                       : driveEntry.Parents[0].Id;
+                       : driveEntry.Parents[0];
         }
 
         protected string MakeId(DriveFile driveEntry)
@@ -206,17 +206,17 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                 return GoogleDriveProviderInfo.CustomerTitle;
             }
 
-            return Global.ReplaceInvalidCharsAndTruncate(driveFolder.Title);
+            return Global.ReplaceInvalidCharsAndTruncate(driveFolder.Name);
         }
 
         protected String MakeFileTitle(DriveFile driveFile)
         {
-            if (driveFile == null || string.IsNullOrEmpty(driveFile.Title))
+            if (driveFile == null || string.IsNullOrEmpty(driveFile.Name))
             {
                 return GoogleDriveProviderInfo.ProviderKey;
             }
 
-            var title = driveFile.Title;
+            var title = driveFile.Name;
 
             var gExt = MimeMapping.GetExtention(driveFile.MimeType);
             if (GoogleLoginProvider.GoogleDriveExt.Contains(gExt))
@@ -248,10 +248,10 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                 ID = MakeId(driveEntry),
                 ParentFolderID = isRoot ? null : MakeId(GetParentDriveId(driveEntry)),
                 CreateBy = GoogleDriveProviderInfo.Owner,
-                CreateOn = isRoot ? GoogleDriveProviderInfo.CreateOn : (driveEntry.CreatedDate.HasValue ? driveEntry.CreatedDate.Value : default(DateTime)),
+                CreateOn = isRoot ? GoogleDriveProviderInfo.CreateOn : (driveEntry.CreatedTime.HasValue ? driveEntry.CreatedTime.Value : default(DateTime)),
                 FolderType = FolderType.DEFAULT,
                 ModifiedBy = GoogleDriveProviderInfo.Owner,
-                ModifiedOn = isRoot ? GoogleDriveProviderInfo.CreateOn : (driveEntry.ModifiedDate.HasValue ? driveEntry.ModifiedDate.Value : default(DateTime)),
+                ModifiedOn = isRoot ? GoogleDriveProviderInfo.CreateOn : (driveEntry.ModifiedTime.HasValue ? driveEntry.ModifiedTime.Value : default(DateTime)),
                 ProviderId = GoogleDriveProviderInfo.ID,
                 ProviderKey = GoogleDriveProviderInfo.ProviderKey,
                 RootFolderCreator = GoogleDriveProviderInfo.Owner,
@@ -260,8 +260,8 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
                 Shareable = false,
                 Title = MakeFolderTitle(driveEntry),
-                TotalFiles = 0, /*driveEntry.Count - childFoldersCount NOTE: Removed due to performance isssues*/
-                TotalSubFolders = 0, /*childFoldersCount NOTE: Removed due to performance isssues*/
+                TotalFiles = 0,
+                TotalSubFolders = 0,
             };
 
             if (folder.CreateOn != DateTime.MinValue && folder.CreateOn.Kind == DateTimeKind.Utc)
@@ -342,13 +342,13 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             {
                 ID = MakeId(driveFile.Id),
                 Access = FileShare.None,
-                ContentLength = driveFile.FileSize.HasValue ? (long)driveFile.FileSize : 0,
+                ContentLength = driveFile.Size.HasValue ? (long)driveFile.Size : 0,
                 CreateBy = GoogleDriveProviderInfo.Owner,
-                CreateOn = driveFile.CreatedDate.HasValue ? TenantUtil.DateTimeFromUtc(driveFile.CreatedDate.Value) : default(DateTime),
+                CreateOn = driveFile.CreatedTime.HasValue ? TenantUtil.DateTimeFromUtc(driveFile.CreatedTime.Value) : default(DateTime),
                 FileStatus = FileStatus.None,
                 FolderID = MakeId(GetParentDriveId(driveFile)),
                 ModifiedBy = GoogleDriveProviderInfo.Owner,
-                ModifiedOn = driveFile.ModifiedDate.HasValue ? TenantUtil.DateTimeFromUtc(driveFile.ModifiedDate.Value) : default(DateTime),
+                ModifiedOn = driveFile.ModifiedTime.HasValue ? TenantUtil.DateTimeFromUtc(driveFile.ModifiedTime.Value) : default(DateTime),
                 NativeAccessor = driveFile,
                 ProviderId = GoogleDriveProviderInfo.ID,
                 ProviderKey = GoogleDriveProviderInfo.ProviderKey,
@@ -368,28 +368,21 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         protected DriveFile GetDriveEntry(object entryId)
         {
-            DriveFile entry = null;
-            Exception e = null;
             var driveId = MakeDriveId(entryId);
             try
             {
+                DriveFile entry;
                 if (!CacheEntry.TryGetValue(GoogleDriveProviderInfo.ID + driveId, out entry))
                 {
                     entry = GoogleDriveProviderInfo.Storage.GetEntry(driveId);
                     CacheEntry.TryAdd(GoogleDriveProviderInfo.ID + driveId, entry);
                 }
+                return entry;
             }
             catch (Exception ex)
             {
-                e = ex;
+                return new ErrorDriveEntry(ex, driveId);
             }
-            if (entry == null)
-            {
-                //Create error entry
-                entry = new ErrorDriveEntry(e, driveId);
-            }
-
-            return entry;
         }
 
         protected IEnumerable<string> GetChildren(object folderId)
@@ -421,7 +414,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                 }
                 return value;
             }
-            List<DriveFile> value1 = null;
+            List<DriveFile> value1;
             if (!CacheChildFiles.TryGetValue(GoogleDriveProviderInfo.ID + driveId, out value1) &&
                 !CacheChildFolders.TryGetValue(GoogleDriveProviderInfo.ID + driveId, out value1))
             {
@@ -433,13 +426,13 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                 return entries;
             }
 
-            List<DriveFile> folders = null;
+            List<DriveFile> folders;
             if (!CacheChildFolders.TryGetValue(GoogleDriveProviderInfo.ID + driveId, out folders))
             {
                 folders = GoogleDriveProviderInfo.Storage.GetEntries(driveId, true);
                 CacheChildFolders.TryAdd(GoogleDriveProviderInfo.ID + driveId, folders);
             }
-            List<DriveFile> files = null;
+            List<DriveFile> files;
             if (!CacheChildFiles.TryGetValue(GoogleDriveProviderInfo.ID + driveId, out files))
             {
                 files = GoogleDriveProviderInfo.Storage.GetEntries(driveId, false);

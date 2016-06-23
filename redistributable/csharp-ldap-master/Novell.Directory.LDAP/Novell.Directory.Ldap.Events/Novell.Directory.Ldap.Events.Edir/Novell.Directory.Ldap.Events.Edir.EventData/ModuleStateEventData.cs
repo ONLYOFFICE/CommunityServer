@@ -29,91 +29,90 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System.Text;
-
 using Novell.Directory.Ldap.Asn1;
+using System.Text;
 
 namespace Novell.Directory.Ldap.Events.Edir.EventData
 {
-  /// <summary> 
-  /// This class represents the data for Module State Events.
-  /// </summary>
-  public class ModuleStateEventData : BaseEdirEventData
-  {
-    protected string strConnectionDN;
-    public string ConnectionDN
-    {
-      get
-      {
-	return strConnectionDN;
-      }
-    }
-
-    protected int nFlags;
-    public int Flags
-    {
-      get
-      {
-	return nFlags;
-      }
-    }
-
-    protected string strName;
-    public string Name
-    {
-      get
-      {
-	return strName;
-      }
-    }
-
-    protected string strDescription;
-    public string Description
-    {
-      get
-      {
-	return strDescription;
-      }
-    }
-
-    protected string strSource;
-    public string Source
-    {
-      get
-      {
-	return strSource;
-      }
-    }
-
-    public ModuleStateEventData(EdirEventDataType eventDataType, Asn1Object message)
-      : base(eventDataType, message)
-    {
-      int[] length = new int[1];
-
-      strConnectionDN = ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-      nFlags = ((Asn1Integer) decoder.decode(decodedData, length)).intValue();
-      strName = ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-      strDescription = ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-      strSource = ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-
-      DataInitDone();
-    }
-
     /// <summary> 
-    /// Returns a string representation of the object.
+    /// This class represents the data for Module State Events.
     /// </summary>
-    public override string ToString() 
+    public class ModuleStateEventData : BaseEdirEventData
     {
-      StringBuilder buf = new StringBuilder();
-      buf.Append("[ModuleStateEvent");
-      buf.AppendFormat("(connectionDN={0})", strConnectionDN);
-      buf.AppendFormat("(flags={0})", nFlags);
-      buf.AppendFormat("(Name={0})", strName);
-      buf.AppendFormat("(Description={0})", strDescription);
-      buf.AppendFormat("(Source={0})", strSource);
-      buf.Append("]");
+        protected string strConnectionDN;
+        public string ConnectionDN
+        {
+            get
+            {
+                return strConnectionDN;
+            }
+        }
 
-      return buf.ToString();
+        protected int nFlags;
+        public int Flags
+        {
+            get
+            {
+                return nFlags;
+            }
+        }
+
+        protected string strName;
+        public string Name
+        {
+            get
+            {
+                return strName;
+            }
+        }
+
+        protected string strDescription;
+        public string Description
+        {
+            get
+            {
+                return strDescription;
+            }
+        }
+
+        protected string strSource;
+        public string Source
+        {
+            get
+            {
+                return strSource;
+            }
+        }
+
+        public ModuleStateEventData(EdirEventDataType eventDataType, Asn1Object message)
+            : base(eventDataType, message)
+        {
+            int[] length = new int[1];
+
+            strConnectionDN = ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+            nFlags = ((Asn1Integer)decoder.decode(decodedData, length)).intValue();
+            strName = ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+            strDescription = ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+            strSource = ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+
+            DataInitDone();
+        }
+
+        /// <summary> 
+        /// Returns a string representation of the object.
+        /// </summary>
+        public override string ToString()
+        {
+            StringBuilder buf = new StringBuilder();
+            buf.Append("[ModuleStateEvent");
+            buf.AppendFormat("(connectionDN={0})", strConnectionDN);
+            buf.AppendFormat("(flags={0})", nFlags);
+            buf.AppendFormat("(Name={0})", strName);
+            buf.AppendFormat("(Description={0})", strDescription);
+            buf.AppendFormat("(Source={0})", strSource);
+            buf.Append("]");
+
+            return buf.ToString();
+        }
     }
-  }
 }

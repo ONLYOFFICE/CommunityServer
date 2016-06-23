@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -54,7 +54,7 @@ namespace ASC.Web.Projects
         public void InitPage()
         {
             Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tarifflimitexceed.less");
-            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("import.js"));
+            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, "import.js");
             Title = HeaderStringHelper.GetPageTitle(ImportResource.ImportFromBasecamp);
 
             HiddenFieldForPermission.Value = ((BasePage)Page).Participant.IsFullAdmin ? "1" : "0";

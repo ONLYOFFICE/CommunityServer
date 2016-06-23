@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -35,6 +35,7 @@ using System.IO;
 using System.Text;
 using System.Xml;
 using ASC.Xmpp.Core.protocol;
+using log4net;
 
 #endregion
 
@@ -67,7 +68,7 @@ namespace ASC.Xmpp.Core.utils.Xml.Dom
         /// <summary>
         /// </summary>
         private readonly Text m_Value = new Text();
-
+        private static readonly ILog log = LogManager.GetLogger(typeof(Element));
         /// <summary>
         /// </summary>
         public Element()
@@ -1026,7 +1027,7 @@ namespace ASC.Xmpp.Core.utils.Xml.Dom
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex.Message);
+                        log.Error("InnerXml Error", ex);
                     }
 
                     return xml;

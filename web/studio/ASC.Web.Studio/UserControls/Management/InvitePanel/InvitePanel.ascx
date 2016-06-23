@@ -13,7 +13,7 @@
             <%= UserControlsCommonResource.TariffUserLimitReason%>
             <%= Resource.KeepTariffInviteGuests%>
         </p>
-        <% if (!ASC.Core.CoreContext.Configuration.Standalone && TenantExtra.EnableTarrifSettings) { %>
+        <% if (TenantExtra.EnableTarrifSettings) { %>
         <a href="<%= TenantExtra.GetTariffPageLink() %>">
             <%= Resource.UpgradePlan %>
         </a>

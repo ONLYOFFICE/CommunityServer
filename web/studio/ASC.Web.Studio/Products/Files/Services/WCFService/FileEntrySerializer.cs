@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -38,23 +38,27 @@ namespace ASC.Web.Files.Services.WCFService
     public class FileEntrySerializer
     {
         private static readonly IDictionary<Type, XmlObjectSerializer> serializers = new Dictionary<Type, XmlObjectSerializer>();
+        private static bool oldMonoSerializer = false;
 
 
         static FileEntrySerializer()
         {
-            serializers.Add(typeof(File), new DataContractSerializer(typeof(File)));
-            if (WorkContext.IsMono)
+            serializers[typeof(File)] = new DataContractSerializer(typeof(File));
+            serializers[typeof(ItemList<FileEntry>)] = new DataContractSerializer(typeof(ItemList<FileEntry>));
+            serializers[typeof(DataWrapper)] = new DataContractSerializer(typeof(DataWrapper));
+
+            if (WorkContext.IsMono && !string.IsNullOrEmpty(WorkContext.MonoVersion))
             {
-                serializers.Add(typeof(ItemList<FileEntry>), new DataContractSerializer(typeof(ItemList<FileEntry>), Type.EmptyTypes, UInt16.MaxValue, false, false, null, new FileEntryResolver()));
-                serializers.Add(typeof(DataWrapper), new DataContractSerializer(typeof(DataWrapper), Type.EmptyTypes, UInt16.MaxValue, false, false, null, new FileEntryResolver()));
-            }
-            else
-            {
-                serializers.Add(typeof(ItemList<FileEntry>), new DataContractSerializer(typeof(ItemList<FileEntry>)));
-                serializers.Add(typeof(DataWrapper), new DataContractSerializer(typeof(DataWrapper)));
+                // in version higher 4.0 use standard DataContractResolver
+                var version = WorkContext.MonoVersion.Split('.', ' ');
+                if (2 <= version.Length && (Convert.ToInt32(version[0]) * 1000 + Convert.ToInt32(version[1])) < 4002)
+                {
+                    oldMonoSerializer = true;
+                    serializers[typeof(ItemList<FileEntry>)] = new DataContractSerializer(typeof(ItemList<FileEntry>), Type.EmptyTypes, UInt16.MaxValue, false, false, null, new FileEntryResolver());
+                    serializers[typeof(DataWrapper)] = new DataContractSerializer(typeof(DataWrapper), Type.EmptyTypes, UInt16.MaxValue, false, false, null, new FileEntryResolver());
+                }
             }
         }
-
 
         public System.IO.MemoryStream ToXml(object o)
         {
@@ -71,7 +75,7 @@ namespace ASC.Web.Files.Services.WCFService
             }
             result.Seek(0, System.IO.SeekOrigin.Begin);
 
-            if (WorkContext.IsMono)
+            if (oldMonoSerializer)
             {
                 var xml = new XmlDocument();
                 xml.PreserveWhitespace = true;

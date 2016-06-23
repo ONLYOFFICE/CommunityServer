@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -32,7 +32,6 @@ using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Utility;
 using log4net;
 using log4net.Config;
-using System;
 using System.ServiceModel;
 using TMResourceData;
 
@@ -41,7 +40,7 @@ namespace ASC.Notify
     public class NotifyServiceLauncher : IServiceController
     {
         private ServiceHost serviceHost;
-        private NotifyService service;
+        private NotifySender sender;
         private NotifyCleaner cleaner;
 
 
@@ -51,9 +50,9 @@ namespace ASC.Notify
 
             serviceHost = new ServiceHost(typeof(NotifyService));
             serviceHost.Open();
-
-            service = new NotifyService();
-            service.StartSending();
+            
+            sender = new NotifySender();
+            sender.StartSending();
 
             if (0 < NotifyServiceCfg.Schedulers.Count)
             {
@@ -66,9 +65,9 @@ namespace ASC.Notify
 
         public void Stop()
         {
-            if (service != null)
+            if (sender != null)
             {
-                service.StopSending();
+                sender.StopSending();
             }
             if (serviceHost != null)
             {

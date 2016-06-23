@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ImportUsers.ascx.cs"
     Inherits="ASC.Web.Studio.UserControls.Users.ImportUsers" %>
+<%@ Import Namespace="ASC.Core.Billing" %>
 <%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Core.Mobile" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
@@ -165,10 +166,14 @@
                 </div>
                 <div class="popup_helper" id="answerForHelpInviteGuests">
                     <p>
-                        <%=string.Format(Resource.NoteForInviteCollaborator.HtmlEncode(), "<b>","</b>")%>
-                         <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
-                            { %>
-                        <a href="<%= CommonLinkUtility.GetHelpLink(true) %>" target="_blank">
+                        <%= string.Format(Resource.NoteInviteCollaborator, "<b>","</b>")%>
+                        <% if (TenantExtra.EnableTarrifSettings && TenantExtra.GetTenantQuota().ActiveUsers != LicenseReader.MaxUserCount)
+                           { %>
+                        <%= Resource.NotePriceCollaborator %>
+                        <% } %>
+                        <% if (!string.IsNullOrEmpty(HelpLink))
+                           { %>
+                        <a href="<%= HelpLink %>" target="_blank">
                             <%= Resource.LearnMore %></a>
                         <% } %>
                     </p>
@@ -207,10 +212,13 @@
                 </div>
             </div>
             <div class="middle-button-container">
+                <% if (TenantExtra.EnableTarrifSettings)
+                   { %>
                 <a class="blue button medium" href="<%= TenantExtra.GetTariffPageLink() %>">
                     <%= UserControlsCommonResource.UpgradeButton %></a>
                 <span class="splitter-buttons"></span>
-                    <a id="import-limit-btn" class="gray button" onclick="ImportUsersManager.ConfirmationLimit();">
+                <% } %>
+                    <a id="import-limit-btn" class="<%= TenantExtra.EnableTarrifSettings ? "gray" : "blue" %> button" onclick="ImportUsersManager.ConfirmationLimit();">
                         <%= Resource.AddUsersCaption %>
                     </a>
                     <span class="splitter-buttons"></span>

@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -37,7 +37,7 @@ using ASC.CRM.Core;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Collection;
 using ASC.Mail.Aggregator.Common.Extension;
-using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Aggregator.DbSchema;
 using ASC.Web.Core;
 
 namespace ASC.Mail.Aggregator
@@ -97,9 +97,9 @@ namespace ASC.Mail.Aggregator
                     var listObjects = GetChainedMessagesInfo(db, tenant, user, (List<int>) messagesIds,
                                                               new[]
                                                                   {
-                                                                      MailTable.Columns.id, MailTable.Columns.chain_id,
-                                                                      MailTable.Columns.folder,
-                                                                      MailTable.Columns.id_mailbox
+                                                                      MailTable.Columns.Id, MailTable.Columns.ChainId,
+                                                                      MailTable.Columns.Folder,
+                                                                      MailTable.Columns.MailboxId
                                                                   });
 
                     var validIds = new List<int>();
@@ -148,9 +148,9 @@ namespace ASC.Mail.Aggregator
             ICollection validIds, IEnumerable<ChainInfo> chains)
         {
             db.ExecuteNonQuery(
-                new SqlDelete(TagMailTable.name)
-                    .Where(TagMailTable.Columns.id_tag, tagId)
-                    .Where(Exp.In(TagMailTable.Columns.id_mail, validIds)));
+                new SqlDelete(TagMailTable.Name)
+                    .Where(TagMailTable.Columns.TagId, tagId)
+                    .Where(Exp.In(TagMailTable.Columns.MailId, validIds)));
 
             UpdateTagCount(db, tenant, user, tagId);
 
@@ -167,9 +167,9 @@ namespace ASC.Mail.Aggregator
             out List<ChainInfo> chains)
         {
             var valids = db.ExecuteList(
-                    new SqlQuery(MailTable.name)
-                        .Select(MailTable.Columns.id, MailTable.Columns.chain_id, MailTable.Columns.folder, MailTable.Columns.id_mailbox)
-                        .Where(Exp.In(MailTable.Columns.id, messagesIds.ToArray()))
+                    new SqlQuery(MailTable.Name)
+                        .Select(MailTable.Columns.Id, MailTable.Columns.ChainId, MailTable.Columns.Folder, MailTable.Columns.MailboxId)
+                        .Where(Exp.In(MailTable.Columns.Id, messagesIds.ToArray()))
                         .Where(GetUserWhere(user, tenant)))
                     .ConvertAll(x => new { 
                         id = Convert.ToInt32(x[0]),
@@ -192,9 +192,9 @@ namespace ASC.Mail.Aggregator
 
             using (var db = GetDb())
             {
-                db.ExecuteList(new SqlQuery(TagTable.name)
-                                   .Select(TagTable.Columns.id, TagTable.Columns.name, TagTable.Columns.style,
-                                           TagTable.Columns.addresses, TagTable.Columns.count, TagTable.Columns.crm_id)
+                db.ExecuteList(new SqlQuery(TagTable.Name)
+                                   .Select(TagTable.Columns.Id, TagTable.Columns.TagName, TagTable.Columns.Style,
+                                           TagTable.Columns.Addresses, TagTable.Columns.Count, TagTable.Columns.CrmId)
                                    .Where(GetUserWhere(user, tenant)))
                   .ForEach(r =>
                            tags.Add(0 < Convert.ToInt32(r[5]) ? -Convert.ToInt32(r[5]) : Convert.ToInt32(r[0]),
@@ -225,10 +225,10 @@ namespace ASC.Mail.Aggregator
 
             using (var db = new DbManager("crm"))
             {
-                var q = new SqlQuery(CrmTagTable.name.Alias(crm_tag_alias))
-                    .Select(CrmTagTable.Columns.id.Prefix(crm_tag_alias), CrmTagTable.Columns.title.Prefix(crm_tag_alias))
-                    .Where(CrmTagTable.Columns.tenant_id.Prefix(crm_tag_alias), tenant)
-                    .Where(CrmTagTable.Columns.entity_type.Prefix(crm_tag_alias), CRM_CONTACT_ENTITY_TYPE);
+                var q = new SqlQuery(CrmTagTable.Name.Alias(crm_tag_alias))
+                    .Select(CrmTagTable.Columns.Id.Prefix(crm_tag_alias), CrmTagTable.Columns.Title.Prefix(crm_tag_alias))
+                    .Where(CrmTagTable.Columns.Tenant.Prefix(crm_tag_alias), tenant)
+                    .Where(CrmTagTable.Columns.EntityType.Prefix(crm_tag_alias), CRM_CONTACT_ENTITY_TYPE);
 
                 var crmTags = db.ExecuteList(q)
                     .ConvertAll(r =>
@@ -254,10 +254,10 @@ namespace ASC.Mail.Aggregator
         {
             using (var db = GetDb())
             {
-                var result = db.ExecuteScalar<int>(new SqlQuery(TagTable.name)
-                                                   .Select(TagTable.Columns.id)
+                var result = db.ExecuteScalar<int>(new SqlQuery(TagTable.Name)
+                                                   .Select(TagTable.Columns.Id)
                                                    .Where(GetUserWhere(user, tenant))
-                                                   .Where(TagTable.Columns.name, name));
+                                                   .Where(TagTable.Columns.TagName, name));
 
                 return Convert.ToInt32(result) > 0;
             }
@@ -265,13 +265,13 @@ namespace ASC.Mail.Aggregator
 
         public MailTag GetMailTag(int tenant, string user, int tagId)
         {
-            var tags = GetMailTags(tenant, user, new EqExp(TagTable.Columns.id, tagId));
+            var tags = GetMailTags(tenant, user, new EqExp(TagTable.Columns.Id, tagId));
             return tags.Any() ? tags[0] : null;
         }
 
         public MailTag GetMailTag(int tenant, string user, string name)
         {
-            var tags = GetMailTags(tenant, user, new EqExp(TagTable.Columns.name, name));
+            var tags = GetMailTags(tenant, user, new EqExp(TagTable.Columns.TagName, name));
             return tags.Any() ? tags[0] : null;
         }
 
@@ -286,8 +286,8 @@ namespace ASC.Mail.Aggregator
         private List<MailTag> GetMailTags(IDbManager db, int tenant, string user, Exp exp)
         {
             return db.ExecuteList(
-                new SqlQuery(TagTable.name)
-                    .Select(TagTable.Columns.id, TagTable.Columns.name, TagTable.Columns.style, TagTable.Columns.addresses)
+                new SqlQuery(TagTable.Name)
+                    .Select(TagTable.Columns.Id, TagTable.Columns.TagName, TagTable.Columns.Style, TagTable.Columns.Addresses)
                     .Where(GetUserWhere(user, tenant))
                     .Where(exp))
                 .ConvertAll(r =>
@@ -297,7 +297,7 @@ namespace ASC.Mail.Aggregator
 
         public int[] GetOrCreateTags(int tenant, string user, string[] names)
         {
-            var exp = names.Aggregate(Exp.Empty, (current, name) => current | Exp.Eq(TagTable.Columns.name, name));
+            var exp = names.Aggregate(Exp.Empty, (current, name) => current | Exp.Eq(TagTable.Columns.TagName, name));
             var existingTags = GetMailTags(tenant, user, exp);
             var existingNames = existingTags.ConvertAll(t => t.Name.ToLower());
             var res = existingTags.ConvertAll(t => t.Id);
@@ -326,36 +326,36 @@ namespace ASC.Mail.Aggregator
                     if (tag.Id == 0)
                     {
                         tag.Id = db.ExecuteScalar<int>(
-                            new SqlInsert(TagTable.name)
-                                .InColumnValue(TagTable.Columns.id, 0)
-                                .InColumnValue(TagTable.Columns.id_tenant, tenant)
-                                .InColumnValue(TagTable.Columns.id_user, user)
-                                .InColumnValue(TagTable.Columns.name, tag.Name)
-                                .InColumnValue(TagTable.Columns.style, tag.Style)
-                                .InColumnValue(TagTable.Columns.addresses, string.Join(";", tag.Addresses.ToArray()))
+                            new SqlInsert(TagTable.Name)
+                                .InColumnValue(TagTable.Columns.Id, 0)
+                                .InColumnValue(TagTable.Columns.Tenant, tenant)
+                                .InColumnValue(TagTable.Columns.User, user)
+                                .InColumnValue(TagTable.Columns.TagName, tag.Name)
+                                .InColumnValue(TagTable.Columns.Style, tag.Style)
+                                .InColumnValue(TagTable.Columns.Addresses, string.Join(";", tag.Addresses.ToArray()))
                                 .Identity(0, 0, true));
                     }
                     else
                     {
                         db.ExecuteNonQuery(
-                            new SqlUpdate(TagTable.name)
-                                .Set(TagTable.Columns.name, tag.Name)
-                                .Set(TagTable.Columns.style, tag.Style)
-                                .Set(TagTable.Columns.addresses, string.Join(";", tag.Addresses.ToArray()))
-                                .Where(TagTable.Columns.id, tag.Id));
+                            new SqlUpdate(TagTable.Name)
+                                .Set(TagTable.Columns.TagName, tag.Name)
+                                .Set(TagTable.Columns.Style, tag.Style)
+                                .Set(TagTable.Columns.Addresses, string.Join(";", tag.Addresses.ToArray()))
+                                .Where(TagTable.Columns.Id, tag.Id));
 
                         db.ExecuteNonQuery(
-                                new SqlDelete(TagAddressTable.name)
-                                    .Where(TagAddressTable.Columns.id_tag, tag.Id));
+                                new SqlDelete(TagAddressTable.Name)
+                                    .Where(TagAddressTable.Columns.TagId, tag.Id));
                     }
 
                     if (tag.Addresses.Any())
                     {
                         var insertQuery =
-                            new SqlInsert(TagAddressTable.name)
-                                .InColumns(TagAddressTable.Columns.id_tag,
-                                           TagAddressTable.Columns.address,
-                                           TagAddressTable.Columns.id_tenant);
+                            new SqlInsert(TagAddressTable.Name)
+                                .InColumns(TagAddressTable.Columns.TagId,
+                                           TagAddressTable.Columns.Address,
+                                           TagAddressTable.Columns.Tenant);
 
                         tag.Addresses
                            .ForEach(addr =>
@@ -379,15 +379,15 @@ namespace ASC.Mail.Aggregator
                 using (var tx = db.BeginTransaction())
                 {
                     var affected = db.ExecuteNonQuery(
-                        new SqlDelete(TagTable.name)
-                            .Where(TagTable.Columns.id, tagId)
+                        new SqlDelete(TagTable.Name)
+                            .Where(TagTable.Columns.Id, tagId)
                             .Where(GetUserWhere(user, tenant)));
 
                     if (0 < affected)
                     {
                         db.ExecuteNonQuery(
-                            new SqlDelete(TagMailTable.name)
-                                .Where(TagMailTable.Columns.id_tag, tagId)
+                            new SqlDelete(TagMailTable.Name)
+                                .Where(TagMailTable.Columns.TagId, tagId)
                                 .Where(GetUserWhere(user, tenant)));
                     }
 
@@ -406,12 +406,12 @@ namespace ASC.Mail.Aggregator
             if (!idTags.Any()) return;
 
             CreateInsertDelegate createInsertQuery = ()
-                => new SqlInsert(TagMailTable.name)
+                => new SqlInsert(TagMailTable.Name)
                         .IgnoreExists(true)
-                        .InColumns(TagMailTable.Columns.id_mail,
-                                   TagMailTable.Columns.id_tag,
-                                   TagMailTable.Columns.id_tenant,
-                                   TagMailTable.Columns.id_user);
+                        .InColumns(TagMailTable.Columns.MailId,
+                                   TagMailTable.Columns.TagId,
+                                   TagMailTable.Columns.Tenant,
+                                   TagMailTable.Columns.User);
 
             var insertQuery = createInsertQuery();
 
@@ -437,12 +437,12 @@ namespace ASC.Mail.Aggregator
             if (!idMessages.Any()) return;
 
             CreateInsertDelegate createInsertQuery = ()
-                => new SqlInsert(TagMailTable.name)
+                => new SqlInsert(TagMailTable.Name)
                         .IgnoreExists(true)
-                        .InColumns(TagMailTable.Columns.id_mail,
-                                   TagMailTable.Columns.id_tag,
-                                   TagMailTable.Columns.id_tenant,
-                                   TagMailTable.Columns.id_user);
+                        .InColumns(TagMailTable.Columns.MailId,
+                                   TagMailTable.Columns.TagId,
+                                   TagMailTable.Columns.Tenant,
+                                   TagMailTable.Columns.User);
 
             var insertQuery = createInsertQuery();
 
@@ -467,10 +467,10 @@ namespace ASC.Mail.Aggregator
             var foundedChains = GetChainedMessagesInfo(db, tenant, user, (List<int>)messagesIds,
                        new[]
                             {
-                                MailTable.Columns.id, 
-                                MailTable.Columns.chain_id,
-                                MailTable.Columns.folder,
-                                MailTable.Columns.id_mailbox
+                                MailTable.Columns.Id, 
+                                MailTable.Columns.ChainId,
+                                MailTable.Columns.Folder,
+                                MailTable.Columns.MailboxId
                             })
                        .ConvertAll(r => new
                        {
@@ -506,11 +506,11 @@ namespace ASC.Mail.Aggregator
 
                     if (allowedContactIds.Count == 0) return;
 
-                    var tagIds = db.ExecuteList(new SqlQuery(CrmEntityTagTable.name)
+                    var tagIds = db.ExecuteList(new SqlQuery(CrmEntityTagTable.Name)
                                                            .Distinct()
-                                                           .Select(CrmEntityTagTable.Columns.tag_id)
-                                                           .Where(CrmEntityTagTable.Columns.entity_type, (int)EntityType.Contact)
-                                                           .Where(Exp.In(CrmEntityTagTable.Columns.entity_id, allowedContactIds)))
+                                                           .Select(CrmEntityTagTable.Columns.TagId)
+                                                           .Where(CrmEntityTagTable.Columns.EntityType, (int)EntityType.Contact)
+                                                           .Where(Exp.In(CrmEntityTagTable.Columns.EntityId, allowedContactIds)))
                                           .ConvertAll(r => -Convert.ToInt32(r[0]));
 
                     mail.TagIds = new ItemList<int>(tagIds);
@@ -532,31 +532,31 @@ namespace ASC.Mail.Aggregator
 
         private void UpdateTagCount(DbManager db, int tenant, string user, int tadId)
         {
-            var countQuery = new SqlQuery(TagMailTable.name)
+            var countQuery = new SqlQuery(TagMailTable.Name)
                 .SelectCount()
                 .Where(GetUserWhere(user, tenant))
-                .Where(TagMailTable.Columns.id_tag, tadId);
+                .Where(TagMailTable.Columns.TagId, tadId);
 
             const string tag_alias = "mt";
 
             var res = db.ExecuteNonQuery(
-                new SqlUpdate(TagTable.name.Alias(tag_alias))
-                    .Set(TagTable.Columns.count.Prefix(tag_alias), countQuery)
+                new SqlUpdate(TagTable.Name.Alias(tag_alias))
+                    .Set(TagTable.Columns.Count.Prefix(tag_alias), countQuery)
                     .Where(GetUserWhere(user, tenant, tag_alias))
                     .Where(tadId >= 0
-                               ? Exp.Eq(TagTable.Columns.id.Prefix(tag_alias), tadId)
-                               : Exp.Eq(TagTable.Columns.crm_id.Prefix(tag_alias), -tadId)));
+                               ? Exp.Eq(TagTable.Columns.Id.Prefix(tag_alias), tadId)
+                               : Exp.Eq(TagTable.Columns.CrmId.Prefix(tag_alias), -tadId)));
 
             if (tadId >= 0 || 0 != res) return;
 
             db.ExecuteNonQuery(
-                new SqlInsert(TagTable.name, true)
-                    .InColumnValue(TagTable.Columns.id_tenant, tenant)
-                    .InColumnValue(TagTable.Columns.id_user, user)
-                    .InColumnValue(TagTable.Columns.name, "")
-                    .InColumnValue(TagTable.Columns.addresses, "")
-                    .InColumnValue(TagTable.Columns.crm_id, -tadId)
-                    .InColumnValue(TagTable.Columns.count, db.ExecuteScalar<int>(countQuery)));
+                new SqlInsert(TagTable.Name, true)
+                    .InColumnValue(TagTable.Columns.Tenant, tenant)
+                    .InColumnValue(TagTable.Columns.User, user)
+                    .InColumnValue(TagTable.Columns.TagName, "")
+                    .InColumnValue(TagTable.Columns.Addresses, "")
+                    .InColumnValue(TagTable.Columns.CrmId, -tadId)
+                    .InColumnValue(TagTable.Columns.Count, db.ExecuteScalar<int>(countQuery)));
         }
 
         #endregion

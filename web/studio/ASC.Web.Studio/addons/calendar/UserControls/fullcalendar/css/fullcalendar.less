@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -35,28 +35,8 @@
  *
  */
 @imagepath: "/addons/calendar/usercontrols/fullcalendar/img/";
+@mageCssPath: "/skins/default/imagescss/";
 @defaultColor:#62B5DF;
-
-.buttonNew {
-background-image: url('@{imagepath}menu_button_blue_bg.png');
-background-color: #3A93C4;
-border-color: #66BBE6 #3C9BC6 #1F85B0;
-color: white;
-min-width: 100px;
-text-align: left;
-float:left;
-width:164px;
-height:22px;
-cursor:pointer;
-padding: 8px 10px 0 10px;
-margin: 0 0 0 10px;
-border-style: solid;
-border-width: 1px;
-border-color: gainsboro #D1D1D1 #C6C6C6;
-border-radius: 3px;
--moz-border-radius: 3px;
--webkit-border-radius: 3px;
-}
 
 html .fc {
 	font-size: 1em;
@@ -130,18 +110,27 @@ html .fc {
 }
 
 .fc-dropdown {
-	background-image: url('@{imagepath}dropdown.png');
-	background-position: 100% 60%;
-	background-repeat: no-repeat;
-	padding-left: 7px;
-	margin-left: .5em;
-	cursor: pointer;
+    padding-left: 7px;
+    margin-left: .5em;
+    cursor: pointer;
+    position: relative;
+
+    &:after {
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 4px solid #212121;
+        content: "";
+        height: 0;
+        margin-top: -2px;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 0;
+    }
 }
 
-.fc-dropdown-white
-{
-    background-image: url('@{imagepath}dropdown_white.png');
-}
+
+
 
 .fc-border-right {
 	border-right: 1px solid #c7c7c7;
@@ -205,27 +194,11 @@ html .fc {
 	height: 50px;
 }
 
-.fc-header-outer .fc-header-navigate
-{
-    width:204px;
-    float:left;
-    margin-top: .5em;
-}
-
-.fc-header-outer .fc-header-navigate .page-menu .menu-actions
-{
-    margin-bottom: 0;
-}
-
 /* Today block */
 
 .fc-header-today {
-	float: left;
-	width: 201px;
 }
 .fc-header-today .date-box {
-	color: #333;
-	padding-left: 1.7em;
 	padding-top: .5em;
 }
 .fc-header-today .date-box > * {
@@ -254,7 +227,7 @@ html .fc {
 
 .fc-header {
 	position: absolute;
-	left: 240px;
+	left: 0;
 	right: 0;
 	top: 0;
 	bottom: 0;
@@ -266,7 +239,6 @@ html .fc {
 	width: 20%;
 	height: 100%;
 	text-align: left;
-	padding-left: 8px;
 }
 
 .fc-header .fc-header-center {
@@ -324,7 +296,7 @@ html .fc {
 
 .fc-view-selector {
 	display: inline-block;
-	margin: 1.1em 1em 0 0;
+	margin: 1.2em 1em 0 0;
 	padding: .2em 0;
 	vertical-align: top;
 }
@@ -335,6 +307,7 @@ html .fc {
 	line-height: 14px;
 	padding-left: 16px;
 	margin-right: 0;
+    margin-top: 2px;
 }
 .fc-view-selector .icon.calendar {
 	background-image: url('@{imagepath}calendar_16.png');
@@ -673,16 +646,30 @@ html .fc {
 
 
 .triangle-w, .triangle-e {
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
 	width: 16px;
 	display: inline-block;
+    position: relative;
+
+    &:after {
+        content: " ";
+        display: block;
+        height: 0;
+        margin-top: -5px;
+        position: absolute;
+        right: 5px;
+        top: 50%;
+        width: 0;
+    }
 }
-.triangle-w {
-	background-image: url('@{imagepath}triangle-w.png');
+.triangle-w:after {
+	border-bottom: 6px solid transparent;
+    border-right: 6px solid #333;
+    border-top: 6px solid transparent;
 }
-.triangle-e {
-	background-image: url('@{imagepath}triangle-e.png');
+.triangle-e:after {
+    border-bottom: 6px solid transparent;
+    border-left: 6px solid #333;
+    border-top: 6px solid transparent;
 }
 
 
@@ -692,16 +679,16 @@ html .fc {
  */
 
 .fc-event {
-	border-style: solid;
-	border-width: 0;
-	font-size: .85em;
-	cursor: default;
-  position: relative;
-}
-.fc-event:hover {
-	z-index: 10 !important;
-}
+    border-style: solid;
+    border-width: 0;
+    font-size: .85em;
+    cursor: default;
+    position: relative;
 
+    &:hover {
+        z-index: 10 !important;
+    }
+}
 a.fc-event,
 .fc-event-draggable {
 	cursor: pointer;
@@ -709,7 +696,7 @@ a.fc-event,
 
 a.fc-event {
 	text-decoration: none;
-  display: inline-block;
+    display: inline-block;
 }
 
 .fc-rtl .fc-event {
@@ -752,6 +739,10 @@ a.fc-event {
 	position: absolute;
 	left: 0px;
 	top: 0px;
+}
+
+.fc-event-cancelled {
+    text-decoration: line-through;
 }
 
 .fc-event-title .inner {
@@ -1438,33 +1429,40 @@ table.fc-border-separate {
 /* time marker */
 
 .fc-agenda .fc-time-marker {
-	position: absolute;
-	z-index: 7;
-	left: 0;
-	top: 0;
-	white-space: nowrap;
-}
-.fc-agenda .fc-time-marker .left-side {
-	position: absolute;
-	top: 0;
-	left: 0;
-	background-image: url('@{imagepath}time-marker.png');
-	background-position: 0px 0px;
-	width: 7px;
-	height: 14px;
-}
-.fc-agenda .fc-time-marker .right-side {
-	display: none;
-}
-.fc-agenda .fc-time-marker .center-line {
-	position: absolute;
-	top: 6px;
-	left: 7px;
-	height: 0px;
-	border-top: 1px solid #b40000;
-	border-bottom: 1px solid #ddd;
-}
+    position: absolute;
+    z-index: 7;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
 
+    .left-side {
+        border-bottom: 7px solid transparent;
+        border-left: 7px solid #b40000;
+        border-top: 7px solid transparent;
+
+        position: absolute;
+        top: 0;
+        left: 1px;
+        width: 0;
+        height: 0;
+        display: block;
+        margin: 0;
+        z-index: 10;
+    }
+
+    .right-side {
+        display: none;
+    }
+
+    .center-line {
+        position: absolute;
+        top: 6px;
+        left: 7px;
+        height: 0px;
+        border-top: 1px solid #b40000;
+        border-bottom: 1px solid #ddd;
+    }
+}
 
 
 /*
@@ -1692,32 +1690,6 @@ td.fc-catlist.hidden {
 div.fc-catlist {
 	position: relative;
 	background-color: #fff;
-}
-
-/* Splitter */
-
-.fc-catlist-sp {
-	width: 8px;
-	background-image: url('@{imagepath}splitter-l.png');
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	padding: 0;
-	margin: 0;
-	cursor: pointer;
-}
-.fc-catlist-sp:hover {
-	background-color: #f5f5f5;
-	border-top:1px solid #f5f5f5;
-	border-bottom:1px solid #f5f5f5;
-}
-.fc-catlist-sp.hidden {
-	border-left: none;
-	background-image: url('@{imagepath}splitter-r.png');
-}
-.fc-catlist-sp > div {
-	border-top: 1px solid #fff;
-	width: 100%;
-	height: 1px;
 }
 
 /* Content */
@@ -2070,53 +2042,72 @@ div.fc-todo-list {
  *   more-users
 */
 
-.shared-list .link {
-	border-bottom: 1px dotted #000;
-	cursor: pointer;
-}
-.shared-list .link:hover {
-    text-decoration: none;
+.shared-list {
+    .link {
+        border-bottom: 1px dotted #000;
+        cursor: pointer;
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    .add-icon {
+        padding-left: 16px;
+        margin-right: .5em;
+        line-height: 16px;
+        cursor: pointer;
+        position: relative;
+
+        &:after {
+            content: "+";
+            cursor: pointer;
+            display: block;
+            height: 12px;
+            line-height: 12px;
+            left: 1px;
+            position: absolute;
+            top: 50%;
+            margin-top: -6px;
+            width: 12px;
+            font-weight: 800;
+            font-size: 22px;
+            color: #888;
+        }
+    }
+
+    .users-list {
+        display: none;
+
+        .label {
+            font-weight: bold;
+            margin-bottom: .5em;
+        }
+
+        .short-list {
+            line-height: 200%;
+            word-wrap: break-word;
+            width: 30em;
+            white-space: normal;
+        }
+
+        .user {
+            padding-right: 1em;
+            /*white-space: nowrap;*/
+        }
+    }
+
+    &.has-users {
+        .empty-list {
+            display: none;
+        }
+
+        .users-list {
+            display: block;
+        }
+    }
 }
 
-.shared-list .add-icon {
-	background-image: url('@{imagepath}plus_16.png');
-	background-position: left;
-	background-repeat: no-repeat;
-	padding-left: 16px;
-    margin-right: .5em;
-	line-height: 16px;
-	cursor: pointer;
-}
-
-.shared-list .empty-list {
-}
-.shared-list.has-users .empty-list {
-	display: none;
-}
-
-.shared-list .users-list {
-	display: none;
-}
-.shared-list.has-users .users-list {
-	display: block;
-}
-
-.shared-list .users-list .label {
-	font-weight: bold;
-	margin-bottom: .5em;
-}
-
-.shared-list .users-list .short-list {
-	line-height: 200%;
-	word-wrap: break-word;
-	width: 30em;
-	white-space: normal;
-}
-
-.shared-list .users-list .user {
-	padding-right: 1em;
-	/*white-space: nowrap;*/
-}
 .shared-list .users-list .user .icon,
 .shared-list .users-list .user .remove-btn {
 	display: inline-block;
@@ -2172,13 +2163,21 @@ div.fc-todo-list {
 	/*font-family: Arial;*/
 }
 
-#fc_event_editor .viewer,
-#fc_event_editor .editor {
+#fc_event_editor .viewer .location {
+    width: 360px;
+    max-height: 50px;
+    overflow: hidden;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.event-editor .viewer,
+.event-editor .editor {
 	min-width: 30em;
 	margin-bottom: 2.5em;
 }
 
-#fc_event_editor .viewer .calendar {
+.event-editor .viewer .calendar {
 	max-width: 30em;
 	white-space: normal;
 }
@@ -2211,7 +2210,7 @@ div.fc-todo-list {
     padding: 1em;
 }
 
-#fc_event_editor.add-dialog {
+.event-editor.add-dialog {
 	padding-top: 0;
 	padding-bottom: 2.2em;
 	border: 1px solid #D1D1D1;
@@ -2220,41 +2219,39 @@ div.fc-todo-list {
 
 #fc_delete_settings.add-popup,
 #fc_ical_stream.add-popup {
-    padding-top: 0;
-    padding-bottom: 1.5em;
+    border: 1px solid #d1d1d1;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+    min-width: 25em;
+    padding: 0 2em 2em;
 }
 
-#fc_ical_stream.dark-border {
-    border: 1px solid #2F3438;
-}
-
-#fc_event_editor input,
-#fc_event_editor select,
-#fc_event_editor textarea,
+.event-editor input,
+.event-editor select,
+.event-editor textarea,
 .repeat-settings input,
 .repeat-settings select {
 	border: solid 1px #c7c7c7;
 	margin: 0;
 }
 
-#fc_event_editor input:focus,
-#fc_event_editor select:focus,
-#fc_event_editor textarea:focus,
+.event-editor input:focus,
+.event-editor select:focus,
+.event-editor textarea:focus,
 .repeat-settings input:focus,
 .repeat-settings select:focus {
 	border: solid 1px #3186af;
 	outline: none;
 }
 
-#fc_event_editor .viewer > div,
-#fc_event_editor .editor > div,
+.event-editor .viewer > div,
+.event-editor .editor > div,
 .repeat-settings > div,
 #fc_delete_settings .delete-selector > div,
 #fc_ical_stream .delete-selector > div {
 	margin: 1.5em 0;
 }
 
-#fc_event_editor .label, 
+.event-editor .label, 
 .repeat-settings .label,
 #fc_delete_settings .label,
 #fc_ical_stream .label,
@@ -2265,123 +2262,133 @@ div.fc-todo-list {
 
 /* buttons */
 
-#fc_event_editor .buttons,
+.event-editor .buttons,
 #fc_delete_settings .buttons,
 #fc_ical_stream .buttons {
-	/*margin-top: 2.5em;
-	position: relative;*/
-	margin-top: -1.5em;
 	min-width: 30em;
 }
-#fc_event_editor .buttons a,
+
+.event-editor .buttons {
+	margin-top: -1.5em;
+}
+
+.event-editor .buttons a,
 #fc_delete_settings .buttons a,
 #fc_ical_stream .buttons a{
 	display: inline-block;
 	min-width: 4em;
 }
 
-#fc_event_editor .buttons .edit-btn,
-#fc_event_editor .buttons .delete-btn,
-#fc_event_editor .buttons .close-btn,
-#fc_event_editor .buttons .unsubs-btn,
+.event-editor .buttons .edit-btn,
+.event-editor .buttons .delete-btn,
+.event-editor .buttons .close-btn,
+.event-editor .buttons .unsubs-btn,
 #fc_delete_settings .buttons .close-btn,
 #fc_ical_stream .buttons .close-btn {
 	display: none;
 }
 
-#fc_event_editor .buttons .edit-btn,
-#fc_event_editor .buttons .save-btn,
-#fc_event_editor .buttons .close-btn,
-#fc_event_editor .buttons .cancel-btn,
-#fc_event_editor .buttons .delete-btn,
+.event-editor .buttons .edit-btn,
+.event-editor .buttons .save-btn,
+.event-editor .buttons .close-btn,
+.event-editor .buttons .cancel-btn,
+.event-editor .buttons .delete-btn,
 #fc_delete_settings .buttons .save-btn {
 	margin-right: .5em;
 }
 
-#fc_event_editor .buttons.editable .edit-btn {
+.event-editor .buttons.editable .edit-btn {
 	display: inline-block;
 }
 
-#fc_event_editor .buttons.erasable .delete-btn {
+.event-editor .buttons.erasable .delete-btn {
 	display: inline-block;
 }
 
-#fc_event_editor .buttons.readonly .close-btn,
+.event-editor .buttons.readonly .close-btn,
 #fc_delete_settings .buttons.readonly .close-btn,
 #fc_ical_stream .buttons.readonly .close-btn {
 	display: inline-block;
 }
 
-#fc_event_editor .buttons.readonly .cancel-btn,
+.event-editor .buttons.readonly .cancel-btn,
 #fc_delete_settings .buttons.readonly .cancel-btn,
 #fc_ical_stream .buttons.readonly .cancel-btn {
 	display: none;
 }
 
-#fc_event_editor .buttons.shared {
+.event-editor .buttons.shared {
 	min-width: 30em;
 }
-#fc_event_editor .buttons.shared .unsubs-btn {
+.event-editor .buttons.shared .unsubs-btn {
 	display: inline-block;
 }
 
-#fc_event_editor.add-dialog .buttons .edit-btn,
-#fc_event_editor.add-popup .buttons .edit-btn,
-#fc_event_editor.edit-popup .buttons .edit-btn,
-#fc_event_editor .buttons .save-btn,
-#fc_event_editor.add-dialog .buttons .delete-btn,
-#fc_event_editor.add-popup .buttons .delete-btn,
+.event-editor.add-dialog .buttons .edit-btn,
+.event-editor.add-popup .buttons .edit-btn,
+.event-editor.edit-popup .buttons .edit-btn,
+.event-editor .buttons .save-btn,
+.event-editor .buttons .view-details,
+.event-editor.add-dialog .buttons .delete-btn,
+.event-editor.add-popup .buttons .delete-btn,
 #fc_delete_settings .buttons .save-btn {
 	display: none;
 }
 
-#fc_event_editor.add-dialog .buttons .save-btn,
-#fc_event_editor.add-popup .buttons .save-btn,
-#fc_event_editor.edit-popup .buttons .save-btn,
+.event-editor.add-dialog .buttons .save-btn,
+.event-editor.add-popup .buttons .save-btn,
+.event-editor.edit-popup .buttons .save-btn,
+.event-editor.add-dialog .buttons .view-details,
+.event-editor.add-popup .buttons .view-details,
+.event-editor.edit-popup .buttons .view-details,
 #fc_delete_settings.add-popup .buttons .save-btn {
 	display: inline-block;
 }
 
+.event-editor .buttons .button {
+	float: left;
+}
+
 /* visibility */
 
-#fc_event_editor .viewer {
+.event-editor .viewer {
 	display: inline-block;
 }
-#fc_event_editor.add-dialog .viewer,
-#fc_event_editor.add-popup .viewer,
-#fc_event_editor.edit-popup .viewer {
+.event-editor.add-dialog .viewer,
+.event-editor.add-popup .viewer,
+.event-editor.edit-popup .viewer {
 	display: none;
 }
 
-#fc_event_editor .editor,
+.event-editor .editor,
 #fc_delete_settings .delete-selector {
 	display: none;
 }
 
-#fc_event_editor.add-dialog .editor,
-#fc_event_editor.add-popup .editor,
-#fc_event_editor.edit-popup .editor,
+.event-editor.add-dialog .editor,
+.event-editor.add-popup .editor,
+.event-editor.edit-popup .editor,
 #fc_delete_settings.add-popup .delete-selector {
 	display: block;
 }
 
-#fc_event_editor.add-dialog .editor,
-#fc_event_editor.add-popup .editor,
-#fc_event_editor.edit-popup .editor {
+.event-editor.add-dialog .editor,
+.event-editor.add-popup .editor,
+.event-editor.edit-popup .editor {
 	display: inline-block;
 }
 
 /* header */
 
-#fc_event_editor .header,
-#fc_event_editor.add-popup .header,
-#fc_event_editor.edit-popup .header,
+.event-editor .header,
+.event-editor.add-popup .header,
+.event-editor.edit-popup .header,
 #fc_delete_settings .header,
 #fc_ical_stream .header {
 	display: none;
 }
 
-#fc_event_editor.add-dialog .header {
+.event-editor.add-dialog .header {
 	display: block;
 	color: #333;
 	background-color: #E2E2E2;
@@ -2391,36 +2398,38 @@ div.fc-todo-list {
 
 #fc_ical_stream.add-popup .header,
 #fc_delete_settings.add-popup .header {
-	display: block;
-	color: #FFF;
-	background-color: #2F3438;
-	margin: 0 -1em 1em;
-	padding: .5em 1em;
+    background-color: #e2e2e2;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    color: #333333;
+    display: block;
+    margin: 0 -2em 2em;
+    padding: 1em 2em;
 }
 
-#fc_event_editor .header .inner,
+.event-editor .header .inner,
 #fc_ical_stream .header .inner,
 #fc_delete_settings .header .inner {
     font-size: 18px;
 	position: relative;
 }
 
-#fc_event_editor .header .close-btn,
+.event-editor .header .close-btn,
 #fc_delete_settings .header .close-btn,
 #fc_ical_stream .header .close-btn {
 	cursor: pointer;
 	position: absolute;
-	top: 0;
+	top: -2px;
 	right: 0;
 	width: 12px;
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	background-image: url('@{imagepath}popup-close.png');
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
 }
 
 /* viewer */
 
-#fc_event_editor .viewer .title {
+.event-editor .viewer .title.big {
 	color: #000;
 	font-size: 15pt;
 	line-height: 15pt;
@@ -2435,25 +2444,25 @@ div.fc-todo-list {
 	max-width: 18em;
 }
 
-#fc_event_editor .viewer .owner.hidden {
+.event-editor .viewer .owner.hidden {
 	display: none;
 }
-#fc_event_editor .viewer .owner .name {
+.event-editor .viewer .owner .name {
 	
 }
 
-#fc_event_editor .viewer .shared-list.hidden,
-#fc_event_editor .editor .shared-list.hidden {
+.event-editor .viewer .shared-list.hidden,
+.event-editor .editor .shared-list.hidden {
 	display: none;
 }
 
-#fc_event_editor .viewer .owner {
+.event-editor .viewer .owner {
 	white-space: normal;
 	width: 30em;
 	word-wrap: break-word;
 }
 
-#fc_event_editor .viewer .owner .icon {
+.event-editor .owner .icon {
 	display: inline-block;
 	background-repeat: no-repeat;
 	line-height: 16px;
@@ -2462,46 +2471,49 @@ div.fc-todo-list {
 	padding-left: 16px;
 }
 
-#fc_event_editor .viewer .all-day .yes-label,
-#fc_event_editor .viewer .all-day.yes .no-label {
+.event-editor .viewer .all-day .yes-label,
+.event-editor .viewer .all-day.yes .no-label {
 	display: none;
 }
-#fc_event_editor .viewer .all-day .no-label {
+.event-editor .viewer .all-day .no-label {
 	display: inline;
 	color: #ccc;
 }
-#fc_event_editor .viewer .all-day.yes .yes-label {
+.event-editor .viewer .all-day.yes .yes-label {
 	display: inline;
 }
 
-#fc_event_editor .viewer .date-time {
+.event-editor .viewer .date-time {
 	position: relative;
 }
-#fc_event_editor .viewer .date-time > div {
+.event-editor .viewer .date-time > div {
 	display: inline-block;
 	width: 44%;
 }
-#fc_event_editor .viewer .date-time > div.right {
+.event-editor .viewer .date-time > div.right {
 	position: absolute;
 	top: 0;
 	right: 0;
 	width: 55%;
 	margin-right: -1em;
 }
-#fc_event_editor .viewer .date-time .from-time,
-#fc_event_editor .viewer .date-time .to-time {
+.event-editor .viewer .date-time .from-time,
+.event-editor .viewer .date-time .to-time {
 	margin-left: 1em;
 }
 
-#fc_event_editor .viewer .repeat-alert {
+.event-editor .viewer .repeat-alert,
+.event-editor .viewer .calendar-status {
 	position: relative;
 }
-#fc_event_editor .viewer .repeat-alert > div {
+.event-editor .viewer .repeat-alert > div,
+.event-editor .viewer .calendar-status > div {
 	display: inline-block;
 	width: 44%;
 	padding: 10px 0;
 }
-#fc_event_editor .viewer .repeat-alert > div.right {
+.event-editor .viewer .repeat-alert > div.right,
+.event-editor .viewer .calendar-status > div.right {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -2509,38 +2521,38 @@ div.fc-todo-list {
 	margin-right: -1em;
 	padding: 10px 0 10px 10px;
 }
-#fc_event_editor .viewer .repeat-alert.hidden {
+.event-editor .viewer .repeat-alert.hidden {
 	display: none;
 }
-#fc_event_editor .viewer .shared-list .no-label {
+.event-editor .viewer .shared-list .no-label {
 	display: block;
 	color: #ccc;
 }
-#fc_event_editor .viewer .shared-list.has-users .no-label,
-#fc_event_editor .viewer .shared-list .yes-label,
-#fc_event_editor .viewer .shared-list .users-list {
+.event-editor .viewer .shared-list.has-users .no-label,
+.event-editor .viewer .shared-list .yes-label,
+.event-editor .viewer .shared-list .users-list {
 	display: none;
 }
-#fc_event_editor .viewer .shared-list.has-users .yes-label {
+.event-editor .viewer .shared-list.has-users .yes-label {
 	display: block;
 	font-weight: bold;
 	margin-bottom: .5em
 }
-#fc_event_editor .viewer .shared-list.has-users .users-list {
+.event-editor .viewer .shared-list.has-users .users-list {
 	display: block;
 	word-wrap: break-word;
 	width: 30em;
 	white-space: normal;
 }
 
-#fc_event_editor .viewer .calendar .bullet {
+.event-editor .viewer .calendar .bullet {
 	padding-right: .5em;
 }
-#fc_event_editor .viewer .calendar .name {
+.event-editor .viewer .calendar .name {
 	vertical-align: middle;
 }
 
-#fc_event_editor .viewer .description .text {
+.event-editor .viewer .description .text {
 	/*width: 100%;*/
 	
 	white-space: normal;
@@ -2550,54 +2562,51 @@ div.fc-todo-list {
 	height: auto;
 	max-height: 8em;
 }
-#fc_event_editor .viewer .description .text > div {
+.event-editor .viewer .description .text > div {
 	width: 100%;
 	height: auto;
 	max-height: 8em;
 	overflow: auto;
 }
-#fc_event_editor .viewer .description .text .inner {
+.event-editor .viewer .description .text .inner {
 	word-wrap: break-word;
 	width: 100%;
 }
 
 /* editor */
 
-#fc_event_editor .editor .title {
-	padding-right: 6px;
-	margin-top: .5em;
+.event-editor .editor .title {
+	margin-top: 0;
 }
-#fc_event_editor .editor .title input {
+.event-editor .editor .title input,
+.event-editor .editor .location input {
 	width: 100%;
-	padding: 2px;
-}
-#fc_event_editor.add-popup .editor .title,
-#fc_event_editor.edit-popup .editor .title,
-#fc_event_editor.add-popup .editor .title input,
-#fc_event_editor.edit-popup .editor .title input {
-	font-size: 15pt;
-	font-weight: bold;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }
 
-#fc_event_editor .editor .all-day input {
-	width: auto;
+.event-editor .editor .all-day input {
+    float: left;
+    margin-top: 2px;
 }
-#fc_event_editor .editor .all-day .label {
+.event-editor .editor .all-day .label {
 	padding-left: 0.5em;
 	margin-bottom: 0;
 	font-weight: normal;
+    cursor: pointer;
 }
 
-#fc_event_editor .editor .date-time, 
+.event-editor .editor .date-time, 
 .repeat-settings .date-time {
 	/*position: relative;*/
 }
-#fc_event_editor .editor .date-time > div, 
+.event-editor .editor .date-time > div, 
 .repeat-settings .date-time > div {
 	display: inline-block;
 	width: 49%;
 }
-#fc_event_editor .editor .date-time > div.right, 
+.event-editor .editor .date-time > div.right, 
 .repeat-settings .date-time > div.right {
 	/*position: absolute;
 	top: 0;
@@ -2605,32 +2614,32 @@ div.fc-todo-list {
 	display: inline-block;
 	
 }
-#fc_event_editor .editor .date-time .wrapper, 
+.event-editor .editor .date-time .wrapper, 
 .repeat-settings .date-time .wrapper {
 	width: 14em;
-	overflow: auto; /* fix of height collapsing */
+	overflow: hidden;
 }
-#fc_event_editor .editor .date-time input, 
+.event-editor .editor .date-time input, 
 .repeat-settings .editor .date-time input {
 	margin: 0;
 	padding: 1px;
 }
-#fc_event_editor .editor .date-time .from-date,
-#fc_event_editor .editor .date-time .to-date,
+.event-editor .editor .date-time .from-date,
+.event-editor .editor .date-time .to-date,
 .repeat-settings .date-time .from-date,
 .repeat-settings .date-time .to-date {
 	float: left;
 	width: 6.5em;
 	padding-right: 18px;
 }
-#fc_event_editor .editor .date-time .from-time,
-#fc_event_editor .editor .date-time .to-time {
+.event-editor .editor .date-time .from-time,
+.event-editor .editor .date-time .to-time {
 	/*float: right;*/
 	display: inline-block;
 	margin-left: 0.5em;
 	width: 3.5em;
 }
-#fc_event_editor .editor .date-time .cal-icon,
+.event-editor .editor .date-time .cal-icon,
 .repeat-settings .date-time .cal-icon {
 	background-image: url('@{imagepath}calendar_16.png');
 	background-position: 100% 60%;
@@ -2643,15 +2652,23 @@ div.fc-todo-list {
 	cursor: pointer;
 }
 
-#fc_event_editor .editor .repeat-alert {
+.event-editor .editor .repeat-alert,
+.event-editor .editor .calendar-status {
 	position: relative;
 }
-#fc_event_editor .editor .repeat-alert > div {
+
+.event-editor .editor .calendar-status .label {
+	display: inline-block;
+}
+
+.event-editor .editor .repeat-alert > div,
+.event-editor .editor .calendar-status > div {
 	display: inline-block;
 	width: 44%;
 	padding: 10px 0;
 }
-#fc_event_editor .editor .repeat-alert > div.right {
+.event-editor .editor .repeat-alert > div.right,
+.event-editor .editor .calendar-status > div.right {
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -2659,39 +2676,41 @@ div.fc-todo-list {
 	margin-right: -1em;
 	padding: 10px 0 10px 10px;
 }
-#fc_event_editor .editor .repeat-alert select {
+.event-editor .editor .repeat-alert select {
 	width: 100%;
 }
-#fc_event_editor .editor .repeat-alert .repeat,
-#fc_event_editor .editor .repeat-alert .alert {
+.event-editor .editor .repeat-alert .repeat,
+.event-editor .editor .repeat-alert .alert {
 	display: inline-block;
 	width: 14em;
 }
-#fc_event_editor .editor .repeat-alert.hidden {
+.event-editor .editor .repeat-alert.hidden {
 	display: none;
 }
 
-#fc_event_editor .editor .calendar .wrapper,
-.repeat-settings .calendar .wrapper {
-	display: inline-block;
-	width: 14em;
-}
-#fc_event_editor .editor .calendar .bullet,
+.event-editor .editor .calendar .bullet,
 .repeat-settings .calendar .bullet {
 	position: absolute;
 	padding-left: 5px;
 	font-size: 120%;
 }
-#fc_event_editor .editor .calendar select,
+.event-editor .editor .calendar select,
 .repeat-settings .calendar select {
 	margin: 0;
 	width: 100%;
+	max-width: 320px;
+}
+.event-editor .editor .calendar select option,
+.repeat-settings .calendar select option {
+	max-width: 290px;
+	overflow: hidden;
+	text-overflow: ellipsis;
 }
 
-#fc_event_editor .editor .description {
+.event-editor .editor .description {
 	padding-right: 6px;
 }
-#fc_event_editor .editor .description textarea {
+.event-editor .editor .description textarea {
 	width: 100%;
 	padding: 2px;
 	max-width: 33em;
@@ -2790,7 +2809,7 @@ div.fc-todo-list {
 
 #fc_cal_editor {
 	z-index: 100;
-	padding: 0 2em 1.5em;
+	padding: 0 2em 2em;
 	border: 1px solid #D1D1D1;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
 	min-width: 25em;
@@ -2830,7 +2849,7 @@ div.fc-todo-list {
     border-top-right-radius: 5px;
 }
 #fc_cal_editor .header .inner {
-	font-weight: bold;
+	font-size: 18px;
 	position: relative;
 }
 #fc_cal_editor .header .edit-label {
@@ -2846,12 +2865,12 @@ div.fc-todo-list {
 #fc_cal_editor .header .close-btn {
 	cursor: pointer;
 	position: absolute;
-	top: 0;
+	top: -2px;
 	right: 0;
 	width: 12px;
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	background-image: url('@{imagepath}popup-close.png');
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
 }
 
 #fc_cal_editor .title {
@@ -2931,7 +2950,7 @@ div.fc-todo-list {
 }
 
 #fc_cal_editor .buttons {
-	margin-top: 2.5em;
+	margin: 2.5em 0 0;
 	position: relative;
 }
 #fc_cal_editor .buttons a {
@@ -3005,19 +3024,19 @@ div.fc-todo-list {
     margin: 0 -2em 1.5em;
 }
 #fc_subscription_dlg .header .inner {
-	font-weight: bold;
+	font-size: 18px;
 	position: relative;
 }
 
 #fc_subscription_dlg .header .close-btn {
 	cursor: pointer;
 	position: absolute;
-	top: 0;
+	top: -2px;
 	right: 0;
 	width: 12px;
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	background-image: url('@{imagepath}popup-close.png');
+    font-size: 24px;
+    font-weight: 600;
+    color: #333;
 }
 
 #fc_subscription_dlg .title {
@@ -3114,7 +3133,7 @@ div.fc-todo-list {
 }
 
 #fc_subscription_dlg .buttons {
-	margin-top: 2.5em;
+	margin: 2.5em 0 0;
 	position: relative;
 }
 #fc_subscription_dlg .buttons a {
@@ -3149,122 +3168,152 @@ div.fc-todo-list {
  * --------------------------------------------------------
  */
 
-#fc_subscr_editor 
-{
+#fc_subscr_editor {
     padding: 2em;
     padding-top: 0;
-	border: 1px solid #D1D1D1;
+    border: 1px solid #D1D1D1;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
-	z-index: 100;
-	min-width: 40em;
-}
+    z-index: 100;
+    min-width: 40em;
 
-#fc_subscr_editor > div {
-	margin: .5em 0;
-}
+    > div {
+        margin: .5em 0;
+    }
 
-#fc_subscr_editor .header 
-{
-    display: block;
-    color: #333;
-    background-color: #E2E2E2;
-    padding: 1em 2em;
-    margin: 0 -2em 1.5em;
-}
-#fc_subscr_editor .header .inner {
-	font-size: 18px;
-	position: relative;
-}
+    .header {
+        display: block;
+        color: #333;
+        background-color: #E2E2E2;
+        padding: 1em 2em;
+        margin: 0 -2em 1.5em;
 
-#fc_subscr_editor .header .close-btn {
-	cursor: pointer;
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 12px;
-	background-position: 50% 50%;
-	background-repeat: no-repeat;
-	background-image: url('@{imagepath}popup-close.png');
-}
+        .inner {
+            font-size: 18px;
+            position: relative;
+        }
 
-#fc_subscr_editor .qsearch {
-	display: none;
-	padding-right: 4px;
-	position: relative;
-}
-#fc_subscr_editor .qsearch input {
-	border: solid 1px #c7c7c7;
-	color: #c7c7c7;
-	width: 100%;
-	padding: 1px;
-}
-#fc_subscr_editor .qsearch input:focus {
-	border: solid 1px #c7c7c7;
-	outline: none;
-}
-#fc_subscr_editor .qsearch .clean-btn {
-	display: inline-block;
-	background-repeat: no-repeat;
-	background-image: url('@{imagepath}circle-close.png');
-	background-position: left;
-	padding-left: 16px;
-	line-height: 15px;
-	position: absolute;
-	right: 0;
-	top: 50%;
-	margin-top: -8px;
-	cursor: pointer;
-}
+        .close-btn {
+            cursor: pointer;
+            position: absolute;
+            top: -2px;
+            right: 0;
+            width: 12px;
+            font-size: 24px;
+            font-weight: 600;
+            color: #333;
+        }
+    }
 
-#fc_subscr_editor div.scroll-area {
-	width: 100%;
-	height: auto;
-	max-height: 30em;
-	overflow: auto;
-}
+    .qsearch {
+        display: none;
+        padding-right: 4px;
+        position: relative;
 
-#fc_subscr_editor ul.groups {
-	margin: 0;
-	padding: 0 1em;
-}
-#fc_subscr_editor ul.groups .group-bullet {
-	background-image: url('@{imagepath}tree-bullets.png');
-	background-repeat: no-repeat;
-	background-position: -9px 50%;
-	padding-left: 9px;
-	margin-right: 5px;
-	cursor: pointer;
-}
-#fc_subscr_editor ul.groups .group-bullet.folded {
-	background-position: 0px 50%;
-}
-#fc_subscr_editor ul.groups > li {
-	list-style-type: none;
-}
-#fc_subscr_editor ul.groups > li ul {
-	margin: 0;
-	padding: .5em 0 .5em 2em;
-}
-#fc_subscr_editor ul.groups > li li {
-	list-style-type: none;
-}
-#fc_subscr_editor ul.groups > li > span {
-	font-size: 150%;
-	font-weight: bold;
-}
-#fc_subscr_editor ul.groups li.new-item {
-	font-weight: bold;
-}
-#fc_subscr_editor ul.groups li.new-item input[type=checkbox] {
-    vertical-align: middle;
-}
+        input {
+            border: solid 1px #c7c7c7;
+            color: #c7c7c7;
+            width: 100%;
+            padding: 1px;
 
-#fc_subscr_editor .buttons {
-	margin-top: 2em;
-}
-#fc_subscr_editor .buttons a {
-	display: inline-block;
-	min-width: 4em;
+            &:focus {
+                border: solid 1px #c7c7c7;
+                outline: none;
+            }
+        }
+
+        .clean-btn {
+            display: inline-block;
+            background-repeat: no-repeat;
+            background-image: url('@{imagepath}circle-close.png');
+            background-position: left;
+            padding-left: 16px;
+            line-height: 15px;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            margin-top: -8px;
+            cursor: pointer;
+        }
+    }
+
+    div.scroll-area {
+        width: 100%;
+        height: auto;
+        max-height: 30em;
+        overflow: auto;
+    }
+
+    ul.groups {
+        margin: 0;
+        padding: 0 1em;
+
+        .group-bullet {
+            padding-left: 9px;
+            margin-right: 5px;
+            cursor: pointer;
+            position: relative;
+
+            &:after {
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                border-top: 5px solid #333333;
+                content: "";
+                height: 0;
+                left: 0;
+                margin-top: -2px;
+                position: absolute;
+                top: 50%;
+                width: 0;
+            }
+
+            &.folded {
+                &:after {
+                    border-bottom: 5px solid transparent;
+                    border-left: 5px solid #333;
+                    border-top: 5px solid transparent;
+                    border-right: 0 none;
+                    left: 2px;
+                    margin-top: -4px;
+                }
+            }
+        }
+
+
+        > li {
+            list-style-type: none;
+
+            ul {
+                margin: 0;
+                padding: .5em 0 .5em 2em;
+            }
+
+            li {
+                list-style-type: none;
+            }
+
+            > span {
+                font-size: 150%;
+                font-weight: bold;
+            }
+        }
+
+        li.new-item {
+            font-weight: bold;
+
+            input[type=checkbox] {
+                vertical-align: middle;
+            }
+        }
+    }
+
+    .buttons {
+        margin: 2.5em 0 0;
+
+        a {
+            display: inline-block;
+            min-width: 4em;
+        }
+    }
 }
 
 #fc_subscr_editor-outer .asc-ui-blocker {
@@ -3437,7 +3486,7 @@ div.fc-todo-list {
 }
 
 .delete-selector {
-	margin-bottom: 3em;
+	margin-bottom: 2.5em;
 }
 
 .end-point {
@@ -3489,4 +3538,379 @@ div.fc-todo-list {
     .fc-header .fc-header-right {
         width: 25%;
     }
+}
+
+
+
+
+/*--------Event Page----------*/
+
+
+@media screen and (max-width: 1280px) {
+    #asc_event .halfwidth.left,
+    #asc_event .halfwidth.right {
+        float: none;
+        width: auto;
+
+        .inner {
+            padding: 0 !important;
+        }
+    }
+}
+
+#asc_event {
+
+    .event-editor {
+
+        .event-header {
+            font-size: 24px;
+            font-weight: normal;
+            line-height: 24px;
+            margin-top: 8px;
+        }
+
+        .viewer {
+            display: block;
+        }
+        .editor {
+            display: none;
+        }
+
+        &.edit-popup {
+            .viewer {
+                display: none;
+            }
+            .editor {
+                display: block;
+            }
+        }
+    }
+
+    .fc-modal {
+        z-index: 79;
+    }
+
+    .reply-buttons {
+        line-height: 34px;
+        margin: 16px 0;
+
+        ul {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+        }
+
+        .reply-radio-container {
+            display: inline-block;
+            list-style: outside none none;
+            margin: 0 0 0 32px;
+            padding: 0;
+
+            .reply-radio {
+                float: left;
+                margin: 11px 8px 0 0;
+            }
+        }
+    }
+
+    .label {
+        font-weight: bold;
+        margin-bottom: 6px;
+    }
+
+    .textEdit {
+        box-sizing: border-box;
+        height: 22px;
+        line-height: 22px;
+
+        &.date {
+            float: left;
+            margin-right: 6px;
+            width: 94px;
+        }
+
+        &.time {
+            width: 45px;
+        }
+
+        &.hidden {
+            display: none;
+        }
+    }
+
+    .cal-icon {
+        margin-left: -26px;
+    }
+
+    .fullwidth {
+        width: 100%;
+    }
+
+    textarea.textEdit {
+        height: 300px;
+        max-height: 365px;
+        max-width: inherit;
+        min-height: 22px;
+        padding: 0;
+        resize: vertical;
+    }
+
+    .halfwidth {
+        width: 50%;
+        border: 0 none;
+        float: left;
+        margin: 0;
+        padding: 0;
+
+        &.left .inner {
+            padding: 0 12px 0 0;
+        }
+
+        &.right .inner {
+            padding: 0 0 0 12px;
+        }
+    }
+
+    .botttom-indent {
+        margin-bottom: 24px;
+    }
+
+    .inline-block {
+        display: inline-block;
+        width: auto;
+    }
+
+    .cbx-container {
+        height: 22px;
+        line-height: 22px;
+
+        div {
+            overflow: auto;
+        }
+
+        input[type=checkbox] {
+            float: left;
+            margin: 5px 8px 0 0;
+        }
+    }
+
+    .editor .cbx-container {
+        margin-top: 22px;
+    }
+
+    .owner {
+        max-width: 450px;
+
+        .tl-combobox{
+            max-width: 100%
+        }
+    }
+
+    .wrapper {
+        width: 164px;
+    }
+
+    .withbullet {
+        padding-left: 15px;
+
+        option {
+            padding-left: 18px;
+        }
+    }
+
+    .repeat-settings {
+        background-color: inherit;
+        display: block;
+        margin: 0 0 24px;
+        max-width: none;
+        min-width: inherit;
+        padding: 0;
+    }
+
+    .repeat-settings td {
+        padding: 0 8px 8px 0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .users-list {
+        margin-top: 24px;
+
+        &.scrollable {
+            height: 255px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    }
+
+    .sharingItem {
+        border-left: medium none;
+        border-right: medium none;
+        padding: 10px 20px 7px;
+    }
+
+    .sharingItem:not(:first-child) {
+        border-top: medium none;
+    }
+
+    .sharingItem .status {
+        background-image: url('@{imagepath}guest_statements.png');
+        float: left;
+        margin-right: 10px;
+        width: 16px;
+        background-position: -16px 0;
+        height: 16px;
+        background-repeat: no-repeat;
+
+        &.accepted{
+            background-position: 0 0;
+        }
+
+        &.declined{
+            background-position: 0 -32px;
+        }
+
+        &.tentative{
+            background-position: 0 -16px;
+        }
+    }
+
+    .sharingItem .name {
+        float: left;
+        width: 50%;
+
+        .userLink {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 250px;
+        }
+    }
+
+    .sharingItem .remove {
+        float: right;
+        margin-left: 10px;
+        width: 16px;
+    }
+
+    .sharingItem .action {
+        float: right;
+        text-align: right;
+        width: 35%;
+    }
+
+    .attendees {
+        .btn-container {
+            float: right;
+            text-align: right;
+            width: 50px;
+            height: 22px;
+        }
+        .text-container {
+            overflow: hidden;
+        }
+    }
+
+    .attendees-noaccount {
+        color: #83888d;
+        
+        a {
+            color: #83888d;
+        }
+    }
+
+    .buttons {
+        margin-top: 40px;
+        min-width: inherit;
+    }
+}
+
+.info-text {
+    display: none;
+    background-image: url('@{mageCssPath}expl_16.png');
+    background-position: center left;
+    background-repeat: no-repeat;
+    padding: 0 0 0 20px;
+}
+
+.reply-button {
+    border-bottom: 1px dotted;
+    color: #83888D;
+    cursor: pointer;
+    margin-left: 16px;
+
+    &.active {
+        border-bottom: medium none;
+        color: #333333;
+        font-weight: bold;
+        cursor: text;
+    }
+}
+
+.view-details {
+    border-bottom: 1px dotted;
+    color: #333333;
+    cursor: pointer;
+    display: inline-block;
+    float: right;
+    margin: 3px 0 0 16px;
+}
+
+
+/*
+ * Attendee Confirm Notification
+ * --------------------------------------------------------
+ */
+
+#attendeeConfirmNotification 
+{
+    padding: 2em;
+    padding-top: 0;
+	border: 1px solid #D1D1D1;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+	z-index: 100;
+}
+
+#attendeeConfirmNotification > div {
+	margin: .5em 0;
+}
+
+#attendeeConfirmNotification .header 
+{
+    display: block;
+    color: #333;
+    background-color: #E2E2E2;
+    padding: 1em 2em;
+    margin: 0 -2em 1.5em;
+}
+#attendeeConfirmNotification .header .inner {
+	font-size: 18px;
+	position: relative;
+}
+
+#attendeeConfirmNotification .header .close-btn {
+	cursor: pointer;
+	position: absolute;
+	top: -2px;
+	right: 0;
+	width: 12px;
+	font-size: 24px;
+    font-weight: 600;
+    color: #333;
+}
+
+#attendeeConfirmNotification .body {
+	max-width: 450px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#attendeeConfirmNotification .buttons {
+	margin-top: 2em;
+}
+
+#attendeeConfirmNotification .buttons a {
+	display: inline-block;
+    margin-right: 8px;
 }

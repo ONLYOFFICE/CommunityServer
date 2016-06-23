@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,28 +26,44 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using ASC.Core;
 using ASC.Mail.Aggregator.Common;
-using ASC.Mail.Aggregator.DataStorage;
+using ASC.Mail.Aggregator.Common.DataStorage;
 
 namespace ASC.Mail.Aggregator.Dal
 {
     public class DocumentsDal
     {
-        private const string MY_DOCS_FOLDER_ID = "@my";
+        public const string MY_DOCS_FOLDER_ID = "@my";
         private readonly MailBoxManager _manager;
         private readonly int _tenantId;
         private readonly string _userId;
 
-        private MailBoxManager Manager { get { return _manager; } }
-        private int Tenant { get { return _tenantId; } }
-        private string User { get { return _userId; } }
+        private MailBoxManager Manager
+        {
+            get { return _manager; }
+        }
 
-        public DocumentsDal(MailBoxManager manager, int tenant, string user)
+        private int Tenant
+        {
+            get { return _tenantId; }
+        }
+
+        private string User
+        {
+            get { return _userId; }
+        }
+
+        private string HttpContextScheme { get; set; }
+
+        public DocumentsDal(MailBoxManager manager, int tenant, string user, string httpContextScheme)
         {
             _manager = manager;
             _tenantId = tenant;
             _userId = user;
+
+            HttpContextScheme = httpContextScheme;
 
             if (SecurityContext.IsAuthenticated) return;
 
@@ -57,44 +73,48 @@ namespace ASC.Mail.Aggregator.Dal
 
         public List<int> StoreAttachmentsToMyDocuments(int messageId)
         {
-            var fileIds = new List<int>();
-
-            var attachments = Manager.GetMessageAttachments(Tenant, User, messageId);
-
-            foreach (var attachment in attachments)
-            {
-                using (var file = AttachmentManager.GetAttachmentStream(attachment))
-                {
-                    var uploadedFileId = ApiHelper.UploadToDocuments(file.FileStream, file.FileName,
-                                                                     attachment.contentType, MY_DOCS_FOLDER_ID, true);
-
-                    if (uploadedFileId > 0)
-                    {
-                        fileIds.Add(uploadedFileId);
-                    }
-                }
-            }
-
-            return fileIds;
+            return StoreAttachmentsToDocuments(messageId, MY_DOCS_FOLDER_ID);
         }
 
         public int StoreAttachmentToMyDocuments(int attachmentId)
         {
-            var attachment = Manager.GetMessageAttachment(attachmentId, Tenant, User);
-
-            if (attachment != null)
-            {
-                using (var file = Manager.GetAttachmentStream(attachmentId, Tenant, User))
-                {
-                    var uploadedFileId = ApiHelper.UploadToDocuments(file.FileStream, file.FileName,
-                                                                     attachment.contentType, MY_DOCS_FOLDER_ID, true);
-
-                    return uploadedFileId;
-                }
-            }
-
-            return -1;
+            return StoreAttachmentToDocuments(attachmentId, MY_DOCS_FOLDER_ID);
         }
 
+        public List<int> StoreAttachmentsToDocuments(int messageId, string folderId)
+        {
+            var attachments = Manager.GetMessageAttachments(Tenant, User, messageId);
+
+            return
+                attachments.Select(attachment => StoreAttachmentToDocuments(attachment, folderId))
+                    .Where(uploadedFileId => uploadedFileId > 0)
+                    .ToList();
+        }
+
+        public int StoreAttachmentToDocuments(int attachmentId, string folderId)
+        {
+            var attachment = Manager.GetMessageAttachment(attachmentId, Tenant, User);
+
+            if (attachment == null)
+                return -1;
+
+            return StoreAttachmentToDocuments(attachment, folderId);
+        }
+
+        public int StoreAttachmentToDocuments(MailAttachment attachment, string folderId)
+        {
+            if (attachment == null)
+                return -1;
+
+            var apiHelper = new ApiHelper(HttpContextScheme);
+
+            using (var file = AttachmentManager.GetAttachmentStream(attachment))
+            {
+                var uploadedFileId = apiHelper.UploadToDocuments(file.FileStream, file.FileName,
+                    attachment.contentType, folderId, true);
+
+                return uploadedFileId;
+            }
+        }
     }
 }

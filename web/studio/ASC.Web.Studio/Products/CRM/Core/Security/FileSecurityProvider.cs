@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,40 +24,18 @@
 */
 
 
-#region Import
-
+using ASC.Files.Core;
+using ASC.Files.Core.Security;
+using ASC.Web.CRM.Classes;
+using ASC.Web.Files.Api;
 using System;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Security;
-using System.Threading;
-using ASC.CRM.Core.Entities;
-using ASC.Common.Security;
 using System.Linq;
-using System.Linq.Expressions;
-using ASC.Common.Security.Authorizing;
-using ASC.Core;
-using ASC.Core.Users;
-using ASC.Web.CRM.Classes;
-using ASC.Web.CRM.Configuration;
-using Action = ASC.Common.Security.Authorizing.Action;
-using Constants = ASC.Core.Users.Constants;
-using SecurityContext = ASC.Core.SecurityContext;
-using ASC.Web.Files.Api;
-using ASC.Files.Core.Security;
-using ASC.Files.Core;
-
-#endregion
 
 namespace ASC.CRM.Core
 {
-
     public class FileSecurity : IFileSecurity
     {
-
-
-        #region IFileSecurity Members
-
         public bool CanCreate(FileEntry file, Guid userId)
         {
             return true;
@@ -66,7 +44,6 @@ namespace ASC.CRM.Core
         public bool CanDelete(FileEntry file, Guid userId)
         {
             return file.CreateBy == userId || file.ModifiedBy == userId || CRMSecurity.IsAdmin;
-
         }
 
         public bool CanEdit(FileEntry file, Guid userId)
@@ -88,8 +65,8 @@ namespace ASC.CRM.Core
             else
             {
                 var eventIds = tagDao.GetTags(file.ID, FileEntryType.File, TagType.System)
-                           .Where(x => x.TagName.StartsWith("RelationshipEvent_"))
-                           .Select(x => Convert.ToInt32(x.TagName.Split(new[] { '_' })[1]));
+                                     .Where(x => x.TagName.StartsWith("RelationshipEvent_"))
+                                     .Select(x => Convert.ToInt32(x.TagName.Split(new[] { '_' })[1]));
 
                 if (!eventIds.Any()) return false;
 
@@ -98,7 +75,10 @@ namespace ASC.CRM.Core
             }
         }
 
-        #endregion
+        public IEnumerable<Guid> WhoCanRead(FileEntry fileEntry)
+        {
+            throw new NotImplementedException();
+        }
     }
 
     public class FileSecurityProvider : IFileSecurityProvider
@@ -107,6 +87,5 @@ namespace ASC.CRM.Core
         {
             return new FileSecurity();
         }
-
     }
 }

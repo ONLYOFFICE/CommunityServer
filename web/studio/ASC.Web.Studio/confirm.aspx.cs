@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,9 +24,6 @@
 */
 
 
-using System;
-using System.IO;
-using System.Web;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
@@ -37,12 +34,17 @@ using ASC.Web.Core.Files;
 using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.UserControls.FirstTime;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.Utility;
 using Resources;
-using ASC.Web.Core.WhiteLabel;
+using System;
+using System.IO;
+using System.Net;
+using System.Web;
+using Constants = ASC.Core.Users.Constants;
 
 namespace ASC.Web.Studio
 {
@@ -101,7 +103,16 @@ namespace ASC.Web.Studio
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
             if (tenant.Status != TenantStatus.Active && _type != ConfirmType.PortalContinue)
             {
-                Response.Redirect(SetupInfo.NoTenantRedirectURL, true);
+                if (string.IsNullOrEmpty(SetupInfo.NoTenantRedirectURL))
+                {
+                    Response.StatusCode = (int)HttpStatusCode.NotFound;
+                    Response.End();
+                }
+                else
+                {
+                    Response.Redirect(SetupInfo.NoTenantRedirectURL, true);
+                }
+                return;
             }
 
             if (_type == ConfirmType.PhoneActivation && SecurityContext.IsAuthenticated)
@@ -145,9 +156,8 @@ namespace ASC.Web.Studio
                 case ConfirmType.Auth:
                     {
                         var first = Request["first"] ?? "";
-                        var module = Request["module"];
 
-                        checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + first + module, key, authInterval);
+                        checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + first, key, authInterval);
 
                         if (checkKeyResult == EmailValidationKeyProvider.ValidationResult.Ok)
                         {
@@ -174,7 +184,7 @@ namespace ASC.Web.Studio
                                 MessageService.Send(HttpContext.Current.Request, messageAction);
                             }
 
-                            AuthRedirect(user, first.ToLower() == "true", module, Request[FilesLinkUtility.FileUri]);
+                            AuthRedirect(user, first.ToLower() == "true");
                         }
                     }
                     break;
@@ -321,7 +331,12 @@ namespace ASC.Web.Studio
                 {
                     SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
                     user.ActivationStatus = EmployeeActivationStatus.Activated;
-                    CoreContext.UserManager.SaveUserInfo(user);
+                    user = CoreContext.UserManager.SaveUserInfo(user);
+
+                    if (!CoreContext.Configuration.Standalone && !CoreContext.Configuration.Personal && user.IsAdmin()) {
+                        StudioNotifyService.Instance.SendAdminWellcome(user);
+                    }
+
                     MessageService.Send(HttpContext.Current.Request, MessageInitiator.System, MessageAction.UserActivated, user.DisplayUserName(false));
                 }
                 finally
@@ -347,7 +362,7 @@ namespace ASC.Web.Studio
             }
         }
 
-        private void AuthRedirect(UserInfo user, bool first, string module, string fileUri)
+        private void AuthRedirect(UserInfo user, bool first)
         {
             var wizardSettings = SettingsManager.Instance.LoadSettings<WizardSettings>(TenantProvider.CurrentTenantID);
             if (first && wizardSettings.Completed)
@@ -359,29 +374,10 @@ namespace ASC.Web.Studio
 
             if (wizardSettings.Completed)
             {
-                if (string.IsNullOrEmpty(module))
-                {
-                    Response.Redirect(CommonLinkUtility.GetDefault(), true);
-                }
-                else
-                {
-                    SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+                StudioNotifyService.Instance.SendCongratulations(user);
+                FirstTimeTenantSettings.SendInstallInfo(user);
 
-                    FirstTimeTenantSettings.SetDefaultTenantSettings();
-                    FirstTimeTenantSettings.SendInstallInfo(user);
-
-                    if (!string.IsNullOrEmpty(fileUri))
-                    {
-                        UserHelpTourHelper.IsNewUser = true;
-
-                        var fileExt = FileUtility.GetInternalExtension(Path.GetFileName(HttpUtility.UrlDecode(fileUri)));
-                        var createUrl = FilesLinkUtility.GetFileWebEditorExternalUrl(fileUri, "Demo" + fileExt, true);
-                        Response.Redirect(createUrl, true);
-                    }
-
-                    Response.Redirect(CommonLinkUtility.GetDefault(), true);
-
-                }
+                Response.Redirect(CommonLinkUtility.GetDefault(), true);
             }
             else
             {

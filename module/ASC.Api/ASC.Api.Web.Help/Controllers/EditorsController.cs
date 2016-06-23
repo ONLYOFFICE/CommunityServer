@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,48 +25,57 @@
 
 
 using System;
+using ASC.Api.Web.Help.DocumentGenerator;
+using ASC.Api.Web.Help.Helpers;
+using HtmlAgilityPack;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Web.Mvc;
-using ASC.Api.Web.Help.DocumentGenerator;
-using ASC.Api.Web.Help.Helpers;
-using HtmlAgilityPack;
 
 namespace ASC.Api.Web.Help.Controllers
 {
     [Redirect]
     public class EditorsController : AsyncController
     {
-        private enum ActionType
-        {
-            Advanced,
-            Basic,
-            Callback,
-            Config,
-            Conversion,
-            ConversionApi,
-            Customization,
-            DocInfo,
-            DocPermissions,
-            Document,
-            Editor,
-            Embedded,
-            Events,
-            Hardware,
-            HowItWorks,
-            License,
-            Open,
-            Save
-        }
+        private readonly string[] _actionMap = new[]
+            {
+                "Advanced",
+                "Alfresco",
+                "Basic",
+                "Callback",
+                "Config",
+                "Config/Document",
+                "Config/Document/Info",
+                "Config/Document/Permissions",
+                "Config/Editor",
+                "Config/Editor/Customization",
+                "Config/Editor/Embedded",
+                "Config/Events",
+                "Confluence",
+                "Conversion",
+                "ConversionApi",
+                "Example",
+                "Example/Java",
+                "Example/Nodejs",
+                "Example/Php",
+                "Example/Ruby",
+                "Example/Csharp",
+                "Hardware",
+                "HowItWorks",
+                "Methods",
+                "Open",
+                "Plugins",
+                "Save",
+            };
 
         public ActionResult Search(string query)
         {
             var result = new List<SearchResult>();
 
-            foreach (var action in (ActionType[])Enum.GetValues(typeof(ActionType)))
+            foreach (var action in _actionMap)
             {
-                var actionString = action.ToString().ToLower();
+                var actionString = action.ToLower();
                 var doc = new HtmlDocument();
                 var html = this.RenderView(actionString, new ViewDataDictionary());
                 doc.LoadHtml(html);
@@ -78,13 +87,13 @@ namespace ASC.Api.Web.Help.Controllers
                 if (!string.IsNullOrEmpty(query) && doc.DocumentNode.InnerText.ToLowerInvariant().Contains(query.ToLowerInvariant()))
                 {
                     result.Add(new SearchResult
-                    {
-                        Module = "editors",
-                        Name = Highliter.HighliteString(header, query).ToHtmlString(),
-                        Resource = string.Empty,
-                        Description = Highliter.HighliteString(descr, query).ToHtmlString(),
-                        Url = Url.Action(actionString, "editors")
-                    });
+                        {
+                            Module = "editors",
+                            Name = Highliter.HighliteString(header, query).ToHtmlString(),
+                            Resource = string.Empty,
+                            Description = Highliter.HighliteString(descr, query).ToHtmlString(),
+                            Url = Url.Action(actionString, "editors")
+                        });
                 }
             }
 
@@ -106,6 +115,11 @@ namespace ASC.Api.Web.Help.Controllers
         }
 
 
+        public ActionResult Alfresco()
+        {
+            return View();
+        }
+
         public ActionResult Advanced()
         {
             return View();
@@ -121,7 +135,16 @@ namespace ASC.Api.Web.Help.Controllers
             return View();
         }
 
-        public ActionResult Config()
+        public ActionResult Config(string catchall)
+        {
+            if (!_actionMap.Contains("config/" + catchall, StringComparer.OrdinalIgnoreCase))
+            {
+                catchall = null;
+            }
+            return View("Config", (object) catchall);
+        }
+
+        public ActionResult Confluence()
         {
             return View();
         }
@@ -136,24 +159,13 @@ namespace ASC.Api.Web.Help.Controllers
             return View();
         }
 
-        public ActionResult Customization()
+        public ActionResult Example(string catchall)
         {
-            return View();
-        }
-
-        public ActionResult DocInfo()
-        {
-            return View();
-        }
-
-        public ActionResult DocPermissions()
-        {
-            return View();
-        }
-
-        public ActionResult Document()
-        {
-            return View();
+            if (!_actionMap.Contains("example/" + catchall, StringComparer.OrdinalIgnoreCase))
+            {
+                catchall = null;
+            }
+            return View("Example", (object)catchall);
         }
 
         public ActionResult DemoPreview()
@@ -163,21 +175,6 @@ namespace ASC.Api.Web.Help.Controllers
             var examples = directoryInfo.GetFiles("*.zip", SearchOption.TopDirectoryOnly).Select(fileInfo => fileInfo.Name).ToList();
 
             return View(examples);
-        }
-
-        public ActionResult Editor()
-        {
-            return View();
-        }
-
-        public ActionResult Embedded()
-        {
-            return View();
-        }
-
-        public ActionResult Events()
-        {
-            return View();
         }
 
         public ActionResult Hardware()
@@ -190,12 +187,17 @@ namespace ASC.Api.Web.Help.Controllers
             return View();
         }
 
-        public ActionResult License()
+        public ActionResult Methods()
         {
             return View();
         }
 
         public ActionResult Open()
+        {
+            return View();
+        }
+
+        public ActionResult Plugins()
         {
             return View();
         }

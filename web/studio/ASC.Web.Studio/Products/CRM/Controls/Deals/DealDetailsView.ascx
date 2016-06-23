@@ -21,14 +21,14 @@
         <div class="bold" style="margin-bottom:5px;"><%= CRMContactResource.AssignContactFromExisting%>:</div>
     </div>
     <div id="contactListBox">
-        <table id="contactTable" class="tableBase" cellpadding="4" cellspacing="0">
+        <table id="contactTable" class="table-list" cellpadding="4" cellspacing="0">
             <tbody>
             </tbody>
         </table>
     </div>
 </div>
 <div id="invoicesTab" class="display-none">
-    <table id="invoiceTable" class="tableBase" cellpadding="4" cellspacing="0">
+    <table id="invoiceTable" class="table-list" cellpadding="4" cellspacing="0">
         <colgroup>
             <col style="width: 1%;"/>
             <col/>
@@ -46,9 +46,7 @@
             <% if (Global.CanDownloadInvoices) { %>
             <li><a class="downloadLink dropdown-item"><%= CRMInvoiceResource.Download %></a></li>
             <% } %>
-            <% if (!MobileVer) { %>
             <li><a class="printLink dropdown-item"><%= CRMInvoiceResource.Print %></a></li>
-            <% } %>
             <% if (Global.CanDownloadInvoices) { %>
             <li><a class="sendLink dropdown-item"><%= CRMInvoiceResource.SendByEmail %></a></li>
             <% } %>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -97,6 +97,11 @@ namespace ASC.Api.Documents
         [DataMember(Order = 55)]
         public bool ProviderItem { get; set; }
 
+        /// <summary>
+        /// </summary>
+        [DataMember(Order = 56, EmitDefaultValue = false)]
+        public string ProviderKey { get; set; }
+
 
         /// <summary>
         /// 
@@ -114,6 +119,7 @@ namespace ASC.Api.Documents
             UpdatedBy = EmployeeWraper.Get(entry.ModifiedBy);
             RootFolderType = entry.RootFolderType;
             ProviderItem = entry.ProviderEntry;
+            ProviderKey = entry.ProviderKey;
         }
 
         /// <summary>

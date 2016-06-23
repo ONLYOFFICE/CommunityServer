@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,12 +25,14 @@
 
 
 using System;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
 using ASC.Web.People.UserControls;
 using ASC.Web.Studio.UserControls.Users;
 using ASC.Web.Studio.UserControls.Management;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.People.Masters
 {
@@ -53,8 +55,11 @@ namespace ASC.Web.People.Masters
 
         private void InitScripts()
         {
-            Page.RegisterStyleControl("~/products/people/masters/Styles.ascx");
-            Page.RegisterBodyScriptsControl("~/products/people/masters/CommonBodyScripts.ascx");
+            Page.RegisterStyle(CommonLinkUtility.ToAbsolute, "~/products/people/app_themes/default/css/people.master.less");
+            Page.RegisterBodyScripts(ResolveUrl, 
+                                      "~/products/people/js/peopleCore.js",
+                                      "~/products/people/js/departmentmanagement.js",
+                                      "~/products/people/js/peopleActions.js");
             Page.RegisterInlineScript("jQuery(document.body).children('form').bind('submit', function() { return false; });");
         }
     }

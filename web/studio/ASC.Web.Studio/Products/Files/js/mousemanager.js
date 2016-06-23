@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -141,7 +141,7 @@ window.ASC.Files.Mouse = (function () {
             if (forbiddenTarget(target)) {
                 return true;
             }
-        } catch (e) {
+        } catch (ex) {
             return true;
         }
 
@@ -162,17 +162,17 @@ window.ASC.Files.Mouse = (function () {
         return false;
     };
 
-    var continueSelecting = function (event) {
-        event = jq.fixEvent(event);
+    var continueSelecting = function (e) {
+        e = jq.fixEvent(e);
 
-        var targetMove = event.target || event.srcElement;
+        var targetMove = e.target || e.srcElement;
         if (typeof targetMove == "undefined") {
             return true;
         }
 
         var selectDelta = 2;
-        var posXnew = Math.min(event.pageX, mainContentArea.documentWidth - selectDelta);
-        var posYnew = Math.min(event.pageY, mainContentArea.documentHeight - selectDelta);
+        var posXnew = Math.min(e.pageX, mainContentArea.documentWidth - selectDelta);
+        var posYnew = Math.min(e.pageY, mainContentArea.documentHeight - selectDelta);
 
         var width = Math.abs(posXnew - ASC.Files.Mouse.mouseSelector.startX);
         var height = Math.abs(posYnew - ASC.Files.Mouse.mouseSelector.startY);
@@ -205,7 +205,7 @@ window.ASC.Files.Mouse = (function () {
 
         var itemObj = mainContentArea;
 
-        if (!event.ctrlKey && !intersectionRectangles(itemObj, selectObj)) {
+        if (!e.ctrlKey && !intersectionRectangles(itemObj, selectObj)) {
             ASC.Files.UI.checkSelectAll(false);
         } else {
             var selectionChanged = false;
@@ -216,7 +216,7 @@ window.ASC.Files.Mouse = (function () {
                 if (intersectionRectangles(itemObj, selectObj)) {
                     selectionChanged = ASC.Files.UI.selectRow(itemObj.entryObj, true) || selectionChanged;
                 } else {
-                    if (!event.ctrlKey) {
+                    if (!e.ctrlKey) {
                         selectionChanged = ASC.Files.UI.selectRow(itemObj.entryObj, false) || selectionChanged;
                     }
                 }
@@ -311,8 +311,8 @@ window.ASC.Files.Mouse = (function () {
         return null;
     };
 
-    var preparingMoveTo = function (event) {
-        var e = jq.fixEvent(event);
+    var preparingMoveTo = function (e) {
+        e = jq.fixEvent(e);
 
         if (!(e.button == 0 || (jq.browser.msie && e.button == 1))) {
             return false;

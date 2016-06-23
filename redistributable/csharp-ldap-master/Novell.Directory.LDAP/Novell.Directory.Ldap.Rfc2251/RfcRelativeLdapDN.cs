@@ -29,20 +29,18 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
 
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/* 
-	* Represents an Ldap Relative DN.
-	*/
-	public class RfcRelativeLdapDN:RfcLdapString
-	{
-		
-		/// <summary> </summary>
-		public RfcRelativeLdapDN(System.String s):base(s)
-		{
-		}
-	}
+    /* 
+    * Represents an Ldap Relative DN.
+    */
+    public class RfcRelativeLdapDN : RfcLdapString
+    {
+        /// <summary> </summary>
+        public RfcRelativeLdapDN(string s)
+            : base(s)
+        {
+        }
+    }
 }

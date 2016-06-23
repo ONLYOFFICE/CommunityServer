@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -75,6 +75,15 @@ namespace ASC.Files.Thirdparty
         public override int UpdateProviderInfo(int linkId, string customerTitle, FolderType folderType)
         {
             var result = base.UpdateProviderInfo(linkId, customerTitle, folderType);
+
+            var key = _rootKey + linkId.ToString(CultureInfo.InvariantCulture);
+            cacheNotify.Publish(new ProviderAccountCacheItem { Key = key }, CacheNotifyAction.Update);
+            return result;
+        }
+
+        public override int UpdateProviderInfo(int linkId, AuthData authData)
+        {
+            var result = base.UpdateProviderInfo(linkId, authData);
 
             var key = _rootKey + linkId.ToString(CultureInfo.InvariantCulture);
             cacheNotify.Publish(new ProviderAccountCacheItem { Key = key }, CacheNotifyAction.Update);

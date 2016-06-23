@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -43,8 +43,7 @@ namespace ASC.Web.Studio.Controls.Common
         {
             if (!VoipEnabled) return string.Empty;
 
-            page.RegisterBodyScripts("~/js/asc/core/voip.countries.js");
-            page.RegisterBodyScripts("~/js/asc/core/voip.phone.js");
+            page.RegisterBodyScripts("~/js/asc/core/voip.countries.js", "~/js/asc/core/voip.phone.js");
             page.RegisterClientScript(typeof(VoipNumberData));
 
             return
@@ -86,7 +85,10 @@ namespace ASC.Web.Studio.Controls.Common
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterObject("numberId", VoipNavigation.CurrentNumber.Number);
+            return new List<KeyValuePair<string, object>>(1)
+                   {
+                       RegisterObject(new { numberId = VoipNavigation.CurrentNumber.Number })
+                   };
         }
     }
 }

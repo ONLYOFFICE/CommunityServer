@@ -17,11 +17,9 @@
             <a class="dropdown-item download-btn"><%= CRMInvoiceResource.Download %></a>
         </li>
         <% } %>
-        <% if (!MobileVer) { %>
         <li>
             <a class="dropdown-item print-btn"><%= CRMInvoiceResource.Print %></a>
         </li>
-        <% } %>
         <% if (Global.CanDownloadInvoices) { %>
         <li>
             <a class="dropdown-item mail-btn"><%= CRMInvoiceResource.SendByEmail %></a>

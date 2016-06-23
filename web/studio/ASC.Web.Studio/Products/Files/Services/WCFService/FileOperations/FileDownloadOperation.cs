@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -35,7 +35,6 @@ using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Utility;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -50,7 +49,6 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
     {
         private readonly Dictionary<object, string> files;
         private readonly Dictionary<string, string> headers;
-        private readonly bool quotaDocsEdition;
 
         public override FileOperationType OperationType
         {
@@ -63,7 +61,6 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
         {
             this.files = files;
             this.headers = headers;
-            quotaDocsEdition = TenantExtra.GetTenantQuota().DocsEdition;
         }
 
 
@@ -106,7 +103,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             if (files.ContainsKey(file.ID.ToString()))
             {
                 var convertToExt = string.Empty;
-                if (quotaDocsEdition || FileUtility.InternalExtension.Values.Contains(convertToExt))
+                if (FileUtility.InternalExtension.Values.Contains(convertToExt))
                     convertToExt = files[file.ID.ToString()];
 
                 if (!string.IsNullOrEmpty(convertToExt))
@@ -133,7 +130,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             if (0 < Folders.Count)
             {
                 FilesSecurity.FilterRead(FolderDao.GetFolders(Files.ToArray())).ToList().Cast<FileEntry>().ToList()
-                             .ForEach(FileMarker.RemoveMarkAsNew);
+                             .ForEach(folder => FileMarker.RemoveMarkAsNew(folder));
 
                 var filesInFolder = GetFilesInFolders(Folders, string.Empty);
                 entriesPathId.Add(filesInFolder);
@@ -202,6 +199,12 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                             FileDao.InvalidateCache(entryId);
                             file = FileDao.GetFile(entryId);
 
+                            if (file == null)
+                            {
+                                Error = FilesCommonResource.ErrorMassage_FileNotFound;
+                                continue;
+                            }
+
                             if (file.ContentLength > SetupInfo.AvailableFileSize)
                             {
                                 Error = string.Format(FilesCommonResource.ErrorMassage_FileSizeZip, FileSizeComment.FilesSizeToString(SetupInfo.AvailableFileSize));
@@ -210,10 +213,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
                             if (files.ContainsKey(file.ID.ToString()))
                             {
-                                if (quotaDocsEdition)
-                                {
-                                    convertToExt = files[file.ID.ToString()];
-                                }
+                                convertToExt = files[file.ID.ToString()];
                                 if (!string.IsNullOrEmpty(convertToExt))
                                 {
                                     newtitle = FileUtility.ReplaceFileExtension(path, convertToExt);

@@ -29,40 +29,41 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
 using Novell.Directory.Ldap.Asn1;
+using System;
+using System.IO;
 
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> Represents an Ldap Referral.
-	/// 
-	/// <pre>
-	/// Referral ::= SEQUENCE OF LdapURL
-	/// </pre>
-	/// </summary>
-	public class RfcReferral:Asn1SequenceOf
-	{
-		
-		//*************************************************************************
-		// Constructor for Referral
-		//*************************************************************************
-		
-		/// <summary> The only time a Referral object is constructed, is when we are
-		/// decoding an RfcLdapResult or COMPONENTS OF RfcLdapResult.
-		/// </summary>
-		[CLSCompliantAttribute(false)]
-		public RfcReferral(Asn1Decoder dec, System.IO.Stream in_Renamed, int len):base(dec, in_Renamed, len)
-		{
-			
-			//convert from Asn1OctetString to RfcLdapURL here (then look at
-			// LdapResponse.getReferrals())
-		}
-		
-		//*************************************************************************
-		// Accessors
-		//*************************************************************************
-		
-		// inherited from SequenceOf
-	}
+
+    /// <summary> Represents an Ldap Referral.
+    /// 
+    /// <pre>
+    /// Referral ::= SEQUENCE OF LdapURL
+    /// </pre>
+    /// </summary>
+    public class RfcReferral : Asn1SequenceOf
+    {
+
+        //*************************************************************************
+        // Constructor for Referral
+        //*************************************************************************
+
+        /// <summary> The only time a Referral object is constructed, is when we are
+        /// decoding an RfcLdapResult or COMPONENTS OF RfcLdapResult.
+        /// </summary>
+        [CLSCompliantAttribute(false)]
+        public RfcReferral(Asn1Decoder dec, Stream in_Renamed, int len)
+            : base(dec, in_Renamed, len)
+        {
+            //convert from Asn1OctetString to RfcLdapURL here (then look at
+            // LdapResponse.getReferrals())
+        }
+
+        //*************************************************************************
+        // Accessors
+        //*************************************************************************
+
+        // inherited from SequenceOf
+    }
 }

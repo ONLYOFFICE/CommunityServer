@@ -13,11 +13,11 @@
         <div class="content-header">
             <% if (SetupInfo.IsVisibleSettings<AdministrationPage>() && SetupInfo.IsVisibleSettings("MailCommonDomain") && !CoreContext.Configuration.Standalone) 
                { %>
-            <a title="<%=MailResource.CreateMailboxBtn%>" href="#" class="button gray" id="createNewMailbox" style="margin-right: 4px;">
+            <a title="<%=MailResource.CreateMailboxBtn%>" class="button gray" id="createNewMailbox" style="margin-right: 4px;">
                 <div class="plus" style="background-position: -2px 1px;"><%=MailResource.CreateMailboxBtn%></div>
             </a>
             <% } %>
-            <a title="<%=MailResource.CreateNewAccountBtn%>" href="#" class="button gray" id="createNewAccount">
+            <a title="<%=MailResource.CreateNewAccountBtn%>" class="button gray" id="createNewAccount">
                 <div class="plus" style="background-position: -2px 1px;"><%=MailResource.CreateNewAccountBtn%></div>
             </a>
             <span class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'AccountsHelperBlock'});"></span>
@@ -38,6 +38,7 @@
         <li><a class="activateAccount dropdown-item"><%=MailResource.ActivateAccountLabel%></a></li>
         <li><a class="deactivateAccount dropdown-item"><%=MailResource.DeactivateAccountLabel%></a></li>
         <li><a class="selectAttachmentsFolder dropdown-item"><%=MailResource.SelectAttachmentsFolderLabel%></a></li>
+        <li><a class="setMailAutoreply dropdown-item"><%=MailResource.SetMailAutoreply%></a></li>
         <li><a class="editAccount dropdown-item"><%=MailResource.EditAccountLabel%></a></li>
         <li><a class="deleteAccount dropdown-item"><%=MailResource.DeleteAccountLabel%></a></li>
     </ul>

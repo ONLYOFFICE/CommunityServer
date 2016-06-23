@@ -4,7 +4,6 @@
 
 <%@ Import Namespace="ASC.Web.Core.Mobile" %>
 <%@ Import Namespace="ASC.Web.Projects" %>
-<%@ Import Namespace="ASC.Web.Projects.Classes" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="System.Linq" %>
@@ -17,39 +16,52 @@
 <asp:PlaceHolder ID="_milestoneAction" runat="server"/>
 <div id="createNewButton" class="studio-action-panel">
     <ul class="dropdown-content">
-        <% if (ParticipantSecurityInfo["Project"])
-           {%>
+        <% var showSeporator = false;
+           if (ParticipantSecurityInfo["Project"])
+           {
+               showSeporator = true; %>
         <li><a id="createNewProject" class="dropdown-item" href="projects.aspx?action=add"><%= ProjectResource.Project %></a></li>
         <% }
            if (ParticipantSecurityInfo["Milestone"])
-           {%>
+           {
+               showSeporator = true; %>
         <li><a id="createNewMilestone" class="dropdown-item" href="javascript:void(0)"><%= MilestoneResource.Milestone %></a></li>
         <% }
            if (ParticipantSecurityInfo["Task"])
-           {%>
+           {
+               showSeporator = true; %>
         <li><a id="createNewTask" class="dropdown-item" href="javascript:void(0)"><%= TaskResource.Task %></a></li>
         <% }
            if (ParticipantSecurityInfo["Discussion"])
-           {%>
-               <%if(Page.RequestContext.IsInConcreteProject) {%>
-                    <li><a id="createNewDiscussion"  class="dropdown-item" href="messages.aspx?action=add&prjID=<%=Page.RequestContext.GetCurrentProjectId() %>"><%= MessageResource.Message %></a></li>
-                <%}else{%>
+           {
+               showSeporator = true; %>
+               <% if (Page.RequestContext.IsInConcreteProject)
+                  { %>
+                    <li><a id="createNewDiscussion"  class="dropdown-item" href="messages.aspx?action=add&prjID=<%= Page.RequestContext.GetCurrentProjectId() %>"><%= MessageResource.Message %></a></li>
+                <% }
+                  else
+                  { %>
                     <li><a id="createNewDiscussion"  class="dropdown-item" href="messages.aspx?action=add"><%= MessageResource.Message %></a></li>
-                <%}%>
+                <% } %>
 
         <% }
            if (ParticipantSecurityInfo["Time"])
-           {%>
+           {
+               showSeporator = true; %>
         <li><a id="createNewTimer" class="dropdown-item" href="javascript:void(0)"><%= ProjectsCommonResource.AutoTimer %></a></li>
         <% }
            if (ParticipantSecurityInfo["ProjectTemplate"])
-           {%>
+           {
+               showSeporator = true; %>
         <li><a id="createProjectTempl" class="dropdown-item" href="projectTemplates.aspx?action=add"><%= ProjectResource.ProjectTemplate %></a></li>
         <% } %>
 
         <% if (Page is TMDocs)
            { %>
+        <% if (showSeporator)
+           { %>
             <li><div class="dropdown-item-seporator"></div></li>
+        <% } %>
             <asp:PlaceHolder runat="server" ID="CreateDocsHolder"></asp:PlaceHolder>
         <% } %>
     </ul>
@@ -60,7 +72,7 @@
         <span class="white-combobox">&nbsp;</span>
     </li>
     <% if (Page is TMDocs)
-        { %>
+       { %>
     <li id="buttonUpload" class="menu-upload-button" title="<%= ProjectsFileResource.ButtonUpload %>">
         <span class="menu-upload-icon">&nbsp;</span> 
     </li>

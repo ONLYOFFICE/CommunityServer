@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -30,7 +30,7 @@ using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Mail.Aggregator.Common.Extension;
-using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Aggregator.DbSchema;
 
 namespace ASC.Mail.Server.Dal
 {
@@ -54,9 +54,9 @@ namespace ASC.Mail.Server.Dal
             if(disabledDays < 1)
                 disabledDays = 1;
 
-            var updateDomain = new SqlUpdate(DomainTable.name)
-                .Set(string.Format("{0}=DATE_ADD(UTC_TIMESTAMP(), INTERVAL {1} DAY)", DomainTable.Columns.date_checked, disabledDays))
-                .Where(DomainTable.Columns.id, domainId);
+            var updateDomain = new SqlUpdate(DomainTable.Name)
+                .Set(string.Format("{0}=DATE_ADD(UTC_TIMESTAMP(), INTERVAL {1} DAY)", DomainTable.Columns.DateChecked, disabledDays))
+                .Where(DomainTable.Columns.Id, domainId);
 
             using (var db = GetDb())
             {
@@ -69,9 +69,9 @@ namespace ASC.Mail.Server.Dal
             if (domainId < 0)
                 throw new ArgumentException("Argument domain_id less then zero.", "domainId");
 
-            var updateDomain = new SqlUpdate(DomainTable.name)
-                .Set(string.Format("{0}=UTC_TIMESTAMP()", DomainTable.Columns.date_checked))
-                .Where(DomainTable.Columns.id, domainId);
+            var updateDomain = new SqlUpdate(DomainTable.Name)
+                .Set(string.Format("{0}=UTC_TIMESTAMP()", DomainTable.Columns.DateChecked))
+                .Where(DomainTable.Columns.Id, domainId);
 
             using (var db = GetDb())
             {
@@ -84,10 +84,10 @@ namespace ASC.Mail.Server.Dal
             if (domainId < 0)
                 throw new ArgumentException("Argument domain_id less then zero.", "domainId");
 
-            var updateDomain = new SqlUpdate(DomainTable.name)
-                .Set(string.Format("{0}=UTC_TIMESTAMP()", DomainTable.Columns.date_checked))
-                .Set(DomainTable.Columns.is_verified, isVerified)
-                .Where(DomainTable.Columns.id, domainId);
+            var updateDomain = new SqlUpdate(DomainTable.Name)
+                .Set(string.Format("{0}=UTC_TIMESTAMP()", DomainTable.Columns.DateChecked))
+                .Set(DomainTable.Columns.IsVerified, isVerified)
+                .Where(DomainTable.Columns.Id, domainId);
 
             using (var db = GetDb())
             {
@@ -106,9 +106,9 @@ namespace ASC.Mail.Server.Dal
             List<DnsCheckTaskDto> list;
 
             var query = GetDomainCheckTaskFieldsQuery(tasksLimit)
-                .Where(DomainTable.Columns.is_verified.Prefix(DOMAIN_ALIAS), 0)
+                .Where(DomainTable.Columns.IsVerified.Prefix(DOMAIN_ALIAS), 0)
                 .Where(string.Format("TIMESTAMPDIFF(MINUTE, {0}, UTC_TIMESTAMP()) > {1}",
-                                     DomainTable.Columns.date_checked.Prefix(DOMAIN_ALIAS), getTaskOlderMinutes));
+                                     DomainTable.Columns.DateChecked.Prefix(DOMAIN_ALIAS), getTaskOlderMinutes));
 
             using (var db = GetDb())
             {
@@ -130,9 +130,9 @@ namespace ASC.Mail.Server.Dal
             List<DnsCheckTaskDto> list;
 
             var query = GetDomainCheckTaskFieldsQuery(tasksLimit)
-                .Where(DomainTable.Columns.is_verified.Prefix(DOMAIN_ALIAS), 1)
+                .Where(DomainTable.Columns.IsVerified.Prefix(DOMAIN_ALIAS), 1)
                 .Where(string.Format("TIMESTAMPDIFF(MINUTE, {0}, UTC_TIMESTAMP()) > {1}",
-                                     DomainTable.Columns.date_checked.Prefix(DOMAIN_ALIAS), getTaskOlderMinutes));
+                                     DomainTable.Columns.DateChecked.Prefix(DOMAIN_ALIAS), getTaskOlderMinutes));
 
             using (var db = GetDb())
             {
@@ -145,27 +145,27 @@ namespace ASC.Mail.Server.Dal
 
         private SqlQuery GetDomainCheckTaskFieldsQuery(int limit)
         {
-            return new SqlQuery(DomainTable.name.Alias(DOMAIN_ALIAS))
-                .InnerJoin(DnsTable.name.Alias(DNS_ALIAS),
-                           Exp.EqColumns(DomainTable.Columns.id.Prefix(DOMAIN_ALIAS),
-                                         DnsTable.Columns.id_domain.Prefix(DNS_ALIAS)))
-                .InnerJoin(TenantXServerTable.name.Alias(TENANT_X_SERVER_ALIAS),
-                           Exp.EqColumns(DomainTable.Columns.tenant.Prefix(DOMAIN_ALIAS),
-                                         TenantXServerTable.Columns.id_tenant.Prefix(TENANT_X_SERVER_ALIAS)))
-                .InnerJoin(ServerTable.name.Alias(SERVER_ALIAS),
-                           Exp.EqColumns(TenantXServerTable.Columns.id_server.Prefix(TENANT_X_SERVER_ALIAS),
-                                         ServerTable.Columns.id.Prefix(SERVER_ALIAS)))
-                .Select(DomainTable.Columns.id.Prefix(DOMAIN_ALIAS))
-                .Select(DomainTable.Columns.name.Prefix(DOMAIN_ALIAS))
-                .Select(DomainTable.Columns.is_verified.Prefix(DOMAIN_ALIAS))
-                .Select(DomainTable.Columns.date_added.Prefix(DOMAIN_ALIAS))
-                .Select(DomainTable.Columns.date_checked.Prefix(DOMAIN_ALIAS))
-                .Select(DnsTable.Columns.tenant.Prefix(DNS_ALIAS))
-                .Select(DnsTable.Columns.user.Prefix(DNS_ALIAS))
-                .Select(DnsTable.Columns.dkim_selector.Prefix(DNS_ALIAS))
-                .Select(DnsTable.Columns.dkim_public_key.Prefix(DNS_ALIAS))
-                .Select(DnsTable.Columns.spf.Prefix(DNS_ALIAS))
-                .Select(ServerTable.Columns.mx_record.Prefix(SERVER_ALIAS))
+            return new SqlQuery(DomainTable.Name.Alias(DOMAIN_ALIAS))
+                .InnerJoin(DnsTable.Name.Alias(DNS_ALIAS),
+                           Exp.EqColumns(DomainTable.Columns.Id.Prefix(DOMAIN_ALIAS),
+                                         DnsTable.Columns.DomainId.Prefix(DNS_ALIAS)))
+                .InnerJoin(TenantXServerTable.Name.Alias(TENANT_X_SERVER_ALIAS),
+                           Exp.EqColumns(DomainTable.Columns.Tenant.Prefix(DOMAIN_ALIAS),
+                                         TenantXServerTable.Columns.Tenant.Prefix(TENANT_X_SERVER_ALIAS)))
+                .InnerJoin(ServerTable.Name.Alias(SERVER_ALIAS),
+                           Exp.EqColumns(TenantXServerTable.Columns.ServerId.Prefix(TENANT_X_SERVER_ALIAS),
+                                         ServerTable.Columns.Id.Prefix(SERVER_ALIAS)))
+                .Select(DomainTable.Columns.Id.Prefix(DOMAIN_ALIAS))
+                .Select(DomainTable.Columns.DomainName.Prefix(DOMAIN_ALIAS))
+                .Select(DomainTable.Columns.IsVerified.Prefix(DOMAIN_ALIAS))
+                .Select(DomainTable.Columns.DateAdded.Prefix(DOMAIN_ALIAS))
+                .Select(DomainTable.Columns.DateChecked.Prefix(DOMAIN_ALIAS))
+                .Select(DnsTable.Columns.Tenant.Prefix(DNS_ALIAS))
+                .Select(DnsTable.Columns.User.Prefix(DNS_ALIAS))
+                .Select(DnsTable.Columns.DkimSelector.Prefix(DNS_ALIAS))
+                .Select(DnsTable.Columns.DkimPublicKey.Prefix(DNS_ALIAS))
+                .Select(DnsTable.Columns.Spf.Prefix(DNS_ALIAS))
+                .Select(ServerTable.Columns.MxRecord.Prefix(SERVER_ALIAS))
                 .SetMaxResults(limit);
 
         }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,12 +24,13 @@
 */
 
 
-using System;
-using System.Web;
-using System.Web.Configuration;
 using ASC.Core;
 using ASC.Security.Cryptography;
 using ASC.Web.Studio.Utility;
+using System;
+using System.Threading;
+using System.Web;
+using System.Web.Configuration;
 
 namespace ASC.Web.Core.Files
 {
@@ -37,6 +38,8 @@ namespace ASC.Web.Core.Files
     {
         public const string FilesBaseVirtualPath = "~/products/files/";
         public const string EditorPage = "doceditor.aspx";
+        private static readonly string files_uploader_url = WebConfigurationManager.AppSettings["files.uploader.url"] ?? "~";
+        private static readonly string files_uploader_url_local = WebConfigurationManager.AppSettings["files.uploader.url.local"] ?? "~/products/files";
 
         public static string FilesBaseAbsolutePath
         {
@@ -82,6 +85,12 @@ namespace ASC.Web.Core.Files
         {
             get { return GetUrlSetting("command"); }
             set { SetUrlSetting("command", value); }
+        }
+
+        public static string DocServicePortalUrl
+        {
+            get { return GetUrlSetting("portal"); }
+            set { SetUrlSetting("portal", value); }
         }
 
         public static string FileViewUrlString
@@ -200,9 +209,10 @@ namespace ASC.Web.Core.Files
 
         public static string GetInitiateUploadSessionUrl(object folderId, object fileId, string fileName, long contentLength)
         {
-            var queryString = string.Format("?initiate=true&name={0}&fileSize={1}&tid={2}&userid={3}",
+            var queryString = string.Format("?initiate=true&name={0}&fileSize={1}&tid={2}&userid={3}&culture={4}",
                                             fileName, contentLength, TenantProvider.CurrentTenantID,
-                                            HttpUtility.UrlEncode(InstanceCrypto.Encrypt(SecurityContext.CurrentAccount.ID.ToString())));
+                                            HttpUtility.UrlEncode(InstanceCrypto.Encrypt(SecurityContext.CurrentAccount.ID.ToString())),
+                                            Thread.CurrentThread.CurrentUICulture.Name);
 
             if (fileId != null)
                 queryString = queryString + "&fileid=" + fileId;
@@ -222,10 +232,7 @@ namespace ASC.Web.Core.Files
 
         private static string GetFileUploaderHandlerVirtualPath(bool getServiceUrl)
         {
-            string virtualPath = getServiceUrl
-                                     ? (WebConfigurationManager.AppSettings["files.uploader.url"] ?? "~")
-                                     : (WebConfigurationManager.AppSettings["files.uploader.url.local"] ?? "~/products/files");
-
+            string virtualPath = getServiceUrl ? files_uploader_url : files_uploader_url_local;
             return virtualPath.EndsWith(".ashx") ? virtualPath : virtualPath.TrimEnd('/') + "/ChunkedUploader.ashx";
         }
 

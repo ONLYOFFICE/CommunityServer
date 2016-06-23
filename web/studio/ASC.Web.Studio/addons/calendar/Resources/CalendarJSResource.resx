@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="calendarButtonText_today" xml:space="preserve">
     <value>Today</value>
@@ -464,5 +464,138 @@
   </data>
   <data name="icalStream_incorrectFormat" xml:space="preserve">
     <value>неверный формат</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabel" xml:space="preserve">
+    <value>Guests:</value>
+  </data>
+  <data name="calendarEventEditor_locationLabel" xml:space="preserve">
+    <value>Location:</value>
+  </data>
+  <data name="calendarEventEditor_statusLabel" xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="calendarEventEditor_summaryLabel" xml:space="preserve">
+    <value>Event name:</value>
+  </data>
+  <data name="calendarEventEditor_statusCancelled" xml:space="preserve">
+    <value>CANCELLED</value>
+  </data>
+  <data name="calendarEventEditor_statusConfirmed" xml:space="preserve">
+    <value>CONFIRMED</value>
+  </data>
+  <data name="calendarEventEditor_statusTentative" xml:space="preserve">
+    <value>TENTATIVE</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLabel" xml:space="preserve">
+    <value>Users for sharing</value>
+  </data>
+  <data name="calendarEventEditor_sharedUsersLink" xml:space="preserve">
+    <value>Add Users</value>
+  </data>
+  <data name="calendarEventEditor_headerCreate" xml:space="preserve">
+    <value>Create new event</value>
+  </data>
+  <data name="calendarEventEditor_headerEdit" xml:space="preserve">
+    <value>Edit event</value>
+  </data>
+  <data name="calendarEventEditor_detailsButton" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="calendarEventEditor_moreDetailsButtons" xml:space="preserve">
+    <value>More details</value>
+  </data>
+  <data name="confirmPopup_AddEventBody" xml:space="preserve">
+    <value>Would you like to send invitations to guests?</value>
+  </data>
+  <data name="confirmPopup_AddEventHeader" xml:space="preserve">
+    <value>Sending invitations</value>
+  </data>
+  <data name="confirmPopup_ButtonDontSend" xml:space="preserve">
+    <value>Don't Send</value>
+  </data>
+  <data name="confirmPopup_ButtonSend" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="confirmPopup_ButtonSendCustoms" xml:space="preserve">
+    <value>New guests and cancellations</value>
+  </data>
+  <data name="confirmPopup_ButtonSendEveryone" xml:space="preserve">
+    <value>Everyone</value>
+  </data>
+  <data name="confirmPopup_UpdateEventBody" xml:space="preserve">
+    <value>Would you like to send updates to existing guests?</value>
+  </data>
+  <data name="confirmPopup_UpdateEventHeader" xml:space="preserve">
+    <value>Sending updates</value>
+  </data>
+  <data name="confirmPopup_UpdateGuestsBody" xml:space="preserve">
+    <value>Would you like to send updates only to new guests and cancellations or just everyone?</value>
+  </data>
+  <data name="replyAnswerMaybe" xml:space="preserve">
+    <value>Maybe</value>
+  </data>
+  <data name="replyAnswerNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="replyAnswerYes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="editorInfoText" xml:space="preserve">
+    <value>All subsequent changes will be applied to your calendar only.</value>
+  </data>
+  <data name="replyLabelText" xml:space="preserve">
+    <value>Attending</value>
+  </data>
+  <data name="confirmPopup_DeleteEventBody" xml:space="preserve">
+    <value>Would you like to send cancellations to existing guests?</value>
+  </data>
+  <data name="confirmPopup_DeleteEventHeader" xml:space="preserve">
+    <value>Sending cancellations</value>
+  </data>
+  <data name="confirmPopup_ErrorToastText" xml:space="preserve">
+    <value>An error occurred while sending notifications</value>
+  </data>
+  <data name="confirmPopup_SuccessToastText" xml:space="preserve">
+    <value>Notifications successfully sent</value>
+  </data>
+  <data name="calendarEventEditor_organizerLabel" xml:space="preserve">
+    <value>Organizer:</value>
+  </data>
+  <data name="AcceptedCount" xml:space="preserve">
+    <value>Accepted:</value>
+  </data>
+  <data name="DeclinedCount" xml:space="preserve">
+    <value>Declined:</value>
+  </data>
+  <data name="GuestsCount" xml:space="preserve">
+    <value>Guests:</value>
+  </data>
+  <data name="attendeesNoAccountLink" xml:space="preserve">
+    <value>Connect mail accounts</value>
+  </data>
+  <data name="attendeesNoAccountText" xml:space="preserve">
+    <value>to send invitations</value>
+  </data>
+  <data name="calendarEventEditor_attendeesLabelHelpInfo" xml:space="preserve">
+    <value>Start typing email address or contact name from your personal, CRM contacts or
+portal users or use any other email to invite people to your event.</value>
+  </data>
+  <data name="cancelledEventInfoText" xml:space="preserve">
+    <value>Event canceled</value>
+  </data>
+  <data name="calendarEventEditor_headerView" xml:space="preserve">
+    <value>View event</value>
+  </data>
+  <data name="editorInfoTextSubscription" xml:space="preserve">
+    <value>Event guests will not be notified. Use your own calendars for sending notifications.</value>
+  </data>
+  <data name="confirmPopup_ButtonOk" xml:space="preserve">
+    <value>Ok</value>
+  </data>
+  <data name="calendarEventEditor_optionalParticipant" xml:space="preserve">
+    <value>Optional</value>
+  </data>
+  <data name="calendarEventEditor_requiredParticipant" xml:space="preserve">
+    <value>Required</value>
   </data>
 </root>

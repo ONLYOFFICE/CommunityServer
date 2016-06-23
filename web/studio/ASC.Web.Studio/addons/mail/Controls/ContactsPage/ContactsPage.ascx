@@ -7,7 +7,10 @@
             <div id="crmFilter"></div>
         </div>
         <div class="filterPanel hidden">
-            <div ID="tlFilter"></div>
+            <div id="tlFilter"></div>
+        </div>
+        <div class="filterPanel hidden">
+            <div id="customFilter"></div>
         </div>
         <div class="containerBodyBlock hidden"></div>
     </div>
@@ -15,8 +18,11 @@
 
 <div id="contactActionMenu" class="studio-action-panel">
     <ul class="dropdown-content">
-        <li><a class="viewContact dropdown-item"><%=ASC.Web.Mail.Resources.MailResource.ViewContact%></a></li>
         <li><a class="writeLetter dropdown-item"><%=ASC.Web.Mail.Resources.MailResource.WriteLetter%></a></li>
+        <li><a class="viewContact dropdown-item"><%=ASC.Web.Mail.Resources.MailResource.ViewContact%></a></li>
+        <li><a class="editContact dropdown-item"><%=ASC.Web.Mail.Resources.MailResource.EditContact%></a></li>
+        <li><a class="addContact dropdown-item"><%=ASC.Web.Mail.Resources.MailResource.AddToContacts%></a></li>
+        <li><a class="deleteContact dropdown-item"><%=ASC.Web.Mail.Resources.MailScriptResource.Delete%></a></li>
     </ul>
 </div>
 

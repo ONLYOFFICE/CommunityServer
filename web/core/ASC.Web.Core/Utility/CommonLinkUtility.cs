@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -36,6 +36,7 @@ using ASC.Core;
 using ASC.Core.Users;
 using ASC.Security.Cryptography;
 using ASC.Web.Core;
+using ASC.Web.Core.WhiteLabel;
 using log4net;
 
 namespace ASC.Web.Studio.Utility
@@ -550,18 +551,47 @@ namespace ASC.Web.Studio.Utility
 
         public static string GetHelpLink(bool inCurrentCulture = true)
         {
-            var url = WebConfigurationManager.AppSettings["web.help-center"] ?? string.Empty;
+            if (!AdditionalWhiteLabelSettings.Instance.HelpCenterEnabled)
+                return String.Empty;
 
-            if (url.Contains("{"))
+            var url = AdditionalWhiteLabelSettings.DefaultHelpCenterUrl;
+
+            if (String.IsNullOrEmpty(url))
+                return String.Empty;
+
+            return GetRegionalUrl(url, inCurrentCulture ? CultureInfo.CurrentCulture.TwoLetterISOLanguageName : null);
+        }
+
+        public static string GetRegionalUrl(string url, string lang)
+        {
+            if (String.IsNullOrEmpty(url))
+                return url;
+
+            //-replace language
+            var regex = new Regex("{.*?}");
+            var matches = regex.Matches(url);
+
+            if (String.IsNullOrEmpty(lang))
             {
-                var parts = url.Split('{');
-                url = parts[0];
-                if (inCurrentCulture && parts[1].Contains(CultureInfo.CurrentCulture.TwoLetterISOLanguageName))
+                url = matches.Cast<Match>().Aggregate(url, (current, match) => current.Replace(match.Value, String.Empty));
+            }
+            else
+            {
+                foreach (Match match in matches)
                 {
-                    url += CultureInfo.CurrentCulture.TwoLetterISOLanguageName + "/";
+                    var values = match.Value.TrimStart('{').TrimEnd('}').Split('|');
+                    url = url.Replace(match.Value, values.Contains(lang) ? lang : String.Empty);
                 }
             }
-            return url;
+            //-
+
+            //--remove redundant slashes
+            var uri = new Uri(url);
+            var baseUri = new UriBuilder(uri.Scheme, uri.Host, uri.Port).Uri;
+            baseUri = uri.Segments.Aggregate(baseUri, (current, segment) => new Uri(current, segment));
+            //--
+
+            return baseUri.ToString();
         }
 
         #endregion

@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -78,7 +78,7 @@ namespace ASC.Web.Community.Birthdays
             Page.RegisterBodyScripts("~/products/community/modules/birthdays/js/birthdays.js");
         }
 
-        private List<UserInfo> GetTodayBirthdays()
+        private static List<UserInfo> GetTodayBirthdays()
         {
             var today = TenantUtil.DateTimeNow();
             return (from u in CoreContext.UserManager.GetUsers(EmployeeStatus.Active, EmployeeType.User)
@@ -92,48 +92,30 @@ namespace ASC.Web.Community.Birthdays
         {
             public int Compare(DateTime x, DateTime y)
             {
-                var now = TenantUtil.DateTimeNow();
+                var today = TenantUtil.DateTimeNow();
+                var leap = new DateTime(2000, today.Month, today.Day);
 
-                var xTicks = x.Subtract(new DateTime(x.Year, now.Month, now.Day)).Ticks;
-                var yTicks = y.Subtract(new DateTime(y.Year, now.Month, now.Day)).Ticks;
+                var dx = new DateTime(2000, x.Month, x.Day).DayOfYear - leap.DayOfYear;
+                var dy = new DateTime(2000, y.Month, y.Day).DayOfYear - leap.DayOfYear;
 
-                int sing;
+                if (dx < 0 && dy >= 0) return 1;
+                if (dx >= 0 && dy < 0) return -1;
 
-                if (xTicks < 0 && yTicks < 0)
-                    sing = 1;
-                else if (xTicks < 0 && yTicks >= 0)
-                    return 1;
-                else if (xTicks >= 0 && yTicks < 0)
-                    return -1;
-                else
-                    sing = 1;
-
-                return sing*xTicks.CompareTo(yTicks);
+                return dx.CompareTo(dy);
             }
         }
 
-        private IEnumerable<BirthdayWrapper> GetUpcomingBirthdays()
+        private static IEnumerable<BirthdayWrapper> GetUpcomingBirthdays()
         {
-            var now = TenantUtil.DateTimeNow().Date;
+            var today = TenantUtil.DateTimeNow();
 
             return CoreContext.UserManager.GetUsers(EmployeeStatus.Active, EmployeeType.User)
-                              .Where(x => x.BirthDate.HasValue && TrueDate(x.BirthDate.Value))
+                              .Where(x => x.BirthDate.HasValue)
                               .OrderBy(x => x.BirthDate.Value, new BirthDateComparer())
-                              .GroupBy(x => new DateTime(now.Year, x.BirthDate.Value.Month, x.BirthDate.Value.Day))
-                              .Select(x => new BirthdayWrapper { Date = x.Key, Users = x.ToList() })
-                              .SkipWhile(x => x.Date.CompareTo(now) == 0)
+                              .GroupBy(x => new DateTime(2000, x.BirthDate.Value.Month, x.BirthDate.Value.Day)) // 29 february
+                              .Select(x => new BirthdayWrapper {Date = x.Key, Users = x.ToList()})
+                              .SkipWhile(x => x.Date.Month.Equals(today.Month) && x.Date.Day.Equals(today.Day))
                               .Take(10);
-        }
-
-        protected bool TrueDate(DateTime dateTime)
-        {
-            var now = TenantUtil.DateTimeNow();
-            var daysInMonth = DateTime.DaysInMonth(now.Year, dateTime.Month);
-            if (daysInMonth < dateTime.Day)
-            {
-                return false;
-            }
-            return true;
         }
 
         protected bool IsInRemindList(Guid userID)

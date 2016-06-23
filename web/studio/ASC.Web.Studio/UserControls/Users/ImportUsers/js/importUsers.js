@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -94,6 +94,8 @@ var ImportUsersManager = new function() {
     this._flatUploader = null;
     this._msUploader = null;
 
+    this.clip = null;
+
     this._alreadyChecking = false,
     this._progressBarIntervalId = null,
 
@@ -117,36 +119,27 @@ var ImportUsersManager = new function() {
 
         StudioBlockUIManager.blockUI("#importAreaBlock", 810, 640, 0);
 
-        var deviceAgent = navigator.userAgent.toLowerCase(),
-            agentID = deviceAgent.match(/(ipad)/);
+        ImportUsersManager.updateClipboard();
+    };
 
-        if (jq.browser.mobile && agentID || !jq.browser.flashEnabled()) {
-            jq("#inviteLinkCopy").hide();
+    this.updateClipboard = function () {
+        if (!ASC.Clipboard.enable) {
+            jq("#inviteLinkCopy").remove();
         } else {
-            if (jq("#inviteLinkCopy").length != 0) {
-                if (typeof ZeroClipboard != 'undefined' && ZeroClipboard.moviePath === 'ZeroClipboard.swf') {
-                    ZeroClipboard.setMoviePath(ASC.Resources.Master.ZeroClipboardMoviePath);
+            ASC.Clipboard.destroy(ImportUsersManager.clip);
+
+            var url = jq("#inviteUserLink").val();
+
+            ImportUsersManager.clip = ASC.Clipboard.create(url, "inviteLinkCopy", {
+                panelId: "inviteLinkPanel",
+                onComplete: function () {
+                    if (typeof(window.toastr) !== "undefined") {
+                        toastr.success(ASC.Resources.Master.Resource.LinkCopySuccess);
+                    } else {
+                        jq("#inviteUserLink, #inviteLinkCopy").yellowFade();
+                    }
                 }
-
-                var clip = new window.ZeroClipboard.Client();
-
-                clip.addEventListener("mouseDown",
-                    function () {
-                        var url = jq("#inviteUserLink").val();
-                        clip.setText(url);
-                    });
-
-                clip.addEventListener("onComplete",
-                    function () {
-                        if (typeof (window.toastr) !== "undefined") {
-                            toastr.success(ASC.Resources.Master.Resource.LinkCopySuccess);
-                        } else {
-                            jq("#inviteUserLink, #inviteLinkCopy").yellowFade();
-                        }
-                    });
-
-                clip.glue("inviteLinkCopy", "inviteLinkPanel");
-            }
+            });
         }
     };
 
@@ -758,6 +751,8 @@ var ImportUsersManager = new function() {
         } else {
             linkContainer.val(linkContainer.attr("data-invite-user-link"));
         }
+
+        ImportUsersManager.updateClipboard();
     };
     
     this.ShowImportUserLimitPanel = function() {

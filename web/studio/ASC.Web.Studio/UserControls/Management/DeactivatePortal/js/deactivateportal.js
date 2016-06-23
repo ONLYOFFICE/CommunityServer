@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,8 +26,16 @@
 
 DeactivationPortalManager = new function () {
     this.Init = function () {
-        jq('#sendDeactivateInstructionsBtn').on("click", DeactivationPortalManager.SendDeactivateInstructions);
-        jq('#sendDeleteInstructionsBtn').on("click", DeactivationPortalManager.SendDeleteInstructions);
+        jq("#sendDeactivateInstructionsBtn").on("click", DeactivationPortalManager.SendDeactivateInstructions);
+        jq("#showDeleteDialogBtn").on("click", DeactivationPortalManager.showDeleteDialog);
+        jq("#sendDeleteInstructionsBtn").on("click", DeactivationPortalManager.SendDeleteInstructions);
+    };
+
+    this.showDeleteDialog = function() {
+        if (jq("#deleteDialog").length)
+            StudioBlockUIManager.blockUI("#deleteDialog", 450, 400);
+        else
+            DeactivationPortalManager.SendDeleteInstructions();
     };
 
     this.SendDeactivateInstructions = function () {
@@ -51,14 +59,15 @@ DeactivationPortalManager = new function () {
             return;
         }
 
-        LoadingBanner.showLoaderBtn("#accountDeletionBlock");
+        LoadingBanner.showLoaderBtn("#deleteDialog");
         AjaxPro.DeactivatePortal.SendDeleteInstructions(function (response) {
             if (response.value) {
                 var $status = jq('#delete_sent');
                 $status.html(response.value);
                 $status.show();
             }
-            LoadingBanner.hideLoaderBtn("#accountDeletionBlock");
+            PopupKeyUpActionProvider.CloseDialog();
+            LoadingBanner.hideLoaderBtn("#deleteDialog");
         });
     };
 

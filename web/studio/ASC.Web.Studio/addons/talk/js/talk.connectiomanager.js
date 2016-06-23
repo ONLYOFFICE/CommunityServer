@@ -179,9 +179,9 @@ window.ASC.TMTalk.connectionManager = (function () {
 
       return undefined;
     }
-    JabberClient.GetAuthToken(function (responce) {
-      if (responce && typeof responce.value === 'string' && responce.value) {
-        ASC.TMTalk.connectionManager.connect(null, responce.value);
+    JabberClient.GetAuthToken(function (response) {
+      if (response && typeof response.value === 'string' && response.value) {
+        ASC.TMTalk.connectionManager.connect(null, response.value);
       }
     });
   };

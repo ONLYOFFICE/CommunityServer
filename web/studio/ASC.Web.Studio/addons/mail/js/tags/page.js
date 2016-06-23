@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -37,7 +37,6 @@ window.tagsPage = (function($) {
 
             page.find('#createNewTag').click(function() {
                 tagsModal.showCreate();
-                return false;
             });
 
             tagsManager.events.bind('refresh', onRefreshTags);
@@ -81,12 +80,9 @@ window.tagsPage = (function($) {
         page.hide();
     };
 
-    var addressToHtml = function(address, separator) {
-        if (separator) {
-            return '<span>' + ', ' + address + '</span>';
-        } else {
-            return '<span>' + address + '</span>';
-        }
+    var addressToHtml = function (address, separator) {
+        var html = $.tmpl("addressTagTmpl", { address: address, separator: separator }, { htmlEncode: TMMail.htmlEncode });
+        return html;
     };
 
     var onRefreshTags = function(e, tags) {

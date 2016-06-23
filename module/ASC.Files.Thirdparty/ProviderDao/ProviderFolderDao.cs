@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -71,13 +71,14 @@ namespace ASC.Files.Thirdparty.ProviderDao
         public List<Folder> GetFolders(object parentId)
         {
             var selector = GetSelector(parentId);
-            return selector.GetFolderDao(parentId).GetFolders(selector.ConvertId(parentId));
+            return selector.GetFolderDao(parentId).GetFolders(selector.ConvertId(parentId)).Where(r => r != null).ToList();
         }
 
-        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false)
+        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
         {
             var selector = GetSelector(parentId);
-            var result = selector.GetFolderDao(parentId).GetFolders(selector.ConvertId(parentId), orderBy, filterType, subjectID, searchText, searchSubfolders);
+            var result = selector.GetFolderDao(parentId).GetFolders(selector.ConvertId(parentId), orderBy, filterType, subjectID, searchText, withSubfolders)
+                                 .Where(r => r != null).ToList();
 
             if (!result.Any()) return new List<Folder>();
 
@@ -102,7 +103,8 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
                 result = result.Concat(mathedIds.GroupBy(selectorLocal.GetIdCode)
                                                 .SelectMany(y => selectorLocal.GetFolderDao(y.FirstOrDefault())
-                                                                              .GetFolders(y.Select(selectorLocal.ConvertId).ToArray(), searchText, searchSubfolders)));
+                                                                              .GetFolders(y.Select(selectorLocal.ConvertId).ToArray(), searchText, searchSubfolders))
+                                                .Where(r => r != null));
             }
 
             return result.Distinct().ToList();
@@ -146,25 +148,25 @@ namespace ASC.Files.Thirdparty.ProviderDao
             selector.GetFolderDao(folderId).DeleteFolder(selector.ConvertId(folderId));
         }
 
-        public object MoveFolder(object folderId, object toRootFolderId)
+        public object MoveFolder(object folderId, object toFolderId)
         {
             var selector = GetSelector(folderId);
-            if (IsCrossDao(folderId, toRootFolderId))
+            if (IsCrossDao(folderId, toFolderId))
             {
-                return PerformCrossDaoFolderCopy(folderId, toRootFolderId, true).ID;
+                return PerformCrossDaoFolderCopy(folderId, toFolderId, true).ID;
             }
             else
             {
-                return selector.GetFolderDao(folderId).MoveFolder(selector.ConvertId(folderId), selector.ConvertId(toRootFolderId));
+                return selector.GetFolderDao(folderId).MoveFolder(selector.ConvertId(folderId), selector.ConvertId(toFolderId));
             }
         }
 
-        public Folder CopyFolder(object folderId, object toRootFolderId)
+        public Folder CopyFolder(object folderId, object toFolderId)
         {
             var selector = GetSelector(folderId);
-            return IsCrossDao(folderId, toRootFolderId)
-                ? PerformCrossDaoFolderCopy(folderId, toRootFolderId, false)
-                : selector.GetFolderDao(folderId).CopyFolder(selector.ConvertId(folderId), selector.ConvertId(toRootFolderId));
+            return IsCrossDao(folderId, toFolderId)
+                ? PerformCrossDaoFolderCopy(folderId, toFolderId, false)
+                : selector.GetFolderDao(folderId).CopyFolder(selector.ConvertId(folderId), selector.ConvertId(toFolderId));
         }
 
         public IDictionary<object, string> CanMoveOrCopy(object[] folderIds, object to)
@@ -172,9 +174,11 @@ namespace ASC.Files.Thirdparty.ProviderDao
             if (!folderIds.Any()) return new Dictionary<object, string>();
 
             var selector = GetSelector(to);
-            var matchedIds = folderIds.Where(selector.IsMatch);
+            var matchedIds = folderIds.Where(selector.IsMatch).ToArray();
 
-            return selector.GetFolderDao(folderIds.FirstOrDefault()).CanMoveOrCopy(matchedIds.ToArray(), to);
+            if (!matchedIds.Any()) return new Dictionary<object, string>();
+
+            return selector.GetFolderDao(matchedIds.FirstOrDefault()).CanMoveOrCopy(matchedIds, to);
         }
 
         public object RenameFolder(Folder folder, string newTitle)
@@ -186,10 +190,16 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return selector.GetFolderDao(folderId).RenameFolder(folder, newTitle);
         }
 
-        public int GetItemsCount(object folderId, bool withSubfoldes)
+        public int GetItemsCount(object folderId)
         {
             var selector = GetSelector(folderId);
-            return selector.GetFolderDao(folderId).GetItemsCount(selector.ConvertId(folderId), withSubfoldes);
+            return selector.GetFolderDao(folderId).GetItemsCount(selector.ConvertId(folderId));
+        }
+
+        public bool IsEmpty(object folderId)
+        {
+            var selector = GetSelector(folderId);
+            return selector.GetFolderDao(folderId).IsEmpty(selector.ConvertId(folderId));
         }
 
         public bool UseTrashForRemove(Folder folder)
@@ -212,6 +222,12 @@ namespace ASC.Files.Thirdparty.ProviderDao
             return useRecursive;
         }
 
+        public bool CanCalculateSubitems(object entryId)
+        {
+            var selector = GetSelector(entryId);
+            return selector.GetFolderDao(entryId).CanCalculateSubitems(entryId);
+        }
+
         public long GetMaxUploadSize(object folderId, bool chunkedUpload)
         {
             var selector = GetSelector(folderId);
@@ -225,9 +241,9 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
         #region Only for TMFolderDao
 
-        public IEnumerable<Folder> Search(string text, FolderType folderType)
+        public IEnumerable<Folder> Search(string text, params FolderType[] folderTypes)
         {
-            return TryGetFolderDao().Search(text, folderType);
+            return TryGetFolderDao().Search(text, folderTypes);
         }
 
         public object GetFolderID(string module, string bunch, string data, bool createIfNotExists)

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -39,34 +39,39 @@ namespace ASC.Web.Mail.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/foldersTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/messagesTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/messageTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/editMessageTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/accountTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/accountErrorTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/accountWizardTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/accountsPanelTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/contactsTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/accountsTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/tagsTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/crmIntegrationPopupTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/docAttachmentsTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/addFirstAccountTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/composeMessageBodyTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/signatureTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/emptyScrTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/alertsTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/messagePrintTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/administration/mailboxTableTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/administration/groupTableTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/administration/editMailGroupTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/administration/editMailboxTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/administration/addQuestionBoxTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/administration/createDomainWizardTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/administration/createMailboxPopupTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/administration/administrationDataTmpl.ascx", context);
-            yield return RegisterClientTemplatesPath("~/addons/mail/templates/administration/createMailgroupPopupTmpl.ascx", context);
+            return RegisterClientTemplatesPath(context, 
+                "~/addons/mail/templates/foldersTmpl.ascx",
+                "~/addons/mail/templates/messagesTmpl.ascx",
+                "~/addons/mail/templates/messageTmpl.ascx",
+                "~/addons/mail/templates/editMessageTmpl.ascx",
+                "~/addons/mail/templates/accountTmpl.ascx",
+                "~/addons/mail/templates/accountErrorTmpl.ascx",
+                "~/addons/mail/templates/accountWizardTmpl.ascx",
+                "~/addons/mail/templates/accountsPanelTmpl.ascx",
+                "~/addons/mail/templates/contactsTmpl.ascx",
+                "~/addons/mail/templates/contactEditTmpl.ascx",
+                "~/addons/mail/templates/accountsTmpl.ascx",
+                "~/addons/mail/templates/tagsTmpl.ascx",
+                "~/addons/mail/templates/crmIntegrationPopupTmpl.ascx",
+                "~/addons/mail/templates/docAttachmentsTmpl.ascx",
+                "~/addons/mail/templates/addFirstAccountTmpl.ascx",
+                "~/addons/mail/templates/composeMessageBodyTmpl.ascx",
+                "~/addons/mail/templates/signatureTmpl.ascx",
+                "~/addons/mail/templates/mailAutoreplyTmpl.ascx",
+                "~/addons/mail/templates/emptyScrTmpl.ascx",
+                "~/addons/mail/templates/alertsTmpl.ascx",
+                "~/addons/mail/templates/messagePrintTmpl.ascx",
+                "~/addons/mail/templates/administration/mailboxTableTmpl.ascx",
+                "~/addons/mail/templates/administration/groupTableTmpl.ascx",
+                "~/addons/mail/templates/administration/editMailGroupTmpl.ascx",
+                "~/addons/mail/templates/administration/editMailboxTmpl.ascx",
+                "~/addons/mail/templates/administration/addQuestionBoxTmpl.ascx",
+                "~/addons/mail/templates/administration/createDomainWizardTmpl.ascx",
+                "~/addons/mail/templates/administration/createMailboxPopupTmpl.ascx",
+                "~/addons/mail/templates/administration/administrationDataTmpl.ascx",
+                "~/addons/mail/templates/administration/createMailgroupPopupTmpl.ascx",
+                "~/addons/mail/templates/calendarTmpl.ascx",
+                "~/addons/mail/templates/commonTmpl.ascx");
         }
     }
 }

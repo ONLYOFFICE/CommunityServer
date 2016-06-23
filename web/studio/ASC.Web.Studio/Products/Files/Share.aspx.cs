@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -72,10 +72,12 @@ namespace ASC.Web.Files
         {
             Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/accessrights/accessrights.css");
             Page.RegisterBodyScripts("~/js/third-party/zeroclipboard.js");
-            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("common.js"));
-            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("templatemanager.js"));
-            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("servicemanager.js"));
-            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("ui.js"));
+
+            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, 
+                "common.js", 
+                "templatemanager.js",
+                "servicemanager.js", 
+                "ui.js");
 
             var fileId = Request[FilesLinkUtility.FileId];
             File file;

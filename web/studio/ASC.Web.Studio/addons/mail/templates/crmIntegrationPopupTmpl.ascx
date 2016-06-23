@@ -32,6 +32,17 @@
     </div>
 </script>
 
+<script id="crmLinkConfirmPopupTmpl" type="text/x-jquery-tmpl">
+    <div id="crm_link_confirm_popup_message" class="popup popupMailBox crm_popup">
+        <span><%= MailResource.LinkConversationPopupInfoMessage %></span>
+        <p><%= MailResource.CreateAndLinkToCrmConfirmMessage %></p>
+        <div class="buttons">
+            <button class="button middle blue createAndLink" type="button"><%= MailResource.CreateCrmContactAndLinkPopupBtnLabel %></button>
+            <button class="button middle gray justCreate" type="button"><%= MailResource.CreateCrmWithoutLinkPopupBtnLabel %></button>
+        </div>
+    </div>
+</script>
+
 <script id="crmExportPopupTmpl" type="text/x-jquery-tmpl">
     ${crmIntegrationHeaderInfo          = '<%: MailResource.ExportMessagePopupInfoMessage %>', ""}
     ${crmIntegrationHeaderInfoExt       = '<%: MailResource.ExportMessagePopupChooseMessage %>', ""}
@@ -115,7 +126,15 @@
         </td>
         <td class="linked_entity_row_title_column">
             <span>
-                ${title}
+                {{if entity_type == 1}}
+                <a href="/products/crm/default.aspx?id=${entity_id}" title="${title}" class="link" target="_blank">${title}</a>
+                {{/if}}
+                {{if entity_type == 2}}
+                <a href="/products/crm/cases.aspx?id=${entity_id}" title="${title}" class="link" target="_blank">${title}</a>
+                {{/if}}
+                {{if entity_type == 3}}
+                <a href="/products/crm/deals.aspx?id=${entity_id}" title="${title}" class="link" target="_blank">${title}</a>
+                {{/if}}
             </span>
         </td>
         <td class="linked_entity_row_button_column">

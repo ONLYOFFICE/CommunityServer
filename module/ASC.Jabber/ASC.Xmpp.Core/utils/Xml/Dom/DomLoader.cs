@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,6 +26,8 @@
 
 #region using
 
+using log4net;
+using System;
 using System.IO;
 using System.Text;
 
@@ -44,6 +46,8 @@ namespace ASC.Xmpp.Core.utils.Xml.Dom
     public class DomLoader
     {
         #region Members
+
+        private static readonly ILog log = LogManager.GetLogger(typeof(DomLoader));
 
         /// <summary>
         /// </summary>
@@ -69,7 +73,9 @@ namespace ASC.Xmpp.Core.utils.Xml.Dom
             sp.OnStreamStart += sp_OnStreamStart;
             sp.OnStreamElement += sp_OnStreamElement;
             sp.OnStreamEnd += sp_OnStreamEnd;
-
+            sp.OnStreamError += sp_OnStreamError;
+            sp.OnError += sp_OnError; 
+                
             byte[] b = Encoding.UTF8.GetBytes(xml);
             sp.Push(b, 0, b.Length);
         }
@@ -110,6 +116,26 @@ namespace ASC.Xmpp.Core.utils.Xml.Dom
         /// <param name="e"> </param>
         private void sp_OnStreamEnd(object sender, Node e)
         {
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"> </param>
+        /// <param name="e"> </param>
+        void sp_OnStreamError(object sender, Exception ex)
+        {
+            var streamParser = (StreamParser)sender;
+            log.ErrorFormat("sp_OnStreamError {0}, streamParser.Current = {1}", ex, streamParser.Current);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="sender"> </param>
+        /// <param name="e"> </param>
+        private void sp_OnError(object sender, Exception ex)
+        {
+            var streamParser = (StreamParser)sender;
+            log.ErrorFormat("sp_OnError {0}, streamParser.Current = {1}", ex, streamParser.Current);
         }
 
         #endregion

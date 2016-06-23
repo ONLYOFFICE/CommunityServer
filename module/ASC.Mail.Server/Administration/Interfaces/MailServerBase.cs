@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -79,8 +79,8 @@ namespace ASC.Mail.Server.Administration.Interfaces
         public abstract void DeleteMailGroup(int mailgroupId, IMailServerFactory factory);
         public abstract ICollection<IMailGroup> GetMailGroups(IMailServerFactory factory);
 
-        public abstract IMailbox CreateMailbox(string localpart, string password, IWebDomain domain, IMailAccount account, IMailServerFactory factory);
-        public abstract void UpdateMailbox(IMailbox mailbox);
+        public abstract IMailbox CreateMailbox(string name, string localpart, string password, IWebDomain domain, IMailAccount account, IMailServerFactory factory);
+        public abstract void UpdateMailbox(IMailbox mailbox, string name, IMailServerFactory factory);
         public abstract void DeleteMailbox(IMailbox mailbox);
         public abstract ICollection<IMailbox> GetMailboxes(IMailServerFactory factory);
         public abstract IMailbox GetMailbox(int mailboxId, IMailServerFactory factory);

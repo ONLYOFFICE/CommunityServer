@@ -163,7 +163,7 @@
             <div class="headerPanelSmall">
                 <b><%= ProjectResource.ProjectDescription %>:</b>
             </div>
-            <textarea id="timeDescription" rows="7" cols="20"></textarea>
+            <textarea id="timeDescription" rows="7" cols="20" maxlength="250"></textarea>
         </div>
          
         <div class="middle-button-container">

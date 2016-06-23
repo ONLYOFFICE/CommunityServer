@@ -15,7 +15,7 @@
             <span class="plus"><%= CRMInvoiceResource.CreateInvoiceTax %></span>
         </a>
     </div>
-    <table id="invoiceTaxesTable" class="tableBase" cellpadding="4" cellspacing="0">
+    <table id="invoiceTaxesTable" class="table-list" cellpadding="4" cellspacing="0">
         <colgroup>
             <col style="width: 1%;"/>
             <col style="width: 1%;"/>

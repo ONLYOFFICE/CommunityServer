@@ -80,7 +80,11 @@
     function onBodyClick(e) {
         var that = this,
             $target = e && typeof e === 'object' ? jQuery(e.target) : null;
-        if ($target.closest(that.$advancedSelector).length === 0 && (that.$advancedSelector.is(":visible") || that.$advancedSelector.css("display") != "none")
+
+        if (!that.$advancedSelector.is(":visible"))
+            that.$advancedSelector.hide();
+
+        if ($target.closest(that.$advancedSelector).length === 0 && that.$advancedSelector.is(":visible")
             && $target.closest(that.$element).siblings(".advanced-selector-container").length === 0) {
             hideSelectorContainer.call(that);
         }
@@ -935,6 +939,7 @@
             that.groups = [];
             that.nameSimpleSelectorGroup = "";
             that.selectedItems = [];
+            that.cache = {};
 
 
             var $o = $.tmpl(that.options.templates.selectorContainer, { opts: that.options });

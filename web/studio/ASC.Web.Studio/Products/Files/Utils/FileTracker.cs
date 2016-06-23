@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,6 +26,7 @@
 
 using ASC.Common.Caching;
 using ASC.Core;
+using ASC.Web.Files.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,23 +41,20 @@ namespace ASC.Web.Files.Utils
         private static readonly ICache cache = AscCache.Default;
 
         public static readonly TimeSpan TrackTimeout = TimeSpan.FromSeconds(12);
-        public static readonly TimeSpan CacheTimeout = TimeSpan.FromSeconds(30);
+        public static readonly TimeSpan CacheTimeout = TimeSpan.FromSeconds(60);
         public static readonly TimeSpan CheckRightTimeout = TimeSpan.FromMinutes(1);
 
-        [DataMember]
-        private readonly Dictionary<Guid, TrackInfo> _editingBy;
-        [DataMember]
-        private bool _fixedVersion = false;
+        [DataMember] private readonly Dictionary<Guid, TrackInfo> _editingBy;
+        [DataMember] private bool _fixedVersion;
 
 
         private FileTracker()
         {
-
         }
 
         private FileTracker(Guid tabId, Guid userId, bool newScheme, bool editingAlone)
         {
-            _editingBy = new Dictionary<Guid, TrackInfo> { { tabId, new TrackInfo(userId, newScheme, editingAlone) } };
+            _editingBy = new Dictionary<Guid, TrackInfo> {{tabId, new TrackInfo(userId, newScheme, editingAlone)}};
         }
 
 
@@ -112,8 +110,8 @@ namespace ASC.Web.Files.Utils
                 if (userId != default(Guid))
                 {
                     var listForRemove = tracker._editingBy
-                        .Where(b => tracker._editingBy[b.Key].UserId == userId)
-                        .ToList();
+                                               .Where(b => tracker._editingBy[b.Key].UserId == userId)
+                                               .ToList();
                     foreach (var editTab in listForRemove)
                     {
                         tracker._editingBy.Remove(editTab.Key);
@@ -121,9 +119,9 @@ namespace ASC.Web.Files.Utils
                     SetTracker(fileId, tracker);
                     return;
                 }
-
-                SetTracker(fileId, null);
             }
+
+            SetTracker(fileId, null);
         }
 
         public static void RemoveAllOther(object fileId)
@@ -132,8 +130,8 @@ namespace ASC.Web.Files.Utils
             if (tracker != null)
             {
                 var listForRemove = tracker._editingBy
-                    .Where(b => b.Value.UserId != SecurityContext.CurrentAccount.ID)
-                    .ToList();
+                                           .Where(b => b.Value.UserId != SecurityContext.CurrentAccount.ID)
+                                           .ToList();
                 if (listForRemove.Count() != tracker._editingBy.Count)
                 {
                     foreach (var forRemove in listForRemove)
@@ -141,12 +139,10 @@ namespace ASC.Web.Files.Utils
                         tracker._editingBy.Remove(forRemove.Key);
                     }
                     SetTracker(fileId, tracker);
-                }
-                else
-                {
-                    SetTracker(fileId, null);
+                    return;
                 }
             }
+            SetTracker(fileId, null);
         }
 
         public static bool IsEditing(object fileId)
@@ -155,8 +151,8 @@ namespace ASC.Web.Files.Utils
             if (tracker != null)
             {
                 var listForRemove = tracker._editingBy
-                    .Where(e => !e.Value.NewScheme && (DateTime.UtcNow - e.Value.TrackTime).Duration() > TrackTimeout)
-                    .ToList();
+                                           .Where(e => !e.Value.NewScheme && (DateTime.UtcNow - e.Value.TrackTime).Duration() > TrackTimeout)
+                                           .ToList();
                 foreach (var editTab in listForRemove)
                 {
                     tracker._editingBy.Remove(editTab.Key);
@@ -171,6 +167,7 @@ namespace ASC.Web.Files.Utils
                 SetTracker(fileId, tracker);
                 return true;
             }
+            SetTracker(fileId, null);
             return false;
         }
 
@@ -193,15 +190,19 @@ namespace ASC.Web.Files.Utils
             {
 
                 tracker._editingBy.Values
-                    .ToList()
-                    .ForEach(i =>
-                    {
-                        if (i.UserId == userId || userId == Guid.Empty)
-                        {
-                            i.CheckRightTime = check ? DateTime.MinValue : DateTime.UtcNow;
-                        }
-                    });
+                       .ToList()
+                       .ForEach(i =>
+                           {
+                               if (i.UserId == userId || userId == Guid.Empty)
+                               {
+                                   i.CheckRightTime = check ? DateTime.MinValue : DateTime.UtcNow;
+                               }
+                           });
                 SetTracker(fileId, tracker);
+            }
+            else
+            {
+                SetTracker(fileId, null);
             }
         }
 
@@ -239,20 +240,15 @@ namespace ASC.Web.Files.Utils
         [DataContract]
         internal class TrackInfo
         {
-            [DataMember]
-            public DateTime CheckRightTime;
+            [DataMember] public DateTime CheckRightTime;
 
-            [DataMember]
-            public DateTime TrackTime;
+            [DataMember] public DateTime TrackTime;
 
-            [DataMember]
-            public Guid UserId;
+            [DataMember] public Guid UserId;
 
-            [DataMember]
-            public bool NewScheme;
+            [DataMember] public bool NewScheme;
 
-            [DataMember]
-            public bool EditingAlone;
+            [DataMember] public bool EditingAlone;
 
             public TrackInfo()
             {

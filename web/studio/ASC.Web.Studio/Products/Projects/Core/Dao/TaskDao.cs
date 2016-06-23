@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,23 +24,19 @@
 */
 
 
+using ASC.Collections;
+using ASC.Common.Data;
+using ASC.Common.Data.Sql;
+using ASC.Common.Data.Sql.Expressions;
+using ASC.Core.Tenants;
+using ASC.FullTextIndex;
+using ASC.Projects.Core.DataInterfaces;
+using ASC.Projects.Core.Domain;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Globalization;
 using System.Linq;
-
-using ASC.Collections;
-
-using ASC.Common.Data;
-using ASC.Common.Data.Sql;
-using ASC.Common.Data.Sql.Expressions;
-
-using ASC.Core.Tenants;
-using ASC.FullTextIndex;
-using ASC.FullTextIndex.Service;
-using ASC.Projects.Core.DataInterfaces;
-using ASC.Projects.Core.Domain;
 
 namespace ASC.Projects.Data.DAO
 {
@@ -149,7 +145,7 @@ namespace ASC.Projects.Data.DAO
             var query = CreateQuery()
                 .LeftOuterJoin(MilestonesTable + " m", Exp.EqColumns("m.id", "t.milestone_id") & Exp.EqColumns("t.tenant_id", "m.tenant_id"))
                 .Select("m.title", "m.deadline");
-            
+
             if (filter.Max > 0 && filter.Max < 150000)
             {
                 query.SetFirstResult((int)filter.Offset);
@@ -194,11 +190,11 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 var result = db.ExecuteList(queryCount).ToDictionary(r => Convert.ToInt32(r[1]), r => Convert.ToInt32(r[0]));
-                var tasksOpen = result.Where(row => row.Key != (int) TaskStatus.Closed).Sum(row => row.Value);
-                    //that's right. open its not closed.
+                var tasksOpen = result.Where(row => row.Key != (int)TaskStatus.Closed).Sum(row => row.Value);
+                //that's right. open its not closed.
                 int tasksClosed;
-                result.TryGetValue((int) TaskStatus.Closed, out tasksClosed);
-                return new TaskFilterCountOperationResult {TasksOpen = tasksOpen, TasksClosed = tasksClosed};
+                result.TryGetValue((int)TaskStatus.Closed, out tasksClosed);
+                return new TaskFilterCountOperationResult { TasksOpen = tasksOpen, TasksClosed = tasksClosed };
             }
         }
 
@@ -284,61 +280,60 @@ namespace ASC.Projects.Data.DAO
                     .Where(!Exp.Eq("status", TaskStatus.Closed));
 
                 return db.ExecuteList(q)
-                    .ConvertAll(r => new object[] {Convert.ToInt32(r[0]), Convert.ToInt32(r[1]), Convert.ToDateTime(r[2])});
+                    .ConvertAll(r => new object[] { Convert.ToInt32(r[0]), Convert.ToInt32(r[1]), Convert.ToDateTime(r[2]) });
             }
         }
 
         public virtual Task Save(Task task)
         {
             using (var db = new DbManager(DatabaseId))
+            using (var tr = db.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
-                using (var tr = db.BeginTransaction(IsolationLevel.ReadUncommitted))
+                task.Responsibles.RemoveAll(r => r.Equals(Guid.Empty));
+
+                if (task.Deadline.Kind != DateTimeKind.Local && task.Deadline != DateTime.MinValue)
+                    task.Deadline = TenantUtil.DateTimeFromUtc(task.Deadline);
+
+                if (task.StartDate.Kind != DateTimeKind.Local && task.StartDate != DateTime.MinValue)
+                    task.StartDate = TenantUtil.DateTimeFromUtc(task.StartDate);
+
+                var insert = Insert(TasksTable)
+                    .InColumnValue("id", task.ID)
+                    .InColumnValue("project_id", task.Project != null ? task.Project.ID : 0)
+                    .InColumnValue("title", task.Title)
+                    .InColumnValue("create_by", task.CreateBy.ToString())
+                    .InColumnValue("create_on", TenantUtil.DateTimeToUtc(task.CreateOn))
+                    .InColumnValue("last_modified_by", task.LastModifiedBy.ToString())
+                    .InColumnValue("last_modified_on", TenantUtil.DateTimeToUtc(task.LastModifiedOn))
+                    .InColumnValue("description", task.Description)
+                    .InColumnValue("priority", task.Priority)
+                    .InColumnValue("status", task.Status)
+                    .InColumnValue("milestone_id", task.Milestone)
+                    .InColumnValue("sort_order", task.SortOrder)
+                    .InColumnValue("deadline", task.Deadline)
+                    .InColumnValue("status_changed", task.StatusChangedOn)
+                    .InColumnValue("start_date", task.StartDate)
+                    .InColumnValue("progress", task.Progress)
+                    .Identity(1, 0, true);
+
+                task.ID = db.ExecuteScalar<int>(insert);
+
+                db.ExecuteNonQuery(Delete(TasksResponsibleTable).Where("task_id", task.ID));
+
+                if (task.Responsibles.Any())
                 {
-                    task.Responsibles.RemoveAll(r => r.Equals(Guid.Empty));
+                    insert = new SqlInsert(TasksResponsibleTable).InColumns("tenant_id", "task_ID", "responsible_id");
 
-                    if (task.Deadline.Kind != DateTimeKind.Local && task.Deadline != DateTime.MinValue)
-                        task.Deadline = TenantUtil.DateTimeFromUtc(task.Deadline);
-
-                    if (task.StartDate.Kind != DateTimeKind.Local && task.StartDate != DateTime.MinValue)
-                        task.StartDate = TenantUtil.DateTimeFromUtc(task.StartDate);
-
-                    var insert = Insert(TasksTable)
-                        .InColumnValue("id", task.ID)
-                        .InColumnValue("project_id", task.Project != null ? task.Project.ID : 0)
-                        .InColumnValue("title", task.Title)
-                        .InColumnValue("create_by", task.CreateBy.ToString())
-                        .InColumnValue("create_on", TenantUtil.DateTimeToUtc(task.CreateOn))
-                        .InColumnValue("last_modified_by", task.LastModifiedBy.ToString())
-                        .InColumnValue("last_modified_on", TenantUtil.DateTimeToUtc(task.LastModifiedOn))
-                        .InColumnValue("description", task.Description)
-                        .InColumnValue("priority", task.Priority)
-                        .InColumnValue("status", task.Status)
-                        .InColumnValue("milestone_id", task.Milestone)
-                        .InColumnValue("sort_order", task.SortOrder)
-                        .InColumnValue("deadline", task.Deadline)
-                        .InColumnValue("status_changed", task.StatusChangedOn)
-                        .InColumnValue("start_date", task.StartDate)
-                        .InColumnValue("progress", task.Progress)
-                        .Identity(1, 0, true);
-
-                    task.ID = db.ExecuteScalar<int>(insert);
-
-                    db.ExecuteNonQuery(Delete(TasksResponsibleTable).Where("task_id", task.ID));
-
-                    if (task.Responsibles.Any())
+                    foreach (var responsible in task.Responsibles.Distinct())
                     {
-                        insert = new SqlInsert(TasksResponsibleTable).InColumns("tenant_id", "task_ID", "responsible_id");
-
-                        foreach (var responsible in task.Responsibles.Distinct())
-                        {
-                            insert.Values(Tenant, task.ID, responsible);
-                        }
-
-                        db.ExecuteNonQuery(insert);
+                        insert.Values(Tenant, task.ID, responsible);
                     }
 
-                    tr.Commit();
+                    db.ExecuteNonQuery(insert);
                 }
+
+                tr.Commit();
+
                 return task;
             }
         }
@@ -346,16 +341,14 @@ namespace ASC.Projects.Data.DAO
         public virtual void Delete(int id)
         {
             using (var db = new DbManager(DatabaseId))
+            using (var tx = db.BeginTransaction())
             {
-                using (var tx = db.BeginTransaction())
-                {
-                    db.ExecuteNonQuery(Delete(CommentsTable).Where("target_uniq_id", ProjectEntity.BuildUniqId<Task>(id)));
-                    db.ExecuteNonQuery(Delete(TasksResponsibleTable).Where("task_id", id));
-                    db.ExecuteNonQuery(Delete(TasksTable).Where("id", id));
-                    db.ExecuteNonQuery(Delete(SubtasksTable).Where("task_id", id));
+                db.ExecuteNonQuery(Delete(CommentsTable).Where("target_uniq_id", ProjectEntity.BuildUniqId<Task>(id)));
+                db.ExecuteNonQuery(Delete(TasksResponsibleTable).Where("task_id", id));
+                db.ExecuteNonQuery(Delete(TasksTable).Where("id", id));
+                db.ExecuteNonQuery(Delete(SubtasksTable).Where("task_id", id));
 
-                    tx.Commit();
-                }
+                tx.Commit();
             }
         }
 
@@ -380,17 +373,13 @@ namespace ASC.Projects.Data.DAO
         {
             using (var db = new DbManager(DatabaseId))
             {
-                using (var tr = db.Connection.BeginTransaction())
-                {
-                    Insert("projects_tasks_recurrence")
-                        .InColumnValue("task_id", task.ID)
-                        .InColumnValue("cron", cron)
-                        .InColumnValue("title", task.Title)
-                        .InColumnValue("startDate", startDate)
-                        .InColumnValue("endDate", endDate);
+                Insert("projects_tasks_recurrence")
+                    .InColumnValue("task_id", task.ID)
+                    .InColumnValue("cron", cron)
+                    .InColumnValue("title", task.Title)
+                    .InColumnValue("startDate", startDate)
+                    .InColumnValue("endDate", endDate);
 
-                    tr.Commit();
-                }
             }
         }
 
@@ -398,11 +387,7 @@ namespace ASC.Projects.Data.DAO
         {
             using (var db = new DbManager(DatabaseId))
             {
-                using (var tx = db.BeginTransaction())
-                {
-                    db.ExecuteNonQuery(Delete("projects_tasks_recurrence").Where("task_id", taskId));
-                    tx.Commit();
-                }
+                db.ExecuteNonQuery(Delete("projects_tasks_recurrence").Where("task_id", taskId));
             }
         }
 
@@ -522,7 +507,7 @@ namespace ASC.Projects.Data.DAO
                     query.Where("t.status", TaskStatus.Closed);
             }
 
-            if(!filter.UserId.Equals(Guid.Empty))
+            if (!filter.UserId.Equals(Guid.Empty))
             {
                 query.Where("t.create_by", filter.UserId);
             }
@@ -555,7 +540,7 @@ namespace ASC.Projects.Data.DAO
                 {
                     var taskIds = FullTextSearch.Search(FullTextSearch.ProjectsTasksModule.Match(filter.SearchText));
 
-                    if(FullTextSearch.SupportModule(FullTextSearch.ProjectsSubtasksModule))
+                    if (FullTextSearch.SupportModule(FullTextSearch.ProjectsSubtasksModule))
                         taskIds.AddRange(FullTextSearch.Search(FullTextSearch.ProjectsSubtasksModule.Select("task_id").Match(filter.SearchText)));
 
                     query.Where(Exp.In("t.id", taskIds));
@@ -715,11 +700,11 @@ namespace ASC.Projects.Data.DAO
 
             if (task.Milestone > 0)
                 task.MilestoneDesc = new Milestone
-                                         {
-                                             ID = task.Milestone,
-                                             Title = (string) r[0 + offset] ?? "",
-                                             DeadLine = r[1 + offset] != null ? DateTime.SpecifyKind(Convert.ToDateTime(r[1 + offset]), DateTimeKind.Local) : default(DateTime),
-                                         };
+                {
+                    ID = task.Milestone,
+                    Title = (string)r[0 + offset] ?? "",
+                    DeadLine = r[1 + offset] != null ? DateTime.SpecifyKind(Convert.ToDateTime(r[1 + offset]), DateTimeKind.Local) : default(DateTime),
+                };
 
             return task;
         }
@@ -727,11 +712,11 @@ namespace ASC.Projects.Data.DAO
         private static TaskLink ToTaskLink(IList<object> r)
         {
             return new TaskLink
-                       {
-                           DependenceTaskId = Convert.ToInt32(r[0]),
-                           ParentTaskId = Convert.ToInt32(r[1]),
-                           LinkType = (TaskLinkType)Convert.ToInt32(r[2])
-                       };
+            {
+                DependenceTaskId = Convert.ToInt32(r[0]),
+                ParentTaskId = Convert.ToInt32(r[1]),
+                LinkType = (TaskLinkType)Convert.ToInt32(r[2])
+            };
         }
 
         internal List<Task> GetTasks(Exp where)

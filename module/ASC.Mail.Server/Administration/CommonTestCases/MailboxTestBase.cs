@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -74,7 +74,7 @@ namespace ASC.Mail.Server.Administration.TestCases
         [Test]
         public virtual void CreateMailboxOnServer()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_account.TeamlabAccount.Name, peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
 
             Assert.Greater(peter_mailbox.Id, 0, "mailbox.Id must be > 0");
             Assert.GreaterOrEqual(peter_mailbox.Tenant, 0, "mailbox.Tenant must be >= 0");
@@ -98,29 +98,34 @@ namespace ASC.Mail.Server.Administration.TestCases
         [ExpectedException(ExpectedExceptionName = "System.Data.DuplicateNameException", UserMessage = "You want to create account with already existed username")]
         public virtual void DoubleCreateMailbox()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
-            server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_account.TeamlabAccount.Name, peter_address.LocalPart, 
+                                                 PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            server.CreateMailbox(peter_account.TeamlabAccount.Name, peter_address.LocalPart, 
+                                                 PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
         }
 
         [Test]
         [ExpectedException(ExpectedExceptionName = "System.ArgumentNullException")]
         public virtual void CreateMailboxWithNullAccount()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, null, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_account.TeamlabAccount.Name,  peter_address.LocalPart, 
+                                                 PETER_PASSWORD, peter_address.Domain, null, TestContext.ServerFactory);
         }
 
         [Test]
         [ExpectedException(ExpectedExceptionName = "System.ArgumentNullException")]
         public virtual void CreateMailboxWithNullAddressName()
         {
-            peter_mailbox = server.CreateMailbox(null, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_account.TeamlabAccount.Name, null, 
+                                                 PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
         }
 
         [Test]
         [ExpectedException(ExpectedExceptionName = "System.ArgumentNullException")]
         public virtual void CreateMailboxWithNullDomain()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, null, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_account.TeamlabAccount.Name, peter_address.LocalPart, 
+                                                 PETER_PASSWORD, null, peter_account, TestContext.ServerFactory);
         }
 
         [Test]
@@ -137,7 +142,8 @@ namespace ASC.Mail.Server.Administration.TestCases
         [Test]
         public virtual void DeleteMailboxFromServer()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_account.TeamlabAccount.Name, peter_address.LocalPart, 
+                                                 PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
 
             var mailboxesBeforeDeleting = server.GetMailboxes(TestContext.ServerFactory);
             Assert.IsTrue(mailboxesBeforeDeleting.Contains(peter_mailbox), "Mailbox wasn't created.");
@@ -151,7 +157,8 @@ namespace ASC.Mail.Server.Administration.TestCases
         [Test]
         public virtual void DoubleDeleteMailboxFromServerTest()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_account.TeamlabAccount.Name, peter_address.LocalPart, 
+                                                 PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
 
             var mailboxesBeforeDeleting = server.GetMailboxes(TestContext.ServerFactory);
             Assert.IsTrue(mailboxesBeforeDeleting.Contains(peter_mailbox), "Mailbox wasn't created.");
@@ -175,7 +182,8 @@ namespace ASC.Mail.Server.Administration.TestCases
         [Test]
         public virtual void GetMailboxById()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_account.TeamlabAccount.Name, peter_address.LocalPart, 
+                                                 PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
 
             var mailboxGettedById = server.GetMailbox(peter_mailbox.Id, TestContext.ServerFactory);
             Assert.IsTrue(peter_mailbox.Equals(mailboxGettedById));
@@ -184,7 +192,8 @@ namespace ASC.Mail.Server.Administration.TestCases
         [Test]
         public virtual void GetMailboxByNonExistentId()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_account.TeamlabAccount.Name, peter_address.LocalPart, 
+                                                 PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
             server.DeleteMailbox(peter_mailbox);
             
             var mailboxesAfterDeleting = server.GetMailboxes(TestContext.ServerFactory);
@@ -243,9 +252,11 @@ namespace ASC.Mail.Server.Administration.TestCases
         [Test]
         public virtual void ReCreationMailbox()
         {
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_account.TeamlabAccount.Name, peter_address.LocalPart, 
+                                                 PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
             server.DeleteMailbox(peter_mailbox);
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_account.TeamlabAccount.Name, peter_address.LocalPart, 
+                                                 PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
 
             Assert.Greater(peter_mailbox.Id, 0, "mailbox.Id must be > 0");
             Assert.GreaterOrEqual(peter_mailbox.Tenant, 0, "mailbox.Tenant must be >= 0");
@@ -268,6 +279,21 @@ namespace ASC.Mail.Server.Administration.TestCases
         }
 
         [Test]
+        public virtual void UpdateMailbox()
+        {
+            peter_mailbox = server.CreateMailbox(peter_account.TeamlabAccount.Name, peter_address.LocalPart,
+                                                 PETER_PASSWORD, peter_address.Domain, peter_account, TestContext.ServerFactory);
+            const string new_name = "Peter_New";
+
+            server.UpdateMailbox(peter_mailbox, new_name, TestContext.ServerFactory);
+
+            var newMailbox = server.GetMailbox(peter_mailbox.Id, TestContext.ServerFactory);
+
+            Assert.IsFalse(peter_mailbox.Equals(newMailbox), "Mailbox wasn't updated.");
+            Assert.IsTrue(newMailbox.Name.Equals(new_name), "Mailbox wasn't updated.");
+        }
+
+        [Test]
         [ExpectedException(ExpectedExceptionName = "System.ArgumentOutOfRangeException")]
         public virtual void CheckLimitationOfMailboxException()
         {
@@ -277,7 +303,8 @@ namespace ASC.Mail.Server.Administration.TestCases
             {
                 var address = TestContext.CreateRandomMailAddress(peter_domain);
                 var account = TestContext.GetMailAccount(address.LocalPart, _peterDomainName);
-                server.CreateMailbox(address.LocalPart, PETER_PASSWORD, address.Domain, account, TestContext.ServerFactory);
+                server.CreateMailbox(account.TeamlabAccount.Name, address.LocalPart, 
+                                     PETER_PASSWORD, address.Domain, account, TestContext.ServerFactory);
             }
         }
     }

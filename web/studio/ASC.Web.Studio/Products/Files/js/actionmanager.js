@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -37,10 +37,9 @@ window.ASC.Files.Actions = (function () {
             jq(document).click(function (event) {
                 jq.dropdownToggle().registerAutoHide(event, "#filesActionsPanel", "#filesActionsPanel");
                 jq.dropdownToggle().registerAutoHide(event, ".row-selected .menu-small", "#filesActionPanel",
-                    function (e) {
+                    function () {
+                        jq(".row-selected .menu-small.active").removeClass("active");
                         jq(".row-selected.row-lonely-select").removeClass("row-lonely-select");
-                        e = jq.fixEvent(e);
-                        return e.button != 2;
                     });
             });
 
@@ -168,9 +167,7 @@ window.ASC.Files.Actions = (function () {
     };
 
     var showActionsPanel = function (event, entryData) {
-        if (ASC.Files.Actions.clipGetLink) {
-            ASC.Files.Actions.clipGetLink.destroy();
-        }
+        ASC.Clipboard.destroy(ASC.Files.Actions.clipGetLink);
 
         var e = jq.fixEvent(event);
 
@@ -238,8 +235,10 @@ window.ASC.Files.Actions = (function () {
                     #filesRemove").hide();
             }
 
+            var lockedForMe = ASC.Files.UI.lockedForMe(entryObj);
             if (!ASC.Files.UI.editableFile(entryData)
-                || editingFile && (!ASC.Files.Utility.CanCoAuhtoring(entryTitle) || entryObj.hasClass("on-edit-alone"))) {
+                || editingFile && (!ASC.Files.Utility.CanCoAuhtoring(entryTitle) || entryObj.hasClass("on-edit-alone"))
+                || lockedForMe) {
                 jq("#filesEdit").hide();
             }
 
@@ -262,15 +261,10 @@ window.ASC.Files.Actions = (function () {
                 jq("#filesRemove, #filesRestore").show();
             } else {
                 jq("#filesRestore").hide();
-                if (jq.browser.mobile) {
-                    jq("#filesGetLink").hide();
-                }
             }
 
-            var lockedForMe = ASC.Files.UI.lockedForMe(entryObj);
             if (!accessibleObj || lockedForMe) {
-                jq("#filesEdit,\
-                    #filesCompleteVersion,\
+                jq("#filesCompleteVersion,\
                     #filesRename,\
                     #filesLock,\
                     #filesUnlock").hide();
@@ -373,35 +367,14 @@ window.ASC.Files.Actions = (function () {
             jq("#actionPanelFolders").show();
         }
 
-        var dropdownItem = jq("#filesActionPanel");
+        if (!ASC.Clipboard.enable) {
+            jq("#filesGetLink").remove();
+        }
+
+        jq.showDropDownByContext(e, target, jq("#filesActionPanel"));
 
         if (target.is(".menu-small")) {
             entryObj.addClass("row-lonely-select");
-
-            dropdownItem.css(
-                {
-                    "top": target.offset().top + target.outerHeight(),
-                    "left": "auto",
-                    "right": jq(window).width() - target.offset().left - target.width() - 2,
-                    "margin": "0 -8px 0 0"
-                });
-        } else {
-            var correctionX = document.body.clientWidth - (e.pageX - pageXOffset + dropdownItem.innerWidth()) > 0 ? 0 : dropdownItem.innerWidth();
-            var correctionY = document.body.clientHeight - (e.pageY - pageYOffset + dropdownItem.innerHeight()) > 0 ? 0 : dropdownItem.innerHeight();
-
-            dropdownItem.css(
-                {
-                    "top": e.pageY - correctionY,
-                    "left": e.pageX - correctionX,
-                    "right": "auto",
-                    "margin": "0"
-                });
-        }
-
-        dropdownItem.toggle();
-
-        if (!jq.browser.flashEnabled()) {
-            jq("#filesGetLink").remove();
         }
 
         if (jq("#filesGetLink").is(":visible")) {
@@ -409,28 +382,20 @@ window.ASC.Files.Actions = (function () {
             var offsetLink = jq("#filesGetLink").offset();
             var offsetDialog = jq("#filesActionPanel").offset();
 
-            if (typeof ZeroClipboard != 'undefined' && ZeroClipboard.moviePath === 'ZeroClipboard.swf') {
-                ZeroClipboard.setMoviePath(ASC.Resources.Master.ZeroClipboardMoviePath);
-            }
-
-            ASC.Files.Actions.clipGetLink = new ZeroClipboard.Client();
-            ASC.Files.Actions.clipGetLink.setText(url);
-            ASC.Files.Actions.clipGetLink.glue("filesGetLink", "filesGetLink",
-                {
-                    zIndex: 670,
-                    left: offsetLink.left - offsetDialog.left + "px",
-                    top: offsetLink.top - offsetDialog.top + "px"
-                });
-
-            ASC.Files.Actions.clipGetLink.addEventListener("onComplete", function () {
-                ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoCopyLink);
-                ASC.Files.Actions.hideAllActionPanels();
-            });
-            ASC.Files.Actions.clipGetLink.addEventListener("onMouseOver", function () {
-                jq("#filesGetLink").children("a").css({ "text-decoration": "underline" });
-            });
-            ASC.Files.Actions.clipGetLink.addEventListener('onMouseOut', function () {
-                jq("#filesGetLink").children("a").css({ "text-decoration": "" });
+            ASC.Files.Actions.clipGetLink = ASC.Clipboard.create(url, "filesGetLink", {
+                left: (offsetLink.left - offsetDialog.left) + "px",
+                top: (offsetLink.top - offsetDialog.top) + "px",
+                onComplete: function () {
+                    ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoCopyLink);
+                    ASC.Files.Actions.hideAllActionPanels();
+                    jq("#filesGetLink a").removeClass("hover");
+                },
+                onMouseOver: function () {
+                    jq("#filesGetLink a").addClass("hover");
+                },
+                onMouseOut: function () {
+                    jq("#filesGetLink a").removeClass("hover");
+                },
             });
         }
 
@@ -466,6 +431,7 @@ window.ASC.Files.Actions = (function () {
 
         jq("#filesMainContent .row-hover").removeClass("row-hover");
         jq("#filesMainContent .row-lonely-select").removeClass("row-lonely-select");
+        jq("#filesMainContent .menu-small").removeClass("active");
         var count = jq("#filesMainContent .file-row.row-selected").length;
 
         if (count > 1 && entryObj.hasClass("row-selected")) {
@@ -478,19 +444,17 @@ window.ASC.Files.Actions = (function () {
     };
 
     var hideAllActionPanels = function () {
-        if (ASC.Files.Actions.clipGetLink) {
-            ASC.Files.Actions.clipGetLink.destroy();
-        }
+        ASC.Clipboard.destroy(ASC.Files.Actions.clipGetLink);
 
         jq(".studio-action-panel:visible").hide();
         jq("#filesMainContent .file-row.row-lonely-select").removeClass("row-lonely-select");
+        jq("#filesMainContent .file-row .menu-small").removeClass("active");
         ASC.Files.UI.hideEntryTooltip();
     };
 
     var checkEditFile = function (fileId, winEditor, isNew) {
         var fileObj = ASC.Files.UI.getEntryObject("file", fileId);
         ASC.Files.UI.lockEditFile(fileObj, true);
-        ASC.Files.UI.checkEditing();
 
         var url = ASC.Files.Utility.GetFileWebEditorUrl(fileId) + (isNew === true ? "&new=true" : "");
 
@@ -500,38 +464,50 @@ window.ASC.Files.Actions = (function () {
             winEditor = window.open(url, "_blank");
         }
 
-        try {
-            var onloadFunction = function () {
-                var fileIdLocal = fileId;
-                if (fileIdLocal) {
-                    ASC.Files.UI.lockEditFileById(fileIdLocal, true);
-                    ASC.Files.UI.checkEditing();
-                }
-            };
-            winEditor.onload = onloadFunction;
+        var onloadFunction = function () {
+            var fileIdLocal = fileId;
+            if (fileIdLocal) {
+                ASC.Files.UI.lockEditFileById(fileIdLocal, true);
+                ASC.Files.UI.checkEditing();
+            }
+        };
 
-            if (jq.browser.msie) {
-                var bodyIe;
-                var checkIeLoaded = function () {
-                    bodyIe = winEditor.document.getElementsByTagName("body");
-                    if (bodyIe[0] == null) {
-                        setTimeout(checkIeLoaded, 10);
-                    } else {
-                        onloadFunction();
+        if (winEditor == undefined) {
+
+            clearTimeout(ASC.Files.UI.timeCheckEditing);
+            ASC.Files.UI.timeCheckEditing = setTimeout(function () {
+                ASC.Files.UI.lockEditFile(fileObj, true);
+                ASC.Files.UI.checkEditing();
+            }, 5000);
+
+        } else {
+
+            try {
+                winEditor.onload = onloadFunction;
+
+                if (jq.browser.msie) {
+                    var bodyIe;
+                    var checkIeLoaded = function () {
+                        bodyIe = winEditor.document.getElementsByTagName("body");
+                        if (bodyIe[0] == null) {
+                            setTimeout(checkIeLoaded, 10);
+                        } else {
+                            onloadFunction();
+                        }
+                    };
+                    checkIeLoaded();
+                }
+            } catch (ex) {
+            }
+
+            try {
+                winEditor.onunload = function () {
+                    if (fileId) {
+                        ASC.Files.UI.checkEditing();
                     }
                 };
-                checkIeLoaded();
+            } catch (ex) {
             }
-        } catch (ex) {
-        }
-
-        try {
-            winEditor.onunload = function () {
-                if (fileId) {
-                    ASC.Files.UI.checkEditing();
-                }
-            };
-        } catch (ex) {
         }
 
         return ASC.Files.Marker.removeNewIcon("file", fileId);
@@ -539,25 +515,27 @@ window.ASC.Files.Actions = (function () {
 
     var showMoveToSelector = function (isCopy) {
         ASC.Files.Folders.isCopyTo = (isCopy === true);
+        ASC.Files.Actions.hideAllActionPanels();
 
         if (ASC.Files.Folders.folderContainer != "trash"
             && !ASC.Files.Folders.isCopyTo) {
             if (!ASC.Files.UI.accessEdit()) {
-                var listWithAccess = jq.grep(jq("#filesMainContent .file-row:not(.checkloading):not(.new-folder):not(.new-file):not(.error-entry):has(.checkbox input:checked)"), function (i, item) {
+                var listWithAccess = jq.grep(jq("#filesMainContent .file-row:not(.checkloading):not(.new-folder):not(.new-file):not(.error-entry):has(.checkbox input:checked)"), function (item) {
                     return ASC.Files.UI.accessDelete(item);
                 });
 
                 if (!listWithAccess.length) {
+                    ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoMoveGroup.format(0));
                     return;
                 }
             }
         }
 
         ASC.Files.Tree.updateTreePath();
-        ASC.Files.Actions.hideAllActionPanels();
 
         if (!isCopy
             && jq("#filesMainContent .file-row:not(.checkloading):not(.new-folder):not(.new-file):not(.error-entry):not(.on-edit):has(.checkbox input:checked)").length == 0) {
+            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoMoveGroup.format(0));
             return;
         }
 
@@ -565,6 +543,7 @@ window.ASC.Files.Actions = (function () {
             && !ASC.Files.Folders.isCopyTo
             && !ASC.Files.ThirdParty.isThirdParty()
             && jq("#filesMainContent .file-row:not(.checkloading):not(.new-folder):not(.new-file):not(.error-entry):not(.third-party-entry):has(.checkbox input:checked)").length == 0) {
+            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoMoveGroup.format(0));
             return;
         }
 

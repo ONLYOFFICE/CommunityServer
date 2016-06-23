@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -28,16 +28,18 @@ using AjaxPro;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Tenants;
+using ASC.Geolocation;
+using ASC.Web.Core;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.Core.Voip;
-using ASC.Web.Studio.Masters;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using log4net;
+using PhoneNumbers;
 using Resources;
 using System;
 using System.Collections.Generic;
@@ -76,15 +78,18 @@ namespace ASC.Web.Studio.UserControls.Management
         protected bool YearIsDisable;
         protected int MinActiveUser;
 
-        private RegionInfo _region = new RegionInfo("US");
-        protected decimal RateRuble;
+        protected RegionInfo RegionDefault = new RegionInfo("US");
+        protected RegionInfo CurrentRegion;
 
-        private string CurrencySymbol
+        protected List<RegionInfo> Regions = new List<RegionInfo>();
+
+        protected bool InRuble
         {
-            get { return _region.CurrencySymbol; }
+            get { return "RU".Equals(CurrentRegion.Name); }
         }
 
         private string _currencyFormat = "{currency}{price}";
+        private IDictionary<string, IEnumerable<Tuple<string, decimal>>> _priceInfo;
 
         private IEnumerable<TenantQuota> _quotaList;
         protected List<TenantQuota> QuotasYear;
@@ -99,8 +104,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 TenantQuota quota = null;
                 if (CurrentQuota.Trial
                     || CurrentQuota.Free
-                    || !CurrentQuota.Visible
-                    || CoreContext.Configuration.Standalone && CurrentTariff.QuotaId.Equals(Tenant.DEFAULT_TENANT))
+                    || !CurrentQuota.Visible)
                 {
                     var rightQuotaId = TenantExtra.GetRightQuotaId();
                     quota = _quotaList.FirstOrDefault(q => q.Id == rightQuotaId);
@@ -110,11 +114,28 @@ namespace ASC.Web.Studio.UserControls.Management
             }
         }
 
+        protected bool PeopleModuleAvailable
+        {
+            get
+            {
+                var peopleProduct = WebItemManager.Instance[WebItemManager.PeopleProductID];
+                return peopleProduct != null && !peopleProduct.IsDisabled();
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/usercontrols/management/tariffsettings/js/tariffusage.js");
+            Page.RegisterBodyScripts("~/usercontrols/management/tariffsettings/js/tariffusage.js",
+                "~/js/asc/plugins/countries.js",
+                "~/js/asc/plugins/phonecontroller.js");
+            Page.RegisterStyle("~/skins/default/phonecontroller.css");
             Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tariff.less");
             Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tariffusage.less");
+
+            Page.RegisterClientLocalizationScript(typeof(CountriesResources));
+
+            CurrentRegion = RegionDefault;
+            Regions.Add(CurrentRegion);
 
             UsersCount = TenantStatisticsProvider.GetUsersCount();
             UsedSize = TenantStatisticsProvider.GetUsedSize();
@@ -130,10 +151,10 @@ namespace ASC.Web.Studio.UserControls.Management
 
                 if (!string.IsNullOrEmpty(Partner.Currency))
                 {
-                    _region = new RegionInfo(Partner.Currency);
+                    CurrentRegion = new RegionInfo(Partner.Currency);
                 }
 
-                var control = (TariffPartner)LoadControl(TariffPartner.Location);
+                var control = (TariffPartner) LoadControl(TariffPartner.Location);
                 control.CurPartner = Partner;
                 control.TariffNotPaid = CurrentTariff.State >= TariffState.NotPaid;
                 control.TariffProlongable = CurrentTariff.Prolongable;
@@ -155,7 +176,7 @@ namespace ASC.Web.Studio.UserControls.Management
             YearIsDisable = !CurrentQuota.Free && CurrentQuota.Year3 && CurrentTariff.State == TariffState.Paid;
 
             var minYearQuota = QuotasYear.FirstOrDefault(q => q.ActiveUsers >= UsersCount && q.MaxTotalSize >= UsedSize);
-            MinActiveUser = minYearQuota != null ? minYearQuota.ActiveUsers : (QuotasYear.Last().ActiveUsers + 1);
+            MinActiveUser = minYearQuota != null ? minYearQuota.ActiveUsers : (QuotasYear.Count > 0 ? QuotasYear.Last().ActiveUsers : 0 + 1);
 
             HideBuyRecommendation = CurrentTariff.Autorenewal || TariffSettings.HideRecommendation || Partner != null;
 
@@ -169,7 +190,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 && Partner == null)
             {
                 SmsEnable = true;
-                var smsBuy = (SmsBuy)LoadControl(SmsBuy.Location);
+                var smsBuy = (SmsBuy) LoadControl(SmsBuy.Location);
                 smsBuy.ShowLink = !SettingsManager.Instance.LoadSettings<StudioSmsNotificationSettings>(TenantProvider.CurrentTenantID).EnableSetting;
                 SmsBuyHolder.Controls.Add(smsBuy);
             }
@@ -179,23 +200,97 @@ namespace ASC.Web.Studio.UserControls.Management
                 && Partner == null)
             {
                 VoipEnable = true;
-                var voipBuy = (VoipBuy)LoadControl(VoipBuy.Location);
+                var voipBuy = (VoipBuy) LoadControl(VoipBuy.Location);
                 VoipBuyHolder.Controls.Add(voipBuy);
             }
 
             if (Partner == null)
             {
                 RegisterScript();
+                CurrencyCheck();
             }
+        }
 
-            if (Partner == null && Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName == "ru")
+        private void CurrencyCheck()
+        {
+            CurrentRegion = FindRegionInfo() ?? CurrentRegion;
+
+            if (!CurrentRegion.Equals(RegionDefault))
             {
-                _region = new RegionInfo("RU");
-                _currencyFormat = "{price}{currency}";
-                RateRuble = SetupInfo.ExchangeRateRuble;
-
-                SetStar(string.Format(Resource.TariffsCurrencyRu, RateRuble));
+                Regions.Add(CurrentRegion);
             }
+
+            var requestCur = Request["cur"];
+            if (!string.IsNullOrEmpty(requestCur))
+            {
+                try
+                {
+                    CurrentRegion = new RegionInfo(requestCur);
+                    if (!Regions.Contains(CurrentRegion))
+                    {
+                        Regions.Add(CurrentRegion);
+                    }
+                }
+                catch
+                {
+                }
+            }
+
+            _priceInfo = CoreContext.TenantManager.GetProductPriceInfo();
+            if (!_priceInfo.Values.Any(value => value.Any(item => item.Item1 == CurrentRegion.ISOCurrencySymbol)))
+            {
+                Regions.Remove(CurrentRegion);
+                CurrentRegion = RegionDefault;
+            }
+
+            if (InRuble)
+            {
+                _currencyFormat = "{price}{currency}";
+
+                SetStar(string.Format(Resource.TariffsCurrencyRu, SetupInfo.ExchangeRateRuble));
+            }
+        }
+
+        private RegionInfo FindRegionInfo()
+        {
+            RegionInfo ri = null;
+
+            var ownerId = CoreContext.TenantManager.GetCurrentTenant().OwnerId;
+            var owner = CoreContext.UserManager.GetUsers(ownerId);
+            if (!string.IsNullOrEmpty(owner.MobilePhone))
+            {
+                try
+                {
+                    var phoneUtil = PhoneNumberUtil.GetInstance();
+                    var number = phoneUtil.Parse("+" + owner.MobilePhone.TrimStart('+'), "en-US");
+                    var regionCode = phoneUtil.GetRegionCodeForNumber(number);
+                    if (!string.IsNullOrEmpty(regionCode))
+                    {
+                        ri = new RegionInfo(regionCode);
+                    }
+                }
+                catch (Exception err)
+                {
+                    LogManager.GetLogger("ASC.Web.Tariff").ErrorFormat("Can not find country by phone {0}: {1}", owner.MobilePhone, err);
+                }
+            }
+
+            if (ri == null)
+            {
+                var geoinfo = new GeolocationHelper("teamlabsite").GetIPGeolocationFromHttpContext();
+                if (!string.IsNullOrEmpty(geoinfo.Key))
+                {
+                    try
+                    {
+                        ri = new RegionInfo(geoinfo.Key);
+                    }
+                    catch (Exception)
+                    {
+                        // ignore
+                    }
+                }
+            }
+            return ri;
         }
 
         protected string TariffDescription()
@@ -230,10 +325,9 @@ namespace ASC.Web.Studio.UserControls.Management
                 }
 
                 var str = "<b>"
-                          + String.Format(UserControlsCommonResource.TariffPaid,
-                                          GetPriceString(CurrentQuota.Price),
-                                          CurrentQuota.Year3 ? UserControlsCommonResource.TariffPerYear3 : CurrentQuota.Year ? UserControlsCommonResource.TariffPerYear : UserControlsCommonResource.TariffPerMonth,
-                                          SetStar(CurrentQuota.Visible ? Resource.TariffRemarkPrice : Resource.TariffPeriodExpired))
+                          + String.Format(UserControlsCommonResource.TariffPaidPlan,
+                                          TenantExtra.GetPrevUsersCount(CurrentQuota),
+                                          CurrentQuota.ActiveUsers)
                           + "</b> ";
                 if (CurrentTariff.DueDate.Date != DateTime.MaxValue.Date)
                     str += string.Format(Resource.TariffExpiredDate, CurrentTariff.DueDate.Date.ToLongDateString());
@@ -243,10 +337,9 @@ namespace ASC.Web.Studio.UserControls.Management
                 return str;
             }
 
-            return String.Format(UserControlsCommonResource.TariffOverdue.HtmlEncode(),
-                                 GetPriceString(CurrentQuota.Price),
-                                 CurrentQuota.Year3 ? UserControlsCommonResource.TariffPerYear3 : CurrentQuota.Year ? UserControlsCommonResource.TariffPerYear : UserControlsCommonResource.TariffPerMonth,
-                                 SetStar(CurrentQuota.Visible ? Resource.TariffRemarkPrice : Resource.TariffPeriodExpired),
+            return String.Format(UserControlsCommonResource.TariffOverduePlan.HtmlEncode(),
+                                 TenantExtra.GetPrevUsersCount(CurrentQuota),
+                                 CurrentQuota.ActiveUsers,
                                  "<span class='tariff-marked'>",
                                  "</span>",
                                  "<br />");
@@ -348,7 +441,7 @@ namespace ASC.Web.Studio.UserControls.Management
                         .Replace("{partnerid}", Partner.Id)
                         .Replace("{tariffid}", quota.ActiveUsers + (quota.Year ? "year" : "month"))
                         .Replace("{portal}", CoreContext.TenantManager.GetCurrentTenant().TenantAlias)
-                        .Replace("{currency}", _region.ISOCurrencySymbol)
+                        .Replace("{currency}", CurrentRegion.ISOCurrencySymbol)
                         .Replace("{price}", ((int)quota.Price).ToString());
                 }
             }
@@ -406,7 +499,7 @@ namespace ASC.Web.Studio.UserControls.Management
         {
             var lng = Thread.CurrentThread.CurrentCulture.TwoLetterISOLanguageName.ToLower();
             var cult = string.Empty;
-            var cultArray = new[] {"de", "es", "fr", "it", "lv", "ru"};
+            var cultArray = new[] { "de", "es", "fr", "it", "lv", "ru" };
             if (cultArray.Contains(lng))
             {
                 cult = "_" + lng;
@@ -427,15 +520,33 @@ namespace ASC.Web.Studio.UserControls.Management
             return date.ToString(Thread.CurrentThread.CurrentCulture.DateTimeFormat.MonthDayPattern);
         }
 
-        protected string GetPriceString(decimal price)
+        protected string GetPriceString(decimal price, bool rubleRate = true, string currencySymbol = null)
         {
-            if ((int) RateRuble != 0)
+            if (rubleRate && InRuble)
             {
-                price = price*RateRuble;
+                price = price * SetupInfo.ExchangeRateRuble;
             }
             return _currencyFormat
-                .Replace("{currency}", "<span class='tariff-price-cur'>" + CurrencySymbol + "</span>")
-                .Replace("{price}", ((int) price).ToString());
+                .Replace("{currency}", "<span class='tariff-price-cur'>" + (currencySymbol ?? CurrentRegion.CurrencySymbol) + "</span>")
+                .Replace("{price}", ((int)price).ToString());
+        }
+
+        protected string GetPriceString(TenantQuota quota)
+        {
+            if (Partner == null)
+            {
+                if (!string.IsNullOrEmpty(quota.AvangateId) && _priceInfo.ContainsKey(quota.AvangateId))
+                {
+                    var prices = _priceInfo[quota.AvangateId];
+                    var price = prices.FirstOrDefault(p => p.Item1 == CurrentRegion.ISOCurrencySymbol);
+                    if (price != null)
+                    {
+                        return GetPriceString(price.Item2, false);
+                    }
+                    return GetPriceString(quota.Price, false, RegionDefault.CurrencySymbol);
+                }
+            }
+            return GetPriceString(quota.Price);
         }
 
         [AjaxMethod]
@@ -445,7 +556,7 @@ namespace ASC.Web.Studio.UserControls.Management
         }
 
         [AjaxMethod]
-        public void RequestTariff(string name, string email, string message)
+        public void RequestTariff(string fname, string lname, string title, string email, string phone, string ctitle, string csize, string site, string message)
         {
             var key = HttpContext.Current.Request.UserHostAddress + "requesttariff";
             var count = Convert.ToInt32(HttpContext.Current.Cache[key]);
@@ -455,7 +566,7 @@ namespace ASC.Web.Studio.UserControls.Management
             }
             HttpContext.Current.Cache.Insert(key, ++count, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(2));
 
-            StudioNotifyService.Instance.SendRequestTariff(name, email, message);
+            StudioNotifyService.Instance.SendRequestTariff(false, fname, lname, title, email, phone, ctitle, csize, site, message);
         }
 
         private void RegisterScript()

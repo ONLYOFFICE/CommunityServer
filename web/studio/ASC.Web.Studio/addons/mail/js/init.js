@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -55,7 +55,10 @@
         folderFilter.init();
         contactsPage.init();
         contactsPanel.init();
-        contactsManager.init();
+
+        if (ASC.Mail.Presets.Accounts && ASC.Mail.Presets.Accounts.length) {
+            contactsManager.init();
+        }
 
         accountsPage.setDefaultAccountIfItDoesNotExist();
 
@@ -91,6 +94,15 @@
                 $settingsPanel.addClass('open');
             }
         });
+        
+        $('#addressBookLabel').click(function () {
+            var $settingsPanel = $(this).parents('.menu-item.sub-list');
+            if ($settingsPanel.hasClass('open')) {
+                $settingsPanel.removeClass('open');
+            } else {
+                $settingsPanel.addClass('open');
+            }
+        });
 
         $('#foldersContainer').find('a[folderid="1"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "inbox");
         $('#foldersContainer').find('a[folderid="2"]').trackEvent(ga_Categories.leftPanel, ga_Actions.quickAction, "sent");
@@ -117,9 +129,19 @@
                 window.blankModal.close();
 
         } else {
-            if (window.blankModal)
+            if (window.blankModal && ASC.Controls.AnchorController.getAnchor().indexOf("help") !== 0)
                 window.blankModal.show();
         }
+
+        $(document).on("mousedown", function (e) {
+            if (e.ctrlKey) { // Dirty trick: hide FF blue selection of some tags
+                if (e.preventDefault)
+                    e.preventDefault();
+                else
+                    e.returnValue = false;
+            }
+        });
+
     });
 
     var createNewMail = function() {
@@ -131,7 +153,7 @@
             mailBox._Selection.Count() == 0) {
             messagePage.compose();
         } else {
-            var selectedAddresses = mailBox.getMessagesAddresses();
+            var selectedAddresses = mailBox.getSelectedAddresses();
             messagePage.setToEmailAddresses(selectedAddresses);
             messagePage.composeTo();
         }

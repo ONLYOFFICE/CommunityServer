@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -35,15 +35,19 @@ namespace ASC.Web.Core.Mobile
     {
         public void RegisterInstall(string userEmail, MobileAppType appType)
         {
-            var query =
-                new SqlInsert("mobile_app_install", true)
-                    .InColumnValue("user_email", userEmail)
-                    .InColumnValue("app_type", (int) appType)
-                    .InColumnValue("registered_on", DateTime.UtcNow);
-
             using (var db = GetDbManager())
             {
-                db.ExecuteNonQuery(query);
+                db.ExecuteNonQuery(
+                    "INSERT INTO `mobile_app_install` (`user_email`, `app_type`, `registered_on`, `last_sign`)" +
+                    " VALUES (@user_email, @app_type, @registered_on, @last_sign)" +
+                    " ON DUPLICATE KEY UPDATE `last_sign`=@last_sign",
+                    new
+                        {
+                            user_email = userEmail,
+                            app_type = (int) appType,
+                            registered_on = DateTime.UtcNow,
+                            last_sign = DateTime.UtcNow
+                        });
             }
         }
 

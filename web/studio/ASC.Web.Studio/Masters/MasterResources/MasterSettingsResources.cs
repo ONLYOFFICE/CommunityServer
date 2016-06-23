@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -52,51 +52,55 @@ namespace ASC.Web.Studio.Masters.MasterResources
             var curQuota = TenantExtra.GetTenantQuota();
 
             var result = new List<KeyValuePair<string, object>>(32)
-                         {
-                             RegisterObject("ApiPath", SetupInfo.WebApiBaseUrl),
-                             RegisterObject("IsAuthenticated", SecurityContext.IsAuthenticated),
-                             RegisterObject("IsAdmin", CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Constants.GroupAdmin.ID)),
-                             RegisterObject("IsVisitor", CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()),
-                             RegisterObject("CurrentTenantId", CoreContext.TenantManager.GetCurrentTenant().TenantId),
-                             RegisterObject("CurrentTenantCreatedDate", CoreContext.TenantManager.GetCurrentTenant().CreatedDateTime),
-                             RegisterObject("CurrentTenantVersion", CoreContext.TenantManager.GetCurrentTenant().Version),
-                             RegisterObject("CurrentTenantUtcOffset", CoreContext.TenantManager.GetCurrentTenant().TimeZone),
-                             RegisterObject("CurrentTenantUtcHoursOffset", CoreContext.TenantManager.GetCurrentTenant().TimeZone.BaseUtcOffset.Hours),
-                             RegisterObject("CurrentTenantUtcMinutesOffset", CoreContext.TenantManager.GetCurrentTenant().TimeZone.BaseUtcOffset.Minutes),
-                             RegisterObject("TimezoneDisplayName", CoreContext.TenantManager.GetCurrentTenant().TimeZone.DisplayName),
-                             RegisterObject("TimezoneOffsetMinutes", CoreContext.TenantManager.GetCurrentTenant().TimeZone.GetUtcOffset(DateTime.UtcNow).TotalMinutes),
-                             RegisterObject("TenantIsPremium", curQuota.Trial ? "No" : "Yes"),
-                             RegisterObject("TenantTariff", curQuota.Id),
-                             RegisterObject("TenantTariffDocsEdition", curQuota.DocsEdition),
-                             RegisterObject("EmailRegExpr", @"^(([^<>()[\]\\.,;:\s@\""]+(\.[^<>()[\]\\.,;:\s@\""]+)*)|(\"".+\""))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"),
-                             RegisterObject("GroupSelector_MobileVersionGroup", new { Id = -1, Name = UserControlsCommonResource.LblSelect.HtmlEncode().ReplaceSingleQuote() }),
-                             RegisterObject("GroupSelector_WithGroupEveryone", new { Id = Constants.GroupEveryone.ID, Name = UserControlsCommonResource.Everyone.HtmlEncode().ReplaceSingleQuote() }),
-                             RegisterObject("GroupSelector_WithGroupAdmin", new { Id = Constants.GroupAdmin.ID, Name = UserControlsCommonResource.Admin.HtmlEncode().ReplaceSingleQuote() }),
-                             RegisterObject("SetupInfoNotifyAddress", SetupInfo.NotifyAddress),
-                             RegisterObject("SetupInfoTipsAddress", SetupInfo.TipsAddress),
-                             RegisterObject("CKEDITOR_BASEPATH", WebPath.GetPath("/usercontrols/common/ckeditor/")),
-                             RegisterObject("MaxImageFCKWidth", ConfigurationManager.AppSettings["MaxImageFCKWidth"] ?? "620"),
-                             RegisterObject("UserPhotoHandlerUrl", VirtualPathUtility.ToAbsolute("~/UserPhoto.ashx")),
-                             RegisterObject("ImageWebPath", WebImageSupplier.GetImageFolderAbsoluteWebPath()),
-                             RegisterObject("UrlShareGooglePlus", SetupInfo.ShareGooglePlusUrl),
-                             RegisterObject("UrlShareTwitter", SetupInfo.ShareTwitterUrl),
-                             RegisterObject("UrlShareFacebook", SetupInfo.ShareFacebookUrl),
-                             RegisterObject("ZeroClipboardMoviePath", CommonLinkUtility.ToAbsolute("~/js/flash/zeroclipboard/zeroclipboard10.swf"))
-                         };
+            {
+                RegisterObject(
+                new { 
+                        ApiPath = SetupInfo.WebApiBaseUrl,
+                        IsAuthenticated = SecurityContext.IsAuthenticated,
+                        IsAdmin = CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, Constants.GroupAdmin.ID),
+                        IsVisitor = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor(),
+                        CurrentTenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId,
+                        CurrentTenantCreatedDate = CoreContext.TenantManager.GetCurrentTenant().CreatedDateTime,
+                        CurrentTenantVersion = CoreContext.TenantManager.GetCurrentTenant().Version,
+                        CurrentTenantUtcOffset = CoreContext.TenantManager.GetCurrentTenant().TimeZone,
+                        CurrentTenantUtcHoursOffset = CoreContext.TenantManager.GetCurrentTenant().TimeZone.BaseUtcOffset.Hours,
+                        CurrentTenantUtcMinutesOffset = CoreContext.TenantManager.GetCurrentTenant().TimeZone.BaseUtcOffset.Minutes,
+                        TimezoneDisplayName = CoreContext.TenantManager.GetCurrentTenant().TimeZone.DisplayName,
+                        TimezoneOffsetMinutes = CoreContext.TenantManager.GetCurrentTenant().TimeZone.GetUtcOffset(DateTime.UtcNow).TotalMinutes,
+                        TenantIsPremium = curQuota.Trial ? "No" : "Yes",
+                        TenantTariff = curQuota.Id,
+                        EmailRegExpr = @"^(([^<>()[\]\\.,;:\s@\""]+(\.[^<>()[\]\\.,;:\s@\""]+)*)|(\"".+\""))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$",
+                        GroupSelector_MobileVersionGroup = new { Id = -1, Name = UserControlsCommonResource.LblSelect.HtmlEncode().ReplaceSingleQuote() },
+                        GroupSelector_WithGroupEveryone = new { Id = Constants.GroupEveryone.ID, Name = UserControlsCommonResource.Everyone.HtmlEncode().ReplaceSingleQuote() },
+                        GroupSelector_WithGroupAdmin = new { Id = Constants.GroupAdmin.ID, Name = UserControlsCommonResource.Admin.HtmlEncode().ReplaceSingleQuote() },
+                        SetupInfoNotifyAddress = SetupInfo.NotifyAddress,
+                        SetupInfoTipsAddress = SetupInfo.TipsAddress,
+                        CKEDITOR_BASEPATH = WebPath.GetPath("/usercontrols/common/ckeditor/"),
+                        MaxImageFCKWidth = ConfigurationManager.AppSettings["MaxImageFCKWidth"] ?? "620",
+                        UserPhotoHandlerUrl = VirtualPathUtility.ToAbsolute("~/UserPhoto.ashx"),
+                        ImageWebPath = WebImageSupplier.GetImageFolderAbsoluteWebPath(),
+                        UrlShareGooglePlus = SetupInfo.ShareGooglePlusUrl,
+                        UrlShareTwitter = SetupInfo.ShareTwitterUrl,
+                        UrlShareFacebook = SetupInfo.ShareFacebookUrl,
+                        ZeroClipboardMoviePath = CommonLinkUtility.ToAbsolute("~/js/flash/zeroclipboard/zeroclipboard10.swf")
+                })
+            };
 
             if (CoreContext.Configuration.Personal)
             {
-                result.Add(RegisterObject("Personal", CoreContext.Configuration.Personal));
+                result.Add(RegisterObject(new { CoreContext.Configuration.Personal }));
             }
 
             if (CoreContext.Configuration.Standalone)
             {
-                result.Add(RegisterObject("Standalone", CoreContext.Configuration.Standalone));
+                result.Add(RegisterObject(new { CoreContext.Configuration.Standalone }));
             }
 
-            if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+            var helpLink = CommonLinkUtility.GetHelpLink();
+
+            if (!string.IsNullOrEmpty(helpLink))
             {
-                result.Add(RegisterObject("FilterHelpCenterLink", CommonLinkUtility.GetHelpLink() + "/tipstricks/using-search.aspx"));
+                result.Add(RegisterObject(new { FilterHelpCenterLink = helpLink.TrimEnd('/') + "/tipstricks/using-search.aspx" }));
             }
 
             return result;

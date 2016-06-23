@@ -997,7 +997,8 @@ CREATE TABLE IF NOT EXISTS `files_thirdparty_account` (
   `create_on` datetime NOT NULL,
   `url` text,
   `tenant_id` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `user` (`user_id`,`folder_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `files_thirdparty_app` (
@@ -1349,6 +1350,7 @@ CREATE TABLE IF NOT EXISTS `mail_contacts` (
   `name` varchar(255) DEFAULT NULL,
   `address` varchar(255) NOT NULL,
   `description` varchar(100) DEFAULT NULL,
+  `type` int(11) NOT NULL,
   `has_photo` tinyint(1) NOT NULL DEFAULT '0',
   `last_modified` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
@@ -1498,6 +1500,29 @@ CREATE TABLE IF NOT EXISTS `mail_mailbox` (
   KEY `date_login_delay_expires` (`date_checked`,`date_login_delay_expires`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+CREATE TABLE IF NOT EXISTS `mail_mailbox_autoreply` (
+  `id_mailbox` int(11) NOT NULL,
+  `tenant` int(11) NOT NULL,
+  `turn_on` tinyint(1) NOT NULL,
+  `only_contacts` tinyint(1) NOT NULL,
+  `turn_on_to_date` tinyint(1) NOT NULL,
+  `from_date` datetime NOT NULL,
+  `to_date` datetime NOT NULL,
+  `subject` text,
+  `html` text,
+  PRIMARY KEY (`id_mailbox`),
+  KEY `tenant` (`tenant`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `mail_mailbox_autoreply_history` (
+  `id_mailbox` int(11) NOT NULL,
+  `tenant` int(11) NOT NULL,
+  `sending_email` varchar(255) NOT NULL,
+  `sending_date` datetime NOT NULL,
+  PRIMARY KEY (`id_mailbox`,`sending_email`),
+  KEY `tenant` (`tenant`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE IF NOT EXISTS `mail_mailbox_domain` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `id_provider` int(11) NOT NULL DEFAULT '0',
@@ -1534,7 +1559,8 @@ CREATE TABLE IF NOT EXISTS `mail_mailbox_signature` (
   `id_mailbox` int(11) NOT NULL,
   `html` text,
   `is_active` tinyint(4) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id_mailbox`,`tenant`)
+  PRIMARY KEY (`id_mailbox`),
+  KEY `tenant` (`tenant`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE IF NOT EXISTS `mail_pop_unordered_domain` (
@@ -1659,6 +1685,7 @@ CREATE TABLE IF NOT EXISTS `mobile_app_install` (
   `user_email` varchar(255) NOT NULL,
   `app_type` int(11) NOT NULL,
   `registered_on` datetime NOT NULL,
+  `last_sign` datetime DEFAULT NULL,
   PRIMARY KEY (`user_email`,`app_type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

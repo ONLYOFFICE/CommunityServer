@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -92,36 +92,26 @@
     }
 
     function bindClipboardEvent() {
-        var deviceAgent = navigator.userAgent.toLowerCase(),
-            agentID = deviceAgent.match(/(ipad)/);
-        if (jq.browser.mobile && agentID || !jq.browser.flashEnabled()) {
+        if (!ASC.Clipboard.enable) {
             jq("#sideNavInviteLink").on("click", function () {
                 window.peopleActions.invite_link();
             });
         } else {
-            if (typeof ZeroClipboard != 'undefined' && ZeroClipboard.moviePath === 'ZeroClipboard.swf') {
-                ZeroClipboard.setMoviePath(ASC.Resources.Master.ZeroClipboardMoviePath);
-            }
-
             jq(window).one("onOpenSideNavOtherActions", function (event, switcherObj, dropdownItem) {
-                clip = new window.ZeroClipboard.Client();
-                clip.addEventListener("mouseDown",
-                    function () {
-                        var url = jq("#shareInviteUserLink").val();
-                        clip.setText(url);
-                    });
+                ASC.Clipboard.destroy(window.sideNavInviteLinkClip);
 
-                clip.addEventListener("onComplete",
-                    function () {
+                var url = jq("#shareInviteUserLink").val();
+                sideNavInviteLinkClip = ASC.Clipboard.create(url, "sideNavInviteLink", {
+                    onComplete: function () {
                         window.peopleActions.invite_link();
-                        if (typeof (window.toastr) !== "undefined") {
+
+                        if (typeof(window.toastr) !== "undefined") {
                             toastr.success(ASC.Resources.Master.Resource.LinkCopySuccess);
                         } else {
                             jq("#shareInviteUserLink, #sideNavInviteLink").yellowFade();
                         }
-                    });
-
-                clip.glue("sideNavInviteLink", "sideNavInviteLink");
+                    }
+                });
             });
         }
     };

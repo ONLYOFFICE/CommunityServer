@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -499,14 +499,20 @@ namespace ASC.Web.CRM.Classes
     {
         private static readonly Object _syncObj = new Object();
         private static readonly ProgressQueue _mailQueue = new ProgressQueue(2, TimeSpan.FromSeconds(60), true);
+        private static readonly int quotas = 50;
+
+
+        static MailSender()
+        {
+            int parsed;
+            if (int.TryParse(WebConfigurationManager.AppSettings["crm.mailsender.quotas"], out parsed))
+            {
+                quotas = parsed;
+            }
+        }
 
         public static int GetQuotas()
         {
-            int quotas;
-            if (!int.TryParse(WebConfigurationManager.AppSettings["crm.mailsender.quotas"], out quotas))
-            {
-                quotas = 50;
-            }
             return quotas;
         }
 

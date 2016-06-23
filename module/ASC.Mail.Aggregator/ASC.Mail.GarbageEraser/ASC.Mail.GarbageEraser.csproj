@@ -82,6 +82,10 @@
       <Project>{26222FC6-1F6D-44E9-A82B-36BB8355220E}</Project>
       <Name>ASC.Mail.Aggregator.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ASC.Mail.Aggregator.Core\ASC.Mail.Aggregator.Core.csproj">
+      <Project>{ED5E23B1-61A4-4527-A4EB-AE7E3853D2AF}</Project>
+      <Name>ASC.Mail.Aggregator.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
       <Project>{7080343D-FBE7-423A-9405-4F883F6E235B}</Project>
       <Name>ASC.Mail.Aggregator</Name>

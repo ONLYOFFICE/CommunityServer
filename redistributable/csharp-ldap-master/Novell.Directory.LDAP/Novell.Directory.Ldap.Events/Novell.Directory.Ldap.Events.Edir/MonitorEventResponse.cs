@@ -29,58 +29,58 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using Novell.Directory.Ldap.Rfc2251;
 using Novell.Directory.Ldap.Asn1;
+using Novell.Directory.Ldap.Rfc2251;
 
 namespace Novell.Directory.Ldap.Events.Edir
 {
-  /// <summary> 
-  /// This object represents the ExtendedResponse returned when Event
-  /// Registeration fails. This Extended Response structure is generated for
-  /// requests send as MonitorEventRequest.
-  /// </summary>
-  public class MonitorEventResponse : LdapExtendedResponse
-  {
-    protected EdirEventSpecifier[] specifier_list;
-    public EdirEventSpecifier[] SpecifierList
+    /// <summary> 
+    /// This object represents the ExtendedResponse returned when Event
+    /// Registeration fails. This Extended Response structure is generated for
+    /// requests send as MonitorEventRequest.
+    /// </summary>
+    public class MonitorEventResponse : LdapExtendedResponse
     {
-      get
-      {
-	return specifier_list;
-      }
-    }
+        protected EdirEventSpecifier[] specifier_list;
+        public EdirEventSpecifier[] SpecifierList
+        {
+            get
+            {
+                return specifier_list;
+            }
+        }
 
-    public MonitorEventResponse(RfcLdapMessage message)
-      : base(message)
-    {
-      sbyte[] returnedValue = Value;
-      
-      if (null == returnedValue)
-      {
-	throw new LdapException(LdapException.resultCodeToString(ResultCode),
-				ResultCode, 
-				null);
-      }
+        public MonitorEventResponse(RfcLdapMessage message)
+            : base(message)
+        {
+            sbyte[] returnedValue = Value;
 
-      LBERDecoder decoder = new LBERDecoder();
+            if (null == returnedValue)
+            {
+                throw new LdapException(LdapException.resultCodeToString(ResultCode),
+                            ResultCode,
+                            null);
+            }
 
-      Asn1Sequence sequence = (Asn1Sequence) decoder.decode(returnedValue);
-      
-      int length = ((Asn1Integer) sequence.get_Renamed(0)).intValue();
-      Asn1Set sequenceSet = (Asn1Set) sequence.get_Renamed(1);
-      specifier_list = new EdirEventSpecifier[length];
+            LBERDecoder decoder = new LBERDecoder();
 
-      for (int i = 0; i < length; i++) 
-      {
-	Asn1Sequence eventspecifiersequence =
-                (Asn1Sequence) sequenceSet.get_Renamed(i);
-	int classfication =
-                ((Asn1Integer) eventspecifiersequence.get_Renamed(0)).intValue();
-	int enumtype =
-	  ((Asn1Enumerated) eventspecifiersequence.get_Renamed(1)).intValue();
-	specifier_list[i] =
-	  new EdirEventSpecifier((EdirEventType)classfication, (EdirEventResultType)enumtype);
+            Asn1Sequence sequence = (Asn1Sequence)decoder.decode(returnedValue);
+
+            int length = ((Asn1Integer)sequence.get_Renamed(0)).intValue();
+            Asn1Set sequenceSet = (Asn1Set)sequence.get_Renamed(1);
+            specifier_list = new EdirEventSpecifier[length];
+
+            for (int i = 0; i < length; i++)
+            {
+                Asn1Sequence eventspecifiersequence =
+                            (Asn1Sequence)sequenceSet.get_Renamed(i);
+                int classfication =
+                            ((Asn1Integer)eventspecifiersequence.get_Renamed(0)).intValue();
+                int enumtype =
+                  ((Asn1Enumerated)eventspecifiersequence.get_Renamed(1)).intValue();
+                specifier_list[i] =
+                  new EdirEventSpecifier((EdirEventType)classfication, (EdirEventResultType)enumtype);
+            }
         }
     }
-  }
 }

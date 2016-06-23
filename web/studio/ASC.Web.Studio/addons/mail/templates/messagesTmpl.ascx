@@ -11,8 +11,8 @@
 </script>
 
 <script id="messageItemTmpl" type="text/x-jquery-tmpl">
-<tr data_id="${id}" date="${date}" chain_date="${chainDate}" fromCRM="${isFromCRM}" fromTL="${isFromTL}" class="row{{if isNew}} new{{/if}}"{{if restoreFolderId}} PrevFolderId="${restoreFolderId}"{{/if}}>
-  <td class="checkbox"><input type="checkbox" data_id="${id}" title="<%: MailResource.Select %>"></input></td>
+<tr data_id="${id}" date="${date}" chain_date="${chainDate}" class="row{{if isNew}} new{{/if}}"{{if restoreFolderId}} PrevFolderId="${restoreFolderId}"{{/if}}>
+  <td class="checkbox"><input type="checkbox" data_id="${id}" title="<%: MailResource.Select %>"/></td>
   <td class="importance"><i class="icon-{{if important!=true}}un{{/if}}important" 
       title="{{if important}}<%: MailScriptResource.ImportantLabel %>{{else}}<%: MailScriptResource.NotImportantLabel %>{{/if}}"></i>
   </td>
@@ -21,7 +21,7 @@
       <span class="author" title="${author!='' ? author : sender}" email="${sender}">
         {{if author=='' && sender==''}}<%: MailResource.NoAddress %>{{else}}${author!='' ? author : sender}{{/if}}
       </span>
-      {{if chainLength > 1}}<span class="chain-counter">(${chainLength})</span>{{/if}}
+      <span class="chain-counter" value="${chainLength}">{{if chainLength > 1}}(${chainLength}){{/if}}</span>
     </a>
   </td>
   <td class="subject" title="{{if subject==''}}<%: MailResource.NoSubject %>{{else}}${$item.htmlEncode(subject)}{{/if}}">
@@ -31,7 +31,7 @@
       <span class="subject-text">{{if subject==''}}<%: MailResource.NoSubject %>{{else}}${$item.htmlEncode(subject)}{{/if}}</span>
     </a>
   </td>
-  <td class="attachment"><a href="${anchor}">{{if hasAttachments==true}}<i class="icon-attachment"></i>{{/if}}</a></td>
+  <td class="attachment"><a href="${anchor}">{{if hasAttachments==true}}<i class="{{if calendarUid != null }}icon-calendar{{else}}icon-attachment{{/if}}"></i>{{/if}}</a></td>
   <td class="date"><a href="${anchor}">{{if isToday}}<%: MailResource.TodayLabel %>{{else isYesterday}}<%: MailResource.YesterdayLabel %>{{else}}${displayDate}{{/if}}</a></td>
   <td class="time"><a href="${anchor}">${displayTime}</a></td>
 </tr>

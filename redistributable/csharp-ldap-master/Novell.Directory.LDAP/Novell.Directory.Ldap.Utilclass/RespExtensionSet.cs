@@ -28,80 +28,83 @@
 //
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
+
 using System;
+using System.Collections;
+
 namespace Novell.Directory.Ldap.Utilclass
 {
-	
-	/// <summary> This  class  extends the AbstractSet and Implements the Set
-	/// so that it can be used to maintain a list of currently
-	/// registered extended responses.
-	/// </summary>
-	public class RespExtensionSet:SupportClass.AbstractSetSupport
-	{
-		/// <summary> Returns the number of extensions in this set.
-		/// 
-		/// </summary>
-		/// <returns> number of extensions in this set.
-		/// </returns>
-		public override int Count
-		{
-			get
-			{
-				return this.map.Count;
-			}
-			
-		}
-		
-		private System.Collections.Hashtable map;
-		
-		public RespExtensionSet():base()
-		{
-			map = new System.Collections.Hashtable();
-			return ;
-		}
-		
-		
-		/* Adds a responseExtension to the current list of registered responses.
-		*
-		*/
-		public void  registerResponseExtension(System.String oid, System.Type extClass)
-		{
-			lock (this)
-			{
-				
-				if (!this.map.ContainsKey(oid))
-				{
-					this.map.Add(oid, (System.Type) extClass);
-				}
-			}
-		}
-		
-		/// <summary> Returns an iterator over the responses in this set.  The responses
-		/// returned from this iterator are not in any particular order.
-		/// 
-		/// </summary>
-		/// <returns> iterator over the responses in this set
-		/// </returns>
-		public override System.Collections.IEnumerator GetEnumerator()
-		{
-			return this.map.Values.GetEnumerator();
-		}
-		
-		/* Searches the list of registered responses for a mathcing response.  We
-		* search using the OID string.  If a match is found we return the
-		* Class name that was provided to us on registration.
-		*/
-		public System.Type findResponseExtension(System.String searchOID)
-		{
-			lock (this)
-			{
-				if (this.map.ContainsKey(searchOID))
-				{
-					return (System.Type) this.map[searchOID];
-				}
-				/* The requested extension does not have a registered response class */
-				return null;
-			}
-		}
-	}
+
+    /// <summary> This  class  extends the AbstractSet and Implements the Set
+    /// so that it can be used to maintain a list of currently
+    /// registered extended responses.
+    /// </summary>
+    public class RespExtensionSet : SupportClass.AbstractSetSupport
+    {
+        /// <summary> Returns the number of extensions in this set.
+        /// 
+        /// </summary>
+        /// <returns> number of extensions in this set.
+        /// </returns>
+        public override int Count
+        {
+            get
+            {
+                return this.map.Count;
+            }
+        }
+
+        private Hashtable map;
+
+        public RespExtensionSet()
+            : base()
+        {
+            map = new Hashtable();
+            return;
+        }
+
+
+        /* Adds a responseExtension to the current list of registered responses.
+        *
+        */
+        public void registerResponseExtension(string oid, Type extClass)
+        {
+            lock (this)
+            {
+
+                if (!this.map.ContainsKey(oid))
+                {
+                    this.map.Add(oid, (Type)extClass);
+                }
+            }
+        }
+
+        /// <summary> Returns an iterator over the responses in this set.  The responses
+        /// returned from this iterator are not in any particular order.
+        /// 
+        /// </summary>
+        /// <returns> iterator over the responses in this set
+        /// </returns>
+        public override IEnumerator GetEnumerator()
+        {
+            return this.map.Values.GetEnumerator();
+        }
+
+        /* Searches the list of registered responses for a mathcing response.  We
+        * search using the OID string.  If a match is found we return the
+        * Class name that was provided to us on registration.
+        */
+        public Type findResponseExtension(string searchOID)
+        {
+            lock (this)
+            {
+                if (this.map.ContainsKey(searchOID))
+                {
+                    return (Type)this.map[searchOID];
+                }
+                /* The requested extension does not have a registered response class */
+                return null;
+            }
+        }
+    }
 }

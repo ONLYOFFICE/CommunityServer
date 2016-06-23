@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -224,12 +224,29 @@ table.listContainer td.stretch {
       overflow: hidden;  
 }
 .page-menu #myProjectsConteiner .expander {
-    background-position: 0 3px;
-    margin-left: 37px;
+    margin: 0 1px 0 40px;
+}
+.page-menu #myProjectsConteiner .expander:after {
+    border-left: 4px solid #696969;
+    border-bottom: 4px solid transparent;
+    border-top: 4px solid transparent;
+    content: "";
+    height: 0;
+    position: absolute;
+    top: 50%;
+    width: 0;
+    left: 0;
+    margin-top: -4px;
 }
 .page-menu #myProjectsConteiner.open .expander {
-    background-position: 0 -7px;
+     margin: 2px 3px 0 38px;
 }
+.page-menu #myProjectsConteiner.open .expander:after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #696969;
+}
+
 .page-menu #myProjectsConteiner .menu-sub-list {
     display: none;
     max-width: 210px;
@@ -692,9 +709,6 @@ body.media-width-0-1150 #essenceTitle.truncated-text {
 
 /*---Banner for mobile app---*/
 
-#studio_sidePanel .page-menu .menu-list{
-    padding-bottom: 30px;
-}
 .mobileApp-banner {
     text-align: center;
     width: 240px;

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -34,6 +34,7 @@ using ASC.Web.Files.Classes;
 using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Statistics;
+using ASC.Web.Studio.Utility;
 using CommandMethod = ASC.Web.Core.Files.DocumentService.CommandMethod;
 
 namespace ASC.Web.Files.Services.DocumentService
@@ -152,7 +153,7 @@ namespace ASC.Web.Files.Services.DocumentService
             return false;
         }
 
-        public static bool CheckDocServiceUrl(string docServiceUrlCommand, string docServiceUrlStorage, string docServiceUrlConverter)
+        public static bool CheckDocServiceUrl(string docServiceUrlCommand, string docServiceUrlStorage, string docServiceUrlConverter, string docServiceUrlPortal)
         {
             var documentService = GetDocumentService();
 
@@ -160,12 +161,12 @@ namespace ASC.Web.Files.Services.DocumentService
             var fileUri = string.Empty;
             const string toExtension = ".docx";
             var fileExtension = FileUtility.GetInternalExtension(toExtension);
+            var path = FileConstant.NewDocPath + "default/new" + fileExtension;
+
             try
             {
-                var path = FileConstant.NewDocPath + "default/new" + fileExtension;
-
                 var storeTemplate = Global.GetStoreTemplate();
-                using (var stream = storeTemplate.IronReadStream("", path, 10))
+                using (var stream = storeTemplate.GetReadStream("", path))
                 {
                     fileUri = documentService.GetExternalUri(docServiceUrlStorage, stream, MimeMapping.GetMimeMapping(toExtension), key);
                 }
@@ -189,6 +190,24 @@ namespace ASC.Web.Files.Services.DocumentService
 
             try
             {
+                var storeTemplate = Global.GetStoreTemplate();
+                var uri = storeTemplate.GetUri("", path);
+                var url = CommonLinkUtility.GetFullAbsolutePath(uri.ToString());
+
+                fileUri = ReplaceCommunityAdress(url, docServiceUrlPortal);
+
+                key = GenerateRevisionId(Guid.NewGuid().ToString());
+                string tmp;
+                documentService.GetConvertedUri(docServiceUrlConverter, fileUri, fileExtension, toExtension, key, false, out tmp);
+            }
+            catch (Exception ex)
+            {
+                Global.Logger.Error("DocService check error", ex);
+                throw new Exception("Community server url: " + ex.Message);
+            }
+
+            try
+            {
                 var response = documentService.CommandRequest(docServiceUrlCommand, CommandMethod.Test, key, null, null, null);
 
                 return response == Web.Core.Files.DocumentService.CommandResultTypes.NoError
@@ -199,6 +218,32 @@ namespace ASC.Web.Files.Services.DocumentService
                 Global.Logger.Error("DocService check error", ex);
                 throw new Exception("Command url: " + ex.Message);
             }
+        }
+
+        public static string ReplaceCommunityAdress(string url)
+        {
+            return ReplaceCommunityAdress(url, FilesLinkUtility.DocServicePortalUrl);
+        }
+
+        private static string ReplaceCommunityAdress(string url, string docServicePortalUrl)
+        {
+            if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(docServicePortalUrl))
+            {
+                return url;
+            }
+
+            var uri = new UriBuilder(url);
+            if (new UriBuilder(CommonLinkUtility.ServerRootPath).Host != uri.Host)
+            {
+                return url;
+            }
+
+            var communityUrl = new UriBuilder(docServicePortalUrl);
+            uri.Host = communityUrl.Host;
+            uri.Scheme = communityUrl.Scheme;
+            uri.Port = communityUrl.Port;
+
+            return uri.ToString();
         }
 
         private static Exception CustomizeError(Exception ex)

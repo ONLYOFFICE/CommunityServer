@@ -1,14 +1,13 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AuthorizationKeys.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.AuthorizationKeys" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
 <div id="authKeysContainer">
     <div class="header-base"><%= Resource.AuthorizationKeys %></div>
 
     <p class="auth-service-text"><%: Resource.AuthorizationKeysText %> <br />
-        <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+        <% if (!string.IsNullOrEmpty(HelpLink))
            { %>
-        <a href="<%= CommonLinkUtility.GetHelpLink(true) + "tipstricks/authorization-keys.aspx" %>" target="_blank"><% = Resource.LearnMore %></a>
+        <a href="<%= HelpLink + "/tipstricks/authorization-keys.aspx" %>" target="_blank"><% = Resource.LearnMore %></a>
         <% } %>
     </p>
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -27,6 +27,7 @@
 window.ASC.Files.ThirdParty = (function () {
     var isInit = false;
     var thirdPartyList = {
+        Box: { key: "Box", customerTitle: ASC.Files.FilesJSResources.FolderTitleBoxNet, providerTitle: ASC.Files.FilesJSResources.TypeTitleBoxNet, getTokenUrl: ASC.Files.Constants.URL_OAUTH_BOX },
         BoxNet: { key: "BoxNet", customerTitle: ASC.Files.FilesJSResources.FolderTitleBoxNet, providerTitle: ASC.Files.FilesJSResources.TypeTitleBoxNet },
         DropBox: { key: "DropBox", customerTitle: ASC.Files.FilesJSResources.FolderTitleDropBox, providerTitle: ASC.Files.FilesJSResources.TypeTitleDropBox, getTokenUrl: ASC.Files.Constants.URL_OAUTH_DROPBOX },
         Google: { key: "Google", customerTitle: ASC.Files.FilesJSResources.FolderTitleGoogle, providerTitle: ASC.Files.FilesJSResources.TypeTitleGoogle, getTokenUrl: "http://www.onlyoffice.com" },

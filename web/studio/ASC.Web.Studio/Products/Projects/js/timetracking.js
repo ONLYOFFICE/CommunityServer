@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -437,14 +437,9 @@ ASC.Projects.TimeSpendActionPage = (function() {
             var self = jq(this);
             if (!self.is(".entity-menu")) self = self.find(".entity-menu");
             
-            jq('#timeSpendsList .entity-menu').removeClass('show');
+            jq('#timeSpendsList .entity-menu').removeClass('active');
             jq('#timeSpendsList .menuopen').removeClass("menuopen");
-            if (jq('.studio-action-panel:visible').length) {
-                self.removeClass('show');
-            } else {
-                self.addClass('show');
-            }
-            
+
             self.parents("tr").addClass("menuopen");
         }
 
@@ -517,7 +512,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
 
             jq('#statusListContainer').attr('data-timeid', jq(this).attr('data-timeid'));
             jq('.studio-action-panel').hide();
-            jq('.entity-menu').removeClass('show');
+            jq('.entity-menu').removeClass('active');
             if (!visible) {
                 showStatusListContainer(status);
             }
@@ -545,7 +540,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
             if (isHide) {
                 jq('#timeSpendsList .menuopen').removeClass("menuopen");
                 jq('.studio-action-panel').hide();
-                jq('.entity-menu').removeClass('show');
+                jq('.entity-menu').removeClass('active');
                 if (selectedStatusCombobox)
                     selectedStatusCombobox.removeClass('selected');
             }
@@ -821,8 +816,8 @@ ASC.Projects.TimeSpendActionPage = (function() {
                     }
                 }
                 else {
-                    if (self.currentPage > 0) {
-                        self.currentPage--;
+                    if (ASC.Projects.PageNavigator.currentPage > 0 && filterTimesCount > 0) {
+                        ASC.Projects.PageNavigator.setMaxPage(filterTimesCount);
                         self.getData(false);
                     }
                 }
@@ -960,7 +955,10 @@ ASC.Projects.TimeSpendActionPage = (function() {
             y = 0,
             panel = jq('#' + panelId);
         if (typeof self.attr('timeid') != 'undefined') {
-            timeActionPanel.find('.dropdown-item').attr('timeid', self.attr('timeid')).attr('prjid', self.attr('prjid')).attr('userid', self.attr('userid'));
+            timeActionPanel.find('.dropdown-item')
+                .attr('timeid', self.attr('timeid'))
+                .attr('prjid', self.attr('prjid'))
+                .attr('userid', self.attr('userid'));
         }
         if (panelId == 'timeActionPanel') objid = self.attr('timeid');
         if (objid.length) objidAttr = '[objid=' + objid + ']';
@@ -969,19 +967,50 @@ ASC.Projects.TimeSpendActionPage = (function() {
             jq('.studio-action-panel').hide();
             jq('#timeSpendsList .menuopen').removeClass("menuopen");
         } else {
+
+            var pHeight = panel.innerHeight(),
+                pWidth = panel.innerWidth(),
+
+                w = jq(window),
+                scrScrollTop = w.scrollTop(),
+                scrHeight = w.height();
+
             if (coord) {
                 x = coord.x - panel.outerWidth();
                 y = coord.y;
+
+                var
+                 correctionX = document.body.clientWidth - (x - pageXOffset + pWidth) > 0 ? 0 : pWidth,
+                 correctionY =
+                     pHeight > y
+                     ? 0
+                     : (scrHeight + scrScrollTop - y > pHeight ? 0 : pHeight);
+
+                x = x - correctionX;
+                y = y - correctionY;
             } else {
-                x = self.offset().left - 110;
-                y = self.offset().top + 20;
+                
+                var
+                   baseTop = self.offset().top + self.outerHeight() - 2,
+                   correctionY =
+                       pHeight > self.offset().top
+                       ? 0
+                       : (scrHeight + scrScrollTop - baseTop > pHeight ? 0 : pHeight);
+
+
+                y = baseTop - correctionY + (correctionY == 0 ? 2 : -self.outerHeight() - 2);
+                x = self.offset().left + self.outerWidth() - pWidth + 10;
+
+                self.addClass("active");
             }
 
 
             jq('.studio-action-panel').hide();
-            panel.show();
-            panel.attr('objid', objid);
-            panel.css({ left: x, top: y });
+
+            panel
+                .attr('objid', objid)
+                .css({ left: x, top: y })
+                .show();
 
             jq('body').off("click.timeShowActionsPanel");
             jq('body').on("click.timeShowActionsPanel", function (event) {
@@ -1002,7 +1031,7 @@ ASC.Projects.TimeSpendActionPage = (function() {
                 if (isHide) {
                     jq('#timeSpendsList .menuopen').removeClass("menuopen");
                     jq('.studio-action-panel').hide();
-                    jq('.entity-menu').removeClass('show');
+                    jq('.entity-menu').removeClass('active');
                 }
             });
 

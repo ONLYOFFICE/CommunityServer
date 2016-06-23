@@ -10,7 +10,7 @@ God.watch do |w|
 
   w.start_if do |start|
     start.condition(:process_running) do |c|
-      c.interval = 5.seconds
+      c.interval = 10.seconds
       c.running = false
     end
   end
@@ -20,7 +20,7 @@ God.watch do |w|
       c.addr = '127.0.0.1'
       c.socket = 'tcp:3306'
       c.times = 5
-      c.interval = 5.seconds
+      c.interval = 10.seconds
     end
   end
 end

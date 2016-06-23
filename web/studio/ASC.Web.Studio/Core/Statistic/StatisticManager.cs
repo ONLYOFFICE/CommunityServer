@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -51,12 +51,12 @@ namespace ASC.Web.Studio.Core.Statistic
                 var visit = cache.ContainsKey(key) ?
                                 cache[key] :
                                 new UserVisit
-                                    {
-                                        TenantID = tenantID,
-                                        UserID = userID,
-                                        ProductID = productID,
-                                        VisitDate = now
-                                    };
+                                {
+                                    TenantID = tenantID,
+                                    UserID = userID,
+                                    ProductID = productID,
+                                    VisitDate = now
+                                };
 
                 visit.VisitCount++;
                 visit.LastVisitTime = now;
@@ -109,7 +109,7 @@ namespace ASC.Web.Studio.Core.Statistic
                                           .Where("TenantID", tenantID)
                                           .GroupBy("VisitDate")
                                           .OrderBy("VisitDate", true))
-                         .ConvertAll(r => new UserVisit {VisitDate = Convert.ToDateTime(r[0]), VisitCount = Convert.ToInt32(r[1])});
+                         .ConvertAll(r => new UserVisit { VisitDate = Convert.ToDateTime(r[0]), VisitCount = Convert.ToInt32(r[1]) });
             }
         }
 
@@ -123,7 +123,7 @@ namespace ASC.Web.Studio.Core.Statistic
                                           .Where("TenantID", tenantID)
                                           .GroupBy("UserId", "VisitDate")
                                           .OrderBy("VisitDate", true))
-                         .ConvertAll(r => new UserVisit {VisitDate = Convert.ToDateTime(r[0]), UserID = new Guid(Convert.ToString(r[1]))});
+                         .ConvertAll(r => new UserVisit { VisitDate = Convert.ToDateTime(r[0]), UserID = new Guid(Convert.ToString(r[1])) });
             }
         }
 
@@ -144,22 +144,20 @@ namespace ASC.Web.Studio.Core.Statistic
             {
                 foreach (var v in visits)
                 {
-                    var pk = Exp.Eq("TenantID", v.TenantID) & Exp.Eq("UserID", v.UserID.ToString()) & Exp.Eq("ProductID", v.ProductID.ToString()) & Exp.Eq("VisitDate", v.VisitDate.Date);
+                    var sql = "insert into webstudio_uservisit(tenantid, productid, userid, visitdate, firstvisittime, lastvisittime, visitcount) values " +
+                        "(@TenantId, @ProductId, @UserId, @VisitDate, @FirstVisitTime, @LastVisitTime, @VisitCount) " +
+                        "on duplicate key update lastvisittime = @LastVisitTime, visitcount = visitcount + @VisitCount";
 
-                    var affected = db.ExecuteNonQuery(
-                        new SqlUpdate("webstudio_uservisit")
-                            .Set("LastVisitTime", v.LastVisitTime)
-                            .Set("VisitCount = VisitCount + " + v.VisitCount)
-                            .Where(pk));
-
-                    if (affected == 0)
+                    db.ExecuteNonQuery(sql, new
                     {
-                        db.ExecuteNonQuery(
-                            new SqlInsert("webstudio_uservisit")
-                                .InColumns("TenantID", "ProductID", "UserID", "VisitDate", "FirstVisitTime", "LastVisitTime", "VisitCount")
-                                .Values(v.TenantID, v.ProductID.ToString(), v.UserID.ToString(), v.VisitDate.Date, v.VisitDate, v.LastVisitTime, v.VisitCount)
-                            );
-                    }
+                        TenantId = v.TenantID,
+                        ProductId = v.ProductID.ToString(),
+                        UserId = v.UserID.ToString(),
+                        VisitDate = v.VisitDate.Date,
+                        FirstVisitTime = v.VisitDate,
+                        LastVisitTime = v.LastVisitTime,
+                        VisitCount = v.VisitCount,
+                    });
                 }
                 tx.Commit();
             }

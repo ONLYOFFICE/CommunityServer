@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -128,7 +128,7 @@ window.tagsDropdown = (function($) {
         $(popupId + ' #markallrecipientsLabel').show();
         $(popupId + ' #markallrecipients').unbind('click').bind('click', manageCrmTags);
         var fromAddress = messagePage.getFromAddress(messagePage.getActualConversationLastMessageId());
-        fromAddress = TMMail.parseEmailFromFullAddress(fromAddress);
+        fromAddress = ASC.Mail.Utility.ParseAddress(fromAddress).email;
         if (accountsManager.getAccountByAddress(fromAddress)) {
             $(popupId + ' #markallrecipientsLabel').text(MailScriptResource.MarkAllRecipientsLabel);
         } else {
@@ -184,22 +184,20 @@ window.tagsDropdown = (function($) {
     var setTag = function(id) {
         if (checked()) {
             var tag = tagsManager.getTag(id);
-            var addressesString;
+            var addresses = [];
 
-            addressesString = messagePage.getFromAddress(messagePage.getActualConversationLastMessageId());
-            addressesString = TMMail.parseEmailFromFullAddress(addressesString);
-            if (accountsManager.getAccountByAddress(addressesString)) {
-                addressesString = messagePage.getToAddresses(messagePage.getActualConversationLastMessageId());
-            }
+            var from = ASC.Mail.Utility.ParseAddress(messagePage.getFromAddress(messagePage.getActualConversationLastMessageId()));
 
-            var addresses = addressesString.split(',');
+            if (accountsManager.getAccountByAddress(from.email)) {
+                addresses = ASC.Mail.Utility.ParseAddresses(messagePage.getToAddresses(messagePage.getActualConversationLastMessageId())).addresses;
+            } else
+                addresses.push(from);
 
             for (var i = 0; i < addresses.length; i++) {
                 var address = addresses[i];
-                address = TMMail.parseEmailFromFullAddress(address);
-                var tagAlreadyAdded = 0 < $.grep(tag.addresses, function(val) { return address.toLowerCase() == val.toLowerCase(); }).length;
+                var tagAlreadyAdded = 0 < $.grep(tag.addresses, function(val) { return address.EqualsByEmail(val); }).length;
                 if (!tagAlreadyAdded) {
-                    tag.addresses.push(address);
+                    tag.addresses.push(address.email);
                 }
             }
             tagsManager.updateTag(tag);

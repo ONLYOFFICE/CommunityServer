@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -57,7 +57,7 @@ ListInvoiceView.ascx
         margin: 15px 0 15px 2px;
     }
 
-    td > div {
+    td > div:not(.entity-menu) {
         padding: 0 8px;
 
         &.baseList_loaderImg {
@@ -588,13 +588,24 @@ ListActionView.ascx
         float: left;
         height: 18px;
         width: 16px;
+        position: relative;
 
-        &.drop-down {
-            background: url("../images/icons.png") no-repeat scroll -12px -646px #FFFFFF;
+        &.drop-down:after {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #83888D;
+            content: "";
+            height: 0;
+            width: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -4px;
+            margin-top: -2px;
         }
 
         &.serch {
-            background: url("../images/icons.png") no-repeat scroll -1px -407px #FFFFFF;
+            background: url("../images/icons.png") no-repeat scroll -1px -390px #FFFFFF;
         }
     }
 }

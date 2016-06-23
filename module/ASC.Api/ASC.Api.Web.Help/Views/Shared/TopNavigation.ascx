@@ -32,5 +32,11 @@
         <a href="<%= Url.Action("basic", "partners") %>">Partners</a>
     </li>
     <% } %>
+    <% if (products.Contains("apisystem"))
+       { %>
+    <li class="<%= Html.IfController("apisystem") || subControllerStr.Equals("apisystem", StringComparison.OrdinalIgnoreCase) ? "active" : "" %>">
+        <a href="<%= Url.Action("basic", "apisystem") %>">Hosted Solution</a>
+    </li>
+    <% } %>
 </ul>
 <% } %>

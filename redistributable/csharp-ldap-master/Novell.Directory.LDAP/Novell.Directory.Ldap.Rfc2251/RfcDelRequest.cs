@@ -29,70 +29,72 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
 using Novell.Directory.Ldap.Asn1;
-using Novell.Directory.Ldap;
+using System;
 
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> Represents an Ldap Delete Request.
-	/// 
-	/// <pre>
-	/// DelRequest ::= [APPLICATION 10] LdapDN
-	/// </pre>
-	/// </summary>
-	public class RfcDelRequest:RfcLdapDN, RfcRequest
-	{
-		
-		//*************************************************************************
-		// Constructor for DelRequest
-		//*************************************************************************
-		
-		/// <summary> Constructs an Ldapv3 delete request protocol operation.
-		/// 
-		/// </summary>
-		/// <param name="dn">The Distinguished Name of the entry to delete.
-		/// </param>
-		public RfcDelRequest(System.String dn):base(dn)
-		{
-		}
-		
-		/// <summary> Constructs an Ldapv3 delete request protocol operation.
-		/// 
-		/// </summary>
-		/// <param name="dn">The Distinguished Name of the entry to delete.
-		/// </param>
-		[CLSCompliantAttribute(false)]
-		public RfcDelRequest(sbyte[] dn):base(dn)
-		{
-		}
-		
-		/// <summary> Override getIdentifier() to return the appropriate application-wide id
-		/// representing this delete request. The getIdentifier() method is called
-		/// when this object is encoded.
-		/// 
-		/// Identifier = CLASS: APPLICATION, FORM: CONSTRUCTED, TAG: 10
-		/// </summary>
-		public override Asn1Identifier getIdentifier()
-		{
-			return new Asn1Identifier(Asn1Identifier.APPLICATION, false, LdapMessage.DEL_REQUEST);
-		}
-		
-		public RfcRequest dupRequest(System.String base_Renamed, System.String filter, bool request)
-		{
-			if ((System.Object) base_Renamed == null)
-			{
-				return new RfcDelRequest(byteValue());
-			}
-			else
-			{
-				return new RfcDelRequest(base_Renamed);
-			}
-		}
-		public System.String getRequestDN()
-		{
-			return base.stringValue();
-		}
-	}
+
+    /// <summary> Represents an Ldap Delete Request.
+    /// 
+    /// <pre>
+    /// DelRequest ::= [APPLICATION 10] LdapDN
+    /// </pre>
+    /// </summary>
+    public class RfcDelRequest : RfcLdapDN, RfcRequest
+    {
+
+        //*************************************************************************
+        // Constructor for DelRequest
+        //*************************************************************************
+
+        /// <summary> Constructs an Ldapv3 delete request protocol operation.
+        /// 
+        /// </summary>
+        /// <param name="dn">The Distinguished Name of the entry to delete.
+        /// </param>
+        public RfcDelRequest(string dn)
+            : base(dn)
+        {
+        }
+
+        /// <summary> Constructs an Ldapv3 delete request protocol operation.
+        /// 
+        /// </summary>
+        /// <param name="dn">The Distinguished Name of the entry to delete.
+        /// </param>
+        [CLSCompliantAttribute(false)]
+        public RfcDelRequest(sbyte[] dn)
+            : base(dn)
+        {
+        }
+
+        /// <summary> Override getIdentifier() to return the appropriate application-wide id
+        /// representing this delete request. The getIdentifier() method is called
+        /// when this object is encoded.
+        /// 
+        /// Identifier = CLASS: APPLICATION, FORM: CONSTRUCTED, TAG: 10
+        /// </summary>
+        public override Asn1Identifier getIdentifier()
+        {
+            return new Asn1Identifier(Asn1Identifier.APPLICATION, false, LdapMessage.DEL_REQUEST);
+        }
+
+        public RfcRequest dupRequest(string base_Renamed, string filter, bool request)
+        {
+            if (base_Renamed == null)
+            {
+                return new RfcDelRequest(byteValue());
+            }
+            else
+            {
+                return new RfcDelRequest(base_Renamed);
+            }
+        }
+
+        public string getRequestDN()
+        {
+            return base.stringValue();
+        }
+    }
 }

@@ -28,7 +28,7 @@ God.watch do |w|
   w.name = "monoserve"
   w.group = "onlyoffice"
   w.grace = 15.seconds
-  w.start = "/etc/init.d/monoserve start"
+  w.start = "/etc/init.d/monoserve restart"
   w.stop = "/bin/bash -c 'pgrep -f monoserve.log -U onlyoffice || true; sleep 4; pkill -SIGKILL -f monoserve.log -U onlyoffice || true'"
   w.pid_file = "/tmp/monoserve"
   w.unix_socket = "/var/run/onlyoffice/onlyoffice.socket"
@@ -46,33 +46,7 @@ God.watch do |w|
       c.family = 'unix'
       c.path = '/var/run/onlyoffice/onlyoffice.socket'
       c.times = 5
-      c.interval = 10.seconds
-    end
-  end
-end
-
-God.watch do |w|
-  w.name = "monoserve2"
-  w.group = "onlyoffice"
-  w.grace = 15.seconds
-  w.start = "/etc/init.d/monoserve2 start"
-  w.stop = "/bin/bash -c 'pgrep -f monoserve2.log -U onlyoffice || true; sleep 4; pkill -SIGKILL -f monoserve2.log -U onlyoffice || true'"
-  w.pid_file = "/tmp/monoserve2"
-  w.unix_socket = "/var/run/onlyoffice/onlyoffice2.socket"
-
-  w.start_if do |start|
-    start.condition(:process_running) do |c|
-      c.interval = 10.seconds
-      c.running = false
-    end
-  end
-
-  w.restart_if do |restart|
-    restart.condition(:socket_connected_within_timeout) do |c|
-      c.family = 'unix'
-      c.path = '/var/run/onlyoffice/onlyoffice2.socket'
-      c.times = 5
-      c.interval = 10.seconds
+      c.interval = 5.seconds
     end
   end
 end

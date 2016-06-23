@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,19 +24,13 @@
 */
 
 
-using System;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Threading;
-using System.Web;
-using System.Web.Services;
 using ASC.Common.Web;
 using ASC.Core;
 using ASC.Core.Billing;
+using ASC.Data.Storage.DiscStorage;
 using ASC.Data.Storage.S3;
 using ASC.Files.Core;
+using ASC.Files.Core.Data;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
 using ASC.Web.Core;
@@ -50,11 +44,18 @@ using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
-using Resources;
-using File = ASC.Files.Core.File;
-using SecurityContext = ASC.Core.SecurityContext;
+using System;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Threading;
+using System.Web;
+using System.Web.Services;
+using File = ASC.Files.Core.File;
 using MimeMapping = System.Web.MimeMapping;
+using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.Files
 {
@@ -144,7 +145,7 @@ namespace ASC.Web.Files
             context.Response.ContentType = "application/zip";
             context.Response.AddHeader("Content-Disposition", ContentDispositionUtil.GetHeaderValue(FileConstant.DownloadTitle + ".zip"));
 
-            using (var readStream = store.IronReadStream(FileConstant.StorageDomainTmp, path, 40))
+            using (var readStream = store.GetReadStream(FileConstant.StorageDomainTmp, path))
             {
                 context.Response.AddHeader("Content-Length", readStream.Length.ToString());
                 readStream.StreamCopyTo(context.Response.OutputStream);
@@ -204,17 +205,14 @@ namespace ASC.Web.Files
                     FileMarker.RemoveMarkAsNew(file);
 
                     context.Response.Clear();
-                    context.Response.ContentType = MimeMapping.GetMimeMapping(file.Title);
+                    context.Response.ClearHeaders();
                     context.Response.Charset = "utf-8";
 
                     var title = file.Title.Replace(',', '_');
 
                     var ext = FileUtility.GetFileExtension(file.Title);
 
-                    var outType = string.Empty;
-                    var curQuota = TenantExtra.GetTenantQuota();
-                    if (curQuota.DocsEdition)
-                        outType = context.Request[FilesLinkUtility.OutType];
+                    var outType = context.Request[FilesLinkUtility.OutType];
 
                     if (!string.IsNullOrEmpty(outType) && !inline)
                     {
@@ -228,6 +226,25 @@ namespace ASC.Web.Files
                     }
 
                     context.Response.AddHeader("Content-Disposition", ContentDispositionUtil.GetHeaderValue(title, inline));
+                    context.Response.ContentType = MimeMapping.GetMimeMapping(title);
+
+                    // Download file via nginx
+                    if (CoreContext.Configuration.Standalone &&
+                        WorkContext.IsMono &&
+                        Global.GetStore() is DiscDataStore &&
+                        !file.ProviderEntry
+                        )
+                    {
+                        var diskDataStore = (DiscDataStore)Global.GetStore();
+
+                        var pathToFile = diskDataStore.GetPhysicalPath(String.Empty, FileDao.GetUniqFilePath(file));           
+
+                        context.Response.Headers.Add("X-Accel-Redirect", "/filesData" + pathToFile);
+
+                        FilesMessageService.Send(file, context.Request, MessageAction.FileDownloaded, file.Title);
+
+                        return;
+                    }
 
                     if (inline && string.Equals(context.Request.Headers["If-None-Match"], GetEtag(file)))
                     {
@@ -278,6 +295,10 @@ namespace ASC.Web.Files
                             }
                             else
                             {
+                                context.Response.Buffer = false;
+
+                                context.Response.ContentType = "application/octet-stream";
+
                                 long offset = 0;
 
                                 if (context.Request.Headers["Range"] != null)
@@ -299,7 +320,7 @@ namespace ASC.Web.Files
                                 }
 
                                 var dataToRead = file.ContentLength;
-                                const int bufferSize = 1024;
+                                const int bufferSize = 8 * 1024; // 8KB
                                 var buffer = new Byte[bufferSize];
 
                                 if (!FileConverter.EnableConvert(file, ext))
@@ -365,6 +386,7 @@ namespace ASC.Web.Files
                                     if (context.Response.IsClientConnected)
                                     {
                                         context.Response.OutputStream.Write(buffer, 0, length);
+                                        context.Response.Flush();
                                         dataToRead = dataToRead - length;
                                     }
                                     else
@@ -641,7 +663,7 @@ namespace ASC.Web.Files
                 };
 
             using (var fileDao = Global.DaoFactory.GetFileDao())
-            using (var stream = storeTemplate.IronReadStream("", templatePath, 10))
+            using (var stream = storeTemplate.GetReadStream("", templatePath))
             {
                 return fileDao.SaveFile(file, stream);
             }
@@ -747,10 +769,11 @@ namespace ASC.Web.Files
                 throw new HttpException((int)HttpStatusCode.BadRequest, e.Message);
             }
 
+            string error;
             try
             {
                 Global.Logger.Debug("DocService track body: " + body);
-                DocumentServiceTracker.ProcessData(fileId, isNew, body);
+                error = DocumentServiceTracker.ProcessData(fileId, isNew, body);
             }
             catch (Exception e)
             {
@@ -758,14 +781,14 @@ namespace ASC.Web.Files
                 throw new HttpException((int)HttpStatusCode.BadRequest, e.Message);
             }
 
-            context.Response.Write("{\"error\":0}");
+            context.Response.Write(string.Format("{{\"error\":{0}}}", (error ?? "0")));
         }
 
         private static void License(HttpContext context)
         {
             if (!CoreContext.Configuration.Standalone)
             {
-                context.Response.StatusCode = (int) HttpStatusCode.MethodNotAllowed;
+                context.Response.StatusCode = (int)HttpStatusCode.MethodNotAllowed;
                 return;
             }
 
@@ -777,7 +800,7 @@ namespace ASC.Web.Files
                 var validateResult = EmailValidationKeyProvider.ValidateEmailKey(id, auth, Global.StreamUrlExpire);
                 if (validateResult != EmailValidationKeyProvider.ValidationResult.Ok)
                 {
-                    var exc = new HttpException((int) HttpStatusCode.Forbidden, FilesCommonResource.ErrorMassage_SecurityException);
+                    var exc = new HttpException((int)HttpStatusCode.Forbidden, FilesCommonResource.ErrorMassage_SecurityException);
 
                     Global.Logger.Error(string.Format("{0} {1}: {2}", FilesLinkUtility.AuthKey, validateResult, context.Request.Url), exc);
 
@@ -795,7 +818,7 @@ namespace ASC.Web.Files
             }
             catch (Exception ex)
             {
-                context.Response.StatusCode = (int) HttpStatusCode.BadRequest;
+                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 context.Response.Write(ex.Message);
                 Global.Logger.Error("Error for: " + context.Request.Url, ex);
             }

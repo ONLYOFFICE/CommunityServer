@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,17 +24,16 @@
 */
 
 
+using ASC.CRM.Core;
+using ASC.CRM.Core.Entities;
+using ASC.Web.CRM.Classes;
+using ASC.Web.Studio.UserControls.Common.HelpCenter;
+using ASC.Web.Studio.UserControls.Common.InviteLink;
+using ASC.Web.Studio.UserControls.Common.Support;
+using ASC.Web.Studio.UserControls.Common.UserForum;
+using ASC.Web.Studio.UserControls.Common.VideoGuides;
 using System;
 using System.Web;
-using ASC.CRM.Core;
-using ASC.Web.CRM.Classes;
-using ASC.CRM.Core.Entities;
-using ASC.Web.Core.Mobile;
-using ASC.Web.Studio.UserControls.Common.HelpCenter;
-using ASC.Web.Studio.UserControls.Common.Support;
-using ASC.Web.Studio.UserControls.Common.VideoGuides;
-using ASC.Web.Studio.UserControls.Common.UserForum;
-using ASC.Web.Studio.UserControls.Common.InviteLink;
 
 namespace ASC.Web.CRM.Controls.Common
 {
@@ -49,12 +48,10 @@ namespace ASC.Web.CRM.Controls.Common
         }
 
         protected string CurrentPage { get; set; }
-        protected bool MobileVer = false;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             InitCurrentPage();
-            MobileVer = MobileDetector.IsMobile;
             var help = (HelpCenter)LoadControl(HelpCenter.Location);
             help.IsSideBar = true;
             HelpHolder.Controls.Add(help);

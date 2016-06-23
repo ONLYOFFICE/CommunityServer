@@ -19,6 +19,9 @@
     <p>The <b>document editing service</b> will send POST request with the following information in body:</p>
     <ul>
         <li>
+            <b>actions</b> - is an object received if the new user connected the document co-editing or disconnected from it. In the first case the <em>type</em> field value is <b>1</b> , in the other case - <b>0</b>. The <em>userid</em> field value is the identifier of the user who connected or disconnected from the document co-editing.
+        </li>
+        <li>
             <b>key</b> - identifier of the edited document
         </li>
         <li>
@@ -29,39 +32,66 @@
             <b>3</b> - document saving error has occurred,
             <b>4</b> - document is closed with no changes.
         </li>
+        <li id="url">
+            <b>url</b> - the link to the edited document to be saved with the document storage service. The link is present when the <em>status</em> value is equal to <b>2</b> or <b>3</b> only.
+        </li>
+        <li id="changesurl">
+            <b>changesurl</b> - the link to the file with the document editing data used to track and display the document changes history. The link is present when the <em>status</em> value is equal to <b>2</b> or <b>3</b> only. The file must be saved and its address must be sent as <i>changesUrl</i> parameter using the <a class="underline" href="<%= Url.Action("methods") %>#setHistoryData">setHistoryData</a> method to show the changes corresponding to the specific document version.
+        </li>
+        <li id="changeshistory">
+            <b>changeshistory</b> - the array of objects with the document changes history. The object is present when the status value is equal to <b>2</b> or <b>3</b> only. Must be sent as a property <em>changes</em> of the object sent as the argument to the <a class="underline" href="<%= Url.Action("methods") %>#refreshHistory">refreshHistory</a> method.
+        </li>
         <li>
             <b>users</b> - identifier of the user who accessed or edited the document.
         </li>
-        <li>
-            <b>url</b> - the link to the edited document to be saved with the document storage service.
-        </li>
     </ul>
 
-    <p>Status <b>1</b> is received every user connection to or disconnection from document co-editing.</p>
-    <p>Status <b>2</b> (<b>3</b>) is received 10 seconds after the document is closed for editing by the last user.</p>
+    <p><em>Status</em> <b>1</b> is received every user connection to or disconnection from document co-editing.</p>
+    <p><em>Status</em> <b>2</b> (<b>3</b>) is received 10 seconds after the document is closed for editing with the identifier of the user who was the last to send the changes to the document editing service.</p>
+    <p><em>Status</em> <b>4</b> is received after the document is closed for editing with no changes by the last user.</p>
 
-    <div class="header-gray">Sample of JSON object sent to the 'callbackUrl' address by document editing service</div>
+    <div id="status-1" class="header-gray">Sample of JSON object sent to the "callbackUrl" address by document editing service when two users are co-editing the document.</div>
     <pre>
 {
-    'key': 'key',
-    'status': 2,
-    'users': ['6D5A81D0-3482-4E8C-871D-BA197ABAADE2', '17173203-CC82-442A-B12D-DAE9940D7334'],
-    'url': 'http://documentserver/url-to-edited-document.docx',
+    "actions": [{"type": 1, "userid": "78E1E841"}],
+    "key": "key",
+    "status": 1,
+    "users": ["6D5A81D0", "78E1E841"],
+}
+</pre>
+
+    <div id="status-2" class="header-gray">Sample of JSON object sent to the "callbackUrl" address by document editing service when the user changed the document and closed it for editing.</div>
+    <pre>
+{
+    "key": "key",
+    "status": 2,
+    "url": "http://documentserver/url-to-edited-document.docx",
+    "changesurl": "http://documentserver/url-to-changes.zip",
+    "changeshistory": changeshistory,
+    "users": ["6D5A81D0"],
+}
+</pre>
+
+    <div id="status-4" class="header-gray">Sample of JSON object sent to the "callbackUrl" address by document editing service when the last user closed the document for editing without changes.</div>
+    <pre>
+{
+    "key": "key",
+    "status": 4,
 }
 </pre>
 
     <p>The <b>document storage service</b> must return the following response, otherwise the <b>document editor</b> will display an error message:</p>
 
-    <div class="header-gray">Response from the document storage service</div>
+    <div id="error-0" class="header-gray">Response from the document storage service</div>
     <pre>
 {
-    'error': 0
+    "error": 0
 }
 </pre>
 
     <p>The <b>document manager</b> and <b>document storage service</b> are either included to Community Server or must be implemented by the software integrators who use ONLYOFFICE™ Document Server on their own server.</p>
 
-    <div class="header-gray">.Net (C#) document save example</div>
+    <div id="csharp" class="header-gray">.Net (C#) document save example</div>
     <pre>
 public class WebEditor : IHttpHandler
 {
@@ -89,9 +119,9 @@ public class WebEditor : IHttpHandler
     }
 }
 </pre>
-    <div class="note"><i>PATH_FOR_SAVE</i> is the absolute path to your computer folder where the file will be saved including the file name.</div>
+    <div class="note"><em>PATH_FOR_SAVE</em> is the absolute path to your computer folder where the file will be saved including the file name.</div>
 
-    <div class="header-gray">Java document save example</div>
+    <div id="java" class="header-gray">Java document save example</div>
     <pre>
 public class IndexServlet extends HttpServlet {
     @Override
@@ -128,17 +158,19 @@ public class IndexServlet extends HttpServlet {
     }
 }
 </pre>
-    <div class="note"><i>pathForSave</i> is the absolute path to your computer folder where the file will be saved including the file name.</div>
+    <div class="note"><em>pathForSave</em> is the absolute path to your computer folder where the file will be saved including the file name.</div>
 
-    <div class="header-gray">Node.js document save example</div>
+    <div id="nodejs" class="header-gray">Node.js document save example</div>
     <pre>
+var fs = require("fs");
+
 app.post("/track", function (req, res) {
 
     var updateFile = function (response, body, path) {
         if (body.status == 2)
         {
             var file = syncRequest("GET", body.url);
-            fileSystem.writeFileSync(path, file.getBody());
+            fs.writeFileSync(path, file.getBody());
         }
 
         response.write("{\"error\":0}");
@@ -147,10 +179,10 @@ app.post("/track", function (req, res) {
 
     var readbody = function (request, response, path) {
         var content = "";
-        request.on('data', function (data) {
+        request.on("data", function (data) {
             content += data;
         });
-        request.on('end', function () {
+        request.on("end", function () {
             var body = JSON.parse(content);
             updateFile(response, body, path);
         });
@@ -163,13 +195,13 @@ app.post("/track", function (req, res) {
     }
 });
 </pre>
-    <div class="note"><i>pathForSave</i> is the absolute path to your computer folder where the file will be saved including the file name.</div>
+    <div class="note"><em>pathForSave</em> is the absolute path to your computer folder where the file will be saved including the file name.</div>
 
-    <div class="header-gray">PHP document save example</div>
+    <div id="php" class="header-gray">PHP document save example</div>
     <pre>
 &lt;?php
 
-if (($body_stream = file_get_contents('php://input'))===FALSE){
+if (($body_stream = file_get_contents("php://input"))===FALSE){
     echo "Bad Request";
 }
 
@@ -188,23 +220,23 @@ echo "{\"error\":0}";
 
 ?&gt;
 </pre>
-    <div class="note"><i>$path_for_save</i> is the absolute path to your computer folder where the file will be saved including the file name.</div>
+    <div class="note"><em>$path_for_save</em> is the absolute path to your computer folder where the file will be saved including the file name.</div>
 
-    <div class="header-gray">Ruby document save example</div>
+    <div id="ruby" class="header-gray">Ruby document save example</div>
     <pre>
 class ApplicationController < ActionController::Base
     def index
         body = request.body.read
 
         file_data = JSON.parse(body)
-        status = file_data['status'].to_i
+        status = file_data["status"].to_i
 
         if status == 2
-            download_uri = file_data['url']
+            download_uri = file_data["url"]
             uri = URI.parse(download_uri)
             http = Net::HTTP.new(uri.host, uri.port)
 
-            if download_uri.start_with?('https')
+            if download_uri.start_with?("https")
                 http.use_ssl = true
                 http.verify_mode = OpenSSL::SSL::VERIFY_NONE
             end
@@ -213,16 +245,17 @@ class ApplicationController < ActionController::Base
             res = http.request(req)
             data = res.body
 
-            File.open(path_for_save, 'wb') do |file|
+            File.open(path_for_save, "wb") do |file|
                 file.write(data)
             end
         end
-        render :text => '{"error":0}'
+        render :text => "{\"error\":0}"
     end
 end
 </pre>
-    <div class="note"><i>path_for_save</i> is the absolute path to your computer folder where the file will be saved including the file name.</div>
+    <div class="note"><em>path_for_save</em> is the absolute path to your computer folder where the file will be saved including the file name.</div>
 
 </asp:Content>
 
 <asp:Content ID="Content3" runat="server" ContentPlaceHolderID="ScriptPlaceholder"></asp:Content>
+

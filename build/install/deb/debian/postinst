@@ -46,19 +46,23 @@ install_db(){
 	# test mysql connection
 	$MYSQL -e ";" &>/dev/null || ( service mysql start &>/dev/null && $MYSQL -e ";" >/dev/null )
 
-	if [ "$OLD_VERSION" = "" ]; then
-		$MYSQL -e "CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8 COLLATE 'utf8_general_ci';"
-		$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.sql
-		$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.data.sql
-		$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.resources.sql
-	elif dpkg --compare-versions "$OLD_VERSION" ge 8.0 && dpkg --compare-versions "$OLD_VERSION" lt 8.1; then
-		$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade81.sql
-	fi
+	$MYSQL -e "CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8 COLLATE 'utf8_general_ci';"
+	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.sql
+	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.data.sql
+	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.resources.sql
+
+	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade81.sql
 	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade85.sql
 	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade86.sql
 	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade87.sql
+	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade88.sql
 
 	sed "s/#max_connections.*/max_connections = 1000/" -i /etc/mysql/my.cnf || true # ignore errors
+	
+	if [ -e /etc/mysql/mysql.conf.d/mysqld.cnf ]; then 
+	    sed "s/#max_connections.*/max_connections = 1000/" -i /etc/mysql/mysql.conf.d/mysqld.cnf || true # new config mysql 5.7 ignore errors
+		echo "sql_mode = ''" >> /etc/mysql/mysql.conf.d/mysqld.cnf # disable new STRICT mode in mysql 5.7
+	fi
 }
 
 apply_connection_string(){
@@ -135,8 +139,11 @@ case "$1" in
 		mkdir -p /usr/share/.mono/keypairs
 		mkdir -p $LOG_DIR
 		mkdir -p "$DIR/Data"
+		mkdir -p "$DIR/DocumentServerData"
 		mkdir -p /var/cache/nginx/onlyoffice
 		mkdir -p /var/run/onlyoffice
+		# needed for signalr service
+        mkdir -p -m 700 "$DIR/.config/.mono/keypairs"
 
 		upgrade_storage
 
@@ -145,7 +152,7 @@ case "$1" in
 		chown www-data:www-data -R /var/cache/nginx/onlyoffice
 		chown onlyoffice:www-data -R /var/run/onlyoffice
 		chmod g+s+w /var/run/onlyoffice
-
+		
 		# import common ssl certificates
 		mozroots --import --sync --machine --quiet
 

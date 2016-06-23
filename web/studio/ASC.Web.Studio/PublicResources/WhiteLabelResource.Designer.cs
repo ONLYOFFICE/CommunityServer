@@ -142,15 +142,6 @@ namespace ASC.Web.Studio.PublicResources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Logo for notification mail messages.
-        /// </summary>
-        public static string LogoLight {
-            get {
-                return ResourceManager.GetString("LogoLight", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Logo for the portal header.
         /// </summary>
         public static string LogoLightSmall {

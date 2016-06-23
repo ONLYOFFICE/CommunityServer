@@ -1,5 +1,4 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PasswordSettings.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.PasswordSettings" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
 <% if (Enabled)
@@ -47,9 +46,9 @@
     </div>
     <div class="settings-help-block">
         <p><%= String.Format(Resource.HelpAnswerPasswordSettings.HtmlEncode(), "<br />", "<b>", "</b>") %></p>
-        <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+        <% if (!string.IsNullOrEmpty(HelpLink))
            { %>
-            <a href="<%= CommonLinkUtility.GetHelpLink() + "gettingstarted/configuration.aspx#ChangingSecuritySettings_block" %>" target="_blank"><%= Resource.LearnMore %></a>
+            <a href="<%= HelpLink + "/gettingstarted/configuration.aspx#ChangingSecuritySettings_block" %>" target="_blank"><%= Resource.LearnMore %></a>
         <% } %>
     </div>
 </div>

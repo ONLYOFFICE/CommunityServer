@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -30,24 +30,23 @@ using CommandLine.Text;
 
 namespace ASC.Mail.Aggregator.CollectionService
 {
-    partial class Program
+    public class Options
     {
-        private sealed class Options
+        [OptionList('u', "users", MetaValue = "STRING ARRAY", Required = false, HelpText = "An array of users for which the aggregator will take tasks. " +
+                                                                                           "Separator = ';' " +
+                                                                                           "Example: -u\"{tl_userId_1}\";\"{tl_userId_2}\";\"{tl_userId_3}\"", Separator = ';')]
+        public IList<string> OnlyUsers { get; set; }
+
+        [Option("console", Required = false, HelpText = "Console state")]
+        public bool IsConsole { get; set; }
+
+        [Option("unlimit", Required = false, HelpText = "Unlimit messages per mailbox session")]
+        public bool NoMessagesLimit { get; set; }
+
+        [HelpOption]
+        public string GetUsage()
         {
-
-            [OptionList('u', "users", MetaValue = "STRING ARRAY", Required = false, HelpText = "An array of users for which the aggregator will take tasks. " +
-                                                                                               "Separator = ';' " +
-                                                                                               "Example: -u\"{tl_userId_1}\";\"{tl_userId_2}\";\"{tl_userId_3}\"", Separator = ';')]
-            public IList<string> OnlyUsers { get; set; }
-
-            [Option("console", Required = false, HelpText = "Console state")]
-            public bool IsConsole { get; set; }
-
-            [HelpOption]
-            public string GetUsage()
-            {
-                return HelpText.AutoBuild(this, current => HelpText.DefaultParsingErrorsHandler(this, current));
-            }
+            return HelpText.AutoBuild(this, current => HelpText.DefaultParsingErrorsHandler(this, current));
         }
     }
 }

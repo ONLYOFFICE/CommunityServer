@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -109,43 +109,41 @@ namespace ASC.Projects.Data.DAO
         public void SetProjectTags(int projectId, string[] tags)
         {
             using (var db = new DbManager(DatabaseId))
+            using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
             {
-                using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
+                var tagsToDelete = db.ExecuteList(
+                        new SqlQuery(ProjectTagTable).Select("tag_id").Where("project_id", projectId),
+                        r => (int)r[0]);
+
+                db.ExecuteNonQuery(new SqlDelete(ProjectTagTable).Where("project_id", projectId));
+
+                foreach (var tag in tagsToDelete)
                 {
-                    var tagsToDelete = db.ExecuteList(
-                            new SqlQuery(ProjectTagTable).Select("tag_id").Where("project_id", projectId),
-                            r => (int) r[0]);
-
-                    db.ExecuteNonQuery(new SqlDelete(ProjectTagTable).Where("project_id", projectId));
-
-                    foreach (var tag in tagsToDelete)
+                    if (db.ExecuteScalar<int>(new SqlQuery(ProjectTagTable).Select("project_id").Where("tag_id", tag)) == 0)
                     {
-                        if (db.ExecuteScalar<int>(new SqlQuery(ProjectTagTable).Select("project_id").Where("tag_id", tag)) == 0)
-                        {
-                            db.ExecuteNonQuery(Delete(TagsTable).Where("id", tag));
-                        }
+                        db.ExecuteNonQuery(Delete(TagsTable).Where("id", tag));
                     }
-
-
-                    foreach (var tag in tags)
-                    {
-                        var tagId = db.ExecuteScalar<int>(Query(TagsTable)
-                                                             .Select("id")
-                                                             .Where("lower(title)", tag.ToLower()));
-                        if (tagId == 0)
-                        {
-                            tagId = db.ExecuteScalar<int>(
-                                Insert(TagsTable)
-                                    .InColumnValue("id", 0)
-                                    .InColumnValue("title", tag)
-                                    .InColumnValue("last_modified_by", DateTime.UtcNow)
-                                    .Identity(1, 0, true));
-                        }
-
-                        db.ExecuteNonQuery(new SqlInsert(ProjectTagTable, true).InColumnValue("tag_id", tagId).InColumnValue("project_id", projectId));
-                    }
-                    tx.Commit();
                 }
+
+
+                foreach (var tag in tags)
+                {
+                    var tagId = db.ExecuteScalar<int>(Query(TagsTable)
+                                                         .Select("id")
+                                                         .Where("lower(title)", tag.ToLower()));
+                    if (tagId == 0)
+                    {
+                        tagId = db.ExecuteScalar<int>(
+                            Insert(TagsTable)
+                                .InColumnValue("id", 0)
+                                .InColumnValue("title", tag)
+                                .InColumnValue("last_modified_by", DateTime.UtcNow)
+                                .Identity(1, 0, true));
+                    }
+
+                    db.ExecuteNonQuery(new SqlInsert(ProjectTagTable, true).InColumnValue("tag_id", tagId).InColumnValue("project_id", projectId));
+                }
+                tx.Commit();
             }
         }
 

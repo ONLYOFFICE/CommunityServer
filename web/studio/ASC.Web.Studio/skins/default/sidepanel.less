@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -115,12 +115,17 @@
             padding: 1px 0 0 0;
 
             .expander {
-                background: url("@{imagesBaseUrl}triangle_grey_tree_sprite.png") no-repeat 0 5px;
-                height: 15px;
-                width: 8px;
-                margin: 0 4px;
                 float: left;
                 cursor: pointer;
+                height: 15px;
+                width: 8px;
+                position: relative;
+                margin: 1px 1px 0 7px;
+                &:after {
+                    .arrow-close(4px, #696969);
+                    left: 0;
+                    margin-top: -4px;
+                }
             }
 
             .menu-sub-list {
@@ -154,8 +159,12 @@
                     }
 
                     .expander {
-                        background-position: 0 3px;
-                        margin-left: 37px;
+                        margin: 0 1px 0 40px;
+                        &:after {
+                            .arrow-close(4px, #696969);
+                            left: 0;
+                            margin-top: -4px;
+                        }
                     }
 
                     .menu-sub-list {
@@ -175,7 +184,7 @@
                                 max-width: 185px;
                                 overflow: hidden;
                                 text-decoration: none;
-                                text-overflow: ellipsis;
+                                .textOverflowEllipsis();
 
                                 &:hover {
                                     text-decoration: underline;
@@ -186,7 +195,13 @@
 
                     &.open {
                         .expander {
-                            background-position: 0 -9px;
+                            margin: 2px 3px 0 38px;
+                            &:after {
+                                .arrow-down(4px, #696969);
+                                left: 0;
+                                margin-top: -4px;
+                            }
+                            
                         }
 
                         .menu-sub-list {
@@ -198,7 +213,12 @@
 
             &.open {
                 .expander {
-                    background-position: 0 -8px;
+                    margin: 3px 3px 0 5px;
+                    &:after {
+                        .arrow-down(4px, #696969);
+                        left: 0;
+                        margin-top: -4px;
+                    }
                 }
 
                 .menu-sub-list {
@@ -323,7 +343,26 @@
     &.controlpanel{ background-position: 0 -1322px; } 
 
 
-    &.inviteusers{ background-position: 0 0; background: url("@{imagesBaseUrl}green-plus.png") no-repeat 0 0; margin-top: 1px;} 
+    &.inviteusers{
+        background-image: none;
+        margin-top: 1px;
+        position: relative;
+        &:after {
+            color: #7CA52F;
+            content: "+";
+            cursor: pointer;
+            display: block;
+            font-size: 28px;
+            font-weight: 800;
+            height: 28px;
+            line-height: 28px;
+            left: -1px;
+            margin-top: -15px;
+            position: absolute;
+            top: 50%;
+            width: 28px;
+        }
+    } 
 }
 #menuInviteUsersBtn{
     .menu-item-label.inner-text {
@@ -352,14 +391,14 @@
     display: inline-block;
     width: 240px;
     margin-bottom: 23px;
-    
-    li {   
+
+    li {
         .borderRadius();
         cursor: pointer;
-        float: left;   
+        float: left;
         overflow: hidden;
         white-space: nowrap;
-        
+
         span {
             background-color: transparent;
             background-repeat: no-repeat;
@@ -367,44 +406,64 @@
             padding: 1px 12px;
         }
     }
+
     .menu-main-button {
         .bg-button-create-new ();
         border: none;
         color: @defaultButtonTextColor;
         height: 32px;
-        line-height:16px;
+        line-height: 16px;
         margin-left: 0;
-        min-width: 137px;    
-        padding: 0;    
-    
+        min-width: 137px;
+        padding: 0;
+
         &.disable {
             .opacityStyle();
-        }    
+        }
+
         &.big {
             float: none;
             width: auto;
         }
+
         &.middle {
             width: 173px;
         }
+
         span {
             float: left;
             overflow: hidden;
         }
+
         .main-button-text {
-            height:25px;
+            height: 25px;
             padding: 7px 12px 0 16px;
         }
+
         .white-combobox {
-            background: url("@{imagesBaseUrl}combobox_white.png") center 11px no-repeat;    
             height: 32px;
             float: right;
             margin: 0;
             padding: 0;
             width: 23px;
+            position: relative;
+
+            &:after {
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 4px solid #ffffff;
+                content: "";
+                height: 0;
+                margin-top: -1px;
+                position: absolute;
+                right: 8px;
+                top: 50%;
+                width: 0;
+            }
         }
     }
-    .menu-upload-button, 
+
+    .menu-upload-button,
     .menu-gray-button {
         .bg-button-default();
         .border-button-default();
@@ -417,14 +476,15 @@
             .opacityStyle();
         }
     }
-    .menu-gray-button {    
+
+    .menu-gray-button {
         float: right;
-        margin:0;
-        
+        margin: 0;
+
         span {
             color: @grayButtonTextColor;
             font-size: 18px;
-            font-weight: bold;            
+            font-weight: bold;
             padding: 1px 16px 1px 8px;
             position: relative;
             text-shadow: 0 1px 0 #fff;
@@ -441,9 +501,10 @@
                 top: 50%;
                 width: 0;
             }
-             &.mail {
+
+            &.mail {
                 background: url("@{img-change-url}refresh.png") center 4px no-repeat;
-            }        
+            }
         }
     }
 
@@ -453,20 +514,24 @@
             display: inline-block;
             background-image: url("@{img-change-url}gantt-icons.png");
             background-repeat: no-repeat;
-            margin:3px;
+            margin: 3px;
             width: 16px;
             height: 16px;
             padding: 0;
         }
+
         .undo-button {
             background-position: 0 -18px;
         }
+
         .redo-button {
             background-position: 1px 0;
         }
+
         &.disable .undo-button {
             background-position: -18px -18px;
         }
+
         &.disable .redo-button {
             background-position: -17px 0;
         }
@@ -492,22 +557,34 @@
 .page-menu .menu-actions .menu-main-button.without-separator {
     &.middle {
         width: auto;
-        
-        .main-button-text{
+
+        .main-button-text {
             width: 130px;
         }
     }
-    &.big .main-button-text{
+
+    &.big .main-button-text {
         width: 187px;
-    }  
+    }
 
     .white-combobox {
-        background: url("@{imagesBaseUrl}combobox_white.png") center 11px no-repeat;        
         height: 32px;
         margin: 0;
         padding: 0;
         width: 23px;
-       
+
+        &:after {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #ffffff;
+            content: "";
+            height: 0;
+            margin-top: -1px;
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            width: 0;
+        }
     }
 }
 /*******************************************************************************
@@ -533,7 +610,18 @@
         padding: 0;
         height: 32px;
         width: 23px;
-        background: url("@{imagesBaseUrl}combobox_white.png") center 11px no-repeat;
+        &:after {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #ffffff;
+            content: "";
+            height: 0;
+            margin-top: -1px;
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            width: 0;
+        }
     }
 }
 

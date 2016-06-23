@@ -29,74 +29,70 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
-using Novell.Directory.Ldap;
 using Novell.Directory.Ldap.Asn1;
 using Novell.Directory.Ldap.Utilclass;
+using System;
+using System.IO;
 
 namespace Novell.Directory.Ldap.Extensions
 {
-	
-	/// <summary> 
-	/// Merges a child partition with its parent partition.
-	/// 
-	/// To merge a child partition with its parent, you must create an
-	/// instance of this class and then call the extendedOperation method
-	/// with this object as the required LdapExtendedOperation parameter.
-	/// 
-	/// The mergePartitionsRequest extension uses the following OID:
-	/// 2.16.840.1.113719.1.27.100.5
-	/// 
-	/// The requestValue has the following format:
-	/// 
-	/// requestValue ::=
-	///     flags   INTEGER
-	///     dn      LdapDN
-	/// </summary>
-	public class MergePartitionsRequest:LdapExtendedOperation
-	{
-		
-		/// <summary> Constructs an extended operation object for merging partitions.
-		/// 
-		/// </summary>
-		/// <param name="dn">       The distinguished name of the child partition's root.
-		/// 
-		/// </param>
-		/// <param name="flags">    Determines whether all servers in the replica ring must
-		/// be up before proceeding. When set to zero, the status of
-		/// the servers is not checked. When set to
-		/// Ldap_ENSURE_SERVERS_UP, all servers must be up for the
-		/// operation to proceed.
-		/// 
-		/// </param>
-		/// <exception> LdapException A general exception which includes an error
-		/// message and an Ldap error code.
-		/// </exception>
-		
-		public MergePartitionsRequest(System.String dn, int flags):base(ReplicationConstants.MERGE_NAMING_CONTEXT_REQ, null)
-		{
-			
-			try
-			{
-				
-				if ((System.Object) dn == null)
-					throw new System.ArgumentException(ExceptionMessages.PARAM_ERROR);
-				
-				System.IO.MemoryStream encodedData = new System.IO.MemoryStream();
-				LBEREncoder encoder = new LBEREncoder();
-				
-				Asn1Integer asn1_flags = new Asn1Integer(flags);
-				Asn1OctetString asn1_dn = new Asn1OctetString(dn);
-				
-				asn1_flags.encode(encoder, encodedData);
-				asn1_dn.encode(encoder, encodedData);
-				
-				setValue(SupportClass.ToSByteArray(encodedData.ToArray()));
-			}
-			catch (System.IO.IOException ioe)
-			{
-				throw new LdapException(ExceptionMessages.ENCODING_ERROR, LdapException.ENCODING_ERROR, (System.String) null);
-			}
-		}
-	}
+    /// <summary> 
+    /// Merges a child partition with its parent partition.
+    /// 
+    /// To merge a child partition with its parent, you must create an
+    /// instance of this class and then call the extendedOperation method
+    /// with this object as the required LdapExtendedOperation parameter.
+    /// 
+    /// The mergePartitionsRequest extension uses the following OID:
+    /// 2.16.840.1.113719.1.27.100.5
+    /// 
+    /// The requestValue has the following format:
+    /// 
+    /// requestValue ::=
+    ///     flags   INTEGER
+    ///     dn      LdapDN
+    /// </summary>
+    public class MergePartitionsRequest : LdapExtendedOperation
+    {
+        /// <summary> Constructs an extended operation object for merging partitions.
+        /// 
+        /// </summary>
+        /// <param name="dn">       The distinguished name of the child partition's root.
+        /// 
+        /// </param>
+        /// <param name="flags">    Determines whether all servers in the replica ring must
+        /// be up before proceeding. When set to zero, the status of
+        /// the servers is not checked. When set to
+        /// Ldap_ENSURE_SERVERS_UP, all servers must be up for the
+        /// operation to proceed.
+        /// 
+        /// </param>
+        /// <exception> LdapException A general exception which includes an error
+        /// message and an Ldap error code.
+        /// </exception>
+        public MergePartitionsRequest(string dn, int flags)
+            : base(ReplicationConstants.MERGE_NAMING_CONTEXT_REQ, null)
+        {
+            try
+            {
+                if (dn == null)
+                    throw new ArgumentException(ExceptionMessages.PARAM_ERROR);
+
+                MemoryStream encodedData = new MemoryStream();
+                LBEREncoder encoder = new LBEREncoder();
+
+                Asn1Integer asn1_flags = new Asn1Integer(flags);
+                Asn1OctetString asn1_dn = new Asn1OctetString(dn);
+
+                asn1_flags.encode(encoder, encodedData);
+                asn1_dn.encode(encoder, encodedData);
+
+                setValue(SupportClass.ToSByteArray(encodedData.ToArray()));
+            }
+            catch (IOException)
+            {
+                throw new LdapException(ExceptionMessages.ENCODING_ERROR, LdapException.ENCODING_ERROR, null);
+            }
+        }
+    }
 }

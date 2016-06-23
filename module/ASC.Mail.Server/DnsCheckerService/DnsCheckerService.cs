@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -32,7 +32,6 @@ using System.Runtime.Caching;
 using System.ServiceProcess;
 using System.Threading;
 using ASC.Core;
-using ASC.Core.Tenants;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Logging;
 using System.Configuration;
@@ -59,7 +58,6 @@ namespace ASC.MailServer.DnsCheckerService
         readonly int _checkVerifiedInMinutes;
         readonly int _checkUnverifiedInMinutes;
         readonly int _checkTasksLimit;
-        private readonly DalDomainDnsCheck _dnsCheckDal;
         private readonly TimeSpan _tenantCachingPeriod;
         private readonly int _disableUnpaidDomainDays;
         readonly int _waitBeforeNextTaskCheckInMilliseconds;
@@ -69,9 +67,11 @@ namespace ASC.MailServer.DnsCheckerService
         readonly ManualResetEvent _mreStop;
 
         private readonly MemoryCache _tenantMemCache;
-        private readonly object locker = new object();
+        private readonly object _locker = new object();
 
         private const int TENANT_OVERDUE_DAYS = 30;
+
+        private readonly ApiHelper _apiHelper;
 
         #endregion
 
@@ -89,14 +89,23 @@ namespace ASC.MailServer.DnsCheckerService
 
             _mreStop = new ManualResetEvent(false);
 
-            _tsInterval = TimeSpan.FromMinutes(Convert.ToInt32(ConfigurationManager.AppSettings["mailserver.check-timeout-in-minutes"]));
+            _tsInterval =
+                TimeSpan.FromMinutes(
+                    Convert.ToInt32(ConfigurationManager.AppSettings["mailserver.check-timeout-in-minutes"]));
 
-            _checkVerifiedInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings["mailserver.check-verified-in-minutes"]);
-            _checkUnverifiedInMinutes = Convert.ToInt32(ConfigurationManager.AppSettings["mailserver.check-unverified-in-minutes"]);
+            _checkVerifiedInMinutes =
+                Convert.ToInt32(ConfigurationManager.AppSettings["mailserver.check-verified-in-minutes"]);
+            _checkUnverifiedInMinutes =
+                Convert.ToInt32(ConfigurationManager.AppSettings["mailserver.check-unverified-in-minutes"]);
             _checkTasksLimit = Convert.ToInt32(ConfigurationManager.AppSettings["mailserver.check-tasks-limit"]);
-            _tenantCachingPeriod = TimeSpan.FromMinutes(Convert.ToInt32(ConfigurationManager.AppSettings["mailserver.tenant-caching-period-in-minutes"]));
-            _disableUnpaidDomainDays = Convert.ToInt32(ConfigurationManager.AppSettings["mailserver.disable-unpaid-domain-check-in-days"]);
-            _waitBeforeNextTaskCheckInMilliseconds = Convert.ToInt32(ConfigurationManager.AppSettings["mailserver.wait-before-next-task-check-in-milliseconds"]);
+            _tenantCachingPeriod =
+                TimeSpan.FromMinutes(
+                    Convert.ToInt32(ConfigurationManager.AppSettings["mailserver.tenant-caching-period-in-minutes"]));
+            _disableUnpaidDomainDays =
+                Convert.ToInt32(ConfigurationManager.AppSettings["mailserver.disable-unpaid-domain-check-in-days"]);
+            _waitBeforeNextTaskCheckInMilliseconds =
+                Convert.ToInt32(
+                    ConfigurationManager.AppSettings["mailserver.wait-before-next-task-check-in-milliseconds"]);
 
             _log.Info("\r\nConfiguration:\r\n" +
                       "\t- check dns-records of all domains in every {0} minutes;\r\n" +
@@ -106,24 +115,19 @@ namespace ASC.MailServer.DnsCheckerService
                       "\t- tenant caching period {4} minutes\r\n" +
                       "\t- disable unpaid domain checks {5} days\r\n" +
                       "\t- wait before next task check {6} milliseconds\r\n",
-                      _tsInterval.TotalMinutes,
-                      _checkTasksLimit,
-                      _checkUnverifiedInMinutes,
-                      _checkVerifiedInMinutes,
-                      _tenantCachingPeriod.TotalMinutes,
-                      _disableUnpaidDomainDays,
-                      _waitBeforeNextTaskCheckInMilliseconds);
-
-            _dnsCheckDal = new DalDomainDnsCheck();
+                _tsInterval.TotalMinutes,
+                _checkTasksLimit,
+                _checkUnverifiedInMinutes,
+                _checkVerifiedInMinutes,
+                _tenantCachingPeriod.TotalMinutes,
+                _disableUnpaidDomainDays,
+                _waitBeforeNextTaskCheckInMilliseconds);
 
             _tenantMemCache = new MemoryCache("TenantCache");
 
-            if (ConfigurationManager.AppSettings["mail.default-api-scheme"] != null)
-            {
-                var defaultApiScheme = ConfigurationManager.AppSettings["mail.default-api-scheme"];
+            var scheme = ConfigurationManager.AppSettings["mail.default-api-scheme"] ?? Uri.UriSchemeHttp;
 
-                ApiHelper.SetupScheme(defaultApiScheme);
-            }
+            _apiHelper = new ApiHelper(scheme);
         }
 
         #endregion
@@ -202,8 +206,8 @@ namespace ASC.MailServer.DnsCheckerService
             {
                 try
                 {
-                    var contains = false;
-                    lock (locker)
+                    bool contains;
+                    lock (_locker)
                     {
                         contains = _tenantMemCache.Contains(dnsTask.tenant.ToString(CultureInfo.InvariantCulture));
                     }
@@ -221,7 +225,7 @@ namespace ASC.MailServer.DnsCheckerService
 
                         try
                         {
-                            type = ApiHelper.GetTenantTariff(TENANT_OVERDUE_DAYS);
+                            type = _apiHelper.GetTenantTariff(TENANT_OVERDUE_DAYS);
                         }
                         catch (Exception ex)
                         {
@@ -232,26 +236,27 @@ namespace ASC.MailServer.DnsCheckerService
                         switch (type)
                         {
                             case Defines.TariffType.LongDead:
-                                _log.Info("Tenant {0} is not paid too long. Removing domain with mailboxes, aliases and groups.",
-                                          dnsTask.tenant);
+                                _log.Info(
+                                    "Tenant {0} is not paid too long. Removing domain with mailboxes, aliases and groups.",
+                                    dnsTask.tenant);
                                 RemoveDomain(dnsTask.tenant, dnsTask.user, dnsTask.domain_id);
                                 continue;
                             case Defines.TariffType.Overdue:
                                 _log.Info("Tenant {0} is not paid. Stop processing domain.", dnsTask.tenant);
-                                _dnsCheckDal.SetDomainDisabled(dnsTask.domain_id, _disableUnpaidDomainDays);
+                                DisableDomain(dnsTask.domain_id);
                                 continue;
                             default:
                                 _log.Info("Tenant {0} is paid.", dnsTask.tenant);
 
                                 var cacheItem = new CacheItem(dnsTask.tenant.ToString(CultureInfo.InvariantCulture),
-                                                              type);
+                                    type);
                                 var cacheItemPolicy = new CacheItemPolicy
-                                    {
-                                        RemovedCallback = CacheEntryRemove,
-                                        AbsoluteExpiration =
-                                            DateTimeOffset.UtcNow.Add(_tenantCachingPeriod)
-                                    };
-                                lock (locker)
+                                {
+                                    RemovedCallback = CacheEntryRemove,
+                                    AbsoluteExpiration =
+                                        DateTimeOffset.UtcNow.Add(_tenantCachingPeriod)
+                                };
+                                lock (_locker)
                                 {
                                     _tenantMemCache.Add(cacheItem, cacheItemPolicy);
                                 }
@@ -267,13 +272,13 @@ namespace ASC.MailServer.DnsCheckerService
                     if (isVerified != dnsTask.domain_is_verified)
                     {
                         _log.Info("Domain '{0}' dns-records changed: they are {1} now.",
-                                  dnsTask.domain_name, isVerified ? "verified" : "unverified");
-                        _dnsCheckDal.SetDomainVerifiedAndChecked(dnsTask.domain_id, isVerified);
+                            dnsTask.domain_name, isVerified ? "verified" : "unverified");
+                        SetDomainVerifiedAndChecked(dnsTask.domain_id, isVerified);
                     }
                     else
                     {
                         _log.Info("Domain '{0}' dns-records not changed.", dnsTask.domain_name);
-                        _dnsCheckDal.SetDomainChecked(dnsTask.domain_id);
+                        SetDomainChecked(dnsTask.domain_id);
                     }
 
                     if (resetEvent.WaitOne(_waitBeforeNextTaskCheckInMilliseconds))
@@ -299,13 +304,15 @@ namespace ASC.MailServer.DnsCheckerService
 
             try
             {
-                dnsTasks = _dnsCheckDal.GetOldUnverifiedTasks(_checkUnverifiedInMinutes, _checkTasksLimit);
+                var dnsCheckDal = new DalDomainDnsCheck();
+
+                dnsTasks = dnsCheckDal.GetOldUnverifiedTasks(_checkUnverifiedInMinutes, _checkTasksLimit);
 
                 _log.Info("Found {0} unverified tasks to check.", dnsTasks.Count);
 
                 if (!dnsTasks.Any() || dnsTasks.Count < _checkTasksLimit)
                 {
-                    var dnsVerifiedTasks = _dnsCheckDal.GetOldVerifiedTasks(_checkVerifiedInMinutes,
+                    var dnsVerifiedTasks = dnsCheckDal.GetOldVerifiedTasks(_checkVerifiedInMinutes,
                                                                             _checkTasksLimit - dnsTasks.Count);
 
                     _log.Info("Found {0} verified tasks to check.", dnsVerifiedTasks.Count);
@@ -327,41 +334,100 @@ namespace ASC.MailServer.DnsCheckerService
             if (string.IsNullOrEmpty(taskDto.domain_name))
                 return false;
 
-            var mxVerified = DnsChecker.IsMxRecordCorrect(taskDto.domain_name, taskDto.mx_record,
-                                                                                _log);
+            try
+            {
+                var mxVerified = DnsChecker.IsMxRecordCorrect(taskDto.domain_name, taskDto.mx_record,
+                    _log);
 
-            var spfVerified = DnsChecker.IsTxtRecordCorrect(taskDto.domain_name, taskDto.spf, _log);
+                var spfVerified = DnsChecker.IsTxtRecordCorrect(taskDto.domain_name, taskDto.spf, _log);
 
-            var dkimVerified = DnsChecker.IsDkimRecordCorrect(taskDto.domain_name,
-                                                              taskDto.dkim_selector,
-                                                              taskDto.dkim_public_key, _log);
+                var dkimVerified = DnsChecker.IsDkimRecordCorrect(taskDto.domain_name,
+                    taskDto.dkim_selector,
+                    taskDto.dkim_public_key, _log);
 
-            _log.Info("Domain '{0}' MX={1} SPF={2} DKIM={3}", taskDto.domain_name, mxVerified, spfVerified, dkimVerified);
+                _log.Info("Domain '{0}' MX={1} SPF={2} DKIM={3}", taskDto.domain_name, mxVerified, spfVerified,
+                    dkimVerified);
 
-            return mxVerified && spfVerified && dkimVerified;
+                return mxVerified && spfVerified && dkimVerified;
+            }
+            catch (Exception ex)
+            {
+                _log.Error("CheckDomainDns() Exception: \r\n {0} \r\n", ex.ToString());
+            }
+
+            return false;
         }
 
         private void RemoveDomain(int tenant, string user, int domainId)
         {
-            var serverDal = new ServerDal(tenant);
-            var serverData = serverDal.GetTenantServer();
+            try
+            {
+                var serverDal = new ServerDal(tenant);
+                var serverData = serverDal.GetTenantServer();
 
-            if ((ServerType) serverData.type != ServerType.Postfix) return;
+                if ((ServerType) serverData.type != ServerType.Postfix) return;
 
-            var mailserverfactory = new PostfixFactory();
+                var mailserverfactory = new PostfixFactory();
 
-            var setup = new ServerSetup
-                .Builder(serverData.id, tenant, user)
-                .SetConnectionString(serverData.connection_string)
-                .SetLogger(_log)
-                .Build();
+                var setup = new ServerSetup
+                    .Builder(serverData.id, tenant, user)
+                    .SetConnectionString(serverData.connection_string)
+                    .SetLogger(_log)
+                    .Build();
 
-            var mailServer = mailserverfactory.CreateServer(setup);
+                var mailServer = mailserverfactory.CreateServer(setup);
 
-            var domain = mailServer.GetWebDomain(domainId, mailserverfactory);
-            mailServer.DeleteWebDomain(domain, mailserverfactory);
+                var domain = mailServer.GetWebDomain(domainId, mailserverfactory);
+                mailServer.DeleteWebDomain(domain, mailserverfactory);
+            }
+            catch (Exception ex)
+            {
+                _log.Error("RemoveDomain(tenant={0}, user=\"{1}\", domainId={2}) Exception: \r\n {3} \r\n",
+                    tenant, user, domainId, ex.ToString());
+            }
         }
 
+        private void DisableDomain(int domainId)
+        {
+            try
+            {
+                var dnsCheckDal = new DalDomainDnsCheck();
+                dnsCheckDal.SetDomainDisabled(domainId, _disableUnpaidDomainDays);
+            }
+            catch (Exception ex)
+            {
+                _log.Error("DisableDomain(domainId={0}) Exception: \r\n {1} \r\n",
+                    domainId, ex.ToString());
+            }
+        }
+
+        private void SetDomainVerifiedAndChecked(int domainId, bool isVerified)
+        {
+            try
+            {
+                var dnsCheckDal = new DalDomainDnsCheck();
+                dnsCheckDal.SetDomainVerifiedAndChecked(domainId, isVerified);
+            }
+            catch (Exception ex)
+            {
+                _log.Error("SetDomainVerifiedAndChecked(domainId={0}, isVerified= {1}) Exception: \r\n {2} \r\n",
+                    domainId, isVerified, ex.ToString());
+            }
+        }
+
+        private void SetDomainChecked(int domainId)
+        {
+            try
+            {
+                var dnsCheckDal = new DalDomainDnsCheck();
+                dnsCheckDal.SetDomainChecked(domainId);
+            }
+            catch (Exception ex)
+            {
+                _log.Error("SetDomainChecked(domainId={0}) Exception: \r\n {1} \r\n",
+                    domainId, ex.ToString());
+            }
+        }
         #endregion
     }
 }

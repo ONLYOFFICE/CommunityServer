@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,17 +24,17 @@
 */
 
 
+using ASC.FullTextIndex.Service.Config;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using ASC.FullTextIndex.Service.Config;
-using log4net;
 
 namespace ASC.FullTextIndex.Service
 {
-    internal class TextIndexer
+    class TextIndexer
     {
         protected readonly ModuleInfo Module;
         protected readonly TextIndexerCommand Indexer;
@@ -83,13 +83,14 @@ namespace ASC.FullTextIndex.Service
         {
         }
 
+
         public override int RotateMain()
         {
             var result = 0;
             for (var part = 1; part <= TextIndexCfg.Chunks; part ++)
             {
                 result += Indexer.Rotate(Module.GetChunk(part));
-                if (result != 0) break;
+                if (result == 1) break;
             }
             return result;
         }
@@ -172,6 +173,5 @@ namespace ASC.FullTextIndex.Service
                 return 1;
             }
         }
-
     }
 }

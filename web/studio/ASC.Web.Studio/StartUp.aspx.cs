@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -49,6 +49,7 @@ namespace ASC.Web.Studio
             }
         }
 
+        protected string TenantName;
 
         protected override bool CheckWizardCompleted { get { return false; } }
 
@@ -56,8 +57,18 @@ namespace ASC.Web.Studio
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            TenantName = CoreContext.TenantManager.GetCurrentTenant().Name;
+            Page.Title = TenantName;
+
             if (Request.QueryString["stop"] == "true")
+            {
                 WarmUp.Instance.Terminate();
+            }
+
+            if (Request.QueryString["restart"] == "true")
+            {
+                WarmUp.Instance.Restart();
+            }
 
             if (!CoreContext.Configuration.Standalone || WarmUp.Instance.CheckCompleted())
                 Response.Redirect(CommonLinkUtility.GetDefault(), true);
@@ -78,7 +89,9 @@ namespace ASC.Web.Studio
             Master.TopStudioPanel.DisableSettings = true;
             Master.TopStudioPanel.DisableTariff = true;
 
-            loaderHolder.Controls.Add(LoadControl(LoaderPage.Location));
+            var loader = (LoaderPage) LoadControl(LoaderPage.Location);
+            loader.Static = true;
+            loaderHolder.Controls.Add(loader);
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 

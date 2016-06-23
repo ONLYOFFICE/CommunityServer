@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -49,47 +49,60 @@ namespace ASC.Web.Files.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterObject("URL_OAUTH2_GOOGLE", Import.Google.Google.Location.ToLower());
-            yield return RegisterObject("URL_OAUTH_DROPBOX", Import.DropBox.Dropbox.Location.ToLower());
-            yield return RegisterObject("URL_OAUTH_SKYDRIVE", Import.OneDrive.OneDriveOAuth.Location.ToLower());
+            return new List<KeyValuePair<string, object>>(1)
+                   {
+                       RegisterObject(
+                           new
+                           {
+                                URL_OAUTH_BOX = Import.Box.Box.Location.ToLower(),
+                                URL_OAUTH2_GOOGLE = Import.Google.Google.Location.ToLower(),
+                                URL_OAUTH_DROPBOX = Import.DropBox.Dropbox.Location.ToLower(),
+                                URL_OAUTH_SKYDRIVE = Import.OneDrive.OneDriveOAuth.Location.ToLower(),
 
-            yield return RegisterObject("URL_BASE", FilesLinkUtility.FilesBaseAbsolutePath);
-            yield return RegisterObject("URL_WCFSERVICE", PathProvider.GetFileServicePath);
-            yield return RegisterObject("URL_TEMPLATES_HANDLER", CommonLinkUtility.ToAbsolute("~/template.ashx") + "?id=" + PathProvider.TemplatePath + "&name=collection&ver=" + ClientSettings.ResetCacheKey);
+                                URL_BASE = FilesLinkUtility.FilesBaseAbsolutePath,
+                                URL_WCFSERVICE = PathProvider.GetFileServicePath,
+                                URL_TEMPLATES_HANDLER = CommonLinkUtility.ToAbsolute("~/template.ashx") + "?id=" + PathProvider.TemplatePath + "&name=collection&ver=" + ClientSettings.ResetCacheKey,
 
-            yield return RegisterObject("ADMIN", Global.IsAdministrator);
-            yield return RegisterObject("MAX_NAME_LENGTH", Global.MaxTitle);
-            yield return RegisterObject("CHUNK_UPLOAD_SIZE", SetupInfo.ChunkUploadSize);
-            yield return RegisterObject("UPLOAD_FILTER", Global.EnableUploadFilter);
-            yield return RegisterObject("ENABLE_UPLOAD_CONVERT", FileConverter.EnableAsUploaded);
+                                ADMIN = Global.IsAdministrator,
+                                MAX_NAME_LENGTH = Global.MaxTitle,
+                                CHUNK_UPLOAD_SIZE = SetupInfo.ChunkUploadSize,
+                                UPLOAD_FILTER = Global.EnableUploadFilter,
+                                ENABLE_UPLOAD_CONVERT = FileConverter.EnableAsUploaded,
 
-            yield return RegisterObject("FOLDER_ID_MY_FILES", Global.FolderMy);
-            yield return RegisterObject("FOLDER_ID_SHARE", Global.FolderShare);
-            yield return RegisterObject("FOLDER_ID_COMMON_FILES", Global.FolderCommon);
-            yield return RegisterObject("FOLDER_ID_PROJECT", Global.FolderProjects);
-            yield return RegisterObject("FOLDER_ID_TRASH", Global.FolderTrash);
+                                FOLDER_ID_MY_FILES = Global.FolderMy,
+                                FOLDER_ID_SHARE = Global.FolderShare,
+                                FOLDER_ID_COMMON_FILES = Global.FolderCommon,
+                                FOLDER_ID_PROJECT = Global.FolderProjects,
+                                FOLDER_ID_TRASH = Global.FolderTrash,
 
-            yield return RegisterObject("ShareLinkId", FileConstant.ShareLinkId);
+                                FileConstant.ShareLinkId,
 
-            yield return RegisterObject("AceStatusEnum", new object());
-            yield return RegisterObject("AceStatusEnum.None", FileShare.None);
-            yield return RegisterObject("AceStatusEnum.ReadWrite", FileShare.ReadWrite);
-            yield return RegisterObject("AceStatusEnum.Read", FileShare.Read);
-            yield return RegisterObject("AceStatusEnum.Restrict", FileShare.Restrict);
-            yield return RegisterObject("AceStatusEnum.Varies", FileShare.Varies);
+                                AceStatusEnum = new
+                                                {
+                                                    FileShare.None,
+                                                    FileShare.ReadWrite, 
+                                                    FileShare.Read,
+                                                    FileShare.Restrict,
+                                                    FileShare.Varies,
+                                                    FileShare.Review  
+                                                },
 
-            yield return RegisterObject("FilterType", new object());
-            yield return RegisterObject("FilterType.None", FilterType.None);
-            yield return RegisterObject("FilterType.FilesOnly", FilterType.FilesOnly);
-            yield return RegisterObject("FilterType.FoldersOnly", FilterType.FoldersOnly);
-            yield return RegisterObject("FilterType.DocumentsOnly", FilterType.DocumentsOnly);
-            yield return RegisterObject("FilterType.PresentationsOnly", FilterType.PresentationsOnly);
-            yield return RegisterObject("FilterType.SpreadsheetsOnly", FilterType.SpreadsheetsOnly);
-            yield return RegisterObject("FilterType.ImagesOnly", FilterType.ImagesOnly);
-            yield return RegisterObject("FilterType.ArchiveOnly", FilterType.ArchiveOnly);
-            yield return RegisterObject("FilterType.ByUser", FilterType.ByUser);
-            yield return RegisterObject("FilterType.ByDepartment", FilterType.ByDepartment);
-            yield return RegisterObject("FilterType.ByExtension", FilterType.ByExtension);
+                                FilterType = new
+                                             {
+                                                FilterType.None,
+                                                FilterType.FilesOnly,
+                                                FilterType.FoldersOnly,
+                                                FilterType.DocumentsOnly,
+                                                FilterType.PresentationsOnly,
+                                                FilterType.SpreadsheetsOnly,
+                                                FilterType.ImagesOnly,
+                                                FilterType.ArchiveOnly,
+                                                FilterType.ByUser,
+                                                FilterType.ByDepartment,
+                                                FilterType.ByExtension  
+                                             }
+                           })
+                   };
         }
 
         protected override string GetCacheHash()

@@ -145,7 +145,7 @@
       <key>ASC.Api.Employee.Contact</key>
       <value>
         <Description>Contact</Description>
-        <Example>In url: contacts[0].Type=skype&amp;contacts[0].Value=skypename</Example>
+        <Example>contacts[0][Type]=GTalk&amp;contacts[0][Value]=my@gmail.com</Example>
       </value>
     </entry>
     <entry>

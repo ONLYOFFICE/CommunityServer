@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,9 +24,11 @@
 */
 
 
-using ASC.Web.Studio.Core;
+using System.Globalization;
+using ASC.Web.Core.WhiteLabel;
 using System;
 using System.Web.UI;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.Common.Support
 {
@@ -41,7 +43,12 @@ namespace ASC.Web.Studio.UserControls.Common.Support
         {
             get
             {
-                return SetupInfo.SupportFeedback;
+                var settings = AdditionalWhiteLabelSettings.Instance;
+
+                if (!settings.FeedbackAndSupportEnabled || String.IsNullOrEmpty(settings.FeedbackAndSupportUrl))
+                    return null;
+
+                return CommonLinkUtility.GetRegionalUrl(settings.FeedbackAndSupportUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
             }
         }   
 

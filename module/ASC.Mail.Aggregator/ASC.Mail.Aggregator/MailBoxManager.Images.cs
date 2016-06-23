@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,7 +26,7 @@
 
 using System.Collections.Generic;
 using ASC.Common.Data.Sql;
-using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Aggregator.DbSchema;
 
 namespace ASC.Mail.Aggregator
 {
@@ -39,10 +39,10 @@ namespace ASC.Mail.Aggregator
             using (var db = GetDb())
             {
                 db.ExecuteNonQuery(
-                    new SqlInsert(DisplayImagesTable.name)
-                        .InColumnValue(DisplayImagesTable.Columns.id_tenant, tenant)
-                        .InColumnValue(DisplayImagesTable.Columns.id_user, user)
-                        .InColumnValue(DisplayImagesTable.Columns.address, address));
+                    new SqlInsert(DisplayImagesTable.Name)
+                        .InColumnValue(DisplayImagesTable.Columns.Tenant, tenant)
+                        .InColumnValue(DisplayImagesTable.Columns.User, user)
+                        .InColumnValue(DisplayImagesTable.Columns.Address, address));
             }
         }
 
@@ -51,9 +51,9 @@ namespace ASC.Mail.Aggregator
             using (var db = GetDb())
             {
                 db.ExecuteNonQuery(
-                    new SqlDelete(DisplayImagesTable.name)
+                    new SqlDelete(DisplayImagesTable.Name)
                         .Where(GetUserWhere(user, tenant))
-                        .Where(DisplayImagesTable.Columns.address, address));
+                        .Where(DisplayImagesTable.Columns.Address, address));
             }
         }
 
@@ -64,8 +64,8 @@ namespace ASC.Mail.Aggregator
             using (var db = GetDb())
             {
                 addresses = db.ExecuteList(
-                    new SqlQuery(DisplayImagesTable.name)
-                        .Select(DisplayImagesTable.Columns.address)
+                    new SqlQuery(DisplayImagesTable.Name)
+                        .Select(DisplayImagesTable.Columns.Address)
                         .Where(GetUserWhere(user, tenant)))
                         .ConvertAll(fields => fields[0].ToString());
             }

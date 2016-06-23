@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -36,7 +36,6 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Security;
 using System.Security.Principal;
 using System.Threading.Tasks;
@@ -47,18 +46,14 @@ namespace ASC.SignalR.Base.Hubs.Chat
     [HubName("c")]
     public class Chat : Hub
     {
-        public readonly static ConnectionMapping Connections = new ConnectionMapping();
-        private readonly static JabberServiceClient jabberServiceClient = new JabberServiceClient();
-        private readonly static ILog log = LogManager.GetLogger(typeof(Chat));
-        private volatile static int allConnectionsCount;
-        private const string websockets = "webSockets";
-        private const string transport = "transport";
+        public static readonly ConnectionMapping Connections = new ConnectionMapping();
+        private static readonly JabberServiceClient jabberServiceClient = new JabberServiceClient();
+        private static readonly ILog log = LogManager.GetLogger(typeof(Chat));
+        private static volatile int allConnectionsCount;
         private const byte userOnline = 1;
         public const byte UserOffline = 4;
         public const byte TraceError = 0;
         public const byte TraceDebug = 1;
-
-        // общие методы
 
         public override Task OnDisconnected(bool stopCalled)
         {
@@ -71,15 +66,13 @@ namespace ASC.SignalR.Base.Hubs.Chat
                 }
                 DisconnectUser();
             }
-            catch
+            catch (Exception ex)
             {
-                
+                log.Error("Error Chat OnDisconnected", ex);
             }
-            
+
             return base.OnDisconnected(stopCalled);
         }
-
-        // Method for JS-clients
 
         [HubMethodName("s")]
         public void Send(string calleeUserName, string messageText)
@@ -89,12 +82,12 @@ namespace ASC.SignalR.Base.Hubs.Chat
                 var user = (IUserAccount)Context.User.Identity;
                 CoreContext.TenantManager.SetCurrentTenant(user.Tenant);
                 var currentUser = CoreContext.UserManager.GetUsers(user.ID);
-                if (calleeUserName != string.Empty && CoreContext.UserManager.GetUserByUserName(calleeUserName).Equals(Core.Users.Constants.LostUser))
+                if (calleeUserName != string.Empty && CoreContext.UserManager.GetUserByUserName(calleeUserName).Equals(Constants.LostUser))
                 {
-                    TraceMessage(TraceError, String.Format("Can't get UserInfo by calleeUserName={0}, TenantId={1}.", calleeUserName, currentUser.Tenant));
+                    log.ErrorFormat("Can't get UserInfo by calleeUserName={0}, TenantId={1}.", calleeUserName, currentUser.Tenant);
                     throw new HubException();
                 }
-                TraceMessage(TraceDebug, String.Format("Send: calleeUserName={0}, messageText={1}", calleeUserName, messageText));
+                log.DebugFormat("Send: calleeUserName={0}, messageText={1}", calleeUserName, messageText);
                 var callerUserName = currentUser.UserName.ToLowerInvariant();
                 var message = new MessageClass
                 {
@@ -113,8 +106,8 @@ namespace ASC.SignalR.Base.Hubs.Chat
             }
             catch (Exception e)
             {
-                TraceMessage(TraceError, String.Format("Error on sending message to Jabber service. {0} {1} {2}",
-                  e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Error on sending message to Jabber service. {0} {1}",
+                  e.ToString(), e.InnerException != null ? e.InnerException.Message : string.Empty);
                 // error
                 Clients.Caller.e();
             }
@@ -129,14 +122,14 @@ namespace ASC.SignalR.Base.Hubs.Chat
                 CoreContext.TenantManager.SetCurrentTenant(user.Tenant);
                 var currentUserInfo = CoreContext.UserManager.GetUsers(user.ID);
                 var currentUserName = currentUserInfo.UserName.ToLowerInvariant();
-                TraceMessage(TraceDebug, String.Format("Get States currentUserName={0}", currentUserName));
+                log.DebugFormat("Get States currentUserName={0}", currentUserName);
                 // statesRetrieved
                 Clients.Caller.sr(jabberServiceClient.GetAllStates(user.Tenant, currentUserName));
             }
             catch (Exception e)
             {
-                TraceMessage(TraceError, String.Format("Error on GetStates to Jabber service. {0} {1} {2}",
-                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Error on GetStates to Jabber service. {0} {1}",
+                    e.ToString(), e.InnerException != null ? e.InnerException.Message : string.Empty);
                 // error
                 Clients.Caller.e();
             }
@@ -150,11 +143,11 @@ namespace ASC.SignalR.Base.Hubs.Chat
                 var u = (IUserAccount)Context.User.Identity;
                 CoreContext.TenantManager.SetCurrentTenant(u.Tenant);
                 var user = CoreContext.UserManager.GetUserByUserName(userName);
-                TraceMessage(TraceDebug, String.Format("Get Contact Info userName={0}", userName));
-                if (user.Equals(Core.Users.Constants.LostUser))
+                log.DebugFormat("Get Contact Info userName={0}", userName);
+                if (user.Equals(Constants.LostUser))
                 {
-                    TraceMessage(TraceError, String.Format("Can't getUserInfo by userName={0}, TenantId={1}.",
-                        userName, CoreContext.TenantManager.GetCurrentTenant().TenantId));
+                    log.ErrorFormat("Can't getUserInfo by userName={0}, TenantId={1}.",
+                        userName, CoreContext.TenantManager.GetCurrentTenant().TenantId);
                     throw new HubException();
                 }
 
@@ -162,8 +155,8 @@ namespace ASC.SignalR.Base.Hubs.Chat
             }
             catch (Exception e)
             {
-                TraceMessage(TraceError, String.Format("Error on GetContactInfo to Jabber service. {0} {1} {2}",
-                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Error on GetContactInfo to Jabber service. {0} {1}",
+                    e.ToString(), e.InnerException != null ? e.InnerException.Message : string.Empty);
                 // error
                 Clients.Caller.e();
             }
@@ -178,16 +171,16 @@ namespace ASC.SignalR.Base.Hubs.Chat
                 var user = (IUserAccount)Context.User.Identity;
                 CoreContext.TenantManager.SetCurrentTenant(user.Tenant);
                 var currentUserInfo = CoreContext.UserManager.GetUsers(user.ID);
-                TraceMessage(TraceDebug, String.Format("Get Init Data userName={0}", currentUserInfo.UserName));
+                log.DebugFormat("Get Init Data userName={0}", currentUserInfo.UserName);
                 // initDataRetrieved
                 Clients.Caller.idr(currentUserInfo.UserName.ToLowerInvariant(), currentUserInfo.DisplayUserName(),
-                    GetUsers(jabberServiceClient.GetAllStates(currentUserInfo.Tenant, currentUserInfo.UserName.ToLowerInvariant())),
+                    GetUsers(currentUserInfo.ID, jabberServiceClient.GetAllStates(currentUserInfo.Tenant, currentUserInfo.UserName.ToLowerInvariant())),
                     currentUserInfo.Tenant, CoreContext.TenantManager.GetCurrentTenant().GetTenantDomain());
             }
             catch (Exception e)
             {
-                TraceMessage(TraceError, String.Format("Error on GetInitData to Jabber service. {0} {1} {2}",
-                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Error on GetInitData to Jabber service. {0} {1}",
+                    e.ToString(), e.InnerException != null ? e.InnerException.Message : string.Empty);
                 // error
                 Clients.Caller.e();
             }
@@ -201,10 +194,10 @@ namespace ASC.SignalR.Base.Hubs.Chat
                 var user = (IUserAccount)Context.User.Identity;
                 CoreContext.TenantManager.SetCurrentTenant(user.Tenant);
                 var currentUser = CoreContext.UserManager.GetUsers(user.ID);
-                if (CoreContext.UserManager.GetUserByUserName(calleeUserName).Equals(Core.Users.Constants.LostUser))
+                if (CoreContext.UserManager.GetUserByUserName(calleeUserName).Equals(Constants.LostUser))
                 {
-                    TraceMessage(TraceError, String.Format("Can't getUserInfo by calleeUserName = {0}, TenantId = {1}.",
-                        calleeUserName, currentUser.Tenant));
+                    log.ErrorFormat("Can't getUserInfo by calleeUserName = {0}, TenantId = {1}.",
+                        calleeUserName, currentUser.Tenant);
                     throw new HubException();
                 }
                 // sendTypingSignal
@@ -212,8 +205,8 @@ namespace ASC.SignalR.Base.Hubs.Chat
             }
             catch (Exception e)
             {
-                TraceMessage(TraceError, String.Format("Error on sending typing to Jabber service. {0} {1} {2}",
-                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Error on sending typing to Jabber service. {0} {1}",
+                    e.ToString(), e.InnerException != null ? e.InnerException.Message : string.Empty);
                 // error
                 Clients.Caller.e();
             }
@@ -228,15 +221,15 @@ namespace ASC.SignalR.Base.Hubs.Chat
                 CoreContext.TenantManager.SetCurrentTenant(user.Tenant);
                 var currentUser = CoreContext.UserManager.GetUsers(user.ID);
                 var userName = currentUser.UserName.ToLowerInvariant();
-                TraceMessage(TraceDebug, String.Format("Send State To Tenant userName={0}, state={1}", userName, state));
+                log.DebugFormat("Send State To Tenant userName={0}, state={1}", userName, state);
                 state = jabberServiceClient.SendState(currentUser.Tenant, userName, state);
                 // setState
                 Clients.OthersInGroup(currentUser.Tenant.ToString(CultureInfo.InvariantCulture)).ss(userName, state, false);
             }
             catch (Exception e)
             {
-                TraceMessage(TraceError, String.Format("Error on SendStateToTenant to Jabber. {0} {1} {2}",
-                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Error on SendStateToTenant to Jabber. {0} {1}",
+                    e.ToString(), e.InnerException != null ? e.InnerException.Message : string.Empty);
                 // error
                 Clients.Caller.e();
             }
@@ -252,14 +245,16 @@ namespace ASC.SignalR.Base.Hubs.Chat
                 CoreContext.TenantManager.SetCurrentTenant(user.Tenant);
                 var currentUser = CoreContext.UserManager.GetUsers(user.ID);
                 var calleeUser = CoreContext.UserManager.GetUserByUserName(calleeUserName);
-                if (calleeUserName != string.Empty && calleeUser.Equals(Core.Users.Constants.LostUser))
+                if (calleeUserName != string.Empty && calleeUser.Equals(Constants.LostUser))
                 {
-                    TraceMessage(TraceError, String.Format("Can't getUserInfo by calleeUserName = {0}, TenantId = {1}.", calleeUserName, currentUser.Tenant));
+                    log.ErrorFormat("Can't getUserInfo by calleeUserName = {0}, TenantId = {1}.",
+                        calleeUserName, currentUser.Tenant);
                     throw new HubException();
                 }
                 
                 var callerUserName = currentUser.UserName.ToLowerInvariant();
-                TraceMessage(TraceDebug, String.Format("Get Recent Messages calleeUserName={0}, callerUserName={1}, id={2}", calleeUserName, callerUserName, id));
+                log.DebugFormat("Get Recent Messages calleeUserName={0}, callerUserName={1}, id={2}",
+                    calleeUserName, callerUserName, id);
                 recentMessages = jabberServiceClient.GetRecentMessages(currentUser.Tenant,
                     callerUserName, calleeUserName == string.Empty ? null : calleeUserName, id);
                 if (recentMessages != null)
@@ -281,8 +276,8 @@ namespace ASC.SignalR.Base.Hubs.Chat
             }
             catch (Exception e)
             {
-                TraceMessage(TraceError, String.Format("Error on receiving recent messages from Jabber service. {0}, {1}, {2}",
-                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Error on receiving recent messages from Jabber service. {0}, {1}",
+                    e.ToString(), e.InnerException != null ? e.InnerException.Message : string.Empty);
                 // error
                 Clients.Caller.e();
             }
@@ -297,13 +292,13 @@ namespace ASC.SignalR.Base.Hubs.Chat
                 var user = (IUserAccount)Context.User.Identity;
                 CoreContext.TenantManager.SetCurrentTenant(user.Tenant);
                 var userInfo = CoreContext.UserManager.GetUsers(user.ID);
-                TraceMessage(TraceDebug, String.Format("Ping from JS client: {0}", userInfo.ID));
+                log.DebugFormat("Ping from JS client: {0}", userInfo.ID);
                 jabberServiceClient.Ping(userInfo.ID.ToString(), userInfo.Tenant, userInfo.UserName, state);
             }
             catch (Exception e)
             {
-                TraceMessage(TraceError, String.Format("Error on Ping to Jabber. {0} {1} {2}",
-                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Error on Ping to Jabber. {0} {1}",
+                    e.ToString(), e.InnerException != null ? e.InnerException.Message : string.Empty);
             }
         }
 
@@ -318,7 +313,7 @@ namespace ASC.SignalR.Base.Hubs.Chat
                     var userAccount = user.Identity as IUserAccount;
                     if (userAccount == null)
                     {
-                        TraceMessage(TraceError, "Unknown user tries to connect to SignalR hub.");
+                        log.ErrorFormat("Unknown user tries to connect to SignalR hub.");
                         throw new SecurityException();
                     }
                     CoreContext.TenantManager.SetCurrentTenant(userAccount.Tenant);
@@ -329,19 +324,19 @@ namespace ASC.SignalR.Base.Hubs.Chat
                     }
                     catch (Exception e)
                     {
-                        TraceMessage(TraceError, String.Format("Possible wrong state on connecting, state = {0}. {1}", stateNumber, e));
+                        log.ErrorFormat("Possible wrong state on connecting, state = {0}. {1}", stateNumber, e);
                         state = userOnline;
                     }
                     var currentUser = CoreContext.UserManager.GetUsers(userAccount.ID);
 
-                    if (!currentUser.Equals(Core.Users.Constants.LostUser))
+                    if (!currentUser.Equals(Constants.LostUser))
                     {
                         var currentUserName = currentUser.UserName.ToLowerInvariant();
 
                         Groups.Add(Context.ConnectionId, currentUser.Tenant + currentUserName);
                         Groups.Add(Context.ConnectionId, currentUser.Tenant.ToString(CultureInfo.InvariantCulture));
                         var connectionsCount = Connections.Add(currentUser.Tenant, currentUserName, Context.ConnectionId);
-                        TraceMessage(TraceDebug, String.Format("Add Connection. {0}. Count: {1}", currentUserName, ++allConnectionsCount));
+                        log.DebugFormat("Add Connection. {0}. Count: {1}", currentUserName, ++allConnectionsCount);
 
                         if (connectionsCount == 1)
                         {
@@ -361,20 +356,20 @@ namespace ASC.SignalR.Base.Hubs.Chat
                     }
                     else
                     {
-                        TraceMessage(TraceError, "Unknown user tries to connect.");
+                        log.Error("Unknown user tries to connect.");
                         throw new SecurityException("Unknown user tries to connect.");
                     }
                 }
                 else
                 {
-                    TraceMessage(TraceError, "Unknown user tries to connect.");
+                    log.Error("Unknown user tries to connect.");
                     throw new SecurityException("Unknown user tries to connect.");
                 }
             }
             catch (Exception e)
             {
-                TraceMessage(TraceError, String.Format("Error on ConnectUser to Jabber. {0} {1} {2}",
-                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Error on ConnectUser to Jabber. {0} {1}",
+                    e.ToString(), e.InnerException != null ? e.InnerException.Message : string.Empty);
                 // error
                 Clients.Caller.e();
             }
@@ -395,23 +390,23 @@ namespace ASC.SignalR.Base.Hubs.Chat
                     }
                     else
                     {
-                        TraceMessage(TraceError, String.Format("Unknown request without user.Identity as IUserAccount, url={0}",
-                            Context.Request.Url));
+                        log.ErrorFormat("Unknown request without user.Identity as IUserAccount, url={0}",
+                            Context.Request.Url);
                         throw new SecurityException("Unknown request without user.Identity as IUserAccount");
                     }
                     var currentUser = CoreContext.UserManager.GetUsers(userAccount.ID);
 
-                    if (!currentUser.Equals(Core.Users.Constants.LostUser))
+                    if (!currentUser.Equals(Constants.LostUser))
                     {
                         var currentUserName = currentUser.UserName.ToLowerInvariant();
                         Groups.Remove(Context.ConnectionId, currentUser.Tenant + currentUserName);
                         Groups.Remove(Context.ConnectionId, currentUser.Tenant.ToString(CultureInfo.InvariantCulture));
-                        byte state = UserOffline;
                         bool result;
                         var connectionsCount = Connections.Remove(currentUser.Tenant, currentUserName, Context.ConnectionId, out result);
                         if (result)
                         {
-                            TraceMessage(TraceDebug, String.Format("Remove Connection. {0}. Count: {1}", currentUserName, --allConnectionsCount));
+                            log.DebugFormat("Remove Connection. {0}. Count: {1}", currentUserName, --allConnectionsCount);
+                            byte state;
                             if (connectionsCount == 0)
                             {
                                 state = jabberServiceClient.RemoveXmppConnection(currentUser.ID.ToString(), currentUserName, currentUser.Tenant);
@@ -432,28 +427,28 @@ namespace ASC.SignalR.Base.Hubs.Chat
                     }
                     else
                     {
-                        TraceMessage(TraceError, "Unknown user tries to disconnect.");
+                        log.Error("Unknown user tries to disconnect.");
                         throw new SecurityException("Unknown user tries to disconnect.");
                     }
                 }
                 else
                 {
-                    TraceMessage(TraceError, "Unknown user tries to disconnect from SignalR hub.");
+                    log.Error("Unknown user tries to disconnect from SignalR hub.");
                     throw new SecurityException("Unknown user tries to disconnect from SignalR hub.");
                 }
             }
             catch (Exception e)
             {
-                TraceMessage(TraceError, String.Format("Error on DisconnectUser to Jabber. {0} {1} {2}",
-                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Error on DisconnectUser to Jabber. {0} {1}",
+                    e.ToString(), e.InnerException != null ? e.InnerException.Message : string.Empty);
                 // error
                 Clients.Caller.e();
             }
         }
 
-        private static UserClass[] GetUsers(IReadOnlyDictionary<string, byte> states)
+        private UserClass[] GetUsers(Guid userId, IReadOnlyDictionary<string, byte> states)
         {
-            var users = CoreContext.UserManager.GetUsers().Where(user => !user.IsMe()).SortByUserName();
+            var users = CoreContext.UserManager.GetUsers().Where(user => user.ID != userId).SortByUserName();
             var usersArray = new UserClass[users.Count];
             for (var i = 0; i < users.Count; i++)
             {
@@ -466,20 +461,6 @@ namespace ASC.SignalR.Base.Hubs.Chat
                 usersArray[i] = new UserClass { UserName = userName, DisplayUserName = users[i].DisplayUserName(), State = state };
             }
             return usersArray;
-        }
-
-        public static void TraceMessage(byte messageState, string message, [CallerMemberName] string memberName = "", 
-            [CallerFilePath] string filePath = "", [CallerLineNumber] int lineNumber = 0)
-        {
-            switch (messageState)
-            {
-                case TraceError:
-                    log.ErrorFormat(message + " {0}:{1}:{2}", filePath, memberName, lineNumber);
-                    break;
-                case TraceDebug:
-                    log.DebugFormat(message + " {0}:{1}:{2}", filePath, memberName, lineNumber);
-                    break;
-            }
         }
     }
 }

@@ -32,48 +32,48 @@
 
 namespace Novell.Directory.Ldap.Events.Edir
 {
-  /// <summary>
-  /// This class denotes the mechanism to specify the event of interest.
-  /// </summary>
-  public class EdirEventSpecifier
-  {
-    private EdirEventType event_type;
-    public EdirEventType EventType 
+    /// <summary>
+    /// This class denotes the mechanism to specify the event of interest.
+    /// </summary>
+    public class EdirEventSpecifier
     {
-      get
-      {
-	return event_type;
-      }
-    }
+        private EdirEventType event_type;
+        public EdirEventType EventType
+        {
+            get
+            {
+                return event_type;
+            }
+        }
 
-    private EdirEventResultType event_result_type;
-    public EdirEventResultType EventResultType
-    {
-      get
-      {
-	return event_result_type;
-      }
-    }
+        private EdirEventResultType event_result_type;
+        public EdirEventResultType EventResultType
+        {
+            get
+            {
+                return event_result_type;
+            }
+        }
 
-    private string event_filter;
-    public string EventFilter
-    {
-      get
-      {
-	return event_filter;
-      } 
-    }
+        private string event_filter;
+        public string EventFilter
+        {
+            get
+            {
+                return event_filter;
+            }
+        }
 
-    public EdirEventSpecifier(EdirEventType eventType, EdirEventResultType eventResultType) :
-      this(eventType, eventResultType, null)
-    {
-    }
+        public EdirEventSpecifier(EdirEventType eventType, EdirEventResultType eventResultType) :
+            this(eventType, eventResultType, null)
+        {
+        }
 
-    public EdirEventSpecifier(EdirEventType eventType, EdirEventResultType eventResultType, string filter)
-    {
-      event_type = eventType;
-      event_result_type = eventResultType;
-      event_filter = filter;
+        public EdirEventSpecifier(EdirEventType eventType, EdirEventResultType eventResultType, string filter)
+        {
+            event_type = eventType;
+            event_result_type = eventResultType;
+            event_filter = filter;
+        }
     }
-  }
 }

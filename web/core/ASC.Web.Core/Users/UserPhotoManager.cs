@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -52,6 +52,7 @@ namespace ASC.Web.Core.Users
         private readonly long _maxFileSize;
         private readonly Size _size;
         private readonly IDataStore _dataStore;
+
 
         public ResizeWorkerItem(Guid moduleId, Guid userId, byte[] data, long maxFileSize, Size size, IDataStore dataStore)
         {
@@ -124,6 +125,7 @@ namespace ASC.Web.Core.Users
     public class UserPhotoManager
     {
         private static readonly IDictionary<Guid, IDictionary<Size, string>> Photofiles = new Dictionary<Guid, IDictionary<Size, string>>();
+        private static readonly string thumbnailer = WebConfigurationManager.AppSettings["thumbnail.service.url"];
 
 
         public static string GetDefaultPhotoAbsoluteWebPath()
@@ -169,7 +171,6 @@ namespace ASC.Web.Core.Users
 
         private static string TryGetFromThumbnail(Guid userId, int width, int height)
         {
-            var thumbnailer = WebConfigurationManager.AppSettings["thumbnail.service.url"];
             if (!string.IsNullOrEmpty(thumbnailer))
             {
                 return string.Format("{0}Resize/{1}x{2}.jpeg?url=avatar://{3}/", thumbnailer, width, height,

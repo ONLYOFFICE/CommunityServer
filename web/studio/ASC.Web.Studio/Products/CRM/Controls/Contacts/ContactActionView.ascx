@@ -14,6 +14,7 @@
 
 <div id="crm_contactMakerDialog">
     <input type="hidden" name="typeAddedContact" id="typeAddedContact" value="<%= TypeAddedContact %>" />
+    <input type="hidden" name="linkMessageId" id="linkMessageId" value="<%= LinkMessageId %>" />
 
     <table border="0" cellpadding="0" cellspacing="0" id="contactProfileEdit">
         <colgroup>
@@ -291,7 +292,7 @@
 
                     <dt style="margin-top:20px;">
                         <div id="contactListBox">
-                            <table id="contactTable" class="tableBase" cellpadding="4" cellspacing="0">
+                            <table id="contactTable" class="table-list" cellpadding="4" cellspacing="0">
                                 <tbody>
                                 </tbody>
                             </table>
@@ -326,13 +327,11 @@
                                 data-avatarurl="<%= TargetContact != null ? String.Format("{0}HttpHandlers/filehandler.ashx?action=contactphotoulr&cid={1}&isc={2}&ps=3", PathProvider.BaseAbsolutePath, TargetContact.ID, TargetContact is Company).ToLower() : "" %>" />
                         </div>
 
-                        <% if(!MobileVer) { %>
                         <div class="under_logo">
                             <a onclick="ASC.CRM.ContactActionView.prepareSocialNetworks(); ASC.CRM.SocialMedia.OpenLoadPhotoWindow(); return false;" class="linkChangePhoto grey-phone">
-                                 <span class="bold"><%= CRMContactResource.ChangePhoto%></span>
+                                 <span class="bold"><%= CRMContactResource.ChangePhoto %></span>
                             </a>
                         </div>
-                        <% } %>
                     </div>
 
                     <input type="hidden" value="null" id="uploadPhotoPath" name="uploadPhotoPath"/>

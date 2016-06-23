@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -46,7 +46,7 @@ namespace ASC.Web.Community.Bookmarking
                 Response.Redirect(BookmarkingRequestConstants.BookmarkingPageName);
             }
 
-            BookmarkingBusinessFactory.UpdateObjectInCookies("BookmarkDisplayMode", BookmarkDisplayMode.CreateBookmark.ToString());
+            BookmarkingBusinessFactory.UpdateDisplayMode(BookmarkDisplayMode.CreateBookmark);
 
             var c = LoadControl(BookmarkUserControlPath.CreateBookmarkUserControlPath) as CreateBookmarkUserControl;
             c.IsNewBookmark = true;

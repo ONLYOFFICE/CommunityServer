@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,16 +24,14 @@
 */
 
 
+using ASC.Web.Core.Files;
+using ASC.Web.Studio.Controls.Common;
+using ASC.Web.Studio.Utility;
+using Resources;
 using System;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
-using ASC.Web.Core.Files;
-using ASC.Web.Core.Mobile;
-using ASC.Web.Studio.Controls.Common;
-using ASC.Web.Studio.UserControls.Management;
-using ASC.Web.Studio.Utility;
-using Resources;
 
 namespace ASC.Web.Studio.UserControls.Common.Attachments
 {
@@ -62,12 +60,14 @@ namespace ASC.Web.Studio.UserControls.Common.Attachments
 
         public bool EmptyScreenVisible { get; set; }
 
+        protected string HelpLink { get; set; }
+
         protected string ExtsWebPreviewed = string.Join(", ", FileUtility.ExtsWebPreviewed.ToArray());
         protected string ExtsWebEdited = string.Join(", ", FileUtility.ExtsWebEdited.ToArray());
 
         protected static bool EnableAsUploaded
         {
-            get { return FileUtility.ExtsMustConvert.Any() && !string.IsNullOrEmpty(FilesLinkUtility.DocServiceConverterUrl) && TenantExtra.GetTenantQuota().DocsEdition; }
+            get { return FileUtility.ExtsMustConvert.Any() && !string.IsNullOrEmpty(FilesLinkUtility.DocServiceConverterUrl); }
         }
 
         public Attachments()
@@ -103,18 +103,15 @@ namespace ASC.Web.Studio.UserControls.Common.Attachments
                 {
                     ImgSrc = VirtualPathUtility.ToAbsolute("~/UserControls/Common/Attachments/Images/documents-logo.png"),
                     Header = UserControlsCommonResource.EmptyListDocumentsHead,
-                    Describe =
-                        MobileDetector.IsMobile
-                            ? UserControlsCommonResource.EmptyListDocumentsDescrMobile.HtmlEncode()
-                            : String.Format(FileUtility.ExtsWebEdited.Any() ? UserControlsCommonResource.EmptyListDocumentsDescr.HtmlEncode() : UserControlsCommonResource.EmptyListDocumentsDescrPoor.HtmlEncode(),
-                                            //create
-                                            "<span class='hintCreate baseLinkAction' >", "</span>",
-                                            //upload
-                                            "<span class='hintUpload baseLinkAction' >", "</span>",
-                                            //open
-                                            "<span class='hintOpen baseLinkAction' >", "</span>",
-                                            //edit
-                                            "<span class='hintEdit baseLinkAction' >", "</span>"),
+                    Describe = String.Format(FileUtility.ExtsWebEdited.Any() ? UserControlsCommonResource.EmptyListDocumentsDescr.HtmlEncode() : UserControlsCommonResource.EmptyListDocumentsDescrPoor.HtmlEncode(),
+                                             //create
+                                             "<span class='hintCreate baseLinkAction' >", "</span>",
+                                             //upload
+                                             "<span class='hintUpload baseLinkAction' >", "</span>",
+                                             //open
+                                             "<span class='hintOpen baseLinkAction' >", "</span>",
+                                             //edit
+                                             "<span class='hintEdit baseLinkAction' >", "</span>"),
                     ButtonHTML = buttons
                 };
             _phEmptyDocView.Controls.Add(emptyParticipantScreenControl);
@@ -134,11 +131,6 @@ namespace ASC.Web.Studio.UserControls.Common.Attachments
             if (EmptyScreenVisible)
                 CreateEmptyPanel();
 
-            if (!TenantExtra.GetTenantQuota().DocsEdition)
-            {
-                TariffDocsEditionPlaceHolder.Controls.Add(LoadControl(TariffLimitExceed.Location));
-            }
-
             if (ModuleName != "crm")
             {
                 var projId = Request["prjID"];
@@ -156,6 +148,8 @@ namespace ASC.Web.Studio.UserControls.Common.Attachments
             {
                 PortalDocUploaderVisible = false;
             }
+
+            HelpLink = CommonLinkUtility.GetHelpLink();
         }
     }
 }

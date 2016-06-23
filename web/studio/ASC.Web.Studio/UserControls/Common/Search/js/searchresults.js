@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -41,14 +41,15 @@ var SearchResults = new function () {
         jq("#oper_" + SearchResults._target + " > span").remove();
         jq('#' + SearchResults._containerId).html(result);
     };
+
     this.Toggle = function (element, th) {
         var elem = jq('#' + element);
         if (elem.css('display') == 'none') {
             elem.css('display', 'block');
-            jq('#' + th).attr("src", StudioManager.GetImage('collapse_down_dark.png'));
+            jq('#' + th).removeClass("closed");
         } else {
             elem.css('display', 'none');
-            jq('#' + th).attr("src", StudioManager.GetImage('collapse_right_dark.png'));
+            jq('#' + th).addClass("closed");
         }
     };
 };

@@ -34,7 +34,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Common.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -51,7 +51,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Config.cs" />
-    <Compile Include="NotificationAddressDal.cs" />
     <Compile Include="MailAddressDal.cs" />
     <Compile Include="DalDomainDnsCheck.cs" />
     <Compile Include="DnsDal.cs" />
@@ -69,10 +68,6 @@
     <ProjectReference Include="..\..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Common\ASC.Mail.Aggregator.Common.csproj">
       <Project>{26222fc6-1f6d-44e9-a82b-36bb8355220e}</Project>
       <Name>ASC.Mail.Aggregator.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Dal\ASC.Mail.Aggregator.Dal.csproj">
-      <Project>{d2f288a0-3622-406e-8d65-a308d1dbc2eb}</Project>
-      <Name>ASC.Mail.Aggregator.Dal</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
       <Project>{7080343D-FBE7-423A-9405-4F883F6E235B}</Project>

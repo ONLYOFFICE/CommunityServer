@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -37,16 +37,21 @@ namespace ASC.Web.Studio.Utility.HtmlUtility
 {
     public class HtmlUtility
     {
-        private static readonly Regex HTMLTags = new Regex(@"</?(H|h)(T|t)(M|m)(L|l)(.|\n)*?>");
-        private static readonly Regex RxNumeric = new Regex(@"^[0-9]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+        private static readonly Regex htmlTags = new Regex(@"</?html[^>]*>", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex rxNumeric = new Regex(@"^[0-9]+$", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
+
 
         public static string GetFull(string html, bool removeAsccut = true)
         {
-            html = html ?? string.Empty;
+            if (string.IsNullOrWhiteSpace(html))
+            {
+                return html ?? string.Empty;
+            }
+
             try
             {
                 var doc = new HtmlDocument();
-                doc.LoadHtml(string.Format("<html>{0}</html>", HTMLTags.Replace(html, string.Empty)));
+                doc.LoadHtml(htmlTags.Replace(html, string.Empty));
                 if (removeAsccut)
                 {
                     var nodes = doc.DocumentNode.SelectNodes("//div[translate(@class,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')='asccut']");
@@ -62,8 +67,14 @@ namespace ASC.Web.Studio.Utility.HtmlUtility
                     }
                 }
 
-                ProcessCustomTags(doc);
-                return HTMLTags.Replace(doc.DocumentNode.InnerHtml, string.Empty);
+                ProcessAscUserTag(doc);
+                ProcessCodeTags(doc);
+                ProcessExternalLinks(doc);
+                ProcessScriptTag(doc);
+                ProcessMaliciousAttributes(doc);
+                ProcessZoomImages(doc);
+
+                return doc.DocumentNode.InnerHtml;
             }
             catch (Exception e)
             {
@@ -127,16 +138,6 @@ namespace ASC.Web.Studio.Utility.HtmlUtility
             return result;
         }
 
-        private static void ProcessCustomTags(HtmlDocument doc)
-        {
-            ProcessAscUserTag(doc);
-            ProcessCodeTags(doc);
-            ProcessExternalLinks(doc);
-            ProcessScriptTag(doc);
-            ProcessMaliciousAttributes(doc);
-            ProcessZoomImages(doc);
-        }
-
         private static readonly List<string> BlockedAttrs = new List<string>
             {
                 "onload",
@@ -161,6 +162,12 @@ namespace ASC.Web.Studio.Utility.HtmlUtility
 
         private static void ProcessMaliciousAttributes(HtmlDocument doc)
         {
+            var nodes = doc.DocumentNode.SelectNodes("//*");
+            if (nodes == null || nodes.Count == 0)
+            {
+                return;
+            }
+
             foreach (var node in doc.DocumentNode.SelectNodes("//*"))
             {
                 var toRemove = node.Attributes
@@ -204,7 +211,7 @@ namespace ASC.Web.Studio.Utility.HtmlUtility
 
                 var imgSrc = srcAttribute.Value;
 
-                if (!RxNumeric.IsMatch(zoomAttribute.Value))
+                if (!rxNumeric.IsMatch(zoomAttribute.Value))
                 {
                     imgSrc = zoomAttribute.Value;
                 }

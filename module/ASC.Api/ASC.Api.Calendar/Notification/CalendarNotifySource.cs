@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -75,49 +75,46 @@ namespace ASC.Api.Calendar.Notification
         {
             try
             {
-                using (var dataProvider = new DataProvider())
+                foreach (var data in new DataProvider().ExtractAndRecountNotifications(scheduleDate))
                 {
-                    foreach (var data in dataProvider.ExtractAndRecountNotifications(scheduleDate))
+                    if (data.Event == null)
                     {
-                        if (data.Event == null)
-                        {
-                            continue;
-                        }
-
-                        var tenant = CoreContext.TenantManager.GetTenant(data.TenantId);
-                        if (tenant == null || 
-                            tenant.Status != TenantStatus.Active ||
-                            TariffState.NotPaid <= CoreContext.PaymentManager.GetTariff(tenant.TenantId).State)
-                        {
-                            continue;
-                        }
-                        CoreContext.TenantManager.SetCurrentTenant(tenant);
-
-                        var r = CalendarNotifySource.Instance.GetRecipientsProvider().GetRecipient(data.UserId.ToString());
-                        if (r == null)
-                        {
-                            continue;
-                        }
-
-                        var startDate = data.GetUtcStartDate();
-                        var endDate = data.GetUtcEndDate();
-
-                        if (!data.Event.AllDayLong)
-                        {
-                            startDate = startDate.Add(data.TimeZone.BaseUtcOffset);
-                            endDate = (endDate == DateTime.MinValue ? DateTime.MinValue : endDate.Add(data.TimeZone.BaseUtcOffset));
-                        }
-
-                        _notifyClient.SendNoticeAsync(CalendarNotifySource.EventAlert,
-                            null,
-                            r,
-                            true,
-                            new TagValue("EventName", data.Event.Name),
-                            new TagValue("EventDescription", data.Event.Description ?? ""),
-                            new TagValue("EventStartDate", startDate.ToShortDateString() + " " + startDate.ToShortTimeString()),
-                            new TagValue("EventEndDate", (endDate > startDate) ? (endDate.ToShortDateString() + " " + endDate.ToShortTimeString()) : ""),
-                            new TagValue("Priority", 1));
+                        continue;
                     }
+
+                    var tenant = CoreContext.TenantManager.GetTenant(data.TenantId);
+                    if (tenant == null || 
+                        tenant.Status != TenantStatus.Active ||
+                        TariffState.NotPaid <= CoreContext.PaymentManager.GetTariff(tenant.TenantId).State)
+                    {
+                        continue;
+                    }
+                    CoreContext.TenantManager.SetCurrentTenant(tenant);
+
+                    var r = CalendarNotifySource.Instance.GetRecipientsProvider().GetRecipient(data.UserId.ToString());
+                    if (r == null)
+                    {
+                        continue;
+                    }
+
+                    var startDate = data.GetUtcStartDate();
+                    var endDate = data.GetUtcEndDate();
+
+                    if (!data.Event.AllDayLong)
+                    {
+                        startDate = startDate.Add(data.TimeZone.BaseUtcOffset);
+                        endDate = (endDate == DateTime.MinValue ? DateTime.MinValue : endDate.Add(data.TimeZone.BaseUtcOffset));
+                    }
+
+                    _notifyClient.SendNoticeAsync(CalendarNotifySource.EventAlert,
+                        null,
+                        r,
+                        true,
+                        new TagValue("EventName", data.Event.Name),
+                        new TagValue("EventDescription", data.Event.Description ?? ""),
+                        new TagValue("EventStartDate", startDate.ToShortDateString() + " " + startDate.ToShortTimeString()),
+                        new TagValue("EventEndDate", (endDate > startDate) ? (endDate.ToShortDateString() + " " + endDate.ToShortTimeString()) : ""),
+                        new TagValue("Priority", 1));
                 }
             }
             catch (Exception error)

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -70,42 +70,51 @@ namespace ASC.Api.Calendar.Wrappers
 
             var difference = _baseEvent.UtcEndDate - _baseEvent.UtcStartDate;
 
-            var localStartDate = _baseEvent.UtcStartDate.Kind == DateTimeKind.Local ? _baseEvent.UtcStartDate : _baseEvent.UtcStartDate.Add(_timeZone.BaseUtcOffset);
+            var recurenceDates = new List<DateTime>();
 
-            var recurenceDates = _baseEvent.RecurrenceRule.GetDates(localStartDate, utcStartDate.Add(_timeZone.BaseUtcOffset), utcEndDate.Add(_timeZone.BaseUtcOffset));
-
-            if(recurenceDates.Count==0)
-                recurenceDates.Add(localStartDate);
+            if (_baseEvent.RecurrenceRule.Freq == Frequency.Never)
+            {
+                if ((_baseEvent.UtcStartDate <= utcStartDate && _baseEvent.UtcEndDate >= utcStartDate) ||
+                    (_baseEvent.UtcStartDate <= utcEndDate && _baseEvent.UtcEndDate >= utcEndDate) ||
+                    (_baseEvent.UtcStartDate >= utcStartDate && _baseEvent.UtcEndDate <= utcEndDate))
+                    recurenceDates.Add(_baseEvent.UtcStartDate);
+            }
+            else
+            {
+                recurenceDates = _baseEvent.RecurrenceRule.GetDates(_baseEvent.UtcStartDate, utcStartDate, utcEndDate);
+            }
 
             foreach (var d in recurenceDates)
             {
-                var utcD = d.AddMinutes((-1) * (int)_timeZone.BaseUtcOffset.TotalMinutes);
                 var endDate = _baseEvent.UtcEndDate;
                 if (!_baseEvent.UtcEndDate.Equals(DateTime.MinValue))
-                    endDate = utcD + difference;
+                    endDate = d + difference;
 
-                list.Add(new EventWrapper(_baseEvent, this.UserId, _timeZone, utcD, endDate));
+                list.Add(new EventWrapper(_baseEvent, this.UserId, _timeZone, d, endDate));
             }
 
             return list;
         }
         
         [DataMember(Name = "objectId", Order = 0)]
-        public string Id { get { return _baseEvent.Id; } set { } }
+        public string Id { get { return _baseEvent.Id; } }
+
+        [DataMember(Name = "uniqueId", Order = 140)]
+        public string Uid { get { return _baseEvent.Uid; } }
 
         public int TenantId { get; set; }
 
         [DataMember(Name = "sourceId", Order = 10)]
-        public string CalendarId { get { return _baseEvent.CalendarId; } set { } }
+        public string CalendarId { get { return _baseEvent.CalendarId; } }
 
         [DataMember(Name = "title", Order = 20)]
-        public string Name { get { return _baseEvent.Name; } set { } }
+        public string Name { get { return _baseEvent.Name; } }
 
         [DataMember(Name = "description", Order = 30)]
-        public string Description { get { return _baseEvent.Description; } set { } }
+        public string Description { get { return _baseEvent.Description; } }
 
         [DataMember(Name = "allDay", Order = 60)]
-        public bool AllDayLong { get { return _baseEvent.AllDayLong; } set { } }
+        public bool AllDayLong { get { return _baseEvent.AllDayLong; } }
 
         [DataMember(Name = "start", Order = 40)]
         public ApiDateTime Start
@@ -124,9 +133,8 @@ namespace ASC.Api.Calendar.Wrappers
                     else
                         return new ApiDateTime(startD, CoreContext.TenantManager.GetCurrentTenant().TimeZone);
 
-                return new ApiDateTime(startD, _timeZone.BaseUtcOffset);
+                return new ApiDateTime(startD, _timeZone);
             }
-            set { }
         }
 
         [DataMember(Name = "end", Order = 50)]
@@ -146,9 +154,8 @@ namespace ASC.Api.Calendar.Wrappers
                     else
                         return new ApiDateTime(endD, CoreContext.TenantManager.GetCurrentTenant().TimeZone);
 
-                return new ApiDateTime(endD, _timeZone.BaseUtcOffset);
+                return new ApiDateTime(endD, _timeZone);
             }
-            set { }
         }
 
         [DataMember(Name = "repeatRule", Order = 70)]
@@ -158,7 +165,6 @@ namespace ASC.Api.Calendar.Wrappers
             {
                 return _baseEvent.RecurrenceRule.ToString();
             }
-            set { }
         }
 
         [DataMember(Name = "alert", Order = 110)]
@@ -168,7 +174,6 @@ namespace ASC.Api.Calendar.Wrappers
             {
                 return EventAlertWrapper.ConvertToTypeSurrogated(_baseEvent.AlertType);
             }
-            set { }
         }
 
         [DataMember(Name = "isShared", Order = 80)]
@@ -178,17 +183,15 @@ namespace ASC.Api.Calendar.Wrappers
             {
                 return _baseEvent.SharingOptions.SharedForAll || _baseEvent.SharingOptions.PublicItems.Count > 0;
             }
-            set { }
         }
 
-        [DataMember(Name = "canUnsubscribe", Order = 180)]
+        [DataMember(Name = "canUnsubscribe", Order = 130)]
         public bool CanUnsubscribe
         {
             get
             {
                 return String.Equals(_baseEvent.CalendarId, SharedEventsCalendar.CalendarId, StringComparison.InvariantCultureIgnoreCase);
             }
-            set { }
         }
 
         [DataMember(Name = "isEditable", Order = 100)]
@@ -201,7 +204,6 @@ namespace ASC.Api.Calendar.Wrappers
 
                 return false;
             }
-            set { }
         }
 
         [DataMember(Name = "permissions", Order = 90)]
@@ -219,7 +221,6 @@ namespace ASC.Api.Calendar.Wrappers
                 }
                 return p;
             }
-            set { }
         }
 
         [DataMember(Name = "owner", Order = 120)]
@@ -233,8 +234,17 @@ namespace ASC.Api.Calendar.Wrappers
 
                 return owner;
             }
-            set { }
         }
+
+        [DataMember(Name = "status", Order = 150)]
+        public EventStatus Status
+        {
+            get
+            {
+                return _baseEvent.Status;
+            }
+        }
+
 
         public static object GetSample()
         {
@@ -243,7 +253,7 @@ namespace ASC.Api.Calendar.Wrappers
                 owner = UserParams.GetSample(),
                 permissions = Permissions.GetSample(),
                 isEditable = false,
-                CanUnsubscribe = true,
+                сanUnsubscribe = true,
                 isShared = true,
                 alert = EventAlertWrapper.GetSample(),
                 repeatRule = "",
@@ -253,8 +263,8 @@ namespace ASC.Api.Calendar.Wrappers
                 description = "Event Description",
                 title = "Event Name",
                 objectId = "1",
-                sourceId = "calendarID"
-
+                sourceId = "calendarID",
+                status = (int) EventStatus.Tentative
             };
         }
     }

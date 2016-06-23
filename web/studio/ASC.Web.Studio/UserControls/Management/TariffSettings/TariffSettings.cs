@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,6 +25,7 @@
 
 
 using ASC.Core;
+using ASC.Core.Tenants;
 using ASC.Web.Core.Utility.Settings;
 using System;
 using System.Globalization;
@@ -74,15 +75,15 @@ namespace ASC.Web.Studio.UserControls.Management
             get
             {
                 return !DateTime.MinValue.ToString(CultureInfo)
-                                .Equals(SettingsManager.Instance.LoadSettingsFor<TariffSettings>(SecurityContext.CurrentAccount.ID).LicenseAcceptSetting);
+                                .Equals(SettingsManager.Instance.LoadSettings<TariffSettings>(Tenant.DEFAULT_TENANT).LicenseAcceptSetting);
             }
             set
             {
-                var tariffSettings = SettingsManager.Instance.LoadSettingsFor<TariffSettings>(SecurityContext.CurrentAccount.ID);
+                var tariffSettings = SettingsManager.Instance.LoadSettings<TariffSettings>(Tenant.DEFAULT_TENANT);
                 if (DateTime.MinValue.ToString(CultureInfo).Equals(tariffSettings.LicenseAcceptSetting))
                 {
                     tariffSettings.LicenseAcceptSetting = DateTime.UtcNow.ToString(CultureInfo);
-                    SettingsManager.Instance.SaveSettingsFor(tariffSettings, SecurityContext.CurrentAccount.ID);
+                    SettingsManager.Instance.SaveSettings(tariffSettings, Tenant.DEFAULT_TENANT);
                 }
             }
         }

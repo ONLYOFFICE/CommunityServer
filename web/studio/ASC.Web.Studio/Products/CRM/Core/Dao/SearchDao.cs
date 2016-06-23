@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,22 +24,20 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Utils;
 using ASC.Core.Tenants;
 using ASC.CRM.Core.Entities;
 using ASC.FullTextIndex;
-using ASC.FullTextIndex.Service;
 using ASC.Web.Core.ModuleManagement.Common;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.CRM;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ASC.CRM.Core.Dao
 {
@@ -77,11 +75,13 @@ namespace ASC.CRM.Core.Dao
             var contactModules = GetFullTextSearchModule(EntityType.Contact, searchText);
             var opportunityModules = GetFullTextSearchModule(EntityType.Opportunity, searchText);
             var taskModules = GetFullTextSearchModule(EntityType.Task, searchText);
+            var invoicesModules = GetFullTextSearchModule(EntityType.Invoice, searchText);
 
             _fullTextSearchEnable = FullTextSearch.SupportModule(caseModules)
                                     && FullTextSearch.SupportModule(contactModules)
                                     && FullTextSearch.SupportModule(opportunityModules)
-                                    && FullTextSearch.SupportModule(taskModules);
+                                    && FullTextSearch.SupportModule(taskModules)
+                                    && FullTextSearch.SupportModule(invoicesModules);
                             
             if (_fullTextSearchEnable)
             {
@@ -98,15 +98,20 @@ namespace ASC.CRM.Core.Dao
                         },
                         {
                             EntityType.Task, FullTextSearch.Search(taskModules)
+                        },
+                        {
+                            EntityType.Invoice, FullTextSearch.Search(invoicesModules)
                         }
                     };
             }
             else
+            {
                 _findedIDs = SearchByCustomFields(keywords)
                                      .Union(SearchByRelationshipEvent(keywords))
                                      .Union(SearchByContactInfos(keywords))
                                      .ToLookup(pair => pair.Key, pair => pair.Value)
                                      .ToDictionary(group => group.Key, group => group.First());
+            }
 
 
             var searchQuery = GetSearchQuery(keywords);
@@ -187,30 +192,30 @@ namespace ASC.CRM.Core.Dao
                 case EntityType.Case:
                     return new[]
                         {
-                            FullTextSearch.CRMCasesModule.Match(text, columns: columns),
-                            FullTextSearch.CRMCustomModule.Where("entity_type=" + 7).Select("field_id").Match(text, columns: columns),
-                            FullTextSearch.CRMEventsModule.Where("entity_type=" + 7).Where("entity_id!=" + 0).Select("entity_id").Match(text,  columns: columns)
+                            FullTextSearch.CRMCasesModule.Match(text, columns),
+                            FullTextSearch.CRMCustomModule.Where("entity_type=" + 7).Select("entity_id").Match(text, columns),
+                            FullTextSearch.CRMEventsModule.Where("entity_type=" + 7).Where("entity_id!=" + 0).Select("entity_id").Match(text, columns)
                         };
                  case EntityType.Company:
                  case EntityType.Contact:
                  case EntityType.Person:
                     return new[]
                         {
-                            FullTextSearch.CRMContactsModule.Match(text,  columns: columns), 
-                            FullTextSearch.CRMContactsInfoModule.Select("contact_id").Match(text,  columns: columns),
-                            FullTextSearch.CRMCustomModule.Where("entity_type in (0,4,5)").Select("entity_id").Match(text,  columns: columns), 
-                            FullTextSearch.CRMEventsModule.Where("contact_id>" + 0).Select("contact_id").Match(text,  columns: columns)
+                            FullTextSearch.CRMContactsModule.Match(text, columns), 
+                            FullTextSearch.CRMContactsInfoModule.Select("contact_id").Match(text, columns),
+                            FullTextSearch.CRMCustomModule.Where("entity_type in (0,4,5)").Select("entity_id").Match(text, columns), 
+                            FullTextSearch.CRMEventsModule.Where("contact_id>" + 0).Select("contact_id").Match(text, columns)
                         };
                  case EntityType.Opportunity:
                     return new[]
                         {
-                            FullTextSearch.CRMDealsModule.Match(text,  columns: columns),
-                            FullTextSearch.CRMCustomModule.Where("entity_type=" + 1).Select("entity_id").Match(text,  columns: columns),
-                            FullTextSearch.CRMEventsModule.Where("entity_type=" + 1).Where("entity_id!=" + 0).Select("entity_id").Match(text,  columns: columns)
+                            FullTextSearch.CRMDealsModule.Match(text, columns),
+                            FullTextSearch.CRMCustomModule.Where("entity_type=" + 1).Select("entity_id").Match(text, columns),
+                            FullTextSearch.CRMEventsModule.Where("entity_type=" + 1).Where("entity_id!=" + 0).Select("entity_id").Match(text, columns)
                         };
-                 case EntityType.Invoice: return new[] { FullTextSearch.CRMInvoicesModule.Match(text, columns: columns) };
-                 case EntityType.RelationshipEvent: return new[] { FullTextSearch.CRMEventsModule.Match(text, columns: columns) };
-                 case EntityType.Task: return new[] { FullTextSearch.CRMTasksModule.Match(text, columns: columns) };
+                 case EntityType.Invoice: return new[] { FullTextSearch.CRMInvoicesModule.Match(text, columns) };
+                 case EntityType.RelationshipEvent: return new[] { FullTextSearch.CRMEventsModule.Match(text, columns) };
+                 case EntityType.Task: return new[] { FullTextSearch.CRMTasksModule.Match(text, columns) };
             }
 
             throw new NotSupportedException();

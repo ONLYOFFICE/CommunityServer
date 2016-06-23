@@ -144,9 +144,6 @@
   <data name="LogoFavicon" xml:space="preserve">
     <value>Favicon</value>
   </data>
-  <data name="LogoLight" xml:space="preserve">
-    <value>Logo for notification mail messages</value>
-  </data>
   <data name="LogoLightSmall" xml:space="preserve">
     <value>Logo for the portal header</value>
   </data>

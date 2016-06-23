@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -144,7 +144,7 @@ namespace ASC.Projects.Engine
             using (var folderDao = FilesIntegration.GetFolderDao())
             {
                 var folderId = factory.FileEngine.GetRoot(projectID);
-                project.DocumentsCount = folderDao.GetItemsCount(folderId, true);
+                project.DocumentsCount = folderDao.GetItemsCount(folderId);
             }
 
             var time = factory.TimeTrackingEngine.GetByProject(projectID).Sum(r => r.Hours);

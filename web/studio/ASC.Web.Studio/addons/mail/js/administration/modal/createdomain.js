@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -113,7 +113,7 @@ window.createDomainModal = (function($) {
             return;
         }
 
-        if (!TMMail.reDomainStrict.test(newDomainName)) {
+        if (!ASC.Mail.Utility.IsValidDomainName(newDomainName)) {
             TMMail.setRequiredHint('wizard_add_domain', window.MailApiErrorsResource.ErrorInvalidDomain);
             TMMail.setRequiredError('wizard_add_domain', true);
             return;
@@ -335,9 +335,14 @@ window.createDomainModal = (function($) {
         }
     }
 
+    function getCurrentDomainName() {
+        return domainName;
+    }
+
     return {
         show: show,
-        showDnsSettings: showDnsSettings
+        showDnsSettings: showDnsSettings,
+        getCurrentDomainName: getCurrentDomainName
     };
 
 })(jQuery);

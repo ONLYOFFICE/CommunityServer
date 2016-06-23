@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,6 +26,7 @@
 
 using ASC.Web.Core.Mobile;
 using ASC.Web.Core.Utility;
+using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using System;
 using System.Collections.Generic;
@@ -38,60 +39,60 @@ using System.Web;
 
 namespace ASC.Web.Studio.Core
 {
-    public class SetupInfo
+    public static class SetupInfo
     {
+        private static readonly string web_import_contacts_url;
+        private static readonly string web_autotest_secret_email;
+        private static readonly string[] web_display_mobapps_banner;
+        private static readonly string[] hideSettings;
+
+
         public static string StatisticTrackURL
         {
-            get { return GetAppSettings("web.track-url", string.Empty); }
+            get;
+            private set;
         }
 
         public static string UserVoiceURL
         {
-            get { return GetAppSettings("web.uservoice", string.Empty); }
+            get;
+            private set;
         }
 
         public static string MainLogoURL
         {
-            get { return GetAppSettings("web.logo.main", string.Empty); }
+            get;
+            private set;
         }
 
         public static string MainLogoMailTmplURL
         {
-            get { return GetAppSettings("web.logo.mail.tmpl", string.Empty); }
+            get;
+            private set;
         }
 
         public static List<CultureInfo> EnabledCultures
         {
-            get
-            {
-                return GetAppSettings("web.cultures", "en-US")
-                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                    .Select(l => CultureInfo.GetCultureInfo(l.Trim()))
-                    .OrderBy(l => l.Name)
-                    .ToList();
-            }
+            get;
+            private set;
         }
 
         public static List<CultureInfo> EnabledCulturesPersonal
         {
-            get
-            {
-                return GetAppSettings("web.cultures.personal", GetAppSettings("web.cultures", "en-US"))
-                    .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
-                    .Select(l => CultureInfo.GetCultureInfo(l.Trim()))
-                    .OrderBy(l => l.Name)
-                    .ToList();
-            }
+            get;
+            private set;
         }
 
         public static decimal ExchangeRateRuble
         {
-            get { return GetAppSettings("exchange-rate.ruble", 40); }
+            get;
+            private set;
         }
 
         public static long MaxImageUploadSize
         {
-            get { return GetAppSettings<long>("web.max-upload-size", 1024 * 1024); }
+            get;
+            private set;
         }
 
         /// <summary>
@@ -104,7 +105,7 @@ namespace ASC.Web.Studio.Core
 
         public static long AvailableFileSize
         {
-            get { return 100L*1024L*1024L; }
+            get { return 100L * 1024L * 1024L; }
         }
 
         /// <summary>
@@ -115,70 +116,73 @@ namespace ASC.Web.Studio.Core
             get
             {
                 var diskQuota = TenantExtra.GetTenantQuota();
-
                 if (diskQuota != null)
                 {
-                    var usedSize = UserControls.Statistics.TenantStatisticsProvider.GetUsedSize();
+                    var usedSize = TenantStatisticsProvider.GetUsedSize();
                     var freeSize = Math.Max(diskQuota.MaxTotalSize - usedSize, 0);
                     return Math.Min(freeSize, diskQuota.MaxFileSize);
                 }
-
                 return ChunkUploadSize;
             }
         }
 
         public static string TeamlabSiteRedirect
         {
-            get
-            {
-                return GetAppSettings("web.teamlab-site", string.Empty);
-                ;
-            }
+            get;
+            private set;
         }
 
         public static long ChunkUploadSize
         {
-            get { return GetAppSettings("files.uploader.chunk-size", 5*1024*1024); }
+            get;
+            private set;
         }
 
         public static bool ThirdPartyAuthEnabled
         {
-            get { return String.Equals(GetAppSettings("web.thirdparty-auth", "true"), "true"); }
+            get;
+            private set;
         }
 
         public static string NoTenantRedirectURL
         {
-            get { return GetAppSettings("web.notenant-url", "http://www.onlyoffice.com/wrongportalname.aspx"); }
+            get;
+            private set;
         }
 
         public static string[] CustomScripts
         {
-            get { return GetAppSettings("web.custom-scripts", string.Empty).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries); }
+            get;
+            private set;
         }
 
         public static string NotifyAddress
         {
-            get { return GetAppSettings("web.promo-url", string.Empty); }
+            get;
+            private set;
         }
 
         public static string TipsAddress
         {
-            get { return GetAppSettings("web.promo-tips-url", string.Empty); }
+            get;
+            private set;
         }
 
         public static string UserForum
         {
-            get { return GetAppSettings("web.user-forum", string.Empty); }
+            get;
+            private set;
         }
 
         public static string SupportFeedback
         {
-            get { return GetAppSettings("web.support-feedback", string.Empty); }
+            get;
+            private set;
         }
 
         public static string GetImportServiceUrl()
         {
-            var url = GetAppSettings("web.import-contacts-url", string.Empty);
+            var url = web_import_contacts_url;
             if (string.IsNullOrEmpty(url))
             {
                 return string.Empty;
@@ -199,69 +203,126 @@ namespace ASC.Web.Studio.Core
 
         public static TimeSpan ValidEamilKeyInterval
         {
-            get { return GetAppSettings("email.validinterval", TimeSpan.FromDays(7)); }
+            get;
+            private set;
         }
 
         public static string SalesEmail
         {
-            get { return GetAppSettings("web.payment.email", "sales@onlyoffice.com"); }
+            get;
+            private set;
         }
 
         public static bool IsSecretEmail(string email)
         {
-            var s = (ConfigurationManager.AppSettings["web.autotest.secret-email"] ?? "").Trim();
-
+            var s = web_autotest_secret_email;
             //the point is not needed in gmail.com
             email = Regex.Replace(email ?? "", "\\.*(?=\\S*(@gmail.com$))", "");
-
-            return !string.IsNullOrEmpty(s) &&
-                   s.Split(new[] {',', ';', ' '}, StringSplitOptions.RemoveEmptyEntries).Contains(email, StringComparer.CurrentCultureIgnoreCase);
+            return !string.IsNullOrEmpty(s) && s.Split(new[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries).Contains(email, StringComparer.CurrentCultureIgnoreCase);
         }
 
         public static bool DisplayMobappBanner(string product)
         {
-            var s = (ConfigurationManager.AppSettings["web.display.mobapps.banner"] ?? "").Trim();
-
-            return s.Split(new char[] {',', ';', ' '}, StringSplitOptions.RemoveEmptyEntries).Contains(product, StringComparer.InvariantCultureIgnoreCase);
+            return web_display_mobapps_banner.Contains(product, StringComparer.InvariantCultureIgnoreCase);
         }
-
 
 
         public static string ShareGooglePlusUrl
         {
-            get { return GetAppSettings("web.share.google-plus", "https://plus.google.com/share?url={0}"); }
+            get;
+            private set;
         }
 
         public static string ShareTwitterUrl
         {
-            get { return GetAppSettings("web.share.twitter", "https://twitter.com/intent/tweet?text={0}"); }
+            get;
+            private set;
         }
 
         public static string ShareFacebookUrl
         {
-            get { return GetAppSettings("web.share.facebook", "http://www.facebook.com/sharer.php?s=100&p[url]={0}&p[title]={1}&p[images][0]={2}&p[summary]={3}"); }
+            get;
+            private set;
         }
 
 
         public static string ApiSystemUrl
         {
-            get { return GetAppSettings("web.api-system", ""); }
+            get;
+            private set;
         }
 
         public static string ApiCacheUrl
         {
-            get { return GetAppSettings("web.api-cache", ""); }
+            get;
+            private set;
         }
 
         public static string ControlPanelUrl
         {
-            get { return GetAppSettings("web.controlpanel.url", ""); }
+            get;
+            private set;
         }
 
         public static string FontOpenSansUrl
         {
-            get { return GetAppSettings("web.font.opensans.url", ""); }
+            get;
+            private set;
         }
+
+
+        static SetupInfo()
+        {
+            StatisticTrackURL = GetAppSettings("web.track-url", string.Empty);
+            UserVoiceURL = GetAppSettings("web.uservoice", string.Empty);
+            MainLogoURL = GetAppSettings("web.logo.main", string.Empty);
+            MainLogoMailTmplURL = GetAppSettings("web.logo.mail.tmpl", string.Empty);
+
+            EnabledCultures = GetAppSettings("web.cultures", "en-US")
+                .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(l => CultureInfo.GetCultureInfo(l.Trim()))
+                .OrderBy(l => l.Name)
+                .ToList();
+            EnabledCulturesPersonal = GetAppSettings("web.cultures.personal", GetAppSettings("web.cultures", "en-US"))
+                .Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(l => CultureInfo.GetCultureInfo(l.Trim()))
+                .OrderBy(l => l.Name)
+                .ToList();
+
+            ExchangeRateRuble = GetAppSettings("exchange-rate.ruble", 60);
+            MaxImageUploadSize = GetAppSettings<long>("web.max-upload-size", 1024 * 1024);
+
+            TeamlabSiteRedirect = GetAppSettings("web.teamlab-site", string.Empty);
+            ChunkUploadSize = GetAppSettings("files.uploader.chunk-size", 5 * 1024 * 1024);
+            ThirdPartyAuthEnabled = String.Equals(GetAppSettings("web.thirdparty-auth", "true"), "true");
+            NoTenantRedirectURL = GetAppSettings("web.notenant-url", "");
+            CustomScripts = GetAppSettings("web.custom-scripts", string.Empty).Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+
+            NotifyAddress = GetAppSettings("web.promo-url", string.Empty);
+            TipsAddress = GetAppSettings("web.promo-tips-url", string.Empty);
+            UserForum = GetAppSettings("web.user-forum", string.Empty);
+            SupportFeedback = GetAppSettings("web.support-feedback", string.Empty);
+
+            web_import_contacts_url = GetAppSettings("web.import-contacts-url", string.Empty);
+            ValidEamilKeyInterval = GetAppSettings("email.validinterval", TimeSpan.FromDays(7));
+            SalesEmail = GetAppSettings("web.payment.email", "sales@onlyoffice.com");
+            web_autotest_secret_email = (ConfigurationManager.AppSettings["web.autotest.secret-email"] ?? "").Trim();
+            web_display_mobapps_banner = (ConfigurationManager.AppSettings["web.display.mobapps.banner"] ?? "").Trim().Split(new char[] { ',', ';', ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            ShareGooglePlusUrl = GetAppSettings("web.share.google-plus", "https://plus.google.com/share?url={0}");
+            ShareTwitterUrl = GetAppSettings("web.share.twitter", "https://twitter.com/intent/tweet?text={0}");
+            ShareFacebookUrl = GetAppSettings("web.share.facebook", "http://www.facebook.com/sharer.php?s=100&p[url]={0}&p[title]={1}&p[images][0]={2}&p[summary]={3}");
+            ApiSystemUrl = GetAppSettings("web.api-system", "");
+            ApiCacheUrl = GetAppSettings("web.api-cache", "");
+            ControlPanelUrl = GetAppSettings("web.controlpanel.url", "");
+            FontOpenSansUrl = GetAppSettings("web.font.opensans.url", "");
+
+            var s = GetAppSettings("web.hide-settings", null);
+            if (!string.IsNullOrEmpty(s))
+            {
+                hideSettings = s.Split(new[] { ',', ';', ' ' });
+            }
+        }
+
 
         public static bool IsVisibleSettings<TSettings>()
         {
@@ -270,12 +331,9 @@ namespace ASC.Web.Studio.Core
 
         public static bool IsVisibleSettings(string settings)
         {
-            var s = GetAppSettings("web.hide-settings", null);
-            if (string.IsNullOrEmpty(s)) return true;
-
-            var hideSettings = s.Split(new[] { ',', ';', ' ' });
-            return !hideSettings.Contains(settings, StringComparer.CurrentCultureIgnoreCase);
+            return hideSettings == null || !hideSettings.Contains(settings, StringComparer.CurrentCultureIgnoreCase);
         }
+
 
         private static string GetAppSettings(string key, string defaultValue)
         {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -72,7 +72,7 @@ w <a href=""http://mediaserver:8080/Products/Community/Modules/Blogs/UserPage.as
             var advancedFormating2 = HtmlUtil.GetText(html,40);
             Assert.IsTrue(advancedFormating2.Length <= 40);
 
-            var advancedFormating3 = HtmlUtil.GetText(html, 40, "...", true);
+            var advancedFormating3 = HtmlUtil.GetText(html, 40, "...");
             Assert.IsTrue(advancedFormating3.Length <= 40);
             StringAssert.EndsWith(advancedFormating3, "...");
 

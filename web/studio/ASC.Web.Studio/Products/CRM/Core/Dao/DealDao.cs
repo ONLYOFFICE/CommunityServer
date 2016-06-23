@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -733,7 +733,7 @@ namespace ASC.CRM.Core.Dao
             if (deals == null || !deals.Any()) return;
 
             var dealID = deals.Select(x => x.ID).ToArray();
-            var filesIDs = new object[0];
+            object[] filesIDs;
 
             using (var db = GetDb())
             using (var tagdao = FilesIntegration.GetTagDao())

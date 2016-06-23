@@ -15,11 +15,29 @@
                 </tr>
                 <tr>
                     <td>
+                        <div id="mailboxSenderName" class="block-cnt-splitter">
+                            <div class="headerPanelSmall bold"><%= MailAdministrationResource.SenderNameLabel %></div>
+                            <input type="text" class="senderName textEdit" maxlength="255" />
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
                         <div id="mail_server_add_mailbox" class="block-cnt-splitter requiredField">
                             <span class="requiredErrorText"><%= MailScriptResource.ErrorEmptyField %></span>
                             <div class="headerPanelSmall bold"><%= MailAdministrationResource.MailboxAddressLabel %></div>
-                            <input type="text" class="mailbox_name textEdit" maxlength="64" />
-                            <span>@${domain.name}</span>
+                            <table>
+                                    <tbody>
+                                            <tr>
+                                                <td class="mailboxNameEdit">
+                                                    <input type="text" class="mailboxName textEdit" maxlength="64" autofocus/>
+                                                </td>
+                                                <td>
+                                                    <span class="domainName" title="${domain.name}">@${domain.name}</span>
+                                                </td>
+                                            </tr>
+                                    </tbody>
+                             </table>
                         </div>
                     </td>
                 </tr>

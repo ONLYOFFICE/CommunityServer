@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -76,8 +76,14 @@ ol
     margin: 8px 0 8px 20px;
 }
 
-ol li {
+ol li 
+{
     margin-bottom: 18px;
+}
+.blue-color-text
+{
+    color: #3d4a6b;
+    white-space: nowrap;
 }
 
 table
@@ -129,12 +135,12 @@ body, html
     width: 100%;
 }
 
-    .layout-table tr,
-    .layout-table td
-    {
-        border: medium none;
-        vertical-align: top;
-    }
+.layout-table tr,
+.layout-table td
+{
+    border: medium none;
+    vertical-align: top;
+}
 
 .layout-table-header
 {
@@ -194,45 +200,105 @@ body, html
     width: 100%;
 }
 
-    .table td
-    {
-        border: medium none;
-        vertical-align: middle;
-        padding: 15px 16px 22px;
-        font-size: 12px;
-    }
+.table td
+{
+    border: medium none;
+    vertical-align: middle;
+    padding: 15px 16px 22px;
+    font-size: 12px;
+}
+.table-conversion-matrix-container
+{
+    border: medium none;
+    border-collapse: collapse;
+    width: 100%;
+}
+.table-conversion-matrix-container td
+{
+    border: medium none;
+    padding: 15px 16px 22px;
+    font-size: 12px;
+}
 
-        .table td:first-child
-        {
-            padding-left: 8px;
-        }
+.table-conversion-matrix-text,
+.table-conversion-matrix-spreadsheet,
+.table-conversion-matrix-presentation
+{
+    border: 1px solid #d7d8dc;
+    vertical-align: middle;
+    padding: 5px;
+    font-size: 12px;
+    width: 100%;
+}
+.table-conversion-matrix-text td,
+.table-conversion-matrix-spreadsheet td
+{
+    width: 20%;
+    border: medium none;
+    text-align: center;
+    vertical-align: middle;
+    padding: 5px;
+    font-size: 12px;
+    border: 1px solid #d7d8dc; 
+}
+.table-conversion-matrix-presentation td
+{
+    width: 33%;
+    border: medium none;
+    text-align: center;
+    vertical-align: middle;
+    padding: 5px;
+    font-size: 12px;
+    border: 1px solid #d7d8dc; 
+}
 
-        .table td:last-child
-        {
-            padding-right: 8px;
-        }
+.table-conversion-matrix-text th,
+.table-conversion-matrix-spreadsheet th,
+.table-conversion-matrix-presentation th 
+{
+    text-align: center;
+    vertical-align: bottom;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 1px solid #d7d8dc; 
+}
+.table-conversion-matrix-cell-tick
+{
+    background: #F4F4F4;
 
-    .table .tablerow
-    {
-        border-bottom: 1px solid #d7d8dc;
-    }
+}
+.table td:first-child
+{
+    padding-left: 8px;
+}
 
-    .table thead td
-    {
-        font-weight: bold;
-        padding-top: 0;
-        padding-bottom: 4px;
-    }
+.table td:last-child
+{
+    padding-right: 8px;
+}
 
-    .table.hover tbody .tablerow:hover
-    {
-        background-color: #e5e5e5;
-    }
+.table .tablerow
+{
+    border-bottom: 1px solid #d7d8dc;
+}
 
-    .table .infotext
-    {
-        color: #999;
-    }
+.table thead td
+{
+    font-weight: bold;
+    padding-top: 0;
+    padding-bottom: 4px;
+}
+
+.table.hover tbody .tablerow:hover
+{
+    background-color: #e5e5e5;
+}
+
+.table .infotext
+{
+    color: #999;
+}
 
 /*links*/
 a, a:hover, a:visited
@@ -241,30 +307,25 @@ a, a:hover, a:visited
     text-decoration: none;
 }
 
-.dotted
+.dotline
 {
     border-bottom: 1px dotted;
 }
-
-    .dotted:hover
-    {
-        border-bottom: medium none;
-    }
 
 .underline, .fakelink
 {
     text-decoration: underline;
 }
 
-    .underline:hover
-    {
-        text-decoration: none;
-    }
+.underline:hover
+{
+    text-decoration: none;
+}
 
-    .fakelink:hover
-    {
-        text-decoration: underline;
-    }
+.fakelink:hover
+{
+    text-decoration: underline;
+}
 
 .uppercase
 {
@@ -281,43 +342,43 @@ h1
     position: relative;
 }
 
-    h1 .up, h1 .up:hover
-    {
-        background-color: #dedede;
-        background-image: linear-gradient(to bottom, #f3f3f3 0, #dedede 100%);
-        background-repeat: repeat-x;
-        border: 1px solid #bfbfbf;
-        border-radius: 2px;
-        float: left;
-        margin: 0 8px 0 0;
-        padding: 4px;
-        text-decoration: none;
-    }
+h1 .up, h1 .up:hover
+{
+    background-color: #dedede;
+    background-image: linear-gradient(to bottom, #f3f3f3 0, #dedede 100%);
+    background-repeat: repeat-x;
+    border: 1px solid #bfbfbf;
+    border-radius: 2px;
+    float: left;
+    margin: 0 8px 0 0;
+    padding: 4px;
+    text-decoration: none;
+}
 
-        h1 .up:after
-        {
-            background: url("img/sprite.png") no-repeat scroll -6px -180px transparent;
-            content: "";
-            display: block;
-            height: 12px;
-            width: 12px;
-        }
+h1 .up:after
+{
+    background: url("img/sprite.png") no-repeat scroll -6px -180px transparent;
+    content: "";
+    display: block;
+    height: 12px;
+    width: 12px;
+}
 
-    h1 .hdr
-    {
-        text-transform: uppercase;
-    }
+h1 .hdr
+{
+    text-transform: uppercase;
+}
 
-    h1 .auth
-    {
-        color: #666;
-        font-size: 12px;
-        left: 32px;
-        line-height: 12px;
-        position: absolute;
-        text-transform: none;
-        top: 28px;
-    }
+h1 .auth
+{
+    color: #666;
+    font-size: 12px;
+    left: 32px;
+    line-height: 12px;
+    position: absolute;
+    text-transform: none;
+    top: 28px;
+}
 
 h2
 {
@@ -350,10 +411,26 @@ h2
     margin: 32px 0 16px;
 }
 
-.dscr {
+.plus {
+    display: inline-block;
+    margin-left: 16px;
+    padding: 0;
+    position: relative;
+    text-align: center;
+    vertical-align: middle;
 }
-
-/*paragrath*/
+.plus:after {
+    background: url('img/sprite.png') no-repeat 0 -249px transparent;
+    content: " ";
+    cursor: pointer;
+    display: block; /* reduce the damage in FF3.0 */
+    height: 12px;
+    left: -16px;
+    margin-top: -6px;
+    position: absolute;
+    top: 50%;
+    width: 12px;
+}
 p
 {
     font-size: 14px;
@@ -499,7 +576,7 @@ p
 }
 
 /*code example*/
-pre
+pre,.commandline
 {
     border: 1px solid #CCC;
     background-color: #fff;
@@ -533,27 +610,27 @@ pre.hljs {
     font-size: 12px;
 }
 
-    .note:before
-    {
-        content: 'N';
-        font-size: 15px;
-        font-weight: bold;
-        position: absolute;
-        left: 15px;
-        color: #808080;
-        top: 10px;
-    }
+.note:before
+{
+    content: 'N';
+    font-size: 15px;
+    font-weight: bold;
+    position: absolute;
+    left: 15px;
+    color: #808080;
+    top: 10px;
+}
 
-    .note:after
-    {
-        content: 'B:';
-        font-size: 15px;
-        font-weight: bold;
-        position: absolute;
-        left: 22px;
-        color: #808080;
-        top: 10px;
-    }
+.note:after
+{
+    content: 'B:';
+    font-size: 15px;
+    font-weight: bold;
+    position: absolute;
+    left: 22px;
+    color: #808080;
+    top: 10px;
+}
 
 /*Highliter*/
 .bracket
@@ -660,6 +737,7 @@ pre.hljs {
 .demo-block {
     border: 1px solid #ccc;
     border-top: none;
+    margin-bottom: 18px;
     padding: 20px 9px 9px;
 }
 
@@ -687,4 +765,9 @@ pre.hljs {
 
 .table-example {
     width: 200px;
+}
+
+span.style_step
+{
+    color: #065A8F;
 }

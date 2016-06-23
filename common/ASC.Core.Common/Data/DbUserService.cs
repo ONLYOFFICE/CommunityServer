@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -78,6 +78,7 @@ namespace ASC.Core.Data
             if (string.IsNullOrEmpty(user.UserName)) throw new ArgumentOutOfRangeException("Empty username.");
 
             if (user.ID == default(Guid)) user.ID = Guid.NewGuid();
+            if (user.CreateDate == default(DateTime)) user.CreateDate = DateTime.UtcNow;
             user.LastModified = DateTime.UtcNow;
             user.Tenant = tenant;
 
@@ -129,7 +130,8 @@ namespace ASC.Core.Data
                     .InColumnValue("culture", user.CultureName)
                     .InColumnValue("phone", user.MobilePhone)
                     .InColumnValue("phone_activation", user.MobilePhoneActivationStatus)
-                    .InColumnValue("sid", user.Sid);
+                    .InColumnValue("sid", user.Sid)
+                    .InColumnValue("create_on", user.CreateDate);
 
                 db.ExecuteNonQuery(i);
 

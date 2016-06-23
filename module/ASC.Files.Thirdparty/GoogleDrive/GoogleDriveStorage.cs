@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,16 +24,8 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
 using ASC.FederatedLogin;
 using ASC.FederatedLogin.Helpers;
-using ASC.Common.Web;
 using ASC.FederatedLogin.LoginProviders;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
@@ -41,11 +33,19 @@ using ASC.Web.Files.Core;
 using Google.Apis.Auth.OAuth2;
 using Google.Apis.Auth.OAuth2.Flows;
 using Google.Apis.Auth.OAuth2.Responses;
-using Google.Apis.Drive.v2;
-using Google.Apis.Drive.v2.Data;
+using Google.Apis.Drive.v3;
 using Google.Apis.Services;
 using Newtonsoft.Json.Linq;
-using File = Google.Apis.Drive.v2.Data.File;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Web;
+using DriveFile = Google.Apis.Drive.v3.Data.File;
+using MimeMapping = ASC.Common.Web.MimeMapping;
 
 namespace ASC.Files.Thirdparty.GoogleDrive
 {
@@ -82,7 +82,6 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                 return;
 
             if (token == null) throw new UnauthorizedAccessException("Cannot create GoogleDrive session with given token");
-            if (token.IsExpired) token = OAuth20TokenHelper.RefreshToken(GoogleLoginProvider.GoogleOauthTokenUrl, token);
             _token = token;
 
             var tokenResponse = new TokenResponse
@@ -122,17 +121,21 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public string GetRootFolderId()
         {
-            var about = _driveService.About.Get().Execute();
+            var rootFolder = _driveService.Files.Get("root").Execute();
 
-            return about.RootFolderId;
+            return rootFolder.Id;
         }
 
-        public File GetEntry(string entryId)
+        public DriveFile GetEntry(string entryId)
         {
-            return _driveService.Files.Get(entryId).Execute();
+            var request = _driveService.Files.Get(entryId);
+
+            request.Fields = GoogleLoginProvider.FilesField;
+
+            return request.Execute();
         }
 
-        public List<File> GetEntries(string folderId, bool? folders = null)
+        public List<DriveFile> GetEntries(string folderId, bool? folders = null)
         {
             var request = _driveService.Files.List();
 
@@ -145,14 +148,16 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
             request.Q = query;
 
-            var files = new List<File>();
+            request.Fields = "nextPageToken, files(" + GoogleLoginProvider.FilesField + ")";
+
+            var files = new List<DriveFile>();
             do
             {
                 try
                 {
                     var fileList = request.Execute();
 
-                    files.AddRange(fileList.Items);
+                    files.AddRange(fileList.Files);
 
                     request.PageToken = fileList.NextPageToken;
                 }
@@ -165,80 +170,47 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return files;
         }
 
-        public Stream DownloadStream(File file)
+        public Stream DownloadStream(DriveFile file)
         {
             if (file == null) throw new ArgumentNullException("file");
-            var downloadUrl = file.DownloadUrl;
-            if (String.IsNullOrEmpty(downloadUrl))
+
+            var downloadArg = string.Format("{0}?alt=media", file.Id);
+
+            var ext = MimeMapping.GetExtention(file.MimeType);
+            if (GoogleLoginProvider.GoogleDriveExt.Contains(ext))
             {
-                if (file.ExportLinks == null)
-                {
-                    return null;
-                }
+                var fileType = FileUtility.GetFileTypeByExtention(ext);
+                var internalExt = FileUtility.InternalExtension[fileType];
+                var requiredMimeType = MimeMapping.GetMimeMapping(internalExt);
 
-                var ext = MimeMapping.GetExtention(file.MimeType);
-                if (GoogleLoginProvider.GoogleDriveExt.Contains(ext))
-                {
-                    var type = FileUtility.GetFileTypeByExtention(ext);
-
-                    var exportFormat = string.Empty;
-                    switch (type)
-                    {
-                        case FileType.Document:
-                            exportFormat = ".docx";
-                            break;
-                        case FileType.Spreadsheet:
-                            exportFormat = ".xlsx";
-                            break;
-                        case FileType.Presentation:
-                            exportFormat = ".pptx";
-                            break;
-                    }
-                    downloadUrl = file.ExportLinks[MimeMapping.GetMimeMapping(exportFormat)];
-                }
-                else
-                {
-                    // The file doesn't have any content stored on Drive.
-                    return null;
-                }
+                downloadArg = string.Format("{0}/export?mimeType={1}",
+                                            file.Id,
+                                            HttpUtility.UrlEncode(requiredMimeType));
             }
 
-            try
+            var request = WebRequest.Create(GoogleLoginProvider.GoogleUrlFile + downloadArg);
+            request.Method = "GET";
+            request.Headers.Add("Authorization", "Bearer " + AccessToken);
+
+            var response = (HttpWebResponse) request.GetResponse();
+
+            if (file.Size.HasValue && file.Size > 0)
             {
-                var request = WebRequest.Create(downloadUrl);
-                request.Method = "GET";
-                request.Headers.Add("Authorization", "Bearer " + AccessToken);
-
-                var response = (HttpWebResponse)request.GetResponse();
-
-                if (file.FileSize.HasValue && file.FileSize > 0)
-                {
-                    return new ResponseStream(response.GetResponseStream(), file.FileSize.Value);
-                }
-
-                var isChukedEncoding = string.Equals(response.Headers.Get("Transfer-Encoding"), "Chunked", StringComparison.OrdinalIgnoreCase);
-                if (!isChukedEncoding)
-                {
-                    return new ResponseStream(response.GetResponseStream(), response.ContentLength);
-                }
-
-                var tempBuffer = new FileStream(Path.GetTempFileName(), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read, 8096, FileOptions.DeleteOnClose);
-                var str = response.GetResponseStream();
-                if (str != null)
-                {
-                    str.CopyTo(tempBuffer);
-                    tempBuffer.Flush();
-                    tempBuffer.Seek(0, SeekOrigin.Begin);
-                }
-                return tempBuffer;
+                return new ResponseStream(response.GetResponseStream(), file.Size.Value);
             }
-            catch (Exception)
+
+            var tempBuffer = new FileStream(Path.GetTempFileName(), FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read, 8096, FileOptions.DeleteOnClose);
+            var str = response.GetResponseStream();
+            if (str != null)
             {
-                return null;
+                str.CopyTo(tempBuffer);
+                tempBuffer.Flush();
+                tempBuffer.Seek(0, SeekOrigin.Begin);
             }
+            return tempBuffer;
         }
 
-        public File InsertEntry(Stream fileStream, string title, string parentId, bool folder = false)
+        public DriveFile InsertEntry(Stream fileStream, string title, string parentId, bool folder = false)
         {
             var mimeType = folder ? GoogleLoginProvider.GoogleDriveMimeTypeFolder : MimeMapping.GetMimeMapping(title);
 
@@ -248,10 +220,14 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             {
                 if (folder)
                 {
-                    return _driveService.Files.Insert(body).Execute();
+                    var requestFolder = _driveService.Files.Create(body);
+                    requestFolder.Fields = GoogleLoginProvider.FilesField;
+                    return requestFolder.Execute();
                 }
 
-                var request = _driveService.Files.Insert(body, fileStream, mimeType);
+                var request = _driveService.Files.Create(body, fileStream, mimeType);
+                request.Fields = GoogleLoginProvider.FilesField;
+
                 var result = request.Upload();
                 if (result.Exception != null)
                 {
@@ -271,83 +247,69 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             _driveService.Files.Delete(entryId).Execute();
         }
 
-        public void InsertEntryIntoFolder(string entryId, string folderId)
+        public DriveFile InsertEntryIntoFolder(DriveFile entry, string folderId)
         {
-            var newParent = new ParentReference { Id = folderId };
-            _driveService.Parents.Insert(newParent, entryId).Execute();
-        }
-
-        public void RemoveEntryFromFolder(string entryId, string folderId)
-        {
-            _driveService.Parents.Delete(entryId, folderId).Execute();
-        }
-
-        public File CopyEntry(string toFolderId, string originEntryId)
-        {
-            var body = FileConstructor(folderId: toFolderId);
-
-            return _driveService.Files.Copy(body, originEntryId).Execute();
-        }
-
-        public File UpdateEntry(File entry)
-        {
-            var request = _driveService.Files.Update(entry, entry.Id);
-            request.NewRevision = false;
+            var request = _driveService.Files.Update(FileConstructor(), entry.Id);
+            request.AddParents = folderId;
+            request.Fields = GoogleLoginProvider.FilesField;
             return request.Execute();
         }
 
-        public File SaveStream(string fileId, Stream fileStream, string fileTitle)
+        public DriveFile RemoveEntryFromFolder(DriveFile entry, string folderId)
+        {
+            var request = _driveService.Files.Update(FileConstructor(), entry.Id);
+            request.RemoveParents = folderId;
+            request.Fields = GoogleLoginProvider.FilesField;
+            return request.Execute();
+        }
+
+        public DriveFile CopyEntry(string toFolderId, string originEntryId)
+        {
+            var body = FileConstructor(folderId: toFolderId);
+
+            var request = _driveService.Files.Copy(body, originEntryId);
+            request.Fields = GoogleLoginProvider.FilesField;
+            return request.Execute();
+        }
+
+        public DriveFile RenameEntry(string fileId, string newTitle)
+        {
+            var request = _driveService.Files.Update(FileConstructor(newTitle), fileId);
+            request.Fields = GoogleLoginProvider.FilesField;
+            return request.Execute();
+        }
+
+        public DriveFile SaveStream(string fileId, Stream fileStream, string fileTitle)
         {
             var mimeType = MimeMapping.GetMimeMapping(fileTitle);
             var file = FileConstructor(fileTitle, mimeType);
 
             var request = _driveService.Files.Update(file, fileId, fileStream, mimeType);
-            request.NewRevision = false;
+            request.Fields = GoogleLoginProvider.FilesField;
             request.Upload();
 
             return request.ResponseBody;
         }
 
-        public File FileConstructor(string title = null, string mimeType = null, string folderId = null)
+        public DriveFile FileConstructor(string title = null, string mimeType = null, string folderId = null)
         {
-            var file = new File();
+            var file = new DriveFile();
 
-            if (!string.IsNullOrEmpty(title)) file.Title = title;
+            if (!string.IsNullOrEmpty(title)) file.Name = title;
             if (!string.IsNullOrEmpty(mimeType)) file.MimeType = mimeType;
-            if (!String.IsNullOrEmpty(folderId)) file.Parents = new List<ParentReference> { new ParentReference { Id = folderId } };
+            if (!String.IsNullOrEmpty(folderId)) file.Parents = new List<string> { folderId };
 
             return file;
         }
 
-        public File FileFromString(string fileJsonString)
-        {
-            var fileJson = JObject.Parse(fileJsonString);
-
-            var file = new File
-                {
-                    Id = fileJson.Value<string>("id"),
-                    Title = fileJson.Value<string>("title"),
-                    MimeType = fileJson.Value<string>("mimeType"),
-                    FileSize = fileJson.Value<long>("fileSize"),
-                    CreatedDate = fileJson.Value<DateTime>("createdDate"),
-                    ModifiedDate = fileJson.Value<DateTime>("modifiedDate"),
-                };
-
-            var folderId = (string)fileJson.SelectToken("parents[0].id");
-            if (!String.IsNullOrEmpty(folderId)) file.Parents = new List<ParentReference> { new ParentReference { Id = folderId } };
-
-            return file;
-        }
-
-        public ResumableUploadSession CreateResumableSession(File driveFile, long contentLength)
+        public ResumableUploadSession CreateResumableSession(DriveFile driveFile, long contentLength)
         {
             if (driveFile == null) throw new ArgumentNullException("driveFile");
 
             var fileId = string.Empty;
             var method = "POST";
             var body = string.Empty;
-            var parents = driveFile.Parents.FirstOrDefault();
-            var folderId = parents != null ? parents.Id : null;
+            var folderId = driveFile.Parents.FirstOrDefault();
 
             if (driveFile.Id != null)
             {
@@ -356,19 +318,19 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             }
             else
             {
-                var titleData = !string.IsNullOrEmpty(driveFile.Title) ? string.Format("\"title\":\"{0}\"", driveFile.Title) : "";
-                var parentData = !string.IsNullOrEmpty(folderId) ? string.Format(",\"parents\":[{{\"id\":\"{0}\"}}]", folderId) : "";
+                var titleData = !string.IsNullOrEmpty(driveFile.Name) ? string.Format("\"name\":\"{0}\"", driveFile.Name) : "";
+                var parentData = !string.IsNullOrEmpty(folderId) ? string.Format(",\"parents\":[\"{0}\"]", folderId) : "";
 
                 body = !string.IsNullOrEmpty(titleData + parentData) ? string.Format("{{{0}{1}}}", titleData, parentData) : "";
             }
 
-            var request = WebRequest.Create(GoogleLoginProvider.GoogleUrlFileUpload + fileId + "?uploadType=resumable&conver=false");
+            var request = WebRequest.Create(GoogleLoginProvider.GoogleUrlFileUpload + fileId + "?uploadType=resumable");
             request.Method = method;
 
             var bytes = Encoding.UTF8.GetBytes(body);
             request.ContentLength = bytes.Length;
             request.ContentType = "application/json; charset=UTF-8";
-            request.Headers.Add("X-Upload-Content-Type", MimeMapping.GetMimeMapping(driveFile.Title));
+            request.Headers.Add("X-Upload-Content-Type", MimeMapping.GetMimeMapping(driveFile.Name));
             request.Headers.Add("X-Upload-Content-Length", contentLength.ToString(CultureInfo.InvariantCulture));
             request.Headers.Add("Authorization", "Bearer " + AccessToken);
 
@@ -413,9 +375,20 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             }
             catch (WebException exception)
             {
-                if (exception.Status == WebExceptionStatus.ProtocolError && exception.Response != null && exception.Response.Headers.AllKeys.Contains("Range"))
+                if (exception.Status == WebExceptionStatus.ProtocolError)
                 {
-                    response = (HttpWebResponse)exception.Response;
+                    if (exception.Response != null && exception.Response.Headers.AllKeys.Contains("Range"))
+                    {
+                        response = (HttpWebResponse) exception.Response;
+                    }
+                    else if (exception.Message.Equals("Invalid status code: 308", StringComparison.InvariantCulture)) //response is null (unix)
+                    {
+                        response = null;
+                    }
+                    else
+                    {
+                        throw;
+                    }
                 }
                 else
                 {
@@ -423,15 +396,18 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                 }
             }
 
-            if (response.StatusCode != HttpStatusCode.Created && response.StatusCode != HttpStatusCode.OK)
+            if (response == null || response.StatusCode != HttpStatusCode.Created && response.StatusCode != HttpStatusCode.OK)
             {
                 var uplSession = googleDriveSession;
                 uplSession.BytesTransfered += chunkLength;
 
-                var locationHeader = response.Headers["Location"];
-                if (!string.IsNullOrEmpty(locationHeader))
+                if (response != null)
                 {
-                    uplSession.Location = locationHeader;
+                    var locationHeader = response.Headers["Location"];
+                    if (!string.IsNullOrEmpty(locationHeader))
+                    {
+                        uplSession.Location = locationHeader;
+                    }
                 }
             }
             else
@@ -442,13 +418,17 @@ namespace ASC.Files.Thirdparty.GoogleDrive
                 {
                     if (responseStream == null) return;
 
-                    var respFile = FileFromString(new StreamReader(responseStream).ReadToEnd());
+                    var responseString = new StreamReader(responseStream).ReadToEnd();
+                    var responseJson = JObject.Parse(responseString);
 
-                    googleDriveSession.FileId = respFile.Id;
+                    googleDriveSession.FileId = responseJson.Value<string>("id");
                 }
             }
 
-            response.Close();
+            if (response != null)
+            {
+                response.Close();
+            }
         }
     }
 

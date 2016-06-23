@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,14 +26,16 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Web;
 using ASC.Api.Attributes;
-using ASC.Mail.Aggregator;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Collection;
-using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Aggregator.DbSchema;
 using ASC.Mail.Aggregator.Filter;
 using ASC.Specific;
+using ASC.Web.Studio.Core;
 
 namespace ASC.Api.Mail
 {
@@ -52,10 +54,11 @@ namespace ASC.Api.Mail
         /// <param optional="true" name="mailbox_id">Recipient mailbox id.</param>
         /// <param optional="true" name="tags">Messages tags. Id of tags linked with target messages.</param>
         /// <param optional="true" name="search">Text to search in messages body and subject.</param>
-        /// <param optional="true" name="page_size">Count on messages on page</param>
+        /// <param optional="true" name="page_size">Count of messages on page</param>
         /// <param name="sortorder">Sort order by date. String parameter: "ascending" - ascended, "descending" - descended.</param> 
         /// <param optional="true" name="from_date">Date from wich conversations search performed</param>
         /// <param optional="true" name="from_message">Message from wich conversations search performed</param>
+        /// <param optional="true" name="with_calendar">Message has сalendar flag. bool flag.</param>
         /// <param name="prev_flag"></param>
         /// <returns>List of filtered chains</returns>
         /// <short>Gets filtered conversations</short>
@@ -75,7 +78,8 @@ namespace ASC.Api.Mail
             string sortorder,
             ApiDateTime from_date,
             int? from_message,
-            bool? prev_flag
+            bool? prev_flag,
+            bool? with_calendar
             )
         {
             var filter = new MailFilter
@@ -91,7 +95,8 @@ namespace ASC.Api.Mail
                 CustomLabels = new ItemList<int>(tags),
                 SearchFilter = search,
                 PageSize = page_size.GetValueOrDefault(25),
-                SortOrder = sortorder
+                SortOrder = sortorder,
+                WithCalendar = with_calendar.GetValueOrDefault(false)
             };
 
             bool hasMore;
@@ -114,19 +119,31 @@ namespace ASC.Api.Mail
         /// Get list of messages linked into one chain (conversation)
         /// </summary>
         /// <param name="id">ID of any message in the chain</param>
-        /// <param name="load_all_content">Load content of all messages</param>
-        /// <param optional="true" name="mark_read">Mark conversation as read</param>
+        /// <param name="loadAll">Load content of all messages</param>
+        /// <param optional="true" name="markRead">Mark conversation as read</param>
+        /// <param optional="true" name="needSanitize">Flag specifies is needed to prepare html for FCKeditor</param>
         /// <returns>List messages linked in one chain</returns>
         /// <category>Conversations</category>
         /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
         [Read(@"conversation/{id:[0-9]+}")]
-        public IEnumerable<MailMessage> GetConversation(int id, bool? load_all_content, bool? mark_read)
+        public IEnumerable<MailMessage> GetConversation(int id, bool? loadAll, bool? markRead, bool? needSanitize)
         {
             if (id <= 0)
                 throw new ArgumentException(@"id must be positive integer", "id");
 
-            return MailBoxManager.GetConversationMessages(TenantId, Username, id, load_all_content.GetValueOrDefault(false),
-                                                          mark_read.GetValueOrDefault(false));
+            var watch = new Stopwatch();
+            watch.Start();
+
+            var list = MailBoxManager.GetConversationMessages(TenantId, Username, id,
+                loadAll.GetValueOrDefault(false),
+                NeedProxyHttp,
+                needSanitize.GetValueOrDefault(false),
+                markRead.GetValueOrDefault(false));
+
+            watch.Stop();
+            Logger.Debug("Mail->GetConversation(id={0})->Elapsed {1}ms (NeedProxyHttp={2}, NeedSanitizer={3})", id, watch.Elapsed.TotalMilliseconds, NeedProxyHttp, needSanitize.GetValueOrDefault(false));
+
+            return list;
         }
 
         /// <summary>
@@ -203,8 +220,11 @@ namespace ASC.Api.Mail
 
             MailBoxManager.SetConversationsFolder(TenantId, Username, folder, ids);
 
-            if(folder == MailFolder.Ids.spam)
-                MailBoxManager.SendConversationsToSpamTrainer(TenantId, Username, ids, true);
+            if (folder == MailFolder.Ids.spam)
+            {
+                var scheme = HttpContext.Current == null ? Uri.UriSchemeHttp : HttpContext.Current.Request.GetUrlRewriter().Scheme;
+                MailBoxManager.SendConversationsToSpamTrainer(TenantId, Username, ids, true, scheme);
+            }
 
             return ids;
         }
@@ -226,7 +246,10 @@ namespace ASC.Api.Mail
             MailBoxManager.RestoreConversations(TenantId, Username, ids);
 
             if (learnSpamTrainer)
-                MailBoxManager.SendConversationsToSpamTrainer(TenantId, Username, ids, false);
+            {
+                var scheme = HttpContext.Current == null ? Uri.UriSchemeHttp : HttpContext.Current.Request.GetUrlRewriter().Scheme;
+                MailBoxManager.SendConversationsToSpamTrainer(TenantId, Username, ids, false, scheme);
+            }
 
             return ids;
         }
@@ -339,7 +362,9 @@ namespace ASC.Api.Mail
             if (crm_contact_ids == null)
                 throw new ArgumentException(@"Invalid contact ids list", "crm_contact_ids");
 
-            MailBoxManager.LinkChainToCrm(id_message, TenantId, Username, crm_contact_ids.ToList());
+            var scheme = HttpContext.Current == null ? Uri.UriSchemeHttp : HttpContext.Current.Request.GetUrlRewriter().Scheme;
+
+            MailBoxManager.LinkChainToCrm(id_message, TenantId, Username, crm_contact_ids.ToList(), scheme);
         }
 
         /// <summary>
@@ -388,16 +413,19 @@ namespace ASC.Api.Mail
         /// Method checks is chain crm linked by message_id.
         /// </summary>
         /// <param name="message_id">Id of any messages from the chain</param>
-        /// <returns> Bool: true or false.</returns>
+        /// <returns>MailCrmStatus</returns>
         /// <category>Conversations</category>
         /// <exception cref="ArgumentException">Exception happens when in parameters is invalid. Text description contains parameter name and text description.</exception>
         [Read(@"conversations/link/crm/status")]
-        public bool IsConversationLinkedWithCrm(int message_id)
+        public MailCrmStatus IsConversationLinkedWithCrm(int message_id)
         {
             if(message_id < 0)
                 throw new ArgumentException(@"Invalid message id", "message_id");
 
-            return MailBoxManager.GetLinkedCrmEntitiesId(message_id, TenantId, Username).Count > 0;
+            var result = new MailCrmStatus(message_id,
+                MailBoxManager.GetLinkedCrmEntitiesId(message_id, TenantId, Username).Count > 0);
+
+            return result;
         }
     }
 }

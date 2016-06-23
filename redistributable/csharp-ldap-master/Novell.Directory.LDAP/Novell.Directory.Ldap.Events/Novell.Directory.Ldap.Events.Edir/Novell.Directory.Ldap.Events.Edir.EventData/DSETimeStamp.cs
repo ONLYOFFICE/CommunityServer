@@ -29,65 +29,65 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System.Text;
 using Novell.Directory.Ldap.Asn1;
+using System.Text;
 
 namespace Novell.Directory.Ldap.Events.Edir
 {
-  /// <summary> 
-  /// The class represents the Timestamp datastructure for Edir events
-  /// Notification.
-  /// </summary>
-  public class DSETimeStamp
-  {
-    protected int nSeconds;
-    public int Seconds
-    {
-      get
-      {
-	return nSeconds;
-      }
-    }
-
-    protected int replica_number;
-    public int ReplicaNumber
-    {
-      get
-      {
-	return replica_number;
-      }
-    }
-
-    protected int nEvent;
-    public int Event
-    {
-      get
-      {
-	return nEvent;
-      }
-    }
-
-    public DSETimeStamp(Asn1Sequence dseObject)
-    {
-      nSeconds = ((Asn1Integer)dseObject.get_Renamed(0)).intValue();
-      replica_number = ((Asn1Integer) dseObject.get_Renamed(1)).intValue();
-      nEvent = ((Asn1Integer) dseObject.get_Renamed(2)).intValue();
-    }
-
     /// <summary> 
-    /// Returns a string representation of the object.
+    /// The class represents the Timestamp datastructure for Edir events
+    /// Notification.
     /// </summary>
-    public override string ToString()
+    public class DSETimeStamp
     {
-      StringBuilder buf = new StringBuilder();
+        protected int nSeconds;
+        public int Seconds
+        {
+            get
+            {
+                return nSeconds;
+            }
+        }
 
-      buf.AppendFormat("[TimeStamp (seconds={0})", nSeconds);
-      buf.AppendFormat("(replicaNumber={0})", replica_number);
-      buf.AppendFormat("(event={0})", nEvent);
-      buf.Append("]");
-      
-      return buf.ToString();
+        protected int replica_number;
+        public int ReplicaNumber
+        {
+            get
+            {
+                return replica_number;
+            }
+        }
+
+        protected int nEvent;
+        public int Event
+        {
+            get
+            {
+                return nEvent;
+            }
+        }
+
+        public DSETimeStamp(Asn1Sequence dseObject)
+        {
+            nSeconds = ((Asn1Integer)dseObject.get_Renamed(0)).intValue();
+            replica_number = ((Asn1Integer)dseObject.get_Renamed(1)).intValue();
+            nEvent = ((Asn1Integer)dseObject.get_Renamed(2)).intValue();
+        }
+
+        /// <summary> 
+        /// Returns a string representation of the object.
+        /// </summary>
+        public override string ToString()
+        {
+            StringBuilder buf = new StringBuilder();
+
+            buf.AppendFormat("[TimeStamp (seconds={0})", nSeconds);
+            buf.AppendFormat("(replicaNumber={0})", replica_number);
+            buf.AppendFormat("(event={0})", nEvent);
+            buf.Append("]");
+
+            return buf.ToString();
+        }
     }
-  }
 }
 

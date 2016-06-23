@@ -29,102 +29,101 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System.Text;
-
 using Novell.Directory.Ldap.Asn1;
+using System.Text;
 
 namespace Novell.Directory.Ldap.Events.Edir.EventData
 {
-  /// <summary> 
-  /// This class represents the data for Change Address.
-  /// </summary>
-  public class ChangeAddressEventData : BaseEdirEventData
-  {
-    protected int nFlags;
-    public int Flags
-    {
-      get
-      {
-	return nFlags;
-      }
-    }
-
-    protected int nProto;
-    public int Proto
-    {
-      get
-      {
-	return nProto;
-      }
-    }
-
-    protected int address_family;
-    public int AddressFamily
-    {
-      get
-      {
-	return address_family;
-      }
-    }
-
-    protected string strAddress;
-    public string Address
-    {
-      get
-      {
-	return strAddress;
-      }
-    }
-
-    protected string pstk_name;
-    public string PstkName
-    {
-      get
-      {
-	return pstk_name;
-      }
-    }
-
-    protected string source_module;
-    public string SourceModule
-    {
-      get
-      {
-	return source_module;
-      }
-    }
-
-    public ChangeAddressEventData(EdirEventDataType eventDataType, Asn1Object message)
-      : base(eventDataType, message)
-    {
-      int[] length = new int[1];
-
-      nFlags = ((Asn1Integer) decoder.decode(decodedData, length)).intValue();
-      nProto = ((Asn1Integer) decoder.decode(decodedData, length)).intValue();
-      address_family = ((Asn1Integer) decoder.decode(decodedData, length)).intValue();
-      strAddress = ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-      pstk_name = ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-      source_module = ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-
-      DataInitDone();
-    }
-
     /// <summary> 
-    /// Returns a string representation of the object.
+    /// This class represents the data for Change Address.
     /// </summary>
-    public override string ToString() 
+    public class ChangeAddressEventData : BaseEdirEventData
     {
-      StringBuilder buf = new StringBuilder();
-      buf.Append("[ChangeAddresssEvent");
-      buf.AppendFormat("(flags={0})", + nFlags);
-      buf.AppendFormat("(proto={0})", nProto);
-      buf.AppendFormat("(addrFamily={0})", address_family);
-      buf.AppendFormat("(address={0})", strAddress);
-      buf.AppendFormat("(pstkName={0})", pstk_name);
-      buf.AppendFormat("(source={0})", source_module);
-      buf.Append("]");
+        protected int nFlags;
+        public int Flags
+        {
+            get
+            {
+                return nFlags;
+            }
+        }
 
-      return buf.ToString();
+        protected int nProto;
+        public int Proto
+        {
+            get
+            {
+                return nProto;
+            }
+        }
+
+        protected int address_family;
+        public int AddressFamily
+        {
+            get
+            {
+                return address_family;
+            }
+        }
+
+        protected string strAddress;
+        public string Address
+        {
+            get
+            {
+                return strAddress;
+            }
+        }
+
+        protected string pstk_name;
+        public string PstkName
+        {
+            get
+            {
+                return pstk_name;
+            }
+        }
+
+        protected string source_module;
+        public string SourceModule
+        {
+            get
+            {
+                return source_module;
+            }
+        }
+
+        public ChangeAddressEventData(EdirEventDataType eventDataType, Asn1Object message)
+            : base(eventDataType, message)
+        {
+            int[] length = new int[1];
+
+            nFlags = ((Asn1Integer)decoder.decode(decodedData, length)).intValue();
+            nProto = ((Asn1Integer)decoder.decode(decodedData, length)).intValue();
+            address_family = ((Asn1Integer)decoder.decode(decodedData, length)).intValue();
+            strAddress = ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+            pstk_name = ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+            source_module = ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+
+            DataInitDone();
+        }
+
+        /// <summary> 
+        /// Returns a string representation of the object.
+        /// </summary>
+        public override string ToString()
+        {
+            StringBuilder buf = new StringBuilder();
+            buf.Append("[ChangeAddresssEvent");
+            buf.AppendFormat("(flags={0})", +nFlags);
+            buf.AppendFormat("(proto={0})", nProto);
+            buf.AppendFormat("(addrFamily={0})", address_family);
+            buf.AppendFormat("(address={0})", strAddress);
+            buf.AppendFormat("(pstkName={0})", pstk_name);
+            buf.AppendFormat("(source={0})", source_module);
+            buf.Append("]");
+
+            return buf.ToString();
+        }
     }
-  }
 }

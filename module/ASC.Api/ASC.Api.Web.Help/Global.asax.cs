@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,13 +24,13 @@
 */
 
 
-using System.Web.Optimization;
 using ASC.Api.Web.Help.Helpers;
 using log4net;
 using log4net.Config;
 using System;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Routing;
 
 namespace ASC.Api.Web.Help
@@ -38,11 +38,11 @@ namespace ASC.Api.Web.Help
     // Note: For instructions on enabling IIS6 or IIS7 classic mode, 
     // visit http://go.microsoft.com/?LinkId=9394801
 
-    public class MvcApplication : System.Web.HttpApplication
+    public class MvcApplication : HttpApplication
     {
         public static readonly CacheManifest CacheManifest = new CacheManifest();
         private static readonly object locker = new object();
-        private static volatile bool initialized = false;
+        private static volatile bool initialized;
 
         public static void RegisterRoutes(RouteCollection routes)
         {
@@ -76,15 +76,38 @@ namespace ASC.Api.Web.Help
                 );
 
             routes.MapRoute(
-                "Default", // Route name
-                "{controller}/{action}/{id}", // URL with parameters
+                "Partners", // Route name
+                "partners/{action}/{id}", // URL with parameters
                 new
                     {
-                        controller = "home",
+                        controller = "partners",
                         action = "index",
                         id = UrlParameter.Optional
                     } // Parameter defaults
                 );
+
+            routes.MapRoute(
+                "ApiSystem", // Route name
+                "apisystem/{action}/{url}", // URL with parameters
+                new
+                    {
+                        controller = "apisystem",
+                        action = "index",
+                        id = UrlParameter.Optional
+                    } // Parameter defaults
+                );
+
+            routes.MapRoute(
+                "Default", // Route name
+                "{controller}/{action}/{*catchall}", // URL with parameters
+                new
+                    {
+                        controller = "home",
+                        action = "index"
+                    } // Parameter defaults
+                );
+
+            routes.LowercaseUrls = true;
         }
 
         public static void RegisterBundles(BundleCollection bundles)

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -385,7 +385,7 @@ namespace ASC.Forum
         public static void RemoveThreadCategory(int tenantID, int threadCategoryID, out List<int> removedPostIDs)
         {
             removedPostIDs = new List<int>();
-            var threadIDs = new List<int>();
+            List<int> threadIDs;
             using (var tr = DbManager.Connection.BeginTransaction())
             {
                 threadIDs = DbManager.Connection.CreateCommand("select id from forum_thread where TenantID = @tid and category_id = @cid")

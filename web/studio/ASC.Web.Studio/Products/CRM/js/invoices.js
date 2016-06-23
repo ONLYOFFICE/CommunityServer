@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -61,7 +61,7 @@ ASC.CRM.myInvoiceContactFilter = {
             '<span class="selector-wrapper">',
               '<span class="contact-selector"></span>',
             '</span>',
-            '<span class="btn-delete"></span>',
+            '<span class="btn-delete">&times;</span>',
           '</div>'
         ].join('');
         return o;
@@ -723,25 +723,9 @@ ASC.CRM.ListInvoiceView = (function () {
             _showActionMenu(invoiceId);
             jq("#invoiceTable .entity-menu.active").removeClass("active");
 
-            var $dropdownItem = jq("#invoiceActionMenu");
 
-            if (target.is(".entity-menu")) {
-                if ($dropdownItem.is(":hidden")) {
-                    target.addClass('active');
-                }
-                $dropdownItem.css({
-                    "top": target.offset().top + target.outerHeight() - 2,
-                    "left": target.offset().left - left + 7,
-                    "right": "auto"
-                });
-            } else {
-                $dropdownItem.css({
-                    "top": e.pageY + 3,
-                    "left": e.pageX -  5,
-                    "right": "auto"
-                });
-            }
-            $dropdownItem.show();
+            jq.showDropDownByContext(e, target, jq("#invoiceActionMenu"));
+
             return false;
         });
 
@@ -1213,8 +1197,6 @@ ASC.CRM.ListInvoiceView = (function () {
             })
             .bind("setfilter", ASC.CRM.ListInvoiceView.setFilter)
             .bind("resetfilter", ASC.CRM.ListInvoiceView.resetFilter);
-
-        jq("#invoiceAdvansedFilter .advansed-filter-input").attr("placeholder", ASC.CRM.Resources.CRMInvoiceResource.InfoicesFilterWatermarkText);
     };
 
     var _initEmptyScreen = function (emptyListImgSrc, emptyFilterListImgSrc) {

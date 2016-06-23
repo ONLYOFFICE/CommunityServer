@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -46,13 +46,16 @@ namespace TMResourceData
 {
     public class DBResourceManager : ResourceManager
     {
-        public static bool WhiteLableEnabled = true;
+        public static bool WhiteLableEnabled = false;
         private static readonly ILog log = LogManager.GetLogger("ASC.Resources");
+        private readonly ConcurrentDictionary<string, ResourceSet> resourceSets = new ConcurrentDictionary<string, ResourceSet>();
+
 
         public DBResourceManager(string filename, Assembly assembly)
-            : base(filename, assembly)
+                    : base(filename, assembly)
         {
         }
+
 
         public static void PatchAssemblies()
         {
@@ -117,8 +120,15 @@ namespace TMResourceData
 
         protected override ResourceSet InternalGetResourceSet(CultureInfo culture, bool createIfNotExists, bool tryParents)
         {
-            var invariant = culture == CultureInfo.InvariantCulture ? base.InternalGetResourceSet(CultureInfo.InvariantCulture, true, true) : null;
-            return new DBResourceSet(invariant, culture, BaseName);
+            ResourceSet set;
+            resourceSets.TryGetValue(culture.Name, out set);
+            if (set == null)
+            {
+                var invariant = culture == CultureInfo.InvariantCulture ? base.InternalGetResourceSet(CultureInfo.InvariantCulture, true, true) : null;
+                set = new DBResourceSet(invariant, culture, BaseName);
+                resourceSets.AddOrUpdate(culture.Name, set, (k, v) => set);
+            }
+            return set;
         }
 
 
@@ -126,12 +136,26 @@ namespace TMResourceData
         {
             private const string NEUTRAL_CULTURE = "Neutral";
 
+            private static readonly TimeSpan cacheTimeout = TimeSpan.FromMinutes(120); // for performance
             private readonly object locker = new object();
             private readonly MemoryCache cache;
             private readonly ResourceSet invariant;
             private readonly string culture;
             private readonly string filename;
-            private readonly TimeSpan cacheTimeout;
+
+
+            static DBResourceSet()
+            {
+                try
+                {
+                    var defaultValue = ((int)cacheTimeout.TotalMinutes).ToString();
+                    cacheTimeout = TimeSpan.FromMinutes(Convert.ToInt32(ConfigurationManager.AppSettings["resources.cache-timeout"] ?? defaultValue));
+                }
+                catch (Exception err)
+                {
+                    log.Error(err);
+                }
+            }
 
 
             public DBResourceSet(ResourceSet invariant, CultureInfo culture, string filename)
@@ -149,7 +173,6 @@ namespace TMResourceData
                 this.culture = invariant != null ? NEUTRAL_CULTURE : culture.Name;
                 this.filename = filename.Split('.').Last() + ".resx";
                 cache = MemoryCache.Default;
-                cacheTimeout = TimeSpan.FromMinutes(Convert.ToInt32(ConfigurationManager.AppSettings["resources.cache-timeout"] ?? "5"));
             }
 
             public override string GetString(string name, bool ignoreCase)
@@ -242,18 +265,15 @@ namespace TMResourceData
     {
         private static readonly ILog log = LogManager.GetLogger("ASC.Resources");
         private static readonly ConcurrentDictionary<int, string> whiteLabelDictionary = new ConcurrentDictionary<int, string>();
-
+        private static readonly string replPattern = ConfigurationManager.AppSettings["resources.whitelabel-text.replacement.pattern"] ?? "(?<=[^@/\\\\]|^)({0})(?!\\.com)";
         public static string DefaultLogo = "";
 
-        public static void SetNewText(string newText)
+
+        public static void SetNewText(int tenantId, string newText)
         {
             try
             {
-                var tenant = CoreContext.TenantManager.GetCurrentTenant(false);
-                if (tenant != null)
-                {
-                    whiteLabelDictionary.AddOrUpdate(tenant.TenantId, r => newText, (i, s) => newText);
-                }
+                whiteLabelDictionary.AddOrUpdate(tenantId, r => newText, (i, s) => newText);
             }
             catch (Exception e)
             {
@@ -261,16 +281,12 @@ namespace TMResourceData
             }
         }
 
-        public static void RestoreOldText()
+        public static void RestoreOldText(int tenantId)
         {
             try
             {
-                var tenant = CoreContext.TenantManager.GetCurrentTenant(false);
-                if (tenant != null)
-                {
-                    string text;
-                    whiteLabelDictionary.TryRemove(tenant.TenantId, out text);
-                }
+                string text;
+                whiteLabelDictionary.TryRemove(tenantId, out text);
             }
             catch (Exception e)
             {
@@ -280,38 +296,43 @@ namespace TMResourceData
 
         internal static string ReplaceLogo(string resourceName, string resourceValue)
         {
-            try
+            if (string.IsNullOrEmpty(resourceValue))
             {
-                var tenant = CoreContext.TenantManager.GetCurrentTenant(false);
-                if (tenant == null || string.IsNullOrEmpty(resourceValue)) return resourceValue;
-
-                string newText;
-                if (whiteLabelDictionary.TryGetValue(tenant.TenantId, out newText))
-                {
-                    var newTextReplacement = newText;
-
-                    if (resourceValue.Contains("<") && resourceValue.Contains(">") || resourceName.StartsWith("pattern_"))
-                    {
-                        newTextReplacement = HttpUtility.HtmlEncode(newTextReplacement);
-                    }                    
-                    if (resourceValue.Contains("{0")){
-                        newTextReplacement = newTextReplacement.Replace("{", "{{").Replace("}", "}}");
-                    } //Hack for string which used in string.Format
-
-
-                    var pattern = String.Format(
-                        (ConfigurationManager.AppSettings["resources.whitelabel-text.replacement.pattern"] ?? "(?<=[^@/\\\\]|^)({0})(?!\\.com)"),
-                        DefaultLogo);
-                    //Hack for resource strings with mails looked like ...@onlyoffice... or with website http://www.onlyoffice.com link or with the https://www.facebook.com/pages/OnlyOffice/833032526736775
-
-                    return Regex
-                        .Replace(resourceValue, pattern, newTextReplacement, RegexOptions.IgnoreCase)
-                        .Replace("™", "");
-                }
+                return resourceValue;
             }
-            catch (Exception e)
+
+            if (HttpContext.Current != null) //if in Notify Service or other process without HttpContext
             {
-                log.Error("ReplaceLogo", e);
+                try
+                {
+                    var tenant = CoreContext.TenantManager.GetCurrentTenant(false);
+                    if (tenant == null) return resourceValue;
+
+                    string newText;
+                    if (whiteLabelDictionary.TryGetValue(tenant.TenantId, out newText))
+                    {
+                        var newTextReplacement = newText;
+
+                        if (resourceValue.Contains("<") && resourceValue.Contains(">") || resourceName.StartsWith("pattern_"))
+                        {
+                            newTextReplacement = HttpUtility.HtmlEncode(newTextReplacement);
+                        }
+                        if (resourceValue.Contains("{0"))
+                        {
+                            //Hack for string which used in string.Format
+                            newTextReplacement = newTextReplacement.Replace("{", "{{").Replace("}", "}}");
+                        }
+                        
+                        var pattern = string.Format(replPattern, DefaultLogo);
+                        //Hack for resource strings with mails looked like ...@onlyoffice... or with website http://www.onlyoffice.com link or with the https://www.facebook.com/pages/OnlyOffice/833032526736775
+
+                        return Regex.Replace(resourceValue, pattern, newTextReplacement, RegexOptions.IgnoreCase).Replace("™", "");
+                    }
+                }
+                catch (Exception e)
+                {
+                    log.Error("ReplaceLogo", e);
+                }
             }
 
             return resourceValue;

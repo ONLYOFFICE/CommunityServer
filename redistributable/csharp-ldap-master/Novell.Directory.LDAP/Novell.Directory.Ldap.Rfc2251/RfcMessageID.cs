@@ -29,67 +29,69 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
 using Novell.Directory.Ldap.Asn1;
+using System;
 
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> Represents an Ldap Message ID.
-	/// 
-	/// <pre>
-	/// MessageID ::= INTEGER (0 .. maxInt)
-	/// 
-	/// maxInt INTEGER ::= 2147483647 -- (2^^31 - 1) --
-	/// 
-	/// Note: The creation of a MessageID should be hidden within the creation of
-	/// an RfcLdapMessage. The MessageID needs to be in sequence, and has an
-	/// upper and lower limit. There is never a case when a user should be
-	/// able to specify the MessageID for an RfcLdapMessage. The MessageID()
-	/// class should be package protected. (So the MessageID value isn't
-	/// arbitrarily run up.)
-	/// </pre>
-	/// </summary>
-	class RfcMessageID:Asn1Integer
-	{
-		/// <summary> Increments the message number atomically
-		/// 
-		/// </summary>
-		/// <returns> the new message number
-		/// </returns>
-		private static int MessageID
-		{
-			get
-			{
-				lock (lock_Renamed)
-				{
-					return (messageID < System.Int32.MaxValue)?++messageID:(messageID = 1);
-				}
-			}
-			
-		}
-		
-		private static int messageID = 0;
-		private static System.Object lock_Renamed;
-		
-		/// <summary> Creates a MessageID with an auto incremented Asn1Integer value.
-		/// 
-		/// Bounds: (0 .. 2,147,483,647) (2^^31 - 1 or Integer.MAX_VALUE)
-		/// 
-		/// MessageID zero is never used in this implementation.  Always
-		/// start the messages with one.
-		/// </summary>
-		protected internal RfcMessageID():base(MessageID)
-		{
-		}
-		
-		/// <summary> Creates a MessageID with a specified int value.</summary>
-		protected internal RfcMessageID(int i):base(i)
-		{
-		}
-		static RfcMessageID()
-		{
-			lock_Renamed = new System.Object();
-		}
-	}
+
+    /// <summary> Represents an Ldap Message ID.
+    /// 
+    /// <pre>
+    /// MessageID ::= INTEGER (0 .. maxInt)
+    /// 
+    /// maxInt INTEGER ::= 2147483647 -- (2^^31 - 1) --
+    /// 
+    /// Note: The creation of a MessageID should be hidden within the creation of
+    /// an RfcLdapMessage. The MessageID needs to be in sequence, and has an
+    /// upper and lower limit. There is never a case when a user should be
+    /// able to specify the MessageID for an RfcLdapMessage. The MessageID()
+    /// class should be package protected. (So the MessageID value isn't
+    /// arbitrarily run up.)
+    /// </pre>
+    /// </summary>
+    class RfcMessageID : Asn1Integer
+    {
+        /// <summary> Increments the message number atomically
+        /// 
+        /// </summary>
+        /// <returns> the new message number
+        /// </returns>
+        private static int MessageID
+        {
+            get
+            {
+                lock (lock_Renamed)
+                {
+                    return (messageID < Int32.MaxValue) ? ++messageID : (messageID = 1);
+                }
+            }
+
+        }
+
+        private static int messageID = 0;
+        private static object lock_Renamed;
+
+        /// <summary> Creates a MessageID with an auto incremented Asn1Integer value.
+        /// 
+        /// Bounds: (0 .. 2,147,483,647) (2^^31 - 1 or Integer.MAX_VALUE)
+        /// 
+        /// MessageID zero is never used in this implementation.  Always
+        /// start the messages with one.
+        /// </summary>
+        protected internal RfcMessageID()
+            : base(MessageID)
+        {
+        }
+
+        /// <summary> Creates a MessageID with a specified int value.</summary>
+        protected internal RfcMessageID(int i)
+            : base(i)
+        {
+        }
+        static RfcMessageID()
+        {
+            lock_Renamed = new object();
+        }
+    }
 }

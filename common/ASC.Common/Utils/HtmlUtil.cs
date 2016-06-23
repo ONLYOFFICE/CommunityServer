@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -28,85 +28,50 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
-using HtmlAgilityPack;
-using Microsoft.Security.Application;
 
 namespace ASC.Common.Utils
 {
-    public class HtmlUtil
+    public static class HtmlUtil
     {
-        private static readonly Regex HtmlTagReplacer = new Regex(@"</?(.|\n)*?>", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        private static readonly Regex HtmlCommentsReplacer = new Regex("<!--(?s).*?-->", RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        private static readonly Regex XssTagReplacer = new Regex(@"<\s*(style|script)[^>]*>(.*?)<\s*/\s*(style|script)>", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled | RegexOptions.Singleline);
+        private static readonly Regex tagReplacer = new Regex("<[^>]*>", RegexOptions.Multiline | RegexOptions.Compiled);
+        private static readonly Regex commentsReplacer = new Regex("<!--(?s).*?-->", RegexOptions.Singleline | RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        private static readonly Regex xssReplacer = new Regex(@"<\s*(style|script)[^>]*>(.*?)<\s*/\s*(style|script)>", RegexOptions.IgnoreCase | RegexOptions.CultureInvariant | RegexOptions.Compiled | RegexOptions.Singleline);
         private static readonly Regex Worder = new Regex(@"\S+", RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
 
 
-        public static string GetText(string html)
+        public static string GetText(string html, int maxLength = 0, string endBlockTemplate = "...")
         {
-            return GetText(html, 0);
-        }
-
-        public static string GetText(string html, bool preserveSpaces)
-        {
-            return GetText(html, 0, "...", true, preserveSpaces);
-        }
-
-        public static string GetText(string html, int maxLength)
-        {
-            return GetText(html, maxLength, "...");
-        }
-
-        public static string GetText(string html, int maxLength, bool preserveSpaces)
-        {
-            return GetText(html, maxLength, "...", true, preserveSpaces);
-        }
-
-        public static string GetText(string html, int maxLength, string endBlockTemplate)
-        {
-            return GetText(html, maxLength, endBlockTemplate, true);
-        }
-
-        public static string GetText(string html, int maxLength, string endBlockTemplate, bool calcEndBlockTemplate)
-        {
-            return GetText(html, maxLength, endBlockTemplate, calcEndBlockTemplate, false);
-        }
-
-        public static string GetText(string html, int maxLength, string endBlockTemplate, bool calcEndBlockTemplate, bool preserveSpaces)
-        {
-            string unformatedText = string.Empty;
+            var unformatedText = string.Empty;
             if (!string.IsNullOrEmpty(html))
             {
-                html = XssTagReplacer.Replace(html,string.Empty);//Clean malicious tags. <script> <style> etc
-                if (string.IsNullOrEmpty(html)) return html;//return this if it's empty
+                html = xssReplacer.Replace(html, string.Empty); //Clean malicious tags. <script> <style>
 
-                try
+                if (string.IsNullOrEmpty(html))
                 {
-                    var doc = new HtmlDocument();
-                    doc.LoadHtml(html);
-                    unformatedText = doc.DocumentNode.InnerText;//Parsing is done by HtmlDocument, also it preserves sapces and line breaks
+                    return html;
                 }
-                catch (Exception)
-                {
-                    //Try simple replace
-                    unformatedText = HtmlTagReplacer.Replace(XssTagReplacer.Replace(html,""), "");
-                }
+
+                unformatedText = tagReplacer.Replace(html, string.Empty);
 
                 if (!string.IsNullOrEmpty(unformatedText))
                 {
-                    //Kill comments
-                    unformatedText = HtmlCommentsReplacer.Replace(unformatedText, string.Empty);
-                    unformatedText=unformatedText.Trim('\r', '\n', ' ');//Trim spaces and line breaks
+                    // kill comments
+                    unformatedText = commentsReplacer.Replace(unformatedText, string.Empty);
+                    unformatedText = unformatedText.Trim();
 
                     if (!string.IsNullOrEmpty(unformatedText))
                     {
                         if (maxLength == 0 || unformatedText.Length < maxLength)
+                        {
                             return HttpUtility.HtmlDecode(unformatedText);
-                        //Set maximum length with end block
-                        maxLength = Math.Max(0,calcEndBlockTemplate ? maxLength - endBlockTemplate.Length : maxLength);
-                        var startIndex = Math.Max(0, Math.Min(unformatedText.Length - 1, maxLength));
-                        var countToScan = Math.Max(0, startIndex-1);
+                        }
 
-                        var lastSpaceIndex = unformatedText.LastIndexOf(' ',startIndex, countToScan);
+                        //Set maximum length with end block
+                        maxLength = Math.Max(0, maxLength - endBlockTemplate.Length);
+                        var startIndex = Math.Max(0, Math.Min(unformatedText.Length - 1, maxLength));
+                        var countToScan = Math.Max(0, startIndex - 1);
+
+                        var lastSpaceIndex = unformatedText.LastIndexOf(' ', startIndex, countToScan);
 
                         unformatedText = lastSpaceIndex > 0 && lastSpaceIndex < unformatedText.Length
                                              ? unformatedText.Remove(lastSpaceIndex)
@@ -125,17 +90,6 @@ namespace ASC.Common.Utils
         {
             return GetText(html);
         }
-
-        public static string SanitizeFragment(string htmlText)
-        {
-            return Sanitizer.GetSafeHtmlFragment(htmlText);
-        }
-
-        public static string SanitizeHtml(string htmlText)
-        {
-            return Sanitizer.GetSafeHtml(htmlText);
-        }
-
 
         /// <summary>
         /// The function highlight all words in htmlText by searchText.

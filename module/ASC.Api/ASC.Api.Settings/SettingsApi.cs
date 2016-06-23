@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,9 +24,6 @@
 */
 
 
-using System.Collections.Specialized;
-using System.Globalization;
-using System.Net;
 using ASC.Api.Attributes;
 using ASC.Api.Collections;
 using ASC.Api.Employee;
@@ -39,23 +36,26 @@ using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.IPSecurity;
 using ASC.MessagingSystem;
+using ASC.Security.Cryptography;
 using ASC.Web.Core;
 using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.SMS;
-using ASC.Web.Studio.UserControls.FirstTime;
 using ASC.Web.Studio.Utility;
+using log4net;
 using Resources;
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Security;
 using System.Web;
-using log4net;
-using System.Web.Configuration;
-using System.Web.Hosting;
-using System.Configuration;
+using SecurityContext = ASC.Core.SecurityContext;
 
 
 namespace ASC.Api.Settings
@@ -145,6 +145,7 @@ namespace ASC.Api.Settings
         /// <short>
         /// Portal versions
         /// </short>
+        /// <visible>false</visible>
         /// <returns>List of availibe portal versions including current version</returns>
         [Read("version")]
         public TenantVersionWrapper GetVersions()
@@ -159,6 +160,7 @@ namespace ASC.Api.Settings
         /// Change portal version
         /// </short>
         /// <param name="versionId">Version ID</param>
+        /// <visible>false</visible>
         /// <returns>List of availibe portal versions including current version</returns>
         [Update("version")]
         public TenantVersionWrapper SetVersion(int versionId)
@@ -360,7 +362,8 @@ namespace ASC.Api.Settings
                 throw new BillingException(Resource.ErrorNotAllowedOption, "WhiteLabel");
             }
 
-            var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+            var tenantId = TenantProvider.CurrentTenantID;
+            var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(tenantId);
 
             if (logo != null)
             {
@@ -371,7 +374,7 @@ namespace ASC.Api.Settings
             }
 
             _tenantWhiteLabelSettings.LogoText = logoText;
-            _tenantWhiteLabelSettings.Save();
+            _tenantWhiteLabelSettings.Save(tenantId);
 
         }
 
@@ -382,7 +385,8 @@ namespace ASC.Api.Settings
         {
             if (files != null && files.Any())
             {
-                var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
+                var tenantId = TenantProvider.CurrentTenantID;
+                var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(tenantId);
 
                 foreach (var f in files)
                 {
@@ -392,7 +396,7 @@ namespace ASC.Api.Settings
                     string fileExt = parts[1];
                     _tenantWhiteLabelSettings.SetLogoFromStream(logoType, fileExt, f.InputStream);
                 }
-                _tenantWhiteLabelSettings.Save();
+                _tenantWhiteLabelSettings.Save(tenantId);
             }
             else
             {
@@ -415,12 +419,10 @@ namespace ASC.Api.Settings
             return
             new[]
             {
-                new {type = (int)WhiteLabelLogoTypeEnum.Light, name = WhiteLabelLogoTypeEnum.Light.ToString(), height = TenantWhiteLabelSettings.logoLightSize.Height, width = TenantWhiteLabelSettings.logoLightSize.Width},
                 new {type = (int)WhiteLabelLogoTypeEnum.LightSmall, name = WhiteLabelLogoTypeEnum.LightSmall.ToString(), height = TenantWhiteLabelSettings.logoLightSmallSize.Height, width = TenantWhiteLabelSettings.logoLightSmallSize.Width},
                 new {type = (int)WhiteLabelLogoTypeEnum.Dark, name = WhiteLabelLogoTypeEnum.Dark.ToString(), height = TenantWhiteLabelSettings.logoDarkSize.Height, width = TenantWhiteLabelSettings.logoDarkSize.Width},
                 new {type = (int)WhiteLabelLogoTypeEnum.Favicon, name = WhiteLabelLogoTypeEnum.Favicon.ToString(), height = TenantWhiteLabelSettings.logoFaviconSize.Height, width = TenantWhiteLabelSettings.logoFaviconSize.Width},
-                new {type = (int)WhiteLabelLogoTypeEnum.DocsEditor, name = WhiteLabelLogoTypeEnum.DocsEditor.ToString(), height = TenantWhiteLabelSettings.logoDocsEditorSize.Height, width = TenantWhiteLabelSettings.logoDocsEditorSize.Width},
-                new {type = (int)WhiteLabelLogoTypeEnum.DocsEditorEmbedded, name = WhiteLabelLogoTypeEnum.DocsEditorEmbedded.ToString(), height = TenantWhiteLabelSettings.logoDocsEditorEmbeddedSize.Height, width = TenantWhiteLabelSettings.logoDocsEditorEmbeddedSize.Width}
+                new {type = (int)WhiteLabelLogoTypeEnum.DocsEditor, name = WhiteLabelLogoTypeEnum.DocsEditor.ToString(), height = TenantWhiteLabelSettings.logoDocsEditorSize.Height, width = TenantWhiteLabelSettings.logoDocsEditorSize.Width}
             };
         }
 
@@ -442,24 +444,10 @@ namespace ASC.Api.Settings
 
             var result = new Dictionary<int, string>();
 
-            result.Add((int)WhiteLabelLogoTypeEnum.Light, CommonLinkUtility.GetFullAbsolutePath(_tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Light, !retina)));
             result.Add((int)WhiteLabelLogoTypeEnum.LightSmall, CommonLinkUtility.GetFullAbsolutePath(_tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.LightSmall, !retina)));
-
-
-            var logoDarkPath = _tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Dark, !retina);
-            var defaultDarkLogoPath = TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Dark, !retina);
-
-            if (String.Equals(logoDarkPath, defaultDarkLogoPath, StringComparison.OrdinalIgnoreCase))
-            {
-                var _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
-                logoDarkPath = _tenantInfoSettings.GetAbsoluteCompanyLogoPath();
-            }
-
-            result.Add((int)WhiteLabelLogoTypeEnum.Dark, CommonLinkUtility.GetFullAbsolutePath(logoDarkPath));
-
+            result.Add((int)WhiteLabelLogoTypeEnum.Dark, CommonLinkUtility.GetFullAbsolutePath(_tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Dark, !retina)));
             result.Add((int)WhiteLabelLogoTypeEnum.Favicon, CommonLinkUtility.GetFullAbsolutePath(_tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Favicon, !retina)));
             result.Add((int)WhiteLabelLogoTypeEnum.DocsEditor, CommonLinkUtility.GetFullAbsolutePath(_tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.DocsEditor, !retina)));
-            result.Add((int)WhiteLabelLogoTypeEnum.DocsEditorEmbedded, CommonLinkUtility.GetFullAbsolutePath(_tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.DocsEditorEmbedded, !retina)));
 
             return result;
         }
@@ -496,33 +484,6 @@ namespace ASC.Api.Settings
             var _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
             _tenantInfoSettings.RestoreDefaultLogo();
             SettingsManager.Instance.SaveSettings(_tenantInfoSettings, TenantProvider.CurrentTenantID);
-        }
-
-        ///<visible>false</visible>
-        [Read("webconfig/basedomain")]
-        public string GetWebConfigBaseDomain()
-        {
-            if (String.IsNullOrEmpty(SetupInfo.ControlPanelUrl)
-                || CoreContext.Configuration.Personal
-                || !CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin())
-                    throw new Exception(Resource.ErrorAccessDenied);
-
-            return CoreContext.Configuration.BaseDomain;
-        }
-
-        ///<visible>false</visible>
-        [Update("webconfig/basedomain")]
-        public string SetWebConfigBaseDomain(string domain)
-        {
-            if (String.IsNullOrEmpty(SetupInfo.ControlPanelUrl)
-                || CoreContext.Configuration.Personal
-                || !CoreContext.Configuration.Standalone)
-                    throw new Exception(Resource.ErrorAccessDenied);
-
-            ASC.Core.SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
-
-            CoreContext.Configuration.BaseDomain = domain;
-            return CoreContext.Configuration.BaseDomain;
         }
 
         /// <summary>
@@ -660,15 +621,21 @@ namespace ASC.Api.Settings
         }
 
         ///<visible>false</visible>
-        [Update("firsttimetenantsettings")]
-        public void SetFirstTimeTenantSettings()
+        [Create("sendcongratulations", false)] //NOTE: this method doesn't requires auth!!!
+        public void SendCongratulations(Guid userid, string key)
         {
-            var currentUser = CoreContext.UserManager.GetUsers(CurrentUser);
-            if (!currentUser.IsOwner())
-                throw new NotSupportedException("Access Denied.");
+            var authInterval = TimeSpan.FromHours(1);
+            var checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(userid.ToString() + ConfirmType.Auth, key, authInterval);
 
-            FirstTimeTenantSettings.SetDefaultTenantSettings();
-            FirstTimeTenantSettings.SendInstallInfo(currentUser);
+            switch (checkKeyResult)
+            {
+                case EmailValidationKeyProvider.ValidationResult.Ok:
+                    var currentUser = CoreContext.UserManager.GetUsers(userid);
+                    StudioNotifyService.Instance.SendCongratulations(currentUser);
+                    break;
+                default:
+                    throw new SecurityException("Access Denied.");
+            }
         }
 
         ///<visible>false</visible>
@@ -712,7 +679,7 @@ namespace ASC.Api.Settings
         public bool RefreshLicense()
         {
             if (!CoreContext.Configuration.Standalone) return false;
-            LicenseClient.RefreshLicense();
+            LicenseReader.RefreshLicense();
             return true;
         }
     }

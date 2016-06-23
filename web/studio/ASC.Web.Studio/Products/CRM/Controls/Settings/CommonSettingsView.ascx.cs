@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,18 +24,15 @@
 */
 
 
+using ASC.CRM.Core;
+using ASC.Web.CRM.Classes;
+using ASC.Web.CRM.Resources;
+using ASC.Web.Studio.Utility;
 using System;
-using System.Web;
 using System.Collections.Generic;
 using System.Linq;
-using ASC.CRM.Core;
-using ASC.MessagingSystem;
-using ASC.Web.Core.Mobile;
-using ASC.Web.CRM.Classes;
-using ASC.Web.Studio.Utility;
-using ASC.Common.Threading.Progress;
 using System.Text;
-using ASC.Web.CRM.Resources;
+using System.Web;
 
 namespace ASC.Web.CRM.Controls.Settings
 {
@@ -51,16 +48,12 @@ namespace ASC.Web.CRM.Controls.Settings
         protected List<CurrencyInfo> BasicCurrencyRates { get; set; }
         protected List<CurrencyInfo> OtherCurrencyRates { get; set; }
 
-        protected bool MobileVer = false;
-
         #endregion
 
         #region Events
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            MobileVer = MobileDetector.IsMobile;
-
             BasicCurrencyRates = CurrencyProvider.GetBasic().Where(n => n.IsConvertable).ToList();
             OtherCurrencyRates = CurrencyProvider.GetOther().Where(n => n.IsConvertable).ToList();
 

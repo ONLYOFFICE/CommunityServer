@@ -1680,7 +1680,7 @@
         } else {
             $container.find('input.advansed-filter-input:first').unbind('keyup paste', onFilterInputEnter).bind('keyup paste', onFilterInputEnter);
         }
-        $container.find('input.advansed-filter-input:first').unbind('keyup paste', onKeyUp).bind('keyup paste', onKeyUp);
+        $container.find('input.advansed-filter-input:first').unbind('keyup paste input', onKeyUp).bind('keyup paste input', onKeyUp);
 
         $container.find('.btn-start-filter:first').unbind('click', onStartFilter).bind('click', onStartFilter);
         $container.find('label.btn-reset-filter:first').unbind('click', onResetFilter).bind('click', onResetFilter);
@@ -2409,7 +2409,7 @@
                     .join(''));
             }
 
-            if (opts.hasOwnProperty('hint')) {
+            if (!opts.hintDefaultDisable && opts.hasOwnProperty('hint')) {
                 initHint($container, opts.hint);
             }
 
@@ -2455,7 +2455,7 @@
                     .join(''));
                 }
 
-                if (opts.hasOwnProperty('hint')) {
+                if (!opts.hintDefaultDisable && opts.hasOwnProperty('hint')) {
                     initHint($container, opts.hint);
                 }
             }

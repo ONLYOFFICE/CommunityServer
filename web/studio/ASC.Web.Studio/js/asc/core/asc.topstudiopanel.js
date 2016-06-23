@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -30,16 +30,13 @@ jq(document).ready(function () {
     jq.dropdownToggle({
         switcherSelector: ".studio-top-panel .product-menu",
         dropdownID: "studio_productListPopupPanel",
-        addTop: 2,
-        addLeft: -14,
+        addLeft: -15,
         toggleOnOver: true,
     });
 
     jq.dropdownToggle({
         switcherSelector: ".studio-top-panel .staff-profile-box",
         dropdownID: "studio_myStaffPopupPanel",
-        addTop: 0,
-        addLeft: 16,
         rightPos: true
     });
 
@@ -157,6 +154,9 @@ var Searcher = new function () {
 var UnreadMailManager = new function () {
 
     this.Init = function () {
+        if (StudioManager.getCurrentModule() === "mail")
+            return; // Skips for mail module
+
         jq.dropdownToggle({
             switcherSelector: '.studio-top-panel .mailActiveBox',
             dropdownID: 'studio_dropMailPopupPanel',
@@ -169,17 +169,18 @@ var UnreadMailManager = new function () {
                 event.preventDefault();
                 return;
             }
-            var unreadMailCount = 0;
-            if (localStorageManager.isAvailable) {
-                unreadMailCount = localStorageManager.getItem("TPUnreadMessagesCount");
-            }
+            var unreadMailCount = localStorageManager.isAvailable
+                ? localStorageManager.getItem("MailUreadMessagesCount")
+                : 0;
+
             if (event.which == 2 && unreadMailCount && event.which != 1) {
                 return true;
             }
             if (unreadMailCount && jq(this).hasClass("has-led")) {
                 showLoaderMail();
-                Teamlab.getMailFilteredConversations({}, {
-                    unread: true
+                Teamlab.getMailFilteredMessages({}, {
+                    unread: true,
+                    page_size: 10
                 },
                 {
                     success: onGetDropMail,
@@ -195,7 +196,7 @@ var UnreadMailManager = new function () {
             return true;
         });
 
-        jq('#drop-mail-box').on("click", ".mark-all-btn", markAsReadedLetters);
+        jq('#drop-mail-box').on("click", ".mark-all-btn", markReadMessages);
 
     }
 
@@ -270,7 +271,7 @@ var UnreadMailManager = new function () {
         return tmpl;
     }
 
-    function markAsReadedLetters() {
+    function markReadMessages() {
         var $items = jq("#drop-mail-box").find(".item"),
             ids = [];
 
@@ -279,26 +280,26 @@ var UnreadMailManager = new function () {
         }
 
         Teamlab.markMailConversations({}, ids, "read", {
-            success: function () {
-                if (localStorageManager.isAvailable) {
-                    var stored_count = localStorageManager.getItem("TPUnreadMessagesCount"),
-                        $unreadMes = jq("#TPUnreadMessagesCount"),
-                        unreadMails = stored_count - ids.length;
-                    localStorageManager.setItem("TPUnreadMessagesCount", unreadMails);
-                    if (ASC.Resources.Master.Hub.Url && ASC.Controls.MailReader) {
-                        ASC.Controls.MailReader.updateFoldersOnOtherTabs(false);
-                    }
-                    if (unreadMails > 0) {
-                        unreadMails > 100 ? $unreadMes.html(">100") : $unreadMes.html(unreadMails);
-                    } else {
-                        if (location.pathname == "/addons/mail/" && (location.hash == "" || location.hash == "#inbox")) {
-                            location.reload();
-                        } else {
-                            jq("#TPUnreadMessagesCount").parent().toggleClass("has-led");
-                        }
-                    }
-                    jq("#studio_dropMailPopupPanel").hide();
+            success: function() {
+                var storedCount = localStorageManager.getItem("MailUreadMessagesCount"),
+                    $tpUnreadMessagesCountEl = jq("#TPUnreadMessagesCount"),
+                    unread = storedCount - ids.length;
+
+                if (storedCount !== unread) {
+                    localStorageManager.setItem("MailUreadMessagesCount", unread);
                 }
+
+                if (ASC.Resources.Master.Hub.Url && ASC.Controls.MailReader) {
+                    ASC.Controls.MailReader.updateFoldersOnOtherTabs(false);
+                }
+
+                if (unread > 0) {
+                    $tpUnreadMessagesCountEl.html(unread > 100 ? ">100": unread);
+                } else {
+                    $tpUnreadMessagesCountEl.parent().toggleClass("has-led");
+                }
+
+                jq("#studio_dropMailPopupPanel").hide();
             }
         });
     }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,185 +26,213 @@
 
 .search-results-block {
     padding: 10px;
-}
 
-.search-results-block .header-search-results {
-    cursor: pointer;
-    float: left;
-    vertical-align: middle; 
-}
-.search-results-block .header-search-results img.logoUrl {
-    margin-right: 5px;
-}
+    .header-search-results {
+        cursor: pointer;
+        float: left;
+        vertical-align: middle;
 
-.search-results-block .showAllLink {    
-    border-bottom:1px dotted;
-    color: #333333;
-    cursor:pointer;
-    text-decoration:none;
+        img.logoUrl {
+            margin-right: 5px;
+        }
+    }
+
+    .showAllLink {
+        border-bottom: 1px dotted;
+        color: #333333;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+    .controlButton {
+        height: 16px;
+        width: 16px;
+        line-height: 16px;
+        display: inline-block;
+        position: relative;
+        margin: 0 0 0 3px;
+
+        &:after {
+            border-right: 6px solid transparent;
+            border-left: 6px solid transparent;
+            border-top: 6px solid #666666;
+            content: " ";
+            height: 0;
+            left: 0;
+            margin-top: -3px;
+            position: absolute;
+            right: 0;
+            top: 50%;
+            width: 0;
+        }
+
+        &.closed {
+
+            &:after {
+                border-bottom: 6px solid transparent;
+                border-left: 6px solid #666666;
+                border-top: 6px solid transparent;
+                border-right: 0 none;
+                left: 3px;
+                margin-top: -7px;
+            }
+        }
+    }
 }
 
 .search-results {
     margin-bottom: 8px;
     overflow: hidden;
+
+    div.item, div.universalitem {
+        border-top: 1px solid #d1d1d1;
+        min-height: 40px;
+
+        a {
+            font-weight: bold;
+        }
+
+        div.body {
+            float: left;
+            line-height: 18px;
+            padding-top: 3px;
+            max-width: 90%;
+
+            a {
+                font-weight: bold;
+            }
+        }
+
+        div.widebody {
+            float: left;
+            max-width: 885px;
+            padding-top: 3px;
+            word-wrap: break-word;
+        }
+
+        div.date {
+            color: #787878;
+            float: right;
+            line-height: 34px;
+        }
+    }
+
+    div.item {
+        padding: 5px 10px 5px 30px;
+
+        div.centeredContainer {
+            position: relative;
+            display: block;
+            height: inherit;
+            text-align: center;
+
+            div.subContainer {
+                display: table-cell;
+                position: absolute;
+                top: 50%;
+                width: 100px;
+                height: 100%;
+
+                div.body {
+                    position: relative;
+                    top: -6px;
+                    width: 70px;
+                    height: 12px;
+                    line-height: 12px;
+                    font-size: 12px;
+                    vertical-align: middle;
+                    background-color: Red;
+                }
+            }
+        }
+    }
+
+    div.universalitem {
+        padding: 5px 10px 5px 10px;
+        line-height: 20px;
+    }
+
+    div.projItem {
+        padding: 5px 10px 5px 10px;
+        border-top: 1px solid #d1d1d1;
+        min-height: 40px;
+        overflow: hidden;
+
+        div.body {
+            float: left;
+            line-height: 18px;
+            max-width: 885px;
+            word-wrap: break-word;
+
+            a {
+                font-weight: bold;
+            }
+        }
+
+        div.date {
+            float: right;
+            height: inherit;
+            vertical-align: middle;
+            line-height: 40px;
+            color: #787878;
+        }
+
+        .itemType .pm-entity-plate-fixed {
+            height: 18px;
+            line-height: 18px;
+            font-size: 12px;
+            width: 85px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            display: inline-block;
+        }
+    }
+
+    div.universalitem:hover,
+    div.projItem:hover {
+        background-color: #E6E6E6;
+
+        a {
+            text-decoration: underline;
+        }
+    }
+
+    div.projItem .img,
+    div.universalitem .img {
+        margin: 3px 10px 0 0;
+        width: 75px;
+        float: left;
+        height: 32px;
+        line-height: 32px;
+        vertical-align: middle;
+        font-weight: bold;
+    }
 }
 
-.search-results div.item
-{
-    border-top:1px solid #d1d1d1;
-    padding: 5px 10px 5px 30px;
-    min-height:40px;
-}
 
-.search-results div.universalitem
-{
-    border-top:1px solid #d1d1d1;
-    padding: 5px 10px 5px 10px;
-    min-height:40px;
-    line-height:20px;
-}
-
-.search-results div.item a,
-.search-results div.universalitem a
-{
-    font-weight:bold;
-}
-
-.search-results div.item div.body,
-.search-results div.universalitem div.body
-{
-    float:left;
-    line-height:18px;
-    padding-top:3px;
-    max-width: 90%;
-}
-
-.search-results div.item div.body a,
-.search-results div.universalitem div.body a
-{
-    font-weight:bold;
-}
-
-.search-results div.item div.widebody,
-.search-results div.universalitem div.widebody
-{
-    float: left;
-    max-width: 885px;
-    padding-top: 3px;
-    word-wrap: break-word;
-}
-
-.search-results div.item div.date,
-.search-results div.universalitem div.date
-{
-    color:#787878;
-    float:right;
-    line-height:34px;
-}
-
-.search-results div.item div.centeredContainer {
-    position: relative;
-    display:block;
-    height:inherit;
-    text-align:center;
-}
-.search-results div.item div.centeredContainer div.subContainer {
-    display: table-cell;
-    position: absolute;
-    top: 50%;
-    width: 100px;
-    height:100%;
-}
-
-.search-results div.item div.centeredContainer div.subContainer div.body {
-     position: relative;
-     top: -6px;
-     width:70px;
-     height:12px;
-     line-height:12px;
-     font-size:12px;
-     vertical-align:middle;
-     background-color:Red;
-}
-
-.search-results div.projItem
-{
-    padding: 5px 10px 5px 10px;
-    border-top:1px solid #d1d1d1;
-    min-height:40px;
-    overflow: hidden;
-}
-.search-results div.universalitem:hover,
-.search-results div.projItem:hover
-{
-    background-color:#E6E6E6;
-}
-.search-results div.universalitem:hover a,
-.search-results div.projItem:hover a
-{
-    text-decoration:underline;
-}
-
-.search-results div.projItem .img,
-.search-results div.universalitem .img
-{
-    margin: 3px 10px 0 0;
-    width:75px;
-    float:left;
-    height:32px;
-    line-height:32px;
-    vertical-align:middle;
-    font-weight:bold;
-}
-
-.search-results div.projItem div.body
-{
-    float: left;
-    line-height: 18px;
-    max-width: 885px;
-    word-wrap: break-word;
-}
-
-.search-results div.projItem div.body a
-{
-    font-weight:bold;
-}
-
-.search-results div.projItem div.date
-{
-    float:right;height:inherit;vertical-align:middle;line-height:40px;
-    color:#787878;
-}
-
-.search-results div.projItem .itemType .pm-entity-plate-fixed
-{
-    height:18px;
-    line-height:18px;
-    font-size: 12px;
-    width: 85px;
-    color: white;
-    font-weight: bold;
-    text-align: center;
-    display: inline-block;
-}
 .search-result-item {
     height: 50px;
-}
-.search-result-item .left-column {
-    padding-right: 24px;
-    white-space: nowrap;
-}
-.search-result-item .center-column {
-    width: 100%;
-}
-.search-result-item .right-column {
-    padding-left: 24px;
-    white-space: nowrap;
-    text-align: right;
-}
-.search-result-item .left-column div,
-.search-result-item .right-column div {
-    max-width: 300px;
-    text-overflow: ellipsis;
-    overflow: hidden;
+
+    .left-column {
+        padding-right: 24px;
+        white-space: nowrap;
+    }
+
+    .center-column {
+        width: 100%;
+    }
+
+    .right-column {
+        padding-left: 24px;
+        white-space: nowrap;
+        text-align: right;
+    }
+
+        .left-column div,
+        .right-column div {
+            max-width: 300px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+        }
 }

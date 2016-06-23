@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -171,29 +171,21 @@ namespace ASC.Projects.Data.DAO
         {
             using (var db = new DbManager(DatabaseId))
             {
-                using (var tr = db.Connection.BeginTransaction())
-                {
-                    var insert = Insert(SubtasksTable)
-                        .InColumnValue("id", subtask.ID)
-                        .InColumnValue("task_id", subtask.Task)
-                        .InColumnValue("title", subtask.Title)
-                        .InColumnValue("responsible_id", subtask.Responsible.ToString())
-                        .InColumnValue("status", subtask.Status)
-                        .InColumnValue("create_by", subtask.CreateBy.ToString())
-                        .InColumnValue("create_on", TenantUtil.DateTimeToUtc(subtask.CreateOn))
-                        .InColumnValue("last_modified_by", subtask.LastModifiedBy.ToString())
-                        .InColumnValue("last_modified_on", TenantUtil.DateTimeToUtc(subtask.LastModifiedOn))
-                        .InColumnValue("status_changed", TenantUtil.DateTimeToUtc(subtask.StatusChangedOn))
-                        .Identity(1, 0, true);
+                var insert = Insert(SubtasksTable)
+                    .InColumnValue("id", subtask.ID)
+                    .InColumnValue("task_id", subtask.Task)
+                    .InColumnValue("title", subtask.Title)
+                    .InColumnValue("responsible_id", subtask.Responsible.ToString())
+                    .InColumnValue("status", subtask.Status)
+                    .InColumnValue("create_by", subtask.CreateBy.ToString())
+                    .InColumnValue("create_on", TenantUtil.DateTimeToUtc(subtask.CreateOn))
+                    .InColumnValue("last_modified_by", subtask.LastModifiedBy.ToString())
+                    .InColumnValue("last_modified_on", TenantUtil.DateTimeToUtc(subtask.LastModifiedOn))
+                    .InColumnValue("status_changed", TenantUtil.DateTimeToUtc(subtask.StatusChangedOn))
+                    .Identity(1, 0, true);
 
-                    subtask.ID = db.ExecuteScalar<int>(insert);
-
-                    tr.Commit();
-
-
-                    return subtask;
-
-                }
+                subtask.ID = db.ExecuteScalar<int>(insert);
+                return subtask;
             }
         }
 
@@ -233,17 +225,17 @@ namespace ASC.Projects.Data.DAO
         private static Subtask ToSubTask(IList<object> r)
         {
             return new Subtask
-                       {
-                           ID = Convert.ToInt32(r[0]),
-                           Title = (string) r[1],
-                           Responsible = ToGuid(r[2]),
-                           Status = (TaskStatus) Convert.ToInt32(r[3]),
-                           CreateBy = ToGuid(r[4]),
-                           CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[5])),
-                           LastModifiedBy = ToGuid(r[6]),
-                           LastModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[7])),
-                           Task = Convert.ToInt32(r[8])
-                       };
+            {
+                ID = Convert.ToInt32(r[0]),
+                Title = (string)r[1],
+                Responsible = ToGuid(r[2]),
+                Status = (TaskStatus)Convert.ToInt32(r[3]),
+                CreateBy = ToGuid(r[4]),
+                CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[5])),
+                LastModifiedBy = ToGuid(r[6]),
+                LastModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[7])),
+                Task = Convert.ToInt32(r[8])
+            };
         }
     }
 }

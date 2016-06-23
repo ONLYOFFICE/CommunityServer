@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -331,8 +331,9 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
         private IList<Bookmark> GetSortedBookmarks(int itemsCounter)
         {
             SetPagination(itemsCounter);
-            BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
-                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+
+            var displayMode = BookmarkingBusinessFactory.GetDisplayMode();
+
             switch (displayMode)
             {
                 case BookmarkDisplayMode.Favourites:
@@ -516,8 +517,9 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
         private void InitSortUtil(SortByEnum sortBy)
         {
             var sortUtil = new BookmarkingSortUtil();
-            BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
-                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+
+            var displayMode = BookmarkingBusinessFactory.GetDisplayMode();
+
             switch (displayMode)
             {
                 case BookmarkDisplayMode.Favourites:
@@ -727,8 +729,8 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
 
         public string GenerateSortUrl(string sortBy)
         {
-            BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
-                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+            var displayMode = BookmarkingBusinessFactory.GetDisplayMode();
+
             switch (displayMode)
             {
                 case BookmarkDisplayMode.Favourites:
@@ -1123,8 +1125,8 @@ namespace ASC.Web.UserControls.Bookmarking.Common.Presentation
 
         public bool IsSelectedBookmarkDisplayMode()
         {
-            BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
-                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+            var displayMode = BookmarkingBusinessFactory.GetDisplayMode();
+
             return BookmarkDisplayMode.SelectedBookmark.Equals(displayMode);
         }
 

@@ -73,40 +73,60 @@ PopupBox = function(id, width, height, backgroundCSSClass, borderCSSClass, serve
 
     };
 
-    this.CheckVisible = function() {
-        if (jq('#' + this.ID).is(':visible') && this.IsVisible == false) {
-            jq("#" + this.ID).fadeOut("slow");
-            clearInterval(this.checkInterval);
+    this.CheckVisible = function () {
+        var self = this;
+
+        if (self.IsVisible == false) {//popup should be hidden
+            clearInterval(self.checkVisibleHandler);
+            self.checkVisibleHandler = null;
+
+            if (jq('#' + self.ID).is(':visible')) {
+                jq("#" + self.ID).fadeOut("slow");
+            }
+        } else {
+            self.checkVisibleHandler = setTimeout(function () {
+                self.CheckVisible();
+            }, 313);
         }
     };
 
     this.RegistryElement = function(idElement, methodParams) {
         var popupBoxID = this.ID;
-        jq('#' + idElement).mouseover(function() {
-            PopupBoxManager.GetPopupBoxByID(popupBoxID).ExecAndShow(idElement, methodParams);
-        });
+        jq('#' + idElement)
+            .on("mouseover", function () {
+                PopupBoxManager.GetPopupBoxByID(popupBoxID).ExecAndShow(idElement, methodParams);
+            })
+            .on("mouseout", function () {
+                PopupBoxManager.GetPopupBoxByID(popupBoxID).StopTimer();
+            })
+            .on("click", function () {
+                PopupBoxManager.GetPopupBoxByID(popupBoxID).StopTimer();
+            });
 
-        jq('#' + idElement).mouseout(function() {
-            PopupBoxManager.GetPopupBoxByID(popupBoxID).StopTimer();
-        });
-
-        jq('#' + idElement).click(function() {
-            PopupBoxManager.GetPopupBoxByID(popupBoxID).StopTimer();
+        jq(document).on("keypress", function (evt) {
+            if (!(evt.hasOwnProperty("ctrlKey") && evt.ctrlKey === true && (evt.which === 99 || evt.which === 97))) {//ctrl + c and ctrl + a
+                PopupBoxManager.GetPopupBoxByID(popupBoxID).StopTimer();
+            }
         });
     };
 
     this.RegistryElementOnLive = function(idElement, methodParams) {
         var popupBoxID = this.ID;
-        jq(document).on('mouseover', '#' + idElement, function() {
-            PopupBoxManager.GetPopupBoxByID(popupBoxID).ExecAndShow(idElement, methodParams);
-        });
+        jq(document)
+            .on('mouseover', '#' + idElement, function () {
+                PopupBoxManager.GetPopupBoxByID(popupBoxID).ExecAndShow(idElement, methodParams);
+            })
+            .on('mouseout', '#' + idElement, function () {
+                PopupBoxManager.GetPopupBoxByID(popupBoxID).StopTimer();
+            })
+            .on('click', '#' + idElement, function () {
+                PopupBoxManager.GetPopupBoxByID(popupBoxID).StopTimer();
+            });
 
-        jq(document).on('mouseout', '#' + idElement, function() {
-            PopupBoxManager.GetPopupBoxByID(popupBoxID).StopTimer();
-        });
-
-        jq(document).on('click', '#' + idElement, function() {
-            PopupBoxManager.GetPopupBoxByID(popupBoxID).StopTimer();
+        jq(document).on("keypress", function (evt) {
+            if (!(evt.hasOwnProperty("ctrlKey") && evt.ctrlKey === true && (evt.which === 99 || evt.which === 97))) {//ctrl + c and ctrl + a
+                PopupBoxManager.GetPopupBoxByID(popupBoxID).StopTimer();
+            }
         });
     };
 
@@ -214,31 +234,31 @@ PopupBox = function(id, width, height, backgroundCSSClass, borderCSSClass, serve
     this.Show = function(idElement) {
         this.SetPopupPosition(idElement);
 
-        var idBox = this.ID;
+        var idBox = this.ID,
+            $box = jq('#' + idBox);
         this.VisibleWidth = -1;
         this.VisibleHeight = -1;
 
-        if (jq('#' + idBox).is(':visible') == false) {
+        if ($box.is(':visible') == false) {
             this.IsVisible = true;
-            jq("#" + idBox).fadeIn("slow");
+            $box.fadeIn("slow");
 
-            jq('#' + idBox).mouseout(function() {
+            $box.on("mouseout", function () {
                 PopupBoxManager.GetPopupBoxByID(idBox).SetVisible(false);
             });
 
-            jq('#' + idBox).mouseover(function() {
+            $box.on("mouseover", function () {
                 PopupBoxManager.GetPopupBoxByID(idBox).SetVisible(true);
             });
         }
-        var self = this;
-        self.checkInterval = setInterval(function () {
-            self.CheckVisible();
-        }, 1000);
+
+        this.CheckVisible();
     };
 
     this.SetVisible = function(state) {
-        if (jq('#' + this.ID).is(':visible'))
+        if (jq('#' + this.ID).is(':visible')) {
             this.IsVisible = state;
+        }
     };
 
     this.StopTimer = function(id) {

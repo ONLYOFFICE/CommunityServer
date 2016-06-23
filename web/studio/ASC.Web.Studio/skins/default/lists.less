@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -206,6 +206,14 @@ table.table-list {
             background-color: @activeTable;
         }
 
+        &:hover,
+        &.selected,
+        &.selected:hover {
+            img {
+                background-color: #fff;
+            }
+        }
+
         td {
             text-align: left;
             vertical-align: middle;
@@ -236,8 +244,21 @@ body.media-width-0-1300 {
 /**** Simple list with marker *****/
 
 .simple-marker-list {
-    background: url("imagescss/list_marker_12.png") no-repeat 0 7px transparent;  
     padding: 4px 0 4px 16px;
+    position: relative;
+
+    &:after {
+        background: #83888D;
+        content: "";
+        height: 5px;
+        width: 5px;
+        .borderRadius(5px);
+
+        position: absolute;
+        top: 50%;
+        margin-top: -3px;
+        left: 3px;
+    }
 }
 
 /**** List of the items with reset icon *****/

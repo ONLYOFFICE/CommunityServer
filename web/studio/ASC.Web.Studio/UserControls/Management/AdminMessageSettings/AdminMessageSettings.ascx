@@ -1,5 +1,4 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="AdminMessageSettings.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.AdminMessageSettings" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 <div class="clearFix">
   <div id="studio_admMessSettings" class="settings-block">
@@ -29,9 +28,9 @@
     </div>
   <div class="settings-help-block">
         <p><%= String.Format(Resource.HelpAnswerAdminMessSettings.HtmlEncode(), "<br />", "<b>", "</b>") %></p>
-       <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+       <% if (!string.IsNullOrEmpty(HelpLink))
            { %>
-        <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#ChangingGeneralSettings_block" %>" target="_blank"><%= Resource.LearnMore %></a>
+        <a href="<%= HelpLink + "/gettingstarted/configuration.aspx#ChangingGeneralSettings_block" %>" target="_blank"><%= Resource.LearnMore %></a>
       <% } %>
  </div>  
 </div>    

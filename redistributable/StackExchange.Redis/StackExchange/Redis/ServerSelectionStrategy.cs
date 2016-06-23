@@ -57,7 +57,8 @@ namespace StackExchange.Redis
         }
 
         public ServerType ServerType { get { return serverType; } set { serverType = value; } }
-        internal int TotalSlots { get { return RedisClusterSlotCount; } }
+        internal int TotalSlots => RedisClusterSlotCount;
+
         /// <summary>
         /// Computes the hash-slot that would be used by the given key
         /// </summary>
@@ -89,7 +90,7 @@ namespace StackExchange.Redis
 
         public ServerEndPoint Select(Message message)
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null) throw new ArgumentNullException(nameof(message));
             int slot = NoSlot;
             switch (serverType)
             {
@@ -133,13 +134,13 @@ namespace StackExchange.Redis
                         switch (Message.GetMasterSlaveFlags(message.Flags))
                         {
                             case CommandFlags.DemandMaster:
-                                resendVia = server.IsSelectable(command) ? null : server;
+                                resendVia = server.IsSelectable(command) ? server : null;
                                 break;
                             case CommandFlags.PreferMaster:
-                                resendVia = server.IsSelectable(command) ? FindSlave(server, command) : server;
+                                resendVia = server.IsSelectable(command) ? server : FindSlave(server, command);
                                 break;
                             case CommandFlags.PreferSlave:
-                                resendVia = FindSlave(server, command) ?? (server.IsSelectable(command) ? null : server);
+                                resendVia = FindSlave(server, command) ?? (server.IsSelectable(command) ? server : null);
                                 break;
                             case CommandFlags.DemandSlave:
                                 resendVia = FindSlave(server, command);
@@ -163,7 +164,7 @@ namespace StackExchange.Redis
                         arr[hashSlot] = server;
                         if (oldServer != server)
                         {
-                            multiplexer.OnHashSlotMoved(hashSlot, oldServer == null ? null : oldServer.EndPoint, endpoint);
+                            multiplexer.OnHashSlotMoved(hashSlot, oldServer?.EndPoint, endpoint);
                         }
                     }
 

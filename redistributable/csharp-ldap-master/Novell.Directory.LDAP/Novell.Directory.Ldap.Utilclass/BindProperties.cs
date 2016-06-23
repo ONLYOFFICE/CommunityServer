@@ -30,105 +30,102 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Novell.Directory.Ldap.Utilclass
 {
-	
-	/// <summary> Encapsulates an Ldap Bind properties</summary>
-	public class BindProperties
-	{
-		/// <summary> gets the protocol version</summary>
-		virtual public int ProtocolVersion
-		{
-			get
-			{
-				return version;
-			}
-			
-		}
-		/// <summary> Gets the authentication dn
-		/// 
-		/// </summary>
-		/// <returns> the authentication dn for this connection
-		/// </returns>
-		virtual public System.String AuthenticationDN
-		{
-			get
-			{
-				return dn;
-			}
-			
-		}
-		/// <summary> Gets the authentication method
-		/// 
-		/// </summary>
-		/// <returns> the authentication method for this connection
-		/// </returns>
-		virtual public System.String AuthenticationMethod
-		{
-			get
-			{
-				return method;
-			}
-			
-		}
-		/// <summary> Gets the SASL Bind properties
-		/// 
-		/// </summary>
-		/// <returns> the sasl bind properties for this connection
-		/// </returns>
-		virtual public System.Collections.Hashtable SaslBindProperties
-		{
-			get
-			{
-				return bindProperties;
-			}
-			
-		}
-		
-		/// <summary> Gets the SASL callback handler
-		/// 
-		/// </summary>
-		/// <returns> the sasl callback handler for this connection
-		/// </returns>
-		virtual public System.Object SaslCallbackHandler
-		{
-			get
-			{
-				return bindCallbackHandler;
-			}
-			
-		}
-		
-		/// <summary> Indicates whether or not the bind properties specify an anonymous bind
-		/// 
-		/// </summary>
-		/// <returns> true if the bind properties specify an anonymous bind
-		/// </returns>
-		virtual public bool Anonymous
-		{
-			get
-			{
-				return anonymous;
-			}
-			
-		}
-		
-		private int version = 3;
-		private System.String dn = null;
-		private System.String method = null;
-		private bool anonymous;
-		private System.Collections.Hashtable bindProperties = null;
-		private System.Object bindCallbackHandler = null;
-		
-		public BindProperties(int version, System.String dn, System.String method, bool anonymous, System.Collections.Hashtable bindProperties, System.Object bindCallbackHandler)
-		{
-			this.version = version;
-			this.dn = dn;
-			this.method = method;
-			this.anonymous = anonymous;
-			this.bindProperties = bindProperties;
-			this.bindCallbackHandler = bindCallbackHandler;
-		}
-	}
+    /// <summary> Encapsulates an Ldap Bind properties</summary>
+    public class BindProperties
+    {
+        /// <summary> gets the protocol version</summary>
+        virtual public int ProtocolVersion
+        {
+            get
+            {
+                return version;
+            }
+        }
+
+        /// <summary> Gets the authentication dn
+        /// 
+        /// </summary>
+        /// <returns> the authentication dn for this connection
+        /// </returns>
+        virtual public string AuthenticationDN
+        {
+            get
+            {
+                return dn;
+            }
+        }
+
+        /// <summary> Gets the authentication method
+        /// 
+        /// </summary>
+        /// <returns> the authentication method for this connection
+        /// </returns>
+        virtual public string AuthenticationMethod
+        {
+            get
+            {
+                return method;
+            }
+        }
+
+        /// <summary> Gets the SASL Bind properties
+        /// 
+        /// </summary>
+        /// <returns> the sasl bind properties for this connection
+        /// </returns>
+        virtual public Hashtable SaslBindProperties
+        {
+            get
+            {
+                return bindProperties;
+            }
+        }
+
+        /// <summary> Gets the SASL callback handler
+        /// 
+        /// </summary>
+        /// <returns> the sasl callback handler for this connection
+        /// </returns>
+        virtual public object SaslCallbackHandler
+        {
+            get
+            {
+                return bindCallbackHandler;
+            }
+        }
+
+        /// <summary> Indicates whether or not the bind properties specify an anonymous bind
+        /// 
+        /// </summary>
+        /// <returns> true if the bind properties specify an anonymous bind
+        /// </returns>
+        virtual public bool Anonymous
+        {
+            get
+            {
+                return anonymous;
+            }
+        }
+
+        private int version = 3;
+        private string dn = null;
+        private string method = null;
+        private bool anonymous;
+        private Hashtable bindProperties = null;
+        private object bindCallbackHandler = null;
+
+        public BindProperties(int version, string dn, string method, bool anonymous, Hashtable bindProperties, object bindCallbackHandler)
+        {
+            this.version = version;
+            this.dn = dn;
+            this.method = method;
+            this.anonymous = anonymous;
+            this.bindProperties = bindProperties;
+            this.bindCallbackHandler = bindCallbackHandler;
+        }
+    }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -125,7 +125,7 @@
 .dashboard-center-box .header {
     background-color: #4192B8;
     background-repeat: repeat-x;
-    color: white;
+    color: #fff;
     font-size: 43px;
     font-weight: bold;
     padding: 15px 30px;
@@ -133,23 +133,28 @@
     text-shadow: #174B63 1px 1px 1px;
     -webkit-text-shadow: #174B63 1px 1px 1px;
 
-    @media all and (max-width: 1200px) {
-        font-size: 38px;
-    }
-
     .close {
-        background: url('imagescss/iv_close.png') center center no-repeat;
+        color: #fff;
         cursor: pointer;
         display: inline-block;
         float: right;
-        height: 15px;
+        font-size: 32px;
+        font-weight: 500;
+        height: 16px;
+        line-height: 16px;
         position: absolute;
         right: 15px;
         top: 15px;
-        width: 15px;
+        vertical-align: middle;
+        width: 16px;
     }
 }
 
+ @media all and (max-width: 1200px) {
+    .dashboard-center-box .header {
+        font-size: 38px;
+    }
+}
 
 .dashboard-center-box .content .module-block {
     .img {

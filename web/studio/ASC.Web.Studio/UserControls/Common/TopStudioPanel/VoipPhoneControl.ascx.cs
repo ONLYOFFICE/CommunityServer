@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,8 +26,10 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Web;
 using System.Web.UI;
+using ASC.Core.Tenants;
 using ASC.Data.Storage;
 using ASC.Web.Core.Client;
 using ASC.Web.Core.Client.HttpHandlers;
@@ -56,11 +58,16 @@ namespace ASC.Web.Studio.UserControls.Common
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            var storage = StorageFactory.GetStorage("-1", "common_static");
-            var path = ClientSettings.StorePath.Trim('/') + "/voip/";
+            var storage = StorageFactory.GetStorage(Tenant.DEFAULT_TENANT.ToString(CultureInfo.InvariantCulture), "static_voip");
 
-            yield return RegisterObject("IncomingRingtoneMp3", storage.GetUri(path + "incoming_ringtone.mp3"));
-            yield return RegisterObject("IncomingRingtoneWav", storage.GetUri(path + "incoming_ringtone.wav"));
+            return new List<KeyValuePair<string, object>>(1)
+                   {
+                       RegisterObject(new
+                                      {
+                                          IncomingRingtoneMp3 = storage.GetUri("incoming_ringtone.mp3"),
+                                          IncomingRingtoneWav = storage.GetUri("incoming_ringtone.wav")
+                                      })
+                   };
         }
 
         protected override string GetCacheHash()

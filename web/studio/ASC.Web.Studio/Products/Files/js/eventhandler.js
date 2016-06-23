@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -186,7 +186,7 @@ window.ASC.Files.EventHandler = (function () {
                 ASC.Files.UI.updateMainContentHeader();
             }
 
-            ASC.Files.UI.checkEditing();
+            setTimeout(ASC.Files.UI.checkEditing, 5000);
         }
         if (newFolderItems) {
             newFolderItems.attr("name", "");
@@ -208,7 +208,7 @@ window.ASC.Files.EventHandler = (function () {
         for (var item in xmlArray) {
             if (item && typeof xmlArray[item] == "object") {
                 ASC.Files.Folders.currentFolder[xmlArray[item].tagName]
-                    = (xmlArray[item].textContent || xmlArray[item].text || "").replace(/\"/g, "\\\"");
+                    = (xmlArray[item].textContent || xmlArray[item].text || "");
             }
         }
 
@@ -387,7 +387,9 @@ window.ASC.Files.EventHandler = (function () {
             var fileTitle = fileData.title;
             var fileId = fileData.entryId;
 
-            ASC.Files.Actions.checkEditFile(fileId, winEditor, true);
+            ASC.Files.Actions.checkEditFile(fileId, winEditor,
+                false //bug with empty file on server restarting
+            );
         } else {
             fileTitle = params.fileTitle;
         }
@@ -918,6 +920,7 @@ window.ASC.Files.EventHandler = (function () {
         }
 
         var progress = 0;
+        var notFinished = false;
         var operationType;
         var operationTypes = [ASC.Files.FilesJSResources.TasksOperationMove,
             ASC.Files.FilesJSResources.TasksOperationCopy,
@@ -937,7 +940,7 @@ window.ASC.Files.EventHandler = (function () {
 
                 if (jq("#tasksProgress").length == 0) {
                     jq("#progressTemplate").clone().attr("id", "tasksProgress").prependTo("#bottomLoaderPanel");
-                    jq("#tasksProgress .progress-dialog-header").append("<a title=\"{0}\" class=\"actions-container close\"></a>".format(ASC.Files.FilesJSResources.TitleCancel));
+                    jq("#tasksProgress .progress-dialog-header").append("<a title=\"{0}\" class=\"actions-container close\">&times;</a>".format(ASC.Files.FilesJSResources.TitleCancel));
                     jq("#tasksProgress .progress-dialog-header").append("<span></span>");
                 }
                 ASC.Files.UI.setProgressValue("#tasksProgress", 0);
@@ -975,11 +978,10 @@ window.ASC.Files.EventHandler = (function () {
             });
             ASC.Files.UI.updateMainContentHeader();
 
-            var curProgress = data[i].progress;
-            progress += curProgress;
+            progress += data[i].progress;
 
             //finish
-            if (curProgress == 100) {
+            if (data[i].finished) {
                 if (data[i].result != null) {
                     var listResult = data[i].result.trim().split(splitCharacter);
 
@@ -1023,6 +1025,8 @@ window.ASC.Files.EventHandler = (function () {
                 if (data[i].error != null) {
                     ASC.Files.UI.displayInfoPanel(data[i].error, true);
                 }
+            } else {
+                notFinished = true;
             }
         }
 
@@ -1033,7 +1037,7 @@ window.ASC.Files.EventHandler = (function () {
         jq("#tasksProgress .asc-progress-percent").text(progress + "%");
 
         //complete
-        if (progress == 100) {
+        if (!notFinished) {
             clearTimeout(timoutTasksStatuses);
             timoutTasksStatuses = setTimeout(ASC.Files.Folders.cancelTasksStatuses, 500);
         } else {

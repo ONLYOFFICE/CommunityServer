@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -38,10 +38,7 @@ window.TMMail = (function($) {
             pageTitle: '',
             pageHeader: ''
         },
-        reEmail = /(([\w-\s]+)|([\w-]+(?:\.[\w-]+)*)|([\w-\s]+)([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-zA-Z]{2,7}(?:\.[a-zA-Z]{2})?))|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?)/,
-        reEmailStrict = /^([\w-\.\+]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,7}|[0-9]{1,3})(\]?)$/,
-        reMailServerEmailStrict = /^([a-zA-Z0-9]+)([-\.\_][a-zA-Z0-9]+)*@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,}|[0-9]{1,3})(\]?)$/,
-        reDomainStrict = /(?=^.{5,254}$)(^(?:(?!\d+\.)[a-zA-Z0-9_\-]{1,63}\.?)+\.(?:[a-zA-Z]{2,})$)/,
+
         optionCookieName = 'tmmail',
         optionSeparator = '&',
         maxWordLength = 10, //like google
@@ -76,6 +73,7 @@ window.TMMail = (function($) {
             composeto: /^composeto\/?(.+)*/,
             replyAll: /^replyAll\/(\d+)$/,
             writemessage: /^(compose|composeto|draftitem|forward|reply|replyAll)\/?(.+)*/,
+            viewmessage: /^(message|conversation)\/?(.+)*/,
 
             message: /^message\/(\d+)\/?$/,
             next_message: /^message\/(\d+)\/next\/?$/,
@@ -93,6 +91,7 @@ window.TMMail = (function($) {
 
             teamlab: /^tlcontact\/?(.+)*/,
             crm: /^crmcontact\/?(.+)*/,
+            personal_contact: /^customcontact\/?(.+)*/,
             helpcenter: /^help(?:=(\d+))?/,
 
             common: /(.+)*/,
@@ -206,6 +205,10 @@ window.TMMail = (function($) {
     }
 
     function getErrorMessage(errors) {
+        if ($.isArray(errors) && errors.length === 1) {
+            return errors[0];
+        }
+
         var mes = [];
         mes.push('<ul class="errors">');
         for (var i = 0, n = errors.length; i < n; i++) {
@@ -222,7 +225,7 @@ window.TMMail = (function($) {
             anchorRegExp.tags.test(anchor) || anchorRegExp.conversation.test(anchor) || anchorRegExp.helpcenter.test(anchor) ||
             anchorRegExp.next_message.test(anchor) || anchorRegExp.prev_message.test(anchor) || anchorRegExp.next_conversation.test(anchor) ||
             anchorRegExp.prev_conversation.test(anchor) || anchorRegExp.administration.test(anchor) ||
-            anchorRegExp.messagePrint.test(anchor) || anchorRegExp.conversationPrint.test(anchor));
+            anchorRegExp.messagePrint.test(anchor) || anchorRegExp.conversationPrint.test(anchor) || anchorRegExp.personal_contact.test(anchor));
     }
 
     function pageIs(pageType) {
@@ -288,13 +291,18 @@ window.TMMail = (function($) {
                     return true;
                 }
                 break;
-            case 'teamlab':
+            case 'tlContact':
                 if (anchorRegExp.teamlab.test(anchor)) {
                     return true;
                 }
                 break;
-            case 'crm':
+            case 'crmContact':
                 if (anchorRegExp.crm.test(anchor)) {
+                    return true;
+                }
+                break;
+            case 'personalContact':
+                if (anchorRegExp.personal_contact.test(anchor)) {
                     return true;
                 }
                 break;
@@ -305,6 +313,11 @@ window.TMMail = (function($) {
                 break;
             case 'writemessage':
                 if (anchorRegExp.writemessage.test(anchor)) {
+                    return true;
+                }
+                break;
+            case 'viewmessage':
+                if (anchorRegExp.viewmessage.test(anchor)) {
                     return true;
                 }
                 break;
@@ -507,16 +520,6 @@ window.TMMail = (function($) {
         }
     }
 
-    function parseEmailFromFullAddress(from) {
-        var res = (/^.*<([^<^>]+)>$/).exec(from);
-        return (res != null) && (res.length == 2) ? res[1] : from;
-    }
-
-    function parseFullNameFromFullAddress(from) {
-        var res = (/^"(.+)" <[^<^>]+>$/).exec(from);
-        return (res != null) && (res.length == 2) ? res[1] : "";
-    }
-
     function wordWrap(string) {
         var words = string.split(' ');
         for (var i = 0; i < words.length; i++) {
@@ -627,11 +630,18 @@ window.TMMail = (function($) {
     }
 
     function canViewInDocuments(url) {
-        return ASC.Files.Utility.CanWebView(url) && ASC.Resources.Master.TenantTariffDocsEdition; // && url.match(/.ods$/) == null;
+        return ASC.Files.Utility.CanWebView(url);
     }
 
     function canEditInDocuments(url) {
-        return ASC.Files.Utility.CanWebEdit(url) && ASC.Resources.Master.TenantTariffDocsEdition; // && url.match(/.ods$/) == null;
+        return ASC.Files.Utility.CanWebEdit(url);
+    }
+
+    function canViewAsCalendar(filename) {
+        return filename.match(/.ics$/i) !== null ||
+            filename.match(/.ical$/i) !== null ||
+            filename.match(/.ifb$/i) !== null ||
+            filename.match(/.icalendar$/i) !== null;
     }
 
     function fixMailtoLinks(element) {
@@ -661,6 +671,10 @@ window.TMMail = (function($) {
 
     function getEditDocumentUrl(attachmentId) {
         return ASC.Mail.Constants.EDIT_DOCUMENT_HANDLER_URL.format(attachmentId);
+    }
+
+    function getContactPhototUrl(contactId, photoSize) {
+        return ASC.Mail.Constants.CONTACT_PHOTO_HANDLER_URL.format(contactId, photoSize);
     }
 
     function htmlEncode(value) {
@@ -733,11 +747,50 @@ window.TMMail = (function($) {
         return $('#manageWindow').is(':visible') || $('#commonPopup').is(':visible') || $("#popupDocumentUploader").is(':visible') || $('#tagWnd').is(':visible');
     }
 
+    function getDateFormated(date, format) {
+        return window.ServiceFactory.formattingDate(date, format,
+                                    ASC.Resources.Master.DayNames,
+                                    ASC.Resources.Master.DayNamesFull,
+                                    ASC.Resources.Master.MonthNames,
+                                    ASC.Resources.Master.MonthNamesFull);
+    }
+
+    function getMapUrl(location) {
+        if (!location)
+            return '';
+
+        return "https://maps.google.com/maps?q={0}".format(location.split(/[,\s]/).join('+'));
+    }
+
+    function resizeContent() {
+        if (!TMMail.pageIs("viewmessage"))
+            return;
+
+        var mainPageEl = jq(".mainPageLayout"),
+            mainPageContentEl = mainPageEl.find(".mainPageContent"),
+            sidePanelEl = mainPageEl.find(".mainPageTableSidePanel"),
+            mainPageWidth = parseInt(mainPageEl.width()),
+            mainPageMinWidth = parseInt(mainPageEl.css("min-width")),
+            sidePanelWidth = parseInt(sidePanelEl.width()),
+            k = parseInt(mainPageEl.css("padding-left")) +
+                parseInt(mainPageEl.css("padding-right")) +
+                parseInt(mainPageContentEl.css("padding-left")) -
+                parseInt(sidePanelEl.find(".ui-resizable-handle").width());
+
+        var newWidth = (mainPageWidth > mainPageMinWidth ? mainPageWidth : mainPageMinWidth) - sidePanelWidth - k + "px";
+
+        //console.log("Browser viewport: %sx%s", jq(window).width(), jq(window).height());
+        //console.log("HTML document: %sx%s", jq(document).width(), jq(document).height());
+        //console.log("windowWidth: %s, mainBlockWidth: %s, sidePanelWidth: %s, newWidth: %s ", windowWidth, mainBlockWidth, sidePanelWidth, newWidth);
+
+        jq(".body").each(
+            function () {
+                jq(this).css("max-width", newWidth);
+            }
+        );
+    };
+
     return {
-        reEmail: reEmail,
-        reEmailStrict: reEmailStrict,
-        reMailServerEmailStrict: reMailServerEmailStrict,
-        reDomainStrict: reDomainStrict,
         sysfolders: systemFolders,
         action_types: actionTypes,
         anchors: anchorRegExp,
@@ -749,7 +802,7 @@ window.TMMail = (function($) {
         showNextAlertTimeout: showNextAlertTimeout,
 
         ltgt: ltgt,
-        in_array: inArray,
+        inArray: inArray,
 
         setPageHeaderFolderName: setPageHeaderFolderName,
         setPageHeaderTitle: setPageHeaderTitle,
@@ -778,8 +831,6 @@ window.TMMail = (function($) {
         moveToDraftItem: moveToDraftItem,
         moveToInbox: moveToInbox,
 
-        parseEmailFromFullAddress: parseEmailFromFullAddress,
-        parseFullNameFromFullAddress: parseFullNameFromFullAddress,
         getParamsValue: getParamsValue,
         showCompleteActionHint: showCompleteActionHint,
 
@@ -787,12 +838,14 @@ window.TMMail = (function($) {
 
         canViewInDocuments: canViewInDocuments,
         canEditInDocuments: canEditInDocuments,
+        canViewAsCalendar: canViewAsCalendar,
         fixMailtoLinks: fixMailtoLinks,
         isIe: isIe,
         getAttachmentDownloadUrl: getAttachmentDownloadUrl,
         getAttachmentsDownloadAllUrl: getAttachmentsDownloadAllUrl,
         getViewDocumentUrl: getViewDocumentUrl,
         getEditDocumentUrl: getEditDocumentUrl,
+        getContactPhototUrl: getContactPhototUrl,
 
         wordWrap: wordWrap,
         htmlEncode: htmlEncode,
@@ -804,6 +857,9 @@ window.TMMail = (function($) {
         setRequiredHint: setRequiredHint,
         setRequiredError: setRequiredError,
         isRequiredErrorVisible: isRequiredErrorVisible,
-        isPopupVisible: isPopupVisible
+        isPopupVisible: isPopupVisible,
+        getDateFormated: getDateFormated,
+        getMapUrl: getMapUrl,
+        resizeContent: resizeContent
     };
 })(jQuery);

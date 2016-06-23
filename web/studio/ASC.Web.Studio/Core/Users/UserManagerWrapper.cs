@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -196,12 +196,11 @@ namespace ASC.Web.Studio.Core.Users
                                  ps.SpecSymbols ? GeneratePassword(1, 1, Noise.Substring(Noise.Length - 4, 4).ToUpper()) : String.Empty);
         }
 
-        private static int _counter;
+        private static Random rnd = new Random();
 
         internal static string GeneratePassword(int minLength, int maxLength, string noise)
         {
-            var rnd = new Random(Interlocked.Increment(ref _counter));
-            var length = minLength + rnd.Next(maxLength - maxLength);
+            var length = rnd.Next(minLength, maxLength + 1);
 
             var pwd = string.Empty;
             while (length-- > 0)

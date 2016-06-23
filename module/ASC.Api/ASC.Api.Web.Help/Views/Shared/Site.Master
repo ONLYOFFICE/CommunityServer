@@ -39,7 +39,7 @@
             <td class="layout-table-side">
                 <div class="layout-side">
                     <% Html.RenderPartial("SearchForm"); %>
-                    <% Html.RenderAction("Navigation", (string) Html.GetCurrentController()); %>
+                    <% Html.RenderAction("Navigation"); %>
                 </div>
             </td>
             <% } %>

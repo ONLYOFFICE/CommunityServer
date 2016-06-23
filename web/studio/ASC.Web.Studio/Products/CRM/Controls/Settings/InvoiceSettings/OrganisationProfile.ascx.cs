@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -27,20 +27,8 @@
 #region Import
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.UI.WebControls;
-using ASC.Web.CRM.Classes;
-using ASC.Web.CRM.Resources;
-using ASC.CRM.Core;
-using ASC.Web.CRM.Controls.Common;
-using ASC.Core;
-using ASC.Web.Studio.Core.Users;
-using Newtonsoft.Json.Linq;
 using System.Web;
-using Newtonsoft.Json;
-using ASC.Web.Core.Mobile;
-using System.Globalization;
+
 
 #endregion
 
@@ -53,16 +41,12 @@ namespace ASC.Web.CRM.Controls.Settings
 
         public static string Location { get { return PathProvider.GetFileStaticRelativePath("Settings/InvoiceSettings/OrganisationProfile.ascx"); } }
 
-        protected bool MobileVer = false;
-
         #endregion
 
         #region Events
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            MobileVer = MobileDetector.IsMobile;
-
             Page.RegisterClientScript(typeof(Masters.ClientScripts.OrganisationProfileViewData));
 
             RegisterScript();

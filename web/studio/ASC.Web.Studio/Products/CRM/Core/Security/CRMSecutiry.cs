@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -50,7 +50,7 @@ namespace ASC.CRM.Core
     {
         #region Members
 
-        private static readonly IAction _actionRead = new Action(new Guid("{6F05C382-8BCA-4469-9424-C807A98C40D7}"), "", true, false);
+        public static readonly IAction _actionRead = new Action(new Guid("{6F05C382-8BCA-4469-9424-C807A98C40D7}"), "", true, false);
 
         #endregion
 
@@ -871,8 +871,7 @@ namespace ASC.CRM.Core
                 invoice.DueDate == DateTime.MinValue ||
                 String.IsNullOrEmpty(invoice.Currency) ||
                 invoice.ExchangeRate <= 0 ||
-                String.IsNullOrEmpty(invoice.Terms) ||
-                String.IsNullOrEmpty(invoice.Currency))
+                String.IsNullOrEmpty(invoice.Terms))
                     throw new ArgumentException();
 
             var contact = Global.DaoFactory.GetContactDao().GetByID(invoice.ContactID);

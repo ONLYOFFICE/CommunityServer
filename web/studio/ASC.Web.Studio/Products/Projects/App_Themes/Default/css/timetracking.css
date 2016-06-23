@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -97,14 +97,32 @@
 }
 
 .timeSpendRecord .changeStatusCombobox.canEdit span.arrow {
-    background: url('../images/small-icons.png') no-repeat -4px -74px transparent;
+    background-image: none;
     height: 7px;
     width: 7px;
     display: inline-block;
+    position: relative;
     margin: 0 4px 4px 1px;
     *inline:inline;
     *zoom: 1;
 }
+
+.timeSpendRecord .changeStatusCombobox.canEdit span.arrow:after {
+    display: block;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #B8B8B8;
+    content: "";
+    height: 0;
+    position: absolute;
+    right: -1px;
+    top: 50%;
+    margin-top: -2px;
+    width: 0;
+    text-align: center;
+}
+
+
 .timeSpendRecord .check {
   float:left;
   width:38px;
@@ -121,18 +139,12 @@
 .timeSpendRecord:hover .changeStatusCombobox.canEdit,
 .timeSpendRecord .changeStatusCombobox.canEdit.selected
 {
-	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#cecece');
-	background:-moz-linear-gradient(bottom, #cecece, #f6f6f6) repeat scroll 0 0 transparent;
-	background:-ms-linear-gradient(bottom, #cecece, #f6f6f6) repeat scroll 0 0 transparent;
-    background: -webkit-gradient(bottom, #cecece, #f6f6f6) repeat scroll 0 0 transparent;
-	background: -webkit-linear-gradient(bottom, #cecece, #f6f6f6) repeat scroll 0 0 transparent;
-	background: -o-linear-gradient(bottom, #cecece, #f6f6f6) repeat scroll 0 0 transparent;
-	border-color: #a8a8a8;
+    background-color: #eaeaea;
+    border-color: #a8a8a8;
 }
-.timeSpendRecord:hover .changeStatusCombobox.canEdit span.arrow,
-.timeSpendRecord .changeStatusCombobox.canEdit.selected  span.arrow {
-    background-color: transparent;
-    background-position: -4px -58px;
+.timeSpendRecord:hover .changeStatusCombobox.canEdit span.arrow:after,
+.timeSpendRecord .changeStatusCombobox.canEdit.selected  span.arrow:after {
+    border-top-color: #999999;
 }
 
 .timeSpendRecord .changeStatusCombobox.noEdit{
@@ -168,13 +180,17 @@
 #timeSpendsList .entity-menu {
 	margin: 0;
 }
-
 #timeSpendsList .entity-menu.show,
 #timeSpendsList .timeSpendRecord:hover .entity-menu.show,
-#timeSpendsList .timeSpendRecord .entity-menu.show:hover
-{
-    background-position: center bottom;
+#timeSpendsList .timeSpendRecord .entity-menu.show:hover {
+    border-color: #3b72a7;
 }
+#timeSpendsList .entity-menu.show:after,
+#timeSpendsList .timeSpendRecord:hover .entity-menu.show:after,
+#timeSpendsList .timeSpendRecord .entity-menu.show:hover:after {
+    border-top-color: #3b72a7;
+}
+
 #timeSpendsList thead td {
     color: #82878D;
     padding-bottom: 5px;

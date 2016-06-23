@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -822,11 +822,11 @@
     }
 
     function requestsObserver() {
-        if (requests.length > 0 && requests[0].__processing === false) {
+        if (requests.length > 0 && (requests[0].__processing === false || requests[0].__isasync === true)) {
             var batchrequests = [];
             if (useBatch === true && requests.length > 1 && requests[0].__issimple === true) {
                 for (var i = 0, n = requests.length; i < n; i++) {
-                    if (requests[i].__issimple === true) {
+                    if (requests[i].__issimple === true && requests[i].__processing === false) {
                         batchrequests.push(requests[i]);
                     }
                 }
@@ -834,7 +834,12 @@
             if (batchrequests.length > 1) {
                 sendRequests(batchrequests);
             } else {
-                sendRequest(requests[0]);
+                for (var a = 0, b = requests.length; a < b; a++) {
+                    if (requests[a].__processing === false) {
+                        sendRequest(requests[a]);
+                        break;
+                    }
+                }
             }
         }
         lastTimeCall = new Date();
@@ -919,6 +924,7 @@
             __singleresponse: typeof url === 'string',
             __uploader: null,
             __max_request_attempts: max_request_attempts,
+            __isasync: options && options.hasOwnProperty('async') && typeof options.async === "boolean" ? options.async : false,
             jsonp: false,
             async: true,
             dataType: 'json',

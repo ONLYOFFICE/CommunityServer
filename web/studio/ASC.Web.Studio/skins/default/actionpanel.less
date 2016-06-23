@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -73,7 +73,7 @@
         li {
             max-width: 375px;
             overflow: hidden;
-            text-overflow: ellipsis;
+            .textOverflowEllipsis();
             margin-bottom: 1px;
 
             &:last-child {
@@ -109,7 +109,9 @@
                 }
             }
 
+            &.hover,
             &:hover,
+            &.hover a,
             &:hover a {
                 text-decoration: none;
                 background-color: #e9e9e9;

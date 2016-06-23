@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -77,8 +77,8 @@ namespace ASC.Mail.Server.MockAdministration
                 var resultMailbox = new MailboxBase(
                     new MailAccountBase(mailboxDto.mailbox.address),
                     //Its not login. It adress. Needed only for testing
-                    new MailAddressBase(mailboxDto.mailbox_address.name,
-                                        new WebDomainBase(mailboxDto.mailbox_address.domain.name)), aliasList);
+                    new MailAddressBase(mailboxDto.mailbox_address.name, new WebDomainBase(mailboxDto.mailbox_address.domain.name)),
+                                        mailboxDto.mailbox.name, aliasList);
 
                 _serverData.Mailboxes.Add(resultMailbox);
             }
@@ -135,11 +135,12 @@ namespace ASC.Mail.Server.MockAdministration
 
         #region .Mailboxes
 
-        protected override MailboxBase _CreateMailbox(string login, string password, string localpart, string domain, bool enableImap = true,
-                                                      bool enablePop = true)
+        protected override MailboxBase _CreateMailbox(string login, string password, string localpart, string domain, string name, 
+                                                      bool enableImap = true, bool enablePop = true)
         {
             var resultMailbox = new MailboxBase(new MailAccountBase(login),
                                    new MailAddressBase(localpart, new WebDomainBase(domain)),
+                                   name,
                                    new List<MailAddressBase>());
 
             if (_serverData.Mailboxes.Any(r => r.Address.ToString().Equals(resultMailbox.Address.ToString())))
@@ -163,7 +164,9 @@ namespace ASC.Mail.Server.MockAdministration
 
         protected override void _UpdateMailbox(MailboxBase mailbox)
         {
-            throw new NotSupportedException();
+            var oldMailbox = _serverData.Mailboxes.FirstOrDefault(r => r.Address.Equals(mailbox.Address));
+            _serverData.Mailboxes.Remove(oldMailbox);
+            _serverData.Mailboxes.Add(mailbox);
         }
 
         protected override void _DeleteMailbox(MailboxBase mailbox)
@@ -214,7 +217,7 @@ namespace ASC.Mail.Server.MockAdministration
 
         protected override MailboxBase _CreateNotificationAddress(string login, string password, string localpart, string domain)
         {
-            return _CreateMailbox(login, password, localpart, domain);
+            return _CreateMailbox(login, password, localpart, localpart, domain);
         }
 
         protected override void _DeleteNotificationAddress(string address)

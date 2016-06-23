@@ -1,13 +1,13 @@
 Summary: Office suite and business productivity tools
 Name: onlyoffice-communityserver
-Version: 8.7.0
+Version: 8.8.1
 Release: 0
 License: AGPLv3
 Group: Applications/Internet
 URL: http://onlyoffice.com/
 Vendor: ONLYOFFICE (Online documents editor)
 Packager: ONLYOFFICE (Online documents editor) <support@onlyoffice.com>
-Requires: mono >= 3.2.0, xsp, mono-locale-extras, nginx >= 0.8.21, mysql-server, wget, redis, ruby
+Requires: mono >= 3.2.0, xsp, mono-locale-extras, nginx >= 0.8.21, mysql-server, wget, redis
 BuildArch: noarch
 AutoReq: no
 AutoProv: no
@@ -84,9 +84,17 @@ mozroots --import --sync --machine --quiet
 mkdir -p /etc/mono/registry/LocalMachine
 mkdir -p /usr/share/.mono/keypairs
 mkdir -p /var/cache/nginx/onlyoffice
-chown nginx:nginx -R /var/cache/nginx/onlyoffice
+mkdir -p /var/run/onlyoffice
+mkdir -p -m 700 /var/run/onlyoffice/.config/.mono/keypairs
+chown nginx:nginx /var/cache/nginx/onlyoffice
+chown onlyoffice:nginx /var/run/onlyoffice
+chmod g+s+w /var/run/onlyoffice
 
 #register all services
+systemctl daemon-reload
+systemctl enable redis
+systemctl start redis
+
 for SVC in monoserve monoserve2 onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog; do
 	if [ -e /usr/lib/systemd/system/$SVC.service ]; then
 		systemctl enable $SVC
@@ -95,9 +103,12 @@ done
 systemctl daemon-reload
 
 if [ $1 -ge 2 ]; then
-	CONN_STR=$(grep -o "Server=.*;Database=.*;User ID=.*;Password=.*;" "/var/www/onlyoffice/WebStudio/web.connections.config")
+	CONN_STR=$(grep -oP "Server=[^\"]*(?=\")" /var/www/onlyoffice/WebStudio/web.connections.config | head -1)
 	find "/var/www/onlyoffice/" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"$CONN_STR\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
 fi
+
+# allow http port SELinux http://stackoverflow.com/questions/23948527/13-permission-denied-while-connecting-to-upstreamnginx
+semanage port --add --type http_port_t --proto tcp 8086-8087 || true
 
 %preun
 #if it is deinstallation then we stop and deregister all services
@@ -114,14 +125,15 @@ fi
 %postun
 #if it was update then we can restart all services including nginx
 if [ $1 -ge 1 ]; then
-	for SVC in monoserve monoserve2 onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog; do
+	for SVC in redis monoserve monoserve2 onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog; do
 		if [ -e /usr/lib/systemd/system/$SVC.service ]; then
-			service stop $SVC
-			service start $SVC
+			systemctl stop $SVC
+			systemctl start $SVC
 		fi
 	done
+	systemctl daemon-reload
 fi
 
 %changelog
 * Mon Nov 16 2015 ONLYOFFICE (Online documents editor) <support@onlyoffice.com>
-- We have updated ONLYOFFICE Community Server to ver. 8.7.0.
+- We have updated ONLYOFFICE Community Server to ver. 8.8.0.

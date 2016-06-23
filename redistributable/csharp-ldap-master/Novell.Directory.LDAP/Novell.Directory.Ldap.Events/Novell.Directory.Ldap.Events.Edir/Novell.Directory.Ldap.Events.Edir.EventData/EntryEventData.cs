@@ -29,118 +29,117 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System.Text;
-
 using Novell.Directory.Ldap.Asn1;
+using System.Text;
 
 namespace Novell.Directory.Ldap.Events.Edir.EventData
 {
-  /// <summary> 
-  /// The class represents the data for Entry Events.
-  /// </summary>
-  public class EntryEventData : BaseEdirEventData
-  { 
-    protected string strPerpetratorDN;
-    public string PerpetratorDN
-    {
-      get 
-      {
-	return strPerpetratorDN;
-      }
-    }
-
-    protected string strEntry;
-    public string Entry
-    {
-      get
-      {
-	return strEntry;
-      }
-    }
-
-    protected string strNewDN;
-    public string NewDN
-    {
-      get
-      {
-	return strNewDN;
-      }
-    }
-
-    protected string strClassId;
-    public string ClassId
-    {
-      get
-      {
-	return strClassId;
-      }
-    }
-    
-    protected int nVerb;
-    public int Verb
-    {
-      get
-      {
-	return nVerb;
-      }
-    }
-
-    protected int nFlags;
-    public int Flags
-    {
-      get
-      {
-	return nFlags;
-      }
-    }
-
-    protected DSETimeStamp timeStampObj;
-    public DSETimeStamp TimeStamp
-    {
-      get
-      {
-	return timeStampObj;
-      }
-    }
-
-    public EntryEventData(EdirEventDataType eventDataType, Asn1Object message)
-      : base(eventDataType, message)
-    {
-      int[] length = new int[1];
-      strPerpetratorDN =
-            ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-      strEntry =
-            ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-      strClassId =
-            ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-
-      timeStampObj =
-            new DSETimeStamp((Asn1Sequence) decoder.decode(decodedData, length));
-      nVerb = ((Asn1Integer) decoder.decode(decodedData, length)).intValue();
-      nFlags = ((Asn1Integer) decoder.decode(decodedData, length)).intValue();
-      strNewDN =
-            ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-
-      DataInitDone();
-    }
-
     /// <summary> 
-    /// Returns a string representation of the object.
+    /// The class represents the data for Entry Events.
     /// </summary>
-    public override string ToString()
+    public class EntryEventData : BaseEdirEventData
     {
-      StringBuilder buf = new StringBuilder();
-      buf.Append("EntryEventData[");
-      buf.AppendFormat("(Entry={0})", strEntry);
-      buf.AppendFormat("(Prepetrator={0})", strPerpetratorDN);
-      buf.AppendFormat("(ClassId={0})", strClassId);
-      buf.AppendFormat("(Verb={0})", nVerb);
-      buf.AppendFormat("(Flags={0})", nFlags);
-      buf.AppendFormat("(NewDN={0})", strNewDN);
-      buf.AppendFormat("(TimeStamp={0})", timeStampObj);
-      buf.Append("]");
+        protected string strPerpetratorDN;
+        public string PerpetratorDN
+        {
+            get
+            {
+                return strPerpetratorDN;
+            }
+        }
 
-      return buf.ToString();
+        protected string strEntry;
+        public string Entry
+        {
+            get
+            {
+                return strEntry;
+            }
+        }
+
+        protected string strNewDN;
+        public string NewDN
+        {
+            get
+            {
+                return strNewDN;
+            }
+        }
+
+        protected string strClassId;
+        public string ClassId
+        {
+            get
+            {
+                return strClassId;
+            }
+        }
+
+        protected int nVerb;
+        public int Verb
+        {
+            get
+            {
+                return nVerb;
+            }
+        }
+
+        protected int nFlags;
+        public int Flags
+        {
+            get
+            {
+                return nFlags;
+            }
+        }
+
+        protected DSETimeStamp timeStampObj;
+        public DSETimeStamp TimeStamp
+        {
+            get
+            {
+                return timeStampObj;
+            }
+        }
+
+        public EntryEventData(EdirEventDataType eventDataType, Asn1Object message)
+            : base(eventDataType, message)
+        {
+            int[] length = new int[1];
+            strPerpetratorDN =
+                  ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+            strEntry =
+                  ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+            strClassId =
+                  ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+
+            timeStampObj =
+                  new DSETimeStamp((Asn1Sequence)decoder.decode(decodedData, length));
+            nVerb = ((Asn1Integer)decoder.decode(decodedData, length)).intValue();
+            nFlags = ((Asn1Integer)decoder.decode(decodedData, length)).intValue();
+            strNewDN =
+                  ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+
+            DataInitDone();
+        }
+
+        /// <summary> 
+        /// Returns a string representation of the object.
+        /// </summary>
+        public override string ToString()
+        {
+            StringBuilder buf = new StringBuilder();
+            buf.Append("EntryEventData[");
+            buf.AppendFormat("(Entry={0})", strEntry);
+            buf.AppendFormat("(Prepetrator={0})", strPerpetratorDN);
+            buf.AppendFormat("(ClassId={0})", strClassId);
+            buf.AppendFormat("(Verb={0})", nVerb);
+            buf.AppendFormat("(Flags={0})", nFlags);
+            buf.AppendFormat("(NewDN={0})", strNewDN);
+            buf.AppendFormat("(TimeStamp={0})", timeStampObj);
+            buf.Append("]");
+
+            return buf.ToString();
+        }
     }
-  }
 }

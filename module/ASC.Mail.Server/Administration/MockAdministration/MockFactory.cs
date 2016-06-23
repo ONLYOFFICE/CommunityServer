@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -50,9 +50,10 @@ namespace ASC.Mail.Server.MockAdministration
         }
 
 
-        public override IMailbox CreateMailbox(int id, int tenant, IMailAddress address, IMailAccount account, List<IMailAddress> aliases, MailServerBase server)
+        public override IMailbox CreateMailbox(int id, int tenant, IMailAddress address, string name, 
+                                               IMailAccount account, List<IMailAddress> aliases, MailServerBase server)
         {
-            return new MockMailbox(id, tenant, address, account, aliases, server);
+            return new MockMailbox(id, tenant, address, name, account, aliases, server);
         }
 
         public override IMailGroup CreateMailGroup(int id, int tenant, IMailAddress address, List<IMailAddress> inAddresses, MailServerBase server)

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -36,6 +36,20 @@ namespace ASC.Web.Core.WhiteLabel
 {
     public class TenantLogoManager
     {
+        public static bool WhiteLabelEnabled
+        {
+            get;
+            private set;
+        }
+
+
+        static TenantLogoManager()
+        {
+            var hideSettings = (WebConfigurationManager.AppSettings["web.hide-settings"] ?? "").Split(new[] { ',', ';', ' ' });
+            WhiteLabelEnabled = !hideSettings.Contains("WhiteLabel", StringComparer.CurrentCultureIgnoreCase);
+        }
+
+
         public static string GetFavicon(bool general, bool timeParam)
         {
             var faviconPath = "";
@@ -67,27 +81,11 @@ namespace ASC.Web.Core.WhiteLabel
             return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.LightSmall, general);
         }
 
-        public static string GetLogoLight(bool general)
-        {
-            if (WhiteLabelEnabled)
-            {
-                var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
-
-                return _tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Light, general);
-            }
-            return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Light, general);
-        }
-
         public static string GetLogoDark(bool general) {
             if (WhiteLabelEnabled)
             {
                 var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
-
-                var fromSettingsDarkLogoPath = _tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Dark, general);
-                var defaultDarkLogoPath = TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Dark, general);
-                
-                if (!String.Equals(fromSettingsDarkLogoPath, defaultDarkLogoPath, StringComparison.OrdinalIgnoreCase))
-                    return fromSettingsDarkLogoPath;
+                return _tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.Dark, general);
             }
 
             /*** simple scheme ***/
@@ -106,14 +104,15 @@ namespace ASC.Web.Core.WhiteLabel
             return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.DocsEditor, general);
         }
 
-        public static string GetLogoDocsEditorEmbedded(bool general)
+        public static string GetLogoText()
         {
             if (WhiteLabelEnabled)
             {
                 var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
-                return _tenantWhiteLabelSettings.GetAbsoluteLogoPath(WhiteLabelLogoTypeEnum.DocsEditorEmbedded, general);
+
+                return _tenantWhiteLabelSettings.LogoText != null ? _tenantWhiteLabelSettings.LogoText : TenantWhiteLabelSettings.DefaultLogo;
             }
-            return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.DocsEditorEmbedded, general);
+            return TenantWhiteLabelSettings.DefaultLogo;
         }
 
         public static bool IsRetina(HttpRequest request)
@@ -134,19 +133,7 @@ namespace ASC.Web.Core.WhiteLabel
             return isRetina;
         }
 
-        public static bool WhiteLabelEnabled
-        {
-            get
-            {
-                var s = WebConfigurationManager.AppSettings["web.hide-settings"] ?? "";
-                if (string.IsNullOrEmpty(s)) return true;
-
-                var hideSettings = s.Split(new[] {',', ';', ' '});
-                return !hideSettings.Contains("WhiteLabel", StringComparer.CurrentCultureIgnoreCase);
-            }
-        }
-
-        public static bool WhiteLabelPaid
+         public static bool WhiteLabelPaid
         {
             get
             {

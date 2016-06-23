@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,37 +24,38 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using ASC.FullTextIndex.Service.Config;
 using log4net;
+using System;
+using System.Linq;
 
 namespace ASC.FullTextIndex.Service
 {
     class TextSearcherService : ITextIndexService
     {
-        private static readonly ILog Log = LogManager.GetLogger(typeof(TextSearcherService));
+        private static readonly ILog log = LogManager.GetLogger(typeof(TextSearcherService));
+
 
         public bool SupportModule(string[] modules)
         {
-            Log.DebugFormat("SupportModule({0})", string.Join(",", modules ?? new string[0]));
             if (modules == null || modules.Length == 0 || modules.Any(m => TextIndexCfg.Modules.All(mi => mi.Name != m)))
+            {
                 return false;
+            }
 
             var indexedModules = DbProvider.GetIndexedModules();
             return modules.All(m => indexedModules.Any(im => im.StartsWith(m)));
         }
 
-        public Dictionary<string, IEnumerable<int>> Search(IEnumerable<ModuleInfo> modules, int tenantID)
+        public int[] Search(int tenantId, string[] modules)
         {
             try
             {
-                return TextSearcher.Instance.Search(modules, tenantID);
+                return TextSearcher.Instance.Search(modules, tenantId);
             }
             catch (Exception ex)
             {
-                Log.Error(ex);
+                log.Error(ex);
                 throw new ArgumentException(ex.Message);
             }
         }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -46,7 +46,7 @@ namespace ASC.Api.Calendar.iCalParser
         public static iCalendarCacheParams Default
         {
             get {
-                var path = AppDomain.CurrentDomain.BaseDirectory + "addons\\calendar\\ical_cache";
+                var path = AppDomain.CurrentDomain.BaseDirectory.TrimEnd('\\') + "\\addons\\calendar\\ical_cache";
                 return new iCalendarCacheParams(path, 2);
             }
         }

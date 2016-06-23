@@ -364,21 +364,25 @@ div.advansed-filter div.advansed-filter-wrapper{position:relative; z-index:1;}
 div.advansed-filter div.advansed-filter-support{height:16px; line-height:16px; margin:-8px 0 0; position:absolute; left:0; top:50%;}
 
 div.advansed-filter label.advansed-filter-label{display:block; padding:0 4px 0 0;}
-div.advansed-filter label.advansed-filter-state{background:url(./images/advfilter-icons.png) 0 -100px no-repeat; width:16px; height:16px; line-height:16px; position:absolute; left:-9999px; top:5px; cursor:pointer;}
-div.advansed-filter label.advansed-filter-sort{display:none; background:url(./images/advfilter-icons.png) -2px -200px no-repeat; width:16px; height:16px; line-height:16px; margin:-8px 0 0; position:absolute; right:201px; top:50%; cursor:pointer;}
+div.advansed-filter label.advansed-filter-state{width:16px; height:16px; line-height:16px; position:absolute; left:-9999px; top:5px; cursor:pointer;}
+div.advansed-filter label.advansed-filter-sort{display:none; width:16px; height:16px; line-height:16px; margin:-8px 0 0; position:absolute; right:201px; top:50%; cursor:pointer;}
 
-div.advansed-filter label.advansed-filter-sort:hover{background-position: -2px -207px;}
+div.advansed-filter label.advansed-filter-sort:hover{background-position: -2px -77px;}
 
 div.advansed-filter div.advansed-filter-sort-container{line-height:26px; padding:0 18px 0 0; position:absolute; right:-9999px; top:0;}
 div.advansed-filter div.advansed-filter-sort-container.sorter-isset{right:0;}
 
-div.advansed-filter div.advansed-filter-sort-container span.btn-toggle-sorter{display:inline-block; background:url(./images/advfilter-icons.png) -2px -170px no-repeat; width:16px; height:16px; line-height:16px; margin:-8px 0 0; position:absolute; right:0; top:50%; z-index:1; cursor:pointer;}
-div.advansed-filter div.advansed-filter-sort-container span.title{display:inline-block; background:url(./images/combobox-bg-button.gif) right center no-repeat; padding:0 14px 0 0; position:relative; z-index:0; white-space:nowrap; cursor:pointer;}
-div.advansed-filter div.advansed-filter-sort-container span.title span.value{border-bottom:1px dotted #333333; cursor:pointer; white-space:nowrap;}
-div.advansed-filter div.advansed-filter-sort-container.asc-sort span.btn-toggle-sorter{background-position: 1px -198px;}
-div.advansed-filter div.advansed-filter-sort-container.dsc-sort span.btn-toggle-sorter{background-position: 1px -182px;}
+div.advansed-filter div.advansed-filter-sort-container span.btn-toggle-sorter{display:inline-block; width:16px; height:16px; line-height:16px; margin:-8px 0 0; position:absolute; right:0; top:50%; z-index:1; cursor:pointer;}
+div.advansed-filter div.advansed-filter-sort-container span.title{display:inline-block; padding:0 14px 0 0; position:relative; z-index:0; white-space:nowrap; cursor:pointer;}
+div.advansed-filter div.advansed-filter-sort-container span.title:after{border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid #888888; content: ""; height: 0; position: absolute; right: 1px; top: 50%; width: 0; margin-top: -2px;}
 
-div.advansed-filter div.advansed-filter-sort-container.sorter-nochange span.title{background:transparent; cursor:default; padding: 0 5px 0 0;}
+div.advansed-filter div.advansed-filter-sort-container span.title span.value{border-bottom:1px dotted #333333; cursor:pointer; white-space:nowrap;}
+div.advansed-filter div.advansed-filter-sort-container.asc-sort span.btn-toggle-sorter{background-position: 1px -68px;}
+div.advansed-filter div.advansed-filter-sort-container.dsc-sort span.btn-toggle-sorter{background-position: 1px -52px;}
+
+div.advansed-filter div.advansed-filter-sort-container.sorter-nochange span.title{cursor:default; padding: 0 5px 0 0;}
+div.advansed-filter div.advansed-filter-sort-container.sorter-nochange span.title:after {border: 0 none;}
+
 div.advansed-filter div.advansed-filter-sort-container.sorter-nochange span.title span.value{border-bottom:0 none; cursor:default;}
 
 div.advansed-filter.disable-sorter-block div.advansed-filter-sort-container{display:none;}
@@ -456,11 +460,13 @@ div.advansed-filter div.advansed-filter-groupselector div.advansed-filter-groups
 div.advansed-filter div.advansed-filter-container{border:1px solid #A5A5A5; margin:0 236px 0 0; position:relative; z-index:0; -moz-border-radius: 2px; -khtml-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px;}
 
 div.advansed-filter div.advansed-filter-helper{display:none; line-height:12px; margin:6px 0 0; position:relative; z-index:0; color:#666; font-size:11px;}
-div.advansed-filter div.advansed-filter-helper label.advansed-filter-helper-label {display: inline-block; background:url(./images/advfilter-icons.png) -3px -120px no-repeat; height: 10px; width: 10px; margin-right: 6px;}
+div.advansed-filter div.advansed-filter-helper label.advansed-filter-helper-label {display: inline-block; height: 10px; width: 10px; margin-right: 6px;}
 div.advansed-filter div.advansed-filter-helper .filter-example{display:inline-block; border-bottom:1px dotted #666; cursor:pointer;}
 div.advansed-filter.has-help div.advansed-filter-helper{display:block;}
 
-div.advansed-filter label.advansed-filter-hint{display:none; background:url(./images/advfilter-icons.png) -1px -133px no-repeat transparent; width:16px; height:16px; line-height:16px; margin:-8px 0 0; position:absolute; right:4px; top:50%; cursor:pointer;}
+div.advansed-filter label.advansed-filter-hint {display:none; cursor: pointer; height: 16px; width: 16px; line-height: 16px; margin:-8px 0 0; float: none; padding: 0; position: absolute; right:4px; top:50%;}
+div.advansed-filter label.advansed-filter-hint:after {background-color: #83888d;border-radius:12px;-moz-border-radius:12px;-webkit-border-radius:12px;color: #ffffff; content: "?"; font-family: "Open Sans",sans-serif;display: inline-block;font-size: 11px;font-weight: 900;height: 12px;position: absolute;text-align: center;left: 1px;top: 1px;width: 12px;line-height: 12px; padding: 0; margin: 0; border: 0 none;}
+
 div.advansed-filter div.advansed-filter-hint-popup-helper{width:100%; height:1px; line-height:1px; position: absolute; left:0; top:0;}
 div.advansed-filter div.advansed-filter-hint-popup{display:none; line-height:normal; margin:0 0 0 -50px; position:absolute; left:100% !important; top:auto !important;  bottom:20px !important;}
 
@@ -470,9 +476,9 @@ div.advansed-filter div.advansed-filter-hint-popup.valign-bottom{top:10px !impor
 div.advansed-filter.has-hint label.advansed-filter-hint{display:block;}
 div.advansed-filter.has-hint div.advansed-filter-support{padding-right:20px;}
 
-div.advansed-filter-container div.advansed-filter-button{background:url(./images/advfilter-icons.png) right 0 repeat-x; border:0; border-left:1px solid #C8C8C8; height:20px; line-height:20px; margin:0; position:absolute; left:2px; top:2px; z-index:1; cursor:pointer; color:#666;-moz-border-radius: 2px; -khtml-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px;}
-div.advansed-filter-container div.advansed-filter-button div.inner-text{background:url(./images/advfilter-icons.png) right -21px no-repeat; border:0; height:20px; line-height:20px; padding:0 8px 0 0; overflow:hidden;}
-div.advansed-filter-container div.advansed-filter-button div.inner-text span.text{display:block; background:url(./images/advfilter-icons.png) -4px -62px no-repeat; height:20px; line-height:20px; margin:0 0 0 6px; padding:0 0 0 12px; position:relative; top:0px;}
+div.advansed-filter-container div.advansed-filter-button{height: 20px; line-height:20px; margin:0; position:absolute; left:2px; top:2px; z-index:1; cursor:pointer;}
+div.advansed-filter-container div.advansed-filter-button div.inner-text{border:0; height:20px; line-height:20px; padding:0 9px 0 0; overflow:hidden;}
+div.advansed-filter-container div.advansed-filter-button div.inner-text span.text{display:block; height:18px; line-height:18px; margin:0; padding:0 4px 0 5px; position:relative; top:0px; font-size:16px; font-weight:700;}
 
 div.advansed-filter.no-button div.advansed-filter-container div.advansed-filter-button{display:none;}
 
@@ -483,12 +489,12 @@ div.advansed-filter-container div.advansed-filter-filters.empty-list{}
 div.advansed-filter-container div.advansed-filter-filters.has-hidden-filters{}
 div.advansed-filter-container div.advansed-filter-filters.rendered-filters{}
 div.advansed-filter-container div.advansed-filter-filters div.btn-show-hidden-filters,
-div.advansed-filter-container div.advansed-filter-filters div.filter-item{background:#FFF url(./images/advfilter-icons.png) right -42px repeat-x; border:1px solid #D4E4EC; border-width:0 1px; width:auto; height:20px; line-height:20px; margin:0 0 0 2px; padding:0 18px 0 0; float:left; position:relative; top:2px; white-space:nowrap; cursor:default;}
+div.advansed-filter-container div.advansed-filter-filters div.filter-item{border:1px solid #D4E4EC; width:auto; height:18px; line-height:18px; margin:0 0 0 2px; padding:0 18px 0 0; float:left; position:relative; top:2px; white-space:nowrap; cursor:default;}
 div.advansed-filter-container div.advansed-filter-filters div.btn-show-hidden-filters{display:none; width:10px; padding:0 2px; cursor:pointer; text-align:center;}
 div.advansed-filter-container div.advansed-filter-filters div.btn-show-hidden-filters div.advansed-filter-control{bottom:-5px;}
 div.advansed-filter-container div.advansed-filter-filters div.btn-show-hidden-filters div.advansed-filter-control-container{margin-left:-41px;}
 div.advansed-filter-container div.advansed-filter-filters div.btn-show-hidden-filters div.advansed-filter-control-container.reset-position{margin-left:-41px !important;}
-div.advansed-filter-container div.advansed-filter-filters div.filter-item span.title{display:block; height:20px; line-height:20px; padding:0 4px 0 4px; float:left; position:relative; z-index:0;}
+div.advansed-filter-container div.advansed-filter-filters div.filter-item span.title{display:block; height:18px; line-height:18px; padding:0 4px 0 4px; float:left; position:relative; z-index:0;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.selector-wrapper{display:block; width:auto; max-width:183px; min-height:100%; float:left;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item.filter-item-daterange span.selector-wrapper{max-width:none;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.selector-wrapper{float:none; position:absolute; top:0; left:0;}
@@ -499,7 +505,9 @@ div.advansed-filter-container div.advansed-filter-filters div.filter-item span.c
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector{display:none; height:100%; margin:0 2px 0 0; padding:0 0 0 0; position:relative; top:-1px; z-index:0;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector input{width:75px; height:18px; line-height:18px; margin:-11px 0 0; margin-top:-50px; position:absolute; right:0; top:50%; z-index:0;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-dateselector-date{display:inline-block; height:14px; line-height:14px; position:relative; top:1px; z-index:1;}
-div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-dateselector-date span.btn-show-datepicker-container{display:inline-block; background:url(./images/combobox-bg-button.gif) right 1px no-repeat; height:13px; padding:0 12px 0 0; position:relative; z-index:1; white-space:nowrap; color:#1A6DB3; cursor:pointer;}
+div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-dateselector-date span.btn-show-datepicker-container{display:inline-block; height:13px; padding:0 12px 0 0; position:relative; z-index:1; white-space:nowrap; color:#1A6DB3; cursor:pointer;}
+div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-dateselector-date span.btn-show-datepicker-container:after{border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid #888888; content: ""; height: 0; position: absolute; right: 1px; top: 50%; width: 0; margin-top: -2px;}
+
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-dateselector-date span.btn-show-datepicker-container span.btn-show-datepicker-title{display:inline-block; border-bottom:1px dotted #1A6DB3; height:13px;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-datepicker-container{display:none; background:#FFF; border:1px solid #D1D1D1; line-height:normal; margin:7px 0 0 0; padding:5px; position:absolute; top:100%; left:0;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.daterange-selector span.advansed-filter-datepicker-container span.datepicker-container{display:block; position:relative; z-index:0;}
@@ -513,9 +521,14 @@ div.advansed-filter-container div.advansed-filter-filters div.filter-item span.p
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.group-selector span.custom-value,
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.group-selector span.default-value,
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.person-selector span.custom-value,
-div.advansed-filter-container div.advansed-filter-filters div.filter-item span.person-selector span.default-value{display:none; background:url(./images/combobox-bg-button.gif) right 1px no-repeat; height:100%; padding:0 13px 0 2px; position:relative; cursor:pointer;}
+div.advansed-filter-container div.advansed-filter-filters div.filter-item span.person-selector span.default-value{display:none; height:100%; padding:0 13px 0 2px; position:relative; cursor:pointer;}
+div.advansed-filter-container div.advansed-filter-filters div.filter-item span.group-selector span.custom-value:after,
+div.advansed-filter-container div.advansed-filter-filters div.filter-item span.group-selector span.default-value:after,
+div.advansed-filter-container div.advansed-filter-filters div.filter-item span.person-selector span.custom-value:after,
+div.advansed-filter-container div.advansed-filter-filters div.filter-item span.person-selector span.default-value:after{border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid #888888; content: ""; height: 0; position: absolute; right: 2px; top: 50%; width: 0; margin-top: -2px;}
+
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.group-selector span.custom-value,
-div.advansed-filter-container div.advansed-filter-filters div.filter-item span.person-selector span.custom-value{display:block; max-width:150px; overflow:hidden;}
+div.advansed-filter-container div.advansed-filter-filters div.filter-item span.person-selector span.custom-value{display:block; max-width:150px; overflow:hidden; height: 15px; line-height:14px;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.group-selector span.custom-value span.inner-text,
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.group-selector span.default-value span.inner-text,
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.person-selector span.custom-value span.inner-text,
@@ -524,13 +537,12 @@ div.advansed-filter-container div.advansed-filter-filters div.filter-item span.g
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.group-selector span.default-value span.value,
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.person-selector span.custom-value span.value,
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.person-selector span.default-value span.value{}
-div.advansed-filter-container div.advansed-filter-filters div.filter-item span.btn-delete{display:block; background:url(./images/advfilter-icons.png) 0px -146px no-repeat transparent; height:16px; line-height:16px; width:16px; margin:-7px 0 0; position:absolute; right:2px; top:50%; z-index:1; text-align:center; cursor:pointer;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item div.advansed-filter-control{left:0; bottom:-5px;}
 div.advansed-filter-container div.advansed-filter-filters div.filter-item div.advansed-filter-control div.advansed-filter-control-container.reverse-position{left:auto !important; right:-2px !important;}
 
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.combobox-selector,
 div.advansed-filter-container div.advansed-filter-filters div.filter-item span.group-selector,
-div.advansed-filter-container div.advansed-filter-filters div.filter-item span.person-selector{margin-top:2px;}
+div.advansed-filter-container div.advansed-filter-filters div.filter-item span.person-selector{margin-top:1px;}
 
 div.advansed-filter-container div.advansed-filter-filters div.hidden-filters-container{display:none; background:#FFF; border:1px solid #D1D1D1; margin:2px 0 0; padding:10px 10px 15px 10px; position:absolute; left:-2px; top:100%;}
 div.advansed-filter-container div.advansed-filter-filters div.hidden-filters-container div.filter-item{width:305px !important; float:none; margin:1px 0 0; top:auto;}
@@ -556,7 +568,7 @@ div.advansed-filter-container .datepicker-container .ui-widget-content{border:0;
 div.advansed-filter-container .ui-datepicker-calendar th{font-weight:normal; text-transform:uppercase;}
 
 div.advansed-filter-container div.advansed-filter-input{margin:0 0 0 86px; position:relative; z-index:0; text-align:left;}
-div.advansed-filter-container div.advansed-filter-input label.advansed-filter-reset{display:none; background:url(./images/advfilter-icons.png) 0 -81px no-repeat; width:16px; height:16px; line-height:16px; margin:-8px 0 0; position:absolute; right:-18px; top:50%; z-index:1; cursor:pointer;}
+
 div.advansed-filter-container div.advansed-filter-input input{background:transparent; border:0; width:98%; height:16px; line-height:16px; margin:0; padding:4px 3px 4px; font-size:13px; position:relative; z-index:0; outline:none; -webkit-appearance:none; -webkit-border-radius:0;}
 * + html div.advansed-filter-container div.advansed-filter-input input{height:14px; line-height:14px;}
 
@@ -594,7 +606,8 @@ div.advansed-filter-container select.custom-combobox
 }
 
 div.advansed-filter-container span.custom-combobox{display:inline-block; width:auto; max-width:150px; height:14px; line-height:14px; padding:0 0 0 2px; position:relative;}
-div.advansed-filter-container span.custom-combobox span.combobox-title{display:block; background:url(./images/combobox-bg-button.gif) right 2px no-repeat; max-width:150px; height:15px; position:relative; overflow:hidden; white-space:nowrap; z-index:1; cursor:pointer; color:#1A6DB3;}
+div.advansed-filter-container span.custom-combobox span.combobox-title{display:block; max-width:150px; height:15px; position:relative; overflow:hidden; white-space:nowrap; z-index:1; cursor:pointer; color:#1A6DB3;}
+div.advansed-filter-container span.custom-combobox span.combobox-title{position: relative;}
 div.advansed-filter-container span.custom-combobox span.combobox-title .inner-text{display:block; border-bottom:1px dotted #1A6DB3; max-width:138px; height:13px; margin:1px 12px 0 0; overflow:hidden;}
 div.advansed-filter-container span.custom-combobox span.combobox-wrapper{display:block; width:100%; max-width:150px; height:1px; line-height:1px; position:absolute; left:0; bottom:-9px; z-index:2;}
 div.advansed-filter-container span.custom-combobox div.combobox-container{display:none;  border:1px solid #D1D1D1; max-width: 220px; margin:0; padding:4px; position:absolute; left:0; top:0; background-color: #fff;}

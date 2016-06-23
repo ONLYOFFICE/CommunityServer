@@ -30,30 +30,28 @@
 //
 
 
-using System;
-
 namespace Novell.Directory.Ldap.Events
 {
-  /// <summary> 
-  /// This class gives the EventArgs for Directory exceptions.
-  /// </summary>
-  /// <seealso cref='Novell.Directory.Ldap.Events.LdapEventArgs'/>
-  /// <seealso cref='Novell.Directory.Ldap.Events.Edir.EdirEventArgs'/>
-  public class DirectoryExceptionEventArgs : BaseEventArgs
-  {
-    protected LdapException ldap_exception_object;
-    public LdapException LdapExceptionObject
+    /// <summary> 
+    /// This class gives the EventArgs for Directory exceptions.
+    /// </summary>
+    /// <seealso cref='Novell.Directory.Ldap.Events.LdapEventArgs'/>
+    /// <seealso cref='Novell.Directory.Ldap.Events.Edir.EdirEventArgs'/>
+    public class DirectoryExceptionEventArgs : BaseEventArgs
     {
-      get
-      {
-	return ldap_exception_object;
-      }
-    }
+        protected LdapException ldap_exception_object;
+        public LdapException LdapExceptionObject
+        {
+            get
+            {
+                return ldap_exception_object;
+            }
+        }
 
-    public DirectoryExceptionEventArgs(LdapMessage message, LdapException ldapException)
-      : base(message)
-    {
-      ldap_exception_object = ldapException;
+        public DirectoryExceptionEventArgs(LdapMessage message, LdapException ldapException)
+            : base(message)
+        {
+            ldap_exception_object = ldapException;
+        }
     }
-  }
 }

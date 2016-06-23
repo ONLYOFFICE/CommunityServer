@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -34,56 +34,27 @@ namespace ASC.Web.Core.Client
         private static bool? bundlesEnabled;
         private static bool? storeEnabled;
         private static bool? gzipEnabled;
+        private static readonly string resetCacheKey = WebConfigurationManager.AppSettings["web.client.cache.resetkey"] ?? DateTime.UtcNow.ToString("yyyyMMddhhmmss");
+
 
         public static bool BundlingEnabled
         {
-            get
-            {
-                if (!bundlesEnabled.HasValue)
-                {
-                    bundlesEnabled = bool.Parse(WebConfigurationManager.AppSettings["web.client.bundling"] ?? "false");
-                }
-                return bundlesEnabled.Value;
-            }
-        }
-
-        private static readonly string resetCacheKey = DateTime.UtcNow.ToString("yyyyMMddhhmmss");
-        public static String ResetCacheKey
-        {
-            get
-            {
-                return WebConfigurationManager.AppSettings["web.client.cache.resetkey"] ?? resetCacheKey;
-            }
+            get { return bundlesEnabled ?? (bool)(bundlesEnabled = bool.Parse(WebConfigurationManager.AppSettings["web.client.bundling"] ?? "false")); }
         }
 
         public static bool StoreBundles
         {
-            get
-            {
-                if (!storeEnabled.HasValue)
-                {
-                    storeEnabled = bool.Parse(WebConfigurationManager.AppSettings["web.client.store"] ?? "false");
-                }
-                return storeEnabled.Value;
-            }
-        }
-
-        public static String StorePath
-        {
-            get { return WebConfigurationManager.AppSettings["web.client.store.path"] ?? "App_Data/static"; }
-
+            get { return storeEnabled ?? (bool)(storeEnabled = bool.Parse(WebConfigurationManager.AppSettings["web.client.store"] ?? "false")); }
         }
 
         public static bool GZipEnabled
         {
-            get
-            {
-                if (!gzipEnabled.HasValue)
-                {
-                    gzipEnabled = bool.Parse(WebConfigurationManager.AppSettings["web.client.store.gzip"] ?? "true");
-                }
-                return StoreBundles && gzipEnabled.Value;
-            }
+            get { return gzipEnabled ?? (bool)(gzipEnabled = bool.Parse(WebConfigurationManager.AppSettings["web.client.store.gzip"] ?? "true")); }
+        }
+
+        public static string ResetCacheKey
+        {
+            get { return resetCacheKey; }
         }
     }
 }

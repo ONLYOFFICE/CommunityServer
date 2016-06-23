@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -32,7 +32,6 @@ using ASC.Web.Studio.Utility;
 using ASC.Core.Users;
 using System.Web;
 using System.Text;
-using AjaxPro;
 using System.Net;
 using System.Globalization;
 using ASC.Common.Utils;
@@ -40,7 +39,6 @@ using log4net;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
-    [AjaxNamespace("AjaxPro.InvitePanelController")]
     public partial class InvitePanel : UserControl
     {
         public static string Location
@@ -56,8 +54,6 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            AjaxPro.Utility.RegisterTypeForAjax(GetType());
-
             Page.RegisterBodyScripts("~/usercontrols/management/invitepanel/js/invitepanel.js");
 
             Page.RegisterStyle("~/usercontrols/management/invitepanel/css/invitepanel.less");
@@ -71,13 +67,5 @@ namespace ASC.Web.Studio.UserControls.Management
             return CommonLinkUtility.GetConfirmationUrl(string.Empty, ConfirmType.LinkInvite, (int)employeeType, SecurityContext.CurrentAccount.ID)
                    + String.Format("&emplType={0}", (int)employeeType);
         }
-
-
-        [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]
-        public String GetShortenLink(String shareInviteUserLink)
-        {
-            return LinkShorterUtil.GetShortenLink(shareInviteUserLink, LogManager.GetLogger("ASC.Web"));
-        }
-
     }
 }

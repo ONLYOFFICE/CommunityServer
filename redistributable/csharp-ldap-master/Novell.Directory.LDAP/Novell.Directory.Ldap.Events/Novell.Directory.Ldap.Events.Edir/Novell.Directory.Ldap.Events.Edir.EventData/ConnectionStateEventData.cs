@@ -29,80 +29,79 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System.Text;
-
 using Novell.Directory.Ldap.Asn1;
+using System.Text;
 
 namespace Novell.Directory.Ldap.Events.Edir.EventData
 {
-  /// <summary> 
-  /// This class represents the data for Connection State Events.
-  /// </summary>
-  public class ConnectionStateEventData : BaseEdirEventData
-  {
-    protected string strConnectionDN;
-    public string ConnectionDN
-    {
-      get
-      {
-	return strConnectionDN;
-      }
-    }
-
-    protected int old_flags;
-    public int OldFlags
-    {
-      get
-      {
-	return old_flags;
-      }
-    }
-
-    protected int new_flags;
-    public int NewFlags
-    {
-      get
-      {
-	return new_flags;
-      }
-    }
-
-    protected string source_module;
-    public string SourceModule
-    {
-      get
-      {
-	return source_module;
-      }
-    }
-
-    public ConnectionStateEventData(EdirEventDataType eventDataType, Asn1Object message)
-      : base(eventDataType, message)
-    {
-      int[] length = new int[1];
-
-      strConnectionDN = ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-      old_flags = ((Asn1Integer) decoder.decode(decodedData, length)).intValue();
-      new_flags = ((Asn1Integer) decoder.decode(decodedData, length)).intValue();
-      source_module = ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-
-      DataInitDone();
-    }
-
     /// <summary> 
-    /// Returns a string representation of the object.
+    /// This class represents the data for Connection State Events.
     /// </summary>
-    public override string ToString() 
+    public class ConnectionStateEventData : BaseEdirEventData
     {
-      StringBuilder buf = new StringBuilder();
-      buf.Append("[ConnectionStateEvent");
-      buf.AppendFormat("(ConnectionDN={0})", strConnectionDN);
-      buf.AppendFormat("(oldFlags={0})", old_flags);
-      buf.AppendFormat("(newFlags={0})", new_flags);
-      buf.AppendFormat("(SourceModule={0})", source_module);
-      buf.Append("]");
+        protected string strConnectionDN;
+        public string ConnectionDN
+        {
+            get
+            {
+                return strConnectionDN;
+            }
+        }
 
-      return buf.ToString();
+        protected int old_flags;
+        public int OldFlags
+        {
+            get
+            {
+                return old_flags;
+            }
+        }
+
+        protected int new_flags;
+        public int NewFlags
+        {
+            get
+            {
+                return new_flags;
+            }
+        }
+
+        protected string source_module;
+        public string SourceModule
+        {
+            get
+            {
+                return source_module;
+            }
+        }
+
+        public ConnectionStateEventData(EdirEventDataType eventDataType, Asn1Object message)
+            : base(eventDataType, message)
+        {
+            int[] length = new int[1];
+
+            strConnectionDN = ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+            old_flags = ((Asn1Integer)decoder.decode(decodedData, length)).intValue();
+            new_flags = ((Asn1Integer)decoder.decode(decodedData, length)).intValue();
+            source_module = ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+
+            DataInitDone();
+        }
+
+        /// <summary> 
+        /// Returns a string representation of the object.
+        /// </summary>
+        public override string ToString()
+        {
+            StringBuilder buf = new StringBuilder();
+            buf.Append("[ConnectionStateEvent");
+            buf.AppendFormat("(ConnectionDN={0})", strConnectionDN);
+            buf.AppendFormat("(oldFlags={0})", old_flags);
+            buf.AppendFormat("(newFlags={0})", new_flags);
+            buf.AppendFormat("(SourceModule={0})", source_module);
+            buf.Append("]");
+
+            return buf.ToString();
+        }
     }
-  }
 }

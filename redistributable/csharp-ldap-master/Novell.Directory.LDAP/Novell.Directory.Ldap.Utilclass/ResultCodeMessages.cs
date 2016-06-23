@@ -29,22 +29,21 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
+using System.Resources;
 
 namespace Novell.Directory.Ldap.Utilclass
 {
-	
-	/// <summary> This class contains strings corresponding to Ldap Result Codes.
-	/// The resources are accessed by the String representation of the result code.
-	/// </summary>
-	
-	public class ResultCodeMessages:System.Resources.ResourceManager
-	{
-		public System.Object[][] getContents()
-		{
-			return contents;
-		}
-		internal static readonly System.Object[][] contents = {new System.Object[]{"0", "Success"}, new System.Object[]{"1", "Operations Error"}, new System.Object[]{"2", "Protocol Error"}, new System.Object[]{"3", "Timelimit Exceeded"}, new System.Object[]{"4", "Sizelimit Exceeded"}, new System.Object[]{"5", "Compare False"}, new System.Object[]{"6", "Compare True"}, new System.Object[]{"7", "Authentication Method Not Supported"}, new System.Object[]{"8", "Strong Authentication Required"}, new System.Object[]{"9", "Partial Results"}, new System.Object[]{"10", "Referral"}, new System.Object[]{"11", "Administrative Limit Exceeded"}, new System.Object[]{"12", "Unavailable Critical Extension"}, new System.Object[]{"13", "Confidentiality Required"}, new System.Object[]{"14", "SASL Bind In Progress"}, new System.Object[]{"16", "No Such Attribute"}, new System.Object[]{"17", "Undefined Attribute Type"}, new System.Object[]{"18", "Inappropriate Matching"}, new System.Object[]{"19", "Constraint Violation"}, new System.Object[]{"20", "Attribute Or Value Exists"}, new System.Object[]{"21", "Invalid Attribute Syntax"}, new System.Object[]{"32", "No Such Object"}, new System.Object[]{"33", "Alias Problem"}, new System.Object[]{"34", "Invalid DN Syntax"}, new System.Object[]{"35", "Is Leaf"}, new System.Object[]{"36", "Alias Dereferencing Problem"}, new System.Object[]{"48", "Inappropriate Authentication"}, new System.Object[]{"49", "Invalid Credentials"}, new System.Object[]{"50", "Insufficient Access Rights"}, new System.Object[]{"51", "Busy"}, new System.Object[]{"52", "Unavailable"}, new System.Object[]{"53", "Unwilling To Perform"}, new System.Object[]{"54", "Loop Detect"}, new System.Object[]{"64", "Naming Violation"}, new System.Object[]{"65", "Object Class Violation"}, new System.Object[]{"66", "Not Allowed On Non-leaf"}, new System.Object[]{"67", "Not Allowed On RDN"}, new System.Object[]{"68", "Entry Already Exists"}, new System.Object[]{"69", "Object Class Modifications Prohibited"}, new System.Object[]{"71", 
-			"Affects Multiple DSAs"}, new System.Object[]{"80", "Other"}, new System.Object[]{"81", "Server Down"}, new System.Object[]{"82", "Local Error"}, new System.Object[]{"83", "Encoding Error"}, new System.Object[]{"84", "Decoding Error"}, new System.Object[]{"85", "Ldap Timeout"}, new System.Object[]{"86", "Authentication Unknown"}, new System.Object[]{"87", "Filter Error"}, new System.Object[]{"88", "User Cancelled"}, new System.Object[]{"89", "Parameter Error"}, new System.Object[]{"90", "No Memory"}, new System.Object[]{"91", "Connect Error"}, new System.Object[]{"92", "Ldap Not Supported"}, new System.Object[]{"93", "Control Not Found"}, new System.Object[]{"94", "No Results Returned"}, new System.Object[]{"95", "More Results To Return"}, new System.Object[]{"96", "Client Loop"}, new System.Object[]{"97", "Referral Limit Exceeded"}, new System.Object[]{"112", "TLS not supported"}};
-	} //End ResultCodeMessages
+    /// <summary> This class contains strings corresponding to Ldap Result Codes.
+    /// The resources are accessed by the String representation of the result code.
+    /// </summary>
+    public class ResultCodeMessages : ResourceManager
+    {
+        public object[][] getContents()
+        {
+            return contents;
+        }
+
+        internal static readonly object[][] contents = {new object[]{"0", "Success"}, new object[]{"1", "Operations Error"}, new object[]{"2", "Protocol Error"}, new object[]{"3", "Timelimit Exceeded"}, new object[]{"4", "Sizelimit Exceeded"}, new object[]{"5", "Compare False"}, new object[]{"6", "Compare True"}, new object[]{"7", "Authentication Method Not Supported"}, new object[]{"8", "Strong Authentication Required"}, new object[]{"9", "Partial Results"}, new object[]{"10", "Referral"}, new object[]{"11", "Administrative Limit Exceeded"}, new object[]{"12", "Unavailable Critical Extension"}, new object[]{"13", "Confidentiality Required"}, new object[]{"14", "SASL Bind In Progress"}, new object[]{"16", "No Such Attribute"}, new object[]{"17", "Undefined Attribute Type"}, new object[]{"18", "Inappropriate Matching"}, new object[]{"19", "Constraint Violation"}, new object[]{"20", "Attribute Or Value Exists"}, new object[]{"21", "Invalid Attribute Syntax"}, new object[]{"32", "No Such Object"}, new object[]{"33", "Alias Problem"}, new object[]{"34", "Invalid DN Syntax"}, new object[]{"35", "Is Leaf"}, new object[]{"36", "Alias Dereferencing Problem"}, new object[]{"48", "Inappropriate Authentication"}, new object[]{"49", "Invalid Credentials"}, new object[]{"50", "Insufficient Access Rights"}, new object[]{"51", "Busy"}, new object[]{"52", "Unavailable"}, new object[]{"53", "Unwilling To Perform"}, new object[]{"54", "Loop Detect"}, new object[]{"64", "Naming Violation"}, new object[]{"65", "Object Class Violation"}, new object[]{"66", "Not Allowed On Non-leaf"}, new object[]{"67", "Not Allowed On RDN"}, new object[]{"68", "Entry Already Exists"}, new object[]{"69", "Object Class Modifications Prohibited"}, new object[]{"71", 
+			"Affects Multiple DSAs"}, new object[]{"80", "Other"}, new object[]{"81", "Server Down"}, new object[]{"82", "Local Error"}, new object[]{"83", "Encoding Error"}, new object[]{"84", "Decoding Error"}, new object[]{"85", "Ldap Timeout"}, new object[]{"86", "Authentication Unknown"}, new object[]{"87", "Filter Error"}, new object[]{"88", "User Cancelled"}, new object[]{"89", "Parameter Error"}, new object[]{"90", "No Memory"}, new object[]{"91", "Connect Error"}, new object[]{"92", "Ldap Not Supported"}, new object[]{"93", "Control Not Found"}, new object[]{"94", "No Results Returned"}, new object[]{"95", "More Results To Return"}, new object[]{"96", "Client Loop"}, new object[]{"97", "Referral Limit Exceeded"}, new object[]{"112", "TLS not supported"}};
+    } //End ResultCodeMessages
 }

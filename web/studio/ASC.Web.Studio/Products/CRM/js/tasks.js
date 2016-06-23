@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -60,7 +60,7 @@ ASC.CRM.myTaskContactFilter = {
         '<span class="selector-wrapper">',
           '<span class="contact-selector"></span>',
         '</span>',
-        '<span class="btn-delete"></span>',
+        '<span class="btn-delete">&times;</span>',
       '</div>'
         ].join('');
         return o;
@@ -403,6 +403,7 @@ ASC.CRM.ListTaskView = new function() {
                             '</b>',
                             '<br/><br/><a href="' + ASC.Resources.Master.FilterHelpCenterLink + '" target="_blank">',
                             '</a>'),
+                hintDefaultDisable: !ASC.Resources.Master.FilterHelpCenterLink,
                 maxfilters  : 3,
                 colcount    : 2,
                 maxlength   : "100",
@@ -581,24 +582,7 @@ ASC.CRM.ListTaskView = new function() {
                 ASC.CRM.ListTaskView.showActionMenu(taskId);
                 jq("#taskTable .entity-menu.active").removeClass("active");
 
-                var $dropdownItem = jq("#taskActionMenu");
-                if (target.is(".entity-menu")) {
-                    if ($dropdownItem.is(":hidden")) {
-                        target.addClass('active');
-                    }
-                    $dropdownItem.css({
-                        "top": target.offset().top + target.outerHeight() - 2,
-                        "left": target.offset().left + 7,
-                        "right": "auto"
-                    });
-                } else {
-                    $dropdownItem.css({
-                        "top": e.pageY + 3,
-                        "left": e.pageX - 5,
-                        "right": "auto"
-                    });
-                }
-                $dropdownItem.show();
+                jq.showDropDownByContext(e, target, jq("#taskActionMenu"));
                 return false;
             });
         }
@@ -1740,11 +1724,9 @@ ASC.CRM.TaskActionView = new function() {
         },
 
         changeTime: function(obj) {
-            var id = jq(obj).attr("id"),
-                value = jq("#" + id + " option:selected").val();
-            if (value == '-1') {
-                jq("#optDeadlineHours_-1").attr("selected", "selected");
-                jq("#optDeadlineMinutes_-1").attr("selected", "selected");
+            if (jq(obj).val() == "-1") {
+                jq("#taskDeadlineHours").val("-1");
+                jq("#taskDeadlineMinutes").val("-1");
             }
         }
     }

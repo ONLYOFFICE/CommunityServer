@@ -1,6 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="CommunityDashboardEmptyScreen.ascx.cs" Inherits="ASC.Web.Studio.UserControls.EmptyScreens.CommunityDashboardEmptyScreen" %>
 <%@ Import Namespace="ASC.Web.Community.Resources" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 
 <% if (!UseStaticPosition)
    { %>
@@ -12,12 +11,16 @@
         <% if (!UseStaticPosition)
            { %>
             <a href="<%= ProductStartUrl %>">
-                <span class="close"></span>
+                <span class="close">&times;</span>
             </a>
         <% } %>
         <%= CommunityResource.DashboardTitle %>
     </div>
     <div class="content clearFix">
+
+        <% if (IsBlogsAvailable) %>
+        <% { %>
+
         <div class="module-block">
             <div class="img blogs"></div>
             <div class="title"><%= CommunityResource.BlogsModuleTitle %></div>
@@ -29,7 +32,9 @@
                 <%= CommunityResource.BlogsModuleLink1 %>
             </a>
         </div>
-        
+        <% } %>
+        <% if (IsEventsAvailable) %>
+        <% { %>
         <div class="module-block">
             <div class="img events"></div>
             <div class="title"><%= CommunityResource.EventsModuleTitle %></div>
@@ -41,7 +46,9 @@
                 <%= CommunityResource.EventsModuleLink %>
             </a>
         </div>
-       
+        <% } %>
+        <% if (IsBookmarksAvailable) %>
+        <% { %>
         <div class="module-block wiki">
             <div class="img bookmarks"></div>
             <div class="title"><%= CommunityResource.WikiModuleTitle %></div>
@@ -53,6 +60,7 @@
                 <%= CommunityResource.WikiModuleLink2 %>
             </a>
         </div>
+        <% } %>
         <div class="module-block">
             <div class="img helpcenter"></div>
             <div class="title"><%= CommunityResource.HelpModuleTitle %></div>
@@ -60,9 +68,9 @@
                 <li><%= CommunityResource.HelpModuleFirstLine %></li>
                 <li><%= CommunityResource.HelpModuleSecondLine %></li>
             </ul>
-            <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+            <% if (!string.IsNullOrEmpty(HelpLink))
                { %>
-                <a href="<%= CommonLinkUtility.GetHelpLink() %>" target="_blank" class="link underline">
+                <a href="<%= HelpLink %>" target="_blank" class="link underline">
                     <%= CommunityResource.HelpModuleLink %>
                 </a>
             <% } %>

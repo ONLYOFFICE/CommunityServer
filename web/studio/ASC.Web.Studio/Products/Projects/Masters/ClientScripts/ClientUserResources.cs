@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -48,12 +48,6 @@ namespace ASC.Web.Projects.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            var result = new List<KeyValuePair<string, object>>(5)
-                         {
-                             RegisterObject("EntryCountOnPage", Global.EntryCountOnPage),
-                             RegisterObject("VisiblePageCount", Global.VisiblePageCount)
-                         };
-
             var filter = new TaskFilter
                 {
                     SortBy = "title",
@@ -83,13 +77,21 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                                              },
                                          isPrivate = pr.Private,
                                          status = pr.Status
-                                     });
+                                     }).ToList();
 
-            var tags = Global.EngineFactory.TagEngine.GetTags().Select(r => new {value = r.Key, title = r.Value.HtmlEncode()});
+            var tags = Global.EngineFactory.TagEngine.GetTags().Select(r => new {value = r.Key, title = r.Value.HtmlEncode()}).ToList();
 
-            result.Add(RegisterObject("Projects", new {response = projects}));
-            result.Add(RegisterObject("Tags", new {response = tags}));
-
+            var result = new List<KeyValuePair<string, object>>(1)
+                   {
+                       RegisterObject(
+                           new
+                           {
+                               Global.EntryCountOnPage,
+                               Global.VisiblePageCount,
+                               Projects = new {response = projects},
+                               Tags = new {response = tags}
+                           })
+                   };
 
             if (context.Request.UrlReferrer != null && string.IsNullOrEmpty(HttpUtility.ParseQueryString(context.Request.GetUrlRewriter().Query)["prjID"]) && string.IsNullOrEmpty(HttpUtility.ParseQueryString(context.Request.UrlReferrer.Query)["prjID"]))
             {
@@ -107,9 +109,9 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                                                title = m.Title,
                                                deadline = SetDate(m.DeadLine, TimeZoneInfo.Local),
                                                projectOwner = new {id = m.Project.ID}
-                                           });
+                                           }).ToList();
 
-                result.Add(RegisterObject("Milestones", new {response = milestones}));
+                result.Add(RegisterObject(new { Milestones = new { response = milestones } }));
             }
 
             return result;
@@ -184,7 +186,7 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                                            title = m.Title,
                                            deadline = ClientUserResources.SetDate(m.DeadLine, TimeZoneInfo.Local),
                                            projectOwner = new {id = m.Project.ID}
-                                       });
+                                       }).ToList();
 
             var team = Global.EngineFactory.ProjectEngine.GetTeam(Convert.ToInt32(currentProject))
                              .Select(r => new
@@ -214,10 +216,14 @@ namespace ASC.Web.Projects.Masters.ClientScripts
                                      profileUrl = r.UserInfo.GetUserProfilePageURL()
                                  }).OrderBy(r => r.displayName).ToList();
 
-            return new List<KeyValuePair<string, object>>(2)
+            return new List<KeyValuePair<string, object>>(1)
                    {
-                       RegisterObject("Milestones", new {response = milestones}),
-                       RegisterObject("Team", new {response = team})
+                       RegisterObject(
+                           new
+                           {
+                               Milestones = new {response = milestones},
+                               Team = new {response = team}
+                           })
                    };
         }
 
@@ -255,9 +261,13 @@ namespace ASC.Web.Projects.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            return new List<KeyValuePair<string, object>>
+            return new List<KeyValuePair<string, object>>(1)
                    {
-                       RegisterObject("IsModuleAdmin", CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, EngineFactory.ProductId))
+                       RegisterObject(
+                           new
+                           {
+                               IsModuleAdmin = CoreContext.UserManager.IsUserInGroup(SecurityContext.CurrentAccount.ID, EngineFactory.ProductId)
+                           })
                    };
         }
 

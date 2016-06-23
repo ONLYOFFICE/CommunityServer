@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -33,7 +33,7 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Extension;
-using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Aggregator.DbSchema;
 
 namespace ASC.Mail.Server.Dal
 {
@@ -61,14 +61,14 @@ namespace ASC.Mail.Server.Dal
                 throw new DuplicateNameException(String.Format("Domain with name {0}. Already added to tenant {1}.",
                                                                domain.name, domain.tenant));
 
-            var domainAddTime = DateTime.UtcNow.ToDbStyle();
+            var domainAddTime = DateTime.UtcNow;
 
-            var addWebDomainQuery = new SqlInsert(DomainTable.name)
-                .InColumnValue(DomainTable.Columns.id, 0)
-                .InColumnValue(DomainTable.Columns.name, name)
-                .InColumnValue(DomainTable.Columns.tenant, tenant)
-                .InColumnValue(DomainTable.Columns.is_verified, isVerified)
-                .InColumnValue(DomainTable.Columns.date_added, domainAddTime)
+            var addWebDomainQuery = new SqlInsert(DomainTable.Name)
+                .InColumnValue(DomainTable.Columns.Id, 0)
+                .InColumnValue(DomainTable.Columns.DomainName, name)
+                .InColumnValue(DomainTable.Columns.Tenant, tenant)
+                .InColumnValue(DomainTable.Columns.IsVerified, isVerified)
+                .InColumnValue(DomainTable.Columns.DateAdded, domainAddTime)
                 .Identity(0, 0, true);
 
             var addedDomainId = db.ExecuteScalar<int>(addWebDomainQuery);
@@ -85,27 +85,27 @@ namespace ASC.Mail.Server.Dal
 
             const string group_alias = "msg";
             const string address_alias = "msa";
-            var groupQuery = new SqlQuery(MailGroupTable.name + " " + group_alias)
-                                .InnerJoin(AddressTable.name + " " + address_alias,
-                                           Exp.EqColumns(MailGroupTable.Columns.id_address.Prefix(group_alias),
-                                                         AddressTable.Columns.id.Prefix(address_alias)
+            var groupQuery = new SqlQuery(MailGroupTable.Name.Alias(group_alias))
+                                .InnerJoin(AddressTable.Name.Alias(address_alias),
+                                           Exp.EqColumns(MailGroupTable.Columns.AddressId.Prefix(group_alias),
+                                                         AddressTable.Columns.Id.Prefix(address_alias)
                                                         )
                                           )
-                                .Select(MailGroupTable.Columns.id.Prefix(group_alias))
-                                .Where(AddressTable.Columns.tenant.Prefix(address_alias), tenant)
-                                .Where(AddressTable.Columns.id_domain.Prefix(address_alias), domainId)
-                                .Where(AddressTable.Columns.is_mail_group.Prefix(address_alias), true);
+                                .Select(MailGroupTable.Columns.Id.Prefix(group_alias))
+                                .Where(AddressTable.Columns.Tenant.Prefix(address_alias), tenant)
+                                .Where(AddressTable.Columns.DomainId.Prefix(address_alias), domainId)
+                                .Where(AddressTable.Columns.IsMailGroup.Prefix(address_alias), true);
 
-            var mailboxQuery = new SqlQuery(AddressTable.name)
-                                .Select(AddressTable.Columns.id_mailbox)
-                                .Where(AddressTable.Columns.tenant, tenant)
-                                .Where(AddressTable.Columns.id_domain, domainId)
-                                .Where(AddressTable.Columns.is_mail_group, false)
-                                .Where(AddressTable.Columns.is_alias, false);
+            var mailboxQuery = new SqlQuery(AddressTable.Name)
+                                .Select(AddressTable.Columns.MailboxId)
+                                .Where(AddressTable.Columns.Tenant, tenant)
+                                .Where(AddressTable.Columns.DomainId, domainId)
+                                .Where(AddressTable.Columns.IsMailGroup, false)
+                                .Where(AddressTable.Columns.IsAlias, false);
 
-            var deleteWebDomainQuery = new SqlDelete(DomainTable.name)
-                .Where(DomainTable.Columns.tenant, tenant)
-                .Where(DomainTable.Columns.id, domainId);
+            var deleteWebDomainQuery = new SqlDelete(DomainTable.Name)
+                .Where(DomainTable.Columns.Tenant, tenant)
+                .Where(DomainTable.Columns.Id, domainId);
 
 
             var result = db.ExecuteList(groupQuery);
@@ -134,7 +134,7 @@ namespace ASC.Mail.Server.Dal
         public List<WebDomainDto> GetTenantDomains()
         {
             var getAllTenantWebDomainsQuery = GetDomainFieldsQuery()
-                .Where(Exp.In(DomainTable.Columns.tenant, new List<int> { tenant, Defines.SHARED_TENANT_ID }));
+                .Where(Exp.In(DomainTable.Columns.Tenant, new List<int> { tenant, Defines.SHARED_TENANT_ID }));
 
             using (var db = GetDb())
             {
@@ -150,7 +150,7 @@ namespace ASC.Mail.Server.Dal
                 throw new ArgumentNullException("name");
 
             var getDomainForNameQuery = GetDomainFieldsQuery()
-                .Where(DomainTable.Columns.name, name);
+                .Where(DomainTable.Columns.DomainName, name);
 
             var result = NullSafeExecuteList(db, getDomainForNameQuery);
 
@@ -163,8 +163,8 @@ namespace ASC.Mail.Server.Dal
                 throw new ArgumentException("Argument domain_id less then zero.", "domainId");
 
             var getDomainForIdQuery = GetDomainFieldsQuery()
-                .Where(Exp.In(DomainTable.Columns.tenant, new List<int> { tenant, Defines.SHARED_TENANT_ID }))
-                .Where(DomainTable.Columns.id, domainId);
+                .Where(Exp.In(DomainTable.Columns.Tenant, new List<int> { tenant, Defines.SHARED_TENANT_ID }))
+                .Where(DomainTable.Columns.Id, domainId);
 
             using (var db = GetDb())
             {
@@ -177,12 +177,15 @@ namespace ASC.Mail.Server.Dal
         {
             if (domainId < 0)
                 throw new ArgumentException("Argument domain_id less then zero.", "domainId");
-            
+
+            var checkDate = DateTime.UtcNow;
+
             using (var db = GetDb())
             {
-                var updateDomain = new SqlUpdate(DomainTable.name)
-                    .Set(DomainTable.Columns.is_verified, isVerified)
-                    .Where(DomainTable.Columns.id, domainId);
+                var updateDomain = new SqlUpdate(DomainTable.Name)
+                    .Set(DomainTable.Columns.IsVerified, isVerified)
+                    .Set(DomainTable.Columns.DateChecked, checkDate)
+                    .Where(DomainTable.Columns.Id, domainId);
 
                 db.ExecuteNonQuery(updateDomain);
             }
@@ -190,12 +193,12 @@ namespace ASC.Mail.Server.Dal
 
         private SqlQuery GetDomainFieldsQuery()
         {
-            return new SqlQuery(DomainTable.name)
-                .Select(DomainTable.Columns.id)
-                .Select(DomainTable.Columns.name)
-                .Select(DomainTable.Columns.tenant)
-                .Select(DomainTable.Columns.date_added)
-                .Select(DomainTable.Columns.is_verified);
+            return new SqlQuery(DomainTable.Name)
+                .Select(DomainTable.Columns.Id)
+                .Select(DomainTable.Columns.DomainName)
+                .Select(DomainTable.Columns.Tenant)
+                .Select(DomainTable.Columns.DateAdded)
+                .Select(DomainTable.Columns.IsVerified);
         }
     }
 }

@@ -614,8 +614,6 @@
     <Compile Include="Utils\PdfCreator.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Themes\Default\images\arrow_down.gif" />
-    <Content Include="App_Themes\Default\images\combobox-bg-button.gif" />
     <Content Include="App_Themes\Default\images\contacts.png" />
     <Content Include="App_Themes\Default\images\customize.png" />
     <Content Include="App_Themes\Default\images\drag.png" />
@@ -828,7 +826,6 @@
     <Content Include="App_Themes\Default\images\export_data.png" />
     <Content Include="App_Themes\Default\images\import_contacts.png" />
     <Content Include="App_Themes\Default\images\mail_send.png" />
-    <Content Include="App_Themes\Default\images\menu_button_bg.gif" />
     <Content Include="App_Themes\Default\images\empty_screen_cases.png" />
     <Content Include="App_Themes\Default\images\empty_screen_companies.png" />
     <Content Include="App_Themes\Default\images\empty_screen_deals.png" />
@@ -845,8 +842,6 @@
     <Content Include="App_Themes\Default\images\task_category_ship.png" />
     <Content Include="App_Themes\Default\images\task_category_social_networks.png" />
     <Content Include="App_Themes\Default\images\task_category_thank_you.png" />
-    <Content Include="App_Themes\Default\images\tr_off.png" />
-    <Content Include="App_Themes\Default\images\tr_on.png" />
     <Content Include="App_Themes\Default\images\web_to_leads.png" />
     <Content Include="Controls\Cases\CasesFullCardView.ascx" />
     <Content Include="Controls\Common\NavigationSidePanel.ascx" />
@@ -869,9 +864,6 @@
     <Content Include="js\settings.js" />
     <Content Include="js\socialmedia.js" />
     <Content Include="js\tasks.js" />
-    <Content Include="Masters\CommonBodyScripts.ascx" />
-    <Content Include="Masters\SettingsBodyScripts.ascx" />
-    <Content Include="Masters\Styles.ascx" />
     <Content Include="Templates\CasesTemplates.ascx" />
     <Content Include="Templates\CommonCustomFieldsTemplates.ascx" />
     <Content Include="Templates\CommonTemplates.ascx" />

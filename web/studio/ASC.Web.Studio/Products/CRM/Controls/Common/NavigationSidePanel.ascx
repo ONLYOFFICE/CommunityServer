@@ -4,7 +4,7 @@
 <%@ Import Namespace="ASC.CRM.Core" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 <%@ Import Namespace="ASC.Web.Core.Files" %>
-<%@ Import Namespace="ASC.Web.Studio.Controls.Common" %>
+<%@ Import Namespace="ASC.Web.Core.Mobile" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Voip" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="ASC.Core" %>
@@ -13,17 +13,13 @@
 
 <div class="page-menu">
     <ul class="menu-actions">
-        <li id="menuCreateNewButton" class="menu-main-button without-separator <%= MobileVer ? "big" : "middle" %>" title="<%= CRMCommonResource.CreateNew %>">
+        <li id="menuCreateNewButton" class="menu-main-button without-separator middle" title="<%= CRMCommonResource.CreateNew %>">
             <span class="main-button-text"><%= CRMCommonResource.CreateNew %></span>
             <span class="white-combobox"></span>
         </li>
-        <% if (!MobileVer) %>
-        <%
-           { %>
-            <li id="menuOtherActionsButton" class="menu-gray-button" title="<%= Resources.Resource.MoreActions %>">
-                <span class="btn_other-actions">...</span>
-            </li>
-        <% } %>
+        <li id="menuOtherActionsButton" class="menu-gray-button" title="<%= Resources.Resource.MoreActions %>">
+            <span class="btn_other-actions">...</span>
+        </li>
     </ul>
 
     <%-- popup windows --%>
@@ -38,27 +34,27 @@
         </ul>
     </div>
 
-    <% if (!MobileVer) %>
-    <%
-       { %>
-        <div id="otherActions" class="studio-action-panel">
-            <ul class="dropdown-content">
-                <li><a id="importContactLink" class="dropdown-item" href="default.aspx?action=import"><%= CRMContactResource.ImportContacts %></a></li>
-                <li><a id="importTasksLink" class="dropdown-item" href="tasks.aspx?action=import"><%= CRMTaskResource.ImportTasks %></a></li>
-                <li><a id="importDealsLink" class="dropdown-item" href="deals.aspx?action=import"><%= CRMDealResource.ImportDeals %></a></li>
-                <li><a id="importCasesLink" class="dropdown-item" href="cases.aspx?action=import"><%= CRMCasesResource.ImportCases %></a></li>
+    <div id="otherActions" class="studio-action-panel">
+        <ul class="dropdown-content">
+            <% if (!MobileDetector.IsMobile)
+               { %>
+            <li><a id="importContactLink" class="dropdown-item" href="default.aspx?action=import"><%= CRMContactResource.ImportContacts %></a></li>
+            <li><a id="importTasksLink" class="dropdown-item" href="tasks.aspx?action=import"><%= CRMTaskResource.ImportTasks %></a></li>
+            <li><a id="importDealsLink" class="dropdown-item" href="deals.aspx?action=import"><%= CRMDealResource.ImportDeals %></a></li>
+            <li><a id="importCasesLink" class="dropdown-item" href="cases.aspx?action=import"><%= CRMCasesResource.ImportCases %></a></li>
+            <% } %>
 
-                <% if (CRMSecurity.IsAdmin)
-                   { %>
-                    <li><a id="exportListToCSV" class="dropdown-item"><%= CRMCommonResource.ExportCurrentListToCsvFile %></a></li>
-                <% if (FileUtility.CanWebView(".csv") || FileUtility.CanWebEdit(".csv"))
-                   { %>
-                    <li><a id="openListInEditor" class="dropdown-item"><%= CRMCommonResource.OpenCurrentListInTheEditor %></a></li>
-                <% } %>
-                <% } %>
-            </ul>
-        </div>
-    <% } %>
+            <% if (CRMSecurity.IsAdmin)
+               { %>
+            <li><a id="exportListToCSV" class="dropdown-item"><%= CRMCommonResource.ExportCurrentListToCsvFile %></a></li>
+
+            <% if (FileUtility.CanWebView(".csv") || FileUtility.CanWebEdit(".csv"))
+               { %>
+            <li><a id="openListInEditor" class="dropdown-item"><%= CRMCommonResource.OpenCurrentListInTheEditor %></a></li>
+            <% } %>
+            <% } %>
+        </ul>
+    </div>
 
     <ul class="menu-list">
         <li id="nav-menu-contacts" class="menu-item sub-list<% if (CurrentPage == "contacts")

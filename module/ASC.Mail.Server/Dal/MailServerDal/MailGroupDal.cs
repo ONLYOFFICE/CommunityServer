@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -31,7 +31,7 @@ using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Mail.Aggregator.Common.Extension;
-using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Aggregator.DbSchema;
 
 namespace ASC.Mail.Server.Dal
 {
@@ -66,17 +66,17 @@ namespace ASC.Mail.Server.Dal
                 throw new ArgumentNullException("db");
             
             var addressDal = new MailAddressDal(tenant);
-            var createdTime = DateTime.UtcNow.ToDbStyle();
+            var createdTime = DateTime.UtcNow;
 
             var addressDto = addressDal.AddMailgroupAddress(addressName, addressCreatedDate, domainId, domainName,
                                                               isVerified, db);
 
-            var insertGroupQuery = new SqlInsert(MailGroupTable.name)
-                                                .InColumnValue(MailGroupTable.Columns.id, 0)
-                                                .InColumnValue(MailGroupTable.Columns.id_tenant, tenant)
-                                                .InColumnValue(MailGroupTable.Columns.date_created, createdTime)
-                                                .InColumnValue(MailGroupTable.Columns.id_address, addressDto.id)
-                                                .InColumnValue(MailGroupTable.Columns.address, addressName 
+            var insertGroupQuery = new SqlInsert(MailGroupTable.Name)
+                                                .InColumnValue(MailGroupTable.Columns.Id, 0)
+                                                .InColumnValue(MailGroupTable.Columns.Tenant, tenant)
+                                                .InColumnValue(MailGroupTable.Columns.DateCreated, createdTime)
+                                                .InColumnValue(MailGroupTable.Columns.AddressId, addressDto.id)
+                                                .InColumnValue(MailGroupTable.Columns.Address, addressName 
                                                                                              + '@' + domainName)
                                                 .Identity(0, 0, true);
 
@@ -95,19 +95,19 @@ namespace ASC.Mail.Server.Dal
             if (db == null)
                 throw new ArgumentNullException("db");
             
-            var groupAddressId = new SqlQuery(MailGroupTable.name)
-                        .Select(MailGroupTable.Columns.id_address)
-                        .Where(MailGroupTable.Columns.id, groupId);
+            var groupAddressId = new SqlQuery(MailGroupTable.Name)
+                        .Select(MailGroupTable.Columns.AddressId)
+                        .Where(MailGroupTable.Columns.Id, groupId);
 
-            var deleteAddressesQuery = new SqlDelete(AddressTable.name)
-                .Where(Exp.In(AddressTable.Columns.id, groupAddressId));
+            var deleteAddressesQuery = new SqlDelete(AddressTable.Name)
+                .Where(Exp.In(AddressTable.Columns.Id, groupAddressId));
             
-            var deleteGroupQuery = new SqlDelete(MailGroupTable.name)
-                                        .Where(MailGroupTable.Columns.id_tenant, tenant)
-                                        .Where(MailGroupTable.Columns.id, groupId);
+            var deleteGroupQuery = new SqlDelete(MailGroupTable.Name)
+                                        .Where(MailGroupTable.Columns.Tenant, tenant)
+                                        .Where(MailGroupTable.Columns.Id, groupId);
 
-            var deleteGroupXAddress = new SqlDelete(MailGroupXAddressesTable.name)
-                .Where(MailGroupXAddressesTable.Columns.id_mail_group, groupId);
+            var deleteGroupXAddress = new SqlDelete(MailGroupXAddressesTable.Name)
+                .Where(MailGroupXAddressesTable.Columns.MailGroupId, groupId);
 
             var deletedAddressRowsCount = db.ExecuteNonQuery(deleteAddressesQuery);
             var deletedGroupRowsCount = db.ExecuteNonQuery(deleteGroupQuery);
@@ -124,15 +124,15 @@ namespace ASC.Mail.Server.Dal
             if (groupId < 0)
                 throw new ArgumentException("Argument group_id less then zero.", "groupId");
 
-            if (groupId < 0)
+            if (addressId < 0)
                 throw new ArgumentException("Argument address_id less then zero.", "addressId");
 
             if (db == null)
                 throw new ArgumentNullException("db");
 
-            var addAddressToMailgroupQuery = new SqlInsert(MailGroupXAddressesTable.name)
-                                                    .InColumnValue(MailGroupXAddressesTable.Columns.id_address, addressId)
-                                                    .InColumnValue(MailGroupXAddressesTable.Columns.id_mail_group, groupId);
+            var addAddressToMailgroupQuery = new SqlInsert(MailGroupXAddressesTable.Name)
+                                                    .InColumnValue(MailGroupXAddressesTable.Columns.AddressId, addressId)
+                                                    .InColumnValue(MailGroupXAddressesTable.Columns.MailGroupId, groupId);
 
             var insetedRowsCount = db.ExecuteNonQuery(addAddressToMailgroupQuery);
             if (insetedRowsCount == 0)
@@ -150,8 +150,8 @@ namespace ASC.Mail.Server.Dal
             if(db == null)
                 throw new ArgumentNullException("db");
             
-            var addAddressToMailgroupQuery = new SqlInsert(MailGroupXAddressesTable.name)
-                .InColumns(MailGroupXAddressesTable.Columns.id_address, MailGroupXAddressesTable.Columns.id_mail_group);
+            var addAddressToMailgroupQuery = new SqlInsert(MailGroupXAddressesTable.Name)
+                .InColumns(MailGroupXAddressesTable.Columns.AddressId, MailGroupXAddressesTable.Columns.MailGroupId);
 
             addressIds.ForEach(addressId => addAddressToMailgroupQuery.Values(addressId, groupId));
 
@@ -169,9 +169,9 @@ namespace ASC.Mail.Server.Dal
             if (db == null)
                 throw new ArgumentNullException("db");
 
-            var deleteAddressFromMailgroupQuery = new SqlDelete(MailGroupXAddressesTable.name)
-                                         .Where(MailGroupXAddressesTable.Columns.id_address, addressId)
-                                         .Where(MailGroupXAddressesTable.Columns.id_mail_group, groupId);
+            var deleteAddressFromMailgroupQuery = new SqlDelete(MailGroupXAddressesTable.Name)
+                                         .Where(MailGroupXAddressesTable.Columns.AddressId, addressId)
+                                         .Where(MailGroupXAddressesTable.Columns.MailGroupId, groupId);
 
             var deletedRowsCount = db.ExecuteNonQuery(deleteAddressFromMailgroupQuery);
             if (deletedRowsCount > 1)
@@ -181,7 +181,7 @@ namespace ASC.Mail.Server.Dal
         public List<MailGroupDto> GetMailGroups()
         {
             var selectGroupsQuery = GetGroupQuery()
-                .Where(MailGroupTable.Columns.id_tenant, tenant);
+                .Where(MailGroupTable.Columns.Tenant, tenant);
 
             List<MailGroupDto> mailgroupDtoList;
 
@@ -204,28 +204,28 @@ namespace ASC.Mail.Server.Dal
             const string m_x_a_alias = "mxa";
             const string address_alias = "msa";
             const string domain_alias = "msd";
-            var selectAddressesQuery = new SqlQuery(MailGroupXAddressesTable.name.Alias(m_x_a_alias))
-                .InnerJoin(AddressTable.name.Alias(address_alias),
-                           Exp.EqColumns(MailGroupXAddressesTable.Columns.id_address.Prefix(m_x_a_alias),
-                                         AddressTable.Columns.id.Prefix(address_alias)))
-                .InnerJoin(DomainTable.name.Alias(domain_alias),
-                           Exp.EqColumns(DomainTable.Columns.id.Prefix(domain_alias),
-                                         AddressTable.Columns.id_domain.Prefix(address_alias)))
-                .Select(AddressTable.Columns.id.Prefix(address_alias))
-                .Select(AddressTable.Columns.tenant.Prefix(address_alias))
-                .Select(AddressTable.Columns.name.Prefix(address_alias))
-                .Select(AddressTable.Columns.id_domain.Prefix(address_alias))
-                .Select(AddressTable.Columns.id_mailbox.Prefix(address_alias))
-                .Select(AddressTable.Columns.is_mail_group.Prefix(address_alias))
-                .Select(AddressTable.Columns.is_alias.Prefix(address_alias))
-                .Select(AddressTable.Columns.date_created.Prefix(address_alias))
-                .Select(DomainTable.Columns.id.Prefix(domain_alias))
-                .Select(DomainTable.Columns.name.Prefix(domain_alias))
-                .Select(DomainTable.Columns.tenant.Prefix(domain_alias))
-                .Select(DomainTable.Columns.date_added.Prefix(domain_alias))
-                .Select(DomainTable.Columns.is_verified.Prefix(domain_alias))
-                .Where(MailGroupXAddressesTable.Columns.id_mail_group.Prefix(m_x_a_alias), groupId)
-                .Where(AddressTable.Columns.tenant.Prefix(address_alias), tenant);
+            var selectAddressesQuery = new SqlQuery(MailGroupXAddressesTable.Name.Alias(m_x_a_alias))
+                .InnerJoin(AddressTable.Name.Alias(address_alias),
+                           Exp.EqColumns(MailGroupXAddressesTable.Columns.AddressId.Prefix(m_x_a_alias),
+                                         AddressTable.Columns.Id.Prefix(address_alias)))
+                .InnerJoin(DomainTable.Name.Alias(domain_alias),
+                           Exp.EqColumns(DomainTable.Columns.Id.Prefix(domain_alias),
+                                         AddressTable.Columns.DomainId.Prefix(address_alias)))
+                .Select(AddressTable.Columns.Id.Prefix(address_alias))
+                .Select(AddressTable.Columns.Tenant.Prefix(address_alias))
+                .Select(AddressTable.Columns.AddressName.Prefix(address_alias))
+                .Select(AddressTable.Columns.DomainId.Prefix(address_alias))
+                .Select(AddressTable.Columns.MailboxId.Prefix(address_alias))
+                .Select(AddressTable.Columns.IsMailGroup.Prefix(address_alias))
+                .Select(AddressTable.Columns.IsAlias.Prefix(address_alias))
+                .Select(AddressTable.Columns.DateCreated.Prefix(address_alias))
+                .Select(DomainTable.Columns.Id.Prefix(domain_alias))
+                .Select(DomainTable.Columns.DomainName.Prefix(domain_alias))
+                .Select(DomainTable.Columns.Tenant.Prefix(domain_alias))
+                .Select(DomainTable.Columns.DateAdded.Prefix(domain_alias))
+                .Select(DomainTable.Columns.IsVerified.Prefix(domain_alias))
+                .Where(MailGroupXAddressesTable.Columns.MailGroupId.Prefix(m_x_a_alias), groupId)
+                .Where(AddressTable.Columns.Tenant.Prefix(address_alias), tenant);
 
             return NullSafeExecuteList(db, selectAddressesQuery)
                 .ConvertAll(r => r.ToMailAddressDto());
@@ -238,8 +238,8 @@ namespace ASC.Mail.Server.Dal
 
             const string groups_alias = "msg";
             var selectGroupsQuery = GetGroupQuery()
-                .Where(MailGroupTable.Columns.id_tenant.Prefix(groups_alias), tenant)
-                .Where(MailGroupTable.Columns.id.Prefix(groups_alias), groupId);
+                .Where(MailGroupTable.Columns.Tenant.Prefix(groups_alias), tenant)
+                .Where(MailGroupTable.Columns.Id.Prefix(groups_alias), groupId);
 
             MailGroupDto groupDto;
 
@@ -262,30 +262,30 @@ namespace ASC.Mail.Server.Dal
             const string domain_alias = "msd";
             const string address_alias = "msa";
 
-            return new SqlQuery(MailGroupTable.name.Alias(groups_alias))
-                .InnerJoin(AddressTable.name.Alias(address_alias),
-                           Exp.EqColumns(AddressTable.Columns.id.Prefix(address_alias),
-                                         MailGroupTable.Columns.id_address.Prefix(groups_alias)))
-                .InnerJoin(DomainTable.name.Alias(domain_alias),
-                           Exp.EqColumns(AddressTable.Columns.id_domain.Prefix(address_alias),
-                                         DomainTable.Columns.id.Prefix(domain_alias)))
-                .Select(MailGroupTable.Columns.id.Prefix(groups_alias))
-                .Select(MailGroupTable.Columns.id_address.Prefix(groups_alias))
-                .Select(MailGroupTable.Columns.id_tenant.Prefix(groups_alias))
-                .Select(MailGroupTable.Columns.date_created.Prefix(groups_alias))
-                .Select(AddressTable.Columns.id.Prefix(address_alias))
-                .Select(AddressTable.Columns.tenant.Prefix(address_alias))
-                .Select(AddressTable.Columns.name.Prefix(address_alias))
-                .Select(AddressTable.Columns.id_domain.Prefix(address_alias))
-                .Select(AddressTable.Columns.id_mailbox.Prefix(address_alias))
-                .Select(AddressTable.Columns.is_mail_group.Prefix(address_alias))
-                .Select(AddressTable.Columns.is_alias.Prefix(address_alias))
-                .Select(AddressTable.Columns.date_created.Prefix(address_alias))
-                .Select(DomainTable.Columns.id.Prefix(domain_alias))
-                .Select(DomainTable.Columns.name.Prefix(domain_alias))
-                .Select(DomainTable.Columns.tenant.Prefix(domain_alias))
-                .Select(DomainTable.Columns.date_added.Prefix(domain_alias))
-                .Select(DomainTable.Columns.is_verified.Prefix(domain_alias));
+            return new SqlQuery(MailGroupTable.Name.Alias(groups_alias))
+                .InnerJoin(AddressTable.Name.Alias(address_alias),
+                           Exp.EqColumns(AddressTable.Columns.Id.Prefix(address_alias),
+                                         MailGroupTable.Columns.AddressId.Prefix(groups_alias)))
+                .InnerJoin(DomainTable.Name.Alias(domain_alias),
+                           Exp.EqColumns(AddressTable.Columns.DomainId.Prefix(address_alias),
+                                         DomainTable.Columns.Id.Prefix(domain_alias)))
+                .Select(MailGroupTable.Columns.Id.Prefix(groups_alias))
+                .Select(MailGroupTable.Columns.AddressId.Prefix(groups_alias))
+                .Select(MailGroupTable.Columns.Tenant.Prefix(groups_alias))
+                .Select(MailGroupTable.Columns.DateCreated.Prefix(groups_alias))
+                .Select(AddressTable.Columns.Id.Prefix(address_alias))
+                .Select(AddressTable.Columns.Tenant.Prefix(address_alias))
+                .Select(AddressTable.Columns.AddressName.Prefix(address_alias))
+                .Select(AddressTable.Columns.DomainId.Prefix(address_alias))
+                .Select(AddressTable.Columns.MailboxId.Prefix(address_alias))
+                .Select(AddressTable.Columns.IsMailGroup.Prefix(address_alias))
+                .Select(AddressTable.Columns.IsAlias.Prefix(address_alias))
+                .Select(AddressTable.Columns.DateCreated.Prefix(address_alias))
+                .Select(DomainTable.Columns.Id.Prefix(domain_alias))
+                .Select(DomainTable.Columns.DomainName.Prefix(domain_alias))
+                .Select(DomainTable.Columns.Tenant.Prefix(domain_alias))
+                .Select(DomainTable.Columns.DateAdded.Prefix(domain_alias))
+                .Select(DomainTable.Columns.IsVerified.Prefix(domain_alias));
         }
     }
 }

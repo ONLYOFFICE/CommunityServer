@@ -6,6 +6,7 @@
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 <%@ Import Namespace="ASC.Web.CRM.Configuration" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
+<%@ Import Namespace="ASC.Web.Core.WhiteLabel" %>
 
 <div id="sendEmailPanel" style="display:none;">
     <div id="createContent">
@@ -50,11 +51,12 @@
             <input type="hidden" id="requiredMessageBody"/>
             <textarea id="ckEditor" name="ckEditor" style="width: 100%;height: 400px;"></textarea>
         </div>
-        <div class="headerPanel-splitter">
+        <% if (CompanyWhiteLabelSettings.Instance.IsDefault) { %>
+        <div id="watermarkInfo" class="headerPanel-splitter">
             <span class="text-medium-describe">*<%: CRMContactResource.TeamlabWatermarkInfo %></span>
         </div>
+        <% } %>
         <div class="clearFix">
-            <% if (!MobileVer) { %>
             <div style="float:right;">
                 <a id="attachShowButton" class="attachLink baseLinkAction linkMedium" onclick="javascript:jq('#attachOptions, #attachHideButton').show(); jq('#attachShowButton').hide();" >
                     <%= CRMCommonResource.ShowAttachPanel%>
@@ -63,7 +65,6 @@
                     <%= CRMCommonResource.HideAttachPanel%>
                 </a>
             </div>
-            <% } %>
             <div>
                 <input id="storeInHistory" type="checkbox" style="float: left;"/>
                 <label for="storeInHistory" style="float: left; padding: 2px 0 0 4px;">
@@ -71,11 +72,9 @@
                 </label>
             </div>
         </div>
-        <% if (!MobileVer) { %>
         <div id="attachOptions" style="display:none;margin: 10px 0;">
             <asp:PlaceHolder ID="phFileUploader" runat="server"></asp:PlaceHolder>
         </div>
-        <% } %>
     </div>
     <div id="previewContent" style="display:none;">
         <div class="headerPanel-splitter">

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -94,49 +94,50 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 else
                 {
                     FileMarker.RemoveMarkAsNewForAll(folder);
-                    if (FolderDao.UseTrashForRemove(folder))
+                    if (folder.ProviderEntry && folder.ID.Equals(folder.RootFolderId))
                     {
-                        var files = FileDao.GetFiles(folder.ID, true);
-                        if (!ignoreException && files.Exists(FileTracker.IsEditing))
-                        {
-                            Error = FilesCommonResource.ErrorMassage_SecurityException_DeleteEditingFolder;
-                        }
-                        else
-                        {
-                            FolderDao.MoveFolder(folder.ID, trashId);
-                            FilesMessageService.Send(folder, headers, MessageAction.FolderMovedToTrash, folder.Title);
-
-                            ProcessedFolder(folderId);
-                        }
+                        ProviderDao.RemoveProviderInfo(folder.ProviderId);
+                        ProcessedFolder(folderId);
                     }
                     else
                     {
-                        if (FolderDao.UseRecursiveOperation(folder.ID, null))
+                        if (FolderDao.UseTrashForRemove(folder))
                         {
-                            DeleteFiles(FileDao.GetFiles(folder.ID, false));
-                            DeleteFolders(FolderDao.GetFolders(folder.ID).Select(f => f.ID).ToList());
-
-                            if (FolderDao.GetItemsCount(folder.ID, true) == 0)
+                            var files = FileDao.GetFiles(folder.ID);
+                            if (!ignoreException && files.Exists(FileTracker.IsEditing))
                             {
-                                FolderDao.DeleteFolder(folder.ID);
+                                Error = FilesCommonResource.ErrorMassage_SecurityException_DeleteEditingFolder;
+                            }
+                            else
+                            {
+                                FolderDao.MoveFolder(folder.ID, trashId);
+                                FilesMessageService.Send(folder, headers, MessageAction.FolderMovedToTrash, folder.Title);
+
                                 ProcessedFolder(folderId);
                             }
                         }
                         else
                         {
-                            if (folder.ProviderEntry && folder.ID.Equals(folder.RootFolderId))
+                            if (FolderDao.UseRecursiveOperation(folder.ID, null))
                             {
-                                ProviderDao.RemoveProviderInfo(folder.ProviderId);
+                                DeleteFiles(FileDao.GetFiles(folder.ID));
+                                DeleteFolders(FolderDao.GetFolders(folder.ID).Select(f => f.ID).ToList());
+
+                                if (FolderDao.IsEmpty(folder.ID))
+                                {
+                                    FolderDao.DeleteFolder(folder.ID);
+                                    ProcessedFolder(folderId);
+                                }
                             }
                             else
                             {
                                 FolderDao.DeleteFolder(folder.ID);
+                                ProcessedFolder(folderId);
                             }
-                            ProcessedFolder(folderId);
                         }
                     }
                 }
-                ProgressStep();
+                ProgressStep(FolderDao.CanCalculateSubitems(folderId) ? null : folderId);
             }
         }
 
@@ -186,7 +187,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                     }
                     ProcessedFile(fileId);
                 }
-                ProgressStep();
+                ProgressStep(fileId: FolderDao.CanCalculateSubitems(fileId) ? null : fileId);
             }
         }
     }

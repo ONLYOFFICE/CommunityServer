@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -98,6 +98,9 @@ namespace ASC.Web.Files.Services.DocumentService
         [DataMember(Name = "canEdit")]
         public bool CanEdit;
 
+        [DataMember(Name = "canReview")]
+        public bool CanReview;
+
         [DataMember(Name = "key")]
         public string Key
         {
@@ -187,7 +190,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 if (!string.IsNullOrEmpty(_fileUri))
                     return _fileUri;
 
-                _fileUri = PathProvider.GetFileStreamUrl(File);
+                _fileUri = DocumentServiceConnector.ReplaceCommunityAdress(PathProvider.GetFileStreamUrl(File));
                 return _fileUri;
             }
         }
@@ -250,8 +253,8 @@ namespace ASC.Web.Files.Services.DocumentService
             {
                 return
                     _user.ID.Equals(ASC.Core.Configuration.Constants.Guest.ID)
-                        ? new[] { Guid.NewGuid().ToString(), FilesCommonResource.Guest, string.Empty, FilesCommonResource.Guest }
-                        : new[] { _user.ID.ToString(), _user.FirstName, _user.LastName, _user.DisplayUserName(false) };
+                        ? new[] { Guid.NewGuid().ToString(), FilesCommonResource.Guest, string.Empty }
+                        : new[] { _user.ID.ToString(), _user.FirstName, _user.LastName };
             }
             set { }
         }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -68,6 +68,13 @@ ASC.Files.Common = (function () {
         return regExp.test(id);
     };
 
+    var getCorrectHash = function (anchor) {
+        if (jq.browser.mozilla) {
+            return encodeURI(anchor);
+        }
+        return anchor;
+    };
+
     var jsonToXml = function (o, parent) {
         var xml = "";
 
@@ -94,17 +101,21 @@ ASC.Files.Common = (function () {
                 }
             }
         } else if (typeof o === "string") {
-            xml = o;
+            xml = replaceInXml(o);
             if (typeof parent !== "undefined") {
-                xml = "<" + parent + ">" + Encoder.htmlEncode(xml) + "</" + parent + ">";
+                xml = "<" + parent + ">" + xml + "</" + parent + ">";
             }
         } else if (typeof o !== "undefined" && typeof o.toString !== "undefined") {
-            xml = o.toString();
+            xml = replaceInXml(o.toString());
             if (typeof parent !== "undefined") {
-                xml = "<" + parent + ">" + Encoder.htmlEncode(xml) + "</" + parent + ">";
+                xml = "<" + parent + ">" + xml + "</" + parent + ">";
             }
         }
         return xml;
+    };
+
+    var replaceInXml = function (str) {
+        return str.replace(/&/gim, "&amp;").replace(/</gim, "&gt;").replace(/>/gim, "&lt;");
     };
 
     var getSitePath = function () {
@@ -135,13 +146,6 @@ ASC.Files.Common = (function () {
         return (str || "").trim().replace(ASC.Files.Common.characterRegExp, "_");
     };
 
-    var fixHash = function (hash) {
-        if (!jq.browser.mobile && jq.browser.safari) {
-            hash = encodeURIComponent(hash || "");
-        }
-        return hash;
-    };
-
     var keyCode = { enter: 13, esc: 27, spaceBar: 32, pageUP: 33, pageDown: 34, end: 35, home: 36, left: 37, up: 38, right: 39, down: 40, insertKey: 45, deleteKey: 46, a: 65, f: 70, n: 78 };
 
     return {
@@ -154,10 +158,9 @@ ASC.Files.Common = (function () {
         replaceSpecCharacter: replaceSpecCharacter,
 
         isCorrectId: isCorrectId,
+        getCorrectHash: getCorrectHash,
         jsonToXml: jsonToXml,
 
         storeOriginal: storeOriginal,
-
-        fixHash: fixHash,
     };
 })();

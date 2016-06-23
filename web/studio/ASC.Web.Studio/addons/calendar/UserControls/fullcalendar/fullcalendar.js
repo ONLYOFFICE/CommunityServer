@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -136,12 +136,12 @@ var defaults = function defaultsModule() {return {
 		eventBackgroundColor: "#87CEFA",
 		eventBorderColor:     "#297FB4",
 		eventBg2BorderRatio:  0.8,
-		eventMaxTitleLength:  100,
+		eventMaxTitleLength:  250,
 
 		todayLabel:           "Today",
 		moreEventsLabel:      "events",
 		addNewEventLabel:     "Add event",
-		addNewLabel:          "Добавить",
+		addNewLabel:          "Create",
 
 		modes: {
 			calendarViewLabel: "Calendar view",
@@ -220,13 +220,18 @@ var defaults = function defaultsModule() {return {
 			// dialog
 			dialogTemplate:              "",
 			dialogHeader_add:            "Add new event",
+			dialogSummaryLabel:          "Event name:",
+			dialogLocationLabel:         "Where:",
+			dialogAttendeesLabel:        "Guests:",
 			dialogOwnerLabel:            "Owner:",
+			dialogOrganizerLabel:        "Organizer:",
 			dialogAllDayLabel:           "All-day event",
 			dialogAllDay_no:             "This event is not all-day.",
 			dialogAllDay_yes:            "This is all-day event.",
 			dialogFromLabel:             "From:",
 			dialogToLabel:               "To:",
 			dialogRepeatLabel:           "Repeat:",
+			dialogStatusLabel:           "Status:",
 			dialogRepeatOption_never:    "never",
 			dialogRepeatOption_day:      "every day",
 			dialogRepeatOption_week:     "every week",
@@ -250,9 +255,14 @@ var defaults = function defaultsModule() {return {
 			dialogButton_cancel:         "Cancel",
 			dialogButton_delete:         "Delete",
 			dialogButton_unsubscribe:    "Unsubscribe",
+			dialogButton_moreDetails:    "More details",
+		    dialogButton_details:        "Details",
 			
 			// new option
-			dialogRepeatOption_custom:   "настройка"
+			dialogRepeatOption_custom:   "настройка",
+			dialogHeader_createEvent: "Create new event",
+			dialogHeader_editEvent: "Edit event",
+			dialogHeader_viewEvent: "View event",
 		},		
 		
 		repeatSettings: {
@@ -323,6 +333,27 @@ var defaults = function defaultsModule() {return {
 			dialogButton_cancel:          "Отмена"
 		},
 		
+		confirmPopup: {
+		    // dialog
+		    dialogTemplate:               "",
+		    dialogAddEventHeader:         "Sending invitations",
+		    dialogUpdateEventHeader:      "Sending updates",
+		    dialogDeleteEventHeader:      "Sending cancellations",
+		    dialogAddEventBody:           "Would you like to send invitations to guests?",
+		    dialogUpdateEventBody:        "Would you like to send updates to existing guests?",
+		    dialogUpdateGuestsBody:       "Would you like to send updates only to new guests and cancellations or just everyone?",
+		    dialogDeleteEventBody:        "Would you like to send cancellations to existing guests?",
+		    
+		    dialogSuccessToastText:       "Notifications successfully sent",
+		    dialogErrorToastText:         "An error occurred while sending notifications",
+		    
+		    // buttons
+		    dialogButtonSend:            "Send",
+		    dialogButtonSendCustoms:     "New guests and cancellations",
+		    dialogButtonSendEveryone:    "Everyone",
+		    dialogButtonDontSend:        "Don't Send"
+		},
+
 		icalStream: {
 			// dialog
 			dialogTemplate:                       "",
@@ -646,8 +677,11 @@ var fcUtil = function fcUtilModule() {
 			return [Math.floor(r * 255), Math.floor(g * 255), Math.floor(b * 255)];
 	};
 
-    _this.randomHex = function () {
-        return "#" + Math.random().toString(16).slice(2, 8);
+    _this.randomHex = function (isFont) {
+        if(isFont)
+            return fcColors.TextPicker[1];
+
+        return fcColors.DefaultPicker[Math.floor(Math.random() * fcColors.DefaultPicker.length)];
     };
 
 	_this.parseCssColor = function(c) {
@@ -838,12 +872,11 @@ var fcUtil = function fcUtilModule() {
 		var res = fn(inp.val());
 
 		if (null == res) {
-			inp.css("color", "red").css("border-color", "red");
+			inp.css("color", "#cc3300").css("border-color", "#cc3300");
 			return false;
 		}
-		inp.css("color", "black");//.css("border-color", "");;
-		if (!($.browser.msie && $.browser.version))
-			inp.css("border-color", "black");
+	    
+		inp.css("color", "").css("border-color", "");
 
 		if (result) {
 			result.value = res;
@@ -855,18 +888,18 @@ var fcUtil = function fcUtilModule() {
 		var inp = $(elem);
 		var res = fn(inp.val());
 		if (null === res) {
-			inp.css("color", "red").css("border-color", "red");
+			inp.css("color", "#cc3300").css("border-color", "#cc3300");
 			return false;
 		}
 		else {
 			if (res.indexOf("http://") && res.indexOf("https://") && res.indexOf("webcal://")) {
-				inp.css("color", "red").css("border-color", "red");
+				inp.css("color", "#cc3300").css("border-color", "#cc3300");
 				return false;
 			}
 		}
-		inp.css("color", "black");//.css("border-color", "");
-		if (!($.browser.msie && $.browser.version))
-			inp.css("border-color", "black");
+	    
+		inp.css("color", "").css("border-color", "");
+	    
 		if (result) {result.value = res;}
 		return true;
 	};
@@ -885,6 +918,7 @@ var fcUtil = function fcUtilModule() {
 		var bg = htmlEscape(activeColor),
 		    s = elem.find(".shared");
 		elem.css("background-color", isActive ? bg : "");
+		elem.next(".label").css("color", isActive ? "" : inactiveColor);
 		if (isShared && s.length < 1) {
 			elem.append('<div class="shared"/>');
 		} else if (!isShared && s.length > 0) {
@@ -1040,390 +1074,154 @@ function initTemplates(options) {
 	var rs = options.repeatSettings;
 	var ds = options.deleteSettings;
 	var ic = options.icalStream;
+	var cp = options.confirmPopup;
 
-	options.categories.dialogTemplate = ('\
-<div id="fc_cal_editor">\
-	<div class="header">\
-		<div class="inner">\
-			<span class="new-label">'+htmlEscape(c.dialogHeader_add)+'</span><span class="edit-label">'+htmlEscape(c.dialogHeader_edit)+'</span>\
-			<div class="close-btn">&nbsp;</div>\
-		</div>\
-	</div>\
-	<div class="title">\
-		<div class="bullet">&#9632;</div>\
-		<input type="text" value="'+htmlEscape(c.defaultTitle)+'"/>\
-	</div>\
-	<div class="color">\
-		<span class="label">'+htmlEscape(c.dialogColor_label)+'</span>\
-		<span class="outer"><span class="inner">&nbsp;</span></span>\
-		<span class="label-for-text">'+htmlEscape(c.dialogTextColor_label)+'</span>\
-		<span class="outer"><span class="inner-for-text">&nbsp;</span></span>\
-	</div>\
-	<div class="row">\
-		<div class="alert">\
-			<div class="label">'+htmlEscape(e.dialogAlertLabel)+'</div>\
-			<select>\
-				<option value="'+htmlEscape(kAlertNever)+'">'+htmlEscape(e.dialogAlertOption_never)+'</option>\
-				<option value="1">'+htmlEscape(e.dialogAlertOption_5minutes)+'</option>\
-				<option value="2">'+htmlEscape(e.dialogAlertOption_15minutes)+'</option>\
-				<option value="3">'+htmlEscape(e.dialogAlertOption_30minutes)+'</option>\
-				<option value="4">'+htmlEscape(e.dialogAlertOption_hour)+'</option>\
-				<option value="5">'+htmlEscape(e.dialogAlertOption_2hours)+'</option>\
-				<option value="6">'+htmlEscape(e.dialogAlertOption_day)+'</option>\
-			</select>\
-		</div>\
-		<div class="timezone">\
-			<div class="label">'+htmlEscape(c.dialogTimezoneLabel)+'</div>\
-			<select/>\
-		</div>\
-	</div>\
-	<div class="shared-list"/>\
-	\
-	<!-- create iCal-calendar -->\
-	<div class="ical-url-input">\
-		<div class="ical-label">'+htmlEscape(ic.dialogInputiCalLabel)+'</div>\
-		<input type="text" value=""/>\
-	</div>\
-	\
-	<!-- get/set iCal stream -->\
-	<div class="ical">\
-		<div class="ical-logo">\
-		</div>\
-		<div class="ical-selectors">\
-			<span class="ical-label">'+htmlEscape(ic.dialogImportExportLabel)+'</span>\
-			<div class="ical-import">\
-				<span id="ical-browse-btn" class="ical-link">'+htmlEscape(ic.dialogImportLabel)+'</span>&nbsp;&nbsp;\
-				<span class="ical-file-selected">'+htmlEscape(ic.dialogButton_fileNotSelected)+'</span>\
-			</div>\
-			<div class="ical-export">\
-				<span class="ical-link">'+htmlEscape(ic.dialogStreamLink)+'</span>\
-			</div>\
-		</div>\
-	</div>\
-	<div class="buttons">\
-		<a class="button blue middle save-btn" href="#">'+htmlEscape(c.dialogButton_save)+'</a>\
-		<a class="button gray middle cancel-btn" href="#">'+htmlEscape(c.dialogButton_cancel)+'</a>\
-		<a class="button gray middle delete-btn" href="#">'+htmlEscape(c.dialogButton_delete)+'</a>\
-	</div>\
-</div>').replace(/\>\s+\</g, "><");
+    var templateData = {
+        dialogHeaderAdd: htmlEscape(c.dialogHeader_add),
+        dialogHeaderEdit: htmlEscape(c.dialogHeader_edit),
+        defaultCalendarName: htmlEscape(c.defaultTitle),
+        dialogBgColorLabel: htmlEscape(c.dialogColor_label),
+        dialogFontColorLabel: htmlEscape(c.dialogTextColor_label),
+        dialogAlertLabel: e.dialogAlertLabel,
+        alertOptions: [
+							{ value:kAlertNever, text:e.dialogAlertOption_never },
+							{ value:1, text:e.dialogAlertOption_5minutes },
+							{ value:2, text:e.dialogAlertOption_15minutes },
+							{ value:3, text:e.dialogAlertOption_30minutes },
+							{ value:4, text:e.dialogAlertOption_hour },
+							{ value:5, text:e.dialogAlertOption_2hours },
+							{ value:6, text:e.dialogAlertOption_day }
+        ],
+        dialogTimezoneLabel: c.dialogTimezoneLabel,
+        dialogInputiCalLabel: ic.dialogInputiCalLabel,
+        dialogImportExportLabel: ic.dialogImportExportLabel,
+        dialogImportLabel: ic.dialogImportLabel,
+        fileNotSelected: ic.dialogButton_fileNotSelected,
+        dialogStreamLink: ic.dialogStreamLink,
+        dialogButtonSave: c.dialogButton_save,
+        dialogButtonCancel: c.dialogButton_cancel,
+        dialogButtonDelete: c.dialogButton_delete,
+        maxlength: defaults.eventMaxTitleLength
+    };
 
-	options.categories.subscriptionsDialog = ('\
-<div id="fc_subscription_dlg">\
-	<div class="header">\
-		<div class="inner">\
-			<span class="label">'+htmlEscape(c.subscriptionsDialogHeader)+'</span>\
-			<div class="close-btn">&nbsp;</div>\
-		</div>\
-	</div>\
-	<div class="title">\
-		<div class="bullet">&#9632;</div>\
-		<input type="text" value=""/>\
-	</div>\
-	<div class="color">\
-		<span class="label">'+htmlEscape(c.dialogColor_label)+'</span>\
-		<span class="outer"><span class="inner">&nbsp;</span></span>\
-		<span class="label-for-text">'+htmlEscape(c.dialogTextColor_label)+'</span>\
-		<span class="outer"><span class="inner-for-text">&nbsp;</span></span>\
-	</div>\
-	<div class="row">\
-		<div class="alert">\
-			<div class="label">'+htmlEscape(e.dialogAlertLabel)+'</div>\
-			<select>\
-				<option value="'+htmlEscape(kAlertNever)+'">'+htmlEscape(e.dialogAlertOption_never)+'</option>\
-				<option value="1">'+htmlEscape(e.dialogAlertOption_5minutes)+'</option>\
-				<option value="2">'+htmlEscape(e.dialogAlertOption_15minutes)+'</option>\
-				<option value="3">'+htmlEscape(e.dialogAlertOption_30minutes)+'</option>\
-				<option value="4">'+htmlEscape(e.dialogAlertOption_hour)+'</option>\
-				<option value="5">'+htmlEscape(e.dialogAlertOption_2hours)+'</option>\
-				<option value="6">'+htmlEscape(e.dialogAlertOption_day)+'</option>\
-			</select>\
-		</div>\
-		<div class="timezone">\
-			<div class="label">'+htmlEscape(c.dialogTimezoneLabel)+'</div>\
-			<select/>\
-		</div>\
-		<div class="timezone-read-only">\
-			<div class="label">'+htmlEscape(c.dialogTimezoneLabel)+'</div>\
-			<span class="timezone-desc" />\
-		</div>\
-	</div>\
-	<div class="owner">\
-		<div class="label">'+htmlEscape(c.subscriptionsDialogOwnerLabel)+'</div>\
-		<div><span class="icon">&nbsp;</span><span class="name">Joe Black</span></div>\
-	</div>\
-	\
-	<!-- show iCal url -->\
-	<div class="ical-saved-url">\
-		<div class="ical-label">'+htmlEscape(ic.dialogSavediCalLabel)+'</div>\
-		<span class="saved-url-link "></span>\
-	</div>\
-	<div class="shared-list"/>\
-	\
-	<!-- get/set iCal stream -->\
-	<div class="ical">\
-		<div class="ical-logo">\
-		</div>\
-		<div class="ical-selectors">\
-			<span class="ical-label">'+htmlEscape(ic.dialogImportExportLabel)+'</span>\
-			<div class="ical-import">\
-				<span id="ical-browse-btn-subs" class="ical-link">'+htmlEscape(ic.dialogImportLabel)+'</span>&nbsp;&nbsp;\
-				<span class="ical-file-selected">'+htmlEscape(ic.dialogButton_fileNotSelected)+'</span>\
-			</div>\
-			<div class="ical-export">\
-				<span class="ical-link">'+htmlEscape(ic.dialogStreamLink)+'</span>\
-			</div>\
-		</div>\
-	</div>\
-	<div class="buttons">\
-		<a class="button blue middle save-btn" href="#">'+htmlEscape(c.dialogButton_save)+'</a>\
-		<a class="button gray middle cancel-btn" href="#">'+htmlEscape(c.dialogButton_cancel)+'</a>\
-		<a class="button gray middle delete-btn" href="#">'+htmlEscape(c.dialogButton_delete)+'</a>\
-		<a class="button gray middle unsubs-btn" href="#">'+htmlEscape(c.subscriptionsDialogButton_unsubscribe)+'</a>\
-	</div>\
-</div>').replace(/\>\s+\</g, "><");
+    options.categories.dialogTemplate = $("#categoriesDialogTemplate").tmpl(templateData).html().replace(/\>\s+\</g, "><");
 
-	options.categories.subscriptionsManageDialog = ('\
-<div id="fc_subscr_editor">\
-	<div class="header">\
-		<div class="inner">\
-			<span class="title">'+htmlEscape(c.subscriptionsManageDialog_title)+'</span>\
-			<div class="close-btn">&nbsp;</div>\
-		</div>\
-	</div>\
-	<div class="qsearch">\
-		<input type="text" value="'+htmlEscape(c.subscriptionsManageDialog_qsearchText)+'"/>\
-		<div class="clean-btn">&nbsp;</div>\
-	</div>\
-	<div class="groups"/>\
-	<div class="buttons">\
-		<a id="fc_subscr_save" class="button blue middle" href="#">'+htmlEscape(c.subscriptionsManageDialogButton_save)+'</a><span class="splitter">&nbsp;</span>\
-		<a id="fc_subscr_cancel" class="button gray middle" href="#">'+htmlEscape(c.subscriptionsManageDialogButton_cancel)+'</a>\
-	</div>\
-</div>').replace(/\>\s+\</g, "><");
+    templateData = {
+        dialogHeader: htmlEscape(c.subscriptionsDialogHeader),
+        dialogBgColorLabel: htmlEscape(c.dialogColor_label),
+        dialogFontColorLabel: htmlEscape(c.dialogTextColor_label),
+        dialogAlertLabel: htmlEscape(e.dialogAlertLabel),
+        alertOptions: [
+							{ value:kAlertNever, text:e.dialogAlertOption_never },
+							{ value:1, text:e.dialogAlertOption_5minutes },
+							{ value:2, text:e.dialogAlertOption_15minutes },
+							{ value:3, text:e.dialogAlertOption_30minutes },
+							{ value:4, text:e.dialogAlertOption_hour },
+							{ value:5, text:e.dialogAlertOption_2hours },
+							{ value:6, text:e.dialogAlertOption_day }
+        ],
+        dialogTimezoneLabel: htmlEscape(c.dialogTimezoneLabel),
+        dialogOwnerLabel: c.subscriptionsDialogOwnerLabel,
+        dialogSavediCalLabel: htmlEscape(ic.dialogSavediCalLabel),
+        dialogImportExportLabel: htmlEscape(ic.dialogImportExportLabel),
+        dialogImportLabel: htmlEscape(ic.dialogImportLabel),
+        fileNotSelected: htmlEscape(ic.dialogButton_fileNotSelected),
+        dialogStreamLink: htmlEscape(ic.dialogStreamLink),
+        dialogButtonSave: c.dialogButton_save,
+        dialogButtonCancel: c.dialogButton_cancel,
+        dialogButtonDelete: c.dialogButton_delete,
+        dialogButtonUnsubscribe: c.subscriptionsDialogButton_unsubscribe,
+        maxlength: defaults.eventMaxTitleLength
+    };
 
-	options.eventEditor.dialogTemplate = ('\
-<div id="fc_event_editor">\
-	<div class="start-point"></div>\
-	<div class="header">\
-		<div class="inner">\
-			<span>'+htmlEscape(e.dialogHeader_add)+'</span>\
-			<div class="close-btn">&nbsp;</div>\
-		</div>\
-	</div>\
-	<div class="viewer">\
-		<div class="title">'+htmlEscape(e.newEventTitle)+'</div>\
-		<div class="owner">\
-			<div class="label">'+htmlEscape(e.dialogOwnerLabel)+'</div>\
-			<div><span class="icon">&nbsp;</span><span class="name">Joe Black</span></div>\
-		</div>\
-		<div class="all-day">\
-			<span class="no-label">'+htmlEscape(e.dialogAllDay_no)+'</span>\
-			<span class="yes-label">'+htmlEscape(e.dialogAllDay_yes)+'</span>\
-		</div>\
-		<div class="date-time">\
-			<div>\
-				<div class="label">'+htmlEscape(e.dialogFromLabel)+'</div>\
-				<span class="from-date">8.03.2011</span><span class="from-time">8:00</span>\
-			</div>\
-			<div class="right">\
-				<div class="label">'+htmlEscape(e.dialogToLabel)+'</div>\
-				<span class="to-date">8.03.2011</span><span class="to-time">12:00</span>\
-			</div>\
-		</div>\
-		<div class="repeat-alert">\
-			<div>\
-				<div class="label">'+htmlEscape(e.dialogAlertLabel)+'</div>\
-				<span class="alert">8.03.2011</span>\
-			</div>\
-			<div class="right">\
-				<div class="label">'+htmlEscape(e.dialogRepeatLabel)+'</div>\
-				<span class="repeat">8.03.2011</span>\
-			</div>\
-		</div>\
-		<div class="shared-list">\
-			<div class="no-label">'+htmlEscape(e.dialogSharing_no)+'</div>\
-			<div class="yes-label">'+htmlEscape(options.sharedList.title)+'</div>\
-			<div class="users-list"/>\
-		</div>\
-		<div class="calendar">\
-			<div class="label">'+htmlEscape(e.dialogCalendarLabel)+'</div>\
-			<div><span class="bullet">&#9632;</span><span class="name">Project CRM</span></div>\
-		</div>\
-		<div class="description">\
-			<div class="label">'+htmlEscape(e.dialogDescriptionLabel)+'</div>\
-			<div class="text">A decription of an event.</div>\
-		</div>\
-	</div>\
-	<div class="editor">\
-		<div class="title"><input type="text" value="New event"/></div>\
-		<div class="all-day">\
-			<input type="checkbox" class="cb"/><span class="label">'+htmlEscape(e.dialogAllDayLabel)+'</span>\
-		</div>\
-		<div class="date-time">\
-			<div>\
-				<div class="label">'+htmlEscape(e.dialogFromLabel)+'</div>\
-				<div class="wrapper">\
-					<input class="from-date" type="text" value="8.03.2011"/><div class="from cal-icon"/>\
-					<input class="from-time" type="text" value="8:00"/>\
-				</div>\
-			</div>\
-			<div class="right">\
-				<div class="label">'+htmlEscape(e.dialogToLabel)+'</div>\
-				<div class="wrapper">\
-					<input class="to-date" type="text" value="8.03.2011"/><div class="to cal-icon"/>\
-					<input class="to-time" type="text" value="12:00"/>\
-				</div>\
-			</div>\
-		</div>\
-		<div class="repeat-alert">\
-			<div>\
-				<span class="label">'+htmlEscape(e.dialogAlertLabel)+'</span>&nbsp;<br\>\
-				<span class="fc-view-alert">\
-					<span class="fc-selector-link">' + htmlEscape(e.dialogAlertOption_default) + '</span>\
-					<span class="fc-dropdown">&nbsp;</span>\
-				</span>\
-			</div>\
-			<div class="right">\
-				<span class="label">'+htmlEscape(e.dialogRepeatLabel)+'</span>&nbsp;<br\>\
-				<span class="fc-view-repeat">\
-					<span class="fc-selector-link">' + htmlEscape(e.dialogRepeatOption_never) + '</span>\
-					<span class="fc-dropdown">&nbsp;</span>\
-				</span>\
-			</div>\
-		</div>\
-		<div class="shared-list"/>\
-		<div class="calendar">\
-			<div class="label">'+htmlEscape(e.dialogCalendarLabel)+'</div>\
-			<div class="wrapper">\
-				<div class="bullet">&#9632;</div>\
-				<select>\
-					<option>Project CRM</option>\
-					<option>My calendar</option>\
-				</select>\
-			</div>\
-		</div>\
-		<div class="description">\
-			<div class="label">'+htmlEscape(e.dialogDescriptionLabel)+'</div>\
-			<textarea cols="3" rows="3">A decription of an event</textarea>\
-		</div>\
-	</div>\
-	\
-	<!-- Repeat settings block -->\
-	<div class="repeat-settings">\
-		\
-		<!-- Start date -->\
-		<div class="fc-start-date">\
-			<div class="date-time">\
-				<div>\
-					<div>'+htmlEscape(rs.dialogFromLabel)+'</div>\
-					<div class="wrapper">\
-						<input class="from-date" type="text" value="8.03.2011"/><div class="from cal-icon"/>\
-						<input class="from-time hidden" type="text" value="00:00"/>\
-					</div>\
-				</div>\
-			</div>\
-		</div>\
-		\
-		<!-- Day/week/month selector -->\
-		<div>\
-			<span>'+htmlEscape(rs.dialogRepeatOnLabel)+'</span>&nbsp;\
-			<span class="fc-dwm-selector">\
-				<span class="fc-selector-link">'+htmlEscape(rs.dialogRepeatOn_days)+'</span>\
-				<span class="fc-dropdown">&nbsp;</span>\
-			</span>\
-		</div>\
-		\
-		<!-- Interval selector -->\
-		<div>\
-			<span>'+htmlEscape(rs.dialogEachLabel)+'</span>&nbsp;\
-			<select class="fc-interval-selector"></select>&nbsp;\
-			<span class="fc-interval-label">'+htmlEscape(rs.dialogIntervalOption_day)+'</span>\
-		</div>\
-		\
-		<!-- Days of week -->\
-		<div class="fc-days-week">\
-		</div>\
-		\
-		<!-- Radio selector -->\
-		<div class="fc-month-radio">\
-		</div>\
-		\
-		<!-- End of repeat -->\
-		<div>\
-			<span>'+htmlEscape(rs.dialogToLabel)+'</span>&nbsp;\
-			<span class="fc-endrepeat-selector">\
-				<span class="fc-selector-link">' + htmlEscape(rs.dialogOptionNever) + '</span>\
-				<span class="fc-dropdown">&nbsp;</span>\
-			</span>\
-		</div>\
-		\
-		<!-- Count of cycles -->\
-		<div class="fc-repeat-cycles">\
-			<span>'+htmlEscape(rs.dialogAfterLabel)+'</span>&nbsp;\
-			<input class="fc-cycle-times" type="text" value="1">&nbsp;\
-			<span>'+htmlEscape(rs.dialogTimesLabel)+'</span>\
-		</div>\
-		\
-		<!-- End date -->\
-		<div class="fc-end-date">\
-			<div class="date-time">\
-				<div>\
-					<div class="wrapper">\
-						<input class="to-date" type="text" value="8.03.2011"/><div class="to cal-icon"/>\
-						<input class="to-time hidden" type="text" value="00:00"/>\
-					</div>\
-				</div>\
-			</div>\
-		</div>\
-	</div>\
-	<div class="buttons">\
-		<a class="edit-btn button blue middle" href="#">'+htmlEscape(e.dialogButton_edit)+'</a>\
-		<a class="save-btn button blue middle" href="#">'+htmlEscape(e.dialogButton_save)+'</a>\
-		<a class="close-btn button blue middle" href="#">'+htmlEscape(e.dialogButton_close)+'</a>\
-		<a class="cancel-btn button gray middle" href="#">'+htmlEscape(e.dialogButton_cancel)+'</a>\
-		<a class="delete-btn button gray middle" href="#">'+htmlEscape(e.dialogButton_delete)+'</a>\
-		<a class="unsubs-btn button gray middle" href="#">'+htmlEscape(e.dialogButton_unsubscribe)+'</a>\
-	</div>\
-	<div class="end-point"></div>\
-</div>').replace(/\>\s+\</g, "><");
+    options.categories.subscriptionsDialog = $("#categoriesSubscriptionsDialogTemplate").tmpl(templateData).html().replace(/\>\s+\</g, "><");
+
+    templateData = {
+        dialogTitle: htmlEscape(c.subscriptionsManageDialog_title),
+        dialogSearchText: htmlEscape(c.subscriptionsManageDialog_qsearchText),
+        dialogButtonSave: htmlEscape(c.subscriptionsManageDialogButton_save),
+        dialogButtonCancel: htmlEscape(c.subscriptionsManageDialogButton_cancel),
+        maxlength: defaults.eventMaxTitleLength
+    };
+
+    options.categories.subscriptionsManageDialog = $("#categoriesSubscriptionsManageDialogTemplate").tmpl(templateData).html().replace(/\>\s+\</g, "><");
+
+    templateData = {
+        dialogHeaderAdd: htmlEscape(e.dialogHeader_add),
+        defaultEventSummary: htmlEscape(e.newEventTitle),
+        dialogLocationLabel: htmlEscape(e.dialogLocationLabel),
+        dialogAttendeesLabel: htmlEscape(e.dialogAttendeesLabel),
+        dialogOwnerLabel: htmlEscape(e.dialogOwnerLabel),
+        dialogOrganizerLabel: htmlEscape(e.dialogOrganizerLabel),
+        dialogAllDayNoText: htmlEscape(e.dialogAllDay_no),
+        dialogAllDayYesText: htmlEscape(e.dialogAllDay_yes),
+        dialogFromLabel: htmlEscape(e.dialogFromLabel),
+        dialogToLabel: htmlEscape(e.dialogToLabel),
+        dialogAlertLabel: htmlEscape(e.dialogAlertLabel),
+        dialogRepeatLabel: htmlEscape(e.dialogRepeatLabel),
+        dialogSharingNoText: htmlEscape(e.dialogSharing_no),
+        dialogSharingYesText: htmlEscape(options.sharedList.title),
+        dialogCalendarLabel: htmlEscape(e.dialogCalendarLabel),
+        dialogDescriptionLabel: htmlEscape(e.dialogDescriptionLabel),
+        dialogSummaryLabel: htmlEscape(e.dialogSummaryLabel),
+        dialogAllDayLabel: htmlEscape(e.dialogAllDayLabel),
+        dialogAlertOptionDefault: htmlEscape(e.dialogAlertOption_default),
+        dialogRepeatOptionNever: htmlEscape(e.dialogRepeatOption_never),
+        dialogStatusLabel: htmlEscape(e.dialogStatusLabel),
+        dialogStatusOptionTentative: htmlEscape(e.dialogStatusOption_tentative),
+        dialogStatusOptionConfirmed: htmlEscape(e.dialogStatusOption_confirmed),
+        dialogStatusOptionCancelled: htmlEscape(e.dialogStatusOption_cancelled),
+        repeatFromLabel: htmlEscape(rs.dialogFromLabel),
+        repeatRepeatOnLabel: htmlEscape(rs.dialogRepeatOnLabel),
+        repeatRepeatOnDays: htmlEscape(rs.dialogRepeatOn_days),
+        repeatEachLabel: htmlEscape(rs.dialogEachLabel),
+        repeatIntervalOptionDay: htmlEscape(rs.dialogIntervalOption_day),
+        repeatToLabel: htmlEscape(rs.dialogToLabel),
+        repeatOptionNever: htmlEscape(rs.dialogOptionNever),
+        repeatAfterLabel: htmlEscape(rs.dialogAfterLabel),
+        repeatTimesLabel: htmlEscape(rs.dialogTimesLabel),
+        dialogButtonEdit: htmlEscape(e.dialogButton_edit),
+        dialogButtonSave: htmlEscape(e.dialogButton_save),
+        dialogButtonClose: htmlEscape(e.dialogButton_close),
+        dialogButtonCancel: htmlEscape(e.dialogButton_cancel),
+        dialogButtonDelete: htmlEscape(e.dialogButton_delete),
+        dialogButtonUnsubscribe: htmlEscape(e.dialogButton_unsubscribe),
+        dialogButtonMoreDetails: htmlEscape(e.dialogButton_moreDetails),
+        dialogButtonDetails: htmlEscape(e.dialogButton_details),
+        maxlength: defaults.eventMaxTitleLength
+    };
+
+    options.eventEditor.dialogTemplate = $("#eventEditorDialogTemplate").tmpl(templateData).html().replace(/\>\s+\</g, "><");
 	
-	options.deleteSettings.dialogTemplate = ('\
-<div id="fc_delete_settings">\
-	<div class="header">\
-		<div class="inner">\
-			<span>'+htmlEscape(ds.dialogHeader)+'</span>\
-			<div class="close-btn">&nbsp;</div>\
-		</div>\
-	</div>\
-	<div class="delete-selector">\
-		<input class="delete-this" type="radio" name="delete-radio" value="" checked>&nbsp;<span class="delete-this-label">'+htmlEscape(ds.dialogDeleteOnlyThisLabel)+'</span><br/>\
-		<input class="delete-following" type="radio" name="delete-radio" value="">&nbsp;<span class="delete-following-label">'+htmlEscape(ds.dialogDeleteFollowingLabel)+'</span><br/>\
-		<input class="delete-all" type="radio" name="delete-radio" value="">&nbsp;<span class="delete-all-label">'+htmlEscape(ds.dialogDeleteAllLabel)+'</span>\
-	</div>\
-	<div class="buttons">\
-		<a class="save-btn button blue middle" href="#">'+htmlEscape(ds.dialogButton_save)+'</a>\
-		<a class="cancel-btn button gray middle" href="#">'+htmlEscape(ds.dialogButton_cancel)+'</a>\
-	</div>\
-</div>').replace(/\>\s+\</g, "><");
+    templateData = {
+        dialogHeader: htmlEscape(ds.dialogHeader),
+        dialogDeleteOnlyThisLabel: htmlEscape(ds.dialogDeleteOnlyThisLabel),
+        dialogDeleteFollowingLabel: htmlEscape(ds.dialogDeleteFollowingLabel),
+        dialogDeleteAllLabel: htmlEscape(ds.dialogDeleteAllLabel),
+        dialogButtonSave: htmlEscape(ds.dialogButton_save),
+        dialogButtonCancel: htmlEscape(ds.dialogButton_cancel)
+    };
 
-	options.icalStream.dialogTemplate = ('\
-<div id="fc_ical_stream">\
-	<div class="header">\
-		<div class="inner">\
-			<span>'+htmlEscape(ic.dialogHeader)+'</span>\
-			<div class="close-btn">&nbsp;</div>\
-		</div>\
-	</div>\
-	<div class="ical-description">\
-		<span>'+htmlEscape(ic.dialogDescription)+'</span>\
-	</div>\
-	<div class="saved-url-link">\
-	</div>\
-	<div class="buttons">\
-		<a class="cancel-btn button gray middle" href="#">'+htmlEscape(ic.dialogButton_close)+'</a>\
-	</div>\
-</div>').replace(/\>\s+\</g, "><");
+    options.deleteSettings.dialogTemplate = $("#deleteSettingsDalogTemplate").tmpl(templateData).html().replace(/\>\s+\</g, "><");
 
+    templateData = {
+        dialogHeader: htmlEscape(ic.dialogHeader),
+        dialogDescription: htmlEscape(ic.dialogDescription),
+        dialogButtonClose: htmlEscape(ic.dialogButton_close)
+    };
+
+    options.icalStream.dialogTemplate = $("#icalStreamDialogTemplate").tmpl(templateData).html().replace(/\>\s+\</g, "><");
+    
+    templateData = {
+        dialogHeader: htmlEscape(cp.dialogAddEventHeader),
+        dialogBody: htmlEscape(cp.dialogAddEventBody),
+        dialogButtonSend: htmlEscape(cp.dialogButtonSend),
+        dialogButtonSendCustoms: htmlEscape(cp.dialogButtonSendCustoms),
+        dialogButtonSendEveryone: htmlEscape(cp.dialogButtonSendEveryone),
+        dialogButtonDontSend: htmlEscape(cp.dialogButtonDontSend)
+    };
+
+    options.confirmPopup.dialogTemplate = $("#attendeeConfirmNotificationTemplate").tmpl(templateData).html().replace(/\>\s+\</g, "><");
 }
 
 
@@ -1544,6 +1342,8 @@ function Calendar(element, options, eventSources) {
 	t.addiCalCalendar = addiCalCalendar;
 	t.isEditingEvent = isEditingEvent;
 	t.showTodo = showTodo;
+	t.showEventPageEditor = showEventPageEditor;
+	t.showEventPageViewer = showEventPageViewer;
 
 
 	// imports
@@ -1557,6 +1357,9 @@ function Calendar(element, options, eventSources) {
 	var catlist;
 	var todolist;
 	var eventEditor;
+    
+	var eventPage;
+
 	var header;
 	var headerElement;
 	var content;
@@ -1571,6 +1374,7 @@ function Calendar(element, options, eventSources) {
 	var date = new Date();
 	var events = [];
 	var _dragElement;
+	var _confirmPopup;
 
 
 
@@ -1605,11 +1409,7 @@ function Calendar(element, options, eventSources) {
 		var fc_container = $(
 				'<div id="fc_container">' +
 					'<table cellpadding="0" cellspacing="0" width="100%" class="fc_table"><tbody><tr>' +
-						'<td class="fc-catlist"/>' +
-						'<td class="fc-catlist-sp"><div>&nbsp;</div></td>' +
 						'<td class="fc-main"/>' +
-						// temporary desabled
-						//'<td class="fc-todo-list"/>' +
 					'</tr></tbody></table>' +
 				'</div>'
 		);
@@ -1621,38 +1421,7 @@ function Calendar(element, options, eventSources) {
 		}
 
 		catlist = new CategoriesList(t);
-		fc_container.find("td.fc-catlist").append(catlist.render());
-
-		var anim = false;
-		fc_container.find("td.fc-catlist-sp").click(function() {
-			if (anim) {return;}
-			var spl       = $(this);
-			var panel     = fc_container.find(".fc-catlist");
-			var td        = panel.filter("td");
-			var div       = panel.filter("div");
-			var isVisible = !td.hasClass("hidden");
-			function onToggle() {
-				td.toggleClass("hidden").css("width", "").css("display", "");
-				div.css("margin-left", "");
-				updateSize();
-				anim = false;
-			}
-			spl.toggleClass("hidden");
-			td.css("width", "auto");
-			if (!isVisible) {
-				div.css("margin-left", "-" + options.categories.width + "px");
-				td.css("display", "table-cell");
-			}
-			anim = true;
-			div.animate(
-					{"margin-left": isVisible ? "-" + options.categories.width + "px" : "0"},
-					{"duration": 300, "complete": onToggle/*, "step": updateSize*/});
-		});
-
-
-		// temporary desabled
-		//todolist = new TodoList(t);
-		//fc_container.find("td.fc-todo-list").append(todolist.render());
+		$("#calendarSidePanelContent").append(catlist.render());
 
 		content = $(
 				"<div class='fc-content' style='position:relative'>" +
@@ -1662,11 +1431,21 @@ function Calendar(element, options, eventSources) {
 
 		eventEditor = new EventEditor(t, content.children(".fc-modal"));
 
+	    eventPage = new EventPage(t);
+
 		fc_container.appendTo(element);
 
-		var savedView = $.cookie('fc_current_view');
-		changeView(savedView && savedView.length > 0 && savedView.search(/\w/) >= 0 ?
-				savedView : options.defaultView);
+		var targetView = defaults.defaultView;
+
+		if (options.defaultView) {
+			targetView = options.defaultView;
+		} else {
+			var savedView = $.cookie('fc_current_view');
+			if(savedView && savedView.length > 0 && savedView.search(/\w/) >= 0)
+				targetView = savedView;
+		}
+
+		changeView(targetView);
 
 		$(window).resize(windowResize);
 
@@ -1676,6 +1455,51 @@ function Calendar(element, options, eventSources) {
 		if (!bodyVisible()) {
 			lateRender();
 		}
+	    
+		if (options.targetEventId) {
+		    displayTargetEvent();
+		}
+
+	    function displayTargetEvent() {
+	        if (!ASC.Mail.Initialized) {
+	            setTimeout(displayTargetEvent, 500);
+	        } else {
+	            prepare();
+	        }
+	        
+	        function prepare() {
+	            var targetEvent = t.clientEvents(options.targetEventId)[0];
+	            
+                if (!targetEvent) return;
+                    
+	            if (targetEvent && !isNaN(targetEvent.objectId) && targetEvent.uniqueId) {
+	                window.Teamlab.getCalendarEventById({},
+                        targetEvent.objectId,
+                        {
+                            success: function(p, eventInfo) {
+                                if (eventInfo.eventUid === targetEvent.uniqueId && eventInfo.mergedIcs) {
+                                    console.info(eventInfo);
+                                    var evt = parseIcs(eventInfo.mergedIcs);
+                                    targetEvent = jq.extend(targetEvent, evt || {});
+                                    show();
+                                }
+                            },
+                            error: function(p, e) {
+                                console.error(e);
+                            },
+                            max_request_attempts: 1
+                        });
+	            } else {
+	                show();
+	            }
+	            
+	            function show() {
+	                var canDelete = fcUtil.objectIsEditable(targetEvent) || fcUtil.objectIsEditable(targetEvent.source) || targetEvent.source && !targetEvent.source.isSubscription;
+	                var canEdit = targetEvent.source == undefined || canDelete;
+	                showEventPageViewer(canEdit, null, targetEvent);
+	            }
+            }
+	    }
 	}
 
 
@@ -1945,24 +1769,152 @@ function Calendar(element, options, eventSources) {
 
 	// called when a single event's data has been changed
 	function reportEventChange(eventID, event) {
-		if (event && event.source) {
-			// update event
-			event.newSourceId = event.sourceId;
-			trigger("editEvent", t,
-					$.extend(
-							{
-								action: kEventChangeAction,
-								sourceId: event.source.objectId,
-								newSourceId: event.source.objectId
-							},
-							event),
-					function(response) {
-						if (!response.result) {return;}
-						rerenderEvents();
-					});
-			return;
-		}
-		rerenderEvents(eventID);
+		
+	    if (event && !isNaN(event.objectId) && event.uniqueId) {
+	        Teamlab.getCalendarEventById({},
+	            event.objectId,
+	            {
+	                success: function(p, eventInfo) {
+	                    if (eventInfo.eventUid === event.uniqueId && eventInfo.mergedIcs) {
+	                        console.info(eventInfo);
+	                        var evt = parseIcs(eventInfo.mergedIcs);
+	                        event = jq.extend(event, evt || {});
+
+	                        var isOrganizer = false;
+	                        var organizerEmail = event.organizer ? event.organizer[3].replace(new RegExp("mailto:", "ig"), "").toLowerCase() : "";
+
+	                        jq.each(ASC.Mail.Accounts, function(index, account) {
+	                            if (account.enabled && organizerEmail == account.email.toLowerCase()) {
+	                                isOrganizer = true;
+	                                return false;
+	                            }
+	                            return true;
+	                        });
+
+	                        var attendees = [];
+	                        jq.each(event.attendees || [], function(index, attendeeObj) {
+	                            var attendeeEmail = attendeeObj[3].replace(new RegExp("mailto:", "ig"), "");
+	                            if (attendeeEmail.toLowerCase() != organizerEmail)
+	                                attendees.push(attendeeEmail);
+	                        });
+
+	                        if (isOrganizer && attendees.length && !event.source.isSubscription)
+	                            openConfirmPopup(event);
+	                        else
+	                            edit(event, false);
+	                    }
+	                },
+	                error: function(p, e) {
+	                    console.error(e);
+	                },
+	                max_request_attempts: 1
+	            });
+	    } else {
+	        edit(event, false);
+	    }
+	    
+	    function createConfirmPopup(eventObj) {
+
+	        if (!_confirmPopup) {
+	            _confirmPopup = $(options.confirmPopup.dialogTemplate)
+	                .addClass("asc-dialog")
+	                .popupFrame({
+	                    anchor: "right,top",
+	                    direction: "right,down",
+	                    offset: "0,0",
+	                    showArrow: false
+	                });
+
+	            _confirmPopup.find(".title").text(options.confirmPopup.dialogUpdateEventHeader);
+	            _confirmPopup.find(".body").text(options.confirmPopup.dialogUpdateEventBody);
+	            _confirmPopup.find(".send-customs-btn, .send-everyone-btn").remove();
+	        }
+	        
+	        _confirmPopup.find(".buttons .send-btn").unbind("click").bind("click", function() {
+	            edit(eventObj, true);
+	        });
+
+	        _confirmPopup.find(".buttons .dont-send-btn").unbind("click").bind("click", function() {
+	            edit(eventObj, false);
+	        });
+
+	    }
+
+	    function openConfirmPopup(eventObj) {
+
+	        createConfirmPopup(eventObj);
+	        
+	        var uiBlocker = jq(".fc-content .fc-modal");
+            
+            _confirmPopup.popupFrame("close");
+            uiBlocker.removeClass("fc-modal-transparent");;
+		
+	        _confirmPopup.popupFrame("open", { pageX: "center", pageY: "center" });
+	        _confirmPopup.css("position","fixed");
+
+	        if (_confirmPopup.popupFrame("isVisible")) {
+	            uiBlocker.show();
+	        } else {
+	            uiBlocker.hide();
+	        }
+	    }
+
+	    function closeConfirmPopup() {
+	        if(_confirmPopup)
+	            _confirmPopup.popupFrame("close");
+	        jq(".fc-content .fc-modal").hide();
+	    }
+
+	    function sendGuestsNotification(eventObj) {
+
+	        var attendeesEmails = jq.map(eventObj.attendees, function (attendee) {
+	            return attendee[3].replace(new RegExp("mailto:", "ig"), "");
+	        });
+
+	        if (attendeesEmails.length) {
+	            ASC.CalendarController.Busy = true;
+	            window.LoadingBanner.displayLoading(true);
+	        
+	            ASC.Mail.Utility.SendCalendarUpdate(eventObj.sourceId, eventObj.uniqueId, attendeesEmails)
+                    .done(function() {
+                        console.log(options.confirmPopup.dialogSuccessToastText, arguments);
+                    })
+                    .fail(function() {
+                        toastr.error(options.confirmPopup.dialogErrorToastText);
+                        console.error(options.confirmPopup.dialogErrorToastText, arguments);
+                    })
+	                .always(function () {
+	                    ASC.CalendarController.Busy = false;
+	                    window.LoadingBanner.hideLoading();
+	                });
+	        }
+	    }
+
+	    function edit(eventObj, send) {
+	        closeConfirmPopup();
+	        
+	        if (eventObj && eventObj.source) {
+	            // update event
+	            eventObj.newSourceId = eventObj.sourceId;
+	            trigger("editEvent", t,
+                        $.extend(
+                                {
+                                    action: kEventChangeAction,
+                                    sourceId: eventObj.source.objectId,
+                                    newSourceId: eventObj.source.objectId
+                                },
+                                eventObj),
+                        function(response) {
+                            if (!response.result) {return;}
+                            rerenderEvents();
+
+                            if (send)
+                                sendGuestsNotification(eventObj);
+                        });
+	            return;
+	        }
+	        rerenderEvents(eventID);
+	    }
 	}
 
 
@@ -2022,6 +1974,18 @@ function Calendar(element, options, eventSources) {
 		return false;
 	}
 
+	function showEventPageEditor() {
+	    if (jq("#asc_event .event-editor .editor").is(":visible")) {
+	        if(confirm(ASC.Resources.Master.Resource.WarningMessageBeforeUnload))
+	            eventPage.addEvent();
+	    } else {
+	        eventPage.addEvent();
+	    }
+	}
+    
+	function showEventPageViewer(canEdit, elem, event) {
+	    eventPage.openEvent(canEdit, elem, event);
+	}
 
 
 	/* Selection
@@ -2292,65 +2256,56 @@ function Header(calendar, options) {
 	}
 
 	function _renderNewSelectorLabel(elem) {
-		var l = $(
-		'<div class="page-menu">'+
-        '<ul class="menu-actions">'+
-        '<li class="menu-main-button with-separator middle" title="">'+
-            '<span class="main-button-text override new-event">'+ htmlEscape(options.addNewLabel) + '</span>'+
+		$('<ul class="menu-actions">'+
+        '<li class="menu-main-button without-separator big">'+
+            '<span class="main-button-text">'+ htmlEscape(calendar.options.addNewLabel) + '</span>'+
             '<span class="white-combobox">&nbsp;</span>'+
         '</li>'+
-        '</ul>'+
-        '</div>').appendTo(elem.find(".fc-header-navigate"));
-        
-		// add new event / add new iCal-calendar
-		_addSelectorLabel = elem.find(".white-combobox");
-		elem.find(".white-combobox").on("click",
-		                    
-			function (event) {
-				fcMenus.hideMenus(fcMenus.modeMenuAddNew);
-				fcMenus.modeMenuAddNew.popupMenu("open", _addSelectorLabel);
-				event.stopPropagation();
-			});
-			
-	    elem.find(".new-event").on("click",
-			 function(event){
-			    calendar.addAndEditEvent();event.stopPropagation();
-			 });
-			
-			if (!fcMenus.modeMenuAddNew || fcMenus.modeMenuAddNew.length < 1) {
-				fcMenus.modeMenuAddNew = $('<div id="fc_mode_menu"/>');
-			} else {
-				fcMenus.modeMenuAddNew.popupMenu("close");
-				fcMenus.modeMenuAddNew.popupMenu("destroy");
-			}
-			fcMenus.modeMenuAddNew.popupMenu({
-				anchor: "right,bottom",
-				direction: "left,down",
-				arrow: "up",
-				showArrow: false,
-				closeTimeout: -1,
-				cssClassName: "asc-popupmenu asc-popup-wide",
-				items: [
-					{
-						label: calendar.options.eventEditor.newEventTitle,
-						click: function() {
-							calendar.addAndEditEvent();
-						}
-					},
-					{
-						label: calendar.options.categories.defaultTitle,
-						click: function() {
-							calendar.addNewCalendar( {pageX: "center", pageY: "center"} );
-						}
-					},
-					{
-						label: calendar.options.icalStream.newiCalTitle,
-						click: function() {
-							calendar.addiCalCalendar( {pageX: "center", pageY: "center"} );
-						}
+        '</ul>').appendTo(elem);
+
+		var _addSelectorLabel = elem.find(".menu-main-button");
+
+		_addSelectorLabel.on("click", function (event) {
+			fcMenus.hideMenus(fcMenus.modeMenuAddNew);
+			fcMenus.modeMenuAddNew.popupMenu("open", _addSelectorLabel);
+			event.stopPropagation();
+		});
+
+		if (!fcMenus.modeMenuAddNew || fcMenus.modeMenuAddNew.length < 1) {
+			fcMenus.modeMenuAddNew = $('<div id="fc_mode_menu_add_new"/>');
+		} else {
+			fcMenus.modeMenuAddNew.popupMenu("close");
+			fcMenus.modeMenuAddNew.popupMenu("destroy");
+		}
+
+		fcMenus.modeMenuAddNew.popupMenu({
+			anchor: "right,bottom",
+			direction: "left,down",
+			arrow: "up",
+			showArrow: false,
+			closeTimeout: -1,
+			cssClassName: "asc-popupmenu asc-popup-wide",
+			items: [
+				{
+					label: calendar.options.eventEditor.newEventTitle,
+					click: function() {
+					    calendar.showEventPageEditor();
 					}
-				]
-			});
+				},
+				{
+					label: calendar.options.categories.defaultTitle,
+					click: function() {
+						calendar.addNewCalendar( {pageX: "center", pageY: "center"} );
+					}
+				},
+				{
+					label: calendar.options.icalStream.newiCalTitle,
+					click: function() {
+						calendar.addiCalCalendar( {pageX: "center", pageY: "center"} );
+					}
+				}
+			]
+		});
 	}
 
 	function _renderToday(elem) {
@@ -2477,7 +2432,6 @@ function Header(calendar, options) {
 		var sections = options.header;
 		if (sections) {
 			element = $('<div class="fc-header-outer"/>')
-			        .append('<div class="fc-header-navigate" />')
 					.append(
 						$('<div class="fc-header"/>')
 							.append(_renderSection.call(this, "left"))
@@ -2487,7 +2441,7 @@ function Header(calendar, options) {
 			// temporary desabled
 			//_renderTodoLabel.call(this, element);
 			_renderViewSelectors.call(this, element);
-			_renderNewSelectorLabel.call(this, element);
+			_renderNewSelectorLabel.call(this, $("#calendarSidePanelActions"));
 			_renderToday.call(this,element);
 			return element;
 		}
@@ -2551,11 +2505,12 @@ function Header(calendar, options) {
 				co = c.offset(),
 				r = element.find(".fc-header-right"),
 				ro = r.offset();
-		if (co.left + c.outerWidth(true) > ro.left) {
-			l.css( "width", "auto" );
-			c.css( "width",
-			       Math.round( 100 * (ro.left - lo.left - l.outerWidth(true)) / hw ) + "%" );
-		}
+
+		//if (co.left + c.outerWidth(true) > ro.left) {
+		//	l.css( "width", "auto" );
+		//	c.css( "width",
+		//	       Math.round( 100 * (ro.left - lo.left - l.outerWidth(true)) / hw ) + "%" );
+		//}
 	};
 
 }
@@ -2814,7 +2769,6 @@ function CategoryDialog(calendar) {
 		_icalStream = $(ic.dialogTemplate)
 				.addClass("asc-dialog")
 				.addClass("add-popup")
-				.addClass("dark-border")
 				.popupFrame({
 					anchor: "right,top",
 					direction: "right,down",
@@ -2899,7 +2853,9 @@ function CategoryDialog(calendar) {
 			});
 		}
 		//
-		
+
+	    inputTxt.focus().select();
+
 		// upload ajax
 		AjaxUploader = new AjaxUpload('#ical-browse-btn', {
 			action: 'upload.php',
@@ -2908,7 +2864,7 @@ function CategoryDialog(calendar) {
 			onChange: function(file, extension) {
 				
 				if ( !(extension && ( /^(ics)$/.test(extension) || /^(txt)$/.test(extension) )) ){
-					_dialog.find(".ical-file-selected").html(ic.dialog_incorrectFormat).css("color", "red");
+					_dialog.find(".ical-file-selected").html(ic.dialog_incorrectFormat).css("color", "#cc3300");
 					return;
 				} 
 				
@@ -3057,12 +3013,12 @@ function CategoryDialog(calendar) {
 			$.each(calendar.getEventSources(), function(i,src) {
 				if (src.objectId != undefined && !src.isSubscription) {++calCount;}
 			});
-			if (calCount > 1) {
+
+			if (calCount > 1 && !jq("#asc_event .event-editor .editor").is(":visible")) {
 				_dialog.find(".buttons").removeClass("read-only");
 			} else {
 				_dialog.find(".buttons").addClass("read-only");
 			}
-
 		}
 		return true;
 	}
@@ -3092,8 +3048,8 @@ function CategoryDialog(calendar) {
 	this.addNew = function(anchor) {
 		var opt = calendar.options;
 		var categories = opt.categories;
-		var newColor = fcUtil.parseCssColor(fcUtil.randomHex());
-		var newBg = fcUtil.parseCssColor(fcUtil.randomHex());
+		var newColor = fcUtil.parseCssColor(fcUtil.randomHex(true));
+		var newBg = fcUtil.parseCssColor(fcUtil.randomHex(false));
 		var newBor = fcUtil.changeColorLightness(newBg.r, newBg.g, newBg.b, opt.eventBg2BorderRatio);
 
 		_elem = undefined;
@@ -3127,8 +3083,8 @@ function CategoryDialog(calendar) {
 	this.addiCalCalendar = function(anchor) {
 		var opt = calendar.options;
 		var categories = opt.categories;
-		var newColor = fcUtil.parseCssColor(fcUtil.randomHex());
-		var newBg = fcUtil.parseCssColor(fcUtil.randomHex());
+		var newColor = fcUtil.parseCssColor(fcUtil.randomHex(true));
+		var newBg = fcUtil.parseCssColor(fcUtil.randomHex(false));
 		var newBor = fcUtil.changeColorLightness(newBg.r, newBg.g, newBg.b, opt.eventBg2BorderRatio);
 
 		_elem = undefined;
@@ -3255,7 +3211,6 @@ function SubscriptionDialog(calendar) {
 		_icalStream = $(ic.dialogTemplate)
 				.addClass("asc-dialog")
 				.addClass("add-popup")
-				.addClass("dark-border")
 				.popupFrame({
 					anchor: "right,top",
 					direction: "right,down",
@@ -3344,7 +3299,7 @@ function SubscriptionDialog(calendar) {
 			_dialog.find(".saved-url-link").html("");
 		}
 		
-		if (_source.isEditable) {
+		if (_source.isEditable && !_source.isSubscription) {
 			_dialog.find(".ical-import").removeClass("hidden");
 		}
 		else {
@@ -3362,7 +3317,7 @@ function SubscriptionDialog(calendar) {
 			onChange: function(file, extension) {
 				
 				if ( !(extension && ( /^(ics)$/.test(extension) || /^(txt)$/.test(extension) )) ){
-					_dialog.find(".ical-file-selected").html(ic.dialog_incorrectFormat).css("color", "red");
+					_dialog.find(".ical-file-selected").html(ic.dialog_incorrectFormat).css("color", "#cc3300");
 					return;
 				}
 				
@@ -3514,7 +3469,7 @@ function SubscriptionDialog(calendar) {
 				dlg.owner.html(htmlEscape(_source.owner.name));
 				_dialog.find(".owner").removeClass("hidden");
 			} else {
-				dlg.owner.text("");
+				dlg.owner.html("");
 				_dialog.find(".owner").addClass("hidden");
 			}
 
@@ -3716,10 +3671,10 @@ function ManageSubscriptionsDialog(calendar) {
 					});
 				for (i = 0; i < sList[group].length; ++i) {
 					var subscription = sList[group][i].subscription;
-					$('<li><input type="checkbox" name="checkedSubscriptions"' +
+					$('<li><label><input type="checkbox" name="checkedSubscriptions"' +
 							' value="' + sList[group][i].index + '"'
 							+ (subscription.isSubscribed ? ' checked="checked"' : '') + '/> '
-							+ htmlEscape(subscription.title) + '</li>')
+							+ htmlEscape(subscription.title) + '</label></li>')
 						.addClass(subscription.isNew ? "new-item" : "")
 						.appendTo(sublist);
 				}
@@ -3820,20 +3775,26 @@ function CategoriesList(calendar) {
 		_categoryDialog.edit(categoryElem, {pageX:"center",pageY:"center"});
 	}
 
-	function _deleteCategory(source) {
-		calendar.trigger("editCalendar", _this,
-				$.extend({action: kCalendarDeleteAction}, source),
-				function(response) {
-					if (!response.result) {
-						return;
-					}
-					calendar.removeEventSource(source);
-					calendar.rerenderEvents();
-					_rerenderList.call(_this);
-				});
-	}
+    function _deleteCategory(source) {
+        calendar.trigger("editCalendar", _this,
+            $.extend({ action: kCalendarDeleteAction }, source),
+            function(response) {
+                if (!response.result) {
+                    return;
+                }
+                calendar.removeEventSource(source);
+                calendar.rerenderEvents();
+                _rerenderList.call(_this);
 
-	function _updateCategory(elem, source, changed, deleted) {
+                if (jq("#asc_event").is(":visible")) {
+                    jq("#asc_event").find(".editor .calendar select option[value=" + source.objectId + "]").remove();
+                    jq("#asc_event").find(".editor .calendar select").change();
+                }
+
+            });
+    }
+
+    function _updateCategory(elem, source, changed, deleted) {
 		if (changed) {
 			if (elem) {
 				// Change existing category
@@ -3858,21 +3819,33 @@ function CategoriesList(calendar) {
 						});
 			} else {
 				// Add new category
-				calendar.trigger("editCalendar", _this,
-						$.extend({action: kCalendarAddAction}, source),
-						function(response) {
-							if (!response.result) {return;}
-							
-							if (AjaxUploader.isChanged != undefined) {
-								AjaxUploader._settings.action = response.importUrl;
-								AjaxUploader.submit();
-							}
-							
-							calendar.addEventSource(response.source);
-							_rerenderList.call(_this, kCategoriesOnly, true);
-							_rerenderList.call(_this, kSubscriptionsOnly, true);
-							calendar.refetchEvents();
-						});
+			    calendar.trigger("editCalendar", _this,
+			        $.extend({ action: kCalendarAddAction }, source),
+			        function(response) {
+			            if (!response.result) {
+			                return;
+			            }
+
+			            if (AjaxUploader.isChanged != undefined) {
+			                AjaxUploader._settings.action = response.importUrl;
+			                AjaxUploader.submit();
+			            }
+
+			            calendar.addEventSource(response.source);
+			            _rerenderList.call(_this, kCategoriesOnly, true);
+			            _rerenderList.call(_this, kSubscriptionsOnly, true);
+			            calendar.refetchEvents();
+
+			            if (jq("#asc_event").is(":visible")) {
+			                jq("#asc_event")
+			                    .find(".editor .calendar select")
+			                    .append(jq("<option></option>")
+			                        .attr("value", response.source.objectId)
+			                        .attr("title", response.source.title)
+			                        .html("&nbsp;&nbsp;&nbsp;&nbsp;" + htmlEscape(response.source.title)));
+			            }
+
+			        });
 			}
 		}
 		else if (!deleted) {
@@ -3956,7 +3929,7 @@ function CategoriesList(calendar) {
 					fcUtil.makeBullet(!item.isHidden, item.backgroundColor,
 					                  calendar.options.categories.inactiveColor,
 					                  item.isSubscription ? false : item.isShared) +
-					'<div class="label">' +
+					'<div class="label" style="'+ (item.isHidden ? ("color:" + calendar.options.categories.inactiveColor) : "") +'">' +
 						htmlEscape(item.title ? item.title : 'Unknown') + '</div>' +
 					'<div class="edit-icon"/>' +
 				'</div>')
@@ -4193,13 +4166,34 @@ function CategoriesList(calendar) {
 				setTimeout(function() {_updateDatepickerCells(_dpVisibleDate);}, 0);
 			},
 			onSelect: function(dateText, inst) {
-				_dpIgnoreUpdate = true;
-				_dpVisibleDate = _datepicker.datepicker("getDate");
-				calendar.gotoDate(_dpVisibleDate);
-				calendar.changeViewAndMode("day");
-				_dpIgnoreUpdate = false;
-				//
-				setTimeout(_updateDatepickerCells, 0);
+
+			    var showDay = false;
+
+			    if (jq("#asc_event .event-editor .editor").is(":visible")) {
+			        if (confirm(ASC.Resources.Master.Resource.WarningMessageBeforeUnload)) {
+			            window.toastr.remove();
+			            jq("#asc_event").hide();
+			            jq("#asc_calendar").show();
+			            calendar.updateSize();
+			            showDay = true;
+			        }
+			    } else {
+			        window.toastr.remove();
+			        jq("#asc_event").hide();
+			        jq("#asc_calendar").show();
+			        calendar.updateSize();
+			        showDay = true;
+			    }
+
+			    if (showDay) {
+			        _dpIgnoreUpdate = true;
+			        _dpVisibleDate = _datepicker.datepicker("getDate");
+			        calendar.gotoDate(_dpVisibleDate);
+			        calendar.changeViewAndMode("day");
+			        _dpIgnoreUpdate = false;
+			        //
+			        setTimeout(_updateDatepickerCells, 0);
+			    }
 			}
 		});
 
@@ -4876,6 +4870,7 @@ function EventEditor(calendar, uiBlocker) {
 	// repeat settings options
 	var rs = calendar.options.repeatSettings;
 	var ds = calendar.options.deleteSettings;
+	var cp = calendar.options.confirmPopup;
 
 	var _modes = {
 		view:						_viewMode,
@@ -4890,23 +4885,51 @@ function EventEditor(calendar, uiBlocker) {
 		month:   2,
 		year:    3
 	};
+
+    var deleteMode = {
+        single: 0,
+        allFollowing: 1,
+        allSeries: 2
+    };
 	
-	var deleteMode = {
-		single:          0,
-		allFollowing:    1,
-		allSeries:       2
-	}
-	
+    var confirmSettings = {
+        viewMode: {
+            none: 0,
+            addEvent: 1,
+            updateEvent: 2,
+            updateGuests: 3,
+            deleteEvent: 4
+        },
+        notificationMode: {
+            nobody: 0,
+            partially: 1,
+            everybody: 2
+        },
+        notificationType: {
+            request: 1,
+            update: 2,
+            cancel: 4
+        },
+        notificationUsers: {
+            newGuests: [],
+            removedGuests: [],
+            updatedGuests: []
+        },
+        selectedViewMode: 0,
+        selectedNotificationMode: 0,
+        selectedDeleteMode: 0
+    };
+
 	var _dialog;
 
 	var alertType = kAlertDefault;								// number
-	var repeatRule = ASC.Api.iCal.RecurrenceRule.EveryDay		// standart or custom object rules
+    var repeatRule = ASC.Api.iCal.RecurrenceRule.EveryDay;	// standart or custom object rules
 	var dwm_current = dwm.day;
 	var dayRuleObject = undefined;
 	
 	var _settings;
 	var _delSettings;
-
+	var _confirmPopup;
 	var _dialogMode;
 	var _permissionsList;
 
@@ -4934,15 +4957,17 @@ function EventEditor(calendar, uiBlocker) {
 				});
 		
 		_dialog.find(".buttons .edit-btn").click(function() {
-			if (_canEdit) {
-				_resetMode.call(_this);
-				_dialogMode = false;
-				_dialog.addClass("edit-popup");
-				_dialog.popupFrame("updatePosition", _anchor);
+			//if (_canEdit) {
+			//	_resetMode.call(_this);
+			//	_dialogMode = false;
+			//	_dialog.addClass("edit-popup");
+			//	_dialog.popupFrame("updatePosition", _anchor);
 				
-				_enableRepeatSettings.call(_this);
-				_setRepeatSettingsHeight.call(_this);
-			}
+			//	_enableRepeatSettings.call(_this);
+			//	_setRepeatSettingsHeight.call(_this);
+		    //}
+		    _close.call(_this, false);
+		    calendar.showEventPageViewer(_canEdit, _anchor, _eventObj);
 		});
 		_dialog.find(".buttons .save-btn").click(function() {
 		    if (jq(this).hasClass("disable"))
@@ -4958,16 +4983,21 @@ function EventEditor(calendar, uiBlocker) {
 			
 			_close.call(_this, true);
 		});
-		_dialog.find(".buttons .cancel-btn, .buttons .close-btn, .header .close-btn").click(function() {
-			_close.call(_this, false);
+		_dialog.find(".buttons .close-btn").click(function() {
+		    _close.call(_this, false);
+		    calendar.showEventPageViewer(_canEdit, _anchor, _eventObj);
 		});
 		_dialog.find(".buttons .delete-btn").click(function() {
 			if (_canDelete) {
 				if (_eventObj.repeatRule.Freq == ASC.Api.iCal.Frequency.Never) {
-					_deleteEvent.call(_this, deleteMode.single, _eventObj._start);
-					_close.call(_this, false, true);
-				}
-				else {
+					if (_getConfirmViewMode.call(_this)) {
+					    confirmSettings.selectedDeleteMode = deleteMode.single;
+					    _openConfirmPopup.call(_this);
+					} else {
+					    _deleteEvent.call(_this, deleteMode.single, _eventObj._start);
+					    _close.call(_this, false, true);
+					}
+				} else {
 					_openDelSettings.call(_this, "addPopupDelSettings");
 				}
 			}
@@ -4976,6 +5006,12 @@ function EventEditor(calendar, uiBlocker) {
 			if (_canUnsubscribe) {
 			    _unsubscribeEvent.call(_this);
 			}
+		});
+	    
+		_dialog.find(".buttons .view-details").click(function() {
+		    _close.call(_this, false);
+		    _doDDX.call(_this, true);
+		    calendar.showEventPageViewer(_canEdit, _anchor, _eventObj);
 		});
 		
 		_renderRepeatAlertList.call(_this);
@@ -4988,7 +5024,21 @@ function EventEditor(calendar, uiBlocker) {
 					onResize: _resizePopup,
 					onChange: _updatePermissions
 				});
-		//
+	    //
+	    
+		_dialog.find(".viewer .reply-buttons .accepted").click(function() {
+		    if(!jq(this).hasClass("active"))
+		        _eventReply(true);
+		});
+		_dialog.find(".viewer .reply-buttons .tentative").click(function() {
+		    if(!jq(this).hasClass("active"))
+		        _eventReply();
+		});
+		_dialog.find(".viewer .reply-buttons .declined").click(function() {
+		    if(!jq(this).hasClass("active"))
+		        _eventReply(false);
+		});
+
 		_dialog.find(".editor .title input").keyup(function() {fcUtil.validateInput(this, fcUtil.validateNonemptyString);});
 		_dialog.find(".editor .all-day input").click(_handleAllDayClick);
 		
@@ -5037,24 +5087,7 @@ function EventEditor(calendar, uiBlocker) {
 					});
 		});
 		//
-		_dialog.find(".editor .from-time, .editor .to-time").keyup(function(ev) {
-			if (ev.keyCode == 16 || ev.keyCode == 17 || ev.keyCode >= 33 && ev.keyCode <= 40) {return;}
-			var inp = $(this);
-			var inpV = inp.val().replace(/\s+|[^:\d]+/g, "");
-			var ci = inpV.indexOf(":");
-			if (ci >= 0) {
-				inpV = inpV.substring(0, ci + 1) + inpV.substring(ci + 1).replace(/:/g, "");
-				if (inpV.search(/^\d{1,2}:\d{1,2}$/) < 0) {
-					inpV = inpV.replace(/:/g, "").replace(/^(\d\d|\d)(\d*)/, "$1:$2");
-				}
-			} else if (inpV.length > 1) {
-				inpV = inpV.substring(0, 2) + ":" + inpV.substring(2);
-			}
-			if (inpV.length > 5) {
-				inpV = inpV.substring(0, 5);
-			}
-			if (inp.val() != inpV) {inp.val(inpV);}
-		});
+		_dialog.find(".editor .from-time, .editor .to-time").mask("99:99");
 		_dialog
 				.find(".editor .from-date, .editor .from-time, .editor .to-date, .editor .to-time")
 				.bind("keyup change", _validateDateFields);
@@ -5065,16 +5098,29 @@ function EventEditor(calendar, uiBlocker) {
 			for (var i = 0; i < s.length; ++i) {
 				if (s[i].objectId != v) {continue;}
 				_dialog.find(".editor .calendar .bullet").css("color", s[i].backgroundColor);
-				return;
+
+			    if (_anchor.length) {
+			        _anchor
+			            .css("border-color", s[i].borderColor)
+			            .css("background-color", s[i].backgroundColor)
+			            .css("color", s[i].textColor);
+			        _anchor.find(".fc-event-skin, .fc-event-skin-day")
+			            .css("border-color", s[i].borderColor)
+			            .css("background-color", s[i].backgroundColor)
+			            .css("color", s[i].textColor);
+			    }
+
+			    return;
 			}
 		});
 		//
 		if (uiBlocker && uiBlocker.length > 0) {
-			uiBlocker.click(function() {
-				_close.call(_this, false);
-				_closeSettings.call(_this, false);
-				_closeDelSettings.call(_this, false);
-				});
+		    uiBlocker.click(function() {
+		        if(_dialog.is(":visible")) {
+		            _close.call(_this, false);
+		            _closeSettings.call(_this, false);
+		        }
+		    });
 		}
 	}());
 	
@@ -5141,7 +5187,7 @@ function EventEditor(calendar, uiBlocker) {
 		});
 		
 		// day/week/month selector
-		_DWMSelectorLabel = _settings.find(".fc-dwm-selector");
+		var _DWMSelectorLabel = _settings.find(".fc-dwm-selector");
 		
 		_settings.find(".fc-dwm-selector").click(
 			function (event) {
@@ -5156,7 +5202,7 @@ function EventEditor(calendar, uiBlocker) {
 			});
 			
 			if (!fcMenus.modeMenuDWM || fcMenus.modeMenuDWM.length < 1) {
-				fcMenus.modeMenuDWM = $('<div id="fc_mode_menu"/>');
+				fcMenus.modeMenuDWM = $('<div id="fc_mode_menu_dwm"/>');
 			} else {
 				fcMenus.modeMenuDWM.popupMenu("close");
 				fcMenus.modeMenuDWM.popupMenu("destroy");
@@ -5213,10 +5259,10 @@ function EventEditor(calendar, uiBlocker) {
 			});
 			
 		// end of repeat selector
-		_endRepeatSelectorLabel = _settings.find(".fc-endrepeat-selector");
+		var _endRepeatSelectorLabel = _settings.find(".fc-endrepeat-selector");
 		
 		_settings.find(".fc-endrepeat-selector").click(
-			function (elem) {
+			function (event) {
 				
 				if ($(this).find(".fc-selector-link").hasClass("not-active")) {
 					return false;
@@ -5228,7 +5274,7 @@ function EventEditor(calendar, uiBlocker) {
 			});
 			
 			if (!fcMenus.modeMenuEndRepeat || fcMenus.modeMenuEndRepeat.length < 1) {
-				fcMenus.modeMenuEndRepeat = $('<div id="fc_mode_menu"/>');
+				fcMenus.modeMenuEndRepeat = $('<div id="fc_mode_menu_end_repeat"/>');
 			} else {
 				fcMenus.modeMenuEndRepeat.popupMenu("close");
 				fcMenus.modeMenuEndRepeat.popupMenu("destroy");
@@ -5382,20 +5428,48 @@ function EventEditor(calendar, uiBlocker) {
 				delType = deleteMode.allSeries;
 			}
 			
-			_deleteEvent.call(_this, delType, _eventObj._start);
 			_closeDelSettings.call(_this, true);
-			_close.call(_this, false, true);
+
+			if (_getConfirmViewMode.call(_this)) {
+			    confirmSettings.selectedDeleteMode = delType;
+			    _openConfirmPopup.call(_this);
+			} else {
+			    _deleteEvent.call(_this, delType, _eventObj._start);
+			    _close.call(_this, false, true);
+			}
+
 		});
 		_delSettings.find(".buttons .cancel-btn, .buttons .close-btn, .header .close-btn").click(function() {
 			_closeDelSettings.call(_this, false);
 		});
 		
-		
-		//
-		if (uiBlocker && uiBlocker.length > 0) {
-			uiBlocker.click(function() {_close.call(_this, false);});
-		}
 	}());
+
+    // create confirm dialog
+	(function _createConfirmPopup() {
+	    _confirmPopup = $(cp.dialogTemplate)
+				.addClass("asc-dialog")
+				.popupFrame({
+				    anchor: "right,top",
+				    direction: "right,down",
+				    offset: "0,0",
+				    showArrow: false
+				});
+
+	    _confirmPopup.find(".buttons .send-btn, .buttons .send-everyone-btn").click(function() {
+	        _sendGuestsNotification.call(_this, confirmSettings.notificationMode.everybody);
+	    });
+
+	    _confirmPopup.find(".buttons .send-customs-btn").click(function() {
+	        _sendGuestsNotification.call(_this, confirmSettings.notificationMode.partially);
+	    });
+
+	    _confirmPopup.find(".buttons .dont-send-btn").click(function() {
+	        _sendGuestsNotification.call(_this, confirmSettings.notificationMode.nobody);
+	    });
+
+	}());
+
 
 	function _resizePopup() {
 		if (!_dialogMode) {_adjustPopupPosition.call(_this);}
@@ -5539,7 +5613,7 @@ function EventEditor(calendar, uiBlocker) {
 	
 	function _renderRepeatAlertList() {
 		// repeat list
-		_repeatSelectorLabel = _dialog.find(".fc-view-repeat");
+		var _repeatSelectorLabel = _dialog.find(".fc-view-repeat");
 		
 		_dialog.find(".fc-view-repeat").click(
 			function (event) {
@@ -5549,7 +5623,7 @@ function EventEditor(calendar, uiBlocker) {
 			});
 			
 			if (!fcMenus.modeMenuRepeat || fcMenus.modeMenuRepeat.length < 1) {
-				fcMenus.modeMenuRepeat = $('<div id="fc_mode_menu"/>');
+				fcMenus.modeMenuRepeat = $('<div id="fc_mode_menu_repeat"/>');
 			} else {
 				fcMenus.modeMenuRepeat.popupMenu("close");
 				fcMenus.modeMenuRepeat.popupMenu("destroy");
@@ -5634,7 +5708,7 @@ function EventEditor(calendar, uiBlocker) {
 			});
 		
 		// alert list  
-		_alertSelectorLabel = _dialog.find(".fc-view-alert");
+		var _alertSelectorLabel = _dialog.find(".fc-view-alert");
 		
 		_dialog.find(".fc-view-alert").click(
 			function (event) {
@@ -5644,7 +5718,7 @@ function EventEditor(calendar, uiBlocker) {
 			});
 
 			if (!fcMenus.modeMenuAlert || fcMenus.modeMenuAlert.length < 1) {
-				fcMenus.modeMenuAlert = $('<div id="fc_mode_menu"/>');
+				fcMenus.modeMenuAlert = $('<div id="fc_mode_menu_alert"/>');
 			} else {
 				fcMenus.modeMenuAlert.popupMenu("close");
 				fcMenus.modeMenuAlert.popupMenu("destroy");
@@ -5743,6 +5817,7 @@ function EventEditor(calendar, uiBlocker) {
 		_delSettings.popupFrame("open", _anchor);
 		_delSettings.addClass("add-popup");
 		_delSettings.addClass("fc-shadow");
+		uiBlocker.removeClass("fc-modal-transparent");
 	}
 
 	function _renderPermissions() {
@@ -5792,7 +5867,7 @@ function EventEditor(calendar, uiBlocker) {
 		
 		// check length
 		var titleMaxLen = defaults.eventMaxTitleLength;
-		var inputTxt = _dialog.find(".editor .title input");
+		var inputTxt = _dialog.find(".editor .title input, .editor .location input");
 		if (inputTxt.length > 0)
 		{
 			inputTxt.keyup(function(){
@@ -5843,7 +5918,9 @@ function EventEditor(calendar, uiBlocker) {
 		
 		_anchor = elem;
 		_modes[mode].call(_this, elem, eventObj);
-		
+
+	    _dialog.find(".editor .title input").focus().select();
+
 		_setRepeatSettingsHeight.call(_this);
 		
 		$(document).bind("keyup", _checkEscKey);
@@ -6073,7 +6150,11 @@ function EventEditor(calendar, uiBlocker) {
 	
 	function _openDelSettings(mode)
 	{
-		_delSettings.popupFrame("close");
+	    _dialog.popupFrame("close");
+	    $(document).unbind("keyup", _checkEscKey);
+
+	    _delSettings.popupFrame("close");
+		_delSettings.find("input[type=radio]:first").prop("checked", true);
 		uiBlocker.hide();
 		
 		_modes[mode].call(_this);
@@ -6098,7 +6179,8 @@ function EventEditor(calendar, uiBlocker) {
 		}
 		
 		if ((_eventObj.source != undefined) && !changed && !deleted)
-			_updateEvent.call(_this, true);
+		    _updateEvent.call(_this, true);
+	    
 		$(document).unbind("keyup", _checkEscKey);
 		_closeDialog.call(_this);
 	}
@@ -6146,8 +6228,152 @@ function EventEditor(calendar, uiBlocker) {
 	}
 	
 	function _closeDialogDelSettings() {
-		_delSettings.popupFrame("close");
+	    _delSettings.popupFrame("close");
+	    uiBlocker.hide();
 	}
+
+
+	function _getConfirmViewMode() {
+
+	    confirmSettings.notificationUsers.newGuests = [];
+	    confirmSettings.notificationUsers.updatedGuests = [];
+	    confirmSettings.notificationUsers.removedGuests = [];
+	    confirmSettings.selectedViewMode = confirmSettings.viewMode.none;
+	    confirmSettings.selectedNotificationMode = confirmSettings.notificationMode.nobody;
+
+	    if(_eventObj.status == 2 || (_eventObj.source && _eventObj.source.isSubscription))
+	        return confirmSettings.selectedViewMode;
+
+	    var isOrganizer = false;
+	    var organizerEmail = _eventObj.organizer ? _eventObj.organizer[3].replace(new RegExp("mailto:", "ig"), "").toLowerCase() : "";
+
+	    jq.each(ASC.Mail.Accounts, function(index, account) {
+	        if (account.enabled && organizerEmail == account.email.toLowerCase()) {
+	            isOrganizer = true;
+	            return false;
+	        }
+	        return true;
+	    });
+
+	    if(!isOrganizer)
+	        return confirmSettings.selectedViewMode;
+
+	    var guests = [];
+	    jq.each(_eventObj.attendees || [], function(index, attendeeObj) {
+	        var attendeeEmail = attendeeObj[3].replace(new RegExp("mailto:", "ig"), "");
+	        if (attendeeEmail.toLowerCase() != organizerEmail)
+	            guests.push(attendeeEmail);
+	    });
+
+	    if (guests.length) {
+	        confirmSettings.selectedViewMode = confirmSettings.viewMode.deleteEvent;
+	        confirmSettings.notificationUsers.removedGuests = guests;
+	        confirmSettings.notificationUsers.updatedGuests = guests;
+	    }
+	    
+	    return confirmSettings.selectedViewMode;
+	}
+
+	function _openConfirmPopup()
+	{
+	    switch (confirmSettings.selectedViewMode) {
+	        case confirmSettings.viewMode.deleteEvent:
+	            _confirmPopup.find(".title").text(calendar.options.confirmPopup.dialogDeleteEventHeader);
+	            _confirmPopup.find(".body").text(calendar.options.confirmPopup.dialogDeleteEventBody);
+	            _confirmPopup.find(".send-btn").show();
+	            _confirmPopup.find(".send-customs-btn, .send-everyone-btn").hide();
+	            break;
+	        default:
+	            break;
+	    }
+
+	    _dialog.popupFrame("close");
+	    $(document).unbind("keyup", _checkEscKey);
+
+	    _delSettings.popupFrame("close");
+	    $(document).unbind("keyup", _checkEscKeyDelSettings);
+
+	    _confirmPopup.popupFrame("close");
+
+	    _confirmPopup.popupFrame("open", { pageX: "center", pageY: "center" });
+	    _confirmPopup.css("position","fixed");
+	    uiBlocker.removeClass("fc-modal-transparent");
+
+	    if (_confirmPopup.popupFrame("isVisible")) {
+	        uiBlocker.show();
+	    } else {
+	        uiBlocker.hide();
+	    }
+	}
+
+	function _closeConfirmPopup() {
+	    _confirmPopup.popupFrame("close");
+	    uiBlocker.hide();
+	}
+
+	function _sendGuestsNotification(mode) {
+	    confirmSettings.selectedNotificationMode = mode;
+	    _deleteEvent.call(_this, confirmSettings.selectedDeleteMode, _eventObj._start);
+	    _close.call(_this, false, true);
+	    _closeConfirmPopup.call(_this);
+	}
+
+	function _sendNotification(sourceId, uniqueId, type, callback) {
+	    var attendeesEmails = [];
+	    var method = null;
+
+	    switch (type) {
+	        case confirmSettings.notificationType.cancel:
+	            switch (confirmSettings.selectedNotificationMode) {
+	                case confirmSettings.notificationMode.everybody:
+	                case confirmSettings.notificationMode.partially:
+	                    attendeesEmails = confirmSettings.notificationUsers.removedGuests;
+	                    method = ASC.Mail.Utility.SendCalendarCancel;
+	                    break;
+	                default:
+	                    break;
+	            }
+	            break;
+	        case confirmSettings.notificationType.update:
+	            switch (confirmSettings.selectedNotificationMode) {
+	                case confirmSettings.notificationMode.everybody:
+	                case confirmSettings.notificationMode.partially:
+	                    attendeesEmails = confirmSettings.notificationUsers.updatedGuests;
+	                    method = ASC.Mail.Utility.SendCalendarUpdate;
+	                    break;
+	                default:
+	                    break;
+	            }
+	            break;
+	        default:
+	            break;
+	    }
+
+	    if (attendeesEmails.length && method) {
+	        ASC.CalendarController.Busy = true;
+	        window.LoadingBanner.displayLoading(true);
+	        
+	        method.call(this, sourceId, uniqueId, attendeesEmails)
+                .done(function() {
+                    //toastr.success(calendar.options.confirmPopup.dialogSuccessToastText);
+                    console.log(calendar.options.confirmPopup.dialogSuccessToastText, arguments);
+                    if (callback)
+                        callback();
+                })
+                .fail(function() {
+                    toastr.error(calendar.options.confirmPopup.dialogErrorToastText);
+                    console.error(calendar.options.confirmPopup.dialogErrorToastText, arguments);
+                })
+	            .always(function () {
+	                ASC.CalendarController.Busy = false;
+	                window.LoadingBanner.hideLoading();
+	            });
+	    } else {
+	        if (callback)
+	            callback();
+	    }
+	}
+
 
 	function _parseDateTime(inputD, inputT, result) {
 		var dateStr = inputD.val();
@@ -6190,10 +6416,10 @@ function EventEditor(calendar, uiBlocker) {
 			frc = frtc = toc = totc = "";
 		} else {
 			r = false;
-			frc  = frDate.date.isValid ? "" : "red";
-			frtc = frDate.time.isValid ? "" : "red";
-			toc  = toDate.date.isValid && delta ? "" : "red";
-			totc = toDate.time.isValid && delta ? "" : "red";
+			frc  = frDate.date.isValid ? "" : "#cc3300";
+			frtc = frDate.time.isValid ? "" : "#cc3300";
+			toc  = toDate.date.isValid && delta ? "" : "#cc3300";
+			totc = toDate.time.isValid && delta ? "" : "#cc3300";
 		}
 		dlg.from.css("color", "").css("border-color", frc);
 		dlg.from_t.css("color", "").css("border-color", frtc);
@@ -6234,10 +6460,10 @@ function EventEditor(calendar, uiBlocker) {
 				frc = frtc = toc = totc = "";
 			} else {
 				r = false;
-				frc  = frDate.date.isValid ? "" : "red";
-				frtc = frDate.time.isValid ? "" : "red";
-				toc  = toDate.date.isValid && delta ? "" : "red";
-				totc = toDate.time.isValid && delta ? "" : "red";
+				frc  = frDate.date.isValid ? "" : "#cc3300";
+				frtc = frDate.time.isValid ? "" : "#cc3300";
+				toc  = toDate.date.isValid && delta ? "" : "#cc3300";
+				totc = toDate.time.isValid && delta ? "" : "#cc3300";
 			}
 			dlg.from.css("color", "").css("border-color", frc);
 			dlg.from_t.css("color", "").css("border-color", frtc);
@@ -6255,7 +6481,7 @@ function EventEditor(calendar, uiBlocker) {
 			var isNum = dlg.cycles.val().match('^[0-9]+$');
 			if ( (dlg.cycles.find(".hidden").length == 0) && !isNum ) { 
 				r = false;
-				cb  = !r || (r && (dlg.cycles.val() < 0)) ? "red" : "";
+				cb  = !r || (r && (dlg.cycles.val() < 0)) ? "#cc3300" : "";
 			}
 			dlg.cycles.css("color", "").css("border-color", cb);
 		}
@@ -6278,6 +6504,9 @@ function EventEditor(calendar, uiBlocker) {
 		} else {
 			var defaultEndDate = new Date(_eventObj.start.getFullYear(), _eventObj.start.getMonth(), _eventObj.start.getDate(), _eventObj.start.getHours() + 1, _eventObj.start.getMinutes())
 			
+			if(!dlg.from.val())
+			    dlg.from.val(formatDate(_eventObj.start, calendar.options.eventEditor.dateFormat));
+
 			dlg.from_t
 					.val(formatDate(_eventObj.start, calendar.options.eventEditor.timeFormat))
 					.removeAttr("disabled");
@@ -6285,7 +6514,9 @@ function EventEditor(calendar, uiBlocker) {
 					.val(_eventObj.end instanceof Date ?
 							formatDate(_eventObj.end, calendar.options.eventEditor.timeFormat) : formatDate(defaultEndDate, calendar.options.eventEditor.timeFormat))
 					.removeAttr("disabled");
-			dlg.to.val(_eventObj.end instanceof Date ?
+		    
+			if(!dlg.to.val())
+                dlg.to.val(_eventObj.end instanceof Date ?
 					formatDate(_eventObj.end, calendar.options.eventEditor.dateFormat) : formatDate(defaultEndDate, calendar.options.eventEditor.dateFormat));
 		}
 		_validateDateFields();
@@ -6345,7 +6576,10 @@ function EventEditor(calendar, uiBlocker) {
 
 		var dlg = {
 			viewer: {
-				title:       _dialog.find(".viewer .title"),
+			    title:       _dialog.find(".viewer .title"),
+			    location:    _dialog.find(".viewer .location"),
+			    attendees:   _dialog.find(".viewer .attendees"),
+			    replybuttons:_dialog.find(".viewer .reply-buttons"),
 				owner:       _dialog.find(".viewer .owner .name"),
 				allday:      _dialog.find(".viewer .all-day"),
 				from:        _dialog.find(".viewer .from-date"),
@@ -6356,10 +6590,13 @@ function EventEditor(calendar, uiBlocker) {
 				alert:       _dialog.find(".viewer .alert"),
 				calendar:    _dialog.find(".viewer .calendar .name"),
 				calendar_b:  _dialog.find(".viewer .calendar .bullet"),
-				description: _dialog.find(".viewer .description .text")
+				description: _dialog.find(".viewer .description .text"),
+				status:      _dialog.find(".viewer .status")
 			},
 			editor: {
-				title:       _dialog.find(".editor .title input"),
+			    title:       _dialog.find(".editor .title input"),
+			    location:    _dialog.find(".editor .location input"),
+			    attendees:   _dialog.find(".editor .attendees input"),
 				allday:      _dialog.find(".editor .all-day input"),
 				from:        _dialog.find(".editor .from-date"),
 				from_t:      _dialog.find(".editor .from-time"),
@@ -6369,8 +6606,10 @@ function EventEditor(calendar, uiBlocker) {
 				alert:       _dialog.find(".editor .fc-view-alert .fc-selector-link"),
 				calendar:    _dialog.find(".editor .calendar select"),
 				calendar_b:  _dialog.find(".editor .calendar .bullet"),
-				description: _dialog.find(".editor .description textarea")
-			}
+				description: _dialog.find(".editor .description textarea"),
+				status:      _dialog.find(".editor .status")
+			},
+			infoText:    _dialog.find(".info-text")
 		};
 		var i;
 
@@ -6382,6 +6621,8 @@ function EventEditor(calendar, uiBlocker) {
 			_eventObj.title = $.trim(dlg.editor.title.val());
 			_eventObj.title = _eventObj.title.substr(0,
 					Math.min(calendar.options.eventMaxTitleLength, _eventObj.title.length));
+
+			_eventObj.location = $.trim(dlg.editor.location.val());
 
 			_eventObj.allDay = dlg.editor.allday.is(":checked");
 
@@ -6400,7 +6641,18 @@ function EventEditor(calendar, uiBlocker) {
 
 			_eventObj.newSourceId = dlg.editor.calendar.val();
 
-			var src;
+			_eventObj.status = $.trim(dlg.editor.status.val());
+
+			_eventObj.attendees = [];
+
+			if (!_eventObj.organizer && ASC.Mail.DefaultAccount) {
+		        var organizerObj = new ICAL.Property("organizer");
+		        organizerObj.setParameter("cn", ASC.Mail.DefaultAccount.name);
+		        organizerObj.setValue("mailto:" + ASC.Mail.DefaultAccount.email);
+		        _eventObj.organizer = organizerObj.jCal;
+		    }
+
+		    var src;
 			$.each(sources, function(){if (this.objectId == _eventObj.newSourceId) {src = this;return false;}return true;});
 			if (src) {
 				_eventObj.newTimeZone = $.extend({}, src.timeZone);
@@ -6418,18 +6670,101 @@ function EventEditor(calendar, uiBlocker) {
 			
 		} else {					// ------------- LOAD data -------------
 			
-			dlg.editor.title.css("color", "").css("border-color", "");
-			dlg.editor.title.val(_eventObj.title);
-			dlg.viewer.title.html(htmlEscape(_eventObj.title));
+			//tite
+		    dlg.editor.title.css("color", "").css("border-color", "").val(_eventObj.title);
+			dlg.viewer.title.text(_eventObj.title);
 
-			if (_eventObj.owner && _eventObj.owner.name && _eventObj.owner.name.length > 0) {
-				dlg.viewer.owner.html(htmlEscape(_eventObj.owner.name));
+			//infotext
+			if (_eventObj.status == 2) {
+			    dlg.infoText.show();
+			} else {
+			    dlg.infoText.hide();
+			}
+
+            //location
+			dlg.editor.location.val(_eventObj.location || "");
+			dlg.viewer.location.text(_eventObj.location || "");
+
+			if (_eventObj.location)
+			    dlg.viewer.location.show();
+			else {
+			    dlg.viewer.location.hide();
+			}
+
+		    //attendees
+			if(_eventObj.attendees && _eventObj.attendees.length) {
+			    var statuses = {
+			        needsAction: "NEEDS-ACTION", needsActionCount: 0,
+			        accepted: "ACCEPTED", acceptedCount: 0,
+			        declined: "DECLINED", declinedCount: 0,
+			        tentative: "TENTATIVE", tentativeCount: 0
+			    };
+			    
+			    var showReplyButtons = false;
+
+			    jq(_eventObj.attendees).each(function (index, attendee) {
+			        
+			        var attendeeEmail = attendee[3].replace(new RegExp("mailto:", "ig"), "");
+			        var attendeePartstat = attendee[1].partstat.toUpperCase();
+
+			        if (!showReplyButtons) {
+			            jq(ASC.Mail.Accounts).each(function(j, account) {
+			                if (account.enabled && attendeeEmail.toLowerCase() == account.email.toLowerCase()) {
+			                    showReplyButtons = true;
+			                    dlg.viewer.replybuttons.find(".reply-button").removeClass("active");
+			                    dlg.viewer.replybuttons.find(".reply-button." + attendeePartstat.toLowerCase()).addClass("active");
+			                    return false;
+			                }
+			                return true;
+			            });
+			        }
+
+			        switch (attendeePartstat) {
+			            case statuses.accepted:
+			                statuses.acceptedCount++;
+			                break;
+			            case statuses.declined:
+			                statuses.declinedCount++;
+			                break;
+			            case statuses.tentative:
+			                statuses.tentativeCount++;
+			                break;
+			            case statuses.needsAction:
+			                statuses.needsActionCount++;
+			                break;
+			            default:
+			                break;
+			        }
+			        
+			    });
+
+			    dlg.viewer.attendees.find(".guests-count").text(_eventObj.attendees.length);
+			    dlg.viewer.attendees.find(".accepted-count").text(statuses.acceptedCount);
+			    dlg.viewer.attendees.find(".declined-count").text(statuses.declinedCount);
+			    dlg.viewer.attendees.show();
+
+			    if (_canEdit && showReplyButtons && _eventObj.status != 2 && !_eventObj.source.isSubscription)
+			        dlg.viewer.replybuttons.show();
+			    else
+			        dlg.viewer.replybuttons.hide();
+
+			} else {
+			    dlg.viewer.replybuttons.hide();
+			    dlg.viewer.attendees.hide();
+			}
+
+			var organizerName = _eventObj.organizer && _eventObj.organizer.length > 1 ? _eventObj.organizer[1].cn : "";
+			organizerName = organizerName ? organizerName : _eventObj.owner && _eventObj.owner.name ? _eventObj.owner.name : "";
+
+			if (organizerName) {
+			    dlg.viewer.owner.html(htmlEscape(organizerName));
 				_dialog.find(".viewer .owner").removeClass("hidden");
 			} else {
-				dlg.viewer.owner.text("");
+				dlg.viewer.owner.html("");
 				_dialog.find(".viewer .owner").addClass("hidden");
 			}
 
+            //all day
 			if (_eventObj.allDay == true) {
 				dlg.editor.allday.prop("checked", true);
 				dlg.viewer.allday.addClass("yes");
@@ -6438,76 +6773,55 @@ function EventEditor(calendar, uiBlocker) {
 				dlg.viewer.allday.removeClass("yes");
 			}
 
+            //editor from
 			dlg.editor.from.css("color", "").css("border-color", "");
 			dlg.editor.from_t.css("color", "").css("border-color", "");
+		    
 			if (_eventObj.start instanceof Date) {
-				dlg.editor.from.val(
-						formatDate(_eventObj.start, calendar.options.eventEditor.dateFormat));
-						
+				dlg.editor.from.val(formatDate(_eventObj.start, calendar.options.eventEditor.dateFormat));
 				if (_eventObj.allDay == false) {
 					dlg.editor.from_t.val(formatDate(_eventObj.start, calendar.options.eventEditor.timeFormat));
-				}
-				else {
+				} else {
 					dlg.editor.from_t.val("");
 				}
-			} 
-			else {
+			} else {
 				dlg.editor.from.val("");
 				dlg.editor.from_t.val("");
 			}
-			dlg.viewer.from.text(dlg.editor.from.val());
-			//dlg.viewer.from_t.text(dlg.editor.from_t.val());
 
+            //editor to
 			dlg.editor.to.css("color", "").css("border-color", "");
 			dlg.editor.to_t.css("color", "").css("border-color", "");
+		    
 			if (_eventObj.end instanceof Date) {
-				dlg.editor.to.val(
-						formatDate(_eventObj.end, calendar.options.eventEditor.dateFormat));
-						
+				dlg.editor.to.val(formatDate(_eventObj.end, calendar.options.eventEditor.dateFormat));
 				if (_eventObj.allDay == false) {
 					dlg.editor.to_t.val(formatDate(_eventObj.end, calendar.options.eventEditor.timeFormat));
-				}
-				else {
+				} else {
 					dlg.editor.to_t.val("");
 				}
-			} 
-			else {
+			} else {
 				dlg.editor.to.val("");
 				dlg.editor.to_t.val("");
 			}
-			dlg.viewer.to.text(dlg.editor.to.val());
-			//dlg.viewer.to_t.text(dlg.editor.to_t.val());
+		    
+            //viewer from
+			dlg.viewer.from.text(dlg.editor.from.val());
 			
-			// from time
-			if (_eventObj.start instanceof Date) {
-				if (_eventObj.allDay == false) {
-					dlg.viewer.from_t.text(formatDate(_eventObj.start, calendar.options.axisFormat));
-				}
-				else {
-					dlg.viewer.from_t.text("");
-				}
-			} 
-			else {
+			if (_eventObj.start instanceof Date && !_eventObj.allDay) {
+				dlg.viewer.from_t.text(formatDate(_eventObj.start, calendar.options.axisFormat));
+			} else {
 				dlg.viewer.from_t.text("");
 			}
 			
-			// to time
-			if (_eventObj.end instanceof Date) {
-				if (_eventObj.allDay == false) {
-					dlg.viewer.to_t.text(formatDate(_eventObj.end, calendar.options.axisFormat));
-				}
-				else {
-					dlg.viewer.to_t.text("");
-				}
-				dlg.viewer.from.prev().show();
-				dlg.viewer.to.prev().show();
-			}
-			else {
+		    //viewer to
+			dlg.viewer.to.text(dlg.editor.to.val());
+
+			if (_eventObj.end instanceof Date && !_eventObj.allDay) {
+				dlg.viewer.to_t.text(formatDate(_eventObj.end, calendar.options.axisFormat));
+			} else {
 				dlg.viewer.to_t.text("");
-				dlg.viewer.from.prev().hide();
-				dlg.viewer.to.prev().hide();
 			}
-			//
 
 			var defaultSource = _getDefaultSource();
 			var calSource = sourceIsValid ? _eventObj.source : defaultSource;
@@ -6587,6 +6901,9 @@ function EventEditor(calendar, uiBlocker) {
 			dlg.editor.calendar_b.css("color", calColor);
 			dlg.viewer.calendar_b.css("color", calColor);
 
+			dlg.editor.status.val(_eventObj.status);
+			dlg.viewer.status.text(dlg.editor.status.find("option:selected").text());
+
 			dlg.editor.description.val(_eventObj.description != undefined ? _eventObj.description : "");
 			setTimeout(function() {     // jScrollPane must be init for visible element
 				dlg.viewer.description.empty();
@@ -6628,7 +6945,7 @@ function EventEditor(calendar, uiBlocker) {
 	}
 
 	function _createEvent(startDate, endDate, allDay) {
-		return {
+		var evt = {
 			title:           calendar.options.eventEditor.newEventTitle,
 			description:     "",
 			allDay:          allDay,
@@ -6637,37 +6954,67 @@ function EventEditor(calendar, uiBlocker) {
 			repeatRule:      ASC.Api.iCal.RecurrenceRule.Never,
 			alert:           {type:kAlertDefault},
 			isShared:        false,
-			permissions:     {users:[]}
+			permissions:     {users:[]},
+			attendees:       []
 		};
+	    
+
+		if (ASC.Mail.DefaultAccount) {
+		    var organizerObj = new ICAL.Property("organizer");
+		    organizerObj.setParameter("cn", ASC.Mail.DefaultAccount.name);
+		    organizerObj.setValue("mailto:" + ASC.Mail.DefaultAccount.email);
+		    evt.organizer = organizerObj.jCal;
+		}
+
+	    return evt;
 	}
 
 	function _deleteEvent(deleteType, eventDate) {
 		if (!_canDelete ||
 		    !fcUtil.objectIsValid(_eventObj) ||
 		    !fcUtil.objectIsValid(_eventObj.source)) {return;}
-		//
-		var id = _eventObj._id;
-		calendar.trigger("editEvent", _this,
-				$.extend(
-						{action: kEventDeleteAction, sourceId: _eventObj.source.objectId, type: deleteType, date: eventDate},
-						_eventObj),
-				function(response) {
-					if (!response.result) {return;}
-					calendar.removeEvents(id);
-					
-					//
-					if (response.event != undefined) {
-						if (response.event.length < 1) {return;}
-						//
-						var sources = calendar.getEventSources();
-						var j = 0;
-						while (j < response.event.length) {
-							_setEventSource(response.event[j], sources);
-							j++;
-						}
-						calendar.addEvents(response.event);
-					}
-				});
+
+		if (_eventObj.sourceId && _eventObj.uniqueId && (_eventObj.repeatRule.Freq == ASC.Api.iCal.Frequency.Never || confirmSettings.selectedDeleteMode == deleteMode.allSeries))
+	        _sendNotification(_eventObj.sourceId, _eventObj.uniqueId, confirmSettings.notificationType.cancel, deleteEvt);
+	    else
+	        deleteEvt();
+
+	    function deleteEvt() {
+	        var id = _eventObj._id;
+	        calendar.trigger("editEvent", _this,
+	            $.extend(
+	                { action: kEventDeleteAction, sourceId: _eventObj.source.objectId, type: deleteType, date: eventDate },
+	                _eventObj),
+	            function(response) {
+	                if (!response.result) {
+	                    return;
+	                }
+	                calendar.removeEvents(id);
+
+	                //
+	                if (response.event != undefined) {
+	                    if (!response.event.length) {
+	                        if (_eventObj.repeatRule.Freq != ASC.Api.iCal.Frequency.Never && confirmSettings.selectedDeleteMode != deleteMode.allSeries) {
+	                            _sendNotification(_eventObj.sourceId, _eventObj.uniqueId, confirmSettings.notificationType.cancel, function() {
+	                                ASC.CalendarController.RemoveEvent(id, deleteMode.allSeries, eventDate);
+	                            });
+	                        }
+	                        return;
+	                    }
+	                    //
+	                    var sources = calendar.getEventSources();
+	                    var j = 0;
+	                    while (j < response.event.length) {
+	                        _setEventSource(response.event[j], sources);
+	                        j++;
+	                    }
+	                    calendar.addEvents(response.event);
+
+	                    if(_eventObj.repeatRule.Freq != ASC.Api.iCal.Frequency.Never && confirmSettings.selectedDeleteMode != deleteMode.allSeries)
+	                        _sendNotification(_eventObj.sourceId, _eventObj.uniqueId, confirmSettings.notificationType.update);
+	                }
+	            });
+	    }
 	}
 
 	function _unsubscribeEvent() {
@@ -6754,17 +7101,150 @@ function EventEditor(calendar, uiBlocker) {
 		}
 	}
 
+    function _eventReply(decision) {
 
-	// Public interface
+        if (!_eventObj.attendees || !_eventObj.attendees.length) return;
+
+        var partstat = typeof decision === "boolean" ? decision ? "ACCEPTED" : "DECLINED" : "TENTATIVE";
+
+        var replyEmail = null;
+
+        jq(_eventObj.attendees).each(function(i, attendee) {
+
+            var attendeeEmail = attendee[3].replace(new RegExp("mailto:", "ig"), "");
+            var attendeePartstat = attendee[1].partstat.toUpperCase();
+
+            jq(ASC.Mail.Accounts).each(function(j, account) {
+                if (account.enabled && attendeeEmail.toLowerCase() == account.email.toLowerCase() && attendeePartstat != partstat) {
+                    replyEmail = attendeeEmail;
+                    return false;
+                }
+                return true;
+            });
+
+            return replyEmail == null;
+        });
+
+        if (_eventObj.sourceId && _eventObj.uniqueId && replyEmail) {
+            _doReply(_eventObj.sourceId, _eventObj.uniqueId, replyEmail, partstat);
+        }
+    }
+
+    function _doReply(calendarId, eventUid, attendeeEmail, partstat) {
+        _dialog.find(".viewer .reply-button").removeClass("active");
+
+        ASC.CalendarController.Busy = true;
+        window.LoadingBanner.displayLoading(true);
+
+        ASC.Mail.Utility.SendCalendarReply(calendarId, eventUid, attendeeEmail, partstat)
+            .done(function () {
+                _doReplyCallback(attendeeEmail, partstat);
+            })
+            .fail(function () {
+                toastr.error(calendar.options.confirmPopup.dialogErrorToastText);
+                console.error(calendar.options.confirmPopup.dialogErrorToastText, arguments);
+            })
+            .always(function () {
+                ASC.CalendarController.Busy = false;
+                window.LoadingBanner.hideLoading();
+            });
+    }
+    
+    function _doReplyCallback(attendeeEmail, partstat) {
+        _dialog.find(".viewer .reply-buttons ." + partstat.toLowerCase()).addClass("active");
+        
+        jq(_eventObj.attendees).each(function (index, item) {
+            var itemEmail = item[3].replace(new RegExp("mailto:", "ig"), "");
+            if (itemEmail.toLowerCase() == attendeeEmail.toLowerCase()) {
+                item[1].partstat = partstat;
+                item[1].rsvp = "FALSE";
+                return false;
+            }
+            return true;
+        });
+        
+        var statuses = {
+            n: "NEEDS-ACTION", nc: 0,
+            a: "ACCEPTED", ac: 0,
+            d: "DECLINED", dc: 0,
+            t: "TENTATIVE", tc: 0
+        };
+
+        jq(_eventObj.attendees).each(function (index, attendee) {
+			        
+            var attendeePartstat = attendee[1].partstat.toUpperCase();
+			        
+            switch (attendeePartstat) {
+                case statuses.a:
+                    statuses.ac++;
+                    break;
+                case statuses.d:
+                    statuses.dc++;
+                    break;
+                case statuses.t:
+                    statuses.tc++;
+                    break;
+                case statuses.n:
+                    statuses.nc++;
+                    break;
+                default:
+                    break;
+            }
+			        
+        });
+
+        _dialog.find(".attendees .guests-count").text(_eventObj.attendees.length);
+        _dialog.find(".attendees .accepted-count").text(statuses.ac);
+        _dialog.find(".attendees .declined-count").text(statuses.dc);
+
+    }
+
+    // Public interface
 
 	this.openEvent = function(elem, event) {
-		_open.call(_this, "view", elem, event);
+	    if (ASC.CalendarController.Busy) {
+	        console.log("ASC.CalendarController.Busy");
+	        return false;
+	    }
+
+	    ASC.CalendarController.CancelEditDialog();
+
+	    if (event && !isNaN(event.objectId) && event.uniqueId) {
+	        Teamlab.getCalendarEventById({},
+                event.objectId,
+                {
+                    success: function(p, eventInfo) {
+                        if (eventInfo.eventUid === event.uniqueId && eventInfo.mergedIcs) {
+                            console.info(eventInfo);
+
+                            var evt = parseIcs(eventInfo.mergedIcs);
+
+                            event = jq.extend(event, evt || {});
+
+                            _open.call(_this, "view", elem, event);
+                        }
+                    },
+                    error: function(p, e) {
+                        console.error(e);
+                    },
+                    max_request_attempts: 1
+                });
+	    } else {
+	        _open.call(_this, "view", elem, event);
+	    }
 	};
 
 	this.addEvent = function(startDate, endDate, allDay) {
-		// Protect from addind event in nonexistent category
+	    if (ASC.CalendarController.Busy) {
+	        console.log("ASC.CalendarController.Busy");
+	        return false;
+	    }
+
+	    ASC.CalendarController.CancelEditDialog();
+
+	    // Protect from addind event in nonexistent category
 		var defaultSource = _getDefaultSource();
-		if (defaultSource == undefined) {return;}
+		if (defaultSource == undefined) return false;
 
 		var ev;
 		if (startDate != undefined) {
@@ -6796,6 +7276,2391 @@ function EventEditor(calendar, uiBlocker) {
 	};
 }
 
+
+function EventPage(calendar) {
+    var _this = this;
+	
+    var rs = calendar.options.repeatSettings;
+    var ds = calendar.options.deleteSettings;
+    var cp = calendar.options.confirmPopup;
+
+    var dwm = {
+        day:     0,
+        week:    1,
+        month:   2,
+        year:    3
+    };
+
+    var deleteMode = {
+        single: 0,
+        allFollowing: 1,
+        allSeries: 2
+    };
+
+    var confirmSettings = {
+        viewMode: {
+            none: 0,
+            addEvent: 1,
+            updateEvent: 2,
+            updateGuests: 3,
+            deleteEvent: 4
+        },
+        notificationMode: {
+            nobody: 0,
+            partially: 1,
+            everybody: 2
+        },
+        notificationType: {
+            request: 1,
+            update: 2,
+            cancel: 4
+        },
+        notificationUsers: {
+            newGuests: [],
+            removedGuests: [],
+            updatedGuests: []
+        },
+        selectedViewMode: 0,
+        selectedNotificationMode: 0,
+        selectedDeleteMode: 0,
+    };
+
+    var replyDecisionSettings = {
+        sendReply: true,
+        email: null,
+        decision: null
+    };
+	
+    var _dialog;
+    var _settings;
+    var _delSettings;
+    var _confirmPopup;
+    var uiBlocker;
+    var alertType = kAlertDefault;
+    var repeatRule = ASC.Api.iCal.RecurrenceRule.EveryDay;
+    var dwm_current = dwm.day;
+    var dayRuleObject = undefined;
+	
+
+    var _eventObj;
+    var _canEdit;
+    var _canDelete;
+    var _canChangeSource;
+    var _canUnsubscribe;
+
+    var formatDate = calendar.formatDate;
+    var formatDates = calendar.formatDates;
+
+
+    (function _createPage() {
+        _dialog = jq("#asc_event").empty();
+        
+        jq("#eventPageTemplate").tmpl({maxlength: defaults.eventMaxTitleLength}).appendTo(_dialog);
+        
+        uiBlocker = _dialog.find(".fc-modal");
+
+        _dialog.find(".buttons .save-btn").click(function() {
+            if (jq(this).hasClass("disable"))
+                return;
+		    
+            var hasSettings = !_settings.hasClass("hidden");
+            if (hasSettings) {
+                if (!_validateDateFieldsSettings.call(_this)) {
+                    return;
+                }
+                _closeSettings.call(_this, hasSettings);
+            }
+
+            if (_getConfirmViewMode.call(_this)) {
+                _openConfirmPopup.call(_this);
+            } else {
+                _close.call(_this, true);
+            }
+        });
+        
+        _dialog.find(".event-header .header-back-link, .buttons .cancel-btn, .buttons .close-btn").click(function() {
+            _close.call(_this, false);
+        });
+        
+        _dialog.find(".buttons .delete-btn").click(function() {
+            if (_canDelete) {
+                if (_eventObj.repeatRule.Freq == ASC.Api.iCal.Frequency.Never) {
+                    if (_getConfirmViewMode.call(_this, true)) {
+                        confirmSettings.selectedDeleteMode = deleteMode.single;
+                        _openConfirmPopup.call(_this);
+                    } else {
+                        _deleteEvent.call(_this, deleteMode.single, _eventObj._start);
+                        _close.call(_this, false, true);
+                    }
+                }
+                else {
+                    _openDelSettings.call(_this);
+                }
+            }
+        });
+        
+        _dialog.find(".buttons .unsubs-btn").click(function() {
+            if (_canUnsubscribe) {
+                _unsubscribeEvent.call(_this);
+            }
+        });
+
+        _renderRepeatAlertList.call(_this);
+		
+        _dialog.find(".editor .title input").keyup(function() {
+            fcUtil.validateInput(this, fcUtil.validateNonemptyString);
+        });
+        
+        _dialog.find(".editor .attendees input").AttendeesSelector("init", {
+            isInPopup: false,
+            items: [],
+            container: _dialog.find(".editor .attendees .attendees-user-list"),
+            organizer: _dialog.find(".editor .owner select"),
+        });
+
+        _dialog.find(".editor .addUserLink").ShareUsersSelector("init", {
+            permissions: { data: { actions: [], items: [] }, users: []},
+            container:  _dialog.find(".editor .shared-user-list")
+        });
+
+        _dialog.find(".editor .owner select").on("change", function() {
+            var email = jq(this).val();
+            var attendeeSelector = _dialog.find(".editor .attendees input");
+            var attendees = attendeeSelector.AttendeesSelector("get");
+            var redraw = false;
+
+            jq.each(attendees, function(index, item) {
+                if(Boolean(item[1]["x-organizer"])){
+                    item[3] = "mailto:" + email;
+                    redraw = true;
+                }
+            });
+
+            if (redraw) attendeeSelector.AttendeesSelector("set", attendees);
+        });
+
+        _dialog.find(".editor .all-day input").click(_handleAllDayClick);
+		
+        _dialog.find(".editor .all-day .label").css("cursor", "pointer").click(function() {
+            _dialog.find(".editor .all-day .cb").trigger("click");
+            _handleAllDayClick.call(_this);
+        });
+
+        function loadDate(input, dp, defDate) {
+            var d = parseISO8601(input.val());
+            dp.datepicker("setDate", (d instanceof Date) ? d : defDate);
+        }
+        
+        function saveDate(input, inputT, dp) {
+            input.val(formatDate(
+					dp.datepicker("getDate"),
+					calendar.options.eventEditor.dateFormat));
+            if (!inputT.is(":disabled") && $.trim(inputT.val()).length < 1) {
+                inputT.val("00:00");
+            }
+            input.change();
+        }
+        
+        var fromD = _dialog.find(".editor .from-to .from-date");
+        var fromT = _dialog.find(".editor .from-to .from-time");
+		
+        var toD   = _dialog.find(".editor .from-to .to-date");
+        var toT   = _dialog.find(".editor .from-to .to-time");
+		
+        _dialog.find(".editor .from-to .from.cal-icon").click(function() {
+            fcDatepicker.open(calendar, this,
+					function(dp) {loadDate(fromD, dp, _eventObj.start);},
+					function(elem, dp) {
+					    this.close();
+					    saveDate(fromD, fromT, dp);
+						
+					    var fromD_settings = _settings.find(".from-date");
+					    var fromT_settings = _settings.find(".from-time");
+					    saveDate(fromD_settings, fromT_settings, dp);
+					});
+        });
+        
+        _dialog.find(".editor .from-to .to.cal-icon").click(function() {
+            fcDatepicker.open(calendar, this,
+					function(dp) {loadDate(toD, dp, _eventObj.end||_eventObj.start);},
+					function(elem, dp) {
+					    this.close();
+					    saveDate(toD, toT, dp);
+					});
+        });
+
+        _dialog.find(".editor .from-to .from-time, .editor .from-to .to-time").mask("99:99");
+        
+        _dialog.find(".editor .from-to .from-date, .editor .from-to .from-time, .editor .from-to .to-date, .editor .from-to .to-time")
+            .bind("keyup change", _validateDateFields);
+
+        _dialog.find(".editor .calendar select").change(function (ev) {
+            var v = $(this).val();
+            var s = calendar.getEventSources();
+            for (var i = 0; i < s.length; ++i) {
+                if (s[i].objectId != v) {continue;}
+                _dialog.find(".editor .calendar .bullet").css("color", s[i].backgroundColor);
+                
+                if (s[i].isSubscription) {
+                    _dialog.find(".editor .attendees").hide();
+                } else {
+                    if (!_dialog.find(".editor .attendees .input-container").hasClass("display-none") ||
+                        !_dialog.find(".editor .attendees .attendees-user-list").hasClass("display-none") ||
+                        !_dialog.find(".editor .attendees .attendees-noaccount").hasClass("display-none")) {
+                        _dialog.find(".editor .attendees").show();
+                    } else {
+                        _dialog.find(".editor .attendees").hide();
+                    }
+                }
+
+                return;
+            }
+        });
+        
+        jq("#attendeesHelpSwitcher").on("click", function () {
+            jq(this).helper({ BlockHelperID: 'attendeesHelpInfo' });
+        });
+        
+        if (window.onbeforeunload == null) {
+                window.onbeforeunload = function () {
+                    if(jq("#asc_event .event-editor .editor").is(":visible")) {
+                        return ASC.Resources.Master.Resource.WarningMessageBeforeUnload;
+                    }
+                };
+            }
+    }());
+	
+    (function _createSettings() {
+        _settings = _dialog.find(".repeat-settings");
+
+        // day/week/month selector
+        var _DWMSelectorLabel = _settings.find(".fc-dwm-selector");
+		
+        _settings.find(".fc-dwm-selector").click(
+			function (event) {
+			    
+			    if ($(this).find(".fc-selector-link").hasClass("not-active")) {
+			        return;
+			    }
+				
+			    fcMenus.hideMenus(fcMenus.modeMenuDWMEventPage);
+			    fcMenus.modeMenuDWMEventPage.popupMenu("open", _DWMSelectorLabel);
+			    event.stopPropagation();
+			});
+			
+        if (!fcMenus.modeMenuDWMEventPage || fcMenus.modeMenuDWMEventPage.length < 1) {
+            fcMenus.modeMenuDWMEventPage = $('<div id="fc_mode_menu_dwm_eventpage"/>');
+        } else {
+            fcMenus.modeMenuDWMEventPage.popupMenu("close");
+            fcMenus.modeMenuDWMEventPage.popupMenu("destroy");
+        }
+        
+        fcMenus.modeMenuDWMEventPage.popupMenu({
+            anchor: "left,bottom",
+            direction: "right,down",
+            arrow: "up",
+            showArrow: false,
+            closeTimeout: -1,
+            cssClassName: "asc-popupmenu",
+            items: [
+                {
+                    label: rs.dialogRepeatOn_days,
+                    click: function() {
+                        _DWMSelectorLabel.find(".fc-selector-link").text(rs.dialogRepeatOn_days);
+                        _settings.find(".fc-interval-label").text(rs.dialogIntervalOption_day);
+                        dwm_current = dwm.day;
+                        _showDaySections.call(_this);
+                        _settings.find(".to-date").val(_getEndDate.call(_this, dwm_current));
+                    }
+                },
+                {
+                    label: calendar.options.repeatSettings.dialogRepeatOn_weeks,
+                    click: function() {
+                        _DWMSelectorLabel.find(".fc-selector-link").text(rs.dialogRepeatOn_weeks);
+                        _settings.find(".fc-interval-label").text(rs.dialogIntervalOption_week);
+                        dwm_current = dwm.week;
+                        _showWeekSections.call(_this);
+                        _settings.find(".to-date").val(_getEndDate.call(_this, dwm_current));
+                    }
+                },
+                {
+                    label: calendar.options.repeatSettings.dialogRepeatOn_months,
+                    click: function() {
+                        _DWMSelectorLabel.find(".fc-selector-link").text(rs.dialogRepeatOn_months);
+                        _settings.find(".fc-interval-label").text(rs.dialogIntervalOption_month);
+                        dwm_current = dwm.month;
+                        _showMonthSections.call(_this);
+                        _settings.find(".to-date").val(_getEndDate.call(_this, dwm_current));
+                    }
+                },
+                {
+                    label: calendar.options.repeatSettings.dialogRepeatOn_years,
+                    click: function() {
+                        _DWMSelectorLabel.find(".fc-selector-link").text(rs.dialogRepeatOn_years);
+                        _settings.find(".fc-interval-label").text(rs.dialogIntervalOption_year);
+                        dwm_current = dwm.year;
+                        _showDaySections.call(_this);
+                        _settings.find(".to-date").val(_getEndDate.call(_this, dwm_current));
+                    }
+                }
+            ]
+        });
+			
+        // end of repeat selector
+        var _endRepeatSelectorLabel = _settings.find(".fc-endrepeat-selector");
+		
+        _settings.find(".fc-endrepeat-selector").click(
+			function (event) {
+				
+			    if ($(this).find(".fc-selector-link").hasClass("not-active")) {
+			        return false;
+			    }
+				
+			    fcMenus.hideMenus(fcMenus.modeMenuEndRepeatEventPage);
+			    fcMenus.modeMenuEndRepeatEventPage.popupMenu("open", _endRepeatSelectorLabel);
+			    event.stopPropagation();
+			});
+			
+        if (!fcMenus.modeMenuEndRepeatEventPage || fcMenus.modeMenuEndRepeatEventPage.length < 1) {
+            fcMenus.modeMenuEndRepeatEventPage = $('<div id="fc_mode_menu_end_reapeat_eventpage"/>');
+        } else {
+            fcMenus.modeMenuEndRepeatEventPage.popupMenu("close");
+            fcMenus.modeMenuEndRepeatEventPage.popupMenu("destroy");
+        }
+        fcMenus.modeMenuEndRepeatEventPage.popupMenu({
+            anchor: "left,bottom",
+            direction: "right,down",
+            arrow: "up",
+            showArrow: false,
+            closeTimeout: -1,
+            cssClassName: "asc-popupmenu",
+            items: [
+                {
+                    label: calendar.options.repeatSettings.dialogOptionNever,
+                    click: function() {
+                        _endRepeatSelectorLabel.find(".fc-selector-link").text(rs.dialogOptionNever);
+                        _showEndSectionsNever.call(_this);
+                    }
+                },
+                {
+                    label: calendar.options.repeatSettings.dialogOptionCount,
+                    click: function() {
+                        _endRepeatSelectorLabel.find(".fc-selector-link").text(rs.dialogOptionCount);
+                        _settings.find(".fc-cycle-times").val(3);
+                        _showEndSectionsCycles.call(_this);
+                    }
+                },
+                {
+                    label: calendar.options.repeatSettings.dialogOptionDate,
+                    click: function() {
+                        _endRepeatSelectorLabel.find(".fc-selector-link").text(rs.dialogOptionDate);
+                        _settings.find(".to-date").val(_getEndDate.call(_this, dwm_current));
+                        _showEndSectionsDate.call(_this);
+                    }
+                }
+            ]
+        });
+		
+        //
+        function loadDate(input, dp, defDate) {
+            var d = parseISO8601(input.val());
+            dp.datepicker("setDate", (d instanceof Date) ? d : defDate);
+        }
+        function saveDate(input, inputT, dp) {
+            input.val(formatDate(
+					dp.datepicker("getDate"),
+					rs.dateFormat));
+            if (!inputT.is(":disabled") && $.trim(inputT.val()).length < 1) {
+                inputT.val("00:00");
+            }
+            input.change();
+        }
+		
+        var fromD = _settings.find(".from-date");
+        var fromT = _settings.find(".from-time");
+        var toD = _settings.find(".to-date");
+        var toT = _settings.find(".to-time");
+		
+        _settings.find(".from.cal-icon").click(function() {
+			
+            if (_settings.find(".fc-endrepeat-selector").find(".fc-selector-link").hasClass("not-active")) {
+                return false;
+            }
+			
+            fcDatepicker.open(calendar, this,
+					function(dp) {loadDate(fromD, dp, _eventObj.start);},
+					function(elem, dp) {
+					    this.close();
+					    saveDate(fromD, fromT, dp);
+						
+					    var fromD_parent = _dialog.find(".from-date");
+					    var fromT_parent = _dialog.find(".from-time");
+					    saveDate(fromD_parent, fromT_parent, dp);
+					});
+        });
+		
+        _settings.find(".to.cal-icon").click(function() {
+			
+            if (_settings.find(".fc-endrepeat-selector").find(".fc-selector-link").hasClass("not-active")) {
+                return false;
+            }
+			
+            fcDatepicker.open(calendar, this,
+					function(dp) {loadDate(toD, dp, _eventObj.end||_eventObj.start);},
+					function(elem, dp) {this.close();saveDate(toD, toT, dp);});
+        });
+		
+        //
+        _settings
+				.find(".from-date, .to-date, .fc-cycle-times")
+				.bind("keyup change", _validateDateFieldsSettings);
+        //
+        _settings.find(".calendar select").change(function (ev) {
+            var v = $(this).val();
+            var s = calendar.getEventSources();
+            for (var i = 0; i < s.length; ++i) {
+                if (s[i].objectId != v) {continue;}
+                _settings.find(".calendar .bullet").css("color", s[i].backgroundColor);
+                return;
+            }
+        });
+		
+    }());
+	
+    (function _createDelSettings() {
+        _delSettings = $(ds.dialogTemplate)
+				.addClass("asc-dialog")
+				.popupFrame({
+				    anchor: "right,top",
+				    direction: "right,down",
+				    offset: "0,0",
+				    showArrow: false
+				});
+				
+        function setCheckedAttrValue(element, checked) {
+            if ((element != undefined) && (element.length != 0)) {
+                element.prop("checked", checked);
+            }
+        }
+		
+        _delSettings.find(".delete-selector .delete-this-label").click(function() {
+            setCheckedAttrValue.call(_this, _delSettings.find(".delete-selector .delete-this"), true);
+        });
+		
+        _delSettings.find(".delete-selector .delete-following-label").click(function() {
+            setCheckedAttrValue.call(_this, _delSettings.find(".delete-selector .delete-following"), true);
+        });
+		
+        _delSettings.find(".delete-selector .delete-all-label").click(function() {
+            setCheckedAttrValue.call(_this, _delSettings.find(".delete-selector .delete-all"), true);
+        });
+		
+        _delSettings.find(".buttons .save-btn").click(function() {
+            if (jq(this).hasClass("disable"))
+                return;
+		    
+            var delType = deleteMode.single;
+            if (_delSettings.find(".delete-following").is(":checked")) {
+                delType = deleteMode.allFollowing;
+            }
+            else if (_delSettings.find(".delete-all").is(":checked")) {
+                delType = deleteMode.allSeries;
+            }
+			
+            _closeDelSettings.call(_this, true);
+
+            if (_getConfirmViewMode.call(_this, true)) {
+                confirmSettings.selectedDeleteMode = delType;
+                _openConfirmPopup.call(_this);
+            } else {
+                _deleteEvent.call(_this, delType, _eventObj._start);
+                _close.call(_this, false, true);
+            }
+        });
+        
+        _delSettings.find(".buttons .cancel-btn, .buttons .close-btn, .header .close-btn").click(function() {
+            _closeDelSettings.call(_this, false);
+        });
+
+    }());
+
+    (function _createConfirmPopup() {
+        _confirmPopup = $(cp.dialogTemplate)
+				.addClass("asc-dialog")
+				.popupFrame({
+				    anchor: "right,top",
+				    direction: "right,down",
+				    offset: "0,0",
+				    showArrow: false
+				});
+
+        _confirmPopup.find(".buttons .send-btn, .buttons .send-everyone-btn").click(function() {
+            _sendGuestsNotification.call(_this, confirmSettings.notificationMode.everybody);
+        });
+
+        _confirmPopup.find(".buttons .send-customs-btn").click(function() {
+            _sendGuestsNotification.call(_this, confirmSettings.notificationMode.partially);
+        });
+
+        _confirmPopup.find(".buttons .dont-send-btn").click(function() {
+            _sendGuestsNotification.call(_this, confirmSettings.notificationMode.nobody);
+        });
+        
+
+        
+    }());
+
+
+    function _showDaySections(){
+        _settings.find(".fc-days-week").addClass("hidden").parent().addClass("hidden");
+        _settings.find(".fc-month-radio").addClass("hidden").parent().addClass("hidden");
+    }
+		
+    function _showWeekSections(){
+        _settings.find(".fc-month-radio").addClass("hidden").parent().addClass("hidden");
+        _settings.find(".fc-days-week").removeClass("hidden").parent().removeClass("hidden");
+    }
+		
+    function _showMonthSections(){
+        _settings.find(".fc-days-week").addClass("hidden").parent().addClass("hidden");
+        _settings.find(".fc-month-radio").removeClass("hidden").parent().removeClass("hidden");
+    }
+	
+    function _showEndSectionsNever(){
+        _settings.find(".fc-repeat-cycles").addClass("hidden");
+        _settings.find(".fc-end-date").addClass("hidden");
+    }
+	
+    function _showEndSectionsCycles(){
+        _settings.find(".fc-end-date").addClass("hidden");
+        _settings.find(".fc-repeat-cycles").removeClass("hidden");
+        _validateDateFieldsSettings.call(_this);
+    }
+	
+    function _showEndSectionsDate(){
+        _settings.find(".fc-repeat-cycles").addClass("hidden");
+        _settings.find(".fc-end-date").removeClass("hidden");
+        _validateDateFieldsSettings.call(_this);
+    }
+	
+    function _getEndDate(mode) {
+        var startDate = parseISO8601(_settings.find(".from-date").val());
+        var interval = parseInt(_settings.find(".fc-interval-selector").find("option:selected").text(), 10);
+		
+        switch (mode) {
+            case dwm.day: 
+                return calendar.formatDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + interval + 1, 0, 0, 0), rs.dateFormat);
+            case dwm.week: 
+                return calendar.formatDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + interval*7 + 1, 0, 0, 0), rs.dateFormat);
+            case dwm.month: 
+                return calendar.formatDate(new Date(startDate.getFullYear(), startDate.getMonth() + interval, startDate.getDate() + 1, 0, 0, 0), rs.dateFormat);
+            case dwm.year: 
+                return calendar.formatDate(new Date(startDate.getFullYear() + interval, startDate.getMonth(), startDate.getDate() + 1, 0, 0, 0), rs.dateFormat);
+        }
+    }
+
+	
+    function _getAlertLabel(type) {
+        if (type != undefined) {
+            switch (type) {
+                case kAlertDefault: 		return calendar.options.eventEditor.dialogAlertOption_default;
+                case kAlertNever:			return calendar.options.eventEditor.dialogAlertOption_never;
+                case 1: 					return calendar.options.eventEditor.dialogAlertOption_5minutes;
+                case 2: 					return calendar.options.eventEditor.dialogAlertOption_15minutes;
+                case 3: 					return calendar.options.eventEditor.dialogAlertOption_30minutes;
+                case 4: 					return calendar.options.eventEditor.dialogAlertOption_hour;
+                case 5: 					return calendar.options.eventEditor.dialogAlertOption_2hours;
+                case 6: 					return calendar.options.eventEditor.dialogAlertOption_day;
+                default: 					return "Unknown";
+            }
+        }
+    }
+	
+    function _getRepeatLabel(rule) {
+        if (rule != undefined) {
+            if (rule.Equals(ASC.Api.iCal.RecurrenceRule.Never)) {
+                return calendar.options.eventEditor.dialogRepeatOption_never;
+            }
+            else if (rule.Equals(ASC.Api.iCal.RecurrenceRule.EveryDay)) {
+                return calendar.options.eventEditor.dialogRepeatOption_day;
+            }
+            else if (rule.Equals(ASC.Api.iCal.RecurrenceRule.EveryWeek)) {
+                return calendar.options.eventEditor.dialogRepeatOption_week;
+            }
+            else if (rule.Equals(ASC.Api.iCal.RecurrenceRule.EveryMonth)) {
+                return calendar.options.eventEditor.dialogRepeatOption_month;
+            }
+            else if (rule.Equals(ASC.Api.iCal.RecurrenceRule.EveryYear)) {
+                return calendar.options.eventEditor.dialogRepeatOption_year;
+            }
+            else {
+                return calendar.options.eventEditor.dialogRepeatOption_custom;
+            }
+        }
+    }
+	
+    function _disableRepeatSettings() {
+        _settings.find(".fc-interval-selector").attr("disabled", "disabled");
+        _settings.find("input").attr("disabled", "disabled");
+        _settings.find(".fc-dwm-selector").find(".fc-selector-link").addClass("not-active");
+        _settings.find(".fc-endrepeat-selector").find(".fc-selector-link").addClass("not-active");
+    }
+	
+    function _enableRepeatSettings() {
+        _settings.find(".fc-interval-selector").removeAttr("disabled");
+        _settings.find("input").removeAttr("disabled");
+        _settings.find(".fc-dwm-selector").find(".fc-selector-link").removeClass("not-active");
+        _settings.find(".fc-endrepeat-selector").find(".fc-selector-link").removeClass("not-active");
+    }
+	
+    function _renderRepeatAlertList() {
+        // repeat list
+        var _repeatSelectorLabel = _dialog.find(".fc-view-repeat");
+		
+        _dialog.find(".fc-view-repeat").click(
+			function (event) {
+			    fcMenus.hideMenus(fcMenus.modeMenuRepeatEventPage);
+			    fcMenus.modeMenuRepeatEventPage.popupMenu("open", _repeatSelectorLabel);
+			    event.stopPropagation();
+			});
+			
+        if (!fcMenus.modeMenuRepeatEventPage || fcMenus.modeMenuRepeatEventPage.length < 1) {
+            fcMenus.modeMenuRepeatEventPage = $('<div id="fc_mode_menu_repeat_eventpage"/>');
+        } else {
+            fcMenus.modeMenuRepeatEventPage.popupMenu("close");
+            fcMenus.modeMenuRepeatEventPage.popupMenu("destroy");
+        }
+        fcMenus.modeMenuRepeatEventPage.popupMenu({
+            anchor: "left,bottom",
+            direction: "right,down",
+            arrow: "up",
+            showArrow: false,
+            closeTimeout: -1,
+            cssClassName: "asc-popupmenu",
+            items: [
+                {
+                    label: calendar.options.eventEditor.dialogRepeatOption_never,
+                    click: function() {
+                        repeatRule = ASC.Api.iCal.RecurrenceRule.Never;
+                        _repeatSelectorLabel.find(".fc-selector-link").text(_getRepeatLabel.call(_this, repeatRule));
+                        _closeSettings.call(_this, false);
+                        _dialog.find(".repeat-settings").addClass("hidden");
+                    }
+                },
+                {
+                    label: calendar.options.eventEditor.dialogRepeatOption_day,
+                    click: function() {
+                        repeatRule = ASC.Api.iCal.RecurrenceRule.EveryDay;
+                        _repeatSelectorLabel.find(".fc-selector-link").text(_getRepeatLabel.call(_this, repeatRule));
+                        _closeSettings.call(_this, false);
+                        _dialog.find(".repeat-settings").addClass("hidden");
+                    }
+                },
+                {
+                    label: calendar.options.eventEditor.dialogRepeatOption_week,
+                    click: function() {
+                        repeatRule = ASC.Api.iCal.RecurrenceRule.EveryWeek ;
+                        _repeatSelectorLabel.find(".fc-selector-link").text(_getRepeatLabel.call(_this, repeatRule));
+                        _closeSettings.call(_this, false);
+                        _dialog.find(".repeat-settings").addClass("hidden");
+                    }
+                },
+                {
+                    label: calendar.options.eventEditor.dialogRepeatOption_month,
+                    click: function() {
+                        repeatRule = ASC.Api.iCal.RecurrenceRule.EveryMonth;
+                        _repeatSelectorLabel.find(".fc-selector-link").text(_getRepeatLabel.call(_this, repeatRule));
+                        _closeSettings.call(_this, false);
+                        _dialog.find(".repeat-settings").addClass("hidden");
+                    }
+                },
+                {
+                    label: calendar.options.eventEditor.dialogRepeatOption_year,
+                    click: function() {
+                        repeatRule = ASC.Api.iCal.RecurrenceRule.EveryYear;
+                        _repeatSelectorLabel.find(".fc-selector-link").text(_getRepeatLabel.call(_this, repeatRule));
+                        _closeSettings.call(_this, false);
+                        _dialog.find(".repeat-settings").addClass("hidden");
+                    }
+                },
+                {
+                    label: calendar.options.eventEditor.dialogRepeatOption_custom,
+                    click: function() {
+                        _repeatSelectorLabel.find(".fc-selector-link").text(calendar.options.eventEditor.dialogRepeatOption_custom);
+                        _openSettings.call(_this);
+                        _dialog.find(".repeat-settings").removeClass("hidden");
+                    }
+                }
+            ]
+        });
+		
+        // alert list  
+        var _alertSelectorLabel = _dialog.find(".fc-view-alert");
+		
+        _dialog.find(".fc-view-alert").click(
+			function (event) {
+			    fcMenus.hideMenus(fcMenus.modeMenuAlertEventPage);
+			    fcMenus.modeMenuAlertEventPage.popupMenu("open", _alertSelectorLabel);
+			    event.stopPropagation();
+			});
+
+        if (!fcMenus.modeMenuAlertEventPage || fcMenus.modeMenuAlertEventPage.length < 1) {
+            fcMenus.modeMenuAlertEventPage = $('<div id="fc_mode_menu_alert_eventpage"/>');
+        } else {
+            fcMenus.modeMenuAlertEventPage.popupMenu("close");
+            fcMenus.modeMenuAlertEventPage.popupMenu("destroy");
+        }
+        fcMenus.modeMenuAlertEventPage.popupMenu({
+            anchor: "left,bottom",
+            direction: "right,down",
+            arrow: "up",
+            showArrow: false,
+            closeTimeout: -1,
+            cssClassName: "asc-popupmenu",
+				
+            items: [
+                {
+                    label: calendar.options.eventEditor.dialogAlertOption_default,
+                    click: function() {
+                        alertType = kAlertDefault;
+                        _alertSelectorLabel.find(".fc-selector-link").text(_getAlertLabel.call(_this, alertType));
+                    }
+                },
+                {
+                    label: calendar.options.eventEditor.dialogAlertOption_never,
+                    click: function() {
+                        alertType = kAlertNever;
+                        _alertSelectorLabel.find(".fc-selector-link").text(_getAlertLabel.call(_this, alertType));
+                    }
+                },
+                {
+                    label: calendar.options.eventEditor.dialogAlertOption_5minutes,
+                    click: function() {
+                        alertType = 1;
+                        _alertSelectorLabel.find(".fc-selector-link").text(_getAlertLabel.call(_this, alertType));
+                    }
+                },
+                {
+                    label: calendar.options.eventEditor.dialogAlertOption_15minutes,
+                    click: function() {
+                        alertType = 2;
+                        _alertSelectorLabel.find(".fc-selector-link").text(_getAlertLabel.call(_this, alertType));
+                    }
+                },
+                {
+                    label: calendar.options.eventEditor.dialogAlertOption_30minutes,
+                    click: function() {
+                        alertType = 3;
+                        _alertSelectorLabel.find(".fc-selector-link").text(_getAlertLabel.call(_this, alertType));
+                    }
+                },
+                {
+                    label: calendar.options.eventEditor.dialogAlertOption_hour,
+                    click: function() {
+                        alertType = 4;
+                        _alertSelectorLabel.find(".fc-selector-link").text(_getAlertLabel.call(_this, alertType));
+                    }
+                },
+                {
+                    label: calendar.options.eventEditor.dialogAlertOption_2hours,
+                    click: function() {
+                        alertType = 5;
+                        _alertSelectorLabel.find(".fc-selector-link").text(_getAlertLabel.call(_this, alertType));
+                    }
+                },
+                {
+                    label: calendar.options.eventEditor.dialogAlertOption_day,
+                    click: function() {
+                        alertType = 6;
+                        _alertSelectorLabel.find(".fc-selector-link").text(_getAlertLabel.call(_this, alertType));
+                    }
+                }
+            ]
+        });
+    }
+
+
+    function _open(mode, elem, eventObj) {
+        calendar.trigger("getPermissions", _this,
+            {
+                type: kEventPermissions,
+                objectId: eventObj.objectId,
+                permissions: eventObj.permissions
+            },
+            function(res) {
+                if (res.result) {
+                    eventObj.permissions = res.permissions;
+                    if (res.isShared != undefined) {
+                        eventObj.isShared = res.isShared;
+                    }
+                }
+                _openPage(mode, elem, eventObj);
+            }
+        );
+    }
+
+    function _openPage(mode, elem, eventObj) {
+
+        _dialog.find(".repeat-settings").addClass("hidden");
+
+        // check length
+        var titleMaxLen = defaults.eventMaxTitleLength;
+        var inputTxt = _dialog.find(".editor .title input, .editor .location input");
+        if (inputTxt.length > 0)
+        {
+            inputTxt.keyup(function(){
+                if (inputTxt.val().length > titleMaxLen){
+                    inputTxt.val(inputTxt.val().substr(0, titleMaxLen));
+                }
+            });
+        }
+        //
+
+        _eventObj = eventObj;
+        _eventObj.sourceId = _eventObj.sourceId || (_eventObj.source ? _eventObj.source.objectId : undefined);
+		
+        repeatRule = _eventObj.repeatRule;
+
+        _canChangeSource = _eventObj.source == undefined ||
+				_eventObj.source && !_eventObj.source.isSubscription;
+        _canDelete = fcUtil.objectIsEditable(_eventObj) ||
+				fcUtil.objectIsEditable(_eventObj.source) ||
+				_eventObj.source && !_eventObj.source.isSubscription;
+        _canEdit = _eventObj.source == undefined || _canDelete;
+
+        _canUnsubscribe = _eventObj && _eventObj.canUnsubscribe &&
+				_eventObj.source && _eventObj.source.isSubscription;
+
+        if (_canEdit) {
+            _dialog.find(".buttons").addClass("editable");
+        } else {
+            _dialog.find(".buttons").removeClass("editable");
+        }
+        if (_canDelete) {
+            _dialog.find(".buttons").addClass("erasable");
+        } else {
+            _dialog.find(".buttons").removeClass("erasable");
+        }
+        if (_canEdit || _canDelete) {
+            _dialog.find(".buttons").removeClass("readonly");
+        } else {
+            _dialog.find(".buttons").addClass("readonly");
+        }
+        if (_canUnsubscribe) {
+            _dialog.find(".buttons").addClass("shared");
+        } else {
+            _dialog.find(".buttons").removeClass("shared");
+        }
+
+        _doDDX.call(_this);
+
+        _dialog.find(".viewer .repeat-settings").remove();
+
+        if (mode == "edit") {
+            _dialog.find(".event-header span").text(_eventObj.objectId ? window.g_fcOptions.eventEditor.dialogHeader_editEvent : window.g_fcOptions.eventEditor.dialogHeader_createEvent);
+            _dialog.find(".event-editor").addClass("edit-popup");
+            _enableRepeatSettings.call(_this);
+        } else {
+            _dialog.find(".event-header span").text(window.g_fcOptions.eventEditor.dialogHeader_viewEvent);
+            _dialog.find(".event-editor").removeClass("edit-popup");
+            _disableRepeatSettings.call(_this);
+            _dialog.find(".editor .repeat-settings").clone().insertAfter(_dialog.find(".viewer .repeat-alert"));
+        }
+
+        jq("#asc_calendar").hide();
+        jq("#asc_event").show();
+
+        _dialog.find(".editor .title input").focus().select();
+    }
+
+
+    // repeat interval
+    function _setRepeatInterval(selectedItem, count) {
+        if (selectedItem <= count) {
+            var intervals = "";
+            for (var i = 1; i < count; i++) {
+                intervals += "<option" + ((selectedItem == i) ? " selected" : "") + " value='" + i + "'>" + i + "</option>";
+            }
+			
+            var html = $(intervals);
+            _settings.find(".fc-interval-selector").html(html);
+			
+            _settings.find(".fc-interval-selector").change(function() {
+                _settings.find(".to-date").val(_getEndDate.call(_this, dwm_current));
+            });
+        }
+    }
+	
+    // repeat days of week
+    function _setSelectedDays(indexArr) {
+        var daysSection = "";
+
+        var dayNamesInCurCulture;
+        var beforeFirstDay = [];
+        var afterFirstDay = [];
+
+        for (var i = 0; i < rs.dayNamesShort.length; i++) {
+            var item = { index: i, name: rs.dayNamesShort[i] };
+            if(i < g_fcOptions.firstDay){
+                beforeFirstDay.push(item);
+            } else {
+                afterFirstDay.push(item);
+            }
+        }
+        dayNamesInCurCulture = afterFirstDay.concat(beforeFirstDay);
+
+        for (var i = 0; i < dayNamesInCurCulture.length; i++) {
+            var isSelected = false;
+            for (var j = 0; j < indexArr.length; j++) {
+                if (dayNamesInCurCulture[i].index == indexArr[j]) {
+                    isSelected = true;
+                    break;
+                }
+            }
+			
+            daysSection += 	"<div class='checkbox-day'>" +
+								"<input class='repeat-day-" + dayNamesInCurCulture[i].index + "' type='checkbox' " + ((isSelected == true) ? "checked" : "") + ">" +
+								"<div>" + htmlEscape(dayNamesInCurCulture[i].name) + "</div>" +
+							"</div>";
+        }
+        daysSection += "<div class='clear'></div>";
+        var html = $(daysSection);
+        _settings.find(".fc-days-week").html(html);
+    }
+    
+    function _getSelectedDays() {
+        indexArr = new Array();
+        if (_settings.find(".fc-days-week.hidden").length == 0) {
+            for (var i = 0; i < rs.dayNamesShort.length; i++) {
+                var checkedClass = ".repeat-day-" + i;
+                var checkedItem = _settings.find(checkedClass).is(":checked");
+                if (checkedItem == true) {
+                    indexArr.push(i);
+                }
+            }
+        }
+        return indexArr;
+    }
+	
+    function _getRepeatDayByIndex(index) {
+        switch (index) {
+            case 0: return ASC.Api.iCal.DayOfWeek.Sunday;
+            case 1: return ASC.Api.iCal.DayOfWeek.Monday;
+            case 2: return ASC.Api.iCal.DayOfWeek.Tuesday;
+            case 3: return ASC.Api.iCal.DayOfWeek.Wednesday;
+            case 4: return ASC.Api.iCal.DayOfWeek.Thursday;
+            case 5: return ASC.Api.iCal.DayOfWeek.Friday;
+            case 6: return ASC.Api.iCal.DayOfWeek.Saturday;
+        }
+    }
+	
+    function _openSettings()
+    {
+        var fromD = _dialog.find(".editor .from-date");
+        _settings.find(".from-date").val(fromD.val());
+        _validateDateFieldsSettings.call(_this);
+		
+        var date = parseISO8601(fromD.val());
+        var endDate = undefined;
+		
+        var maxDayCount = 32 - new Date(date.getFullYear(), date.getMonth(), 32).getDate();
+        var dayOfWeek = date.getDay();
+        var dayOfMonth = date.getDate();
+		
+        var indexDay = Math.floor((dayOfMonth - 1) / 7);
+        var maxIndexDay = indexDay + Math.floor((maxDayCount - dayOfMonth) / 7);
+		
+        var dayName = calendar.options.repeatSettings.dayNames[dayOfWeek];
+        var dayAlias = "";
+		
+        switch (indexDay) {
+            case 0:
+            case 1:
+            case 2:
+            case 4: dayAlias = rs.dayAliasNames[indexDay]; break;
+            case 3: (indexDay != maxIndexDay) ? dayAlias = rs.dayAliasNames[indexDay] : dayAlias = rs.dayAliasNames[indexDay + 1]; break;
+        }
+		
+        var html = $("<div>" + 
+						"<div style='margin-bottom: 0.5em;'>" +
+						"<input class='only-day' type='radio' name='day-radio' value='" + dayOfMonth + "' />&nbsp;" + 
+							"<span class='only-day-label'>" + rs.dialogEachLabel + " " + dayOfMonth + " " + rs.dialogIntervalOption_day + "</span></div>" +
+					 	"<input class='each-day' type='radio' name='day-radio' value='" + dayName + "'/>&nbsp;" + 
+					 		"<span class='each-day-label'>" + rs.dialogAliasLabel + " " + dayAlias + " " + dayName + "</span>" +
+					 "</div>");
+					 
+        _settings.find(".fc-month-radio").html(html);
+        _settings.find(".only-day").attr({checked: "checked"});
+		
+        _settings.find(".only-day-label").click(function() {
+            _settings.find(".only-day").trigger("click");
+        });
+		
+        _settings.find(".each-day-label").click(function() {
+            _settings.find(".each-day").trigger("click");
+        });
+		
+        dayRuleObject = undefined;
+        _settings.find(".each-day").click(function () {
+            dayRuleObject = _getRepeatDayByIndex.call(_this, dayOfWeek);
+            var dayRuleIndex = 0;
+			
+            switch (indexDay) {
+                case 0:
+                case 1:
+                case 2: dayRuleIndex  = indexDay + 1; break;
+                case 3: dayRuleIndex  = -2; break;
+                case 4: dayRuleIndex  = -1; break;
+            }
+            if (indexDay == maxIndexDay) {
+                dayRuleIndex = -1;
+            }
+			
+            dayRuleObject.Order = dayRuleIndex;
+        });
+		
+        _settings.find(".only-day").click(function () {
+            dayRuleObject = undefined;
+        });
+		
+        _setRepeatInterval.call(this, repeatRule.Interval, 31);
+        _settings.find(".fc-cycle-times").val((repeatRule.Count > 0) ? repeatRule.Count : 3);
+		
+        var dayIndexArr = new Array();
+        for (var i = 0; i < repeatRule.ByDay.length; i++) {
+            dayIndexArr.push(rs.dayIndexResponse[repeatRule.ByDay[i].Id]);
+        }
+		
+        _setSelectedDays.call(this, dayIndexArr.length ? dayIndexArr : [dayOfWeek]);
+		
+        // set default view
+        if ((repeatRule.Freq == ASC.Api.iCal.Frequency.Never) || (repeatRule.Freq == ASC.Api.iCal.Frequency.Daily)) {
+            _showDaySections.call(_this);
+            dwm_current = dwm.day;
+            _settings.find(".fc-dwm-selector").find(".fc-selector-link").text(rs.dialogRepeatOn_days);
+            _settings.find(".fc-interval-label").text(rs.dialogIntervalOption_day);
+        }
+        else if (repeatRule.Freq == ASC.Api.iCal.Frequency.Weekly) {
+            _showWeekSections.call(_this);
+            dwm_current = dwm.week;
+            _settings.find(".fc-dwm-selector").find(".fc-selector-link").text(rs.dialogRepeatOn_weeks);
+            _settings.find(".fc-interval-label").text(rs.dialogIntervalOption_week);
+        }
+        else if (repeatRule.Freq == ASC.Api.iCal.Frequency.Monthly) {
+            _showMonthSections.call(_this);
+            dwm_current = dwm.month;
+            _settings.find(".fc-dwm-selector").find(".fc-selector-link").text(rs.dialogRepeatOn_months);
+            _settings.find(".fc-interval-label").text(rs.dialogIntervalOption_month);
+			
+            if ((repeatRule.ByDay.length == 1) && (repeatRule.ByDay[0].Order != 0)) {
+                _settings.find(".only-day").attr({checked: ""});
+                _settings.find(".each-day").attr({checked: "checked"}).click();
+            }
+            else {
+                _settings.find(".each-day").attr({checked: ""});
+                _settings.find(".only-day").attr({checked: "checked"});
+            }
+        } else if (repeatRule.Freq == ASC.Api.iCal.Frequency.Yearly) {
+            _showDaySections.call(_this);
+            dwm_current = dwm.year;
+            _settings.find(".fc-dwm-selector").find(".fc-selector-link").text(rs.dialogRepeatOn_years);
+            _settings.find(".fc-interval-label").text(rs.dialogIntervalOption_year);
+        }
+		
+        _settings.find(".to-date").val(repeatRule.Until ? calendar.formatDate(repeatRule.Until, rs.dateFormat) : 
+																	_getEndDate.call(_this, dwm_current));
+		
+        // end repeat
+        if (repeatRule.Until) {
+            _showEndSectionsDate.call(_this);
+            _settings.find(".fc-endrepeat-selector").find(".fc-selector-link").text(rs.dialogOptionDate);
+        }
+        else if (repeatRule.Count > 0) {
+            _showEndSectionsCycles.call(_this);
+            _settings.find(".fc-endrepeat-selector").find(".fc-selector-link").text(rs.dialogOptionCount);
+        }
+        else {
+            _showEndSectionsNever.call(_this);
+            _settings.find(".fc-endrepeat-selector").find(".fc-selector-link").text(rs.dialogOptionNever);
+        }
+    }
+	
+    function _openDelSettings()
+    {
+        _delSettings.popupFrame("close");
+
+        _delSettings.find("input[type=radio]:first").prop("checked", true);
+
+        uiBlocker.hide();
+		
+        _delSettings.popupFrame("open", { pageX: "center", pageY: "center" });
+        _delSettings.addClass("add-popup");
+        _delSettings.addClass("fc-shadow");
+        _delSettings.css("position","fixed");
+		
+        $(document).bind("keyup", _checkEscKeyDelSettings);
+
+        if (_delSettings.popupFrame("isVisible")) {
+            uiBlocker.show();
+        } else {
+            uiBlocker.hide();
+        }
+    }
+
+    function _close(changed, deleted) {
+        if (changed) {
+            if (!_canEdit || false == _doDDX.call(_this, true)) {return;}
+            _updateEvent.call(_this);
+            return;
+        }
+        if (_eventObj.source == undefined && _eventObj._id != undefined) {
+            calendar.removeEvents(_eventObj._id);
+        }
+		
+        if ((_eventObj.source != undefined) && !changed && !deleted)
+            _updateEvent.call(_this, true);
+
+        _closeDialog.call(_this);
+    }
+	
+    function _closeSettings(changed) {
+        if (changed && _canEdit) {
+            _prepareRepeatRule.call(_this);
+        }
+    }
+	
+    function _closeDelSettings(changed) {
+        if (changed) {
+            if (!_canEdit) {return;}
+            _closeDialogDelSettings.call(_this);
+            return;
+        }
+		
+        $(document).unbind("keyup", _checkEscKeyDelSettings);
+        
+        _closeDialogDelSettings.call(_this);
+    }
+
+    function _checkEscKeyDelSettings(ev) {
+        if (ev.which == 27) {
+            _closeDelSettings.call(_this, false);
+        }
+    }
+
+
+    function _getConfirmViewMode(checkDelete) {
+        
+        confirmSettings.notificationUsers.newGuests = [];
+        confirmSettings.notificationUsers.updatedGuests = [];
+        confirmSettings.notificationUsers.removedGuests = [];
+        confirmSettings.selectedViewMode = confirmSettings.viewMode.none;
+        confirmSettings.selectedNotificationMode = confirmSettings.notificationMode.nobody;
+
+        if(_eventObj.status == 2 || (_eventObj.source && _eventObj.source.isSubscription))
+            return confirmSettings.selectedViewMode;
+
+        var oldEvent = jq.extend({}, _eventObj);
+
+        if (!checkDelete) {
+            var validData = _doDDX.call(_this, true);
+            if (!validData)
+                return confirmSettings.selectedViewMode;
+        }
+
+        var isOrganizer = false;
+        var organizerEmail = _eventObj.organizer ? _eventObj.organizer[3].replace(new RegExp("mailto:", "ig"), "").toLowerCase() : "";
+
+        jq.each(ASC.Mail.Accounts, function(index, account) {
+            if (account.enabled && organizerEmail == account.email.toLowerCase()) {
+                isOrganizer = true;
+                return false;
+            }
+            return true;
+        });
+
+        if(!isOrganizer)
+            return confirmSettings.selectedViewMode;
+
+        if (checkDelete) {
+            var removedGuests = [];
+            jq.each(_eventObj.attendees || [], function(index, attendeeObj) {
+                var attendeeEmail = attendeeObj[3].replace(new RegExp("mailto:", "ig"), "");
+                if (attendeeEmail.toLowerCase() != organizerEmail)
+                    removedGuests.push(attendeeEmail);
+            });
+
+            if (removedGuests.length) {
+                confirmSettings.selectedViewMode = confirmSettings.viewMode.deleteEvent;
+                confirmSettings.notificationUsers.removedGuests = removedGuests;
+            }
+
+            return confirmSettings.selectedViewMode;
+        }
+
+        var oldAttendees = [];
+        jq.each(oldEvent.attendees || [], function(index, attendeeObj) {
+            var attendeeEmail = attendeeObj[3].replace(new RegExp("mailto:", "ig"), "");
+            if (attendeeEmail.toLowerCase() != organizerEmail)
+                oldAttendees.push(attendeeEmail);
+        });
+
+        var newAttendees = [];
+        jq.each(_eventObj.attendees || [], function(index, attendeeObj) {
+            var attendeeEmail = attendeeObj[3].replace(new RegExp("mailto:", "ig"), "");
+            if (attendeeEmail.toLowerCase() != organizerEmail)
+                newAttendees.push(attendeeEmail);
+        });
+
+        if (oldAttendees.length == 0 && newAttendees.length == 0)
+            return confirmSettings.selectedViewMode;
+
+        if (!oldEvent.objectId) {
+            if (newAttendees.length) {
+                confirmSettings.selectedViewMode = confirmSettings.viewMode.addEvent;
+                confirmSettings.notificationUsers.newGuests = newAttendees;
+            }
+
+            return confirmSettings.selectedViewMode;
+        }
+
+        var oldOrganizerEmail = oldEvent.organizer ? oldEvent.organizer[3].replace(new RegExp("mailto:", "ig"), "").toLowerCase() : "";
+        var organizerChanged = oldOrganizerEmail && oldOrganizerEmail != organizerEmail;
+
+        var oldStartData = oldEvent.start ? oldEvent.start.getTime() : null;
+        var newStartData = _eventObj.start ? _eventObj.start.getTime() : null;
+        var oldEndData = oldEvent.end ? oldEvent.end.getTime() : null;
+        var newEndData = _eventObj.end ? _eventObj.end.getTime() : null;
+
+        if (organizerChanged ||
+            oldEvent.title != _eventObj.title ||
+            oldEvent.location != _eventObj.location ||
+            oldEvent.description != _eventObj.description ||
+            oldStartData != newStartData ||
+            oldEndData != newEndData ||
+            oldEvent.allDay != _eventObj.allDay ||
+            oldEvent.sourceId != _eventObj.newSourceId ||
+            oldEvent.repeatRule.ToiCalString() != _eventObj.repeatRule.ToiCalString())
+            confirmSettings.selectedViewMode  = confirmSettings.viewMode.updateEvent;
+
+        jq.each(newAttendees, function (index, newAttendee) {
+            if (jq.inArray(newAttendee, oldAttendees) < 0)
+                confirmSettings.notificationUsers.newGuests.push(newAttendee);
+            else
+                confirmSettings.notificationUsers.updatedGuests.push(newAttendee);
+        });
+        
+        confirmSettings.notificationUsers.removedGuests = jq.grep(oldAttendees, function (oldAttendee) {
+            return jq.inArray(oldAttendee, newAttendees) < 0;
+        });
+
+        if (confirmSettings.notificationUsers.newGuests.length || confirmSettings.notificationUsers.removedGuests.length)
+            confirmSettings.selectedViewMode  = confirmSettings.viewMode.updateGuests;
+
+        return confirmSettings.selectedViewMode;
+    }
+
+    function _openConfirmPopup()
+    {
+        switch (confirmSettings.selectedViewMode) {
+            case confirmSettings.viewMode.addEvent:
+                _confirmPopup.find(".title").text(calendar.options.confirmPopup.dialogAddEventHeader);
+                _confirmPopup.find(".body").text(calendar.options.confirmPopup.dialogAddEventBody);
+                _confirmPopup.find(".send-btn").show();
+                _confirmPopup.find(".send-customs-btn, .send-everyone-btn").hide();
+                break;
+            case confirmSettings.viewMode.updateEvent:
+                _confirmPopup.find(".title").text(calendar.options.confirmPopup.dialogUpdateEventHeader);
+                _confirmPopup.find(".body").text(calendar.options.confirmPopup.dialogUpdateEventBody);
+                _confirmPopup.find(".send-btn").show();
+                _confirmPopup.find(".send-customs-btn, .send-everyone-btn").hide();
+                break;
+            case confirmSettings.viewMode.updateGuests:
+                _confirmPopup.find(".title").text(calendar.options.confirmPopup.dialogUpdateEventHeader);
+                _confirmPopup.find(".body").text(calendar.options.confirmPopup.dialogUpdateGuestsBody);
+                _confirmPopup.find(".send-btn").hide();
+                _confirmPopup.find(".send-customs-btn, .send-everyone-btn").show();
+                break;
+            case confirmSettings.viewMode.deleteEvent:
+                _confirmPopup.find(".title").text(calendar.options.confirmPopup.dialogDeleteEventHeader);
+                _confirmPopup.find(".body").text(calendar.options.confirmPopup.dialogDeleteEventBody);
+                _confirmPopup.find(".send-btn").show();
+                _confirmPopup.find(".send-customs-btn, .send-everyone-btn").hide();
+                break;
+            default:
+                break;
+        }
+
+        _delSettings.popupFrame("close");
+        $(document).unbind("keyup", _checkEscKeyDelSettings);
+        
+        _confirmPopup.popupFrame("close");
+        uiBlocker.hide();
+		
+        _confirmPopup.popupFrame("open", { pageX: "center", pageY: "center" });
+        _confirmPopup.css("position","fixed");
+
+        if (_confirmPopup.popupFrame("isVisible")) {
+            uiBlocker.show();
+        } else {
+            uiBlocker.hide();
+        }
+    }
+
+    function _closeConfirmPopup() {
+        _confirmPopup.popupFrame("close");
+        uiBlocker.hide();
+    }
+
+    function _sendGuestsNotification(mode) {
+        confirmSettings.selectedNotificationMode = mode;
+        if (confirmSettings.selectedViewMode == confirmSettings.viewMode.deleteEvent) {
+            _deleteEvent.call(_this, confirmSettings.selectedDeleteMode, _eventObj._start);
+            _close.call(_this, false, true);
+        } else {
+            _close.call(_this, true);
+        }
+        _closeConfirmPopup.call(_this);
+    }
+
+    function _sendNotification(sourceId, uniqueId, type, callback) {
+        var attendeesEmails = [];
+        var method = null;
+
+        switch (type) {
+        case confirmSettings.notificationType.request:
+            switch (confirmSettings.selectedNotificationMode) {
+            case confirmSettings.notificationMode.everybody:
+            case confirmSettings.notificationMode.partially:
+                attendeesEmails = confirmSettings.notificationUsers.newGuests;
+                method = ASC.Mail.Utility.SendCalendarRequest;
+                break;
+            default:
+                break;
+            }
+            break;
+        case confirmSettings.notificationType.update:
+            switch (confirmSettings.selectedNotificationMode) {
+            case confirmSettings.notificationMode.everybody:
+                attendeesEmails = confirmSettings.notificationUsers.updatedGuests;
+                method = ASC.Mail.Utility.SendCalendarUpdate;
+                break;
+            default:
+                break;
+            }
+            break;
+        case confirmSettings.notificationType.cancel:
+            switch (confirmSettings.selectedNotificationMode) {
+            case confirmSettings.notificationMode.everybody:
+            case confirmSettings.notificationMode.partially:
+                attendeesEmails = confirmSettings.notificationUsers.removedGuests;
+                method = ASC.Mail.Utility.SendCalendarCancel;
+                break;
+            default:
+                break;
+            }
+            break;
+        default:
+            break;
+        }
+
+        if (attendeesEmails.length && method) {
+            ASC.CalendarController.Busy = true;
+            window.LoadingBanner.displayLoading(true);
+            
+            method.call(this, sourceId, uniqueId, attendeesEmails)
+                .done(function() {
+                    //toastr.success(calendar.options.confirmPopup.dialogSuccessToastText);
+                    console.log(calendar.options.confirmPopup.dialogSuccessToastText, arguments);
+                    if (callback)
+                        callback();
+                })
+                .fail(function() {
+                    toastr.error(calendar.options.confirmPopup.dialogErrorToastText);
+                    console.error(calendar.options.confirmPopup.dialogErrorToastText, arguments);
+                })
+                .always(function () {
+                    ASC.CalendarController.Busy = false;
+                    window.LoadingBanner.hideLoading();
+                });
+        } else {
+            if(callback)
+                callback();
+        }
+    }
+
+    function _sendReply(calendarId, eventUid) {
+        if (!replyDecisionSettings.sendReply || !replyDecisionSettings.email || !replyDecisionSettings.decision)
+            return;
+
+        ASC.CalendarController.Busy = true;
+        window.LoadingBanner.displayLoading(true);
+        
+        ASC.Mail.Utility.SendCalendarReply(calendarId, eventUid, replyDecisionSettings.email, replyDecisionSettings.decision)
+            .done(function () {
+                console.log(calendar.options.confirmPopup.dialogSuccessToastText, arguments);
+            })
+            .fail(function () {
+                toastr.error(calendar.options.confirmPopup.dialogErrorToastText);
+                console.error(calendar.options.confirmPopup.dialogErrorToastText, arguments);
+            })
+            .always(function () {
+                ASC.CalendarController.Busy = false;
+                window.LoadingBanner.hideLoading();
+            });
+    }
+
+
+    function _closeDialog() {
+        window.toastr.remove();
+        jq("#asc_event").hide();
+        jq("#asc_calendar").show();
+        calendar.updateSize();
+        uiBlocker.hide();
+    }
+    
+    function _disableDialogBtns(disable) {
+        if (disable){
+            _dialog.find(".buttons .save-btn").addClass("disable");
+        } else {
+            _dialog.find(".buttons .save-btn").removeClass("disable");
+        }
+    }
+	
+    function _closeDialogDelSettings() {
+        _delSettings.popupFrame("close");
+        uiBlocker.hide();
+    }
+
+    function _parseDateTime(inputD, inputT, result) {
+        var dateStr = inputD.val();
+        var timeStr = inputT.val();
+        var dateStrIsEmpty = dateStr.search(/\S/) < 0;
+        var timeStrIsEmpty = timeStr.search(/\S/) < 0;
+        var date, time, r;
+        if (!dateStrIsEmpty || !timeStrIsEmpty) {
+            date = fcUtil.validateDateString(dateStr);
+            time = fcUtil.validateTimeString(timeStr);
+            r = (date === null || !timeStrIsEmpty && time === null) ? 0 : 1;
+        } else {
+            r = -1;
+            date = null;
+            time = null;
+        }
+        result.date = {isEmpty: dateStrIsEmpty, isValid: date !== null, value: date};
+        result.time = {isEmpty: timeStrIsEmpty, isValid: time !== null, value: time};
+        return r;
+    }
+
+    function _validateDateFields(result) {
+        var allday = _dialog.find(".editor .all-day input").is(":checked");
+        var dlg = {
+            from:      _dialog.find(".editor .from-date"),
+            from_t:    _dialog.find(".editor .from-time"),
+            to:        _dialog.find(".editor .to-date"),
+            to_t:      _dialog.find(".editor .to-time")
+        };
+        var frDate = {}, fr = _parseDateTime(dlg.from, dlg.from_t, frDate);
+        var toDate = {}, to = _parseDateTime(dlg.to, dlg.to_t, toDate);
+        frDate.dateTime = fr == 1 ? parseDate(frDate.date.value + "T" + frDate.time.value) : null;
+        toDate.dateTime = to == 1 ? parseDate(toDate.date.value + "T" + toDate.time.value) : null;
+
+        var frc, frtc, toc, totc, r, delta;
+        if (!allday && fr == 1 && to == 1 && (delta = toDate.dateTime - frDate.dateTime > 0) ||
+			allday && fr == 1 && to == -1 ||
+			allday && fr == 1 && to == 1 && (delta = toDate.dateTime - frDate.dateTime >= 0)) {
+            r = true;
+            frc = frtc = toc = totc = "";
+        } else {
+            r = false;
+            frc  = frDate.date.isValid ? "" : "#cc3300";
+            frtc = frDate.time.isValid ? "" : "#cc3300";
+            toc  = toDate.date.isValid && delta ? "" : "#cc3300";
+            totc = toDate.time.isValid && delta ? "" : "#cc3300";
+        }
+        dlg.from.css("color", "").css("border-color", frc);
+        dlg.from_t.css("color", "").css("border-color", frtc);
+        dlg.to.css("color", "").css("border-color", toc);
+        dlg.to_t.css("color", "").css("border-color", totc);
+        if (result != undefined) {
+            result.fromDate = frDate;
+            result.toDate   = toDate;
+        }
+		
+        return r;
+    }
+	
+    function _validateDateFieldsSettings(result) {
+		
+        var r = true;
+        var allday = _dialog.find(".editor .all-day input").is(":checked");
+        var dlg = {
+            from:              _settings.find(".from-date"),
+            from_t:            _settings.find(".from-time"),
+            to:                _settings.find(".to-date"),
+            to_t:              _settings.find(".to-time"),
+            cycles:            _settings.find(".fc-cycle-times")
+        };
+		
+        if (!_settings.find(".fc-end-date").hasClass("hidden")) {
+			
+            var frDate = {}, fr = _parseDateTime(dlg.from, dlg.from_t, frDate);
+            var toDate = {}, to = _parseDateTime(dlg.to, dlg.to_t, toDate);
+            frDate.dateTime = fr == 1 ? parseDate(frDate.date.value + "T" + frDate.time.value) : null;
+            toDate.dateTime = to == 1 ? parseDate(toDate.date.value + "T" + toDate.time.value) : null;
+	
+            var frc, frtc, toc, totc, delta;
+            if (!allday && fr == 1 && to == 1 && (delta = toDate.dateTime - frDate.dateTime > 0) ||
+			    allday && fr == 1 && to == -1 ||
+			    allday && fr == 1 && to == 1 && (delta = toDate.dateTime - frDate.dateTime >= 0)) {
+                r = true;
+                frc = frtc = toc = totc = "";
+            } else {
+                r = false;
+                frc  = frDate.date.isValid ? "" : "#cc3300";
+                frtc = frDate.time.isValid ? "" : "#cc3300";
+                toc  = toDate.date.isValid && delta ? "" : "#cc3300";
+                totc = toDate.time.isValid && delta ? "" : "#cc3300";
+            }
+            dlg.from.css("color", "").css("border-color", frc);
+            dlg.from_t.css("color", "").css("border-color", frtc);
+            dlg.to.css("color", "").css("border-color", toc);
+            dlg.to_t.css("color", "").css("border-color", totc);
+            if (result != undefined) {
+                result.fromDate = frDate;
+                result.toDate   = toDate;
+            }
+        }
+		
+        if (!_settings.find(".fc-repeat-cycles").hasClass("hidden")) {
+            var cb = "";
+            r = true;
+            var isNum = dlg.cycles.val().match('^[0-9]+$');
+            if ( (dlg.cycles.find(".hidden").length == 0) && !isNum ) { 
+                r = false;
+                cb  = !r || (r && (dlg.cycles.val() < 0)) ? "#cc3300" : "";
+            }
+            dlg.cycles.css("color", "").css("border-color", cb);
+        }
+		
+        return r;
+    }
+
+    function _handleAllDayClick() {
+        var allday = _dialog.find(".editor .all-day input").is(":checked");
+        var dlg = {
+            from:  _dialog.find(".editor .from-date"),
+            from_t:  _dialog.find(".editor .from-time"),
+            to:      _dialog.find(".editor .to-date"),
+            to_t:    _dialog.find(".editor .to-time")
+        };
+        if (allday) {
+            //dlg.to.val("");
+            dlg.from_t.val("").attr("disabled", "disabled");
+            dlg.to_t.val("").attr("disabled", "disabled");
+        } else {
+            var defaultEndDate = new Date(_eventObj.start.getFullYear(), _eventObj.start.getMonth(), _eventObj.start.getDate(), _eventObj.start.getHours() + 1, _eventObj.start.getMinutes())
+			
+            if(!dlg.from.val())
+                dlg.from.val(formatDate(_eventObj.start, calendar.options.eventEditor.dateFormat));
+            
+            dlg.from_t
+					.val(formatDate(_eventObj.start, calendar.options.eventEditor.timeFormat))
+					.removeAttr("disabled");
+            dlg.to_t
+					.val(_eventObj.end instanceof Date ?
+							formatDate(_eventObj.end, calendar.options.eventEditor.timeFormat) : formatDate(defaultEndDate, calendar.options.eventEditor.timeFormat))
+					.removeAttr("disabled");
+            
+            if(!dlg.to.val())
+                dlg.to.val(_eventObj.end instanceof Date ?
+					formatDate(_eventObj.end, calendar.options.eventEditor.dateFormat) : formatDate(defaultEndDate, calendar.options.eventEditor.dateFormat));
+        }
+        _validateDateFields();
+    }
+
+    function _prepareRepeatRule() {
+        if (repeatRule) {
+            repeatRule = undefined;
+        }
+		
+        // get all values		
+        var dlg = {
+            from:        _settings.find(".from-date"),
+            to:          _settings.find(".to-date"),
+            interval:    _settings.find(".fc-interval-selector"),
+            cycles:      _settings.find(".fc-cycle-times")
+        };
+		
+        repeatRule = ASC.Api.iCal.RecurrenceRule.EveryDay;
+        switch (dwm_current) {
+            case dwm.day: repeatRule = ASC.Api.iCal.ParseRRuleFromString("FREQ=DAILY"); break;
+            case dwm.week: repeatRule = ASC.Api.iCal.ParseRRuleFromString("FREQ=WEEKLY"); break;
+            case dwm.month: repeatRule = ASC.Api.iCal.ParseRRuleFromString("FREQ=MONTHLY"); break;
+            case dwm.year: repeatRule = ASC.Api.iCal.ParseRRuleFromString("FREQ=YEARLY"); break;
+        }
+		
+        repeatRule.Interval = dlg.interval.find("option:selected").text();
+        repeatRule.Count = _settings.find(".fc-repeat-cycles.hidden").length ? repeatRule.Count : dlg.cycles.val();
+		
+        var dayIndexArr = _getSelectedDays.call(_this);
+        for (var i = 0; i < dayIndexArr.length; i++) {
+            repeatRule.ByDay.push(_getRepeatDayByIndex.call(this, dayIndexArr[i]));
+        }
+		
+        if ((_settings.find(".fc-month-radio.hidden").length == 0) && (dayRuleObject != undefined)) {
+            repeatRule.ByDay.push(dayRuleObject);
+        }
+		
+        if (_settings.find(".fc-end-date.hidden").length == 0) {
+            var dates = {};
+            if (!_validateDateFieldsSettings(dates)) {return false;}
+            repeatRule.Until = dates.toDate.dateTime;
+        }
+		
+        return (repeatRule != undefined);
+    }
+
+    function _doDDX(saveData) {
+        var sources = calendar.getEventSources();
+        var sourceIsValid = fcUtil.objectIsValid(_eventObj.source);
+        var canChangeAlert = sourceIsValid && (
+				_eventObj.source.canAlertModify != undefined && _eventObj.source.canAlertModify ||
+				_eventObj.source.canAlertModify == undefined) ||
+				!sourceIsValid;
+
+        var dlg = {
+            viewer: {
+                title:       _dialog.find(".viewer .title .text"),
+                location:    _dialog.find(".viewer .location .text"),
+                attendees:   _dialog.find(".viewer .attendees-user-list"),
+                owner:       _dialog.find(".viewer .owner .name"),
+                allday:      _dialog.find(".viewer .all-day"),
+                from:        _dialog.find(".viewer .from-date"),
+                from_t:      _dialog.find(".viewer .from-time"),
+                to:          _dialog.find(".viewer .to-date"),
+                to_t:        _dialog.find(".viewer .to-time"),
+                repeat:      _dialog.find(".viewer .repeat"),
+                alert:       _dialog.find(".viewer .alert"),
+                calendar:    _dialog.find(".viewer .calendar .name"),
+                calendar_b:  _dialog.find(".viewer .calendar .bullet"),
+                users:       _dialog.find(".viewer .shared-user-list"),
+                description: _dialog.find(".viewer .description .text")
+            },
+            editor: {
+                replybuttons:_dialog.find(".reply-buttons"),
+                title:       _dialog.find(".editor .title input"),
+                location:    _dialog.find(".editor .location input"),
+                owner:       _dialog.find(".editor .owner .name"),
+                ownerSelector: _dialog.find(".editor .owner select"),
+                attendees:   _dialog.find(".editor .attendees input"),
+                attendeesInputBtn:   _dialog.find(".editor .attendees .btn-container .button"),
+                attendeesInputContainer:   _dialog.find(".editor .attendees .input-container"),
+                attendeesList:_dialog.find(".editor .attendees .attendees-user-list"),
+                attendeesNoAccount:_dialog.find(".editor .attendees .attendees-noaccount"),
+                attendeesHelpSwitcher: _dialog.find("#attendeesHelpSwitcher"),
+                allday:      _dialog.find(".editor .all-day input"),
+                from:        _dialog.find(".editor .from-date"),
+                from_t:      _dialog.find(".editor .from-time"),
+                to:          _dialog.find(".editor .to-date"),
+                to_t:        _dialog.find(".editor .to-time"),
+                repeat:      _dialog.find(".editor .fc-view-repeat .fc-selector-link"),
+                alert:       _dialog.find(".editor .fc-view-alert .fc-selector-link"),
+                calendar:    _dialog.find(".editor .calendar select"),
+                calendar_b:  _dialog.find(".editor .calendar .bullet"),
+                users:       _dialog.find(".editor .addUserLink"),
+                usersList:   _dialog.find(".editor .shared-user-list"),
+                description: _dialog.find(".editor .description textarea")
+            },
+            infoText:    _dialog.find(".info-text")
+        };
+
+        if (saveData) {
+            return _doDDXSaveData.call(_this, dlg, sources, sourceIsValid, canChangeAlert);
+        } else { 
+            return _doDDXLoadData.call(_this, dlg, sources, sourceIsValid, canChangeAlert);
+        }
+        
+    }
+
+    function _doDDXSaveData(dlg, sources, sourceIsValid, canChangeAlert) {
+
+        if (!_canEdit) {return false;}
+
+        if (false == fcUtil.validateInput(dlg.editor.title, fcUtil.validateNonemptyString)) {return false;}
+            
+        _eventObj.title = $.trim(dlg.editor.title.val());
+        _eventObj.title = _eventObj.title.substr(0, Math.min(calendar.options.eventMaxTitleLength, _eventObj.title.length));
+        _eventObj.location = $.trim(dlg.editor.location.val());
+        _eventObj.description = $.trim(dlg.editor.description.val());
+        _eventObj.allDay = dlg.editor.allday.is(":checked");
+
+        var dates = {};
+            
+        if (!_validateDateFields(dates)) {return false;}
+            
+        _eventObj.start = dates.fromDate.dateTime;
+        _eventObj.end   = dates.toDate.dateTime;
+
+        if (canChangeAlert) {
+            _eventObj.repeatRule = repeatRule;
+            _eventObj.alert.type = alertType;
+        }
+
+        _eventObj.newSourceId = dlg.editor.calendar.val();
+        
+        if (!_eventObj.sourceId && _getDefaultSource(_eventObj.newSourceId).isSubscription) {
+            _eventObj.attendees = [];
+        } else {
+            dlg.editor.attendeesInputBtn.click(); //add guests for users who are too lazy to click on the button
+            _eventObj.attendees =  dlg.editor.attendees.AttendeesSelector("get");
+        }
+        
+        var replyDecision = null;
+        var replyEmail = null;
+        var selectedReplyDecision = dlg.editor.replybuttons.find(".reply-radio:checked").attr("data-value");
+        
+        jq(_eventObj.attendees).each(function(i, attendee) {
+
+            var attendeeEmail = attendee[3].replace(new RegExp("mailto:", "ig"), "");
+            var attendeePartstat = attendee[1].partstat.toUpperCase();
+            var nextStep = true;
+
+            jq(ASC.Mail.Accounts).each(function(j, account) {
+                if (account.enabled && attendeeEmail.toLowerCase() == account.email.toLowerCase()) {
+                    nextStep = false;
+                    if (selectedReplyDecision && selectedReplyDecision != attendeePartstat) {
+                        replyEmail = account.email;
+                        replyDecision = selectedReplyDecision;
+                    }
+                    return nextStep;
+                }
+                return nextStep;
+            });
+
+            return nextStep;
+        });
+
+        if (replyDecisionSettings.sendReply && replyEmail && replyDecision) {
+            replyDecisionSettings.email = replyEmail;
+            replyDecisionSettings.decision = replyDecision;
+        } else {
+            replyDecisionSettings.email = null;
+            replyDecisionSettings.decision = null;
+            replyDecisionSettings.sendReply = false;
+        }
+
+        _eventObj.permissions = dlg.editor.users.ShareUsersSelector("get");
+
+        var organizerObj = new ICAL.Property("organizer");
+        var selectedAccountObj = dlg.editor.ownerSelector.find("option:selected");
+        var selectedAccount = selectedAccountObj.length ? { email: selectedAccountObj.attr("value"), name: Encoder.htmlDecode(selectedAccountObj.attr("data-name")) } : ASC.Mail.DefaultAccount;
+
+        if (!_eventObj.sourceId) {
+            if (selectedAccount) {
+                organizerObj.setParameter("cn", selectedAccount.name);
+                organizerObj.setValue("mailto:" + selectedAccount.email);
+                _eventObj.organizer = organizerObj.jCal;
+            }
+        } else {
+            var isOrganizer = false;
+            if (_eventObj.organizer && _eventObj.organizer[3]) {
+                var organizerEmail = _eventObj.organizer[3].replace(new RegExp("mailto:", "ig"), "").toLowerCase();
+                jq(ASC.Mail.Accounts).each(function(index, account) {
+                    if (organizerEmail == account.email.toLowerCase()) {
+                        isOrganizer = true;
+                        return false;
+                    }
+                    return true;
+                });
+            }
+            if (isOrganizer && selectedAccount) {
+                organizerObj.setParameter("cn", selectedAccount.name);
+                organizerObj.setValue("mailto:" + selectedAccount.email);
+                _eventObj.organizer = organizerObj.jCal;
+            }
+        }
+
+        var src;
+            
+        $.each(sources, function() {
+            if (this.objectId == _eventObj.newSourceId) {
+                src = this;
+                return false;
+            }
+            return true;
+        });
+            
+        if (src) {
+            _eventObj.newTimeZone = $.extend({}, src.timeZone);
+        }
+
+        delete _eventObj.textColor;
+        delete _eventObj.backgroundColor;
+        delete _eventObj.borderColor;
+            
+        calendar.normalizeEvent(_eventObj);
+
+        return true;
+    }
+
+    function _doDDXLoadData(dlg, sources, sourceIsValid, canChangeAlert) {
+
+        dlg.editor.title.css("color", "").css("border-color", "");
+        dlg.editor.title.val(_eventObj.title || "");
+        dlg.viewer.title.text(_eventObj.title || "");
+
+        if (_eventObj.status == 2) {
+            dlg.infoText.show();
+        } else {
+            dlg.infoText.hide();
+        }
+
+        dlg.editor.location.val(_eventObj.location || "");
+        dlg.viewer.location.text(_eventObj.location || "");
+
+        if (!_eventObj.location) {
+            dlg.viewer.location.parent().hide();
+        } else {
+            dlg.viewer.location.parent().show();
+        }
+
+        var organizerName = _eventObj.organizer && _eventObj.organizer.length > 1 ? _eventObj.organizer[1].cn : "";
+        organizerName = organizerName ? organizerName : _eventObj.owner ? _eventObj.owner.name : "";
+            
+        if (organizerName) {
+            dlg.editor.owner.html(htmlEscape(organizerName));
+            dlg.viewer.owner.html(htmlEscape(organizerName));
+            _dialog.find(".owner").show();
+        } else {
+            dlg.editor.owner.html("");
+            dlg.viewer.owner.html("");
+            _dialog.find(".owner").hide();
+        }
+
+        var isNewEvent = !_eventObj.sourceId;
+        var hasAccounts = ASC.Mail.Accounts.length > 0;
+        
+        var isOrganizer = false;
+        var canEditOrganizer = false;
+        var canEditAttendees = false;
+        var showNoAccountsLink = false;
+
+        if (isNewEvent) {
+            isOrganizer = true;
+            if (hasAccounts) {
+                canEditOrganizer = true;
+                canEditAttendees = true;
+                dlg.editor.ownerSelector.val(ASC.Mail.DefaultAccount.email).change();
+            } else {
+                showNoAccountsLink = true;
+            }
+        } else {
+            if (_eventObj.organizer && _eventObj.organizer[3]) {
+                var organizerEmail = _eventObj.organizer[3].replace(new RegExp("mailto:", "ig"), "").toLowerCase();
+                jq(ASC.Mail.Accounts).each(function(index, account) {
+                    if (organizerEmail == account.email.toLowerCase()) {
+                        isOrganizer = true;
+                        dlg.editor.ownerSelector.val(account.email).change();
+                        return false;
+                    }
+                    return true;
+                });
+            }
+            
+            if (hasAccounts) {
+                canEditOrganizer = isOrganizer;
+                canEditAttendees = isOrganizer;
+            } else {
+                showNoAccountsLink = isOrganizer;
+            }
+        }
+
+        if (canEditOrganizer) {
+            dlg.editor.ownerSelector.parents(".selector").show();
+            dlg.editor.owner.hide();
+        } else {
+            dlg.editor.ownerSelector.parents(".selector").hide();
+            dlg.editor.owner.show();
+        }
+
+        var attendees = _eventObj.attendees || [];
+
+        if (_canEdit && attendees.length) {
+            var text;
+
+            if (_eventObj.source.isSubscription)
+                text = calendar.options.confirmPopup.editorInfoTextSubscription;
+            else if(!isOrganizer)
+                text = calendar.options.confirmPopup.editorInfoText;
+            
+            if(text)
+                window.toastr.warning(text, "", { "closeButton": false, "timeOut": "0", "extendedTimeOut": "0" });
+        }
+
+        if (ASC.Mail.Enabled && showNoAccountsLink) {
+            dlg.editor.attendeesNoAccount.removeClass("display-none");
+        } else {
+            dlg.editor.attendeesNoAccount.addClass("display-none");
+        }
+
+        if (canEditAttendees) {
+            dlg.editor.attendeesHelpSwitcher.show();
+        } else {
+            dlg.editor.attendeesHelpSwitcher.hide();
+        }
+
+        dlg.editor.attendees.AttendeesSelector("set", attendees, canEditAttendees);
+        
+        if (_eventObj.attendees && _eventObj.attendees.length) {
+                
+            dlg.viewer.attendees.empty().parent().show();
+            
+            var replyDecision = null;
+
+            jq.each(_eventObj.attendees, function (index, item) {
+                
+                var attendeeEmail = item[3].replace(new RegExp("mailto:", "ig"), "");
+                var attendeePartstat = item[1].partstat.toUpperCase();
+                var attendeeRole = item[1].role;
+                var attendeeCommonName = item[1].cn;
+			    
+                var attendeeData = { canEdit: false, status: attendeePartstat, email: attendeeEmail, name: attendeeCommonName || "", role: attendeeRole };
+                jq("#attendeeTemplate").tmpl(attendeeData).appendTo(dlg.viewer.attendees);
+
+                if (!replyDecision) {
+                    jq(ASC.Mail.Accounts).each(function(j, account) {
+                        if (attendeeEmail.toLowerCase() == account.email.toLowerCase()) {
+                            replyDecision = attendeePartstat.toLowerCase();
+                            return false;
+                        }
+                        return true;
+                    });
+                }
+                
+            });
+
+            if(dlg.editor.attendeesList.hasClass("scrollable"))
+                dlg.viewer.attendees.addClass("scrollable");
+            else
+                dlg.viewer.attendees.removeClass("scrollable");
+
+            dlg.editor.replybuttons.hide().find(".reply-radio").removeAttr("checked");
+            
+            if (_canEdit && replyDecision && _eventObj.status != 2 && !_eventObj.source.isSubscription) {
+                dlg.editor.replybuttons.find(".reply-radio." + replyDecision).prop("checked", true);
+                dlg.editor.replybuttons.show();
+                replyDecisionSettings.sendReply = true;
+            }
+
+        } else {
+            dlg.viewer.attendees.empty().parent().hide();
+            dlg.editor.replybuttons.hide().find(".reply-radio").removeAttr("checked");
+            replyDecisionSettings.sendReply = false;
+        }
+
+        dlg.editor.users.ShareUsersSelector("set", _eventObj.permissions, true);
+            
+        if (_eventObj.permissions && _eventObj.permissions.users && _eventObj.permissions.users.length) {
+            var data = jq.extend(true, {}, _eventObj.permissions.data);
+
+            jq(data.items).each(function(index, item) {
+                item.canEdit = false;
+            });
+
+            dlg.viewer.users.empty().parent().show();
+            jq("#sharingUserTemplate").tmpl(data).appendTo(dlg.viewer.users);
+
+            if(dlg.editor.usersList.hasClass("scrollable"))
+                dlg.viewer.users.addClass("scrollable");
+            else
+                dlg.viewer.users.removeClass("scrollable");
+
+        } else {
+            dlg.viewer.users.empty().parent().hide();
+        }
+
+        if (_eventObj.allDay == true) {
+            dlg.editor.allday.prop("checked", true);
+            dlg.viewer.allday.addClass("yes");
+        } else {
+            dlg.editor.allday.removeAttr("checked");
+            dlg.viewer.allday.removeClass("yes");
+        }
+
+        dlg.editor.from.css("color", "").css("border-color", "");
+        dlg.editor.from_t.css("color", "").css("border-color", "");
+            
+        if (_eventObj.start instanceof Date) {
+            dlg.editor.from.val(formatDate(_eventObj.start, calendar.options.eventEditor.dateFormat));
+            dlg.editor.from_t.val(_eventObj.allDay ? "" : formatDate(_eventObj.start, calendar.options.eventEditor.timeFormat));
+        } else {
+            dlg.editor.from.val("");
+            dlg.editor.from_t.val("");
+        }
+            
+        dlg.viewer.from.text(dlg.editor.from.val());
+        dlg.viewer.from_t.text(dlg.editor.from_t.val());
+
+        dlg.editor.to.css("color", "").css("border-color", "");
+        dlg.editor.to_t.css("color", "").css("border-color", "");
+            
+        if (_eventObj.end instanceof Date) {
+            dlg.editor.to.val(formatDate(_eventObj.end, calendar.options.eventEditor.dateFormat));
+            dlg.editor.to_t.val(_eventObj.allDay ? "" : formatDate(_eventObj.end, calendar.options.eventEditor.timeFormat));
+        } else {
+            dlg.editor.to.val("");
+            dlg.editor.to_t.val("");
+        }
+            
+        dlg.viewer.to.text(dlg.editor.to.val());
+        dlg.viewer.to_t.text(dlg.editor.to_t.val());
+			
+
+        if (_eventObj.start instanceof Date) {
+            dlg.viewer.from_t.text(_eventObj.allDay ? "" : formatDate(_eventObj.start, calendar.options.axisFormat));
+        } else {
+            dlg.viewer.from_t.text("");
+        }
+			
+        if (_eventObj.end instanceof Date) {
+            dlg.viewer.to_t.text(_eventObj.allDay ? "" : formatDate(_eventObj.end, calendar.options.axisFormat));
+        } else {
+            dlg.viewer.to_t.text("");
+        }
+
+        if (!dlg.viewer.to.text())
+            dlg.viewer.to.parent(".wrapper").hide();
+        else
+            dlg.viewer.to.parent(".wrapper").show();
+
+        var defaultSource = _getDefaultSource(isNewEvent ? _eventObj.newSourceId : null);
+        var calSource = sourceIsValid ? _eventObj.source : defaultSource;
+
+        if (isOrganizer && calSource.isSubscription) {
+            _dialog.find(".editor .attendees").hide();
+        } else {
+            if (!dlg.editor.attendeesInputContainer.hasClass("display-none") ||
+                !dlg.editor.attendeesList.hasClass("display-none") ||
+                !dlg.editor.attendeesNoAccount.hasClass("display-none")) {
+                _dialog.find(".editor .attendees").show();
+            } else {
+                _dialog.find(".editor .attendees").hide();
+            }
+        }
+
+        dlg.editor.repeat.text(function() {
+            if (!_eventObj.repeatRule.Equals(ASC.Api.iCal.RecurrenceRule.Never) && 
+				!_eventObj.repeatRule.Equals(ASC.Api.iCal.RecurrenceRule.EveryDay) &&
+				!_eventObj.repeatRule.Equals(ASC.Api.iCal.RecurrenceRule.EveryWeek) &&
+				!_eventObj.repeatRule.Equals(ASC.Api.iCal.RecurrenceRule.EveryMonth) &&
+				!_eventObj.repeatRule.Equals(ASC.Api.iCal.RecurrenceRule.EveryYear)) {
+                _openSettings.call(_this);
+                _settings.removeClass("hidden");
+            }
+				
+            return _getRepeatLabel.call(_this, _eventObj.repeatRule);
+        });
+            
+        dlg.editor.alert.text(sourceIsValid ? _getAlertLabel.call(_this, _eventObj.alert.type) : _getAlertLabel.call(_this, kAlertDefault));
+
+        if (canChangeAlert) {
+            _dialog.find(".repeat-alert").show();
+        } else {
+            dlg.editor.repeat.text(ASC.Api.iCal.RecurrenceRule.Never);
+            dlg.editor.alert.text(kAlertNever);
+            _dialog.find(".repeat-alert").hide();
+        }
+            
+        dlg.viewer.repeat.text(dlg.editor.repeat.text());
+        dlg.viewer.alert.text(dlg.editor.alert.text());
+
+        var options = '';
+        var calT;
+        var calVal;
+        var calColor;
+        if (_canChangeSource) {
+            for (var i = 0; i < sources.length; ++i) {
+                if(!isNewEvent && sources[i].isSubscription)
+                    continue;
+                
+                if ((sources[i].objectId != undefined) && (sources[i].isEditable || !sources[i].isSubscription)) {
+                    calT = htmlEscape(sources[i].title);
+                    options += '<option value="' + htmlEscape(sources[i].objectId) + '" ' +
+							'title="' + calT + '">' +
+							'&nbsp;&nbsp;&nbsp;&nbsp;' +  // for select elem padding does not work in safari
+							calT + '</option>';
+                }
+            }
+            calVal = calSource.objectId;
+            calColor = calSource.backgroundColor;
+            dlg.editor.calendar.removeAttr("disabled");
+        } else {
+            calVal = sourceIsValid ?
+					_eventObj.source.objectId : -1;
+            calColor = sourceIsValid ?
+					_eventObj.source.backgroundColor : calendar.options.eventBackgroundColor;
+            calT = htmlEscape(sourceIsValid ? _eventObj.source.title : "");
+            options = '<option value="' + htmlEscape(calVal) + '" title="' + calT + '">' +
+					'&nbsp;&nbsp;&nbsp;&nbsp;' +      // for select elem padding does not work in safari
+					calT + '</option>';
+            dlg.editor.calendar.attr("disabled", "disabled");
+        }
+
+        dlg.editor.calendar.html(options);
+        dlg.editor.calendar.val(calVal);
+        dlg.viewer.calendar.text(sourceIsValid ?_eventObj.source.title : dlg.editor.calendar.find("option:selected").text());
+
+        calColor = htmlEscape(calColor);
+        dlg.editor.calendar_b.css("color", calColor);
+        dlg.viewer.calendar_b.css("color", calColor);
+
+        dlg.editor.description.val(_eventObj.description || "");
+        dlg.viewer.description.text(_eventObj.description || "");
+
+        if (_eventObj.sourceId == "users_birthdays" || !_eventObj.description) {
+            dlg.viewer.description.parent().hide();
+        } else {
+            dlg.viewer.description.parent().show();
+        }
+
+        _handleAllDayClick.call(_this);
+       
+        return true;
+    }
+
+
+
+    function _getDefaultSource(objectId) {
+        var sources = calendar.getEventSources();
+        var validSources = [];
+
+        for (var i = 0; i < sources.length; ++i) {
+            if (fcUtil.objectIsValid(sources[i]) && (fcUtil.objectIsEditable(sources[i]) || !sources[i].isSubscription)) {
+                validSources.push(sources[i]);
+            }
+        }
+
+        for (var j = 0; j < validSources.length; ++j) {
+            if (objectId) {
+                if (validSources[j].objectId == objectId)
+                    return validSources[j];
+            } else {
+                if (!validSources[j].isHidden)
+                    return validSources[j];
+            }
+        }
+
+        return validSources.length ? validSources[0] : null;
+    }
+
+    function _createEvent(startDate, endDate, allDay) {
+        var evt = {
+            title:           calendar.options.eventEditor.newEventTitle,
+            description:     "",
+            allDay:          allDay,
+            start:           startDate,
+            end:             endDate,
+            repeatRule:      ASC.Api.iCal.RecurrenceRule.Never,
+            alert:           {type:kAlertDefault},
+            isShared:        false,
+            permissions:     {users:[]},
+            attendees:       []
+        };
+        
+        if (ASC.Mail.DefaultAccount) {
+            var organizerObj = new ICAL.Property("organizer");
+            organizerObj.setParameter("cn", ASC.Mail.DefaultAccount.name);
+            organizerObj.setValue("mailto:" + ASC.Mail.DefaultAccount.email);
+            evt.organizer = organizerObj.jCal;
+        }
+
+        return evt;
+    }
+
+    function _deleteEvent(deleteType, eventDate) {
+        if (!_canDelete ||
+		    !fcUtil.objectIsValid(_eventObj) ||
+		    !fcUtil.objectIsValid(_eventObj.source)) {return;}
+
+        if (_eventObj.sourceId && _eventObj.uniqueId && (_eventObj.repeatRule.Freq == ASC.Api.iCal.Frequency.Never || confirmSettings.selectedDeleteMode == deleteMode.allSeries))
+            _sendNotification(_eventObj.sourceId, _eventObj.uniqueId, confirmSettings.notificationType.cancel, deleteEvt);
+        else
+            deleteEvt();
+
+        function deleteEvt() {
+            var id = _eventObj._id;
+            calendar.trigger("editEvent", _this,
+                $.extend(
+                    { action: kEventDeleteAction, sourceId: _eventObj.source.objectId, type: deleteType, date: eventDate },
+                    _eventObj),
+                function(response) {
+                    if (!response.result) {
+                        return;
+                    }
+                    calendar.removeEvents(id);
+
+                    //
+                    if (response.event != undefined) {
+                        if (!response.event.length) {
+                            if (_eventObj.repeatRule.Freq != ASC.Api.iCal.Frequency.Never && confirmSettings.selectedDeleteMode != deleteMode.allSeries) {
+                                _sendNotification(_eventObj.sourceId, _eventObj.uniqueId, confirmSettings.notificationType.cancel, function() {
+                                    ASC.CalendarController.RemoveEvent(id, deleteMode.allSeries, eventDate);
+                                });
+                            }
+                            return;
+                        }
+                        //
+                        var sources = calendar.getEventSources();
+                        var j = 0;
+                        while (j < response.event.length) {
+                            _setEventSource(response.event[j], sources);
+                            j++;
+                        }
+                        calendar.addEvents(response.event);
+
+                        if (_eventObj.repeatRule.Freq != ASC.Api.iCal.Frequency.Never && confirmSettings.selectedDeleteMode != deleteMode.allSeries) {
+                            confirmSettings.notificationUsers.updatedGuests = confirmSettings.notificationUsers.removedGuests;
+                            _sendNotification(_eventObj.sourceId, _eventObj.uniqueId, confirmSettings.notificationType.update);
+                        }
+                    }
+                });
+        }
+    }
+
+    function _unsubscribeEvent() {
+        if (!_canUnsubscribe ||
+		    !fcUtil.objectIsValid(_eventObj) ||
+		    !fcUtil.objectIsValid(_eventObj.source)) {return;}
+        //
+        var id = _eventObj._id;
+        calendar.trigger("editEvent", _this,
+				$.extend(
+						{action: kEventUnsubscribeAction, sourceId: _eventObj.source.objectId},
+						_eventObj),
+				function(response) {
+				    if (!response.result) {return;}
+				    _close.call(_this, false);
+				    calendar.removeEvents(id);
+				});
+    }
+
+    function _setEventSource(event, sources) {
+        if (event.sourceId == undefined) {
+            event.sourceId = event.newSourceId;
+        }
+        if (!event.source && event.sourceId != undefined) {
+            for (var i = 0; i < sources.length; ++i) {
+                if (sources[i].objectId != undefined && sources[i].objectId == event.sourceId) {
+                    event.source = sources[i];
+                    break;
+                }
+            }
+        }
+    }
+
+    function _updateEvent(isCancel) {
+        if (!_canEdit) {return;}
+		
+        if(isCancel)
+        {
+            calendar.trigger("editEvent", _this, $.extend( {action: kEventCancelAction, sourceId: _eventObj.source.objectId}, _eventObj), function(response){} );
+            return;
+        }
+
+        if (_eventObj.source) {
+            _disableDialogBtns(true);
+
+            if (_eventObj.sourceId && _eventObj.uniqueId)
+                _sendNotification(_eventObj.sourceId, _eventObj.uniqueId, confirmSettings.notificationType.cancel, editEvt);
+            else
+                editEvt();
+
+        } else {
+            _disableDialogBtns(true);
+            var id = _eventObj._id;
+            // create new event
+            calendar.trigger("editEvent", _this,
+					$.extend({action: kEventAddAction}, _eventObj),
+					function(response) {
+					    _disableDialogBtns(false);
+					    if (!response.result) {return;}
+					    _closeDialog.call(_this);
+					    calendar.removeEvents(id);
+					    if (response.event.length < 1) {return;}
+					    //
+					    var sources = calendar.getEventSources();
+					    calendar.removeEvents(response.event[0].objectId);
+					    for (var j = 0; j < response.event.length; ++j) {
+					        _setEventSource(response.event[j], sources);
+					    }
+					    calendar.addEvents(response.event);
+					    
+					    _sendNotification(response.event[0].sourceId, response.event[0].uniqueId, confirmSettings.notificationType.request);
+					});
+        }
+        
+        function editEvt() {
+            calendar.trigger("editEvent", _this,
+                $.extend(
+                    { action: kEventChangeAction, sourceId: _eventObj.source.objectId },
+                    _eventObj),
+                function(response) {
+                    _disableDialogBtns(false);
+                    if (!response.result) {
+                        return;
+                    }
+                    _closeDialog.call(_this);
+                    if (response.event.length < 1) {
+                        return;
+                    }
+                    //
+                    var sources = calendar.getEventSources();
+                    calendar.removeEvents(response.event[0].objectId);
+                    for (var j = 0; j < response.event.length; ++j) {
+                        _setEventSource(response.event[j], sources);
+                    }
+                    calendar.addEvents(response.event);
+
+                    _sendNotification(response.event[0].sourceId, response.event[0].uniqueId, confirmSettings.notificationType.request);
+                    _sendNotification(response.event[0].sourceId, response.event[0].uniqueId, confirmSettings.notificationType.update);
+                    _sendReply(response.event[0].sourceId, response.event[0].uniqueId);
+                });
+        }
+    }
+
+    // Public interface
+
+    this.openEvent = function(canEdit, elem, event) {
+        _open.call(_this, canEdit ? "edit" : "view", elem, event);
+    };
+
+    this.addEvent = function(startDate, endDate, allDay) {
+        // Protect from addind event in nonexistent category
+        var defaultSource = _getDefaultSource();
+        if (defaultSource == undefined) return;
+
+        var ev;
+        if (startDate != undefined) {
+            // add event via clicking calendar cell
+            ev = _createEvent(startDate, endDate, allDay);
+            ev.textColor = defaultSource.textColor;
+            ev.backgroundColor = defaultSource.backgroundColor;
+            ev.borderColor = defaultSource.borderColor;
+            calendar.renderEvent(ev);
+            _open.call(_this, "edit", calendar.getView().getEventElement(ev), ev);
+        } else {
+            // add event via header menu
+            var curDate = new Date();
+            var targetDate = new Date(curDate.getFullYear(), curDate.getMonth(), curDate.getDate());
+            ev = _createEvent(targetDate, targetDate, true);
+            _open.call(_this, "edit", undefined, ev);
+        }
+    };
+
+    this.isVisible = function() {
+        return _dialog.is(":visible");
+    };
+}
 
 
 fc.sourceNormalizers = [];
@@ -7344,6 +10209,44 @@ function setYMD(date, y, m, d) {
 	}
 }
 
+
+/* ICS Parsing
+-----------------------------------------------------------------------------*/
+
+function parseIcs(icsFormat) {
+    if (!icsFormat) return null;
+
+    try {
+        var jCalData = window.ICAL.parse(icsFormat);
+
+        var comp = new window.ICAL.Component(jCalData);
+        if (comp.name !== "vcalendar")
+            return null;
+
+        var vevent = comp.getFirstSubcomponent("vevent");
+        if (!vevent)
+            return null;
+
+        var event = new window.ICAL.Event(vevent);
+
+        var organizer = vevent.getFirstProperty("organizer");
+
+        var attendees = [];
+
+        jq.each(event.attendees, function(index, attendee) {
+            attendees.push(attendee.jCal);
+        });
+
+        return {
+            location: event.location,
+            attendees: attendees,
+            organizer: organizer == null ? null : organizer.jCal
+        };
+    } catch(e) {
+        console.error(e);
+        return null;
+    }
+}
 
 
 /* Date Parsing
@@ -8890,7 +11793,7 @@ function draggableDayEvent(event, eventElement) {
                     hoverListener.stop();
                     clearOverlays();
                     trigger('eventDragStop', eventElement, event, ev, ui);
-                    if (-1) {
+                    if (dayDelta) {
                         eventDrop(this, event, dayDelta, 0, event.allDay, ev, ui);
                     } else {
                         eventElement.css('filter', ''); // clear IE opacity side-effects
@@ -9368,7 +12271,7 @@ function AgendaView(element, calendar, viewName) {
 		if (opt('allDaySlot')) {
 
 			daySegmentContainer =
-				$("<div style='position:absolute;z-index:8;top:0;left:0'/>")
+				$("<div style='position:absolute;z-index:9;top:0;left:0'/>")
 					.appendTo(slotLayer);
 
 			s =
@@ -9469,8 +12372,12 @@ function AgendaView(element, calendar, viewName) {
 		if (marker) {
 			if (colCnt > 0) {
 				var padding = 3;
-				var now = new Date();
-				var top = timePosition(now, now);
+
+				var localDate = new Date();
+				var utcDate = new Date(localDate.getTime() + localDate.getTimezoneOffset() * 60000);
+				var tenantDate = new Date(utcDate.getTime() + ASC.Resources.Master.TimezoneOffsetMinutes * 60000);
+
+				var top = timePosition(tenantDate, tenantDate);
 				var left = colContentLeft(0) - padding;
 				var width = colContentRight(colCnt - 1) + padding - left;
 				var l = marker.find(".left-side").outerWidth(true);
@@ -10352,6 +13259,12 @@ function AgendaEventRenderer() {
 					// not enough room for title, put it in the time header
 					timeElement
 						.html(timeElement.html() + ' ' + htmlEscape( titleElement.text() ));
+
+					if (titleElement.hasClass("fc-event-cancelled"))
+						timeElement.addClass("fc-event-cancelled");
+					else
+						timeElement.removeClass("fc-event-cancelled");
+
 					titleElement
 						.remove();
 					activateTooltip(timeElement, width, 0, headElement, hh);
@@ -10404,7 +13317,7 @@ function AgendaEventRenderer() {
 					'</div>' +
 				'</div>' +
 				'<div class="fc-event-content">' +
-					'<div class="fc-event-title">' +
+					'<div class="fc-event-title' + (event.status == 2 ? " fc-event-cancelled" : "") +'">' +
 						htmlEscape(event.title) +
 						//'<div class="fc-event-tooltip">' + htmlEscape(event.title) + '</div>' +
 					'</div>' +
@@ -10780,7 +13693,7 @@ function BasicListView(element, calendar, viewName) {
 									calendar.options.categories.inactiveColor : event.source.backgroundColor) +
 									';">' +
 								htmlEscape(calendar.options.categories.itemBullet) + '&nbsp;</span>' + '</td>' +
-						'<td class="title last">' +
+						'<td class="title last' + (event.status == 2 ? " fc-event-cancelled" : "") +'">' +
 							'<span class="title">' + htmlEscape(eventTitle) + '</span>' +
 							(eventNote && eventNote.length > 0 ?
 									('<span class="note">' + htmlEscape(eventNote) + '</span>') : '') + '</td>' +
@@ -11680,7 +14593,7 @@ function DayEventRenderer() {
 				html += '<span>&nbsp;</span>';      // to prevent collapsing
 			}
 			html +=
-				"<div class='fc-event-title'>" + htmlEscape(event.title) + "</div>" +
+				"<div class='fc-event-title" + (event.status == 2 ? " fc-event-cancelled" : "") +"'>" + htmlEscape(event.title) + "</div>" +
 				"</div>";
 			if (seg.isEnd && isEventResizable(event) && event.allDay) {
 				html +=

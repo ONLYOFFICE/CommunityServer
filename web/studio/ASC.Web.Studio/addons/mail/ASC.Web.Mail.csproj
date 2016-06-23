@@ -3,6 +3,7 @@
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -22,7 +23,7 @@
     </UpgradeBackupLocation>
     <OldToolsVersion>4.0</OldToolsVersion>
     <TargetFrameworkProfile />
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -95,6 +96,7 @@
     <Reference Include="System.Web" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Themes\Default\Images\background_sprite.png" />
@@ -111,6 +113,7 @@
     <Content Include="App_Themes\Default\iframe_content.css" />
     <Content Include="App_Themes\Default\Images\mark_sprite.png" />
     <Content Include="App_Themes\Default\Images\product_logolarge.png" />
+    <Content Include="Controls\DocumentsPopup\css\images\can-public-share.png" />
     <Content Include="Controls\DocumentsPopup\css\images\warning.png" />
     <Content Include="Controls\AccountsPage\AccountsPage.ascx" />
     <Content Include="Controls\AdministrationPage\AdministrationPage.ascx" />
@@ -140,27 +143,30 @@
     <Content Include="js\administration\plugin\jquery-domainadvansedselector.js" />
     <Content Include="js\administration\plugin\jquery-mailboxadvansedselector.js" />
     <Content Include="js\alerts.js" />
-    <Content Include="js\jquery.dotdotdot.min.js" />
+    <Content Include="js\contacts\filter\customFilter.js" />
+    <Content Include="js\contacts\modal\editContact.js" />
+    <Content Include="js\mail.calendar.js" />
     <Content Include="js\mail.printpage.js" />
     <Content Include="js\mail.attachmentmanager.js" />
     <Content Include="js\dropdown.js" />
     <Content Include="js\filterCache.js" />
     <Content Include="js\blankpage.js" />
     <Content Include="js\contacts\contacts.js" />
-    <Content Include="js\contacts\crmFilter.js" />
+    <Content Include="js\contacts\filter\crmFilter.js" />
     <Content Include="js\contacts\panel.js" />
-    <Content Include="js\contacts\tlFilter.js" />
+    <Content Include="js\contacts\filter\tlFilter.js" />
     <Content Include="js\contacts\tlGroups.js" />
     <Content Include="js\contacts\types.js" />
     <Content Include="js\emailAutocomplete.js" />
-    <Content Include="js\autoresize.jquery.js" />
+    <Content Include="js\third-party\autoresize.jquery.js" />
     <Content Include="js\fromsenderfilter.js" />
     <Content Include="js\helpcenter\page.js" />
     <Content Include="js\helpcenter\panel.js" />
     <Content Include="js\init.js" />
-    <Content Include="js\jquery.textchange.min.js" />
+    <Content Include="js\third-party\jquery.dotdotdot.min.js" />
+    <Content Include="js\third-party\jquery.textchange.min.js" />
     <Content Include="js\hidePanel.js" />
-    <Content Include="js\jquery.waitforimages.js" />
+    <Content Include="js\third-party\jquery.waitforimages.js" />
     <Content Include="js\mail.accounts.js" />
     <Content Include="js\mail.accountsmodal.js" />
     <Content Include="js\mail.accountspage.js" />
@@ -177,7 +183,7 @@
     <Content Include="js\mail.navigation.js" />
     <Content Include="js\mail.servicemanager.js" />
     <Content Include="js\containers\set.js" />
-    <Content Include="js\placeholder.js" />
+    <Content Include="js\third-party\placeholder.js" />
     <Content Include="js\popup.js" />
     <Content Include="js\tags\dropdown.js" />
     <Content Include="js\tags\tags.js" />
@@ -185,11 +191,11 @@
     <Content Include="js\tags\modal.js" />
     <Content Include="js\tags\page.js" />
     <Content Include="js\tags\panel.js" />
+    <Content Include="js\third-party\linkify-string.min.js" />
+    <Content Include="js\third-party\linkify.min.js" />
     <Content Include="js\trustedAddresses.js" />
     <Content Include="js\wysiwyg.js" />
     <Content Include="js\mail.cache.js" />
-    <Content Include="Masters\BodyScripts.ascx" />
-    <Content Include="Masters\Styles.ascx" />
     <Content Include="templates\accountErrorTmpl.ascx" />
     <Content Include="templates\accountsPanelTmpl.ascx" />
     <Content Include="templates\accountsTmpl.ascx" />
@@ -206,7 +212,10 @@
     <Content Include="templates\administration\editMailGroupTmpl.ascx" />
     <Content Include="templates\administration\groupTableTmpl.ascx" />
     <Content Include="templates\administration\mailboxTableTmpl.ascx" />
+    <Content Include="templates\contactEditTmpl.ascx" />
     <Content Include="templates\contactsTmpl.ascx" />
+    <Content Include="templates\calendarTmpl.ascx" />
+    <Content Include="templates\commonTmpl.ascx" />
     <Content Include="templates\docAttachmentsTmpl.ascx" />
     <Content Include="templates\messagePrintTmpl.ascx" />
     <Content Include="templates\crmIntegrationPopupTmpl.ascx" />
@@ -218,6 +227,7 @@
     <Content Include="templates\messageTmpl.ascx" />
     <Content Include="templates\composeMessageBodyTmpl.ascx" />
     <Content Include="templates\tagsTmpl.ascx" />
+    <Content Include="templates\mailAutoreplyTmpl.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Addon\MailAddon.cs" />
@@ -287,6 +297,9 @@
     </Compile>
     <Compile Include="HttpHandlers\Download.ashx.cs">
       <DependentUpon>Download.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="HttpHandlers\ContactPhoto.ashx.cs">
+      <DependentUpon>ContactPhoto.ashx</DependentUpon>
     </Compile>
     <Compile Include="HttpHandlers\EditDocument.ashx.cs">
       <DependentUpon>EditDocument.ashx</DependentUpon>
@@ -377,6 +390,7 @@
     <Content Include="App_Themes\Default\less\contacts.less" />
     <Content Include="App_Themes\Default\less\crm_integration.less" />
     <Content Include="App_Themes\Default\less\print.less" />
+    <Content Include="App_Themes\Default\less\calendar.less" />
     <None Include="App_Themes\Default\less\icons.less" />
     <None Include="App_Themes\Default\less\mail.less" />
     <None Include="App_Themes\Default\less\message.less" />
@@ -389,6 +403,7 @@
     <Content Include="HttpHandlers\ViewDocument.ashx" />
     <Content Include="HttpHandlers\EditDocument.ashx" />
     <Content Include="HttpHandlers\Download.ashx" />
+    <Content Include="HttpHandlers\ContactPhoto.ashx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\module\ASC.Api\ASC.Api.Mail\ASC.Api.Mail.csproj">
@@ -398,10 +413,6 @@
     <ProjectReference Include="..\..\..\..\..\module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Common\ASC.Mail.Aggregator.Common.csproj">
       <Project>{26222fc6-1f6d-44e9-a82b-36bb8355220e}</Project>
       <Name>ASC.Mail.Aggregator.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\..\..\..\module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.DataStorage\ASC.Mail.Aggregator.DataStorage.csproj">
-      <Project>{709dd978-95f3-43e8-9392-fb52d413caa9}</Project>
-      <Name>ASC.Mail.Aggregator.DataStorage</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\..\..\module\ASC.Mail.Aggregator\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
       <Project>{7080343D-FBE7-423A-9405-4F883F6E235B}</Project>
@@ -429,17 +440,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>False</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>60654</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>
-          </IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>

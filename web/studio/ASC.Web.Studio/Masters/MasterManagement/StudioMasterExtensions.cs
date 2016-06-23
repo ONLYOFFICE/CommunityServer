@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -33,23 +33,18 @@ namespace System.Web
     {
         #region Style
 
-        public static void RegisterStyle(this Page page, string absoluteLessPath)
+        public static void RegisterStyle(this Page page, params string[] scriptPath)
         {
-            if (page == null) throw new ArgumentNullException("page");
-            var master = GetStudioMaster(page);
-            if (master != null)
-            {
-                master.AddStyles(VirtualPathUtility.ToAbsolute(absoluteLessPath));
-            }
+            page.RegisterStyle(VirtualPathUtility.ToAbsolute, scriptPath);
         }
 
-        public static void RegisterStyleControl(this Page page, string absoluteControlPath)
+        public static void RegisterStyle(this Page page, Func<string, string> converter, params string[] absoluteLessPath)
         {
             if (page == null) throw new ArgumentNullException("page");
             var master = GetStudioMaster(page);
             if (master != null)
             {
-                master.AddStyles(page.LoadControl(VirtualPathUtility.ToAbsolute(absoluteControlPath)));
+                master.AddStyles(converter, absoluteLessPath);
             }
         }
 
@@ -57,23 +52,18 @@ namespace System.Web
 
         #region Script
 
-        public static void RegisterBodyScripts(this Page page, string scriptPath)
+        public static void RegisterBodyScripts(this Page page, params string[] scriptPath)
         {
-            if (page == null) throw new ArgumentNullException("page");
-            var master = GetStudioMaster(page);
-            if (master != null)
-            {
-                master.AddBodyScripts(VirtualPathUtility.ToAbsolute(scriptPath));
-            }
+            page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute, scriptPath);
         }
 
-        public static void RegisterBodyScriptsControl(this Page page, string control)
+        public static void RegisterBodyScripts(this Page page, Func<string, string> converter, params string[] scriptPath)
         {
             if (page == null) throw new ArgumentNullException("page");
             var master = GetStudioMaster(page);
             if (master != null)
             {
-                master.AddBodyScripts(page.LoadControl(VirtualPathUtility.ToAbsolute(control)));
+                master.AddBodyScripts(converter, scriptPath);
             }
         }
 

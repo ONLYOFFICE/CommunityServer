@@ -62,8 +62,6 @@
     </div>
 </div>
 
-<% if (!MobileVer) %>
-<% { %>
 <div class="header-base settingsHeader"><%= CRMSettingResource.ExportData %></div>
 <div id="exportDataContent">
     <table width="100%" cellpadding="0" cellspacing="0">
@@ -114,7 +112,6 @@
         </tbody>
     </table>
 </div>
-<% } %>
 
 
 <div id="sendTestMailPanelBody" style="display: none;">

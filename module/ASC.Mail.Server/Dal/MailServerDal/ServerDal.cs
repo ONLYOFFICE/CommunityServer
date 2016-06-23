@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -32,7 +32,7 @@ using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Mail.Aggregator.Common.Extension;
-using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Aggregator.DbSchema;
 
 namespace ASC.Mail.Server.Dal
 {
@@ -54,14 +54,14 @@ namespace ASC.Mail.Server.Dal
 
             TenantServerDto serverDto;
 
-            var serversQuery = new SqlQuery(ServerTable.name)
-                .Select(ServerTable.Columns.id)
-                .Select(ServerTable.Columns.connection_string)
-                .Select(ServerTable.Columns.mx_record)
-                .Select(ServerTable.Columns.server_type)
-                .Select(ServerTable.Columns.smtp_settings_id)
-                .Select(ServerTable.Columns.imap_settings_id)
-                .Where(Exp.Gt(ServerTable.Columns.server_type, 0));
+            var serversQuery = new SqlQuery(ServerTable.Name)
+                .Select(ServerTable.Columns.Id)
+                .Select(ServerTable.Columns.ConnectionString)
+                .Select(ServerTable.Columns.MxRecord)
+                .Select(ServerTable.Columns.ServerType)
+                .Select(ServerTable.Columns.SmtpSettingsId)
+                .Select(ServerTable.Columns.ImapSettingsId)
+                .Where(Exp.Gt(ServerTable.Columns.ServerType, 0));
 
             var servers = db.ExecuteList(serversQuery)
                             .Select(r => r.ToTenantServerDto())
@@ -76,15 +76,15 @@ namespace ASC.Mail.Server.Dal
 
                 foreach (var tenantServerDto in servers)
                 {
-                    var serverMailboxesQuery = new SqlQuery(TenantXServerTable.name.Alias(mst_alias))
-                        .InnerJoin(MailboxTable.name.Alias(mb_alias),
-                                   Exp.EqColumns(TenantXServerTable.Columns.id_tenant.Prefix(mst_alias),
-                                                 MailboxTable.Columns.id_tenant.Prefix(mb_alias)))
+                    var serverMailboxesQuery = new SqlQuery(TenantXServerTable.Name.Alias(mst_alias))
+                        .InnerJoin(MailboxTable.Name.Alias(mb_alias),
+                                   Exp.EqColumns(TenantXServerTable.Columns.Tenant.Prefix(mst_alias),
+                                                 MailboxTable.Columns.Tenant.Prefix(mb_alias)))
                         .SelectCount()
-                        .Where(MailboxTable.Columns.is_teamlab_mailbox.Prefix(mb_alias), true)
-                        .Where(MailboxTable.Columns.is_removed.Prefix(mb_alias), false)
-                        .Where(TenantXServerTable.Columns.id_server.Prefix(mst_alias), tenantServerDto.id)
-                        .GroupBy(TenantXServerTable.Columns.id_server.Prefix(mst_alias));
+                        .Where(MailboxTable.Columns.IsTeamlabMailbox.Prefix(mb_alias), true)
+                        .Where(MailboxTable.Columns.IsRemoved.Prefix(mb_alias), false)
+                        .Where(TenantXServerTable.Columns.ServerId.Prefix(mst_alias), tenantServerDto.id)
+                        .GroupBy(TenantXServerTable.Columns.ServerId.Prefix(mst_alias));
 
                     var count = db.ExecuteScalar<int>(serverMailboxesQuery);
 
@@ -116,13 +116,13 @@ namespace ASC.Mail.Server.Dal
             if (server == null)
                 throw new InvalidDataException("No mail servers registered.");
 
-            var linkServerWithTenantQuery = new SqlInsert(TenantXServerTable.name)
-                .InColumnValue(TenantXServerTable.Columns.id_server, server.id)
-                .InColumnValue(TenantXServerTable.Columns.id_tenant, tenant);
+            var linkServerWithTenantQuery = new SqlInsert(TenantXServerTable.Name)
+                .InColumnValue(TenantXServerTable.Columns.ServerId, server.id)
+                .InColumnValue(TenantXServerTable.Columns.Tenant, tenant);
 
             var insertedRows = db.ExecuteNonQuery(linkServerWithTenantQuery);
             if (insertedRows == 0)
-                throw new InvalidOperationException(String.Format("Insert to {0} failed", TenantXServerTable.name));
+                throw new InvalidOperationException(String.Format("Insert to {0} failed", TenantXServerTable.Name));
 
             return server;
         }
@@ -143,17 +143,17 @@ namespace ASC.Mail.Server.Dal
         {
             var server = GetTenantServer();
 
-            var settings = new List<TenantServerSettingsDto>();
+            List<TenantServerSettingsDto> settings;
 
-            var query = new SqlQuery(MailboxServerTable.name)
-                .Select(MailboxServerTable.Columns.id, 
-                        MailboxServerTable.Columns.type,
-                        MailboxServerTable.Columns.hostname, 
-                        MailboxServerTable.Columns.port,
-                        MailboxServerTable.Columns.socket_type, 
-                        MailboxServerTable.Columns.username,
-                        MailboxServerTable.Columns.authentication)
-                .Where(Exp.In(MailboxServerTable.Columns.id, new[] {server.imap_settings_id, server.smtp_settings_id}));
+            var query = new SqlQuery(MailboxServerTable.Name)
+                .Select(MailboxServerTable.Columns.Id, 
+                        MailboxServerTable.Columns.Type,
+                        MailboxServerTable.Columns.Hostname, 
+                        MailboxServerTable.Columns.Port,
+                        MailboxServerTable.Columns.SocketType, 
+                        MailboxServerTable.Columns.Username,
+                        MailboxServerTable.Columns.Authentication)
+                .Where(Exp.In(MailboxServerTable.Columns.Id, new[] {server.imap_settings_id, server.smtp_settings_id}));
 
             using (var db = GetDb())
             {

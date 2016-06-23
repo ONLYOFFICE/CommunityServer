@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -44,7 +44,7 @@ namespace ASC.Web.CRM.Classes
 
         private static readonly Object _syncObj = new Object();
 
-        private static readonly ProgressQueue _importQueue = new ProgressQueue(1, TimeSpan.FromSeconds(15), true);
+        private static readonly ProgressQueue _importQueue = new ProgressQueue(3, TimeSpan.FromSeconds(15), true);
 
         public static readonly int MaxRoxCount = 10000;
 
@@ -110,7 +110,7 @@ namespace ASC.Web.CRM.Classes
 
             if (result == null)
             {
-                return ImportDataCache.Get(entityType);              
+                return ImportDataCache.Get(entityType);
             }
 
             return result;
@@ -128,11 +128,7 @@ namespace ASC.Web.CRM.Classes
 
                     if (fromCache != null)
                         return fromCache;
-                }
 
-
-                if (operation == null)
-                {
                     operation = new ImportDataOperation(entityType, CSVFileURI, importSettingsJSON);
 
                     _importQueue.Add(operation);

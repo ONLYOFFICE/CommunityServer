@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -77,20 +77,23 @@ a {
 
     &.plus {
         display: inline-block;
-        margin-left: 16px;
+        margin-left: 18px;
         padding: 0;
         position: relative;
         text-align: center;
         vertical-align: middle;
 
         &:after {
-            background: url('@{imagesBaseUrl}plus_16.png') center center no-repeat transparent;
-            content: " ";
+            color: #83888d;
+            content: "+";
             cursor: pointer;
-            display: block; /* reduce the damage in FF3.0 */
-            height: 12px;
-            left: -16px;
-            margin-top: -6px;
+            display: block;
+            font-size: 22px;
+            font-weight: 800;
+            height: 20px;
+            line-height: 20px;
+            left: -17px;
+            margin-top: -11px;
             position: absolute;
             top: 50%;
             width: 12px;
@@ -173,11 +176,29 @@ a {
 }
 
 .icon-link {
-    padding-left:16px;
+    padding-left: 18px;
     
-    &.plus{
-        background: url("@{imagesBaseUrl}plus_16.png") left center no-repeat transparent;
+    &.plus {
+        display: inline-block;
+        position: relative;
+
+        &:after {
+            color: #83888d;
+            content: "+";
+            cursor: pointer;
+            display: block;
+            font-size: 22px;
+            font-weight: 800;
+            height: 20px;
+            line-height: 20px;
+            left: 0;
+            margin-top: -11px;
+            position: absolute;
+            top: 50%;
+            width: 12px;
+        }
     }
+
     &.chart{
         background: url("@{imagesBaseUrl}gantt_12.png") left center no-repeat transparent;
     }

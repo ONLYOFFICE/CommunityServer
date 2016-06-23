@@ -165,4 +165,7 @@
   <data name="InvalidOpearationForSharedDomain" xml:space="preserve">
     <value>Invalid opearation for shared domain</value>
   </data>
+  <data name="ErrorDeleteContact" xml:space="preserve">
+    <value>An error has happened during contact deletion! Please, check your network connection, or ask for help your network or portal administrator!</value>
+  </data>
 </root>

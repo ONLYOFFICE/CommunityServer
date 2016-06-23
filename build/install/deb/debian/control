@@ -6,7 +6,7 @@ Build-Depends: debhelper (>= 8.0.0)
 
 Package: onlyoffice-communityserver
 Architecture: all
-Depends: ${shlibs:Depends}, ${misc:Depends}, mysql-server, mysql-client, mono-complete, mono-runtime (>= 3.2.0), mono-4.0-service, nginx (>= 0.8.21), mono-webserver-hyperfastcgi, redis-server, ruby-dev, ruby-god
+Depends: ${shlibs:Depends}, ${misc:Depends}, mysql-server, mysql-client, mono-complete (>= 4.2), mono-runtime (>= 3.2.0), mono-4.0-service, nginx (>= 0.8.21), mono-webserver-hyperfastcgi, redis-server, ruby-dev, ruby-god
 Description: office suite and business productivity tools 
  Free open source office suite and business productivity tools in one solution:
  online document editors, file and project management, CRM

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,7 +25,7 @@
 
 
 using System;
-using ASC.Mail.Aggregator.Utils;
+using ASC.Mail.Aggregator.Common.Utils;
 using NUnit.Framework;
 
 namespace ASC.Mail.Aggregator.Tests.Common
@@ -33,11 +33,18 @@ namespace ASC.Mail.Aggregator.Tests.Common
     [TestFixture]
     class SanitizeHtmlForEditorTests
     {
+        private readonly HtmlSanitizer _htmlSanitizer;
+
+        public SanitizeHtmlForEditorTests()
+        {
+            _htmlSanitizer = new HtmlSanitizer(new HtmlSanitizer.Options(false));
+        }
+
         [Test]
         public void TestForRemovingHtml()
         {
             const string html = "<html></html>";
-            var res = HtmlSanitizer.SanitizeHtmlForEditor(html);
+            var res = _htmlSanitizer.SanitizeHtmlForEditor(html);
             Assert.AreEqual(String.Empty, res);
         }
 
@@ -45,7 +52,7 @@ namespace ASC.Mail.Aggregator.Tests.Common
         public void TestForRemovingHead1()
         {
             const string html = "<html><head></head></html>";
-            var res = HtmlSanitizer.SanitizeHtmlForEditor(html);
+            var res = _htmlSanitizer.SanitizeHtmlForEditor(html);
             Assert.AreEqual(String.Empty, res);
         }
 
@@ -53,14 +60,15 @@ namespace ASC.Mail.Aggregator.Tests.Common
         public void TestForRemovingHead2()
         {
             const string html = "<html><head><style>some content inside styles</style></head></html>";
-            var res = HtmlSanitizer.SanitizeHtmlForEditor(html);
+            var res = _htmlSanitizer.SanitizeHtmlForEditor(html);
             Assert.AreEqual(String.Empty, res);
         }
+
         [Test]
         public void TestForRemovingHead3()
         {
             const string html = "<html>\r\n<head> \r\n<style> \r\n some \r\n content \r\n inside \r\n styles \r\n </style> \r\n </head> \r\n</html>";
-            var res = HtmlSanitizer.SanitizeHtmlForEditor(html);
+            var res = _htmlSanitizer.SanitizeHtmlForEditor(html);
             Assert.AreEqual(String.Empty, res);
         }
 
@@ -68,7 +76,7 @@ namespace ASC.Mail.Aggregator.Tests.Common
         public void TestForSimpleBodyReplace()
         {
             const string html = "<body></body>";
-            var res = HtmlSanitizer.SanitizeHtmlForEditor(html);
+            var res = _htmlSanitizer.SanitizeHtmlForEditor(html);
             Assert.AreEqual("<div></div>", res);
         }
 
@@ -76,7 +84,7 @@ namespace ASC.Mail.Aggregator.Tests.Common
         public void TestForComplexBodyReplace()
         {
             const string html = "<html><head></head><body></body></html>";
-            var res = HtmlSanitizer.SanitizeHtmlForEditor(html);
+            var res = _htmlSanitizer.SanitizeHtmlForEditor(html);
             Assert.AreEqual("<div></div>", res);
         }
 
@@ -84,7 +92,7 @@ namespace ASC.Mail.Aggregator.Tests.Common
         public void TestForWrongBodyReplacements()
         {
             const string html = "<html><head></head><body>I used tag <body></body> thats problem.</body></html>";
-            var res = HtmlSanitizer.SanitizeHtmlForEditor(html);
+            var res = _htmlSanitizer.SanitizeHtmlForEditor(html);
             Assert.AreEqual("<div>I used tag <body></body> thats problem.</div>", res);
         }
 
@@ -92,7 +100,7 @@ namespace ASC.Mail.Aggregator.Tests.Common
         public void TestForWrongHtmlReplacements()
         {
             const string html = "<html><head></head><body>I used tag <html></html> thats problem.</body></html>";
-            var res = HtmlSanitizer.SanitizeHtmlForEditor(html);
+            var res = _htmlSanitizer.SanitizeHtmlForEditor(html);
             Assert.AreEqual("<div>I used tag <html></html> thats problem.</div>", res);
         }
 
@@ -100,7 +108,7 @@ namespace ASC.Mail.Aggregator.Tests.Common
         public void TestForWrongHeadReplacements()
         {
             const string html = "<html><head></head><body>I used tag <head></head> thats problem.</body></html>";
-            var res = HtmlSanitizer.SanitizeHtmlForEditor(html);
+            var res = _htmlSanitizer.SanitizeHtmlForEditor(html);
             Assert.AreEqual("<div>I used tag <head></head> thats problem.</div>", res);
         }
 
@@ -108,7 +116,7 @@ namespace ASC.Mail.Aggregator.Tests.Common
         public void TestForAttributeInBodySaving()
         {
             const string html = "<body class='test'></body>";
-            var res = HtmlSanitizer.SanitizeHtmlForEditor(html);
+            var res = _htmlSanitizer.SanitizeHtmlForEditor(html);
             Assert.AreEqual("<div class='test'></div>", res);
         }
     }

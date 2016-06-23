@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -37,18 +37,17 @@ window.accountsPage = (function($) {
 
             $page.find('#createNewMailbox').click(function () {
                 accountsModal.addMailbox();
-                return false;
             });
 
             $page.find('#createNewAccount').click(function() {
                 accountsModal.addBox();
-                return false;
             });
 
             buttons = [
                 { selector: "#accountActionMenu .activateAccount", handler: activate },
                 { selector: "#accountActionMenu .deactivateAccount", handler: deactivate },
                 { selector: "#accountActionMenu .selectAttachmentsFolder", handler: selectAttachmentsFolder },
+                { selector: "#accountActionMenu .setMailAutoreply", handler: setMailAutoreply },
                 { selector: "#accountActionMenu .editAccount", handler: editAccount },
                 { selector: "#accountActionMenu .deleteAccount", handler: removeAccount }];
 
@@ -91,16 +90,16 @@ window.accountsPage = (function($) {
         else if (account.is_group)
             return;
 
-        var html = $.tmpl(tmplName,
-            {
+        var html = $.tmpl(tmplName, {
                 email: account.email,
                 enabled: isActivate,
+                autoreply: account.autoreply,
                 isDefault: account.is_default,
                 oAuthConnection: account.oauth,
                 isTeamlabMailbox: account.is_teamlab,
                 aliases: [],
                 mailboxId: account.mailbox_id
-            }, { showSetDefaultIcon: showSetDefaultIcon }),
+            }, { showSetDefaultIcon: showSetDefaultIcon, now: new Date() }),
             $html = $(html);
 
         $html.actionMenu('accountActionMenu', buttons, pretreatment);
@@ -120,28 +119,26 @@ window.accountsPage = (function($) {
                 if (!$this.children(":first").hasClass('default_account_button_column')) {
                     $this.prepend(html);
                     $(html).find('.set_as_default_account_icon').on("click", setDefaultButtonClickEvent);
-                    setDefaultAccountIfItDoesNotExist();
                 }
             });
         }
-
     };
 
-    var addAccount = function (accountName, enabled, oauth, isTeamlab) {
+    var addAccount = function (accountName, autoreply, enabled, oauth, isTeamlab) {
         accountName = accountName.toLowerCase();
         if (!isContain(accountName)) {
             var accountListLength = accountsManager.getAccountList().length,
                 showSetDefaultIcon = accountListLength > 1,
                 addSetDefaultIcon = accountListLength == 1,
-                html = $.tmpl('mailboxItemTmpl',
-                    {
+                html = $.tmpl('mailboxItemTmpl', {
                         email: accountName,
                         enabled: enabled,
                         isDefault: false,
                         oAuthConnection: oauth,
                         isTeamlabMailbox: isTeamlab,
+                        autoreply: autoreply,
                         aliases: []
-                    }, { showSetDefaultIcon: showSetDefaultIcon }),
+                }, { showSetDefaultIcon: showSetDefaultIcon, now: new Date() }),
                 $html = $(html);
 
             $html.actionMenu('accountActionMenu', buttons, pretreatment);
@@ -150,12 +147,11 @@ window.accountsPage = (function($) {
 
             if (addSetDefaultIcon) {
                 $('.accounts_list .item-row').each(function () {
-                    var $this = $(this),
-                        html = $.tmpl('setDefaultIconItemTmpl', { isDefault: false });
+                    var $this = $(this);
                     if (!$this.children(":first").hasClass('default_account_button_column')) {
+                        var html = $.tmpl('setDefaultIconItemTmpl', { isDefault: false });
                         $this.prepend(html);
                         $(html).find('.set_as_default_account_icon').on("click", setDefaultButtonClickEvent);
-                        setDefaultAccountIfItDoesNotExist();
                     }
                 });
             }
@@ -236,10 +232,10 @@ window.accountsPage = (function($) {
         ASC.Files.FileSelector.fileSelectorTree.resetFolder();
         if (account.emailInFolder == null) {
             ASC.Files.FileSelector.openDialog(null, true);
-            $('#filesFolderUnlinkButton').toggleClass('disable', true);
+            $('#filesFolderUnlinkButton').show().toggleClass('disable', true);
         } else {
             ASC.Files.FileSelector.openDialog(account.emailInFolder, true);
-            $('#filesFolderUnlinkButton').toggleClass('disable', false);
+            $('#filesFolderUnlinkButton').show().toggleClass('disable', false);
         }
     };
 
@@ -255,6 +251,194 @@ window.accountsPage = (function($) {
             { error: onErrorResetEMailInFolder },
             ASC.Resources.Master.Resource.LoadingProcessing);
     };
+
+    var setMailAutoreply = function (event) {
+        var account = accountsManager.getAccountByAddress(event),
+            html = $.tmpl("mailAutoreplyTmpl", {
+                turnOn: account.autoreply.turnOn,
+                onlyContacts: account.autoreply.onlyContacts,
+                turnOnToDate: account.autoreply.turnOnToDate,
+                subject: account.autoreply.subject
+            }),
+            config = {
+                toolbar: 'MailSignature',
+                removePlugins: 'resize, magicline',
+                filebrowserUploadUrl: 'fckuploader.ashx?newEditor=true&esid=mail',
+                height: 200,
+                startupFocus: true,
+                on: {
+                    instanceReady: function (instance) {
+                        instance.editor.setData(account.autoreply.html);
+                    }
+                }
+            };
+
+        html.find('#ckMailAutoreplyEditor').ckeditor(config);
+
+        popup.addBig(window.MailScriptResource.MailAutoreplyLabel, html, undefined, false, { bindEvents: false });
+
+        var $autoreplyStartDate = $('#autoreplyStartDate'),
+            $autoreplyDueDate = $('#autoreplyDueDate'),
+            $mailAutoreplyFromDate = $('.mail_autoreply_from_date'),
+            $mailAutoreplyToDate = $('.mail_autoreply_to_date'),
+            $turnOnToDateFlag = $('#turnOnToDateFlag');
+
+        html.find('.buttons .ok').unbind('click').bind('click', function () {
+            if ($('#ckMailAutoreplyEditor').val() == "") {
+                ShowRequiredError($('#MailAutoreplyWYSIWYGEditor'));
+            } else {
+                RemoveRequiredErrorClass($('#MailAutoreplyWYSIWYGEditor'));
+            }
+            if (!$mailAutoreplyFromDate.hasClass('requiredFieldError') &&
+                !$mailAutoreplyToDate.hasClass('requiredFieldError') &&
+                !$('.mail_autoreply_body').hasClass('requiredFieldError')) {
+                updateAutoreply(account);
+                return false;
+            }
+        });
+
+        $turnOnToDateFlag.off('change').on('change', function () {
+            var $this = $(this);
+            if ($this[0].checked) {
+                $autoreplyDueDate.datepicker('option', 'disabled', false);
+                changeAutoreplyDueDate($autoreplyDueDate.val());
+            } else {
+                $autoreplyDueDate.datepicker('option', 'disabled', true);
+                $mailAutoreplyToDate.removeClass('requiredFieldError');
+                checkDate($.trim($autoreplyStartDate.val()), $mailAutoreplyFromDate);
+            }
+        });
+
+        $autoreplyStartDate.mask(ASC.Resources.Master.DatePatternJQ);
+        $autoreplyDueDate.mask(ASC.Resources.Master.DatePatternJQ);
+        $autoreplyStartDate.off('change').on('change', function () {
+            var fromDateString = $.trim($(this).val()),
+                toDateString = $.trim($('#autoreplyDueDate').val()),
+                fromDate = $autoreplyStartDate.datepicker('getDate'),
+                toDate = $autoreplyDueDate.datepicker('getDate');
+
+            checkDate($.trim($(this).val()), $mailAutoreplyFromDate);
+
+            if ($.isDateFormat(fromDateString) && $.isDateFormat(toDateString)) {
+                if (fromDate > toDate && $turnOnToDateFlag[0].checked) {
+                    $mailAutoreplyFromDate.addClass('requiredFieldError');
+                } else {
+                    $mailAutoreplyToDate.removeClass('requiredFieldError');
+                    $mailAutoreplyFromDate.removeClass('requiredFieldError');
+                }
+            }
+        });
+        $autoreplyStartDate.keyup(function () {
+            checkDate($.trim($(this).val()), $mailAutoreplyFromDate);
+        });
+
+        $autoreplyDueDate.off('change').on('change', function () { changeAutoreplyDueDate($(this).val()); });
+        $autoreplyDueDate.keyup(function () {
+            var fromDateString = $.trim($('#autoreplyStartDate').val()),
+                toDateString = $.trim($(this).val());
+            if (toDateString != '') {
+                checkDate(toDateString, $mailAutoreplyToDate);
+            } else {
+                $mailAutoreplyToDate.removeClass('requiredFieldError');
+                if (fromDateString != '') {
+                    checkDate(fromDateString, $mailAutoreplyFromDate);
+                }
+            }
+        });
+        $autoreplyStartDate.datepicker({ minDate: 0 });
+        $autoreplyDueDate.datepicker({ minDate: 0 });
+        
+        if ($.trim(account.autoreply.toDate) != '' && $.trim(account.autoreply.fromDate) != '') {
+            var toDate = new Date(account.autoreply.toDate),
+                toDateUtc = new Date(toDate.getFullYear(), toDate.getMonth(), toDate.getDate()),
+                fromDate = new Date(account.autoreply.fromDate),
+                fromDateUtc = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
+            if (fromDateUtc.getYear() == 1 && fromDateUtc.getMonth() == 0 && fromDateUtc.getDate() == 1 &&
+                toDateUtc.getYear() == 1 && toDateUtc.getMonth() == 0 && toDateUtc.getDate() == 1) {
+                toDateUtc = new Date();
+                toDateUtc.setDate(toDateUtc.getDate() + 7);
+            }
+            $autoreplyDueDate.datepicker('setDate', toDateUtc);
+            if ((fromDateUtc.getYear() != 1 || fromDateUtc.getMonth() != 0 || fromDateUtc.getDate() != 1) &&
+                toDateUtc.getYear() == 1 && toDateUtc.getMonth() == 0 && toDateUtc.getDate() == 1) {
+                $autoreplyDueDate.datepicker('setDate', '');
+            }
+        }
+        if (!$turnOnToDateFlag[0].checked) {
+            $autoreplyDueDate.datepicker("option", "disabled", true);
+        }
+        if ($.trim(account.autoreply.fromDate) != '') {
+            var fromDate = new Date(account.autoreply.fromDate),
+                fromDateUtc = new Date(fromDate.getFullYear(), fromDate.getMonth(), fromDate.getDate());
+            if (fromDateUtc.getYear() == 1 && fromDateUtc.getMonth() == 0 && fromDateUtc.getDate() == 1) {
+                fromDateUtc = new Date();
+            }
+            $autoreplyStartDate.datepicker('setDate', fromDateUtc);
+        }
+    };
+
+    function changeAutoreplyDueDate(toDateStr) {
+        var $autoreplyStartDate = $('#autoreplyStartDate'),
+            $autoreplyDueDate = $('#autoreplyDueDate'),
+            $mailAutoreplyFromDate = $('.mail_autoreply_from_date'),
+            $mailAutoreplyToDate = $('.mail_autoreply_to_date'),
+            fromDateString = $.trim($autoreplyStartDate.val()),
+            toDateString = $.trim(toDateStr),
+            fromDate = $autoreplyStartDate.datepicker('getDate'),
+            toDate = $autoreplyDueDate.datepicker('getDate');
+        if (toDateString != '') {
+            checkDate(toDateString, $mailAutoreplyToDate);
+            if ($.isDateFormat(fromDateString) && $.isDateFormat(toDateString)) {
+                if (fromDate > toDate) {
+                    $mailAutoreplyToDate.addClass('requiredFieldError');
+                } else {
+                    $mailAutoreplyToDate.removeClass('requiredFieldError');
+                    $mailAutoreplyFromDate.removeClass('requiredFieldError');
+                }
+            }
+        } else {
+            $mailAutoreplyToDate.removeClass('requiredFieldError');
+            if (fromDateString != "") {
+                checkDate(fromDateString, $mailAutoreplyFromDate);
+            }
+        }
+    }
+
+    function checkDate(dateString, mailAutoreplyDate) {
+        var $mailAutoreplyDate = $(mailAutoreplyDate);
+        if ($.isDateFormat(dateString)) {
+            $mailAutoreplyDate.removeClass('requiredFieldError');
+            return true;
+        } else {
+            $mailAutoreplyDate.addClass('requiredFieldError');
+            return false;
+        }
+    }
+
+    function turnAutoreply(email, turnOn) {
+        var account = accountsManager.getAccountByAddress(email);
+        account.turnOn = turnOn;
+        serviceManager.updateMailboxAutoreply(account.mailbox_id, account.turnOn, account.autoreply.onlyContacts,
+            account.autoreply.turnOnToDate, account.autoreply.fromDate, account.autoreply.toDate,
+            account.autoreply.subject, account.autoreply.html, { id: account.mailbox_id },
+            { error: window.accountsModal.hideLoader }, ASC.Resources.Master.Resource.LoadingProcessing);
+    }
+
+    function updateAutoreply(account) {
+        var turnOn = $('#turnAutoreplyFlag')[0].checked,
+            onlyContacts = $('#onlyContactsFlag')[0].checked,
+            turnOnToDate = $('#turnOnToDateFlag')[0].checked,
+            fromDate = $('#autoreplyStartDate').datepicker('getDate'),
+            toDate = $('#autoreplyDueDate').datepicker('getDate'),
+            subject = $('#autoreplySubject').val(),
+            html = $('#ckMailAutoreplyEditor').val();
+
+        fromDate = Teamlab.serializeTimestamp(fromDate);
+        toDate = Teamlab.serializeTimestamp(toDate);
+        serviceManager.updateMailboxAutoreply(account.mailbox_id, turnOn, onlyContacts,
+            turnOnToDate, fromDate, toDate, subject, html, { id: account.mailbox_id },
+            { error: window.accountsModal.hideLoader }, ASC.Resources.Master.Resource.LoadingProcessing);
+    }
 
     function onErrorResetEMailInFolder() {
         window.toastr.error(window.MailScriptResource.ResetAccountEMailInFolderFailure);
@@ -326,8 +510,18 @@ window.accountsPage = (function($) {
 
     function setDefaultAccountIfItDoesNotExist() {
         if ($('.default_account_icon').length == 0) {
-            var $defaultAccountIcon = $('.set_as_default_account_icon');
-            if ($defaultAccountIcon.length != 0) {
+            var $defaultAccountIcon = $('.set_as_default_account_icon'),
+                email = undefined,
+                account = undefined;
+            if ($defaultAccountIcon.length > 0) {
+                for (var i = 0; i < $defaultAccountIcon.length; i++) {
+                    email = $($defaultAccountIcon[i]).parent().parent('.item-row').attr('data_id');
+                    account = accountsManager.getAccountByAddress(email);
+                    if (account.enabled) {
+                        setDefaultButtonClick($defaultAccountIcon[i]);
+                        return;
+                    }
+                }
                 setDefaultButtonClick($defaultAccountIcon[0]);
             }
         }
@@ -398,6 +592,7 @@ window.accountsPage = (function($) {
         addAccount: addAccount,
         deleteAccount: deleteAccount,
         activateAccount: activateAccount,
+        turnAutoreply: turnAutoreply,
         isContain: isContain,
         clear: clear,
         loadAccounts: loadAccounts,

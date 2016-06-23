@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -75,9 +75,9 @@ namespace ASC.Files.Core
         /// <param name="filterType"></param>
         /// <param name="subjectID"></param>
         /// <param name="searchText"></param>
-        /// <param name="searchSubfolders"></param>
+        /// <param name="withSubfolders"></param>
         /// <returns></returns>
-        List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false);
+        List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false);
 
         /// <summary>
         /// Gets the folder (s) by ID (s)
@@ -112,17 +112,17 @@ namespace ASC.Files.Core
         ///  move folder
         /// </summary>
         /// <param name="folderId">folder id</param>
-        /// <param name="toRootFolderId">destination folder id</param>
-        object MoveFolder(object folderId, object toRootFolderId);
+        /// <param name="toFolderId">destination folder id</param>
+        object MoveFolder(object folderId, object toFolderId);
 
         /// <summary>
         ///     copy folder
         /// </summary>
         /// <param name="folderId"></param>
-        /// <param name="toRootFolderId"></param>
+        /// <param name="toFolderId"></param>
         /// <returns> 
         /// </returns>
-        Folder CopyFolder(object folderId, object toRootFolderId);
+        Folder CopyFolder(object folderId, object toFolderId);
 
         /// <summary>
         /// Validate the transfer operation directory to another directory.
@@ -145,9 +145,15 @@ namespace ASC.Files.Core
         ///    Gets the number of files and folders to the container in your
         /// </summary>
         /// <param name="folderId">folder id</param>
-        /// <param name="withSubfoldes"> </param>
         /// <returns></returns>
-        int GetItemsCount(object folderId, bool withSubfoldes);
+        int GetItemsCount(object folderId);
+
+        /// <summary>
+        ///    Сheck folder on emptiness
+        /// </summary>
+        /// <param name="folderId">folder id</param>
+        /// <returns></returns>
+        bool IsEmpty(object folderId);
 
         /// <summary>
         /// Check the need to use the trash before removing
@@ -165,6 +171,13 @@ namespace ASC.Files.Core
         bool UseRecursiveOperation(object folderId, object toRootFolderId);
 
         /// <summary>
+        /// Сheck the possibility to calculate the number of subitems
+        /// </summary>
+        /// <param name="entryId"> </param>
+        /// <returns></returns>
+        bool CanCalculateSubitems(object entryId);
+
+        /// <summary>
         /// Returns maximum size of file which can be uploaded to specific folder
         /// </summary>
         /// <param name="folderId">Id of the folder</param>
@@ -179,9 +192,9 @@ namespace ASC.Files.Core
         /// Only in TMFolderDao
         /// </summary>
         /// <param name="text"></param>
-        /// <param name="folderType"></param>
+        /// <param name="folderTypes"></param>
         /// <returns></returns>
-        IEnumerable<Folder> Search(string text, FolderType folderType);
+        IEnumerable<Folder> Search(string text, params FolderType[] folderTypes);
 
         /// <summary>
         /// Only in TMFolderDao

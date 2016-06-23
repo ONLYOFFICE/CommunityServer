@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -260,12 +260,18 @@ ASC.Projects.Discussions = (function() {
         Teamlab.getPrjDiscussions({}, { filter: self.currentFilter, success: onGetDiscussions });
     };
 
-    var showOrHideEmptyScreen = function(discussionCount) {
+    var showOrHideEmptyScreen = function(discussionCount, total) {
         if (discussionCount) {
             self.$noContentBlock.hide();
             ASC.Projects.ProjectsAdvansedFilter.show();
             return;
         }
+        if (ASC.Projects.PageNavigator.currentPage > 0 && filterDiscCount > 0) {
+            ASC.Projects.PageNavigator.setMaxPage(filterDiscCount);
+            getData(true);
+            return;
+        }
+
         ASC.Projects.PageNavigator.hide();
         if (ASC.Projects.ProjectsAdvansedFilter.baseFilter) {
             ASC.Projects.ProjectsAdvansedFilter.hide();

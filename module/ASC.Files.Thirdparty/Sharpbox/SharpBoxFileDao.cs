@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -75,23 +75,19 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return fileIds.Select(fileId => ToFile(GetFileById(fileId))).ToList();
         }
 
-        public List<object> GetFiles(object parentId, bool withSubfolders)
+        public List<object> GetFiles(object parentId)
         {
             var folder = GetFolderById(parentId).AsEnumerable();
-            if (!withSubfolders)
-            {
-                folder = folder.Where(x => !(x is ICloudDirectoryEntry));
-            }
-            return folder.Select(x => (object)MakeId(x)).ToList();
+
+            return folder
+                .Where(x => !(x is ICloudDirectoryEntry))
+                .Select(x => (object) MakeId(x)).ToList();
         }
 
-        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
         {
-            return new List<File>();
-        }
+            if (filterType == FilterType.FoldersOnly) return new List<File>();
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false)
-        {
             //Get only files
             var files = GetFolderById(parentId).Where(x => !(x is ICloudDirectoryEntry)).Select(x => ToFile(x));
             //Filter
@@ -157,6 +153,8 @@ namespace ASC.Files.Thirdparty.Sharpbox
             //Check length of the file
             if (fileToDownload == null)
                 throw new ArgumentNullException("file", Web.Files.Resources.FilesCommonResource.ErrorMassage_FileNotFound);
+            if (fileToDownload is ErrorEntry)
+                throw new Exception(((ErrorEntry) fileToDownload).Error);
 
             //if (fileToDownload.Length > SetupInfo.AvailableFileSize)
             //{
@@ -165,11 +163,14 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
             var fileStream = fileToDownload.GetDataTransferAccessor().GetDownloadStream();
 
-            if (fileStream.CanSeek)
-                file.ContentLength = fileStream.Length; // hack for google drive
+            if (fileStream != null)
+            {
+                if (fileStream.CanSeek)
+                    file.ContentLength = fileStream.Length; // hack for google drive
 
-            if (offset > 0)
-                fileStream.Seek(offset, SeekOrigin.Begin);
+                if (offset > 0)
+                    fileStream.Seek(offset, SeekOrigin.Begin);
+            }
 
             return fileStream;
         }
@@ -274,9 +275,10 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
         public File CopyFile(object fileId, object toFolderId)
         {
-            var file = GetFile(fileId);
-            SharpBoxProviderInfo.Storage.CopyFileSystemEntry(MakePath(fileId), MakePath(toFolderId));
-            return ToFile(GetFolderById(toFolderId).FirstOrDefault(x => x.Name == file.Title));
+            var file = GetFileById(fileId);
+            if (!SharpBoxProviderInfo.Storage.CopyFileSystemEntry(MakePath(fileId), MakePath(toFolderId)))
+                throw new Exception("Error while copying");
+            return ToFile(GetFolderById(toFolderId).FirstOrDefault(x => x.Name == file.Name));
         }
 
         public object FileRename(File file, string newTitle)
@@ -453,6 +455,11 @@ namespace ASC.Files.Thirdparty.Sharpbox
         #endregion
 
         #region Only in TMFileDao
+
+        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        {
+            return new List<File>();
+        }
 
         public IEnumerable<File> Search(string text, FolderType folderType)
         {

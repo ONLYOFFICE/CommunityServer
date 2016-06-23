@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,6 +26,7 @@
 
 window.createMailboxModal = (function($) {
     var $rootEl,
+        currentMailboxUser,
         currentDomain;
 
     function show(domain) {
@@ -46,17 +47,17 @@ window.createMailboxModal = (function($) {
         initUserSelector(html, '#mailboxUserSelector');
 
         popup.hide();
-        popup.addPopup(window.MailAdministrationResource.CreateMailboxHeaderInfo, html, 392);
+        popup.addPopup(window.MailAdministrationResource.CreateMailboxHeaderInfo, html, 392, null, null, { focusInput: false });
 
         $rootEl = $('#mail_server_create_mailbox_popup');
 
-        $rootEl.find('#mail_server_add_mailbox .mailbox_name').unbind('textchange').bind('textchange', function() {
+        $rootEl.find('#mail_server_add_mailbox .mailboxName').unbind('textchange').bind('textchange', function() {
             turnOffAllRequiredError();
         });
 
         PopupKeyUpActionProvider.EnterAction = "jq('#mail_server_create_mailbox_popup:visible .save').trigger('click');";
 
-        setFocusToInput();
+        setFocusToMailboxInput();
     }
 
     function addMailbox() {
@@ -68,12 +69,13 @@ window.createMailboxModal = (function($) {
 
         var isValid = true;
 
-        var mailboxName = $rootEl.find('#mail_server_add_mailbox .mailbox_name').val();
-        if (mailboxName.length === 0) {
+        var localPart = $rootEl.find('#mail_server_add_mailbox .mailboxName').val();
+        var name = $rootEl.find('#mailboxSenderName .senderName').val();
+        if (localPart.length === 0) {
             TMMail.setRequiredHint('mail_server_add_mailbox', window.MailScriptResource.ErrorEmptyField);
             TMMail.setRequiredError('mail_server_add_mailbox', true);
             isValid = false;
-        } else if (!TMMail.reMailServerEmailStrict.test(mailboxName + '@' + currentDomain.name)) {
+        } else if (!ASC.Mail.Utility.IsValidEmail(localPart + '@' + currentDomain.name)) {
             TMMail.setRequiredHint("mail_server_add_mailbox", window.MailScriptResource.ErrorIncorrectEmail);
             TMMail.setRequiredError('mail_server_add_mailbox', true);
             isValid = false;
@@ -87,14 +89,14 @@ window.createMailboxModal = (function($) {
         }
 
         if (!isValid) {
-            setFocusToInput();
+            setFocusToMailboxInput();
             return false;
         }
 
         turnOffAllRequiredError();
         displayLoading(true);
         disableButtons(true);
-        serviceManager.addMailbox(mailboxName, currentDomain.id, mailboxUserId, {},
+        serviceManager.addMailbox(name, localPart, currentDomain.id, mailboxUserId, {},
             {
                 success: function() {
                     displayLoading(false);
@@ -125,7 +127,13 @@ window.createMailboxModal = (function($) {
         }).on("showList", function(e, item) {
             var id = item.id, name = item.title;
             $rootEl.find(userSelectorName).html(name).attr("data-id", id).removeClass("plus");
-            setFocusToInput();
+            var senderName = $rootEl.find('.senderName');
+            var sender = senderName.val().trim();
+            if (!sender || sender == currentMailboxUser) {
+                currentMailboxUser = (id == window.Teamlab.profile.id) ? TMMail.htmlDecode(Teamlab.profile.displayName) :TMMail.htmlDecode(name);
+                senderName.val(currentMailboxUser);
+            }
+            setFocusToMailboxInput();
             turnOffAllRequiredError();
         });
     }
@@ -152,11 +160,11 @@ window.createMailboxModal = (function($) {
         TMMail.disableButton($rootEl.find('.save'), disable);
         TMMail.disableButton($('#commonPopup .cancelButton'), disable);
         popup.disableCancel(disable);
-        TMMail.disableInput($rootEl.find('.mailbox_name'), disable);
+        TMMail.disableInput($rootEl.find('.mailboxName'), disable);
     }
 
-    function setFocusToInput() {
-        $rootEl.find('.mailbox_name').focus();
+    function setFocusToMailboxInput() {
+        $rootEl.find('.mailboxName').focus();
     }
 
     return {

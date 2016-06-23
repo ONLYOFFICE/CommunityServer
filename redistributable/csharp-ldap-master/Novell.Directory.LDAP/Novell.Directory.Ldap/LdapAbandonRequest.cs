@@ -29,34 +29,33 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
 using Novell.Directory.Ldap.Rfc2251;
 
 namespace Novell.Directory.Ldap
 {
-	
-	/// <summary> Represents an Ldap Abandon Request
-	/// 
-	/// </summary>
-	/// <seealso cref="LdapConnection.SendRequest">
-	/// </seealso> 
-   /*
-	*       AbandonRequest ::= [APPLICATION 16] MessageID
-	*/
-	public class LdapAbandonRequest:LdapMessage
-	{
-		/// <summary> Construct an Ldap Abandon Request.
-		/// 
-		/// </summary>
-		/// <param name="id">The ID of the operation to abandon.
-		/// 
-		/// </param>
-		/// <param name="cont">Any controls that apply to the abandon request
-		/// or null if none.
-		/// </param>
-		public LdapAbandonRequest(int id, LdapControl[] cont):base(LdapMessage.ABANDON_REQUEST, new RfcAbandonRequest(id), cont)
-		{
-			return ;
-		}
-	}
+
+    /// <summary> Represents an Ldap Abandon Request
+    /// 
+    /// </summary>
+    /// <seealso cref="LdapConnection.SendRequest">
+    /// </seealso> 
+    /*
+     *       AbandonRequest ::= [APPLICATION 16] MessageID
+     */
+    public class LdapAbandonRequest : LdapMessage
+    {
+        /// <summary> Construct an Ldap Abandon Request.
+        /// 
+        /// </summary>
+        /// <param name="id">The ID of the operation to abandon.
+        /// 
+        /// </param>
+        /// <param name="cont">Any controls that apply to the abandon request
+        /// or null if none.
+        /// </param>
+        public LdapAbandonRequest(int id, LdapControl[] cont)
+            : base(LdapMessage.ABANDON_REQUEST, new RfcAbandonRequest(id), cont)
+        {
+        }
+    }
 }

@@ -19,7 +19,7 @@
     <% } %>
 
     <div id="contactListBox">
-        <table id="contactTable" class="tableBase" cellpadding="4" cellspacing="0">
+        <table id="contactTable" class="table-list" cellpadding="4" cellspacing="0">
             <tbody>
             </tbody>
         </table>

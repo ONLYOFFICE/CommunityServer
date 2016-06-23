@@ -30,23 +30,22 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AppLimit.CloudComputing.SharpBox">
-      <HintPath>..\..\packages\AppLimit.CloudComputing.SharpBox.1.1.0.442\lib\net45\AppLimit.CloudComputing.SharpBox.dll</HintPath>
+      <HintPath>..\..\packages\AppLimit.CloudComputing.SharpBox.1.1.0.444\lib\net45\AppLimit.CloudComputing.SharpBox.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis, Version=1.8.1.31687, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Apis.1.9.1\lib\net40\Google.Apis.dll</HintPath>
+    <Reference Include="Box.V2">
+      <HintPath>..\..\packages\Box.V2.2.6.2\lib\portable-net40+sl50+win+wp80\Box.V2.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Auth, Version=1.8.1.31688, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Apis.Auth.1.9.1\lib\net40\Google.Apis.Auth.dll</HintPath>
+    <Reference Include="Google.Apis">
+      <HintPath>..\..\packages\Google.Apis.1.10.0\lib\netcore45\Google.Apis.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Core, Version=1.8.1.31685, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Apis.Core.1.9.1\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Core.dll</HintPath>
+    <Reference Include="Google.Apis.Auth">
+      <HintPath>..\..\packages\Google.Apis.Auth.1.10.0\lib\netcore45\Google.Apis.Auth.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis.Drive.v2, Version=1.9.0.165, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Google.Apis.Drive.v2.1.9.0.1670\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Drive.v2.dll</HintPath>
+    <Reference Include="Google.Apis.Core">
+      <HintPath>..\..\packages\Google.Apis.Core.1.10.0\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Apis.Drive.v3">
+      <HintPath>..\..\packages\Google.Apis.Drive.v3.1.10.0.10\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Drive.v3.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <SpecificVersion>False</SpecificVersion>
@@ -67,6 +66,9 @@
       <HintPath>..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Nito.AsyncEx">
+      <HintPath>..\..\packages\Nito.AsyncEx.2.1.3\lib\net45\Nito.AsyncEx.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Net.Http.Primitives">
@@ -74,12 +76,19 @@
     </Reference>
     <Reference Include="System.Web" />
     <Reference Include="System.Data" />
-    <Reference Include="Zlib.Portable, Version=1.9.1.9000, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\packages\Zlib.Portable.1.9.1.2\lib\portable-net4+sl4+wp71+win8\Zlib.Portable.dll</HintPath>
+    <Reference Include="Zlib.Portable">
+      <HintPath>..\..\packages\Zlib.Portable.Signed.1.11.0\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Box\BoxDaoSelector.cs" />
+    <Compile Include="Box\BoxProviderInfo.cs" />
+    <Compile Include="Box\BoxStorage.cs" />
+    <Compile Include="Box\BoxDaoBase.cs" />
+    <Compile Include="Box\BoxFolderDao.cs" />
+    <Compile Include="Box\BoxFileDao.cs" />
+    <Compile Include="Box\BoxSecurityDao.cs" />
+    <Compile Include="Box\BoxTagDao.cs" />
     <Compile Include="GoogleDrive\GoogleDriveDaoBase.cs" />
     <Compile Include="GoogleDrive\GoogleDriveDaoSelector.cs" />
     <Compile Include="GoogleDrive\GoogleDriveFileDao.cs" />

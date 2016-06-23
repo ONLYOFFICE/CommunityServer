@@ -16,7 +16,7 @@ searchd
 	max_children	= 30
 	pid_file		= searchd.pid
 	seamless_rotate	= 1
-	preopen_indexes	= 1
+	preopen_indexes	= 0
 	unlink_old		= 1
 	workers			= threads # for RT to work
 	binlog_path		= %INDEX_PATH%
@@ -50,79 +50,153 @@ index main
 
 source projects_projects_main : main
 {
-	sql_query = select sql_no_cache id, title, description, tenant_id from projects_projects
+	sql_query = \
+	             select sql_no_cache pp.id, pp.title, pp.description, pp.tenant_id \
+				 from projects_projects pp \
+				 inner join tenants_tenants t on pp.tenant_id = t.id \
+				 left join tenants_tariff tar on tar.tenant = t.id \
+				 where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+				 group by pp.id \
+				 %having%
 	sql_attr_uint = tenant_id
 }
 
 source projects_projects_delta : main
 {	
-	sql_query = select sql_no_cache id, title, description, tenant_id from projects_projects where last_modified_on >= (select max(last_modified) from webstudio_index where index_name = 'projects_projects_delta' or index_name = 'projects_projects_main')
+	sql_query = select sql_no_cache pp.id, pp.title, pp.description, pp.tenant_id  \
+				from projects_projects pp \
+				inner join tenants_tenants t on pp.tenant_id = t.id \
+				left join tenants_tariff tar on tar.tenant = t.id \
+				where (tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day) \
+				and pp.last_modified_on >= (select max(last_modified) from webstudio_index where index_name = 'projects_projects_delta' or index_name = 'projects_projects_main') \
+				group by pp.id
 	sql_attr_uint = tenant_id
 }
 
 
 source projects_milestones_main : main
 {
-	sql_query = select sql_no_cache id, title, description, tenant_id from projects_milestones
+	sql_query = select sql_no_cache pm.id, pm.title, pm.description, pm.tenant_id \
+				from projects_milestones pm \
+				inner join tenants_tenants t on pm.tenant_id = t.id \
+				left join tenants_tariff tar on tar.tenant = t.id \
+				where (tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day) \
+				group by pm.id \
+				%having%
 	sql_attr_uint = tenant_id
 }
 
 source projects_milestones_delta : main
 {
-	sql_query = select sql_no_cache id, title, description, tenant_id from projects_milestones where last_modified_on >= (select max(last_modified) from webstudio_index where index_name = 'projects_milestones_delta' or index_name = 'projects_milestones_main')
+	sql_query = select sql_no_cache pm.id, pm.title, pm.description, pm.tenant_id \
+				from projects_milestones pm \
+				inner join tenants_tenants t on pm.tenant_id = t.id \
+				left join tenants_tariff tar on tar.tenant = t.id \
+				where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+				and pm.last_modified_on >= (select max(last_modified) from webstudio_index where index_name = 'projects_milestones_delta' or index_name = 'projects_milestones_main') \
+				group by pm.id
 	sql_attr_uint = tenant_id
 }
 
 
 source projects_messages_main : main
 {
-	sql_query = select sql_no_cache id, title, content, tenant_id from projects_messages
+	sql_query = select sql_no_cache pm.id, pm.title, pm.content, pm.tenant_id \
+				from projects_messages pm \
+				inner join tenants_tenants t on pm.tenant_id = t.id \
+				left join tenants_tariff tar on tar.tenant = t.id \
+				where (tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day) \
+				group by pm.id \
+				%having%
 	sql_attr_uint = tenant_id
 }
 
 source projects_messages_delta : main
 {
-	sql_query = select sql_no_cache id, title, content, tenant_id from projects_messages where last_modified_on >= (select max(last_modified) from webstudio_index where index_name = 'projects_messages_delta' or index_name = 'projects_messages_main')
+	sql_query = select sql_no_cache pm.id, pm.title, pm.content, pm.tenant_id \
+				from projects_messages pm \
+				inner join tenants_tenants t on pm.tenant_id = t.id \
+				left join tenants_tariff tar on tar.tenant = t.id \
+				where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+				and pm.last_modified_on >= (select max(last_modified) from webstudio_index where index_name = 'projects_messages_delta' or index_name = 'projects_messages_main') \
+				group by pm.id
 	sql_attr_uint = tenant_id
 }
 
 
 source projects_tasks_main : main
 {
-	sql_query = select sql_no_cache id, title, description, tenant_id from projects_tasks
+	sql_query = select sql_no_cache pt.id, pt.title, pt.description, pt.tenant_id \
+				from projects_tasks pt \
+				inner join tenants_tenants t on pt.tenant_id = t.id \
+				left join tenants_tariff tar on tar.tenant = t.id \
+				where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+				group by pt.id \
+				%having%
 	sql_attr_uint = tenant_id
 }
 
 source projects_tasks_delta : main
 {
-	sql_query = select sql_no_cache id, title, description, tenant_id from projects_tasks where last_modified_on >= (select max(last_modified) from webstudio_index where index_name = 'projects_tasks_delta' or index_name = 'projects_tasks_main')
+	sql_query = select sql_no_cache pt.id, pt.title, pt.description, pt.tenant_id \
+				from projects_tasks pt \
+				inner join tenants_tenants t on pt.tenant_id = t.id \
+				left join tenants_tariff tar on tar.tenant = t.id \
+				where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+				and pt.last_modified_on >= (select max(last_modified) from webstudio_index where index_name = 'projects_tasks_delta' or index_name = 'projects_tasks_main') \
+				group by pt.id
 	sql_attr_uint = tenant_id
 }
 
 source projects_subtasks_main : main
 {
-	sql_query = select id, title, task_id, tenant_id from projects_subtasks
+	sql_query = select ps.id, ps.title, ps.task_id, ps.tenant_id \
+				from projects_subtasks ps \
+				inner join tenants_tenants t on ps.tenant_id = t.id \
+				left join tenants_tariff tar on tar.tenant = t.id \
+				where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+				group by ps.id \
+				%having%
 	sql_attr_uint = tenant_id
 	sql_attr_uint = task_id
 }
 
 source projects_subtasks_delta : main
 {
-	sql_query = select id, title, task_id, tenant_id from projects_subtasks where last_modified_on >= (select max(last_modified) from webstudio_index where index_name = 'projects_subtasks_delta' or index_name = 'projects_subtasks_main')
+	sql_query = select ps.id, ps.title, ps.task_id, ps.tenant_id \
+				from projects_subtasks ps \
+				inner join tenants_tenants t on ps.tenant_id = t.id \
+				left join tenants_tariff tar on tar.tenant = t.id \
+				where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+				and ps.last_modified_on >= (select max(last_modified) from webstudio_index where index_name = 'projects_subtasks_delta' or index_name = 'projects_subtasks_main') \
+				group by ps.id
 	sql_attr_uint = tenant_id
 	sql_attr_uint = task_id
 }
 
 source projects_comments_main : main
 {
-	sql_query = select sql_no_cache comment_id, content, target_uniq_id, tenant_id from projects_comments where inactive = 0
+	sql_query = select sql_no_cache pc.comment_id, pc.content, pc.target_uniq_id, pc.tenant_id \
+				from projects_comments pc \
+				inner join tenants_tenants t on pc.tenant_id = t.id \
+				left join tenants_tariff tar on tar.tenant = t.id \
+				where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+				and pc.inactive = 0 \
+				group by pc.id \
+				%having%
 	sql_attr_uint = tenant_id
 	sql_field_string = target_uniq_id
 }
 
 source projects_comments_delta : main
 {
-	sql_query = select sql_no_cache comment_id, content, target_uniq_id, tenant_id from projects_comments where inactive = 0 and create_on >= (select max(last_modified) from webstudio_index where index_name = 'projects_comments_delta' or index_name = 'projects_comments_main')
+	sql_query = select sql_no_cache pc.comment_id, pc.content, pc.target_uniq_id, pc.tenant_id \
+				from projects_comments pc \
+				inner join tenants_tenants t on pc.tenant_id = t.id \
+				left join tenants_tariff tar on tar.tenant = t.id \
+				where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+				and pc.inactive = 0 and pc.create_on >= (select max(last_modified) from webstudio_index where index_name = 'projects_comments_delta' or index_name = 'projects_comments_main') \
+				group by pc.id
 	sql_attr_uint = tenant_id
 	sql_field_string = target_uniq_id
 }
@@ -205,25 +279,50 @@ index projects_comments_delta : main
 
 source files_file_main : main
 {
-	sql_query = select sql_no_cache id, replace(f.title, '.', ' '), tenant_id from files_file f where f.current_version = 1 
+	sql_query = select sql_no_cache f.id, replace(f.title, '.', ' '), tenant_id \
+				from files_file f \
+				inner join tenants_tenants t on f.tenant_id = t.id \
+				left join tenants_tariff tar on tar.tenant = t.id \
+				where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+				and f.current_version = 1 \
+				group by f.id \
+				%having%
 	sql_attr_uint = tenant_id
 }
 
 source files_file_delta : main
 {	
-	sql_query = select sql_no_cache id, replace(f.title, '.', ' '), tenant_id from files_file f where f.modified_on >= (select max(last_modified) from webstudio_index where index_name = 'files_file_delta' or index_name = 'files_file_main') and f.current_version = 1 
+	sql_query = select sql_no_cache f.id, replace(f.title, '.', ' '), tenant_id \
+				from files_file f \
+				inner join tenants_tenants t on f.tenant_id = t.id \
+				left join tenants_tariff tar on tar.tenant = t.id \
+				where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+				and f.modified_on >= (select max(last_modified) from webstudio_index where index_name = 'files_file_delta' or index_name = 'files_file_main') and f.current_version = 1 \
+				group by f.id
 	sql_attr_uint = tenant_id
 }
 
 source files_folder_main : main
 {
-	sql_query = select sql_no_cache id, replace(title, '.', ' '), tenant_id from files_folder
+	sql_query = select sql_no_cache f.id, replace(f.title, '.', ' '), f.tenant_id \
+				from files_folder f \
+				inner join tenants_tenants t on f.tenant_id = t.id \
+				left join tenants_tariff tar on tar.tenant = t.id \
+				where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+				group by f.id \
+				%having%
 	sql_attr_uint = tenant_id
 }
 
 source files_folder_delta : main
 {
-	sql_query = select sql_no_cache id, replace(title, '.', ' '), tenant_id from files_folder where modified_on >= (select max(last_modified) from webstudio_index where index_name = 'files_folder_delta' or index_name = 'files_folder_main')
+	sql_query = select sql_no_cache f.id, replace(f.title, '.', ' '), f.tenant_id \
+				from files_folder f \
+				inner join tenants_tenants t on f.tenant_id = t.id \
+				left join tenants_tariff tar on tar.tenant = t.id \
+				where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+				and f.modified_on >= (select max(last_modified) from webstudio_index where index_name = 'files_folder_delta' or index_name = 'files_folder_main') \
+				group by f.id
 	sql_attr_uint = tenant_id
 }
 
@@ -257,31 +356,61 @@ index files_folder_delta : main
 
 source crm_contacts_main : main
 {
-	sql_query = 	select sql_no_cache id, first_name, last_name, company_name, title, notes, industry, tenant_id from crm_contact
+	sql_query = 	select sql_no_cache c.id, c.first_name, c.last_name, c.company_name, c.title, c.notes, c.industry, c.tenant_id \
+					from crm_contact c \
+					inner join tenants_tenants t on c.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					group by c.id \
+					%having%
 	sql_attr_uint = tenant_id
 }
 source crm_contacts_delta : main
 {
-	sql_query = 	select sql_no_cache id, first_name, last_name, company_name, title, notes, industry, tenant_id from crm_contact where last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_contacts_delta' or index_name = 'crm_contacts_main')
+	sql_query = 	select sql_no_cache c.id, c.first_name, c.last_name, c.company_name, c.title, c.notes, c.industry, c.tenant_id \
+					from crm_contact c \
+					inner join tenants_tenants t on c.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and c.last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_contacts_delta' or index_name = 'crm_contacts_main') \
+					group by c.id
 	sql_attr_uint = tenant_id
 }
 
 source crm_info_main : main
 {
-	sql_query = 	select sql_no_cache id, contact_id, data, tenant_id from crm_contact_info
+	sql_query = 	select sql_no_cache c.id, c.contact_id, c.data, c.tenant_id \
+					from crm_contact_info c \
+					inner join tenants_tenants t on c.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					group by c.id \
+					%having%
 	sql_attr_uint = tenant_id
 	sql_attr_uint = contact_id
 }
 source crm_info_delta : main
 {
-	sql_query = 	select sql_no_cache id, contact_id, data, tenant_id from crm_contact_info where last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_info_delta' or index_name = 'crm_info_main')
+	sql_query = 	select sql_no_cache c.id, c.contact_id, c.data, c.tenant_id \
+					from crm_contact_info c \
+					inner join tenants_tenants t on c.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and c.last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_info_delta' or index_name = 'crm_info_main') \
+					group by c.id
 	sql_attr_uint = tenant_id
 	sql_attr_uint = contact_id
 }
 
 source crm_events_main : main
 {
-	sql_query = 	select sql_no_cache id, contact_id, entity_id, entity_type, tenant_id, content from crm_relationship_event
+	sql_query = 	select sql_no_cache c.id, c.contact_id, c.entity_id, c.entity_type, c.tenant_id, c.content \
+					from crm_relationship_event c \
+					inner join tenants_tenants t on c.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					group by c.id \
+					%having%
 	sql_attr_uint = tenant_id
 	sql_attr_bigint = contact_id
 	sql_attr_uint = entity_id
@@ -289,7 +418,13 @@ source crm_events_main : main
 }
 source crm_events_delta : main
 {
-	sql_query 	  = select sql_no_cache id, contact_id, entity_id, entity_type, tenant_id, content from crm_relationship_event where last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_events_delta' or index_name = 'crm_events_main')
+	sql_query = 	select sql_no_cache c.id, c.contact_id, c.entity_id, c.entity_type, c.tenant_id, c.content \
+					from crm_relationship_event c \
+					inner join tenants_tenants t on c.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and c.last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_events_delta' or index_name = 'crm_events_main') \
+					group by c.id
 	sql_attr_uint = tenant_id
 	sql_attr_bigint = contact_id
 	sql_attr_uint = entity_id
@@ -298,40 +433,82 @@ source crm_events_delta : main
 
 source crm_deal_main : main
 {
-	sql_query     = select sql_no_cache id, title, tenant_id, description from crm_deal
+	sql_query     = select sql_no_cache c.id, c.title, c.tenant_id, c.description \
+					from crm_deal c \
+					inner join tenants_tenants t on c.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					group by c.id \
+					%having%
 	sql_attr_uint = tenant_id
 }
 source crm_deal_delta : main
 {
-	sql_query 	  = select sql_no_cache id, title, tenant_id, description from crm_deal where last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_deal_delta' or index_name = 'crm_deal_main')
+	sql_query 	  = select sql_no_cache c.id, c.title, c.tenant_id, c.description \
+					from crm_deal c \
+					inner join tenants_tenants t on c.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and c.last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_deal_delta' or index_name = 'crm_deal_main') \
+					group by c.id
 	sql_attr_uint = tenant_id
 }
 
 source crm_task_main : main
 {
-	sql_query     = select sql_no_cache id, title, tenant_id, description from crm_task
+	sql_query     = select sql_no_cache c.id, c.title, c.tenant_id, c.description \
+					from crm_task c \
+					inner join tenants_tenants t on c.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					group by c.id \
+					%having%
 	sql_attr_uint = tenant_id
 }
 source crm_task_delta : main
 {
-	sql_query 	  = select sql_no_cache id, title, tenant_id, description from crm_task where last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_task_delta' or index_name = 'crm_task_main')
+	sql_query     = select sql_no_cache c.id, c.title, c.tenant_id, c.description \
+					from crm_task c \
+					inner join tenants_tenants t on c.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and c.last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_task_delta' or index_name = 'crm_task_main') \
+					group by c.id
 	sql_attr_uint = tenant_id
 }
 
 source crm_cases_main : main
 {
-	sql_query     = select sql_no_cache id, title, tenant_id from crm_case
+	sql_query     = select sql_no_cache c.id, c.title, c.tenant_id \
+					from crm_case c \
+					inner join tenants_tenants t on c.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					group by c.id \
+					%having%
 	sql_attr_uint = tenant_id
 }
 source crm_cases_delta : main
 {
-	sql_query 	  = select sql_no_cache id, title, tenant_id from crm_case where last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_cases_delta' or index_name = 'crm_cases_main')
+	sql_query     = select sql_no_cache c.id, c.title, c.tenant_id \
+					from crm_case c \
+					inner join tenants_tenants t on c.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and c.last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_cases_delta' or index_name = 'crm_cases_main') \
+					group by c.id
 	sql_attr_uint = tenant_id
 }
 
 source crm_field_main : main
 {
-	sql_query     = select sql_no_cache id, field_id, entity_id, entity_type, tenant_id, value from crm_field_value
+	sql_query     = select sql_no_cache c.id, c.field_id, c.entity_id, c.entity_type, c.tenant_id, c.value \
+					from crm_field_value c \
+					inner join tenants_tenants t on c.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					group by c.id \
+					%having%
 	sql_attr_uint = tenant_id
 	sql_attr_uint = field_id
 	sql_attr_uint = entity_id
@@ -339,7 +516,13 @@ source crm_field_main : main
 }
 source crm_field_delta : main
 {
-	sql_query 	  = select sql_no_cache id, field_id, entity_id, entity_type, tenant_id, value from crm_field_value where last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_field_delta' or index_name = 'crm_field_main')
+	sql_query     = select sql_no_cache c.id, c.field_id, c.entity_id, c.entity_type, c.tenant_id, c.value \
+					from crm_field_value c \
+					inner join tenants_tenants t on c.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and c.last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_field_delta' or index_name = 'crm_field_main') \
+					group by c.id
 	sql_attr_uint = tenant_id
 	sql_attr_uint = field_id
 	sql_attr_uint = entity_id
@@ -348,13 +531,52 @@ source crm_field_delta : main
 
 source crm_email_main : main
 {
-	sql_query     = select sql_no_cache i.id, c.first_name, c.last_name, c.company_name, i.data, c.tenant_id tenant_id from crm_contact c inner join crm_contact_info i on c.tenant_id=i.tenant_id and c.id=i.contact_id  where i.type=1 
+	sql_query     = select sql_no_cache i.id, c.first_name, c.last_name, c.company_name, i.data, c.tenant_id tenant_id \
+					from crm_contact c \
+					inner join crm_contact_info i on c.tenant_id=i.tenant_id and c.id=i.contact_id  \
+					inner join tenants_tenants t on c.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and i.type=1 \
+					group by c.id \
+					%having%
 	sql_attr_uint = tenant_id
 
 }
 source crm_email_delta : main
 {
-	sql_query 	  = select sql_no_cache i.id, c.first_name, c.last_name, c.company_name, i.data, c.tenant_id tenant_id from crm_contact c inner join crm_contact_info i on c.tenant_id=i.tenant_id and c.id=i.contact_id where i.type=1 and i.last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_email_delta' or index_name = 'crm_email_main')
+	sql_query     = select sql_no_cache i.id, c.first_name, c.last_name, c.company_name, i.data, c.tenant_id tenant_id \
+					from crm_contact c \
+					inner join crm_contact_info i on c.tenant_id=i.tenant_id and c.id=i.contact_id  \
+					inner join tenants_tenants t on c.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and i.type=1 and i.last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_email_delta' or index_name = 'crm_email_main') \
+					group by c.id
+	sql_attr_uint = tenant_id
+}
+
+source crm_invoices_main : main
+{
+	sql_query     = select sql_no_cache i.id, i.number, i.terms, i.description, i.purchase_order_number, i.tenant_id tenant_id \
+					from crm_invoice i \
+					inner join tenants_tenants t on i.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					group by i.id \
+					%having%
+	sql_attr_uint = tenant_id
+
+}
+source crm_invoices_delta : main
+{
+	sql_query     = select sql_no_cache i.id, i.number, i.terms, i.description, i.purchase_order_number, i.tenant_id tenant_id \
+					from crm_invoice i \
+					inner join tenants_tenants t on i.tenant_id = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and i.last_modifed_on >= (select max(last_modified) from webstudio_index where index_name = 'crm_invoices_delta' or index_name = 'crm_invoices_main') \
+					group by i.id
 	sql_attr_uint = tenant_id
 }
 
@@ -448,13 +670,34 @@ index crm_email_delta : main
 	path			= %INDEX_PATH%/crm/email/delta
 }
 
+
+index crm_invoices_main : main
+{
+	source			= crm_invoices_main
+	path			= %INDEX_PATH%/crm/invoices/main
+}
+index crm_invoices_delta : main
+{
+	source			= crm_invoices_delta
+	path			= %INDEX_PATH%/crm/invoices/delta
+}
+
 ##################crm##################
 
 ##################mail##################
 
 source mail_mail_main : main
 {
-	sql_query = 	select sql_no_cache id, replace(replace(replace(from_text, '"', ''), '>', ''), '<', '') as from_text, to_text, cc, bcc, subject, id_user as user_id, UNIX_TIMESTAMP(date_sent) as date_sent, tenant as tenant_id, folder from mail_mail where is_removed = 0
+	sql_query = 	select sql_no_cache m.id, replace(replace(replace(m.from_text, '"', ''), '>', ''), '<', '') as from_text, replace(replace(replace(m.to_text, '"', ''), '>', ''), '<', '') as to_text, \
+					replace(replace(replace(m.cc, '"', ''), '>', ''), '<', '') as cc, replace(replace(replace(m.bcc, '"', ''), '>', ''), '<', '') as bcc, \
+					m.subject, id_user as user_id, UNIX_TIMESTAMP(date_sent) as date_sent, m.tenant as tenant_id, folder \
+					from mail_mail m \
+					inner join tenants_tenants t on m.tenant = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and is_removed = 0 \
+					group by m.id \
+					%having%
 	sql_attr_uint = tenant_id
 	sql_attr_string = user_id
 	sql_attr_uint = folder
@@ -462,7 +705,15 @@ source mail_mail_main : main
 }
 source mail_mail_delta : main
 {
-	sql_query = 	select sql_no_cache id, replace(replace(replace(from_text, '"', ''), '>', ''), '<', '') as from_text, to_text, cc, bcc, subject, id_user as user_id, UNIX_TIMESTAMP(date_sent) as date_sent, tenant as tenant_id, folder from mail_mail where is_removed = 0 and time_modified >= (select adddate(max(last_modified),interval -12 hour) from webstudio_index where index_name = 'mail_mail_delta' or index_name = 'mail_mail_main')
+	sql_query = 	select sql_no_cache m.id, replace(replace(replace(m.from_text, '"', ''), '>', ''), '<', '') as from_text, replace(replace(replace(m.to_text, '"', ''), '>', ''), '<', '') as to_text, \
+					replace(replace(replace(m.cc, '"', ''), '>', ''), '<', '') as cc, replace(replace(replace(m.bcc, '"', ''), '>', ''), '<', '') as bcc, \
+					m.subject, id_user as user_id, UNIX_TIMESTAMP(date_sent) as date_sent, m.tenant as tenant_id, folder \
+					from mail_mail m \
+					inner join tenants_tenants t on m.tenant = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and is_removed = 0 and time_modified >= (select adddate(max(last_modified),interval -12 hour) from webstudio_index where index_name = 'mail_mail_delta' or index_name = 'mail_mail_main') \
+					group by m.id
 	sql_attr_uint = tenant_id
 	sql_attr_string = user_id
 	sql_attr_uint = folder
@@ -471,12 +722,26 @@ source mail_mail_delta : main
 
 source mail_contacts_main : main
 {
-	sql_query = 	select sql_no_cache id, name, substring_index(address, '@', 1), address, tenant as tenant_id from mail_contacts
+	sql_query = 	select sql_no_cache ci.id, mc.name, mc.description, ci.data, mc.tenant as tenant_id \
+					from mail_contacts mc \
+					inner join mail_contact_info ci on mc.id = ci.id_contact \
+					inner join tenants_tenants t on mc.tenant = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					group by ci.id \
+					%having%
 	sql_attr_uint = tenant_id
 }
 source mail_contacts_delta : main
 {
-	sql_query = 	select sql_no_cache id, name, substring_index(address, '@', 1), address, tenant as tenant_id from mail_contacts where last_modified >= (select adddate(max(last_modified),interval -12 hour) from webstudio_index where index_name = 'mail_contacts_delta' or index_name = 'mail_contacts_main')
+	sql_query = 	select sql_no_cache ci.id, mc.name, mc.description, ci.data, mc.tenant as tenant_id \
+					from mail_contacts mc \
+					inner join mail_contact_info ci on mc.id = ci.id_contact \
+					inner join tenants_tenants t on mc.tenant = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and ci.last_modified >= (select adddate(max(last_modified),interval -12 hour) from webstudio_index where index_name = 'mail_contacts_delta' or index_name = 'mail_contacts_main') or mc.last_modified >= (select max(last_modified) from webstudio_index where index_name = 'mail_contacts_delta' or index_name = 'mail_contacts_main') \
+					group by ci.id
 	sql_attr_uint = tenant_id
 }
 
@@ -509,69 +774,151 @@ index mail_contacts_delta : main
 
 source community_blogs_main : main
 {
-	sql_query = 	select sql_no_cache post_id, title, content, (select group_concat(t.name) from blogs_tags t where t.tenant = p.tenant and t.post_id = p.id), Tenant as tenant_id from blogs_posts p  where 1=1
+	sql_query = 	select sql_no_cache p.post_id, p.title, p.content, \
+					(select group_concat(t.name) from blogs_tags t where t.tenant = p.tenant and t.post_id = p.id), p.Tenant as tenant_id \
+					from blogs_posts p \
+					inner join tenants_tenants t on p.Tenant = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					group by p.post_id \
+					%having%
 	sql_attr_uint = tenant_id
 }
 source community_blogs_delta : main
 {
-	sql_query = 	select sql_no_cache post_id, title, content, (select group_concat(t.name) from blogs_tags t where t.tenant = p.tenant and t.post_id = p.id), Tenant as tenant_id from blogs_posts p where LastModified >= (select adddate(max(last_modified),interval -12 hour) from webstudio_index where index_name = 'community_blogs_delta' or index_name = 'community_blogs_main')
+	sql_query = 	select sql_no_cache p.post_id, p.title, p.content, \
+					(select group_concat(t.name) from blogs_tags t where t.tenant = p.tenant and t.post_id = p.id), p.Tenant as tenant_id \
+					from blogs_posts p \
+					inner join tenants_tenants t on p.Tenant = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and p.LastModified >= (select adddate(max(last_modified),interval -12 hour) from webstudio_index where index_name = 'community_blogs_delta' or index_name = 'community_blogs_main') \
+					group by p.post_id
 	sql_attr_uint = tenant_id
 }
 
 source community_news_main : main
 {
-	sql_query = 	select sql_no_cache id, caption, text, (select group_concat(v.name) from events_pollvariant v where v.tenant = f.tenant and v.poll = f.id), Tenant as tenant_id from events_feed f  where 1=1
+	sql_query = 	select sql_no_cache f.id, f.caption, f.text, \
+					(select group_concat(v.name) from events_pollvariant v where v.tenant = f.tenant and v.poll = f.id), f.Tenant as tenant_id \
+					from events_feed f \
+					inner join tenants_tenants t on f.Tenant = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					group by f.id \
+					%having%
 	sql_attr_uint = tenant_id
 }
 source community_news_delta : main
 {
-	sql_query = 	select sql_no_cache id, caption, text, (select group_concat(v.name) from events_pollvariant v where v.tenant = f.tenant and v.poll = f.id), Tenant as tenant_id from events_feed f where LastModified >= (select adddate(max(last_modified),interval -12 hour) from webstudio_index where index_name = 'community_news_delta' or index_name = 'community_news_main')
+	sql_query = 	select sql_no_cache f.id, f.caption, f.text, \
+					(select group_concat(v.name) from events_pollvariant v where v.tenant = f.tenant and v.poll = f.id), f.Tenant as tenant_id \
+					from events_feed f \
+					inner join tenants_tenants t on f.Tenant = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and f.LastModified >= (select adddate(max(last_modified),interval -12 hour) from webstudio_index where index_name = 'community_news_delta' or index_name = 'community_news_main') \
+					group by f.id
 	sql_attr_uint = tenant_id
 }
 
 source community_bookmarks_main : main
 {
-	sql_query = 	select sql_no_cache UserBookmarkID, BookmarkID, (select k.URL from bookmarking_bookmark k where k.ID = b.BookmarkID), Name, Description, (select group_concat(t.Name) from bookmarking_userbookmarktag bt, bookmarking_tag t where bt.TagID = t.TagID and bt.UserBookmarkID = b.UserBookmarkID), Tenant as tenant_id from bookmarking_userbookmark b  where 1=1
+	sql_query = 	select sql_no_cache b.UserBookmarkID, b.BookmarkID, \
+					(select k.URL from bookmarking_bookmark k where k.ID = b.BookmarkID), b.Name, b.Description, \
+					(select group_concat(t.Name) from bookmarking_userbookmarktag bt, bookmarking_tag t where bt.TagID = t.TagID and bt.UserBookmarkID = b.UserBookmarkID), b.Tenant as tenant_id \
+					from bookmarking_userbookmark b \
+					inner join tenants_tenants t on b.Tenant = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					group by b.UserBookmarkID \
+					%having%
 	sql_attr_uint = tenant_id
 	sql_attr_uint = BookmarkID
 }
 source community_bookmarks_delta : main
 {
-	sql_query = 	select sql_no_cache UserBookmarkID, BookmarkID, (select k.URL from bookmarking_bookmark k where k.ID = b.BookmarkID), Name, Description, (select group_concat(t.Name) from bookmarking_userbookmarktag bt, bookmarking_tag t where bt.TagID = t.TagID and bt.UserBookmarkID = b.UserBookmarkID), Tenant as tenant_id from bookmarking_userbookmark b where LastModified >= (select adddate(max(last_modified),interval -12 hour) from webstudio_index where index_name = 'community_bookmarks_delta' or index_name = 'community_bookmarks_main')
+	sql_query = 	select sql_no_cache b.UserBookmarkID, b.BookmarkID, \
+					(select k.URL from bookmarking_bookmark k where k.ID = b.BookmarkID), b.Name, b.Description, \
+					(select group_concat(t.Name) from bookmarking_userbookmarktag bt, bookmarking_tag t where bt.TagID = t.TagID and bt.UserBookmarkID = b.UserBookmarkID), b.Tenant as tenant_id \
+					from bookmarking_userbookmark b \
+					inner join tenants_tenants t on b.Tenant = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and b.LastModified >= (select adddate(max(last_modified),interval -12 hour) from webstudio_index where index_name = 'community_bookmarks_delta' or index_name = 'community_bookmarks_main') \
+					group by b.UserBookmarkID
 	sql_attr_uint = tenant_id
 	sql_attr_uint = BookmarkID
 }
 
 source community_wiki_main : main
 {
-	sql_query = 	select sql_no_cache id, pagename,(select h.body from wiki_pages_history h where h.pagename = p.pagename and h.tenant = p.tenant and h.version = p.version), Tenant as tenant_id from wiki_pages p  where 1=1
+	sql_query = 	select sql_no_cache p.id, p.pagename,(select h.body from wiki_pages_history h where h.pagename = p.pagename and h.tenant = p.tenant and h.version = p.version), p.Tenant as tenant_id \
+					from wiki_pages p \
+					inner join tenants_tenants t on p.Tenant = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					group by p.id \
+					%having%
 	sql_attr_uint = tenant_id
 }
 source community_wiki_delta : main
 {
-	sql_query = 	select sql_no_cache id, pagename,(select h.body from wiki_pages_history h where h.pagename = p.pagename and h.tenant = p.tenant and h.version = p.version), Tenant as tenant_id from wiki_pages p where p.modified_on >= (select max(last_modified) from webstudio_index where index_name = 'community_wiki_delta' or index_name = 'community_wiki_main')
+	sql_query = 	select sql_no_cache p.id, p.pagename,(select h.body from wiki_pages_history h where h.pagename = p.pagename and h.tenant = p.tenant and h.version = p.version), p.Tenant as tenant_id \
+					from wiki_pages p \
+					inner join tenants_tenants t on p.Tenant = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and p.modified_on >= (select max(last_modified) from webstudio_index where index_name = 'community_wiki_delta' or index_name = 'community_wiki_main') \
+					group by p.id
 	sql_attr_uint = tenant_id
 }
 
 source community_topic_main : main
 {
-	sql_query = 	select sql_no_cache id, title, (select group_concat(q.name) from forum_question q where q.tenantid = t.tenantid and q.topic_id = t.id), (select group_concat(tag.name) from forum_tag tag, forum_topic_tag tt where tag.id = tt.tag_id and tt.topic_id = t.id), Tenantid as tenant_id from forum_topic t  where 1=1
+	sql_query = 	select sql_no_cache t.id, title, (select group_concat(q.name) from forum_question q where q.tenantid = t.tenantid and q.topic_id = t.id), \
+					(select group_concat(tag.name) from forum_tag tag, forum_topic_tag tt where tag.id = tt.tag_id and tt.topic_id = t.id), t.Tenantid as tenant_id \
+					from forum_topic t \
+					inner join tenants_tenants tt on t.Tenantid = tt.id \
+				    left join tenants_tariff tar on tar.tenant = tt.id \
+				    where ((tar.tariff is null and case tt.version_changed when '0001-01-01 00:00:00' then tt.creationdatetime else tt.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					group by t.id \
+					%having%
 	sql_attr_uint = tenant_id
 }
 source community_topic_delta : main
 {
-	sql_query = 	select sql_no_cache id, title, (select group_concat(q.name) from forum_question q where q.tenantid = t.tenantid and q.topic_id = t.id), (select group_concat(tag.name) from forum_tag tag, forum_topic_tag tt where tag.id = tt.tag_id and tt.topic_id = t.id), Tenantid as tenant_id from forum_topic t where LastModified >= (select max(last_modified) from webstudio_index where index_name = 'community_topic_delta' or index_name = 'community_topic_main')
+	sql_query = 	select sql_no_cache t.id, title, (select group_concat(q.name) from forum_question q where q.tenantid = t.tenantid and q.topic_id = t.id), \
+					(select group_concat(tag.name) from forum_tag tag, forum_topic_tag tt where tag.id = tt.tag_id and tt.topic_id = t.id), t.Tenantid as tenant_id \
+					from forum_topic t \
+					inner join tenants_tenants tt on t.Tenantid = tt.id \
+				    left join tenants_tariff tar on tar.tenant = tt.id \
+				    where ((tar.tariff is null and case tt.version_changed when '0001-01-01 00:00:00' then tt.creationdatetime else tt.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and t.LastModified >= (select max(last_modified) from webstudio_index where index_name = 'community_topic_delta' or index_name = 'community_topic_main') \
+					group by t.id
 	sql_attr_uint = tenant_id
 }
 
 source community_post_main : main
 {
-	sql_query = 	select sql_no_cache id, topic_id, text, tenantid as tenant_id from forum_post
+	sql_query = 	select sql_no_cache p.id, p.topic_id, p.text, p.tenantid as tenant_id \
+					from forum_post p \
+					inner join tenants_tenants t on p.tenantid = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					group by p.tenantid \
+					%having%
 	sql_attr_uint = tenant_id
 }
 source community_post_delta : main
 {
-	sql_query = 	select sql_no_cache id, topic_id, text, tenantid as tenant_id from forum_post where LastModified >= (select max(last_modified) from webstudio_index where index_name = 'community_post_delta' or index_name = 'community_post_main')
+	sql_query = 	select sql_no_cache p.id, p.topic_id, p.text, p.tenantid as tenant_id \
+					from forum_post p \
+					inner join tenants_tenants t on p.tenantid = t.id \
+				    left join tenants_tariff tar on tar.tenant = t.id \
+				    where ((tar.tariff is null and case t.version_changed when '0001-01-01 00:00:00' then t.creationdatetime else t.version_changed end between adddate(now(), interval -45 day) and now()) or tar.stamp > adddate(now(), interval -30 day)) \
+					and p.LastModified >= (select max(last_modified) from webstudio_index where index_name = 'community_post_delta' or index_name = 'community_post_main') \
+					group by p.tenantid
 	sql_attr_uint = tenant_id
 }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -29,7 +29,7 @@ using System.Linq;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Mail.Aggregator.Common;
-using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Aggregator.DbSchema;
 using ASC.Mail.Server.Utils;
 using ASC.Common.Data.Sql.Expressions;
 using System.Collections.Generic;
@@ -71,15 +71,15 @@ namespace ASC.Mail.Server.Dal
             var domainCheckValue = PasswordGenerator.GenerateNewPassword(16);
             var domainCheck = domainCheckerPrefix + ": " + domainCheckValue;
 
-            var insertValuesQuery = new SqlInsert(DnsTable.name)
-                .InColumnValue(AddressTable.Columns.id, 0)
-                .InColumnValue(DnsTable.Columns.user, _user)
-                .InColumnValue(DnsTable.Columns.tenant, _tenant)
-                .InColumnValue(DnsTable.Columns.dkim_selector, dkimSelector)
-                .InColumnValue(DnsTable.Columns.dkim_private_key, privateKey)
-                .InColumnValue(DnsTable.Columns.dkim_public_key, publicKey)
-                .InColumnValue(DnsTable.Columns.domain_check, domainCheck)
-                .InColumnValue(DnsTable.Columns.spf, spf)
+            var insertValuesQuery = new SqlInsert(DnsTable.Name)
+                .InColumnValue(DnsTable.Columns.Id, 0)
+                .InColumnValue(DnsTable.Columns.User, _user)
+                .InColumnValue(DnsTable.Columns.Tenant, _tenant)
+                .InColumnValue(DnsTable.Columns.DkimSelector, dkimSelector)
+                .InColumnValue(DnsTable.Columns.DkimPrivateKey, privateKey)
+                .InColumnValue(DnsTable.Columns.DkimPublicKey, publicKey)
+                .InColumnValue(DnsTable.Columns.DomainCheck, domainCheck)
+                .InColumnValue(DnsTable.Columns.Spf, spf)
                 .Identity(0, 0, true);
 
             var dnsRecordId = NullSafeExecuteScalar<int>(db, insertValuesQuery);
@@ -110,9 +110,9 @@ namespace ASC.Mail.Server.Dal
 
             if (dnsDto.id_domain != domainId)
             {
-                var updateQuery = new SqlUpdate(DnsTable.name)
-                    .Set(DnsTable.Columns.id_domain, domainId)
-                    .Where(DnsTable.Columns.id, dnsId);
+                var updateQuery = new SqlUpdate(DnsTable.Name)
+                    .Set(DnsTable.Columns.DomainId, domainId)
+                    .Where(DnsTable.Columns.Id, dnsId);
 
                 var rowsAffected = db.ExecuteNonQuery(updateQuery);
                 if (rowsAffected == 0)
@@ -131,8 +131,8 @@ namespace ASC.Mail.Server.Dal
                 throw new ArgumentException("Argument domain_id less then zero.", "domainId");
 
             var getDnsQuery = GetDnsQuery()
-                .Where(Exp.In(DnsTable.Columns.tenant, new List<int> { _tenant, Defines.SHARED_TENANT_ID }))
-                .Where(DnsTable.Columns.id_domain, domainId);
+                .Where(Exp.In(DnsTable.Columns.Tenant, new List<int> { _tenant, Defines.SHARED_TENANT_ID }))
+                .Where(DnsTable.Columns.DomainId, domainId);
 
             return NullSafeExecuteList(db, getDnsQuery).Select(r => r.ToDnsDto(_tenant, _user)).FirstOrDefault();
         }
@@ -140,9 +140,9 @@ namespace ASC.Mail.Server.Dal
         public DnsDto GetDomainDnsRecordsForCurrentUser(DbManager db = null)
         {
             var getDnsQuery = GetDnsQuery()
-                .Where(DnsTable.Columns.tenant, _tenant)
-                .Where(DnsTable.Columns.user, _user)
-                .Where(DnsTable.Columns.id_domain, Defines.UNUSED_DNS_SETTING_DOMAIN_ID);
+                .Where(DnsTable.Columns.Tenant, _tenant)
+                .Where(DnsTable.Columns.User, _user)
+                .Where(DnsTable.Columns.DomainId, Defines.UNUSED_DNS_SETTING_DOMAIN_ID);
 
             return NullSafeExecuteList(db, getDnsQuery).Select(r => r.ToDnsDto(_tenant, _user)).FirstOrDefault();
         }
@@ -153,9 +153,9 @@ namespace ASC.Mail.Server.Dal
                 throw new ArgumentException("Argument dns_id less then zero.", "dnsId");
 
             var getDnsQuery = GetDnsQuery()
-                .Where(DnsTable.Columns.id, dnsId)
-                .Where(DnsTable.Columns.tenant, _tenant)
-                .Where(DnsTable.Columns.user, _user);
+                .Where(DnsTable.Columns.Id, dnsId)
+                .Where(DnsTable.Columns.Tenant, _tenant)
+                .Where(DnsTable.Columns.User, _user);
 
             return NullSafeExecuteList(db, getDnsQuery).Select(r => r.ToDnsDto(_tenant, _user)).FirstOrDefault();
         }
@@ -165,22 +165,22 @@ namespace ASC.Mail.Server.Dal
             if (domainId < 0)
                 throw new ArgumentException("Argument domain_id less then zero.", "domainId");
 
-            var removeDnsQuery = new SqlDelete(DnsTable.name)
-                .Where(DnsTable.Columns.id_domain, domainId);
+            var removeDnsQuery = new SqlDelete(DnsTable.Name)
+                .Where(DnsTable.Columns.DomainId, domainId);
 
             NullSafeExecuteNonQuery(db, removeDnsQuery);
         }
 
         private static SqlQuery GetDnsQuery()
         {
-            return new SqlQuery(DnsTable.name)
-                .Select(DnsTable.Columns.id)
-                .Select(DnsTable.Columns.id_domain)
-                .Select(DnsTable.Columns.dkim_selector)
-                .Select(DnsTable.Columns.dkim_private_key)
-                .Select(DnsTable.Columns.dkim_public_key)
-                .Select(DnsTable.Columns.domain_check)
-                .Select(DnsTable.Columns.spf);
+            return new SqlQuery(DnsTable.Name)
+                .Select(DnsTable.Columns.Id)
+                .Select(DnsTable.Columns.DomainId)
+                .Select(DnsTable.Columns.DkimSelector)
+                .Select(DnsTable.Columns.DkimPrivateKey)
+                .Select(DnsTable.Columns.DkimPublicKey)
+                .Select(DnsTable.Columns.DomainCheck)
+                .Select(DnsTable.Columns.Spf);
         }
     }
 }

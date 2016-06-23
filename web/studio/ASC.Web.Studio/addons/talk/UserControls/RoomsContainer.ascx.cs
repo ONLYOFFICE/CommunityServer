@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -27,10 +27,11 @@
 using System;
 using System.Text;
 using System.Web;
+using System.Web.UI;
 
 namespace ASC.Web.Talk.UserControls
 {
-    public partial class RoomsContainer : System.Web.UI.UserControl
+    public partial class RoomsContainer : UserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {

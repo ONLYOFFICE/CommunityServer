@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,9 +24,10 @@
 */
 
 
+using System.Globalization;
 using ASC.Common.Caching;
+using ASC.Core.Tenants;
 using ASC.Data.Storage;
-using ASC.Web.Core.Client;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -68,10 +69,12 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
     public class VideoGuideStorage
     {
-        private const string cacheKey = "videoguide";
-        private static readonly ICache cache = AscCache.Memory;
-        private static readonly TimeSpan timeout = TimeSpan.FromDays(1);
-        private static readonly string filepath = ClientSettings.StorePath.Trim('/') + "/helpcenter/videoguide.html";
+        private const string FilePath = "videoguide.html";
+        private const string CacheKey = "videoguide";
+
+        private static readonly ICache Cache = AscCache.Memory;
+        private static readonly TimeSpan ExpirationTimeout = TimeSpan.FromDays(1);
+        
 
         public static Dictionary<string, VideoGuideData> GetVideoGuide()
         {
@@ -79,9 +82,9 @@ namespace ASC.Web.Studio.Core.HelpCenter
             try
             {
                 data = FromCache();
-                if (data == null && GetStore().IsFile(filepath))
+                if (data == null && GetStore().IsFile(FilePath))
                 {
-                    using (var stream = GetStore().GetReadStream(filepath))
+                    using (var stream = GetStore().GetReadStream(FilePath))
                     {
                         data = (Dictionary<string, VideoGuideData>)FromStream(stream);
                     }
@@ -101,7 +104,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
             {
                 using (var stream = ToStream(data))
                 {
-                    GetStore().Save(filepath, stream);
+                    GetStore().Save(FilePath, stream);
                 }
                 ToCache(data);
             }
@@ -113,7 +116,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
         private static IDataStore GetStore()
         {
-            return StorageFactory.GetStorage("-1", "common_static");
+            return StorageFactory.GetStorage(Tenant.DEFAULT_TENANT.ToString(CultureInfo.InvariantCulture), "static_helpcenter");
         }
 
         private static MemoryStream ToStream(object obj)
@@ -132,12 +135,12 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
         private static void ToCache(Dictionary<string, VideoGuideData> obj)
         {
-            cache.Insert(cacheKey, obj, DateTime.UtcNow + timeout);
+            Cache.Insert(CacheKey, obj, DateTime.UtcNow.Add(ExpirationTimeout));
         }
 
         private static Dictionary<string, VideoGuideData> FromCache()
         {
-            return cache.Get<Dictionary<string, VideoGuideData>>(cacheKey);
+            return Cache.Get<Dictionary<string, VideoGuideData>>(CacheKey);
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -28,26 +28,7 @@
 
 @base-input-width: @base-distance * 20;
 
-.require() {
-    .requiredField {
-        position: relative;
 
-        .textEdit {
-            margin-bottom: 0;
-        }
-
-        .requiredErrorText,
-        .headerPanelSmall {
-            position: absolute;
-            bottom: @base-distance * 3;
-        }
-
-        .requiredErrorText {
-            right: 0;
-            margin: 0 0 5px;
-        }
-    }
-}
 
 .delete_entity {
     background: url("@{base-icon-sprite-url}") -20px 0 no-repeat;
@@ -72,14 +53,14 @@
             margin-left: 5px;
         }
 
-        .row {
+        .row, .head {
             height: @row-height;
 
             .menu_column {
                 padding-right: @base-distance;
                 width: 24px;
 
-                .menu-small {
+                .entity-menu {
                     float: right;
                     margin: 0;
                 }
@@ -88,6 +69,15 @@
 
         .domain_table_container:first-child {
             padding-top: 21px;
+        }
+
+        .expander-icon {
+            margin: 2px 3px 1px 4px;
+
+            &.open {
+                margin: 5px 3px 0 0;
+                border-bottom: 3px solid transparent;
+            }
         }
 
         .domain_table_container {
@@ -105,6 +95,12 @@
                     user-select: none;
                     cursor: pointer;
 
+                    .help_center_column {
+                        .HelpCenterSwitcher {
+                            margin-bottom: -2px;
+                        }
+                    }
+
                     .name_column {
                         .name {
                             font-size: 16px;
@@ -112,7 +108,7 @@
                     }
 
                     .menu_column {
-                        .menu-small {
+                        .entity-menu {
                             margin: 2px 0 0 6px;
                         }
                     }
@@ -130,6 +126,30 @@
                 }
             }
 
+            .blankContent {
+                width: 685px;
+                padding-left: 6px;
+
+                .infoImg {
+                    vertical-align: top;
+
+                    .icon {
+                        background-image: url("../images/add-mailboxes_32.png");
+                        height: 32px;
+                        width: 32px;
+                        margin-top: -4px;
+                    }
+                }
+
+                .info {
+                    margin: 0 0 0 @base-distance;
+                }
+
+                .create_new_mailbox {
+                    margin: @base-distance 0 0 @base-distance * 5;
+                }
+            }
+
             .domain_content {
                 margin-bottom: @base-distance * 2;
 
@@ -143,10 +163,9 @@
                 }
 
                 .group_table_container {
-                    margin-bottom: @base-distance;
+                    margin-bottom: @base-distance * 2;
 
                     .group_menu {
-                        width: 100%;
 
                         .name_column {
                             padding-left: @base-distance;
@@ -155,10 +174,6 @@
                                 cursor: pointer;
                                 display: inline;
                                 width: auto;
-
-                                .show_group {
-                                    margin-left: @base-distance;
-                                }
 
                                 .group_icon {
                                     display: inline-block;
@@ -169,11 +184,44 @@
                                 }
                             }
                         }
+
+                        .menu_column {
+                            .entity-menu {
+                                margin: 2px 0 0 6px;
+                            }
+                        }
                     }
 
                     .group_content, .mailboxes_content {
+                        margin-left: @base-distance * 2;
+
                         .mailbox_table {
                             width: 100%;
+                            table-layout: fixed;
+
+                            .head {
+                                color: #83888d;
+
+                                th {
+                                    font-weight: normal;
+                                    cursor: pointer;
+
+                                    span {
+                                        font-weight: bold;
+                                        line-height: @icon-height;
+                                    }
+                                }
+
+                                .addresses_column {
+                                    padding-left: @base-distance;
+                                    padding-right: @base-distance * 2;
+                                    width: 25%;
+                                }
+
+                                .sender_column, .aliases_column {
+                                    width: 25%;
+                                }
+                            }
 
                             .row {
                                 border-bottom: @messages-border-style;
@@ -185,11 +233,19 @@
                                 .addresses_column {
                                     padding-left: @base-distance;
                                     padding-right: @base-distance * 2;
-                                    width: 30%;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;
+                                }
+
+                                .sender_column {
+                                    padding-right: @base-distance * 2;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    white-space: nowrap;
                                 }
 
                                 .aliases_column {
-                                    width: 30%;
                                     padding-right: @base-distance * 2;
 
                                     .mailbox_aliases {
@@ -230,16 +286,34 @@
                                 &:hover {
                                     background-color: @hovered-row_bg;
 
-                                    .menu-small {
-                                        background-position: center bottom;
-                                    }
-
                                     .more_aliases {
                                         border-bottom: 1px dotted;
                                         text-decoration: none;
                                         color: #333333;
                                         font-size: 12px;
                                         text-decoration: none;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    .mailboxes_content {
+                        &.shared {
+                            .mailbox_table {
+                                .head {
+                                    .aliases_column {
+                                        display: none;
+                                    }
+
+                                    .addresses_column, .sender_column {
+                                        width: 33%;
+                                    }
+                                }
+
+                                .row {
+                                    .aliases_column {
+                                        display: none;
                                     }
                                 }
                             }
@@ -321,7 +395,43 @@
         }
     }
 
-    #mail_server_create_mailbox_popup,
+    #mail_server_create_mailbox_popup {
+        .textEdit {
+            margin-left: 0;
+        }
+
+        .senderName {
+            width: 340px;
+        }
+
+        .domainName {
+            float: right;
+            max-width: 140px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        table {
+            width: 100%;
+
+            .mailboxNameEdit {
+                width: 100%;
+                padding-right: @base-distance;
+
+                .mailboxName {
+                    width: 100%;
+                }
+            }
+        }
+
+        .header-address {
+            .bold {
+                margin-bottom: 3px;
+            }
+        }
+    }
+
     #mail_server_create_mailgroup_popup,
     #mail_server_edit_mailbox,
     #mail_server_edit_group {
@@ -330,13 +440,46 @@
             width: 197px;
         }
 
-        table {
-            width: 100%;
-        }
-
         .header-address {
             .bold {
                 margin-bottom: 3px;
+            }
+        }
+
+        table {
+            width: 100%;
+
+            .senderName {
+                width: 335px;
+            }
+
+            .addAliasBlock {
+                .headerPanelSmall {
+                    &:after {
+                        content: "";
+                    }
+                }
+
+                .domainName {
+                    float: right;
+                    max-width: 140px;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+
+                .aliasNameBlock {
+                    width: 100%;
+                    padding-right: @base-distance;
+
+                    .aliasName {
+                        width: 100%;
+                    }
+                }
+
+                .addAlias {
+                    margin-top: 1px;
+                }
             }
         }
     }

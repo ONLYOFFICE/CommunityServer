@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -49,7 +49,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         public Folder GetFolder(string title, object parentId)
         {
             return ToFolder(GetDriveEntries(parentId, true)
-                                .FirstOrDefault(folder => folder.Title.Equals(title, StringComparison.InvariantCultureIgnoreCase)));
+                                .FirstOrDefault(folder => folder.Name.Equals(title, StringComparison.InvariantCultureIgnoreCase)));
         }
 
         public Folder GetRootFolderByFile(object fileId)
@@ -62,8 +62,10 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return GetDriveEntries(parentId, true).Select(ToFolder).ToList();
         }
 
-        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false)
+        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
         {
+            if (filterType == FilterType.FilesOnly || filterType == FilterType.ByExtension) return new List<Folder>();
+
             var folders = GetFolders(parentId).AsEnumerable(); //TODO:!!!
             //Filter
             switch (filterType)
@@ -118,10 +120,15 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             {
                 var driveFolder = GetDriveEntry(folderId);
 
-                if (driveFolder is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)driveFolder).Error);
-
-                path.Add(ToFolder(driveFolder));
-                folderId = GetParentDriveId(driveFolder);
+                if (driveFolder is ErrorDriveEntry)
+                {
+                    folderId = null;
+                }
+                else
+                {
+                    path.Add(ToFolder(driveFolder));
+                    folderId = GetParentDriveId(driveFolder);
+                }
             }
 
             path.Reverse();
@@ -130,6 +137,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public object SaveFolder(Folder folder)
         {
+            if (folder == null) throw new ArgumentNullException("folder");
             if (folder.ID != null)
             {
                 return RenameFolder(folder, folder.Title);
@@ -179,20 +187,20 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             if (parentDriveId != null) CacheReset(parentDriveId, true);
         }
 
-        public object MoveFolder(object folderId, object toRootFolderId)
+        public object MoveFolder(object folderId, object toFolderId)
         {
             var driveFolder = GetDriveEntry(folderId);
             if (driveFolder is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)driveFolder).Error);
 
-            var toDriveFolder = GetDriveEntry(toRootFolderId);
+            var toDriveFolder = GetDriveEntry(toFolderId);
             if (toDriveFolder is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)toDriveFolder).Error);
 
             var fromFolderDriveId = GetParentDriveId(driveFolder);
 
-            GoogleDriveProviderInfo.Storage.InsertEntryIntoFolder(driveFolder.Id, toDriveFolder.Id);
+            GoogleDriveProviderInfo.Storage.InsertEntryIntoFolder(driveFolder, toDriveFolder.Id);
             if (fromFolderDriveId != null)
             {
-                GoogleDriveProviderInfo.Storage.RemoveEntryFromFolder(driveFolder.Id, fromFolderDriveId);
+                GoogleDriveProviderInfo.Storage.RemoveEntryFromFolder(driveFolder, fromFolderDriveId);
             }
 
             CacheReset(driveFolder.Id);
@@ -202,15 +210,15 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return MakeId(driveFolder.Id);
         }
 
-        public Folder CopyFolder(object folderId, object toRootFolderId)
+        public Folder CopyFolder(object folderId, object toFolderId)
         {
             var driveFolder = GetDriveEntry(folderId);
             if (driveFolder is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)driveFolder).Error);
 
-            var toDriveFolder = GetDriveEntry(toRootFolderId);
+            var toDriveFolder = GetDriveEntry(toFolderId);
             if (toDriveFolder is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)toDriveFolder).Error);
 
-            var newDriveFolder = GoogleDriveProviderInfo.Storage.InsertEntry(null, driveFolder.Title, toDriveFolder.Id, true);
+            var newDriveFolder = GoogleDriveProviderInfo.Storage.InsertEntry(null, driveFolder.Name, toDriveFolder.Id, true);
 
             CacheInsert(newDriveFolder);
             CacheReset(toDriveFolder.Id, true);
@@ -236,8 +244,8 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             else
             {
                 //rename folder
-                driveFolder.Title = newTitle;
-                driveFolder = GoogleDriveProviderInfo.Storage.UpdateEntry(driveFolder);
+                driveFolder.Name = newTitle;
+                driveFolder = GoogleDriveProviderInfo.Storage.RenameEntry(driveFolder.Id, driveFolder.Name);
             }
 
             CacheInsert(driveFolder);
@@ -247,9 +255,16 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             return MakeId(driveFolder.Id);
         }
 
-        public int GetItemsCount(object folderId, bool withSubfoldes)
+        public int GetItemsCount(object folderId)
         {
-            return GetDriveEntries(folderId).Count;
+            throw new NotImplementedException();
+        }
+
+        public bool IsEmpty(object folderId)
+        {
+            var driveId = MakeDriveId(folderId);
+            //note: without cache
+            return GoogleDriveProviderInfo.Storage.GetEntries(driveId).Count == 0;
         }
 
         public bool UseTrashForRemove(Folder folder)
@@ -260,6 +275,11 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         public bool UseRecursiveOperation(object folderId, object toRootFolderId)
         {
             return true;
+        }
+
+        public bool CanCalculateSubitems(object entryId)
+        {
+            return false;
         }
 
         public long GetMaxUploadSize(object folderId, bool chunkedUpload)
@@ -277,7 +297,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         #region Only for TMFolderDao
 
-        public IEnumerable<Folder> Search(string text, FolderType folderType)
+        public IEnumerable<Folder> Search(string text, params FolderType[] folderTypes)
         {
             return null;
         }

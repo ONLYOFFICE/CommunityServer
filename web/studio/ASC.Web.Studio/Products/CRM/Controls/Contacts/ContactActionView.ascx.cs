@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,23 +24,24 @@
 */
 
 
-using System;
-using System.Web;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Web.UI.WebControls;
+using ASC.Api;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.MessagingSystem;
-using ASC.Thrdparty.Configuration;
 using ASC.Web.CRM.Classes;
-using ASC.Web.CRM.Resources;
-using ASC.Web.Core.Mobile;
-using Newtonsoft.Json.Linq;
 using ASC.Web.CRM.Core.Enums;
+using ASC.Web.CRM.Resources;
+using ASC.Web.Studio.Core;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Text;
+using System.Web;
+using System.Web.UI.WebControls;
 
 
 namespace ASC.Web.CRM.Controls.Contacts
@@ -51,7 +52,8 @@ namespace ASC.Web.CRM.Controls.Contacts
 
         public static string Location { get { return PathProvider.GetFileStaticRelativePath("Contacts/ContactActionView.ascx"); } }
         public Contact TargetContact { get; set; }
-        public String TypeAddedContact { get; set; }
+        public string TypeAddedContact { get; set; }
+        public int LinkMessageId { get; set; }
 
         public String SaveContactButtonText { get; set; }
         public String SaveAndCreateContactButtonText { get; set; }
@@ -61,7 +63,6 @@ namespace ASC.Web.CRM.Controls.Contacts
         protected List<Int32> OtherCompaniesID { get; set; }
 
         protected List<ContactInfoType> ContactInfoTypes { get; set; }
-        protected bool MobileVer = false;
 
         private const string ErrorCookieKey = "save_contact_error";
 
@@ -71,13 +72,12 @@ namespace ASC.Web.CRM.Controls.Contacts
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            MobileVer = MobileDetector.IsMobile;
-
             ContactInfoTypes = (from ContactInfoType item in Enum.GetValues(typeof(ContactInfoType))
                                 where (item != ContactInfoType.Address && item != ContactInfoType.Email &&
                                 item != ContactInfoType.Phone)
                                 select item).ToList();
 
+            LinkMessageId = UrlParameters.LinkMessageId;
 
             saveContactButton.Text = SaveContactButtonText;
             saveContactButton.OnClientClick = String.Format("return ASC.CRM.ContactActionView.submitForm('{0}');", saveContactButton.UniqueID);
@@ -243,6 +243,7 @@ namespace ASC.Web.CRM.Controls.Contacts
                 List<Contact> contactsForSetManager = new List<Contact>();
 
                 var typeAddedContact = Request["typeAddedContact"];
+
 
                 #region Rights part #1
 
@@ -565,6 +566,25 @@ namespace ASC.Web.CRM.Controls.Contacts
 
                 #endregion
 
+                #region Link with mail message
+
+                int result;
+                var linkMessageId = int.TryParse(Request["linkMessageId"], out result) ? result : 0;
+
+                if (linkMessageId > 0) {
+                    try
+                    {
+                        LinkWithMessage(linkMessageId, contact.ID);
+
+                    }
+                    catch(Exception ex)
+                    {
+                        log4net.LogManager.GetLogger("ASC.CRM").Error(ex);
+                    }
+                }
+
+                #endregion
+
                 Response.Redirect(String.Compare(e.CommandArgument.ToString(), "0", true) == 0
                                       ? String.Format("default.aspx?id={0}{1}", contact.ID,
                                                       contact is Company
@@ -590,6 +610,31 @@ namespace ASC.Web.CRM.Controls.Contacts
                 }
             }
         }
+
+
+        private void LinkWithMessage(int linkMessageId, int contactId)
+        {
+            var apiUrlSend = String.Format("{0}mail/conversations/crm/link.json", SetupInfo.WebApiBaseUrl);
+
+            var bodySent = string.Format(
+                "id_message={0}&crm_contact_ids[0][Id]={1}&crm_contact_ids[0][Type]=1",
+                linkMessageId,
+                contactId);
+
+            var response = new ApiServer().GetApiResponse(apiUrlSend, "PUT", bodySent);
+
+            if (response != null)
+            {
+                var responseObj =  JObject.Parse(Encoding.UTF8.GetString(Convert.FromBase64String(response)));
+
+                if (responseObj["statusCode"].Value<int>() != (int)HttpStatusCode.OK)
+                {
+                    throw new Exception(string.Format(
+                        "Link contact (id={0}) with mail message (id={1}) failed: {2}", contactId, linkMessageId, responseObj["error"]["message"].Value<string>()));
+                }
+            }
+        }
+
 
         protected void SetContactManager(List<Contact> contacts)
         {

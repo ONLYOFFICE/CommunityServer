@@ -29,91 +29,89 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
 using Novell.Directory.Ldap.Asn1;
-using Novell.Directory.Ldap;
 
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> Represents the Ldap Add Request.
-	/// 
-	/// <pre>
-	/// AddRequest ::= [APPLICATION 8] SEQUENCE {
-	/// entry           LdapDN,
-	/// attributes      AttributeList }
-	/// </pre>
-	/// </summary>
-	public class RfcAddRequest:Asn1Sequence, RfcRequest
-	{
-		/// <summary> Gets the attributes of the entry</summary>
-		virtual public RfcAttributeList Attributes
-		{
-			get
-			{
-				return (RfcAttributeList) get_Renamed(1);
-			}
-			
-		}
-		
-		//*************************************************************************
-		// Constructors for AddRequest
-		//*************************************************************************
-		
-		/// <summary> Constructs an RFCAddRequest
-		/// 
-		/// </summary>
-		/// <param name="entry">the entry
-		/// 
-		/// </param>
-		/// <param name="attributes">the Attributes making up the Entry
-		/// </param>
-		public RfcAddRequest(RfcLdapDN entry, RfcAttributeList attributes):base(2)
-		{
-			add(entry);
-			add(attributes);
-			return ;
-		}
-		
-		/// <summary> Constructs a new Add Request using data from an existing request.
-		/// 
-		/// </summary>
-		/// <param name="origRequest">the original request data
-		/// 
-		/// </param>
-		/// <param name="base">if not null, replaces the dn of the original request
-		/// </param>
-		/* package */
-		internal RfcAddRequest(Asn1Object[] origRequest, System.String base_Renamed):base(origRequest, origRequest.Length)
-		{
-			// Replace the base if specified, otherwise keep original base
-			if ((System.Object) base_Renamed != null)
-			{
-				set_Renamed(0, new RfcLdapDN(base_Renamed));
-			}
-			return ;
-		}
-		//*************************************************************************
-		// Accessors
-		//*************************************************************************
-		
-		/// <summary> Override getIdentifier to return an application-wide id.
-		/// <pre>
-		/// ID = CLASS: APPLICATION, FORM: CONSTRUCTED, TAG: 8. (0x68)
-		/// </pre>
-		/// </summary>
-		public override Asn1Identifier getIdentifier()
-		{
-			return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.ADD_REQUEST);
-		}
-		
-		public RfcRequest dupRequest(System.String base_Renamed, System.String filter, bool request)
-		{
-			return new RfcAddRequest(toArray(), base_Renamed);
-		}
-		public System.String getRequestDN()
-		{
-			return ((RfcLdapDN) get_Renamed(0)).stringValue();
-		}
-	}
+
+    /// <summary> Represents the Ldap Add Request.
+    /// 
+    /// <pre>
+    /// AddRequest ::= [APPLICATION 8] SEQUENCE {
+    /// entry           LdapDN,
+    /// attributes      AttributeList }
+    /// </pre>
+    /// </summary>
+    public class RfcAddRequest : Asn1Sequence, RfcRequest
+    {
+        /// <summary> Gets the attributes of the entry</summary>
+        virtual public RfcAttributeList Attributes
+        {
+            get
+            {
+                return (RfcAttributeList)get_Renamed(1);
+            }
+        }
+
+        //*************************************************************************
+        // Constructors for AddRequest
+        //*************************************************************************
+
+        /// <summary> Constructs an RFCAddRequest
+        /// 
+        /// </summary>
+        /// <param name="entry">the entry
+        /// 
+        /// </param>
+        /// <param name="attributes">the Attributes making up the Entry
+        /// </param>
+        public RfcAddRequest(RfcLdapDN entry, RfcAttributeList attributes)
+            : base(2)
+        {
+            add(entry);
+            add(attributes);
+        }
+
+        /// <summary> Constructs a new Add Request using data from an existing request.
+        /// 
+        /// </summary>
+        /// <param name="origRequest">the original request data
+        /// 
+        /// </param>
+        /// <param name="base">if not null, replaces the dn of the original request
+        /// </param>
+        /* package */
+        internal RfcAddRequest(Asn1Object[] origRequest, string base_Renamed)
+            : base(origRequest, origRequest.Length)
+        {
+            // Replace the base if specified, otherwise keep original base
+            if (base_Renamed != null)
+            {
+                set_Renamed(0, new RfcLdapDN(base_Renamed));
+            }
+        }
+
+        //*************************************************************************
+        // Accessors
+        //*************************************************************************
+
+        /// <summary> Override getIdentifier to return an application-wide id.
+        /// <pre>
+        /// ID = CLASS: APPLICATION, FORM: CONSTRUCTED, TAG: 8. (0x68)
+        /// </pre>
+        /// </summary>
+        public override Asn1Identifier getIdentifier()
+        {
+            return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.ADD_REQUEST);
+        }
+
+        public RfcRequest dupRequest(string base_Renamed, string filter, bool request)
+        {
+            return new RfcAddRequest(toArray(), base_Renamed);
+        }
+        public string getRequestDN()
+        {
+            return ((RfcLdapDN)get_Renamed(0)).stringValue();
+        }
+    }
 }

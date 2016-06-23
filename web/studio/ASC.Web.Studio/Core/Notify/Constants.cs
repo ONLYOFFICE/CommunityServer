@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -59,6 +59,7 @@ namespace ASC.Web.Studio.Core.Notify
         public static string TagDeactivateUrl = "DeactivateUrl";
         public static string TagActivateUrl = "ActivateUrl";
         public static string TagDeleteUrl = "DeleteUrl";
+        public static string TagAutoRenew = "AutoRenew";
         public static string TagOwnerName = "OwnerName";
         public static string TagRegionName = "RegionName";
 
@@ -67,13 +68,16 @@ namespace ASC.Web.Studio.Core.Notify
         public static string TagPricePeriod = "PricePeriod";
         public static string TagPortalUrl = "PortalUrl";
         public static string TagUserDisplayName = "UserDisplayName";
-        public static string TagFAQ = "FAQ";
         public static string TagPricingPage = "PricingPage";
         public static string TagBlogLink = "TagBlogLink";
         public static string TagDueDate = "DueDate";
         public static string TagDelayDueDate = "DelayDueDate";
 
         public static string LetterLogo = "LetterLogo";
+        public static string LetterLogoText = "LetterLogoText";
+        public static string LetterLogoTextTM = "LetterLogoTextTM";
+
+        public static string MailWhiteLabelSettings = "MailWhiteLabelSettings";
 
         public static INotifyAction ActionAdminNotify = new NotifyAction("admin_notify", "admin notifications");
         public static INotifyAction ActionSelfProfileUpdated = new NotifyAction("self_profile_updated", "self profile updated");
@@ -112,7 +116,6 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionPasswordChanged = new NotifyAction("change_pwd", "password changed");
         public static INotifyAction ActionPhoneChange = new NotifyAction("change_phone", "change_phone");
         public static INotifyAction ActionCongratulations = new NotifyAction("congratulations");
-        public static INotifyAction ActionCongratulationsNoTrial = new NotifyAction("congratulations_notrial");
         public static INotifyAction ActionMigrationPortalStart = new NotifyAction("migration_start", "migration start");
         public static INotifyAction ActionMigrationPortalSuccess = new NotifyAction("migration_success", "migration success");
         public static INotifyAction ActionMigrationPortalError = new NotifyAction("migration_error", "migration error");
@@ -125,6 +128,9 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionAfterCreation3 = new NotifyAction("after_creation3");
         public static INotifyAction ActionAfterCreation4 = new NotifyAction("after_creation4");
         public static INotifyAction ActionAfterCreation5 = new NotifyAction("after_creation5");
+        public static INotifyAction ActionAfterCreation6 = new NotifyAction("after_creation6");
+        public static INotifyAction ActionAfterCreation7 = new NotifyAction("after_creation7");
+
         public static INotifyAction ActionAfterCreation1FreeCloud = new NotifyAction("after_creation1_freecloud");
         public static INotifyAction ActionAfterCreation30FreeCloud = new NotifyAction("after_creation30_freecloud");
 
@@ -156,19 +162,34 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionActivateGuestsFreeCloud = new NotifyAction("activate_guest_freecloud", "activate_guest_freecloud");
         public static INotifyAction ActionPortalDeleteSuccessFreeCloud = new NotifyAction("portal_delete_success_freecloud", "portal_delete_success_freecloud");
 
+        public static INotifyAction ActionAdminWellcome = new NotifyAction("admin_welcome", "admin_welcome");
+
+        public static INotifyAction ActionAdminWellcomeEnterprise = new NotifyAction("admin_welcome_enterprise", "admin_welcome_enterprise");
+        public static INotifyAction ActionCongratulationsEnterprise = new NotifyAction("congratulations_enterprise");
+        public static INotifyAction ActionActivateUsersEnterprise = new NotifyAction("activate_enterprise", "activate_enterprise");
+        public static INotifyAction ActionYouAddedAfterInviteEnterprise = new NotifyAction("you_added_after_invite_enterprise", "you_added_after_invite_enterprise");
+        public static INotifyAction ActionActivateGuestsEnterprise = new NotifyAction("activate_guest_enterprise", "activate_guest_enterprise");
+        public static INotifyAction ActionYouAddedLikeGuestEnterprise = new NotifyAction("you_added_like_guest_enterprise", "You added like guest");
+        public static INotifyAction ActionAfterCreation4Enterprise = new NotifyAction("after_creation4_enterprise");
+        public static INotifyAction ActionAfterCreation1Enterprise = new NotifyAction("after_creation1_enterprise");
+        public static INotifyAction ActionAfterCreation8Enterprise = new NotifyAction("after_creation8_enterprise");
+        public static INotifyAction ActionAfterCreation6Enterprise = new NotifyAction("after_creation6_enterprise");
+        public static INotifyAction ActionAfterCreation2Enterprise = new NotifyAction("after_creation2_enterprise");
+        public static INotifyAction ActionAfterCreation3Enterprise = new NotifyAction("after_creation3_enterprise");
+        public static INotifyAction ActionAfterCreation7Enterprise = new NotifyAction("after_creation7_enterprise");
+
+        public static INotifyAction ActionCongratulationsWhitelabel = new NotifyAction("congratulations_whitelabel");
+        public static INotifyAction ActionAdminWellcomeWhitelabel = new NotifyAction("admin_welcome_whitelabel", "admin_welcome_whitelabel");
+        public static INotifyAction ActionActivateUsersWhitelabel = new NotifyAction("activate_whitelabel", "activate_whitelabel");
+        public static INotifyAction ActionYouAddedAfterInviteWhitelabel = new NotifyAction("you_added_after_invite_whitelabel", "you_added_after_invite_whitelabel");
+        public static INotifyAction ActionActivateGuestsWhitelabel = new NotifyAction("activate_guest_whitelabel", "activate_guest_whitelabel");
+        public static INotifyAction ActionYouAddedLikeGuestWhitelabel = new NotifyAction("you_added_like_guest_whitelabel", "You added like guest");
+        public static INotifyAction ActionPaymentWarningBefore7Whitelabel = new NotifyAction("payment_warning_before7_whitelabel");
+        public static INotifyAction ActionPaymentWarningWhitelabel = new NotifyAction("payment_warning_whitelabel");
+
         public static ITagValue UnsubscribeLink
         {
-            get { return new TagValue("noUnsubscribeLink", CoreContext.Configuration.Personal || CoreContext.Configuration.Standalone ? "true" : "false"); }
-        }
-
-        public static ITagValue TagNoteStart
-        {
-            get { return new TagValue("NoteStart", "<table cellpadding=\"0\" cellspacing=\"0\" style=\"margin: 20px 0 0; border-spacing: 0; empty-cells: show; width: 540px; font-size: 14px;\"><tr><td style=\"width: 21px; background-color:#9bd1f0;\"></td><td style=\"width: 5px;\"></td><td style=\"width: 5px;background-color:#38a4e2;\"></td><td style=\"background-color:#e6eff4; padding:10px;\">"); }
-        }
-
-        public static ITagValue TagNoteEnd
-        {
-            get { return new TagValue("NoteEnd", "</td></tr></table>"); }
+            get { return new TagValue("noUnsubscribeLink", CoreContext.Configuration.Standalone ? "true" : "false"); }
         }
 
         public static ITagValue TagFrameStart
@@ -218,24 +239,31 @@ namespace ASC.Web.Studio.Core.Notify
             get { return new TagValue("SignatureEnd", "</div>"); }
         }
 
-        public static ITagValue TagBlueButton(string resourceName, string url)
+        public static ITagValue TagBlueButton(string btnText, string btnUrl)
         {
             Func<string> action = () =>
             {
-                return "<table style=\"background-image:url('http://cdn.teamlab.com/media/newsletters/images/button-blue.jpg');background-position: 0 0; background-repeat:no-repeat;background-color: #00576a; width:279px; height:55px; text-align: center; margin: 0 auto; padding: 0 ;\"><tbody><tr style=\"padding:0;\"><td style=\"padding: 6px;margin: 0;padding:0;\"><a style=\"display: block; text-shadow: 1px 1px 5px #00576a; font-size: 20px; color:#fff; padding: 13px 0 0; width: 274px; height: 38px; text-decoration: none;\" href=\"$ButtonUrl\">$ButtonText</a></td></tr></tbody></table>"
-                    .Replace("$ButtonText", WebstudioPatternResource.ResourceManager.GetString(resourceName))
-                    .Replace("$ButtonUrl", url);
+                return 
+                    string.Format(@"<table style=""height: 48px; width: 540px; border-collapse: collapse; empty-cells: show; vertical-align: middle; text-align: center; margin: 30px auto; padding: 0;""><tbody><tr cellpadding=""0"" cellspacing=""0"" border=""0"">{2}<td style=""height: 48px; width: 380px; margin:0; padding:0; background-color: #66b76d; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px;""><a style=""{3}"" target=""_blank"" href=""{0}"">{1}</a></td>{2}</tr></tbody></table>",
+                        btnUrl,
+                        btnText,
+                        "<td style=\"height: 48px; width: 80px; margin:0; padding:0;\">&nbsp;</td>",
+                        "color: #fff; font-family: Helvetica, Arial, Tahoma; font-size: 18px; font-weight: 600; vertical-align: middle; display: block; padding: 12px 0; text-align: center; text-decoration: none; background-color: #66b76d;");
             };
             return new TagActionValue("BlueButton", action);
         }
 
-        public static ITagValue TagGreenButton(string resourceName, string url)
+
+        public static ITagValue TagGreenButton(string btnText, string btnUrl)
         {
             Func<string> action = () =>
             {
-                return "<table style=\"background-image:url('http://cdn.teamlab.com/media/newsletters/images/button-green.jpg');background-position: 0 0; background-repeat:no-repeat;background-color: #436400; width: 484px; height: 60px; text-align: center; text-shadow: 1px 1px 5px #436400; font-size: 20px; color:#fff; margin: 25px auto ;\"><tbody><tr style=\"padding:0;\"><td style=\"padding: 6px;margin: 0;padding:0;\"><a style=\"display: block; text-shadow: 1px 1px 5px #436400; font-size: 20px; color:#fff; padding: 13px 0 0; width: 477px; height: 40px; text-decoration: none;\" href=\"$ButtonUrl\">$ButtonText</a></td></tr></tbody></table>"
-                    .Replace("$ButtonText", WebstudioPatternResource.ResourceManager.GetString(resourceName))
-                    .Replace("$ButtonUrl", url);
+                return
+                    string.Format(@"<table style=""height: 48px; width: 540px; border-collapse: collapse; empty-cells: show; vertical-align: middle; text-align: center; margin: 30px auto; padding: 0;""><tbody><tr cellpadding=""0"" cellspacing=""0"" border=""0"">{2}<td style=""height: 48px; width: 380px; margin:0; padding:0; background-color: #66b76d; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px;""><a style=""{3}"" target=""_blank"" href=""{0}"">{1}</a></td>{2}</tr></tbody></table>",
+                        btnUrl,
+                        btnText,
+                        "<td style=\"height: 48px; width: 80px; margin:0; padding:0;\">&nbsp;</td>",
+                        "color: #fff; font-family: Helvetica, Arial, Tahoma; font-size: 18px; font-weight: 600; vertical-align: middle; display: block; padding: 12px 0; text-align: center; text-decoration: none; background-color: #66b76d;");
             };
             return new TagActionValue("GreenButton", action);
         }
@@ -250,30 +278,61 @@ namespace ASC.Web.Studio.Core.Notify
             return new TagValue("TableItemsBtm", "</table>");
         }
 
-        public static ITagValue TagTableItem(int number, string resourceName, string url, string img, string comment)
+        public static ITagValue TagTableItem(
+            int number,
+            string linkText,
+            string linkUrl,
+            string imgSrc,
+            string comment,
+            string bottomlinkText,
+            string bottomlinkUrl)
         {
             Func<string> action = () =>
             {
-                return "<tr><td style=\"padding: 5px 0; width: 175px;\"><img style=\"border: 0; border-left: 5px solid #38A4E2; padding: 0 5px; width: 190px; height: 80px;\" alt=\"$TableItemText\" src=\"$TableItemImg\"/></td><td style=\"vertical-align: middle; font-size: 14px; width: 420px;\"><a target=\"_blank\" style=\"color: #0078bd; font-weight: bold; font-family: Arial; font-size: 14px;\" href=\"$TableItemUrl\">$TableItemText</a><br >$TableItemComment</td></tr>"
-                    .Replace("$TableItemText", WebstudioPatternResource.ResourceManager.GetString(resourceName))
-                    .Replace("$TableItemImg", img ?? string.Empty)
-                    .Replace("$TableItemUrl", url ?? string.Empty)
-                    .Replace("$TableItemComment", string.IsNullOrWhiteSpace(comment) ? string.Empty : WebstudioPatternResource.ResourceManager.GetString(comment));
+                var imgHtml = string.Format(
+                    "<img style=\"border: 0; padding: 0 15px 0 5px; width: auto; height: auto;\" alt=\"{1}\" src=\"{0}\"/>",
+                            imgSrc ?? string.Empty,
+                            linkText ?? string.Empty);
+
+                var linkHtml = string.Empty;
+
+                if (!string.IsNullOrEmpty(linkText)) {
+                    linkHtml = 
+                        !string.IsNullOrEmpty(linkUrl)
+                        ? string.Format("<a target=\"_blank\" style=\"color:#0078bd; font-family: Arial; font-size: 14px; font-weight: bold;\" href=\"{0}\">{1}</a><br />",
+                                            linkUrl,
+                                            linkText)
+                        : string.Format("<div style=\"display:block; color:#333333; font-family: Arial; font-size: 14px; font-weight: bold;margin-bottom: 10px;\">{0}</div>",
+                                            linkText);
+                }
+
+
+                var underCommentLinkHtml =
+                        string.IsNullOrEmpty(bottomlinkUrl)
+                        ? string.Empty
+                        : string.Format(
+                    "<br/><a target=\"_blank\" style=\"color: #0078bd; font-family: Arial; font-size: 14px;\" href=\"{0}\">{1}</a>",
+                            bottomlinkUrl,
+                            bottomlinkText ?? string.Empty);
+
+                var html =
+                    "<tr>" +
+                        string.Format("<td style=\"vertical-align: {0}; padding: 5px 0; width: 70px;\">", string.IsNullOrEmpty(comment) ? "middle" : "top") +
+                            imgHtml +
+                        "</td>" +
+                        string.Format("<td style=\"padding: {1}; vertical-align: {0}; font-size: 14px; width: 470px;color: #333333;\">",
+                                    string.IsNullOrEmpty(comment) ? "middle" : "top",
+                                    string.IsNullOrEmpty(comment) ? "5px 0" : "5px 0 10px 0") +
+                            linkHtml +
+                            (comment ?? string.Empty) +
+                            underCommentLinkHtml +
+                        "</td>" +
+                    "</tr>";
+
+                return html;
             };
             return new TagActionValue("TableItem" + number, action);
         }
-
-        public static ITagValue TagTableItem(int number)
-        {
-            switch (number)
-            {
-                case 1: return TagTableItem(number, "ItemIntegrateDocs", "http://helpcenter.onlyoffice.com/tipstricks/add-resource.aspx?utm_medium=newsletter&utm_source=invite_user&utm_campaign=email", "http://cdn.teamlab.com/media/newsletters/images/integrate_documents.jpg", null);
-                case 2: return TagTableItem(number, "ItemImportProjects", "http://helpcenter.onlyoffice.com/tipstricks/basecamp-import.aspx?utm_medium=newsletter&utm_source=invite_user&utm_campaign=email", "http://cdn.teamlab.com/media/newsletters/images/import_projects.jpg", null);
-                case 3: return TagTableItem(number, "ItemUploadCrm", "http://helpcenter.onlyoffice.com/guides/import-contacts.aspx?utm_medium=newsletter&utm_source=invite_user&utm_campaign=email", "http://cdn.teamlab.com/media/newsletters/images/csv.jpg", null);
-                default: throw new NotSupportedException();
-            }
-        }
-
 
         private class TagActionValue : ITagValue
         {

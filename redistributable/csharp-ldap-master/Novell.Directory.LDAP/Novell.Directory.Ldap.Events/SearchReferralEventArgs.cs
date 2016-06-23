@@ -32,23 +32,23 @@
 
 namespace Novell.Directory.Ldap.Events
 {
-  /// <summary> 
-  /// This class represents the EventArgs corresponding to 
-  /// LdapSearchResultReference notification sent by Ldap Server.
-  /// </summary>
-  public class SearchReferralEventArgs : LdapEventArgs
-  {
-    public SearchReferralEventArgs(LdapMessage sourceMessage,
-				 EventClassifiers aClassification,
-				 LdapEventType aType)
-      : base(sourceMessage, EventClassifiers.CLASSIFICATION_LDAP_PSEARCH, 
-	     LdapEventType.LDAP_PSEARCH_ANY) // TODO: why type is ANY..?
+    /// <summary> 
+    /// This class represents the EventArgs corresponding to 
+    /// LdapSearchResultReference notification sent by Ldap Server.
+    /// </summary>
+    public class SearchReferralEventArgs : LdapEventArgs
     {
-    }
+        public SearchReferralEventArgs(LdapMessage sourceMessage,
+                     EventClassifiers aClassification,
+                     LdapEventType aType)
+            : base(sourceMessage, EventClassifiers.CLASSIFICATION_LDAP_PSEARCH,
+               LdapEventType.LDAP_PSEARCH_ANY) // TODO: why type is ANY..?
+        {
+        }
 
-    public string[] getUrls() {
-        return ((LdapSearchResultReference) ldap_message).Referrals;
+        public string[] getUrls()
+        {
+            return ((LdapSearchResultReference)ldap_message).Referrals;
+        }
     }
-
-  }
 }

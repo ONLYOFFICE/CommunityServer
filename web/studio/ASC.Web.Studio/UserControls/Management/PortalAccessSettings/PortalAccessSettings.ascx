@@ -1,5 +1,4 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PortalAccessSettings.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.PortalAccessSettings" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 <% if (Enabled)
    { %>
@@ -30,9 +29,9 @@
     </div>
     <div class="settings-help-block">
         <p><%= String.Format(Resource.HelpAnswerPortalAccessSettings.HtmlEncode(), "<br />", "<b>", "</b>") %></p>
-        <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+        <% if (!string.IsNullOrEmpty(HelpLink))
            { %>
-             <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#PublicPortals" %>" target="_blank"><%= Resource.LearnMore %></a>
+             <a href="<%= HelpLink + "/gettingstarted/configuration.aspx#PublicPortals" %>" target="_blank"><%= Resource.LearnMore %></a>
         <% } %>
     </div>
 </div>

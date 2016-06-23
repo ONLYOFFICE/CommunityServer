@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -55,12 +55,15 @@ namespace ASC.Web.Files.Controls
 
             Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/tree/treebuilder.css");
 
-            var treeViewContainer = (Tree)LoadControl(Tree.Location);
-            treeViewContainer.ID = "treeViewContainer";
-            treeViewContainer.AdditionalCssClass = AdditionalCssClass;
-            treeViewContainer.WithNew = true;
-            treeViewContainer.WithoutBaseScripts = true;
-            TreeViewHolder.Controls.Add(treeViewContainer);
+            if (FolderIDCurrentRoot == null)
+            {
+                var treeViewContainer = (Tree) LoadControl(Tree.Location);
+                treeViewContainer.ID = "treeViewContainer";
+                treeViewContainer.AdditionalCssClass = AdditionalCssClass;
+                treeViewContainer.WithNew = true;
+                treeViewContainer.WithoutBaseScripts = true;
+                TreeViewHolder.Controls.Add(treeViewContainer);
+            }
 
             var treeSelectorContainer = (Tree)LoadControl(Tree.Location);
             treeSelectorContainer.ID = "treeViewSelector";

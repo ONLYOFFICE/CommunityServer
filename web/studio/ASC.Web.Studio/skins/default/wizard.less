@@ -1,0 +1,142 @@
+﻿/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2016
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+@import "../base.less";
+
+.wizardContent {
+    display: block;
+    padding: 50px 0 0 0;
+    margin: 0 auto;
+    width: 976px;
+}
+
+.wizardTitle {
+    font-size:28px;
+}
+.wizardDesc {
+    background: url("imagescss/lock.png") center left no-repeat;
+    height: 24px;
+    line-height: 30px;
+    margin-top: 10px;
+    padding-left:30px;
+}
+
+.choose-default-module {
+    margin: 40px auto 0;
+    text-align: center;
+    width: 800px;
+
+    .choose-module-block {
+        display: inline-block;
+    }
+
+    .choose-module-title {
+        font-size: 30px;
+        margin-bottom: 54px;
+    }
+
+    .choose-module-video {
+        margin-bottom: 18px;
+    }
+
+    .related-video {
+        color: #83888d;
+        font-size: 16px;
+        margin-bottom: 20px;
+
+        #relatedVideo {
+            border-bottom: 1px dotted #83888d;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+    }
+
+    .item-module {
+        cursor: pointer;
+        float: left;
+        margin: 0 17px;
+        text-align: left;
+        width: 220px;
+
+        &:hover {
+            .default-module {
+                .shadowFullCustomizable(0, 1px, 3px, #2d2d2d)
+            }
+
+            .text-module {
+                text-decoration: underline;
+            }
+        }
+
+        &.documents .default-module {
+            background: url("images/docs.png") center 0 no-repeat;
+        }
+
+        &.projects .default-module {
+            background: url("images/projects.png") center 0 no-repeat;
+        }
+
+        &.crm .default-module {
+            background: url("images/crm.png") center 0 no-repeat;
+        }
+
+        .text-module {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 2px;
+        }
+
+        .forwhat-module {
+            color: #666;
+            font-size: 12px;
+        }
+    }
+
+    .default-module {
+        border: 1px solid transparent;
+        cursor: pointer;
+        display: inline-block;
+        height: 187px;
+        margin-bottom: 22px;
+        text-decoration: none;
+        width: 206px;
+        .shadowFullCustomizable(0, 1px, 3px, #959595)
+    }
+}
+
+
+/*---IE fix---*/
+.ie10 .choose-default-module .button {
+    margin-top:-8px;
+}
+#chooseVideoModule .choose-module-title {
+    display: inline-block;
+    font-size: 24px;
+    margin: 0 20px 30px 0;    
+}
+
+.waterText {
+    color:#9f9f9f;
+}

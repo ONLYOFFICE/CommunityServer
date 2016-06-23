@@ -11,7 +11,7 @@
 </script>
 
 <script id="tagItemTmpl" type="text/x-jquery-tmpl">
-    <tr data_id="${id}" class="tag_item row {{if id<0 }}inactive{{/if}}">
+    <tr data_id="${id}" class="tag_item row with-entity-menu{{if id<0 }} inactive{{/if}}">
         <td class="label">
             <span class="tag tagArrow tag${style}" title="${$item.htmlEncode(name)}" style="margin-top:0;">${$item.htmlEncode(name)}</span>
         </td>
@@ -22,7 +22,7 @@
             </td>
         {{else}}
             <td class="menu_column">
-                <div class="menu menu-small" title="<%: MailScriptResource.Actions %>" data_id="${id}"></div>
+                <div class="entity-menu" title="<%: MailScriptResource.Actions %>" data_id="${id}"></div>
             </td>
         {{/if}}
     </tr>
@@ -52,10 +52,14 @@
 </script>
 
 <script id="tagEmailInEditPopupTmpl" type="text/x-jquery-tmpl">
-    <tr>
+    <tr class="linkedTagAddress">
         <td>
-            <span class="linked_address" title="${address}">${address}</span>
-            <div class="delete_tag_address" />
+            <div><span class="tagAddress" title="${address}">${address}</span></div>
+            <div class="removeTagAddress"></div>
         </td>
     </tr>
+</script>
+
+<script id="addressTagTmpl" type="text/x-jquery-tmpl">
+    <span title="${address}">{{if typeof(separator) !== 'undefined' && separator === true  }}, {{/if}}${address}</span>
 </script>

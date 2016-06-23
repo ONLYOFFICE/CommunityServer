@@ -30,94 +30,95 @@
 //
 
 using System;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Text;
 
 namespace Novell.Directory.Ldap.Asn1
 {
-	
-	/// <summary> This is the base class for all other Asn1 types.</summary>
-	[CLSCompliantAttribute(true)]
-	[Serializable]
-	public abstract class Asn1Object : System.Runtime.Serialization.ISerializable
-	{
-		
-		private Asn1Identifier id;
-		
-		public Asn1Object(Asn1Identifier id)
-		{
-			this.id = id;
-			return ;
-		}
-		
-		public void GetObjectData(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context)
-		{
-		}
-		
-		/// <summary> Abstract method that must be implemented by each child
-		/// class to encode itself ( an Asn1Object) directly intto 
-		/// a output stream.
-		/// 
-		/// </summary>
-		/// <param name="out">The output stream onto which the encoded 
-		/// Asn1Object will be placed.
-		/// </param>
-		abstract public void  encode(Asn1Encoder enc, System.IO.Stream out_Renamed);
-		
-		/// <summary> Returns the identifier for this Asn1Object as an Asn1Identifier. 
-		/// This Asn1Identifier object will include the CLASS, FORM and TAG
-		/// for this Asn1Object.
-		/// </summary>
-		public virtual Asn1Identifier getIdentifier()
-		{
-			return id;
-		}
-		
-		/// <summary> Sets the identifier for this Asn1Object. This is helpful when 
-		/// creating implicit Asn1Tagged types.
-		/// 
-		/// </summary>
-		/// <param name="id">An Asn1Identifier object representing the CLASS, 
-		/// FORM and TAG)
-		/// </param>
-		public virtual void  setIdentifier(Asn1Identifier id)
-		{
-			this.id = id;
-			return ;
-		}
-		
-		/// <summary> This method returns a byte array representing the encoded
-		/// Asn1Object.  It in turn calls the encode method that is 
-		/// defined in Asn1Object but will usually be implemented
-		/// in the child Asn1 classses.
-		/// </summary>
-		[CLSCompliantAttribute(false)]
-		public sbyte[] getEncoding(Asn1Encoder enc)
-		{
-			System.IO.MemoryStream out_Renamed = new System.IO.MemoryStream();
-			try
-			{
-				encode(enc, out_Renamed);
-			}
-			catch (System.IO.IOException e)
-			{
-				// Should never happen - the current Asn1Object does not have
-				// a encode method. 
-				throw new System.SystemException("IOException while encoding to byte array: " + e.ToString());
-			}
-			return SupportClass.ToSByteArray(out_Renamed.ToArray());
-		}
-		
-		/// <summary> Return a String representation of this Asn1Object.</summary>
-		[CLSCompliantAttribute(false)]
-		public override System.String ToString()
-		{
-			System.String[] classTypes = new System.String[]{"[UNIVERSAL ", "[APPLICATION ", "[", "[PRIVATE "};
-			
-			System.Text.StringBuilder sb = new System.Text.StringBuilder();
-			Asn1Identifier id = getIdentifier(); // could be overridden.
-			
-			sb.Append(classTypes[id.Asn1Class]).Append(id.Tag).Append("] ");
-			
-			return sb.ToString();
-		}
-	}
+
+    /// <summary> This is the base class for all other Asn1 types.</summary>
+    [CLSCompliantAttribute(true)]
+    [Serializable]
+    public abstract class Asn1Object : ISerializable
+    {
+
+        private Asn1Identifier id;
+
+        public Asn1Object(Asn1Identifier id)
+        {
+            this.id = id;
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+        }
+
+        /// <summary> Abstract method that must be implemented by each child
+        /// class to encode itself ( an Asn1Object) directly intto 
+        /// a output stream.
+        /// 
+        /// </summary>
+        /// <param name="out">The output stream onto which the encoded 
+        /// Asn1Object will be placed.
+        /// </param>
+        abstract public void encode(Asn1Encoder enc, Stream out_Renamed);
+
+        /// <summary> Returns the identifier for this Asn1Object as an Asn1Identifier. 
+        /// This Asn1Identifier object will include the CLASS, FORM and TAG
+        /// for this Asn1Object.
+        /// </summary>
+        public virtual Asn1Identifier getIdentifier()
+        {
+            return id;
+        }
+
+        /// <summary> Sets the identifier for this Asn1Object. This is helpful when 
+        /// creating implicit Asn1Tagged types.
+        /// 
+        /// </summary>
+        /// <param name="id">An Asn1Identifier object representing the CLASS, 
+        /// FORM and TAG)
+        /// </param>
+        public virtual void setIdentifier(Asn1Identifier id)
+        {
+            this.id = id;
+        }
+
+        /// <summary> This method returns a byte array representing the encoded
+        /// Asn1Object.  It in turn calls the encode method that is 
+        /// defined in Asn1Object but will usually be implemented
+        /// in the child Asn1 classses.
+        /// </summary>
+        [CLSCompliantAttribute(false)]
+        public sbyte[] getEncoding(Asn1Encoder enc)
+        {
+            MemoryStream out_Renamed = new MemoryStream();
+            try
+            {
+                encode(enc, out_Renamed);
+            }
+            catch (IOException e)
+            {
+                // Should never happen - the current Asn1Object does not have
+                // a encode method. 
+                throw new SystemException("IOException while encoding to byte array: " + e.ToString());
+            }
+            return SupportClass.ToSByteArray(out_Renamed.ToArray());
+        }
+
+        /// <summary> Return a String representation of this Asn1Object.</summary>
+        [CLSCompliantAttribute(false)]
+        public override string ToString()
+        {
+            string[] classTypes = new string[] { "[UNIVERSAL ", "[APPLICATION ", "[", "[PRIVATE " };
+
+            StringBuilder sb = new StringBuilder();
+            Asn1Identifier id = getIdentifier(); // could be overridden.
+
+            sb.Append(classTypes[id.Asn1Class]).Append(id.Tag).Append("] ");
+
+            return sb.ToString();
+        }
+    }
 }

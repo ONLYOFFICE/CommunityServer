@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,16 +26,12 @@
 
 #region Import
 
-using System;
-using System.Web;
-using ASC.Web.CRM.Configuration;
-using ASC.Web.Core.Mobile;
-using ASC.Web.Core.Utility.Skins;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.Web.CRM.Classes;
-using ASC.Web.CRM.Resources;
-using System.Text;
+using System;
+using System.Web;
+
 
 #endregion
 
@@ -52,16 +48,12 @@ namespace ASC.Web.CRM.Controls.Deals
             get { return PathProvider.GetFileStaticRelativePath("Deals/DealDetailsView.ascx"); }
         }
 
-        protected bool MobileVer = false;
-
         #endregion
 
         #region Events
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            MobileVer = MobileDetector.IsMobile;
-
             ExecFullCardView();
             ExecPeopleView();
             ExecFilesView();

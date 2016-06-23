@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -58,7 +58,10 @@ namespace ASC.Web.Studio
         protected override bool RedirectToStartup { get { return false; } }
 
         protected bool? IsAutorizePartner { get; set; }
+
         protected Partner Partner { get; set; }
+
+        protected string TenantName;
 
         protected override void OnPreInit(EventArgs e)
         {
@@ -84,7 +87,18 @@ namespace ASC.Web.Studio
 
                     SetLanguage(abTesting: true);
                 }
-                
+
+                var token = Request["asc_auth_key"];
+                if (SecurityContext.AuthenticateMe(token))
+                {
+                    CookiesManager.SetCookies(CookiesType.AuthKey, token);
+
+                    var refererURL = Request["refererURL"];
+                    if (string.IsNullOrEmpty(refererURL)) refererURL = "~/auth.aspx";
+
+                    Response.Redirect(refererURL, true);
+                }
+
                 return;
             }
 
@@ -109,6 +123,9 @@ namespace ASC.Web.Studio
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            TenantName = CoreContext.TenantManager.GetCurrentTenant().Name;
+            Page.Title = TenantName;
+
             Master.DisabledSidePanel = true;
             withHelpBlock = false;
             if (CoreContext.Configuration.Personal)

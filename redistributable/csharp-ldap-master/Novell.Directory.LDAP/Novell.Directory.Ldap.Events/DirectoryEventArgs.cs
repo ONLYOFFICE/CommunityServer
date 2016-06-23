@@ -32,32 +32,32 @@
 
 namespace Novell.Directory.Ldap.Events
 {
-  /// <summary> 
-  /// This is the base class for other EventArgs corresponding to 
-  /// Ldap and Edir events.
-  /// </summary>
-  /// <seealso cref='Novell.Directory.Ldap.Events.LdapEventArgs'/>
-  /// <seealso cref='Novell.Directory.Ldap.Events.Edir.EdirEventArgs'/>
-  public class DirectoryEventArgs : BaseEventArgs
-  {
-    protected EventClassifiers eClassification;
-    public EventClassifiers EventClassification
+    /// <summary> 
+    /// This is the base class for other EventArgs corresponding to 
+    /// Ldap and Edir events.
+    /// </summary>
+    /// <seealso cref='Novell.Directory.Ldap.Events.LdapEventArgs'/>
+    /// <seealso cref='Novell.Directory.Ldap.Events.Edir.EdirEventArgs'/>
+    public class DirectoryEventArgs : BaseEventArgs
     {
-      get 
-      {
-	return eClassification;
-      }
-      set
-      {
-	eClassification = value;
-      }
-    }
+        protected EventClassifiers eClassification;
+        public EventClassifiers EventClassification
+        {
+            get
+            {
+                return eClassification;
+            }
+            set
+            {
+                eClassification = value;
+            }
+        }
 
-    public DirectoryEventArgs(LdapMessage sourceMessage,
-			      EventClassifiers aClassification)
-      : base(sourceMessage)
-    {
-      eClassification = aClassification;
+        public DirectoryEventArgs(LdapMessage sourceMessage,
+                      EventClassifiers aClassification)
+            : base(sourceMessage)
+        {
+            eClassification = aClassification;
+        }
     }
-  }
 }

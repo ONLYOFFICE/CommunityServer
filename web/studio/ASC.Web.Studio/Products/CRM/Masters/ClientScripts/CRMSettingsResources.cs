@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -46,26 +46,6 @@ namespace ASC.Web.CRM.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterObject("ProfileRemoved", Constants.LostUser.DisplayUserName());
-
-            yield return RegisterObject("CurrencyDecimalSeparator", System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencyDecimalSeparator);
-            yield return RegisterObject("KeyCodeCurrencyDecimalSeparator", (int)System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencyDecimalSeparator[0]);
-
-            yield return RegisterObject("VisiblePageCount", Global.VisiblePageCount);
-            yield return RegisterObject("DefaultEntryCountOnPage", Global.EntryCountOnPage);
-
-            yield return RegisterObject("DefaultCustomFieldSize", Global.DefaultCustomFieldSize);
-            yield return RegisterObject("DefaultCustomFieldRows", Global.DefaultCustomFieldRows);
-            yield return RegisterObject("DefaultCustomFieldCols", Global.DefaultCustomFieldCols);
-            yield return RegisterObject("MaxCustomFieldSize", Global.MaxCustomFieldSize);
-            yield return RegisterObject("MaxCustomFieldRows", Global.MaxCustomFieldRows);
-            yield return RegisterObject("MaxCustomFieldCols", Global.MaxCustomFieldCols);
-
-            yield return RegisterObject("MaxHistoryEventCharacters", Global.MaxHistoryEventCharacters);
-
-            yield return RegisterObject("IsCRMAdmin", CRMSecurity.IsAdmin);
-
-
             var imgs = new Dictionary<string, string>
                 {
                     {"empty_screen_filter", WebImageSupplier.GetAbsoluteWebPath("empty_screen_filter.png")},
@@ -85,47 +65,68 @@ namespace ASC.Web.CRM.Masters.ClientScripts
                     {"empty_screen_tags", WebImageSupplier.GetAbsoluteWebPath("empty_screen_tags.png", ProductEntryPoint.ID)},
                     {"empty_screen_twitter", WebImageSupplier.GetAbsoluteWebPath("empty_screen_twitter.png", ProductEntryPoint.ID)}
                 };
-            yield return RegisterObject("EmptyScrImgs", imgs);
 
-            yield return RegisterObject("ContactSelectorTypeEnum",
-                                        new Dictionary<string, int>
-                                            {
-                                                {"All", (int)ContactSelectorTypeEnum.All},
-                                                {"Companies", (int)ContactSelectorTypeEnum.Companies},
-                                                {"CompaniesAndPersonsWithoutCompany", (int)ContactSelectorTypeEnum.CompaniesAndPersonsWithoutCompany},
-                                                {"Persons", (int)ContactSelectorTypeEnum.Persons},
-                                                {"PersonsWithoutCompany", (int)ContactSelectorTypeEnum.PersonsWithoutCompany}
-                                            });
+            return new List<KeyValuePair<string, object>>(1)
+                   {
+                       RegisterObject(
+                           new
+                           {
+                               ProfileRemoved = Constants.LostUser.DisplayUserName(),
+                               System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencyDecimalSeparator,
+                               KeyCodeCurrencyDecimalSeparator = (int)System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.CurrencyDecimalSeparator[0],
+                               Global.VisiblePageCount,
+                               DefaultEntryCountOnPage = Global.EntryCountOnPage,
+                               Global.DefaultCustomFieldSize,
+                               Global.DefaultCustomFieldRows,
+                               Global.DefaultCustomFieldCols,
+                               Global.MaxCustomFieldSize,
+                               Global.MaxCustomFieldRows,
+                               Global.MaxCustomFieldCols,
+                               Global.MaxHistoryEventCharacters,
+                               IsCRMAdmin = CRMSecurity.IsAdmin,
+                               EmptyScrImgs = imgs,
 
-            yield return RegisterObject("HistoryCategorySystem",
-                                        new Dictionary<string, int>
-                                            {
-                                                {"TaskClosed", (int)HistoryCategorySystem.TaskClosed},
-                                                {"FilesUpload", (int)HistoryCategorySystem.FilesUpload},
-                                                {"MailMessage", (int)HistoryCategorySystem.MailMessage}
-                                            });
+                               ContactSelectorTypeEnum = 
+                                    new Dictionary<string, int>
+                                    {
+                                        {"All", (int)ContactSelectorTypeEnum.All},
+                                        {"Companies", (int)ContactSelectorTypeEnum.Companies},
+                                        {"CompaniesAndPersonsWithoutCompany", (int)ContactSelectorTypeEnum.CompaniesAndPersonsWithoutCompany},
+                                        {"Persons", (int)ContactSelectorTypeEnum.Persons},
+                                        {"PersonsWithoutCompany", (int)ContactSelectorTypeEnum.PersonsWithoutCompany}
+                                    },
 
-            yield return RegisterObject("DefaultContactPhoto",
-                                        new Dictionary<string, string>
-                                            {
-                                                {"CompanyBigSizePhoto", ContactPhotoManager.GetBigSizePhoto(0, true)},
-                                                {"PersonBigSizePhoto", ContactPhotoManager.GetBigSizePhoto(0, false)},
-                                                {"CompanyMediumSizePhoto", ContactPhotoManager.GetMediumSizePhoto(0, true)},
-                                                {"PersonMediumSizePhoto", ContactPhotoManager.GetMediumSizePhoto(0, false)}
-                                            });
+                               HistoryCategorySystem = 
+                                   new Dictionary<string, int>
+                                       {
+                                           {"TaskClosed", (int)HistoryCategorySystem.TaskClosed},
+                                           {"FilesUpload", (int)HistoryCategorySystem.FilesUpload},
+                                           {"MailMessage", (int)HistoryCategorySystem.MailMessage}
+                                       },
 
-            yield return RegisterObject("CookieKeyForPagination",
-                                        new Dictionary<string, string>
-                                            {
-                                                {"contacts", "contactPageNumber"},
-                                                {"tasks", "taskPageNumber"},
-                                                {"deals", "dealPageNumber"},
-                                                {"cases", "casesPageNumber"},
-                                                {"invoices", "invoicePageNumber"},
-                                                {"invoiceitems", "invoiceItemsPageNumber"}
-                                            });
+                               DefaultContactPhoto = 
+                                   new Dictionary<string, string>
+                                       {
+                                           {"CompanyBigSizePhoto", ContactPhotoManager.GetBigSizePhoto(0, true)},
+                                           {"PersonBigSizePhoto", ContactPhotoManager.GetBigSizePhoto(0, false)},
+                                           {"CompanyMediumSizePhoto", ContactPhotoManager.GetMediumSizePhoto(0, true)},
+                                           {"PersonMediumSizePhoto", ContactPhotoManager.GetMediumSizePhoto(0, false)}
+                                       },
 
-            yield return RegisterObject("CanCreateProjects", Global.CanCreateProjects());
+                               CookieKeyForPagination = 
+                                   new Dictionary<string, string>
+                                       {
+                                           {"contacts", "contactPageNumber"},
+                                           {"tasks", "taskPageNumber"},
+                                           {"deals", "dealPageNumber"},
+                                           {"cases", "casesPageNumber"},
+                                           {"invoices", "invoicePageNumber"},
+                                           {"invoiceitems", "invoiceItemsPageNumber"}
+                                       },
+
+                               CanCreateProjects = Global.CanCreateProjects()
+                           })
+                   };
         }
 
         protected override string GetCacheHash()

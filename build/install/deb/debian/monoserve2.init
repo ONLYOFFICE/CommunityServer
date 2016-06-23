@@ -38,6 +38,9 @@ do_start() {
 do_stop() {
 	echo -n "Stopping $NAME... "
 	kill $PID
+	count=0
+	while ps -p $PID >/dev/null && [ $count -lt 5 ]; do sleep 1; count=$((count+1)); done;
+	if ps -p $PID >/dev/null; then kill -9 $PID; fi;
 	echo "OK"
 }
 

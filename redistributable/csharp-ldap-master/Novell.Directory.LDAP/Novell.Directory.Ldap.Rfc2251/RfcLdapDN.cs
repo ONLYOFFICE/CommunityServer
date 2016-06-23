@@ -33,29 +33,30 @@ using System;
 
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> Represents an Ldap DN.
-	/// 
-	/// <pre>
-	/// LdapDN ::= LdapString
-	/// </pre>
-	/// </summary>
-	public class RfcLdapDN:RfcLdapString
-	{
-		
-		//*************************************************************************
-		// Constructors for RfcLdapDN
-		//*************************************************************************
-		
-		/// <summary> </summary>
-		public RfcLdapDN(System.String s):base(s)
-		{
-		}
-		
-		/// <summary> </summary>
-		[CLSCompliantAttribute(false)]
-		public RfcLdapDN(sbyte[] s):base(s)
-		{
-		}
-	}
+
+    /// <summary> Represents an Ldap DN.
+    /// 
+    /// <pre>
+    /// LdapDN ::= LdapString
+    /// </pre>
+    /// </summary>
+    public class RfcLdapDN : RfcLdapString
+    {
+        //*************************************************************************
+        // Constructors for RfcLdapDN
+        //*************************************************************************
+
+        /// <summary> </summary>
+        public RfcLdapDN(string s)
+            : base(s)
+        {
+        }
+
+        /// <summary> </summary>
+        [CLSCompliantAttribute(false)]
+        public RfcLdapDN(sbyte[] s)
+            : base(s)
+        {
+        }
+    }
 }

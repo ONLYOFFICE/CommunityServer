@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,27 +24,40 @@
 */
 
 
-.ftFile_21, .ftFile_32,
-.ftFolder_21, .ftFolder_32
-{
-	background-repeat:no-repeat;
-	background-position: 0 0;
-	background-color: transparent;
-	background-position: 0 0;
-	height:32px;
-	width:32px;
+.ftFile_21,
+.ftFile_32,
+.ftFolder_21,
+.ftFolder_32 {
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    background-color: transparent;
 }
-.ftFile_21, .ftFolder_21,
-.compact .ftFile_32, .compact .ftFolder_32
-{
-	background-position: 0 -39px;
-	height:21px;
-	width:21px;
+.ftFile_32,
+.ftFolder_32 {
+    background-position: 0 0;
+    height: 32px;
+    width: 32px;
+}
+.ftFile_21,
+.ftFolder_21,
+.compact .ftFile_32,
+.compact .ftFolder_32 {
+    background-position: 0 -39px;
+    height: 21px;
+    width: 21px;
 }
 /*folder default*/
-.ftFolder_21, .ftFolder_32{background-image:url('images/filetype/folder.png');}
+.ftFolder_21,
+.ftFolder_32 {
+    background-image: url('images/filetype/folder.png');
+    background-size: 32px 60px;
+}
 /*file default*/
-.ftFile_21, .ftFile_32{background-image:url('images/filetype/file.png');}
+.ftFile_21,
+.ftFile_32{
+    background-image: url('images/filetype/file.png');
+    background-size: 32px 60px;
+}
 
 
 /*".zip", ".rar", ".ace", ".arc", ".arj", ".bh", ".cab", ".enc", ".gz", ".ha", ".jar", ".lha", ".lzh", ".pak", ".pk3", ".tar", ".tgz", ".uu", ".uue", ".xxe", ".z", ".zoo"*/
@@ -117,3 +130,56 @@
 .ft_Gsheet{background-image:url('images/filetype/file_gsheet.png');}
 /*".gslides"*/
 .ft_Gslides{background-image:url('images/filetype/file_gslides.png');}
+
+.ft_Cal{background-image:url('images/filetype/file_cal.png');}
+
+
+/*******************************************************************************
+   For Retina
+*******************************************************************************/
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx)
+{
+.ftFolder_21,
+.ftFolder_32 {
+    background-image: url('images/filetype/retina/folder.png');
+}
+.ftFile_21,
+.ftFile_32 {
+    background-image:url('images/filetype/retina/file.png');
+}
+.ft_Archive{background-image:url('images/filetype/retina/file_archive.png');}
+.ft_Avi{background-image:url('images/filetype/retina/file_avi.png');}
+.ft_Csv{background-image:url('images/filetype/retina/file_csv.png');}
+.ft_Djvu{background-image:url('images/filetype/retina/file_djvu.png');}
+.ft_Doc{background-image:url('images/filetype/retina/file_doc.png');}
+.ft_Ebook{background-image:url('images/filetype/retina/file_ebook.png');}
+.ft_Flv{background-image:url('images/filetype/retina/file_flv.png');}
+.ft_Html{background-image:url('images/filetype/retina/file_html.png');}
+.ft_Iaf{background-image:url('images/filetype/retina/file_iaf.png');}
+.ft_Image{background-image:url('images/filetype/retina/file_image.png');}
+.ft_M2ts{background-image:url('images/filetype/retina/file_m2ts.png');}
+.ft_Mkv{background-image:url('images/filetype/retina/file_mkv.png');}
+.ft_Mov{background-image:url('images/filetype/retina/file_mov.png');}
+.ft_Mp4{background-image:url('images/filetype/retina/file_mp4.png');}
+.ft_Mpg{background-image:url('images/filetype/retina/file_mpg.png');}
+.ft_Odp{background-image:url('images/filetype/retina/file_odp.png');}
+.ft_Ods{background-image:url('images/filetype/retina/file_ods.png');}
+.ft_Odt{background-image:url('images/filetype/retina/file_odt.png');}
+.ft_Pdf{background-image:url('images/filetype/retina/file_pdf.png');}
+.ft_Pps{background-image:url('images/filetype/retina/file_pps.png');}
+.ft_Ppt{background-image:url('images/filetype/retina/file_ppt.png');}
+.ft_Rtf{background-image:url('images/filetype/retina/file_rtf.png');}
+.ft_Sound{background-image:url('images/filetype/retina/file_sound.png');}
+.ft_Svg{background-image:url('images/filetype/retina/file_svg.png');}
+.ft_Txt{background-image:url('images/filetype/retina/file_txt.png');}
+.ft_Dvd{background-image:url('images/filetype/retina/file_dvd.png');}
+.ft_Xls{background-image:url('images/filetype/retina/file_xls.png');}
+.ft_Xml{background-image:url('images/filetype/retina/file_xml.png');}
+.ft_Xps{background-image:url('images/filetype/retina/file_xps.png');}
+}

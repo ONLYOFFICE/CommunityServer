@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -33,7 +33,7 @@ namespace ASC.Files.Core
     {
         IProviderInfo GetProviderInfo(int linkId);
         List<IProviderInfo> GetProvidersInfo();
-        List<IProviderInfo> GetProvidersInfo(FolderType folderType);
+        List<IProviderInfo> GetProvidersInfo(FolderType folderType, string searchText = null);
         int SaveProviderInfo(string providerKey, string customerTitle, AuthData authData, FolderType folderType);
         int UpdateProviderInfo(int linkId, string customerTitle, FolderType folderType);
         void RemoveProviderInfo(int linkId);

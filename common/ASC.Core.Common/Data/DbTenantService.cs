@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -32,15 +32,17 @@ using ASC.Core.Tenants;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace ASC.Core.Data
 {
     public class DbTenantService : DbBaseService, ITenantService
     {
+        private static TimeZoneInfo defaultTimeZone;
         private List<string> forbiddenDomains;
-        private TimeZoneInfo defaultTimeZone;
 
 
         public DbTenantService(ConnectionStringSettings connectionString)
@@ -293,9 +295,31 @@ namespace ASC.Core.Data
                         }
                         else
                         {
-                            var file = File.Exists("/etc/timezone") ? "/etc/timezone" : "/etc/localtime";
-                            var id = File.ReadAllText(file).Trim();
-                            tz = TimeZoneInfo.GetSystemTimeZones().FirstOrDefault(z => z.Id == id) ?? tz;
+                            var id = string.Empty;
+                            if (File.Exists("/etc/timezone"))
+                            {
+                                id = File.ReadAllText("/etc/timezone").Trim();
+                            }
+                            else if (File.Exists("/etc/localtime"))
+                            {
+                                var psi = new ProcessStartInfo
+                                {
+                                    FileName = "file",
+                                    Arguments = "/etc/localtime",
+                                    RedirectStandardOutput = true,
+                                    UseShellExecute = false,
+                                };
+                                var p = Process.Start(psi);
+                                if (p.WaitForExit(1000))
+                                {
+                                    var s = p.StandardOutput.ReadToEnd();
+                                    id = Regex.Match(s, "/usr/share/zoneinfo/(.+)'").Groups[1].Value;
+                                }
+                            }
+                            if (!string.IsNullOrEmpty(id))
+                            {
+                                tz = TimeZoneInfo.GetSystemTimeZones().FirstOrDefault(z => z.Id == id) ?? tz;
+                            }
                         }
                     }
                     defaultTimeZone = tz;

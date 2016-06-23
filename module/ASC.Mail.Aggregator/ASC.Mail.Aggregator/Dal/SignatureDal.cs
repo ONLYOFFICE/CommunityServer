@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,41 +24,18 @@
 */
 
 
+using ASC.Common.Data;
+using ASC.Common.Data.Sql;
+using ASC.Common.Data.Sql.Expressions;
+using ASC.Mail.Aggregator.Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Serialization;
-using ASC.Common.Data;
-using ASC.Common.Data.Sql;
-using ASC.Common.Data.Sql.Expressions;
-using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Aggregator.DbSchema;
 
 namespace ASC.Mail.Aggregator.Dal
 {
-    [DataContract(Namespace = "")]
-    public class SignatureDto
-    {
-        public SignatureDto(int mailboxId, int tenant, string html, bool isActive)
-        {
-            Tenant = tenant;
-            MailboxId = mailboxId;
-            Html = html;
-            IsActive = isActive;
-        }
-
-        public int Tenant { get; private set;}
-
-        [DataMember(Name = "mailboxId")]
-        public int MailboxId { get; private set; }
-
-        [DataMember(Name = "html")]
-        public string Html { get; private set; }
-
-        [DataMember(Name = "isActive")]
-        public bool IsActive { get; private set; }
-    }
-
     internal class SignatureDal
     {
         private readonly DbManager _manager;
@@ -68,82 +45,64 @@ namespace ASC.Mail.Aggregator.Dal
             _manager = manager;
         }
 
-        public SignatureDto GetSignature(int mailboxId, int tenant)
+        public MailSignature GetSignature(int mailboxId, int tenant)
         {
-            var signature = GetSignatures(new List<int> {mailboxId}, tenant).FirstOrDefault();
+            var signature = GetSignatures(new List<int> { mailboxId }, tenant).FirstOrDefault();
 
-            return signature ?? new SignatureDto(mailboxId, tenant, "", false);
+            return signature ?? new MailSignature(mailboxId, tenant, "", false);
         }
 
-        public List<SignatureDto> GetSignatures(List<int> mailboxesIds, int tenant)
+        public List<MailSignature> GetSignatures(List<int> mailboxesIds, int tenant)
         {
-            if(!mailboxesIds.Any())
-                return new List<SignatureDto>();
+            if (!mailboxesIds.Any())
+                return new List<MailSignature>();
 
             var selectQuery = GetSelectSignaturesQuery(mailboxesIds, tenant);
             var resultList = _manager.ExecuteList(selectQuery)
                                       .ConvertAll(result =>
-                                                  new SignatureDto(Convert.ToInt32(result[0]), tenant,
+                                                  new MailSignature(Convert.ToInt32(result[0]), tenant,
                                                                    Convert.ToString(result[1]),
                                                                    Convert.ToBoolean(result[2])));
 
-            var signatures = new List<SignatureDto>();
+            var signatures = new List<MailSignature>();
 
             mailboxesIds.ForEach(idMailbox =>
                 {
                     var signature = resultList.FirstOrDefault(s => s.MailboxId == idMailbox);
-                    signatures.Add(signature ?? new SignatureDto(idMailbox, tenant, "", false));
+                    signatures.Add(signature ?? new MailSignature(idMailbox, tenant, "", false));
                 });
 
             return signatures;
         }
 
-        public void UpdateOrCreateSignature(SignatureDto signature)
+        public void UpdateOrCreateSignature(MailSignature signature)
         {
-            ISqlInstruction queryForExecution;
-            if (IsSignatureExist(signature))
-            {
-                queryForExecution = new SqlUpdate(SignatureTable.name)
-                                       .Set(SignatureTable.Columns.html, signature.Html)
-                                       .Set(SignatureTable.Columns.is_active, signature.IsActive)
-                                       .Where(SignatureTable.Columns.id_tenant, signature.Tenant)
-                                       .Where(SignatureTable.Columns.id_mailbox, signature.MailboxId);
-            }
-            else
-            {
-                queryForExecution = new SqlInsert(SignatureTable.name)
-                                       .InColumnValue(SignatureTable.Columns.html, signature.Html)
-                                       .InColumnValue(SignatureTable.Columns.is_active, signature.IsActive)
-                                       .InColumnValue(SignatureTable.Columns.id_tenant, signature.Tenant)
-                                       .InColumnValue(SignatureTable.Columns.id_mailbox, signature.MailboxId);
-            }
+            ISqlInstruction queryForExecution = new SqlInsert(SignatureTable.Name, true)
+                                       .InColumnValue(SignatureTable.Columns.Html, signature.Html)
+                                       .InColumnValue(SignatureTable.Columns.IsActive, signature.IsActive)
+                                       .InColumnValue(SignatureTable.Columns.Tenant, signature.Tenant)
+                                       .InColumnValue(SignatureTable.Columns.MailboxId, signature.MailboxId);
 
             _manager.ExecuteNonQuery(queryForExecution);
         }
 
         public void DeleteSignature(int mailboxId, int tenant)
         {
-            var deleteSignatureQuery = new SqlDelete(SignatureTable.name)
-                                            .Where(SignatureTable.Columns.id_mailbox, mailboxId)
-                                            .Where(SignatureTable.Columns.id_tenant, tenant);
+            var deleteSignatureQuery = new SqlDelete(SignatureTable.Name)
+                                            .Where(SignatureTable.Columns.MailboxId, mailboxId)
+                                            .Where(SignatureTable.Columns.Tenant, tenant);
 
             _manager.ExecuteNonQuery(deleteSignatureQuery);
         }
 
         private static SqlQuery GetSelectSignaturesQuery(ICollection mailboxesIds, int tenant)
         {
-            return new SqlQuery(SignatureTable.name)
-                .Select(SignatureTable.Columns.id_mailbox)
-                .Select(SignatureTable.Columns.html)
-                .Select(SignatureTable.Columns.is_active)
-                .Where(SignatureTable.Columns.id_tenant, tenant)
-                .Where(Exp.In(SignatureTable.Columns.id_mailbox, mailboxesIds));
-        }
-
-        private bool IsSignatureExist(SignatureDto signature)
-        {
-            var signatureQuery = GetSelectSignaturesQuery(new List<int> { signature.MailboxId }, signature.Tenant);
-            return _manager.ExecuteList(signatureQuery).Any();
+            return new SqlQuery(SignatureTable.Name)
+                .Select(SignatureTable.Columns.MailboxId)
+                .Select(SignatureTable.Columns.Html)
+                .Select(SignatureTable.Columns.IsActive)
+                .Where(SignatureTable.Columns.Tenant, tenant)
+                .Where(Exp.In(SignatureTable.Columns.MailboxId, mailboxesIds));
         }
     }
 }

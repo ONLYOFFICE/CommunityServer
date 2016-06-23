@@ -3,7 +3,6 @@ export MONO_IOMAP=all
 VSToolsPath=msbuild
 Configuration=Release
 DeployTo=UNIX.SERVER
-Edition=COMMUNITY
 
 set -e
 

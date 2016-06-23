@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -37,6 +37,7 @@ namespace ASC.Api.CRM
 {
     public sealed class CRMCalendar : BaseCalendar
     {
+        [AllDayLongUTCAttribute]
         private class Event : BaseEvent
         {
         }
@@ -75,23 +76,23 @@ namespace ASC.Api.CRM
             {
                 if (t.DeadLine == DateTime.MinValue) continue;
 
+                var allDayEvent = t.DeadLine.Hour == 0 && t.DeadLine.Minute == 0;
+                var utcDate = allDayEvent ? t.DeadLine.Date : Core.Tenants.TenantUtil.DateTimeToUtc(t.DeadLine);
+
                 var e = new Event
                     {
                         AlertType = EventAlertType.Never,
+                        AllDayLong = allDayEvent,
                         CalendarId = Id,
-                        UtcStartDate = t.DeadLine,
-                        UtcEndDate = t.DeadLine,
-                        Id = t.ID.ToString(CultureInfo.InvariantCulture),
+                        UtcStartDate = utcDate,
+                        UtcEndDate = utcDate,
+                        Id = "crm_task_" + t.ID.ToString(CultureInfo.InvariantCulture),
                         Name = Web.CRM.Resources.CRMCommonResource.ProductName + ": " + t.Title,
                         Description = t.Description
                     };
 
-                if (t.DeadLine.Hour == 0 && t.DeadLine.Minute == 0)
-                {
-                    e.AllDayLong = true;
-                }
-
-                events.Add(e);
+                if (IsVisibleEvent(startDate, endDate, e.UtcStartDate, e.UtcEndDate))
+                    events.Add(e);
             }
 
             return events;
@@ -100,6 +101,13 @@ namespace ASC.Api.CRM
         public override TimeZoneInfo TimeZone
         {
             get { return CoreContext.TenantManager.GetCurrentTenant().TimeZone; }
+        }
+
+        private bool IsVisibleEvent(DateTime startDate, DateTime endDate, DateTime eventStartDate, DateTime eventEndDate)
+        {
+            return (startDate <= eventStartDate && eventStartDate <= endDate) ||
+                   (startDate <= eventEndDate && eventEndDate <= endDate) ||
+                   (eventStartDate < startDate && eventEndDate > endDate);
         }
     }
 }

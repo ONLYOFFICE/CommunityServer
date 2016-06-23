@@ -29,44 +29,46 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
 using Novell.Directory.Ldap.Asn1;
+using System;
 
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> Represents an Ldap Authentication Choice.
-	/// 
-	/// <pre>
-	/// AuthenticationChoice ::= CHOICE {
-	/// simple                  [0] OCTET STRING,
-	/// -- 1 and 2 reserved
-	/// sasl                    [3] SaslCredentials }
-	/// </pre>
-	/// </summary>
-	public class RfcAuthenticationChoice:Asn1Choice
-	{
-		
-		//*************************************************************************
-		// Constructors for AuthenticationChoice
-		//*************************************************************************
-		
-		/// <summary> </summary>
-		public RfcAuthenticationChoice(Asn1Tagged choice):base(choice)
-		{
-		}
 
-		[CLSCompliantAttribute(false)]		
-		public RfcAuthenticationChoice(System.String mechanism, sbyte[] credentials):base(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, 3), new RfcSaslCredentials(new RfcLdapString(mechanism), credentials != null?new Asn1OctetString(credentials):null), false))
-		{ // implicit tagging
-		}
-		
-		//*************************************************************************
-		// Mutators
-		//*************************************************************************
-		
-		//*************************************************************************
-		// Accessors
-		//*************************************************************************
-	}
+    /// <summary> Represents an Ldap Authentication Choice.
+    /// 
+    /// <pre>
+    /// AuthenticationChoice ::= CHOICE {
+    /// simple                  [0] OCTET STRING,
+    /// -- 1 and 2 reserved
+    /// sasl                    [3] SaslCredentials }
+    /// </pre>
+    /// </summary>
+    public class RfcAuthenticationChoice : Asn1Choice
+    {
+        //*************************************************************************
+        // Constructors for AuthenticationChoice
+        //*************************************************************************
+
+        /// <summary> </summary>
+        public RfcAuthenticationChoice(Asn1Tagged choice)
+            : base(choice)
+        {
+        }
+
+        [CLSCompliantAttribute(false)]
+        public RfcAuthenticationChoice(string mechanism, sbyte[] credentials)
+            : base(new Asn1Tagged(new Asn1Identifier(Asn1Identifier.CONTEXT, true, 3),
+                new RfcSaslCredentials(new RfcLdapString(mechanism), credentials != null ? new Asn1OctetString(credentials) : null), false))
+        { // implicit tagging
+        }
+
+        //*************************************************************************
+        // Mutators
+        //*************************************************************************
+
+        //*************************************************************************
+        // Accessors
+        //*************************************************************************
+    }
 }

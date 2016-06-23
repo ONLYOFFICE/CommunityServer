@@ -29,36 +29,31 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
-using Novell.Directory.Ldap;
-using Novell.Directory.Ldap.Asn1;
-using Novell.Directory.Ldap.Utilclass;
-
 namespace Novell.Directory.Ldap.Extensions
 {
-	
-	/// <summary> 
-	/// Reloads the Ldap server.
-	/// 
-	/// The refreshLdapServerRequest extension uses the following OID:
-	/// 2.16.840.1.113719.1.27.100.9
-	/// 
-	/// The requestValue is set to null.
-	/// </summary>
-	public class RefreshLdapServerRequest:LdapExtendedOperation
-	{
-		
-		/// <summary> 
-		/// Constructs an extended operation object for reloading the Ldap server.
-		/// 
-		/// The constructor sets the OID.
-		/// 
-		/// </summary>
-		/// <exception> LdapException A general exception which includes an error
-		/// message and an Ldap error code.
-		/// </exception>
-		public RefreshLdapServerRequest():base(ReplicationConstants.REFRESH_SERVER_REQ, null)
-		{
-		}
-	}
+    /// <summary> 
+    /// Reloads the Ldap server.
+    /// 
+    /// The refreshLdapServerRequest extension uses the following OID:
+    /// 2.16.840.1.113719.1.27.100.9
+    /// 
+    /// The requestValue is set to null.
+    /// </summary>
+    public class RefreshLdapServerRequest : LdapExtendedOperation
+    {
+
+        /// <summary> 
+        /// Constructs an extended operation object for reloading the Ldap server.
+        /// 
+        /// The constructor sets the OID.
+        /// 
+        /// </summary>
+        /// <exception> LdapException A general exception which includes an error
+        /// message and an Ldap error code.
+        /// </exception>
+        public RefreshLdapServerRequest()
+            : base(ReplicationConstants.REFRESH_SERVER_REQ, null)
+        {
+        }
+    }
 }

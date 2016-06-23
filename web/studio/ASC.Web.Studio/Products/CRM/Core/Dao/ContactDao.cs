@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -335,6 +335,87 @@ namespace ASC.CRM.Core.Dao
             return result;
         }
 
+        public List<Contact> SearchContactsByEmail(string searchText, int maxCount)
+        {
+            var contacts = new List<Contact>();
+
+            if (string.IsNullOrEmpty(searchText) || maxCount <= 0)
+                return contacts;
+
+            Func<SqlQuery> getBaseQuery = () =>
+            {
+                var query = new SqlQuery("crm_contact cc")
+                    .Select(GetContactColumnsTable("cc"))
+                    .InnerJoin("crm_contact_info cci",
+                        Exp.EqColumns("cc.tenant_id", "cci.tenant_id") &
+                        Exp.EqColumns("cc.id", "cci.contact_id"))
+                    .Where("cci.type", (int) ContactInfoType.Email)
+                    .Where("cc.tenant_id", TenantID);
+
+                return query;
+            };
+
+            var ids = new List<int>();
+
+            if (FullTextSearch.SupportModule(FullTextSearch.CRMEmailsModule))
+            {
+                ids = FullTextSearch.Search(FullTextSearch.CRMEmailsModule.Match(searchText));
+
+                if (!ids.Any())
+                    return contacts;
+            }
+
+            var isAdmin = CRMSecurity.IsAdmin;
+            const int count_per_query = 100;
+
+            using (var db = GetDb())
+            {
+                var f = 0;
+                do
+                {
+                    var query = getBaseQuery();
+
+                    if (ids.Any())
+                    {
+                        var partIds = ids.Skip(f).Take(count_per_query).ToList();
+
+                        if (!partIds.Any())
+                            break;
+
+                        query
+                            .Where(Exp.In("cci.id", partIds));
+                    }
+                    else
+                    {
+                        query
+                            .Where(Exp.Like("concat(cc.display_name, ' ', cci.data)", searchText, SqlLike.AnyWhere))
+                            .SetFirstResult(f)
+                            .SetMaxResults(count_per_query);
+                    }
+
+                    var partContacts = db.ExecuteList(query)
+                        .ConvertAll(ToContact);
+
+                    foreach (var partContact in partContacts)
+                    {
+                        if (maxCount - contacts.Count == 0)
+                            return contacts;
+
+                        if (isAdmin || CRMSecurity.CanAccessTo(partContact))
+                            contacts.Add(partContact);
+                    }
+
+                    if (maxCount - contacts.Count == 0 || !partContacts.Any() || partContacts.Count < count_per_query)
+                        break;
+
+                    f += count_per_query;
+
+                } while (true);
+            }
+
+            return contacts;
+        }
+
         public List<Contact> GetContacts(String searchText,
                                         IEnumerable<String> tags,
                                         int contactStage,
@@ -593,37 +674,39 @@ namespace ASC.CRM.Core.Dao
                 if (ids.Count == 0) return null;
             }
 
-            using (var db = GetDb())
+
+            switch (contactListView)
             {
-                switch (contactListView)
-                {
-                    case ContactListViewType.Company:
-                        conditions.Add(Exp.Eq("is_company", true));
-                        break;
-                    case ContactListViewType.Person:
-                        conditions.Add(Exp.Eq("is_company", false));
-                        break;
-                    case ContactListViewType.WithOpportunity:
+                case ContactListViewType.Company:
+                    conditions.Add(Exp.Eq("is_company", true));
+                    break;
+                case ContactListViewType.Person:
+                    conditions.Add(Exp.Eq("is_company", false));
+                    break;
+                case ContactListViewType.WithOpportunity:
+                    using (var db = GetDb())
+                    {
                         if (ids.Count > 0)
                         {
                             ids = db.ExecuteList(new SqlQuery("crm_entity_contact").Select("contact_id")
-                                                 .Distinct()
-                                                 .Where(Exp.In("contact_id", ids) & Exp.Eq("entity_type", (int)EntityType.Opportunity)))
-                                                 .ConvertAll(row => Convert.ToInt32(row[0]));
+                                                    .Distinct()
+                                                    .Where(Exp.In("contact_id", ids) & Exp.Eq("entity_type", (int)EntityType.Opportunity)))
+                                                    .ConvertAll(row => Convert.ToInt32(row[0]));
                         }
                         else
                         {
                             ids = db.ExecuteList(new SqlQuery("crm_entity_contact").Select("contact_id")
-                                                 .Distinct()
-                                                 .Where(Exp.Eq("entity_type", (int)EntityType.Opportunity)))
-                                                 .ConvertAll(row => Convert.ToInt32(row[0]));
+                                                    .Distinct()
+                                                    .Where(Exp.Eq("entity_type", (int)EntityType.Opportunity)))
+                                                    .ConvertAll(row => Convert.ToInt32(row[0]));
                         }
+                    }
 
-                        if (ids.Count == 0) return null;
+                    if (ids.Count == 0) return null;
 
-                        break;
-                }
+                    break;
             }
+
             if (contactStage >= 0)
                 conditions.Add(Exp.Eq("status_id", contactStage));
             if (contactType >= 0)
@@ -658,7 +741,22 @@ namespace ASC.CRM.Core.Dao
             }
             else if (exceptIDs.Count > 0)
             {
-                conditions.Add(!Exp.In("id", exceptIDs.ToArray()));
+                var _MaxCountForSQLNotIn = 500;
+
+                if (exceptIDs.Count > _MaxCountForSQLNotIn)
+                {
+                    using (var db = GetDb())
+                    {
+                        ids = db.ExecuteList(Query("crm_contact").Select("id")).ConvertAll(row => Convert.ToInt32(row[0])); //get all contact ids
+                    }
+                    ids = ids.Except(exceptIDs).ToList();
+                    if (ids.Count == 0) return null;
+
+                    conditions.Add(Exp.In("id", ids));
+
+                } else {
+                    conditions.Add(!Exp.In("id", exceptIDs.ToArray()));
+                }
             }
 
             if (conditions.Count == 0) return null;
@@ -746,7 +844,10 @@ namespace ASC.CRM.Core.Dao
 
             using (var db = GetDb())
             {
-                var contacts = db.ExecuteList(sqlQuery).ConvertAll(ToContact);
+                var data = db.ExecuteList(sqlQuery);
+
+                var contacts = data.ConvertAll(ToContact);
+
                 return selectIsSharedInNewScheme && isShared.HasValue ?
                     contacts.Where(c => (isShared.Value ? c.ShareType != ShareType.None : c.ShareType == ShareType.None)).ToList() :
                     contacts;
@@ -1087,51 +1188,39 @@ namespace ASC.CRM.Core.Dao
             _cache.Remove(new Regex(TenantID.ToString(CultureInfo.InvariantCulture) + "contacts.*"));
         }
 
-        public List<Object[]> FindDuplicateByEmail(List<ContactInfo> items)
+        public List<int> FindDuplicateByEmail(List<ContactInfo> items, bool resultReal)
         {
+            //resultReal - true => real, false => fake
+            if (items.Count == 0) return new List<int>();
 
-            if (items.Count == 0) return new List<Object[]>();
+            var result = new List<int>();
+            var emails = items.ConvertAll(i => i.Data).ToList();
+            var sqlQuery = Query("crm_contact_info")
+                    .Select("contact_id", "data")
+                    .Where(Exp.In("data", emails) & Exp.Eq("type", (int)ContactInfoType.Email));
 
-            var result = new List<Object[]>();
-
-            using (var db = GetDb())
+            if (resultReal)
             {
-                var sqlQueryStr = @"
-                                    CREATE  TEMPORARY TABLE IF NOT EXISTS `crm_dublicated` (
-                                    `contact_id` INT(11) NOT NULL,
-                                    `email` VARCHAR(255) NOT NULL DEFAULT '0',
-                                    `tenant_id` INT(11) NOT NULL DEFAULT '0'	
-                                );";
-
-                db.ExecuteNonQuery(sqlQueryStr);
-
-                using (var tx = db.BeginTransaction())
+                using (var db = GetDb())
                 {
-                    db.ExecuteNonQuery(Delete("crm_dublicated"));
-
-                    foreach (var item in items)
-                        db.ExecuteNonQuery(
-                             Insert("crm_dublicated")
-                            .InColumnValue("contact_id", item.ContactID)
-                            .InColumnValue("email", item.Data));
-
-                    var sqlQuery = Query("crm_dublicated tblLeft")
-                                   .Select("tblLeft.contact_id",
-                                           "tblLeft.email",
-                                           "tblRight.contact_id",
-                                           "tblRight.data")
-                                   .LeftOuterJoin("crm_contact_info tblRight", Exp.EqColumns("tblLeft.tenant_id", "tblRight.tenant_id") & Exp.EqColumns("tblLeft.email", "tblRight.data"))
-                                   .Where(Exp.Eq("tblRight.tenant_id", TenantID) & Exp.Eq("tblRight.type", (int)ContactInfoType.Email));
-
-                    result = db.ExecuteList(sqlQuery);
-
-
-                    tx.Commit();
-
+                    result = db.ExecuteList(sqlQuery).ConvertAll(row => Convert.ToInt32(row[0]));
+                }
+            }
+            else
+            {
+                List<string> emailsAlreadyExists;
+                using (var db = GetDb())
+                {
+                    emailsAlreadyExists = db.ExecuteList(sqlQuery).ConvertAll(row => Convert.ToString(row[1]));
                 }
 
-                return result;
+                if (emailsAlreadyExists.Count != 0) {
+                    result = items.Where(i => emailsAlreadyExists.Contains(i.Data)).Select(i => i.ContactID).ToList();
+                }
+
             }
+
+            return result;
         }
 
         public virtual Dictionary<int, int> SaveContactList(List<Contact> items)
@@ -1323,7 +1412,7 @@ namespace ASC.CRM.Core.Dao
             contactIDs.ForEach(id => contactIDsDBString += String.Format("{0},", id));
             contactIDsDBString = contactIDsDBString.TrimEnd(',');
 
-            var hasInvoiceIDs = new List<int>();
+            List<int> hasInvoiceIDs;
 
             using (var db = GetDb())
             {
@@ -1724,7 +1813,7 @@ namespace ASC.CRM.Core.Dao
 
         public List<int> GetContactIDsByContactInfo(ContactInfoType infoType, String data, int? category, bool? isPrimary)
         {
-            var ids = new List<int>();
+            List<int> ids;
             var q = new SqlQuery("crm_contact_info")
                   .Select("contact_id")
                   .Where(Exp.Eq("type", (int)infoType));
@@ -1821,33 +1910,16 @@ namespace ASC.CRM.Core.Dao
             return string.IsNullOrEmpty(alias) ? result.ToArray() : result.ConvertAll(item => string.Concat(alias, item)).ToArray();
         }
 
-        private SqlQuery GetContactSqlQuery(Exp where, String alias)
+        private SqlQuery GetContactSqlQuery(Exp where)
         {
-            var sqlQuery = Query("crm_contact");
+            var sqlQuery = Query("crm_contact").UseIndex("company_id");
 
-            if (!String.IsNullOrEmpty(alias))
-            {
-                sqlQuery = new SqlQuery(String.Concat("crm_contact ", alias))
-                           .Where(alias + ".tenant_id", TenantID);
-                sqlQuery.Select(GetContactColumnsTable(alias));
-
-            }
-            else
-            {
-                sqlQuery.Select(GetContactColumnsTable(String.Empty));
-                sqlQuery.Where("tenant_id", TenantID);
-            }
+            sqlQuery.Select(GetContactColumnsTable(String.Empty));
 
             if (where != null)
                 sqlQuery.Where(where);
 
             return sqlQuery;
-
-        }
-
-        private SqlQuery GetContactSqlQuery(Exp where)
-        {
-            return GetContactSqlQuery(where, String.Empty);
 
         }
     }

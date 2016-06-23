@@ -29,21 +29,16 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
-
-
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> This interface represents Protocol Operations that are requests from a
-	/// client.
-	/// </summary>
-	public interface RfcRequest
-		{
-			/// <summary> Builds a new request using the data from the this object.</summary>
-			RfcRequest dupRequest(System.String base_Renamed, System.String filter, bool reference);
-			
-			/// <summary> Builds a new request using the data from the this object.</summary>
-			System.String getRequestDN();
-		}
+    /// <summary> This interface represents Protocol Operations that are requests from a
+    /// client.
+    /// </summary>
+    public interface RfcRequest
+    {
+        /// <summary> Builds a new request using the data from the this object.</summary>
+        RfcRequest dupRequest(string base_Renamed, string filter, bool reference);
+        /// <summary> Builds a new request using the data from the this object.</summary>
+        string getRequestDN();
+    }
 }

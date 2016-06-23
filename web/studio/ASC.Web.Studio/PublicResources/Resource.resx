@@ -315,7 +315,7 @@
     <value>Settings</value>
   </data>
   <data name="AdministrationLabel" xml:space="preserve">
-    <value>Administration</value>
+    <value>Mail Server</value>
   </data>
   <data name="Administrator" xml:space="preserve">
     <value>Administrator</value>
@@ -862,11 +862,14 @@ Are you sure want to delete {!group} {0}?</value>
   <data name="DocServiceUrlConverter" xml:space="preserve">
     <value>Document conversion service Address</value>
   </data>
+  <data name="DocServiceUrlPortal" xml:space="preserve">
+    <value>Community Server Address</value>
+  </data>
   <data name="DocServiceUrlExample" xml:space="preserve">
     <value>Example: {0}</value>
   </data>
   <data name="DocServiceUrlHelp" xml:space="preserve">
-    <value>{1}Document Service{2} is the server service whichallows to perform the document viewing and editing.{0}{1}Command Service{2} is the server service used tonotify about the events when the document editing is being done.{0}{1}Storage Service{2} is the server service which isused to get the external link to the opened document.{0}{1}Storage Service{2} is the server service which allowsto convert the document file into the appropriate OfficeOpen XML format.</value>
+    <value>{1}Document Service{2} is the server service which allows to perform the document viewing and editing.{0}{1}Command Service{2} is the server service used to notify about the events when the document editing is being done.{0}{1}Storage Service{2} is the server service which is used to get the external link to the opened document.{0}{1}Conversion Service{2} is the server service which allows to convert the document file into the appropriate OfficeOpen XML format.{0}{1}Community Server Address{2} is the address of Community Server in the local network which can be used for it to be accessed by Document Server..</value>
   </data>
   <data name="DocServiceUrlStorage" xml:space="preserve">
     <value>Document storage service Address</value>
@@ -1053,6 +1056,9 @@ Are you sure want to delete {!group} {0}?</value>
   </data>
   <data name="Error" xml:space="preserve">
     <value>Error</value>
+  </data>
+  <data name="ErrorNoscript" xml:space="preserve">
+    <value>Your browser does not support JavaScript!</value>
   </data>
   <data name="Error403Text" xml:space="preserve">
     <value>You don't have permission to view this page</value>
@@ -2009,8 +2015,11 @@ Are you sure want to delete {!group} {0}?</value>
   <data name="NoRedirectOperatorsMsg" xml:space="preserve">
     <value>Больше никого нет, отвечай сам!</value>
   </data>
-  <data name="NoteForInviteCollaborator" xml:space="preserve">
-    <value>In case you check the {0}Invite users as guests{1} option these users will be added to the portal as guests and will not be included into the portal pricing. Their roles can be changed later in the {0}People{1} module.</value>
+  <data name="NoteInviteCollaborator" xml:space="preserve">
+    <value>Roles for the users added as guests can be later changed in the {0}People{1} module.</value>
+  </data>
+  <data name="NotePriceCollaborator" xml:space="preserve">
+    <value>They will not be included into the total number of users in the portal pricing.</value>
   </data>
   <data name="NotFoundLanguage" xml:space="preserve">
     <value>In case you cannot find your language in the list of the available ones, feel free to write to us at {0}documentation@onlyoffice.com{1} to take part in the translation and get up to 1 year free of charge.</value>
@@ -2047,6 +2056,96 @@ Are you sure want to delete {!group} {0}?</value>
   </data>
   <data name="OrPress" xml:space="preserve">
     <value>or press</value>
+  </data>
+  <data name="ConsumersBox" xml:space="preserve">
+    <value>Box Key</value>
+  </data>
+  <data name="ConsumersBoxKey" xml:space="preserve">
+    <value>Box ID</value>
+  </data>
+  <data name="ConsumersBoxSecret" xml:space="preserve">
+    <value>Box Key</value>
+  </data>
+  <data name="ConsumersFacebookCRM" xml:space="preserve">
+    <value>Facebook in CRM Key</value>
+  </data>
+  <data name="ConsumersFacebookCRMSecret" xml:space="preserve">
+    <value>Facebook Key</value>
+  </data>
+  <data name="ConsumersTwitterCrm" xml:space="preserve">
+    <value>Twitter in CRM Key</value>
+  </data>
+  <data name="ConsumersTwitterCrmKey" xml:space="preserve">
+    <value>Twitter ID</value>
+  </data>
+  <data name="ConsumersTwitterCrmSecret" xml:space="preserve">
+    <value>Twitter Key</value>
+  </data>
+  <data name="ConsumersBoxComSecret" xml:space="preserve">
+    <value>Box Key</value>
+  </data>
+  <data name="ConsumersCrunchBaseSecret" xml:space="preserve">
+    <value>CrunchBase Key</value>
+  </data>
+  <data name="ConsumersDropBoxKey" xml:space="preserve">
+    <value>DropBox ID</value>
+  </data>
+  <data name="ConsumersDropBoxSecret" xml:space="preserve">
+    <value>DropBox Key</value>
+  </data>
+  <data name="ConsumersFacebookKey" xml:space="preserve">
+    <value>Facebook ID</value>
+  </data>
+  <data name="ConsumersFacebookSecret" xml:space="preserve">
+    <value>Facebook Key</value>
+  </data>
+  <data name="ConsumersGoogleKey" xml:space="preserve">
+    <value>Google ID</value>
+  </data>
+  <data name="ConsumersGoogleSecret" xml:space="preserve">
+    <value>Google Key</value>
+  </data>
+  <data name="ConsumersLinkedInKey" xml:space="preserve">
+    <value>Linkedin ID</value>
+  </data>
+  <data name="ConsumersLinkedInSecret" xml:space="preserve">
+    <value>Linkedin Key</value>
+  </data>
+  <data name="ConsumersSkyDriveKey" xml:space="preserve">
+    <value>SkyDrive ID</value>
+  </data>
+  <data name="ConsumersSkyDriveSecret" xml:space="preserve">
+    <value>SkyDrive Key</value>
+  </data>
+  <data name="ConsumersTwitterKey" xml:space="preserve">
+    <value>Twitter ID</value>
+  </data>
+  <data name="ConsumersTwitterSecret" xml:space="preserve">
+    <value>Twitter Key</value>
+  </data>
+  <data name="ConsumersBoxCom" xml:space="preserve">
+    <value>Box Key</value>
+  </data>
+  <data name="ConsumersCrunchBase" xml:space="preserve">
+    <value>CrunchBase</value>
+  </data>
+  <data name="ConsumersDropBox" xml:space="preserve">
+    <value>DropBox</value>
+  </data>
+  <data name="ConsumersFacebook" xml:space="preserve">
+    <value>Facebook</value>
+  </data>
+  <data name="ConsumersGoogle" xml:space="preserve">
+    <value>Google Key</value>
+  </data>
+  <data name="ConsumersLinkedIn" xml:space="preserve">
+    <value>Linkedin Key</value>
+  </data>
+  <data name="ConsumersSkyDrive" xml:space="preserve">
+    <value>SkyDrive</value>
+  </data>
+  <data name="ConsumersTwitter" xml:space="preserve">
+    <value>Twitter Key</value>
   </data>
   <data name="Owner" xml:space="preserve">
     <value>Owner</value>
@@ -2160,7 +2259,7 @@ Are you sure want to delete {!group} {0}?</value>
     <value>Private portal</value>
   </data>
   <data name="PortalAccessSettingsDiscSpaceLimitException" xml:space="preserve">
-    <value>Limit exceeded ({0} Mb disc space)</value>
+    <value>Limit exceeded ({0} disc space)</value>
   </data>
   <data name="PortalAccessSettingsTariffException" xml:space="preserve">
     <value>This feature enabled on free tariff only</value>
@@ -2768,17 +2867,11 @@ To register, enter your email and click on Send Invitation.  An email message wi
   <data name="TariffInvoice" xml:space="preserve">
     <value>Invoice</value>
   </data>
-  <data name="TariffPeriodExpired" xml:space="preserve">
-    <value>Tariff period has expired, choose the new rate from the table.</value>
-  </data>
   <data name="TariffRemarkDisabledMonth" xml:space="preserve">
     <value>The tariff plan is not available until the end of the tariff for the year.</value>
   </data>
   <data name="TariffRemarkDisabledYear" xml:space="preserve">
     <value>The tariff plan is not available until the end of the tariff for the 3 year.</value>
-  </data>
-  <data name="TariffRemarkPrice" xml:space="preserve">
-    <value>This price won't be subject to any changes, only if you've activated the Recurring Payments option.</value>
   </data>
   <data name="TariffRemarkProlongDisable" xml:space="preserve">
     <value>To prolong the term automatically, please make sure the Recurring Payment checkbox in your Avangate account is on.</value>
@@ -2800,6 +2893,9 @@ To register, enter your email and click on Send Invitation.  An email message wi
   </data>
   <data name="TariffStatistics" xml:space="preserve">
     <value>Number of active users you've added: {0}</value>
+  </data>
+  <data name="TariffPortalStatistics" xml:space="preserve">
+    <value>Number of portals you've created: {0}</value>
   </data>
   <data name="TariffStatisticsStorage" xml:space="preserve">
     <value>Storage space used: {0}</value>
@@ -2824,174 +2920,6 @@ To register, enter your email and click on Send Invitation.  An email message wi
   </data>
   <data name="TenantUsersTotal" xml:space="preserve">
     <value>Users total</value>
-  </data>
-  <data name="TermsAgreement" xml:space="preserve">
-    <value>Entire Agreement</value>
-  </data>
-  <data name="TermsAgreement1" xml:space="preserve">
-    <value>These Terms constitute an entire agreement between you and Ascensio System SIA and govern your use of TeamLab Office except and to the extent that you have entered into a separate agreement on the subject.</value>
-  </data>
-  <data name="TermsAgreement2" xml:space="preserve">
-    <value>These Terms supersede any prior agreements or earlier versions of these Terms as far as the use of TeamLab Office is concerned.</value>
-  </data>
-  <data name="TermsAgreement3" xml:space="preserve">
-    <value>These Terms do not affect relations between you and any third party.</value>
-  </data>
-  <data name="TermsAmendments" xml:space="preserve">
-    <value>Amendments</value>
-  </data>
-  <data name="TermsAmendmentsText" xml:space="preserve">
-    <value>We do our best to improve TeamLab Office and meet the requests of all our user to the maximum extent possible. This is why these Terms of Service may likely be subject to amendments. In such a case we will notify our users by means of an announcement on our official website {0}www.teamlab.com{2}. Besides, you can always find the latest version of the Terms at {1}https://personal.teamlab.com/terms.aspx{2}. If these Terms have been changed you can decide either to accept them and continue using TeamLab Office or to stop using it. If you continue to use TeamLab Office after the Terms have been changed we will regard it as your acceptance of the new Terms.</value>
-  </data>
-  <data name="TermsApplicableLaw" xml:space="preserve">
-    <value>Applicable Law and Forum</value>
-  </data>
-  <data name="TermsApplicableLaw1" xml:space="preserve">
-    <value>This Agreement shall be governed by and construed in accordance with the laws of Latvia.</value>
-  </data>
-  <data name="TermsApplicableLaw2" xml:space="preserve">
-    <value>The Parties will do their best to settle all differences, controversies, disputes or claims arising from these Terms of Service through negotiations. If the Parties are unable to do so any disagreement between them shall be submitted to Latgale suburb court of arbitration [&lt;i&gt;Latgales priekšpilsētas šķīrējtiesa&lt;/i&gt;], Riga, Latvia which shall have exclusive jurisdiction over all issues related to this Agreement. In such a case, the Parties agree to be bound by any decision made by that court.</value>
-  </data>
-  <data name="TermsDisclaimer" xml:space="preserve">
-    <value>Disclaimer of Warranties</value>
-  </data>
-  <data name="TermsDisclaimer1" xml:space="preserve">
-    <value>You understand and agree that your use of TeamLab Office is at your sole risk. TeamLab Office and any related services are provided “as is” without warranty of any kind including, but not limited to, warranties of title, merchantability, fitness for any particular purpose, non-infringement, presence of errors or compatibility with other computer software or hardware. We do not warrant that TeamLab Office or services provided under these Terms of Service will meet your requirements and that operation of TeamLab Office will be error-free or uninterrupted. Also we cannot guarantee that all errors in TeamLab Office will be corrected.</value>
-  </data>
-  <data name="TermsDisclaimer2" xml:space="preserve">
-    <value>The consequences of obtaining any data through the use of TeamLab Office are at your sole risk. You are solely responsible for any damage caused to your hardware or software by such data, loss or corruption of any data uploaded or downloaded through TeamLab Office.</value>
-  </data>
-  <data name="TermsHeader" xml:space="preserve">
-    <value>{0}TeamLab Office Terms of Service{1} (Personal version)</value>
-  </data>
-  <data name="TermsInternetConnection" xml:space="preserve">
-    <value>Internet Connection and Software</value>
-  </data>
-  <data name="TermsInternetConnection1" xml:space="preserve">
-    <value>In order to use TeamLab Office you must have a high-speed Internet access. We are not responsible for any errors, data loss or your inability to use TeamLab Office due to lack of proper Internet connection.</value>
-  </data>
-  <data name="TermsInternetConnection2" xml:space="preserve">
-    <value>You understand that any data transmitted through an unencrypted Internet connection may become available to third parties and in such a case we will not be responsible for any breach of confidentiality of these data.</value>
-  </data>
-  <data name="TermsInternetConnection3" xml:space="preserve">
-    <value>You shall make sure that you have appropriate browser software which is necessary to use TeamLab Office. It must support Secure Socket Layer (SSL) protocol and other Internet protocols used in TeamLab Office as well as cookies.</value>
-  </data>
-  <data name="TermsLimitation" xml:space="preserve">
-    <value>Limitation of Liability</value>
-  </data>
-  <data name="TermsLimitationText" xml:space="preserve">
-    <value>To the maximum extent permitted by applicable laws Ascensio System SIA, its licensors, subsidiaries, employees, agents and affiliates will not be liable to you or to any third party for any direct, indirect, special, incidental, consequential or exemplary damage, loss of data, damage to data, loss of profits, revenue or anticipated savings. In particular this limitation applies to damages resulting from the use of the inability to use TeamLab Office; unauthorized access to data uploaded to TeamLab Office, corruption of alteration of such data, your failure to protect confidential information including your login and password; acts or omissions of any third party in connection with the use of TeamLab Office; termination of your right to use TeamLab Office in accordance with these Terms of Service; or any other matter related to the use of TeamLab Office.</value>
-  </data>
-  <data name="TermsLogIn" xml:space="preserve">
-    <value>When you log in TeamLab Office by using your Google or Facebook account or proceed with using it as a guest user you agree to be bound by the terms and conditions below.</value>
-  </data>
-  <data name="TermsNonAssignment" xml:space="preserve">
-    <value>Non-assignment</value>
-  </data>
-  <data name="TermsNonAssignmentText" xml:space="preserve">
-    <value>Neither Party shall assign or transfer its rights under these Terms of Service without the other Party’s prior written consent.</value>
-  </data>
-  <data name="TermsQuestions" xml:space="preserve">
-    <value>Should you have any questions or requests concerning these Terms of Service please contact Ascensio System SIA at {0}sales@teamlab.com{1}.</value>
-  </data>
-  <data name="TermsRegistration" xml:space="preserve">
-    <value>Registration</value>
-  </data>
-  <data name="TermsRegistration1" xml:space="preserve">
-    <value>In order to start using TeamLab Office you shall log in via your existing Google or Facebook account. Accounts registered by "bots", "robots" or other automated methods are not permitted.</value>
-  </data>
-  <data name="TermsRegistration2" xml:space="preserve">
-    <value>We guarantee that your login and password will remain confidential.</value>
-  </data>
-  <data name="TermsRelations" xml:space="preserve">
-    <value>These Terms of Service govern relations between you and Ascensio System SIA (“we” or “us”) (jointly referred to as “the Parties”) regarding the use of TeamLab Office including its web-interface, data encryption, transmission, access and storage technologies.</value>
-  </data>
-  <data name="TermsRelationship" xml:space="preserve">
-    <value>Relationship Between the Parties</value>
-  </data>
-  <data name="TermsRelationshipText" xml:space="preserve">
-    <value>Ascensio System SIA is an independent contractor. Nothing in these Terms of Service can be interpreted as creating a partnership, joint venture or agency relationship between you and us.</value>
-  </data>
-  <data name="TermsRestrictions" xml:space="preserve">
-    <value>Restrictions on Use</value>
-  </data>
-  <data name="TermsRestrictions1" xml:space="preserve">
-    <value>using it for or in connection with any illegal activity or with a view to promote any illegal activity prohibited by the laws applicable to you;</value>
-  </data>
-  <data name="TermsRestrictions2" xml:space="preserve">
-    <value>obstructing or interfering with functionality of TeamLab Office, in particular by using computer viruses or any other malicious software. Unless authorized by us in writing you should not try to get access to TeamLab Office by any means other than through the interface envisaged by our programmers (for example by using scripts or the like). Also you should not try to use any extra functions or features of TeamLab Office if you are not expressly permitted to do so. Please do not try to suppress displaying pop-up messages or other advertisements by TeamLab Office;</value>
-  </data>
-  <data name="TermsRestrictions3" xml:space="preserve">
-    <value>sending “spam” or other unsolicited messages;</value>
-  </data>
-  <data name="TermsRestrictions4" xml:space="preserve">
-    <value>breaching intellectual property rights. You shall not upload data infringing intellectual property rights regardless of whether they are held by us or by any third party;</value>
-  </data>
-  <data name="TermsRestrictions5" xml:space="preserve">
-    <value>keep your login and password confidential. If you have reasons to believe that your login and/or password became available to third parties you will have to change your password and inform us of the incident in order to protect your data from unauthorized access or use.</value>
-  </data>
-  <data name="TermsRestrictionsText" xml:space="preserve">
-    <value>When using TeamLab Office you agree to {0}abstain from{1}:</value>
-  </data>
-  <data name="TermsRights" xml:space="preserve">
-    <value>Our Rights to TeamLab Office</value>
-  </data>
-  <data name="TermsRights1" xml:space="preserve">
-    <value>We hereby grant you a limited worldwide non-assignable and non-exclusive license to use TeamLab Office until you cease using TeamLab Office or we terminate your right to access it in connection with a breach of these Terms of Service. Currently, this license is granted to you free of charge.</value>
-  </data>
-  <data name="TermsRights2" xml:space="preserve">
-    <value>We retain all intellectual property rights to TeamLab Office software and the related trade mark. You undertake to respect them.</value>
-  </data>
-  <data name="TermsRights3" xml:space="preserve">
-    <value>Any violation of these rights may result in termination of your right to use TeamLab Office.</value>
-  </data>
-  <data name="TermsRights4" xml:space="preserve">
-    <value>Please note that by using TeamLab Office you do not obtain any proprietary rights or interest in it.</value>
-  </data>
-  <data name="TermsSeverability" xml:space="preserve">
-    <value>Severability</value>
-  </data>
-  <data name="TermsSeverabilityText" xml:space="preserve">
-    <value>If any provision of these Terms of Service is held to be invalid or unenforceable, the remaining provisions of the Terms will remain in full force and effect.</value>
-  </data>
-  <data name="TermsTermination" xml:space="preserve">
-    <value>Termination</value>
-  </data>
-  <data name="TermsTermination1" xml:space="preserve">
-    <value>You may cease using TeamLab Office at any time.</value>
-  </data>
-  <data name="TermsTermination2" xml:space="preserve">
-    <value>We may suspend or terminate your right to use TeamLab Office if you have breached these Terms of Service. In such a case we will notify you at least 4 (four) days in advance so as to enable you to recover all relevant data uploaded to TeamLab Office.</value>
-  </data>
-  <data name="TermsWarranties" xml:space="preserve">
-    <value>Warranties</value>
-  </data>
-  <data name="TermsWarranties1" xml:space="preserve">
-    <value>All data you upload to TeamLab Office belong to you. By uploading data to TeamLab Office you authorize us to make them accessible to other users of your portal and to make sure that they can use these data. We will take all reasonable measures to ensure protection, confidentiality and integrity of your data. However, it is strongly recommended that you back up your data on a regular basis to prevent their possible loss.</value>
-  </data>
-  <data name="TermsWarranties2" xml:space="preserve">
-    <value>We will not view your data except upon your written permission and only for support purposes.</value>
-  </data>
-  <data name="TermsWarranties3" xml:space="preserve">
-    <value>We will not share, disclose, sell, lease or modify your data.</value>
-  </data>
-  <data name="TermsWarranties4" xml:space="preserve">
-    <value>We warrant that TeamLab Office will match its functionality described in its Support Documentation and that such functionality will not be materially decreased while you use it. However, we reserve the right to modify, improve and update TeamLab Office in order to meet the needs of our users to the maximum extent possible.</value>
-  </data>
-  <data name="TermsWarranties5" xml:space="preserve">
-    <value>We warrant that TeamLab Office does not contain computer viruses or any other malicious code.</value>
-  </data>
-  <data name="TermsWarranties6" xml:space="preserve">
-    <value>You warrant that you will not use TeamLab Office for any illegal or unauthorized purpose, e.g. sending, hosting, and transmitting unsolicited or "spam" messages by email.</value>
-  </data>
-  <data name="TermsWarranties7" xml:space="preserve">
-    <value>You warrant that the data uploaded to your Portal do not contain computer viruses, other malicious code and exclude any content related to illegal activities, violence, privacy abuse, pornography as well as other sexually explicit content.</value>
-  </data>
-  <data name="TermsWarranties8" xml:space="preserve">
-    <value>TeamLab Office and all its components belong to Ascensio System SIA. You undertake to respect our intellectual property rights. In particular, you shall not modify, disassemble, reverse engineer, analyze, decompile, convert or translate TeamLab Office.</value>
-  </data>
-  <data name="TermsWelcome" xml:space="preserve">
-    <value>Welcome to TeamLab Office! Thank you for joining us.</value>
   </data>
   <data name="TimePeriod" xml:space="preserve">
     <value>Time period</value>
@@ -3106,6 +3034,9 @@ To register, enter your email and click on Send Invitation.  An email message wi
   </data>
   <data name="TrialPeriodInfoTextLicense" xml:space="preserve">
     <value>You are using the trial version</value>
+  </data>
+  <data name="TariffOverdueStandalone" xml:space="preserve">
+    <value>The payment is overdue or no license could be found.</value>
   </data>
   <data name="TrustedDomainSignInTitle" xml:space="preserve">
     <value>Custom domains</value>
@@ -3434,5 +3365,47 @@ To register, enter your email and click on Send Invitation.  An email message wi
   </data>
   <data name="OrgServerRegion" xml:space="preserve">
     <value>ORG Region</value>
+  </data>
+  <data name="LicenseAgreements" xml:space="preserve">
+    <value>License Agreements</value>
+  </data>
+  <data name="PricingPage" xml:space="preserve">
+    <value>Pricing Page</value>
+  </data>
+  <data name="SalesEmail" xml:space="preserve">
+    <value>Sales Email</value>
+  </data>
+  <data name="LicenseUploaded" xml:space="preserve">
+    <value>Uploaded successfully</value>
+  </data>
+  <data name="MailAutoGeneratedText" xml:space="preserve">
+    <value>This email is generated automatically and you do not need to answer it.</value>
+  </data>
+  <data name="AllRightsReservedText" xml:space="preserve">
+    <value>&amp;copy; Ascensio System SIA {0}. All rights reserved.</value>
+  </data>
+  <data name="MailIcsCalendarWhenLabel" xml:space="preserve">
+    <value>When</value>
+  </data>
+  <data name="MailIcsCalendarRecurrenceLabel" xml:space="preserve">
+    <value>Recurrence</value>
+  </data>
+  <data name="MailIcsCalendarWhereLabel" xml:space="preserve">
+    <value>Where</value>
+  </data>
+  <data name="MailIcsCalendarWhoLabel" xml:space="preserve">
+    <value>Who</value>
+  </data>
+  <data name="MailIcsCalendarOrganizerLabel" xml:space="preserve">
+    <value>Organizer</value>
+  </data>
+  <data name="MailIcsCalendarNoLocationLabel" xml:space="preserve">
+    <value>No location</value>
+  </data>
+  <data name="MailIcsCalendarMapLabel" xml:space="preserve">
+    <value>map</value>
+  </data>
+  <data name="AccountDeactivationConfirmMsg" xml:space="preserve">
+    <value>Before you delete the portal, please make sure that automatic billing turned off. You may ckeck on the status of automatic billing in your {0}Avangate account{1}.</value>
   </data>
 </root>

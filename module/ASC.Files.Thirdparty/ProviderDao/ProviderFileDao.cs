@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -97,41 +97,24 @@ namespace ASC.Files.Thirdparty.ProviderDao
 
                 result = result.Concat(mathedIds.GroupBy(selectorLocal.GetIdCode)
                                                 .SelectMany(y => selectorLocal.GetFileDao(y.FirstOrDefault())
-                                                                              .GetFiles(y.Select(selectorLocal.ConvertId).ToArray())));
+                                                                              .GetFiles(y.Select(selectorLocal.ConvertId).ToArray()))
+                                                .Where(r => r != null));
             }
 
             return result.ToList();
         }
 
-        public List<object> GetFiles(object parentId, bool withSubfolders)
+        public List<object> GetFiles(object parentId)
         {
             var selector = GetSelector(parentId);
-            return selector.GetFileDao(parentId).GetFiles(selector.ConvertId(parentId), withSubfolders);
+            return selector.GetFileDao(parentId).GetFiles(selector.ConvertId(parentId)).Where(r => r != null).ToList();
         }
 
-        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
-        {
-            var result = Enumerable.Empty<File>();
-
-            foreach (var selector in GetSelectors())
-            {
-                var selectorLocal = selector;
-                var mathedIds = parentIds.Where(selectorLocal.IsMatch);
-
-                if (!mathedIds.Any()) continue;
-
-                result = result.Concat(mathedIds.GroupBy(selectorLocal.GetIdCode)
-                                                .SelectMany(y => selectorLocal.GetFileDao(y.FirstOrDefault())
-                                                                              .GetFiles(y.Select(selectorLocal.ConvertId).ToArray(), searchText, searchSubfolders)));
-            }
-
-            return result.Distinct().ToList();
-        }
-
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
         {
             var selector = GetSelector(parentId);
-            var result = selector.GetFileDao(parentId).GetFiles(selector.ConvertId(parentId), orderBy, filterType, subjectID, searchText, searchSubfolders);
+            var result = selector.GetFileDao(parentId).GetFiles(selector.ConvertId(parentId), orderBy, filterType, subjectID, searchText, withSubfolders)
+                                 .Where(r => r != null).ToList();
 
             if (!result.Any()) return new List<File>();
 
@@ -334,6 +317,25 @@ namespace ASC.Files.Thirdparty.ProviderDao
         #endregion
 
         #region Only in TMFileDao
+
+        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        {
+            var result = Enumerable.Empty<File>();
+
+            foreach (var selector in GetSelectors())
+            {
+                var selectorLocal = selector;
+                var mathedIds = parentIds.Where(selectorLocal.IsMatch);
+
+                if (!mathedIds.Any()) continue;
+
+                result = result.Concat(mathedIds.GroupBy(selectorLocal.GetIdCode)
+                                                .SelectMany(y => selectorLocal.GetFileDao(y.FirstOrDefault())
+                                                                              .GetFiles(y.Select(selectorLocal.ConvertId).ToArray(), searchText, searchSubfolders)));
+            }
+
+            return result.Distinct().ToList();
+        }
 
         public IEnumerable<File> Search(string text, FolderType folderType)
         {

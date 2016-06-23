@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -47,13 +47,14 @@ sliders
     position: relative;
     width: 100%;
 }
-.ui-state-default, .ui-widget-content .ui-state-default{
+.ui-state-default,
+.ui-widget-content .ui-state-default{
     outline: medium none;
 }
 .ui-slider .ui-slider-handle{
-    background-color: #DEDEDE;
-    background: url( "../images/icons.png" ) -1px -517px no-repeat transparent;
-    border: 1px solid #AAAAAA;
+    background-color: #dedede;
+    background: url( "../images/icons.png" ) -1px -500px no-repeat transparent;
+    border: 1px solid #aaaaaa;
     cursor: pointer;
     margin-left: -0.4em;
     top: -0.3em;
@@ -67,7 +68,8 @@ sliders
 .ui-slider a{
     text-decoration: none;
 }
-.ui-slider ol, .ui-slider li{
+.ui-slider ol,
+.ui-slider li{
     list-style: none;
     margin: 0;
     padding: 0;
@@ -229,7 +231,7 @@ ListContactView.ascx
     margin-left: 4px;
 
     &.sharedContact:after {
-        background: url( "../images/icons.png") 0 -855px no-repeat transparent;
+        background: url( "../images/icons.png") 0 -768px no-repeat transparent;
         .crm-img-pseudo-base(auto, -2px, 12px, 12px);
         bottom: -2px;
     }
@@ -276,7 +278,7 @@ body.media-width-min {
     }
 }
 #previewAttachments label.previewAttachment{
-    background: url( "../images/icons.png" ) 0 -432px no-repeat;
+    background: url( "../images/icons.png" ) 0 -415px no-repeat;
     display: inline-block;
     height: 16px;
     width: 16px;
@@ -471,11 +473,18 @@ ContactActionView.ascx
             white-space: nowrap;
 
             &:after {
-                background: url( "../images/icons.png" ) no-repeat scroll -18px -835px transparent;
-                .crm-img-pseudo-base(50%, auto, 12px, 12px);
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 4px solid #83888D;
+                content: "";
+                display: block;
+                height: 0;
+                margin-top: -2px;
+                position: absolute;
+                right: -11px;
+                top: 50%;
+                width: 0;
                 cursor: pointer;
-                right: -13px;
-                margin-top: -6px;
             }
         }
     }
@@ -509,11 +518,11 @@ ContactActionView.ascx
     }
 
     .primary_field {
-        background-position: 0 -386px;
+        background-position: 0 -369px;
     }
 
     .not_primary_field {
-        background-position: 0 -368px;
+        background-position: 0 -351px;
     }
 }
 
@@ -587,7 +596,7 @@ ContactActionView.ascx
     position: relative;
 
     &.sharedContact:after {
-        background: url( "../images/icons.png") 0 -870px no-repeat transparent;
+        background: url( "../images/icons.png") 0 -783px no-repeat transparent;
         .crm-img-pseudo-base(auto, 8px, 22px, 22px);
         bottom: 8px;
     }
@@ -633,18 +642,20 @@ body.media-width-min {
 }
 
 #websiteAndSocialProfilesContainer .find_profile{
-    background: url( "../images/icons.png" ) 0 -408px no-repeat transparent;
     cursor: pointer;
     display: inline-block;
     height: 16px;
     margin: 1px;
     position: relative;
     width: 16px;
+
+    &:before{content: " "; position: absolute; width: 7px; height: 7px; border: 2px solid  #8d9195; .borderRadius(7px); top: 2px; left: 1px; }
+    &:after{content: " "; position: absolute; width: 0; height: 6px; border-right: 2px solid  #8d9195; top: 10px; left: 11px; .rotateTransform(135deg); }
 }
 
 #companySelectorsContainer {
     .delete_company_for_person {
-        background: url("../images/icons.png") 0 -280px no-repeat transparent;
+        background: url("../images/icons.png") 0 -263px no-repeat transparent;
         cursor: pointer;
         display: inline-block;
         height: 16px;

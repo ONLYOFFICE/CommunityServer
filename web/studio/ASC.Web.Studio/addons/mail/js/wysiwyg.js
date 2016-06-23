@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -31,7 +31,44 @@ window.wysiwygEditor = (function($) {
         isEditorReady,
         signatureOnload,
         needCkFocus,
-        newCkParagraph = '<p style="font-family:open sans,sans-serif; font-size:12px; margin: 0;">&nbsp;</p>';
+        newCkParagraph = '<p style="font-family:open sans,sans-serif; font-size:12px; margin: 0;">&nbsp;</p>',
+        bookmarks;
+
+    function initHandlers() {
+        isEditorReady = true;
+        if (needCkFocus) {
+            setFocus();
+            needCkFocus = false;
+        }
+        var body = editorInstance.document.getBody().$;
+        var button = $(body).find('.tl-controll-blockquote')[0];
+        if (button) {
+            $(button).unbind('click').bind('click', function () {
+                showQuote(this);
+            });
+            $(button).bind("contextmenu", function (event) {
+                event.stopPropagation ? event.stopPropagation() : (event.cancelBubble = true);
+            });
+        }
+
+        $(body).on('click touchstart', '.delete-btn', function () {
+            var $filelink = $(this).closest('.mailmessage-filelink');
+            var $beforelink = $filelink.prev('p');
+
+            $filelink.remove();
+            if (!$beforelink.text().trim()) {
+                $beforelink.remove();
+            }
+
+            eventsHandler.trigger(supportedCustomEvents.OnChange);
+        });
+
+        $(body).on('click', '.mailmessage-filelink-link', function () {
+            window.open($(this).attr('href'));
+        });
+
+        $(body).find('.mailmessage-filelink-link .file-name').dotdotdot({ wrap: "letter", height: 18 });
+    }
 
     function init() {
         close();
@@ -43,46 +80,31 @@ window.wysiwygEditor = (function($) {
             tabIndex: 5,
             resize_dir: 'vertical',
             on: {
-                instanceReady: function() {
-                    isEditorReady = true;
-                    if (needCkFocus) {
-                        setFocus();
-                        needCkFocus = false;
-                    }
-                    var body = editorInstance.document.getBody().$;
-                    var button = $(body).find('.tl-controll-blockquote')[0];
-                    if (button) {
-                        $(button).unbind('click').bind('click', function() {
-                            showQuote(this);
-                        });
-                        $(button).bind("contextmenu", function(event) {
-                            event.stopPropagation ? event.stopPropagation() : (event.cancelBubble = true);
-                        });
-                    }
-
-                    $(body).on('click', '.delete-btn', function() {
-                        var $filelink = $(this).closest('.mailmessage-filelink');
-                        var $beforelink = $filelink.prev('p');
-
-                        $filelink.remove();
-                        if (!$beforelink.text().trim()) {
-                            $beforelink.remove();
-                        }
-                        
-                        eventsHandler.trigger(supportedCustomEvents.OnChange);
-                    });
-
-                    $(body).on('click', '.mailmessage-filelink-link', function() {
-                        window.open($(this).attr('href'));
-                    });
-                    
-                    $(body).find('.mailmessage-filelink-link .file-name').dotdotdot({ wrap: "letter", height: 18 });
-                },
+                instanceReady: initHandlers,
                 change: onTextChange,
                 dataReady: function() {
                     if (signatureOnload) {
                         insertSignature(signatureOnload);
                         signatureOnload = undefined;
+                    }
+                },
+                beforeSetMode:  function() {
+                    if (editorInstance.mode !== "source") {
+                        var selection = editorInstance.getSelection();
+                        if (selection) {
+                            bookmarks = selection.createBookmarks(true);
+                        }
+                    }
+                },
+                mode: function() {
+                    if (editorInstance.mode === "wysiwyg" && bookmarks) {
+                        var selection = editorInstance.getSelection();
+                        if (selection) {
+                            editorInstance.focus();
+                            selection.selectBookmarks(bookmarks);
+                        }
+
+                        initHandlers();
                     }
                 }
             }
@@ -236,6 +258,7 @@ window.wysiwygEditor = (function($) {
         }
         isEditorReady = false;
         needCkFocus = false;
+        bookmarks = undefined;
     }
 
     function bind(eventName, fn) {
@@ -247,13 +270,39 @@ window.wysiwygEditor = (function($) {
     }
     
     function insertFileLinks(files) {
-        var templates = $.tmpl('messageFileLink', files);
-        var $pos = $(editorInstance.getSelection().getStartElement().$);
-        templates.insertBefore($pos);
-        setFocus();
+        if (files.length === 0)
+            return;
 
-        var body = editorInstance.document.getBody().$;
-        $(body).find('.mailmessage-filelink-link .file-name').dotdotdot({ wrap: "letter", height: 18 });
+        var templates = $.tmpl('messageFileLink', files);
+
+        if (editorInstance.mode === 'wysiwyg') {
+            var body = editorInstance.document.getBody().$;
+            if (editorInstance.focusManager.hasFocus) {
+                var $pos = $(editorInstance.getSelection().getStartElement().$);
+                templates.insertBefore($pos);
+            } else {
+                var otherLinks = $(body).find('.mailmessage-filelink');
+                var lastEl = null;
+                if (otherLinks.length > 0) {
+                    lastEl = otherLinks.last();
+                } else {
+                    lastEl = $(body).find('p').first();
+                }
+
+                templates.insertAfter(lastEl);
+            }
+            setFocus();
+            $(body).find('.mailmessage-filelink-link .file-name').dotdotdot({ wrap: "letter", height: 18 });
+        } else {
+            editorInstance.setMode('wysiwyg', function () {
+                setFocus();
+                insertFileLinks(files);
+                editorInstance.setMode('source');
+                return false;
+            });
+        }
+
+        window.messagePage.saveMessage();
     }
 
     return {

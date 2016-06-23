@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -42,8 +42,8 @@ namespace ASC.Web.Studio.UserControls.Common
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            Page.RegisterBodyScripts("~/usercontrols/common/sharingsettings/js/sharingsettings.js");
-            Page.RegisterStyle("~/usercontrols/common/sharingsettings/css/sharingsettings.less");
+            Page.RegisterBodyScripts("~/UserControls/Common/SharingSettings/js/sharingsettings.js");
+            Page.RegisterStyle("~/UserControls/Common/SharingSettings/css/sharingsettings.less");
 
             _sharingDialogContainer.Options.IsPopup = IsPopup;
             _sharingDialogContainer.Header.Visible = IsPopup;

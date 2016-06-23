@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,12 +24,10 @@
 */
 
 
+using ASC.Data.Storage;
 using System;
 using System.Web;
 using System.Web.UI;
-using ASC.Core;
-using ASC.Web.Core.Mobile;
-using ASC.Data.Storage;
 
 namespace ASC.Web.Studio.UserControls.Common.SmallChat
 {
@@ -43,21 +41,20 @@ namespace ASC.Web.Studio.UserControls.Common.SmallChat
             }
         }
 
-        public bool IsMobile { get; private set; }
-
         public static string SoundPath { get; private set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
             SoundPath = WebPath.GetPath("usercontrols/common/smallchat/css/sounds/chat");
-            Page.RegisterStyle("~/usercontrols/common/smallchat/css/smallchat.css");
-            Page.RegisterStyle("~/usercontrols/common/smallchat/css/jquery.cssemoticons.css");
-            Page.RegisterBodyScripts("~/js/third-party/jquery/jquery.linkify.js");
-            Page.RegisterBodyScripts("~/js/third-party/jquery/noty/jquery.noty.js");
-            Page.RegisterBodyScripts("~/js/third-party/jquery/jquery.cssemoticons.js");
-            Page.RegisterBodyScripts("~/js/third-party/jquery/jquery.autosize.js");
-            Page.RegisterBodyScripts("~/usercontrols/common/smallchat/js/smallchat.js");
-            IsMobile = MobileDetector.IsMobile;
+
+            Page.RegisterStyle("~/usercontrols/common/smallchat/css/smallchat.css",
+                "~/usercontrols/common/smallchat/css/jquery.cssemoticons.css");
+
+            Page.RegisterBodyScripts("~/js/third-party/jquery/jquery.linkify.js",
+                "~/js/third-party/jquery/noty/jquery.noty.js",
+                "~/js/third-party/jquery/jquery.cssemoticons.js",
+                "~/js/third-party/jquery/jquery.autosize.js",
+                "~/usercontrols/common/smallchat/js/smallchat.js");
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -34,6 +34,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using File = ASC.Files.Core.File;
+using DriveFile = Google.Apis.Drive.v3.Data.File;
 
 namespace ASC.Files.Thirdparty.GoogleDrive
 {
@@ -63,7 +64,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         public File GetFile(object parentId, string title)
         {
             return ToFile(GetDriveEntries(parentId, false)
-                              .FirstOrDefault(file => file.Title.Equals(title, StringComparison.InvariantCultureIgnoreCase)));
+                              .FirstOrDefault(file => file.Name.Equals(title, StringComparison.InvariantCultureIgnoreCase)));
         }
 
         public List<File> GetFileHistory(object fileId)
@@ -73,21 +74,19 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public List<File> GetFiles(object[] fileIds)
         {
+            if (fileIds == null || fileIds.Length == 0) return new List<File>();
             return fileIds.Select(GetDriveEntry).Select(ToFile).ToList();
         }
 
-        public List<object> GetFiles(object parentId, bool withSubfolders)
+        public List<object> GetFiles(object parentId)
         {
             return GetDriveEntries(parentId, false).Select(entry => (object)MakeId(entry.Id)).ToList();
         }
 
-        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
         {
-            return new List<File>();
-        }
+            if (filterType == FilterType.FoldersOnly) return new List<File>();
 
-        public List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false)
-        {
             //Get only files
             var files = GetDriveEntries(parentId, false).Select(ToFile);
             //Filter
@@ -160,12 +159,14 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             if (driveFile is ErrorDriveEntry) throw new Exception(((ErrorDriveEntry)driveFile).Error);
 
             var fileStream = GoogleDriveProviderInfo.Storage.DownloadStream(driveFile);
+            if (fileStream != null)
+            {
+                if (fileStream.CanSeek)
+                    file.ContentLength = fileStream.Length; // hack for google drive
 
-            if (fileStream.CanSeek)
-                file.ContentLength = fileStream.Length; // hack for google drive
-
-            if (fileStream.CanSeek && offset > 0)
-                fileStream.Seek(offset, SeekOrigin.Begin);
+                if (fileStream.CanSeek && offset > 0)
+                    fileStream.Seek(offset, SeekOrigin.Begin);
+            }
 
             return fileStream;
         }
@@ -182,15 +183,15 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
         public File SaveFile(File file, Stream fileStream)
         {
+            if (file == null) throw new ArgumentNullException("file");
             if (fileStream == null) throw new ArgumentNullException("fileStream");
 
-            Google.Apis.Drive.v2.Data.File newDriveFile = null;
+            DriveFile newDriveFile = null;
 
             if (file.ID != null)
             {
                 newDriveFile = GoogleDriveProviderInfo.Storage.SaveStream(MakeDriveId(file.ID), fileStream, file.Title);
             }
-
             else if (file.FolderID != null)
             {
                 newDriveFile = GoogleDriveProviderInfo.Storage.InsertEntry(fileStream, file.Title, MakeDriveId(file.FolderID));
@@ -235,7 +236,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         public bool IsExist(string title, object folderId)
         {
             return GetDriveEntries(folderId, false)
-                .Any(file => file.Title.Equals(title, StringComparison.InvariantCultureIgnoreCase));
+                .Any(file => file.Name.Equals(title, StringComparison.InvariantCultureIgnoreCase));
         }
 
         public object MoveFile(object fileId, object toFolderId)
@@ -248,10 +249,10 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
             var fromFolderDriveId = GetParentDriveId(driveFile);
 
-            GoogleDriveProviderInfo.Storage.InsertEntryIntoFolder(driveFile.Id, toDriveFolder.Id);
+            GoogleDriveProviderInfo.Storage.InsertEntryIntoFolder(driveFile, toDriveFolder.Id);
             if (fromFolderDriveId != null)
             {
-                GoogleDriveProviderInfo.Storage.RemoveEntryFromFolder(driveFile.Id, fromFolderDriveId);
+                GoogleDriveProviderInfo.Storage.RemoveEntryFromFolder(driveFile, fromFolderDriveId);
             }
 
             CacheReset(driveFile.Id);
@@ -280,9 +281,9 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         public object FileRename(File file, string newTitle)
         {
             var driveFile = GetDriveEntry(file.ID);
-            driveFile.Title = newTitle;
+            driveFile.Name = newTitle;
 
-            driveFile = GoogleDriveProviderInfo.Storage.UpdateEntry(driveFile);
+            driveFile = GoogleDriveProviderInfo.Storage.RenameEntry(driveFile.Id, driveFile.Name);
 
             CacheInsert(driveFile);
             var parentDriveId = GetParentDriveId(driveFile);
@@ -331,7 +332,7 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
             var uploadSession = new ChunkedUploadSession(file, contentLength);
 
-            Google.Apis.Drive.v2.Data.File driveFile;
+            DriveFile driveFile;
             if (file.ID != null)
             {
                 driveFile = GetDriveEntry(file.ID);
@@ -434,6 +435,11 @@ namespace ASC.Files.Thirdparty.GoogleDrive
 
 
         #region Only in TMFileDao
+
+        public List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false)
+        {
+            return new List<File>();
+        }
 
         public IEnumerable<File> Search(string text, FolderType folderType)
         {

@@ -154,7 +154,8 @@
         <li><a class="downloadAttachment dropdown-item"><%= MailResource.DownloadAttachment %></a></li>
         <li><a class="viewAttachment dropdown-item"><%= MailResource.ViewAttachment %></a></li>
         <li><a class="editAttachment dropdown-item"><%= MailResource.EditAttachment %></a></li>
-        <li><a class="saveAttachmentToMyDocs dropdown-item"><%= MailResource.SaveAttachToMyDocs %></a></li>
+        <li><a class="saveAttachmentToDocs dropdown-item"><%= MailResource.SaveAttachToDocs %></a></li>
+        <li><a class="saveAttachmentToCalendar dropdown-item"><%= MailResource.SaveAttachToCalendar %></a></li>
     </ul>
 </div>
 
@@ -179,20 +180,8 @@
         <% } %>
         <li><a class="alwaysHideImages dropdown-item"><%= MailScriptResource.HideImagesLabel %></a></li>
         <li><a class="exportMessageToCrm dropdown-item"><%= MailResource.ExportMessageToCRM %></a></li>
-    </ul>
-</div>
-
-<div id="singleMessageActionMenu" class="studio-action-panel">
-    <ul class="dropdown-content">
-        <li><a class="replyMail dropdown-item"><%= MailResource.ReplyBtnLabel %></a></li>
-        <li><a class="replyAllMail dropdown-item"><%= MailResource.ReplyAllBtnLabel %></a></li>
-        <li><a class="forwardMail dropdown-item"><%= MailResource.ForwardLabel %></a></li>
-        <li><a class="deleteMail dropdown-item"><%= MailResource.DeleteBtnLabel %></a></li>
-        <% if (IsMailPrintAvailable()) 
-           { %>
-                <li><a class="printMail dropdown-item"><%= MailScriptResource.PrintBtnLabel %></a></li>
-        <% } %>
-        <li><a class="alwaysHideImages dropdown-item"><%= MailScriptResource.HideImagesLabel %></a></li>
-        <li><a class="exportMessageToCrm dropdown-item"><%= MailResource.ExportMessageToCRM %></a></li>
+        <li><a class="createPersonalContact dropdown-item"><%=MailScriptResource.CreatePersonalContact %></a></li>
+        <li><a class="createCrmPerson dropdown-item"><%= MailScriptResource.CreateNewCRMPerson %></a></li>
+        <li><a class="createCrmCompany dropdown-item"><%= MailScriptResource.CreateNewCRMCompany %></a></li>
     </ul>
 </div>

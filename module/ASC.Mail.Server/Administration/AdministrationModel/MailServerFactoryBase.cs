@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -35,7 +35,7 @@ namespace ASC.Mail.Server.Administration.ServerModel
     {
         public abstract MailServerBase CreateServer(ServerSetup setup);
         
-        public abstract IMailbox CreateMailbox(int id, int tenant, IMailAddress address, IMailAccount account,
+        public abstract IMailbox CreateMailbox(int id, int tenant, IMailAddress address, string name, IMailAccount account,
                             List<IMailAddress> aliases, MailServerBase server);
 
         public abstract IMailGroup CreateMailGroup(int id, int tenant, IMailAddress address, List<IMailAddress> inAddresses, MailServerBase server);

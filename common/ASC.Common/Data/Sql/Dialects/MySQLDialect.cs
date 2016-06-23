@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -66,8 +66,8 @@ namespace ASC.Common.Data.Sql.Dialects
                 case DbType.AnsiString:
                 case DbType.String:
                     if (size <= 8192) return string.Format("VARCHAR({0})", size);
-                    else if (8192 < size && size <= UInt16.MaxValue) return "TEXT";
-                    else if (UInt16.MaxValue < size && size <= ((int)Math.Pow(2, 24) - 1)) return "MEDIUMTEXT";
+                    else if (size <= UInt16.MaxValue) return "TEXT";
+                    else if (size <= ((int)Math.Pow(2, 24) - 1)) return "MEDIUMTEXT";
                     else return "LONGTEXT";
 
                 case DbType.AnsiStringFixedLength:
@@ -80,8 +80,8 @@ namespace ASC.Common.Data.Sql.Dialects
                 case DbType.Binary:
                 case DbType.Object:
                     if (size <= 8192) return string.Format("BINARY({0})", size);
-                    else if (8192 < size && size <= UInt16.MaxValue) return "BLOB";
-                    else if (UInt16.MaxValue < size && size <= ((int)Math.Pow(2, 24) - 1)) return "MEDIUMBLOB";
+                    else if (size <= UInt16.MaxValue) return "BLOB";
+                    else if (size <= ((int)Math.Pow(2, 24) - 1)) return "MEDIUMBLOB";
                     else return "LONGBLOB";
 
                 case DbType.Boolean:

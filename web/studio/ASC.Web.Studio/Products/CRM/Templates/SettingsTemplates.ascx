@@ -89,9 +89,11 @@
         <textarea rows="${(maskObj.rows > 25 ? 25 : maskObj.rows)}" cols="${(maskObj.cols > 120 ? 120 : maskObj.cols)}" name="custom_field_${id}" id="custom_field_${id}"></textarea>
     {{else fieldType ==  2}}
         <select class="comboBox" name="custom_field_${id}" id="custom_field_${id}" disabled="disabled">
-          {{each maskObj}}
-             <option value="${$value}">${$value}</option>
-          {{/each}}
+          {{if maskObj}}
+            {{each maskObj}}
+            <option value="${$value}">${$value}</option>
+            {{/each}}
+          {{/if}}
         </select>
     {{else fieldType ==  3}}
               <input name="custom_field_${id}" id="custom_field_${id}" type="checkbox" style="vertical-align: middle;" disabled="disabled"/>
@@ -421,16 +423,16 @@
 
 <script id="tagRowTemplate" type="text/x-jquery-tmpl">
     <li>
-        <table class="tableBase" cellspacing="0" cellpadding="0">
+        <table class="table-list" cellspacing="0" cellpadding="0">
             <tbody>
                 <tr>
-                    <td class="borderBase header-base-small">
+                    <td class="header-base-small">
                         <div class="title">${ASC.CRM.Common.convertText(title,true)}</div>
                     </td>
-                    <td class="borderBase count_link_items" style="width:150px;">
+                    <td class="count_link_items" style="width:150px;">
                         <a class="gray-text" href="${relativeItemsUrl}">${relativeItemsString}</a>
                     </td>
-                    <td class="borderBase" style="width:40px;">
+                    <td style="width:40px;">
                     {{if relativeItemsCount == 0 }}
                         <a class="crm-deleteLink" title="<%= CRMSettingResource.DeleteTag %>" alt="<%= CRMSettingResource.DeleteTag %>"
                             onclick='ASC.CRM.TagSettingsView.deleteTag(this);'></a>
@@ -485,7 +487,9 @@
         </table>
     </li>
     <li id="templateContainerBody_${id}" style="{{if typeof(items)=="undefined"}}display:none;{{/if}}">
+        {{if typeof(items)!="undefined"}}
         {{tmpl(items) "templateRow"}}
+        {{/if}}
     </li>
 </script>
 
@@ -715,18 +719,18 @@
                  {{if isChecked == true}}checked="checked"{{/if}} />
             <img id="loaderImg_${id}" style="display:none;" alt="" src="<%=WebImageSupplier.GetAbsoluteWebPath("loader_16.gif")%>" />
         </td>--%>
-        <td class="borderBase">
+        <td>
             <div class="invoiceItemSKU">
                 ${stockKeepingUnit}
             </div>
         </td>
-        <td class="borderBase">
+        <td>
             <div id="invoiceItemTitle_${id}" class="invoiceItemTitle" dscr_label="<%=CRMCommonResource.Description%>" dscr_value="${description}">
                 ${title}
             </div>
         </td>
 
-        <td class="borderBase invoiceTaxes invoiceTax1">
+        <td class="invoiceTaxes invoiceTax1">
             {{if typeof(invoiceTax1) != 'undefined' && invoiceTax1 != null}}
             <div id="invoiceItemTax1_${id}" dscr_label="${invoiceTax1.name}" dscr_value="${invoiceTax1.rate} %">
                 ${invoiceTax1.name}
@@ -734,7 +738,7 @@
             {{/if}}
         </td>
 
-        <td class="borderBase invoiceTaxes invoiceTax2">
+        <td class="invoiceTaxes invoiceTax2">
             {{if typeof(invoiceTax2) != 'undefined' && invoiceTax2 != null}}
             <div id="invoiceItemTax2_${id}" dscr_label ="${invoiceTax2.name}" dscr_value="${invoiceTax2.rate} %">
                 ${invoiceTax2.name}
@@ -742,13 +746,13 @@
             {{/if}}
         </td>
 
-        <td class="borderBase invoiceItemPrice">
+        <td class="invoiceItemPrice">
             <div>
                 {{html priceFormat}}
             </div>
         </td>
 
-        <td class="borderBase invoiceItemQuantity">
+        <td class="invoiceItemQuantity">
             <div>
                 {{if trackInvenory === true }}
                     ${stockQuantity}
@@ -758,7 +762,7 @@
              </div>
         </td>
 
-        <td class="borderBase" style="padding:5px;">
+        <td style="padding:5px;">
             <div id="invoiceItemMenu_${id}" class="entity-menu" title="<%= CRMCommonResource.Actions %>"></div>
         </td>
     </tr>
@@ -775,24 +779,24 @@
 
 <script id="invoiceTaxTmpl" type="text/x-jquery-tmpl">
     <tr id="invoiceTax_${id}" class="with-entity-menu">
-        <td class="borderBase">
+        <td>
             <div class="invoiceTaxName" title="${name}">
                 ${name}
             </div>
         </td>
-        <td class="borderBase">
+        <td>
             <div class="invoiceTaxRate">
                 ${rate}
             </div>
         </td>
 
-        <td class="borderBase">
+        <td>
             <div class="invoiceTaxDscr">
-                {{html jq.htmlEncodeLight(description).replace(/&#10;/g, "<br/>").replace(/\s/g, "&nbsp;").replace(/  /g, " &nbsp;") }}
+                {{html jq.htmlEncodeLight(description).replace(/&#10;/g, "<br/>").replace(/  /g, " &nbsp;") }}
             </div>
         </td>
 
-        <td class="borderBase" style="padding:5px;">
+        <td style="padding:5px;">
             {{if canEdit == true}}
             <div id="invoiceTaxMenu_${id}" class="entity-menu" title="<%= CRMCommonResource.Actions %>"></div>
             {{/if}}

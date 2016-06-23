@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -111,7 +111,7 @@
             width: @row-height;
             padding-right: @message-spliter-width;
 
-            .menu-small {
+            .entity-menu {
                 float: right;
                 margin: 0;
             }
@@ -123,7 +123,7 @@
             .set_as_default_account_icon {
                 background-position: 0px -16px;
                 cursor: pointer;
-           }
+            }
         }
 
         &.selected {
@@ -134,10 +134,6 @@
         &.selected {
             .notification {
                 display: inline-block;
-            }
-
-            .menu-small {
-                background-position: center bottom;
             }
         }
 
@@ -156,6 +152,47 @@
         margin: @base-distance * 2 0 @base-distance * 2 0;
     }
 }
+
+.mail_autoreply {
+    .turn_autoreply, .only_contacts {
+        display: block;
+        margin: 5px 0 5px 0;
+    }
+
+    .bold {
+        margin-bottom: @base-distance / 2;
+    }
+
+    .mail_autoreply_to_date_bold {
+        margin-bottom: 0;
+    }
+
+    .mail_autoreply_from_to_date {
+        margin: 0 0 12px 0;
+    }
+
+    .mail_autoreply_from_date, .mail_autoreply_to_date {
+        display: inline-block;
+    }
+
+    .mail_autoreply_subject {
+        margin: 0 0 @base-distance * 2;
+    }
+
+    #autoreplySubject {
+        padding-top: 1px;
+        padding-bottom: 1px;
+        width: 476px;
+    }
+
+    .textEditCalendar {
+        cursor: pointer;
+        margin-right: 13px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+    }
+}
+
 
 .default_account_button_column {
     .default_account_icon_block, .group_default_account_icon_block {
@@ -177,4 +214,3 @@
         background-position: 0px -32px;
     }
 }
-

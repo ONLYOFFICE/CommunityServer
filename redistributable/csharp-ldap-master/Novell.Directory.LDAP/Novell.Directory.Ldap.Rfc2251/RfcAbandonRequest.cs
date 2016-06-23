@@ -29,54 +29,53 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
 using Novell.Directory.Ldap.Asn1;
-using Novell.Directory.Ldap;
 using Novell.Directory.Ldap.Utilclass;
 
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> Represents the Ldap Abandon Request.
-	/// 
-	/// <pre>
-	/// AbandonRequest ::= [APPLICATION 16] MessageID
-	/// </pre>
-	/// </summary>
-	class RfcAbandonRequest:RfcMessageID, RfcRequest
-	{
-		
-		//*************************************************************************
-		// Constructor for AbandonRequest
-		//*************************************************************************
-		
-		/// <summary> Constructs an RfcAbandonRequest</summary>
-		public RfcAbandonRequest(int msgId):base(msgId)
-		{
-			return ;
-		}
-		
-		//*************************************************************************
-		// Accessors
-		//*************************************************************************
-		
-		/// <summary> Override getIdentifier to return an application-wide id.
-		/// <pre>
-		/// ID = CLASS: APPLICATION, FORM: CONSTRUCTED, TAG: 16. (0x50)
-		/// </pre>
-		/// </summary>
-		public override Asn1Identifier getIdentifier()
-		{
-			return new Asn1Identifier(Asn1Identifier.APPLICATION, false, LdapMessage.ABANDON_REQUEST);
-		}
-		
-		public RfcRequest dupRequest(System.String base_Renamed, System.String filter, bool reference)
-		{
-			throw new LdapException(ExceptionMessages.NO_DUP_REQUEST, new System.Object[]{"Abandon"}, LdapException.Ldap_NOT_SUPPORTED, (System.String) null);
-		}
-		public System.String getRequestDN()
-		{
-			return null;
-		}
-	}
+
+    /// <summary> Represents the Ldap Abandon Request.
+    /// 
+    /// <pre>
+    /// AbandonRequest ::= [APPLICATION 16] MessageID
+    /// </pre>
+    /// </summary>
+    class RfcAbandonRequest : RfcMessageID, RfcRequest
+    {
+
+        //*************************************************************************
+        // Constructor for AbandonRequest
+        //*************************************************************************
+
+        /// <summary> Constructs an RfcAbandonRequest</summary>
+        public RfcAbandonRequest(int msgId)
+            : base(msgId)
+        {
+        }
+
+        //*************************************************************************
+        // Accessors
+        //*************************************************************************
+
+        /// <summary> Override getIdentifier to return an application-wide id.
+        /// <pre>
+        /// ID = CLASS: APPLICATION, FORM: CONSTRUCTED, TAG: 16. (0x50)
+        /// </pre>
+        /// </summary>
+        public override Asn1Identifier getIdentifier()
+        {
+            return new Asn1Identifier(Asn1Identifier.APPLICATION, false, LdapMessage.ABANDON_REQUEST);
+        }
+
+        public RfcRequest dupRequest(string base_Renamed, string filter, bool reference)
+        {
+            throw new LdapException(ExceptionMessages.NO_DUP_REQUEST, new object[] { "Abandon" }, LdapException.Ldap_NOT_SUPPORTED, null);
+        }
+
+        public string getRequestDN()
+        {
+            return null;
+        }
+    }
 }

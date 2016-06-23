@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,17 +24,18 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using ASC.Core;
-using ASC.Files.Thirdparty.GoogleDrive;
-using ASC.Files.Thirdparty.SharePoint;
-using ASC.Files.Thirdparty.Sharpbox;
 using ASC.Files.Core;
 using ASC.Files.Core.Data;
 using ASC.Files.Core.Security;
+using ASC.Files.Thirdparty.Box;
+using ASC.Files.Thirdparty.GoogleDrive;
+using ASC.Files.Thirdparty.SharePoint;
+using ASC.Files.Thirdparty.Sharpbox;
 using ASC.Web.Files.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ASC.Files.Thirdparty.ProviderDao
 {
@@ -57,6 +58,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
             Selectors.Add(new SharpBoxDaoSelector());
             Selectors.Add(new SharePointDaoSelector());
             Selectors.Add(new GoogleDriveDaoSelector());
+            Selectors.Add(new BoxDaoSelector());
         }
 
         protected bool IsCrossDao(object id1, object id2)
@@ -240,7 +242,7 @@ namespace ASC.Files.Thirdparty.ProviderDao
                                          });
 
             var foldersToCopy = fromFolderDao.GetFolders(fromSelector.ConvertId(fromFolderId));
-            var filesToCopy = fromFileDao.GetFiles(fromSelector.ConvertId(fromFolderId), false);
+            var filesToCopy = fromFileDao.GetFiles(fromSelector.ConvertId(fromFolderId));
             //Copy files first
             foreach (var file in filesToCopy)
             {

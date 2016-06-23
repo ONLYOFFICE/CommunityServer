@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,12 +24,12 @@
 */
 
 
-using ASC.Web.Core.Client.Templates;
 using HtmlAgilityPack;
 using Newtonsoft.Json;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -53,9 +53,11 @@ namespace ASC.Web.Core.Client.HttpHandlers
 
         public string GetData(HttpContext context)
         {
+            var store = GetClientVariables(context);
+            if (store == null) return string.Empty;
+
             var namespaces = BaseNamespace.Split('.');
             var builder = new StringBuilder();
-            var content = string.Empty;
 
             for (var index = 1; index <= namespaces.Length; index++)
             {
@@ -63,33 +65,25 @@ namespace ASC.Web.Core.Client.HttpHandlers
                 builder.AppendFormat("if (typeof({0})==='undefined'){{{0} = {{}};}} ", ns);
             }
 
-            var store = GetClientVariables(context);
-            if (store != null)
+            foreach (var clientObject in store)
             {
-                var compiler = new JqTemplateCompiler();
-
-                foreach (var clientObject in store)
+                var resourceSet = clientObject.Value as ClinetResourceSet;
+                if (resourceSet != null)
                 {
-                    var resourceSet = clientObject.Value as ClinetResourceSet;
-                    if (resourceSet != null)
-                    {
-                        builder.AppendFormat("{0}.{1}={2};", BaseNamespace, clientObject.Key, JsonConvert.SerializeObject(resourceSet.GetResources()));
-                        continue;
-                    }
-
-                    var templateSet = clientObject.Value as ClientTemplateSet;
-                    if (templateSet != null)
-                    {
-                        builder.AppendFormat("{0}{1}", Environment.NewLine, templateSet.GetClientTemplates(compiler));
-                        continue;
-                    }
-
-                    builder.AppendFormat("{0}.{1}={2};", BaseNamespace, clientObject.Key, JsonConvert.SerializeObject(clientObject.Value));
+                    builder.AppendFormat("{0}.{1}={2};", BaseNamespace, clientObject.Key, JsonConvert.SerializeObject(resourceSet.GetResources()));
+                    continue;
                 }
 
-                content = builder.ToString();
+                var templateSet = clientObject.Value as ClientTemplateSet;
+                if (templateSet != null)
+                {
+                    builder.AppendFormat("{0}{1}", Environment.NewLine, templateSet.GetClientTemplates());
+                    continue;
+                }
+
+                builder.AppendFormat("jq.extend({0},{1});", BaseNamespace, JsonConvert.SerializeObject(clientObject.Value));
             }
-            return content;
+            return builder.ToString();
         }
 
         protected internal virtual string GetCacheHash()
@@ -98,9 +92,9 @@ namespace ASC.Web.Core.Client.HttpHandlers
         }
 
 
-        protected KeyValuePair<string, object> RegisterObject(string key, object value)
+        protected KeyValuePair<string, object> RegisterObject(object value)
         {
-            return new KeyValuePair<string, object>(key, value);
+            return new KeyValuePair<string, object>(Guid.NewGuid().ToString(), value);
         }
 
         protected KeyValuePair<string, object> RegisterResourceSet(string key, ResourceManager resourceManager)
@@ -108,20 +102,26 @@ namespace ASC.Web.Core.Client.HttpHandlers
             return new KeyValuePair<string, object>(key, new ClinetResourceSet(resourceManager));
         }
 
-        protected KeyValuePair<string, object> RegisterClientTemplatesPath(string virtualPathToControl, HttpContext context)
+        protected IEnumerable<KeyValuePair<string, object>> RegisterClientTemplatesPath(HttpContext context, params string[] virtualPathToControl)
         {
             using (var page = new Page())
             using (var output = new StringWriter())
             {
-                page.Controls.Add(page.LoadControl(virtualPathToControl));
+                foreach (var path in virtualPathToControl)
+                {
+                    page.Controls.Add(page.LoadControl(path));
+                }
+
                 context.Server.Execute(page, output, false);
 
                 var doc = new HtmlDocument();
                 doc.LoadHtml(output.GetStringBuilder().ToString());
                 var nodes = doc.DocumentNode.SelectNodes("/script[@type='text/x-jquery-tmpl']");
                 var templates = nodes.ToDictionary(x => x.Attributes["id"].Value, y => y.InnerHtml);
-
-                return new KeyValuePair<string, object>(Guid.NewGuid().ToString(), new ClientTemplateSet(() => templates));
+                return new List<KeyValuePair<string, object>>(1)
+                       {
+                           new KeyValuePair<string, object>(Guid.NewGuid().ToString(), new ClientTemplateSet(() => templates))
+                       };
             }
         }
 
@@ -135,14 +135,14 @@ namespace ASC.Web.Core.Client.HttpHandlers
                 getTemplates = clientTemplates;
             }
 
-            public string GetClientTemplates(JqTemplateCompiler compiler)
+            public string GetClientTemplates()
             {
                 var result = new StringBuilder();
 
                 foreach (var template in getTemplates())
                 {
                     // only for jqTmpl for now
-                    result.AppendFormat("jQuery.template('{0}', {1});{2}", template.Key, compiler.GetCompiledCode(template.Value), Environment.NewLine);
+                    result.AppendFormat("jQuery.template('{0}', '{1}');{2}", template.Key, template.Value.Replace("\r\n", "").Replace("\r", "").Replace("\n", "").Replace(Environment.NewLine, "").Replace("'", "\\'"), Environment.NewLine);
                 }
 
                 return result.ToString();

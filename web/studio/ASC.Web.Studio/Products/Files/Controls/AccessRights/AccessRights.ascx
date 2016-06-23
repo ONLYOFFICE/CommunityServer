@@ -57,6 +57,9 @@
                 <label>
                     <input type="radio" class="link-share-opt" name="linkShareOpt" value="<%= (int) FileShare.ReadWrite %>"><%= FilesUCResource.AceStatusEnum_ReadWrite %>
                 </label>
+                <label>
+                    <input type="radio" class="link-share-opt" name="linkShareOpt" value="<%= (int) FileShare.Review %>"><%= FilesUCResource.AceStatusEnum_Review %>
+                </label>
             </div>
             <textarea id="shareLink" class="textEdit" cols="10" rows="2" readonly="readonly"></textarea>
 

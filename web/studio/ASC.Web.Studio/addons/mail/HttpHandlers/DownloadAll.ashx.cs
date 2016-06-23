@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -32,8 +32,8 @@ using System.Web;
 using System.Web.Services;
 using ASC.Core;
 using ASC.Mail.Aggregator;
+using ASC.Mail.Aggregator.Common.DataStorage;
 using ASC.Mail.Aggregator.Common.Extension;
-using ASC.Mail.Aggregator.DataStorage;
 using ASC.Web.Core.Files;
 using Ionic.Zip;
 using Ionic.Zlib;

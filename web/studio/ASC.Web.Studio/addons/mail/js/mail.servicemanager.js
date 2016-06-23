@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -88,12 +88,12 @@ if (typeof window.serviceManager === 'undefined') {
         }
 
         function checkNew(params, options) {
-            window.Teamlab.getMailFilteredConversations({ folder_id: MailFilter.getFolder() }, MailFilter.toData(), {});
             if (options)
                 window.Teamlab.getMailFolders(params, options);
             else {
                 window.Teamlab.getMailFolders();
             }
+            window.Teamlab.getMailFilteredConversations({ folder_id: MailFilter.getFolder() }, MailFilter.toData(), {});
         }
 
         var updateFolders = wrapper(2, function (params, options) {
@@ -188,8 +188,8 @@ if (typeof window.serviceManager === 'undefined') {
             window.Teamlab.getMailFilteredConversations({ folder_id: MailFilter.getFolder() }, MailFilter.toData(), {});
         });
 
-        var getMessage = wrapper(5, function(id, unblocked, isNeedToSanitizeHtml, params, options) {
-            var data = { unblocked: unblocked, is_need_to_sanitize_html: isNeedToSanitizeHtml, mark_read: true };
+        var getMessage = wrapper(4, function (id, loadImages, params, options) {
+            var data = { loadImages: loadImages, markRead: true };
             window.Teamlab.getMailMessage(params, id, data, options);
         });
 
@@ -204,14 +204,26 @@ if (typeof window.serviceManager === 'undefined') {
             window.Teamlab.updateMailboxSignature(params, id, data, options);
         });
 
+        var updateMailboxAutoreply = wrapper(10, function (id, turnOn, onlyContacts, turnOnToDate, fromDate, toDate, subject, html, params, options) {
+            var data = {};
+            data.turnOn = turnOn;
+            data.onlyContacts = onlyContacts;
+            data.turnOnToDate = turnOnToDate;
+            data.fromDate = fromDate;
+            data.toDate = toDate;
+            data.subject = subject;
+            data.html = html;
+            window.Teamlab.updateMailboxAutoreply(params, id, data, options);
+        });
+
         var getLinkedCrmEntitiesInfo = wrapper(3, function(id, params, options) {
             var data = {};
             data.message_id = id;
             window.Teamlab.getLinkedCrmEntitiesInfo(params, data, options);
         });
 
-        var getConversation = wrapper(4, function (id, loadAllContent, params, options) {
-            var data = { load_all_content: loadAllContent, mark_read: true };
+        var getConversation = wrapper(4, function (id, loadAll, params, options) {
+            var data = { loadAll: loadAll, markRead: true };
             window.Teamlab.getMailConversation(params, id, data, options);
         });
 
@@ -231,19 +243,22 @@ if (typeof window.serviceManager === 'undefined') {
             Teamlab.getPrevMailConversationId(params, nextMessageId, MailFilter.toData(), options);
         });
 
-        var getMessageTemplate = wrapper(2, function(params, options) {
-            window.Teamlab.getMailMessageTemplate(params, options);
+        var sendMessage = wrapper(3, function(message, params, options) {
+            if (!(message instanceof ASC.Mail.Message)) {
+                console.error("Unsupported message format");
+                return;
+            }
+
+            window.Teamlab.sendMailMessage(params, message, options);
         });
 
-        var sendMessage = wrapper(14, function (id, from, to, cc, bcc, mimeReplyToId, importance, 
-            subject, tags, body, attachments, fileLinksShareMode, params, options) {
-            window.Teamlab.sendMailMessage(params, id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags, body, attachments,
-                fileLinksShareMode, options);
-        });
+        var saveMessage = wrapper(3, function (message, params, options) {
+            if (!(message instanceof ASC.Mail.Message)) {
+                console.error("Unsupported message format");
+                return;
+            }
 
-        var saveMessage = wrapper(13, function (id, from, to, cc, bcc, mimeReplyToId, importance, 
-            subject, tags, body, attachments, params, options) {
-            window.Teamlab.saveMailMessage(params, id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags, body, attachments, options);
+            window.Teamlab.saveMailMessage(params, message, options);
         });
 
         // possible 'status' values: read/unread/important/normal
@@ -325,8 +340,28 @@ if (typeof window.serviceManager === 'undefined') {
             window.Teamlab.getGroups(params, options);
         });
 
-        var getMailContacts = wrapper(3, function(params, term, options) {
-            window.Teamlab.getMailContacts(params, term, options);
+        var searchEmails = wrapper(3, function (params, term, options) {
+            window.Teamlab.searchEmails(params, term, options);
+        });
+
+        var getMailContacts = wrapper(3, function (filterData, params, options) {
+            window.Teamlab.getMailContacts(params, filterData, options);
+        });
+        
+        var getMailContactsByInfo = wrapper(3, function (data, params, options) {
+            window.Teamlab.getMailContactsByInfo(params, data, options);
+        });
+
+        var createMailContact = wrapper(6, function (name, description, emails, phoneNumbers, params, options) {
+            window.Teamlab.createMailContact(params, name, description, emails, phoneNumbers, options);
+        });
+
+        var deleteMailContacts = wrapper(3, function (ids, params, options) {
+            window.Teamlab.deleteMailContacts(params, ids, options);
+        });
+
+        var updateMailContact = wrapper(7, function (id, name, description, emails, phoneNumbers, params, options) {
+            window.Teamlab.updateMailContact(params, id, name, description, emails, phoneNumbers, options);
         });
 
         var getCrmContactStatus = wrapper(2, function(params, options) {
@@ -373,8 +408,16 @@ if (typeof window.serviceManager === 'undefined') {
             window.Teamlab.exportAllAttachmentsToMyDocuments(params, idMessage, options);
         });
 
+        var exportAllAttachmentsToDocuments = wrapper(3, function (idMessage, idFolder, params, options) {
+            window.Teamlab.exportAllAttachmentsToDocuments(params, idMessage, idFolder, options);
+        });
+
         var exportAttachmentToMyDocuments = wrapper(3, function(idAttachment, params, options) {
             window.Teamlab.exportAttachmentToMyDocuments(params, idAttachment, options);
+        });
+
+        var exportAttachmentToDocuments = wrapper(3, function (idAttachment, idFolder, params, options) {
+            window.Teamlab.exportAttachmentToDocuments(params, idAttachment, idFolder, options);
         });
 
         var setEMailInFolder = wrapper(4, function(idAccount, emailInFolder, params, options) {
@@ -397,8 +440,8 @@ if (typeof window.serviceManager === 'undefined') {
             window.Teamlab.removeMailDomain(params, idDomain, options);
         });
 
-        var addMailbox = wrapper(5, function(mailboxName, domainId, userId, params, options) {
-            window.Teamlab.addMailbox(params, mailboxName, domainId, userId, options);
+        var addMailbox = wrapper(6, function(name, localPart, domainId, userId, params, options) {
+            window.Teamlab.addMailbox(params, name, localPart, domainId, userId, options);
         });
 
         var addMyMailbox = wrapper(3, function (mailboxName, params, options) {
@@ -415,6 +458,10 @@ if (typeof window.serviceManager === 'undefined') {
 
         var addMailBoxAlias = wrapper(4, function(mailboxId, aliasName, params, options) {
             window.Teamlab.addMailBoxAlias(params, mailboxId, aliasName, options);
+        });
+
+        var updateMailbox = wrapper(4, function (mailboxId, senderName, params, options) {
+            window.Teamlab.updateMailbox(params, mailboxId, senderName, options);
         });
 
         var removeMailBoxAlias = wrapper(4, function(mailboxId, addressId, params, options) {
@@ -486,7 +533,6 @@ if (typeof window.serviceManager === 'undefined') {
             deleteMessages: deleteMessages,
             deleteConversations: deleteConversations,
             deleteMessageAttachment: deleteMessageAttachment,
-            getMessageTemplate: getMessageTemplate,
             getTags: getTags,
             createTag: createTag,
             setTag: setTag,
@@ -505,7 +551,12 @@ if (typeof window.serviceManager === 'undefined') {
             getCrmContacts: getCrmContacts,
             getCrmContactsById: getCrmContactsById,
             getCrmContactStatus: getCrmContactStatus,
+            searchEmails: searchEmails,
             getMailContacts: getMailContacts,
+            getMailContactsByInfo: getMailContactsByInfo,
+            createMailContact: createMailContact,
+            deleteMailContacts: deleteMailContacts,
+            updateMailContact: updateMailContact,
             getTLGroups: getTlGroups,
             linkChainToCrm: linkChainToCrm,
             markChainAsCrmLinked: markChainAsCrmLinked,
@@ -516,8 +567,11 @@ if (typeof window.serviceManager === 'undefined') {
             getHelpCenterHtml: getHelpCenterHtml,
             getMailboxSignature: getMailboxSignature,
             updateMailboxSignature: updateMailboxSignature,
+            updateMailboxAutoreply: updateMailboxAutoreply,
             exportAllAttachmentsToMyDocuments: exportAllAttachmentsToMyDocuments,
+            exportAllAttachmentsToDocuments: exportAllAttachmentsToDocuments,
             exportAttachmentToMyDocuments: exportAttachmentToMyDocuments,
+            exportAttachmentToDocuments: exportAttachmentToDocuments,
             setEMailInFolder: setEMailInFolder,
             getMailServer: getMailServer,
             getMailServerFullInfo: getMailServerFullInfo,
@@ -531,6 +585,7 @@ if (typeof window.serviceManager === 'undefined') {
             getMailboxes: getMailboxes,
             removeMailbox: removeMailbox,
             addMailBoxAlias: addMailBoxAlias,
+            updateMailbox: updateMailbox,
             removeMailBoxAlias: removeMailBoxAlias,
             addMailGroup: addMailGroup,
             addMailGroupAddress: addMailGroupAddress,

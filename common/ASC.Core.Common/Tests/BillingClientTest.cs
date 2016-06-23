@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -27,10 +27,10 @@
 #if DEBUG
 namespace ASC.Core.Common.Tests
 {
+    using Billing;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System;
     using System.Linq;
-    using ASC.Core.Billing;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     [TestClass]
     public class BillingClientTest
@@ -123,6 +123,13 @@ namespace ASC.Core.Common.Tests
             Assert.AreEqual(p.StartDate, new DateTime(2013, 2, 4, 11, 52, 41));
             Assert.AreEqual(p.EndDate, new DateTime(2013, 3, 4, 11, 52, 41));
             Assert.AreEqual(p.UsersCount, 20);
+        }
+
+        [TestMethod]
+        public void GetProductPriceInfoTest()
+        {
+            var result = billingClient.GetProductPriceInfo("36", "60", "131");
+            Assert.IsNotNull(result);
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Collections.Generic;
 
 namespace ASC.Files.Core.Security
 {
@@ -37,5 +38,7 @@ namespace ASC.Files.Core.Security
         bool CanEdit(FileEntry file, Guid userId);
 
         bool CanDelete(FileEntry file, Guid userId);
+
+        IEnumerable<Guid> WhoCanRead(FileEntry fileEntry);
     }
 }

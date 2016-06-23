@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -32,9 +32,9 @@ using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Mail.Aggregator.Common;
+using ASC.Mail.Aggregator.Common.DataStorage;
 using ASC.Mail.Aggregator.Common.Extension;
-using ASC.Mail.Aggregator.Dal.DbSchema;
-using ASC.Mail.Aggregator.DataStorage;
+using ASC.Mail.Aggregator.DbSchema;
 
 namespace ASC.Mail.Aggregator.Dal
 {
@@ -76,19 +76,19 @@ namespace ASC.Mail.Aggregator.Dal
             if(!mailbox.IsRemoved)
                 throw new Exception("Mailbox is not removed.");
             
-            var deleteMailboxQuery = new SqlDelete(MailboxTable.name)
-                                            .Where(MailboxTable.Columns.id, mailbox.MailBoxId)
-                                            .Where(MailboxTable.Columns.id_tenant, mailbox.TenantId)
-                                            .Where(MailTable.Columns.id_user, mailbox.UserId);
+            var deleteMailboxQuery = new SqlDelete(MailboxTable.Name)
+                                            .Where(MailboxTable.Columns.Id, mailbox.MailBoxId)
+                                            .Where(MailboxTable.Columns.Tenant, mailbox.TenantId)
+                                            .Where(MailTable.Columns.User, mailbox.UserId);
 
-            var deleteMailboxMessagesQuery = new SqlDelete(MailTable.name)
-                                            .Where(MailTable.Columns.id_mailbox, mailbox.MailBoxId)
-                                            .Where(MailTable.Columns.id_tenant, mailbox.TenantId)
-                                            .Where(MailTable.Columns.id_user, mailbox.UserId);
+            var deleteMailboxMessagesQuery = new SqlDelete(MailTable.Name)
+                                            .Where(MailTable.Columns.MailboxId, mailbox.MailBoxId)
+                                            .Where(MailTable.Columns.Tenant, mailbox.TenantId)
+                                            .Where(MailTable.Columns.User, mailbox.UserId);
 
-            var deleteMailboxAttachmentsQuery = new SqlDelete(AttachmentTable.name)
-                                            .Where(AttachmentTable.Columns.id_mailbox, mailbox.MailBoxId)
-                                            .Where(AttachmentTable.Columns.id_tenant, mailbox.TenantId);
+            var deleteMailboxAttachmentsQuery = new SqlDelete(AttachmentTable.Name)
+                                            .Where(AttachmentTable.Columns.IdMailbox, mailbox.MailBoxId)
+                                            .Where(AttachmentTable.Columns.IdTenant, mailbox.TenantId);
 
             using (var db = GetDb())
             {
@@ -102,21 +102,27 @@ namespace ASC.Mail.Aggregator.Dal
 
                     if (totalRemove)
                     {
-                        var deleteFoldersQuery = new SqlDelete(FolderTable.name)
-                                                    .Where(MailTable.Columns.id_tenant, mailbox.TenantId)
-                                                    .Where(MailTable.Columns.id_user, mailbox.UserId);
+                        var deleteFoldersQuery = new SqlDelete(FolderTable.Name)
+                                                    .Where(MailTable.Columns.Tenant, mailbox.TenantId)
+                                                    .Where(MailTable.Columns.User, mailbox.UserId);
 
                         db.ExecuteNonQuery(deleteFoldersQuery);
 
-                        var deleteContactsQuery = new SqlDelete(ContactsTable.name)
-                                            .Where(ContactsTable.Columns.id_user, mailbox.UserId)
-                                            .Where(ContactsTable.Columns.id_tenant, mailbox.TenantId);
+                        var deleteContactInfoQuery = new SqlDelete(ContactInfoTable.Name)
+                                            .Where(ContactInfoTable.Columns.User, mailbox.UserId)
+                                            .Where(ContactInfoTable.Columns.Tenant, mailbox.TenantId);
+
+                        db.ExecuteNonQuery(deleteContactInfoQuery);
+
+                        var deleteContactsQuery = new SqlDelete(ContactsTable.Name)
+                                            .Where(ContactsTable.Columns.User, mailbox.UserId)
+                                            .Where(ContactsTable.Columns.Tenant, mailbox.TenantId);
 
                         db.ExecuteNonQuery(deleteContactsQuery);
 
-                        var deleteDisplayImagesQuery = new SqlDelete(DisplayImagesTable.name)
-                                            .Where(DisplayImagesTable.Columns.id_user, mailbox.UserId)
-                                            .Where(DisplayImagesTable.Columns.id_tenant, mailbox.TenantId);
+                        var deleteDisplayImagesQuery = new SqlDelete(DisplayImagesTable.Name)
+                                            .Where(DisplayImagesTable.Columns.User, mailbox.UserId)
+                                            .Where(DisplayImagesTable.Columns.Tenant, mailbox.TenantId);
 
                         db.ExecuteNonQuery(deleteDisplayImagesQuery);
 
@@ -137,13 +143,13 @@ namespace ASC.Mail.Aggregator.Dal
 
             using (var db = GetDb())
             {
-                var query = new SqlQuery(MailTable.name.Alias(m))
-                    .InnerJoin(AttachmentTable.name.Alias(a),
-                               Exp.EqColumns(MailTable.Columns.id.Prefix(m), AttachmentTable.Columns.id_mail.Prefix(a)))
+                var query = new SqlQuery(MailTable.Name.Alias(m))
+                    .InnerJoin(AttachmentTable.Name.Alias(a),
+                               Exp.EqColumns(MailTable.Columns.Id.Prefix(m), AttachmentTable.Columns.MailId.Prefix(a)))
                     .SelectCount()
-                    .Where(MailTable.Columns.id_mailbox.Prefix(m), mailBox.MailBoxId)
-                    .Where(MailTable.Columns.id_tenant.Prefix(m), mailBox.TenantId)
-                    .Where(MailTable.Columns.id_user.Prefix(m), mailBox.UserId);
+                    .Where(MailTable.Columns.MailboxId.Prefix(m), mailBox.MailBoxId)
+                    .Where(MailTable.Columns.Tenant.Prefix(m), mailBox.TenantId)
+                    .Where(MailTable.Columns.User.Prefix(m), mailBox.UserId);
 
                 count = db.ExecuteScalar<int>(query);
             }
@@ -160,18 +166,18 @@ namespace ASC.Mail.Aggregator.Dal
 
             using (var db = GetDb())
             {
-                var queryAttachemnts = new SqlQuery(MailTable.name.Alias(m))
-                    .InnerJoin(AttachmentTable.name.Alias(a),
-                               Exp.EqColumns(MailTable.Columns.id.Prefix(m), AttachmentTable.Columns.id_mail.Prefix(a)))
-                    .Select(AttachmentTable.Columns.id.Prefix(a),
-                            MailTable.Columns.stream.Prefix(m),
-                            AttachmentTable.Columns.file_number.Prefix(a),
-                            AttachmentTable.Columns.stored_name.Prefix(a),
-                            AttachmentTable.Columns.name.Prefix(a),
-                            MailTable.Columns.id.Prefix(m))
-                    .Where(MailTable.Columns.id_mailbox.Prefix(m), mailBox.MailBoxId)
-                    .Where(MailTable.Columns.id_tenant.Prefix(m), mailBox.TenantId)
-                    .Where(MailTable.Columns.id_user.Prefix(m), mailBox.UserId)
+                var queryAttachemnts = new SqlQuery(MailTable.Name.Alias(m))
+                    .InnerJoin(AttachmentTable.Name.Alias(a),
+                               Exp.EqColumns(MailTable.Columns.Id.Prefix(m), AttachmentTable.Columns.MailId.Prefix(a)))
+                    .Select(AttachmentTable.Columns.Id.Prefix(a),
+                            MailTable.Columns.Stream.Prefix(m),
+                            AttachmentTable.Columns.FileNumber.Prefix(a),
+                            AttachmentTable.Columns.StoredName.Prefix(a),
+                            AttachmentTable.Columns.RealName.Prefix(a),
+                            MailTable.Columns.Id.Prefix(m))
+                    .Where(MailTable.Columns.MailboxId.Prefix(m), mailBox.MailBoxId)
+                    .Where(MailTable.Columns.Tenant.Prefix(m), mailBox.TenantId)
+                    .Where(MailTable.Columns.User.Prefix(m), mailBox.UserId)
                     .SetMaxResults(limit);
 
                 list =
@@ -192,8 +198,8 @@ namespace ASC.Mail.Aggregator.Dal
 
             using (var db = GetDb())
             {
-                var deleteQuery = new SqlDelete(AttachmentTable.name)
-                    .Where(Exp.In(AttachmentTable.Columns.id, attachGarbageList.Select(a => a.Id).ToList()));
+                var deleteQuery = new SqlDelete(AttachmentTable.Name)
+                    .Where(Exp.In(AttachmentTable.Columns.Id, attachGarbageList.Select(a => a.Id).ToList()));
 
                 db.ExecuteNonQuery(deleteQuery);
             }
@@ -205,11 +211,11 @@ namespace ASC.Mail.Aggregator.Dal
 
             using (var db = GetDb())
             {
-                var query = new SqlQuery(MailTable.name)
+                var query = new SqlQuery(MailTable.Name)
                     .SelectCount()
-                    .Where(MailTable.Columns.id_mailbox, mailBox.MailBoxId)
-                    .Where(MailTable.Columns.id_tenant, mailBox.TenantId)
-                    .Where(MailTable.Columns.id_user, mailBox.UserId);
+                    .Where(MailTable.Columns.MailboxId, mailBox.MailBoxId)
+                    .Where(MailTable.Columns.Tenant, mailBox.TenantId)
+                    .Where(MailTable.Columns.User, mailBox.UserId);
 
                 count = db.ExecuteScalar<int>(query);
             }
@@ -223,12 +229,12 @@ namespace ASC.Mail.Aggregator.Dal
 
             using (var db = GetDb())
             {
-                var queryAttachemnts = new SqlQuery(MailTable.name)
-                    .Select(MailTable.Columns.id,
-                            MailTable.Columns.stream)
-                    .Where(MailTable.Columns.id_mailbox, mailBox.MailBoxId)
-                    .Where(MailTable.Columns.id_tenant, mailBox.TenantId)
-                    .Where(MailTable.Columns.id_user, mailBox.UserId)
+                var queryAttachemnts = new SqlQuery(MailTable.Name)
+                    .Select(MailTable.Columns.Id,
+                            MailTable.Columns.Stream)
+                    .Where(MailTable.Columns.MailboxId, mailBox.MailBoxId)
+                    .Where(MailTable.Columns.Tenant, mailBox.TenantId)
+                    .Where(MailTable.Columns.User, mailBox.UserId)
                     .SetMaxResults(limit);
 
                 list =
@@ -246,8 +252,8 @@ namespace ASC.Mail.Aggregator.Dal
 
             using (var db = GetDb())
             {
-                var deleteQuery = new SqlDelete(MailTable.name)
-                    .Where(Exp.In(MailTable.Columns.id, messageGarbageList.Select(a => a.Id).ToList()));
+                var deleteQuery = new SqlDelete(MailTable.Name)
+                    .Where(Exp.In(MailTable.Columns.Id, messageGarbageList.Select(a => a.Id).ToList()));
 
                 db.ExecuteNonQuery(deleteQuery);
             }

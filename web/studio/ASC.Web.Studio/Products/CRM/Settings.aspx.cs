@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Linq;
 using System.Web;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
@@ -42,7 +43,10 @@ namespace ASC.Web.CRM
             if (!CRMSecurity.IsAdmin)
                 Response.Redirect(PathProvider.StartURL());
 
-            Page.RegisterBodyScriptsControl("~/products/crm/masters/SettingsBodyScripts.ascx");
+            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath,
+                                         "settings.js",
+                                         "settings.invoices.js"
+                                     );
 
             var typeValue = (HttpContext.Current.Request["type"] ?? "common").ToLower();
             ListItemView listItemViewControl;
@@ -141,11 +145,11 @@ namespace ASC.Web.CRM
                     CommonContainerHolder.Controls.Add(LoadControl(WebToLeadFormView.Location));
                     titlePage = CRMSettingResource.WebToLeadsForm;
                     break;
-                case "task_template":
-                    CommonContainerHolder.Controls.Add(LoadControl(TaskTemplateView.Location));
+                //case "task_template":
+                //    CommonContainerHolder.Controls.Add(LoadControl(TaskTemplateView.Location));
 
-                    titlePage = CRMSettingResource.TaskTemplates;
-                    break;
+                //    titlePage = CRMSettingResource.TaskTemplates;
+                //    break;
 
                 case "invoice_items":
 

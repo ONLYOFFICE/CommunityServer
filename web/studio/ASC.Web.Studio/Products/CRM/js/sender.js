@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -57,7 +57,7 @@ ASC.CRM.SmtpSender = (function () {
             var data = {
                 contactIds: contacts,
                 subject: subj,
-                body: ASC.CRM.SmtpSender.editor.getData() + watermark,
+                body: ASC.CRM.SmtpSender.editor.getData() + (jq("#watermarkInfo").length ? watermark : ""),
                 fileIDs: ASC.CRM.FileUploader.fileIDs,
                 storeInHistory: jq("#storeInHistory").is(":checked")
             };
@@ -117,13 +117,9 @@ ASC.CRM.SmtpSender = (function () {
             if (!checkValidation()) {
                 window.location.href = "default.aspx";
             } else {
-                if (!jq.browser.mobile) {
-                    initFileUploaderCallback();
-                    initCkeditor();
-                    activateFileUploader();
-                } else {
-                    ASC.CRM.SmtpSender.showSendEmailPanel();
-                }
+                initFileUploaderCallback();
+                initCkeditor();
+                activateFileUploader();
             }
         },
 
@@ -228,21 +224,19 @@ ASC.CRM.SmtpSender = (function () {
                                                     jq.format("<a style='color:#787878;font-size:12px;' href='http://www.onlyoffice.com'>{0}</a>", "ONLYOFFICE.com"))
                         );
 
-                        jq("#previewMessage").html(response + watermark);
+                        jq("#previewMessage").html(response + (jq("#watermarkInfo").length ? watermark : ""));
 
-                        if (!jq.browser.mobile) {
-                            var attachments = ASC.CRM.FileUploader.fileNames();
-                            jq("#previewAttachments span").html("");
-                            if (attachments.length > 0) {
-                                attachments.each(function (index) {
-                                    jq("#previewAttachments span").append(this);
-                                    if (index != attachments.length - 1)
-                                        jq("#previewAttachments span").append(", ");
-                                });
-                                jq("#previewAttachments").show();
-                            } else {
-                                jq("#previewAttachments").hide();
-                            }
+                        var attachments = ASC.CRM.FileUploader.fileNames();
+                        jq("#previewAttachments span").html("");
+                        if (attachments.length > 0) {
+                            attachments.each(function (index) {
+                                jq("#previewAttachments span").append(this);
+                                if (index != attachments.length - 1)
+                                    jq("#previewAttachments span").append(", ");
+                            });
+                            jq("#previewAttachments").show();
+                        } else {
+                            jq("#previewAttachments").hide();
                         }
 
                         jq("#sendProcessPanel").hide();
@@ -271,7 +265,7 @@ ASC.CRM.SmtpSender = (function () {
         sendEmail: function () {
             AjaxPro.onLoading = function (b) { };
 
-            if (!jq.browser.mobile && ASC.CRM.FileUploader.getUploadFileCount() > 0) {
+            if (ASC.CRM.FileUploader.getUploadFileCount() > 0) {
                 ASC.CRM.FileUploader.start();
             } else {
                 var contacts = ASC.CRM.SmtpSender.selectedItems.map(function (item) { return item.id; }),
@@ -296,7 +290,7 @@ ASC.CRM.SmtpSender = (function () {
                 var data = {
                     contactIds: contacts,
                     subject: subj,
-                    body: letterBody + watermark,
+                    body: letterBody + (jq("#watermarkInfo").length ? watermark : ""),
                     fileIDs: [],
                     storeInHistory: jq("#storeInHistory").is(":checked")
                 };

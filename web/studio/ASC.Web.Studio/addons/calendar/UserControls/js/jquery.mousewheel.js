@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -98,7 +98,7 @@ function handler(event) {
     // Add event and delta to the front of the arguments
     args.unshift(event, delta, deltaX, deltaY);
     
-    return $.event.handle.apply(this, args);
+    return $.event.dispatch.apply(this, args);
 }
 
 })(jQuery);

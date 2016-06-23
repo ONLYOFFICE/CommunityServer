@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -40,7 +40,6 @@ window.AttachmentManager = (function($) {
     var maxAllAttachmentsBytes = maxAllAttachmentsSize * 1024 * 1024;
 
     var saveHeandlerId = null;
-    var addDocsHeandlerId = null;
     var needAttachDocuments = false;
     var uploadContainerId = 'newMessage';
     var filesContainer = 'mail_attachments';
@@ -96,23 +95,22 @@ window.AttachmentManager = (function($) {
             .bind('fileuploadstart', onUploadStart)
             .bind('fileuploadstop', onUploadStop);
 
-
         if (dragDropEnabled) {
             $('#' + uploadContainerId)
-                .bind('dragenter', function() {
+                .bind('dragenter', function () {
                     return false;
                 })
-                .bind('dragleave', function() {
+                .bind('dragleave', function () {
                     return hideDragHighlight();
                 })
-                .bind('dragover', function() {
+                .bind('dragover', function () {
                     showDragHighlight();
                     if ($.browser.safari) {
                         return true;
                     }
                     return false;
                 })
-                .bind('drop', function() {
+                .bind('drop', function () {
                     hideDragHighlight();
                     return false;
                 });
@@ -120,7 +118,6 @@ window.AttachmentManager = (function($) {
 
         window.DocumentsPopup.bind(window.DocumentsPopup.events.SelectFiles, selectDocuments);
         saveHeandlerId = serviceManager.bind(window.Teamlab.events.saveMailMessage, onSaveMessage);
-        addDocsHeandlerId = serviceManager.bind(window.Teamlab.events.addMailDocument, onAttachDocument);
 
         $('#attachments_limit_txt').text(window.MailScriptResource.AttachmentsLimitLabel
             .replace('%1', maxOneAttachmentSize)
@@ -197,6 +194,15 @@ window.AttachmentManager = (function($) {
 
         if (response) {
             if (!response.Success) {
+                if (!response.Data) {
+                    response.Data = {
+                        fileId: -1,
+                        fileName: file.name,
+                        orderNumber: file.orderNumber,
+                        attachedAsLink: file.attachAsLinkOffer
+                    };
+                }
+
                 response.Data.error = response.Message;
                 response.Data.size = 0;
             }
@@ -207,8 +213,27 @@ window.AttachmentManager = (function($) {
                 response.Data.orderNumber = file.orderNumber;
                 response.Data.webUrl = response.FileURL;
 
-                completeCopiedFileLinkAttachmentsProgressStatus([response.Data]);
-                insertFileLinksToMessage([response.Data]);
+                if (response.Data.error) {
+                    window.messagePage.cancelSending();
+                    showFileLinkAttachmentErrorStatus(file.orderNumber, MailScriptResource.CopyFileToMyDocumentsFolderErrorMsg);
+                    correctFileNameWidth();
+                    var pos = searchFileIndex(copiedFiles, file.orderNumber);
+                    if (pos > -1) {
+                        copiedFiles.splice(pos, 1);
+                    }
+                } else {
+                    insertFileLinksToMessage([response.Data]);
+                    isSaving = true;
+                    window.messagePage.saveMessagePomise().done(function () {
+                        isSaving = false;
+                        var pos = searchFileIndex(copiedFiles, file.orderNumber);
+                        if (pos > -1) {
+                            copiedFiles.splice(pos, 1);
+                        }
+                        completeCopiedFileLinkAttachmentsProgressStatus([response.Data]);
+                    });
+                }
+
             } else {
                 updateAttachment(file.orderNumber, response.Data);
             }
@@ -285,7 +310,8 @@ window.AttachmentManager = (function($) {
             .attr('type', 'file')
             .attr('multiple', 'multiple')
             .css("width", "0")
-            .css("height", "0");
+            .css("height", "0")
+            .hide();
 
         inputObj.appendTo(buttonObj.parent());
 
@@ -561,7 +587,7 @@ window.AttachmentManager = (function($) {
         var $attachment = $('#mail_attachments .row[data_id="' + orderNumber + '"]');
         $attachment.addClass('inactive');
 
-        $attachment.find('.delete_icon').empty();
+        $attachment.find('.delete_attachment').hide();
         $attachment.find('.menu_column').empty();
 
         $attachment.find('.load_result .file-load-result').remove();
@@ -595,6 +621,7 @@ window.AttachmentManager = (function($) {
     function showFileLinkAttachmentErrorStatus(orderNumber, text) {
         var $attachment = $('#mail_attachments .row[data_id="' + orderNumber + '"]');
 
+        $attachment.find('.delete_attachment').show();
         $attachment.find('.load_result').empty();
         $attachment.find('.load_result').html('<span class="file-load-result red-text" title="' + text + '"> ' + text + '</span>');
     }
@@ -662,13 +689,17 @@ window.AttachmentManager = (function($) {
             documentsInLoad.splice(pos, 1);
         }
 
-        $('#' + filesContainer + ' .row[data_id=' + orderNumber + ']').remove();
+        removeAttachemntRow(orderNumber);
         calculateAttachments();
         removeFromUploaderQueue(orderNumber);
 
         if (needColumnWidthCorrection == undefined || needColumnWidthCorrection) {
             correctFileNameWidth();
         }
+    }
+
+    function removeAttachemntRow(orderNumber) {
+        $('#' + filesContainer + ' .row[data_id=' + orderNumber + ']').remove();
     }
 
     function getAttachmentName(fullName) {
@@ -756,7 +787,7 @@ window.AttachmentManager = (function($) {
                     shareLink: document.downloadUrl
                 };
 
-                serviceManager.attachDocuments(mailBox.currentMessageId, data, { attachment: attachment }, { error: onAttachDocumentError });
+                serviceManager.attachDocuments(mailBox.currentMessageId, data, { attachment: attachment }, { success: onAttachDocument, error: onAttachDocumentError });
             }
         }
         correctFileNameWidth();
@@ -820,7 +851,7 @@ window.AttachmentManager = (function($) {
     }
 
     function isLoading() {
-        return documentsInLoad.length > 0 || uploaderBusy;
+        return documentsInLoad.length > 0 || uploaderBusy || attachedFiles.length > 0 || copiedFiles.length > 0;
     }
 
     function hideError() {
@@ -906,10 +937,6 @@ window.AttachmentManager = (function($) {
 
         uploadQueue.clear();
 
-        if (addDocsHeandlerId) {
-            serviceManager.unbind(addDocsHeandlerId);
-        }
-
         if (saveHeandlerId) {
             serviceManager.unbind(saveHeandlerId);
         }
@@ -921,14 +948,6 @@ window.AttachmentManager = (function($) {
             submitUrl += '&{0}={1}'.format(prop, data[prop]);
         }
         return submitUrl;
-    }
-
-    function hideUpload() {
-        $('#' + uploadContainerId).hide();
-    }
-
-    function showUpload() {
-        $('#' + uploadContainerId).show();
     }
 
     function reloadAttachments(files) {
@@ -968,7 +987,7 @@ window.AttachmentManager = (function($) {
 
         attachment.isImage = fileId > 0 ? window.ASC.Files.Utility.CanImageView(name) : false;
         attachment.iconCls = window.ASC.Files.Utility.getCssClassByFileTitle(name, true);
-        attachment.canView = fileId > 0 ? window.TMMail.canViewInDocuments(name) : false;
+        attachment.canView = fileId > 0 ? window.TMMail.canViewInDocuments(name) || TMMail.canViewAsCalendar(name) : false;
         attachment.canEdit = fileId > 0 ? window.TMMail.canEditInDocuments(name) : false;
         attachment.warn = warn;
         attachment.opeartion = 0;
@@ -976,7 +995,10 @@ window.AttachmentManager = (function($) {
         if (fileId <= 0) {
             attachment.handlerUrl = '';
         } else {
-            attachment.handlerUrl = attachment.canView ?
+            attachment.handlerUrl =
+                TMMail.canViewAsCalendar(name) ?
+                "javascript:mailCalendar.showCalendarInfo(\"{0}\", \"{1}\");".format(window.TMMail.getAttachmentDownloadUrl(fileId), name) :
+                attachment.canView ?
                 window.TMMail.getViewDocumentUrl(fileId) :
                 window.TMMail.getAttachmentDownloadUrl(fileId);
         }
@@ -1051,14 +1073,13 @@ window.AttachmentManager = (function($) {
         var aFiles = attachedFiles.slice(0);
         var cFiles = copiedFiles.slice(0);
 
-        clearAttachedFiles();
-
         for (var i = 0; i < cFiles.length; i++) {
             if (!cFiles[i].orderNumber) {
                 cFiles[i].orderNumber = getOrderNumber();
             }
         }
 
+        window.messagePage.setDirtyMessage();
         addCopiedFileLinkAttachments(cFiles);
         window.popup.hide();
 
@@ -1068,9 +1089,17 @@ window.AttachmentManager = (function($) {
                     showFileLinkAttachmentErrorStatus(cFiles[i].orderNumber, MailScriptResource.CopyFileToMyDocumentsFolderErrorMsg);
                 }
                 correctFileNameWidth();
+                clearAttachedFiles();
+                window.messagePage.cancelSending();
             } else {
-                completeCopiedFileLinkAttachmentsProgressStatus(cFiles);
+                clearAttachedFiles();
                 insertFileLinksToMessage(aFiles.concat(files));
+
+                isSaving = true;
+                window.messagePage.saveMessagePomise().done(function () {
+                    isSaving = false;
+                    completeCopiedFileLinkAttachmentsProgressStatus(cFiles);
+                });
             }
         });
     }
@@ -1170,12 +1199,15 @@ window.AttachmentManager = (function($) {
         }
 
         correctFileNameWidth();
+        window.messagePage.resetDirtyMessage();
+        triggerUploadComplete();
     }
 
     function uploadFileToMyDocumentsAndInsertFileLinkToMessage(fileOrderNumber) {
         for (var i = 0; i < failedUploadedFiles.length; i++) {
             var file = failedUploadedFiles[i].files[0];
             if (file.orderNumber == fileOrderNumber) {
+                copiedFiles.push(file);
                 updateFileLinkAttachmentProgressStatus(fileOrderNumber, 0, MailScriptResource.CopyingToMyDocumentsLabel);
                 failedUploadedFiles[i].submit();
                 return;
@@ -1214,10 +1246,9 @@ window.AttachmentManager = (function($) {
         InitUploader: init,
         StopUploader: stopUploader,
         RemoveAttachment: removeAttachment,
+        RemoveAttachemntRow: removeAttachemntRow,
         RemoveAll: removeAllAttachments,
         IsLoading: isLoading,
-        ShowUpload: showUpload,
-        HideUpload: hideUpload,
         GetFileName: getAttachmentName,
         GetFileExtension: getAttachmentExtension,
         GetSizeString: getSizeString,

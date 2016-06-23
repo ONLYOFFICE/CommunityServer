@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -27,6 +27,7 @@
 using System;
 using System.Net;
 using System.Net.Mail;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using ASC.Core;
@@ -35,6 +36,7 @@ using ASC.Data.Storage;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 using AjaxPro;
+using Newtonsoft.Json;
 using Resources;
 using SmtpSettingsConfig = ASC.Core.Configuration.SmtpSettings;
 
@@ -45,15 +47,16 @@ namespace ASC.Web.Studio.UserControls.Management
     public partial class SmtpSettings : UserControl
     {
         public const string Location = "~/UserControls/Management/SmtpSettings/SmtpSettings.ascx";
+        public const string FakePassword = "";
 
         protected SmtpSettingsModel CurrentSmtpSettings
         {
-            get
-            {
-                return !CoreContext.Configuration.SmtpSettings.IsDefaultSettings
-                           ? ToSmtpSettingsModel(CoreContext.Configuration.SmtpSettings)
-                           : new SmtpSettingsModel();
-            }
+            get { return ToSmtpSettingsModel(CoreContext.Configuration.SmtpSettings, true); }
+        }
+
+        protected SmtpSettingsModel FullSmtpSettings
+        {
+            get { return ToSmtpSettingsModel(CoreContext.Configuration.SmtpSettings); }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -65,8 +68,28 @@ namespace ASC.Web.Studio.UserControls.Management
             }
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
-            Page.RegisterBodyScripts(ResolveUrl("~/usercontrols/management/smtpsettings/js/smtpsettings.js"));
-            Page.ClientScript.RegisterClientScriptBlock(GetType(), "smtpsettings_style", "<link rel=\"stylesheet\" type=\"text/css\" href=\"" + WebPath.GetPath("usercontrols/management/smtpsettings/css/smtpsettings.css") + "\">", false);
+            Page.RegisterBodyScripts(ResolveUrl, "~/usercontrols/management/smtpsettings/js/smtpsettings.js");
+            Page.ClientScript.RegisterClientScriptBlock(GetType(),
+                "smtpsettings_style",
+                string.Format("<link rel=\"stylesheet\" type=\"text/css\" href=\"{0}\">",
+                    WebPath.GetPath("usercontrols/management/smtpsettings/css/smtpsettings.css")), false);
+            Page.RegisterInlineScript(GetSmtpSettingsInitInlineScript(), true, false);
+        }
+
+        public bool IsMailServerAvailable
+        {
+            get { return SetupInfo.IsVisibleSettings("AdministrationPage") && SetupInfo.IsVisibleSettings("SmtpSettingsWithsMailServer"); }
+        }
+
+        protected string GetSmtpSettingsInitInlineScript()
+        {
+            var sbScript = new StringBuilder();
+            sbScript.AppendLine(
+                "\r\nif (typeof (window.SmtpSettingsConstants) === 'undefined') { window.SmtpSettingsConstants = {};}")
+                .AppendFormat("window.SmtpSettingsConstants.IsMailServerAvailable = {0};\r\n",
+                    JsonConvert.SerializeObject(IsMailServerAvailable));
+
+            return sbScript.ToString();
         }
 
         [AjaxMethod]
@@ -76,18 +99,28 @@ namespace ASC.Web.Studio.UserControls.Management
 
             var smtpSettings = ToSmtpSettingsConfig(settings);
             CoreContext.Configuration.SmtpSettings = smtpSettings;
-            return ToSmtpSettingsModel(smtpSettings);
+            var result = ToSmtpSettingsModel(smtpSettings);
+            result.CredentialsUserPassword = "";
+            if (string.IsNullOrEmpty(result.SenderDisplayName))
+                result.SenderDisplayName = SmtpSettingsConfig.DefaultSenderDisplayName;
+
+            return result;
         }
 
         [AjaxMethod]
         public void Test(SmtpSettingsModel settings)
         {
-            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
-
             if (!SetupInfo.IsVisibleSettings(ManagementType.SmtpSettings.ToString()))
                 throw new BillingException(Resource.ErrorNotAllowedOption, "Smtp");
 
-            var config = ToSmtpSettingsConfig(settings);
+            var config = ToSmtpSettingsConfig(settings ?? CurrentSmtpSettings);
+
+            if (config.EnableAuth && config.CredentialsUserPassword.Equals(FakePassword))
+            {
+                var model = ToSmtpSettingsModel(config);
+                model.CredentialsUserPassword = FullSmtpSettings.CredentialsUserPassword;
+                config = ToSmtpSettingsConfig(model);
+            }
 
             using (var smtpClient = new SmtpClient(config.Host, config.Port))
             {
@@ -95,20 +128,21 @@ namespace ASC.Web.Studio.UserControls.Management
                 smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtpClient.EnableSsl = config.EnableSSL;
 
-                if (config.IsRequireAuthentication)
+                if (config.EnableAuth)
                 {
                     smtpClient.UseDefaultCredentials = false;
-                    smtpClient.Credentials = new NetworkCredential(config.CredentialsUserName, config.CredentialsUserPassword);
+                    smtpClient.Credentials = new NetworkCredential(config.CredentialsUserName,
+                        config.CredentialsUserPassword);
                 }
 
                 var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
                 var toAddress = new MailAddress(currentUser.Email);
                 var fromAddress = new MailAddress(config.SenderAddress, config.SenderDisplayName);
                 var mailMessage = new MailMessage(fromAddress, toAddress)
-                    {
-                        Subject = Core.Notify.WebstudioPatternResource.subject_smtp_test,
-                        Body = Core.Notify.WebstudioPatternResource.pattern_smtp_test
-                    };
+                {
+                    Subject = Core.Notify.WebstudioNotifyPatternResource.subject_smtp_test,
+                    Body = Core.Notify.WebstudioNotifyPatternResource.pattern_smtp_test
+                };
 
                 smtpClient.Send(mailMessage);
             }
@@ -117,9 +151,12 @@ namespace ASC.Web.Studio.UserControls.Management
         [AjaxMethod]
         public SmtpSettingsModel RestoreDefaults()
         {
+            if (CoreContext.Configuration.SmtpSettings.IsDefaultSettings)
+                return CurrentSmtpSettings;
+
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
             CoreContext.Configuration.SmtpSettings = null; // this should set settings only for current tenant!
-            return new SmtpSettingsModel();
+            return CurrentSmtpSettings;
         }
 
         private static SmtpSettingsConfig ToSmtpSettingsConfig(SmtpSettingsModel settingsModel)
@@ -129,11 +166,12 @@ namespace ASC.Web.Studio.UserControls.Management
                 settingsModel.Port ?? SmtpSettingsConfig.DefaultSmtpPort,
                 settingsModel.SenderAddress,
                 settingsModel.SenderDisplayName)
-                {
-                    EnableSSL = settingsModel.EnableSSL
-                };
+            {
+                EnableSSL = settingsModel.EnableSSL,
+                EnableAuth = settingsModel.EnableAuth
+            };
 
-            if (!string.IsNullOrEmpty(settingsModel.CredentialsUserName) && !string.IsNullOrEmpty(settingsModel.CredentialsUserPassword))
+            if (settingsModel.EnableAuth)
             {
                 settingsConfig.SetCredentials(settingsModel.CredentialsUserName, settingsModel.CredentialsUserPassword);
             }
@@ -141,18 +179,19 @@ namespace ASC.Web.Studio.UserControls.Management
             return settingsConfig;
         }
 
-        private static SmtpSettingsModel ToSmtpSettingsModel(SmtpSettingsConfig settingsConfig)
+        private static SmtpSettingsModel ToSmtpSettingsModel(SmtpSettingsConfig settingsConfig, bool hidePassword = false)
         {
             return new SmtpSettingsModel
-                {
-                    Host = settingsConfig.Host,
-                    Port = settingsConfig.Port,
-                    SenderAddress = settingsConfig.SenderAddress,
-                    SenderDisplayName = settingsConfig.SenderDisplayName,
-                    CredentialsUserName = settingsConfig.CredentialsUserName,
-                    CredentialsUserPassword = settingsConfig.CredentialsUserPassword,
-                    EnableSSL = settingsConfig.EnableSSL
-                };
+            {
+                Host = settingsConfig.Host,
+                Port = settingsConfig.Port,
+                SenderAddress = settingsConfig.SenderAddress,
+                SenderDisplayName = settingsConfig.SenderDisplayName,
+                CredentialsUserName = settingsConfig.CredentialsUserName,
+                CredentialsUserPassword = hidePassword ? FakePassword : settingsConfig.CredentialsUserPassword,
+                EnableSSL = settingsConfig.EnableSSL,
+                EnableAuth = settingsConfig.EnableAuth
+            };
         }
 
         public class SmtpSettingsModel
@@ -171,10 +210,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
             public bool EnableSSL { get; set; }
 
-            public bool IsRequireAuthentication
-            {
-                get { return !string.IsNullOrEmpty(CredentialsUserName) && !string.IsNullOrEmpty(CredentialsUserPassword); }
-            }
+            public bool EnableAuth { get; set; }
         }
     }
 }

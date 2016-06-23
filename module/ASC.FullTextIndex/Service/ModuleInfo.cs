@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,71 +24,33 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-
 using ASC.Common.Data.Sql;
 using ASC.Core;
+using System.Collections.Generic;
+using System.Linq;
 
-namespace ASC.FullTextIndex.Service
+namespace ASC.FullTextIndex
 {
-    [DataContract]
     public class ModuleInfo
     {
+        private const int LIMIT = 1000;
+
+        private readonly List<string> addWhere = new List<string>();
+        private readonly List<MatchSphinxItem> matches = new List<MatchSphinxItem>();
+        private readonly SqlQuery query = new SqlQuery();
+
         private string select = "id";
-        private readonly List<ModuleAttr> additionalAttributes; 
-        private readonly MatchSphinx match;
-        private const int Limit = 10000;
 
-        private string sqlQuery;
-        private readonly SqlQuery query;
+        public string Name { get; private set; }
+        public string Main { get; private set; }
+        public string Delta { get; private set; }
 
-        public string Main { get { return Name + "_main"; } }
-        public string Delta { get { return Name + "_delta"; } }
-
-        [DataMember]
-        public string Name { get; set; }
-
-        [DataMember]
-        public string SqlQuery
-        {
-            get
-            {
-                if (!string.IsNullOrEmpty(sqlQuery))
-                    return sqlQuery;
-
-                query.Select(select).From(Name);
-
-                foreach (var attribute in additionalAttributes)
-                {
-                    query.Where(attribute.ToString());
-                }
-
-                return query
-                    .Where(match.ToString())
-                    .SetFirstResult(0)
-                    .SetMaxResults(Limit - 1)
-                       + " OPTION max_matches=" + Limit;
-            }
-            set { sqlQuery = value; }
-        }
 
         public ModuleInfo(string name)
         {
-            if (string.IsNullOrEmpty(name)) throw new ArgumentNullException("name");
-
-            match = new MatchSphinx();
-            query = new SqlQuery();
             Name = name;
-            var tenant = CoreContext.TenantManager.GetCurrentTenant(false);
-            additionalAttributes = new List<ModuleAttr>();
-
-            if (tenant != null)
-            {
-                AddAttribute("tenant_id", tenant.TenantId);
-            }
+            Main = Name + "_main";
+            Delta = Name + "_delta";
         }
 
         public ModuleInfo Where(string exp)
@@ -111,158 +73,107 @@ namespace ASC.FullTextIndex.Service
 
         public ModuleInfo Match(string text, params string[] columns)
         {
-            match.Add(text, columns.ToList());
+            matches.Add(new MatchSphinxItem(text, columns));
             return this;
         }
 
         public ModuleInfo AddAttribute(string title, string value)
         {
-            additionalAttributes.Add(ModuleAttr.CreateAttr(title, value));
+            addWhere.Add(string.Format("{0}='{1}'", title, value));
             return this;
         }
 
-        public ModuleInfo AddAttribute(string title, int[] values)
+        public ModuleInfo AddAttribute(string title, params int[] values)
         {
-            additionalAttributes.Add(ModuleAttr.CreateAttr(title, values));
-            return this;
-        }
-
-        public ModuleInfo AddAttribute(string title, int value)
-        {
-            additionalAttributes.Add(ModuleAttr.CreateAttr(title, value));
+            if (values != null && 1 < values.Length)
+            {
+                addWhere.Add(string.Format("{0} in({1})", title, string.Join(",", values)));
+            }
+            else if (values != null && values.Length == 1)
+            {
+                addWhere.Add(string.Format("{0}={1}", title, values[0]));
+            }
             return this;
         }
 
         public string GetChunk(int chunk)
         {
-            return string.Format("{0}_{1}", Name, chunk);
+            return GetChunk(Name, chunk);
         }
 
-        public string GetChunkByTenantId(int tenantId, int chunks, int dimension)
+        public static string GetChunk(string name, int chunk)
         {
-            var index = tenantId / dimension;
-            if (index >= chunks)
-                index = chunks - 1;
-
-            return GetChunk(index + 1);
+            return string.Format("{0}_{1}", name, chunk);
         }
 
-        public override string ToString()
+
+        internal string GetSqlQuery()
         {
-            return Name;
-        }
-
-        public override int GetHashCode()
-        {
-            return Name.GetHashCode();
-        }
-
-        public override bool Equals(object obj)
-        {
-            var mi = obj as ModuleInfo;
-            return mi != null && Name == mi.Name;
-        }
-    }
-
-    class MatchSphinx
-    {
-        private readonly List<MatchSphinxItem> items;
-
-        public MatchSphinx()
-        {
-            items = new List<MatchSphinxItem>();
-        }
-
-        public void Add(string text, List<string> columns)
-        {
-            items.Add(new MatchSphinxItem(text, columns));
-        }
-
-        public override string ToString()
-        {
-            return !items.Any() 
-                ? "match('')" 
-                : string.Format("match('({0})')", string.Join(" ", items.Select(r=> r.ToString())));
-        }
-    }
-
-    class MatchSphinxItem
-    {
-        private readonly string text;
-        private readonly List<string> columns;
-
-        public MatchSphinxItem(string text, List<string> columns)
-        {
-            this.columns = columns;
-            this.text = text;
-        }
-
-        public override string ToString()
-        {
-            return string.Format("@{0} {1}", GetColumn(), EscapeString(text));
-        }
-
-        private string GetColumn()
-        {
-            return columns.Count == 0
-                ? "*"
-                : string.Format("({0})", string.Join(",", columns));
-        }
-
-        private static string EscapeString(string text)
-        {
-            var escapeListFrom = new[] { "\\", "(", ")", "|", "-", "!", "@", "~", "\"", "&", "//", "^", "$", "=", "'", "\x00", "\n", "\r", "\x1a" };
-            var escapeListTo = new[] { "\\\\", @"\\\(", @"\\\)", @"\\\|", @"\\\-", @"\\\!", @"\\\@", @"\\\~", "\\\"", @"\\\&", @"\\\/", @"\\\^", @"\\\$", @"\\\=", "\\'", "\\x00", "\\n", "\\r", "\\x1a" };
-            for (var i = 0; i < escapeListFrom.Length; i++ )
+            var tenant = CoreContext.TenantManager.GetCurrentTenant(false);
+            if (tenant != null)
             {
-                text = text.Replace(escapeListFrom[i], escapeListTo[i]);
+                AddAttribute("tenant_id", tenant.TenantId);
             }
 
-            if(!(text.StartsWith("\"") && text.EndsWith("\"")))
+            query
+                .Select(select)
+                .From(Name);
+
+            addWhere.ForEach(w => query.Where(w));
+
+            var match = matches.Any() ? string.Format("match('({0})')", string.Join(" ", matches)) : "match('')";
+
+            return query
+                .Where(match)
+                .SetFirstResult(0)
+                .SetMaxResults(LIMIT - 1) + " OPTION max_matches=" + LIMIT;
+        }
+
+
+        class MatchSphinxItem
+        {
+            private readonly string text;
+            private readonly string[] columns;
+
+            public MatchSphinxItem(string text, string[] columns)
             {
-                text = ExpandKeyword(text);
+                this.columns = columns;
+                this.text = text;
             }
 
-            return text.ToLower();
-        }
+            public override string ToString()
+            {
+                return string.Format("@{0} {1}", GetColumn(), EscapeString(text));
+            }
 
-        private static string ExpandKeyword(string text)
-        {
-            return string.Format("( ({0}) | (*{0}*) | (={0}) )", text);
-        }
-    }
+            private string GetColumn()
+            {
+                return columns.Length == 0
+                    ? "*"
+                    : string.Format("({0})", string.Join(",", columns));
+            }
 
-    internal class ModuleAttr
-    {
-        private string Title { get; set; }
-        private string Value { get; set; }
-        private string Format { get; set; }
+            private static string EscapeString(string text)
+            {
+                var escapeListFrom = new[] { "\\", "(", ")", "|", "-", "!", "@", "~", "\"", "&", "/", "^", "$", "=", "'", "\x00", "\n", "\r", "\x1a" };
+                var escapeListTo = new[] { "\\\\", @"\\\(", @"\\\)", @"\\\|", @"\\\-", @"\\\!", @"\\\@", @"\\\~", "\\\"", @"\\\&", @"\\/", @"\\\^", @"\\\$", @"\\\=", "\\'", "\\x00", "\\n", "\\r", "\\x1a" };
+                for (var i = 0; i < escapeListFrom.Length; i++)
+                {
+                    text = text.Replace(escapeListFrom[i], escapeListTo[i]);
+                }
 
-        private ModuleAttr(string title, string value, string format)
-        {
-            Title = title;
-            Value = value;
-            Format = format;
-        }
+                if (!(text.StartsWith("\"") && text.EndsWith("\"")))
+                {
+                    text = ExpandKeyword(text);
+                }
 
-        public static ModuleAttr CreateAttr(string title, string value)
-        {
-            return new ModuleAttr(title, value, "{0}='{1}'");
-        }
+                return text.ToLower();
+            }
 
-        public static ModuleAttr CreateAttr(string title, int value)
-        {
-            return new ModuleAttr(title, value.ToString(), "{0}={1}");
-        }
-
-        public static ModuleAttr CreateAttr(string title, int[] values)
-        {
-            return new ModuleAttr(title, string.Join(",", values.Select(r=> r.ToString())), "{0} in({1})");
-        }
-
-        public override string ToString()
-        {
-            return string.Format(Format, Title, Value);
+            private static string ExpandKeyword(string text)
+            {
+                return string.Format("( ({0}) | (*{0}*) | (={0}) )", text);
+            }
         }
     }
 }

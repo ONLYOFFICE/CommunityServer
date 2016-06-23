@@ -1,0 +1,284 @@
+﻿/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2016
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+@import "../base.less";
+
+.popup_helper {
+    display: none;
+    background-color: #FFF8DC;
+    width: 280px;
+    padding: 15px;
+    -ms-word-wrap: break-word;
+    word-wrap: break-word;
+    z-index: 255;
+    white-space: normal;
+    border: 1px solid #efede8;
+    .borderRadius(8px);
+    color: Black;
+    text-align: left;
+    font-size: 12px;
+    font-weight: normal;
+    .shadowFullCustomizable(0, 3px, 6px, rgba(0, 0, 0, 0.5));
+
+    &.sets {
+        width: 200px;
+    }
+
+    ul {
+        padding-left: 20px;
+        margin: 0;
+
+        li {
+            padding: 5px 0;
+        }
+    }
+
+    h4 {
+        margin: 0 0 10px 0;
+    }
+
+    p {
+        margin: 0 !important;
+    }
+
+    a {
+        color: #116D9D;
+    }
+
+    .buttons {
+        margin-top: 10px;
+
+        .nextHelp,
+        .close-tour {
+            float: right;
+            margin-right: 8px;
+        }
+
+        .neverShow {
+            border-bottom: 1px dotted gray;
+            color: gray;
+            cursor: pointer;
+            display: inline-block;
+            margin-top: 3px;
+            text-decoration: none;
+        }
+    }
+}
+
+
+.closeBlock {
+    width:16px;
+    height:16px;
+    background-image:url('images/close.png');
+    background-repeat:no-repeat;
+    border: 0 none;
+    cursor: pointer;
+    display: block;
+    float: right;
+    font-size: 0;
+    line-height: 0;
+    position: relative;
+    text-decoration: none;
+    top: -5px;
+    right:-10px;
+}
+.cornerHelpBlock {
+    position: absolute;
+    z-index: 261;
+    width: 0;
+    height: 0;
+    margin: 0;
+
+    &.pos_bottom {
+        top: -16px;
+        left: 36px;
+
+        &:before {
+              border-color: transparent transparent transparent #EDEDED;
+              border-style: solid;
+              border-width: 16px 0 0 24px;
+              content: "";
+              height: 0;
+              left: -1px;
+              position: absolute;
+              top: -1px;
+              width: 0;
+        }
+
+        &:after {
+            border-color: transparent transparent transparent #FFF8DC;
+            border-style: solid;
+            border-width: 16px 0 0 24px;
+            content: "";
+            height: 0;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 0;
+        }
+    }
+
+    &.pos_bottom_left {
+        top: -16px;
+        right: 55px;
+
+        &:before {
+              border-color: transparent transparent #EDEDED transparent;
+              border-style: solid;
+              border-width: 0 0 16px 24px;
+              content: "";
+              height: 0;
+              left: 1px;
+              position: absolute;
+              top: -1px;
+              width: 0;
+        }
+
+        &:after {
+            border-color: transparent transparent #FFF8DC transparent;
+            border-style: solid;
+            border-width: 0 0 16px 24px;
+            content: "";
+            height: 0;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 0;
+        }
+    }
+
+    &.pos_top {
+        bottom: 0;
+        left: 36px;
+
+         &:before {
+              border-color: transparent transparent transparent #b8b8b8;
+              border-style: solid;
+              border-width: 0 0 16px 24px;
+              content: "";
+              height: 0;
+              left: -1px;
+              position: absolute;
+              top: 2px;
+              width: 0;
+        }
+
+        &:after {
+            border-color: transparent transparent transparent #FFF8DC;
+            border-style: solid;
+            border-width: 0 0 16px 24px;
+            content: "";
+            height: 0;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 0;
+        }
+    }
+
+    &.pos_top_left {
+        bottom: 0;
+        right: 56px;
+
+         &:before {
+              border-color: transparent #b8b8b8 transparent transparent;
+              border-style: solid;
+              border-width: 0 24px 16px 0;
+              content: "";
+              height: 0;
+              left: 1px;
+              position: absolute;
+              top: 2px;
+              width: 0;
+        }
+
+        &:after {
+            border-color: transparent #FFF8DC transparent transparent;
+            border-style: solid;
+            border-width: 0 24px 16px 0;
+            content: "";
+            height: 0;
+            left: 0;
+            position: absolute;
+            top: 0;
+            width: 0;
+        }
+    }
+}
+
+
+.HelpCenterSwitcher {
+    cursor: pointer;
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    margin: 0px 0px -4px;
+    float: none;
+    padding: 0;
+    position: relative;
+
+     &:after {
+        background-color: #83888d;
+        .borderRadius(12px);
+        color: #ffffff;
+        content: "?";
+        font-family: "Open Sans",sans-serif;
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 900;
+        height: 12px;
+        left: 3px;
+        position: absolute;
+        text-align: center;
+        top: 3px;
+        width: 12px;
+        line-height: 12px;
+        padding: 0;
+        margin: 0;
+        border: 0 none;
+    }
+
+
+    &.expl {
+        background: url("imagescss/expl_16.png") no-repeat center 1px;
+
+        &:after {
+            content: "";
+            display: none;
+            height: 0;
+            width: 0;
+        }
+    }
+
+    &.title {
+        margin-top: 7px;
+        margin-left: 5px;
+        float: left;
+
+        &.big {
+            margin-top: 10px;
+        }
+    }
+}

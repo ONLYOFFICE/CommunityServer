@@ -71,24 +71,24 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
   }
 
   function translateSymbols (str, toText) { 
-    var
-      symbols = [
-        ['&lt;',  '<'],
-        ['&gt;',  '>'],
-        ['&and;', '\\^'],
-        ['&sim;', '~'],
-        ['&amp;', '&']
+      var symbols = [
+          ['&lt;', '<'],
+          ['&gt;', '>'],
+          ['&and;', '\\^'],
+          ['&sim;', '~'],
+          ['&amp;', '&']
       ];
 
     if (typeof str !== 'string') {
       return '';
     }
-
+    // replace control symbols to spaces
+    str = str.replace(/[\0-\x08\x0E-\x1F]/g, ' ');
     // replace html to symbols
     if (typeof toText === 'undefined' || toText === true) {
       var symInd = symbols.length;
       while (symInd--) {
-        str = str.replace(new RegExp(symbols[symInd][0], 'g'), symbols[symInd][1]); 
+        str = str.replace(new RegExp(symbols[symInd][0], 'g'), symbols[symInd][1]);
       }
     // replace symbols to html
     } else {
@@ -734,7 +734,7 @@ window.ASC.TMTalk.meseditorContainer = (function ($) {
   var showErrorMessage = function (cid, message) {
     var o = document.createElement('div');
     o.innerHTML = message.replace(/\n/g, '');
-    ASC.TMTalk.messagesManager.sendMessageToChat(cid, translateSymbols(trim(getNodeContent(o))), true);
+    ASC.TMTalk.messagesManager.sendMessageToChat(cid, translateSymbols(getNodeContent(o)), true);
   };
 
   var sendMessage = function (cid, type, message) {

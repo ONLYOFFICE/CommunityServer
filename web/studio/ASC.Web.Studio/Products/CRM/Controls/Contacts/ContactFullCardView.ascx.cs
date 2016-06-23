@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,17 +26,16 @@
 
 #region Import
 
-using System;
-using System.Linq;
-using System.Web;
-using System.Text;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Entities;
 using ASC.Web.CRM.Classes;
 using ASC.Web.CRM.Controls.Common;
 using ASC.Web.CRM.Resources;
-using ASC.Web.Core.Mobile;
-using System.Collections.Generic;
+using System;
+using System.Linq;
+using System.Text;
+using System.Web;
+
 
 #endregion
 
@@ -55,16 +54,12 @@ namespace ASC.Web.CRM.Controls.Contacts
 
         public Contact TargetCompanyIfPerson { get; set; }
 
-        protected bool MobileVer = false;
-
         #endregion
 
         #region Events
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            MobileVer = MobileDetector.IsMobile;
-
             TargetCompanyIfPerson = TargetContact is Person && ((Person)TargetContact).CompanyID != 0 ?
                 Global.DaoFactory.GetContactDao().GetByID(((Person)TargetContact).CompanyID) :
                 null;

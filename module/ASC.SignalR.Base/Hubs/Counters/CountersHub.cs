@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -65,9 +65,9 @@ namespace ASC.SignalR.Base.Hubs.Counters
                 }
                 ConnectUser();
             }
-            catch
+            catch (Exception ex)
             {
-
+                log.Error("Error CountersHub OnConnected", ex);
             }
             return base.OnConnected();
         }
@@ -83,9 +83,9 @@ namespace ASC.SignalR.Base.Hubs.Counters
                 }
                 DisconnectUser();
             }
-            catch
+            catch (Exception ex)
             {
-
+                log.Error("Error CountersHub OnDisconnected", ex);
             }
 
             return base.OnDisconnected(stopCalled);
@@ -97,10 +97,12 @@ namespace ASC.SignalR.Base.Hubs.Counters
             var user = (IUserAccount)Context.User.Identity;
             CoreContext.TenantManager.SetCurrentTenant(user.Tenant);
             var currentUser = CoreContext.UserManager.GetUsers(user.ID);
-            var counts = new Counts();
-            counts.MessagesCount = GetMessagesCount(currentUser);
-            counts.FeedsCount = GetUserFeedsCount();
-            counts.MailsCount = GetMailsCount(currentUser);
+            var counts = new Counts
+            {
+                MessagesCount = GetMessagesCount(currentUser),
+                FeedsCount = GetUserFeedsCount(),
+                MailsCount = GetMailsCount(currentUser)
+            };
 
             return counts;
         }
@@ -180,7 +182,7 @@ namespace ASC.SignalR.Base.Hubs.Counters
                     CoreContext.TenantManager.SetCurrentTenant(userAccount.Tenant);
                     var currentUser = CoreContext.UserManager.GetUsers(userAccount.ID);
 
-                    if (!currentUser.Equals(Core.Users.Constants.LostUser))
+                    if (!currentUser.Equals(Constants.LostUser))
                     {
                         string currentUserName = currentUser.UserName.ToLowerInvariant();
                         var connectionsCount = Connections.Add(currentUser.Tenant, currentUserName, Context.ConnectionId);
@@ -231,7 +233,7 @@ namespace ASC.SignalR.Base.Hubs.Counters
                     }
                     var currentUser = CoreContext.UserManager.GetUsers(userAccount.ID);
 
-                    if (!currentUser.Equals(Core.Users.Constants.LostUser))
+                    if (!currentUser.Equals(Constants.LostUser))
                     {
                         string currentUserName = currentUser.UserName.ToLowerInvariant();
                         bool result;

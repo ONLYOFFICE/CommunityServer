@@ -102,7 +102,6 @@ BEGIN
 	  PRIMARY KEY (`index_name`)
 	) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-	REPLACE INTO `tenants_quota` (`tenant`, `name`, `description`, `max_file_size`, `max_total_size`, `active_users`, `features`, `price`, `price2`, `avangate_id`, `visible`) VALUES (-400, 'open', NULL, 100, 8192, 400, 'open,free,docs,year', 0.00, 0.00, NULL, 0);
 	INSERT IGNORE INTO `crm_currency_info` (`resource_key`, `abbreviation`, `symbol`, `culture_name`, `is_convertable`, `is_basic`) VALUES ('Currency_CentralAfricanFranc', 'XAF', 'franc', 'CF', 1, 0);
 	INSERT IGNORE INTO `crm_currency_info` (`resource_key`, `abbreviation`, `symbol`, `culture_name`, `is_convertable`, `is_basic`) VALUES ('Currency_WestAfricanFranc', 'XOF', 'franc', 'ML', 1, 0);
 	INSERT IGNORE INTO `crm_currency_info` (`resource_key`, `abbreviation`, `symbol`, `culture_name`, `is_convertable`, `is_basic`) VALUES ('Currency_DominicanPeso', 'DOP', 'RD$', 'DO', 1, 0);

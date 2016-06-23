@@ -29,113 +29,111 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
-using Novell.Directory.Ldap;
 using Novell.Directory.Ldap.Asn1;
+using System;
+using System.IO;
 
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> Represents and Ldap Bind Response.
-	/// 
-	/// <pre>
-	/// BindResponse ::= [APPLICATION 1] SEQUENCE {
-	/// 
-	/// COMPONENTS OF LdapResult,
-	/// serverSaslCreds    [7] OCTET STRING OPTIONAL }
-	/// </pre>
-	/// </summary>
-	public class RfcBindResponse:Asn1Sequence, RfcResponse
-	{
-		/// <summary> Returns the OPTIONAL serverSaslCreds of a BindResponse if it exists
-		/// otherwise null.
-		/// </summary>
-		virtual public Asn1OctetString ServerSaslCreds
-		{
-			get
-			{
-				if (size() == 5)
-					return (Asn1OctetString) ((Asn1Tagged) get_Renamed(4)).taggedValue();
-				
-				if (size() == 4)
-				{
-					// could be referral or serverSaslCreds
-					Asn1Object obj = get_Renamed(3);
-					if (obj is Asn1Tagged)
-						return (Asn1OctetString) ((Asn1Tagged) obj).taggedValue();
-				}
-				
-				return null;
-			}
-			
-		}
-		
-		//*************************************************************************
-		// Constructors for BindResponse
-		//*************************************************************************
-		
-		/// <summary> The only time a client will create a BindResponse is when it is
-		/// decoding it from an InputStream
-		/// 
-		/// Note: If serverSaslCreds is included in the BindResponse, it does not
-		/// need to be decoded since it is already an OCTET STRING.
-		/// </summary>
-		[CLSCompliantAttribute(false)]
-		public RfcBindResponse(Asn1Decoder dec, System.IO.Stream in_Renamed, int len):base(dec, in_Renamed, len)
-		{
-			
-			// Decode optional referral from Asn1OctetString to Referral.
-			if (size() > 3)
-			{
-				Asn1Tagged obj = (Asn1Tagged) get_Renamed(3);
-				Asn1Identifier id = obj.getIdentifier();
-				if (id.Tag == RfcLdapResult.REFERRAL)
-				{
-					sbyte[] content = ((Asn1OctetString) obj.taggedValue()).byteValue();
-					System.IO.MemoryStream bais = new System.IO.MemoryStream(SupportClass.ToByteArray(content));
-					set_Renamed(3, new RfcReferral(dec, bais, content.Length));
-				}
-			}
-		}
-		
-		//*************************************************************************
-		// Accessors
-		//*************************************************************************
-		
-		/// <summary> </summary>
-		public Asn1Enumerated getResultCode()
-		{
-			return (Asn1Enumerated) get_Renamed(0);
-		}
-		
-		/// <summary> </summary>
-		public RfcLdapDN getMatchedDN()
-		{
-			return new RfcLdapDN(((Asn1OctetString) get_Renamed(1)).byteValue());
-		}
-		
-		/// <summary> </summary>
-		public RfcLdapString getErrorMessage()
-		{
-			return new RfcLdapString(((Asn1OctetString) get_Renamed(2)).byteValue());
-		}
-		
-		/// <summary> </summary>
-		public RfcReferral getReferral()
-		{
-			if (size() > 3)
-			{
-				Asn1Object obj = get_Renamed(3);
-				if (obj is RfcReferral)
-					return (RfcReferral) obj;
-			}
-			return null;
-		}
-		
-		/// <summary> Override getIdentifier to return an application-wide id.</summary>
-		public override Asn1Identifier getIdentifier()
-		{
-			return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.BIND_RESPONSE);
-		}
-	}
+
+    /// <summary> Represents and Ldap Bind Response.
+    /// 
+    /// <pre>
+    /// BindResponse ::= [APPLICATION 1] SEQUENCE {
+    /// 
+    /// COMPONENTS OF LdapResult,
+    /// serverSaslCreds    [7] OCTET STRING OPTIONAL }
+    /// </pre>
+    /// </summary>
+    public class RfcBindResponse : Asn1Sequence, RfcResponse
+    {
+        /// <summary> Returns the OPTIONAL serverSaslCreds of a BindResponse if it exists
+        /// otherwise null.
+        /// </summary>
+        virtual public Asn1OctetString ServerSaslCreds
+        {
+            get
+            {
+                if (size() == 5)
+                    return (Asn1OctetString)((Asn1Tagged)get_Renamed(4)).taggedValue();
+
+                if (size() == 4)
+                {
+                    // could be referral or serverSaslCreds
+                    Asn1Object obj = get_Renamed(3);
+                    if (obj is Asn1Tagged)
+                        return (Asn1OctetString)((Asn1Tagged)obj).taggedValue();
+                }
+                return null;
+            }
+        }
+
+        //*************************************************************************
+        // Constructors for BindResponse
+        //*************************************************************************
+
+        /// <summary> The only time a client will create a BindResponse is when it is
+        /// decoding it from an InputStream
+        /// 
+        /// Note: If serverSaslCreds is included in the BindResponse, it does not
+        /// need to be decoded since it is already an OCTET STRING.
+        /// </summary>
+        [CLSCompliantAttribute(false)]
+        public RfcBindResponse(Asn1Decoder dec, Stream in_Renamed, int len)
+            : base(dec, in_Renamed, len)
+        {
+            // Decode optional referral from Asn1OctetString to Referral.
+            if (size() > 3)
+            {
+                Asn1Tagged obj = (Asn1Tagged)get_Renamed(3);
+                Asn1Identifier id = obj.getIdentifier();
+                if (id.Tag == RfcLdapResult.REFERRAL)
+                {
+                    sbyte[] content = ((Asn1OctetString)obj.taggedValue()).byteValue();
+                    MemoryStream bais = new MemoryStream(SupportClass.ToByteArray(content));
+                    set_Renamed(3, new RfcReferral(dec, bais, content.Length));
+                }
+            }
+        }
+
+        //*************************************************************************
+        // Accessors
+        //*************************************************************************
+
+        /// <summary> </summary>
+        public Asn1Enumerated getResultCode()
+        {
+            return (Asn1Enumerated)get_Renamed(0);
+        }
+
+        /// <summary> </summary>
+        public RfcLdapDN getMatchedDN()
+        {
+            return new RfcLdapDN(((Asn1OctetString)get_Renamed(1)).byteValue());
+        }
+
+        /// <summary> </summary>
+        public RfcLdapString getErrorMessage()
+        {
+            return new RfcLdapString(((Asn1OctetString)get_Renamed(2)).byteValue());
+        }
+
+        /// <summary> </summary>
+        public RfcReferral getReferral()
+        {
+            if (size() > 3)
+            {
+                Asn1Object obj = get_Renamed(3);
+                if (obj is RfcReferral)
+                    return (RfcReferral)obj;
+            }
+            return null;
+        }
+
+        /// <summary> Override getIdentifier to return an application-wide id.</summary>
+        public override Asn1Identifier getIdentifier()
+        {
+            return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.BIND_RESPONSE);
+        }
+    }
 }

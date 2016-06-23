@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -223,42 +223,42 @@ namespace ASC.Web.Studio.Core.Notify
         private string getWhatsNewActionText(FeedMin feed) {
 
             if (feed.Module == ASC.Feed.Constants.BookmarksModule)
-                return WebstudioPatternResource.ActionCreateBookmark;
+                return WebstudioNotifyPatternResource.ActionCreateBookmark;
             else if (feed.Module == ASC.Feed.Constants.BlogsModule)
-                return WebstudioPatternResource.ActionCreateBlog;
+                return WebstudioNotifyPatternResource.ActionCreateBlog;
             else if (feed.Module == ASC.Feed.Constants.ForumsModule)
             {
                 if (feed.Item == "forumTopic")
-                    return WebstudioPatternResource.ActionCreateForum;
+                    return WebstudioNotifyPatternResource.ActionCreateForum;
                 if (feed.Item == "forumPost")
-                    return WebstudioPatternResource.ActionCreateForumPost;
+                    return WebstudioNotifyPatternResource.ActionCreateForumPost;
                 if (feed.Item == "forumPoll")
-                    return WebstudioPatternResource.ActionCreateForumPoll;
+                    return WebstudioNotifyPatternResource.ActionCreateForumPoll;
             }
             else if (feed.Module == ASC.Feed.Constants.EventsModule)
-                return WebstudioPatternResource.ActionCreateEvent;
+                return WebstudioNotifyPatternResource.ActionCreateEvent;
             else if (feed.Module == ASC.Feed.Constants.ProjectsModule)
-                return WebstudioPatternResource.ActionCreateProject;
+                return WebstudioNotifyPatternResource.ActionCreateProject;
             else if (feed.Module == ASC.Feed.Constants.MilestonesModule)
-                return WebstudioPatternResource.ActionCreateMilestone;
+                return WebstudioNotifyPatternResource.ActionCreateMilestone;
             else if (feed.Module == ASC.Feed.Constants.DiscussionsModule)
-                return WebstudioPatternResource.ActionCreateDiscussion;
+                return WebstudioNotifyPatternResource.ActionCreateDiscussion;
             else if (feed.Module == ASC.Feed.Constants.TasksModule)
-                return WebstudioPatternResource.ActionCreateTask;
+                return WebstudioNotifyPatternResource.ActionCreateTask;
             else if (feed.Module == ASC.Feed.Constants.CommentsModule)
-                return WebstudioPatternResource.ActionCreateComment;
+                return WebstudioNotifyPatternResource.ActionCreateComment;
             else if (feed.Module == ASC.Feed.Constants.CrmTasksModule)
-                return WebstudioPatternResource.ActionCreateTask;
+                return WebstudioNotifyPatternResource.ActionCreateTask;
             else if (feed.Module == ASC.Feed.Constants.ContactsModule)
-                return WebstudioPatternResource.ActionCreateContact;
+                return WebstudioNotifyPatternResource.ActionCreateContact;
             else if (feed.Module == ASC.Feed.Constants.DealsModule)
-                return WebstudioPatternResource.ActionCreateDeal;
+                return WebstudioNotifyPatternResource.ActionCreateDeal;
             else if (feed.Module == ASC.Feed.Constants.CasesModule)
-                return WebstudioPatternResource.ActionCreateCase;
+                return WebstudioNotifyPatternResource.ActionCreateCase;
             else if (feed.Module == ASC.Feed.Constants.FilesModule)
-                return WebstudioPatternResource.ActionCreateFile;
+                return WebstudioNotifyPatternResource.ActionCreateFile;
             else if (feed.Module == ASC.Feed.Constants.FoldersModule)
-                return WebstudioPatternResource.ActionCreateFolder;
+                return WebstudioNotifyPatternResource.ActionCreateFolder;
 
             return "";
         }

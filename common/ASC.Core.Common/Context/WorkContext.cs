@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,14 +24,14 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using ASC.Core.Common.Notify;
 using ASC.Core.Notify;
 using ASC.Core.Notify.Senders;
 using ASC.Core.Tenants;
 using ASC.Notify.Engine;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Reflection;
 using Constants = ASC.Core.Configuration.Constants;
 using NotifyContext = ASC.Notify.Context;
 
@@ -43,6 +43,7 @@ namespace ASC.Core
         private static bool notifyStarted;
         private static NotifyContext notifyContext;
         private static bool? ismono;
+        private static string monoversion;
 
 
         public static NotifyContext NotifyContext
@@ -63,7 +64,30 @@ namespace ASC.Core
         {
             get
             {
-                return ismono.HasValue ? ismono.Value : (ismono = (bool?)(Type.GetType("Mono.Runtime") != null)).Value;
+                if (ismono.HasValue)
+                {
+                    return ismono.Value;
+                }
+
+                var monoRuntime = Type.GetType("Mono.Runtime");
+                ismono = monoRuntime != null;
+                if (monoRuntime != null)
+                {
+                    var dispalayName = monoRuntime.GetMethod("GetDisplayName", BindingFlags.NonPublic | BindingFlags.Static);
+                    if (dispalayName != null)
+                    {
+                        monoversion = dispalayName.Invoke(null, null) as string;
+                    }
+                }
+                return ismono.Value;
+            }
+        }
+
+        public static string MonoVersion
+        {
+            get
+            {
+                return IsMono ? monoversion : null;
             }
         }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,98 +24,132 @@
 */
 
 
+using ASC.FullTextIndex.Service.Config;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
-using ASC.FullTextIndex.Service.Config;
-using log4net;
 
 namespace ASC.FullTextIndex.Service
 {
     internal class TextSearcher
     {
-        private static TextSearcher instance;
-        public static TextSearcher Instance
-        {
-            get
-            {
-                return instance ?? (instance = new TextSearcher());
-            }
-        }
+        private static readonly ILog log = LogManager.GetLogger("ASC");
+
+        private static TextSearcher instance = new TextSearcher();
 
         private Process searchd;
-        private readonly ILog log = LogManager.GetLogger("ASC");
+
+
+        public static TextSearcher Instance { get { return instance; } }
+
 
         public void Start()
         {
-            if(searchd != null && !searchd.HasExited) return;
-
-            try
+            if (searchd == null || searchd.HasExited)
             {
-                var startInfo = new ProcessStartInfo
+                ClearBinlogFiles();
+
+                try
                 {
-                    CreateNoWindow = false,
-                    UseShellExecute = false,
-                    FileName = TextIndexCfg.SearcherName,
-                    WindowStyle = ProcessWindowStyle.Hidden,
-                    Arguments = string.Format("--config \"{0}\"", TextIndexCfg.ConfPath),
-                    WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
-                };
+                    var startInfo = new ProcessStartInfo
+                    {
+                        CreateNoWindow = false,
+                        UseShellExecute = false,
+                        FileName = TextIndexCfg.SearcherName,
+                        WindowStyle = ProcessWindowStyle.Hidden,
+                        Arguments = string.Format("--config \"{0}\"", TextIndexCfg.ConfPath),
+                        WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory
+                    };
 
-                searchd = Process.Start(startInfo);
-            }
-            catch (Exception e)
-            {
-                log.Error("Searchd failed stop", e);
+                    searchd = Process.Start(startInfo);
+                }
+                catch (Exception e)
+                {
+                    log.Error("Searchd failed start", e);
+                }
             }
         }
 
         public void Stop()
         {
-            if (searchd == null) return;
+            if (searchd != null)
+            {
+                try
+                {
+                    searchd.Kill();
+                    if (!searchd.WaitForExit(10000)) /* wait 10 seconds */
+                    {
+                        log.Warn("The process does not wait for completion searchd.");
+                    }
+                    searchd.Close();
+                    searchd.Dispose();
+                    searchd = null;
 
-            try
-            {
-                searchd.Kill();
-                searchd.WaitForExit();
-                searchd.Close();
-                searchd.Dispose();
-                searchd = null;
-            }
-            catch (Exception e)
-            {
-                log.Error("Searchd failed stop", e);
+                    ClearBinlogFiles();
+                }
+                catch (Exception e)
+                {
+                    log.Error("Searchd failed stop", e);
+                }
             }
         }
 
-        public Dictionary<string, IEnumerable<int>> Search(IEnumerable<ModuleInfo> modules, int tenantID)
+        public int[] Search(string[] modules, int tenantID)
         {
-            var result = new Dictionary<string, IEnumerable<int>>();
+            var result = new Dictionary<string, int[]>();
             foreach (var module in modules)
             {
                 try
                 {
                     var ids = new List<int>();
 
-                    var temp = module.SqlQuery;
+                    var name = module.Substring(0, module.IndexOf("|"));
+                    var sql = module.Substring(module.IndexOf("|") + 1);
 
-                    module.SqlQuery = temp.Replace(module.Name, TextIndexCfg.Chunks > 1 ? module.GetChunkByTenantId(tenantID, TextIndexCfg.Chunks, TextIndexCfg.Dimension) : module.Main);                    
-                    ids.AddRange(DbProvider.Search(module));
+                    var mainname = name + "_main";
+                    if (1 < TextIndexCfg.Chunks)
+                    {
+                        var index = tenantID / TextIndexCfg.Dimension;
+                        if (index >= TextIndexCfg.Chunks)
+                        {
+                            index = TextIndexCfg.Chunks - 1;
+                        }
+                        mainname = ModuleInfo.GetChunk(name, index + 1);
+                    }
+                    var replacedSql = sql.Replace(name, mainname);
+                    ids.AddRange(DbProvider.Search(replacedSql));
 
-                    module.SqlQuery = temp.Replace(module.Name, module.Delta);
-                    ids.AddRange(DbProvider.Search(module));
+                    replacedSql = sql.Replace(name, name + "_delta");
+                    ids.AddRange(DbProvider.Search(replacedSql));
 
-                    result.Add(module.Name, ids);
+                    result.Add(name, ids.ToArray());
                 }
                 catch (Exception e)
                 {
                     Start();
-                    log.ErrorFormat("Searchd: search failed, module :{0}, exception:{1}", module.Name, e.Message);
+                    log.ErrorFormat("Searchd: search failed, module :{0}, exception:{1}", module, e.Message);
                 }
             }
 
-            return result;
+            return result.SelectMany(r => r.Value).Distinct().ToArray();
+        }
+
+        private static void ClearBinlogFiles()
+        {
+            try
+            {
+                foreach (var file in Directory.GetFiles(TextIndexCfg.DataPath, "binlog.*"))
+                {
+                    File.Delete(file);
+                }
+            }
+            catch (Exception e)
+            {
+                log.ErrorFormat("Searchd: ClearBinlogFiles failed, module :{0}", e);
+            }
         }
     }
 }

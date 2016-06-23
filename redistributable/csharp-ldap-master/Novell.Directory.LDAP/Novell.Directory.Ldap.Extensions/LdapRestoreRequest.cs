@@ -30,11 +30,10 @@
 //
 
 
+using Novell.Directory.Ldap.Asn1;
 using System;
 using System.IO;
-
-using Novell.Directory.Ldap;
-using Novell.Directory.Ldap.Asn1;
+using System.Text;
 
 /**
 *
@@ -95,8 +94,8 @@ namespace Novell.Directory.Ldap.Extensions
 		*                          message and an LDAP error code.
 		*/
 
-		public LdapRestoreRequest(String objectDN, byte[] passwd, 
-			int bufferLength, String chunkSizesString, byte[] returnedBuffer): 
+		public LdapRestoreRequest(string objectDN, byte[] passwd, 
+			int bufferLength, string chunkSizesString, byte[] returnedBuffer): 
 			base(BackupRestoreConstants.NLDAP_LDAP_RESTORE_REQUEST, null)			
 		{	
 			try 
@@ -108,7 +107,7 @@ namespace Novell.Directory.Ldap.Extensions
 				
 				//If encrypted password has null reference make it null String
 				if(passwd == null)
-					passwd = System.Text.Encoding.UTF8.GetBytes("");
+					passwd = Encoding.UTF8.GetBytes("");
 			
 				/*
 				 * From the input argument chunkSizesString get::
@@ -123,7 +122,7 @@ namespace Novell.Directory.Ldap.Extensions
 				{
 					chunkSize = int.Parse(chunkSizesString.Substring(0, index));
 				} 
-				catch (FormatException e) 
+				catch (FormatException) 
 				{
 					throw new LdapLocalException(
 							"Invalid data buffer send in the request",
@@ -188,9 +187,9 @@ namespace Novell.Directory.Ldap.Extensions
 				setValue(SupportClass.ToSByteArray(encodedData.ToArray()));
 
 			} 
-			catch (IOException ioe) 
+			catch (IOException) 
 			{
-				throw new LdapException("ENCODING_ERROR", LdapException.ENCODING_ERROR, (String) null);
+				throw new LdapException("ENCODING_ERROR", LdapException.ENCODING_ERROR, null);
 			}
 		}	
 	}

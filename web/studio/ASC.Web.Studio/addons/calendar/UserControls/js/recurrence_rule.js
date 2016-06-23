@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -111,14 +111,15 @@ ASC.Api.iCal.RecurrenceRule = function() {
                 break;
         }
 
-        if (this.Until != null && this.Until != undefined && this.Until != "")
+        if (this.Until) {
             sb += ';until=' + this.DateToiCalFormat(this.Until);
-
-        if (this.Count >= 0)
+        } else if (this.Count >= 0) {
             sb += ';count=' + this.Count;
+        }
 
-        if (this.Interval > 1)
+        if (this.Interval > 1) {
             sb += ';interval=' + this.Interval;
+        }
 
         if (this.ByDay != null && this.ByDay != undefined && this.ByDay.length > 0) {
 

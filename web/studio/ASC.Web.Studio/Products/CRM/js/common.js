@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -267,6 +267,13 @@ ASC.CRM.Common = (function() {
                         jq(my_tooltip).data("overTaskDescrPanel", false);
                         hideDescrPanel(my_tooltip);
                     });
+
+                jq(document).on("keypress", function (evt) {
+                    if (!(evt.hasOwnProperty("ctrlKey") && evt.ctrlKey === true && (evt.which === 99 || evt.which === 97))) {//ctrl + c and ctrl + a
+                        jq(my_tooltip).data("overTaskDescrPanel", false);
+                        hideDescrPanel(my_tooltip);
+                    }
+                });
             });
         },
 
@@ -377,7 +384,7 @@ ASC.CRM.Common = (function() {
                 customFactory: ASC.CRM.Common.contactItemFactory
             });
 
-            jq(window).bind("registerContactInfoCard", function (event, newElem) {
+            jq(window).on("registerContactInfoCard", function (event, newElem) {
                 var id = newElem.attr('id');
                 if (id != null && id != '') {
                     CRMContactInfoCard.RegistryElement(id, newElem.attr('data-id'));
@@ -673,6 +680,10 @@ ASC.CRM.Common = (function() {
             if (jq("#openListInEditor").length == 1) {
                 jq("#openListInEditor").parent().addClass("display-none");
             }
+
+            if (!jq("#otherActions li:not(.display-none)").length) {
+                jq("#menuOtherActionsButton").hide();
+            }
         },
 
         showExportButtons: function () {
@@ -681,6 +692,10 @@ ASC.CRM.Common = (function() {
             }
             if (jq("#openListInEditor").length == 1) {
                 jq("#openListInEditor").parent().removeClass("display-none");
+            }
+
+            if (!!jq("#otherActions li:not(.display-none)").length) {
+                jq("#menuOtherActionsButton").show();
             }
         },
 
@@ -1035,53 +1050,49 @@ ASC.CRM.Common = (function() {
             var message = new ASC.Mail.Message();
             message.to = [typeof (invoice.contact.email) != "undefined" && invoice.contact.email != null ? invoice.contact.email.data : ""];
             message.subject = '';
-            message.body = invoice.description;
+            message.body = invoice.description.replace(/\r\n|\n|\r/g, '<br>');
             message.AddDocumentsForSave([invoice.fileId]);
 
-            ASC.Mail.Utility.Unbind(ASC.Mail.Utility.Events.OnSuccess);
-            ASC.Mail.Utility.Bind(ASC.Mail.Utility.Events.OnSuccess, function (event, data) {
-                LoadingBanner.hideLoading();
-                if (newTab && newTab.location) {
-                    newTab.location.href = data.messageUrl;
-                } else {
-                    window.location.href = data.messageUrl;
-                }
-            });
+            ASC.Mail.Utility
+                .SaveMessageInDrafts(message)
+                    .done(function (params, data) {
+                        LoadingBanner.hideLoading();
+                        if (newTab && newTab.location) {
+                            newTab.location.href = data.messageUrl;
+                        } else {
+                            window.location.href = data.messageUrl;
+                        }
+                    })
+                    .fail(function (params, error) {
+                        console.log(params, error);
+                        if(error === "No accounts.")
+                        {
+                            if (newTab) {
+                                newTab.close();
+                            }
+                            if (jq("#noMailAccountsError").length == 0) {
+                                jq.tmpl("template-blockUIPanel", {
+                                    id: "noMailAccountsError",
+                                    headerTest: ASC.CRM.Resources.CRMCommonResource.Alert,
+                                    questionText: "",
+                                    innerHtmlText: ['<div>', ASC.CRM.Resources.CRMCommonResource.NoMailAccountsAvailableError, '</div>'].join(''),
+                                    CancelBtn: ASC.CRM.Resources.CRMCommonResource.Close,
+                                    OKBtn: ASC.CRM.Resources.CRMCommonResource.AddMailAccount,
+                                    OKBtnClass: "OKAddMailAccount"
+                                }).appendTo(".mainContainerClass .containerBodyBlock");
 
-            ASC.Mail.Utility.Unbind(ASC.Mail.Utility.Events.OnError);
-            ASC.Mail.Utility.Bind(ASC.Mail.Utility.Events.OnError, function (event, message) {
-                console.log(event, message);
-                LoadingBanner.hideLoading();
-            });
+                                jq("#noMailAccountsError").on("click", ".OKAddMailAccount", function () {
+                                    window.open(ASC.CRM.Common.getMailModuleBasePath(), "_blank");
+                                    jq.unblockUI();
+                                });
+                            }
 
-            ASC.Mail.Utility.Unbind(ASC.Mail.Utility.Events.OnNoAccounts);
-            ASC.Mail.Utility.Bind(ASC.Mail.Utility.Events.OnNoAccounts, function (event, message) {
-                if (newTab) {
-                    newTab.close();
-                }
-                if (jq("#noMailAccountsError").length == 0) {
-                    jq.tmpl("template-blockUIPanel", {
-                        id: "noMailAccountsError",
-                        headerTest: ASC.CRM.Resources.CRMCommonResource.Alert,
-                        questionText: "",
-                        innerHtmlText: ['<div>', ASC.CRM.Resources.CRMCommonResource.NoMailAccountsAvailableError, '</div>'].join(''),
-                        CancelBtn: ASC.CRM.Resources.CRMCommonResource.Close,
-                        OKBtn: ASC.CRM.Resources.CRMCommonResource.AddMailAccount,
-                        OKBtnClass: "OKAddMailAccount"
-                    }).appendTo(".mainContainerClass .containerBodyBlock");
-
-                    jq("#noMailAccountsError").on("click", ".OKAddMailAccount", function () {
-                        window.open(ASC.CRM.Common.getMailModuleBasePath(), "_blank");
-                        jq.unblockUI();
+                            PopupKeyUpActionProvider.EnableEsc = false;
+                            StudioBlockUIManager.blockUI("#noMailAccountsError", 500, 200, 0);
+                        }
+                        
+                        LoadingBanner.hideLoading();
                     });
-                }
-                LoadingBanner.hideLoading();
-                PopupKeyUpActionProvider.EnableEsc = false;
-                StudioBlockUIManager.blockUI("#noMailAccountsError", 500, 200, 0);
-            });
-
-            ASC.Mail.Utility.SaveMessageInDrafts(message);
-
         },
 
         setPostionPageLoader: function () {
@@ -1393,8 +1404,6 @@ ASC.CRM.HistoryView = (function () {
                 });
         };
 
-        ASC.CRM.Common.registerChangeHoverStateByParent("label.event_category", "#eventsTable>tbody>tr");
-
         ASC.CRM.FileUploader.activateUploader();
         ASC.CRM.FileUploader.fileIDs.clear();
 
@@ -1453,6 +1462,7 @@ ASC.CRM.HistoryView = (function () {
                                 '</b>',
                                 '<br/><br/><a href="' + ASC.Resources.Master.FilterHelpCenterLink + '" target="_blank">',
                                 '</a>'),
+                    hintDefaultDisable: !ASC.Resources.Master.FilterHelpCenterLink,
                     maxfilters: 3,
                     maxlength: "100",
                     store: false,
@@ -1664,7 +1674,7 @@ ASC.CRM.HistoryView = (function () {
                 window.SelectedUsers_HistoryUserSelector.Names.clear();
                 jq("#selectedUsers_HistoryUserSelector div").remove();
 
-                if (!jq.browser.mobile && !params.fromAttachmentsControl) {
+                if (!params.fromAttachmentsControl) {
                     ASC.CRM.FileUploader.reinit();
                     ASC.CRM.HistoryView.showAttachmentPanel(false);
                 }
@@ -1755,9 +1765,7 @@ ASC.CRM.HistoryView = (function () {
 
             jq("#historyBlock table #selectedUsers").remove();
 
-            if (!jq.browser.mobile) {
-                _initFileUploader();
-            }
+            _initFileUploader();
 
             _initEventCategorySelector();
 
@@ -1955,7 +1963,7 @@ ASC.CRM.HistoryView = (function () {
 
             if (!text.length || text.length > ASC.CRM.Data.MaxHistoryEventCharacters) return;
 
-            if (!jq.browser.mobile && ASC.CRM.FileUploader.getUploadFileCount() > 0) {
+            if (ASC.CRM.FileUploader.getUploadFileCount() > 0) {
                 ASC.CRM.FileUploader.start();
             } else {
                 var data = _readDataEvent();
@@ -2341,10 +2349,19 @@ ASC.CRM.ContactSelector = new function() {
                 }
 
                 var term = request.term;
+
                 if (term in obj.Cache) {
                     var contacts = obj.Cache[term];
                     response(_getSourceAutocompleteCallback(advancedInput, objName, obj, contacts));
                     return;
+                } else {
+                    for (var cacheterm in obj.Cache) {
+                        if (obj.Cache[cacheterm].length == 0 && term.indexOf(cacheterm) == 0) {
+                            var contacts = [];
+                            response(_getSourceAutocompleteCallback(advancedInput, objName, obj, contacts));
+                            return;
+                        }
+                    }
                 }
 
                 var data = { prefix: term, searchType: obj.SelectorType, entityType: obj.EntityType, entityID: obj.EntityID };

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -41,7 +41,6 @@ window.ASC.Files.Editor = (function () {
     var tabId = "";
     var serverErrorMessage = null;
     var editByUrl = false;
-    var canCreate = true;
     var thirdPartyApp = false;
     var options = null;
     var openinigDate;
@@ -57,7 +56,6 @@ window.ASC.Files.Editor = (function () {
         window.onbeforeunload = ASC.Files.Editor.finishEdit;
 
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.TrackEditFile, completeTrack);
-        ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.CanEditFile, completeCanEdit);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.StartEdit, onStartEdit);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetEditHistory, completeGetEditHistory);
         ASC.Files.ServiceManager.bind(ASC.Files.ServiceManager.events.GetDiffUrl, completeGetDiffUrl);
@@ -89,6 +87,7 @@ window.ASC.Files.Editor = (function () {
                 },
                 permissions: {
                     edit: serviceParams.canEdit,
+                    review: serviceParams.canReview,
                 },
             };
 
@@ -106,7 +105,7 @@ window.ASC.Files.Editor = (function () {
                     logo: {
                         image: ASC.Files.Editor.brandingLogoUrl || "",
                         imageEmbedded: ASC.Files.Editor.brandingLogoEmbeddedUrl || "",
-                        url: "",
+                        url: ASC.Files.Editor.brandingSite || "",
                     },
                     customer: {
                         logo: ASC.Files.Editor.brandingCustomerLogo || "",
@@ -138,9 +137,6 @@ window.ASC.Files.Editor = (function () {
                 editorConfig.customization.goback = {
                     url: serviceParams.folderUrl
                 };
-
-                //todo: delete
-                eventsConfig.onBack = ASC.Files.Editor.backEditor;
             }
 
             if (embedded) {
@@ -159,21 +155,27 @@ window.ASC.Files.Editor = (function () {
                 if (ASC.Files.Constants.URL_HANDLER_CREATE) {
                     editorConfig.createUrl = ASC.Files.Constants.URL_HANDLER_CREATE + "?action=create&doctype=" + serviceParams.documentType;
 
+                    switch (serviceParams.documentType) {
+                        case "text":
+                            editorConfig.createUrl += "&title=" + encodeURIComponent(ASC.Files.Constants.TitleNewFileText);
+                            break;
+                        case "spreadsheet":
+                            editorConfig.createUrl += "&title=" + encodeURIComponent(ASC.Files.Constants.TitleNewFileSpreadsheet);
+                            break;
+                        case "presentation":
+                            editorConfig.createUrl += "&title=" + encodeURIComponent(ASC.Files.Constants.TitleNewFilePresentation);
+                            break;
+                    }
+
                     editorConfig.templates =
                         jq(serviceParams.templates).map(
                             function (i, item) {
                                 return {
                                     name: item.Key,
                                     icon: item.Value,
-                                    url: ASC.Files.Constants.URL_HANDLER_CREATE
-                                        + "?action=create"
-                                        + "&doctype=" + serviceParams.documentType
-                                        + "&template=" + item.Key
+                                    url: editorConfig.createUrl + "&template=" + item.Key
                                 };
                             }).toArray();
-
-                    //todo: delete
-                    eventsConfig.onCreateFile = ASC.Files.Editor.createFile;
                 }
 
                 if (serviceParams.sharingSettingsUrl) {
@@ -192,8 +194,6 @@ window.ASC.Files.Editor = (function () {
                     id: serviceParams.user[0],
                     firstname: serviceParams.user[1],
                     lastname: serviceParams.user[2],
-                    //todo: delete
-                    name: serviceParams.user[3],
                 };
 
                 if (serviceParams.type != "embedded") {
@@ -208,12 +208,17 @@ window.ASC.Files.Editor = (function () {
             var documentTypeConfig = serviceParams.documentType;
 
             eventsConfig.onDocumentStateChange = ASC.Files.Editor.documentStateChangeEditor;
-            eventsConfig.onRequestEditRights = ASC.Files.Editor.requestEditRightsEditor;
+            if (ASC.Files.Editor.docServiceParams.linkToEdit) {
+                eventsConfig.onRequestEditRights = ASC.Files.Editor.requestEditRightsEditor;
+            }
             eventsConfig.onError = ASC.Files.Editor.errorEditor;
             eventsConfig.onOutdatedVersion = ASC.Files.Editor.reloadPage;
             eventsConfig.onInfo = ASC.Files.Editor.infoEditor;
-            eventsConfig.onRequestEmailAddresses = ASC.Files.Editor.getMails;
-            eventsConfig.onRequestStartMailMerge = ASC.Files.Editor.requestStartMailMerge;
+
+            if (ASC.Files.Constants.URL_MAIL_ACCOUNTS) {
+                eventsConfig.onRequestEmailAddresses = ASC.Files.Editor.getMails;
+                eventsConfig.onRequestStartMailMerge = ASC.Files.Editor.requestStartMailMerge;
+            }
 
             if (!serviceParams.file.provider_key
                 && !ASC.Files.Editor.editByUrl
@@ -263,15 +268,6 @@ window.ASC.Files.Editor = (function () {
         }
     };
 
-    var backEditor = function (event) {
-        if (event && event.data) {
-            window.open(href, "_blank");
-        } else {
-            clearTimeout(trackEditTimeout);
-            location.href = ASC.Files.Editor.docServiceParams.folderUrl;
-        }
-    };
-
     var documentStateChangeEditor = function (event) {
         if (docIsChanged != event.data) {
             document.title = ASC.Files.Editor.docServiceParams.file.title + (event.data ? " *" : "");
@@ -305,17 +301,6 @@ window.ASC.Files.Editor = (function () {
 
     var requestEditRightsEditor = function () {
         location.href = ASC.Files.Editor.docServiceParams.linkToEdit + ASC.Files.Editor.shareLinkParam;
-
-        // Request for old scheme
-        //if (ASC.Files.Editor.editByUrl) {
-        //    location.href = ASC.Files.Editor.docServiceParams.linkToEdit + ASC.Files.Editor.shareLinkParam;
-        //} else {
-        //    ASC.Files.ServiceManager.canEditFile(ASC.Files.ServiceManager.events.CanEditFile,
-        //        {
-        //            fileID: ASC.Files.Editor.docServiceParams.file.id,
-        //            shareLinkParam: ASC.Files.Editor.shareLinkParam
-        //        });
-        //}
     };
 
     var requestHistory = function () {
@@ -359,11 +344,6 @@ window.ASC.Files.Editor = (function () {
         }
     };
 
-    var createFile = function () {
-        var url = ASC.Files.Constants.URL_HANDLER_CREATE + "?action=create&doctype=" + ASC.Files.Editor.docServiceParams.documentType;
-        window.open(url, "_blank");
-    };
-
     var reloadPage = function () {
         location.reload(true);
     };
@@ -404,8 +384,10 @@ window.ASC.Files.Editor = (function () {
     var completeTrack = function (jsonData, params, errorMessage) {
         clearTimeout(trackEditTimeout);
         if (typeof errorMessage != "undefined") {
-            if (errorMessage == null) {
-                docEditorShowInfo("Connection is lost");
+            if (errorMessage == null || !errorMessage.length) {
+                setTimeout(function () {
+                    docEditorShowInfo("Connection is lost");
+                }, 500);
             } else {
                 docEditorShowWarning(errorMessage || "Connection is lost");
             }
@@ -428,12 +410,7 @@ window.ASC.Files.Editor = (function () {
     };
 
     var denyEditingRights = function (message) {
-        if (ASC.Files.Editor.docEditor.denyEditingRights) {
-            ASC.Files.Editor.docEditor.denyEditingRights(message || "Connection is lost");
-        } else if (ASC.Files.Editor.docEditor.processRightsChange) {
-            //todo: delete
-            ASC.Files.Editor.docEditor.processRightsChange(false, message || "Connection is lost");
-        }
+        ASC.Files.Editor.docEditor.denyEditingRights(message || "Connection is lost");
     };
 
     var docEditorShowError = function (message) {
@@ -518,17 +495,6 @@ window.ASC.Files.Editor = (function () {
         return result.slice(0, recentCount);
     };
 
-    var completeCanEdit = function (jsonData, params, errorMessage) {
-        var result = typeof jsonData != "undefined";
-        // occurs whenever the user tryes to enter edit mode
-        ASC.Files.Editor.docEditor.applyEditRights(result, errorMessage);
-
-        if (result) {
-            ASC.Files.Editor.tabId = jsonData;
-            ASC.Files.Editor.trackEdit();
-        }
-    };
-
     var completeGetEditHistory = function (jsonData, params, errorMessage) {
         if (typeof ASC.Files.Editor.docEditor.refreshHistory != "function") {
             if (typeof errorMessage != "undefined") {
@@ -573,6 +539,9 @@ window.ASC.Files.Editor = (function () {
             data = {
                 version: params.version,
                 url: jsonData.key,
+                changesUrl: jsonData.value,
+
+                //todo: remove
                 urlDiff: jsonData.value
             };
         }
@@ -593,13 +562,15 @@ window.ASC.Files.Editor = (function () {
         if (typeof errorMessage != "undefined") {
             var data = {
                 error: errorMessage || "Connection is lost",
-                createEmailAccountUrl: ASC.Files.Constants.URL_MAIL_ACCOUNTS,
             };
         } else {
             data = {
                 emailAddresses: jsonData,
-                createEmailAccountUrl: ASC.Files.Constants.URL_MAIL_ACCOUNTS,
             };
+        }
+
+        if (ASC.Files.Constants.URL_MAIL_ACCOUNTS) {
+            data.createEmailAccountUrl = ASC.Files.Constants.URL_MAIL_ACCOUNTS;
         }
 
         ASC.Files.Editor.docEditor.setEmailAddresses(data);
@@ -632,7 +603,6 @@ window.ASC.Files.Editor = (function () {
         tabId: tabId,
         serverErrorMessage: serverErrorMessage,
         editByUrl: editByUrl,
-        canCreate: canCreate,
         options: options,
         thirdPartyApp: thirdPartyApp,
         openinigDate: openinigDate,
@@ -642,7 +612,6 @@ window.ASC.Files.Editor = (function () {
 
         //event
         readyEditor: readyEditor,
-        backEditor: backEditor,
         documentStateChangeEditor: documentStateChangeEditor,
         requestEditRightsEditor: requestEditRightsEditor,
         errorEditor: errorEditor,
@@ -652,7 +621,6 @@ window.ASC.Files.Editor = (function () {
         getMails: getMails,
         requestStartMailMerge: requestStartMailMerge,
         infoEditor: infoEditor,
-        createFile: createFile,
 
         fixedVersion: fixedVersion,
         canShowHistory: canShowHistory,
@@ -663,7 +631,7 @@ window.ASC.Files.Editor = (function () {
     ASC.Files.Editor.init();
     $(function () {
         if (typeof DocsAPI === "undefined") {
-            alert("ONLYOFFICE™  is not available. Please contact us at support@onlyoffice.com");
+            alert("ONLYOFFICE™ is not available. Please contact us at support@onlyoffice.com");
             ASC.Files.Editor.errorEditor();
 
             return;

@@ -40,7 +40,7 @@ namespace AppLimit.CloudComputing.SharpBox.Common.Net.oAuth20
             var accessToken = parser.GetProperty("access_token");
             var refreshToken = parser.GetProperty("refresh_token");
 
-            if (String.IsNullOrEmpty(accessToken) || String.IsNullOrEmpty(refreshToken))
+            if (String.IsNullOrEmpty(accessToken))
                 return null;
 
             var token = new OAuth20Token

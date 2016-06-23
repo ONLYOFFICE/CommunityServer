@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Web;
 using System.Web.UI;
@@ -34,6 +35,8 @@ using AjaxPro;
 using ASC.Forum;
 using ASC.Web.Studio.Utility;
 using ASC.Web.UserControls.Forum.Common;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace ASC.Web.UserControls.Forum
 {
@@ -96,14 +99,9 @@ namespace ASC.Web.UserControls.Forum
             }
 
             _subject = EditableTopic.Title;
-            foreach (Tag tag in EditableTopic.Tags)
-            {
-                _tagString += tag.Name + ",";
-                _tagValues += tag.Name + "@" + tag.ID.ToString() + "$";
-            }
 
-            _tagString = _tagString.TrimEnd(',');
-            _tagValues = _tagValues.TrimEnd('$');
+            _tagString = String.Join(",", EditableTopic.Tags.Select(x=>x.Name));
+            _tagValues = JsonConvert.SerializeObject(EditableTopic.Tags.Select(x => new List<object> { x.Name, x.ID }));
 
             if (EditableTopic.Type == TopicType.Informational)
                 _pollMaster.Visible = false;
@@ -228,16 +226,19 @@ namespace ASC.Web.UserControls.Forum
             if (!String.IsNullOrEmpty(_tagString))
             {
 
-                List<Tag> searchTags = new List<Tag>(0);
+                var searchTags = new List<Tag>(0);
                 if (!String.IsNullOrEmpty(_tagValues))
                 {
-                    foreach (string tagItem in _tagValues.Split(new char[] { '$' }, StringSplitOptions.RemoveEmptyEntries))
+                    var values = JsonConvert.DeserializeObject<List<JArray>>(_tagValues);
+
+                    foreach (var tagItem in values)
                     {
-                        Tag tag = new Tag()
+                        var tag = new Tag
                         {
-                            ID = Convert.ToInt32(tagItem.Split('@')[1]),
-                            Name = tagItem.Split('@')[0]
+                            ID = Int32.Parse(tagItem[1].ToString()),
+                            Name = tagItem[0].ToString()
                         };
+
                         if(searchTags.Find(t=> t.ID == tag.ID)==null)
                             searchTags.Add(tag);
                     }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,33 +24,37 @@
 */
 
 
+using AppLimit.CloudComputing.SharpBox;
+using ASC.Common.Caching;
+using ASC.Common.Data;
+using ASC.Common.Data.Sql;
+using ASC.Common.Data.Sql.Expressions;
+using ASC.Core;
+using ASC.Core.Tenants;
+using ASC.Files.Core;
+using ASC.Files.Core.Security;
+using ASC.Security.Cryptography;
+using ASC.Web.Files.Classes;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
-using ASC.Common.Data;
-using ASC.Common.Data.Sql;
-using ASC.Common.Data.Sql.Expressions;
-using ASC.Core;
-using ASC.Files.Core;
-using ASC.Files.Core.Security;
-using ASC.Security.Cryptography;
-using AppLimit.CloudComputing.SharpBox;
-using ASC.Core.Tenants;
 
 namespace ASC.Files.Thirdparty.Sharpbox
 {
     internal abstract class SharpBoxDaoBase : IDisposable
     {
+        private static readonly ICache Cache = AscCache.Memory;
+
         protected class ErrorEntry : ICloudDirectoryEntry
         {
             public ErrorEntry(Exception e, object id)
             {
                 if (e != null) Error = e.Message;
 
-                Id = String.IsNullOrEmpty((id ?? "").ToString()) ? "/" : id.ToString();
+                Id = String.IsNullOrEmpty((id ?? "").ToString()) ? "/" : (id ?? "").ToString();
             }
 
             public string Error { get; set; }
@@ -249,9 +253,9 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
         protected string GetTenantColumnName(string table)
         {
-            var tenant = "tenant_id";
+            const string tenant = "tenant_id";
             if (!table.Contains(" ")) return tenant;
-            return table.Substring(table.IndexOf(" ")).Trim() + "." + tenant;
+            return table.Substring(table.IndexOf(" ", StringComparison.InvariantCulture)).Trim() + "." + tenant;
         }
 
         protected string MakePath(object entryId)
@@ -264,7 +268,14 @@ namespace ASC.Files.Thirdparty.Sharpbox
             var path = string.Empty;
             if (entry != null && !(entry is ErrorEntry))
             {
-                path = SharpBoxProviderInfo.Storage.GetFileSystemObjectPath(entry);
+                try
+                {
+                    path = SharpBoxProviderInfo.Storage.GetFileSystemObjectPath(entry);
+                }
+                catch (Exception ex)
+                {
+                    Global.Logger.Error("Sharpbox makeId error", ex);
+                }
             }
             else if (entry != null)
             {
@@ -281,7 +292,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
                 return SharpBoxProviderInfo.CustomerTitle;
             }
 
-            return Web.Files.Classes.Global.ReplaceInvalidCharsAndTruncate(fsEntry.Name);
+            return Global.ReplaceInvalidCharsAndTruncate(fsEntry.Name);
         }
 
         protected string PathParent(string path)
@@ -348,16 +359,18 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return folder;
         }
 
-        private bool IsRoot(ICloudDirectoryEntry entry)
+        private static bool IsRoot(ICloudDirectoryEntry entry)
         {
             if (entry != null && entry.Name != null)
                 return string.IsNullOrEmpty(entry.Name.Trim('/'));
             return false;
         }
 
-        private Files.Core.File ToErrorFile(ErrorEntry fsEntry)
+        private File ToErrorFile(ErrorEntry fsEntry)
         {
-            return new Files.Core.File
+            if (fsEntry == null) return null;
+
+            return new File
             {
                 ID = MakeId(fsEntry),
                 CreateBy = SharpBoxProviderInfo.Owner,
@@ -367,7 +380,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
                 ProviderId = SharpBoxProviderInfo.ID,
                 ProviderKey = SharpBoxProviderInfo.ProviderKey,
                 RootFolderCreator = SharpBoxProviderInfo.Owner,
-                RootFolderId = MakeId(RootFolder()),
+                RootFolderId = MakeId(null),
                 RootFolderType = SharpBoxProviderInfo.RootFolderType,
                 Title = MakeTitle(fsEntry),
                 Error = fsEntry.Error
@@ -376,14 +389,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
         private Folder ToErrorFolder(ErrorEntry fsEntry)
         {
-            ICloudDirectoryEntry rootFolder = null;
-            try
-            {
-                rootFolder = RootFolder();
-            }
-            catch (Exception)
-            {
-            }
+            if (fsEntry == null) return null;
 
             return new Folder
             {
@@ -397,17 +403,17 @@ namespace ASC.Files.Thirdparty.Sharpbox
                 ProviderId = SharpBoxProviderInfo.ID,
                 ProviderKey = SharpBoxProviderInfo.ProviderKey,
                 RootFolderCreator = SharpBoxProviderInfo.Owner,
-                RootFolderId = MakeId(rootFolder),
+                RootFolderId = MakeId(null),
                 RootFolderType = SharpBoxProviderInfo.RootFolderType,
                 Shareable = false,
                 Title = MakeTitle(fsEntry),
-                TotalFiles = fsEntry.Count - 0,
+                TotalFiles = 0,
                 TotalSubFolders = 0,
                 Error = fsEntry.Error
             };
         }
 
-        protected Files.Core.File ToFile(ICloudFileSystemEntry fsEntry)
+        protected File ToFile(ICloudFileSystemEntry fsEntry)
         {
             if (fsEntry == null) return null;
 
@@ -417,7 +423,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
                 return ToErrorFile(fsEntry as ErrorEntry);
             }
 
-            return new Files.Core.File
+            return new File
             {
                 ID = MakeId(fsEntry),
                 Access = FileShare.None,
@@ -440,56 +446,43 @@ namespace ASC.Files.Thirdparty.Sharpbox
             };
         }
 
-        public Folder GetRootFolder(object folderId)
-        {
-            return ToFolder(RootFolder());
-        }
-
         protected ICloudDirectoryEntry RootFolder()
         {
-            return SharpBoxProviderInfo.Storage.GetRoot();
+            var key = SharpBoxProviderInfo.ID + "root";
+            var root = Cache.Get<ICloudDirectoryEntry>(key);
+            if (root == null)
+            {
+                root = SharpBoxProviderInfo.Storage.GetRoot();
+                if (root != null) Cache.Insert(key, root, TimeSpan.FromMinutes(1));
+            }
+            return root;
         }
 
         protected ICloudDirectoryEntry GetFolderById(object folderId)
         {
-            ICloudDirectoryEntry entry = null;
-            Exception e = null;
             try
             {
-                entry = SharpBoxProviderInfo.Storage.GetFolder(MakePath(folderId));
+                var path = MakePath(folderId);
+                return path == "/"
+                           ? RootFolder()
+                           : SharpBoxProviderInfo.Storage.GetFolder(MakePath(folderId));
             }
             catch (Exception ex)
             {
-                e = ex;
+                return new ErrorEntry(ex, folderId);
             }
-            if (entry == null)
-            {
-                //Create error entry
-                entry = new ErrorEntry(e, folderId);
-            }
-
-            return entry;
         }
 
         protected ICloudFileSystemEntry GetFileById(object fileId)
         {
-            ICloudFileSystemEntry entry = null;
-            Exception e = null;
             try
             {
-                entry = SharpBoxProviderInfo.Storage.GetFile(MakePath(fileId), RootFolder());
+                return SharpBoxProviderInfo.Storage.GetFile(MakePath(fileId), RootFolder());
             }
             catch (Exception ex)
             {
-                e = ex;
+                return new ErrorEntry(ex, fileId);
             }
-            if (entry == null)
-            {
-                //Create error entry
-                entry = new ErrorEntry(e, fileId);
-            }
-
-            return entry;
         }
 
         protected IEnumerable<ICloudFileSystemEntry> GetFolderFiles(object folderId)
@@ -522,9 +515,9 @@ namespace ASC.Files.Thirdparty.Sharpbox
             if (!match.Success)
             {
                 var insertIndex = requestTitle.Length;
-                if (requestTitle.LastIndexOf(".") != -1)
+                if (requestTitle.LastIndexOf(".", StringComparison.InvariantCulture) != -1)
                 {
-                    insertIndex = requestTitle.LastIndexOf(".");
+                    insertIndex = requestTitle.LastIndexOf(".", StringComparison.InvariantCulture);
                 }
                 requestTitle = requestTitle.Insert(insertIndex, " (1)");
             }

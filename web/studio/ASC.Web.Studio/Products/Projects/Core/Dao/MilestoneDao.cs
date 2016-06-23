@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,20 +24,18 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-
 using ASC.Collections;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core.Tenants;
 using ASC.FullTextIndex;
-using ASC.FullTextIndex.Service;
 using ASC.Projects.Core.DataInterfaces;
 using ASC.Projects.Core.Domain;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace ASC.Projects.Data.DAO
 {
@@ -256,10 +254,10 @@ namespace ASC.Projects.Data.DAO
             using (var db = new DbManager(DatabaseId))
             {
                 return db.ExecuteList(q)
-                    .ConvertAll(r => new object[] {Convert.ToInt32(r[0]), Convert.ToInt32(r[1]), Convert.ToDateTime(r[2])});
+                    .ConvertAll(r => new object[] { Convert.ToInt32(r[0]), Convert.ToInt32(r[1]), Convert.ToDateTime(r[2]) });
             }
         }
-        
+
         public virtual Milestone Save(Milestone milestone)
         {
             using (var db = new DbManager(DatabaseId))
@@ -291,15 +289,13 @@ namespace ASC.Projects.Data.DAO
         public virtual void Delete(int id)
         {
             using (var db = new DbManager(DatabaseId))
+            using (var tx = db.BeginTransaction())
             {
-                using (var tx = db.BeginTransaction())
-                {
-                    db.ExecuteNonQuery(Delete(CommentsTable).Where("target_uniq_id", ProjectEntity.BuildUniqId<Milestone>(id)));
-                    db.ExecuteNonQuery(Update(TasksTable).Set("milestone_id", 0).Where("milestone_id", id));
-                    db.ExecuteNonQuery(Delete(MilestonesTable).Where("id", id));
+                db.ExecuteNonQuery(Delete(CommentsTable).Where("target_uniq_id", ProjectEntity.BuildUniqId<Milestone>(id)));
+                db.ExecuteNonQuery(Update(TasksTable).Set("milestone_id", 0).Where("milestone_id", id));
+                db.ExecuteNonQuery(Delete(MilestonesTable).Where("id", id));
 
-                    tx.Commit();
-                }
+                tx.Commit();
             }
         }
 
@@ -415,25 +411,25 @@ namespace ASC.Projects.Data.DAO
         {
             var offset = ProjectDao.ProjectColumns.Length;
             return new Milestone
-                       {
-                           Project = r[0] != null ? ProjectDao.ToProject(r) : null,
-                           ID = Convert.ToInt32(r[0 + offset]),
-                           Title = (string) r[1 + offset],
-                           CreateBy = ToGuid(r[2 + offset]),
-                           CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[3 + offset])),
-                           LastModifiedBy = ToGuid(r[4 + offset]),
-                           LastModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[5 + offset])),
-                           DeadLine = DateTime.SpecifyKind(Convert.ToDateTime(r[6 + offset]), DateTimeKind.Local),
-                           Status = (MilestoneStatus) Convert.ToInt32(r[7 + offset]),
-                           IsNotify = Convert.ToBoolean(r[8 + offset]),
-                           IsKey = Convert.ToBoolean(r[9 + offset]),
-                           Description = (string) r[10 + offset],
-                           Responsible = ToGuid(r[11 + offset]),
-                           ActiveTaskCount = Convert.ToInt32(r[12 + ProjectDao.ProjectColumns.Length]),
-                           ClosedTaskCount = Convert.ToInt32(r[13 + ProjectDao.ProjectColumns.Length])
-                       };
+            {
+                Project = r[0] != null ? ProjectDao.ToProject(r) : null,
+                ID = Convert.ToInt32(r[0 + offset]),
+                Title = (string)r[1 + offset],
+                CreateBy = ToGuid(r[2 + offset]),
+                CreateOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[3 + offset])),
+                LastModifiedBy = ToGuid(r[4 + offset]),
+                LastModifiedOn = TenantUtil.DateTimeFromUtc(Convert.ToDateTime(r[5 + offset])),
+                DeadLine = DateTime.SpecifyKind(Convert.ToDateTime(r[6 + offset]), DateTimeKind.Local),
+                Status = (MilestoneStatus)Convert.ToInt32(r[7 + offset]),
+                IsNotify = Convert.ToBoolean(r[8 + offset]),
+                IsKey = Convert.ToBoolean(r[9 + offset]),
+                Description = (string)r[10 + offset],
+                Responsible = ToGuid(r[11 + offset]),
+                ActiveTaskCount = Convert.ToInt32(r[12 + ProjectDao.ProjectColumns.Length]),
+                ClosedTaskCount = Convert.ToInt32(r[13 + ProjectDao.ProjectColumns.Length])
+            };
         }
-        
+
         internal List<Milestone> GetMilestones(Exp where)
         {
             using (var db = new DbManager(DatabaseId))

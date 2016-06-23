@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,21 +26,24 @@
 
 using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net.Mail;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Web;
-using ActiveUp.Net.Mail;
 using ASC.Mail.Aggregator.Common.Collection;
 using ASC.Mail.Aggregator.Common.Extension;
+using ASC.Mail.Aggregator.Common.Logging;
 using ASC.Mail.Aggregator.Common.Utils;
-using ASC.Mail.Aggregator.Dal.DbSchema;
 using ASC.Specific;
+using DDay.iCal;
 using HtmlAgilityPack;
+using MimeKit;
 
 namespace ASC.Mail.Aggregator.Common
 {
@@ -49,69 +52,192 @@ namespace ASC.Mail.Aggregator.Common
     {
         static readonly Regex UrlReg = new Regex(@"(?:(?:(?:http|ftp|gopher|telnet|news)://)(?:w{3}\.)?(?:[a-zA-Z0-9/;\?&=:\-_\$\+!\*'\(\|\\~\[\]#%\.])+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
         static readonly Regex EmailReg = new Regex(@"\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnoreCase);
-        static readonly Regex SurrogateCodePointReg = new Regex(@"\&#\d+;", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnoreCase);
 
         private static readonly DateTime DefaultMysqlMinimalDate = new DateTime(1975, 01, 01, 0, 0, 0); // Common decision of TLMail developers 
 
-        public MailMessage()
-        {
-        }
+        public MailMessage() {}
 
         private bool IsDateCorrect(DateTime date)
         {
             return date >= DefaultMysqlMinimalDate && date <= DateTime.Now;
         }
 
-        public MailMessage(Message message)
+        public MailMessage(MimeMessage message, int folder = 1, bool unread = false, string chainId = "",
+            string streamId = "")
         {
-            if (message == null) throw new ArgumentNullException("message");
+            if (message == null)
+                throw new ArgumentNullException("message");
 
-            Date = IsDateCorrect(message.Date)
-                       ? message.Date
-                       : (IsDateCorrect(message.ReceivedDate) ? message.ReceivedDate : DateTime.Now);
-            MimeMessageId = message.MessageId;
-            MimeReplyToId = message.InReplyTo;
-            ChainId = message.MessageId;
+            Date = IsDateCorrect(message.Date.UtcDateTime) ? message.Date.UtcDateTime : DateTime.UtcNow;
+            MimeMessageId = (string.IsNullOrEmpty(message.MessageId) ? MailUtil.CreateMessageId() : message.MessageId)
+                .Trim(new[] {'<', '>'});
+            ChainId = string.IsNullOrEmpty(chainId) ? MimeMessageId : chainId;
+            MimeReplyToId = ChainId.Equals(MimeMessageId) ? null : message.InReplyTo.Trim(new[] {'<', '>'});
             ReplyTo = message.ReplyTo.ToString();
             From = message.From.ToString();
-            FromEmail = message.From.Email;
-            To = string.Join(", ", message.To.Select(s => s.ToString()));
-            Cc = string.Join(", ", message.Cc.Select(s => s.ToString()));
-            Bcc = string.Join(", ", message.Bcc.Select(s => s.ToString()));
-            Subject = message.Subject ?? "";
-            bool isMessageHasHighFlag = String.Compare(message.Flag, "high", StringComparison.OrdinalIgnoreCase) == 0;
-            Important = isMessageHasHighFlag || message.Priority == MessagePriority.High;
+            FromEmail = message.From != null && message.From.Mailboxes != null && message.From.Mailboxes.Any()
+                ? message.From.Mailboxes.First().Address
+                : "";
+            ToList = message.To.Mailboxes.Select(s => new MailAddress(s.Address, s.Name)).ToList();
+            To = string.Join(", ", message.To.Mailboxes.Select(s => s.ToString()));
+            CcList = message.Cc.Mailboxes.Select(s => new MailAddress(s.Address, s.Name)).ToList();
+            Cc = string.Join(", ", message.Cc.Mailboxes.Select(s => s.ToString()));
+            Bcc = string.Join(", ", message.Bcc.Mailboxes.Select(s => s.ToString()));
+            Subject = message.Subject ?? string.Empty;
+            Important = message.Importance == MessageImportance.High || message.Priority == MessagePriority.Urgent;
             TextBodyOnly = false;
-            SetHtmlBodyAndIntroduction(message);
-            Size = HtmlBody.Length;
 
-            LoadCalendarAttachments(message);
-            LoadAttachments(message.Attachments.Cast<MimePart>(), false);
-            LoadAttachments(message.EmbeddedObjects.Cast<MimePart>(), true);
-            LoadAttachments(message.UnknownDispositionMimeParts.Cast<MimePart>(), true);
+            if (message.HtmlBody == null && message.TextBody == null)
+            {
+                HtmlBody = "";
+                Introduction = "";
+                IsBodyCorrupted = true;
+
+                var messagePart = new MessagePart
+                {
+                    Message = message,
+                    ContentDisposition = new ContentDisposition
+                    {
+                        FileName = "message.eml"
+                    }
+                };
+
+                LoadAttachments(new List<MimeEntity> { messagePart });
+            }
+            else
+            {
+                SetHtmlBodyAndIntroduction(message);
+            }
+            
+            Size = HtmlBody.Length;
+            HeaderFieldNames = new NameValueCollection();
+
+            if (message.Headers.Any())
+            {
+                foreach (var header in message.Headers)
+                {
+                    HeaderFieldNames.Add(header.Field, header.Value);
+                }
+            }
+
+            Folder = folder;
+            IsNew = unread;
+            StreamId = string.IsNullOrEmpty(streamId) ? MailUtil.CreateStreamId() : streamId;
+
+            LoadAttachments(message.Attachments);
+            LoadEmbeddedAttachments(message);
+            LoadCalendarInfo(message);
         }
 
-        private void LoadCalendarAttachments(Message message)
+        private void LoadCalendarInfo(MimeMessage message)
         {
-            if (string.IsNullOrEmpty(message.BodyCalendar.Text)) return;
+            if (!message.BodyParts.Any())
+                return;
 
             try
             {
-                var calendarExists =
-                    message.Attachments.Cast<MimePart>()
-                        .Any(
-                            attach =>
-                                attach.ContentType.SubType == "ics" || attach.ContentType.SubType == "ical" ||
-                                attach.ContentType.SubType == "ifb" || attach.ContentType.SubType == "icalendar");
+                var calendarParts = message.BodyParts.Where(p => p.ContentType.IsMimeType("text", "calendar")).ToList();
 
-                if (calendarExists) return;
+                if(!calendarParts.Any())
+                    return;
 
-                var part =
-                    new MimePart(
-                        Encoding.GetEncoding(message.BodyCalendar.Charset).GetBytes(message.BodyCalendar.Text),
-                        "calendar.ics", message.BodyCalendar.Charset);
+                foreach (var calendarPart in calendarParts)
+                {
+                    var p = calendarPart as TextPart;
+                    if (p == null)
+                        continue;
 
-                LoadAttachments(new List<MimePart> { part }, false);
+                    var ics = p.Text;
+
+                    var calendar = MailUtil.ParseValidCalendar(ics);
+
+                    if (calendar == null)
+                        return;
+
+                    if (calendar.Events[0].Organizer == null &&
+                        calendar.Method.Equals("REPLY", StringComparison.OrdinalIgnoreCase))
+                    {
+                        // Fix reply organizer (Outlook style of Reply)
+                        var toAddress = message.To.Mailboxes.FirstOrDefault();
+                        if (toAddress != null)
+                        {
+                            calendar.Events[0].Organizer = new Organizer("mailto:" + toAddress.Address)
+                            {
+                                CommonName = string.IsNullOrEmpty(toAddress.Name)
+                                    ? toAddress.Address
+                                    : toAddress.Name
+                            };
+
+                            ics = MailUtil.SerializeCalendar(calendar);
+                        }
+                    }
+
+                    CalendarUid = calendar.Events[0].UID;
+                    CalendarId = -1;
+                    CalendarEventIcs = ics;
+                    CalendarEventCharset = string.IsNullOrEmpty(p.ContentType.Charset) ? Encoding.UTF8.HeaderName : p.ContentType.Charset;
+                    CalendarEventMimeType = p.ContentType.MimeType;
+
+                    var calendarExists =
+                        message.Attachments
+                            .Any(
+                                attach =>
+                                {
+                                    var subType = attach.ContentType.MediaSubtype.ToLower().Trim();
+
+                                    if (string.IsNullOrEmpty(subType) ||
+                                        (!subType.Equals("ics") &&
+                                         !subType.Equals("ical") &&
+                                         !subType.Equals("ifb") &&
+                                         !subType.Equals("icalendar") &&
+                                         !subType.Equals("calendar")))
+                                    {
+                                        return false;
+                                    }
+
+                                    var icsTextPart = attach as TextPart;
+                                    string icsAttach;
+
+                                    if (icsTextPart != null)
+                                    {
+                                        icsAttach = icsTextPart.Text;
+                                    }
+                                    else
+                                    {
+                                        using (var stream = new MemoryStream())
+                                        {
+                                            p.ContentObject.DecodeTo(stream);
+                                            var bytes = stream.ToArray();
+                                            var encoding = MailUtil.GetEncoding(p.ContentType.Charset);
+                                            icsAttach = encoding.GetString(bytes);
+                                        }
+                                    }
+
+                                    var cal = MailUtil.ParseValidCalendar(icsAttach);
+
+                                    if (cal == null)
+                                        return false;
+
+                                    return CalendarUid == cal.Events[0].UID;
+                                });
+
+                    if (calendarExists)
+                        continue;
+
+                    if (calendarPart.ContentDisposition == null)
+                    {
+                        calendarPart.ContentDisposition = new ContentDisposition();
+                    }
+
+                    if (string.IsNullOrEmpty(calendarPart.ContentDisposition.FileName))
+                    {
+                        calendarPart.ContentDisposition.FileName = calendar.Method == "REQUEST"
+                            ? "invite.ics"
+                            : calendar.Method == "REPLY" ? "reply.ics" : "cancel.ics";
+                    }
+
+                    LoadAttachments(new List<MimeEntity> {calendarPart});
+                }
             }
             catch
             {
@@ -119,161 +245,90 @@ namespace ASC.Mail.Aggregator.Common
             }
         }
 
-        private void SetHtmlBodyAndIntroduction(Message message)
+        private void SetHtmlBodyAndIntroduction(MimeMessage message)
         {
             HtmlBody = "<br/>";
             Introduction = "";
 
-            var htmlBodyBuilder = new StringBuilder().Append(message.BodyHtml.Text);
+            var htmlBodyBuilder = new StringBuilder().Append(message.HtmlBody);
 
-            if (message.ContentType.MimeType.Equals("multipart/mixed", StringComparison.InvariantCultureIgnoreCase)
-                && !string.IsNullOrEmpty(message.BodyHtml.Text)
-                && !string.IsNullOrEmpty(message.BodyText.Text))
+            ContentType contentType = null;
+            var subMessages = new ItemList<MimeMessage>();
+
+            var iter = new MimeIterator(message);
+            while (iter.MoveNext())
             {
-                htmlBodyBuilder.AppendFormat("<p>{0}</p>", MakeHtmlFromText(message.BodyText.Text));
+                var multipart = iter.Parent as Multipart;
+                var part = iter.Current as MimePart;
+                var subMessage = iter.Current as MessagePart;
+
+                if (multipart != null && part != null && !part.IsAttachment)
+                {
+                    if (contentType == null &&
+                        (part.ContentType.IsMimeType("text", "plain") || part.ContentType.IsMimeType("text", "html")))
+                    {
+                        contentType = multipart.ContentType;
+                    }
+                }
+
+                if (subMessage != null)
+                    subMessages.Add(subMessage.Message);
             }
 
-            if (htmlBodyBuilder.Length != 0)
-            {
-                HtmlBody = htmlBodyBuilder.ToString();
-                Introduction = GetIntroduction(HtmlBody);
-                return;
-            }
+            contentType = contentType ?? message.Body.ContentType;
 
-            if (!string.IsNullOrEmpty(message.BodyText.Text))
+            if (contentType.MimeType.Equals("multipart/mixed", StringComparison.InvariantCultureIgnoreCase)
+                && !string.IsNullOrEmpty(message.HtmlBody)
+                && !string.IsNullOrEmpty(message.TextBody))
             {
-                message.BodyText.Text = MakeHtmlFromText(message.BodyText.Text);
-                HtmlBody = string.Format("<body><pre>{0}</pre></body>", message.BodyText.Text);
-                Introduction = GetIntroduction(message.BodyText.Text);
+                htmlBodyBuilder.AppendFormat("<p>{0}</p>", MakeHtmlFromText(message.TextBody));
+            }
+            else if (!string.IsNullOrEmpty(message.TextBody) && string.IsNullOrEmpty(message.HtmlBody))
+            {
+                var html = MakeHtmlFromText(message.TextBody);
+                htmlBodyBuilder.AppendFormat("<body><pre>{0}</pre></body>", html);
                 TextBodyOnly = true;
-                return;
             }
 
-            if (message.SubMessages.Count > 0)
-            {
-                BuildBodyFromSubmessages(message, htmlBodyBuilder);
-                HtmlBody = htmlBodyBuilder.ToString();
-                Introduction = GetIntroduction(message.SubMessages[0].BodyHtml.Text);
-            }
-        }
-
-        private static void BuildBodyFromSubmessages(Message message, StringBuilder htmlBodyBuilder)
-        {
-            foreach (Message subMessage in message.SubMessages)
+            foreach (var subMessage in subMessages)
             {
                 var toString = string.Join(", ", subMessage.To.Select(s => s.ToString()));
                 htmlBodyBuilder.Append("<hr /><br/>")
-                                 .Append("<div style=\"padding-left:15px;\">")
-                                 .AppendFormat("<span><b>Subject:</b> {0}</span><br/>", subMessage.Subject)
-                                 .AppendFormat("<span><b>From:</b> {0}</span><br/>", subMessage.From)
-                                 .AppendFormat("<span><b>Date:</b> {0}</span><br/>", subMessage.ReceivedDate)
-                                 .AppendFormat("<span><b>To:</b> {0}</span><br/></div>", toString)
-                                 .AppendFormat("<br/>{0}", subMessage.BodyHtml.Text);
+                    .Append("<div style=\"padding-left:15px;\">")
+                    .AppendFormat("<span><b>Subject:</b> {0}</span><br/>", subMessage.Subject)
+                    .AppendFormat("<span><b>From:</b> {0}</span><br/>", subMessage.From)
+                    .AppendFormat("<span><b>Date:</b> {0}</span><br/>", subMessage.Date)
+                    .AppendFormat("<span><b>To:</b> {0}</span><br/></div>", toString)
+                    .AppendFormat("<br/>{0}", subMessage.HtmlBody);
             }
+
+            HtmlBody = htmlBodyBuilder.ToString();
+            Introduction = GetIntroduction(HtmlBody);
         }
 
         public static string GetIntroduction(string htmlBody)
         {
             var introduction = string.Empty;
-            
-            if (!string.IsNullOrEmpty(htmlBody))
-            {
-                try
-                {
-                    introduction = ExtractTextFromHtml(htmlBody, 200);
-                }
-                catch (RecursionDepthException ex)
-                {
-                    throw new Exception(ex.Message);
-                }
-                catch
-                {
-                    introduction = (htmlBody.Length > 200 ? htmlBody.Substring(0, 200) : htmlBody);
-                }
 
-                introduction = introduction.Replace("\n", " ").Replace("\r", " ");
+            if (string.IsNullOrEmpty(htmlBody)) 
+                return introduction;
+
+            try
+            {
+                introduction = MailUtil.ExtractTextFromHtml(htmlBody, 200);
             }
+            catch (RecursionDepthException)
+            {
+                throw;
+            }
+            catch
+            {
+                introduction = (htmlBody.Length > 200 ? htmlBody.Substring(0, 200) : htmlBody);
+            }
+
+            introduction = introduction.Replace("\n", " ").Replace("\r", " ").Trim();
 
             return introduction;
-        }
-
-        //if limit_length < 1 then text will be unlimited
-        private static string ExtractTextFromHtml(string html, int limitLength)
-        {
-            var doc = new HtmlDocument();
-            doc.LoadHtml(html);
-            var outText = limitLength < 1 ? new StringBuilder() : new StringBuilder(limitLength);
-            ConvertTo(doc.DocumentNode, outText, limitLength);
-            return outText.ToString();
-        }
-
-        private static void ConvertTo(HtmlNode node, StringBuilder outText, int limitLength)
-        {
-            if (outText.Length >= limitLength) return;
-            
-            switch (node.NodeType)
-            {
-                case HtmlNodeType.Comment:
-                    // Comments will not ouput.
-                    break;
-
-                case HtmlNodeType.Document:
-                    ConvertContentTo(node, outText, limitLength);
-                    break;
-
-                case HtmlNodeType.Text:
-                    // Scripts and styles will not ouput.
-                    var parentName = node.ParentNode.Name;
-                    if ((parentName == "script") || (parentName == "style"))
-                        break;
-
-                    var html = ((HtmlTextNode)node).Text;
-
-                    if (HtmlNode.IsOverlappedClosingElement(html))
-                        break;
-
-                    html = html.Replace("&nbsp;", "");
-
-                    if (html.Trim().Length > 0)
-                    {
-                        html = SurrogateCodePointReg.Replace(html, "");
-                        var text = HtmlEntity.DeEntitize(html);
-                        var newLength = (outText + text).Length;
-                        if (limitLength > 0 && newLength >= limitLength)
-                        {
-                            if (newLength > limitLength)
-                            {
-                                text = text.Substring(0, limitLength - outText.Length);
-                                outText.Append(text);
-                            }
-                            return;
-                        }
-                        outText.Append(text);
-                    }
-                    break;
-
-                case HtmlNodeType.Element:
-                    switch (node.Name)
-                    {
-                        case "p":
-                            outText.Append("\r\n");
-                            break;
-                    }
-
-                    if (node.HasChildNodes)
-                    {
-                        ConvertContentTo(node, outText, limitLength);
-                    }
-                    break;
-            }
-        }
-
-        private static void ConvertContentTo(HtmlNode node, StringBuilder outText, int limitLength)
-        {
-            foreach (var subnode in node.ChildNodes)
-            {
-                ConvertTo(subnode, outText, limitLength);
-            }
         }
 
         private static string MakeHtmlFromText(string textBody)
@@ -331,58 +386,112 @@ namespace ASC.Mail.Aggregator.Common
             return builder.ToString();
         }
 
-        public void LoadAttachments(IEnumerable<MimePart> mimeParts, bool skipText)
+        public void LoadEmbeddedAttachments(MimeMessage message)
         {
-            if (Attachments == null)
+            var embeddedAttachments = new List<MimeEntity>();
+
+            var iter = new MimeIterator(message);
+
+            while (iter.MoveNext())
             {
-                Attachments = new List<MailAttachment>();
+                var part = iter.Current as MimePart;
+                if (part == null)
+                    continue;
+
+                if (string.IsNullOrEmpty(part.ContentId) && part.ContentLocation == null)
+                    continue;
+
+                if(part is TextPart)
+                    continue;
+
+                embeddedAttachments.Add(part);
             }
 
-            foreach (var mimePart in mimeParts)
+            if(embeddedAttachments.Any())
+                LoadAttachments(embeddedAttachments);
+        }
+
+        public void LoadAttachments(IEnumerable<MimeEntity> attachments)
+        {
+            if (Attachments == null)
+                Attachments = new List<MailAttachment>();
+
+            foreach (var attachment in attachments)
             {
-                if (skipText && mimePart.ContentType.Type.Contains("text"))
+                var messagePart = attachment as MessagePart;
+                var mimePart = attachment as MimePart;
+
+                if (messagePart == null && mimePart == null)
                     continue;
 
-                if(mimePart.BinaryContent == null || mimePart.BinaryContent.Length == 0)
-                    continue;
+                byte[] bytes;
 
-                var ext = Path.GetExtension(mimePart.Filename);
-
-                if (string.IsNullOrEmpty(ext))
+                using (var stream = new MemoryStream())
                 {
-                    // If the file extension is not specified, there will be issues with saving on s3
-                    var newExt = ".ext";
+                    if (messagePart != null)
+                        messagePart.Message.WriteTo(stream);
+                    else
+                        mimePart.ContentObject.DecodeTo(stream);
 
-                    if (mimePart.ContentType.Type.ToLower().IndexOf("image", StringComparison.Ordinal) != -1)
-                    {
-                        var subType = mimePart.ContentType.SubType;
-
-                        newExt = ".png";
-
-                        if (!string.IsNullOrEmpty(subType))
-                        {
-                            // List was get from http://en.wikipedia.org/wiki/Internet_media_type
-                            var knownImageTypes = new List<string> { "gif", "jpeg", "pjpeg", "png", "svg", "tiff", "ico", "bmp" };
-
-                            var foundExt = knownImageTypes
-                                .Find(s => subType.IndexOf(s, StringComparison.Ordinal) != -1);
-
-                            if (!string.IsNullOrEmpty(foundExt))
-                                newExt = "." + foundExt;
-                        }
-                    }
-                    mimePart.Filename = Path.ChangeExtension(mimePart.Filename, newExt);
+                    bytes = stream.ToArray();
                 }
 
+                var filename = attachment.ContentDisposition != null &&
+                               !string.IsNullOrEmpty(attachment.ContentDisposition.FileName)
+                    ? attachment.ContentDisposition.FileName
+                    : attachment.ContentType != null && !string.IsNullOrEmpty(attachment.ContentType.Name)
+                        ? attachment.ContentType.Name
+                        : "";
+
+                filename = MailUtil.ImproveFilename(filename, attachment.ContentType);
+
                 Attachments.Add(new MailAttachment
+                {
+                    contentId = attachment.ContentId,
+                    size = bytes.Length,
+                    fileName = filename,
+                    contentType = attachment.ContentType != null ? attachment.ContentType.MimeType : null,
+                    data = bytes,
+                    contentLocation = attachment.ContentLocation != null ? attachment.ContentLocation.ToString() : null
+                });
+            }
+
+        }
+
+        public void ReplaceEmbeddedImages(ILogger log = null)
+        {
+            log = log ?? new NullLogger();
+
+            try
+            {
+                var attchments = Attachments.Where(a => a.isEmbedded && !string.IsNullOrEmpty(a.storedFileUrl)).ToList();
+
+                if (!attchments.Any())
+                    return;
+
+                foreach (var attach in attchments)
+                {
+                    if (!string.IsNullOrEmpty(attach.contentId))
                     {
-                        contentId = mimePart.EmbeddedObjectContentId,
-                        size = mimePart.Size,
-                        fileName = mimePart.Filename,
-                        contentType = mimePart.ContentType.MimeType,
-                        data = mimePart.BinaryContent,
-                        contentLocation = mimePart.ContentLocation
-                    });
+                        HtmlBody = HtmlBody.Replace(string.Format("cid:{0}", attach.contentId.Trim('<').Trim('>')),
+                            attach.storedFileUrl);
+                    }
+                    else if (!string.IsNullOrEmpty(attach.contentLocation))
+                    {
+                        HtmlBody = HtmlBody.Replace(string.Format("{0}", attach.contentLocation),
+                            attach.storedFileUrl);
+                    }
+                    else
+                    {
+                        //This attachment is not embedded;
+                        attach.contentId = null;
+                        attach.contentLocation = null;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                log.Error("ReplaceEmbeddedImages() \r\n Exception: \r\n{0}\r\n", ex.ToString());
             }
         }
 
@@ -429,12 +538,6 @@ namespace ASC.Mail.Aggregator.Common
 
         [DataMember]
         public long Id { get; set; }
-
-        /*[DataMember(EmitDefaultValue = false)]
-        public string MessageId { get; set; }
-
-        [DataMember(EmitDefaultValue = false)]
-        public string InReplyTo { get; set; }*/
 
         [DataMember(EmitDefaultValue = false)]
         public string ChainId { get; set; }
@@ -493,7 +596,6 @@ namespace ASC.Mail.Aggregator.Common
             get { return MailUtil.GetStringFromLabels(TagIds); }
         }
 
-
         [DataMember]
         public bool IsNew { get; set; }
 
@@ -504,18 +606,13 @@ namespace ASC.Mail.Aggregator.Common
         public bool IsForwarded { get; set; }
 
         [DataMember]
-        public bool IsFromCRM { get; set; }
-
-        [DataMember]
-        public bool IsFromTL { get; set; }
-
-        [DataMember]
         public bool TextBodyOnly { get; set; }
 
         [DataMember]
         public long Size { get; set; }
 
         [DataMember]
+        // ReSharper disable once InconsistentNaming
         public string EMLLink { get; set; }
 
         [DataMember]
@@ -562,5 +659,46 @@ namespace ASC.Mail.Aggregator.Common
 
         [DataMember]
         public string MimeReplyToId { get; set; }
+
+        [DataMember]
+        public string CalendarUid { get; set; }
+
+        [IgnoreDataMember]
+        public int CalendarId { get; set; }
+
+        [IgnoreDataMember]
+        public string CalendarEventCharset { get; set; }
+
+        [IgnoreDataMember]
+        public string CalendarEventMimeType { get; set; }
+
+        [IgnoreDataMember]
+        public string CalendarEventIcs { get; set; }
+
+        [IgnoreDataMember]
+        public List<MailAddress> ToList { get; set; }
+
+        [IgnoreDataMember]
+        public List<MailAddress> CcList { get; set; }
+
+        [IgnoreDataMember]
+        public NameValueCollection HeaderFieldNames { get; set; }
+
+        public class Options
+        {
+            public Options()
+            {
+                OnlyUnremoved = true;
+                NeedSanitizer = true;
+            }
+
+            public bool LoadImages { get; set; }
+            public bool LoadBody { get; set; }
+            public bool NeedProxyHttp { get; set; }
+            public bool NeedSanitizer { get; set; }
+            public bool OnlyUnremoved { get; set; }
+
+            public string ProxyHttpHandlerUrl { get; set; }
+        }
     }
 }

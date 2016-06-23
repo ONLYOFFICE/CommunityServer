@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -56,6 +56,7 @@ namespace ASC.Web.Files.Services.DocumentService
 
             var lastVersion = true;
             var rightToEdit = true;
+            var rightToReview = true;
             var checkLink = false;
 
             using (var fileDao = Global.DaoFactory.GetFileDao())
@@ -67,9 +68,14 @@ namespace ASC.Web.Files.Services.DocumentService
                     case FileShare.ReadWrite:
                         checkLink = true;
                         break;
+                    case FileShare.Review:
+                        rightToEdit = false;
+                        checkLink = true;
+                        break;
                     case FileShare.Read:
                         editPossible = false;
                         rightToEdit = false;
+                        rightToReview = false;
                         checkLink = true;
                         break;
                 }
@@ -89,57 +95,66 @@ namespace ASC.Web.Files.Services.DocumentService
                     }
                 }
             }
-            return GetParams(file, lastVersion, checkLink, itsNew, editPossible, rightToEdit, tryEdit, out docServiceParams);
+            return GetParams(file, lastVersion, checkLink, itsNew, editPossible, rightToEdit, rightToReview, tryEdit, out docServiceParams);
         }
 
-        public static File GetParams(File file, bool lastVersion, bool checkLink, bool itsNew, bool editPossible, bool rightToEdit, bool tryEdit, out DocumentServiceParams docServiceParams)
+        public static File GetParams(File file, bool lastVersion, bool checkLink, bool itsNew, bool editPossible, bool rightToEdit, bool rightToReview, bool tryEdit, out DocumentServiceParams docServiceParams)
         {
-            if (!TenantExtra.GetTenantQuota().DocsEdition) throw new Exception(FilesCommonResource.ErrorMassage_PayTariffDocsEdition);
-
             if (!checkLink && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor())
             {
                 rightToEdit = false;
+                rightToReview = false;
             }
 
             if (file == null) throw new FileNotFoundException(FilesCommonResource.ErrorMassage_FileNotFound);
 
             if (!string.IsNullOrEmpty(file.Error)) throw new Exception(file.Error);
 
+            var fileSecurity = Global.GetFilesSecurity();
+            var reviewPossible = editPossible;
             if (!checkLink)
             {
-                rightToEdit = rightToEdit && Global.GetFilesSecurity().CanEdit(file);
+                rightToEdit = rightToEdit && fileSecurity.CanEdit(file);
                 if (editPossible && !rightToEdit)
                 {
                     editPossible = false;
                 }
 
-                if (!editPossible && !Global.GetFilesSecurity().CanRead(file)) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_ReadFile);
+                rightToReview = rightToReview && fileSecurity.CanReview(file);
+                if (reviewPossible && !rightToReview)
+                {
+                    reviewPossible = false;
+                }
+
+                if (!(editPossible || reviewPossible) && !fileSecurity.CanRead(file)) throw new SecurityException(FilesCommonResource.ErrorMassage_SecurityException_ReadFile);
             }
 
             if (file.RootFolderType == FolderType.TRASH) throw new Exception(FilesCommonResource.ErrorMassage_ViewTrashItem);
 
             if (file.ContentLength > SetupInfo.AvailableFileSize) throw new Exception(string.Format(FilesCommonResource.ErrorMassage_FileSizeEdit, FileSizeComment.FilesSizeToString(SetupInfo.AvailableFileSize)));
 
-            rightToEdit = rightToEdit && !EntryManager.FileLockedForMe(file.ID);
-            if (editPossible && !rightToEdit)
+            if ((editPossible || reviewPossible)
+                && EntryManager.FileLockedForMe(file.ID))
             {
-                editPossible = false;
+                rightToEdit = editPossible = reviewPossible = false;
             }
 
-            rightToEdit = rightToEdit && (!FileTracker.IsEditing(file.ID)
-                || FileUtility.CanCoAuhtoring(file.Title) && !FileTracker.IsEditingAlone(file.ID));
-            if (editPossible && !rightToEdit)
+            if ((editPossible || reviewPossible)
+                && FileTracker.IsEditing(file.ID)
+                && (!FileUtility.CanCoAuhtoring(file.Title) || FileTracker.IsEditingAlone(file.ID)))
             {
-                editPossible = false;
+                rightToEdit = editPossible = reviewPossible = false;
             }
-
-            rightToEdit = rightToEdit && FileUtility.CanWebEdit(file.Title);
-            if (editPossible && !rightToEdit)
+            
+            if (editPossible
+                && !FileUtility.CanWebEdit(file.Title))
             {
-                editPossible = false;
+                rightToEdit = editPossible = false;
             }
 
             if (!editPossible && !FileUtility.CanWebView(file.Title)) throw new Exception(FilesCommonResource.ErrorMassage_NotSupportedFormat);
+
+            rightToReview = rightToReview && reviewPossible && FileUtility.CanWebReview(file.Title);
 
             var versionForKey = file.Version;
 
@@ -150,7 +165,7 @@ namespace ASC.Web.Files.Services.DocumentService
             }
 
             var docKey = GetDocKey(file.ID, versionForKey, file.ProviderEntry ? file.ModifiedOn : file.CreateOn);
-            var modeWrite = editPossible && tryEdit;
+            var modeWrite = (editPossible || reviewPossible) && tryEdit;
 
             docServiceParams = new DocumentServiceParams
                 {
@@ -158,6 +173,7 @@ namespace ASC.Web.Files.Services.DocumentService
                     Key = docKey,
                     CanEdit = rightToEdit && lastVersion,
                     ModeWrite = modeWrite,
+                    CanReview = rightToReview && lastVersion,
                 };
 
             return file;
@@ -181,18 +197,20 @@ namespace ASC.Web.Files.Services.DocumentService
 
         public static void CheckUsersForDrop(File file, Guid userId)
         {
+            var fileSecurity = Global.GetFilesSecurity();
             //??? how distinguish auth user via sharelink
-            if (Global.GetFilesSecurity().CanEdit(file, FileConstant.ShareLinkId)) return;
+            if (fileSecurity.CanEdit(file, FileConstant.ShareLinkId) || fileSecurity.CanReview(file, FileConstant.ShareLinkId)) return;
 
             var usersDrop = new List<Guid>();
             if (userId.Equals(Guid.Empty))
             {
-                usersDrop = FileTracker.GetEditingBy(file.ID).Where(uid => !Global.GetFilesSecurity().CanEdit(file, uid)).ToList();
+                usersDrop = FileTracker.GetEditingBy(file.ID).Where(uid => !fileSecurity.CanEdit(file, uid) && !fileSecurity.CanReview(file, uid)).ToList();
             }
             else
             {
                 if (!FileTracker.GetEditingBy(file.ID).Contains(userId)) return;
-                if (Global.GetFilesSecurity().CanEdit(file, userId)) return;
+                if (fileSecurity.CanEdit(file, userId)) return;
+                if (fileSecurity.CanReview(file, userId)) return;
 
                 usersDrop.Add(userId);
             }
@@ -256,7 +274,8 @@ namespace ASC.Web.Files.Services.DocumentService
                 var storeTemplate = Global.GetStoreTemplate();
                 var fileUri = storeTemplate.GetUri("", FileConstant.NewDocPath + "default/new" + fileExtension).ToString();
 
-                DocumentServiceConnector.GetConvertedUri(CommonLinkUtility.GetFullAbsolutePath(fileUri), fileExtension, toExtension, Guid.NewGuid().ToString(), false, out convertUri);
+                fileUri = DocumentServiceConnector.ReplaceCommunityAdress(CommonLinkUtility.GetFullAbsolutePath(fileUri));
+                DocumentServiceConnector.GetConvertedUri(fileUri, fileExtension, toExtension, Guid.NewGuid().ToString(), false, out convertUri);
             }
             catch
             {

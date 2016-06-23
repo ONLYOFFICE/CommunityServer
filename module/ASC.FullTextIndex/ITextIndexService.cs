@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,9 +24,8 @@
 */
 
 
-using System.Collections.Generic;
+using System;
 using System.ServiceModel;
-using ASC.FullTextIndex.Service;
 
 namespace ASC.FullTextIndex
 {
@@ -37,7 +36,7 @@ namespace ASC.FullTextIndex
         bool SupportModule(string[] modules);
 
         [OperationContract]
-        Dictionary<string, IEnumerable<int>> Search(IEnumerable<ModuleInfo> modules, int tenantID);
+        int[] Search(int tenantId, string[] modules);
 
         [OperationContract]
         bool CheckState();

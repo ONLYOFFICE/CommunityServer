@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,57 +24,18 @@
 */
 
 
-using System.IO;
-using System.Linq;
 using NUnit.Framework;
-using ActiveUp.Net.Mail;
 
 namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
 {
     [TestFixture]
     class BadEncodingTests : MessageParserTestsBase
     {
-        //
-        //This test creates right parsing xml. Use it for new test adding.
-        //
-
-        [Test]
-        [Ignore("This text need for right answers generation")]
-        public void RecerateRight_ParsingResults()
-        {
-            var eml_files = Directory.GetFiles(TestFolderPath, "*.eml")
-                                     .Select(path => Path.GetFileName(path));
-
-            foreach (var eml_file in eml_files)
-            {
-                var eml_message = Parser.ParseMessageFromFile(TestFolderPath + eml_file);
-                CreateRightResult(eml_message, RightParserResultsPath + eml_file.Replace(".eml", ".xml"));
-            }
-        }
-
-        [Test]
-        [Ignore("This text need for right answers generation")]
-        public void RecerateRight_ParsingResult()
-        {
-            var eml_file = "must_create_original_message.html.eml";
-            var eml_message = Parser.ParseMessageFromFile(TestFolderPath + eml_file);
-            CreateRightResult(eml_message, RightParserResultsPath + eml_file.Replace(".eml", ".xml"));
-        }
-
-
         [Test]
         public void BadEncodingTest()
         {
             Test("bad_encoding.eml");
         }
-
-
-        [Test]
-        public void BadEncoding2Test()
-        {
-            Test("bad_encoding_2.eml");
-        }
-
 
         [Test]
         public void BadAddressNameEncodingTest()
@@ -82,13 +43,11 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
             Test("bad_address_name_encoding.eml");
         }
 
-
         [Test]
         public void BadCharsInSubject()
         {
             Test("bad_chars_in_subject.eml");
         }
-
 
         [Test]
         public void BadSubjectUtf8()
@@ -96,13 +55,11 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
             Test("bad_subject_utf8.eml");
         }
 
-
         [Test]
         public void EncriptedUtf8()
         {
             Test("utf8_encripted_teamlab.eml");
         }
-
 
         [Test]
         public void BadDecodedBody()
@@ -141,15 +98,27 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
         }
 
         [Test]
-        public void ShouldContainsOriginaMessageHtml()
+        public void BigMessageHtmlBody()
         {
-            Test("must_create_original_message.html.eml");
+            Test("big_message.html.eml");
         }
 
         [Test]
         public void ShouldParseEmptyTextBodyWithHeader()
         {
             Test("empty_text_body_lingua_leo.eml");
+        }
+
+        [Test]
+        public void EmptyBodyCharset()
+        {
+            Test("mail_delivery_failed_rambler.eml");
+        }
+
+        [Test]
+        public void IncorrectCharsetSubjectAndFromName()
+        {
+            Test("empty_charset_subject_from.eml");
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,6 +24,7 @@
 */
 
 
+body .Box,
 body .BoxNet,
 body .DropBox,
 body .Google,
@@ -36,8 +37,10 @@ body .OwnCloud {
     background-color: transparent;
     background-repeat: no-repeat;
 }
+body .Box,
 body .BoxNet {
-    background-image: url("images/thirdparty_boxnet.png");
+    background-image: url("images/thirdparty_box.png");
+    background-size: 158px 258px;
 }
 body .DropBox {
     background-image: url("images/thirdparty_dropbox.png");
@@ -63,6 +66,23 @@ body .Yandex {
 }
 body .OwnCloud {
     background-image: url("images/thirdparty_owncloud.png");
+}
+
+
+/*******************************************************************************
+   For Retina
+*******************************************************************************/
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx)
+{
+    body .BoxNet {
+        background-image: url("images/retina/thirdparty_boxnet.png");
+    }
 }
 
 /*******************************************************************************
@@ -271,6 +291,7 @@ body .OwnCloud {
     margin-right: 4px;
     width: 32px;
 }
+.tree-thirdparty-list .add-account-button.Box,
 .tree-thirdparty-list .add-account-button.BoxNet {
     width: 44px;
 }

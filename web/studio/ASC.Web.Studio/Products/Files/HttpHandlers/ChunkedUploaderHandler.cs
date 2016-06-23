@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,8 +24,6 @@
 */
 
 
-using System.Diagnostics;
-using System.Net;
 using ASC.Common.Web;
 using ASC.Core;
 using ASC.Core.Tenants;
@@ -35,11 +33,16 @@ using ASC.Security.Cryptography;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Utils;
+using ASC.Web.Studio.Core;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Net;
+using System.Threading;
 using System.Web;
 using File = ASC.Files.Core.File;
 
@@ -109,6 +112,7 @@ namespace ASC.Web.Files.HttpHandlers
             {
                 CoreContext.TenantManager.SetCurrentTenant(request.TenantId);
                 SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(request.AuthKey));
+                Thread.CurrentThread.CurrentUICulture = request.CultureInfo;
                 return true;
             }
 
@@ -119,6 +123,7 @@ namespace ASC.Web.Files.HttpHandlers
                 {
                     CoreContext.TenantManager.SetCurrentTenant(uploadSession.TenantId);
                     SecurityContext.AuthenticateMe(CoreContext.Authentication.GetAccountByID(uploadSession.UserId));
+                    Thread.CurrentThread.CurrentUICulture = SetupInfo.EnabledCulturesPersonal.Find(c => String.Equals(c.Name, uploadSession.CultureName, StringComparison.InvariantCultureIgnoreCase));
                     return true;
                 }
             }
@@ -198,6 +203,7 @@ namespace ASC.Web.Files.HttpHandlers
             private int? _tenantId;
             private long? _fileContentLength;
             private Guid? _authKey;
+            private CultureInfo _cultureInfo;
 
             public ChunkedRequestType Type
             {
@@ -287,6 +293,20 @@ namespace ASC.Web.Files.HttpHandlers
             public Stream ChunkStream
             {
                 get { return File.InputStream; }
+            }
+
+            public CultureInfo CultureInfo
+            {
+                get
+                {
+                    if (_cultureInfo != null)
+                        return _cultureInfo;
+
+                    var culture = _request["culture"];
+                    if (string.IsNullOrEmpty(culture)) culture = "en-US";
+
+                    return _cultureInfo = SetupInfo.EnabledCulturesPersonal.Find(c => String.Equals(c.Name, culture, StringComparison.InvariantCultureIgnoreCase));
+                }
             }
 
             private HttpPostedFileBase File

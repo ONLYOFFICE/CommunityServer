@@ -61,9 +61,9 @@
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\..\..\..\..\packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\bin\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -524,12 +524,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Data\ASC.Projects.db3" />
-    <Content Include="App_Themes\Default\css\allprojects.css" />
-    <Content Include="App_Themes\Default\css\alltasks.css" />
+    <Content Include="App_Themes\Default\css\allprojects.less" />
+    <Content Include="App_Themes\Default\css\alltasks.less" />
     <Content Include="App_Themes\Default\css\discussions.css" />
     <Content Include="App_Themes\Default\css\ganttchart.css" />
     <Content Include="App_Themes\Default\css\import.css" />
-    <Content Include="App_Themes\Default\css\milestones.css" />
+    <Content Include="App_Themes\Default\css\milestones.less" />
     <Content Include="App_Themes\Default\css\projectaction.css" />
     <Content Include="App_Themes\Default\css\projecttemplates.css" />
     <Content Include="App_Themes\Default\Images\empty_screen_discussions.png" />
@@ -562,7 +562,7 @@
     <Content Include="Controls\Reports\ReportTemplateView.ascx" />
     <Content Include="Controls\Reports\ReportView.ascx" />
     <Content Include="App_Themes\Default\css\common.css" />
-    <Content Include="App_Themes\Default\css\projectTeam.css" />
+    <Content Include="App_Themes\Default\css\projectTeam.less" />
     <Content Include="App_Themes\Default\css\reports.css" />
     <Content Include="App_Themes\Default\css\tasks.css" />
     <Content Include="App_Themes\Default\css\timetracking.css" />
@@ -589,9 +589,6 @@
     <Content Include="js\projecttemplates.js" />
     <Content Include="js\tasks.js" />
     <Content Include="js\ganttchartpage.js" />
-    <Content Include="Masters\CommonBodyScripts.ascx" />
-    <Content Include="Masters\GanttBodyScripts.ascx" />
-    <Content Include="Masters\Styles.ascx" />
     <Content Include="Messages.aspx" />
     <Content Include="Milestones.aspx" />
     <Content Include="Projects.aspx" />

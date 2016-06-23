@@ -12,8 +12,14 @@
           <div id="SelectAllContactsDropdown" class="down_arrow" title="<%: MailResource.Select %>">
           </div>
         </li>
+        <li class="menuAction unlockAction menuActionCreate">
+          <span title="<%: MailScriptResource.CreateContactButton %>"><%: MailScriptResource.CreateContactButton %></span>
+        </li>
         <li class="menuAction menuActionSendEmail">
-          <span title="<%: MailResource.WriteLetter %>"><%: MailResource.WriteLetter %></span>
+          <span title="<%: MailResource.ComposeLabel %>"><%: MailResource.ComposeLabel %></span>
+        </li>       
+        <li class="menuAction menuActionDelete">
+          <span title="<%: MailResource.DeleteBtnLabel %>"><%: MailResource.DeleteBtnLabel %></span>
         </li>
         <li class="menu-action-simple-pagenav"></li>
         <li class="menu-action-on-top">
@@ -32,20 +38,40 @@
 </script>
 
 <script id="contactItemTmpl" type="text/x-jquery-tmpl">
-    <tr class="row" data_id="{{if typeof(userName)!=='undefined'}}${userName}{{else}}${id}{{/if}}">
+    <tr class="row with-entity-menu" data_id="{{if typeof(userName)!=='undefined'}}${userName}{{else}}${id}{{/if}}"
+        type="{{if typeof(type)!=='undefined'}}${type}{{/if}}">
         <td class="checkbox {{if emails.length==0}}disable{{/if}}">
             <input type="checkbox" {{if emails.length>0}}title="<%: MailResource.Select %>"{{else}}disabled="disabled" class="disable"{{/if}} data_id="{{if typeof(userName)!=='undefined'}}${userName}{{else}}${id}{{/if}}" />
         </td>
+
+        <td class="avatar_container">
+            <div class="contact_avatar_container{{if typeof(isShared) != 'undefined' && isShared === true}} sharedContact{{/if}}">
+                <div class="contact_avatar_fake" title="${displayName}"></div>
+                <img class="contact_avatar display-none" title="${displayName}" src=""
+                    data-src="{{if typeof(smallFotoUrl) != 'undefined'}}${smallFotoUrl}{{else}}${avatarSmall}{{/if}}" />
+            </div>
+        </td>
+
+
         <td class="info">
-            <span class="name" title="${$item.htmlEncode(displayName)}">
+            <span class="name" title="${$item.htmlEncode(displayName)}" contactName="${name}">
                 {{if displayName == ' '}}&#160;{{else}}${$item.htmlEncode(displayName)}{{/if}}
             </span>
+            {{if typeof(isCompany) == 'undefined'}}
+            <span class="title" title="${$item.htmlEncode(title)}">
+                ${$item.htmlEncode(title)}
+            </span>
+            {{else typeof(company) != 'undefined' && company != null }}
+            <span class="crm_company" title="${$item.htmlEncode(company.displayName)}">
+                <%= MailScriptResource.CRMCompany %>:&nbsp;${$item.htmlEncode(company.displayName)}
+            </span>
+            {{/if}}
         </td>
         <td class="emails_list">
             <div class="emails">
                 {{each emails}}
                     <div class="email" isprimary="${$value.isPrimary}" title="${$value.email}" style="display:none;">
-                        <span class="contactEmail" contact_name="${displayName}">${$value.email}</span>
+                        <span class="contactEmail" contactName="${name}">${$value.email}</span>
                     </div>
                 {{/each}}
                 <div class="more_lnk">
@@ -55,7 +81,22 @@
                 </div>
             </div>
         </td>
-        <td class="title" title="${$item.htmlEncode(title)}">${$item.htmlEncode(title)}</td>
+
+        <td class="phones_list">
+            <div class="phones">
+                {{each phones}}
+                    <div class="phone" isprimary="${$value.isPrimary}" title="${$value.phone}" style="display:none;">
+                        <span class="contactPhone">${$value.phone}</span>
+                    </div>
+                {{/each}}
+                <div class="more_lnk">
+                    {{if phones.length>1}}
+                        <span class="gray">${"<%: MailScriptResource.More %>".replace('%1', phones.length-1)}</span>
+                    {{/if}}
+                </div>
+            </div>
+        </td>
+
         {{if type == "contact" }}
             <td class="tags_info">
                 <div class="labels">
@@ -66,7 +107,7 @@
             </td>
         {{/if}}
         <td class="menu_column">
-            <div class="menu menu-small" title="<%: MailScriptResource.Actions %>" data_id="{{if typeof(userName)!=='undefined'}}${userName}{{else}}${id}{{/if}}"></div>
+            <div class="entity-menu" title="<%: MailScriptResource.Actions %>" data_id="{{if typeof(userName)!=='undefined'}}${userName}{{else}}${id}{{/if}}"></div>
         </td>
     </tr>
 </script>

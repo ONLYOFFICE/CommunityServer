@@ -90,7 +90,7 @@
                             <p class="footer">{{html errorBodyFooter}}</p>
                         {{/if}}
                         {{if typeof(errorAdvancedInfo)!=='undefined'}}
-                            <div id="mail_advanced_error_container" class="error-popup account_error" style="display:none;">
+                            <div id="mail_advanced_error_container" class="error-popup account_error webkit-scrollbar" style="display:none;">
                                 {{html errorAdvancedInfo}}
                             </div>
                         {{/if}}

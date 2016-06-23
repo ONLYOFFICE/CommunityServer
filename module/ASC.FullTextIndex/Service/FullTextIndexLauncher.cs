@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,20 +24,20 @@
 */
 
 
-using System;
-using System.ServiceModel;
-
 using ASC.Common.Module;
 using ASC.FullTextIndex.Service.Config;
-
 using log4net;
 using log4net.Config;
+using System;
+using System.ServiceModel;
 
 namespace ASC.FullTextIndex.Service
 {
     class FullTextIndexLauncher : IServiceController
     {
+        private TextIndexerService indexer;
         private ServiceHost searcher;
+
 
         public void Start()
         {
@@ -46,24 +46,29 @@ namespace ASC.FullTextIndex.Service
             {
                 var successInit = TextIndexCfg.Init();
                 if (successInit)
-                    TextIndexerService.Instance.Start();
+                {
+                    indexer = new TextIndexerService();
+                    indexer.Start();
+                }
 
-                searcher = new ServiceHost(typeof (TextSearcherService));
+                searcher = new ServiceHost(typeof(TextSearcherService));
                 searcher.Open();
             }
             catch (Exception e)
             {
                 LogManager.GetLogger("ASC").Error(e);
-                Console.WriteLine(e.StackTrace);
                 Stop();
             }
         }
 
         public void Stop()
         {
-            TextIndexerService.Instance.Stop();
             TextSearcher.Instance.Stop();
-
+            if (indexer != null)
+            {
+                indexer.Stop();
+                indexer = null;
+            }
             if (searcher != null)
             {
                 searcher.Close();

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -89,6 +89,9 @@ ASC.CalendarController = new function() {
     }
 
     this.ApiUrl = '';
+    this.Busy = false;
+    this.Search = false;
+
     var _controller = this;
     var callbackFunc = null;
     var edited = null;
@@ -97,6 +100,93 @@ ASC.CalendarController = new function() {
 
     var AlertError = function(message) {
             alert(message);
+    };
+
+    var createProperty = function(jCal) {
+        if (!jCal || jCal.length < 4)
+            return null;
+        
+        var prop = new ICAL.Property(jCal[0]);
+        
+        for (var paramName in jCal[1]) {
+            prop.setParameter(paramName, jCal[1][paramName]);
+        }
+
+        prop.setValue(jCal[3]);
+
+        return prop;
+    };
+
+    var getEventData = function (calendarId, name, description, sDate, eDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status) {
+
+        var startDate = new Date(sDate.getTime());
+        var endDate = new Date(sDate.getTime());
+
+        if (eDate && eDate != 'null')
+            endDate = new Date(eDate.getTime());
+
+        var comp = new ICAL.Component(['vcalendar', [], []]);
+        var vevent = new ICAL.Component('vevent');
+
+        vevent.addPropertyWithValue("DTSTAMP", ICAL.Time.fromJSDate(new Date(), true).toICALString());
+        if (repeatType)
+            vevent.addPropertyWithValue("RRULE", repeatType);
+
+        var statusStr = "TENTATIVE";
+        if (status == 1) statusStr = "CONFIRMED";
+        else if (status == 2) statusStr = "CANCELLED";
+
+        vevent.addPropertyWithValue("STATUS", statusStr);
+
+        if (organizer) {
+            var organizerProperty = createProperty(organizer);
+            if (organizerProperty)
+                vevent.addProperty(organizerProperty);
+        }
+
+        if (attendees && attendees.length) {
+            for (var i = 0; i < attendees.length; i++) {
+                var attendeeProperty = createProperty(attendees[i]);
+                if (attendeeProperty)
+                    vevent.addProperty(attendeeProperty);
+            }
+        }
+
+        var event = new ICAL.Event(vevent);
+
+        event.summary = name;
+        event.description = description;
+        event.location = location || "";
+
+        if (isAllDayLong) {
+            endDate.setDate(endDate.getDate() + 1);
+        } else {
+            startDate = new Date(startDate.getTime() + ((-1) * timeZone.offset * 60 * 1000));
+            endDate = new Date(endDate.getTime() + ((-1) * timeZone.offset * 60 * 1000));
+        }
+
+        var dtstart = ICAL.Time.fromJSDate(startDate, false);
+        dtstart.zone = ICAL.Timezone.utcTimezone;
+
+        var dtend = ICAL.Time.fromJSDate(endDate, false);
+        dtend.zone = ICAL.Timezone.utcTimezone;
+
+        dtstart.isDate = isAllDayLong;
+        dtend.isDate = isAllDayLong;
+
+        event.startDate = dtstart;
+        event.endDate = dtend;
+
+        comp.addSubcomponent(vevent);
+
+        var ics = comp.toString();
+
+        return {
+            calendarId: calendarId,
+            alertType: alertType,
+            sharingOptions: shareOptions,
+            ics: ics
+        };
     };
 
     this.init = function (timeZones, editorUrl) {
@@ -109,27 +199,33 @@ ASC.CalendarController = new function() {
 
         LoadingBanner.animateDelay = 500;
         jq(document).ajaxStart(function() {
-            LoadingBanner.displayLoading(true);
+            if (!ASC.CalendarController.Search)
+                LoadingBanner.displayLoading(true);
         });
 
         jq(document).ajaxStop(function() {
-            LoadingBanner.hideLoading(true);
+            if (!ASC.CalendarController.Busy)
+                LoadingBanner.hideLoading(true);
         });
 
 
         var viewName = 'month';
         var today = new Date();
+        var targetEventId = null;
 
         try{
             ASC.Controls.AnchorController.init();
 
-            var currentAnchor = ASC.Controls.AnchorController.getAnchor();
-            viewName = currentAnchor.split('/')[0];
-            var date = currentAnchor.split('/')[1];
+            var anchorParams = ASC.Controls.AnchorController.getAnchor().split('/');
 
-            var today = (date == '' || date == undefined || isNaN(date)) ? new Date() : new Date(parseInt(date));
+            viewName = anchorParams[0];
+            var date = anchorParams[1];
+
+            today = (date == '' || date == undefined || isNaN(date)) ? new Date() : new Date(parseInt(date));
             if ('Invalid Date' == today || today == 'NaN')
                 today = new Date();
+
+            targetEventId = anchorParams[2] || null;
         }
         catch(e)
         {
@@ -179,7 +275,8 @@ ASC.CalendarController = new function() {
 
         jq("#asc_calendar").fullCalendar({
 
-            defaultView: (viewName == '' || viewName == undefined) ? 'month' : viewName,
+            defaultView: viewName,
+            targetEventId: targetEventId,
             year: today.getFullYear(),
             month: today.getMonth(),
             date: today.getDate(),
@@ -204,6 +301,7 @@ ASC.CalendarController = new function() {
             editCalendar: ASC.CalendarController.DoRequestToCalendar,
             editEvent: ASC.CalendarController.DoRequestToEvent,
             editPermissions: ASC.CalendarController.EditPermissions,
+            getPermissions: ASC.CalendarController.GetPermissions,
             removePermissions: ASC.CalendarController.RemovePermissions,
             loadSubscriptions: ASC.CalendarController.LoadSubscriptions,
             manageSubscriptions: ASC.CalendarController.ManageSubscriptions,
@@ -212,6 +310,53 @@ ASC.CalendarController = new function() {
             defaultTimeZone: defTimeZone,
             timeZones : timeZones,
             getMonthEvents: ASC.CalendarController.GetEventDays
+        });
+        
+        ASC.Mail.Enabled = true;
+        ASC.Mail.Accounts = [];
+        ASC.Mail.DefaultAccount = null;
+        ASC.Mail.Initialized = false;
+
+        window.Teamlab.getAccounts({}, {
+            success: function(params, res) {
+                if (res && res.length) {
+
+                    var enabledAccounts = jq.grep(res, function (item) {
+                        return item.enabled && !item.isGroup;
+                    });
+
+                    jq.each(enabledAccounts, function (index, item) {
+                        if (index == 0) {
+                            ASC.Mail.DefaultAccount = { email: item.email, name: item.name || Teamlab.profile.displayName };
+                        }
+
+                        if (item.isDefault) {
+                            ASC.Mail.DefaultAccount = { email: item.email, name: item.name || Teamlab.profile.displayName };
+                            return false;
+                        }
+                        return true;
+                    });
+                    
+                    ASC.Mail.Accounts = enabledAccounts;
+
+                    var selector = jq("#asc_event .editor .owner select");
+
+                    jq.each(enabledAccounts, function (index, item) {
+                        var name = item.name ? Encoder.htmlEncode(item.name) : Teamlab.profile.displayName;
+                        var option = jq("<option/>").attr("value", item.email).attr("data-name", Encoder.htmlDecode(name)).html("{0} &lt;{1}&gt;".format(name, item.email));
+                        selector.append(option);
+                    });
+
+                    selector.tlcombobox();
+
+                    ASC.Mail.Initialized = true;
+                }
+            },
+            error: function (params, err) {
+                ASC.Mail.Enabled = false;
+                ASC.Mail.Initialized = true;
+                console.log(err);
+            }
         });
     };
 
@@ -237,6 +382,14 @@ ASC.CalendarController = new function() {
                             data.response[i].events[j].repeatRule = ASC.Api.iCal.ParseRRuleFromString(data.response[i].events[j].repeatRule);
                         }
                     }
+
+                    data.response.sort(function (a, b) {
+                        if (a.isSubscription == b.isSubscription) {
+                            return (a.objectId < b.objectId) ? -1 : (a.objectId > b.objectId) ? 1 : 0;
+                        } else {
+                            return a.isSubscription ? 1 : -1;
+                        }
+                    });
 
                     callback({ result: true, eventSources: data.response });
                     return true;
@@ -477,8 +630,22 @@ ASC.CalendarController = new function() {
         //create
         if (params.action === 1) {
             edited = params.action;
-            _controller.CreateEvent(params.newSourceId, params.title, params.description,
-                                    params.start, params.end, params.repeatRule.ToiCalString(), params.alert.type, params.allDay, params.newTimeZone, sharingOptions);
+            _controller.CreateEvent(
+                params.newSourceId,
+                params.title,
+                params.description,
+                params.start,
+                params.end,
+                params.repeatRule.ToiCalString(),
+                params.alert.type,
+                params.allDay,
+                params.newTimeZone,
+                sharingOptions,
+                params.location,
+                params.organizer,
+                params.attendees,
+                params.status
+            );
         }
 
         //update
@@ -487,8 +654,23 @@ ASC.CalendarController = new function() {
             var tz = params.source.timeZone;
             if (params.source.objectId != params.newSourceId)
                 tz = params.newTimeZone;
-            _controller.UpdateEvent(params.newSourceId, params.objectId, params.title, params.description,
-                                    params.start, params.end, params.repeatRule.ToiCalString(), params.alert.type, params.allDay, tz, sharingOptions);
+            _controller.UpdateEvent(
+                params.newSourceId,
+                params.objectId,
+                params.title,
+                params.description,
+                params.start,
+                params.end,
+                params.repeatRule.ToiCalString(),
+                params.alert.type,
+                params.allDay,
+                tz,
+                sharingOptions,
+                params.location,
+                params.organizer,
+                params.attendees,
+                params.status
+            );
         }
 
         //delete
@@ -581,29 +763,16 @@ ASC.CalendarController = new function() {
         }
     }
 
-    this.CreateEvent = function(calendarId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions) {
+    this.CreateEvent = function(calendarId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status) {
 
-        if (endDate == null || endDate == 'null' || endDate == '')
-            endDate = startDate;
+        action = null; //wtf???
 
-        var offset = isAllDayLong ? 0 : timeZone.offset;
+        var url = _controller.ApiUrl + "/icsevent.json";
+        var postData = getEventData(calendarId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status);
 
-        startDate = ASC.Api.TypeConverter.ClientTimeToServer(startDate, offset);
-        endDate = ASC.Api.TypeConverter.ClientTimeToServer(endDate, offset);
-        action = null;
         jq.ajax({ type: 'post',
-            url: _controller.ApiUrl + "/" + calendarId + "/event.json",
-            data: {
-                calendarId: calendarId,
-                name: name,
-                description: description,
-                startDate: startDate,
-                endDate: endDate,
-                repeatType: repeatType,
-                alertType: alertType,
-                isAllDayLong: isAllDayLong,
-                sharingOptions: shareOptions
-            },
+            url: url,
+            data: postData,
             complete: function(d) {
                 var data = jq.evalJSON(d.responseText);
                 if (data.status === 0) {
@@ -623,29 +792,17 @@ ASC.CalendarController = new function() {
         });
     }
 
-    this.UpdateEvent = function(calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions) {
+    this.UpdateEvent = function (calendarId, eventId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status) {
 
-        if (endDate == null || endDate == 'null' || endDate == '')
-            endDate = startDate;
+        action = null; //wtf???
 
-        var offset = isAllDayLong ? 0 : timeZone.offset;
-        startDate = ASC.Api.TypeConverter.ClientTimeToServer(startDate, offset);
-        endDate = ASC.Api.TypeConverter.ClientTimeToServer(endDate, offset);
-        action = null;
+        var url = _controller.ApiUrl + "/icsevent.json";
+        var putData = getEventData(calendarId, name, description, startDate, endDate, repeatType, alertType, isAllDayLong, timeZone, shareOptions, location, organizer, attendees, status);
+        putData.eventId = eventId;
+
         jq.ajax({ type: 'put',
-            url: _controller.ApiUrl + "/" + calendarId + "/" + eventId + ".json",
-            data: {
-                calendarId: calendarId,
-                eventId: eventId,
-                name: name,
-                description: description,
-                startDate: startDate,
-                endDate: endDate,
-                repeatType: repeatType,
-                alertType: alertType,
-                isAllDayLong: isAllDayLong,
-                sharingOptions: shareOptions
-            },
+            url: url,
+            data: putData,
             complete: function(d) {
                 var data = jq.evalJSON(d.responseText);
                 oldPermissions = null;
@@ -743,6 +900,36 @@ ASC.CalendarController = new function() {
             //shareUserSelector.HideUser(ASC.Resources.Master.ApiResponsesMyProfile.response.id, true);
             return;
         }
+    }
+    
+    this.GetPermissions = function (param, callback) {
+
+        if (param.permissions.data == undefined) {
+
+            jq.ajax({
+                type: 'get',
+                url: _controller.ApiUrl + "/sharing.json",
+                complete: function (d) {
+                    var data = jq.evalJSON(d.responseText);
+                    var users = new Array();
+                    
+                    for (var i = 0; i < data.response.items.length; i++) {
+                        var item = data.response.items[i];
+                        if (item.selectedAction.id == 'owner')
+                            continue;
+                        users.push({ objectId: item.id, name: item.name });
+                    }
+
+                    callback({ result: data.status === 0, permissions: { users: users, data: data.response } });
+                    return;
+                }
+            });
+            
+        } else {
+            callback({ result: true, permissions: param.permissions });
+            return;
+        }
+        
     }
 
     // ViewChangedHandler

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -130,7 +130,7 @@ namespace ASC.Mail.Server.PostfixAdministration
 
             var updateGroupMembers = new SqlUpdate(AliasTable.name)
                 .Set(AliasTable.Columns.redirect, membersString)
-                .Set(AliasTable.Columns.modified, DateTime.UtcNow.ToDbStyle())
+                .Set(AliasTable.Columns.modified, DateTime.UtcNow)
                 .Where(AliasTable.Columns.address, Address.ToString());
 
             db.ExecuteNonQuery(updateGroupMembers);

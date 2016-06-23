@@ -77,7 +77,7 @@
             Support
         </h2>
         <p>
-            You can ask our developers at <a href="http://dev.onlyoffice.org/" target="_blank" class="underline">dev.onlyoffice.org</a> (registration required)
+            You can ask our developers at <a href="http://dev.onlyoffice.org/viewforum.php?f=9" target="_blank" class="underline">dev.onlyoffice.org</a> (registration required).
         </p>
     </div>
 </asp:Content>

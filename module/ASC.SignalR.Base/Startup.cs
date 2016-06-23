@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,6 +24,7 @@
 */
 
 
+using ASC.Core;
 using ASC.SignalR.Base;
 using ASC.SignalR.Base.Hubs.Chat;
 using log4net;
@@ -34,6 +35,7 @@ using Microsoft.Owin.Hosting;
 using Owin;
 using System;
 using System.Configuration;
+using System.Net;
 using System.ServiceModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -49,20 +51,26 @@ namespace ASC.SignalR.Base
         private static readonly ILog log = LogManager.GetLogger(typeof(Startup));
         private static readonly string url = ConfigurationManager.AppSettings["web.hub"] ?? "http://localhost:9899/";
 
-        public static void RunSignalrService(object task)
-        {
-            log.DebugFormat("RunSignalrService: start");
-            host = new ServiceHost(new SignalrService());
-            host.Open();
-            log.DebugFormat("RunSignalrService: host.Open");
-            signalrHost = WebApp.Start<Startup>(url);
-            log.DebugFormat("SignalRServer running on {0}", url);
-        }
 
         public static void StartService()
         {
             cancellationTokenSource = new CancellationTokenSource();
-            Task.Factory.StartNew(RunSignalrService, TaskCreationOptions.LongRunning, cancellationTokenSource.Token);
+            Task.Factory.StartNew(_ =>
+            {
+                try
+                {
+                    log.DebugFormat("RunSignalrService: start");
+                    host = new ServiceHost(new SignalrService());
+                    host.Open();
+                    log.DebugFormat("RunSignalrService: host.Open");
+                    signalrHost = WebApp.Start<Startup>(url);
+                    log.DebugFormat("SignalRServer running on {0}", url);
+                }
+                catch (Exception err)
+                {
+                    log.Error(err);
+                }
+            }, TaskCreationOptions.LongRunning, cancellationTokenSource.Token);
         }
 
         public static void StopService()
@@ -74,36 +82,39 @@ namespace ASC.SignalR.Base
             }
             catch (Exception ex)
             {
-                log.ErrorFormat("Exception on cancellationTokenSource.Cancel ex.Message = {0}, ex.StackTrace = {1), ex.InnerException {2}", 
-                    ex.Message, ex.StackTrace, ex.InnerException != null ? ex.InnerException.Message : string.Empty);
+                log.ErrorFormat("Exception on cancellationTokenSource.Cancel {0}", ex);
             }
 
-            try
+            if (host != null)
             {
-                if (host != null)
-                {
-                    log.DebugFormat("StopService: host.Close");
-                    host.Close();
-                    host = null;
-                }
-                if (signalrHost != null)
-                {
-                    signalrHost.Dispose();
-                    log.DebugFormat("StopService: signalrHost.Dispose");
-                    signalrHost = null;
-                }
+                log.DebugFormat("StopService: host.Close");
+                host.Close();
+                host = null;
             }
-            catch (Exception ex)
+            if (signalrHost != null)
             {
-                log.ErrorFormat("Exception on stop Service ex.Message = {0}, ex.StackTrace = {1), ex.InnerException {2}",
-                    ex.Message, ex.StackTrace, ex.InnerException != null ? ex.InnerException.Message : string.Empty);
+                signalrHost.Dispose();
+                log.DebugFormat("StopService: signalrHost.Dispose");
+                signalrHost = null;
             }
         }
 
         public void Configuration(IAppBuilder app)
         {
+            object httpListener;
+
+            if (WorkContext.IsMono &&
+                app.Properties.TryGetValue(typeof(HttpListener).FullName, out httpListener) &&
+                httpListener is HttpListener)
+            {
+                // HttpListener should not return exceptions that occur
+                // when sending the response to the client
+                ((HttpListener)httpListener).IgnoreWriteExceptions = true;
+            }
+
             GlobalHost.DependencyResolver.Register(typeof(IUserIdProvider), () => new CustomUserIdProvider());
             GlobalHost.Configuration.TransportConnectTimeout = TimeSpan.FromSeconds(15);
+
             app.Map("/signalr", map =>
             {
                 map.UseCors(CorsOptions.AllowAll);

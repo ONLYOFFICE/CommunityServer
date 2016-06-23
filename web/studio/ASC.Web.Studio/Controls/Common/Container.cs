@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -128,7 +128,7 @@ namespace ASC.Web.Studio.Controls.Common
 
                 if (Options.IsPopup)
                 {
-                    writer.Write("<td class=\"popupCancel\"><div class=\"cancelButton\" onclick=\"{0}\">&times</div></td>",
+                    writer.Write("<td class=\"popupCancel\"><div class=\"cancelButton\" onclick=\"{0}\">&times;</div></td>",
                                  Options.OnCancelButtonClick);
                 }
                 writer.Write("</tr></table>");

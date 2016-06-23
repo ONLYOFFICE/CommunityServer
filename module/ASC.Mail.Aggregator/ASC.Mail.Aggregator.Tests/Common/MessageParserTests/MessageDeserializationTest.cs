@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,10 +24,12 @@
 */
 
 
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ASC.Mail.Aggregator.Core.Clients;
+using MimeKit;
 using NUnit.Framework;
-using ActiveUp.Net.Mail;
 
 namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
 {
@@ -41,31 +43,32 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
         [SetUp]
         public void PrepareMessageForSerialization()
         {
-            var test_mail = new Message
+            var message = new MimeMessage();
+
+            message.From.Add(new MailboxAddress(TEST_TEXT, "test.mail@qip.ru"));
+            message.To.AddRange(new List<InternetAddress>
             {
-                From = { Email = "test.mail@qip.ru", Name = Codec.RFC2047Encode(TEST_TEXT) },
-                To = { new Address { Email = "test.mail@qip.ru", Name = Codec.RFC2047Encode("name1") },
-                       new Address { Email = "test.mail@gmail.com", Name = Codec.RFC2047Encode("name2") } },
-                Subject = Codec.RFC2047Encode(TEST_TEXT),
-                BodyText = { Charset = utf8Charset,
-                            ContentTransferEncoding = ContentTransferEncoding.QuotedPrintable,
-                             Text = TEST_TEXT
-                },
-                BodyHtml = { Charset = utf8Charset,
-                             ContentTransferEncoding = ContentTransferEncoding.QuotedPrintable,
-                             Text = string.Format("<a href='www.teamlab.com'>{0}</a>", TEST_TEXT) }
+                new MailboxAddress("name1", "test.mail@qip.ru"),
+                new MailboxAddress("name2", "test.mail@gmail.com")
+            });
+            message.Subject = TEST_TEXT;
+
+            var bodyBuilder = new BodyBuilder
+            {
+                TextBody = TEST_TEXT,
+                HtmlBody = string.Format("<a href='www.teamlab.com'>{0}</a>", TEST_TEXT)
             };
 
-            test_mail.StoreToFile(TEST_FILE_PATH);
-        }
+            message.Body = bodyBuilder.ToMessageBody();
 
+            message.WriteTo(TEST_FILE_PATH);
+        }
 
         [TearDown]
         public void CleanUpSerializedFile()
         {
             File.Delete(TEST_FILE_PATH);
         }
-
 
         //This test fails if data directory invalid or corrupted
         [Test]
@@ -74,31 +77,31 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
             using (new FileStream(TEST_FILE_PATH, FileMode.Open)) { }
         }
 
-
         [Test]
         public void DeserializationOfSerializedMessageTest()
         {
-            var test_mail = Parser.ParseMessageFromFile(TEST_FILE_PATH);
+            var testMail = MailClient.ParseMimeMessage(TEST_FILE_PATH);
+            var from = testMail.From.Mailboxes.FirstOrDefault();
 
-            Assert.AreEqual("test.mail@qip.ru", test_mail.From.Email);
-            Assert.AreEqual(TEST_TEXT, test_mail.From.Name);
-            Assert.IsTrue(test_mail.To.Count(mail => (mail.Email == "test.mail@qip.ru") && (mail.Name == "name1")) != 0);
-            Assert.IsTrue(test_mail.To.Count(mail => (mail.Email == "test.mail@gmail.com") && (mail.Name == "name2")) != 0);
+            Assert.AreEqual("test.mail@qip.ru", from == null ? "" : from.Address);
+            Assert.AreEqual(TEST_TEXT, from == null ? "" : from.Name);
+            Assert.IsTrue(testMail.To.Mailboxes.Count(mail => (mail.Address == "test.mail@qip.ru") && (mail.Name == "name1")) != 0);
+            Assert.IsTrue(testMail.To.Mailboxes.Count(mail => (mail.Address == "test.mail@gmail.com") && (mail.Name == "name2")) != 0);
 
-            Assert.AreEqual(TEST_TEXT, test_mail.Subject);
-            Assert.AreEqual(0, test_mail.Attachments.Count);
+            Assert.AreEqual(TEST_TEXT, testMail.Subject);
+            Assert.AreEqual(0, testMail.Attachments.Count());
 
-            Assert.AreEqual(utf8Charset, test_mail.BodyText.Charset);
-            Assert.AreEqual(TEST_TEXT + "\r\n", test_mail.BodyText.Text);
-            Assert.AreEqual(TEST_TEXT + "\r\n", test_mail.BodyText.TextStripped);
-            Assert.AreEqual(BodyFormat.Text, test_mail.BodyText.Format);
-            Assert.AreEqual(ContentTransferEncoding.QuotedPrintable, test_mail.BodyText.ContentTransferEncoding);
+           // Assert.AreEqual(utf8Charset, testMail.BodyText.Charset);
+            Assert.AreEqual(TEST_TEXT, testMail.TextBody);
+            //Assert.AreEqual(TEST_TEXT + "\r\n", testMail.BodyText.TextStripped);
+            //Assert.AreEqual(BodyFormat.Text, testMail.BodyText.Format);
+            //Assert.AreEqual(ContentTransferEncoding.QuotedPrintable, testMail.BodyText.ContentTransferEncoding);
 
-            Assert.AreEqual(utf8Charset, test_mail.BodyHtml.Charset);
-            Assert.AreEqual(string.Format("<a href='www.teamlab.com'>{0}</a>\r\n", TEST_TEXT), test_mail.BodyHtml.Text);
-            Assert.AreEqual(TEST_TEXT + "\r\n", test_mail.BodyHtml.TextStripped);
-            Assert.AreEqual(BodyFormat.Html, test_mail.BodyHtml.Format);
-            Assert.AreEqual(ContentTransferEncoding.QuotedPrintable, test_mail.BodyHtml.ContentTransferEncoding);
+            //Assert.AreEqual(utf8Charset, testMail.BodyHtml.Charset);
+            Assert.AreEqual(string.Format("<a href='www.teamlab.com'>{0}</a>", TEST_TEXT), testMail.HtmlBody);
+            //Assert.AreEqual(TEST_TEXT + "\r\n", testMail.BodyHtml.TextStripped);
+            //Assert.AreEqual(BodyFormat.Html, testMail.BodyHtml.Format);
+            //Assert.AreEqual(ContentTransferEncoding.QuotedPrintable, testMail.BodyHtml.ContentTransferEncoding);
         }
     }
 }

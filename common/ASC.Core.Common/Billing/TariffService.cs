@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -35,6 +35,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
 using System.Reflection;
+using System.ServiceModel.Configuration;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -48,6 +49,7 @@ namespace ASC.Core.Billing
 
         private readonly static ICache cache;
         private readonly static ICacheNotify notify;
+        private readonly static bool billingConfigured = false;
 
         private static readonly ILog log = LogManager.GetLogger(typeof(TariffService));
         private readonly IQuotaService quotaService;
@@ -70,6 +72,20 @@ namespace ASC.Core.Billing
                 cache.Remove(GetBillingUrlCacheKey(i.TenantId));
                 cache.Remove(GetBillingPaymentCacheKey(i.TenantId, DateTime.MinValue, DateTime.MaxValue)); // clear all payments
             });
+
+            try
+            {
+                var section = (ClientSection)ConfigurationManager.GetSection("system.serviceModel/client");
+                if (section != null)
+                {
+                    billingConfigured = section.Endpoints.Cast<ChannelEndpointElement>()
+                        .Any(e => e.Contract == typeof(IService).FullName);
+                }
+            }
+            catch (Exception err)
+            {
+                log.Error(err);
+            }
         }
 
 
@@ -87,6 +103,10 @@ namespace ASC.Core.Billing
 
         public Tariff GetTariff(int tenantId, bool withRequestToPaymentSystem = true)
         {
+            //single tariff for all portals
+            if (CoreContext.Configuration.Standalone)
+                tenantId = -1;
+
             var key = GetTariffCacheKey(tenantId);
             var tariff = cache.Get<Tariff>(key);
             if (tariff == null)
@@ -103,7 +123,7 @@ namespace ASC.Core.Billing
                 tariff = CalculateTariff(tenantId, tariff);
                 cache.Insert(key, tariff, DateTime.UtcNow.Add(GetCacheExpiration()));
 
-                if (withRequestToPaymentSystem)
+                if (billingConfigured && withRequestToPaymentSystem)
                 {
                     Task.Run(() =>
                     {
@@ -209,25 +229,28 @@ namespace ASC.Core.Billing
             if (payments == null)
             {
                 payments = new List<PaymentInfo>();
-                var quotas = quotaService.GetTenantQuotas();
-                try
+                if (billingConfigured)
                 {
-                    using (var client = GetBillingClient())
+                    try
                     {
-                        foreach (var pi in client.GetPayments(GetPortalId(tenantId), from, to))
+                        var quotas = quotaService.GetTenantQuotas();
+                        using (var client = GetBillingClient())
                         {
-                            var quota = quotas.SingleOrDefault(q => q.AvangateId == pi.ProductId);
-                            if (quota != null)
+                            foreach (var pi in client.GetPayments(GetPortalId(tenantId), from, to))
                             {
-                                pi.QuotaId = quota.Id;
+                                var quota = quotas.SingleOrDefault(q => q.AvangateId == pi.ProductId);
+                                if (quota != null)
+                                {
+                                    pi.QuotaId = quota.Id;
+                                }
+                                payments.Add(pi);
                             }
-                            payments.Add(pi);
                         }
                     }
-                }
-                catch (Exception error)
-                {
-                    LogError(error);
+                    catch (Exception error)
+                    {
+                        LogError(error);
+                    }
                 }
 
                 cache.Insert(key, payments, DateTime.UtcNow.Add(TimeSpan.FromMinutes(10)));
@@ -245,22 +268,25 @@ namespace ASC.Core.Billing
             if (urls == null)
             {
                 urls = new Dictionary<string, Tuple<Uri, Uri>>();
-                try
+                if (billingConfigured)
                 {
-                    var products = quotaService.GetTenantQuotas()
-                                               .Select(q => q.AvangateId)
-                                               .Where(id => !string.IsNullOrEmpty(id))
-                                               .ToArray();
-                    using (var client = GetBillingClient())
+                    try
                     {
-                        urls = tenant.HasValue ?
-                            client.GetPaymentUrls(GetPortalId(tenant.Value), products, GetAffiliateId(tenant.Value)) :
-                            client.GetPaymentUrls(null, products, !string.IsNullOrEmpty(affiliateId) ? affiliateId : null);
+                        var products = quotaService.GetTenantQuotas()
+                                                   .Select(q => q.AvangateId)
+                                                   .Where(id => !string.IsNullOrEmpty(id))
+                                                   .ToArray();
+                        using (var client = GetBillingClient())
+                        {
+                            urls = tenant.HasValue ?
+                                client.GetPaymentUrls(GetPortalId(tenant.Value), products, GetAffiliateId(tenant.Value)) :
+                                client.GetPaymentUrls(null, products, !string.IsNullOrEmpty(affiliateId) ? affiliateId : null);
+                        }
                     }
-                }
-                catch (Exception error)
-                {
-                    log.Error(error);
+                    catch (Exception error)
+                    {
+                        log.Error(error);
+                    }
                 }
                 cache.Insert(key, urls, DateTime.UtcNow.Add(TimeSpan.FromMinutes(10)));
             }
@@ -281,20 +307,54 @@ namespace ASC.Core.Billing
             return null;
         }
 
-        public Invoice GetInvoice(string paymentId)
+        public IDictionary<string, IEnumerable<Tuple<string, decimal>>> GetProductPriceInfo(params string[] productIds)
         {
+            if (productIds == null)
+            {
+                throw new ArgumentNullException("productIds");
+            }
             try
             {
-                using (var client = GetBillingClient())
+                var key = "biling-prices" + string.Join(",", productIds);
+                var result = cache.Get<IDictionary<string, IEnumerable<Tuple<string, decimal>>>>(key);
+                if (result == null)
                 {
-                    return client.GetInvoice(paymentId);
+                    using (var client = GetBillingClient())
+                    {
+                        result = client.GetProductPriceInfo(productIds);
+                    }
+                    cache.Insert(key, result, DateTime.Now.AddHours(1));
                 }
+                return result;
             }
             catch (Exception error)
             {
                 LogError(error);
-                return new Invoice();
+                return productIds
+                    .Select(p => new { ProductId = p, Prices = Enumerable.Empty<Tuple<string, decimal>>() })
+                    .ToDictionary(e => e.ProductId, e => e.Prices);
             }
+        }
+
+        public Invoice GetInvoice(string paymentId)
+        {
+            var result = new Invoice();
+
+            if (billingConfigured)
+            {
+                try
+                {
+                    using (var client = GetBillingClient())
+                    {
+                        result = client.GetInvoice(paymentId);
+                    }
+                }
+                catch (Exception error)
+                {
+                    LogError(error);
+                }
+            }
+            return result;
         }
 
 
@@ -368,6 +428,19 @@ namespace ASC.Core.Billing
             return inserted;
         }
 
+        public void DeleteDefaultBillingInfo()
+        {
+            const int tenant = Tenant.DEFAULT_TENANT;
+            using (var db = GetDb())
+            {
+                db.ExecuteNonQuery(new SqlUpdate("tenants_tariff")
+                                       .Set("tenant", -2)
+                                       .Where("tenant", tenant));
+            }
+
+            ClearCache(tenant);
+        }
+
 
         private Tariff CalculateTariff(int tenantId, Tariff tariff)
         {
@@ -419,7 +492,9 @@ namespace ASC.Core.Billing
 
                 if (config.Standalone)
                 {
+                    var licenseDate = tariff.DueDate;
                     tariff = Tariff.CreateDefault();
+                    tariff.LicenseDate = licenseDate;
                 }
             }
 

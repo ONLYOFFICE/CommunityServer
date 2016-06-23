@@ -1,0 +1,530 @@
+/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2016
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+
+/************* tasks **************/
+
+#CommonListContainer {
+    .dottedLink, .dottedLink:hover {
+        color: #333;
+        border-bottom: #333 1px dotted;
+    }
+
+    .taskSaving {
+        display: none;
+        height: 25px;
+        line-height: 25px;
+        padding-left: 25px;
+        margin-top: 12px;
+        background: url('../images/loader16.gif') no-repeat 0 3px;
+    }
+
+    .taskProcess {
+        height: 25px;
+        width: 16px;
+        background-position: 0 10px;
+    }
+
+    .dottedNumSubtask {
+        color: #333333;
+        font-size: 11px;
+        border-bottom: #000 1px dotted;
+    }
+
+
+    .taskList {
+        .task {
+            border-top: #d1d1d1 1px solid;
+            height: 32px;
+            clear: both;
+
+            &.borderbott {
+                border-bottom: #d1d1d1 1px solid;
+            }
+
+            .check {
+                float: left;
+                width: 38px;
+                height: 30px;
+                margin-left: 5px;
+
+
+                &.priority0 {
+                    background: #f4f4f4;
+                }
+
+                &.priority-1 {
+                    background: #c3c3c3;
+                }
+
+                &.priority1 {
+                    background: #E46850;
+                }
+
+                input {
+                    display: inline-block;
+                    margin: 8px auto;
+                }
+            }
+
+            .changeStatusCombobox {
+                width: 38px;
+                height: 22px;
+                margin-top: 3px;
+                text-align: center;
+            }
+
+            .taskPlace {
+                float: left;
+                height: 30px;
+                margin-left: 12px;
+            }
+
+            .taskName {
+                float: left;
+                overflow: hidden;
+                white-space: nowrap;
+                height: 30px;
+                line-height: 30px;
+                text-overflow: ellipsis;
+                max-width: 840px;
+
+                a {
+                    color: #333333;
+                    font-weight: bold;
+                    line-height: 30px;
+                    font-size: 12px;
+                    overflow: hidden;
+                    padding-left: 1px;
+                    text-overflow: ellipsis;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+            }
+
+            .high_priority {
+                background: url("../images/projects_entity_statuses.png") no-repeat scroll 0 -116px transparent;
+                display: inline-block;
+                float: left;
+                height: 15px;
+                margin-right: 4px;
+                margin-top: 6px;
+                width: 14px;
+            }
+
+            span.timeLeft {
+                color: #333333;
+                font-size: 12px;
+                line-height: 30px;
+                cursor: default;
+
+                &.red {
+                    color: #cc3300;
+                }
+            }
+
+            .deadline {
+                float: right;
+                display: block;
+                width: 120px;
+                overflow: hidden;
+                white-space: nowrap;
+                height: 30px;
+                text-align: center;
+            }
+
+            .deadline_late {
+                float: left;
+                width: 92px;
+                overflow: hidden;
+                white-space: nowrap;
+                height: 30px;
+                text-align: center;
+            }
+
+            .deadline_active {
+                float: left;
+                width: 92px;
+                overflow: hidden;
+                white-space: nowrap;
+                height: 30px;
+            }
+
+            .subtasksCount {
+                float: left;
+                width: 72px;
+                overflow: hidden;
+                white-space: nowrap;
+                height: 30px;
+                margin-left: 15px;
+
+                span.expand,
+                span.collaps,
+                span.add {
+                    color: #333333;
+                    font-size: 11px;
+                    line-height: 30px;
+                    cursor: pointer;
+                    margin-top: 10px;
+                    text-align: center;
+                }
+
+                    span.expand span,
+                    span.collaps span {
+                        display: inline;
+                    }
+
+                span.expand {
+                    background: no-repeat scroll right center transparent;
+                }
+
+                span.collaps {
+                    background: no-repeat scroll right center transparent;
+                }
+
+                span.add {
+                    padding: 0px;
+                    border-bottom: 1px dotted #333;
+                    display: none;
+                }
+            }
+
+            &:hover {
+                .taskName a {
+                    text-decoration: underline;
+                }
+
+                .subtasksCount span.add {
+                    display: inline;
+                }
+
+                .user {
+                    span {
+                        border-bottom: 1px dotted #000000;
+
+                        &.not-action {
+                            border-bottom: 1px dotted transparent;
+                            cursor: default;
+                        }
+                    }
+                }
+
+                .other {
+                    border-bottom: #333 1px dotted;
+                }
+            }
+
+            &.closed {
+                &:hover .subtasksCount span.add,
+                .subtasksCount span.expand,
+                .task.closed .subtasksCount span.collaps {
+                    display: none;
+                }
+
+                .taskName a {
+                    color: #83888d;
+                    font-weight: bold;
+                }
+
+                .user,
+                .user b,
+                .other {
+                    color: #83888d;
+                }
+
+                &:hover .other,
+                &:hover .user span {
+                    border-bottom-color: #83888d;
+                }
+
+                span.timeLeft {
+                    color: #83888d;
+                }
+            }
+
+            .user {
+                white-space: nowrap;
+                float: right;
+                font-size: 12px;
+                color: #333333;
+                width: 160px;
+                overflow: hidden;
+                line-height: 30px;
+                cursor: pointer;
+                display: inline-block;
+
+                span b {
+                    color: #666;
+                }
+
+                span:hover {
+                    border-bottom: 1px dotted #000000;
+                }
+
+                span.not-action:hover {
+                    border-bottom: 1px dotted transparent;
+                    cursor: default;
+                }
+            }
+
+            .other {
+                font-size: 12px;
+                font-size: 12px;
+                color: #333333;
+                overflow: hidden;
+                padding-top: 6px;
+                display: inline-block;
+                cursor: pointer;
+
+                &:hover {
+                    border-bottom: #333 1px dotted;
+                }
+            }
+
+            .others {
+                display: none;
+            }
+
+            .entity-menu {
+                float: right;
+                line-height: 30px;
+                margin: 6px 8px 0 15px;
+            }
+        }
+
+        .check .taskProcess {
+            margin-left: 10px;
+            margin-top: -3px;
+        }
+
+        .subtask .check .taskProcess {
+            margin-left: 1px;
+            margin-top: -3px;
+        }
+
+        .otherMargin {
+            float: right;
+            width: 160px;
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+    }
+}
+
+#showNextTaskProcess {
+    display:none;
+}
+
+.deadline_late {
+    text-align: left;
+}
+
+#othersListPopup {
+    .user,
+    .user span {
+        width: 170px;
+    }
+}
+
+.studio-action-panel .dropdown-content .dropdown-item.user.not-action:hover,
+.studio-action-panel .dropdown-content .dropdown-item.user.not-action:hover span {
+    text-decoration: none;
+    cursor: default;
+}
+
+
+#moveTaskPanel .milestonesList {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 200px;
+    border-top: 1px solid #D1D1D1;
+
+    .ms,
+    .milestonesButtons {
+        border-bottom: 1px solid #D1D1D1;
+        padding: 5px;
+    }
+}
+
+.borderBase.ms {padding:20px 30px 30px 20px;margin-bottom:20px;}
+.taskTitls.ms {padding:10px 0px;overflow-x: hidden;}
+.describe-text.ms {padding-bottom:10px;}
+
+.st_separater {
+  width:100%;
+  height:0px;
+}
+.filterSeparater {
+  width:100%;
+  height:10px;
+}
+
+*+html .tl-combobox .combobox-container {
+    position: relative;
+}
+*+html .tl-combobox .combobox-wrapper {
+    position: static;
+}
+
+.popupContainerClass .infoPanel {
+    margin: 0px;
+}
+.popupActionPanel {
+    background: #fff;
+    border: 1px solid #8E908F;
+    display: none;
+    min-width: 140px;
+    padding: 7px 10px;
+    position: absolute;
+    z-index: 1000;
+}
+
+#projectSelector_switcher span {
+    max-width: 188px;
+    display: inline-block;
+    overflow: hidden;
+}
+
+#emptyFilterScreen, #emptyTaskListScreen {
+    display: none;
+}
+
+
+/*---- status combobox ----*/
+
+.taskList {
+    .nomenupoint {
+        width: 16px;
+        height: 16px;
+        float: right;
+        margin: 0 15px 0 15px;
+    }
+
+    .changeStatusCombobox {
+        display: block;
+        width: 35px;
+        border: 1px solid transparent;
+
+        &.canEdit {
+            border: 1px solid #d1d1d1;
+            border-radius: 3px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            cursor: pointer;
+
+            span.arrow {
+                background-image: none;
+                height: 7px;
+                width: 7px;
+                display: inline-block;
+                position: relative;
+                margin: 0 4px 4px 1px;
+                *inline: inline;
+                *zoom: 1;
+
+                &:after {
+                    display: block;
+                    border-left: 4px solid transparent;
+                    border-right: 4px solid transparent;
+                    border-top: 4px solid #B8B8B8;
+                    content: "";
+                    height: 0;
+                    position: absolute;
+                    right: -1px;
+                    top: 50%;
+                    margin-top: -2px;
+                    width: 0;
+                    text-align: center;
+                }
+            }
+        }
+
+        &.noEdit {
+            background-image: none;
+            background-color: transparent;
+            border: 1px solid transparent;
+        }
+
+        span {
+            display: inline-block;
+            margin: 3px 0 0 2px;
+            width: 16px;
+            height: 16px;
+            *inline: inline;
+            *zoom: 1;
+        }
+
+        .open,
+        .overdue,
+        .closed {
+            background: url('../images/projects_entity_statuses.png') no-repeat;
+            background-position: 0 -60px;
+        }
+
+        .closed {
+            background-position: 0 -80px;
+        }
+    }
+
+
+        div.task:hover .changeStatusCombobox.canEdit,
+        .changeStatusCombobox.canEdit.selected {
+            background-color: #eaeaea;
+            border-color: #a8a8a8;
+
+            span.arrow:after {
+                border-top-color: #999999;
+            }
+        }
+}
+
+#remindAboutTask .containerBodyBlock {
+    text-align: center;
+}
+
+
+body.media-width-0-1650:not(.media-width-0-1500) #CommonListContainer .taskList .task .taskName {
+    max-width: 660px;
+}
+body.media-width-0-1500:not(.media-width-0-1400) #CommonListContainer .taskList .task .taskName {
+    max-width: 560px;
+}
+body.media-width-0-1400:not(.media-width-0-1300) #CommonListContainer .taskList .task .taskName {
+    max-width: 460px;
+}
+body.media-width-0-1300:not(.media-width-0-1200) #CommonListContainer .taskList .task .taskName {
+    max-width: 360px;
+}
+body.media-width-0-1200:not(.media-width-0-1100) #CommonListContainer .taskList .task .taskName {
+    max-width: 260px;
+}
+body.media-width-0-1100 #CommonListContainer .taskList .task .taskName {
+    max-width: 160px;
+}
+

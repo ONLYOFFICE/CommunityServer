@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -32,7 +32,7 @@ using CommandLine;
 
 namespace ASC.Mail.Aggregator.CollectionService
 {
-    sealed partial class Program
+    internal class Program
     {
         private static void Main(string[] args)
         {
@@ -49,12 +49,12 @@ namespace ASC.Mail.Aggregator.CollectionService
 
             if (Environment.UserInteractive || options.IsConsole)
             {
-                var service = new AggregatorService(options.OnlyUsers);
+                var service = new AggregatorService(options);
                 service.StartConsole();
             }
             else
             {
-                ServiceBase.Run(new AggregatorService(options.OnlyUsers));
+                ServiceBase.Run(new AggregatorService(options));
             }
         }
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -71,6 +71,11 @@ namespace ASC.Files.Core.Security
             return Can(file, userId, FilesSecurityActions.Read);
         }
 
+        public bool CanReview(FileEntry file, Guid userId)
+        {
+            return Can(file, userId, FilesSecurityActions.Review);
+        }
+
         public bool CanCreate(FileEntry file, Guid userId)
         {
             return Can(file, userId, FilesSecurityActions.Create);
@@ -91,6 +96,11 @@ namespace ASC.Files.Core.Security
             return CanRead(file, SecurityContext.CurrentAccount.ID);
         }
 
+        public bool CanReview(FileEntry file)
+        {
+            return CanReview(file, SecurityContext.CurrentAccount.ID);
+        }
+
         public bool CanCreate(FileEntry file)
         {
             return CanCreate(file, SecurityContext.CurrentAccount.ID);
@@ -109,21 +119,6 @@ namespace ASC.Files.Core.Security
         public IEnumerable<Guid> WhoCanRead(FileEntry fileEntry)
         {
             return WhoCan(fileEntry, FilesSecurityActions.Read);
-        }
-
-        public IEnumerable<Guid> WhoCanCreate(FileEntry fileEntry)
-        {
-            return WhoCan(fileEntry, FilesSecurityActions.Create);
-        }
-
-        public IEnumerable<Guid> WhoCanEdit(FileEntry fileEntry)
-        {
-            return WhoCan(fileEntry, FilesSecurityActions.Edit);
-        }
-
-        public IEnumerable<Guid> WhoCanDelete(FileEntry fileEntry)
-        {
-            return WhoCan(fileEntry, FilesSecurityActions.Delete);
         }
 
         private IEnumerable<Guid> WhoCan(FileEntry fileEntry, FilesSecurityActions action)
@@ -157,6 +152,7 @@ namespace ASC.Files.Core.Security
                     }
 
                     break;
+
                 case FolderType.USER:
                     defaultShareRecord = new FileShareRecord
                         {
@@ -176,11 +172,35 @@ namespace ASC.Files.Core.Security
                             };
 
                     break;
+
+                case FolderType.BUNCH:
+                    if (action == FilesSecurityActions.Read)
+                    {
+                        using (var folderDao = daoFactory.GetFolderDao())
+                        {
+                            var root = folderDao.GetFolder(fileEntry.RootFolderId);
+                            if (root != null)
+                            {
+                                var path = folderDao.GetBunchObjectID(root.ID);
+
+                                var adapter = FilesIntegration.GetFileSecurity(path);
+
+                                if (adapter != null)
+                                {
+                                    return adapter.WhoCanRead(fileEntry);
+                                }
+                            }
+                        }
+                    }
+
+                    // TODO: For Projects and other
+                    defaultShareRecord = null;
+                    break;
+
                 default:
                     defaultShareRecord = null;
                     break;
             }
-            // TODO: For Projects and other
 
             if (defaultShareRecord != null)
                 shares = shares.Concat(new[] {defaultShareRecord});
@@ -344,10 +364,11 @@ namespace ASC.Files.Core.Security
                     var defaultShare = e.RootFolderType == FolderType.USER ? DefaultMyShare : DefaultCommonShare;
                     e.Access = ace != null ? ace.Share : defaultShare;
 
-                    if (action == FilesSecurityActions.Read && e.Access <= FileShare.Read) result.Add(e);
-                    else if (action == FilesSecurityActions.Edit && e.Access <= FileShare.ReadWrite) result.Add(e);
-                    else if (action == FilesSecurityActions.Create && e.Access <= FileShare.ReadWrite) result.Add(e);
-                    else if (e.Access <= FileShare.Read && e.CreateBy == userId && (e is File || ((Folder) e).FolderType != FolderType.COMMON)) result.Add(e);
+                    if (action == FilesSecurityActions.Read && e.Access != FileShare.Restrict) result.Add(e);
+                    else if (action == FilesSecurityActions.Review && (e.Access == FileShare.Review || e.Access == FileShare.ReadWrite)) result.Add(e);
+                    else if (action == FilesSecurityActions.Edit && e.Access == FileShare.ReadWrite) result.Add(e);
+                    else if (action == FilesSecurityActions.Create && e.Access == FileShare.ReadWrite) result.Add(e);
+                    else if (e.Access != FileShare.Restrict && e.CreateBy == userId && (e is File || ((Folder) e).FolderType != FolderType.COMMON)) result.Add(e);
 
                     if (e.CreateBy == userId) e.Access = FileShare.None; //HACK: for client
                 }
@@ -514,7 +535,7 @@ namespace ASC.Files.Core.Security
                                           x.Access = fileIds[x.ID];
                                   });
 
-                var folders = folderDao.GetFolders(folderIds.Keys.ToArray(), searchText, searchSubfolders);
+                var folders = folderDao.GetFolders(folderIds.Keys.ToArray(), searchText, searchSubfolders && !string.IsNullOrEmpty(searchText));
                 folders = FilterRead(folders).ToList();
                 folders.ForEach(x =>
                                     {
@@ -526,7 +547,7 @@ namespace ASC.Files.Core.Security
 
                 if (!string.IsNullOrEmpty(searchText))
                 {
-                    var filesInSharedFolders = fileDao.GetFiles(folderIds.Keys.ToArray(), searchText, searchSubfolders);
+                    var filesInSharedFolders = fileDao.GetFiles(folderIds.Keys.ToArray(), searchText, searchSubfolders && !string.IsNullOrEmpty(searchText));
                     filesInSharedFolders = FilterRead(filesInSharedFolders).ToList();
                     entries.AddRange(filesInSharedFolders);
                 }
@@ -607,6 +628,7 @@ namespace ASC.Files.Core.Security
         private enum FilesSecurityActions
         {
             Read,
+            Review,
             Create,
             Edit,
             Delete,

@@ -29,86 +29,84 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
-using Novell.Directory.Ldap;
 using Novell.Directory.Ldap.Asn1;
 using Novell.Directory.Ldap.Utilclass;
+using System;
+using System.IO;
 
 namespace Novell.Directory.Ldap.Extensions
 {
-	
-	/// <summary>  Returns a count of the number of entries (objects) in the
-	/// specified partition.
-	/// 
-	/// To obtain the count of entries, you must create an instance of this
-	/// class and then call the extendedOperation method with this
-	/// object as the required LdapExtendedOperation parameter.
-	/// 
-	/// The returned LdapExtendedResponse object can then be converted to
-	/// a PartitionEntryCountResponse object. This class contains
-	/// methods for retrieving the returned count.
-	/// 
-	/// The PartitionEntryCountRequest extension uses the following
-	/// OID:
-	/// 2.16.840.1.113719.1.27.100.13
-	/// 
-	/// The requestValue has the following format:
-	/// 
-	/// requestValue ::=
-	///     dn      LdapDN
-	/// </summary>
-	public class PartitionEntryCountRequest:LdapExtendedOperation
-	{
+    /// <summary>  Returns a count of the number of entries (objects) in the
+    /// specified partition.
+    /// 
+    /// To obtain the count of entries, you must create an instance of this
+    /// class and then call the extendedOperation method with this
+    /// object as the required LdapExtendedOperation parameter.
+    /// 
+    /// The returned LdapExtendedResponse object can then be converted to
+    /// a PartitionEntryCountResponse object. This class contains
+    /// methods for retrieving the returned count.
+    /// 
+    /// The PartitionEntryCountRequest extension uses the following
+    /// OID:
+    /// 2.16.840.1.113719.1.27.100.13
+    /// 
+    /// The requestValue has the following format:
+    /// 
+    /// requestValue ::=
+    ///     dn      LdapDN
+    /// </summary>
+    public class PartitionEntryCountRequest : LdapExtendedOperation
+    {
+        static PartitionEntryCountRequest()
+        {
+            /*
+             * Register the extendedresponse class which is returned by the
+             * server in response to a ListReplicasRequest
+             */
+            try
+            {
+                LdapExtendedResponse.register(ReplicationConstants.NAMING_CONTEXT_COUNT_RES,
+                    Type.GetType("Novell.Directory.Ldap.Extensions.PartitionEntryCountResponse"));
+            }
+            catch (Exception)
+            {
+                Console.Error.WriteLine("Could not register Extended Response - Class not found");
+            }
+        }
 
-		static PartitionEntryCountRequest() 
-		{
-			/*
-				* Register the extendedresponse class which is returned by the
-				* server in response to a ListReplicasRequest
-				*/
-			try
-			{
-				LdapExtendedResponse.register(ReplicationConstants.NAMING_CONTEXT_COUNT_RES, System.Type.GetType("Novell.Directory.Ldap.Extensions.PartitionEntryCountResponse"));
-			}
-			catch (System.Exception e)
-			{
-				System.Console.Error.WriteLine("Could not register Extended Response -" + " Class not found");
-			}
-		}
-		
-		/// <summary>  Constructs an extended operation object for counting entries
-		/// in a naming context.
-		/// 
-		/// </summary>
-		/// <param name="dn"> The distinguished name of the partition.
-		/// 
-		/// </param>
-		/// <exception> LdapException A general exception which includes an
-		/// error message and an Ldap error code.
-		/// </exception>
-		
-		public PartitionEntryCountRequest(System.String dn):base(ReplicationConstants.NAMING_CONTEXT_COUNT_REQ, null)
-		{
-			
-			try
-			{
-				
-				if (((System.Object) dn == null))
-					throw new System.ArgumentException(ExceptionMessages.PARAM_ERROR);
-				
-				System.IO.MemoryStream encodedData = new System.IO.MemoryStream();
-				LBEREncoder encoder = new LBEREncoder();
-				
-				Asn1OctetString asn1_dn = new Asn1OctetString(dn);
-				
-				asn1_dn.encode(encoder, encodedData);
-				
-				setValue(SupportClass.ToSByteArray(encodedData.ToArray()));
-			}
-			catch (System.IO.IOException ioe)
-			{
-				throw new LdapException(ExceptionMessages.ENCODING_ERROR, LdapException.ENCODING_ERROR, (System.String) null);
-			}
-		}
-	}
+        /// <summary>  Constructs an extended operation object for counting entries
+        /// in a naming context.
+        /// 
+        /// </summary>
+        /// <param name="dn"> The distinguished name of the partition.
+        /// 
+        /// </param>
+        /// <exception> LdapException A general exception which includes an
+        /// error message and an Ldap error code.
+        /// </exception>
+
+        public PartitionEntryCountRequest(string dn)
+            : base(ReplicationConstants.NAMING_CONTEXT_COUNT_REQ, null)
+        {
+            try
+            {
+                if (dn == null)
+                    throw new ArgumentException(ExceptionMessages.PARAM_ERROR);
+
+                MemoryStream encodedData = new MemoryStream();
+                LBEREncoder encoder = new LBEREncoder();
+
+                Asn1OctetString asn1_dn = new Asn1OctetString(dn);
+
+                asn1_dn.encode(encoder, encodedData);
+
+                setValue(SupportClass.ToSByteArray(encodedData.ToArray()));
+            }
+            catch (IOException)
+            {
+                throw new LdapException(ExceptionMessages.ENCODING_ERROR, LdapException.ENCODING_ERROR, null);
+            }
+        }
+    }
 }

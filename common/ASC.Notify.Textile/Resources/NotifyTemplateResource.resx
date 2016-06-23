@@ -1,0 +1,315 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="HtmlMaster" xml:space="preserve">
+    <value>&lt;body style="margin: 0; padding: 0; text-align: center; width: 100%; font-family: Arial, sans-serif; font-size: 14px; color: #333;"&gt;
+&lt;div style="background-color: #fff; width: 600px; margin: 0 auto; text-align: left;"&gt;
+    &lt;table cellspacing="0" cellpadding="0" style="font-family: Arial; font-size: 14px; color: #333; background: #fff; text-align: center; width: 600px; margin: 0; padding: 0; border: 0 none; border-collapse: collapse; empty-cells: show; border-spacing: 0;"&gt;
+      &lt;tbody&gt;
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+          &lt;td colspan="3" style="margin: 0; padding: 0; background-color: #fff; height: 65px; padding: 20px 0 0 30px;"&gt;
+            &lt;div style="text-align: left; height: 65px; width: 570px; margin: 0; padding: 0;"&gt;
+                &lt;a href="%SITEURL%" style="text-decoration: none; display: inline-block; width: 216px; height: 35px; margin: 0; padding: 0;" target="_blank"&gt;
+                    &lt;img src="%LOGO%" style="border: 0px none; width: 216px; height: 35px; margin: 0; padding: 0;" alt="%LOGOTEXT%" /&gt;
+                &lt;/a&gt;
+            &lt;/div&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+          &lt;td colspan="3" style="margin: 0; padding: 15px 30px 15px; background-color: #f6f6f6; -moz-border-radius: 6px; -webkit-border-radius: 6px; border-radius: 6px;"&gt;
+            &lt;div style="font-family: Arial; font-size: 14px; color: #333; margin: 0; padding: 0; width: 540px; height: auto; overflow: hidden; word-wrap: break-word; vertical-align: top; text-align: left; border: 0 none;"&gt;
+              %CONTENT%
+            &lt;/div&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+        %FOOTER%
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;table cellspacing="0" cellpadding="0" style="font-family: Arial; font-size: 14px; color: #333; text-align: center; vertical-align: top; width: 600px; margin: 0; padding: 0; border-collapse: collapse; border: 0; border-spacing: 0; "&gt;
+      &lt;tbody&gt;
+        %FOOTERSOCIAL%
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+          &lt;td colspan="5" style="width: 600px; vertical-align: top; margin: 0; padding: 20px 30px 15px;"&gt;
+              &lt;p style="color: #7b7b7b; font-family: Arial, Tahoma; font-size: 12px; margin: 0; padding: 0; text-align: center; width: 540px;"&gt;
+              %TEXTFOOTER%
+              &lt;/p&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;
+      &lt;/tbody&gt;
+    &lt;/table&gt;
+&lt;/div&gt;
+&lt;/body&gt;</value>
+  </data>
+  <data name="FooterCommon" xml:space="preserve">
+    <value>&lt;tr border="0" cellspacing="0" cellpadding="0"&gt;&lt;td colspan="3" style="height: 10px; line-height: 10px; background: #fff; padding: 0; margin: 0;"&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;"&gt;
+              &lt;img src="http://cdn.teamlab.com/media/newsletters/images/tech-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+            &lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 180px; height: 108px; background: #f6f6f6;"&gt;
+              &lt;img src="http://cdn.teamlab.com/media/newsletters/images/mailus-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+            &lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topright: 6px; -webkit-border-top-right-radius: 6px; border-top-right-radius: 6px;"&gt;
+              &lt;img src="http://cdn.teamlab.com/media/newsletters/images/demo-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 210px; height: 16px; background: #f6f6f6;"&gt;Need tech help?&lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 180px; height: 16px; background: #f6f6f6;"&gt;Sales Questions&lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 210px; height: 16px; background: #f6f6f6;"&gt;Order Demo&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 210px; background: #f6f6f6;-moz-border-radius-bottomleft: 6px; -webkit-border-bottom-left-radius: 6px; border-bottom-left-radius: 6px;"&gt;
+              &lt;a href="%SUPPORTURL%" target="_blank" style="color: #333;"&gt;Send your question&lt;/a&gt;
+            &lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 180px; background: #f6f6f6;"&gt;
+              &lt;a href="mailto:%SALESEMAIL%" style="color: #333;"&gt;Email us&lt;/a&gt;
+            &lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 210px; background: #f6f6f6;-moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; border-bottom-right-radius: 6px;"&gt;
+              &lt;a href="%DEMOURL%" target="_blank" style="color: #333;"&gt;Send a request&lt;/a&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;</value>
+  </data>
+  <data name="TextForFooterWithUnsubscribe" xml:space="preserve">
+    <value>This email is generated automatically and you do not need to answer it.
+&lt;br /&gt;You receive this email because you are a registered user of &lt;a href="http://www.onlyoffice.com/" style="color: #7b7b7b;" target="_blank"&gt;onlyoffice.com&lt;/a&gt;
+&lt;br /&gt;If you no longer wish to receive these emails, click on the following link: &lt;a href="{0}" style="color: #7b7b7b;" target="_blank"&gt;Unsubscribe&lt;/a&gt;
+&lt;br /&gt;</value>
+  </data>
+  <data name="TextForFooter" xml:space="preserve">
+    <value />
+  </data>
+  <data name="HtmlMasterPromo" xml:space="preserve">
+    <value>&lt;body style="margin: 0; padding: 10px 0; text-align: center; width: 100%; font-family: Arial, sans-serif; font-size: 14px; color: #5e5e5e; background-color: #dadada;"&gt;
+    &lt;div id="common_style" style="background-color: #fff; width: 680px; margin: 20px auto; text-align: left;"&gt;
+        &lt;div style="background-color: #fff; width: 600px; padding:0 40px;"&gt;
+            &lt;a href="http://www.onlyoffice.com/" style="text-decoration: none; margin: 0; padding: 0; display: block; width: 199px;"&gt;
+                &lt;img alt="ONLYOFFICE" style="border: 0; margin: 0; padding: 0; color: #5e5e5e; font-size: 28px; width: 199px; height: 72px; display: block;" src=%LOGO%&gt;
+            &lt;/a&gt;
+        &lt;/div&gt;
+        &lt;div id="content"&gt;
+            &lt;table cellpadding="0" cellspacing="0" style="margin: 0; border-spacing: 0; empty-cells: show; word-wrap: break-word;"&gt;
+                &lt;tbody&gt;
+                    &lt;tr&gt;
+                        &lt;td style="width: 600px; background-color: #fff; padding:0 40px;"&gt;
+                            &lt;div style="font-family: Arial; font-size: 14px; color: #5e5e5e; background-color: #fff; padding: 40px 0; width: 600px; overflow: hidden; word-wrap: break-word;"&gt;
+                                %CONTENT%
+                            &lt;/div&gt;
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                &lt;/tbody&gt;
+            &lt;/table&gt;
+            %FOOTER%
+
+                &lt;table cellpadding="0" cellspacing="0" style="background-color: #5e5e5e; margin: 0; padding: 0; border: 0; border-collapse: collapse; empty-cells: show; border-spacing: 0;"&gt;
+                    &lt;tr&gt;
+                        &lt;td style="font-family: Arial; width: 680px; height: 108px; font-size: 11px; vertical-align: middle; margin: 0; padding: 0;"&gt;
+                            &lt;p style="font-family: Arial; font-size: 11px; color: #fff; margin: 11px 40px 10px; text-align: center; line-height: 20px;"&gt;%TEXTFOOTER%&lt;/p&gt;
+                        &lt;/td&gt;
+                    &lt;/tr&gt;
+                &lt;/table&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/body&gt;</value>
+  </data>
+  <data name="FooterPersonal" xml:space="preserve">
+    <value>&lt;table cellpadding="0" cellspacing="0" style="border-spacing: 0; empty-cells: show; color: #5e5e5e; width: 600px; margin:0 40px 54px; font-size: 14px;"&gt;
+				&lt;tbody&gt;
+								&lt;tr&gt;
+									&lt;td&gt;
+										&lt;div style="width: 400px; margin-top: 30px; font-size: 14px; line-height:18px;"&gt;Please, proceed to our &lt;a href="http://helpcenter.onlyoffice.com/ONLYOFFICE-Editors/index.aspx" target="_blank"&gt;FAQ section&lt;/a&gt; if you have any questions. ONLYOFFICE is also available in &lt;a href="https://chrome.google.com/webstore/detail/onlyoffice-personal/iohfebkcjhlelaoibebeohcgkohkcgpn?utm_source=chrome-ntp-icon" target="_blank"&gt;Chrome Web Store&lt;/a&gt;.
+										&lt;/div&gt;
+									&lt;/td&gt;
+									&lt;td&gt;
+									&lt;div style="width: 170px;"&gt;
+										&lt;div style="font-size:22px; font-weight: bold; margin-bottom: 5px;"&gt;Stay tuned!&lt;/div&gt;
+										&lt;div style="background-color: #b9e3f5; padding: 11px; margin: 0;"&gt;
+											&lt;a target="_blank" style="color: #3D4A6B; margin-right: 10px;" href="https://www.facebook.com/pages/OnlyOffice/833032526736775"&gt;&lt;img style="vertical-align: middle; border: 0; width: 26px; height: 26px;" src="http://cdn.teamlab.com/media/newsletters/images/social_01.jpg" alt="Facebook" title="Facebook" /&gt;&lt;/a&gt;
+											&lt;a target="_blank" style="color: #3D4A6B; margin-right: 10px;" href="http://twitter.com/ONLY_OFFICE"&gt;&lt;img src="http://cdn.teamlab.com/media/newsletters/images/social_02.jpg" alt="Twitter" title="Twitter" style="vertical-align: middle; border: 0; width: 26px; height: 26px;" /&gt;&lt;/a&gt;
+											&lt;a target="_blank" style="color: #3D4A6B; margin-right: 10px;" href="https://plus.google.com/u/0/+teamlab/"&gt;&lt;img src="http://cdn.teamlab.com/media/newsletters/images/social_03.jpg" alt="Google+" title="Google+" style="vertical-align: middle; border: 0; width: 26px; height: 26px;" /&gt;&lt;/a&gt;
+											&lt;a target="_blank" style="color: #3D4A6B;" href="http://www.linkedin.com/groups?home=&amp;gid=3159387&amp;trk=anet_ug_hm"&gt;&lt;img src="http://cdn.teamlab.com/media/newsletters/images/social_04.jpg" alt="Linked In" title="Linked In" style="vertical-align: middle; border: 0; width: 26px; height: 26px;" /&gt;&lt;/a&gt;
+										&lt;/div&gt;
+										&lt;/div&gt;
+									&lt;/td&gt;
+								&lt;/tr&gt;
+
+                &lt;/tbody&gt;
+        &lt;/table&gt;</value>
+  </data>
+  <data name="FooterFreeCloud" xml:space="preserve">
+    <value>&lt;tr border="0" cellspacing="0" cellpadding="0"&gt;&lt;td colspan="3" style="height: 10px; line-height: 10px; background: #fff; padding: 0; margin: 0;"&gt;&amp;nbsp;&lt;/td&gt;&lt;/tr&gt;
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topleft: 6px; -webkit-border-top-left-radius: 6px; border-top-left-radius: 6px;"&gt;
+              &lt;img src="http://cdn.teamlab.com/media/newsletters/images/tech-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+            &lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 180px; height: 108px; background: #f6f6f6;"&gt;
+              &lt;img src="http://cdn.teamlab.com/media/newsletters/images/mailus-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+            &lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 34px 0 0 0; width: 210px; height: 108px; background: #f6f6f6; -moz-border-radius-topright: 6px; -webkit-border-top-right-radius: 6px; border-top-right-radius: 6px;"&gt;
+              &lt;img src="http://cdn.teamlab.com/media/newsletters/images/demo-100.png" style="width: 100px; height: 100px;margin: 0 auto;" /&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 210px; height: 16px; background: #f6f6f6;"&gt;Need tech help?&lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 180px; height: 16px; background: #f6f6f6;"&gt;Sales Questions&lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0; width: 210px; height: 16px; background: #f6f6f6;"&gt;Order Demo&lt;/td&gt;
+        &lt;/tr&gt;
+        &lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 210px; background: #f6f6f6;-moz-border-radius-bottomleft: 6px; -webkit-border-bottom-left-radius: 6px; border-bottom-left-radius: 6px;"&gt;
+              &lt;a href="http://cloud.onlyoffice.org/" target="_blank" style="color: #333;"&gt;Send your question&lt;/a&gt;
+            &lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 180px; background: #f6f6f6;"&gt;
+              &lt;a href="mailto:sales@onlyoffice.com" style="color: #333;"&gt;Email us&lt;/a&gt;
+            &lt;/td&gt;
+            &lt;td style="vertical-align: top; margin: 0; padding: 0 0 30px; width: 210px; background: #f6f6f6;-moz-border-radius-bottomright: 6px; -webkit-border-bottom-right-radius: 6px; border-bottom-right-radius: 6px;"&gt;
+              &lt;a href="http://www.onlyoffice.com/demo-order.aspx" target="_blank" style="color: #333;"&gt;Send a request&lt;/a&gt;
+            &lt;/td&gt;
+        &lt;/tr&gt;</value>
+  </data>
+  <data name="FooterSocial" xml:space="preserve">
+    <value>&lt;tr border="0" cellspacing="0" cellpadding="0"&gt;
+          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 180px;"&gt;
+              &lt;a href="https://www.facebook.com/pages/OnlyOffice/833032526736775" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
+                  &lt;img src="http://cdn.onlyoffice.com/media/newsletters/images/social-fb-40.png" alt="Facebook" style="width: 40px; height: 40px;" /&gt;
+              &lt;/a&gt;
+          &lt;/td&gt;
+          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
+              &lt;a href="https://twitter.com/ONLY_OFFICE" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
+                  &lt;img src="http://cdn.onlyoffice.com/media/newsletters/images/social-tw-40.png" alt="Twitter" style="width: 40px; height: 40px;" /&gt;
+              &lt;/a&gt;
+          &lt;/td&gt;
+          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
+              &lt;a href="https://plus.google.com/+Onlyoffice_Community" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
+                  &lt;img src="http://cdn.onlyoffice.com/media/newsletters/images/social-gplus-40.png" alt="Google+" style="width: 40px; height: 40px;" /&gt;
+              &lt;/a&gt;
+          &lt;/td&gt;
+          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 5px 0 5px;"&gt;
+              &lt;a href="http://www.youtube.com/user/onlyofficeTV" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
+                  &lt;img src="http://cdn.onlyoffice.com/media/newsletters/images/social-youtube-40.png" alt="YouTube" style="width: 40px; height: 40x;" /&gt;
+              &lt;/a&gt;
+          &lt;/td&gt;
+          &lt;td style="width: 40px; vertical-align: top; margin: 0; padding: 22px 180px 0 5px;"&gt;
+              &lt;a href="http://vk.com/onlyoffice" style="width: 40px; height: 40px; display: block; margin: 0; padding: 0;" target="_blank"&gt;
+                  &lt;img src="http://cdn.onlyoffice.com/media/newsletters/images/social-vk-40.png" alt="VK" style="width: 40px; height: 40px;" /&gt;
+              &lt;/a&gt;
+          &lt;/td&gt;
+        &lt;/tr&gt;</value>
+  </data>
+</root>

@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -32,7 +32,6 @@ using System.Web;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Domain.Reports;
 using ASC.Web.Projects.Classes;
-using Global = ASC.Web.Projects.Classes.Global;
 using PathProvider = ASC.Web.Projects.Classes.PathProvider;
 
 namespace ASC.Web.Projects
@@ -45,7 +44,7 @@ namespace ASC.Web.Projects
 
         protected override void PageLoad()
         {
-            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("reports.js"));
+            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, "reports.js");
 
             var tmplId = Request["tmplId"];
             if (!string.IsNullOrEmpty(tmplId))

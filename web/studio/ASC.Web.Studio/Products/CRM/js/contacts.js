@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -147,25 +147,8 @@ ASC.CRM.ListContactView = (function() {
             _showActionMenu(contactId);
             jq("#companyTable .entity-menu.active").removeClass("active");
 
-            var $dropdownItem = jq("#contactActionMenu");
+            jq.showDropDownByContext(e, target, jq("#contactActionMenu"));
 
-            if (target.is(".entity-menu")) {
-                if ($dropdownItem.is(":hidden")) {
-                    target.addClass("active");
-                }
-                $dropdownItem.css({
-                    "top": target.offset().top + target.outerHeight() - 2,
-                    "left": target.offset().left + 7,
-                    "right": "auto"
-                });
-            } else {
-                $dropdownItem.css({
-                    "top": e.pageY + 3,
-                    "left": e.pageX - 5,
-                    "right": "auto"
-                });
-            }
-            $dropdownItem.show();
             return false;
         });
     };
@@ -1104,6 +1087,7 @@ ASC.CRM.ListContactView = (function() {
                             '</b>',
                             '<br/><br/><a href="' + ASC.Resources.Master.FilterHelpCenterLink + '" target="_blank">',
                             '</a>'),
+                hintDefaultDisable: !ASC.Resources.Master.FilterHelpCenterLink,
                 maxfilters  : 3,
                 colcount    : 2,
                 maxlength   : "100",
@@ -1145,7 +1129,7 @@ ASC.CRM.ListContactView = (function() {
                                     id          : "lastMonth",
                                     apiparamname: jq.toJSON(["fromDate", "toDate"]),
                                     title       : ASC.CRM.Resources.CRMCommonResource.LastMonth,
-                                    filtertitle : ASC.CRM.Resources.CRMCommonResource.FilterByDate,
+                                    filtertitle : ASC.CRM.Resources.CRMCommonResource.FilterByCreationDate,
                                     group       : ASC.CRM.Resources.CRMCommonResource.FilterByCreationDate,
                                     groupby     : "byDate",
                                     options     :
@@ -1161,7 +1145,7 @@ ASC.CRM.ListContactView = (function() {
                                     id          : "yesterday",
                                     apiparamname: jq.toJSON(["fromDate", "toDate"]),
                                     title       : ASC.CRM.Resources.CRMCommonResource.Yesterday,
-                                    filtertitle : ASC.CRM.Resources.CRMCommonResource.FilterByDate,
+                                    filtertitle : ASC.CRM.Resources.CRMCommonResource.FilterByCreationDate,
                                     group       : ASC.CRM.Resources.CRMCommonResource.FilterByCreationDate,
                                     groupby     : "byDate",
                                     options     :
@@ -1177,7 +1161,7 @@ ASC.CRM.ListContactView = (function() {
                                     id          : "today",
                                     apiparamname: jq.toJSON(["fromDate", "toDate"]),
                                     title       : ASC.CRM.Resources.CRMCommonResource.Today,
-                                    filtertitle : ASC.CRM.Resources.CRMCommonResource.FilterByDate,
+                                    filtertitle : ASC.CRM.Resources.CRMCommonResource.FilterByCreationDate,
                                     group       : ASC.CRM.Resources.CRMCommonResource.FilterByCreationDate,
                                     groupby     : "byDate",
                                     options     :
@@ -1193,7 +1177,7 @@ ASC.CRM.ListContactView = (function() {
                                     id          : "thisMonth",
                                     apiparamname: jq.toJSON(["fromDate", "toDate"]),
                                     title       : ASC.CRM.Resources.CRMCommonResource.ThisMonth,
-                                    filtertitle : ASC.CRM.Resources.CRMCommonResource.FilterByDate,
+                                    filtertitle : ASC.CRM.Resources.CRMCommonResource.FilterByCreationDate,
                                     group       : ASC.CRM.Resources.CRMCommonResource.FilterByCreationDate,
                                     groupby     : "byDate",
                                     options     :
@@ -1208,7 +1192,7 @@ ASC.CRM.ListContactView = (function() {
                                     type        : "daterange",
                                     id          : "fromToDate",
                                     title       : ASC.CRM.Resources.CRMCommonResource.Custom,
-                                    filtertitle : ASC.CRM.Resources.CRMCommonResource.FilterByDate,
+                                    filtertitle : ASC.CRM.Resources.CRMCommonResource.FilterByCreationDate,
                                     group       : ASC.CRM.Resources.CRMCommonResource.FilterByCreationDate,
                                     groupby     : "byDate"
                                 },
@@ -2926,11 +2910,7 @@ ASC.CRM.ContactFullCardView = (function () {
         }
         if (item.infoType == 6) { //Facebook
             if (item.data.indexOf("://") == -1) {
-                if (isNaN(item.data)) {
-                    item.href = "http://facebook.com/" + item.data;
-                } else {
-                    item.href = "http://www.facebook.com/#!/profile.php?id=" + item.data;
-                }
+                item.href = "http://facebook.com/" + item.data;
             }
             ASC.CRM.SocialMedia.socialNetworks.push(item);
         }
@@ -3295,15 +3275,11 @@ ASC.CRM.ContactFullCardView = (function () {
             var $avatar = jq("#contactProfile .contact_photo:first");
             ASC.CRM.Common.loadContactFoto($avatar, $avatar, $avatar.attr("data-avatarurl"));
 
-
-            if (!jq.browser.mobile) {
-                initUploadPhotoPanel(contactPhotoFileSizeNote, ASC.CRM.Data.DefaultContactPhoto[isCompany === true ? "CompanyMediumSizePhoto" : "PersonMediumSizePhoto"]);
-
-                ASC.CRM.ContactPhotoUploader.initPhotoUploader(
-                    jq("#divLoadPhotoWindow"),
-                    jq("#contactProfile .contact_photo"),
-                    { contactID: jq.getURLParam("id"), uploadOnly: false });
-            }
+            initUploadPhotoPanel(contactPhotoFileSizeNote, ASC.CRM.Data.DefaultContactPhoto[isCompany === true ? "CompanyMediumSizePhoto" : "PersonMediumSizePhoto"]);
+            ASC.CRM.ContactPhotoUploader.initPhotoUploader(
+                jq("#divLoadPhotoWindow"),
+                jq("#contactProfile .contact_photo"),
+                {contactID: jq.getURLParam("id"), uploadOnly: false});
 
             for (var i = 0, n = window.contactTags.length; i < n; i++) {
                 window.contactTags[i] = Encoder.htmlDecode(window.contactTags[i]);
@@ -4801,14 +4777,13 @@ ASC.CRM.ContactActionView = (function () {
 
                 ASC.CRM.ListContactView.initConfirmationPanelForDelete();
 
-                if (!jq.browser.mobile) {
-                    initUploadPhotoPanel(contactPhotoFileSizeNote, ASC.CRM.Data.DefaultContactPhoto[isCompany === true ? "CompanyMediumSizePhoto" : "PersonMediumSizePhoto"]);
 
-                    ASC.CRM.ContactPhotoUploader.initPhotoUploader(
+                initUploadPhotoPanel(contactPhotoFileSizeNote, ASC.CRM.Data.DefaultContactPhoto[isCompany === true ? "CompanyMediumSizePhoto" : "PersonMediumSizePhoto"]);
+
+                ASC.CRM.ContactPhotoUploader.initPhotoUploader(
                     jq("#divLoadPhotoWindow"),
                     jq("#contactProfileEdit .contact_photo"),
-                    { contactID: contactID, uploadOnly: true });
-                }
+                    {contactID: contactID, uploadOnly: true});
 
 
                 if (typeof (window.assignedContactSelector) != "undefined") {

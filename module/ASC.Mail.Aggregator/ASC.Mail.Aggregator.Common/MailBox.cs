@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Mail;
 using System.Runtime.Serialization;
-using ActiveUp.Net.Mail;
 using ASC.Mail.Aggregator.Common.Imap;
 using ASC.Mail.Aggregator.Common.Utils;
 using Newtonsoft.Json;
@@ -235,8 +234,17 @@ namespace ASC.Mail.Aggregator.Common
             }
             set
             {
-                if (string.IsNullOrEmpty(value)) return;
-                ImapIntervals = MailUtil.ParseImapIntervals(value);
+                if (string.IsNullOrEmpty(value))
+                    return;
+
+                try
+                {
+                    ImapIntervals = MailUtil.ParseImapIntervals(value);
+                }
+                catch (Exception)
+                {
+                    // skip
+                }                
             }
         }
 
@@ -247,6 +255,27 @@ namespace ASC.Mail.Aggregator.Common
         public bool IsTeamlab { get; set; }
 
         public bool IsRemoved { get; set; }
+
+        [IgnoreDataMember]
+        public MailSignature MailSignature { get; set; }
+
+        [IgnoreDataMember]
+        public MailAutoreply MailAutoreply { get; set; }
+
+        [IgnoreDataMember]
+        public List<string> MailAutoreplyHistory { get; set; }
+
+        [IgnoreDataMember]
+        public List<MailAddressInfo> Aliases { get; set; }
+
+        [IgnoreDataMember]
+        public List<MailAddressInfo> Groups { get; set; }
+
+        [IgnoreDataMember]
+        public DateTime? LastSignalrNotify { get; set; }
+
+        [IgnoreDataMember]
+        public bool LastSignalrNotifySkipped { get; set; }
 
         public MailBox()
         {
@@ -321,6 +350,19 @@ namespace ASC.Mail.Aggregator.Common
         public override bool Equals(object obj)
         {
             return ReferenceEquals(this, obj) || Equals(obj as MailBox);
+        }
+
+        public class ImapMailboxInfo
+        {
+            public int folder_id;
+            public string name;
+            public string[] tags;
+        }
+
+        public struct MailboxInfo
+        {
+            public int folder_id;
+            public bool skip;
         }
     }
 }

@@ -21,7 +21,7 @@
 
 <script id="taskExtendedListTmpl" type="text/x-jquery-tmpl">
 <div id="taskList"  style="display:none;{{if IsTab === false}}min-height: 400px;{{else}}min-height: 200px;{{/if}}">
-    <table id="taskTable" class="tableBase" cellpadding="4" cellspacing="0">
+    <table id="taskTable" class="table-list" cellpadding="4" cellspacing="0">
         <colgroup>
             <col style="width: 55px;" />
             <col style="width: 30px;" />
@@ -86,7 +86,7 @@
                             <%= CRMCommonResource.Confirmation %>
                         </td>
                         <td class="popupCancel">
-                            <div class="cancelButton" onclick="PopupKeyUpActionProvider.CloseDialog();">&times</div>
+                            <div class="cancelButton" onclick="PopupKeyUpActionProvider.CloseDialog();">&times;</div>
                         </td>
                     </tr>
                 </tbody>
@@ -120,7 +120,7 @@
 
 <script id="taskTmpl" type="text/x-jquery-tmpl">
     <tr id="task_${id}" class="with-entity-menu">
-        <td class="borderBase">
+        <td>
             <div class="check">
                 <div class="changeStatusCombobox{{if canEdit == true}} canEdit{{/if}}" taskid="${id}">
                     {{if isClosed == true}}
@@ -133,10 +133,10 @@
             <div class="ajax_edit_task loader-big" title=""></div>
         </td>
 
-        <td class="borderBase">
+        <td>
             <label class="task_category ${category.cssClass}" title="${category.title}" alt="${category.title}"></label>
         </td>
-        <td class="borderBase">
+        <td>
             <div class="divForTaskTitle">
                 <span id="taskTitle_${id}" class="${classForTitle}"
                     dscr_label="<%=CRMCommonResource.Description%>" dscr_value="${description}">
@@ -150,7 +150,7 @@
             </div>
         </td>
 
-        <td class="borderBase" style="white-space:nowrap; padding-right:15px;">
+        <td style="white-space:nowrap; padding-right:15px;">
             {{if entity != null && ASC.CRM.ListTaskView.EntityID == 0}}
             <div class="divForEntity">
                 ${entityType}: <a class="linkMedium" href="${entityURL}">${entity.entityTitle}</a>
@@ -172,7 +172,7 @@
             {{/if}}
         </td>
 
-        <td class="borderBase">
+        <td>
             <div class="divForUser{{if responsible.activationStatus == 2}} removedUser{{/if}}">
                 <span title="${responsible.displayName}" resp_id="${responsible.id}">
                     ${responsible.displayName}
@@ -180,7 +180,7 @@
             </div>
         </td>
 
-        <td class="borderBase">
+        <td>
         {{if canEdit == true}}
             <div id="taskMenu_${id}" class="entity-menu" title="<%= CRMCommonResource.Actions %>"
                  onclick="ASC.CRM.ListTaskView.showActionMenu(${id});" ></div>

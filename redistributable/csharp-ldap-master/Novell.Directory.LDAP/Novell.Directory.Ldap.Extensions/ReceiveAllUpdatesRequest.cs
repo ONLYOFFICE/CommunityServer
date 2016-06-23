@@ -29,76 +29,73 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
-using Novell.Directory.Ldap;
 using Novell.Directory.Ldap.Asn1;
 using Novell.Directory.Ldap.Utilclass;
+using System;
+using System.IO;
 
 namespace Novell.Directory.Ldap.Extensions
 {
-	
-	/// <summary>  Schedules a specified directory server to receive updates from another
-	/// directory server for a specific replica.
-	/// 
-	/// The receiveAllUpdatesRequest extension uses the following OID:
-	/// 2.16.840.1.113719.1.27.100.21
-	/// 
-	/// The requestValue has the following format:
-	/// 
-	/// requestValue ::=
-	///    partitionRoot    LdapDN
-	///    toServerDN       LdapDN
-	///    fromServerDN     LdapDN
-	/// </summary>
-	public class ReceiveAllUpdatesRequest:LdapExtendedOperation
-	{
-		
-		/// <summary> 
-		/// Constructs an extended operation object for receiving all updates from
-		/// another directory server for a specific replica.
-		/// 
-		/// </summary>
-		/// <param name="partitionRoot">  The distinguished name of the replica
-		/// that will be updated.
-		/// 
-		/// </param>
-		/// <param name="toServerDN">     The distinguished name of the server holding the
-		/// replica to be updated.
-		/// 
-		/// </param>
-		/// <param name="fromServerDN">   The distinguished name of the server from which
-		/// updates are sent.
-		/// 
-		/// </param>
-		/// <exception> LdapException A general exception which includes an error message
-		/// and an Ldap error code.
-		/// </exception>
-		public ReceiveAllUpdatesRequest(System.String partitionRoot, System.String toServerDN, System.String fromServerDN):base(ReplicationConstants.RECEIVE_ALL_UPDATES_REQ, null)
-		{
-			
-			try
-			{
-				
-				if (((System.Object) partitionRoot == null) || ((System.Object) toServerDN == null) || ((System.Object) fromServerDN == null))
-					throw new System.ArgumentException(ExceptionMessages.PARAM_ERROR);
-				
-				System.IO.MemoryStream encodedData = new System.IO.MemoryStream();
-				LBEREncoder encoder = new LBEREncoder();
-				
-				Asn1OctetString asn1_partitionRoot = new Asn1OctetString(partitionRoot);
-				Asn1OctetString asn1_toServerDN = new Asn1OctetString(toServerDN);
-				Asn1OctetString asn1_fromServerDN = new Asn1OctetString(fromServerDN);
-				
-				asn1_partitionRoot.encode(encoder, encodedData);
-				asn1_toServerDN.encode(encoder, encodedData);
-				asn1_fromServerDN.encode(encoder, encodedData);
-				
-				setValue(SupportClass.ToSByteArray(encodedData.ToArray()));
-			}
-			catch (System.IO.IOException ioe)
-			{
-				throw new LdapException(ExceptionMessages.ENCODING_ERROR, LdapException.ENCODING_ERROR, (System.String) null);
-			}
-		}
-	}
+    /// <summary>  Schedules a specified directory server to receive updates from another
+    /// directory server for a specific replica.
+    /// 
+    /// The receiveAllUpdatesRequest extension uses the following OID:
+    /// 2.16.840.1.113719.1.27.100.21
+    /// 
+    /// The requestValue has the following format:
+    /// 
+    /// requestValue ::=
+    ///    partitionRoot    LdapDN
+    ///    toServerDN       LdapDN
+    ///    fromServerDN     LdapDN
+    /// </summary>
+    public class ReceiveAllUpdatesRequest : LdapExtendedOperation
+    {
+        /// <summary> 
+        /// Constructs an extended operation object for receiving all updates from
+        /// another directory server for a specific replica.
+        /// 
+        /// </summary>
+        /// <param name="partitionRoot">  The distinguished name of the replica
+        /// that will be updated.
+        /// 
+        /// </param>
+        /// <param name="toServerDN">     The distinguished name of the server holding the
+        /// replica to be updated.
+        /// 
+        /// </param>
+        /// <param name="fromServerDN">   The distinguished name of the server from which
+        /// updates are sent.
+        /// 
+        /// </param>
+        /// <exception> LdapException A general exception which includes an error message
+        /// and an Ldap error code.
+        /// </exception>
+        public ReceiveAllUpdatesRequest(string partitionRoot, string toServerDN, string fromServerDN)
+            : base(ReplicationConstants.RECEIVE_ALL_UPDATES_REQ, null)
+        {
+            try
+            {
+                if (partitionRoot == null || toServerDN == null || fromServerDN == null)
+                    throw new ArgumentException(ExceptionMessages.PARAM_ERROR);
+
+                MemoryStream encodedData = new MemoryStream();
+                LBEREncoder encoder = new LBEREncoder();
+
+                Asn1OctetString asn1_partitionRoot = new Asn1OctetString(partitionRoot);
+                Asn1OctetString asn1_toServerDN = new Asn1OctetString(toServerDN);
+                Asn1OctetString asn1_fromServerDN = new Asn1OctetString(fromServerDN);
+
+                asn1_partitionRoot.encode(encoder, encodedData);
+                asn1_toServerDN.encode(encoder, encodedData);
+                asn1_fromServerDN.encode(encoder, encodedData);
+
+                setValue(SupportClass.ToSByteArray(encodedData.ToArray()));
+            }
+            catch (IOException)
+            {
+                throw new LdapException(ExceptionMessages.ENCODING_ERROR, LdapException.ENCODING_ERROR, null);
+            }
+        }
+    }
 }

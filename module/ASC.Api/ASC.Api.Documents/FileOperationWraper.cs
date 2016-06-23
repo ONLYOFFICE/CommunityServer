@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -30,6 +30,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Services.WCFService.FileOperations;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Api.Documents
 {
@@ -65,6 +66,16 @@ namespace ASC.Api.Documents
 
         /// <summary>
         /// </summary>
+        [DataMember(Name = "finished", IsRequired = false)]
+        public bool Finished { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [DataMember(Name = "url", IsRequired = false)]
+        public string Url { get; set; }
+
+        /// <summary>
+        /// </summary>
         [DataMember(Name = "files", IsRequired = true, EmitDefaultValue = true)]
         public List<FileWrapper> Files { get; set; }
 
@@ -89,8 +100,9 @@ namespace ASC.Api.Documents
             Progress = o.Progress;
             Error = o.Error;
             Processed = o.Processed;
+            Finished = o.Finished;
 
-            if (!string.IsNullOrEmpty(o.Result))
+            if (!string.IsNullOrEmpty(o.Result) && OperationType != FileOperationType.Delete)
             {
                 var arr = o.Result.Split(':');
                 var folders = arr.Where(s => s.StartsWith("folder_")).Select(s => s.Substring(7));
@@ -108,6 +120,11 @@ namespace ASC.Api.Documents
                     {
                         Files = fileDao.GetFiles(files.ToArray()).Select(r => new FileWrapper(r)).ToList();
                     }
+                }
+
+                if (OperationType == FileOperationType.Download)
+                {
+                    Url = CommonLinkUtility.GetFullAbsolutePath(o.Result);
                 }
             }
         }

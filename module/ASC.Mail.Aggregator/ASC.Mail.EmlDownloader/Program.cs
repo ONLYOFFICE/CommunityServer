@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,148 +25,84 @@
 
 
 using System;
+using System.Configuration;
 using System.IO;
-using System.Linq;
+using System.Threading;
 using ASC.Mail.Aggregator;
 using ASC.Mail.Aggregator.Common;
-using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Common.Logging;
-using ActiveUp.Net.Mail;
+using ASC.Mail.Aggregator.Core.Clients;
 using log4net.Config;
 
 namespace ASC.Mail.EmlDownloader
 {
     partial class Program
     {
-        static ILogger _logger;
-
         private static void Main(string[] args)
         {
             XmlConfigurator.Configure();
 
-            _logger = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "EMLDownloader");
-
             var options = new Options();
 
             if (CommandLine.Parser.Default.ParseArgumentsStrict(args, options,
-                                                                () => _logger.Info("Bad command line parameters.")))
+                                                                () => Console.WriteLine("Bad command line parameters.")))
             {
-                Imap4Client imap = null;
-                Pop3Client pop = null;
-
                 try
                 {
-                    _logger.Info("Searching account with id {0}", options.MailboxId);
+                    Console.WriteLine("Searching account with id {0}", options.MailboxId);
+
+                    if (string.IsNullOrEmpty(options.MessageUid))
+                    {
+                        Console.WriteLine("MessageUid not setup.");
+                        ShowAnyKey();
+                        return;
+                    }
 
                     var mailbox = GetMailBox(options.MailboxId);
 
                     if (mailbox == null)
                     {
-                        _logger.Info("Account not found.");
+                        Console.WriteLine("Account not found.");
                         ShowAnyKey();
                         return;
                     }
 
-                    string messageEml;
-
                     if (mailbox.Imap)
                     {
-                        _logger.Info("ConnectionType is IMAP4");
-
-                        imap = MailClientBuilder.Imap();
-
-                        imap.AuthenticateImap(mailbox, _logger);
-
-                        _logger.Info(imap.ServerCapabilities);
-
-                        var mailboxesString = imap.GetImapMailboxes();
-
-                        _logger.Info(mailboxesString);
-
-                        if (string.IsNullOrEmpty(options.MessageUid))
-                        {
-                            _logger.Info("MessageUid not setup.");
-                            ShowAnyKey();
-                            return;
-                        }
-
                         var uidlStucture = ParserImapUidl(options.MessageUid);
-
-                        if (uidlStucture.folderId != 1)
+                        if(uidlStucture.folderId != MailFolder.Ids.inbox)
                             throw new FormatException("Only inbox messages are supported for downloading.");
 
-                        var mb = imap.SelectMailbox("INBOX");
-
-                        var uidList = mb.UidSearch("UID 1:*");
-
-                        if (!uidList.Any(uid => uid == uidlStucture.uid))
-                            throw new FileNotFoundException(string.Format("Message with uid {0} not found in inbox",
-                                                                          uidlStucture.uid));
-
-                        _logger.Info("Try Fetch.UidMessageStringPeek");
-
-                        messageEml = mb.Fetch.UidMessageStringPeek(uidlStucture.uid);
                     }
-                    else
+
+                    var certificatePermit = ConfigurationManager.AppSettings["mail.certificate-permit"] != null &&
+                                            Convert.ToBoolean(
+                                                ConfigurationManager.AppSettings["mail.certificate-permit"]);
+
+                    string messageEml;
+                    using (var client = new MailClient(mailbox, CancellationToken.None, certificatePermit: certificatePermit))
                     {
-                        if (string.IsNullOrEmpty(options.MessageUid))
-                        {
-                            _logger.Info("MessageUid not setup.");
-                            ShowAnyKey();
-                            return;
-                        }
-
-                        _logger.Info("ConnectionType is POP3");
-
-                        pop = MailClientBuilder.Pop();
-
-                        pop.Authorize(new MailServerSettings
-                        {
-                            AccountName = mailbox.Account,
-                            AccountPass = mailbox.Password,
-                            AuthenticationType = mailbox.AuthenticationTypeIn,
-                            EncryptionType = mailbox.IncomingEncryptionType,
-                            Port = mailbox.Port,
-                            Url = mailbox.Server
-                        }, mailbox.AuthorizeTimeoutInMilliseconds, _logger);
-
-                        _logger.Debug("UpdateStats()");
-
-                        pop.UpdateStats();
-
-                        var index = pop.GetMessageIndex(options.MessageUid);
-
-                        if (index < 1)
-                            throw new FileNotFoundException(string.Format("Message with uid {0} not found in inbox",
-                                                                          options.MessageUid));
-
-                        messageEml = pop.RetrieveMessageString(index);
+                        var message = client.GetInboxMessage(options.MessageUid);
+                        messageEml = message.ToString();
                     }
 
-                    _logger.Info("Try StoreToFile");
-                    var now = DateTime.Now;
+                    Console.WriteLine("Try StoreToFile");
+
+                    var now = DateTime.UtcNow;
+
                     var path = Path.Combine(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Downloads"),
-                                            string.Format("uid_{0}_{1}.eml", options.MessageUid,
-                                                          now.ToString("dd_MM_yyyy_hh_mm")));
+                                       string.Format("uid_{0}_{1}.eml", options.MessageUid,
+                                                     now.ToString("dd_MM_yyyy_hh_mm")));
+
+
                     var pathFile = StoreToFile(messageEml, path, true);
 
-                    _logger.Info("[SUCCESS] File was stored into path \"{0}\"", pathFile);
+                    Console.WriteLine("[SUCCESS] File was stored into path \"{0}\"", pathFile);
 
                 }
                 catch (Exception ex)
                 {
-                    _logger.Info(ex.ToString());
-                }
-                finally
-                {
-                    if (imap != null && imap.IsConnected)
-                    {
-                        imap.Disconnect();
-                    }
-                    else if (pop != null && pop.IsConnected)
-                    {
-                        pop.Disconnect();
-                    }
+                    Console.WriteLine(ex.ToString());
                 }
             }
 
@@ -234,7 +170,7 @@ namespace ASC.Mail.EmlDownloader
 
         private static MailBox GetMailBox(int mailboxId)
         {
-            var manager = new MailBoxManager();
+            var manager = new MailBoxManager(new NullLogger());
             return manager.GetMailBox(mailboxId);
         }
     }

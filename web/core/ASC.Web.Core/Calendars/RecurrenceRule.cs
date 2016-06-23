@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -260,7 +260,7 @@ namespace ASC.Web.Core.Calendars
         {
             return GetDates(utcStartDate, fromDate, toDate, int.MaxValue);
         }
-        public List<DateTime> GetDates(DateTime utcStartDate, DateTime fromDate, DateTime toDate, int maxCount)
+        public List<DateTime> GetDates(DateTime utcStartDate, DateTime fromDate, DateTime toDate, int maxCount, bool removeExDates = true)
         {
             var dates = new List<DateTime>();
             var endDate = (this.Until == DateTime.MinValue ? toDate : (toDate > this.Until ? this.Until : toDate));
@@ -586,7 +586,7 @@ namespace ASC.Web.Core.Calendars
                 dates = dates.FindAll(date => (--count) >= 0);
             }
 
-            if (ExDates != null)
+            if (removeExDates && ExDates != null)
             { 
                 foreach(var exDate in ExDates)
                     dates.RemoveAll(dt => (exDate.isDateTime && dt == exDate.Date) || (!exDate.isDateTime && dt.Date == exDate.Date));                
@@ -712,13 +712,18 @@ namespace ASC.Web.Core.Calendars
             }            
 
             if (Until != DateTime.MinValue)
+            {
                 sb.AppendFormat(";until={0}",Until.ToString("yyyyMMdd'T'HHmmss'Z'"));
-
-            if(Count>=0)
+            }
+            else if (Count >= 0)
+            {
                 sb.AppendFormat(";count={0}", Count);
+            }
 
             if (Interval > 1)
+            {
                 sb.AppendFormat(";interval={0}", Interval);
+            }
 
             if (BySecond != null && BySecond.Length>0)
             {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -57,6 +57,8 @@ namespace ASC.Web.Core.Calendars
 
         public virtual string Id { get; set; }
 
+        public virtual string Uid { get; set; }
+
         public virtual string Name { get; set; }
 
         public virtual Guid OwnerId { get; set; }
@@ -68,6 +70,8 @@ namespace ASC.Web.Core.Calendars
         public virtual EventContext Context { get; set; }
 
         public virtual RecurrenceRule RecurrenceRule { get; set; }
+
+        public virtual EventStatus Status { get; set; }
 
         #endregion
 
@@ -92,7 +96,7 @@ namespace ASC.Web.Core.Calendars
             StringBuilder sb = new StringBuilder();
 
             sb.AppendLine("BEGIN:VEVENT");
-            sb.AppendLine(String.Format("UID:{0}", this.Id));
+            sb.AppendLine(String.Format("UID:{0}", string.IsNullOrEmpty(this.Uid) ? this.Id : this.Uid));
             sb.AppendLine(String.Format("SUMMARY:{0}", this.Name));
 
             if (!string.IsNullOrEmpty(this.Description))

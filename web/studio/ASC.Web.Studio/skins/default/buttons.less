@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -71,8 +71,25 @@
         }
 
         .plus {
-            background: url('@{img-change-url}plus_12.png') no-repeat scroll -2px 2px transparent;
             padding-left: 15px;
+            position: relative;
+
+            &:after {
+                content: "+";
+                cursor: pointer;
+                display: block;
+                height: 12px;
+                line-height: 14px;
+                left: -2px;
+                position: absolute;
+                top: 50%;
+                margin-top: -8px;
+                width: 12px;
+                font-weight: 600;
+                font-size: 16px;
+                color: @plusOnGrayBtn;
+            }
+
         }
 
         &.plus {
@@ -80,15 +97,18 @@
             position: relative;
 
             &:after {
-                background: url('@{img-change-url}plus_12.png') no-repeat scroll 0 0 transparent;
-                content: "";
+                content: "+";
                 cursor: pointer;
                 display: block;
                 height: 12px;
                 left: 1px;
                 position: absolute;
-                top: 20%;
+                top: 50%;
+                margin-top: -7px;
                 width: 12px;
+                font-weight: 700;
+                font-size: 17px;
+                color: @plusOnGrayBtn;
             }
         }
 
@@ -204,13 +224,29 @@
     }
 }
 
-.button.group{
+.button.group {
     span {
-        background: url("@{imagesBaseUrl}contentmenu/down_arrow_sprite.png") no-repeat right 3px transparent;
         padding-right: 12px;
+        position: relative;
+
+        &:after {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid #999999;
+            content: "";
+            height: 0;
+            right: 0;
+            margin-top: -1px;
+            position: absolute;
+            top: 50%;
+            width: 0;
+        }
     }
+
     &.disable span {
-        background-position: right -9px;  
+        &:after {
+            border-top-color:#CCCCCC;
+        }
     }
 }
 
@@ -224,18 +260,15 @@
     &.disable {
         .opacityStyle();
     }
-}
 
-
-.on_off_button.on 
-{
-    background-position: top center;
-    }  
-.on_off_button.off 
-{
-    background-position: bottom center;
+    &.on {
+        background-position: top center;
     }
 
+    &.off {
+        background-position: bottom center;
+    }
+}
 
 /*******************************************************************************
    Button Containers
@@ -298,14 +331,14 @@
     &.row-hover:hover .btn-row {
         color: @grayButtonTextColor;
         .borderButtons(@border-button-default);
-        .bg-vertical-gradient(@bg-button-default-start, @bg-button-default-end);
+        background-color: @bg-button-default;
 
         &:after {
             background-image: url('@{img-change-url}/btn_row_icons.png');
         }
 
         &:hover {
-            .bg-vertical-gradient(@bg-button-default-hover-start, @bg-button-default-hover-end);
+            background-color: @bg-button-default-hover;
         }
 
         &.__share:after {

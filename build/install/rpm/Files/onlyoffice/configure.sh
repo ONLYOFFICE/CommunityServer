@@ -14,7 +14,7 @@ MYSQL=""
 restart_services() {
 	[ -a /etc/nginx/conf.d/default.conf ] && mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.old
 	echo -n "Restarting services... "
-	for SVC in redis.service monoserve monoserve2 nginx onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog
+	for SVC in redis.service monoserve monoserve2 nginx onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeSignalR onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog
 	do
 		systemctl stop $SVC 
 		systemctl start $SVC
@@ -78,6 +78,7 @@ execute_db_scripts() {
 	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade85.sql
 	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade86.sql
 	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade87.sql
+	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade88.sql
 	echo "OK"
 }
 
@@ -87,10 +88,10 @@ install_sphinx() {
 	else
 		echo -n "Installing sphinx... "
 		yum -y install postgresql-libs unixODBC
-		if [ ! -f /tmp/sphinx-2.2.8-1.rhel7.x86_64.rpm ]; then
-			wget http://sphinxsearch.com/files/sphinx-2.2.8-1.rhel7.x86_64.rpm -O /tmp/sphinx-2.2.8-1.rhel7.x86_64.rpm
+		if [ ! -f /tmp/sphinx-2.2.10-1.rhel7.x86_64.rpm ]; then
+			wget http://sphinxsearch.com/files/sphinx-2.2.10-1.rhel7.x86_64.rpm -O /tmp/sphinx-2.2.10-1.rhel7.x86_64.rpm
 		fi
-		rpm -Uhv /tmp/sphinx-2.2.8-1.rhel7.x86_64.rpm
+		rpm -Uhv /tmp/sphinx-2.2.10-1.rhel7.x86_64.rpm
 		echo "OK"
 	fi
 }

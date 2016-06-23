@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -319,20 +319,23 @@ namespace ASC.CRM.Core.Dao
 
         protected Exp BuildLike(string[] columns, string[] keywords, bool startWith)
         {
+            if (columns == null) throw new ArgumentNullException("columns");
+            if (keywords == null) throw new ArgumentNullException("keywords");
+
             var like = Exp.Empty;
             foreach (var keyword in keywords)
             {
+                if (keyword == null) throw new ArgumentNullException("keyword");
                 var keywordLike = Exp.Empty;
                 foreach (string column in columns)
                 {
-                    keywordLike = keywordLike |
-                                  Exp.Like(column, keyword, startWith ? SqlLike.StartWith : SqlLike.EndWith) |
+                    if (column == null) throw new ArgumentNullException("column");
+                    keywordLike |= Exp.Like(column, keyword, startWith ? SqlLike.StartWith : SqlLike.EndWith) |
                                   Exp.Like(column, ' ' + keyword);
                 }
-                like = like & keywordLike;
+                like &= keywordLike;
             }
             return like;
         }
-
     }
 }

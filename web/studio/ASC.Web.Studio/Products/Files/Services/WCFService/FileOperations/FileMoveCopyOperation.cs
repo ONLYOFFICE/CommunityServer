@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -31,6 +31,7 @@ using ASC.Web.Files.Classes;
 using ASC.Web.Files.Helpers;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Utils;
+using ASC.Web.Studio.Core;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -43,7 +44,6 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
         private readonly string toFolderId;
         private readonly bool copy;
         private readonly FileConflictResolveType resolveType;
-        private readonly List<Guid> recipients;
         private readonly List<FileEntry> needToMark = new List<FileEntry>();
 
         private readonly Dictionary<string, string> headers;
@@ -60,12 +60,6 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             this.copy = copy;
             this.resolveType = resolveType;
             this.headers = headers;
-
-            var toFolder = Global.DaoFactory.GetFolderDao().GetFolder(toFolderId);
-            if (toFolder != null && toFolder.RootFolderType == FolderType.BUNCH)
-            {
-                recipients = Global.GetProjectTeam(toFolder).ToList();
-            }
         }
 
         protected override void Do()
@@ -95,7 +89,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             MoveOrCopyFolders(Folders, toFolder, copy);
             MoveOrCopyFiles(Files, toFolder, copy);
 
-            needToMark.Distinct().ToList().ForEach(x => FileMarker.MarkAsNew(x, recipients));
+            needToMark.Distinct().ToList().ForEach(x => FileMarker.MarkAsNew(x));
         }
 
         private void MoveOrCopyFolders(ICollection folderIds, Folder toFolder, bool copy)
@@ -151,12 +145,12 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
                             if (FolderDao.UseRecursiveOperation(folder.ID, toFolderId))
                             {
-                                MoveOrCopyFiles(FileDao.GetFiles(folder.ID, false), newFolder, copy);
+                                MoveOrCopyFiles(FileDao.GetFiles(folder.ID), newFolder, copy);
                                 MoveOrCopyFolders(FolderDao.GetFolders(folder.ID).Select(f => f.ID).ToList(), newFolder, copy);
 
                                 if (!copy)
                                 {
-                                    if (FolderDao.GetItemsCount(folder.ID, true) == 0 && FilesSecurity.CanDelete(folder))
+                                    if (FolderDao.IsEmpty(folder.ID) && FilesSecurity.CanDelete(folder))
                                     {
                                         FolderDao.DeleteFolder(folder.ID);
                                         if (ProcessedFolder(folderId))
@@ -226,7 +220,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                         Logger.Error(Error, ex);
                     }
                 }
-                ProgressStep();
+                ProgressStep(FolderDao.CanCalculateSubitems(folderId) ? null : folderId);
             }
         }
 
@@ -252,6 +246,12 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                          && !FileUtility.ExtsUploadable.Contains(FileUtility.GetFileExtension(file.Title)))
                 {
                     Error = FilesCommonResource.ErrorMassage_NotSupportedFormat;
+                }
+                else if (file.ContentLength > SetupInfo.AvailableFileSize
+                         && file.ProviderId != toFolder.ProviderId)
+                {
+                    Error = string.Format(copy ? FilesCommonResource.ErrorMassage_FileSizeCopy : FilesCommonResource.ErrorMassage_FileSizeMove,
+                                          FileSizeComment.FilesSizeToString(SetupInfo.AvailableFileSize));
                 }
                 else
                 {
@@ -412,7 +412,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                         Logger.Error(Error, ex);
                     }
                 }
-                ProgressStep();
+                ProgressStep(fileId: FolderDao.CanCalculateSubitems(fileId) ? null : fileId);
             }
         }
     }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -50,6 +50,7 @@ namespace ASC.Web.Core
         private static readonly ILog log = LogManager.GetLogger("ASC.Web");
 
         private readonly Dictionary<Guid, IWebItem> items = new Dictionary<Guid, IWebItem>();
+        private static readonly string disableItem = WebConfigurationManager.AppSettings["web.disabled-items"] + ",";
 
 
         public static Guid CommunityProductID
@@ -252,7 +253,6 @@ namespace ASC.Web.Core
         {
             var parts = file.Split('.');
             var name = 1 < parts.Length ? parts[parts.Length - 2] + "," : string.Empty;
-            var disableItem = WebConfigurationManager.AppSettings["web.disabled-items"] + ",";
             return disableItem.IndexOf(name, StringComparison.InvariantCultureIgnoreCase) == -1;
         }
     }

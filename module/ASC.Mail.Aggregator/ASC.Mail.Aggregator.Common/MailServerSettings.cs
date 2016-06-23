@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,11 +24,8 @@
 */
 
 
-using ActiveUp.Net.Mail;
-
 namespace ASC.Mail.Aggregator.Common
 {
-
     public class MailServerSettings
     {
         public string Url { get; set; }
@@ -42,6 +39,48 @@ namespace ASC.Mail.Aggregator.Common
         public MailServerSettings()
         {
             MailServerOperationTimeoutInMilliseconds = 5000; 
-        }
+        }   
+    }
+
+    /// <summary>
+    /// Mechanisms available for authentication.
+    /// </summary>
+    public enum SaslMechanism
+    {
+        /// <summary>
+        /// Authentication doesn't needed
+        /// </summary>
+        None = 0,
+        /// <summary>
+        /// The LOGIN mechanism (BASE64 encoded exchanges).
+        /// </summary>
+        Login = 1,
+        /*/// <summary>
+        /// The PLAIN mechanism (identity<NUL>username<NUL>password).
+        /// </summary>
+        Plain = 2,*/
+        /*/// <summary>
+        /// The DIGEST-MD5 mechanism. [RFC2831]
+        /// </summary>
+        DigestMd5 = 3,*/
+        /// <summary>
+        /// The CRAM-MD5 mechanism. [RFC2195]
+        /// </summary>
+        CramMd5 = 4,
+        /// <summary>
+        /// The OAuth 2.0 mechanism. [draft-ietf-oauth-v2-31]
+        /// </summary>
+        OAuth2 = 5
+        /*/// <summary>
+        /// The KERBEROS_V4 mechanism. [RFC2222]
+        /// </summary>
+        KerberosV4 = 6*/
+    }
+
+    public enum EncryptionType
+    {
+        None = 0,
+        SSL = 1,
+        StartTLS = 2
     }
 }

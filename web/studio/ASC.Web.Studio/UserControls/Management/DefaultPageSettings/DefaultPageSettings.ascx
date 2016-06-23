@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="DefaultPageSettings.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.DefaultPageSettings" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
 <div class="clearFix">
@@ -33,9 +32,9 @@
         <p>
             <%= String.Format(Resource.HelpAnswerDefaultPageSettings.HtmlEncode(), "<b>", "</b>") %>
         </p>
-      <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+      <% if (!string.IsNullOrEmpty(HelpLink))
            { %>
-        <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#ManagingPortalModules_block" %>" target="_blank">
+        <a href="<%= HelpLink + "/gettingstarted/configuration.aspx#ManagingPortalModules_block" %>" target="_blank">
             <%= Resource.LearnMore%>
         </a>
        <% } %>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -29,66 +29,44 @@ window.tagsModal = (function($) {
         wnd;
 
     var init = function() {
-        if (isInit === false) {
-            isInit = true;
+        if (isInit)
+            return;
 
-            wnd = $('#tagWnd');
+        isInit = true;
 
-            wnd.find('.tag.color .outer .inner').unbind('click').bind('click', function(e) {
-                if ($('.tag.color .outer .inner').attr('disabled')) {
-                    return false;
-                }
+        wnd = $('#tagWnd');
 
-                tagsColorsPopup.show(this, changeWndTagColor);
-                e.stopPropagation();
+        wnd.find('.tag.color .outer .inner').unbind('click').bind('click', function(e) {
+            if ($('.tag.color .outer .inner').attr('disabled')) {
                 return false;
-            });
+            }
 
-            wnd.find('.linked_addresses a.plusmail').unbind('click').bind('click', function() {
-                if ($('.linked_addresses a.plusmail').attr('disabled')) {
-                    return false;
-                }
-                addAddressHandler(this);
+            tagsColorsPopup.show(this, changeWndTagColor);
+            e.stopPropagation();
+            return false;
+        });
+
+        wnd.find('.buttons .del').unbind('click').bind('click', function() {
+            if ($('.buttons .del').attr('disabled')) {
                 return false;
-            });
+            }
+            hide();
+            deleteTag();
+            return false;
+        });
 
-            wnd.find('input.addemail').emailAutocomplete({ emailOnly: true });
-
-            wnd.find('.buttons .del').unbind('click').bind('click', function() {
-                if ($('.buttons .del').attr('disabled')) {
-                    return false;
-                }
-                hide();
-                deleteTag();
+        wnd.find('.buttons .cancel').unbind('click').bind('click', function() {
+            if ($('.buttons .cancel').attr('disabled')) {
                 return false;
-            });
+            }
+            hide();
+            return false;
+        });
 
-            wnd.find('.buttons .cancel').unbind('click').bind('click', function() {
-                if ($('.buttons .cancel').attr('disabled')) {
-                    return false;
-                }
-                hide();
-                return false;
-            });
-
-            tagsManager.events.bind('delete', onTagsChange);
-            tagsManager.events.bind('create', onTagsChange);
-            tagsManager.events.bind('update', onTagsChange);
-            tagsManager.events.bind('error', onTagsError);
-
-            $(document).keyup(function(e) {
-                if (e.which == 13) {
-                    if ($('#tagWnd').is(':visible')) {
-                        if ($('#tagWnd input.addemail').is(':focus')) {
-                            addAddressHandler(this);
-                        } else {
-                            $('#tagWnd .containerBodyBlock .buttons .button.blue:visible').trigger('click');
-                        }
-
-                    }
-                }
-            });
-        }
+        tagsManager.events.bind('delete', onTagsChange);
+        tagsManager.events.bind('create', onTagsChange);
+        tagsManager.events.bind('update', onTagsChange);
+        tagsManager.events.bind('error', onTagsError);
     };
 
     var onTagsChange = function() {
@@ -107,7 +85,8 @@ window.tagsModal = (function($) {
         return show(tag, 'edit');
     };
 
-    var show = function(tag, type) {
+    var show = function (tag, type) {
+        init();
         if (type === 'delete') {
             wnd.find('.del').show();
             wnd.find('.save').hide();
@@ -134,12 +113,8 @@ window.tagsModal = (function($) {
         wnd.find('#mail_EmailsContainer').empty();
 
         if (type != 'delete' && tag.addresses.length > 0) {
-            wnd.find('.tagEditEmailList').show();
-            $.each(tag.addresses, function(i) {
-                addAddressHtml(tag.addresses[i]);
-            });
         } else {
-            wnd.find('.tagEditEmailList').hide();
+            wnd.find('#mail_EmailsContainer').hide();
         }
 
         wnd.attr('tagid', tag.id);
@@ -153,9 +128,7 @@ window.tagsModal = (function($) {
             TMMail.setRequiredError('mail_CreateTag_Name', false);
 
             if (wnd.find('input.addemail').val() && !wnd.find('input.addemail').hasClass('placeholder')) {
-                if (!addAddressHandler(this)) {
-                    return false;
-                }
+                wnd.find("#mail_EmailsContainer .plusmail").trigger("click");
             }
 
             tag = getTagFromWnd();
@@ -174,16 +147,14 @@ window.tagsModal = (function($) {
             }
         });
 
-        wnd.find('input.addemail').val('');
-
-        wnd.find('.addemail_error').hide();
-        TMMail.setRequiredError('mail_CreateTag_Name', false);
-        TMMail.setRequiredError('mail_CreateTag_Email', false);
+        wnd.find('input.addemail').EmailsSelector("init", {
+            isInPopup: true,
+            items: tag.addresses,
+            container: wnd.find("#mail_EmailsContainer")
+        });
 
         var margintop = jq(window).scrollTop() - 135;
         margintop = margintop + 'px';
-
-        wnd.find('input[placeholder]').placeholder();
 
         jq.blockUI({
             message: wnd,
@@ -227,7 +198,7 @@ window.tagsModal = (function($) {
         $('#tagWnd .save .tag.color').css('cursor', 'default');
         $('#tagWnd .linked_addresses.save #mail_tag_email').attr('disabled', 'true');
         $('#tagWnd .linked_addresses a.plusmail').attr('disabled', 'true').css('cursor', 'default');
-        $('#tagWnd .delete_tag_address').attr('disabled', 'true').css('cursor', 'default');
+        $('#tagWnd .removeTagAddress').attr('disabled', 'true').css('cursor', 'default');
         $('#tagWnd .buttons .save').attr('disabled', 'true').removeClass("disable").addClass("disable");
         $('#tagWnd .buttons .cancel').attr('disabled', 'true').removeClass("disable").addClass("disable");
     };
@@ -239,7 +210,7 @@ window.tagsModal = (function($) {
         $('#tagWnd .save .tag.color').css('cursor', 'pointer');
         $('#tagWnd .linked_addresses.save #mail_tag_email').removeAttr('disabled');
         $('#tagWnd .linked_addresses a.plusmail').removeAttr("disabled").css('cursor', 'pointer');
-        $('#tagWnd .delete_tag_address').removeAttr("disabled").css('cursor', 'pointer');
+        $('#tagWnd .removeTagAddress').removeAttr("disabled").css('cursor', 'pointer');
         $('#tagWnd .buttons .save').removeAttr('disabled').removeClass("disable");
         $('#tagWnd .buttons .cancel').removeAttr('disabled').removeClass("disable");
     };
@@ -285,83 +256,25 @@ window.tagsModal = (function($) {
         }
     };
 
-    var addAddressHandler = function() {
-        var address = wnd.find('input.addemail').val();
-
-        //check on errors
-        if (address == undefined || address.length == 0) {
-            TMMail.setRequiredHint('mail_CreateTag_Email', MailScriptResource.ErrorEmptyField);
-            TMMail.setRequiredError('mail_CreateTag_Email', true);
-            return undefined;
-        }
-
-        var fromArray = [];
-        var $addresses = wnd.find('.linked_address');
-        var itmInd = $addresses.length;
-        while (itmInd--) {
-            var $item = $($addresses[itmInd]);
-            fromArray.push($item.html().toLowerCase());
-        }
-
-        if (TMMail.in_array(address.toLowerCase(), fromArray)) {
-            TMMail.setRequiredHint('mail_CreateTag_Email', MailResource.ErrorEmailExist);
-            TMMail.setRequiredError('mail_CreateTag_Email', true);
-            return undefined;
-        }
-
-        if (!TMMail.reEmailStrict.test(address)) {
-            TMMail.setRequiredHint('mail_CreateTag_Email', MailScriptResource.ErrorIncorrectEmail);
-            TMMail.setRequiredError('mail_CreateTag_Email', true);
-            return undefined;
-        }
-
-        wnd.find('.addemail_error').hide();
-        TMMail.setRequiredError('mail_CreateTag_Email', false);
-
-        addAddressHtml(address);
-        wnd.find('input.addemail').val('');
-        return true;
-    };
-
-    var addAddressHtml = function(address) {
-        if (address) {
-            var html = $.tmpl('tagEmailInEditPopupTmpl', { address: address });
-
-            html.find('.delete_tag_address').unbind('.click').bind('click', function() {
-                if ($('.delete_tag_address').attr('disabled')) {
-                    return false;
-                }
-
-                $(this).closest('tr').remove();
-
-                if ($('#mail_EmailsContainer tbody:empty').length > 0) {
-                    wnd.find('.tagEditEmailList').hide();
-                }
-
-                return false;
-            });
-
-            wnd.find('.tagEditEmailList').show();
-            wnd.find('#mail_EmailsContainer').append(html);
-        }
-    };
-
     var getTagFromWnd = function() {
         var id = wnd.attr('tagid'),
             style = wnd.find('.tag.color .inner').attr('colorstyle'),
             name = $.trim(wnd.find('#mail_tag_name').val()),
-            addresses = [];
+            addresses = wnd.find('input.addemail').EmailsSelector("get");
 
-        wnd.find('.linked_address').each(function(i, v) {
-            addresses.push($(v).html());
-        });
-
-        return { id: id, name: name, style: style, addresses: addresses };
+        return {
+            id: id,
+            name: name,
+            style: style,
+            addresses: jq.map(addresses, function(a) {
+                return a.email;
+            })
+        };
     };
 
     var onTagsError = function(e, error) {
         setErrorMessage(error.message + (error.comment ? ': ' + error.comment : ''));
-        $('#tagWnd .delete_tag_address').removeAttr("disabled").css('cursor', 'pointer');
+        $('#tagWnd .removeTagAddress').removeAttr("disabled").css('cursor', 'pointer');
     };
 
     var setErrorMessage = function(errorMessage) {

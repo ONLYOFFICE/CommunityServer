@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -29,23 +29,6 @@
 @textColor: #333;
 @descriptiveColor: #83888d;
 @controlColor: #83888d;
-
-.limitedSingleText(@maxWidth) {
-    display: inline-block;
-    max-width: @maxWidth;
-    overflow: hidden;
-    -ms-text-overflow: ellipsis;
-    -o-text-overflow: ellipsis;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    vertical-align: top;
-}
-
-.borderRadius (@value: 3px) {  
-    -webkit-border-radius: @value;
-	-moz-border-radius: @value;
-    border-radius: @value;
-}
 
 .noContentBlock {
     display: none;
@@ -253,7 +236,7 @@
                 }
             }
 
-            .comment-error-msg-box, .comment-empty-error-msg-box {
+            .comment-error-msg-box {
                 display: none;
                 margin-bottom: 10px;
             }
@@ -269,6 +252,10 @@
                     height: 100px;
                     margin-bottom: 18px;
                     resize: none;
+
+                    &.error {
+                        border-color: #cc0000;
+                    }
                 }
             }
 

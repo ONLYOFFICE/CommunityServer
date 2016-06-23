@@ -29,36 +29,35 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
 
 namespace Novell.Directory.Ldap.Events.Edir
 {
-  /// <summary> 
-  /// This class represents the EventArgs for Edir events in general.
-  /// </summary>
-  public class EdirEventArgs : DirectoryEventArgs
-  {
     /// <summary> 
-    /// This property gives the contained event information in the form
-    /// of an IntermediateResponse if the contained information is of correct
-    /// type. In case the type of contained information is incorrect, null is returned.
+    /// This class represents the EventArgs for Edir events in general.
     /// </summary>
-    public EdirEventIntermediateResponse IntermediateResponse
+    public class EdirEventArgs : DirectoryEventArgs
     {
-      get
-      {
-	if (ldap_message is EdirEventIntermediateResponse)
-	  return (EdirEventIntermediateResponse)ldap_message;
-	else
-	  return null;
-      }
-    }
+        /// <summary> 
+        /// This property gives the contained event information in the form
+        /// of an IntermediateResponse if the contained information is of correct
+        /// type. In case the type of contained information is incorrect, null is returned.
+        /// </summary>
+        public EdirEventIntermediateResponse IntermediateResponse
+        {
+            get
+            {
+                if (ldap_message is EdirEventIntermediateResponse)
+                    return (EdirEventIntermediateResponse)ldap_message;
+                else
+                    return null;
+            }
+        }
 
-    public EdirEventArgs(LdapMessage sourceMessage,
-			 EventClassifiers aClassification)
-      : base(sourceMessage, aClassification)
-    {
-    }
+        public EdirEventArgs(LdapMessage sourceMessage,
+                 EventClassifiers aClassification)
+            : base(sourceMessage, aClassification)
+        {
+        }
 
-  }
+    }
 }

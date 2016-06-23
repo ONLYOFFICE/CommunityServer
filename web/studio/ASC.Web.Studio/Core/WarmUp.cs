@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -60,7 +60,7 @@ namespace ASC.Web.Studio.Core
         private readonly CancellationTokenSource tokenSource;
         private readonly ICacheNotify cacheNotify = AscCache.Notify;
         private readonly Dictionary<string, StartupProgress> startupProgresses;
-        private readonly StartupProgress progress;
+        private StartupProgress progress;
 
         internal bool Started { get; private set; }
 
@@ -121,7 +121,7 @@ namespace ASC.Web.Studio.Core
             return startupProgresses.All(pair => pair.Value.Completed);
         }
 
-        internal string GetSerializedProgress()
+        public string GetSerializedProgress()
         {
             var combinedProgress = (StartupProgress)progress.Clone();
 
@@ -140,6 +140,7 @@ namespace ASC.Web.Studio.Core
             {
                 result.AddRange(new List<string>
                                   {
+                                      "~/wizard.aspx",
                                       "~/auth.aspx",
                                       "~/confirm.aspx",
                                       "~/default.aspx",
@@ -233,6 +234,24 @@ namespace ASC.Web.Studio.Core
                                   });
             }
 
+            var controlPanelUrl = SetupInfo.ControlPanelUrl;
+            if (!string.IsNullOrEmpty(controlPanelUrl))
+            {
+                controlPanelUrl = "~" + controlPanelUrl;
+                result.AddRange(new List<string>
+                                {
+                                    controlPanelUrl + "Https",
+                                    controlPanelUrl + "Update",
+                                    controlPanelUrl + "Rebranding",
+                                    controlPanelUrl + "Ldap",
+                                    controlPanelUrl + "Backup",
+                                    controlPanelUrl + "Restore",
+                                    controlPanelUrl + "HealthCheck",
+                                    controlPanelUrl + "LoginHistory",
+                                    controlPanelUrl + "AuditTrail"
+                                });
+            }
+
             return result.Select(GetFullAbsolutePath).ToList();
         }
 
@@ -266,6 +285,15 @@ namespace ASC.Web.Studio.Core
                              Parallel.ForEach(Urls, new ParallelOptions {MaxDegreeOfParallelism = 4, CancellationToken = tokenSource.Token}, MakeRequest);
                          }, tokenSource.Token);
             }
+        }
+
+        internal void Restart()
+        {
+            Started = false;
+            WarmUpSettings.SetCompleted(false);
+            progress = new StartupProgress(Urls.Count);
+            Publish();
+            Start();
         }
 
         internal void Terminate()
@@ -389,9 +417,7 @@ namespace ASC.Web.Studio.Core
 
             Link = VirtualPathUtility.ToAbsolute("~/default.aspx");
             Bundles = BundleTable.Bundles.Select(GetBundlePath).Where(r => !r.Contains("/clientscript/")).ToList();
-            var settings = SettingsManager.Instance.LoadSettings<WarmUpSettings>(TenantProvider.CurrentTenantID);
-            settings.Completed = true;
-            SettingsManager.Instance.SaveSettings(settings, TenantProvider.CurrentTenantID);
+            WarmUpSettings.SetCompleted(true);
         }
 
         public object Clone()
@@ -411,6 +437,18 @@ namespace ASC.Web.Studio.Core
 
         [DataMember]
         public bool Completed { get; set; }
+
+        internal static bool GetCompleted()
+        {
+            return SettingsManager.Instance.LoadSettings<WarmUpSettings>(TenantProvider.CurrentTenantID).Completed;
+        }
+
+        internal static void SetCompleted(bool newValue)
+        {
+            var settings = SettingsManager.Instance.LoadSettings<WarmUpSettings>(TenantProvider.CurrentTenantID);
+            settings.Completed = newValue;
+            SettingsManager.Instance.SaveSettings(settings, TenantProvider.CurrentTenantID);
+        }
 
         public ISettings GetDefault()
         {

@@ -2,7 +2,6 @@
 
 <%@ Import Namespace="ASC.Core.Tenants" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
 <div class="clearFix">
@@ -55,9 +54,9 @@
     </div>
     <div class="settings-help-block">
         <p><%= String.Format(Resource.HelpAnswerMailDomainSettings.HtmlEncode(), "<br />","<b>","</b>")%></p>
-        <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+        <% if (!string.IsNullOrEmpty(HelpLink))
            { %>
-        <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#ChangingGeneralSettings_block" %>" target="_blank"><%= Resource.LearnMore%></a>
+        <a href="<%= HelpLink + "/gettingstarted/configuration.aspx#ChangingGeneralSettings_block" %>" target="_blank"><%= Resource.LearnMore%></a>
         <% } %>
     </div>
 </div>

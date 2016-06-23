@@ -161,7 +161,7 @@
             <%: ImportFromCSVStepTwoHeaderLabel %></span><br />
         <span class="describe-text">
             <%= String.Format(ImportFromCSVStepTwoDescriptionLabel.HtmlEncode(), System.DateTimeExtension.DateFormatPattern)%></span>
-        <table id="columnMapping" cellspacing="0" cellpadding="10" class="tableBase">
+        <table id="columnMapping" cellspacing="0" cellpadding="10" class="table-list">
             <thead>
                 <tr>
                     <td style="width: 20%">

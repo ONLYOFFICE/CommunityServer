@@ -309,4 +309,25 @@
   <data name="WebDomainLabel" xml:space="preserve">
     <value>Domain</value>
   </data>
+  <data name="SenderNameLabel" xml:space="preserve">
+    <value>Sender name</value>
+  </data>
+  <data name="AliasesLabel" xml:space="preserve">
+    <value>Aliases</value>
+  </data>
+  <data name="EmailLabel" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="UserLabel" xml:space="preserve">
+    <value>User</value>
+  </data>
+  <data name="EditMailboxLabel" xml:space="preserve">
+    <value>Edit mailbox</value>
+  </data>
+  <data name="AddMailboxToNewDomainInfo" xml:space="preserve">
+    <value>Add mailboxes to start using the new domain.</value>
+  </data>
+  <data name="NewDomainAttention" xml:space="preserve">
+    <value>The mailboxes previously existing on this domain cannot be automatically transferred to the portal. You need to add them anew.</value>
+  </data>
 </root>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -36,6 +36,7 @@ namespace ASC.Api.Projects.Calendars
 {
     public sealed class ProjectCalendar : BaseCalendar
     {
+        [AllDayLongUTCAttribute]
         private class Event : BaseEvent
         {
         }
@@ -70,17 +71,21 @@ namespace ASC.Api.Projects.Calendars
 
             var milestones = engine.MilestoneEngine.GetByStatus(project.ID, MilestoneStatus.Open);
 
-            var events = milestones.Select(m => new Event
-                                                {
-                                                    AlertType = EventAlertType.Never,
-                                                    CalendarId = Id,
-                                                    UtcStartDate = m.DeadLine,
-                                                    UtcEndDate = m.DeadLine,
-                                                    AllDayLong = true,
-                                                    Id = m.UniqID,
-                                                    Name = Web.Projects.Resources.MilestoneResource.Milestone + ": " + m.Title,
-                                                    Description = m.Description
-                                                }).Cast<IEvent>().ToList();
+            var events = milestones
+                .Select(m => new Event
+                    {
+                        AlertType = EventAlertType.Never,
+                        CalendarId = Id,
+                        UtcStartDate = m.DeadLine,
+                        UtcEndDate = m.DeadLine,
+                        AllDayLong = true,
+                        Id = m.UniqID,
+                        Name = Web.Projects.Resources.MilestoneResource.Milestone + ": " + m.Title,
+                        Description = m.Description
+                    })
+                .Where(e => IsVisibleEvent(startDate, endDate, e.UtcStartDate, e.UtcEndDate))
+                .Cast<IEvent>()
+                .ToList();
 
             foreach (var t in tasks)
             {
@@ -94,6 +99,7 @@ namespace ASC.Api.Projects.Calendars
                 {
                     start = DateTime.MinValue;
                 }
+
                 var projectEvent = new Event
                                    {
                                        AlertType = EventAlertType.Never,
@@ -105,7 +111,9 @@ namespace ASC.Api.Projects.Calendars
                                        Name = Web.Projects.Resources.TaskResource.Task + ": " + t.Title,
                                        Description = t.Description
                                    };
-                events.Add(projectEvent);
+
+                if (IsVisibleEvent(startDate, endDate, projectEvent.UtcStartDate, projectEvent.UtcEndDate))
+                    events.Add(projectEvent);
             }
 
             return events;
@@ -114,6 +122,13 @@ namespace ASC.Api.Projects.Calendars
         public override TimeZoneInfo TimeZone
         {
             get { return CoreContext.TenantManager.GetCurrentTenant().TimeZone; }
+        }
+
+        private bool IsVisibleEvent(DateTime startDate, DateTime endDate, DateTime eventStartDate, DateTime eventEndDate)
+        {
+            return (startDate <= eventStartDate && eventStartDate <= endDate) ||
+                   (startDate <= eventEndDate && eventEndDate <= endDate) ||
+                   (eventStartDate < startDate && eventEndDate > endDate);
         }
     }
 }

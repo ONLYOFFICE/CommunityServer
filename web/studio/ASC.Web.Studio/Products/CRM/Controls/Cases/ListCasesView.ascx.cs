@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,18 +24,17 @@
 */
 
 
+using ASC.CRM.Core;
+using ASC.CRM.Core.Entities;
+using ASC.MessagingSystem;
+using ASC.Web.CRM.Classes;
+using ASC.Web.CRM.Controls.Common;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Web;
-using ASC.MessagingSystem;
-using ASC.Web.CRM.Controls.Common;
-using ASC.Web.Core.Mobile;
-using ASC.CRM.Core.Entities;
-using ASC.Web.CRM.Classes;
-using ASC.CRM.Core;
-using Newtonsoft.Json.Linq;
 
 namespace ASC.Web.CRM.Controls.Cases
 {
@@ -48,16 +47,12 @@ namespace ASC.Web.CRM.Controls.Cases
             get { return PathProvider.GetFileStaticRelativePath("Cases/ListCasesView.ascx"); }
         }
 
-        protected bool MobileVer = false;
-
         #endregion
 
         #region Events
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            MobileVer = MobileDetector.IsMobile;
-
             if (UrlParameters.Action != "export")
             {
                 _phListBase.Controls.Add(LoadControl(ListBaseView.Location));
@@ -140,7 +135,7 @@ namespace ASC.Web.CRM.Controls.Cases
                                 result.IsClosed = filterParam.Value<bool>("value");
                                 break;
                             case "tags":
-                                result.Tags = new List<string>();
+
                                 result.Tags = filterParam.Value<JArray>("value").ToList().ConvertAll(
                                     n => n.ToString());
                                 break;

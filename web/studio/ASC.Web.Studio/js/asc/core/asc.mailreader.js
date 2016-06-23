@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,7 +25,6 @@
 
 
 ASC.Controls.MailReader = function () {
-
     function updateFolders() {
         updateFoldersOnOtherTabs(false);
     }
@@ -47,47 +46,34 @@ ASC.Controls.MailReader = function () {
         }
     }
 
-	function _setUnreadMailMessagesCount(params, folders) {
-		if (undefined == folders.length) {
-			return;
-		}
-		var inbox = folders[0];
-		if (inbox) {
-			setUnreadMailMessagesCount(inbox.unread);
-		}
-	}
+    function setUnreadMailMessagesCount(unread) {
+        unread = parseInt(unread);
 
-	function setUnreadMailMessagesCount(unread) {
-	    var $TPUnreadMessagesCount = jq("#TPUnreadMessagesCount");
-	    if ($TPUnreadMessagesCount) {
-	        $TPUnreadMessagesCount.text(unread > 100 ? '>100' : unread);
-	        $TPUnreadMessagesCount.parent().toggleClass("has-led", unread != 0);
-	        var stored_count = localStorageManager.getItem("TPUnreadMessagesCount");
-		    if (stored_count != unread) {
-		        localStorageManager.setItem("TPUnreadMessagesCount", unread);
-		    }
-		}
-	}
+        if (StudioManager.getCurrentModule() !== "mail") {
+            var $tpUnreadMessagesCountEl = jq("#TPUnreadMessagesCount");
+            if ($tpUnreadMessagesCountEl) {
+                $tpUnreadMessagesCountEl.text(unread > 100 ? '>100' : unread);
+                $tpUnreadMessagesCountEl.parent().toggleClass("has-led", unread !== 0);
+            }
+        }
 
-	function _onUpdateFolders(params, folders) {
-	    if (undefined == folders.length) {
-	        return;
-	    }
-	    if (localStorageManager.isAvailable) {
-	        var stored_count = localStorageManager.getItem("TPUnreadMessagesCount");
-	        if (stored_count != folders[0].unread) {
-	            localStorageManager.setItem("TPUnreadMessagesCount", folders[0].unread);
-	        }
-	        _setUnreadMailMessagesCount(params, folders);
-	    }
-	    else {
-	        _setUnreadMailMessagesCount(params, folders);
+        var storedCount = localStorageManager.getItem("MailUreadMessagesCount");
+	    if (storedCount !== unread) {
+	        localStorageManager.setItem("MailUreadMessagesCount", unread);
 	    }
 	}
 
-	function _onLocalStorageChanged(e) {
-		if(e && e.key && e.key == "TPUnreadMessagesCount") {
-			_setUnreadMailMessagesCount(e, [ { unread: e.newValue } ]);
+    function onUpdateFolders(params, folders) {
+        if (!folders.length) {
+            return;
+        }
+
+        setUnreadMailMessagesCount(folders[0].unread_messages);
+    }
+
+    function onLocalStorageChanged(e) {
+        if (e && e.key && e.key === "MailUreadMessagesCount") {
+            setUnreadMailMessagesCount(e.newValue);
 		}
 	}
 
@@ -114,6 +100,7 @@ ASC.Controls.MailReader = function () {
 	        Teamlab.bind(Teamlab.events.removeMailMailbox, updateFoldersAndUpdateMailboxes);
 	        Teamlab.bind(Teamlab.events.addMailbox, updateFoldersAndUpdateMailboxes);
 	        Teamlab.bind(Teamlab.events.removeMailbox, updateFoldersAndUpdateMailboxes);
+	        Teamlab.bind(Teamlab.events.updateMailbox, updateFoldersAndUpdateMailboxes);
 	        Teamlab.bind(Teamlab.events.addMailBoxAlias, updateFoldersAndUpdateMailboxes);
 	        Teamlab.bind(Teamlab.events.removeMailBoxAlias, updateFoldersAndUpdateMailboxes);
 	        Teamlab.bind(Teamlab.events.addMailGroup, updateFoldersAndUpdateMailboxes);
@@ -127,13 +114,13 @@ ASC.Controls.MailReader = function () {
 	        Teamlab.bind(Teamlab.events.removeMailConversations, updateFolders);
 	        Teamlab.bind(Teamlab.events.markMailConversations, updateFolders);
 	    } else {
-	        Teamlab.bind(Teamlab.events.getMailFolders, _onUpdateFolders);
+	        if (StudioManager.getCurrentModule() === "mail")
+	            return; // Skips for mail module
+
+	        Teamlab.bind(Teamlab.events.getMailFolders, onUpdateFolders);
+
 	        if (localStorageManager.isAvailable) {
-	            window.addEvent(window, 'storage', _onLocalStorageChanged);
-	            var stored_count = localStorageManager.getItem("TPUnreadMessagesCount");
-	            if (stored_count) {
-	                _setUnreadMailMessagesCount({}, [{ unread: stored_count }]);
-	            }
+	            window.addEvent(window, 'storage', onLocalStorageChanged);
 	        }
 	    }
 	}
@@ -141,7 +128,6 @@ ASC.Controls.MailReader = function () {
 	return {
 	    updateFoldersOnOtherTabs: updateFoldersOnOtherTabs,
 	    setUnreadMailMessagesCount: setUnreadMailMessagesCount,
-	    onUpdateFolders: _onUpdateFolders,
 		mailStart: mailStart
 	};
 }();

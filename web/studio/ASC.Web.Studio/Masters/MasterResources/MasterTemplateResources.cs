@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -39,21 +39,19 @@ namespace ASC.Web.Studio.Masters.MasterResources
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            return new List<KeyValuePair<string, object>>(12)
-                   {
-                       RegisterClientTemplatesPath("~/templates/UserProfileCardTemplate.ascx", context),
-                       RegisterClientTemplatesPath("~/templates/AdvansedFilterTemplate.ascx", context),
-                       RegisterClientTemplatesPath("~/templates/FeedListTemplate.ascx", context),
-                       RegisterClientTemplatesPath("~/templates/DropFeedTemplate.ascx", context),
-                       RegisterClientTemplatesPath("~/templates/DropMailTemplate.ascx", context),
-                       RegisterClientTemplatesPath("~/templates/AdvUserSelectorTemplate.ascx", context),
-                       RegisterClientTemplatesPath("~/templates/GroupSelectorTemplate.ascx", context),
-                       RegisterClientTemplatesPath("~/templates/SharingSettingsTemplate.ascx", context),
-                       RegisterClientTemplatesPath("~/templates/AdvansedSelectorTemplate.ascx", context),
-                       RegisterClientTemplatesPath("~/templates/CommonTemplates.ascx", context),
-                       RegisterClientTemplatesPath("~/templates/ManagementTemplates.ascx", context),
-                       RegisterClientTemplatesPath("~/templates/CommentsTemplates.ascx", context)
-                   };
+            return RegisterClientTemplatesPath(context,
+                "~/templates/UserProfileCardTemplate.ascx",
+                "~/templates/AdvansedFilterTemplate.ascx",
+                "~/templates/FeedListTemplate.ascx", 
+                "~/templates/DropFeedTemplate.ascx",
+                "~/templates/DropMailTemplate.ascx",
+                "~/templates/GroupSelectorTemplate.ascx", 
+                "~/templates/SharingSettingsTemplate.ascx",
+                "~/templates/AdvansedSelectorTemplate.ascx",
+                "~/templates/AdvansedEmailSelectorTemplate.ascx",
+                "~/templates/CommonTemplates.ascx", 
+                "~/templates/ManagementTemplates.ascx",
+                "~/templates/CommentsTemplates.ascx");
         }
     }
 }

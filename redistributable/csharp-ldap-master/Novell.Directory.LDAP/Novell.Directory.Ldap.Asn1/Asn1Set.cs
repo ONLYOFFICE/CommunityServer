@@ -30,77 +30,77 @@
 //
 
 using System;
+using System.IO;
 
 namespace Novell.Directory.Ldap.Asn1
 {
-	
-	/// <summary> The Asn1Set class can hold an unordered collection of components with
-	/// distinct type. This class inherits from the Asn1Structured class
-	/// which already provides functionality to hold multiple Asn1 components.
-	/// </summary>
-	[CLSCompliantAttribute(true)]
-	public class Asn1Set:Asn1Structured
-	{
-		
-		/// <summary> ASN.1 SET tag definition.</summary>
-		public const int TAG = 0x11;
-		
-		/// <summary> ID is added for Optimization.</summary>
-		/// <summary> ID needs only be one Value for every instance,
-		/// thus we create it only once.
-		/// </summary>
-		public static readonly Asn1Identifier ID = new Asn1Identifier(Asn1Identifier.UNIVERSAL, true, TAG);
-		/* Constructors for Asn1Set
-		*/
-		
-		/// <summary> Constructs an Asn1Set object with no actual
-		/// Asn1Objects in it. Assumes a default size of 5 elements.
-		/// </summary>
-		public Asn1Set():base(ID)
-		{
-			return ;
-		}
-		
-		
-		/// <summary> Constructs an Asn1Set object with the specified
-		/// number of placeholders for Asn1Objects. However there
-		/// are no actual Asn1Objects in this SequenceOf object.
-		/// 
-		/// </summary>
-		/// <param name="size">Specifies the initial size of the collection.
-		/// </param>
-		public Asn1Set(int size):base(ID, size)
-		{
-			return ;
-		}
-		
-		/// <summary> Constructs an Asn1Set object by decoding data from an
-		/// input stream.
-		/// 
-		/// </summary>
-		/// <param name="dec">The decoder object to use when decoding the
-		/// input stream.  Sometimes a developer might want to pass
-		/// in his/her own decoder object
-		/// 
-		/// </param>
-		/// <param name="in">A byte stream that contains the encoded ASN.1
-		/// 
-		/// </param>
-		[CLSCompliantAttribute(false)]
-		public Asn1Set(Asn1Decoder dec, System.IO.Stream in_Renamed, int len):base(ID)
-		{
-			decodeStructured(dec, in_Renamed, len);
-			return ;
-		}
-		
-		/* Asn1Set specific methods
-		*/
-		
-		/// <summary> Returns a String representation of this Asn1Set.</summary>
-		[CLSCompliantAttribute(false)]
-		public override System.String ToString()
-		{
-			return base.toString("SET: { ");
-		}
-	}
+
+    /// <summary> The Asn1Set class can hold an unordered collection of components with
+    /// distinct type. This class inherits from the Asn1Structured class
+    /// which already provides functionality to hold multiple Asn1 components.
+    /// </summary>
+    [CLSCompliantAttribute(true)]
+    public class Asn1Set : Asn1Structured
+    {
+        /// <summary> ASN.1 SET tag definition.</summary>
+        public const int TAG = 0x11;
+
+        /// <summary> ID is added for Optimization.</summary>
+        /// <summary> ID needs only be one Value for every instance,
+        /// thus we create it only once.
+        /// </summary>
+        public static readonly Asn1Identifier ID = new Asn1Identifier(Asn1Identifier.UNIVERSAL, true, TAG);
+        /* Constructors for Asn1Set
+        */
+
+        /// <summary> Constructs an Asn1Set object with no actual
+        /// Asn1Objects in it. Assumes a default size of 5 elements.
+        /// </summary>
+        public Asn1Set()
+            : base(ID)
+        {
+        }
+
+
+        /// <summary> Constructs an Asn1Set object with the specified
+        /// number of placeholders for Asn1Objects. However there
+        /// are no actual Asn1Objects in this SequenceOf object.
+        /// 
+        /// </summary>
+        /// <param name="size">Specifies the initial size of the collection.
+        /// </param>
+        public Asn1Set(int size)
+            : base(ID, size)
+        {
+        }
+
+        /// <summary> Constructs an Asn1Set object by decoding data from an
+        /// input stream.
+        /// 
+        /// </summary>
+        /// <param name="dec">The decoder object to use when decoding the
+        /// input stream.  Sometimes a developer might want to pass
+        /// in his/her own decoder object
+        /// 
+        /// </param>
+        /// <param name="in">A byte stream that contains the encoded ASN.1
+        /// 
+        /// </param>
+        [CLSCompliantAttribute(false)]
+        public Asn1Set(Asn1Decoder dec, Stream in_Renamed, int len)
+            : base(ID)
+        {
+            decodeStructured(dec, in_Renamed, len);
+        }
+
+        /* Asn1Set specific methods
+        */
+
+        /// <summary> Returns a String representation of this Asn1Set.</summary>
+        [CLSCompliantAttribute(false)]
+        public override string ToString()
+        {
+            return base.toString("SET: { ");
+        }
+    }
 }

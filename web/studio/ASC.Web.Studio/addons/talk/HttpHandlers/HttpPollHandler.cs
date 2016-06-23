@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -34,172 +34,64 @@ using System.Web.Configuration;
 
 namespace ASC.Web.Talk.HttpHandlers
 {
-    public class HttpPollHandler : IHttpAsyncHandler
+    public class HttpPollHandler : HttpTaskAsyncHandler
     {
-        private static readonly Uri boshUri;
-
-
-        static HttpPollHandler()
+        private static readonly Uri boshUri = new Uri(VirtualPathUtility.AppendTrailingSlash(WebConfigurationManager.AppSettings["BoshPath"] ?? "http://localhost:5280/http-poll/"));
+           
+        private void CopyStream(Stream from, Stream to)
         {
-            var uri = WebConfigurationManager.AppSettings["BoshPath"] ?? "http://localhost:5280/http-poll/";
-            boshUri = new Uri(VirtualPathUtility.AppendTrailingSlash(uri));
+            var buffer = new byte[1024];
+            while (true)
+            {
+                var read = from.Read(buffer, 0, buffer.Length);
+                if (read == 0) break;
+
+                to.Write(buffer, 0, read);
+            }
         }
 
-
-        public bool IsReusable
+        public override async System.Threading.Tasks.Task ProcessRequestAsync(HttpContext context)
         {
-            get { return true; }
-        }
+            var request = (HttpWebRequest)WebRequest.Create(boshUri);
+            request.Method = context.Request.HttpMethod;
 
-
-        public IAsyncResult BeginProcessRequest(HttpContext context, AsyncCallback cb, object extraData)
-        {
-            return new AsynchOperation(cb, context, extraData).Start();
-        }
-
-        public void EndProcessRequest(IAsyncResult result)
-        {
-        }
-
-        public void ProcessRequest(HttpContext context)
-        {
-            throw new NotSupportedException();
-        }
-
-
-        private class AsynchOperation : IAsyncResult
-        {
-            private AsyncCallback cb;
-            private HttpContext context;
-
-
-            public WaitHandle AsyncWaitHandle
+            request.UserAgent = context.Request.UserAgent;
+            request.Accept = string.Join(",", context.Request.AcceptTypes);
+            if (!string.IsNullOrEmpty(context.Request.Headers["Accept-Encoding"]))
             {
-                get { return null; }
+                request.Headers["Accept-Encoding"] = context.Request.Headers["Accept-Encoding"];
+            }
+            request.ContentType = context.Request.ContentType;
+            request.ContentLength = context.Request.ContentLength;
+
+            var stream = await request.GetRequestStreamAsync();
+
+            using (var writer = new StreamWriter(stream))
+            {
+                CopyStream(context.Request.InputStream, stream);
+
+                writer.Flush();
+                writer.Dispose();
             }
 
-            public object AsyncState
+            var response = await request.GetResponseAsync();
+
+            context.Response.ContentType = response.ContentType;
+
+            // copy headers & body
+            foreach (string h in response.Headers)
             {
-                get;
-                private set;
+                context.Response.AppendHeader(h, response.Headers[h]);
             }
 
-            public bool IsCompleted
+            using (var respStream = response.GetResponseStream())
             {
-                get;
-                private set;
+                CopyStream(respStream, context.Response.OutputStream);               
             }
 
-            public bool CompletedSynchronously
-            {
-                get { return false; }
-            }
+            context.Response.Flush();
 
-
-            public AsynchOperation(AsyncCallback callback, HttpContext context, object state)
-            {
-                cb = callback;
-                this.context = context;
-                AsyncState = state;
-                IsCompleted = false;
-            }
-
-            public IAsyncResult Start()
-            {
-                ThreadPool.QueueUserWorkItem(AsyncWork, null);
-                return this;
-            }
-
-            private void AsyncWork(object _)
-            {
-                try
-                {
-                    var request = (HttpWebRequest)WebRequest.Create(boshUri);
-                    request.Method = context.Request.HttpMethod;
-
-                    // copy headers & body
-                    request.UserAgent = context.Request.UserAgent;
-                    request.Accept = string.Join(",", context.Request.AcceptTypes);
-                    if (!string.IsNullOrEmpty(context.Request.Headers["Accept-Encoding"]))
-                    {
-                        request.Headers["Accept-Encoding"] = context.Request.Headers["Accept-Encoding"];
-                    }
-                    request.ContentType = context.Request.ContentType;
-                    request.ContentLength = context.Request.ContentLength;
-
-                    using (var stream = request.GetRequestStream())
-                    {
-                        CopyStream(context.Request.InputStream, stream);
-                    }
-
-                    request.BeginGetResponse(EndGetResponse, Tuple.Create(context, request));
-                }
-                catch (Exception err)
-                {
-                    if (err is IOException || err.InnerException is IOException)
-                    {
-                        // ignore
-                    }
-                    else
-                    {
-                        LogManager.GetLogger("ASC.Web.BOSH").Error(err);
-                    }
-                }
-            }
-
-            private void EndGetResponse(IAsyncResult ar)
-            {
-                var data = (Tuple<HttpContext, HttpWebRequest>)ar.AsyncState;
-                var context = data.Item1;
-                var request = data.Item2;
-
-                try
-                {
-                    using (var response = request.EndGetResponse(ar))
-                    {
-                        context.Response.ContentType = response.ContentType;
-
-                        // copy headers & body
-                        foreach (string h in response.Headers)
-                        {
-                            context.Response.AppendHeader(h, response.Headers[h]);
-                        }
-                        using (var stream = response.GetResponseStream())
-                        {
-                            CopyStream(stream, context.Response.OutputStream);
-                        }
-                        context.Response.Flush();
-                    }
-                }
-                catch (Exception err)
-                {
-                    if (err is IOException || err.InnerException is IOException || err is HttpException)
-                    {
-                        // ignore
-                    }
-                    else
-                    {
-                        LogManager.GetLogger("ASC.Web.BOSH").Error(err);
-                    }
-                }
-                finally
-                {
-                    IsCompleted = true;
-                    cb(this);
-                }
-            }
-
-            private void CopyStream(Stream from, Stream to)
-            {
-                var buffer = new byte[1024];
-                while (true)
-                {
-                    var read = from.Read(buffer, 0, buffer.Length);
-                    if (read == 0) break;
-
-                    to.Write(buffer, 0, read);
-                }
-            }
         }
     }
+       
 }

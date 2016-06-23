@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -32,7 +32,7 @@ namespace ASC.Core.Configuration
     public class SmtpSettings
     {
         public const int DefaultSmtpPort = 25;
-        public const string DefaultSenderDisplayName = "Teamlab Postman";
+        public const string DefaultSenderDisplayName = "ONLYOFFICE Postman";
 
         public string Host { get; private set; }
 
@@ -50,12 +50,9 @@ namespace ASC.Core.Configuration
 
         public bool EnableSSL { get; set; }
 
-        public bool IsDefaultSettings { get; internal set; }
+        public bool EnableAuth { get; set; }
 
-        public bool IsRequireAuthentication
-        {
-            get { return !string.IsNullOrEmpty(CredentialsUserName) && !string.IsNullOrEmpty(CredentialsUserPassword); }
-        }
+        public bool IsDefaultSettings { get; internal set; }
 
         public SmtpSettings(string host, string senderAddress)
             : this(host, senderAddress, DefaultSenderDisplayName)
@@ -146,6 +143,11 @@ namespace ASC.Core.Configuration
             if (!string.IsNullOrEmpty(credentialsUserName) && !string.IsNullOrEmpty(credentialsUserPassword))
             {
                 settings.SetCredentials(credentialsUserName, credentialsUserPassword, credentialsDomain);
+                settings.EnableAuth = true;
+            }
+            else
+            {
+                settings.EnableAuth = false;
             }
             
             return settings;

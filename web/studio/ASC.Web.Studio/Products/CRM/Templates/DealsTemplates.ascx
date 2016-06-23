@@ -124,7 +124,7 @@
     <div class="header-menu-spacer" style="display: none;">&nbsp;</div>
     {{/if}}
 
-    <table id="dealTable" class="tableBase" cellpadding="4" cellspacing="0">
+    <table id="dealTable" class="table-list" cellpadding="4" cellspacing="0">
         <colgroup>
             {{if contactID == 0}}
             <col style="width: 26px;"/>
@@ -168,7 +168,7 @@
 <script id="dealTmpl" type="text/x-jquery-tmpl">
     <tr id="dealItem_${id}" {{if ASC.CRM.ListDealView.contactID == 0}}class="with-entity-menu"{{/if}}>
         {{if ASC.CRM.DealTabView.contactID == 0}}
-        <td class="borderBase" style="padding: 0 0 0 6px;">
+        <td style="padding: 0 0 0 6px;">
             <input type="checkbox" id="checkDeal_${id}" style="margin-left:2px;"
                  onclick="ASC.CRM.ListDealView.selectItem(this);"
                  {{if isChecked == true}}checked="checked"{{/if}} />
@@ -176,7 +176,7 @@
         </td>
         {{/if}}
 
-        <td class="borderBase dealTitle">
+        <td class="dealTitle">
             <div>
                 {{if isPrivate == true}}
                     <label class="crm-private-lock"></label>
@@ -206,13 +206,13 @@
                 {{/if}}
             </div>
         </td>
-        <td class="borderBase dealCategory">
+        <td class="dealCategory">
             <div>
                 ${stage.title}
             </div>
         </td>
         {{if ASC.CRM.DealTabView.contactID == 0}}
-        <td class="borderBase dealContact">
+        <td class="dealContact">
             {{if contact != null}}
                 <div>
                 {{if contact.isCompany == true}}
@@ -231,7 +231,7 @@
         </td>
         {{/if}}
 
-        <td class="borderBase dealBidValue">
+        <td class="dealBidValue">
             <div>
             {{if typeof bidValue != "undefined" && bidValue != 0}}
                 <span {{if closedStatusString != ""}} class="gray-text" {{/if}}>{{html bidNumberFormat}}</span><span class='describe-text'> ${bidCurrency.abbreviation}</span>
@@ -244,7 +244,7 @@
         </td>
 
         {{if ASC.CRM.DealTabView.contactID == 0}}
-        <td class="borderBase">
+        <td>
             <div id="dealMenu_${id}" class="entity-menu" title="<%= CRMCommonResource.Actions %>"></div>
         </td>
         {{/if}}
@@ -257,29 +257,29 @@
 
 
 <script id="ratesTableTmpl" type="text/x-jquery-tmpl">
+    <colgroup>
+        <col style="width:30px;" />
+        <col style="width:22px;" />
+        <col />
+        <col style="width:30px;" />
+        <col style="width:22px;" />
+        <col />
+    </colgroup>
     <tbody>
-    <tr>
-        <th style="width:30px;"></th>
-        <th style="width:22px;"></th>
-        <th></th>
-        <th style="width:30px;"></th>
-        <th style="width:22px;"></th>
-        <th></th>
-    </tr>
     {{each currencyRates}}
         {{if $index%2 == 0}}
         <tr>
         {{/if}}
-            <td class="borderBase">
+            <td>
                 <i class="b-fg b-fg_${this.cultureName}">
                     <img src="<%= WebImageSupplier.GetAbsoluteWebPath("fg.png", ProductEntryPoint.ID) %>"
                         alt="${this.abbreviation}" title="${this.title}"/>
                 </i>
             </td>
-            <td class="borderBase header-base-small" title="${this.title}">
+            <td class="header-base-small" title="${this.title}">
                 ${this.abbreviation}
             </td>
-            <td class="borderBase rateValue" id="${this.abbreviation}" style="{{if $index%2 == 1}}padding-right:20px;{{else}}padding-right:35px;{{/if}}">
+            <td class="rateValue" id="${this.abbreviation}" style="{{if $index%2 == 1}}padding-right:20px;{{else}}padding-right:35px;{{/if}}">
                 ${this.rate}
             </td>
         {{if $index%2 == 1}}
@@ -355,7 +355,7 @@
             <select onchange="ASC.CRM.ExchangeRateView.updateSummaryTable(this.value);" style="width: 100%;" class="comboBox">
             </select>
             <div class="ratesTableContainer">
-                <table class="tableBase" cellpadding="5" cellspacing="0" id="ratesTable"></table>
+                <table class="table-list" cellpadding="5" cellspacing="0" id="ratesTable"></table>
             </div>
         </div>
     </div>

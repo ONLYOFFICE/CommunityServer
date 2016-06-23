@@ -134,9 +134,11 @@
     {{else fieldType ==  2}}
         <select class="comboBox" name="customField_${id}" id="custom_field_${id}">
              <option value="">&nbsp;</option>
-          {{each mask}}
+          {{if mask}}
+            {{each mask}}
              <option value="${$value}">${$value}</option>
-          {{/each}}
+            {{/each}}
+          {{/if}}
         </select>
     {{else fieldType ==  3}}
         {{if value == "true"}}

@@ -5,10 +5,7 @@
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 
 <div class="small_chat_main_window" data-error="<%= ChatResource.ServerError %>">
-    <% if (!IsMobile) %>
-    <% { %>
-        <div class="icon_ch_size display-none"></div>
-    <% } %>
+    <div class="icon_ch_size display-none"></div>
     <table class="small_chat_top_panel display-none">
         <tbody>
             <tr>
@@ -43,37 +40,31 @@
     <div class="small_chat_down_panel">
         <div class="show_small_chat_icon small_chat_icon_white down_panel_icon" title="<%= ChatResource.ShowHideChatAltTitle %>"></div>
         <div class="extend_chat_icon down_panel_icon" title="<%= ChatResource.ExtendChatAltTitle %>"></div>
-        <% if (!IsMobile) %>
-        <% { %>
-            <div class="small_chat_option_icon down_panel_right_icon" title="<%= ChatResource.SmallChatOptionsAltTitle %>"></div>
-        <% } %>
+        <div class="small_chat_option_icon down_panel_right_icon" title="<%= ChatResource.SmallChatOptionsAltTitle %>"></div>
     </div>
 </div>
-<% if (!IsMobile) %>
-<% { %>
-    <div class="studio-action-panel" id="smallChatOptionsPopupID">
-        <ul class="dropdown-content">
-            <li class="dropdown-item small_chat_en_dis_sounds" data-path="<%= SoundPath %>">
-                <div class="small_chat_checkbox small_chat_checkbox_enabled"></div>
-                <%= ChatResource.HintSounds %>
-            </li>
-            <li class="dropdown-item small_chat_en_dis_ctrl_enter_sender">
-                <div class="small_chat_checkbox small_chat_checkbox_disabled"></div>
-                <%= ChatResource.HintCtrlEnterSender %>
-            </li>
-            <li class="dropdown-item small_chat_minimize_all_windows_if_lose_focus">
-                <div class="small_chat_checkbox small_chat_checkbox_disabled"></div>
-                <%= ChatResource.MinimizeAllWindowsIfLoseFocus %>
-            </li>
-            <li class="dropdown-item small_chat_minimize_all_windows disable">
-                <%= ChatResource.MinimizeAllWindows %>
-            </li>
-            <li class="dropdown-item small_chat_close_all_windows disable">
-                <%= ChatResource.CloseAllWindows %>
-            </li>
-        </ul>
-    </div>
-<% } %>
+<div class="studio-action-panel" id="smallChatOptionsPopupID">
+    <ul class="dropdown-content">
+        <li class="dropdown-item small_chat_en_dis_sounds" data-path="<%= SoundPath %>">
+            <div class="small_chat_checkbox small_chat_checkbox_enabled"></div>
+            <%= ChatResource.HintSounds %>
+        </li>
+        <li class="dropdown-item small_chat_en_dis_ctrl_enter_sender">
+            <div class="small_chat_checkbox small_chat_checkbox_disabled"></div>
+            <%= ChatResource.HintCtrlEnterSender %>
+        </li>
+        <li class="dropdown-item small_chat_minimize_all_windows_if_lose_focus">
+            <div class="small_chat_checkbox small_chat_checkbox_disabled"></div>
+            <%= ChatResource.MinimizeAllWindowsIfLoseFocus %>
+        </li>
+        <li class="dropdown-item small_chat_minimize_all_windows disable">
+            <%= ChatResource.MinimizeAllWindows %>
+        </li>
+        <li class="dropdown-item small_chat_close_all_windows disable">
+            <%= ChatResource.CloseAllWindows %>
+        </li>
+    </ul>
+</div>
 <script id="contactListTmpl" type="text/x-jquery-tmpl">
     <ul class="user_list online_user_list">
     {{each UsersOnline}}

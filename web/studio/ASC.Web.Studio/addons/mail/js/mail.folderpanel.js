@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -119,16 +119,22 @@ window.folderPanel = (function($) {
 
     function initFolders() {
         $('#foldersContainer').children().each(function() {
-            var $this = $(this);
-            var folder = parseInt($this.attr('folderid'));
+            var $this = $(this),
+                folder = parseInt($this.attr('folderid'));
+
             $this.find('a').attr('href', '#' + TMMail.getSysFolderNameById(folder));
+
             if (folder === TMMail.sysfolders.trash.id ||
                 folder === TMMail.sysfolders.spam.id) {
 
                 var deleteTrash = $this.find('.delete_mails');
                 if (deleteTrash.length > 0) {
                     deleteTrash.unbind('click').bind('click', { folder: folder }, function (e) {
-                        showQuestionBox(e.data.folder);
+                        if (e) {
+                            showQuestionBox(e.data.folder);
+                            e.preventDefault();
+                            e.stopPropagation();
+                        }
                     });
                 }
             }
@@ -159,7 +165,7 @@ window.folderPanel = (function($) {
     }
 
     function onGetMailFolders(params, newFolders) {
-        if (undefined == newFolders || undefined == newFolders.length) {
+        if (!newFolders.length) {
             return;
         }
 
@@ -199,6 +205,12 @@ window.folderPanel = (function($) {
 
         folders = newFolders;
 
+        var storedCount = localStorageManager.getItem("MailUreadMessagesCount");
+        var unread = folders[0].unread_messages;
+        if (storedCount !== unread) {
+            localStorageManager.setItem("MailUreadMessagesCount", unread);
+        }
+
         var html = $.tmpl('foldersTmpl', newFolders, { marked: marked });
         $('#foldersContainer').html(html);
 
@@ -208,18 +220,6 @@ window.folderPanel = (function($) {
             marked = TMMail.extractFolderIdFromAnchor();
             TMMail.setPageHeaderFolderName(marked);
         }
-
-        // sets unread count from inbox to top panel mail icon
-        $.each(newFolders, function (index, value) {
-            if (value.id == TMMail.sysfolders.inbox.id) {
-                setTpUnreadMessagesCount(value.unread);
-            }
-        });
-    }
-
-    function setTpUnreadMessagesCount(unreadCount) {
-        $('#TPUnreadMessagesCount').text(unreadCount > 100 ? '>100' : unreadCount);
-        $('#TPUnreadMessagesCount').parent().toggleClass('has-led', unreadCount != 0);
     }
 
     function unmarkFolders() {
@@ -231,10 +231,6 @@ window.folderPanel = (function($) {
         var unread = folderEl.attr('unread');
         unread = unread - 1 > 0 ? unread - 1 : 0;
         setCount(folderEl, unread);
-
-        if (folderId == TMMail.sysfolders.inbox.id) {
-            setTpUnreadMessagesCount(unread);
-        }
     }
 
     function setCount(folderEl, count) {

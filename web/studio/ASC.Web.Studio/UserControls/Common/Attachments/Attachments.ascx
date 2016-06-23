@@ -1,32 +1,30 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="Attachments.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.Attachments.Attachments" %>
 
 <%@ Import Namespace="ASC.Web.Core.Files" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
-<%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
-
-<% if(CanAddFile) {%>  
+<% if (CanAddFile)
+   { %>  
 <div class="infoPanelAttachFile" >
-    <div id="fileMaxSize"><%=ASC.Web.Studio.Core.FileSizeComment.GetFileSizeNote()%></div>
+    <div id="fileMaxSize"><%= ASC.Web.Studio.Core.FileSizeComment.GetFileSizeNote() %></div>
     <div class="warn" id="errorFileUpload"></div>
-    <div class="warn" id="wrongSign"><%=UserControlsCommonResource.ErrorMassage_SpecCharacter %></div>
+    <div class="warn" id="wrongSign"><%= UserControlsCommonResource.ErrorMassage_SpecCharacter %></div>
 </div>
 <div id="files_newDocumentPanel" class="studio-action-panel" >
     <ul class="dropdown-content">
         <li id="files_create_text" >
             <a onclick="Attachments.createNewDocument('<%= FileUtility.InternalExtension[FileType.Document] %>');" class="dropdown-item">
-                <%= UserControlsCommonResource.ButtonCreateText%>
+                <%= UserControlsCommonResource.ButtonCreateText %>
             </a>
         </li>
         <li id="files_create_spreadsheet">
             <a onclick="Attachments.createNewDocument('<%= FileUtility.InternalExtension[FileType.Spreadsheet] %>');" class="dropdown-item">
-                <%= UserControlsCommonResource.ButtonCreateSpreadsheet%>
+                <%= UserControlsCommonResource.ButtonCreateSpreadsheet %>
             </a>
         </li>
         <li id="files_create_presentation">
             <a onclick="Attachments.createNewDocument('<%= FileUtility.InternalExtension[FileType.Presentation] %>');" class="dropdown-item">
-                <%= UserControlsCommonResource.ButtonCreatePresentation%>
+                <%= UserControlsCommonResource.ButtonCreatePresentation %>
             </a>
         </li>
     </ul>
@@ -59,35 +57,36 @@
 
 <asp:PlaceHolder runat="server" ID="TariffDocsEditionPlaceHolder"></asp:PlaceHolder>
 
-<%if (EmptyScreenVisible) { %>
+<% if (EmptyScreenVisible)
+   { %>
 <%-- popup window --%>
 <div id="files_hintCreatePanel" class="hintDescriptionPanel">
     <%= string.Format(UserControlsCommonResource.TooltipCreate,
-                        FileUtility.InternalExtension[FileType.Document],
-                        FileUtility.InternalExtension[FileType.Spreadsheet],
-                        FileUtility.InternalExtension[FileType.Presentation]) %>
-    <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
-           { %>
-    <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/documents.aspx" %>" target="_blank"><%=UserControlsCommonResource.ButtonLearnMore%></a>
-    <%} %>
+                      FileUtility.InternalExtension[FileType.Document],
+                      FileUtility.InternalExtension[FileType.Spreadsheet],
+                      FileUtility.InternalExtension[FileType.Presentation]) %>
+    <% if (!string.IsNullOrEmpty(HelpLink))
+       { %>
+    <a href="<%= HelpLink + "/gettingstarted/documents.aspx" %>" target="_blank"><%= UserControlsCommonResource.ButtonLearnMore %></a>
+    <% } %>
 </div>
 <div id="files_hintUploadPanel" class="hintDescriptionPanel">
-    <%=UserControlsCommonResource.TooltipUpload%>
+    <%= UserControlsCommonResource.TooltipUpload %>
 </div>
 <div id="files_hintOpenPanel" class="hintDescriptionPanel">
-    <%=string.Format(UserControlsCommonResource.TooltipOpen, ExtsWebPreviewed)%>
+    <%= string.Format(UserControlsCommonResource.TooltipOpen, ExtsWebPreviewed) %>
 </div>
 <div id="files_hintEditPanel" class="hintDescriptionPanel">
-    <%=string.Format(UserControlsCommonResource.TooltipEdit, ExtsWebEdited)%>
+    <%= string.Format(UserControlsCommonResource.TooltipEdit, ExtsWebEdited) %>
 </div>
-<%} %>
-<div class="wrapperFilesContainer" moduleName="<%=ModuleName%>" projectId=<%=ProjectId %> entityType=<%=EntityType %>>
-    <%if (EmptyScreenVisible)
-      { %>
+<% } %>
+<div class="wrapperFilesContainer" moduleName="<%= ModuleName %>" projectId=<%= ProjectId %> entityType=<%= EntityType %>>
+    <% if (EmptyScreenVisible)
+       { %>
     <div id="emptyDocumentPanel" class="display-none">
         <asp:PlaceHolder runat="server" ID="_phEmptyDocView"></asp:PlaceHolder>
     </div>
-    <%} %>
+    <% } %>
     <table id="attachmentsContainer">
         <tbody>
         </tbody>

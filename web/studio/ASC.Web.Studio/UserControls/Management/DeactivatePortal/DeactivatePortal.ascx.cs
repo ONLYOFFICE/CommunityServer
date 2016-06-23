@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using ASC.Core;
@@ -42,12 +43,18 @@ namespace ASC.Web.Studio.UserControls.Management
     [AjaxNamespace("AjaxPro.DeactivatePortal")]
     public partial class DeactivatePortal : UserControl
     {
+        protected bool ShowAutoRenew;
+        
         public const string Location = "~/UserControls/Management/DeactivatePortal/DeactivatePortal.ascx";
 
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
             Page.RegisterBodyScripts("~/usercontrols/management/deactivateportal/js/deactivateportal.js");
+
+            ShowAutoRenew = !CoreContext.Configuration.Standalone &&
+                            CoreContext.PaymentManager.GetTariffPayments(TenantProvider.CurrentTenantID).Any() &&
+                            !TenantExtra.GetTenantQuota().Trial;
         }
 
         [AjaxMethod]
@@ -76,7 +83,11 @@ namespace ASC.Web.Studio.UserControls.Management
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
             var owner = CoreContext.UserManager.GetUsers(tenant.OwnerId);
 
-            StudioNotifyService.Instance.SendMsgPortalDeletion(tenant, CommonLinkUtility.GetConfirmationUrl(owner.Email, ConfirmType.PortalRemove));
+            var showAutoRenewText = !CoreContext.Configuration.Standalone &&
+                            CoreContext.PaymentManager.GetTariffPayments(TenantProvider.CurrentTenantID).Any() &&
+                            !TenantExtra.GetTenantQuota().Trial;
+
+            StudioNotifyService.Instance.SendMsgPortalDeletion(tenant, CommonLinkUtility.GetConfirmationUrl(owner.Email, ConfirmType.PortalRemove), showAutoRenewText);
 
             MessageService.Send(HttpContext.Current.Request, MessageAction.OwnerSentPortalDeleteInstructions, owner.DisplayUserName(false));
 

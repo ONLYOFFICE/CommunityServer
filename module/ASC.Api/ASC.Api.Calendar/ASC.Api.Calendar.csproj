@@ -55,11 +55,18 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DDay.iCal">
+      <HintPath>..\..\..\packages\DDay.iCal.1.0.2.575\lib\DDay.iCal.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework">
       <HintPath>..\..\..\packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -89,6 +96,8 @@
     <Compile Include="CalendarApi.cs" />
     <Compile Include="ExternalCalendars\BirthdayReminderCalendar.cs" />
     <Compile Include="ExternalCalendars\SharedEventsCalendar.cs" />
+    <Compile Include="BusinessObjects\EventHistory.cs" />
+    <Compile Include="iCalParser\DDayICalParser.cs" />
     <Compile Include="iCalParser\iCalendarCache.cs" />
     <Compile Include="iCalParser\Emitter.cs" />
     <Compile Include="iCalParser\iCalendar.cs" />
@@ -116,6 +125,7 @@
       <DependentUpon>CalendarApiResource.resx</DependentUpon>
     </Compile>
     <Compile Include="Tests\RecurrenceRuleTest.cs" />
+    <Compile Include="Wrappers\EventHistoryWrapper.cs" />
     <Compile Include="Wrappers\EventAlertWrapper.cs" />
     <Compile Include="Wrappers\EventWrapper.cs" />
     <Compile Include="Wrappers\PublicItemCollection.cs" />
@@ -172,6 +182,10 @@
     <ProjectReference Include="..\..\..\web\core\ASC.Web.Core\ASC.Web.Core.csproj">
       <Project>{02c40a64-fe22-41d0-9037-69f0d6f787a9}</Project>
       <Name>ASC.Web.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
+      <Project>{E7BE6CE8-F6B0-4B9B-831B-BA0C85C8D130}</Project>
+      <Name>ASC.Web.Studio</Name>
     </ProjectReference>
     <ProjectReference Include="..\ASC.Api\ASC.Api.Core.csproj">
       <Project>{49f07fff-98a5-47d2-a9e9-a46b98c41245}</Project>

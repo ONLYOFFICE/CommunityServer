@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,14 +24,13 @@
 */
 
 
-using System;
-using System.Runtime.Remoting.Messaging;
-using System.Web;
 using ASC.Files.Core;
+using ASC.Web.CRM.Resources;
 using ASC.Web.Studio.Controls.FileUploader;
 using ASC.Web.Studio.Controls.FileUploader.HttpModule;
 using ASC.Web.Studio.Core;
-using ASC.Web.CRM.Resources;
+using System;
+using System.Web;
 
 namespace ASC.Web.CRM.Classes
 {
@@ -50,10 +49,6 @@ namespace ASC.Web.CRM.Classes
 
             if (0 < SetupInfo.MaxUploadSize && SetupInfo.MaxUploadSize < file.ContentLength)
                 throw FileSizeComment.FileSizeException;
-
-            if (CallContext.GetData("CURRENT_ACCOUNT") == null)
-                CallContext.SetData("CURRENT_ACCOUNT", new Guid(context.Request["UserID"]));
-
 
             var fileName = file.FileName.LastIndexOf('\\') != -1
                                ? file.FileName.Substring(file.FileName.LastIndexOf('\\') + 1)

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -23,7 +23,6 @@
  *
 */
 
-
 using NUnit.Framework;
 
 namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
@@ -32,25 +31,16 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
     class BadContentTests : MessageParserTestsBase
     {
         [Test]
-        public void BadContentTypeTest()
-        {
-            Test("dostavka_ru_bad_content_type.eml");
-        }
-
-
-        [Test]
         public void EmbedImageTest()
         {
             Test("embed_image.eml");
         }
-
 
         [Test]
         public void JavaScriptTest()
         {
             Test("exo__with_javascript.eml");
         }
-
 
         [Test]
         public void HtmlCharsIntroductionTest()
@@ -64,13 +54,11 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
             Test("letter_with_58_attachments.eml");
         }
 
-
         [Test]
         public void BadSanitazeTest()
         {
             Test("Mail_ru_bad_sanitaze.eml");
         }
-
 
         [Test]
         public void StyleWithClassesTest()
@@ -84,7 +72,6 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
             Test("message-no-image-after-sanitize.eml");
         }
 
-
         [Test]
         public void MailRuMessageTest()
         {
@@ -96,7 +83,6 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
         {
             Test("message_mailru_with_unsanitized_images.eml");
         }
-
 
         [Test]
         public void UnsanitizedImage2Test()
@@ -110,7 +96,6 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
             Test("message_with_russian_attachment.eml");
         }
 
-
         [Test]
         public void MessageWithSubmessagesTest()
         {
@@ -123,13 +108,11 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
             Test("message_with_UnknownDispositionMimeParts.eml");
         }
 
-
         [Test]
         public void OnlyTextBodyTest()
         {
             Test("only_text_body.eml");
         }
-
 
         [Test]
         public void SlashInAddressNameTest()
@@ -143,7 +126,6 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
             Test("sotmarket-subject-err.eml");
         }
 
-
         [Test]
         public void BaseTagTest()
         {
@@ -156,20 +138,17 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
             Test("test_send_prepared.eml");
         }
 
-
         [Test]
         public void WithBaseTagTest()
         {
             Test("with_base_tag.eml");
         }
 
-
         [Test]
         public void SkypeScrollEmailTest()
         {
             Test("yandex_skype_scroll_email.eml");
         }
-
 
         [Test]
         public void UnlimitedScrollTest()
@@ -189,7 +168,7 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
             Test("bad_content_disposition_in_attaches.eml");
         }
 
-        // message is corrupted and were generating stack overflow
+        // message is corrupted and it has generated stack overflow
         [Test]
         public void LongCombinedEncodedMimePart()
         {
@@ -203,16 +182,9 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
         }
 
         [Test]
-        public void BadContentType()
-        {
-            Test("bad_content_type.eml");
-        }
-
-        [Test]
-        [ExpectedException(ExpectedExceptionName = "ActiveUp.Net.Mail.ParsingException")]
         public void BadAttachBody()
         {
-            ParseEml("empty_attach_body.eml");
+            Test("empty_attach_body.eml");
         }
 
         [Test]
@@ -225,6 +197,18 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
         public void ShouldParseEmbeddedMessageRfc822()
         {
             Test("yandex_with_embedded_message_in.eml");
+        }
+
+        [Test]
+        public void ShouldParseICloudCalendarEvent()
+        {
+            Test("icloud_ics.eml");
+        }
+
+        [Test]
+        public void ShouldParseInvalidAttachmentsNames()
+        {
+            Test("invalid_attachments_filenames.eml");
         }
     }
 }

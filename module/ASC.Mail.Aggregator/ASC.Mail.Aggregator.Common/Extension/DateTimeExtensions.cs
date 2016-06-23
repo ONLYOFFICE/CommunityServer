@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -51,14 +51,6 @@ namespace ASC.Mail.Aggregator.Common.Extension
             {
                 return String.Format("{0} {1}", dateTime.ToShortDateString(), dateTime.ToShortTimeString());
             }
-        }
-
-        public static DateTime ToDbStyle(this DateTime dt)
-        {
-            var dateTimeForDb = new DateTime(dt.Year, dt.Month, dt.Day,
-                                            dt.Hour, dt.Minute, dt.Second);
-
-            return dateTimeForDb;
         }
     }
 }

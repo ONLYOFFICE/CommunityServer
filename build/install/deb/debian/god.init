@@ -28,7 +28,7 @@ case "$1" in
       echo -n "Restarting $NAME... "
       god quit
       sleep 2
-      god -c $GOD_CONFIG -P /var/run/$NAME.pid -l /var/log/$NAME.log
+      god -c $GOD_CONFIG -P /var/run/$NAME.pid -l /var/log/$NAME.log </dev/null >/dev/null 2>&1 &
       sleep 2
       echo "OK"
       ;;

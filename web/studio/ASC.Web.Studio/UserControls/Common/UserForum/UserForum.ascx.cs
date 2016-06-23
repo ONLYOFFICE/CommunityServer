@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,33 +24,31 @@
 */
 
 
-using ASC.Web.Studio.Core;
+using ASC.Web.Core.WhiteLabel;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.Common.UserForum
 {
-    public partial class UserForum : System.Web.UI.UserControl
+    public partial class UserForum : UserControl
     {
         public static string Location
         {
             get { return "~/UserControls/Common/UserForum/UserForum.ascx"; }
         }
 
-        protected String UserForumLink {
-            get {
-                if (String.IsNullOrEmpty(SetupInfo.UserForum))
-                    return String.Empty;
-                var lang = CultureInfo.CurrentCulture.TwoLetterISOLanguageName;
-                if (lang == "en") {
-                    lang = String.Empty;
-                }
-                return SetupInfo.UserForum + "/" + lang;
+        protected String UserForumLink
+        {
+            get
+            {
+                var settings = AdditionalWhiteLabelSettings.Instance;
+
+                if (!settings.UserForumEnabled || String.IsNullOrEmpty(settings.UserForumUrl))
+                    return null;
+
+                return CommonLinkUtility.GetRegionalUrl(settings.UserForumUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
             }
         }        
 

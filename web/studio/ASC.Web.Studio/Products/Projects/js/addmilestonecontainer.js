@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -94,7 +94,7 @@ ASC.Projects.MilestoneContainer = (function () {
             var elt = (event.target) ? event.target : event.srcElement;
             var isHide = true;
             var panelId = "taskActionPanel";
-            if (jq(elt).is('[id="' + panelId + '"]') || jq(elt).parent().is('[class*="chooseResponsible"]') ||
+            if (jq(elt).is('[id="' + panelId + '"]') || jq(elt).parent().is('[class*="chooseResponsible"]') || jq(elt).is('[class*="chooseResponsible"]') ||
                (jq(elt).parents().is(".studio-action-panel") && jq(elt).parents(".studio-action-panel").find("input").length)) {
                 isHide = false;
             }
@@ -528,7 +528,6 @@ ASC.Projects.CreateMilestoneContainer = (function () {
             if (!jq(".chooseResponsible").length) {
                 jq(".milestone .mainInfo .chooseResponsible").removeClass("nobody");
                 jq("#addTaskContainer #newTaskTitle").after(chooseRespStr);
-                jq("#addMilestoneContainer #newMilestoneTitle").after(chooseRespStr);
             }
 
             jq(".task, .milestone .mainInfo").find(".entity-menu").each(function () {
@@ -536,6 +535,12 @@ ASC.Projects.CreateMilestoneContainer = (function () {
                     jq(this).after(chooseRespStr);
                 }
             });
+
+            var chooseRespBlock = jq("#addMilestoneContainer").find(".chooseResponsible");
+
+            if (!chooseRespBlock.length) {
+                jq("#addMilestoneContainer #newMilestoneTitle").after(chooseRespStr);
+            }
 
             showRespCombFlag = true;
         }

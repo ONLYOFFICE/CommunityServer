@@ -1,6 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="StudioSettings.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.StudioSettings" %>
 <%@ Import Namespace="Resources" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 
 <%--timezone & language--%>
 <div class="clearFix">
@@ -12,9 +11,9 @@
     </div>
     <div class="settings-help-block">
         <p><%= String.Format(Resource.HelpAnswerLngTimeSettings.HtmlEncode(), "<br />", "<b>", "</b>") %></p>
-        <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+        <% if (!string.IsNullOrEmpty(HelpLink))
            { %>
-        <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#ChangingGeneralSettings_block" %>" target="_blank"><%= Resource.LearnMore %></a>
+        <a href="<%= HelpLink + "/gettingstarted/configuration.aspx#ChangingGeneralSettings_block" %>" target="_blank"><%= Resource.LearnMore %></a>
         <% } %>
     </div>
 </div>

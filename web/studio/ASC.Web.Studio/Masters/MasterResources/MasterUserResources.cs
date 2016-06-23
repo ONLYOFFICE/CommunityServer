@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -82,12 +82,16 @@ namespace ASC.Web.Studio.Masters.MasterResources
             var webChat = ConfigurationManager.AppSettings["web.chat"] ?? "false";
             var voipEnabled = ConfigurationManager.AppSettings["voip.enabled"] ?? "false";
 
-            return new List<KeyValuePair<string, object>>(4)
+            return new List<KeyValuePair<string, object>>(1)
                    {
-                       RegisterObject("Hub", new { Token = hubToken, Url = hubUrl, WebChat = webChat, VoipEnabled = voipEnabled, Logging = hubLogging }),
-                       RegisterObject("ApiResponsesMyProfile", new {response = user}),
-                       RegisterObject("ApiResponses_Profiles", new {response = users}),
-                       RegisterObject("ApiResponses_Groups", new {response = groups})
+                       RegisterObject(
+                            new
+                                {
+                                    Hub = new { Token = hubToken, Url = hubUrl, WebChat = webChat, VoipEnabled = voipEnabled, Logging = hubLogging },
+                                    ApiResponsesMyProfile = new {response = user},
+                                    ApiResponses_Profiles = new {response = users},
+                                    ApiResponses_Groups = new {response = groups}
+                                })
                    };
         }
 

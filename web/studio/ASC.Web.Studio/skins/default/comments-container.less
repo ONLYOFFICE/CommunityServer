@@ -1,0 +1,128 @@
+﻿/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2016
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+div.comments-item-container {
+    padding: 8px 5px 8px 15px;
+
+    > table {
+        width: 100%;
+        table-layout: fixed;
+        border: 0 none;
+
+        td {
+            vertical-align: top;
+
+            &:first-child {
+                width: 90px;
+            }
+        }
+    }
+
+    .comments-item-data {
+        min-height: 55px;
+    }
+
+    .comments-item-actions {
+        margin: 10px 0px 0px 10px;
+        height: 19px;
+    }
+
+    a.link.dotline {
+        border-bottom: 1px dotted #83888d;
+        display: none;
+        font-size: 12px;
+        text-decoration: none;
+    }
+
+    &:hover {
+        a.link.dotline {
+            display: inline-block;
+            zoom: 1;
+        }
+
+        a.link.bold {
+            text-decoration: underline;
+        }
+    }
+
+    .splitter {
+        display: inline-block;
+    }
+}
+
+#add_comment_btn,
+#cancel_comment_btn,
+#add_comment_btn:hover,
+#cancel_comment_btn:hover {
+    border-bottom: 1px dotted #83888d;
+    display: inline-block;
+    color: #83888d;
+    cursor: pointer;
+    float: left;
+    font-size: 12px;
+    margin-left: 5px;
+    margin-bottom: 9px;
+    text-decoration: none;
+}
+
+#add_comment_btn.display-none,
+#cancel_comment_btn {
+    display: none;
+}
+
+#noComments {
+    color: #83888d;
+    font-size: 12px;
+    margin-left: 5px;
+}
+#commentsTitle {
+    font-weight: normal;
+    margin-left: 5px;
+}
+
+.comment-main-container {
+    width: 100%;
+    margin-top: 5px;
+    word-wrap: break-word;
+}
+.comment-inactive {
+    padding: 10px;
+}
+.comment-main-actions-container {
+    margin-top: 5px;
+    display:none;
+}
+.comment-preview-container {
+    display: none;
+    margin-top: 20px;
+
+    .headerPanel {
+        margin-top: 0px;
+    }
+
+    .middle-button-container > .button.blue {
+        margin-right: 8px;
+    }
+}

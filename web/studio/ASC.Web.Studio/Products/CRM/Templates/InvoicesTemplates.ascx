@@ -2,7 +2,6 @@
 <%@ Assembly Name="ASC.Web.CRM" %>
 <%@ Assembly Name="ASC.Web.Core" %>
 <%@ Import Namespace="ASC.Web.CRM.Classes" %>
-<%@ Import Namespace="ASC.Web.Core.Mobile" %>
 <%@ Import Namespace="ASC.Web.CRM.Resources" %>
 
 <%--Invoice List--%>
@@ -46,7 +45,7 @@
             <ul class="dropdown-content mobile-overflow"></ul>
         </div>
 
-        <table id="invoiceTable" class="tableBase" cellpadding="4" cellspacing="0">
+        <table id="invoiceTable" class="table-list" cellpadding="4" cellspacing="0">
             <colgroup>
                 <col style="width: 22px;"/>
                 <col style="width: 1%;"/>
@@ -91,9 +90,7 @@
             <% if (Global.CanDownloadInvoices) { %>
             <li><a class="downloadLink dropdown-item"><%= CRMInvoiceResource.Download %></a></li>
             <% } %>
-            <% if (MobileDetector.IsMobile) { %>
             <li><a class="printLink dropdown-item"><%= CRMInvoiceResource.Print %></a></li>
-            <% } %>
             <% if (Global.CanDownloadInvoices) { %>
             <li><a class="sendLink dropdown-item"><%= CRMInvoiceResource.SendByEmail %></a></li>
             <% } %>
@@ -123,12 +120,12 @@
 <script id="invoiceTmpl" type="text/x-jquery-tmpl">
     <tr id="invoice_${id}" class="with-entity-menu {{if isChecked == true}}selected{{/if}}">
         {{if isSimpleView != true}}
-        <td class="borderBase" style="padding: 0 0 0 6px;">
+        <td style="padding: 0 0 0 6px;">
             <input type="checkbox" id="checkInvoice_${id}" onclick="ASC.CRM.ListInvoiceView.selectItem(this);" {{if isChecked == true}}checked="checked"{{/if}} />
             <div id="loaderImg_${id}" class="loader-middle baseList_loaderImg"></div>
         </td>
         {{/if}} 
-        <td class="borderBase">
+        <td>
             <a class="linkHeaderMedium invoiceNumber {{if status.id == 3}}gray-text{{/if}}{{if debtor == true}}red-text{{/if}}" href="invoices.aspx?id=${id}" title="${number}">
                 ${number}
             </a>
@@ -138,7 +135,7 @@
         </td>
 
         {{if isSimpleView != true}}
-        <td class="borderBase invoiceContact">
+        <td class="invoiceContact">
             {{if contact != null}}
                 <div>
                 {{if contact.isCompany == true}}
@@ -157,23 +154,23 @@
         </td>
         {{/if}}
 
-        <td class="borderBase invoiceDueDate">
+        <td class="invoiceDueDate">
             <div class="{{if status.id == 3}}gray-text{{/if}}">
                 ${dueDateString}
             </div>
         </td>
-        <td class="borderBase invoiceStatus">
+        <td class="invoiceStatus">
             <div class="{{if status.id == 3}}gray-text{{/if}}{{if debtor == true}}red-text{{/if}}" data-status-id="${status.id}">
                 ${status.title.toLowerCase()}
             </div>
         </td>
-        <td class="borderBase invoiceSum">
+        <td class="invoiceSum">
             <div {{if status.id == 3}}class="gray-text"{{/if}}>
                {{html displaySum}}
             </div>
         </td>
 
-        <td class="borderBase" style="padding:5px;">
+        <td style="padding:5px;">
             <div id="invoiceMenu_${id}" class="entity-menu" title="<%= CRMCommonResource.Actions %>"></div>
         </td>
     </tr>

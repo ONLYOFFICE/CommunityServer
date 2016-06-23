@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -44,11 +44,16 @@
     float: right;
     margin: 4px 8px 0 14px;
 }
-.subtask:hover .entity-menu.show, .subtask .entity-menu.show,
-.subtask.menuopen  .entity-menu, .subtask.menuopen .entity-menu:hover,
-.subtask:hover .entity-menu.show, .subtask .entity-menu.show:hover 
-{
-    background-position: center bottom;
+.subtask .entity-menu.show,
+.subtask.menuopen  .entity-menu,
+.subtask:hover .entity-menu.show {
+    border-color: #3b72a7;
+}
+
+.subtask .entity-menu.show:after,
+.subtask.menuopen  .entity-menu:after,
+.subtask:hover .entity-menu.show:after {
+    border-top-color: #3b72a7;
 }
 
 .nomenupoint {

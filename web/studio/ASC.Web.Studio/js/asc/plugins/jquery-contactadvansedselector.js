@@ -66,42 +66,28 @@
         initAdvSelectorDataTempLoad: function () {
             var that = this,
                 startIndex = 0;
-            Teamlab.getCrmContacts({}, {
-                filter:{
-                    startIndex: startIndex,
-                    Count: 15
-                },
-                before: function () {
-                    that.showLoaderListAdvSelector.call(that, 'items');
-                },
-                after: function () {
-                    that.hideLoaderListAdvSelector.call(that, 'items');
-                },
-                success: function (params, data) {
-                    if (that.options.withPhoneOnly) {
-                        data = data.filter(function (el) {
-                            return el.commonData.some(
-                                function (elem) {
-                                    return elem.infoType == 0;
-                                });
-                        });
-                    }
-                    that.rewriteObjectItem.call(that, data);
-                    for (var i = 0, ln = that.selectedItems.length; i < ln; i++) {
-                        var $list = that.$itemsListSelector.find(".advanced-selector-list");
-                        $list.prepend(that.selectedItems[i]);
-                        data.forEach(function (el) {
-                            if (el.id == $(that.selectedItems[i]).attr("data-id")) {
-                                $list.find("li[data-id=" + el.id + "]").not(".selected").remove();
-                            }
-                        });
-                    }
-                },
-                error: function (params, errors) {
-                    toastr.error(errors);
-                }
-            });
-            
+
+            if (!that.cache[""]) {
+
+                Teamlab.getCrmContacts({}, {
+                    filter: {
+                        startIndex: startIndex,
+                        Count: 15
+                    },
+                    before: function() {
+                        that.showLoaderListAdvSelector.call(that, 'items');
+                    },
+                    after: function() {
+                        that.hideLoaderListAdvSelector.call(that, 'items');
+                    },
+                    success: successCallback,
+                    error: errorCallback
+                });
+
+            } else {
+                successCallback(null, that.cache[""]);
+            }
+
             that.$advancedSelector.find(".advanced-selector-list").off("scroll").on("scroll", function () {
                 var $this = $(this);
                 if ($this.innerHeight() + $this.scrollTop() >= $this.prop("scrollHeight")
@@ -113,14 +99,20 @@
                             Count: 15
                         },
                         success: function (params, data) {
+                            if (data.length) {
+                                data.forEach(function (dataItem) {
+                                    that.cache[""].push(dataItem);
+                                });
+                            }
+
                             that.displayPartialList.call(that, params, data);
                             for (var i = 0, ln = that.selectedItems.length; i < ln; i++) {
                                 var $list = that.$itemsListSelector.find(".advanced-selector-list");
-                                data.forEach(function (el) {
+                                data.forEach(function(el) {
                                     if (el.id == $(that.selectedItems[i]).attr("data-id")) {
                                         $list.find("li[data-id=" + el.id + "]").not(".selected").remove();
                                     }
-                                })
+                                });
                             };
                             that.pushNewItemsInList.call(that, data);
                         },
@@ -130,6 +122,34 @@
                     });
                 }
             });
+            
+            function successCallback(params, data) {
+                if (that.options.withPhoneOnly) {
+                    data = data.filter(function (el) {
+                        return el.commonData.some(
+                            function (elem) {
+                                return elem.infoType == 0;
+                            });
+                    });
+                }
+                
+                that.cache[""] = data;
+
+                that.rewriteObjectItem.call(that, data);
+                for (var i = 0, ln = that.selectedItems.length; i < ln; i++) {
+                    var $list = that.$itemsListSelector.find(".advanced-selector-list");
+                    $list.prepend(that.selectedItems[i]);
+                    data.forEach(function (el) {
+                        if (el.id == $(that.selectedItems[i]).attr("data-id")) {
+                            $list.find("li[data-id=" + el.id + "]").not(".selected").remove();
+                        }
+                    });
+                }
+            }
+
+            function errorCallback(params, errors) {
+                toastr.error(errors);
+            }
         },
 
         initAdvSelectorData: function () {
@@ -158,6 +178,7 @@
         onSearchItemsTempLoad: function () {
             var that = this,
                 startIndex = 0,
+                cachedItem = null,
                 filter = {
                     prefix: that.$advancedSelector.find(".advanced-selector-search-field").val(),
                     searchType: -1,
@@ -165,61 +186,90 @@
                     startIndex: startIndex,
                     Count: 15
                 };
-            Teamlab.getCrmContactsByPrefix({}, {
-                filter:filter,
-                success: function (params, data) {
-                    var $noResult = that.$advancedSelector.find(".advanced-selector-no-results");
-                    that.$itemsListSelector.find(".advanced-selector-list").html("");
-                    if (data.length == 0) {
-                        $noResult.show();
-                    } else {
-                        $noResult.hide();
-                        that.displayPartialList.call(that, params, data);
-
-                        var selectedItemsIds = [];
-                        that.selectedItems.forEach(function (item) {
-                            selectedItemsIds.push($(item).attr("data-id"));
-                        });
-                        that.$itemsListSelector.find(".advanced-selector-list li").each(function () {
-                            var $this = $(this);
-                            if ($.inArray($this.attr("data-id"), selectedItemsIds) != -1) {
-                                $this.addClass("selected").find("input").prop("checked", true);
-                            }
-                        });
-                        that.disableDefaultItemsIds.call(that, that.options.itemsDisabledIds);
-                       
+            
+            if (filter.prefix in that.cache) {
+                cachedItem = that.cache[filter.prefix];
+            } else {
+                for (var cacheterm in that.cache) {
+                    if (that.cache[cacheterm].length == 0 && filter.prefix.indexOf(cacheterm) == 0) {
+                        cachedItem = [];
                     }
-                },
-                error: function (params, errors) {
-                    toastr.error(errors);
                 }
-            });
+            }
 
-            that.$advancedSelector.find(".advanced-selector-list").off("scroll").on("scroll", function () {
-                var $this = $(this);
-                if ($this.innerHeight() + $this.scrollTop() >= $this.prop("scrollHeight")
-                    && that.options.showSearch && that.$advancedSelector.find(".advanced-selector-search-field")) {
-                    startIndex += 15;
-                    Teamlab.getCrmContactsByPrefix({}, {
-                        filter: {
-                            startIndex: startIndex,
-                            Count: 15,
-                            prefix: that.$advancedSelector.find(".advanced-selector-search-field").val(),
-                            searchType: -1,
-                            entityID: 0
-                        },
-                        success: function (params, data) {
-                            that.displayPartialList.call(that, params, data);
-                        },
-                        error: function (params, errors) {
-                            toastr.error(errors);
+            if (cachedItem == null) {
+                Teamlab.getCrmContactsByPrefix({}, {
+                    filter: filter,
+                    success: successCallback,
+                    error: errorCallback
+                });
+            } else {
+                successCallback(null, cachedItem);
+            }
+
+            if (cachedItem == null || cachedItem.scrolled == false) {
+                that.$advancedSelector.find(".advanced-selector-list").off("scroll").on("scroll", function() {
+                    var $this = $(this);
+                    if ($this.innerHeight() + $this.scrollTop() >= $this.prop("scrollHeight")
+                        && that.options.showSearch && that.$advancedSelector.find(".advanced-selector-search-field")) {
+                        startIndex += 15;
+                        Teamlab.getCrmContactsByPrefix({}, {
+                            filter: {
+                                startIndex: startIndex,
+                                Count: 15,
+                                prefix: that.$advancedSelector.find(".advanced-selector-search-field").val(),
+                                searchType: -1,
+                                entityID: 0
+                            },
+                            success: function(params, data) {
+                                if (data.length) {
+                                    data.forEach(function (dataItem) {
+                                        that.cache[params.__filter.prefix].push(dataItem);
+                                    });
+                                }
+
+                                that.displayPartialList.call(that, params, data);
+                            },
+                            error: errorCallback
+                        });
+                    }
+                });
+            }
+
+            function successCallback (params, data) {
+
+                if (params)
+                    that.cache[params.__filter.prefix] = data;
+
+                var $noResult = that.$advancedSelector.find(".advanced-selector-no-results");
+                that.$itemsListSelector.find(".advanced-selector-list").html("");
+                if (data.length == 0) {
+                    $noResult.show();
+                } else {
+                    $noResult.hide();
+                    that.displayPartialList.call(that, params, data);
+
+                    var selectedItemsIds = [];
+                    that.selectedItems.forEach(function (item) {
+                        selectedItemsIds.push($(item).attr("data-id"));
+                    });
+                    
+                    that.$itemsListSelector.find(".advanced-selector-list li").each(function () {
+                        var $this = $(this);
+                        if ($.inArray($this.attr("data-id"), selectedItemsIds) != -1) {
+                            $this.addClass("selected").find("input").prop("checked", true);
                         }
                     });
+                    
+                    that.disableDefaultItemsIds.call(that, that.options.itemsDisabledIds);
                 }
-            });
-
-           
+            }
+            
+            function errorCallback (params, errors) {
+                toastr.error(errors);
+            }
         },
+        
         displayPartialList: function (params, data) {
             var that = this,
                 newDisplayItems = [],

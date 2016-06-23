@@ -9,8 +9,25 @@
 <%@ Import Namespace="ASC.Web.Files.Import" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
 <%@ Import Namespace="ASC.Web.Files.Utils" %>
+<%@ Import Namespace="ASC.Web.Studio.Core" %>
 
 <%@ MasterType TypeName="ASC.Web.Files.Masters.BasicTemplate" %>
+
+<asp:Content runat="server" ContentPlaceHolderID="BTHeaderContent">
+    <% if (Desktop)
+       { %>
+    <style type="text/css">
+        body {
+            user-select: none;
+            -moz-user-select: none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            -o-user-select: none;
+            MozUserSelect: none;
+        }
+    </style>
+    <% } %>
+</asp:Content>
 
 <asp:Content runat="server" ContentPlaceHolderID="BTSidePanel">
     <div class="page-menu">

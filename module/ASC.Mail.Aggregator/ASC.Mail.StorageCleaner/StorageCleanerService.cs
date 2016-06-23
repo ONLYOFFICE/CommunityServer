@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -40,14 +40,9 @@ namespace ASC.Mail.StorageCleaner
 
         private readonly ILogger _log;
         private Timer _intervalTimer;
-        readonly ManualResetEvent _resetEvent;
-        readonly MailGarbageEraser _eraser;
-        readonly TimeSpan _tsInterval;
-        readonly int _tenantCacheDays = 1;
-        readonly int _tenantOverdueDays = 30;
-        readonly int _garbageOverdueDays = 30;
-        readonly int _maxTasksAtOnce = 10;
-        readonly int _maxFilesToRemoveAtOnce = 100;
+        private readonly ManualResetEvent _resetEvent;
+        private readonly MailGarbageEraser _eraser;
+        private readonly TimeSpan _tsInterval;
 
         #endregion
 
@@ -66,15 +61,18 @@ namespace ASC.Mail.StorageCleaner
             _resetEvent = new ManualResetEvent(false);
 
             _tsInterval = TimeSpan.FromMinutes(Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.timer-wait-minutes"]));
-            _maxTasksAtOnce = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.max-tasks-at-once"]);
-            _tenantCacheDays = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.tenant-cache-days"]);
-            _tenantOverdueDays = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.tenant-overdue-days"]);
-            _garbageOverdueDays = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.mailbox-garbage-overdue-days"]);
-            _maxFilesToRemoveAtOnce = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.files-remove-limit-at-once"]);
+            var maxTasksAtOnce = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.max-tasks-at-once"]);
+            var tenantCacheDays = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.tenant-cache-days"]);
+            var tenantOverdueDays = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.tenant-overdue-days"]);
+            var garbageOverdueDays = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.mailbox-garbage-overdue-days"]);
+            var maxFilesToRemoveAtOnce = Convert.ToInt32(ConfigurationManager.AppSettings["cleaner.files-remove-limit-at-once"]);
+            var httpContextScheme = ConfigurationManager.AppSettings["mail.default-api-scheme"] == Uri.UriSchemeHttps
+                ? Uri.UriSchemeHttps
+                : Uri.UriSchemeHttp;
 
             _log.Info("Service will clear mail storage every {0} minutes\r\n", _tsInterval.TotalMinutes);
 
-            _eraser = new MailGarbageEraser(_maxTasksAtOnce, _maxFilesToRemoveAtOnce, _tenantCacheDays, _tenantOverdueDays, _garbageOverdueDays, _log);
+            _eraser = new MailGarbageEraser(maxTasksAtOnce, maxFilesToRemoveAtOnce, tenantCacheDays, tenantOverdueDays, garbageOverdueDays, httpContextScheme, _log);
         }
 
         #endregion
@@ -117,6 +115,8 @@ namespace ASC.Mail.StorageCleaner
             _intervalTimer.Dispose();
 
             _intervalTimer = null;
+
+            _eraser.Dispose();
         }
 
         private void IntervalTimer_Elapsed(object state)

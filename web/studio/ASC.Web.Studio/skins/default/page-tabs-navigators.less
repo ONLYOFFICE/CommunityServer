@@ -1,0 +1,178 @@
+﻿/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2016
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+
+/*--------------------PAGE NAVIGATOR------------------------------*/
+.pagerNavBaseCSSClass() {
+    background-color: #FFF;
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    color: #666666;
+    font-size: 12px;
+}
+
+.pagerNavigationLinkCSSClass,
+.pagerNavigationLinkCSSClass:active,
+.pagerNavigationLinkCSSClass:visited {
+    .pagerNavBaseCSSClass();
+    padding: 0;
+    margin: 3px 8px 4px 8px;
+}
+.pagerNavigationLinkCSSClass:hover {
+    color: #666666;
+    text-decoration: underline;
+}
+
+.pagerPrevNextButtonCSSClass,
+.pagerPrevNextButtonCSSClass:visited,
+.pagerPrevNextButtonCSSClass:hover,
+.pagerPrevNextButtonCSSClass:active {
+    .pagerNavBaseCSSClass();
+    padding: 3px 5px 4px 5px;
+    margin-right: 5px;
+}
+
+.pagerPrevButtonCSSClass, .pagerPrevButtonCSSClass:visited, .pagerPrevButtonCSSClass:active,
+.pagerNextButtonCSSClass, .pagerNextButtonCSSClass:visited, .pagerNextButtonCSSClass:active {
+    .pagerNavBaseCSSClass();
+    position: relative;
+    padding: 0;
+}
+.pagerPrevButtonCSSClass:hover,
+.pagerNextButtonCSSClass:hover {
+    color: #666666;
+    text-decoration:underline;
+}
+.pagerPrevButtonCSSClass,
+.pagerPrevButtonCSSClass:visited,
+.pagerPrevButtonCSSClass:hover,
+.pagerPrevButtonCSSClass:active {
+    margin: 3px 10px 4px 14px;
+}
+.pagerNextButtonCSSClass,
+.pagerNextButtonCSSClass:visited,
+.pagerNextButtonCSSClass:hover,
+.pagerNextButtonCSSClass:active {
+    margin: 3px 14px 4px 10px;
+}
+.pagerNextButtonCSSClass:after {
+    border-left: 5px solid #696969;
+    border-bottom: 5px solid transparent;
+    border-top: 5px solid transparent;
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 50%;
+    margin-top: -5px;
+    right: -13px;
+    height: 0;
+    width: 0;
+}
+.pagerPrevButtonCSSClass:after {
+    border-right: 5px solid #696969;
+    border-bottom: 5px solid transparent;
+    border-top: 5px solid transparent;
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 50%;
+    margin-top: -5px;
+    left: -13px;
+    height: 0;
+    width: 0;
+}
+.pagerCurrentPosition {
+    background-color: #E9E9E9;
+    border: none;
+    color: #666666;
+    display: inline-block;
+    font-weight: bolder;
+    font-size: 12px;
+    padding: 3px 8px 4px 8px;
+    text-align: center;
+    text-decoration: none;
+    margin: 0;
+}
+.pagerNavigationLinkBox {
+    display: inline-block;
+    white-space: nowrap;
+
+    .splitter {
+        margin-right: 5px;
+    }
+}
+/*******************************************************************************
+        Tabs Navigator
+*******************************************************************************/
+
+.tabsNavigationLinkBox {
+    margin-left: -8px;
+    vertical-align: middle;
+
+    .splitter {
+        border-right: 1px dotted;
+        display: inline-block;
+        height: 15px;
+        margin: 0;
+        padding: 0;
+        vertical-align: middle;
+    }
+
+    .tabsNavigationLink,
+    .tabsNavigationLink:hover,
+    .tabsNavigationLink:active,
+    .tabsNavigationLink:visited {
+        background-color: #FFFFFF;
+        cursor: pointer;
+        color: #333333;
+        display: inline-block;
+        font-size: 12px;
+        margin: 5px 8px;
+        padding: 0;
+        text-align: center;
+        text-decoration: none;
+
+        &:hover {
+            color: #333333;
+            text-decoration: underline;
+        }
+    }
+
+    .tabsNavigationLink.selectedTab,
+    .tabsNavigationLink.selectedTab:active,
+    .tabsNavigationLink.selectedTab:visited {
+        color: #333333;
+        cursor: default;
+        font-weight: bold;
+        margin: 5px 8px;
+        text-decoration: none;
+
+        &:hover {
+            color: #333333;
+            text-decoration: none;
+        }
+    }
+}

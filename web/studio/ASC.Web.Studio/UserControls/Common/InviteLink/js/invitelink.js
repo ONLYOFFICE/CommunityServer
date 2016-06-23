@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -46,28 +46,18 @@ jq(document).ready(function () {
             if (inviteLinkShow) {
                 jq("#menuInviteUsers").show();
 
-                var deviceAgent = navigator.userAgent.toLowerCase(),
-                    agentID = deviceAgent.match(/(ipad)/);
-                if (jq.browser.mobile && agentID || !jq.browser.flashEnabled()) {
+                if (!ASC.Clipboard.enable) {
                     jq("#menuInviteUsersBtn").on("click", function () {
                         PopupKeyUpActionProvider.ClearActions();
                         StudioBlockUIManager.blockUI("#inviteLinkContainer", 550, 350, 0);
                         ASC.InvitePanel.bindClipboardEvent();
                     });
                 } else {
-                    if (typeof ZeroClipboard != 'undefined' && ZeroClipboard.moviePath === 'ZeroClipboard.swf') {
-                        ZeroClipboard.setMoviePath(ASC.Resources.Master.ZeroClipboardMoviePath);
-                    }
+                    ASC.Clipboard.destroy(window.menuInviteUsersClip);
 
-                    var clip = new window.ZeroClipboard.Client();
-                    clip.addEventListener("mouseDown",
-                        function () {
-                            var url = jq("#shareInviteUserLink").val();
-                            clip.setText(url);
-                        });
-
-                    clip.addEventListener("onComplete",
-                        function () {
+                    var url = jq("#shareInviteUserLink").val();
+                    window.menuInviteUsersClip = ASC.Clipboard.create(url, "menuInviteUsersBtn", {
+                        onComplete: function () {
                             PopupKeyUpActionProvider.ClearActions();
                             StudioBlockUIManager.blockUI("#inviteLinkContainer", 550, 350, 0);
                             ASC.InvitePanel.bindClipboardEvent();
@@ -77,9 +67,8 @@ jq(document).ready(function () {
                             } else {
                                 jq("#shareInviteUserLink, #shareInviteUserLinkCopy").yellowFade();
                             }
-                        });
-
-                    clip.glue("menuInviteUsersBtn", "menuInviteUsersBtn");
+                        }
+                    });
                 }
             }
         }

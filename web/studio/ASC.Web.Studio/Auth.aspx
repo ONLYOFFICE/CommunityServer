@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Masters/basetemplate.master" AutoEventWireup="true" EnableViewState="false" CodeBehind="Auth.aspx.cs" Inherits="ASC.Web.Studio.Auth" Title="ONLYOFFICE™" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Masters/basetemplate.master" AutoEventWireup="true" EnableViewState="false" CodeBehind="Auth.aspx.cs" Inherits="ASC.Web.Studio.Auth" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
 <%@ Import Namespace="ASC.Core" %>
@@ -15,8 +15,8 @@
         <div id="GreetingBlock" class="authForm <%= withHelpBlock ? "" : "help-block-none" %>">
             <%--header and logo--%>
             <div class="header">
-                <img class="logo" src="<%= LogoPath %>" alt="<%= CoreContext.TenantManager.GetCurrentTenant().Name.HtmlEncode() %>" />
-                <h1 class="header-base big blue-text"><%= CoreContext.TenantManager.GetCurrentTenant().Name.HtmlEncode() %></h1>
+                <img class="logo" src="<%= LogoPath %>" alt="<%= TenantName.HtmlEncode() %>" />
+                <h1 class="header-base big blue-text"><%= TenantName.HtmlEncode() %></h1>
             </div>
 
             <asp:PlaceHolder runat="server" ID="AuthorizeHolder"></asp:PlaceHolder>
@@ -33,7 +33,7 @@
     <% } %>
 </asp:Content>
 
-<asp:Content ContentPlaceHolderID="FooterContent" runat="server">
+<%--<asp:Content ContentPlaceHolderID="FooterContent" runat="server">
     <% if (!CoreContext.Configuration.Personal)
        { %>
     <div class="footerAuth">
@@ -46,4 +46,4 @@
          <% } %>
     </div>
     <% } %>
-</asp:Content>
+</asp:Content>--%>

@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,23 +24,24 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security;
-using System.Web.UI;
+using AjaxPro;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Tenants;
 using ASC.IPSecurity;
 using ASC.MessagingSystem;
 using ASC.Web.Core;
-using ASC.Web.Studio.UserControls.Statistics;
-using AjaxPro;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
+using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
+using Resources;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security;
 using System.Web;
+using System.Web.UI;
 using SecurityContext = ASC.Core.SecurityContext;
 
 namespace ASC.Web.Studio.UserControls.Management
@@ -54,6 +55,8 @@ namespace ASC.Web.Studio.UserControls.Management
         protected TenantAccessSettings Settings;
 
         protected bool Enabled;
+
+        protected string HelpLink { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -69,7 +72,9 @@ namespace ASC.Web.Studio.UserControls.Management
             var currentTenantQuota = CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID);
 
             Enabled = SetupInfo.IsVisibleSettings("PublicPortal") &&
-                (currentTenantQuota.Free || currentTenantQuota.NonProfit || currentTenantQuota.Trial) && !currentTenantQuota.Open;
+                      (currentTenantQuota.Free || currentTenantQuota.NonProfit || currentTenantQuota.Trial) && !currentTenantQuota.Open;
+
+            HelpLink = CommonLinkUtility.GetHelpLink();
         }
 
         [AjaxMethod]
@@ -81,11 +86,11 @@ namespace ASC.Web.Studio.UserControls.Management
 
                 var currentTenantQuota = CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID);
 
-                var enabled = SetupInfo.IsVisibleSettings("PublicPortal") && 
-                    (currentTenantQuota.Free || currentTenantQuota.NonProfit || currentTenantQuota.Trial) && !currentTenantQuota.Open;
+                var enabled = SetupInfo.IsVisibleSettings("PublicPortal") &&
+                              (currentTenantQuota.Free || currentTenantQuota.NonProfit || currentTenantQuota.Trial) && !currentTenantQuota.Open;
 
                 if (!enabled)
-                    throw new SecurityException(Resources.Resource.PortalAccessSettingsTariffException);
+                    throw new SecurityException(Resource.PortalAccessSettingsTariffException);
 
                 var tenant = CoreContext.TenantManager.GetCurrentTenant();
 
@@ -103,7 +108,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
                         foreach (var item in items)
                         {
-                            WebItemSecurity.SetSecurity(item.ID.ToString(), item.ID != WebItemManager.CRMProductID, null);//disable crm product
+                            WebItemSecurity.SetSecurity(item.ID.ToString(), item.ID != WebItemManager.CRMProductID, null); //disable crm product
                         }
 
                         SettingsManager.Instance.SaveSettings(new TenantAccessSettings { Anyone = true, RegisterUsersImmediately = registerUsers }, TenantProvider.CurrentTenantID);
@@ -135,7 +140,7 @@ namespace ASC.Web.Studio.UserControls.Management
 
                     MessageService.Send(HttpContext.Current.Request, MessageAction.PortalAccessSettingsUpdated);
                 }
-                else if(anyone && currentSettings.RegisterUsersImmediately != registerUsers)
+                else if (anyone && currentSettings.RegisterUsersImmediately != registerUsers)
                 {
                     SettingsManager.Instance.SaveSettings(new TenantAccessSettings { Anyone = true, RegisterUsersImmediately = registerUsers }, TenantProvider.CurrentTenantID);
                     tenant.TrustedDomainsType = registerUsers ? TenantTrustedDomainsType.All : TenantTrustedDomainsType.None;
@@ -145,7 +150,7 @@ namespace ASC.Web.Studio.UserControls.Management
                 return new
                     {
                         Status = 1,
-                        Message = Resources.Resource.SuccessfullySaveSettingsMessage
+                        Message = Resource.SuccessfullySaveSettingsMessage
                     };
             }
             catch (Exception e)
@@ -163,16 +168,16 @@ namespace ASC.Web.Studio.UserControls.Management
             if (quota == null) throw new ArgumentNullException("quota");
 
             if (TenantStatisticsProvider.GetUsersCount() > quota.ActiveUsers)
-                throw new Exception(string.Format(Resources.Resource.PortalAccessSettingsUserLimitException, quota.ActiveUsers));
+                throw new Exception(string.Format(Resource.PortalAccessSettingsUserLimitException, quota.ActiveUsers));
 
             if (TenantStatisticsProvider.GetUsedSize() > quota.MaxTotalSize)
-                throw new Exception(string.Format(Resources.Resource.PortalAccessSettingsDiscSpaceLimitException, quota.MaxTotalSize / 1024 / 1024));
+                throw new Exception(string.Format(Resource.PortalAccessSettingsDiscSpaceLimitException, FileSizeComment.FilesSizeToString(quota.MaxTotalSize)));
 
             CoreContext.PaymentManager.SetTariff(TenantProvider.CurrentTenantID, new Tariff
-            {
-                QuotaId = quota.Id,
-                DueDate = DateTime.MaxValue
-            });
+                {
+                    QuotaId = quota.Id,
+                    DueDate = DateTime.MaxValue
+                });
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -27,11 +27,13 @@
 window.editMailGroupModal = (function($) {
     var needSaveAddresses,
         needRemoveAddresses,
-        group;
+        group,
+        events = $({});
 
     function show(idGroup) {
         needSaveAddresses = [];
         needRemoveAddresses = [];
+
         group = administrationManager.getMailGroup(idGroup);
         var html = $.tmpl('editMailGroupTmpl', group);
         var $html = $(html);
@@ -44,7 +46,20 @@ window.editMailGroupModal = (function($) {
         }).on('showList', function(e, items) {
             addAddress(items);
         });
-        $html.find('.buttons .save').unbind('click').bind('click', saveAddresses);
+        $html.find('.buttons .save').unbind('click').bind('click', function() {
+            saveAddresses()
+                .then(function() {
+                    events.trigger('onupdategroup', group);
+                    window.LoadingBanner.hideLoading();
+                    window.toastr.success(window.MailActionCompleteResource.updateMailGroupSuccess.format(group.address.email));
+                },
+                    function (ev, error) {
+                        events.trigger('onupdategroup', group);
+                        window.LoadingBanner.hideLoading();
+                        administrationError.showErrorToastr("updateMailgroup", error);
+                    }
+                );
+        });
 
         popup.addSmall(window.MailAdministrationResource.EditGroupAddressesLabel, html);
         updateMailboxList();
@@ -120,35 +135,64 @@ window.editMailGroupModal = (function($) {
     }
 
     function saveAddresses() {
-        var i, len = needSaveAddresses.length, addressId;
+        var dfd = jq.Deferred();
+        var functionArray = [];
+        
+        var i, len = needSaveAddresses.length;
         for (i = 0; i < len; i++) {
-            addressId = needSaveAddresses[i].id;
-            serviceManager.addMailGroupAddress(group.id, addressId, { address: needSaveAddresses[i] },
-                {
-                    error: function(e, error) {
-                        administrationError.showErrorToastr("addMailGroupAddress", error);
-                    }
-                });
+            functionArray.push(deferredAddMailbox(group.id, needSaveAddresses[i]));
         }
 
         len = needRemoveAddresses.length;
         for (i = 0; i < len; i++) {
-            addressId = needRemoveAddresses[i].id;
-            serviceManager.removeMailGroupAddress(group.id, addressId,
-                { group: group, address: needRemoveAddresses[i] },
-                {
-                    error: function(e, error) {
-                        administrationError.showErrorToastr("removeMailGroupAddress", error);
-                    }
-                });
+            functionArray.push(deferredRemoveMailbox(group.id, needRemoveAddresses[i]));
         }
 
         window.PopupKeyUpActionProvider.CloseDialog();
+        window.LoadingBanner.strLoading = ASC.Resources.Master.Resource.LoadingProcessing;
+        window.LoadingBanner.displayMailLoading(true, true);
+
+        jq.when.apply(jq, functionArray).done(function () {
+            dfd.resolve();
+        })
+        .fail(dfd.reject);
+
+        return dfd.promise();
     }
 
+    function deferredAddMailbox(groupId, address) {
+        var dfd = jq.Deferred();
+        serviceManager.addMailGroupAddress(groupId, address.id, { address: address },
+                {
+                    success: function (params, srvGroup) {
+                        group = administrationManager.convertServerGroup(srvGroup);
+                        dfd.resolve(params, srvGroup);
+                    },
+                    error: dfd.reject
+                });
+        return dfd.promise();
+    }
+
+    function deferredRemoveMailbox(groupId, address) {
+        var dfd = jq.Deferred();
+        serviceManager.removeMailGroupAddress(groupId, address.id, { address: address },
+                {
+                    success: function (params, addressId) {
+                        var mailbox = administrationManager.getMailboxByEmail(params.address.email);
+                        var index = group.mailboxes.indexOf(mailbox);
+                        if (index > -1) {
+                            group.mailboxes.splice(index, 1);
+                        }
+                        dfd.resolve(params, addressId);
+                    },
+                    error: dfd.reject
+                });
+        return dfd.promise();
+    }
 
     return {
-        show: show
+        show: show,
+        events: events
     };
 
 })(jQuery);

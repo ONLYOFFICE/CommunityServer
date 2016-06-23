@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,14 +25,12 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.FullTextIndex;
-using ASC.FullTextIndex.Service;
 using ASC.Mail.Aggregator.Common;
-using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Aggregator.Common.Extension;
+using ASC.Mail.Aggregator.DbSchema;
 using ASC.Mail.Aggregator.Filter;
 
 namespace ASC.Mail.Aggregator.Extension
@@ -44,153 +42,96 @@ namespace ASC.Mail.Aggregator.Extension
             return ApplyFilter(query, filter, alias, false);
         }
 
-        public static SqlUpdate ApplyFilter(this SqlUpdate query, MailFilter filter, string alias)
-        {
-            return ApplyFilter(query, filter, alias, false);
-        }
-
-        public static SqlDelete ApplyFilter(this SqlDelete query, MailFilter filter, string alias)
-        {
-            return ApplyFilter(query, filter, alias, false);
-        }
-
         private static SqlQuery ApplyFilter(this SqlQuery query, MailFilter filter, string alias, bool skipFolder)
         {
             var conditions = GetMailFilterConditions(filter, skipFolder, alias);
 
-            if (conditions != null)
+            if (conditions == null) // skip query
+                return null;
+
+            if (conditions != Exp.Empty)
                 query.Where(conditions);
 
             return query;
         }
 
-        private static SqlUpdate ApplyFilter(this SqlUpdate query, MailFilter filter, string alias, bool skipFolder)
+        public static Exp GetMailFilterConditions(MailFilter filter, bool skipFolder, string alias = "")
         {
-            var conditions = GetMailFilterConditions(filter, skipFolder, alias);
-
-            if (conditions != null)
-                query.Where(conditions);
-
-            return query;
-        }
-
-        private static SqlDelete ApplyFilter(this SqlDelete query, MailFilter filter, string alias, bool skipFolder)
-        {
-            var conditions = GetMailFilterConditions(filter, skipFolder, alias);
-
-            if (conditions != null)
-                query.Where(conditions);
-
-            return query;
-        }
-
-        public static Exp GetMailFilterConditions(MailFilter filter, bool skipFolder, string alias)
-        {
-            Exp conditions = null;
-
-            if (!string.IsNullOrEmpty(alias))
-                alias += ".";
+            var conditions = Exp.Empty;
 
             if (!skipFolder)
-                conditions = Exp.Eq(alias + MailTable.Columns.folder, filter.PrimaryFolder);
+                conditions = Exp.Eq(MailTable.Columns.Folder.Prefix(alias), filter.PrimaryFolder);
 
             if (filter.Unread.HasValue)
             {
-                conditions &= Exp.Eq(alias + MailTable.Columns.unread, filter.Unread);
+                conditions &= Exp.Eq(MailTable.Columns.Unread.Prefix(alias), filter.Unread);
             }
 
             if (filter.Attachments)
-                conditions &= Exp.Gt(alias + MailTable.Columns.attach_count, 0);
+                conditions &= Exp.Gt(MailTable.Columns.AttachCount.Prefix(alias), 0);
 
             if (filter.PeriodFrom > 0)
             {
-                var from = new DateTime(1970, 1, 1) + new TimeSpan(filter.PeriodFrom * 10000);
-                var to = new DateTime(1970, 1, 1) + new TimeSpan(filter.PeriodTo * 10000) +
+                var from = new DateTime(1970, 1, 1) + new TimeSpan(filter.PeriodFrom*10000);
+                var to = new DateTime(1970, 1, 1) + new TimeSpan(filter.PeriodTo*10000) +
                          new TimeSpan(1, 0, 0, 0, 0); // 1 day was added to make the "To" date limit inclusive
-                conditions &= Exp.Between(alias + MailTable.Columns.date_sent, from, to);
+                conditions &= Exp.Between(MailTable.Columns.DateSent.Prefix(alias), from, to);
             }
 
             if (filter.Important)
             {
-                conditions &= Exp.Eq(alias + MailTable.Columns.importance, true);
+                conditions &= Exp.Eq(MailTable.Columns.Importance.Prefix(alias), true);
             }
 
-            if (!string.IsNullOrEmpty(filter.FindAddress))
+            if (filter.WithCalendar)
             {
-                if (FullTextSearch.SupportModule(FullTextSearch.MailModule))
-                {
-                    List<int> ids;
-                    if (filter.PrimaryFolder == MailFolder.Ids.sent || filter.PrimaryFolder == MailFolder.Ids.drafts)
-                        ids = FullTextSearch.Search(FullTextSearch.MailModule.Match(filter.FindAddress, MailTable.Columns.to));
-                    else
-                        ids = FullTextSearch.Search(FullTextSearch.MailModule.Match(filter.FindAddress, MailTable.Columns.from));
-                    
-                    conditions &= Exp.In(alias + MailTable.Columns.id, ids.Take(MailBoxManager.FULLTEXTSEARCH_IDS_COUNT).ToList());
-                }
+                conditions &= !Exp.Eq(MailTable.Columns.CalendarUid.Prefix(alias), null);
+            }
+
+            if (!string.IsNullOrEmpty(filter.FindAddress) && !FullTextSearch.SupportModule(FullTextSearch.MailModule))
+            {
+                if (filter.PrimaryFolder == MailFolder.Ids.sent || filter.PrimaryFolder == MailFolder.Ids.drafts)
+                    conditions &= Exp.Like(MailTable.Columns.To.Prefix(alias), filter.FindAddress, SqlLike.AnyWhere);
                 else
-                {
-                    if (filter.PrimaryFolder == MailFolder.Ids.sent || filter.PrimaryFolder == MailFolder.Ids.drafts)
-                        conditions &= Exp.Like(alias + MailTable.Columns.to, filter.FindAddress, SqlLike.AnyWhere);
-                    else
-                        conditions &= Exp.Like(alias + MailTable.Columns.from, filter.FindAddress, SqlLike.AnyWhere);
-                }
+                    conditions &= Exp.Like(MailTable.Columns.From.Prefix(alias), filter.FindAddress,
+                        SqlLike.AnyWhere);
             }
 
             if (filter.MailboxId.HasValue)
             {
-                conditions &= Exp.Eq(alias + MailTable.Columns.id_mailbox, filter.MailboxId.Value);
+                conditions &= Exp.Eq(MailTable.Columns.MailboxId.Prefix(alias), filter.MailboxId.Value);
             }
 
-            if (!string.IsNullOrEmpty(filter.SearchFilter))
+            if (!string.IsNullOrEmpty(filter.SearchFilter) && !FullTextSearch.SupportModule(FullTextSearch.MailModule))
             {
-                if (FullTextSearch.SupportModule(FullTextSearch.MailModule))
-                {
-                    var mailModule = FullTextSearch.MailModule.Match(filter.SearchFilter).OrderBy(MailTable.Columns.date_sent, filter.SortOrder == "ascending");
-
-                    if (filter.PrimaryFolder != 1 && filter.PrimaryFolder != 2)
-                    {
-                        mailModule.AddAttribute("folder", filter.PrimaryFolder);
-                    }
-                    else
-                    {
-                        mailModule.AddAttribute("folder", new[] {1, 2});
-                    }
-
-                    var ids = FullTextSearch.Search(mailModule);
-
-                    conditions &= Exp.In(alias + MailTable.Columns.id, ids.Take(MailBoxManager.FULLTEXTSEARCH_IDS_COUNT).ToList());
-                }
-                else
-                {
-                    conditions &= Exp.Or(Exp.Like(alias + MailTable.Columns.from, filter.SearchFilter, SqlLike.AnyWhere),
-                                       Exp.Or(
-                                           Exp.Like(alias + MailTable.Columns.to, filter.SearchFilter, SqlLike.AnyWhere),
-                                           Exp.Or(
-                                               Exp.Like(alias + MailTable.Columns.cc, filter.SearchFilter,
-                                                        SqlLike.AnyWhere),
-                                               Exp.Or(
-                                                   Exp.Like(alias + MailTable.Columns.bcc, filter.SearchFilter,
-                                                            SqlLike.AnyWhere),
-                                                   Exp.Like(alias + MailTable.Columns.subject, filter.SearchFilter,
-                                                            SqlLike.AnyWhere)))));
-                }
+                conditions &=
+                    Exp.Or(Exp.Like(MailTable.Columns.From.Prefix(alias), filter.SearchFilter, SqlLike.AnyWhere),
+                        Exp.Or(
+                            Exp.Like(MailTable.Columns.To.Prefix(alias), filter.SearchFilter, SqlLike.AnyWhere),
+                            Exp.Or(
+                                Exp.Like(MailTable.Columns.Cc.Prefix(alias), filter.SearchFilter,
+                                    SqlLike.AnyWhere),
+                                Exp.Or(
+                                    Exp.Like(MailTable.Columns.Bcc.Prefix(alias), filter.SearchFilter,
+                                        SqlLike.AnyWhere),
+                                    Exp.Like(MailTable.Columns.Subject.Prefix(alias), filter.SearchFilter,
+                                        SqlLike.AnyWhere)))));
             }
 
             return conditions;
         }
 
-
         public static SqlQuery ApplySorting(this SqlQuery query, MailFilter filter)
         {
-            var sortField = MailTable.Columns.date_sent;
+            var sortField = MailTable.Columns.DateSent;
 
             switch (filter.Sort)
             {
                 case "subject":
-                    sortField = MailTable.Columns.subject;
+                    sortField = MailTable.Columns.Subject;
                     break;
                 case "sender":
-                    sortField = MailTable.Columns.@from;
+                    sortField = MailTable.Columns.From;
                     break;
             }
 

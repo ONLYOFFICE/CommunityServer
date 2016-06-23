@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -237,8 +237,8 @@ var SearchHelper = function(inputID,hsItemClass,hsItemSelectClass,code,selectCod
         var res = result.value;
         var text = res.rs3;
         var var_name= res.rs4;
-        var values =  res.rs1.split('$');   
-        var helps =  res.rs2.split('$');        
+        var values =  res.rs1.split(',');
+        var helps =  res.rs2.split(',');
         //-----------     
         
         eval(var_name+'.TempCache.clear();');

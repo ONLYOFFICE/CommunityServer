@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -80,7 +80,7 @@ namespace ASC.Web.Files.Services.WCFService
                 var folder = folderDao.GetFolder(folderId);
 
                 ErrorIf(folder == null, FilesCommonResource.ErrorMassage_FolderNotFound);
-                ErrorIf(!FileSecurity.CanRead(folder), FilesCommonResource.ErrorMassage_SecurityException_ReadFile);
+                ErrorIf(!FileSecurity.CanRead(folder), FilesCommonResource.ErrorMassage_SecurityException_ReadFolder);
 
                 return folder;
             }
@@ -421,7 +421,7 @@ namespace ASC.Web.Files.Services.WCFService
 
                 try
                 {
-                    using (var stream = storeTemplate.IronReadStream("", path, 10))
+                    using (var stream = storeTemplate.GetReadStream("", path))
                     {
                         file = fileDao.SaveFile(file, stream);
                     }
@@ -481,7 +481,7 @@ namespace ASC.Web.Files.Services.WCFService
                 foreach (var fileId in filesId.Where(FileTracker.IsEditing))
                 {
                     var file = fileDao.GetFile(fileId);
-                    if (file == null || !FileSecurity.CanEdit(file)) continue;
+                    if (file == null || !FileSecurity.CanEdit(file) && !FileSecurity.CanReview(file)) continue;
 
                     var usersId = FileTracker.GetEditingBy(fileId);
                     var value = string.Join(", ", usersId.Select(Global.GetUserName).ToArray());
@@ -492,33 +492,11 @@ namespace ASC.Web.Files.Services.WCFService
             return result;
         }
 
-        [ActionName("canedit"), HttpGet, AllowAnonymous]
-        public Guid CanEdit(String fileId, String doc = null)
-        {
-            File file;
-            using (var fileDao = GetFileDao())
-            {
-                var editLink = FileShareLink.Check(doc, false, fileDao, out file);
-                if (file == null)
-                    file = fileDao.GetFile(fileId);
-
-                ErrorIf(file == null, FilesCommonResource.ErrorMassage_FileNotFound);
-                ErrorIf(!editLink && (!FileSecurity.CanEdit(file) || CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsVisitor()), FilesCommonResource.ErrorMassage_SecurityException_EditFile);
-                ErrorIf(EntryManager.FileLockedForMe(file.ID), FilesCommonResource.ErrorMassage_LockedFile);
-                ErrorIf(file.RootFolderType == FolderType.TRASH, FilesCommonResource.ErrorMassage_ViewTrashItem);
-                ErrorIf(!FileUtility.CanWebEdit(file.Title) && !FileConverter.MustConvert(file), FilesCommonResource.ErrorMassage_NotSupportedFormat);
-                ErrorIf((!FileUtility.CanCoAuhtoring(file.Title) || FileTracker.IsEditingAlone(file.ID))
-                    && FileTracker.IsEditing(file.ID), FilesCommonResource.ErrorMassage_UpdateEditingFile);
-            }
-
-            return FileTracker.Add(file.ID, false);
-        }
-
-        public File SaveEditing(String fileId, int version, Guid tabId, string fileType, string fileuri, Stream stream, bool asNew, String doc = null)
+        public File SaveEditing(String fileId, int version, Guid tabId, string fileExtension, string fileuri, Stream stream, bool asNew, String doc = null)
         {
             try
             {
-                var file = EntryManager.SaveEditing(fileId, version, tabId, fileType, fileuri, stream, asNew, doc);
+                var file = EntryManager.SaveEditing(fileId, version, tabId, fileExtension, fileuri, stream, asNew, doc);
 
                 if (file != null)
                     FilesMessageService.Send(file, GetHttpHeaders(), MessageAction.FileUpdated, file.Title);
@@ -779,7 +757,9 @@ namespace ASC.Web.Files.Services.WCFService
                     sourceFileUrl = PathProvider.GetFileStreamUrl(file);
                 }
 
-                return new KeyValuePair<string, string>(sourceFileUrl, diffUrl);
+                return new KeyValuePair<string, string>(
+                    DocumentServiceConnector.ReplaceCommunityAdress(sourceFileUrl),
+                    diffUrl);
             }
         }
 
@@ -881,6 +861,7 @@ namespace ASC.Web.Files.Services.WCFService
             using (var folderDao = GetFolderDao())
             using (var providerDao = GetProviderDao())
             {
+                ErrorIf(thirdPartyParams == null, FilesCommonResource.ErrorMassage_BadRequest);
                 var parentFolder = folderDao.GetFolder(thirdPartyParams.Corporate && !CoreContext.Configuration.Personal ? Global.FolderCommon : Global.FolderMy);
                 ErrorIf(!FileSecurity.CanCreate(parentFolder), FilesCommonResource.ErrorMassage_SecurityException_Create);
                 ErrorIf(!Global.IsAdministrator && !FilesSettings.EnableThirdParty, FilesCommonResource.ErrorMassage_SecurityException_Create);
@@ -1044,7 +1025,7 @@ namespace ASC.Web.Files.Services.WCFService
                 }
 
                 var folders = folderDao.GetFolders(foldersId.ToArray());
-                var foldersProject = folders.Where(folder => folder.RootFolderType == FolderType.BUNCH).ToList();
+                var foldersProject = folders.Where(folder => folder.FolderType == FolderType.BUNCH).ToList();
                 if (foldersProject.Any())
                 {
                     var toSubfolders = folderDao.GetFolders(toFolder.ID);
@@ -1054,7 +1035,7 @@ namespace ASC.Web.Files.Services.WCFService
                         var toSub = toSubfolders.FirstOrDefault(to => Equals(to.Title, folderProject.Title));
                         if (toSub == null) continue;
 
-                        var filesPr = fileDao.GetFiles(folderProject.ID, false);
+                        var filesPr = fileDao.GetFiles(folderProject.ID);
                         var foldersPr = folderDao.GetFolders(folderProject.ID).Select(d => d.ID);
 
                         var recurseItems = MoveOrCopyFilesCheck(filesPr, foldersPr, toSub.ID);
@@ -1122,7 +1103,7 @@ namespace ASC.Web.Files.Services.WCFService
             {
                 var trashId = folderDao.GetFolderIDTrash(true);
                 var foldersId = folderDao.GetFolders(trashId).Select(f => f.ID).ToList();
-                var filesId = fileDao.GetFiles(trashId, false).ToList();
+                var filesId = fileDao.GetFiles(trashId).ToList();
 
                 return fileOperations.Delete(foldersId, filesId, false, GetHttpHeaders());
             }

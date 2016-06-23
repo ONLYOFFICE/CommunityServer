@@ -76,9 +76,6 @@
     <Reference Include="Iesi.Collections">
       <HintPath>..\..\..\packages\Iesi.Collections.1.0.1\lib\Iesi.Collections.dll</HintPath>
     </Reference>
-    <Reference Include="Jurassic">
-      <HintPath>..\..\..\packages\Jurassic.2.1.1.0\lib\net40\Jurassic.dll</HintPath>
-    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
@@ -143,7 +140,10 @@
     <Compile Include="Client\HttpHandlers\ClientScriptLocalization.cs" />
     <Compile Include="Client\Bundling\ClientScriptReference.cs" />
     <Compile Include="Client\HttpHandlers\ClientScriptCustom.cs" />
-    <Compile Include="Client\Templates\JqTemplateCompiler.cs" />
+    <Compile Include="WhiteLabel\AdditionalWhiteLabelSettings.cs" />
+    <Compile Include="WhiteLabel\CompanyWhiteLabelSettings.cs" />
+    <Compile Include="WhiteLabel\MailWhiteLabelSettings.cs" />
+    <Compile Include="Utility\Settings\WizardSettings.cs" />
     <Compile Include="WhiteLabel\WhiteLabelLogoTypeEnum.cs" />
     <Compile Include="WhiteLabel\TenantWhiteLabelSettings.cs" />
     <Compile Include="WhiteLabel\TenantInfoSettings.cs" />
@@ -229,9 +229,6 @@
     <Compile Include="WebZones\IRenderCustomNavigation.cs" />
     <Compile Include="WebZones\WebZoneAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Client\Templates\jqTemplateCompiler.js" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -12,8 +12,9 @@
                 <span class="hdr">Welcome to onlyoffice api</span>
             </h1>
             <p>
-                The ONLYOFFICE™ Community Server API is implemented as REST over HTTP using GET/POST/PUT/DELETE.<br />
-                All the resources, like posts or comments, have their own URLs and are designed to be manipulated in isolation.
+                ONLYOFFICE™ API describes the main methods that allow you to interact with different ONLYOFFICE™ components.
+                <br />
+                Please select the necessary section below to learn more about which API methods are available for it.
             </p>
         </div>
         <% if (products.Length > 0) 
@@ -23,7 +24,7 @@
                 { %>
             <div class="product">
                 <a href="<%= Url.Action("basic", "portals") %>">
-                    <img src="<%= Url.Content("~/content/img/portals.png") %>">
+                    <img src="<%= Url.Content("~/content/img/portals.png") %>" alt="Community Server">
                     Community Server
                 </a>
             </div>
@@ -32,7 +33,7 @@
                 { %>
             <div class="product">
                 <a href="<%= Url.Action("basic", "editors") %>">
-                    <img src="<%= Url.Content("~/content/img/editors.png") %>">
+                    <img src="<%= Url.Content("~/content/img/editors.png") %>" alt="Document Server">
                     Document Server
                 </a>
             </div>
@@ -41,8 +42,17 @@
                 { %>
             <div class="product">
                 <a href="<%= Url.Action("basic", "partners") %>">
-                    <img src="<%= Url.Content("~/content/img/partners.png") %>">
+                    <img src="<%= Url.Content("~/content/img/partners.png") %>" alt="Partners">
                     Partners
+                </a>
+            </div>
+            <% } %>
+            <% if (products.Contains("apisystem"))
+                { %>
+            <div class="product">
+                <a href="<%= Url.Action("basic", "apisystem") %>">
+                    <img src="<%= Url.Content("~/content/img/partners.png") %>" alt="Hosted Solution">
+                    Hosted Solution
                 </a>
             </div>
             <% } %>

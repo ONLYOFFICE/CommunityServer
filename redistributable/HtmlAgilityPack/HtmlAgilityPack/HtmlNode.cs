@@ -68,8 +68,6 @@ namespace HtmlAgilityPack
         /// </summary>
         public static Hashtable ElementsFlags;
 
-        private const int MAX_RECURSION_DEPTH = 2000;
-
         #endregion
 
         #region Constructors
@@ -1520,10 +1518,6 @@ namespace HtmlAgilityPack
         /// <param name="outText">The TextWriter to which you want to save.</param>
         public void WriteTo(TextWriter outText)
         {
-            var stack_frames = new StackTrace().GetFrames();
-            if (stack_frames != null && stack_frames.Length > MAX_RECURSION_DEPTH)
-                throw new RecursionDepthException("The document is too complex to parse");
-            
             string html;
             switch (_nodetype)
             {
@@ -1701,10 +1695,6 @@ namespace HtmlAgilityPack
         /// <param name="writer">The XmlWriter to which you want to save.</param>
         public void WriteTo(XmlWriter writer)
         {
-            var stack_frames = new StackTrace().GetFrames();
-            if (stack_frames != null && stack_frames.Length > MAX_RECURSION_DEPTH)
-                throw new RecursionDepthException("The document is too complex to parse");
-            
             switch (_nodetype)
             {
                 case HtmlNodeType.Comment:
@@ -1806,10 +1796,6 @@ namespace HtmlAgilityPack
 
         internal void CloseNode(HtmlNode endnode)
         {
-            var stack_frames = new StackTrace().GetFrames();
-            if (stack_frames != null && stack_frames.Length > MAX_RECURSION_DEPTH)
-                throw new RecursionDepthException("The document is too complex to parse");
-
             if (!_ownerdocument.OptionAutoCloseOnEnd)
             {
                 // close all children

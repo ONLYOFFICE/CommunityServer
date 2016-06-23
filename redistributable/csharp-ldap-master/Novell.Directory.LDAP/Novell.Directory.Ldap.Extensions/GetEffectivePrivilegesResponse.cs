@@ -29,83 +29,80 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
-using Novell.Directory.Ldap;
 using Novell.Directory.Ldap.Asn1;
-using Novell.Directory.Ldap.Utilclass;
 using Novell.Directory.Ldap.Rfc2251;
+using System.IO;
 
 namespace Novell.Directory.Ldap.Extensions
 {
-	
-	/// <summary>  Retrieves the effective rights from an GetEffectivePrivilegesResponse object.
-	/// 
-	/// An object in this class is generated from an ExtendedResponse object
-	/// using the ExtendedResponseFactory class.
-	/// 
-	/// The getEffectivePrivilegesResponse extension uses the following OID:
-	/// 2.16.840.1.113719.1.27.100.34
-	/// 
-	/// </summary>
-	public class GetEffectivePrivilegesResponse:LdapExtendedResponse
-	{
-		/// <summary> Returns the effective privileges.
-		/// 
-		/// See the ReplicationConstants class for the privilege flags.
-		/// 
-		/// </summary>
-		/// <returns> A flag which is a combination of zero or more privilege flags as
-		/// returned by the server.
-		/// 
-		/// </returns>
-		virtual public int Privileges
-		{
-			get
-			{
-				return privileges;
-			}
-			
-		}
-		
-		// Identity returned by the server
-		private int privileges;
-		
-		/// <summary> Constructs an object from the responseValue which contains the effective
-		/// privileges.
-		/// 
-		/// The constructor parses the responseValue which has the following
-		/// format:
-		/// responseValue ::=
-		///   privileges  INTEGER
-		/// 
-		/// </summary>
-		/// <exception> IOException The responseValue could not be decoded.
-		/// </exception>
-		public GetEffectivePrivilegesResponse(RfcLdapMessage rfcMessage):base(rfcMessage)
-		{
-			
-			if (ResultCode == LdapException.SUCCESS)
-			{
-				// parse the contents of the reply
-				sbyte[] returnedValue = this.Value;
-				if (returnedValue == null)
-					throw new System.IO.IOException("No returned value");
-				
-				// Create a decoder object
-				LBERDecoder decoder = new LBERDecoder();
-				if (decoder == null)
-					throw new System.IO.IOException("Decoding error");
-				
-				Asn1Integer asn1_privileges = (Asn1Integer) decoder.decode(returnedValue);
-				if (asn1_privileges == null)
-					throw new System.IO.IOException("Decoding error");
-				
-				privileges = asn1_privileges.intValue();
-			}
-			else
-			{
-				privileges = 0;
-			}
-		}
-	}
+
+    /// <summary>  Retrieves the effective rights from an GetEffectivePrivilegesResponse object.
+    /// 
+    /// An object in this class is generated from an ExtendedResponse object
+    /// using the ExtendedResponseFactory class.
+    /// 
+    /// The getEffectivePrivilegesResponse extension uses the following OID:
+    /// 2.16.840.1.113719.1.27.100.34
+    /// 
+    /// </summary>
+    public class GetEffectivePrivilegesResponse : LdapExtendedResponse
+    {
+        /// <summary> Returns the effective privileges.
+        /// 
+        /// See the ReplicationConstants class for the privilege flags.
+        /// 
+        /// </summary>
+        /// <returns> A flag which is a combination of zero or more privilege flags as
+        /// returned by the server.
+        /// 
+        /// </returns>
+        virtual public int Privileges
+        {
+            get
+            {
+                return privileges;
+            }
+        }
+
+        // Identity returned by the server
+        private int privileges;
+
+        /// <summary> Constructs an object from the responseValue which contains the effective
+        /// privileges.
+        /// 
+        /// The constructor parses the responseValue which has the following
+        /// format:
+        /// responseValue ::=
+        ///   privileges  INTEGER
+        /// 
+        /// </summary>
+        /// <exception> IOException The responseValue could not be decoded.
+        /// </exception>
+        public GetEffectivePrivilegesResponse(RfcLdapMessage rfcMessage)
+            : base(rfcMessage)
+        {
+            if (ResultCode == LdapException.SUCCESS)
+            {
+                // parse the contents of the reply
+                sbyte[] returnedValue = this.Value;
+                if (returnedValue == null)
+                    throw new IOException("No returned value");
+
+                // Create a decoder object
+                LBERDecoder decoder = new LBERDecoder();
+                if (decoder == null)
+                    throw new IOException("Decoding error");
+
+                Asn1Integer asn1_privileges = (Asn1Integer)decoder.decode(returnedValue);
+                if (asn1_privileges == null)
+                    throw new IOException("Decoding error");
+
+                privileges = asn1_privileges.intValue();
+            }
+            else
+            {
+                privileges = 0;
+            }
+        }
+    }
 }

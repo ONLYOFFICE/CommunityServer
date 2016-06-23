@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -129,7 +129,7 @@
         height: 260px;
         overflow: hidden; /* !!!changed!!! check */
         overflow-y: auto;
-        overflow-x: none;
+        overflow-x: visible;
     }
 
     .incorrectEmailBox {
@@ -320,7 +320,7 @@
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
         border-radius: 3px;
-        background: url('../images/bg_check_all.png') center center no-repeat;
+        background-color: #ebebeb;
 
         input[type="checkbox"] {
             margin: 3px;
@@ -403,11 +403,14 @@
     cursor: pointer;
 
     .innerBox {
-        background: url('../images/collapse.png') no-repeat 0px center;
         border: none;
-        height: 22px;
-        margin-right: 5px;
-        width: 16px;
+        height: 0;
+        margin-right: 7px;
+        margin-top: 9px;
+        width: 0;
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid #333;
     }
 
     .fileSelector {

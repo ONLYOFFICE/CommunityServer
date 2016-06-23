@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -47,8 +47,8 @@ namespace ASC.Web.Mail.Controls
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        Page.RegisterBodyScripts("~/js/uploader/jquery.fileupload.js");
-        Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
+        Page.RegisterBodyScripts("~/js/uploader/jquery.fileupload.js",
+            "~/usercontrols/common/ckeditor/ckeditor-connector.js");
 
         AjaxPro.Utility.RegisterTypeForAjax(this.GetType());
 
@@ -74,11 +74,6 @@ namespace ASC.Web.Mail.Controls
 
         QuestionPopup.Options.IsPopup = true;
 
-        if (!TenantExtra.GetTenantQuota().DocsEdition)
-        {
-            _phDocUploader.Controls.Add(LoadControl(TariffLimitExceed.Location));
-        }
-
         var fileSelector = (Files.Controls.FileSelector) LoadControl(Files.Controls.FileSelector.Location);
         fileSelector.DialogTitle = MailResource.SelectFolderDialogTitle;
         fileholder.Controls.Add(fileSelector);
@@ -95,8 +90,7 @@ namespace ASC.Web.Mail.Controls
 
     private String wrapCSS(string css)
     {
-        string res = css;
-        res = "\r\n" + cssTag.Replace(css, "").Replace("\r\n", "").Replace("}", "}\r\n");
+        string res = "\r\n" + cssTag.Replace(css, "").Replace("\r\n", "").Replace("}", "}\r\n");
         MatchCollection mc = cssRow.Matches(res);
         foreach (Match occur in mc)
         {

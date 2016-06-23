@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,68 +24,48 @@
 */
 
 
-using System;
-using System.Net;
-using System.Collections.Specialized;
-using System.Web.Configuration;
 using ASC.Common.Utils;
 using ASC.Core;
 using ASC.Core.Users;
-using ASC.Web.Core;
-using ASC.Web.Studio.Core.Notify;
 using log4net;
+using System;
+using System.Collections.Specialized;
+using System.Net;
+using System.Web.Configuration;
 
 namespace ASC.Web.Studio.UserControls.FirstTime
 {
     public static class FirstTimeTenantSettings
     {
-        public static void SetDefaultTenantSettings()
-        {
-            try
-            {
-                WebItemSecurity.SetSecurity("community-wiki", false, null);
-                WebItemSecurity.SetSecurity("community-forum", false, null);
-            }
-            catch (Exception error)
-            {
-                LogManager.GetLogger("ASC.Web").Error(error);
-            }
-        }
-
         public static void SendInstallInfo(UserInfo user)
         {
             try
             {
-                StudioNotifyService.Instance.SendCongratulations(user);
-            }
-            catch (Exception error)
-            {
-                LogManager.GetLogger("ASC.Web").Error(error);
-            }
-            try
-            {
                 var url = WebConfigurationManager.AppSettings["web.install-url"];
-                if (!string.IsNullOrEmpty(url))
-                {
-                    var tenant = CoreContext.TenantManager.GetCurrentTenant();
-                    var q = new MailQuery
+                if (string.IsNullOrEmpty(url)) return;
+
+                var tenant = CoreContext.TenantManager.GetCurrentTenant();
+                var q = new MailQuery
                     {
                         Email = user.Email,
                         Id = CoreContext.Configuration.GetKey(tenant.TenantId),
                         Alias = tenant.TenantDomain,
                     };
-                    var index = url.IndexOf("?v=");
-                    if (0 < index)
-                    {
-                        q.Version = url.Substring(index + 3) + Environment.OSVersion;
-                        url = url.Substring(0, index);
-                    }
-                    using (var webClient = new WebClient())
-                    {
-                        var values = new NameValueCollection();
-                        values.Add("query", Signature.Create<MailQuery>(q, "4be71393-0c90-41bf-b641-a8d9523fba5c"));
-                        webClient.UploadValues(url, values);
-                    }
+
+                var index = url.IndexOf("?v=", StringComparison.InvariantCultureIgnoreCase);
+                if (0 < index)
+                {
+                    q.Version = url.Substring(index + 3) + Environment.OSVersion;
+                    url = url.Substring(0, index);
+                }
+
+                using (var webClient = new WebClient())
+                {
+                    var values = new NameValueCollection
+                        {
+                            {"query", Signature.Create(q, "4be71393-0c90-41bf-b641-a8d9523fba5c")}
+                        };
+                    webClient.UploadValues(url, values);
                 }
             }
             catch (Exception error)
@@ -101,6 +81,5 @@ namespace ASC.Web.Studio.UserControls.FirstTime
             public string Id { get; set; }
             public string Alias { get; set; }
         }
-
     }
 }

@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -52,6 +52,7 @@ namespace ASC.Web.Studio.UserControls.Management
         protected StudioTrustedDomainSettings _studioTrustedDomainSettings;
         protected bool _enableInviteUsers;
         protected bool _tenantAccessAnyone;
+        protected string HelpLink { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -73,6 +74,8 @@ namespace ASC.Web.Studio.UserControls.Management
             _tenantAccessAnyone = managementPage != null ?
                                      managementPage.TenantAccess.Anyone :
                                      SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone;
+
+            HelpLink = CommonLinkUtility.GetHelpLink();
         }
 
         private bool CheckTrustedDomain(string domain)

@@ -38,23 +38,5 @@ namespace ASC.Web.Studio.UserControls.Management {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::ASC.Web.Studio.Controls.Common.Container tariffLimitExceedFileSizeDialog;
-        
-        /// <summary>
-        /// tariffLimitDocsEditionDialog control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::ASC.Web.Studio.Controls.Common.Container tariffLimitDocsEditionDialog;
-        
-        /// <summary>
-        /// UnauthorizedPartnerDialog control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::ASC.Web.Studio.Controls.Common.Container UnauthorizedPartnerDialog;
     }
 }

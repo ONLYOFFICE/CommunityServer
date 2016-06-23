@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -812,8 +812,7 @@ window.Feed = (function(productsAccessRightsParam) {
             }
 
             if (e.which !== 0) {
-                var $commentEmptyErrorMsg = $(this).siblings('.comment-empty-error-msg-box');
-                $commentEmptyErrorMsg.hide();
+                $(this).removeClass("error");
             }
         });
 
@@ -821,13 +820,11 @@ window.Feed = (function(productsAccessRightsParam) {
             var $this = $(this);
 
             var $commentForm = $this.closest('.comment-form');
-            var $commentEmptyErrorMsg = $commentForm.find('.comment-empty-error-msg-box');
             var $writeCommentBtn = $commentForm.siblings('.write-comment-btn');
 
             var commentText = $this.siblings('textarea').val().trim();
             if (!commentText) {
-                $commentEmptyErrorMsg.show();
-                $this.siblings('textarea').focus();
+                $this.siblings('textarea').addClass("error").focus();
                 event.preventDefault();
                 return;
             }
@@ -871,7 +868,7 @@ window.Feed = (function(productsAccessRightsParam) {
                     }
 
                     $commentForm.hide();
-                    $commentForm.find('textarea').val('');
+                    $commentForm.find('textarea').val('').removeClass("error");
 
                     $commentsBox.find('.reply-comment-btn.closed').show().removeClass('closed');
 
@@ -880,7 +877,7 @@ window.Feed = (function(productsAccessRightsParam) {
             }
 
             function commentFail() {
-                $('#feed_' + itemId + ' .comment-error-msg-box').show();
+                $('#feed_' + itemId + ' .comment-error-msg-box').show().prev().addClass("error");
             }
         });
 
@@ -972,19 +969,16 @@ window.Feed = (function(productsAccessRightsParam) {
 
             var $contentBox = $this.closest('.content-box');
             var $commentForm = $contentBox.find('.comment-form');
-
-            var $commentEmptyErrorMsg = $commentForm.find('.comment-empty-error-msg-box');
             var $commentErrorMsg = $commentForm.find('.comment-error-msg-box');
-
             var $writeCommentBtn = $contentBox.find('.write-comment-btn');
 
             $commentForm.hide();
-            $commentForm.find('textarea').val('');
+            $commentForm.find('textarea').val('').removeClass("error");
 
             $writeCommentBtn.show();
 
             $contentBox.find('.reply-comment-btn.closed').show().removeClass('closed');
-            $commentEmptyErrorMsg.hide();
+
             $commentErrorMsg.hide();
 
             event.preventDefault();

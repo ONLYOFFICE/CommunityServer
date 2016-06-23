@@ -162,9 +162,6 @@
   <data name="CasesModule" xml:space="preserve">
     <value>Cases</value>
   </data>
-  <data name="CommentEmptyErrorMsg" xml:space="preserve">
-    <value>Введите ваш комментарий</value>
-  </data>
   <data name="CommentErrorMsg" xml:space="preserve">
     <value>Ошибка доступа при добавлении комментария</value>
   </data>

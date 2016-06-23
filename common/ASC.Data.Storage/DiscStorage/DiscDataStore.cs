@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -56,6 +56,18 @@ namespace ASC.Data.Storage.DiscStorage
             }
             //Add default
             _mappedPaths.Add(string.Empty, new MappedPath(tenant, moduleConfig.AppendTenant, PathUtils.Normalize(moduleConfig.Path), moduleConfig.VirtualPath, handlerConfig.GetProperties()));
+        }
+
+        public String GetPhysicalPath(string domain, string path)
+        {
+            if (path == null)
+            {
+                throw new ArgumentNullException("path");
+            }
+
+            var pathMap = GetPath(domain);
+
+            return (pathMap.PhysicalPath + EnsureLeadingSlash(path)).Replace('\\', '/');
         }
 
         public override Uri GetPreSignedUri(string domain, string path, TimeSpan expire, IEnumerable<string> headers)
@@ -183,20 +195,31 @@ namespace ASC.Data.Storage.DiscStorage
             CreateDirectory(target);
             //Copy stream
 
-            using (var fs = File.Open(target, FileMode.Create))
+            //optimaze disk file copy
+            var fileStream = stream as FileStream;
+            var fslen = 0L;
+            if (fileStream != null)
             {
-                var buffer = new byte[BufferSize];
-                int readed;
-                while ((readed = stream.Read(buffer, 0, BufferSize)) != 0)
+                File.Copy(fileStream.Name, target, true);
+                fslen = fileStream.Length;
+            }
+            else
+            {
+                using (var fs = File.Open(target, FileMode.Create))
                 {
-                    fs.Write(buffer, 0, readed);
-                }
-                if (postWriteCheck)
-                {
-                    QuotaController.QuotaUsedAdd(_modulename, domain, _dataList.GetData(domain), fs.Length);
+                    var buffer = new byte[BufferSize];
+                    int readed;
+                    while ((readed = stream.Read(buffer, 0, BufferSize)) != 0)
+                    {
+                        fs.Write(buffer, 0, readed);
+                    }
+                    fslen = fs.Length;
                 }
             }
-
+            if (postWriteCheck)
+            {
+                QuotaController.QuotaUsedAdd(_modulename, domain, _dataList.GetData(domain), fslen);
+            }
             return GetUri(domain, path);
         }
 
@@ -624,7 +647,7 @@ namespace ASC.Data.Storage.DiscStorage
             return GetUri(string.Empty, path);
         }
 
-        
+
         private MappedPath GetPath(string domain)
         {
             if (domain != null)

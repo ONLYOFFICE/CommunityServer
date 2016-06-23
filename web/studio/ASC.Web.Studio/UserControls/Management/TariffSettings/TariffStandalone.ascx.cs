@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,17 +24,21 @@
 */
 
 
-using ASC.Web.Studio.Core.Notify;
 using AjaxPro;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Tenants;
 using ASC.MessagingSystem;
+using ASC.Web.Core;
 using ASC.Web.Core.Security;
+using ASC.Web.Core.WhiteLabel;
+using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using Resources;
 using System;
+using System.Globalization;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 
@@ -51,10 +55,21 @@ namespace ASC.Web.Studio.UserControls.Management
         protected int UsersCount;
         protected Tariff CurrentTariff;
         protected TenantQuota CurrentQuota;
+        protected AdditionalWhiteLabelSettings Settings;
+        protected int TenantCount;
 
         protected bool RequestLicenseAccept
         {
-            get { return !TariffSettings.LicenseAccept; }
+            get { return !TariffSettings.LicenseAccept && Settings.LicenseAgreementsEnabled; }
+        }
+
+        protected bool PeopleModuleAvailable
+        {
+            get
+            {
+                var peopleProduct = WebItemManager.Instance[WebItemManager.PeopleProductID];
+                return peopleProduct != null && !peopleProduct.IsDisabled();
+            }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -67,6 +82,11 @@ namespace ASC.Web.Studio.UserControls.Management
             UsersCount = TenantStatisticsProvider.GetUsersCount();
             CurrentTariff = TenantExtra.GetCurrentTariff();
             CurrentQuota = TenantExtra.GetTenantQuota();
+            TenantCount = CoreContext.TenantManager.GetTenants().Count(t => t.Status == TenantStatus.Active);
+
+            Settings = AdditionalWhiteLabelSettings.Instance;
+            Settings.PricingUrl = CommonLinkUtility.GetRegionalUrl(Settings.PricingUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
+            Settings.LicenseAgreementsUrl = CommonLinkUtility.GetRegionalUrl(Settings.LicenseAgreementsUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
         }
@@ -88,7 +108,7 @@ namespace ASC.Web.Studio.UserControls.Management
                                      "<br />", string.Empty, string.Empty);
             }
 
-            if (CurrentQuota.ControlPanel
+            if (TenantExtra.EnterprisePaid
                 && CurrentTariff.State == TariffState.Paid
                 && CurrentTariff.DueDate.Date >= DateTime.Today)
             {
@@ -106,28 +126,24 @@ namespace ASC.Web.Studio.UserControls.Management
 
         [AjaxMethod]
         [SecurityPassthrough]
-        public object ActivateLicenseKey(string licenseKey)
+        public object ActivateLicenseKey()
         {
             if (!CoreContext.Configuration.Standalone) throw new NotSupportedException();
-            if (string.IsNullOrEmpty(licenseKey)) throw new ArgumentNullException("licenseKey", UserControlsCommonResource.LicenseKeyNotFound);
 
+            TariffSettings.LicenseAccept = true;
             MessageService.Send(HttpContext.Current.Request, MessageAction.LicenseKeyUploaded);
 
             try
             {
-                TariffSettings.LicenseAccept = true;
-
-                var licenseKeys = licenseKey.Split('|');
-
-                LicenseClient.SetLicenseKeys(licenseKeys[0], licenseKeys.Length > 1 ? licenseKeys[1] : null);
+                LicenseReader.RefreshLicense();
 
                 return new { Status = 1 };
             }
-            catch (BillingNotConfiguredException)
-            {
-                return new { Status = 0, Message = UserControlsCommonResource.LicenseKeyNotCorrect };
-            }
             catch (BillingNotFoundException)
+            {
+                return new { Status = 0, Message = UserControlsCommonResource.LicenseKeyNotFound };
+            }
+            catch (BillingNotConfiguredException)
             {
                 return new { Status = 0, Message = UserControlsCommonResource.LicenseKeyNotCorrect };
             }
@@ -154,7 +170,7 @@ namespace ASC.Web.Studio.UserControls.Management
             }
             HttpContext.Current.Cache.Insert(key, ++count, null, System.Web.Caching.Cache.NoAbsoluteExpiration, TimeSpan.FromMinutes(2));
 
-            StudioNotifyService.Instance.SendRequestLicense(fname, lname, title, email, phone, ctitle, csize, site, message);
+            StudioNotifyService.Instance.SendRequestTariff(true, fname, lname, title, email, phone, ctitle, csize, site, message);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -48,8 +48,8 @@ namespace ASC.Web.Community.Bookmarking.Util
             BookmarkingBusinessConstants.CommunityProductID = CommunityProduct.ID;
 
             Page.RegisterStyle("~/products/community/modules/bookmarking/app_themes/default/css/bookmarkingstyle.css");
-            Page.RegisterBodyScripts("~/products/community/modules/bookmarking/js/bookmarking.js");
-            Page.RegisterBodyScripts("~/js/asc/plugins/tagsautocompletebox.js");
+            Page.RegisterBodyScripts("~/products/community/modules/bookmarking/js/bookmarking.js",
+                "~/js/asc/plugins/tagsautocompletebox.js");
 
             ServiceHelper = BookmarkingServiceHelper.GetCurrentInstanse();
 
@@ -63,7 +63,7 @@ namespace ASC.Web.Community.Bookmarking.Util
             var searchText = ServiceHelper.GetSearchText();
             if (!String.IsNullOrEmpty(searchText))
             {
-                BookmarkingBusinessFactory.UpdateObjectInCookies("BookmarkDisplayMode", BookmarkDisplayMode.SearchBookmarks.ToString());
+                BookmarkingBusinessFactory.UpdateDisplayMode(BookmarkDisplayMode.SearchBookmarks);
                 BookmarkingServiceHelper.UpdateCurrentInstanse(ServiceHelper);
                 return;
             }
@@ -71,7 +71,7 @@ namespace ASC.Web.Community.Bookmarking.Util
             searchText = ServiceHelper.GetSearchTag();
             if (!String.IsNullOrEmpty(searchText))
             {
-                BookmarkingBusinessFactory.UpdateObjectInCookies("BookmarkDisplayMode", BookmarkDisplayMode.SearchByTag.ToString());
+                BookmarkingBusinessFactory.UpdateDisplayMode(BookmarkDisplayMode.SearchByTag);
                 BookmarkingServiceHelper.UpdateCurrentInstanse(ServiceHelper);
                 var searchResults = String.Format("{0} {1}", BookmarkingUCResource.TagBookmarks, searchText);
                 Title = searchResults;

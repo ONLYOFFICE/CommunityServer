@@ -30,25 +30,25 @@
 //
 
 
-using System;
 using Novell.Directory.Ldap.Asn1;
+using System;
 
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> Represents the Ldap Assertion Value.
-	/// 
-	/// <pre>
-	/// AssertionValue ::= OCTET STRING
-	/// </pre>
-	/// </summary>
-	public class RfcAssertionValue:Asn1OctetString
-	{
-		
-		/// <summary> </summary>
-		[CLSCompliantAttribute(false)]
-		public RfcAssertionValue(sbyte[] value_Renamed):base(value_Renamed)
-		{
-		}
-	}
+
+    /// <summary> Represents the Ldap Assertion Value.
+    /// 
+    /// <pre>
+    /// AssertionValue ::= OCTET STRING
+    /// </pre>
+    /// </summary>
+    public class RfcAssertionValue : Asn1OctetString
+    {
+        /// <summary> </summary>
+        [CLSCompliantAttribute(false)]
+        public RfcAssertionValue(sbyte[] value_Renamed)
+            : base(value_Renamed)
+        {
+        }
+    }
 }

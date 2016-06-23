@@ -14,5 +14,16 @@ namespace AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox
         {
             RealToken = realToken;
         }
+
+        public override string ToString()
+        {
+            return RealToken.TokenKey + "&" + RealToken.TokenSecret;
+        }
+
+        public static DropBoxRequestToken Parse(string token)
+        {
+            var splited = token.Split('&');
+            return new DropBoxRequestToken(new OAuthToken(splited[0], splited[1]));
+        }
     }
 }

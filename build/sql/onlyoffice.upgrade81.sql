@@ -24,7 +24,6 @@ BEGIN
 	ALTER TABLE `crm_organisation_logo` CHANGE COLUMN `content` `content` MEDIUMTEXT NULL DEFAULT NULL;
 	ALTER TABLE `crm_tag` ALTER `title` DROP DEFAULT;
 	ALTER TABLE `crm_tag` CHANGE COLUMN `title` `title` VARCHAR(255) CHARACTER SET 'utf8' COLLATE 'utf8_bin' NOT NULL;
-	ALTER TABLE `crm_task` CHANGE `exec_alert` `exec_alert` int(10) NOT NULL DEFAULT 0;
 
 	IF NOT EXISTS(SELECT * FROM information_schema.`COLUMNS` WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'crm_voip_calls_history' AND COLUMN_NAME = 'price') THEN
 		ALTER TABLE `crm_voip_calls_history`

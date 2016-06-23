@@ -11,26 +11,5 @@ namespace ASC.Web.Studio {
     
     
     public partial class Terms {
-        
-        /// <summary>
-        /// PersonalFooterHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder PersonalFooterHolder;
-        
-        /// <summary>
-        /// Master property.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated property.
-        /// </remarks>
-        public new ASC.Web.Studio.Masters.BaseTemplate Master {
-            get {
-                return ((ASC.Web.Studio.Masters.BaseTemplate)(base.Master));
-            }
-        }
     }
 }

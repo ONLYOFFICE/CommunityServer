@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -63,7 +63,7 @@ namespace TMResourceData
             using (var db = new DbManager(Dbid))
             {
                 var resData = db.ExecuteScalar<string>(GetQuery(ResDataTable, cultureTitle, word));
-                var resReserve = db.ExecuteScalar<string>(GetQuery(ResReserveTable, cultureTitle, word)); 
+                var resReserve = db.ExecuteScalar<string>(GetQuery(ResReserveTable, cultureTitle, word));
 
                 //нет ключа
                 if (string.IsNullOrEmpty(resData))
@@ -76,12 +76,23 @@ namespace TMResourceData
                                               .InColumnValue("authorLogin", authorLogin));
 
                     //добавляем в резервную таблицу
-                    if (isConsole)  db.ExecuteNonQuery(Insert(ResReserveTable, cultureTitle, word));
+                    if (isConsole) db.ExecuteNonQuery(Insert(ResReserveTable, cultureTitle, word));
                 }
-                else if(updateIfExist)
+                else
                 {
+                    if (cultureTitle == "Neutral" && isConsole)
+                    {
+                        updateIfExist = db.ExecuteScalar<int>(new SqlQuery(ResDataTable)
+                            .SelectCount()
+                            .Where("fileID", word.ResFile.FileID)
+                            .Where(!Exp.Eq("cultureTitle", cultureTitle))
+                            .Where("title", word.Title)) == 0;
+                    }
+
                     var isChangeResData = resData != word.ValueFrom;
                     var isChangeResReserve = resReserve != word.ValueFrom;
+
+                    if (!updateIfExist) return;
 
                     //при работе с консолью изменилось по сравнению с res_data и res_reserve, либо при работе с сайтом изменилось по сравнению с res_reserve
                     if ((isConsole && isChangeResData && isChangeResReserve) || !isConsole)
@@ -735,7 +746,7 @@ namespace TMResourceData
                 }
             }
         }
-        
+
 
         private static ResWord GetWord(IList<object> r)
         {
@@ -747,7 +758,7 @@ namespace TMResourceData
             var resfile = new ResFile { FileID = (int)r[1], FileName = (string)r[3], ModuleName = (string)r[4], ProjectName = (string)r[5] };
             return new ResWord { Title = (string)r[0], ResFile = resfile, ValueFrom = (string)r[2] };
         }
-        
+
         private static SqlQuery GetQuery(string table, string cultureTitle, ResWord word)
         {
             return new SqlQuery(table)

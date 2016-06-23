@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -214,12 +214,7 @@ namespace ASC.Web.Files.Utils
             }
         }
 
-        public static void MarkAsNew(FileEntry fileEntry)
-        {
-            MarkAsNew(fileEntry, null);
-        }
-
-        public static void MarkAsNew(FileEntry fileEntry, List<Guid> userIDs)
+        public static void MarkAsNew(FileEntry fileEntry, List<Guid> userIDs = null)
         {
             if (CoreContext.Configuration.Personal) return;
 
@@ -234,11 +229,20 @@ namespace ASC.Web.Files.Utils
 
             if (fileEntry.RootFolderType == FolderType.BUNCH && !userIDs.Any())
             {
-                var projectTeam = Global.GetProjectTeam(fileEntry);
+                using (var folderDao = Global.DaoFactory.GetFolderDao())
+                {
+                    var path = folderDao.GetBunchObjectID(fileEntry.RootFolderId);
+
+                    var projectID = path.Split('/').Last();
+                    if (string.IsNullOrEmpty(projectID)) return;
+                }
+
+                var projectTeam = Global.GetFilesSecurity().WhoCanRead(fileEntry)
+                                        .Where(x => x != SecurityContext.CurrentAccount.ID).ToList();
 
                 if (!projectTeam.Any()) return;
 
-                taskData.UserIDs = projectTeam.ToList();
+                taskData.UserIDs = projectTeam;
             }
 
             lock (locker)
@@ -250,14 +254,11 @@ namespace ASC.Web.Files.Utils
             }
         }
 
-        public static void RemoveMarkAsNew(FileEntry fileEntry)
-        {
-            RemoveMarkAsNew(fileEntry, SecurityContext.CurrentAccount.ID);
-        }
-
-        public static void RemoveMarkAsNew(FileEntry fileEntry, Guid userID)
+        public static void RemoveMarkAsNew(FileEntry fileEntry, Guid userID = default(Guid))
         {
             if (CoreContext.Configuration.Personal) return;
+
+            userID = userID.Equals(default(Guid)) ? SecurityContext.CurrentAccount.ID : userID;
 
             if (fileEntry == null) return;
 

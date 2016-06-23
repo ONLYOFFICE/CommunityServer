@@ -29,67 +29,64 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
-using Novell.Directory.Ldap;
 using Novell.Directory.Ldap.Asn1;
 using Novell.Directory.Ldap.Utilclass;
+using System;
+using System.IO;
 
 namespace Novell.Directory.Ldap.Extensions
 {
-	
-	/// <summary> 
-	/// Synchronizes the schema.
-	/// 
-	/// The requestSchemaSyncRequest extension uses the following OID: 
-	/// 2.16.840.1.113719.1.27.100.27
-	/// 
-	/// The requestValue has the following format:
-	/// 
-	/// requestValue ::=
-	///      serverName       LdapDN
-	///      delay            INTEGER
-	/// </summary>
-	public class SchemaSyncRequest:LdapExtendedOperation
-	{
-		
-		/// <summary>  Constructs an extended operation object for synchronizing the schema.
-		/// 
-		/// </summary>
-		/// <param name="serverName">    The distinguished name of the server which will start
-		/// the synchronization.
-		/// 
-		/// </param>
-		/// <param name="delay">         The time, in seconds, to delay before the synchronization
-		/// should start.
-		/// 
-		/// </param>
-		/// <exception> LdapException A general exception which includes an error message
-		/// and an Ldap error code.
-		/// </exception>
-		public SchemaSyncRequest(System.String serverName, int delay):base(ReplicationConstants.SCHEMA_SYNC_REQ, null)
-		{
-			
-			try
-			{
-				
-				if ((System.Object) serverName == null)
-					throw new System.ArgumentException(ExceptionMessages.PARAM_ERROR);
-				
-				System.IO.MemoryStream encodedData = new System.IO.MemoryStream();
-				LBEREncoder encoder = new LBEREncoder();
-				
-				Asn1OctetString asn1_serverName = new Asn1OctetString(serverName);
-				Asn1Integer asn1_delay = new Asn1Integer(delay);
-				
-				asn1_serverName.encode(encoder, encodedData);
-				asn1_delay.encode(encoder, encodedData);
-				
-				setValue(SupportClass.ToSByteArray(encodedData.ToArray()));
-			}
-			catch (System.IO.IOException ioe)
-			{
-				throw new LdapException(ExceptionMessages.ENCODING_ERROR, LdapException.ENCODING_ERROR, (System.String) null);
-			}
-		}
-	}
+    /// <summary> 
+    /// Synchronizes the schema.
+    /// 
+    /// The requestSchemaSyncRequest extension uses the following OID: 
+    /// 2.16.840.1.113719.1.27.100.27
+    /// 
+    /// The requestValue has the following format:
+    /// 
+    /// requestValue ::=
+    ///      serverName       LdapDN
+    ///      delay            INTEGER
+    /// </summary>
+    public class SchemaSyncRequest : LdapExtendedOperation
+    {
+        /// <summary>  Constructs an extended operation object for synchronizing the schema.
+        /// 
+        /// </summary>
+        /// <param name="serverName">    The distinguished name of the server which will start
+        /// the synchronization.
+        /// 
+        /// </param>
+        /// <param name="delay">         The time, in seconds, to delay before the synchronization
+        /// should start.
+        /// 
+        /// </param>
+        /// <exception> LdapException A general exception which includes an error message
+        /// and an Ldap error code.
+        /// </exception>
+        public SchemaSyncRequest(string serverName, int delay)
+            : base(ReplicationConstants.SCHEMA_SYNC_REQ, null)
+        {
+            try
+            {
+                if (serverName == null)
+                    throw new ArgumentException(ExceptionMessages.PARAM_ERROR);
+
+                MemoryStream encodedData = new MemoryStream();
+                LBEREncoder encoder = new LBEREncoder();
+
+                Asn1OctetString asn1_serverName = new Asn1OctetString(serverName);
+                Asn1Integer asn1_delay = new Asn1Integer(delay);
+
+                asn1_serverName.encode(encoder, encodedData);
+                asn1_delay.encode(encoder, encodedData);
+
+                setValue(SupportClass.ToSByteArray(encodedData.ToArray()));
+            }
+            catch (IOException)
+            {
+                throw new LdapException(ExceptionMessages.ENCODING_ERROR, LdapException.ENCODING_ERROR, null);
+            }
+        }
+    }
 }

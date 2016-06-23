@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,18 +24,18 @@
 */
 
 
+using ASC.Common.Security.Authentication;
+using ASC.MessagingSystem;
+using log4net;
+using Microsoft.AspNet.SignalR;
+using Microsoft.AspNet.SignalR.Hubs;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Principal;
 using System.Threading;
 using System.Threading.Tasks;
-using ASC.Common.Security.Authentication;
-using ASC.MessagingSystem;
-using Microsoft.AspNet.SignalR;
-using Microsoft.AspNet.SignalR.Hubs;
-using log4net;
-using System.Linq;
 
 namespace ASC.SignalR.Base.Hubs.OnlineUsers
 {
@@ -72,7 +72,7 @@ namespace ASC.SignalR.Base.Hubs.OnlineUsers
                             return false;
                         }
                     }
-                    
+
                     return !onlineUsers[tenantId].ContainsKey(userId);
                 }, cancellationToken);
 
@@ -134,26 +134,33 @@ namespace ASC.SignalR.Base.Hubs.OnlineUsers
                 onlineUsers[CurrentTenantId]
                     .AddOrUpdate(CurrentUserId,
                                  user =>
-                                     {
-                                         isNewOnlineUser = true;
-                                         return new UserPresence(now);
-                                     },
+                                 {
+                                     isNewOnlineUser = true;
+                                     return new UserPresence(now);
+                                 },
                                  (user, presence) =>
-                                     {
-                                         presence.OfflinePretender = false;
-                                         presence.Counter++;
-                                         presence.LastConnection = DateTime.UtcNow;
+                                 {
+                                     presence.OfflinePretender = false;
+                                     presence.Counter++;
+                                     presence.LastConnection = DateTime.UtcNow;
 
-                                         return presence;
-                                     });
+                                     return presence;
+                                 });
 
                 if (isNewOnlineUser)
                 {
+                    try
+                    {
+                        MessageService.Send(Context.Headers.ToDictionary(x => x.Key, y => y.Value), MessageAction.SessionStarted);
+                    }
+                    catch (Exception ex)
+                    {
+                        log.Error(ex);
+                    }
                     PushOnlineUserToAll(CurrentUserId);
-                    MessageService.Send(Context.Headers.ToDictionary(x => x.Key, y => y.Value), MessageAction.SessionStarted);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.Error(ex);
             }
@@ -169,21 +176,25 @@ namespace ASC.SignalR.Base.Hubs.OnlineUsers
                 onlineUsers[CurrentTenantId]
                     .AddOrUpdate(CurrentUserId,
                                  user =>
-                                     {
-                                         isLostUser = true;
-                                         return null;
-                                     },
+                                 {
+                                     isLostUser = true;
+                                     return null;
+                                 },
                                  (user, presence) =>
+                                 {
+                                     if (presence == null)
                                      {
-                                         if (presence.Counter == 1)
-                                         {
-                                             presence.OfflinePretender = true;
-                                             SetOfflinePretenderTimer();
-                                         }
-                                         presence.Counter--;
+                                         presence = new UserPresence(DateTime.UtcNow);
+                                     }
+                                     if (presence.Counter == 1)
+                                     {
+                                         presence.OfflinePretender = true;
+                                         SetOfflinePretenderTimer();
+                                     }
+                                     presence.Counter--;
 
-                                         return presence;
-                                     });
+                                     return presence;
+                                 });
 
                 if (isLostUser)
                 {
@@ -191,7 +202,7 @@ namespace ASC.SignalR.Base.Hubs.OnlineUsers
                     onlineUsers[CurrentTenantId].TryRemove(CurrentUserId, out p);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.Error(ex);
             }
@@ -204,7 +215,7 @@ namespace ASC.SignalR.Base.Hubs.OnlineUsers
             {
                 headers = Context.Headers.ToDictionary(x => x.Key, y => y.Value);
             }
-            catch(ObjectDisposedException)
+            catch (ObjectDisposedException)
             {
                 // bug: Hub OnDisconnected - Context throwing an ObjectDisposedException in IE
                 // will be fix in signalr 2.2
@@ -222,12 +233,12 @@ namespace ASC.SignalR.Base.Hubs.OnlineUsers
             var updated = false;
             pretenderTimers.AddOrUpdate(CurrentUserId, timer,
                                         (user, tmr) =>
-                                            {
-                                                updated = true;
-                                                tmr.Stop();
-                                                tmr.Start();
-                                                return tmr;
-                                            });
+                                        {
+                                            updated = true;
+                                            tmr.Stop();
+                                            tmr.Start();
+                                            return tmr;
+                                        });
 
             if (!updated)
             {
@@ -252,18 +263,18 @@ namespace ASC.SignalR.Base.Hubs.OnlineUsers
                 onlineUsers[tenantId]
                     .AddOrUpdate(userId,
                                  user =>
-                                     {
-                                         lostUser = true;
-                                         return null;
-                                     },
+                                 {
+                                     lostUser = true;
+                                     return null;
+                                 },
                                  (user, presence) =>
+                                 {
+                                     if (presence.OfflinePretender && presence.Counter == 0)
                                      {
-                                         if (presence.OfflinePretender && presence.Counter == 0)
-                                         {
-                                             newOfflineUser = true;
-                                         }
-                                         return presence;
-                                     });
+                                         newOfflineUser = true;
+                                     }
+                                     return presence;
+                                 });
 
                 if (lostUser)
                 {
@@ -287,7 +298,7 @@ namespace ASC.SignalR.Base.Hubs.OnlineUsers
                     MessageService.Send(userData, headers, MessageAction.SessionCompleted);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 log.Error(ex);
             }

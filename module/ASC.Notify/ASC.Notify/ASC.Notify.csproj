@@ -87,6 +87,7 @@
     <Compile Include="DbWorker.cs" />
     <Compile Include="MailSendingState.cs" />
     <Compile Include="NotifyCleaner.cs" />
+    <Compile Include="NotifySender.cs" />
     <Compile Include="NotifyService.cs" />
     <Compile Include="NotifyServiceLauncher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

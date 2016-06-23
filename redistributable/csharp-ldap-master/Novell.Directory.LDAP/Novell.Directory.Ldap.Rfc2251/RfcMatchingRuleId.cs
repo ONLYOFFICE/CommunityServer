@@ -29,23 +29,20 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
-
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> Represents an Ldap Matching Rule ID.
-	/// 
-	/// <pre>
-	/// MatchingRuleId ::= LdapString
-	/// </pre>
-	/// </summary>
-	public class RfcMatchingRuleId:RfcLdapString
-	{
-		
-		/// <summary> Constructs a MatchingRuleId from a String.</summary>
-		public RfcMatchingRuleId(System.String s):base(s)
-		{
-		}
-	}
+    /// <summary> Represents an Ldap Matching Rule ID.
+    /// 
+    /// <pre>
+    /// MatchingRuleId ::= LdapString
+    /// </pre>
+    /// </summary>
+    public class RfcMatchingRuleId : RfcLdapString
+    {
+        /// <summary> Constructs a MatchingRuleId from a String.</summary>
+        public RfcMatchingRuleId(string s)
+            : base(s)
+        {
+        }
+    }
 }

@@ -29,78 +29,78 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
 using Novell.Directory.Ldap.Asn1;
-using Novell.Directory.Ldap;
+using System;
 
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> Represents and Ldap Compare Request.
-	/// 
-	/// <pre>
-	/// CompareRequest ::= [APPLICATION 14] SEQUENCE {
-	/// entry           LdapDN,
-	/// ava             AttributeValueAssertion }
-	/// </pre>
-	/// </summary>
-	public class RfcCompareRequest:Asn1Sequence, RfcRequest
-	{
-		virtual public RfcAttributeValueAssertion AttributeValueAssertion
-		{
-			get
-			{
-				return ((RfcAttributeValueAssertion) get_Renamed(1));
-			}
-			
-		}
-		
-		//*************************************************************************
-		// Constructor for CompareRequest
-		//*************************************************************************
-		
-		/// <summary> </summary>
-		public RfcCompareRequest(RfcLdapDN entry, RfcAttributeValueAssertion ava):base(2)
-		{
-			add(entry);
-			add(ava);
-			if (ava.AssertionValue == null)
-			{
-				throw new System.ArgumentException("compare: Attribute must have an assertion value");
-			}
-			return ;
-		}
-		
-		/// <summary> Constructs a new Compare Request copying from the data of
-		/// an existing request.
-		/// </summary>
-		/* package */
-		internal RfcCompareRequest(Asn1Object[] origRequest, System.String base_Renamed):base(origRequest, origRequest.Length)
-		{
-			// Replace the base if specified, otherwise keep original base
-			if ((System.Object) base_Renamed != null)
-			{
-				set_Renamed(0, new RfcLdapDN(base_Renamed));
-			}
-			return ;
-		}
-		//*************************************************************************
-		// Accessors
-		//*************************************************************************
-		
-		/// <summary> Override getIdentifier to return an application-wide id.</summary>
-		public override Asn1Identifier getIdentifier()
-		{
-			return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.COMPARE_REQUEST);
-		}
-		
-		public RfcRequest dupRequest(System.String base_Renamed, System.String filter, bool request)
-		{
-			return new RfcCompareRequest(toArray(), base_Renamed);
-		}
-		public System.String getRequestDN()
-		{
-			return ((RfcLdapDN) get_Renamed(0)).stringValue();
-		}
-	}
+
+    /// <summary> Represents and Ldap Compare Request.
+    /// 
+    /// <pre>
+    /// CompareRequest ::= [APPLICATION 14] SEQUENCE {
+    /// entry           LdapDN,
+    /// ava             AttributeValueAssertion }
+    /// </pre>
+    /// </summary>
+    public class RfcCompareRequest : Asn1Sequence, RfcRequest
+    {
+        virtual public RfcAttributeValueAssertion AttributeValueAssertion
+        {
+            get
+            {
+                return ((RfcAttributeValueAssertion)get_Renamed(1));
+            }
+        }
+
+        //*************************************************************************
+        // Constructor for CompareRequest
+        //*************************************************************************
+
+        /// <summary> </summary>
+        public RfcCompareRequest(RfcLdapDN entry, RfcAttributeValueAssertion ava)
+            : base(2)
+        {
+            add(entry);
+            add(ava);
+            if (ava.AssertionValue == null)
+            {
+                throw new ArgumentException("compare: Attribute must have an assertion value");
+            }
+        }
+
+        /// <summary> Constructs a new Compare Request copying from the data of
+        /// an existing request.
+        /// </summary>
+        /* package */
+        internal RfcCompareRequest(Asn1Object[] origRequest, string base_Renamed)
+            : base(origRequest, origRequest.Length)
+        {
+            // Replace the base if specified, otherwise keep original base
+            if (base_Renamed != null)
+            {
+                set_Renamed(0, new RfcLdapDN(base_Renamed));
+            }
+        }
+
+        //*************************************************************************
+        // Accessors
+        //*************************************************************************
+
+        /// <summary> Override getIdentifier to return an application-wide id.</summary>
+        public override Asn1Identifier getIdentifier()
+        {
+            return new Asn1Identifier(Asn1Identifier.APPLICATION, true, LdapMessage.COMPARE_REQUEST);
+        }
+
+        public RfcRequest dupRequest(string base_Renamed, string filter, bool request)
+        {
+            return new RfcCompareRequest(toArray(), base_Renamed);
+        }
+
+        public string getRequestDN()
+        {
+            return ((RfcLdapDN)get_Renamed(0)).stringValue();
+        }
+    }
 }

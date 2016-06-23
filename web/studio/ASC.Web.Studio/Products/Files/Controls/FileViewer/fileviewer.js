@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -337,8 +337,8 @@ window.ASC.Files.ImageViewer = (function () {
         }
         imgRef.attr("src", ASC.Files.Utility.GetFileViewUrl(imageCollection[imageCollection.selectedIndex].fileId, imageCollection[imageCollection.selectedIndex].version));
 
-        jq("#imagePrev").attr("href", "#" + ASC.Files.ImageViewer.getPreviewHash(imageCollection[prevImageIndex()].fileId));
-        jq("#imageNext").attr("href", "#" + ASC.Files.ImageViewer.getPreviewHash(imageCollection[nextImageIndex()].fileId));
+        jq("#imagePrev").attr("href", "#" + ASC.Files.Common.getCorrectHash(ASC.Files.ImageViewer.getPreviewHash(imageCollection[prevImageIndex()].fileId)));
+        jq("#imageNext").attr("href", "#" + ASC.Files.Common.getCorrectHash(ASC.Files.ImageViewer.getPreviewHash(imageCollection[nextImageIndex()].fileId)));
 
         var fileObj = ASC.Files.UI.getEntryObject("file", imageCollection[imageCollection.selectedIndex].fileId);
 
@@ -622,9 +622,8 @@ window.ASC.Files.ImageViewer = (function () {
         var data = {};
         data.entry = new Array();
         ASC.Files.UI.blockObjectById("file", fileId, true, ASC.Files.FilesJSResources.DescriptRemove);
-        Encoder.EncodeType = "!entity";
-        data.entry.push(Encoder.htmlEncode("file_" + fileId));
-        Encoder.EncodeType = "entity";
+
+        data.entry.push("file_" + fileId);
 
         ASC.Files.ServiceManager.deleteItem(ASC.Files.ServiceManager.events.DeleteItem, { list: [fileId], doNow: true }, { stringList: data });
 

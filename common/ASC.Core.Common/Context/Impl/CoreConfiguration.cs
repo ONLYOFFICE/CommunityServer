@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -36,15 +36,24 @@ namespace ASC.Core
     public class CoreConfiguration
     {
         private readonly ITenantService tenantService;
+        private bool? standalone;
+        private bool? personal;
+        private string basedomain;
+
+
+        public CoreConfiguration(ITenantService service)
+        {
+            tenantService = service;
+        }
 
         public bool Standalone
         {
-            get { return ConfigurationManager.AppSettings["core.base-domain"] == "localhost"; }
+            get { return standalone ?? (bool)(standalone = ConfigurationManager.AppSettings["core.base-domain"] == "localhost"); }
         }
 
         public bool Personal
         {
-            get { return ConfigurationManager.AppSettings["core.personal"] == "true"; }
+            get { return personal ?? (bool)(personal = ConfigurationManager.AppSettings["core.personal"] == "true"); }
         }
 
         public bool PartnerHosted
@@ -103,32 +112,32 @@ namespace ASC.Core
         {
             get
             {
-                var result = String.Empty;
-                if (Standalone)
+                if (basedomain == null)
                 {
-                    result = GetSetting("BaseDomain") ?? ConfigurationManager.AppSettings["core.base-domain"] ?? string.Empty;
+                    basedomain = ConfigurationManager.AppSettings["core.base-domain"] ?? string.Empty;
+                }
+
+                string result;
+                if (Standalone || string.IsNullOrEmpty(basedomain))
+                {
+                    result = GetSetting("BaseDomain") ?? basedomain;
                 }
                 else
                 {
-                    result = ConfigurationManager.AppSettings["core.base-domain"] ?? string.Empty;
+                    result = basedomain;
                 }
                 return result;
             }
             set
             {
-                if (Standalone)
+                if (Standalone || string.IsNullOrEmpty(basedomain))
                 {
                     SaveSetting("BaseDomain", value);
                 }
             }
         }
 
-
-        public CoreConfiguration(ITenantService service)
-        {
-            tenantService = service;
-        }
-
+        #region Methods Get/Save Setting
 
         public void SaveSetting(string key, string value, int tenant = Tenant.DEFAULT_TENANT)
         {
@@ -151,8 +160,13 @@ namespace ASC.Core
                 throw new ArgumentNullException("key");
             }
             byte[] bytes = tenantService.GetTenantSettings(tenant, key);
-            return bytes != null ? Encoding.UTF8.GetString(Crypto.GetV(bytes, 2, false)) : null;
+
+            var result = bytes != null ? Encoding.UTF8.GetString(Crypto.GetV(bytes, 2, false)) : null;
+
+            return result;
         }
+
+        #endregion
 
         public string GetKey(int tenant)
         {
@@ -197,6 +211,8 @@ namespace ASC.Core
 
             return null;
         }
+
+        #region Methods Get/Set Section
 
         public T GetSection<T>() where T : class
         {
@@ -243,5 +259,7 @@ namespace ASC.Core
             var serializedSection = section != null ? JsonConvert.SerializeObject(section) : null;
             SaveSetting(sectionName, serializedSection, tenantId);
         }
+
+        #endregion
     }
 }

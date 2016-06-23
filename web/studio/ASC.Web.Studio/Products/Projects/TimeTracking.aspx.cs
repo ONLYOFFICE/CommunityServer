@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,14 +24,10 @@
 */
 
 
-using System;
-using ASC.Web.Core.Utility.Skins;
-using ASC.Web.Projects.Classes;
-using ASC.Web.Projects.Configuration;
 using ASC.Web.Projects.Controls.Common;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility;
-using ASC.Core;
+using ASC.Projects.Core.Domain;
 using ASC.Web.Studio.UserControls.Common.LoaderPage;
 
 namespace ASC.Web.Projects
@@ -50,6 +46,13 @@ namespace ASC.Web.Projects
         {
             _content.Controls.Add(LoadControl(CommonList.Location));
 
+            if (RequestContext.IsInConcreteProject)
+            {
+                EssenceTitle = Project.Title;
+                EssenceStatus = Project.Status != ProjectStatus.Open
+                    ? LocalizedEnumConverter.ConvertToString(Project.Status).ToLower()
+                    : "";
+            }
             Title = HeaderStringHelper.GetPageTitle(ProjectsCommonResource.TimeTracking);
             loaderHolder.Controls.Add(LoadControl(LoaderPage.Location));
         }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,21 +24,12 @@
 */
 
 
-using System.Runtime.Remoting.Messaging;
 using System.Web.UI;
 
 namespace ASC.Web.Projects
 {
     public abstract class BaseUserControl : UserControl
     {
-        protected BaseUserControl()
-        {
-            if (CallContext.GetData("CURRENT_ACCOUNT") == null && ASC.Core.SecurityContext.IsAuthenticated)
-            {
-                CallContext.SetData("CURRENT_ACCOUNT", ASC.Core.SecurityContext.CurrentAccount.ID);
-            }
-        }
-
         public new BasePage Page
         {
             get { return base.Page as BasePage; }

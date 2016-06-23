@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -250,7 +250,7 @@
         display: inline-block;
         float: left;
         height: 16px;
-        margin: 4px 5px 0 0;
+        margin: 4px 6px 0 0;
         vertical-align: middle;
         width: 16px;
 
@@ -352,15 +352,8 @@
                 position: relative;
                 width: 40px;
 
-                &:after {
-                    content: "";
-                    position:absolute;
-                    width: 16px;
-                    height: 16px;
-                    background: url("@{imagesBaseUrl}zoom_white.png") no-repeat;
-                    top: 4px;
-                    right: 13px;
-                }
+                &:before{content: " "; position: absolute; width: 6px; height: 6px; border: 2px solid #fff; .borderRadius(6px); top: 5px; left: 13px; }
+                &:after{content: " "; position: absolute; width: 0; height: 7px; border-right: 2px solid #fff; top: 12px; left: 22px; .rotateTransform(135deg); }
             }
         }
     }
@@ -629,6 +622,7 @@ only screen and (                min-resolution: 2dppx)
 }
 .confirmation-popup_logo {
     margin-bottom: 10px;
+    display: inline-block;
 }
 .confirmation-popup_version {
     font-size: 14px;

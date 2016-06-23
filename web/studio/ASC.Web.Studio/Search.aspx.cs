@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,11 +24,6 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Web.UI;
 using AjaxPro;
 using ASC.Web.Core;
 using ASC.Web.Core.ModuleManagement.Common;
@@ -39,6 +34,11 @@ using ASC.Web.Studio.Core.Search;
 using ASC.Web.Studio.UserControls.Common.Search;
 using ASC.Web.Studio.Utility;
 using Resources;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web.UI;
 
 namespace ASC.Web.Studio
 {
@@ -55,8 +55,8 @@ namespace ASC.Web.Studio
 
             Title = HeaderStringHelper.GetPageTitle(Resource.Search);
 
-            var productID = !String.IsNullOrEmpty(Request["productID"]) ? new Guid(Request["productID"]) : Guid.Empty;
-            var moduleID = !String.IsNullOrEmpty(Request["moduleID"]) ? new Guid(Request["moduleID"]) : Guid.Empty;
+            var productID = !string.IsNullOrEmpty(Request["productID"]) ? new Guid(Request["productID"]) : Guid.Empty;
+            var moduleID = !string.IsNullOrEmpty(Request["moduleID"]) ? new Guid(Request["moduleID"]) : Guid.Empty;
 
             SearchText = Request["search"] ?? "";
 
@@ -65,7 +65,7 @@ namespace ASC.Web.Studio
             {
                 List<ISearchHandlerEx> handlers = null;
 
-                var products = !String.IsNullOrEmpty(Request["products"]) ? Request["products"] : string.Empty;
+                var products = !string.IsNullOrEmpty(Request["products"]) ? Request["products"] : string.Empty;
                 if (!string.IsNullOrEmpty(products))
                 {
                     try
@@ -75,8 +75,9 @@ namespace ASC.Web.Studio
 
                         handlers = SearchHandlerManager.GetHandlersExForProductModule(productsGuid);
                     }
-                    catch
+                    catch(Exception err)
                     {
+                        Log.Error(err);
                     }
                 }
 
@@ -113,10 +114,6 @@ namespace ASC.Web.Studio
 
             var groupedData = GroupDataModules(searchResult);
 
-            foreach (var result in groupedData)
-            {
-                result.Items.Sort(new DateSearchComparer());
-            }
             groupedData.Sort(new SearchComparer());
 
             return groupedData;
@@ -152,8 +149,8 @@ namespace ASC.Web.Studio
                     item.Items.AddRange(searchResult.Items);
 
                     if (item.PresentationControl == null) item.PresentationControl = searchResult.PresentationControl;
-                    if (String.IsNullOrEmpty(item.LogoURL)) item.LogoURL = searchResult.LogoURL;
-                    if (String.IsNullOrEmpty(item.Name)) item.Name = searchResult.Name;
+                    if (string.IsNullOrEmpty(item.LogoURL)) item.LogoURL = searchResult.LogoURL;
+                    if (string.IsNullOrEmpty(item.Name)) item.Name = searchResult.Name;
                 }
             }
 
@@ -176,8 +173,8 @@ namespace ASC.Web.Studio
             var container = new SearchResult
                 {
                     ProductID = productID,
-                    Name = (certainProduct != null) ? certainProduct.Name : String.Empty,
-                    LogoURL = (certainProduct != null) ? certainProduct.GetIconAbsoluteURL() : String.Empty
+                    Name = (certainProduct != null) ? certainProduct.Name : string.Empty,
+                    LogoURL = (certainProduct != null) ? certainProduct.GetIconAbsoluteURL() : string.Empty
                 };
 
             if (productID == WebItemManager.CommunityProductID || productID == Guid.Empty)
@@ -195,7 +192,7 @@ namespace ASC.Web.Studio
                 if (module != null && module.IsDisabled())
                     continue;
 
-                var items = sh.Search(searchText);
+                var items = sh.Search(searchText).OrderByDescending(item => item.Date).ToArray();
 
                 if (items.Length == 0)
                     continue;

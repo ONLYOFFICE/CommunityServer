@@ -49,7 +49,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AppLimit.CloudComputing.SharpBox">
-      <HintPath>..\..\..\..\..\packages\AppLimit.CloudComputing.SharpBox.1.1.0.442\lib\net45\AppLimit.CloudComputing.SharpBox.dll</HintPath>
+      <HintPath>..\..\..\..\..\packages\AppLimit.CloudComputing.SharpBox.1.1.0.444\lib\net45\AppLimit.CloudComputing.SharpBox.dll</HintPath>
     </Reference>
     <Reference Include="Ionic.Zip">
       <HintPath>..\..\..\..\..\packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll</HintPath>
@@ -77,7 +77,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
-    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Net.Http.Formatting">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
       <Private>False</Private>
@@ -86,12 +86,12 @@
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Http">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
       <Private>False</Private>
     </Reference>
-    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Http.WebHost">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
       <Private>False</Private>
@@ -131,6 +131,13 @@
     <Compile Include="Controls\MoreFeatures\MoreFeatures.ascx.designer.cs">
       <DependentUpon>MoreFeatures.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Import\Box\Box.aspx.cs">
+      <DependentUpon>Box.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Import\Box\Box.aspx.designer.cs">
+      <DependentUpon>Box.aspx</DependentUpon>
+    </Compile>
     <Compile Include="MailMerge.aspx.cs">
       <DependentUpon>MailMerge.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -147,6 +154,10 @@
       <DependentUpon>FileChoice.aspx</DependentUpon>
     </Compile>
     <Compile Include="Helpers\FilesMessageService.cs" />
+    <Compile Include="Masters\EditorScripts.ascx.cs">
+      <DependentUpon>EditorScripts.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Services\WCFService\FileExceptionFilterAttribute.cs" />
     <Compile Include="Services\WCFService\FileOperations\FileOperationsManager.cs" />
     <Compile Include="Services\WCFService\FileStorageServiceController.cs" />
@@ -213,6 +224,7 @@
     </Compile>
     <Compile Include="Masters\ClientScripts\FilesLocalizationResources.cs" />
     <Compile Include="Masters\ClientScripts\FilesConstantsResources.cs" />
+    <Content Include="App_Themes\Default\Images\desktop_banner.png" />
     <Content Include="App_Themes\Default\mailmerge.css" />
     <Content Include="App_Themes\Default\Images\documents_appstore.png" />
     <Content Include="Controls\ChunkUploadDialog\chunkuploadmanager.js" />
@@ -222,6 +234,7 @@
     <Content Include="Controls\ContentList\Images\lock.png" />
     <Content Include="Controls\ContentList\Images\throbber.gif" />
     <Content Include="Controls\ContentList\Images\version_operation.png" />
+    <Content Include="Controls\ThirdParty\Images\retina\thirdparty_boxnet.png" />
     <Content Include="Controls\YandexScript.js" />
     <Content Include="Controls\FileSelector\fileselector.js" />
     <Content Include="Controls\FileSelector\FileSelector.ascx" />
@@ -231,14 +244,13 @@
     <Content Include="Controls\MoreFeatures\css\morefeatures.css" />
     <Content Include="Controls\MoreFeatures\MoreFeatures.ascx" />
     <Content Include="Controls\GoogleConversionScript.ascx" />
+    <Content Include="Import\Box\Box.aspx" />
     <Content Include="js\mailmerge.js" />
     <Content Include="MailMerge.aspx" />
     <Content Include="FileChoice.aspx" />
     <Content Include="js\filechoice.js" />
     <Content Include="Masters\EditorScripts.ascx" />
-    <Content Include="Masters\FilesScripts.ascx" />
     <Content Include="Masters\BasicTemplate.Master" />
-    <Content Include="Masters\Styles.ascx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="DocEditor.aspx" />
@@ -317,7 +329,6 @@
     <Compile Include="Services\WCFService\Wrappers\DataWrapper.cs" />
     <Compile Include="Services\WCFService\Wrappers\MessageParams.cs" />
     <Compile Include="Services\WCFService\Wrappers\ThirdPartyParams.cs" />
-    <Compile Include="Services\WCFService\UriTemplates.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.aspx" />
@@ -482,7 +493,6 @@
     <Content Include="Controls\FileViewer\Images\iv_close.png" />
     <Content Include="Controls\MainContent\MainContent.ascx" />
     <Content Include="Controls\MainContent\maincontent.css" />
-    <Content Include="Controls\MainContent\Images\switch_view.png" />
     <Content Include="Controls\MainContent\Images\info_16.png" />
     <Content Include="Controls\MainContent\Images\expl_16.png" />
     <Content Include="Controls\ConvertFile\ConvertFile.ascx" />
@@ -493,7 +503,7 @@
     <Content Include="Controls\ThirdParty\ThirdParty.ascx" />
     <Content Include="Controls\ThirdParty\thirdparty.css" />
     <Content Include="Controls\ThirdParty\thirdparty.js" />
-    <Content Include="Controls\ThirdParty\Images\thirdparty_boxnet.png" />
+    <Content Include="Controls\ThirdParty\Images\thirdparty_box.png" />
     <Content Include="Controls\ThirdParty\Images\thirdparty_dropbox.png" />
     <Content Include="Controls\ThirdParty\Images\thirdparty_google.png" />
     <Content Include="Controls\ThirdParty\Images\thirdparty_onedrivebusiness.png" />

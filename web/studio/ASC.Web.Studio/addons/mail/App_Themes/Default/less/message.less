@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -47,44 +47,49 @@
             line-height: @message-head-row-height;
             padding-right: @message-spliter-width;
 
-            .menu-small {
-                margin-left: 0;
-            }
-
-            label {
+            .header-label {
                 color: #83888D;
-                width: 57px;
-                float: left;
+                min-width: 40px;
+                padding-left: @message-spliter-width;
+                padding-right: @message-spliter-width;
+                vertical-align: top;
+                white-space: nowrap;
             }
 
-            .value {
-                margin-left: 48px;
+            .header-value {
+                width: 100%;
+                .value {
 
-                &.with-right {
-                    margin-right:120px;
-                }
-
-                .itemTags {
-                    .tag {
-                        margin: 4px 5px 4px 0;
-                        cursor: default;
+                    &.with-right {
+                        margin-right:120px;
                     }
 
-                    .tagArrow {
-                         background-position: right -40px;
-                    }
-                }
+                    .itemTags {
+                        .tag {
+                            margin: 4px 5px 4px 0;
+                            cursor: default;
+                        }
 
-                a {
-                    text-decoration: none;
-                    color: #000;
-                    outline: none;
-                    cursor: pointer;
+                        .tagArrow {
+                             background-position: right -40px;
+                        }
+                    }
+
+                    a {
+                        text-decoration: none;
+                        color: #000;
+                        outline: none;
+                        cursor: pointer;
+                    }
                 }
             }
 
-            .right {
-                float:right;
+            .header-menu {
+                width: 20px;
+
+                .entity-menu {
+                    margin: 8px 10px 0 16px;
+                }
             }
         }
 
@@ -117,26 +122,14 @@
                     cursor: default;
                 }
 
-                textarea {
-                    display: block;
+                input.subject {
+                    display: inline-block;
                     width: 100%;
-                    height: 16px;
-                    line-height: 16px;
-                    margin: 0 auto;
-                }
-
-                input {
-                    display: block;
-                    width: 100%;
-                    height: 17px;
-                    line-height: 16px !important;
-                    margin: 0 auto;
                     border: 1px solid #C7C7C7;
                     font-size: 12px;
-                    &:focus {
-                        outline: none;
-                        border: solid 1px #3186af;
-                    }
+                    height: 22px;
+                    line-height: 22px;
+                    padding: 0 0 0 2px;
                 }
             }
         }
@@ -184,6 +177,13 @@
 
     .short-view
     {
+        &.new {
+            .from,
+            .content {
+                font-weight: bold;
+            }
+        }
+        
         &.loading
         {
             .message_short
@@ -233,7 +233,6 @@
             .from
             {
                 width: 25%;
-                padding-left: @spliter-width;
             }
 
             .content
@@ -288,19 +287,6 @@
             .from:hover {
                 border-bottom: 1px solid;
             }
-
-            .row {
-                .menu-small {
-                    float: right;
-                    right: 0px;
-                    line-height: 30px;
-                    margin: 8px 2px 0 0;
-                }
-            }
-            &:hover .menu-small,
-            .menu-small.active {
-                background-position: center bottom;
-            }
         }
     }
 
@@ -312,19 +298,83 @@
         white-space: nowrap;
     }
 
-    div.body {
-        clear: both;
-        overflow: hidden;
+    .body {
+        font-weight: inherit;
+        font-style: inherit;
+        font-size: inherit;
+        vertical-align: baseline;
+        overflow-y: hidden;
+        overflow-x: auto;
         width: 100%;
-        padding-bottom: 0;
+        padding-bottom: 8px;
+        padding-top: 8px;
 
-        a {
-            color: blue;
-            text-decoration: underline;
+        pre {
+            white-space: pre-wrap;
+            -ms-word-wrap: break-word;
+            word-wrap: break-word;
+        }
+
+        p {
+            color: inherit;
+            font-size: inherit;
+        }
+
+        blockquote {
+            border-color: initial;
+            border-style: initial;
+            border-width: initial;
+            font-style: initial;
+            padding: initial;
+            word-wrap: break-word;
+        }
+
+        table {
+            max-width: initial;
+            border-collapse: initial;
+            border-spacing: initial;
+        }
+
+        .tl-controll-blockquote {
+            width: 24px;
+            height: 18px;
+            line-height: 8px;
+            display: inline-block;
+            background-color: #F2F2F2;
+            border: 1px solid #D7D8DC;
+            cursor: pointer !important;
+            padding: 0 5px 6px 5px;
+            margin: 8px 0;
+            color:  #666;
+            font-weight: bold;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            -ms-user-select: none;
+        }
+
+        .tl-controll-blockquote:hover {
+            background-color: #D7D8DC;
+            border: 1px solid #666;
+        }
+    }
+
+    .body.textOnly {
+        font-weight: inherit;
+        font-style: inherit;
+        font-size: 100%;
+        vertical-align: baseline;
+
+        > pre {
+            margin-top: 16px;
+        }
+
+        p {
             font-weight: inherit;
             font-style: inherit;
             font-size: 100%;
             vertical-align: baseline;
+            padding-top: 8px;
+            padding-bottom: 8px;
         }
     }
 
@@ -566,7 +616,7 @@
             padding-right: 9px;
             width: @message-head-row-height;
 
-            .menu-small {
+            .entity-menu {
                 margin: 0 0 0 6px;
             }
         }
@@ -581,10 +631,6 @@
 
         &:hover,
         &.selected {
-            .menu-small {
-                background-position: center bottom;
-            }
-
             .file-name {
                 text-decoration: underline;
                 cursor: pointer;

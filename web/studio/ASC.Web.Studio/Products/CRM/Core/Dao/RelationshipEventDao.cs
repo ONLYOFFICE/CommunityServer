@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -224,10 +224,8 @@ namespace ASC.CRM.Core.Dao
                                       if (!filesTemp.ContainsKey(item.ID))
                                           filesTemp.Add(item.ID, item);
                                   });
-
-
-
-                return findedTags.GroupBy(x => x.TagName).ToDictionary(x => Convert.ToInt32(x.Key.Split(new[] { '_' })[1]),
+                                
+                return findedTags.Where(x => filesTemp.ContainsKey(x.EntryId)).GroupBy(x => x.TagName).ToDictionary(x => Convert.ToInt32(x.Key.Split(new[] { '_' })[1]),
                                                                   x => x.Select(item => filesTemp[item.EntryId]).ToList());
 
 
@@ -277,7 +275,7 @@ namespace ASC.CRM.Core.Dao
         {
             CRMSecurity.DemandDelete(file);
 
-            var eventIDs = new List<int>();
+            List<int> eventIDs;
 
             using (var tagdao = FilesIntegration.GetTagDao())
             {
@@ -348,7 +346,7 @@ namespace ASC.CRM.Core.Dao
 
                 var apiServer = new Api.ApiServer();
                 var msg = apiServer.GetApiResponse(
-                    String.Format("{0}mail/messages/{1}.json?id={1}&unblocked=true&is_need_to_sanitize_html=true", SetupInfo.WebApiBaseUrl, messageId), "GET");
+                    String.Format("{0}mail/messages/{1}.json?id={1}&loadImages=true&needSanitize=true", SetupInfo.WebApiBaseUrl, messageId), "GET");
 
                 if (msg == null)
                     throw new ArgumentException("Mail message cannot be found");

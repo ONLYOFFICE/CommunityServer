@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -30,7 +30,7 @@ using System.Linq;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Mail.Aggregator.Common;
-using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Aggregator.DbSchema;
 
 namespace ASC.Mail.Aggregator
 {
@@ -41,9 +41,11 @@ namespace ASC.Mail.Aggregator
         public class MailFolderInfo
         {
             public int id;
+            public DateTime timeModified;
             public int unread;
-            public DateTime time_modified;
-            public int total_count;
+            public int unreadMessages;
+            public int total;
+            public int totalMessages;
         }
 
         #endregion
@@ -52,40 +54,56 @@ namespace ASC.Mail.Aggregator
 
         public List<MailFolderInfo> GetFolders(int tenant, string user, bool isConversation)
         {
-            using (var db = GetDb())
+            Func<DbManager, List<MailFolderInfo>> getFoldersList = (db) =>
             {
-                var query = new SqlQuery(FolderTable.name)
-                    .Select(FolderTable.Columns.folder,
-                            FolderTable.Columns.time_modified,
-                            isConversation
-                                ? FolderTable.Columns.unread_conversations_count
-                                : FolderTable.Columns.unread_messages_count,
-                            isConversation ? FolderTable.Columns.total_conversations_count : FolderTable.Columns.total_messages_count)
+                var query = new SqlQuery(FolderTable.Name)
+                    .Select(FolderTable.Columns.Folder,
+                        FolderTable.Columns.TimeModified,
+                        FolderTable.Columns.UnreadConversationsCount,
+                        FolderTable.Columns.UnreadMessagesCount,
+                        FolderTable.Columns.TotalConversationsCount,
+                        FolderTable.Columns.TotalMessagesCount)
                     .Where(GetUserWhere(user, tenant));
 
                 // Try catch needed for resolve issue with folder's counter overflow.
                 try
                 {
                     var queryRes = db.ExecuteList(query)
-                                      .ConvertAll(x => new MailFolderInfo
-                                          {
-                                              id = Convert.ToInt32(x[0]),
-                                              time_modified = Convert.ToDateTime(x[1]),
-                                              unread = Convert.ToInt32(x[2]),
-                                              total_count = Convert.ToInt32(x[3])
-                                          });
+                        .ConvertAll(x => new MailFolderInfo
+                        {
+                            id = Convert.ToInt32(x[0]),
+                            timeModified = Convert.ToDateTime(x[1]),
+                            unread = Convert.ToInt32(x[2]),
+                            unreadMessages = Convert.ToInt32(x[3]),
+                            total = Convert.ToInt32(x[4]),
+                            totalMessages = Convert.ToInt32(x[5])
+                        });
 
                     if (queryRes.Any())
                         return queryRes;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     _log.Error("GetFoldersList( \r\nException:{0}\r\n", ex.ToString());
                 }
 
+                return new List<MailFolderInfo>();
+            };
+
+            using (var db = GetDb())
+            {
+                var list = getFoldersList(db);
+
+                if (list.Any())
+                    return list;
+
                 RecalculateFolders(db, tenant, user, !isConversation);
 
-                return RecalculateFolders(db, tenant, user, isConversation);
+                RecalculateFolders(db, tenant, user, isConversation);
+
+                list = getFoldersList(db);
+
+                return list;
             }
         }
 
@@ -99,29 +117,29 @@ namespace ASC.Mail.Aggregator
             var res = 0;
             if (unreadDiff != 0 || totalDiff != 0)
             {
-                var updateQuery = new SqlUpdate(FolderTable.name)
+                var updateQuery = new SqlUpdate(FolderTable.Name)
                     .Where(GetUserWhere(user, tenant))
-                    .Where(FolderTable.Columns.folder, folder);
+                    .Where(FolderTable.Columns.Folder, folder);
 
                 if (unreadDiff != 0)
                 {
                     if (isConversation)
-                        updateQuery.Set(FolderTable.Columns.unread_conversations_count + "=" +
-                                         FolderTable.Columns.unread_conversations_count + "+(" + unreadDiff + ")");
+                        updateQuery.Set(FolderTable.Columns.UnreadConversationsCount + "=" +
+                                         FolderTable.Columns.UnreadConversationsCount + "+(" + unreadDiff + ")");
                     else
-                        updateQuery.Set(FolderTable.Columns.unread_messages_count + "=" + FolderTable.Columns.unread_messages_count +
+                        updateQuery.Set(FolderTable.Columns.UnreadMessagesCount + "=" + FolderTable.Columns.UnreadMessagesCount +
                                          "+(" + unreadDiff + ")");
                 }
 
                 if (totalDiff != 0)
                 {
                     if (isConversation)
-                        updateQuery.Set(FolderTable.Columns.total_conversations_count + "=" +
-                                         FolderTable.Columns.total_conversations_count + "+(" + totalDiff + ")");
+                        updateQuery.Set(FolderTable.Columns.TotalConversationsCount + "=" +
+                                         FolderTable.Columns.TotalConversationsCount + "+(" + totalDiff + ")");
                     else
                     {
-                        updateQuery.Set(FolderTable.Columns.total_messages_count + "=" +
-                                         FolderTable.Columns.total_messages_count + "+(" + totalDiff + ")");
+                        updateQuery.Set(FolderTable.Columns.TotalMessagesCount + "=" +
+                                         FolderTable.Columns.TotalMessagesCount + "+(" + totalDiff + ")");
                     }
                 }
 
@@ -145,29 +163,35 @@ namespace ASC.Mail.Aggregator
             if (0 == unreadMessDiff && 0 == totalMessDiff && 0 == unreadConvDiff && 0 == totalConvDiff)
                 return;
 
-            var updateQuery = new SqlUpdate(FolderTable.name)
+            var updateQuery = new SqlUpdate(FolderTable.Name)
                     .Where(GetUserWhere(user, tenant))
-                    .Where(FolderTable.Columns.folder, folder);
+                    .Where(FolderTable.Columns.Folder, folder);
 
             if (0 != unreadMessDiff)
-                updateQuery.Set(FolderTable.Columns.unread_messages_count + "=" +
-                                         FolderTable.Columns.unread_messages_count + "+(" + unreadMessDiff + ")");
+                updateQuery.Set(FolderTable.Columns.UnreadMessagesCount + "=" +
+                                         FolderTable.Columns.UnreadMessagesCount + "+(" + unreadMessDiff + ")");
 
             if (0 != totalMessDiff)
-                updateQuery.Set(FolderTable.Columns.total_messages_count + "=" +
-                                         FolderTable.Columns.total_messages_count + "+(" + totalMessDiff + ")");
+                updateQuery.Set(FolderTable.Columns.TotalMessagesCount + "=" +
+                                         FolderTable.Columns.TotalMessagesCount + "+(" + totalMessDiff + ")");
 
             if (0 != unreadConvDiff)
-                updateQuery.Set(FolderTable.Columns.unread_conversations_count + "=" +
-                                         FolderTable.Columns.unread_conversations_count + "+(" + unreadConvDiff + ")");
+                updateQuery.Set(FolderTable.Columns.UnreadConversationsCount + "=" +
+                                         FolderTable.Columns.UnreadConversationsCount + "+(" + unreadConvDiff + ")");
 
             if (0 != totalConvDiff)
-                updateQuery.Set(FolderTable.Columns.total_conversations_count + "=" +
-                                         FolderTable.Columns.total_conversations_count + "+(" + totalConvDiff + ")");
+                updateQuery.Set(FolderTable.Columns.TotalConversationsCount + "=" +
+                                         FolderTable.Columns.TotalConversationsCount + "+(" + totalConvDiff + ")");
 
-
-            if (0 == db.ExecuteNonQuery(updateQuery))
+            try
+            {
+                if (0 == db.ExecuteNonQuery(updateQuery))
+                    throw new Exception("Need recalculation");
+            }
+            catch
+            {
                 RecalculateFolders(db, tenant, user);
+            }
         }
 
         private void RecalculateFolders(IDbManager db, int tenant, string user)
@@ -184,12 +208,12 @@ namespace ASC.Mail.Aggregator
 
             var unreadMessagesCountByFolder =
                 db.ExecuteList(
-                    new SqlQuery(MailTable.name)
-                        .Select(MailTable.Columns.folder, "count(*)")
+                    new SqlQuery(MailTable.Name)
+                        .Select(MailTable.Columns.Folder, "count(*)")
                         .Where(GetUserWhere(user, tenant))
-                        .Where(MailTable.Columns.unread, true)
-                        .Where(MailTable.Columns.is_removed, false)
-                        .GroupBy(MailTable.Columns.folder))
+                        .Where(MailTable.Columns.Unread, true)
+                        .Where(MailTable.Columns.IsRemoved, false)
+                        .GroupBy(MailTable.Columns.Folder))
                   .ConvertAll(
                       x =>
                       new KeyValuePair<int, int>(
@@ -198,11 +222,11 @@ namespace ASC.Mail.Aggregator
 
             var totalMessagesCountByFolder =
                 db.ExecuteList(
-                    new SqlQuery(MailTable.name)
-                        .Select(MailTable.Columns.folder, "count(*)")
+                    new SqlQuery(MailTable.Name)
+                        .Select(MailTable.Columns.Folder, "count(*)")
                         .Where(GetUserWhere(user, tenant))
-                        .Where(MailTable.Columns.is_removed, false)
-                        .GroupBy(MailTable.Columns.folder))
+                        .Where(MailTable.Columns.IsRemoved, false)
+                        .GroupBy(MailTable.Columns.Folder))
                   .ConvertAll(
                       x =>
                       new KeyValuePair<int, int>(Convert.ToInt32(x[0]),
@@ -210,20 +234,20 @@ namespace ASC.Mail.Aggregator
 
             var unreadConversationsCountByFolder =
                 db.ExecuteList(
-                    new SqlQuery(ChainTable.name)
-                        .Select(ChainTable.Columns.folder, "count(*)")
+                    new SqlQuery(ChainTable.Name)
+                        .Select(ChainTable.Columns.Folder, "count(*)")
                         .Where(GetUserWhere(user, tenant))
-                        .Where(ChainTable.Columns.unread, true)
-                        .GroupBy(ChainTable.Columns.folder))
+                        .Where(ChainTable.Columns.Unread, true)
+                        .GroupBy(ChainTable.Columns.Folder))
                   .ConvertAll(
                       x => new KeyValuePair<int, int>(Convert.ToInt32(x[0]), Convert.ToInt32(x[1])));
 
             var totalConversationsCountByFolder =
                 db.ExecuteList(
-                    new SqlQuery(ChainTable.name)
-                        .Select(ChainTable.Columns.folder, "count(*)")
+                    new SqlQuery(ChainTable.Name)
+                        .Select(ChainTable.Columns.Folder, "count(*)")
                         .Where(GetUserWhere(user, tenant))
-                        .GroupBy(ChainTable.Columns.folder))
+                        .GroupBy(ChainTable.Columns.Folder))
                   .ConvertAll(
                       x => new KeyValuePair<int, int>(Convert.ToInt32(x[0]), Convert.ToInt32(x[1])));
 
@@ -246,18 +270,18 @@ namespace ASC.Mail.Aggregator
             foreach (var info in foldersInfo)
             {
                 db.ExecuteNonQuery(
-                    new SqlInsert(FolderTable.name, true)
-                        .InColumnValue(FolderTable.Columns.id_tenant, tenant)
-                        .InColumnValue(FolderTable.Columns.id_user, user)
-                        .InColumnValue(FolderTable.Columns.folder, info.id)
-                        .InColumnValue(FolderTable.Columns.unread_messages_count, info.unread_messages_count)
-                        .InColumnValue(FolderTable.Columns.unread_conversations_count, info.unread_conversations_count)
-                        .InColumnValue(FolderTable.Columns.total_messages_count, info.total_messages_count)
-                        .InColumnValue(FolderTable.Columns.total_conversations_count, info.total_conversations_count));
+                    new SqlInsert(FolderTable.Name, true)
+                        .InColumnValue(FolderTable.Columns.Tenant, tenant)
+                        .InColumnValue(FolderTable.Columns.User, user)
+                        .InColumnValue(FolderTable.Columns.Folder, info.id)
+                        .InColumnValue(FolderTable.Columns.UnreadMessagesCount, info.unread_messages_count)
+                        .InColumnValue(FolderTable.Columns.UnreadConversationsCount, info.unread_conversations_count)
+                        .InColumnValue(FolderTable.Columns.TotalMessagesCount, info.total_messages_count)
+                        .InColumnValue(FolderTable.Columns.TotalConversationsCount, info.total_conversations_count));
             }
         }
 
-        private List<MailFolderInfo> RecalculateFolders(IDbManager db, int tenant, string user, bool isConversation)
+        private void RecalculateFolders(IDbManager db, int tenant, string user, bool isConversation)
         {
             List<KeyValuePair<int, int>> unreadCount;
             List<KeyValuePair<int, int>> totalCount;
@@ -275,40 +299,40 @@ namespace ASC.Mail.Aggregator
             if (!isConversation)
             {
                 unreadCount = db.ExecuteList(
-                    new SqlQuery(MailTable.name)
-                        .Select(MailTable.Columns.folder, "count(*)")
+                    new SqlQuery(MailTable.Name)
+                        .Select(MailTable.Columns.Folder, "count(*)")
                         .Where(GetUserWhere(user, tenant))
-                        .Where(MailTable.Columns.unread, true)
-                        .Where(MailTable.Columns.is_removed, false)
-                        .GroupBy(MailTable.Columns.folder))
+                        .Where(MailTable.Columns.Unread, true)
+                        .Where(MailTable.Columns.IsRemoved, false)
+                        .GroupBy(MailTable.Columns.Folder))
                                  .ConvertAll(
                                      x => new KeyValuePair<int, int>(Convert.ToInt32(x[0]), Convert.ToInt32(x[1])));
 
                 totalCount = db.ExecuteList(
-                    new SqlQuery(MailTable.name)
-                        .Select(MailTable.Columns.folder, "count(*)")
+                    new SqlQuery(MailTable.Name)
+                        .Select(MailTable.Columns.Folder, "count(*)")
                         .Where(GetUserWhere(user, tenant))
-                        .Where(MailTable.Columns.is_removed, false)
-                        .GroupBy(MailTable.Columns.folder))
+                        .Where(MailTable.Columns.IsRemoved, false)
+                        .GroupBy(MailTable.Columns.Folder))
                                 .ConvertAll(
                                     x => new KeyValuePair<int, int>(Convert.ToInt32(x[0]), Convert.ToInt32(x[1])));
             }
             else
             {
                 unreadCount = db.ExecuteList(
-                    new SqlQuery(ChainTable.name)
-                        .Select(ChainTable.Columns.folder, "count(*)")
+                    new SqlQuery(ChainTable.Name)
+                        .Select(ChainTable.Columns.Folder, "count(*)")
                         .Where(GetUserWhere(user, tenant))
-                        .Where(ChainTable.Columns.unread, true)
-                        .GroupBy(ChainTable.Columns.folder))
+                        .Where(ChainTable.Columns.Unread, true)
+                        .GroupBy(ChainTable.Columns.Folder))
                                  .ConvertAll(
                                      x => new KeyValuePair<int, int>(Convert.ToInt32(x[0]), Convert.ToInt32(x[1])));
 
                 totalCount = db.ExecuteList(
-                    new SqlQuery(ChainTable.name)
-                        .Select(ChainTable.Columns.folder, "count(*)")
+                    new SqlQuery(ChainTable.Name)
+                        .Select(ChainTable.Columns.Folder, "count(*)")
                         .Where(GetUserWhere(user, tenant))
-                        .GroupBy(ChainTable.Columns.folder))
+                        .GroupBy(ChainTable.Columns.Folder))
                                 .ConvertAll(
                                     x => new KeyValuePair<int, int>(Convert.ToInt32(x[0]), Convert.ToInt32(x[1])));
             }
@@ -321,8 +345,8 @@ namespace ASC.Mail.Aggregator
                     {
                         id = folderId,
                         unread = unread,
-                        total_count = total,
-                        time_modified = DateTime.UtcNow
+                        total = total,
+                        timeModified = DateTime.UtcNow
                     })
             {
                 folders.Add(folder);
@@ -331,21 +355,19 @@ namespace ASC.Mail.Aggregator
                     string.Format("INSERT INTO {0} ({1}, {2}, {3}, {4}, {5})" +
                                   "VALUES(@tid, @user, @folder, @count1, @count2)" +
                                   "ON DUPLICATE KEY UPDATE {4} = @count1, {5} = @count2",
-                                  FolderTable.name,
-                                  FolderTable.Columns.id_tenant,
-                                  FolderTable.Columns.id_user,
-                                  FolderTable.Columns.folder,
+                                  FolderTable.Name,
+                                  FolderTable.Columns.Tenant,
+                                  FolderTable.Columns.User,
+                                  FolderTable.Columns.Folder,
                                   isConversation
-                                      ? FolderTable.Columns.unread_conversations_count
-                                      : FolderTable.Columns.unread_messages_count,
+                                      ? FolderTable.Columns.UnreadConversationsCount
+                                      : FolderTable.Columns.UnreadMessagesCount,
                                   isConversation
-                                      ? FolderTable.Columns.total_conversations_count
-                                      : FolderTable.Columns.total_messages_count);
+                                      ? FolderTable.Columns.TotalConversationsCount
+                                      : FolderTable.Columns.TotalMessagesCount);
 
-                db.ExecuteNonQuery(upsertQuery, new { tid = tenant, user, folder = folder.id, count1 = folder.unread, count2 = folder.total_count });
+                db.ExecuteNonQuery(upsertQuery, new { tid = tenant, user, folder = folder.id, count1 = folder.unread, count2 = folder.total });
             }
-
-            return folders;
         }
 
         #endregion

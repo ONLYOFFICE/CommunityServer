@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -35,8 +35,10 @@ using System.Configuration;
 using ASC.Common.Notify.Patterns;
 using ASC.Notify.Messages;
 using ASC.Notify.Patterns;
+using ASC.Web.Core.WhiteLabel;
 using Textile;
 using Textile.Blocks;
+using ASC.Notify.Textile.Resources;
 
 namespace ASC.Notify.Textile
 {
@@ -56,7 +58,7 @@ namespace ASC.Notify.Textile
 
         public void ApplyFormating(NoticeMessage message)
         {
-            bool isPromoTmpl = false;
+            var isPromoTmpl = false;
             var output = new StringBuilderTextileFormatter();
             var formatter = new TextileFormatter(output);
 
@@ -89,70 +91,120 @@ namespace ASC.Notify.Textile
                         }
                         else
                         {
-                            logoImg = "http://cdn.teamlab.com/media/newsletters/images/header_08.png";
+                            logoImg = "http://cdn.teamlab.com/media/newsletters/images/mail_logo.png";
                         }
                     }
                 }
 
+                var logoText = ConfigurationManager.AppSettings["web.logotext.mail"];
+                if (String.IsNullOrEmpty(logoText))
+                {
+                    var llt = message.GetArgument("LetterLogoText");
+                    if (llt != null && (string)llt.Value != "")
+                    {
+                        logoText = (string)llt.Value;
+                    }
+                    else
+                    {
+                        logoText = TenantWhiteLabelSettings.DefaultLogo;
+                    }
+                }
 
-                var template = isPromoTmpl ? Resources.TemplateResource.HtmlMasterPromo : Resources.TemplateResource.HtmlMaster;
-                message.Body = template.Replace("%CONTENT%", output.GetFormattedText()).Replace("%LOGO%", logoImg);
+                var mailWhiteLabelTag = message.GetArgument("MailWhiteLabelSettings");
+                var mailWhiteLabelSettings = mailWhiteLabelTag == null ? null : mailWhiteLabelTag.Value as MailWhiteLabelSettings;
+
+                var template = isPromoTmpl ? NotifyTemplateResource.HtmlMasterPromo : NotifyTemplateResource.HtmlMaster;
+                message.Body = template.Replace("%CONTENT%", output.GetFormattedText())
+                    .Replace("%LOGO%", logoImg)
+                    .Replace("%LOGOTEXT%", logoText)
+                    .Replace("%SITEURL%", mailWhiteLabelSettings == null ? MailWhiteLabelSettings.DefaultMailSiteUrl : mailWhiteLabelSettings.SiteUrl);
 
                 var footer = message.GetArgument("WithPhoto");
                 var partner = message.GetArgument("Partner");
-                var res = String.Empty;
+
+                var footerContent = string.Empty;
+                var footerSocialContent = string.Empty;
 
                 if (partner != null) {
-                    res = partner.Value.ToString();
+                    footerContent = partner.Value.ToString();
                 }
 
-
-                if (String.IsNullOrEmpty(res) && footer != null)
+                if (String.IsNullOrEmpty(footerContent) && footer != null)
                 {
                     switch ((string)footer.Value)
                     {
-                        case "photo":
-                            res = Resources.TemplateResource.FooterWithPhoto;
-                            break;
-                        case "links":
-                            res = Resources.TemplateResource.FooterWithLinks;
+                        case "common":
+                            InitCommonFooter(mailWhiteLabelSettings, out footerContent, out footerSocialContent);
                             break;
                         case "personal":
-                            res = Resources.TemplateResource.FooterPersonal;
+                            footerContent = NotifyTemplateResource.FooterPersonal;
+                            footerSocialContent = NotifyTemplateResource.FooterSocial;
                             break;
                         case "freecloud":
-                            res = Resources.TemplateResource.FooterFreeCloud;
-                            break;
-                        default:
-                            res = String.Empty;
+                            footerContent = NotifyTemplateResource.FooterFreeCloud;
+                            footerSocialContent = NotifyTemplateResource.FooterSocial;
                             break;
                     }
                 }
-                message.Body = message.Body.Replace("%FOOTER%", res);
 
+                message.Body = message.Body
+                    .Replace("%FOOTER%", footerContent)
+                    .Replace("%FOOTERSOCIAL%", footerSocialContent);
 
                 var text = "";
 
-                var noUnsubscribeLink = message.GetArgument("noUnsubscribeLink");
-                if (noUnsubscribeLink == null || (string)noUnsubscribeLink.Value == "false")
+                if (ConfigurationManager.AppSettings["core.base-domain"] != "localhost")
                 {
-                    var isHosted = ConfigurationManager.AppSettings["core.payment-partners-hosted"];
-                    if (String.IsNullOrEmpty(isHosted) || isHosted == "false")
+                    var noUnsubscribeLink = message.GetArgument("noUnsubscribeLink");
+                    if (noUnsubscribeLink == null || (string) noUnsubscribeLink.Value == "false")
                     {
-                        var mail = message.Recipient.Addresses.FirstOrDefault(r => r.Contains("@"));
-                        var domain = ConfigurationManager.AppSettings["web.teamlab-site"];
-                        var site = string.IsNullOrEmpty(domain) ? "http://www.onlyoffice.com" : domain;
-                        var link = site + string.Format("/Unsubscribe.aspx?id={0}", HttpServerUtility.UrlTokenEncode(Security.Cryptography.InstanceCrypto.Encrypt(Encoding.UTF8.GetBytes(mail.ToLowerInvariant()))));
+                        var isHosted = ConfigurationManager.AppSettings["core.payment-partners-hosted"];
+                        if (String.IsNullOrEmpty(isHosted) || isHosted == "false")
+                        {
+                            var mail = message.Recipient.Addresses.FirstOrDefault(r => r.Contains("@"));
+                            var domain = ConfigurationManager.AppSettings["web.teamlab-site"];
+                            var site = string.IsNullOrEmpty(domain) ? "http://www.onlyoffice.com" : domain;
+                            var link = site +
+                                       string.Format("/Unsubscribe.aspx?id={0}",
+                                                     HttpServerUtility.UrlTokenEncode(
+                                                         Security.Cryptography.InstanceCrypto.Encrypt(
+                                                             Encoding.UTF8.GetBytes(mail.ToLowerInvariant()))));
 
-                        text = string.Format(Resources.TemplateResource.TextForFooterWithUnsubscribe, link);
+                            text = string.Format(NotifyTemplateResource.TextForFooterWithUnsubscribe, link);
+                        }
                     }
+
+                    text += string.Format(NotifyTemplateResource.TextForFooter, DateTime.UtcNow.Year, string.Empty);
                 }
 
-                text += string.Format(Resources.TemplateResource.TextForFooter, DateTime.UtcNow.Year, string.Empty);
                 message.Body = message.Body.Replace("%TEXTFOOTER%", text);
             }
         }
 
+        private static void InitCommonFooter(MailWhiteLabelSettings settings, out string footerContent, out string footerSocialContent)
+        {
+            footerContent = String.Empty;
+            footerSocialContent = String.Empty;
+            
+            if (settings == null)
+            {
+                footerContent =
+                    NotifyTemplateResource.FooterCommon
+                                          .Replace("%SUPPORTURL%", MailWhiteLabelSettings.DefaultMailSupportUrl)
+                                          .Replace("%SALESEMAIL%", MailWhiteLabelSettings.DefaultMailSalesEmail)
+                                          .Replace("%DEMOURL%", MailWhiteLabelSettings.DefaultMailDemotUrl);
+                footerSocialContent = NotifyTemplateResource.FooterSocial;
 
+            }
+            else if (settings.FooterEnabled)
+            {
+                footerContent =
+                    NotifyTemplateResource.FooterCommon
+                    .Replace("%SUPPORTURL%", String.IsNullOrEmpty(settings.SupportUrl) ? "mailto:" + settings.SalesEmail : settings.SupportUrl)
+                    .Replace("%SALESEMAIL%", settings.SalesEmail)
+                    .Replace("%DEMOURL%", String.IsNullOrEmpty(settings.DemotUrl) ? "mailto:" + settings.SalesEmail : settings.DemotUrl);
+                footerSocialContent = settings.FooterSocialEnabled ? NotifyTemplateResource.FooterSocial : String.Empty;
+            }
+        }
     }
 }

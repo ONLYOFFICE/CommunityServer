@@ -26,13 +26,11 @@
                         <img class="contact_photo" src="<%= ASC.Web.CRM.Classes.OrganisationLogoManager.GetDefaultLogoUrl() %>"
                             title="<%= CRMSettingResource.OrganisationLogo %>" alt="<%= CRMSettingResource.OrganisationLogo %>" />
                     </div>
-                    <% if(!MobileVer) {%>
                     <div class="under_logo">
                         <a id="changeOrganisationLogo" class="linkChangePhoto grey-phone">
                              <span class="bold"><%= CRMSettingResource.ChangeLogo%></span>
                         </a>
                     </div>
-                    <% } %>
                 </div>
             </div>
             <div class="settings-help-block">

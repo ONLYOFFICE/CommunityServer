@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -27,9 +27,11 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
-using ActiveUp.Net.Mail;
+using System.Web;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -37,28 +39,20 @@ using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Collection;
+using ASC.Mail.Aggregator.Common.DataStorage;
 using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Common.Logging;
 using ASC.Mail.Aggregator.Common.Utils;
 using ASC.Mail.Aggregator.Dal;
-using ASC.Mail.Aggregator.Dal.DbSchema;
-using ASC.Mail.Aggregator.DataStorage;
-using ASC.Mail.Aggregator.Exceptions;
+using ASC.Mail.Aggregator.DbSchema;
 using ASC.Mail.Aggregator.Extension;
 using ASC.Mail.Aggregator.Filter;
-using ASC.Mail.Aggregator.Utils;
 
 namespace ASC.Mail.Aggregator
 {
     public partial class MailBoxManager
     {
         #region public methods
-
-        public string CreateStreamId()
-        {
-            var streamId = Guid.NewGuid().ToString("N").ToLower();
-            return streamId;
-        }
 
         public void SetMessagesFolder(int tenant, string user, int folder, List<int> ids)
         {
@@ -72,7 +66,7 @@ namespace ASC.Mail.Aggregator
             {
                 var mailInfoList = GetMessagesInfo(db, tenant, user, ids, new[]
                     {
-                        MailTable.Columns.id, MailTable.Columns.unread, MailTable.Columns.folder, MailTable.Columns.chain_id, MailTable.Columns.id_mailbox
+                        MailTable.Columns.Id, MailTable.Columns.Unread, MailTable.Columns.Folder, MailTable.Columns.ChainId, MailTable.Columns.MailboxId
                     });
 
                 if (!mailInfoList.Any()) return;
@@ -94,9 +88,9 @@ namespace ASC.Mail.Aggregator
             {
                 var mailInfoList = GetMessagesInfo(db, tenant, user, ids, new[]
                     {
-                        MailTable.Columns.id, MailTable.Columns.unread, MailTable.Columns.folder,
-                        MailTable.Columns.folder_restore, MailTable.Columns.chain_id,
-                        MailTable.Columns.id_mailbox
+                        MailTable.Columns.Id, MailTable.Columns.Unread, MailTable.Columns.Folder,
+                        MailTable.Columns.FolderRestore, MailTable.Columns.ChainId,
+                        MailTable.Columns.MailboxId
                     });
 
                 if (!mailInfoList.Any()) return;
@@ -118,7 +112,7 @@ namespace ASC.Mail.Aggregator
             {
                 var mailInfoList = GetMessagesInfo(db, tenant, user, ids, new[]
                     {
-                        MailTable.Columns.id, MailTable.Columns.folder, MailTable.Columns.unread
+                        MailTable.Columns.Id, MailTable.Columns.Folder, MailTable.Columns.Unread
                     });
 
                 if (mailInfoList.Any())
@@ -159,11 +153,11 @@ namespace ASC.Mail.Aggregator
         {
             public static readonly string[] Fields =
                 {
-                    MailTable.Columns.id,
-                    MailTable.Columns.folder,
-                    MailTable.Columns.unread,
-                    MailTable.Columns.chain_id,
-                    MailTable.Columns.id_mailbox
+                    MailTable.Columns.Id,
+                    MailTable.Columns.Folder,
+                    MailTable.Columns.Unread,
+                    MailTable.Columns.ChainId,
+                    MailTable.Columns.MailboxId
                 };
 
             private readonly int _id;
@@ -245,10 +239,10 @@ namespace ASC.Mail.Aggregator
                 return;
 
             db.ExecuteNonQuery(
-                new SqlUpdate(MailTable.name)
-                    .Where(Exp.In(MailTable.Columns.id, ids))
+                new SqlUpdate(MailTable.Name)
+                    .Where(Exp.In(MailTable.Columns.Id, ids))
                     .Where(GetUserWhere(user, tenant))
-                    .Set(MailTable.Columns.unread, !isRead));
+                    .Set(MailTable.Columns.Unread, !isRead));
 
             var foldersMessCounterDiff = new Dictionary<int, int>();
 
@@ -285,10 +279,10 @@ namespace ASC.Mail.Aggregator
             using (var db = GetDb())
             {
                 var affected = db.ExecuteNonQuery(
-                    new SqlUpdate(MailTable.name)
-                        .Where(Exp.In(MailTable.Columns.id, ids.ToArray()))
+                    new SqlUpdate(MailTable.Name)
+                        .Where(Exp.In(MailTable.Columns.Id, ids.ToArray()))
                         .Where(GetUserWhere(user, tenant))
-                        .Set(MailTable.Columns.importance, importance));
+                        .Set(MailTable.Columns.Importance, importance));
 
                 foreach (var messageId in ids)
                     UpdateMessageChainImportanceFlag(db, tenant, user, messageId);
@@ -302,7 +296,7 @@ namespace ASC.Mail.Aggregator
             // Get additional information about mails
             var mailInfoList = GetMessagesInfo(db, tenant, user, ids, new[]
                 {
-                    MailTable.Columns.id_mailbox, MailTable.Columns.chain_id, MailTable.Columns.folder
+                    MailTable.Columns.MailboxId, MailTable.Columns.ChainId, MailTable.Columns.Folder
                 })
                 .ConvertAll(x => new
                     {
@@ -325,10 +319,10 @@ namespace ASC.Mail.Aggregator
             {
                 // Get message ids stored in the  folder.
                 var ids = db.ExecuteList(
-                    new SqlQuery(MailTable.name)
-                        .Select(MailTable.Columns.id)
-                        .Where(MailTable.Columns.is_removed, false)
-                        .Where(MailTable.Columns.folder, folder)
+                    new SqlQuery(MailTable.Name)
+                        .Select(MailTable.Columns.Id)
+                        .Where(MailTable.Columns.IsRemoved, false)
+                        .Where(MailTable.Columns.Folder, folder)
                         .Where(GetUserWhere(user, tenant)))
                     .Select(x => Convert.ToInt32(x[0])).ToArray();
 
@@ -338,18 +332,18 @@ namespace ASC.Mail.Aggregator
                     {
                         // Mark messages stored in the folder as is_removed.
                         db.ExecuteNonQuery(
-                            new SqlUpdate(MailTable.name)
-                                .Set(MailTable.Columns.is_removed, true)
+                            new SqlUpdate(MailTable.Name)
+                                .Set(MailTable.Columns.IsRemoved, true)
                                 .Where(GetUserWhere(user, tenant))
-                                .Where(MailTable.Columns.folder, folder));
+                                .Where(MailTable.Columns.Folder, folder));
 
                         // Recalculate used quota
-                        usedQuota = MarkAttachmetsNeedRemove(db, tenant, Exp.In(AttachmentTable.Columns.id_mail, ids));
+                        usedQuota = MarkAttachmetsNeedRemove(db, tenant, Exp.In(AttachmentTable.Columns.MailId, ids));
 
                         // delete tag/message cross references
                         db.ExecuteNonQuery(
-                            new SqlDelete(TagMailTable.name)
-                                .Where(Exp.In(TagMailTable.Columns.id_mail, ids))
+                            new SqlDelete(TagMailTable.Name)
+                                .Where(Exp.In(TagMailTable.Columns.MailId, ids))
                                 .Where(GetUserWhere(user, tenant)));
 
                         // update tags counters
@@ -357,18 +351,18 @@ namespace ASC.Mail.Aggregator
                         UpdateTagsCount(db, tenant, user, tags.Select(x => x.Id));
 
                         // delete chains stored in the folder
-                        db.ExecuteNonQuery(new SqlDelete(ChainTable.name)
+                        db.ExecuteNonQuery(new SqlDelete(ChainTable.Name)
                                                .Where(GetUserWhere(user, tenant))
-                                               .Where(ChainTable.Columns.folder, folder));
+                                               .Where(ChainTable.Columns.Folder, folder));
 
                         // reset folder counters
-                        db.ExecuteNonQuery(new SqlUpdate(FolderTable.name)
+                        db.ExecuteNonQuery(new SqlUpdate(FolderTable.Name)
                             .Where(GetUserWhere(user, tenant))
-                            .Where(FolderTable.Columns.folder, folder)
-                            .Set(FolderTable.Columns.total_conversations_count, 0)
-                            .Set(FolderTable.Columns.total_messages_count, 0)
-                            .Set(FolderTable.Columns.unread_conversations_count, 0)
-                            .Set(FolderTable.Columns.unread_messages_count, 0));
+                            .Where(FolderTable.Columns.Folder, folder)
+                            .Set(FolderTable.Columns.TotalConversationsCount, 0)
+                            .Set(FolderTable.Columns.TotalMessagesCount, 0)
+                            .Set(FolderTable.Columns.UnreadConversationsCount, 0)
+                            .Set(FolderTable.Columns.UnreadMessagesCount, 0));
 
                         tx.Commit();
                     }
@@ -384,10 +378,10 @@ namespace ASC.Mail.Aggregator
             using (var db = GetDb())
             {
                 var existingUidls = db.ExecuteList(
-                    new SqlQuery(MailTable.name)
-                        .Select(MailTable.Columns.uidl)
-                        .Where(MailTable.Columns.id_mailbox, mailboxId)
-                        .Where(Exp.In(MailTable.Columns.uidl, uidlList)))
+                    new SqlQuery(MailTable.Name)
+                        .Select(MailTable.Columns.Uidl)
+                        .Where(MailTable.Columns.MailboxId, mailboxId)
+                        .Where(Exp.In(MailTable.Columns.Uidl, uidlList)))
                                          .ConvertAll(r => Convert.ToString(r[0]))
                                          .ToList();
                 return existingUidls;
@@ -418,19 +412,19 @@ namespace ASC.Mail.Aggregator
                     if (!draftChainId.Equals(message.ChainId))
                     {
                         db.ExecuteNonQuery(
-                            new SqlUpdate(MailTable.name)
-                                .Set(MailTable.Columns.chain_id, message.ChainId)
+                            new SqlUpdate(MailTable.Name)
+                                .Set(MailTable.Columns.ChainId, message.ChainId)
                                 .Where(GetUserWhere(draft.Mailbox.UserId, draft.Mailbox.TenantId))
-                                .Where(MailTable.Columns.id, message.Id));
+                                .Where(MailTable.Columns.Id, message.Id));
 
                         UpdateChain(db, draftChainId, MailFolder.Ids.temp, draft.Mailbox.MailBoxId,
                             draft.Mailbox.TenantId, draft.Mailbox.UserId);
 
-                        var updateOldChainIdQuery = new SqlUpdate(ChainXCrmContactEntity.name)
-                            .Set(ChainXCrmContactEntity.Columns.id_chain, message.ChainId)
-                            .Where(ChainXCrmContactEntity.Columns.id_chain, draftChainId)
-                            .Where(ChainXCrmContactEntity.Columns.id_mailbox, draft.Mailbox.MailBoxId)
-                            .Where(ChainXCrmContactEntity.Columns.id_tenant, draft.Mailbox.TenantId);
+                        var updateOldChainIdQuery = new SqlUpdate(ChainXCrmContactEntity.Name)
+                            .Set(ChainXCrmContactEntity.Columns.ChainId, message.ChainId)
+                            .Where(ChainXCrmContactEntity.Columns.ChainId, draftChainId)
+                            .Where(ChainXCrmContactEntity.Columns.MailboxId, draft.Mailbox.MailBoxId)
+                            .Where(ChainXCrmContactEntity.Columns.Tenant, draft.Mailbox.TenantId);
 
                         db.ExecuteNonQuery(updateOldChainIdQuery);
                     }
@@ -442,8 +436,8 @@ namespace ASC.Mail.Aggregator
                         new List<int> {draft.Id},
                         new[]
                         {
-                            MailTable.Columns.id, MailTable.Columns.unread, MailTable.Columns.folder,
-                            MailTable.Columns.chain_id, MailTable.Columns.id_mailbox
+                            MailTable.Columns.Id, MailTable.Columns.Unread, MailTable.Columns.Folder,
+                            MailTable.Columns.ChainId, MailTable.Columns.MailboxId
                         });
 
                     if (!listObjects.Any())
@@ -472,8 +466,8 @@ namespace ASC.Mail.Aggregator
                         new List<int> {draft.Id},
                         new[]
                         {
-                            MailTable.Columns.id, MailTable.Columns.unread, MailTable.Columns.folder,
-                            MailTable.Columns.chain_id, MailTable.Columns.id_mailbox
+                            MailTable.Columns.Id, MailTable.Columns.Unread, MailTable.Columns.Folder,
+                            MailTable.Columns.ChainId, MailTable.Columns.MailboxId
                         });
 
                     if (!listObjects.Any())
@@ -491,7 +485,7 @@ namespace ASC.Mail.Aggregator
 
         public MailMessage SaveDraft(MailDraft draft)
         {
-            var embededAttachmentsForSaving = draft.ChangeEmbededAttachmentLinksForStoring(this, _log);
+            var embededAttachmentsForSaving = FixHtmlBodyWithEmbeddedAttachments(draft);
 
             var message = draft.ToMailMessage();
 
@@ -593,47 +587,48 @@ namespace ASC.Mail.Aggregator
             if (messageId == 0)
             {
                 // This case is for first time saved draft and received message.
-                var insert = new SqlInsert(MailTable.name, true)
-                    .InColumnValue(MailTable.Columns.id, messageId)
-                    .InColumnValue(MailTable.Columns.id_mailbox, mailbox.MailBoxId)
-                    .InColumnValue(MailTable.Columns.id_tenant, mailbox.TenantId)
-                    .InColumnValue(MailTable.Columns.id_user, mailbox.UserId)
-                    .InColumnValue(MailTable.Columns.address, address)
-                    .InColumnValue(MailTable.Columns.uidl, !string.IsNullOrEmpty(uidl) ? uidl : null)
-                    .InColumnValue(MailTable.Columns.md5, !string.IsNullOrEmpty(md5) ? md5 : null)
-                    .InColumnValue(MailTable.Columns.from, MailUtil.NormalizeStringForMySql(mail.From))
-                    .InColumnValue(MailTable.Columns.to, MailUtil.NormalizeStringForMySql(mail.To))
-                    .InColumnValue(MailTable.Columns.reply, mail.ReplyTo)
-                    .InColumnValue(MailTable.Columns.subject, MailUtil.NormalizeStringForMySql(mail.Subject))
-                    .InColumnValue(MailTable.Columns.cc, MailUtil.NormalizeStringForMySql(mail.Cc))
-                    .InColumnValue(MailTable.Columns.bcc, MailUtil.NormalizeStringForMySql(mail.Bcc))
-                    .InColumnValue(MailTable.Columns.importance, mail.Important)
-                    .InColumnValue(MailTable.Columns.date_received, DateTime.UtcNow)
-                    .InColumnValue(MailTable.Columns.date_sent, mail.Date.ToUniversalTime())
-                    .InColumnValue(MailTable.Columns.size, mail.Size)
-                    .InColumnValue(MailTable.Columns.attach_count,
+                var insert = new SqlInsert(MailTable.Name)
+                    .InColumnValue(MailTable.Columns.Id, messageId)
+                    .InColumnValue(MailTable.Columns.MailboxId, mailbox.MailBoxId)
+                    .InColumnValue(MailTable.Columns.Tenant, mailbox.TenantId)
+                    .InColumnValue(MailTable.Columns.User, mailbox.UserId)
+                    .InColumnValue(MailTable.Columns.Address, address)
+                    .InColumnValue(MailTable.Columns.Uidl, !string.IsNullOrEmpty(uidl) ? uidl : null)
+                    .InColumnValue(MailTable.Columns.Md5, !string.IsNullOrEmpty(md5) ? md5 : null)
+                    .InColumnValue(MailTable.Columns.From, MailUtil.NormalizeStringForMySql(mail.From))
+                    .InColumnValue(MailTable.Columns.To, MailUtil.NormalizeStringForMySql(mail.To))
+                    .InColumnValue(MailTable.Columns.Reply, mail.ReplyTo)
+                    .InColumnValue(MailTable.Columns.Subject, MailUtil.NormalizeStringForMySql(mail.Subject))
+                    .InColumnValue(MailTable.Columns.Cc, MailUtil.NormalizeStringForMySql(mail.Cc))
+                    .InColumnValue(MailTable.Columns.Bcc, MailUtil.NormalizeStringForMySql(mail.Bcc))
+                    .InColumnValue(MailTable.Columns.Importance, mail.Important)
+                    .InColumnValue(MailTable.Columns.DateReceived, DateTime.UtcNow)
+                    .InColumnValue(MailTable.Columns.DateSent, mail.Date.ToUniversalTime())
+                    .InColumnValue(MailTable.Columns.Size, mail.Size)
+                    .InColumnValue(MailTable.Columns.AttachCount,
                         !saveAttachments
                             ? countAttachments
                             : (mail.Attachments != null ? mail.Attachments.Count : 0))
-                    .InColumnValue(MailTable.Columns.unread, mail.IsNew)
-                    .InColumnValue(MailTable.Columns.is_answered, mail.IsAnswered)
-                    .InColumnValue(MailTable.Columns.is_forwarded, mail.IsForwarded)
-                    .InColumnValue(MailTable.Columns.stream, mail.StreamId)
-                    .InColumnValue(MailTable.Columns.folder, folder)
-                    .InColumnValue(MailTable.Columns.folder_restore, folderRestore)
-                    .InColumnValue(MailTable.Columns.is_from_crm, mail.IsFromCRM)
-                    .InColumnValue(MailTable.Columns.is_from_tl, mail.IsFromTL)
-                    .InColumnValue(MailTable.Columns.spam, 0)
-                    .InColumnValue(MailTable.Columns.mime_message_id, mail.MimeMessageId)
-                    .InColumnValue(MailTable.Columns.mime_in_reply_to, mail.MimeReplyToId)
-                    .InColumnValue(MailTable.Columns.chain_id, mail.ChainId)
-                    .InColumnValue(MailTable.Columns.introduction, MailUtil.NormalizeStringForMySql(mail.Introduction))
-                    .InColumnValue(MailTable.Columns.chain_date, mail.Date.ToUniversalTime())
-                    .InColumnValue(MailTable.Columns.is_text_body_only, mail.TextBodyOnly)
+                    .InColumnValue(MailTable.Columns.Unread, mail.IsNew)
+                    .InColumnValue(MailTable.Columns.IsAnswered, mail.IsAnswered)
+                    .InColumnValue(MailTable.Columns.IsForwarded, mail.IsForwarded)
+                    .InColumnValue(MailTable.Columns.Stream, mail.StreamId)
+                    .InColumnValue(MailTable.Columns.Folder, folder)
+                    .InColumnValue(MailTable.Columns.FolderRestore, folderRestore)
+                    .InColumnValue(MailTable.Columns.Spam, 0)
+                    .InColumnValue(MailTable.Columns.MimeMessageId, mail.MimeMessageId)
+                    .InColumnValue(MailTable.Columns.MimeInReplyTo, mail.MimeReplyToId)
+                    .InColumnValue(MailTable.Columns.ChainId, mail.ChainId)
+                    .InColumnValue(MailTable.Columns.Introduction, MailUtil.NormalizeStringForMySql(mail.Introduction))
+                    .InColumnValue(MailTable.Columns.ChainDate, mail.Date.ToUniversalTime())
+                    .InColumnValue(MailTable.Columns.IsTextBodyOnly, mail.TextBodyOnly)
                     .Identity(0, 0, true);
 
                 if (mail.HasParseError)
-                    insert.InColumnValue(MailTable.Columns.has_parse_error, mail.HasParseError);
+                    insert.InColumnValue(MailTable.Columns.HasParseError, mail.HasParseError);
+
+                if (!string.IsNullOrEmpty(mail.CalendarUid))
+                    insert.InColumnValue(MailTable.Columns.CalendarUid, mail.CalendarUid);
 
                 idMail = db.ExecuteScalar<int>(insert);
 
@@ -643,37 +638,35 @@ namespace ASC.Mail.Aggregator
             else
             {
                 // This case is for already saved draft only.
-                var update = new SqlUpdate(MailTable.name)
-                    .Where(MailTable.Columns.id, messageId)
-                    .Set(MailTable.Columns.id_mailbox, mailbox.MailBoxId)
-                    .Set(MailTable.Columns.from, MailUtil.NormalizeStringForMySql(mail.From))
-                    .Set(MailTable.Columns.to, MailUtil.NormalizeStringForMySql(mail.To))
-                    .Set(MailTable.Columns.reply, mail.ReplyTo)
-                    .Set(MailTable.Columns.subject, MailUtil.NormalizeStringForMySql(mail.Subject))
-                    .Set(MailTable.Columns.cc, MailUtil.NormalizeStringForMySql(mail.Cc))
-                    .Set(MailTable.Columns.bcc, MailUtil.NormalizeStringForMySql(mail.Bcc))
-                    .Set(MailTable.Columns.importance, mail.Important)
-                    .Set(MailTable.Columns.date_received, DateTime.UtcNow)
-                    .Set(MailTable.Columns.date_sent, mail.Date.ToUniversalTime())
-                    .Set(MailTable.Columns.size, mail.Size)
-                    .Set(MailTable.Columns.attach_count,
+                var update = new SqlUpdate(MailTable.Name)
+                    .Where(MailTable.Columns.Id, messageId)
+                    .Set(MailTable.Columns.MailboxId, mailbox.MailBoxId)
+                    .Set(MailTable.Columns.From, MailUtil.NormalizeStringForMySql(mail.From))
+                    .Set(MailTable.Columns.To, MailUtil.NormalizeStringForMySql(mail.To))
+                    .Set(MailTable.Columns.Reply, mail.ReplyTo)
+                    .Set(MailTable.Columns.Subject, MailUtil.NormalizeStringForMySql(mail.Subject))
+                    .Set(MailTable.Columns.Cc, MailUtil.NormalizeStringForMySql(mail.Cc))
+                    .Set(MailTable.Columns.Bcc, MailUtil.NormalizeStringForMySql(mail.Bcc))
+                    .Set(MailTable.Columns.Importance, mail.Important)
+                    .Set(MailTable.Columns.DateReceived, DateTime.UtcNow)
+                    .Set(MailTable.Columns.DateSent, mail.Date.ToUniversalTime())
+                    .Set(MailTable.Columns.Size, mail.Size)
+                    .Set(MailTable.Columns.AttachCount,
                         !saveAttachments
                             ? countAttachments
                             : (mail.Attachments != null ? mail.Attachments.Count : 0))
-                    .Set(MailTable.Columns.unread, mail.IsNew)
-                    .Set(MailTable.Columns.is_answered, mail.IsAnswered)
-                    .Set(MailTable.Columns.is_forwarded, mail.IsForwarded)
-                    .Set(MailTable.Columns.stream, mail.StreamId)
-                    .Set(MailTable.Columns.folder, folder)
-                    .Set(MailTable.Columns.folder_restore, folderRestore)
-                    .Set(MailTable.Columns.is_from_crm, mail.IsFromCRM)
-                    .Set(MailTable.Columns.is_from_tl, mail.IsFromTL)
-                    .Set(MailTable.Columns.is_text_body_only, mail.TextBodyOnly)
-                    .Set(MailTable.Columns.spam, 0)
-                    .Set(MailTable.Columns.mime_message_id, mail.MimeMessageId)
-                    .Set(MailTable.Columns.mime_in_reply_to, mail.MimeReplyToId)
-                    .Set(MailTable.Columns.chain_id, mail.ChainId)
-                    .Set(MailTable.Columns.introduction, MailUtil.NormalizeStringForMySql(mail.Introduction));
+                    .Set(MailTable.Columns.Unread, mail.IsNew)
+                    .Set(MailTable.Columns.IsAnswered, mail.IsAnswered)
+                    .Set(MailTable.Columns.IsForwarded, mail.IsForwarded)
+                    .Set(MailTable.Columns.Stream, mail.StreamId)
+                    .Set(MailTable.Columns.Folder, folder)
+                    .Set(MailTable.Columns.FolderRestore, folderRestore)
+                    .Set(MailTable.Columns.IsTextBodyOnly, mail.TextBodyOnly)
+                    .Set(MailTable.Columns.Spam, 0)
+                    .Set(MailTable.Columns.MimeMessageId, mail.MimeMessageId)
+                    .Set(MailTable.Columns.MimeInReplyTo, mail.MimeReplyToId)
+                    .Set(MailTable.Columns.ChainId, mail.ChainId)
+                    .Set(MailTable.Columns.Introduction, MailUtil.NormalizeStringForMySql(mail.Introduction));
 
                 db.ExecuteNonQuery(update);
                 idMail = messageId;
@@ -686,15 +679,15 @@ namespace ASC.Mail.Aggregator
                 mail.Attachments.Count > 0)
             {
                 usedQuota = MarkAttachmetsNeedRemove(db, mailbox.TenantId,
-                    Exp.Eq(AttachmentTable.Columns.id_mail, idMail));
+                    Exp.Eq(AttachmentTable.Columns.MailId, idMail));
                 SaveAttachments(db, mailbox.TenantId, idMail, mail.Attachments);
             }
 
             if (mail.FromEmail.Length != 0)
             {
                 db.ExecuteNonQuery(
-                    new SqlDelete(TagMailTable.name)
-                        .Where(TagMailTable.Columns.id_mail, idMail));
+                    new SqlDelete(TagMailTable.Name)
+                        .Where(TagMailTable.Columns.MailId, idMail));
 
                 var tagList = new List<int>();
 
@@ -702,13 +695,13 @@ namespace ASC.Mail.Aggregator
                     tagList.AddRange(mail.TagIds);
 
                 var tagAddressesTagIds = db.ExecuteList(
-                    new SqlQuery(TagAddressTable.name)
+                    new SqlQuery(TagAddressTable.Name)
                         .Distinct()
-                        .Select(TagAddressTable.Columns.id_tag)
-                        .Where(TagAddressTable.Columns.address, mail.FromEmail)
-                        .Where(Exp.In(TagAddressTable.Columns.id_tag,
-                            new SqlQuery(TagTable.name)
-                                .Select(TagTable.Columns.id)
+                        .Select(TagAddressTable.Columns.TagId)
+                        .Where(TagAddressTable.Columns.Address, mail.FromEmail)
+                        .Where(Exp.In(TagAddressTable.Columns.TagId,
+                            new SqlQuery(TagTable.Name)
+                                .Select(TagTable.Columns.Id)
                                 .Where(GetUserWhere(mailbox.UserId, mailbox.TenantId)))))
                     .ConvertAll(r => Convert.ToInt32(r[0]));
 
@@ -751,251 +744,110 @@ namespace ASC.Mail.Aggregator
             return messagesInfo;
         }
 
-        public int MailReceive(MailBox mailbox, Message message, int folderId, string uidl, string md5, bool hasParseError,
-                               bool unread, int[] tagsIds, out MailMessage messageItem)
+        public bool SearchExistingMessagesAndUpdateIfNeeded(MailBox mailbox, int folderId, string uidl, string md5,
+            string mimeMessageId, bool fromThisMailBox, bool toThisMailBox, int[] tagsIds = null)
         {
-            if (mailbox == null)
-                throw new ArgumentNullException("mailbox");
+            var messagesInfo = GetInfoOnExistingMessages(
+                mailbox.MailBoxId, md5, mimeMessageId, new[]
+                {
+                    MailTable.Columns.Id,
+                    MailTable.Columns.FolderRestore,
+                    MailTable.Columns.Uidl,
+                    MailTable.Columns.IsRemoved
+                })
+                .ConvertAll(i => new
+                {
+                    id = Convert.ToInt32(i[0]),
+                    folder_orig = Convert.ToInt32(i[1]),
+                    uidl = Convert.ToString(i[2]),
+                    is_removed = Convert.ToBoolean(i[3])
+                });
 
-            if (message == null)
-                throw new ArgumentNullException("message");
+            if (!messagesInfo.Any())
+                return false;
 
-            _log.Info("MailReceive() tenant='{0}', user_id='{1}', folder_id='{2}', uidl='{3}'",
-                mailbox.TenantId, mailbox.UserId, folderId, uidl);
-
-            var skipSaveMessage = false;
-            var mailId = 0;
+            var idList = messagesInfo.Where(m => !m.is_removed).Select(m => m.id).ToList();
+            if (!idList.Any())
+            {
+                _log.Info("Message already exists and it was removed from portal.");
+                return true;
+            }
 
             if (mailbox.Imap)
             {
-                // checks, whether message is already stored
-                var messagesInfo = GetInfoOnExistingMessages(mailbox.MailBoxId, md5, message.MessageId, new[]
-                    {
-                        MailTable.Columns.id, MailTable.Columns.folder_restore, MailTable.Columns.uidl, MailTable.Columns.is_removed
-                    })
-                    .ConvertAll(i => new
-                        {
-                            id = Convert.ToInt32(i[0]),
-                            folder_orig = Convert.ToInt32(i[1]),
-                            uidl = Convert.ToString(i[2]),
-                            is_removed = Convert.ToBoolean(i[3])
-                        });
-
-                if (messagesInfo.Any())
+                if (tagsIds != null) // Add new tags to existing messages
                 {
-                    var idList = messagesInfo.Where(m => !m.is_removed).Select(m => m.id).ToList();
+                    foreach (var tagId in tagsIds)
+                        SetMessagesTag(mailbox.TenantId, mailbox.UserId, tagId, idList);
+                }
 
-                    if (idList.Any())
-                    {
-                        if (tagsIds != null) // Add new tags to existing messages
-                        {
-                            foreach (var tagId in tagsIds)
-                                SetMessagesTag(mailbox.TenantId, mailbox.UserId, tagId, idList);
-                        }
-
-                        var fromThisMailBox =
-                            message.From.Email.ToLowerInvariant().Equals(mailbox.Account.ToLowerInvariant());
-
-                        var toThisMailBox =
-                            message.To.Select(addr => addr.Email.ToLower()).Contains(mailbox.EMail.Address.ToLower());
-
-                        if (fromThisMailBox && toThisMailBox)
-                        {
-                            if (messagesInfo.Exists(m => m.folder_orig == folderId))
-                            {
-                                var messageForUpdateInfo =
-                                    messagesInfo.Find(i => (folderId == i.folder_orig) && (string.IsNullOrEmpty(i.uidl)));
-
-                                if (null != messageForUpdateInfo) // Found message clone in the Sent folder
-                                {
-                                    mailId = messageForUpdateInfo.id;
-
-                                    if (!messageForUpdateInfo.is_removed)
-                                        UpdateMessageUidl(mailbox.TenantId, mailbox.UserId, mailId, uidl);
-
-                                    _log.Debug("Message already exists: mailId={0}. Outbox clone", mailId);
-                                }
-                                else
-                                {
-                                    mailId = messagesInfo.First(m => m.folder_orig == folderId).id;
-                                }
-
-                                skipSaveMessage = true;
-                            }
-                        }
-                        else
-                        {
-                            skipSaveMessage = true;
-                            mailId = messagesInfo.First().id;
-
-                            _log.Debug("Message already exists and it was removed from portal.");
-                        }
-                    }
+                if ((!fromThisMailBox || !toThisMailBox) && messagesInfo.Exists(m => m.folder_orig == folderId))
+                {
+                    var clone = messagesInfo.FirstOrDefault(m => m.folder_orig == folderId && m.uidl == uidl);
+                    if(clone != null)
+                        _log.Info("Message already exists: mailId={0}. Clone", clone.id);
                     else
-                    {
-                        skipSaveMessage = true;
-                        mailId = messagesInfo.First().id;
+                        _log.Info("Message already exists. by MD5/MimeMessageId");
 
-                        _log.Debug("Message already exists and it was removed from portal.");
-                    }
+                    return true;
                 }
             }
             else
             {
-                var fromThisMailBox = message.From.Email.ToLowerInvariant().Equals(mailbox.Account.ToLowerInvariant());
-
-                if (fromThisMailBox)
+                if (!fromThisMailBox && toThisMailBox && messagesInfo.Count == 1)
                 {
-                    var toThisMailBox =
-                        message.To.Select(addr => addr.Email.ToLower()).Contains(mailbox.EMail.Address.ToLower());
-
-                    var messagesInfo = GetInfoOnExistingMessages(mailbox.MailBoxId, md5, message.MessageId, new[]
-                        {
-                            MailTable.Columns.id, MailTable.Columns.folder_restore, MailTable.Columns.uidl, MailTable.Columns.is_removed
-                        })
-                        .ConvertAll(i => new
-                            {
-                                id = Convert.ToInt32(i[0]),
-                                folder_orig = Convert.ToInt32(i[1]),
-                                uidl = Convert.ToString(i[2]),
-                                is_removed = Convert.ToBoolean(i[3])
-                            });
-
-                    if (!toThisMailBox || messagesInfo.Count > 1)
-                    {
-                        var messageForUpdateInfo = messagesInfo.Find(i => (MailFolder.Ids.sent == i.folder_orig) && (string.IsNullOrEmpty(i.uidl)));
-
-                        if (null != messageForUpdateInfo) // Found message clone in the Sent folder
-                        {
-                            skipSaveMessage = true;
-                            mailId = messageForUpdateInfo.id;
-
-                            if (!messageForUpdateInfo.is_removed)
-                                UpdateMessageUidl(mailbox.TenantId, mailbox.UserId, mailId, uidl);
-
-                            _log.Debug("Message already exists: mailId={0}. Outbox clone", mailId);
-                        }
-                    }
+                    
+                    _log.Info("Message already exists: mailId={0}. Outbox clone", messagesInfo.First().id);
+                    return true;
                 }
             }
 
-            messageItem = null;
-
-            if (!skipSaveMessage)
+            if (folderId == MailFolder.Ids.sent)
             {
-                messageItem = ProcessMail(message, mailbox, folderId, hasParseError);
+                var sentCloneForUpdate =
+                    messagesInfo.FirstOrDefault(
+                        m => m.folder_orig == MailFolder.Ids.sent && string.IsNullOrEmpty(m.uidl));
 
-                tagsIds = GetTagIdsForSelfSendedMessages(mailbox, tagsIds, messageItem);
-
-                if (null != tagsIds)
+                if (sentCloneForUpdate != null)
                 {
-                    if (null != messageItem.TagIds)
-                        messageItem.TagIds.AddRange(tagsIds);
-                    else
-                        messageItem.TagIds = new ItemList<int>(tagsIds);
+                    if (!sentCloneForUpdate.is_removed)
+                        UpdateMessageUidl(mailbox.TenantId, mailbox.UserId, sentCloneForUpdate.id, uidl);
+
+                    _log.Info("Message already exists: mailId={0}. Outbox clone", sentCloneForUpdate.id);
+
+                    return true;
                 }
-
-                try
-                {
-                    _log.Debug("StoreAttachments(Account:{0})", mailbox.EMail);
-                    messageItem.StreamId = CreateStreamId();
-                    if (messageItem.Attachments.Any())
-                    {
-                        var index = 0;
-                        messageItem.Attachments.ForEach(att =>
-                        {
-                            att.fileNumber = ++index;
-                            att.mailboxId = mailbox.MailBoxId;
-                        });
-                        StoreAttachments(mailbox.TenantId, mailbox.UserId, messageItem.Attachments, messageItem.StreamId);
-                    }
-
-                    _log.Debug("StoreMailBody(Account:{0})", mailbox.EMail);
-
-                    StoreMailBody(mailbox.TenantId, mailbox.UserId, messageItem);
-
-                    _log.Debug("MailSave(Account:{0})", mailbox.EMail);
-
-                    messageItem.IsNew = unread;
-
-                    var folderRestore = MailFolder.Ids.spam == folderId || MailFolder.Ids.trash == folderId
-                        ? MailFolder.Ids.inbox
-                        : folderId;
-
-                    mailId = MailSave(mailbox, messageItem, 0, folderId, folderRestore, uidl, md5, true);
-
-                    messageItem.Id = mailId;
-
-                    _log.Info("MailSave(Account:{0}) returned mailId = {1}\r\n", mailbox.EMail, mailId);
-
-                    if (SaveOriginalMessage)
-                        StoreMailEml(mailbox.TenantId, mailbox.UserId, messageItem.StreamId, message);
-
-                }
-                catch (Exception)
-                {
-                    //Trying to delete all attachments and mailbody
-                    var storage = MailDataStore.GetDataStore(mailbox.TenantId);
-                    try
-                    {
-                        storage.DeleteDirectory(string.Empty,
-                            MailStoragePathCombiner.GetMessageDirectory(mailbox.UserId, messageItem.StreamId));
-                    }
-                    catch (Exception ex)
-                    {
-                        _log.Debug(
-                            "Problems with mail_directory deleting. Account: {0}. Folder: {1}/{2}/{3}. Exception: {4}",
-                            mailbox.EMail, mailbox.TenantId, mailbox.UserId, messageItem.StreamId, ex.ToString());
-                    }
-
-                    _log.Debug("Problem with mail proccessing(Account:{0}). Body and attachment was deleted",
-                        mailbox.EMail);
-                    throw;
-                }
-
             }
 
-            bool isMailboxRemoved;
-            bool isMailboxDeactivated;
-            DateTime beginDate;
+            var fullClone = messagesInfo.FirstOrDefault(m => m.folder_orig == folderId && m.uidl == uidl);
+            if (fullClone == null)
+                return false;
 
-            // checks mailbox state to delete message 
-            // If account was removed during saving process then message retrieve will stop.
-            GetMailBoxState(mailbox.MailBoxId, out isMailboxRemoved, out isMailboxDeactivated, out beginDate);
-
-            if (mailbox.BeginDate != beginDate)
-            {
-                mailbox.BeginDateChanged = true;
-                mailbox.BeginDate = beginDate;
-            }
-
-            if (isMailboxRemoved)
-            {
-                using (var db = GetDb())
-                {
-                    DeleteMessages(db,
-                                   mailbox.TenantId,
-                                   mailbox.UserId,
-                                   new List<object[]>
-                                       {
-                                           new object[] {mailId, folderId, 1}
-                                       },
-                                   true);
-                }
-
-                throw new MailBoxOutException(MailBoxOutException.Types.Removed,
-                                              string.Format("MailBox with id={0} is removed.\r\n", mailbox.MailBoxId));
-            }
-
-            if (isMailboxDeactivated)
-                throw new MailBoxOutException(MailBoxOutException.Types.Deactivated,
-                                              string.Format("MailBox with id={0} is deactivated.\r\n",
-                                                            mailbox.MailBoxId));
-
-            return mailId;
+            _log.Info("Message already exists: mailId={0}. Full clone", fullClone.id);
+            return true;
         }
 
-        public void AddRelationshipEventForLinkedAccounts(MailBox mailbox, MailMessage messageItem, ILogger log)
+        public bool TryRemoveMailDirectory(MailBox mailbox, string streamId)
+        {
+            //Trying to delete all attachments and mailbody
+            var storage = MailDataStore.GetDataStore(mailbox.TenantId);
+            try
+            {
+                storage.DeleteDirectory(string.Empty,
+                    MailStoragePathCombiner.GetMessageDirectory(mailbox.UserId, streamId));
+                return true;
+            }
+            catch (Exception ex)
+            {
+                _log.Debug(
+                    "Problems with mail_directory deleting. Account: {0}. Folder: {1}/{2}/{3}. Exception: {4}",
+                    mailbox.EMail, mailbox.TenantId, mailbox.UserId, streamId, ex.ToString());
+
+                return false;
+            } 
+        }
+
+        public void AddRelationshipEventForLinkedAccounts(MailBox mailbox, MailMessage messageItem, string httpContextScheme, ILogger log)
         {
             if (log == null)
                 log = new NullLogger();
@@ -1007,7 +859,7 @@ namespace ASC.Mail.Aggregator
 
                 if(!messageItem.LinkedCrmEntityIds.Any()) return;
 
-                var crmDal = new CrmHistoryDal(mailbox.TenantId, mailbox.UserId);
+                var crmDal = new CrmHistoryDal(mailbox.TenantId, mailbox.UserId, httpContextScheme);
                 crmDal.AddRelationshipEvents(messageItem);
             }
             catch (Exception ex)
@@ -1016,14 +868,7 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        /// <summary>
-        /// Creates Rfc 2822 3.6.4 message-id. Syntax: '&lt;' id-left '@' id-right '&gt;'.
-        /// </summary>
-        public static string CreateMessageId()
-        {
-            return "<" + Guid.NewGuid().ToString().Replace("-", "").Substring(16) + "@" +
-                   Guid.NewGuid().ToString().Replace("-", "").Substring(16) + ">";
-        }
+        
 
         /// <summary>
         /// Updates mail_mail chain's references and mail_chains records when new message was saved
@@ -1045,32 +890,32 @@ namespace ASC.Mail.Aggregator
             {
                 // Get chains which has our newly saved message as root.
                 var chains = db.ExecuteList(
-                    new SqlQuery(ChainTable.name)
-                        .Select(ChainTable.Columns.id, ChainTable.Columns.folder)
-                        .Where(ChainTable.Columns.id, mimeMessageId)
-                        .Where(ChainTable.Columns.id_mailbox, mailbox.MailBoxId)
+                    new SqlQuery(ChainTable.Name)
+                        .Select(ChainTable.Columns.Id, ChainTable.Columns.Folder)
+                        .Where(ChainTable.Columns.Id, mimeMessageId)
+                        .Where(ChainTable.Columns.MailboxId, mailbox.MailBoxId)
                         .Where(GetUserWhere(mailbox.UserId, mailbox.TenantId))
                     ).Select(x => new { id = (string)x[0], folder = Convert.ToInt32(x[1]) }).ToArray();
 
                 if (chains.Any())
                 {
                     db.ExecuteNonQuery(
-                        new SqlUpdate(MailTable.name)
-                            .Set(MailTable.Columns.chain_id, chainId)
-                            .Where(MailTable.Columns.chain_id, mimeMessageId)
-                            .Where(MailTable.Columns.id_mailbox, mailbox.MailBoxId)
+                        new SqlUpdate(MailTable.Name)
+                            .Set(MailTable.Columns.ChainId, chainId)
+                            .Where(MailTable.Columns.ChainId, mimeMessageId)
+                            .Where(MailTable.Columns.MailboxId, mailbox.MailBoxId)
                             .Where(GetUserWhere(mailbox.UserId, mailbox.TenantId))
-                            .Where(MailTable.Columns.is_removed, false));
+                            .Where(MailTable.Columns.IsRemoved, false));
 
                     chainsForUpdate = chains.Concat(chainsForUpdate).ToArray();
 
                     var newChainsForUpdate = db.ExecuteList(
-                        new SqlQuery(MailTable.name)
-                            .Select(MailTable.Columns.folder)
-                            .Where(MailTable.Columns.chain_id, chainId)
-                            .Where(MailTable.Columns.id_mailbox, mailbox.MailBoxId)
+                        new SqlQuery(MailTable.Name)
+                            .Select(MailTable.Columns.Folder)
+                            .Where(MailTable.Columns.ChainId, chainId)
+                            .Where(MailTable.Columns.MailboxId, mailbox.MailBoxId)
                             .Where(GetUserWhere(mailbox.UserId, mailbox.TenantId))
-                            .Where(MailTable.Columns.is_removed, false)
+                            .Where(MailTable.Columns.IsRemoved, false)
                             .Distinct())
                             .ConvertAll(x => new
                             {
@@ -1096,18 +941,18 @@ namespace ASC.Mail.Aggregator
                 chainId = mimeReplyToId;
                 try
                 {
-                    Func<SqlQuery> getBaseQuery = () => new SqlQuery(MailTable.name)
-                        .Select(MailTable.Columns.chain_id)
-                        .Select(MailTable.Columns.subject)
+                    Func<SqlQuery> getBaseQuery = () => new SqlQuery(MailTable.Name)
+                        .Select(MailTable.Columns.ChainId)
+                        .Select(MailTable.Columns.Subject)
                         .Where(GetUserWhere(mailbox.UserId, mailbox.TenantId))
-                        .Where(MailTable.Columns.is_removed, false)
-                        .Where(MailTable.Columns.id_mailbox, mailbox.MailBoxId)
+                        .Where(MailTable.Columns.IsRemoved, false)
+                        .Where(MailTable.Columns.MailboxId, mailbox.MailBoxId)
                         .Distinct();
 
                     using (var db = GetDb())
                     {
                         var detectChainByInReplyToQuery = getBaseQuery()
-                            .Where(MailTable.Columns.mime_message_id, mimeReplyToId);
+                            .Where(MailTable.Columns.MimeMessageId, mimeReplyToId);
 
                         var chainAndSubject = db.ExecuteList(detectChainByInReplyToQuery)
                                .ConvertAll(x => new
@@ -1120,7 +965,7 @@ namespace ASC.Mail.Aggregator
                         if (chainAndSubject == null)
                         {
                             var detectChainByChainIdQuery = getBaseQuery()
-                                .Where(MailTable.Columns.chain_id, mimeReplyToId);
+                                .Where(MailTable.Columns.ChainId, mimeReplyToId);
 
                             chainAndSubject = db.ExecuteList(detectChainByChainIdQuery)
                                    .ConvertAll(x => new
@@ -1152,51 +997,51 @@ namespace ASC.Mail.Aggregator
             return chainId;
         }
 
-        public MailMessage GetMailInfo(int tenant, string user, int messageId, bool loadImages, bool loadBody, bool onlyUnremoved = true)
+        public MailMessage GetMailInfo(int tenant, string user, int messageId, MailMessage.Options options)
         {
             using (var db = GetDb())
             {
-                var messageItem = GetMailInfo(db, tenant, user, messageId, loadImages, loadBody, onlyUnremoved);
+                var messageItem = GetMailInfo(db, tenant, user, messageId, options);
                 return messageItem;
             }
         }
 
-        public MailMessage GetMailInfo(IDbManager db, int tenant, string user, int messageId, bool loadImages, bool loadBody, bool onlyUnremoved = true)
+        public MailMessage GetMailInfo(IDbManager db, int tenant, string user, int messageId, MailMessage.Options options)
         {
-            var selectQuery = new SqlQuery(MailTable.name)
-                .Select(MailTable.Columns.address,
-                        MailTable.Columns.chain_id,
-                        MailTable.Columns.chain_date,
-                        MailTable.Columns.importance,
-                        MailTable.Columns.date_sent,
-                        MailTable.Columns.from,
-                        MailTable.Columns.to,
-                        MailTable.Columns.cc,
-                        MailTable.Columns.bcc,
-                        MailTable.Columns.reply,
-                        MailTable.Columns.stream,
-                        MailTable.Columns.is_answered,
-                        MailTable.Columns.is_forwarded,
-                        MailTable.Columns.subject,
-                        MailTable.Columns.attach_count,
-                        MailTable.Columns.size,
-                        MailTable.Columns.is_from_tl,
-                        MailTable.Columns.folder,
-                        MailTable.Columns.unread,
-                        MailTable.Columns.introduction,
-                        MailTable.Columns.is_text_body_only,
-                        MailTable.Columns.id_mailbox,
-                        MailTable.Columns.folder_restore,
-                        MailTable.Columns.has_parse_error,
-                        MailTable.Columns.mime_message_id,
-                        MailTable.Columns.mime_in_reply_to
+            var selectQuery = new SqlQuery(MailTable.Name)
+                .Select(MailTable.Columns.Address,
+                        MailTable.Columns.ChainId,
+                        MailTable.Columns.ChainDate,
+                        MailTable.Columns.Importance,
+                        MailTable.Columns.DateSent,
+                        MailTable.Columns.From,
+                        MailTable.Columns.To,
+                        MailTable.Columns.Cc,
+                        MailTable.Columns.Bcc,
+                        MailTable.Columns.Reply,
+                        MailTable.Columns.Stream,
+                        MailTable.Columns.IsAnswered,
+                        MailTable.Columns.IsForwarded,
+                        MailTable.Columns.Subject,
+                        MailTable.Columns.AttachCount,
+                        MailTable.Columns.Size,
+                        MailTable.Columns.Folder,
+                        MailTable.Columns.Unread,
+                        MailTable.Columns.Introduction,
+                        MailTable.Columns.IsTextBodyOnly,
+                        MailTable.Columns.MailboxId,
+                        MailTable.Columns.FolderRestore,
+                        MailTable.Columns.HasParseError,
+                        MailTable.Columns.MimeMessageId,
+                        MailTable.Columns.MimeInReplyTo,
+                        MailTable.Columns.CalendarUid
                 )
                 .Where(GetUserWhere(user, tenant))
-                .Where(MailTable.Columns.id, messageId);
+                .Where(MailTable.Columns.Id, messageId);
 
-            if (onlyUnremoved)
+            if (options.OnlyUnremoved)
                 selectQuery
-                    .Where(MailTable.Columns.is_removed, false);
+                    .Where(MailTable.Columns.IsRemoved, false);
 
             var mailDbInfo = db.ExecuteList(selectQuery)
                                .ConvertAll(x => new
@@ -1217,16 +1062,16 @@ namespace ASC.Mail.Aggregator
                                        subject = (string) x[13],
                                        hasAttachments = Convert.ToBoolean(x[14]),
                                        size = Convert.ToInt64(x[15]),
-                                       is_from_tl = Convert.ToBoolean(x[16]),
-                                       folder = Convert.ToInt32(x[17]),
-                                       unread = Convert.ToBoolean(x[18]),
-                                       introduction = (string) x[19],
-                                       is_text_body_only = Convert.ToBoolean(x[20]),
-                                       id_mailbox = Convert.ToInt32(x[21]),
-                                       folder_restore = Convert.ToInt32(x[22]),
-                                       has_parse_error = Convert.ToBoolean(x[23]),
-                                       mime_message_id = (string) x[24],
-                                       mime_in_reply_to = (string) x[25]
+                                       folder = Convert.ToInt32(x[16]),
+                                       unread = Convert.ToBoolean(x[17]),
+                                       introduction = (string) x[18],
+                                       is_text_body_only = Convert.ToBoolean(x[19]),
+                                       id_mailbox = Convert.ToInt32(x[20]),
+                                       folder_restore = Convert.ToInt32(x[21]),
+                                       has_parse_error = Convert.ToBoolean(x[22]),
+                                       mime_message_id = (string) x[23],
+                                       mime_in_reply_to = (string) x[24],
+                                       calendar_uid = (string)x[25]
                                    })
                                .SingleOrDefault();
 
@@ -1235,9 +1080,9 @@ namespace ASC.Mail.Aggregator
 
             var tags = new ItemList<int>(
                 db.ExecuteList(
-                    new SqlQuery(TagMailTable.name)
-                        .Select(TagMailTable.Columns.id_tag)
-                        .Where(TagMailTable.Columns.id_mail, messageId))
+                    new SqlQuery(TagMailTable.Name)
+                        .Select(TagMailTable.Columns.TagId)
+                        .Where(TagMailTable.Columns.MailId, messageId))
                   .ConvertAll(x => (int)x[0]));
 
             var now = TenantUtil.DateTimeFromUtc(CoreContext.TenantManager.GetTenant(tenant).TimeZone, DateTime.UtcNow);
@@ -1267,7 +1112,6 @@ namespace ASC.Mail.Aggregator
                     Subject = mailDbInfo.subject,
                     To = mailDbInfo.to,
                     StreamId = mailDbInfo.stream,
-                    IsFromTL = mailDbInfo.is_from_tl,
                     Folder = mailDbInfo.folder,
                     WasNew = mailDbInfo.unread,
                     IsToday = isToday,
@@ -1278,33 +1122,52 @@ namespace ASC.Mail.Aggregator
                     RestoreFolderId = mailDbInfo.folder_restore,
                     HasParseError = mailDbInfo.has_parse_error,
                     MimeMessageId = mailDbInfo.mime_message_id,
-                    MimeReplyToId = mailDbInfo.mime_in_reply_to
+                    MimeReplyToId = mailDbInfo.mime_in_reply_to,
+                    CalendarUid = mailDbInfo.calendar_uid
                 };
 
             //Reassemble paths
-            if (loadBody)
+            if (options.LoadBody)
             {
                 var htmlBody = "";
 
                 if (!item.HasParseError)
                 {
-                    var dataStore = MailDataStore.GetDataStore(tenant);
+                    var watch = new Stopwatch();
+                    double swtGetBodyMilliseconds = 0;
+                    double swtSanitazeilliseconds = 0;
 
+                    var dataStore = MailDataStore.GetDataStore(tenant);
                     var key =  MailStoragePathCombiner.GetBodyKey(user, item.StreamId);
 
                     try
                     {
+                        watch.Start();
                         using (var s = dataStore.GetReadStream(string.Empty, key))
                         {
                             htmlBody = Encoding.UTF8.GetString(s.ReadToEnd());
                         }
 
-                        if (item.Folder != MailFolder.Ids.drafts && !item.From.Equals(MailDaemonEmail))
+                        watch.Stop();
+                        swtGetBodyMilliseconds = watch.Elapsed.TotalMilliseconds;
+                        watch.Reset();
+
+                        if (options.NeedSanitizer && item.Folder != MailFolder.Ids.drafts && !item.From.Equals(MailDaemonEmail))
                         {
+                            watch.Start();
                             bool imagesAreBlocked;
-                            htmlBody = HtmlSanitizer.Sanitize(htmlBody, loadImages, out imagesAreBlocked);
+                            var htmlSanitizer =
+                                new HtmlSanitizer(new HtmlSanitizer.Options(options.LoadImages, options.NeedProxyHttp));
+
+                            htmlBody = htmlSanitizer.Sanitize(htmlBody, out imagesAreBlocked);
+                            watch.Stop();
+                            swtSanitazeilliseconds = watch.Elapsed.TotalMilliseconds;
                             item.ContentIsBlocked = imagesAreBlocked;
                         }
+
+                        _log.Debug(
+                            "Mail->GetMailInfo(id={0})->Elapsed: BodyLoad={1}ms, Sanitaze={2}ms (NeedSanitizer={3}, NeedProxyHttp={4})",
+                            messageId, swtGetBodyMilliseconds, swtSanitazeilliseconds, options.NeedSanitizer, options.NeedProxyHttp);
                     }
                     catch (Exception ex)
                     {
@@ -1313,6 +1176,12 @@ namespace ASC.Mail.Aggregator
                         _log.Error(
                             string.Format("Load stored body error: tenant={0} user=\"{1}\" messageId={2} key=\"{3}\"",
                                 tenant, user, messageId, key), ex);
+
+                        watch.Stop();
+                        swtGetBodyMilliseconds = watch.Elapsed.TotalMilliseconds;
+                        _log.Debug(
+                            "Mail->GetMailInfo(id={0})->Elapsed [BodyLoadFailed]: BodyLoad={1}ms, Sanitaze={2}ms (NeedSanitizer={3}, NeedProxyHttp={4})",
+                            messageId, swtGetBodyMilliseconds, swtSanitazeilliseconds, options.NeedSanitizer, options.NeedProxyHttp);
                     }
                 }
 
@@ -1327,10 +1196,10 @@ namespace ASC.Mail.Aggregator
                     {
                         item.Introduction = introduction;
 
-                        db.ExecuteNonQuery(new SqlUpdate(MailTable.name)
-                            .Set(MailTable.Columns.introduction, item.Introduction)
+                        db.ExecuteNonQuery(new SqlUpdate(MailTable.Name)
+                            .Set(MailTable.Columns.Introduction, item.Introduction)
                             .Where(GetUserWhere(user, tenant))
-                            .Where(MailTable.Columns.id, messageId));
+                            .Where(MailTable.Columns.Id, messageId));
                     }
                 }
             }
@@ -1338,17 +1207,6 @@ namespace ASC.Mail.Aggregator
             var attachments = GetMessageAttachments(db, tenant, user, messageId);
 
             item.Attachments = attachments.Count != 0 ? attachments : new List<MailAttachment>();
-
-            Address from;
-            if (Parser.TryParseAddress(mailDbInfo.@from, out from))
-            {
-                var ids = GetCrmContactsId(tenant, user, from.Email);
-                if (ids.Count > 0)
-                {
-                    item.IsFromCRM = true;
-                    item.ParticipantsCrmContactsId = ids;
-                }
-            }
 
             return item;
         }
@@ -1359,13 +1217,13 @@ namespace ASC.Mail.Aggregator
             {
                 var mailDbInfo =
                     db.ExecuteList(
-                        new SqlQuery(MailTable.name)
+                        new SqlQuery(MailTable.Name)
                             .Select(
-                                MailTable.Columns.stream,
-                                MailTable.Columns.attach_count
+                                MailTable.Columns.Stream,
+                                MailTable.Columns.AttachCount
                             )
                             .Where(GetUserWhere(user, tenant))
-                            .Where(MailTable.Columns.id, messageId))
+                            .Where(MailTable.Columns.Id, messageId))
                       .ConvertAll(x => new
                           {
                               stream = x[0].ToString(),
@@ -1384,30 +1242,30 @@ namespace ASC.Mail.Aggregator
 
         private SqlQuery GetAttachmentsSelectQuery()
         {
-            return new SqlQuery(AttachmentTable.name)
-                .InnerJoin(MailTable.name,
-                           Exp.EqColumns(MailTable.Columns.id.Prefix(MailTable.name),
-                                         AttachmentTable.Columns.id_mail.Prefix(AttachmentTable.name)))
-                .Select(AttachmentTable.Columns.id.Prefix(AttachmentTable.name),
-                        AttachmentTable.Columns.name.Prefix(AttachmentTable.name),
-                        AttachmentTable.Columns.stored_name.Prefix(AttachmentTable.name),
-                        AttachmentTable.Columns.type.Prefix(AttachmentTable.name),
-                        AttachmentTable.Columns.size.Prefix(AttachmentTable.name),
-                        AttachmentTable.Columns.file_number.Prefix(AttachmentTable.name),
-                        MailTable.Columns.stream.Prefix(MailTable.name),
-                        MailTable.Columns.id_tenant.Prefix(MailTable.name),
-                        MailTable.Columns.id_user.Prefix(MailTable.name),
-                        AttachmentTable.Columns.content_id.Prefix(AttachmentTable.name),
-                        AttachmentTable.Columns.id_mailbox.Prefix(AttachmentTable.name));
+            return new SqlQuery(AttachmentTable.Name)
+                .InnerJoin(MailTable.Name,
+                           Exp.EqColumns(MailTable.Columns.Id.Prefix(MailTable.Name),
+                                         AttachmentTable.Columns.MailId.Prefix(AttachmentTable.Name)))
+                .Select(AttachmentTable.Columns.Id.Prefix(AttachmentTable.Name),
+                        AttachmentTable.Columns.RealName.Prefix(AttachmentTable.Name),
+                        AttachmentTable.Columns.StoredName.Prefix(AttachmentTable.Name),
+                        AttachmentTable.Columns.Type.Prefix(AttachmentTable.Name),
+                        AttachmentTable.Columns.Size.Prefix(AttachmentTable.Name),
+                        AttachmentTable.Columns.FileNumber.Prefix(AttachmentTable.Name),
+                        MailTable.Columns.Stream.Prefix(MailTable.Name),
+                        MailTable.Columns.Tenant.Prefix(MailTable.Name),
+                        MailTable.Columns.User.Prefix(MailTable.Name),
+                        AttachmentTable.Columns.ContentId.Prefix(AttachmentTable.Name),
+                        AttachmentTable.Columns.IdMailbox.Prefix(AttachmentTable.Name));
         }
 
         private List<MailAttachment> GetMessageAttachments(IDbManager db, int tenant, string user, int messageId)
         {
             var attachmentsSelectQuery = GetAttachmentsSelectQuery()
-                .Where(MailTable.Columns.id.Prefix(MailTable.name), messageId)
-                .Where(AttachmentTable.Columns.need_remove.Prefix(AttachmentTable.name), false)
-                .Where(AttachmentTable.Columns.content_id, Exp.Empty)
-                .Where(GetUserWhere(user, tenant, MailTable.name));
+                .Where(MailTable.Columns.Id.Prefix(MailTable.Name), messageId)
+                .Where(AttachmentTable.Columns.NeedRemove.Prefix(AttachmentTable.Name), false)
+                .Where(AttachmentTable.Columns.ContentId, Exp.Empty)
+                .Where(GetUserWhere(user, tenant, MailTable.Name));
 
             var attachments =
                 db.ExecuteList(attachmentsSelectQuery)
@@ -1424,37 +1282,45 @@ namespace ASC.Mail.Aggregator
             var concatTagIds =
                 String.Format(
                     "(SELECT CAST(group_concat(tm.{0} ORDER BY tm.{3} SEPARATOR ',') AS CHAR) from {1} as tm WHERE tm.{2} = `id`) tagIds",
-                    TagMailTable.Columns.id_tag, TagMailTable.name, TagMailTable.Columns.id_mail, TagMailTable.Columns.time_created);
+                    TagMailTable.Columns.TagId, TagMailTable.Name, TagMailTable.Columns.MailId, TagMailTable.Columns.TimeCreated);
 
             using (var db = GetDb())
             {
                 const string mm_alias = "mm";
                 const string mtm_alias = "tm";
 
-                var filtered = new SqlQuery(MailTable.name.Alias(mm_alias))
+                var filtered = new SqlQuery(MailTable.Name.Alias(mm_alias))
                     .Select(
-                        MailTable.Columns.id.Prefix(mm_alias), 
-                        MailTable.Columns.chain_id.Prefix(mm_alias));
+                        MailTable.Columns.Id.Prefix(mm_alias), 
+                        MailTable.Columns.ChainId.Prefix(mm_alias));
 
                 if (filter.CustomLabels != null && filter.CustomLabels.Count > 0)
                 {
                     filtered = filtered
-                        .InnerJoin(TagMailTable.name + " " + mtm_alias,
-                                    Exp.EqColumns(MailTable.Columns.id.Prefix(mm_alias), TagMailTable.Columns.id_mail.Prefix(mtm_alias)))
-                        .Where(Exp.In(TagMailTable.Columns.id_tag.Prefix(mtm_alias), filter.CustomLabels));
+                        .InnerJoin(TagMailTable.Name.Alias(mtm_alias),
+                                    Exp.EqColumns(MailTable.Columns.Id.Prefix(mm_alias), TagMailTable.Columns.MailId.Prefix(mtm_alias)))
+                        .Where(Exp.In(TagMailTable.Columns.TagId.Prefix(mtm_alias), filter.CustomLabels));
                 }
 
                 filtered = filtered
-                    .ApplyFilter(filter, mm_alias)
-                    .Where(TagMailTable.Columns.id_tenant.Prefix(mm_alias), tenant)
-                    .Where(TagMailTable.Columns.id_user.Prefix(mm_alias), user)
-                    .Where(MailTable.Columns.is_removed.Prefix(mm_alias), false);
+                    .ApplyFilter(filter, mm_alias);
+
+                if (filtered == null)
+                {
+                    totalMessagesCount = 0;
+                    return new List<MailMessage>();
+                }
+
+                filtered
+                    .Where(TagMailTable.Columns.Tenant.Prefix(mm_alias), tenant)
+                    .Where(TagMailTable.Columns.User.Prefix(mm_alias), user)
+                    .Where(MailTable.Columns.IsRemoved.Prefix(mm_alias), false);
 
                 if (filter.CustomLabels != null && filter.CustomLabels.Count > 0)
                 {
                     filtered = filtered
                         .GroupBy(1)
-                        .Having(Exp.Eq(string.Format("count({0})", MailTable.Columns.id.Prefix(mm_alias)), filter.CustomLabels.Count()));
+                        .Having(Exp.Eq(string.Format("count({0})", MailTable.Columns.Id.Prefix(mm_alias)), filter.CustomLabels.Count()));
                 }
 
                 // Filter and sort all existing messages and get their ids and chain_ids
@@ -1474,15 +1340,14 @@ namespace ASC.Mail.Aggregator
                 totalMessagesCount = idsSet.Count();
                 var page = Math.Min(filter.Page, (int)Math.Ceiling((double)totalMessagesCount / filter.PageSize));
 
-                var queryMessages = new SqlQuery(MailTable.name + " as outer_mail")
-                    .Select(MailTable.Columns.id, MailTable.Columns.from, MailTable.Columns.to,
-                            MailTable.Columns.reply, MailTable.Columns.subject, MailTable.Columns.importance,
-                            "1", MailTable.Columns.date_sent, MailTable.Columns.size,
-                            MailTable.Columns.attach_count, MailTable.Columns.unread, MailTable.Columns.is_answered,
-                            MailTable.Columns.is_forwarded, MailTable.Columns.is_from_crm, MailTable.Columns.is_from_tl,
-                            concatTagIds, MailTable.Columns.folder_restore, MailTable.Columns.chain_id, select_chain_length,
-                            MailTable.Columns.folder)
-                    .Where(Exp.In(MailTable.Columns.id, idsSet.ToArray()))
+                var queryMessages = new SqlQuery(MailTable.Name + " as outer_mail")
+                    .Select(MailTable.Columns.Id, MailTable.Columns.From, MailTable.Columns.To,
+                            MailTable.Columns.Reply, MailTable.Columns.Subject, MailTable.Columns.Importance,
+                            "1", MailTable.Columns.DateSent, MailTable.Columns.Size,
+                            MailTable.Columns.AttachCount, MailTable.Columns.Unread, MailTable.Columns.IsAnswered,
+                            MailTable.Columns.IsForwarded, concatTagIds, MailTable.Columns.FolderRestore, 
+                            MailTable.Columns.ChainId, select_chain_length, MailTable.Columns.Folder)
+                    .Where(Exp.In(MailTable.Columns.Id, idsSet.ToArray()))
                     .ApplySorting(filter)
                     .SetFirstResult((page - 1) * filter.PageSize)
                     .SetMaxResults(filter.PageSize);
@@ -1499,60 +1364,65 @@ namespace ASC.Mail.Aggregator
         {
             using (var db = GetDb())
             {
-                var dateSent = db.ExecuteScalar<DateTime>(new SqlQuery(MailTable.name)
-                    .Select(MailTable.Columns.date_sent)
+                var dateSent = db.ExecuteScalar<DateTime>(new SqlQuery(MailTable.Name)
+                    .Select(MailTable.Columns.DateSent)
                     .Where(GetUserWhere(user, tenant))
-                    .Where(MailTable.Columns.id, messageId));
+                    .Where(MailTable.Columns.Id, messageId));
 
                 var sortOrder = filter.SortOrder == "ascending";
 
                 const string mm_alias = "mm";
                 const string mtm_alias = "tm";
 
-                var queryMessages = new SqlQuery(MailTable.name.Alias(mm_alias))
-                    .Select(MailTable.Columns.id.Prefix(mm_alias));
+                var queryMessages = new SqlQuery(MailTable.Name.Alias(mm_alias))
+                    .Select(MailTable.Columns.Id.Prefix(mm_alias));
 
                 if (filter.CustomLabels != null && filter.CustomLabels.Count > 0)
                 {
                     queryMessages = queryMessages
-                        .InnerJoin(TagMailTable.name + " " + mtm_alias,
-                                    Exp.EqColumns(MailTable.Columns.id.Prefix(mm_alias), TagMailTable.Columns.id_mail.Prefix(mtm_alias)))
-                        .Where(Exp.In(TagMailTable.Columns.id_tag.Prefix(mtm_alias), filter.CustomLabels));
+                        .InnerJoin(TagMailTable.Name.Alias(mtm_alias),
+                                    Exp.EqColumns(MailTable.Columns.Id.Prefix(mm_alias), TagMailTable.Columns.MailId.Prefix(mtm_alias)))
+                        .Where(Exp.In(TagMailTable.Columns.TagId.Prefix(mtm_alias), filter.CustomLabels));
                 }
 
                 queryMessages = queryMessages
-                    .ApplyFilter(filter, mm_alias)
-                    .Where(TagMailTable.Columns.id_tenant.Prefix(mm_alias), tenant)
-                    .Where(TagMailTable.Columns.id_user.Prefix(mm_alias), user)
-                    .Where(MailTable.Columns.is_removed.Prefix(mm_alias), false)
+                    .ApplyFilter(filter, mm_alias);
+
+                if (queryMessages == null)
+                    return -1;
+
+                queryMessages
+                    .Where(TagMailTable.Columns.Tenant.Prefix(mm_alias), tenant)
+                    .Where(TagMailTable.Columns.User.Prefix(mm_alias), user)
+                    .Where(MailTable.Columns.IsRemoved.Prefix(mm_alias), false)
                     .Where(sortOrder
-                               ? Exp.Ge(MailTable.Columns.date_sent.Prefix(mm_alias), dateSent)
-                               : Exp.Le(MailTable.Columns.date_sent.Prefix(mm_alias), dateSent));
+                               ? Exp.Ge(MailTable.Columns.DateSent.Prefix(mm_alias), dateSent)
+                               : Exp.Le(MailTable.Columns.DateSent.Prefix(mm_alias), dateSent));
 
                 if (filter.CustomLabels != null && filter.CustomLabels.Count > 0)
                 {
                     queryMessages = queryMessages
                         .GroupBy(1)
-                        .Having(Exp.Eq(string.Format("count({0})", MailTable.Columns.id.Prefix(mm_alias)), filter.CustomLabels.Count()));
+                        .Having(Exp.Eq(string.Format("count({0})", MailTable.Columns.Id.Prefix(mm_alias)), filter.CustomLabels.Count()));
                 }
 
                 queryMessages = queryMessages
                     .SetFirstResult(1)
                     .SetMaxResults(1)
-                    .OrderBy(MailTable.Columns.date_sent.Prefix(mm_alias), sortOrder);
+                    .OrderBy(MailTable.Columns.DateSent.Prefix(mm_alias), sortOrder);
 
                 return db.ExecuteScalar<long>(queryMessages);
             }
         }
 
         public List<MailMessage> GetConversationMessages(int tenant, string user, int messageId,
-                                                             bool loadAllContent, bool markRead = false)
+                                                             bool loadAllContent, bool needProxyHttp, bool needMailSanitazer, bool markRead = false)
         {
-            var mailDbInfoQuery = new SqlQuery(MailTable.name)
-                .Select(MailTable.Columns.chain_id, MailTable.Columns.id_mailbox, MailTable.Columns.folder)
-                .Where(MailTable.Columns.is_removed, false)
+            var mailDbInfoQuery = new SqlQuery(MailTable.Name)
+                .Select(MailTable.Columns.ChainId, MailTable.Columns.MailboxId, MailTable.Columns.Folder)
+                .Where(MailTable.Columns.IsRemoved, false)
                 .Where(GetUserWhere(user, tenant))
-                .Where(MailTable.Columns.id, messageId);
+                .Where(MailTable.Columns.Id, messageId);
 
             using (var db = GetDb())
             {
@@ -1577,18 +1447,22 @@ namespace ASC.Mail.Aggregator
                     searchFolders.Add(messageInfo.folder);
 
                 var getMessagesIdsQuery = GetQueryForChainMessagesSelection(messageInfo.mailbox_id, messageInfo.chain_id, searchFolders)
-                                       .OrderBy(MailTable.Columns.date_sent, true);
-
+                                       .OrderBy(MailTable.Columns.DateSent, true);
 
                 var queryResult = db.ExecuteList(getMessagesIdsQuery);
 
                 var mailInfoList =
                     queryResult.Select(
                         (item, i) =>
-                        GetMailInfo(db, tenant, user, Convert.ToInt32(item[0]), false,
-                                    loadAllContent || (i == queryResult.Count - 1)))
-                               .Where(mailInfo => mailInfo != null)
-                               .ToList();
+                            GetMailInfo(db, tenant, user, Convert.ToInt32(item[0]), new MailMessage.Options
+                            {
+                                LoadImages = false,
+                                LoadBody = loadAllContent || (i == queryResult.Count - 1),
+                                NeedProxyHttp = needProxyHttp,
+                                NeedSanitizer = needMailSanitazer
+                            }))
+                        .Where(mailInfo => mailInfo != null)
+                        .ToList();
 
                 if(!markRead)
                     return mailInfoList;
@@ -1610,22 +1484,22 @@ namespace ASC.Mail.Aggregator
                 using (var tx = db.BeginTransaction())
                 {
                     db.ExecuteNonQuery(
-                        new SqlUpdate(MailTable.name)
-                            .Where(Exp.In(MailTable.Columns.id, unreadMessages.Select(x => (object)x.Id).ToArray()))
+                        new SqlUpdate(MailTable.Name)
+                            .Where(Exp.In(MailTable.Columns.Id, unreadMessages.Select(x => (object)x.Id).ToArray()))
                             .Where(GetUserWhere(user, tenant))
-                            .Set(MailTable.Columns.unread, false));
+                            .Set(MailTable.Columns.Unread, false));
 
                     foreach (var keyPair in unreadMessagesCountByFolder)
                     {
                         ChangeFolderCounters(db, tenant, user, keyPair.Key, keyPair.Value * (-1), 0, -1, 0);
 
                         db.ExecuteNonQuery(
-                            new SqlUpdate(ChainTable.name)
-                                .Set(ChainTable.Columns.unread, false)
+                            new SqlUpdate(ChainTable.Name)
+                                .Set(ChainTable.Columns.Unread, false)
                                 .Where(GetUserWhere(user, tenant))
-                                .Where(ChainTable.Columns.id, messageInfo.chain_id)
-                                .Where(ChainTable.Columns.id_mailbox, messageInfo.mailbox_id)
-                                .Where(ChainTable.Columns.folder, keyPair.Key));
+                                .Where(ChainTable.Columns.Id, messageInfo.chain_id)
+                                .Where(ChainTable.Columns.MailboxId, messageInfo.mailbox_id)
+                                .Where(ChainTable.Columns.Folder, keyPair.Key));
                     }
 
                     tx.Commit();
@@ -1638,10 +1512,10 @@ namespace ASC.Mail.Aggregator
         public void SetMessageFolderRestore(DbManager db, int tenant, string user, int toFolder, int messageId)
         {
             var updateFolderRestore =
-                new SqlUpdate(MailTable.name)
-                    .Set(MailTable.Columns.folder_restore, toFolder)
+                new SqlUpdate(MailTable.Name)
+                    .Set(MailTable.Columns.FolderRestore, toFolder)
                     .Where(GetUserWhere(user, tenant))
-                    .Where(MailTable.Columns.id, messageId);
+                    .Where(MailTable.Columns.Id, messageId);
 
             db.ExecuteNonQuery(updateFolderRestore);
         }
@@ -1651,10 +1525,10 @@ namespace ASC.Mail.Aggregator
             using (var db = GetDb())
             {
                 db.ExecuteNonQuery(
-                    new SqlUpdate(MailTable.name)
+                    new SqlUpdate(MailTable.Name)
                         .Where(GetUserWhere(user, tenant))
-                        .Where(MailTable.Columns.id, messageId)
-                        .Set(MailTable.Columns.uidl, newUidl));
+                        .Where(MailTable.Columns.Id, messageId)
+                        .Set(MailTable.Columns.Uidl, newUidl));
             }
         }
 
@@ -1687,10 +1561,10 @@ namespace ASC.Mail.Aggregator
 
             var ids = mailsInfo.ConvertAll(x => Convert.ToInt32(x[0]));
 
-            var query = new SqlUpdate(MailTable.name)
-                .Set(MailTable.Columns.folder, toFolder)
+            var query = new SqlUpdate(MailTable.Name)
+                .Set(MailTable.Columns.Folder, toFolder)
                 .Where(GetUserWhere(user, tenant))
-                .Where(Exp.In(MailTable.Columns.id, ids));
+                .Where(Exp.In(MailTable.Columns.Id, ids));
 
             db.ExecuteNonQuery(query);
 
@@ -1765,11 +1639,11 @@ namespace ASC.Mail.Aggregator
             var ids = mailsInfo.ConvertAll(x => Convert.ToInt32(x[0]));
 
             var updateQuery =
-                new SqlUpdate(MailTable.name)
-                    .Set(MailTable.Columns.folder + " = " + MailTable.Columns.folder_restore)
-                    .Where(MailTable.Columns.is_removed, false)
+                new SqlUpdate(MailTable.Name)
+                    .Set(MailTable.Columns.Folder + " = " + MailTable.Columns.FolderRestore)
+                    .Where(MailTable.Columns.IsRemoved, false)
                     .Where(GetUserWhere(user, tenant))
-                    .Where(Exp.In(MailTable.Columns.id, ids));
+                    .Where(Exp.In(MailTable.Columns.Id, ids));
 
             db.ExecuteNonQuery(updateQuery);
 
@@ -1835,23 +1709,23 @@ namespace ASC.Mail.Aggregator
             var messageIds = messageFieldsInfo.Select(m => m.id).ToArray();
 
             db.ExecuteNonQuery(
-                new SqlUpdate(MailTable.name)
-                    .Set(MailTable.Columns.is_removed, true)
+                new SqlUpdate(MailTable.Name)
+                    .Set(MailTable.Columns.IsRemoved, true)
                     .Where(GetUserWhere(user, tenant))
-                    .Where(Exp.In(MailTable.Columns.id, messageIds)));
+                    .Where(Exp.In(MailTable.Columns.Id, messageIds)));
 
-            var usedQuota = MarkAttachmetsNeedRemove(db, tenant, Exp.In(AttachmentTable.Columns.id_mail, messageIds));
+            var usedQuota = MarkAttachmetsNeedRemove(db, tenant, Exp.In(AttachmentTable.Columns.MailId, messageIds));
 
             var affectedTags = db.ExecuteList(
-                new SqlQuery(TagMailTable.name)
-                    .Select(TagMailTable.Columns.id_tag)
+                new SqlQuery(TagMailTable.Name)
+                    .Select(TagMailTable.Columns.TagId)
                     .Where(GetUserWhere(user, tenant))
-                    .Where(Exp.In(TagMailTable.Columns.id_mail, messageIds)))
+                    .Where(Exp.In(TagMailTable.Columns.MailId, messageIds)))
                                   .ConvertAll(r => Convert.ToInt32(r[0]));
 
             db.ExecuteNonQuery(
-                new SqlDelete(TagMailTable.name)
-                    .Where(Exp.In(TagMailTable.Columns.id_mail, messageIds))
+                new SqlDelete(TagMailTable.Name)
+                    .Where(Exp.In(TagMailTable.Columns.MailId, messageIds))
                     .Where(GetUserWhere(user, tenant)));
 
             UpdateTagsCount(db, tenant, user, affectedTags.Distinct());
@@ -1894,10 +1768,10 @@ namespace ASC.Mail.Aggregator
             using (var db = GetDb())
             {
                 return db.ExecuteList(
-                    new SqlQuery(MailTable.name)
+                    new SqlQuery(MailTable.Name)
                         .Select(columns)
-                        .Where(MailTable.Columns.md5, md5)
-                        .Where(MailTable.Columns.id_mailbox, mailboxId));
+                        .Where(MailTable.Columns.Md5, md5)
+                        .Where(MailTable.Columns.MailboxId, mailboxId));
             }
         }
 
@@ -1906,84 +1780,11 @@ namespace ASC.Mail.Aggregator
             using (var db = GetDb())
             {
                 return db.ExecuteList(
-                    new SqlQuery(MailTable.name)
+                    new SqlQuery(MailTable.Name)
                         .Select(columns)
-                        .Where(MailTable.Columns.mime_message_id, mimeMessageId)
-                        .Where(MailTable.Columns.id_mailbox, mailboxId));
+                        .Where(MailTable.Columns.MimeMessageId, mimeMessageId)
+                        .Where(MailTable.Columns.MailboxId, mailboxId));
             }
-        }
-
-        private int[] GetTagIdsForSelfSendedMessages(MailBox mailbox, int[] tagsIds, MailMessage messageItem)
-        {
-            try
-            {
-                const string mm_alias = "mm";
-                const string mtm_alias = "mt";
-                
-                var fromAddressEmail = Parser.ParseAddress(messageItem.From);
-                var toAddressesList = Parser.ParseAddresses(messageItem.To);
-
-                if (toAddressesList.Contains(fromAddressEmail))
-                {
-                    List<object[]> selfSendedMessageTagsIds;
-                    using (var db = GetDb())
-                    {
-                        selfSendedMessageTagsIds = db.ExecuteList(
-                            new SqlQuery(MailTable.name.Alias(mm_alias))
-                                .InnerJoin(TagMailTable.name.Alias(mtm_alias),
-                                           Exp.EqColumns(MailTable.Columns.id.Prefix(mm_alias), TagMailTable.Columns.id_mail.Prefix(mtm_alias)))
-                                .Select(TagMailTable.Columns.id_tag.Prefix(mtm_alias))
-                                .Where(MailTable.Columns.id_mailbox.Prefix(mm_alias), mailbox.MailBoxId)
-                                .Where(MailTable.Columns.folder.Prefix(mm_alias), MailFolder.Ids.sent)
-                                .Where(MailTable.Columns.mime_message_id.Prefix(mm_alias), messageItem.MimeMessageId)
-                            );
-                    }
-
-                    if (selfSendedMessageTagsIds.Count > 0)
-                    {
-                        var temp = tagsIds != null ? tagsIds.ToList() : new List<int>();
-                        temp.AddRange(selfSendedMessageTagsIds.Select(x => int.Parse(x[0].ToString())));
-                        tagsIds = temp.ToArray();
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                _log.Error("GetTagIdsForSelfSendedMessages() Exception:\r\n{0}\r\n", ex.ToString());
-            }
-            return tagsIds;
-        }
-
-        private MailMessage ProcessMail(Message message, MailBox mailbox, int folder, bool hasParseError = false)
-        {
-            _log.Debug("Parse Message -> MailMessageItem");
-
-            var messageItem = new MailMessage(message) { HasParseError = hasParseError };
-
-            if (folder == MailFolder.Ids.inbox)
-            {
-                var ids = GetCrmContactsId(mailbox.TenantId, mailbox.UserId, messageItem.FromEmail);
-                if (ids.Count > 0)
-                {
-                    messageItem.IsFromCRM = true;
-                    messageItem.ParticipantsCrmContactsId = ids;
-                }
-            }
-
-            _log.Debug("SetCrmTags()");
-
-            SetCrmTags(messageItem, mailbox.TenantId, mailbox.UserId);
-
-            _log.Debug("DetectChain()");
-
-            if (string.IsNullOrEmpty(messageItem.MimeMessageId))
-                messageItem.MimeMessageId = CreateMessageId();
-
-            messageItem.ChainId = DetectChainId(mailbox, messageItem.MimeMessageId, messageItem.MimeReplyToId, messageItem.Subject);
-            if (messageItem.ChainId.Equals(messageItem.MimeMessageId))
-                messageItem.MimeReplyToId = null;
-
-            return messageItem;
         }
 
         private List<object[]> GetMessagesInfo(IDbManager db, int tenant, string user,
@@ -1993,24 +1794,99 @@ namespace ASC.Mail.Aggregator
                 throw new ArgumentException("ids are empty");
 
             return db.ExecuteList(
-                new SqlQuery(MailTable.name)
+                new SqlQuery(MailTable.Name)
                     .Select(columns)
                     .Where(GetUserWhere(user, tenant))
-                    .Where(Exp.In(MailTable.Columns.id, ids)));
+                    .Where(Exp.In(MailTable.Columns.Id, ids)));
         }
 
         private static SqlQuery GetQueryForChainMessagesSelection(int mailboxId, string chainId, List<int> searchFolders)
         {
-            return new SqlQuery(MailTable.name)
-                .Select(MailTable.Columns.id)
-                .Where(MailTable.Columns.id_mailbox, mailboxId)
-                .Where(MailTable.Columns.chain_id, chainId)
-                .Where(Exp.In(MailTable.Columns.folder, searchFolders.ToArray()))
-                .Where(MailTable.Columns.is_removed, 0);
+            return new SqlQuery(MailTable.Name)
+                .Select(MailTable.Columns.Id)
+                .Where(MailTable.Columns.MailboxId, mailboxId)
+                .Where(MailTable.Columns.ChainId, chainId)
+                .Where(Exp.In(MailTable.Columns.Folder, searchFolders.ToArray()))
+                .Where(MailTable.Columns.IsRemoved, 0);
         }
 
-       #endregion
+        private List<MailAttachment> FixHtmlBodyWithEmbeddedAttachments(MailDraft draft)
+        {
+            var embededAttachmentsForSaving = new List<MailAttachment>();
+
+            var embeddedLinks = draft.GetEmbeddedAttachmentLinks();
+            if (!embeddedLinks.Any())
+                return embededAttachmentsForSaving;
+
+            var fckStorage = StorageManager.GetDataStoreForCkImages(draft.Mailbox.TenantId);
+            var attachmentStorage = StorageManager.GetDataStoreForAttachments(draft.Mailbox.TenantId);
+            var currentMailFckeditorUrl = fckStorage.GetUri(StorageManager.CKEDITOR_IMAGES_DOMAIN, "").ToString();
+            var currentUserStorageUrl = MailStoragePathCombiner.GetUserMailsDirectory(draft.Mailbox.UserId);
+
+            StorageManager storage = null;
+            foreach (var embeddedLink in embeddedLinks)
+            {
+                try
+                {
+                    var isFckImage = embeddedLink.StartsWith(currentMailFckeditorUrl);
+                    var prefixLength = isFckImage
+                        ? currentMailFckeditorUrl.Length
+                        : embeddedLink.IndexOf(currentUserStorageUrl, StringComparison.Ordinal) +
+                          currentUserStorageUrl.Length + 1;
+                    var fileLink = HttpUtility.UrlDecode(embeddedLink.Substring(prefixLength));
+                    var fileName = Path.GetFileName(fileLink);
+                    var attach = new MailAttachment
+                    {
+                        fileName = fileName,
+                        storedName = fileName,
+                        contentId = embeddedLink.GetMd5(),
+                        storedFileUrl = fileLink,
+                        streamId = draft.StreamId,
+                        user = draft.Mailbox.UserId,
+                        tenant = draft.Mailbox.TenantId,
+                        mailboxId = draft.Mailbox.MailBoxId
+                    };
+
+                    var savedAttachmentId = GetAttachmentId(draft.Id, attach.contentId);
+                    var attachmentWasSaved = savedAttachmentId != 0;
+                    var currentImgStorage = isFckImage ? fckStorage : attachmentStorage;
+                    var domain = isFckImage ? StorageManager.CKEDITOR_IMAGES_DOMAIN : draft.Mailbox.UserId;
+
+                    if (draft.Id == 0 || !attachmentWasSaved)
+                    {
+                        attach.data = StorageManager.LoadDataStoreItemData(domain, fileLink, currentImgStorage);
+
+                        if (storage == null)
+                        {
+                            storage = new StorageManager(draft.Mailbox.TenantId, draft.Mailbox.UserId);
+                        }
+
+                        storage.StoreAttachmentWithoutQuota(draft.Mailbox.TenantId, draft.Mailbox.UserId, attach);
+
+                        embededAttachmentsForSaving.Add(attach);
+                    }
+
+                    if (attachmentWasSaved)
+                    {
+                        attach = GetMessageAttachment(savedAttachmentId, draft.Mailbox.TenantId, draft.Mailbox.UserId);
+                        var path = MailStoragePathCombiner.GerStoredFilePath(attach);
+                        currentImgStorage = attachmentStorage;
+                        attach.storedFileUrl =
+                            MailStoragePathCombiner.GetStoredUrl(currentImgStorage.GetUri(path));
+                    }
+
+                    draft.HtmlBody = draft.HtmlBody.Replace(embeddedLink, attach.storedFileUrl);
+
+                }
+                catch (Exception ex)
+                {
+                    _log.Error("ChangeEmbededAttachmentLinksForStoring() failed with exception: {0}", ex.ToString());
+                }
+            }
+
+            return embededAttachmentsForSaving;
+        }
+
+        #endregion
     }
-
-
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -81,19 +81,32 @@ namespace ASC.Web.Studio.UserControls.Common
             set { _topLogo = value; }
         }
 
-        protected string ConfirmationLogo
+        protected string ConfirmationLogoStyle
         {
             get
             {
                 if (CoreContext.Configuration.Personal)
-                    return WebImageSupplier.GetAbsoluteWebPath("personal_logo/logo_personal_auth.png");
+                    return String.Format("height:72px; width: 220px; background: url('{0}') no-repeat;",
+                                         WebImageSupplier.GetAbsoluteWebPath("personal_logo/logo_personal_auth.png"));
 
                 var general = !TenantLogoManager.IsRetina(Request);
+
+                var height = general
+                                 ? TenantWhiteLabelSettings.logoDarkSize.Height/2
+                                 : TenantWhiteLabelSettings.logoDarkSize.Height;
+
+                var width = general
+                                 ? TenantWhiteLabelSettings.logoDarkSize.Width / 2
+                                 : TenantWhiteLabelSettings.logoDarkSize.Width;
+
                 if (TenantLogoManager.WhiteLabelEnabled)
                 {
-                    return TenantLogoManager.GetLogoDark(general);
+                    return String.Format("height:{0}px; width: {1}px; background: url('{2}') no-repeat;",
+                                         height, width, TenantLogoManager.GetLogoDark(general));
                 }
-                return TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Dark, general);
+
+                return String.Format("height:{0}px; width: {1}px; background: url('{2}') no-repeat;",
+                                     height, width, TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Dark,general));
             }
         }
 
@@ -113,6 +126,8 @@ namespace ASC.Web.Studio.UserControls.Common
 
         protected bool? IsAuthorizedPartner { get; set; }
         protected Partner Partner { get; set; }
+
+        protected CompanyWhiteLabelSettings Settings { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -197,6 +212,8 @@ namespace ASC.Web.Studio.UserControls.Common
 
             if (VoipNavigation.VoipEnabled)
                 _voipPhonePlaceholder.Controls.Add(LoadControl(VoipPhoneControl.Location));
+
+            Settings = CompanyWhiteLabelSettings.Instance;
         }
 
         #region currentProduct

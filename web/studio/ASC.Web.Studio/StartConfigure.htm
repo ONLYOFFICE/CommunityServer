@@ -1,0 +1,721 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>ONLYOFFICE</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link type="image/x-icon" href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAXRJREFUeNpiVNz2iIESwIRDXAeIZwHxeyieCcTa2BQyGu96gmyYBxAXALELSA5N7X8g3g3EE4B4B5TPwCLCyswNpOOBOB+I1fC4FmSgGxTfhBq0mDH62KtLQIYumUFwjkWEjdmSSBcgA7gLWGRem7ICGewMjFxB36SPyBMTBlxPzR8w/P9tCfbX5D0mMC/8gwbOhH/Su1/8Z2TJBbJDoZpXMf7/M5npqasU1AIPqAVnGRcc9gMFYhzUC+pQDVeAeBIQr4byw6DyWlD+DSCeCMSLGN+kGfEAGf7/GZnOH04xh3nBFYcXdrH++jvFYuEZCUaGf8JA/jTGd3kOl6EJB6RgJ8gLZ5Ndnv5nYkTxAsfHb9N1Vh21ArLLgFgBFguMH6qDQV6IhTpRAypxHRrKa6D8aKhGGST5ieB08KkrDTmhuEO94IbDCyAX9kNjA5ISmXgFkRXsgGJNqIv8oOKboDbewEieXxe0UJQbGf///0+RAQABBgAdanAWJP5I0AAAAABJRU5ErkJggg==" rel="icon" />
+
+    <style type="text/css">
+        @font-face {
+          font-family: 'Open Sans';
+          font-style: normal;
+          font-weight: 400;
+          src: local('Open Sans'), local('OpenSans'), url(https://fonts.gstatic.com/s/opensans/v13/cJZKeOuBrn4kERxqtaUH3VtXRa8TVwTICgirnJhmVJw.woff2) format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+        @font-face {
+          font-family: 'Open Sans';
+          font-style: normal;
+          font-weight: 700;
+          src: local('Open Sans Bold'), local('OpenSans-Bold'), url(https://fonts.gstatic.com/s/opensans/v13/k3k702ZOKiLJc3WVjuplzOgdm0LZdjqr5-oayXSOefg.woff2) format('woff2');
+          unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+        }
+    </style>
+
+    <style type="text/css">
+        body {
+            background-color: white;
+            color: #333333;
+            font: 12px "Open Sans",sans-serif;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            text-decoration: none;
+        }
+        .main-content {
+            height: 100%;
+        }
+        div {
+            margin: 0;
+            padding: 0;
+        }
+        #studioPageContent {
+            min-height: 100%;
+            min-width: 1024px;
+            position: relative;
+        }
+        .mainPageLayout {
+            height: auto;
+            margin: 0 auto;
+            min-width: 959px;
+            overflow-x: hidden;
+            padding: 24px 24px 0;
+            position: static;
+            text-align: left;
+            width: auto;
+        }
+        .studio-top-panel {
+            background: #0f4071 none repeat scroll 0 0;
+            color: #c5c5c5;
+            height: 44px;
+            padding-top: 4px;
+            z-index: 1;
+        }
+        .studio-top-panel > ul {
+            list-style: outside none none;
+            margin: 0;
+            padding: 0;
+        }
+        .studio-top-panel .studio-top-logo {
+            margin: 8px 24px 0 0;
+        }
+        .mainPageTable {
+            float: none;
+            height: 100%;
+            overflow: auto;
+            width: 100%;
+        }
+        .mainPageTable .mainPageContent {
+            padding-bottom: 24px;
+            vertical-align: top;
+        }
+        .startup-loading-cnt {
+            margin-top: 7%;
+            text-align: center;
+        }
+        .startup-loading-cnt .loader-page {
+            left: auto;
+            margin: 0 auto;
+            position: relative;
+            top: auto;
+        }
+        .startup-loading-cnt_logo {
+            font-size: 14px;
+            letter-spacing: -1px;
+            margin: -15px 0 40px -10px;
+        }
+        .startup-loading-cnt_text {
+            font-size: 20px;
+            margin: 0 0 30px;
+        }
+        p {
+            color: #333333;
+            font-size: 12px;
+        }
+    </style>
+
+    <style type="text/css">
+        .loader-page {
+          width: 50px;
+          height: 180px;
+          position: absolute;
+          top: 50%;
+          margin-top: -100px;
+          margin-left: 75px;
+          left: 50%;
+        }
+        .romb {
+          width: 40px;
+          height: 40px;
+          -ms-transform: rotate(135deg) skew(20deg, 20deg);
+          -webkit-transform: rotate(135deg) skew(20deg, 20deg);
+          -moz-transform: rotate(135deg) skew(20deg, 20deg);
+          -o-transform: rotate(135deg) skew(20deg, 20deg);
+          background: red;
+          border-radius: 6px;
+          animation: movedown 3s infinite ease;
+          -moz-animation: movedown 3s infinite ease;
+          -webkit-animation: movedown 3s infinite ease;
+          -o-animation: movedown 3s infinite ease;
+          -ms-animation: movedown 3s infinite ease;
+          position: absolute;
+        }
+        .romb.blue {
+          background: #55bce6;
+          z-index: 3;
+          -webkit-animation-name: blue;
+          -moz-animation-name: blue;
+          -ms-animation-name: blue;
+          -o-animation-name: blue;
+          animation-name: blue;
+        }
+        .romb.red {
+          background: #de7a59;
+          z-index: 1;
+          -webkit-animation-name: red;
+          -moz-animation-name: red;
+          -ms-animation-name: red;
+          -o-animation-name: red;
+          animation-name: red;
+        }
+        .romb.green {
+          background: #a1cb5c;
+          z-index: 2;
+          -webkit-animation-name: green;
+          -moz-animation-name: green;
+          -ms-animation-name: green;
+          -o-animation-name: green;
+          animation-name: green;
+        }
+        .loader-page.static .romb {
+          animation: none;
+          -moz-animation: none;
+          -webkit-animation: none;
+          -o-animation: none;
+          -ms-animation: none;
+          -webkit-animation-name: none;
+          -moz-animation-name: none;
+          -ms-animation-name: none;
+          -o-animation-name: none;
+          animation-name: none;
+        }
+        .loader-page.static .romb.blue {
+          top: 100px;
+            background: #55bce6;
+        }
+        .loader-page.static .romb.red {
+          top: 120px;
+            background: #de7a59;
+        }
+        .loader-page.static .romb.green {
+          top: 110px;
+            background: #a1cb5c;
+        }
+
+        @-webkit-keyframes red {
+          0% {
+            top: 120px;
+            background: #de7a59;
+          }
+          10% {
+            top: 120px;
+            background: #f2cbbf;
+          }
+          14% {
+            background: white;
+            top: 120px;
+          }
+          15% {
+            background: white;
+            top: 0;
+          }
+          20% {
+            background: #e6e4e4;
+          }
+          30% {
+            background: #d2d2d2;
+          }
+          40% {
+            top: 120px;
+          }
+          100% {
+            top: 120px;
+            background: #de7a59;
+          }
+        }
+        @keyframes red {
+          0% {
+            top: 120px;
+            background: #de7a59;
+          }
+          10% {
+            top: 120px;
+            background: #f2cbbf;
+          }
+          14% {
+            background: white;
+            top: 120px;
+          }
+          15% {
+            background: white;
+            top: 0;
+          }
+          20% {
+            background: #e6e4e4;
+          }
+          30% {
+            background: #d2d2d2;
+          }
+          40% {
+            top: 120px;
+          }
+          100% {
+            top: 120px;
+            background: #de7a59;
+          }
+        }
+        @-webkit-keyframes green {
+          0% {
+            top: 110px;
+            background: #a1cb5c;
+            opacity: 1;
+          }
+          10% {
+            top: 110px;
+            background: #cbe0ac;
+            opacity: 1;
+          }
+          14% {
+            background: white;
+            top: 110px;
+            opacity: 1;
+          }
+          15% {
+            background: white;
+            top: 0;
+            opacity: 1;
+          }
+          20% {
+            background: white;
+            top: 0;
+            opacity: 0;
+          }
+          25% {
+            background: #efefef;
+            top: 0;
+            opacity: 1;
+          }
+          30% {
+            background: #e6e4e4;
+          }
+          70% {
+            top: 110px;
+          }
+          100% {
+            top: 110px;
+            background: #a1cb5c;
+          }
+        }
+        @keyframes green {
+          0% {
+            top: 110px;
+            background: #a1cb5c;
+            opacity: 1;
+          }
+          10% {
+            top: 110px;
+            background: #cbe0ac;
+            opacity: 1;
+          }
+          14% {
+            background: white;
+            top: 110px;
+            opacity: 1;
+          }
+          15% {
+            background: white;
+            top: 0;
+            opacity: 1;
+          }
+          20% {
+            background: white;
+            top: 0;
+            opacity: 0;
+          }
+          25% {
+            background: #efefef;
+            top: 0;
+            opacity: 1;
+          }
+          30% {
+            background: #e6e4e4;
+          }
+          70% {
+            top: 110px;
+          }
+          100% {
+            top: 110px;
+            background: #a1cb5c;
+          }
+        }
+        @-webkit-keyframes blue {
+          0% {
+            top: 100px;
+            background: #55bce6;
+            opacity: 1;
+          }
+          10% {
+            top: 100px;
+            background: #bfe8f8;
+            opacity: 1;
+          }
+          14% {
+            background: white;
+            top: 100px;
+            opacity: 1;
+          }
+          15% {
+            background: white;
+            top: 0;
+            opacity: 1;
+          }
+          20% {
+            background: white;
+            top: 0;
+            opacity: 0;
+          }
+          25% {
+            background: white;
+            top: 0;
+            opacity: 0;
+          }
+          45% {
+            background: #efefef;
+            top: 0;
+            opacity: 0;
+          }
+          100% {
+            top: 100px;
+            background: #55bce6;
+          }
+        }
+        @keyframes blue {
+          0% {
+            top: 100px;
+            background: #55bce6;
+            opacity: 1;
+          }
+          10% {
+            top: 100px;
+            background: #bfe8f8;
+            opacity: 1;
+          }
+          14% {
+            background: white;
+            top: 100px;
+            opacity: 1;
+          }
+          15% {
+            background: white;
+            top: 0;
+            opacity: 1;
+          }
+          20% {
+            background: white;
+            top: 0;
+            opacity: 0;
+          }
+          25% {
+            background: white;
+            top: 0;
+            opacity: 0;
+          }
+          45% {
+            background: #efefef;
+            top: 0;
+            opacity: 0;
+          }
+          100% {
+            top: 100px;
+            background: #55bce6;
+          }
+        }
+    </style>
+
+    <style type="text/css">
+        .startup-loading-cnt_progress {
+            margin: 0 auto;
+            width: 400px;
+        }
+        .asc-progress-wrapper {
+            background-color: #d1d1d1;
+            border-radius: 2px;
+            height: 14px;
+            overflow: hidden;
+            position: relative;
+        }
+        .asc-progress-value {
+            background: #439CCD;
+            height: inherit;
+            width: 0;
+            position: absolute;
+            
+            background: linear-gradient(top, #57aedf, #439CCD 50%, #3B95C6 51%, #237faf);
+            background: -o-linear-gradient(top, #57aedf, #439CCD 50%, #3B95C6 51%, #237faf);
+            background: -moz-linear-gradient(top, #57aedf, #439CCD 50%, #3B95C6 51%, #237faf);
+            background: -webkit-linear-gradient(top, #57aedf, #439CCD 50%, #3B95C6 51%, #237faf);
+            -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#57aedf', EndColorStr='#237faf')";
+        }
+        .asc-progress-value.animated {
+            width: 100%;
+
+            -webkit-animation: 3s linear 0s normal infinite progress;
+            -moz-animation: 3s linear 0s normal infinite progress;
+            -o-animation: 3s linear 0s normal infinite progress;
+            -ms-animation: 3s linear 0s normal infinite progress;
+            animation: 3s linear 0s normal infinite progress;
+        }
+        .asc-progress-percent {
+            color: #83888d;
+            font-size: 14px;
+        }
+
+        @-webkit-keyframes progress {
+          0% {
+            left: -100%;
+          }
+          10% {
+            left: -80%;
+          }
+          20% {
+            left: -60%;
+          }
+          30% {
+            left: -40%;
+          }
+          40% {
+            left: -20%;
+          }
+          50% {
+            left: 0;
+          }
+          60% {
+            left: 20%;
+          }
+          70% {
+            left: 40%;
+          }
+          80% {
+            left: 60%;
+          }
+          90% {
+            left: 80%;
+          }
+          100% {
+            left: 100%;
+          }
+        }
+        @keyframes progress {
+          0% {
+            left: -100%;
+          }
+          10% {
+            left: -80%;
+          }
+          20% {
+            left: -60%;
+          }
+          30% {
+            left: -40%;
+          }
+          40% {
+            left: -20%;
+          }
+          50% {
+            left: 0;
+          }
+          60% {
+            left: 20%;
+          }
+          70% {
+            left: 40%;
+          }
+          80% {
+            left: 60%;
+          }
+          90% {
+            left: 80%;
+          }
+          100% {
+            left: 100%;
+          }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-content">
+        <div id="studioPageContent">
+            <div class="studio-top-panel mainPageLayout">
+                <ul>
+                    <li class="studio-top-logo ">
+                        <img alt="ONLYOFFICE" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAI4AAAAXCAYAAADdlHeDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyRpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoTWFjaW50b3NoKSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDo5MzU5RTIwODc2RjMxMUU0QkFEMzlFRUJGMDQxMkNDRCIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDo5MzU5RTIwOTc2RjMxMUU0QkFEMzlFRUJGMDQxMkNDRCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOjNFMjk5MkZGNzZGMzExRTRCQUQzOUVFQkYwNDEyQ0NEIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjNFMjk5MzAwNzZGMzExRTRCQUQzOUVFQkYwNDEyQ0NEIi8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+Y+x9LQAABvpJREFUeNrsW21sU1UYvu06KSOR8iEgmXBnRIPh42JIthAiLTEI/sCB0fADwhaZCYnBTZkRDIxKMtQpLYuG4ILdgB8EgwwShWhkxRiDhrjLR+CH6MpcUBChmKjTyerzznPh5XDu7e3Wzbj1JM/ObXs+3nPOc96vdh7NRXl4X9t9qF4AlgPjgUvAHmDb2WeKfkjXP5VKabkyuIrH6cPZH16YjqoaWAbkK5p0AXuBuhNLJ5/OEWeIE+fRQ+1BVC8DizIY6zDw5ueLJ8VzxBlCxFl4uMOL6ilBmNl9GPMEEQjYf2RRYXeOOIOUOEs/vTgcdTnwEnB/Fsf+HngbiO1/7N4/cls9uIqvwOc9iXpKP4xNJHwXqAQetGWux8NNWplwwg3WJAk0kyOOtiZrS+a0RWpXhDZJyUym2FweRd843g6x9hEhs9OYOqo29lYIbXpM9LmOy9R3pc0awlMLxyX4WGhPcgQd9jGEPnG0c1TbaONBm014rBFv0VybpLkCYm0kny4NQTJWoU+jNI6yeAvyvXVAB6D1A2jcOhdRVwBoJe0kbTgVWiwRqhVtKh2GCaRbrMsSFptojRlRtImx50YiDTbbAFpFe7s1tKFN2X+hIUg+QfYaBWksGXXXGue9ueMaKo//3CgiJ/JvpmVBzjPCz9kbLbmna4eDj0OkEbff4MwXN1QXCy0Vn0XQPomDarQZrhKfk2ZK9Np2Q7tgDDLdB8RbZXjdZGkUoa2CXFZxkw+wjedrMIQWtdYQQ/skbnazYnpa1wXpvYQNuTMlTYsgh1VoPcfY63k23Wn+pjuIQ3/ocFHtXn/ilz0iklpLKrIX+07CvUURVu3sMW494kqJNCFmkqhegsOKiRtrkafZYbwa4bNpfSBPM+aIM4KQFpml0DZhIppQ7Zw0RSBGkh0QaSS+hpgglVyayCylk082QS5KRCLNEhviKomjms9rPdR9MuWhUVdLtgJlQG2Br7sY/s8HQDegOaD733bdxdRP9N9K47kU7En2fJsfw0qVZD5KFbciwTREMAtas5zNaZD/BXCCmJA1Kp5XclkZaWzXACKVDpCJ0iUfKpwBaexNFQ64BPVGKWfz9LDLc86R9sibcGijJ2/iGrGRftamk25O6sbF+hs/LZ4j1OxUrkkw9seoNwPHHWTg/kCzg/mIM8LokgrXhXwxpnXifdQ6CcwZZj5OjXRry5nDqUsmQKUlSDOZ7BANxXrJT5L7xRVkkC8GmT7TZimy3xLNcCt0oVFvu6hkqj4CRqvWCuwEKS6SJsgfsVD3j60dhecC4PfOK+uvdf12hG7aZ8BEm0mfAIiYY1welunw8UlGnMmKvo04aMvxC+K5lExOH8kTxThWhMQPIMpkNaSDdvKvzDQRVMQp1ya5BJpEVjvXgs9n2mhDR+Iogo44EacYeAVYAdyl6EikeAMkeRU4JDzzImAxcLfDhH+R3wS83g8a2G7xVcypjdhpsF6YrFZp7rD2/yzJbA3kq17w7XnUq95pKd6AmkzSamCkoi2RZLmLMa8D24H650Nf/UhvrHXpJuN2Gw5aZ6Y0RzqnVhd5Ia2PWseUHOVtUl7HlH0KB61jpJmuSh7PLreTASFMG+3jtsSxnpAyqqIiDnnd7qOLtvztz6sQ0U5hBhN0kAr3dd5oWDH/8K8Z9DPZhgYdNi6YJkTloWqQ+SX9WoTvkmCmLCj8PU2RfDPsCMdMiZuoKp7h/nI5KtE/2meN03MKy6fn38zjvN/xAOpdnYFhC0+Vz3jERW6nJ2czI3bqG3/yT9JYlzDeeSuPo+853ZVGhoNsQ2vodstaR4TjASkLa9hoiDjXOgNkApoYSSM4nGaFL8FD4mQ2IhuXxE5AHq4xa+i1gzPtjjjtq0oqRFTFtctzBZ1aRcn2swdSXk/FmTXzyHmulm49CVM3rf7YVU93Cp/5mjS/z3LkiGi7gFqM/xrqBgcZoiIkN8TGtuDg7RKAPepcRFnp/JI2t86fCLPvSMZlkEiMarfS+LSGVhxO2GEN5drAlirmp1nyyclGOoODipyNKqrSfHnDC6ptTBKRYCnB2PH1F+QgX54/Y8H1aZO0kWfatXFHTz1Opk0bNnyug8CFgnANaTK1IZY9DoiwOqbaAIessRxKN7KEW6ZRg3UxEi5vNZmrJdqtr0x0hzWUD5S2YfKZkC8kAgdL65XZaH9X++Pz+kfM1NJ/O07kmDvhy++uAe14nqT5R4xKI+/Nb8ddHDSp9VmZfMnpooRdEidrh0NryPRLzgGUj7LXRZr9l5ymS8f89hzBpQ3Lsv57nPGb9+Z+jzNIi/IXgFdqnw1qvfwF4Nj1O+OKMDu300OBOFa5unWN698cj36xPveb4xxxpOzS9nW2/+UQWL0l918OQ7D8I8AA9PTdWIZxug4AAAAASUVORK5CYII=" />
+                    </li>
+                </ul>
+            </div>
+            <div class="mainPageLayout">
+                <table class="mainPageTable" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td class="mainPageContent" valign="top">
+                                <div class="startup-loading-cnt">
+                                    <div class="loader-page static">
+                                        <div class="romb blue"></div>
+                                        <div class="romb green"></div>
+                                        <div class="romb red"></div>
+                                    </div>
+                                    <div class="startup-loading-cnt_logo"><strong>ONLYOFFICE</strong></div>
+                                    <p class="startup-loading-cnt_text"></p>
+                                    <div class="startup-loading-cnt_progress">
+                                        <div>
+                                            <div class="asc-progress-wrapper">
+                                                <div class="asc-progress-value animated"></div>
+                                            </div>
+                                            <span class="asc-progress-percent"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+
+        window.progressUrl = window.location.origin + "/api/2.0/warmup/progress.json";
+        window.progress = -1;
+
+        window.scripts = [];
+        window.returnUrl = null;
+        window.totalScripts = 0;
+        window.percentage = 0;
+
+        window.textStep = 0;
+        window.textPosition = 0;
+        window.textArray = [
+                [
+                    "The portal start up process might take some time, please wait...",
+                    "We are working on it.",
+                    "Please do not reload the page or shut down your computer."
+                ],
+                [
+                    "Preparing the portal for initialization.",
+                    "This might take some time, please wait..."
+                ],
+                [
+                    "The portal initialization process might take some time, please wait...",
+                    "We are still working on it.",
+                    "Please do not reload the page or shut down your computer."
+                ],
+                [
+                    "Everything is ready. Thank you for waiting! Your portal is going to start right now."
+                ]
+        ];
+
+        function showText() {
+            $(".startup-loading-cnt_text").text(window.textArray[window.textStep][window.textPosition]);
+
+            window.textPosition++;
+
+            if (window.textPosition == window.textArray[window.textStep].length)
+                window.textPosition = 0;
+
+            window.showTextTimeout = setTimeout(showText, 5000);
+        };
+
+        function showProgress() {
+            var floorProgress = Math.floor(window.progress);
+
+            if (floorProgress == 0) {
+                if (window.textStep != 1) {
+                    window.textPosition = 0;
+                    window.textStep = 1;
+                }
+            }
+
+            if (floorProgress > 0) {
+                if (window.textStep != 2) {
+                    window.textPosition = 0;
+                    window.textStep = 2;
+                }
+                $(".asc-progress-value").removeClass("animated").animate({ "width": floorProgress + "%" }, 300);
+                $(".asc-progress-percent").text(floorProgress + "%");
+            }
+            
+            if (floorProgress < 100)
+                window.showProgressTimeout = setTimeout(showProgress, 2000);
+        };
+
+        function getProgress() {
+            $.ajax(window.progressUrl, {
+                success: getProgressResponseHandler,
+                error: getProgressDelay,
+                statusCode: {
+                    0: progressRedirect,
+                    301: progressRedirect
+                }
+            });
+        }
+
+        function getProgressDelay() {
+            window.getProgressTimeout = setTimeout(getProgress, 3000);
+        }
+
+        function getProgressResponseHandler(response) {
+            if (response.error || response.statusCode != 200 || typeof (response) != "object") {
+                getProgressDelay();
+                return;
+            }
+
+            var responseProgress = JSON.parse(response.response);
+
+            if (window.progress < responseProgress.ProgressPercent) {
+                window.progress = responseProgress.ProgressPercent;
+            }
+
+            if (responseProgress.Completed) {
+                window.returnUrl = responseProgress.Link;
+                window.scripts = responseProgress.Bundles || [];
+                window.totalScripts = scripts.length;
+                window.percentage = parseInt(responseProgress.Percentage);
+                getScript();
+            } else {
+                getProgressDelay();
+            }
+        }
+
+        function progressRedirect() {
+            if (window.progressUrl.indexOf("http:") == 0) {
+                window.progressUrl = window.progressUrl.replace("http:", "https:");
+            } else if (window.progressUrl.indexOf("https:") == 0) {
+                window.progressUrl = window.progressUrl.replace("https:", "http:");
+            }
+
+            clearTimeout(window.getProgressTimeout);
+            getProgressDelay();
+        }
+
+        function getScript() {
+            var item = window.scripts.pop();
+
+            if (!item) {
+                window.progress = 100;
+                window.textPosition = 0;
+                window.textStep = 3;
+                showProgress();
+
+                if (window.returnUrl)
+                    window.location.href = window.returnUrl;
+                else
+                    window.location.reload();
+                return;
+            }
+
+            $.ajax({ url: item, dataType: "text" }).always(function () {
+                var newProgress = window.progress + (100 - window.percentage) / window.totalScripts;
+                if (window.progress < newProgress) {
+                    window.progress = newProgress;
+                }
+                getScript();
+            });
+        }
+
+        showText();
+        showProgress();
+        getProgress();
+
+    </script>
+</body>
+
+</html>

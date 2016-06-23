@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,7 +26,6 @@
 
 using System;
 using System.Collections.Generic;
-using ASC.Mail.Server.Administration.Interfaces;
 using ASC.Mail.Server.Utils;
 
 namespace ASC.Mail.Server.Dal
@@ -130,12 +129,13 @@ namespace ASC.Mail.Server.Dal
             UserId = 1,
             Tenant = 2,
             Address = 3,
+            Name = 4,
 // ReSharper disable UnusedMember.Local
-            DateCreated = 4
+            DateCreated = 5
 // ReSharper restore UnusedMember.Local
         }
 
-        public const int MAILBOX_COLUMNS_COUNT = 5;
+        public const int MAILBOX_COLUMNS_COUNT = 6;
 
         public static MailboxDto ToMailbox(this object[] dbRecord)
         {
@@ -146,7 +146,8 @@ namespace ASC.Mail.Server.Dal
                 Convert.ToInt32(dbRecord[(int)MailboxColumnsOrder.Id]),
                 dbRecord[(int)MailboxColumnsOrder.UserId].ToString(),
                 (int)dbRecord[(int)MailboxColumnsOrder.Tenant],
-                dbRecord[(int)MailboxColumnsOrder.Address].ToString()
+                dbRecord[(int)MailboxColumnsOrder.Address].ToString(),
+                dbRecord[(int)MailboxColumnsOrder.Name].ToString()
             );
         }
 

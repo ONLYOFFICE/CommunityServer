@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -29,7 +29,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ASC.Core;
 using ASC.Notify.Model;
-using ASC.Projects.Core.Domain;
 using ASC.Projects.Core.Services.NotifyService;
 using ASC.Web.Core.Subscriptions;
 using ASC.Web.Projects.Classes;

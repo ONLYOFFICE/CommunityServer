@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,21 +24,23 @@
 */
 
 
-using System;
-using System.Diagnostics;
+using ASC.Common.Web;
 using ASC.Core;
 using ASC.FederatedLogin;
+using ASC.FederatedLogin.Helpers;
+using ASC.FederatedLogin.LoginProviders;
 using ASC.Files.Core;
-using ASC.Common.Caching;
+using ASC.Web.Files.Classes;
+using System;
+using System.Diagnostics;
 using System.Web;
-using ASC.Common.Web;
 
 namespace ASC.Files.Thirdparty.GoogleDrive
 {
     [DebuggerDisplay("{CustomerTitle}")]
     public class GoogleDriveProviderInfo : IProviderInfo
     {
-        private readonly OAuth20Token _token;
+        private OAuth20Token _token;
         private readonly FolderType _rootFolderType;
         private readonly DateTime _createOn;
         private string _driveRootId;
@@ -82,7 +84,15 @@ namespace ASC.Files.Thirdparty.GoogleDrive
             {
                 if (string.IsNullOrEmpty(_driveRootId))
                 {
-                    _driveRootId = Storage.GetRootFolderId();
+                    try
+                    {
+                        _driveRootId = Storage.GetRootFolderId();
+                    }
+                    catch (Exception ex)
+                    {
+                        Global.Logger.Error("GoogleDrive error", ex);
+                        return null;
+                    }
                 }
                 return _driveRootId;
             }
@@ -139,8 +149,26 @@ namespace ASC.Files.Thirdparty.GoogleDrive
         private GoogleDriveStorage CreateStorage()
         {
             var driveStorage = new GoogleDriveStorage();
+
+            CheckToken();
+
             driveStorage.Open(_token);
             return driveStorage;
+        }
+
+        private void CheckToken()
+        {
+            if (_token == null) throw new UnauthorizedAccessException("Cannot create GoogleDrive session with given token");
+            if (_token.IsExpired)
+            {
+                _token = OAuth20TokenHelper.RefreshToken(GoogleLoginProvider.GoogleOauthTokenUrl, _token);
+
+                using (var dbDao = new CachedProviderAccountDao(CoreContext.TenantManager.GetCurrentTenant().TenantId, FileConstant.DatabaseId))
+                {
+                    var authData = new AuthData(token: _token.ToJson());
+                    dbDao.UpdateProviderInfo(ID, authData);
+                }
+            }
         }
 
 

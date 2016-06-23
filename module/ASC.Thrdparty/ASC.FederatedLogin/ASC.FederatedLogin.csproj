@@ -112,6 +112,7 @@
     <Compile Include="Helpers\XrdsHelper.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="LoginMode.cs" />
+    <Compile Include="LoginProviders\BoxLoginProvider.cs" />
     <Compile Include="LoginProviders\FacebookLoginProvider.cs" />
     <Compile Include="LoginProviders\GoogleLoginProvider.cs" />
     <Compile Include="LoginProviders\ILoginProvider.cs" />

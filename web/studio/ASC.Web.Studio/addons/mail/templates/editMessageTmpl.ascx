@@ -62,10 +62,10 @@
                         <a id="AddCopy" class="link dotline"><%: MailResource.AddCopy %></a>
                     </div>
                     <div class="value with-right">
-                        <textarea id="newmessageTo" class="to" spellcheck="false" 
-                            <% if (!CoreContext.Configuration.Personal) {%>  
-                                placeholder="<%: MailResource.SearchInToCcBccFieldsPlaceHolderLabel %>" 
-                            <%} %> style="resize: none;" tabindex="1">{{if $item.action!='forward'}}${to}{{/if}}</textarea>
+                        <div id="newmessageTo" class="emailselector to">
+                            <input type="text" class="emailselector-input" autocomplete="off" tabindex="1" />
+                            <pre class="emailSelector-input-buffer"></pre>
+                        </div>
                     </div>
                 </div>
                 <div class="value-group cc hidden">
@@ -73,7 +73,10 @@
                         <%: MailResource.CopyLabel %>:
                     </label>
                     <div class="value with-right">
-                        <textarea id="newmessageCopy" class="cc" spellcheck="false" style="resize: none;" tabindex="2">${cc}</textarea>
+                        <div id="newmessageCopy" class="emailselector cc">
+                            <input type="text" class="emailselector-input" autocomplete="off" tabindex="2" />
+                            <pre class="emailSelector-input-buffer"></pre>
+                        </div>
                     </div>
                 </div>
                 <div class="value-group bcc hidden">
@@ -81,7 +84,10 @@
                         <%: MailResource.BCCLabel %>:
                     </label>
                     <div class="value with-right">
-                        <textarea id="newmessageBCC" class="bcc" spellcheck="false" style="resize: none;" tabindex="3">${bcc}</textarea>
+                        <div id="newmessageBCC" class="emailselector bcc">
+                            <input type="text" class="emailselector-input" autocomplete="off" tabindex="3" />
+                            <pre class="emailSelector-input-buffer"></pre>
+                        </div>
                     </div>
                 </div>
                 <div class="value-group">
@@ -90,15 +96,14 @@
                     </label>
                     <div class="pull-right">
                         <label for="newmessageImportance" class="checkbox">
-                            <input type="checkbox" id="newmessageImportance" name="Importance"{{if important==true}} value="1" checked="true"{{else}} value="0"{{/if}}>
-                            </input>
+                            <input type="checkbox" id="newmessageImportance" name="Importance"{{if typeof(important) != 'undefined' && important == true}} value="1" checked="true"{{else}} value="0"{{/if}}/>
                             <span>
                                 <%: MailResource.ImportanceLabel %>
                             </span>
                         </label>
                     </div>
-                    <div class="value with-right">
-                        <input id="newmessageSubject" class="subject" type="text" spellcheck="false" maxlength="250" style="resize: none;" tabindex="4" value="${subject}"/>
+                    <div class="value with-right" style="margin-right: 124px;">
+                        <input id="newmessageSubject" class="subject" type="text" spellcheck="false" maxlength="250" tabindex="4" value="${subject}"/>
                     </div>
                 </div>
                 <div class="value-group tags hidden">
@@ -108,51 +113,14 @@
             </div>
             <div id="id_block_errors_container" class="error-popup" style="display: none;"> 
                 <span class="text"><%: MailResource.BlockedContentWarning %></span>
-                <a class="close-info-popup" href="#" onclick="jq('#id_block_errors_container').hide(); return false;"></a>
-            </div>
-        </div>
-    </div>
-</script>
-
-<script id="editMessageFooterTmpl" type="text/x-jquery-tmpl">
-    <div class="simpleWrapper">
-        <div class="newMessageWrap" id="newMessage" streamId="${streamId}">
-            <div id="attachments_count_container" class="attachments-counter-position">
-                <div class="title-attachments">
-                    <div class="icon" style="padding-left: 0;"><i class="icon-attachment"></i></div>
-                    <span id="attachments_count_label"><%: MailResource.Attachments %>:</span>
-                    <span id="full-size-label" class="fullSizeLabel"></span>
-                </div>
-            </div>
-            <div id="attachment_upload_pnl" style="margin-left: 2px;margin-bottom: 42px;">
-               <div class="containerAction" style="display: block;">
-                    <span id="attachments_browse_btn" class="addUserLink">
-                        <a class="link dotline"><%: MailResource.UploadFileLabel %></a>
-                    </span>
-                    <span id="documents_browse_btn" class="addUserLink" onclick="javascript:DocumentsPopup.showPortalDocUploader();return false;">
-                        <a class="link dotline" ><%: MailResource.AttachFilesFromDocsLabel %></a>
-                    </span>
-                    <span id="attachments_clear_btn" class="addUserLink deleteAttachmentsIcon" onclick="AttachmentManager.RemoveAll();">
-                        <a class="link dotline"><%: MailResource.AttachDeleteAllLabel %></a>
-                    </span>
-                    <span id="attachments_limit_txt"></span>
-                </div>
-            </div>
-            <div class="attachments">
-                <table id="mail_attachments" class="attachments_list"
-                    save_to_docs_attachment="<%: MailResource.SaveAttachToMyDocs %>"
-                    save_to_projects_docs_attachment="<%: MailResource.SaveAttachToProjDocs %>"
-                    attach_to_crm_attachment="<%: MailResource.AttacToCRMContact %>">
-                    <tbody>
-                    </tbody>
-                </table>
+                <a class="close-info-popup" href="#" onclick="jq('#id_block_errors_container').hide(); return false;">&times;</a>
             </div>
         </div>
     </div>
 </script>
 
 <script id="attachmentTmpl" type="text/x-jquery-tmpl">
-    <tr class="row ${operation == 1 || attachedAsLink ? 'inactive' : ''}" data_id="${orderNumber}">
+    <tr class="row with-entity-menu ${operation == 1 || attachedAsLink ? 'inactive' : ''}" data_id="${orderNumber}">
         <td class="file_icon">
             <div class="attachmentImage ${iconCls}"/>
         </td>
@@ -179,6 +147,8 @@
         <td class="delete_icon">
             {{if operation == 0 && !attachedAsLink}}
             <div class="delete_attachment" onclick="AttachmentManager.RemoveAttachment(${orderNumber});" />
+            {{else}}
+            <div class="delete_attachment" onclick="AttachmentManager.RemoveAttachemntRow(${orderNumber});" style="display: none;" />
             {{/if}}
         </td>
 
@@ -227,7 +197,7 @@
 
         <td class="menu_column">
             {{if operation == 0 && !attachedAsLink}}
-            <div class="menu-small" data_id="${orderNumber}" name="${fileName}" title="<%: MailScriptResource.Actions %>" />
+            <div class="entity-menu" data_id="${orderNumber}" name="${fileName}" title="<%: MailScriptResource.Actions %>" />
             {{/if}}
         </td>
     </tr>
@@ -239,6 +209,53 @@
         <div id="WYSIWYGEditor" class="mail_wysiwyg_editor">
             <textarea id="ckMailEditor" style="width: 100%;" autocomplete="off" class="cke_contents cke_reset"></textarea>
         </div>
-        <div id="editMessagePageFooter">{{tmpl($item.data, { fileSizeToStr: $item.GetSizeString }) "editMessageFooterTmpl"}}</div>
+        <div id="editMessagePageFooter">
+            <div class="simpleWrapper">
+                <div class="newMessageWrap" id="newMessage">
+                    <div id="attachments_count_container" class="attachments-counter-position">
+                        <div class="title-attachments">
+                            <div class="icon" style="padding-left: 0;"><i class="icon-attachment"></i></div>
+                            <span id="attachments_count_label"><%: MailResource.Attachments %>:</span>
+                            <span id="full-size-label" class="fullSizeLabel"></span>
+                        </div>
+                    </div>
+                    <div id="attachment_upload_pnl">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span id="attachments_browse_btn" class="attachLink">
+                                            <a class="link dotline plus"><%: MailResource.UploadFileLabel %></a>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span id="documents_browse_btn" class="attachLink" onclick="javascript:DocumentsPopup.showPortalDocUploader();return false;">
+                                            <a class="link dotline plus" ><%: MailResource.AttachFilesFromDocsLabel %></a>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span id="attachments_clear_btn" class="attachLink" onclick="AttachmentManager.RemoveAll();" style="display: none;">
+                                            <a class="link dotline deleteAll"><%: MailResource.AttachDeleteAllLabel %></a>
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <span id="attachments_limit_txt"></span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="attachments">
+                        <table id="mail_attachments" class="attachments_list"
+                            save_to_docs_attachment="<%: MailResource.SaveAttachToMyDocs %>"
+                            save_to_projects_docs_attachment="<%: MailResource.SaveAttachToProjDocs %>"
+                            attach_to_crm_attachment="<%: MailResource.AttacToCRMContact %>">
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </script>

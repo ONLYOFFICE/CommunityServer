@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -32,7 +32,6 @@ var TariffStandalone = new function () {
             isInit = true;
         }
 
-        jq.switcherAction("#switcherActivate", "#activatePanel");
         jq.switcherAction("#switcherRequest", "#requestPanel");
 
         uploadInit();
@@ -54,12 +53,12 @@ var TariffStandalone = new function () {
                         result = { Success: false };
                     }
 
-                    var licenseKey = result.Message;
+                    var licenseResult = result.Message;
                     if (!result.Success) {
-                        licenseKey = "";
+                        licenseResult = "";
                         toastr.error(ASC.Resources.Master.Resource.LicenseKeyError);
                     }
-                    jq("#licenseKeyText").val(licenseKey);
+                    jq("#licenseKeyText").text(licenseResult);
 
                     licenseKeyEdit();
                 }
@@ -67,7 +66,7 @@ var TariffStandalone = new function () {
     };
 
     var licenseKeyEdit = function () {
-        var err = !jq("#licenseKeyText").val().length;
+        var err = !jq("#licenseKeyText").text().length;
         jq("#licenseKeyText").toggleClass("error", err);
 
         if (jq("#policyAccepted").length && !jq("#policyAccepted").is(":checked")) {
@@ -77,7 +76,7 @@ var TariffStandalone = new function () {
     };
 
     var activate = function () {
-        var licenseKey = jq("#licenseKeyText").val();
+        var licenseKey = jq("#licenseKeyText").text();
 
         if (jq("#licenseKeyText").length && !licenseKey.length) {
             var res = { Status: 0, Message: ASC.Resources.Master.Resource.LicenseKeyError };
@@ -93,7 +92,7 @@ var TariffStandalone = new function () {
                 LoadingBanner.hideLoaderBtn("#activatePanel");
             }
         };
-        TariffStandaloneController.ActivateLicenseKey(licenseKey, function (result) {
+        TariffStandaloneController.ActivateLicenseKey(function (result) {
             onActivate(result.value);
         });
     };
@@ -167,13 +166,8 @@ jq(function () {
     jq("#licenseRequest").click(TariffStandalone.request);
 
     jq("#activateCancel").click(function () {
-        jq("#licenseKeyText").val("");
+        jq("#licenseKeyText").text("");
         jq("#activateButton").addClass("disable");
-    });
-
-    jq("#licenseKeyText").bind("keyup", TariffStandalone.licenseKeyEdit);
-    jq("#licenseKeyText").on("paste cut", function () {
-        setTimeout(TariffStandalone.licenseKeyEdit, 0);
     });
 
     jq("#policyAccepted").click(TariffStandalone.licenseKeyEdit);

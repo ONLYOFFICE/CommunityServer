@@ -1,0 +1,189 @@
+﻿/*
+ *
+ * (c) Copyright Ascensio System Limited 2010-2016
+ *
+ * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
+ * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
+ * In accordance with Section 7(a) of the GNU GPL its Section 15 shall be amended to the effect that 
+ * Ascensio System SIA expressly excludes the warranty of non-infringement of any third-party rights.
+ *
+ * THIS PROGRAM IS DISTRIBUTED WITHOUT ANY WARRANTY; WITHOUT EVEN THE IMPLIED WARRANTY OF MERCHANTABILITY OR
+ * FITNESS FOR A PARTICULAR PURPOSE. For more details, see GNU GPL at https://www.gnu.org/copyleft/gpl.html
+ *
+ * You can contact Ascensio System SIA by email at sales@onlyoffice.com
+ *
+ * The interactive user interfaces in modified source and object code versions of ONLYOFFICE must display 
+ * Appropriate Legal Notices, as required under Section 5 of the GNU GPL version 3.
+ *
+ * Pursuant to Section 7 § 3(b) of the GNU GPL you must retain the original ONLYOFFICE logo which contains 
+ * relevant author attributions when distributing the software. If the display of the logo in its graphic 
+ * form is not reasonably feasible for technical reasons, you must include the words "Powered by ONLYOFFICE" 
+ * in every copy of the program you distribute. 
+ * Pursuant to Section 7 § 3(e) we decline to grant you any rights under trademark law for use of our trademarks.
+ *
+*/
+
+@import "../base.less";
+
+/*---------------- container for main page ------------------------*/
+.auth-form-page {
+    text-align:center;
+}
+
+div#GreetingBlock {
+    margin: 0 auto;
+    width: 900px;
+
+    &.greating-block {
+        width: 1000px;
+    }
+
+    &.authForm {
+        display: inline-block;
+        margin-top: 70px;
+        padding-bottom: 61px;
+        width: auto;
+
+        &.help-block-none {
+            width: 400px;
+        }
+
+        div.header {
+            margin-bottom: 10px;
+
+            img.logo {
+                display: block;
+                max-width: 216px;
+                max-height: 35px;
+            }
+
+            .header-base {
+                word-wrap: break-word;
+                text-align: left;
+            }
+        }
+    }
+
+    div.header {
+        img.logo {
+            clear: right;
+        }
+
+        .header-base {
+            margin: 8px 0;
+        }
+    }
+
+    div.addition {
+        margin: 0 0 30px;
+        padding: 5px;
+        border-width: 1px 0 0;
+
+        div.item {
+            display: inline-block;
+            background: none left center no-repeat;
+            line-height: 30px;
+
+            img {
+                width: auto;
+                float: left;
+                border: 0;
+                margin: 0 0 0 5px;
+            }
+
+            a {
+                display: inline-block;
+                clear: right;
+                margin: 0 0 0 15px;
+            }
+        }
+    }
+
+    .help-block-signin {
+        float: left;
+        text-align: left;
+
+        div.signUpBlock {
+            font-size: 12px;
+            margin-bottom: 32px;
+            width: 280px;
+
+            .login-hint-block {
+                margin-left: 20px;
+            }
+
+            a.signUp {
+                border-bottom: 1px dotted;
+                font-size: 12px;
+                margin-left: 20px;
+                text-decoration: none;
+            }
+
+            a.opened {
+                color: #787878 !important;
+            }
+
+            div.desc {
+                color: #787878;
+                margin-bottom: 10px;
+            }
+
+            div.overview {
+                position: relative;
+                font-weight: bold;
+                padding-left: 20px;
+
+                &:after {
+                    background-color: #83888d;
+                    .borderRadius(12px);
+                    color: #ffffff;
+                    content: "?";
+                    font-family: "Open Sans",sans-serif;
+                    display: inline-block;
+                    font-size: 11px;
+                    font-weight: 900;
+                    height: 12px;
+                    left: 3px;
+                    position: absolute;
+                    text-align: center;
+                    top: 3px;
+                    width: 12px;
+                    line-height: 11px;
+                    padding: 0;
+                    margin: 0;
+                    border: 0 none;
+                    letter-spacing: -2px;
+                }
+            }
+
+            div.label {
+                margin-bottom: 5px;
+            }
+
+            .textEdit {
+                .borderRadius(3px);
+                font-size: 14px;
+                height: 28px;
+            }
+
+            #studio_admMessDialog,
+            #studio_invJoinDialog {
+                margin-top: 10px;
+            }
+
+            span.description {
+                display: block;
+                margin: 10px 0 0;
+            }
+        }
+    }
+}
+
+.footerAuth {
+    border-top: 1px solid #e0e0e0;
+    height: 47px;
+    margin-top: -61px;
+    min-width: 959px; 
+    padding: 13px 24px 0;
+    position: relative;    
+}

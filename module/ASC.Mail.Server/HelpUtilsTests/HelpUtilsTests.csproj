@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PasswordGeneratorTests.cs" />
-    <Compile Include="DateTime.ToDbStyleTests.cs" />
     <Compile Include="String.PrefixTests.cs" />
     <Compile Include="Array.SubArrayTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

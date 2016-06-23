@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,10 +24,10 @@
 */
 
 
-using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -38,27 +38,22 @@ namespace ASC.Web.Core.Client.Bundling
 {
     public class ResourceBundleControl : UserControl
     {
-        public HashSet<string> Scripts { get; private set; }
-        public HashSet<string> Styles { get; private set; }
+        public List<string> Scripts { get; private set; }
+        public List<string> Styles { get; private set; }
         public String CategoryName { get; set; }
 
 
         public ResourceBundleControl()
         {
-            Scripts = new HashSet<string>();
-            Styles = new HashSet<string>();
+            Scripts = new List<string>();
+            Styles = new List<string>();
         }
 
         protected override void Render(HtmlTextWriter writer)
         {
             if (ClientSettings.BundlingEnabled)
             {
-                using (var html = new StringWriter())
-                using (var htmlWriter = new HtmlTextWriter(html))
-                {
-                    Write(htmlWriter);
-                    writer.Write(BundleHtml(CategoryName, html.ToString()));
-                }
+                writer.Write(BundleHtml());
             }
             else
             {
@@ -79,12 +74,20 @@ namespace ASC.Web.Core.Client.Bundling
             }
         }
 
-        private string BundleHtml(string category, string html)
+        private string BundleHtml()
         {
             var result = new StringBuilder();
+            var hash = "";
 
-            var hash = HttpServerUtility.UrlTokenEncode(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(html)));
-            var path = string.Format("~{0}{1}-{2}", BundleHelper.BUNDLE_VPATH, GetCategory(category), hash);
+            if (Scripts.Any())
+            {
+                hash = GetHash(Scripts);
+            } else if (Styles.Any())
+            {
+                hash = GetHash(Styles);
+            }
+
+            var path = string.Format("~{0}{1}-{2}", BundleHelper.BUNDLE_VPATH, GetCategory(CategoryName), hash);
             var pathcss = path + ".css";
             var pathjs = path + ".js";
 
@@ -93,43 +96,24 @@ namespace ASC.Web.Core.Client.Bundling
 
             if (bundlecss == null && bundlejs == null)
             {
-                var document = new HtmlDocument();
-                document.LoadHtml(html);
-
-                if (bundlecss == null)
+                if (Styles.Any())
                 {
-                    var styles = document.DocumentNode.SelectNodes("/style | /link[@rel='stylesheet'] | /link[@rel='stylesheet/less']");
-                    if (styles != null && 0 < styles.Count)
+                    bundlecss = BundleHelper.CssBundle(pathcss);
+                    foreach (var style in Styles)
                     {
-                        bundlecss = BundleHelper.CssBundle(pathcss);
-                        foreach (var style in styles)
-                        {
-                            if (style.Name == "style" && !string.IsNullOrEmpty(style.InnerHtml))
-                            {
-                                throw new NotSupportedException("Embedded styles not supported.");
-                            }
-                            bundlecss.Include(style.Attributes["href"].Value);
-                        }
-                        BundleHelper.AddBundle(bundlecss);
+                        bundlecss.Include(style);
                     }
+                    BundleHelper.AddBundle(bundlecss);
                 }
 
-                if (bundlejs == null)
+                if (Scripts.Any())
                 {
-                    var scripts = document.DocumentNode.SelectNodes("/script");
-                    if (scripts != null && 0 < scripts.Count)
+                    bundlejs = BundleHelper.JsBundle(pathjs);
+                    foreach (var script in Scripts)
                     {
-                        bundlejs = BundleHelper.JsBundle(pathjs);
-                        foreach (var script in scripts)
-                        {
-                            if (script.Attributes["src"] == null && !string.IsNullOrEmpty(script.InnerHtml))
-                            {
-                                throw new NotSupportedException("Embedded scripts not supported.");
-                            }
-                            bundlejs.Include(script.Attributes["src"].Value, script.Attributes["notobfuscate"] == null);
-                        }
-                        BundleHelper.AddBundle(bundlejs);
+                        bundlejs.Include(script, true);
                     }
+                    BundleHelper.AddBundle(bundlejs);
                 }
             }
 
@@ -142,6 +126,11 @@ namespace ASC.Web.Core.Client.Bundling
                 result.AppendLine(BundleHelper.HtmlScript(pathjs));
             }
             return result.ToString();
+        }
+
+        private string GetHash(IEnumerable<string> hashSet)
+        {
+            return HttpServerUtility.UrlTokenEncode(MD5.Create().ComputeHash(Encoding.UTF8.GetBytes(string.Join(",", hashSet))));
         }
 
         private string GetCategory(string category)

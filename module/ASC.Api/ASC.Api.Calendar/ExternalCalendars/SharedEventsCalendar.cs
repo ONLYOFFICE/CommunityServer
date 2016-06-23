@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -51,13 +51,10 @@ namespace ASC.Api.Calendar.ExternalCalendars
 
         public override List<IEvent> LoadEvents(Guid userId, DateTime utcStartDate, DateTime utcEndDate)
         {
-            using (var dataProvider = new DataProvider())
-            {
-                var events = dataProvider.LoadSharedEvents(userId, CoreContext.TenantManager.GetCurrentTenant().TenantId, utcStartDate, utcEndDate);
-                events.ForEach(e => e.CalendarId = this.Id);
-                var ievents = new List<IEvent>(events.Select(e => (IEvent)e));
-                return ievents;
-            }
+            var events = new DataProvider().LoadSharedEvents(userId, CoreContext.TenantManager.GetCurrentTenant().TenantId, utcStartDate, utcEndDate);
+            events.ForEach(e => e.CalendarId = this.Id);
+            var ievents = new List<IEvent>(events.Select(e => (IEvent)e));
+            return ievents;
         }
 
         public override string Name

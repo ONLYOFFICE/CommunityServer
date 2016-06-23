@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -68,12 +68,16 @@ ASC.Controls.EmailAndPasswordManager = new function() {
                 },
                 onComplete: function (file, response) {
                     LoadingBanner.hideLoaderBtn(".step");
-                    var result = jq.parseJSON(response);
+                    try {
+                        var result = jq.parseJSON(response);
+                    } catch (e) {
+                        result = { Success: false };
+                    }
 
                     if (result.Success) {
-                        jq("#licenseKeyText").val(result.Message);
+                        jq("#licenseKeyText").text(result.Message);
                     } else {
-                        jq("#licenseKeyText").val(ASC.Resources.Master.Resource.LicenseKeyError).addClass("error");
+                        jq("#licenseKeyText").text(ASC.Resources.Master.Resource.LicenseKeyError).addClass("error");
                     }
                 }
             });
@@ -109,7 +113,6 @@ ASC.Controls.EmailAndPasswordManager = new function() {
         var pwd = jq('.passwordBlock .pwd #newPwd').val();
         var cpwd = jq('.passwordBlock .pwd #confPwd').val();
         var promocode = jq('.passwordBlock .promocode #promocode_input').val();
-        var licenseKey = jq("#licenseKeyText").val();
 
         if (email == '' || !jq.isValidEmail(email)) {
             var res = { "Status": 0, "Message": ASC.Controls.EmailAndPasswordManager.wrongEmail };
@@ -134,21 +137,21 @@ ASC.Controls.EmailAndPasswordManager = new function() {
             return;
         }
 
-        if (jq("#licenseKeyText").length && !licenseKey.length) {
+        if (jq("#licenseKeyText").length && jq("#licenseKeyText").hasClass("error")) {
             res = { "Status": 0, "Message": ASC.Resources.Master.Resource.LicenseKeyError };
             if (parentCallback != null)
                 parentCallback(res);
             return;
         }
 
-        if (jq("#policyAccepted").length && !jq("#policyAccepted").is(":checked")) {
+        if (jq(".license-accept").length && !jq(".license-accept input[type=checkbox]").is(":checked")) {
             toastr.error(ASC.Resources.Master.Resource.LicenseAgreementsError);
             return;
         }
 
         window.onbeforeunload = null;
         AjaxPro.timeoutPeriod = 1800000;
-        EmailAndPasswordController.SaveData(email, pwd, jq('#studio_lng').val(), promocode, licenseKey, function (result) {
+        EmailAndPasswordController.SaveData(email, pwd, jq('#studio_lng').val(), promocode, function (result) {
 
             if (parentCallback != null)
                 parentCallback(result.value);

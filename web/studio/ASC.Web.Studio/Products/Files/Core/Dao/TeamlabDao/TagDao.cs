@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -412,12 +412,14 @@ namespace ASC.Files.Core.Data
                 if (parentFolder.FolderType == FolderType.SHARE)
                 {
                     var shareQuery =
-                        new Func<SqlQuery>(() => getBaseSqlQuery().InnerJoin("files_security fs",
-                                                                             Exp.EqColumns("fs.tenant_id", "ftl.tenant_id") &
-                                                                             Exp.EqColumns("fs.entry_id", "ftl.entry_id") &
-                                                                             Exp.EqColumns("fs.entry_type", "ftl.entry_type")));
+                        new Func<SqlQuery>(() => getBaseSqlQuery().Where(Exp.Exists(
+                            new SqlQuery("files_security fs")
+                            .Select("fs.entry_id")
+                            .Where(
+                                Exp.EqColumns("fs.tenant_id", "ftl.tenant_id") &
+                                Exp.EqColumns("fs.entry_id", "ftl.entry_id") &
+                                Exp.EqColumns("fs.entry_type", "ftl.entry_type")))));
 
-                    //TODO:Optimize
                     var tmpShareFileTags = DbManager.ExecuteList(
                         shareQuery().InnerJoin("files_file f",
                                                Exp.EqColumns("f.tenant_id", "ftl.tenant_id") &
@@ -448,7 +450,7 @@ namespace ASC.Files.Core.Data
                                        Exp.EqColumns("m.hash_id", "ftl.entry_id"))
                             .InnerJoin("files_thirdparty_account ac",
                                        Exp.EqColumns("ac.tenant_id", "m.tenant_id") &
-                                       Exp.Sql("m.id Like concat('sbox-', ac.id, '%') or m.id Like concat('spoint-', ac.id, '%') or m.id Like concat('drive-', ac.id, '%')") &
+                                       Exp.Sql("m.id Like concat('sbox-', ac.id, '%') or m.id Like concat('box-', ac.id, '%') or m.id Like concat('spoint-', ac.id, '%') or m.id Like concat('drive-', ac.id, '%')") &
                                        !Exp.Eq("ac.user_id", subject) &
                                        Exp.Eq("ac.folder_type", FolderType.USER)
                             )
@@ -516,6 +518,7 @@ namespace ASC.Files.Core.Data
 
                     var folderIds = DbManager.ExecuteList(querySelect);
                     var thirdpartyFolderIds = folderIds.ConvertAll(r => "sbox-" + r[0])
+                                                       .Concat(folderIds.ConvertAll(r => "box-" + r[0]))
                                                        .Concat(folderIds.ConvertAll(r => "spoint-" + r[0]))
                                                        .Concat(folderIds.ConvertAll(r => "drive-" + r[0]));
 

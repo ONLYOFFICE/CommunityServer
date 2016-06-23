@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,9 +24,11 @@
 */
 
 
+using ASC.Web.Core;
 using System;
 using System.Web;
 using System.Web.UI;
+using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.UserControls.EmptyScreens
 {
@@ -46,8 +48,49 @@ namespace ASC.Web.Studio.UserControls.EmptyScreens
             UseStaticPosition = false;
         }
 
+        protected string HelpLink { get; set; }
+
+        protected bool IsBlogsAvailable { get; set; }
+        protected bool IsEventsAvailable { get; set; }
+        protected bool IsForumsAvailable { get; set; }
+        protected bool IsBookmarksAvailable { get; set; }
+        protected bool IsWikiAvailable { get; set; }
+        protected bool IsBirthdaysAvailable { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            HelpLink = CommonLinkUtility.GetHelpLink();
+            InitPermission();
         }
+
+
+        private void InitPermission()
+        {
+            foreach (var module in WebItemManager.Instance.GetSubItems(WebItemManager.CommunityProductID))
+            {
+                switch (module.GetSysName())
+                {
+                    case "community-blogs":
+                        IsBlogsAvailable = true;
+                        break;
+                    case "community-news":
+                        IsEventsAvailable = true;
+                        break;
+                    case "community-forum":
+                        IsForumsAvailable = true;
+                        break;
+                    case "community-bookmarking":
+                        IsBookmarksAvailable = true;
+                        break;
+                    case "community-wiki":
+                        IsWikiAvailable = true;
+                        break;
+                    case "community-birthdays":
+                        IsBirthdaysAvailable = true;
+                        break;
+                }
+            }
+        }
+
     }
 }

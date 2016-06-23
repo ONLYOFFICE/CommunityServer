@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,13 +24,11 @@
 */
 
 
-using System;
-using System.Threading;
-using System.Linq;
-
 using ASC.FullTextIndex.Service.Config;
-
 using log4net;
+using System;
+using System.Linq;
+using System.Threading;
 
 namespace ASC.FullTextIndex.Service
 {
@@ -93,25 +91,20 @@ namespace ASC.FullTextIndex.Service
     {
         private static readonly ILog log = LogManager.GetLogger(typeof(TextIndexerService));
 
-        private readonly Thread worker;
-        private readonly ManualResetEvent stop;
-        private static TextIndexerService instance;
-        public static TextIndexerService Instance
-        {
-            get
-            {
-                return instance ?? (instance = new TextIndexerService());
-            }
-        }
+        private Thread worker;
+        private ManualResetEvent stop;
 
-        private TextIndexerService()
-        {
-            worker = new Thread(DoWork) { Priority = ThreadPriority.Lowest, Name = "Full Text Indexer", IsBackground = true};
-            stop = new ManualResetEvent(false);
-        }
 
         public void Start()
         {
+            stop = new ManualResetEvent(false);
+
+            worker = new Thread(DoWork)
+            {
+                Priority = ThreadPriority.Lowest,
+                Name = "Full Text Indexer",
+                IsBackground = true
+            };
             worker.Start();
         }
 
@@ -120,7 +113,7 @@ namespace ASC.FullTextIndex.Service
             stop.Set();
             worker.Join(TimeSpan.FromSeconds(10));
             stop.Close();
-        }        
+        }
 
         private void DoWork()
         {
@@ -135,16 +128,19 @@ namespace ASC.FullTextIndex.Service
                         return;
                     }
 
-
                     DoIndex(parameters);
 
-                    TextSearcher.Instance.Start();
-
                     parameters.InitNext();
+
+                    TextSearcher.Instance.Start();
 
                     log.DebugFormat("Next action '{0}' over {1}", parameters.Action, parameters.Period);
                 }
                 catch (ThreadAbortException)
+                {
+                    break;
+                }
+                catch (ObjectDisposedException)
                 {
                     break;
                 }
@@ -166,12 +162,12 @@ namespace ASC.FullTextIndex.Service
                 {
                     return;
                 }
-                
+
                 var indexer = TextIndexCfg.Chunks > 1 ? new TextIndexerDistributed(module) : new TextIndexer(module);
 
                 try
                 {
-                    if (TextIndexAction.None == parameters.Action  && !indexed.Contains(module.Main) ||
+                    if (TextIndexAction.None == parameters.Action && !indexed.Contains(module.Main) ||
                         TextIndexAction.Remove == parameters.Action)
                     {
                         indexer.RotateMain();

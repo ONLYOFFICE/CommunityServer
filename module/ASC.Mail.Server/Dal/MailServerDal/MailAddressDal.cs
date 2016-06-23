@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -31,7 +31,7 @@ using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Mail.Aggregator.Common.Extension;
-using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Aggregator.DbSchema;
 
 namespace ASC.Mail.Server.Dal
 {
@@ -50,25 +50,25 @@ namespace ASC.Mail.Server.Dal
             if (string.IsNullOrEmpty(addressAlias))
                 throw new ArgumentNullException("addressAlias");
 
-            return new SqlQuery(AddressTable.name.Alias(addressAlias))
-                .InnerJoin(DomainTable.name.Alias(domainAlias),
-                           Exp.EqColumns(AddressTable.Columns.id_domain.Prefix(addressAlias),
-                                         DomainTable.Columns.id.Prefix(domainAlias)
+            return new SqlQuery(AddressTable.Name.Alias(addressAlias))
+                .InnerJoin(DomainTable.Name.Alias(domainAlias),
+                           Exp.EqColumns(AddressTable.Columns.DomainId.Prefix(addressAlias),
+                                         DomainTable.Columns.Id.Prefix(domainAlias)
                                )
                 )
-                .Select(AddressTable.Columns.id.Prefix(addressAlias))
-                .Select(AddressTable.Columns.tenant.Prefix(addressAlias))
-                .Select(AddressTable.Columns.name.Prefix(addressAlias))
-                .Select(AddressTable.Columns.id_domain.Prefix(addressAlias))
-                .Select(AddressTable.Columns.id_mailbox.Prefix(addressAlias))
-                .Select(AddressTable.Columns.is_mail_group.Prefix(addressAlias))
-                .Select(AddressTable.Columns.is_alias.Prefix(addressAlias))
-                .Select(AddressTable.Columns.date_created.Prefix(addressAlias))
-                .Select(DomainTable.Columns.id.Prefix(domainAlias))
-                .Select(DomainTable.Columns.name.Prefix(domainAlias))
-                .Select(DomainTable.Columns.tenant.Prefix(domainAlias))
-                .Select(DomainTable.Columns.date_added.Prefix(domainAlias))
-                .Select(DomainTable.Columns.is_verified.Prefix(domainAlias));
+                .Select(AddressTable.Columns.Id.Prefix(addressAlias))
+                .Select(AddressTable.Columns.Tenant.Prefix(addressAlias))
+                .Select(AddressTable.Columns.AddressName.Prefix(addressAlias))
+                .Select(AddressTable.Columns.DomainId.Prefix(addressAlias))
+                .Select(AddressTable.Columns.MailboxId.Prefix(addressAlias))
+                .Select(AddressTable.Columns.IsMailGroup.Prefix(addressAlias))
+                .Select(AddressTable.Columns.IsAlias.Prefix(addressAlias))
+                .Select(AddressTable.Columns.DateCreated.Prefix(addressAlias))
+                .Select(DomainTable.Columns.Id.Prefix(domainAlias))
+                .Select(DomainTable.Columns.DomainName.Prefix(domainAlias))
+                .Select(DomainTable.Columns.Tenant.Prefix(domainAlias))
+                .Select(DomainTable.Columns.DateAdded.Prefix(domainAlias))
+                .Select(DomainTable.Columns.IsVerified.Prefix(domainAlias));
         }
 
         public List<MailAddressDto> GetMailboxAliases(int mailboxId, DbManager db = null)
@@ -79,8 +79,8 @@ namespace ASC.Mail.Server.Dal
             const string domain_alias = "msd";
             const string address_alias = "msa";
             var addressQuery = GetAddressQuery(domain_alias, address_alias)
-                .Where(AddressTable.Columns.id_mailbox.Prefix(address_alias), mailboxId)
-                .Where(AddressTable.Columns.is_alias.Prefix(address_alias), true);
+                .Where(AddressTable.Columns.MailboxId.Prefix(address_alias), mailboxId)
+                .Where(AddressTable.Columns.IsAlias.Prefix(address_alias), true);
 
 
             var result = NullSafeExecuteList(db, addressQuery);
@@ -118,15 +118,15 @@ namespace ASC.Mail.Server.Dal
             if (string.IsNullOrEmpty(domainName))
                 throw new ArgumentNullException("domainName");
 
-            var insertValuesQuery = new SqlInsert(AddressTable.name)
-                .InColumnValue(AddressTable.Columns.id, 0)
-                .InColumnValue(AddressTable.Columns.tenant, tenant)
-                .InColumnValue(AddressTable.Columns.name, addressName)
-                .InColumnValue(AddressTable.Columns.id_domain, domainId)
-                .InColumnValue(AddressTable.Columns.id_mailbox, mailboxId)
-                .InColumnValue(AddressTable.Columns.is_mail_group, isMailGroup)
-                .InColumnValue(AddressTable.Columns.is_alias, isAlias)
-                .InColumnValue(AddressTable.Columns.date_created, addressCreatedDate)
+            var insertValuesQuery = new SqlInsert(AddressTable.Name)
+                .InColumnValue(AddressTable.Columns.Id, 0)
+                .InColumnValue(AddressTable.Columns.Tenant, tenant)
+                .InColumnValue(AddressTable.Columns.AddressName, addressName)
+                .InColumnValue(AddressTable.Columns.DomainId, domainId)
+                .InColumnValue(AddressTable.Columns.MailboxId, mailboxId)
+                .InColumnValue(AddressTable.Columns.IsMailGroup, isMailGroup)
+                .InColumnValue(AddressTable.Columns.IsAlias, isAlias)
+                .InColumnValue(AddressTable.Columns.DateCreated, addressCreatedDate)
                 .Identity(0, 0, true);
 
             var addedAddressId = NullSafeExecuteScalar<int>(db, insertValuesQuery);
@@ -144,9 +144,9 @@ namespace ASC.Mail.Server.Dal
             if (aliasId < 0)
                 throw new ArgumentException("Argument alias_id less then zero.", "aliasId");
 
-            var deleteAddressQuery = new SqlDelete(AddressTable.name)
-                .Where(AddressTable.Columns.id, aliasId)
-                .Where(AddressTable.Columns.tenant, tenant);
+            var deleteAddressQuery = new SqlDelete(AddressTable.Name)
+                .Where(AddressTable.Columns.Id, aliasId)
+                .Where(AddressTable.Columns.Tenant, tenant);
 
             db.ExecuteNonQuery(deleteAddressQuery);
         }
@@ -162,8 +162,8 @@ namespace ASC.Mail.Server.Dal
             const string domain_alias = "msd";
             const string address_alias = "msa";
             var addressQuery = GetAddressQuery(domain_alias, address_alias)
-                                .Where(AddressTable.Columns.tenant.Prefix(address_alias), tenant)
-                                .Where(AddressTable.Columns.id.Prefix(address_alias), addressId);
+                                .Where(AddressTable.Columns.Tenant.Prefix(address_alias), tenant)
+                                .Where(AddressTable.Columns.Id.Prefix(address_alias), addressId);
 
             var result = db.ExecuteList(addressQuery);
             
@@ -181,8 +181,8 @@ namespace ASC.Mail.Server.Dal
             const string domain_alias = "msd";
             const string address_alias = "msa";
             var addressQuery = GetAddressQuery(domain_alias, address_alias)
-                .Where(AddressTable.Columns.tenant.Prefix(address_alias), tenant)
-                .Where(Exp.In(AddressTable.Columns.id.Prefix(address_alias), addressIds));
+                .Where(AddressTable.Columns.Tenant.Prefix(address_alias), tenant)
+                .Where(Exp.In(AddressTable.Columns.Id.Prefix(address_alias), addressIds));
 
             var result = db.ExecuteList(addressQuery);
 
@@ -206,9 +206,9 @@ namespace ASC.Mail.Server.Dal
             const string domain_alias = "msd";
             const string address_alias = "msa";
             var addressQuery = GetAddressQuery(domain_alias, address_alias)
-                .Where(AddressTable.Columns.name.Prefix(address_alias), addressName)
-                .Where(AddressTable.Columns.tenant.Prefix(address_alias), tenant)
-                .Where(DomainTable.Columns.name.Prefix(domain_alias), domainName);
+                .Where(AddressTable.Columns.AddressName.Prefix(address_alias), addressName)
+                .Where(AddressTable.Columns.Tenant.Prefix(address_alias), tenant)
+                .Where(DomainTable.Columns.DomainName.Prefix(domain_alias), domainName);
 
             return db.ExecuteList(addressQuery).Any();
         }

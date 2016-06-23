@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,22 +24,22 @@
 */
 
 
-using System;
-using System.Configuration;
-using System.ServiceModel;
-using System.Collections.Generic;
-using System.Linq;
-
+using ASC.Common.Caching;
 using ASC.Common.Module;
 using ASC.Core;
-using ASC.FullTextIndex.Service;
-
 using log4net;
+using System;
+using System.Collections.Generic;
+using System.Configuration;
+using System.Linq;
+using System.ServiceModel;
 
 namespace ASC.FullTextIndex
 {
     public static class FullTextSearch
     {
+        private static readonly ICache cache = AscCache.Memory;
+
         public static ModuleInfo BlogsModule { get { return new ModuleInfo("community_blogs"); } }
         public static ModuleInfo NewsModule { get { return new ModuleInfo("community_news"); } }
         public static ModuleInfo BookmarksModule { get { return new ModuleInfo("community_bookmarks").Select("BookmarkID"); } }
@@ -77,7 +77,7 @@ namespace ASC.FullTextIndex
         public static ModuleInfo CRMCasesModule { get { return new ModuleInfo("crm_cases"); } }
         public static ModuleInfo CRMEmailsModule { get { return new ModuleInfo("crm_email"); } }
         public static ModuleInfo CRMEventsModule { get { return new ModuleInfo("crm_events"); } }
-        public static ModuleInfo CRMInvoicesModule { get { return new ModuleInfo("CRM.Invoices"); } }
+        public static ModuleInfo CRMInvoicesModule { get { return new ModuleInfo("crm_invoices"); } }
 
 
         private static readonly ILog log = LogManager.GetLogger(typeof(FullTextSearch));
@@ -86,44 +86,65 @@ namespace ASC.FullTextIndex
 
         private static DateTime lastErrorTime = default(DateTime);
 
+
         public static bool SupportModule(params ModuleInfo[] modules)
         {
-            if (modules == null || modules.Length == 0 || CheckServiceAvailability()) return false;
+            if (modules == null || modules.Length == 0 || CheckServiceAvailability())
+            {
+                return false;
+            }
+
+            var names = modules.Select(m => m.Name).ToArray();
+            var key = string.Join("", names);
+            var result = cache.Get<string>(key);
+            if (result != null)
+            {
+                return bool.Parse(result);
+            }
 
             try
             {
                 using (var service = new TextIndexServiceClient())
                 {
-                    return service.SupportModule(modules.Select(r => r.Name).ToArray());
+                    var support = service.SupportModule(names);
+                    cache.Insert(key, support.ToString(), DateTime.Now.AddHours(1));
+                    return support;
                 }
             }
             catch (Exception e)
             {
                 if (e is CommunicationException || e is TimeoutException)
+                {
                     lastErrorTime = DateTime.Now;
-
+                }
                 log.Error(e);
             }
-
             return false;
         }
 
         public static List<int> Search(params ModuleInfo[] modules)
         {
-            if (CheckServiceAvailability()) return new List<int>();
+            if (CheckServiceAvailability())
+            {
+                return new List<int>();
+            }
 
             try
             {
+                var info = modules.Select(m => m.Name + "|" + m.GetSqlQuery()).ToArray();
+
                 using (var service = new TextIndexServiceClient())
                 {
-                    return service.Search(modules, CoreContext.TenantManager.GetCurrentTenant().TenantId).SelectMany(r => r.Value).Distinct().ToList();
+                    var result = service.Search(CoreContext.TenantManager.GetCurrentTenant().TenantId, info);
+                    return result.ToList();
                 }
             }
             catch (Exception e)
             {
                 if (e is CommunicationException || e is TimeoutException)
+                {
                     lastErrorTime = DateTime.Now;
-
+                }
                 log.Error(e);
             }
 
@@ -144,8 +165,9 @@ namespace ASC.FullTextIndex
             catch (Exception e)
             {
                 if (e is CommunicationException || e is TimeoutException)
+                {
                     lastErrorTime = DateTime.Now;
-
+                }
                 log.Error(e);
             }
 
@@ -166,9 +188,9 @@ namespace ASC.FullTextIndex
             return Channel.SupportModule(modules);
         }
 
-        public Dictionary<string, IEnumerable<int>> Search(IEnumerable<ModuleInfo> modules, int tenantID)
+        public int[] Search(int tenantId, string[] modules)
         {
-            return Channel.Search(modules, tenantID);
+            return Channel.Search(tenantId, modules);
         }
 
         public bool CheckState()

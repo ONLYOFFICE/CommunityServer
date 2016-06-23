@@ -1,5 +1,4 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="NamingPeopleSettings.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.NamingPeopleSettings" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
 <div class="clearFix">
@@ -16,9 +15,9 @@
     </div>
     <div class="settings-help-block">
         <p><%=String.Format(Resource.HelpAnswerTeamTemplate.HtmlEncode(), "<br />", "<b>", "</b>")%></p>
-         <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+         <% if (!string.IsNullOrEmpty(HelpLink))
            { %>
-        <a href="<%= CommonLinkUtility.GetHelpLink(true) + "gettingstarted/configuration.aspx#CustomizingPortal_block" %>" target="_blank"><%= Resource.LearnMore %></a>
+        <a href="<%= HelpLink + "/gettingstarted/configuration.aspx#CustomizingPortal_block" %>" target="_blank"><%= Resource.LearnMore %></a>
         <% } %>
     </div>
 </div>

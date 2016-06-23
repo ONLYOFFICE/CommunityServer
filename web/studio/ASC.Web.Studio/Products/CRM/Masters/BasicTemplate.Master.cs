@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Linq;
 using System.Web;
 using System.Web.UI;
 using ASC.Web.CRM.Controls.Common;
@@ -57,8 +58,38 @@ namespace ASC.Web.CRM
         {
             SideNavigation.Controls.Add(LoadControl(NavigationSidePanel.Location));
 
-            Page.RegisterStyleControl("~/products/crm/masters/Styles.ascx");
-            Page.RegisterBodyScriptsControl("~/products/crm/masters/CommonBodyScripts.ascx");
+            Page.RegisterStyle(PathProvider.GetFileStaticRelativePath,
+                "common.less",
+                "tasks.less",
+                "cases.less",
+                "contacts.less",
+                "deals.less",
+                "invoices.less",
+                "fg.css",
+                "socialmedia.less",
+                "settings.less",
+                "voip.common.less",
+                "voip.quick.less",
+                "voip.numbers.less",
+                "voip.calls.less");
+
+            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, 
+                                         "common.js",
+                                         "navsidepanel.js",
+                                         "fileUploader.js",
+                                         "tasks.js",
+                                         "contacts.js",
+                                         "cases.js",
+                                         "deals.js",
+                                         "invoices.js",
+                                         "socialmedia.js",
+                                         "sender.js"
+                                     );
+
+            Page.RegisterBodyScripts(ResolveUrl,
+                                         "~/js/uploader/ajaxupload.js",
+                                         "~/js/third-party/jquery/jquery.autosize.js");
+
 
             RegisterScriptForTaskAction();
         }

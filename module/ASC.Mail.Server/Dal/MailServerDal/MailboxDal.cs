@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -32,14 +32,14 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Security.Authentication;
 using ASC.Mail.Aggregator.Common.Extension;
-using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Aggregator.DbSchema;
 using ASC.Security.Cryptography;
 
 namespace ASC.Mail.Server.Dal
 {
     public class MailboxDal : DalBase
     {
-        private readonly int _mailboxCountLimit = 2;
+        private readonly int _mailboxCountLimit;
         
         public MailboxDal(int tenant) : 
             this("mailserver", tenant)
@@ -62,7 +62,7 @@ namespace ASC.Mail.Server.Dal
             _mailboxCountLimit = mailboxesCountLimit;
         }
 
-        public MailboxWithAddressDto CreateMailbox(IAccount teamlabAccount,
+        public MailboxWithAddressDto CreateMailbox(IAccount teamlabAccount, string name,
                                                    string fullAddress, string password, string addressName,
                                                    DateTime addressCreatedDate,
                                                    int domainId, string domainName, bool isVerified, DbManager db)
@@ -91,17 +91,17 @@ namespace ASC.Mail.Server.Dal
             const string mailbox_alias = "mb";
             const string address_alias = "a";
 
-            var userTeamlabMailboxCountQuery = new SqlQuery(MailboxTable.name.Alias(mailbox_alias))
-                .InnerJoin(AddressTable.name.Alias(address_alias),
-                           Exp.EqColumns(MailboxTable.Columns.id.Prefix(mailbox_alias),
-                                         AddressTable.Columns.id_mailbox.Prefix(address_alias)))
+            var userTeamlabMailboxCountQuery = new SqlQuery(MailboxTable.Name.Alias(mailbox_alias))
+                .InnerJoin(AddressTable.Name.Alias(address_alias),
+                           Exp.EqColumns(MailboxTable.Columns.Id.Prefix(mailbox_alias),
+                                         AddressTable.Columns.MailboxId.Prefix(address_alias)))
                 .SelectCount()
-                .Where(MailboxTable.Columns.is_teamlab_mailbox.Prefix(mailbox_alias), true)
-                .Where(MailboxTable.Columns.is_removed.Prefix(mailbox_alias), false)
-                .Where(MailboxTable.Columns.id_tenant.Prefix(mailbox_alias), tenant)
-                .Where(MailboxTable.Columns.id_user.Prefix(mailbox_alias), teamlabAccount.ID.ToString())
-                .Where(AddressTable.Columns.id_domain.Prefix(address_alias), domainId)
-                .Where(AddressTable.Columns.is_alias.Prefix(address_alias), false);
+                .Where(MailboxTable.Columns.IsTeamlabMailbox.Prefix(mailbox_alias), true)
+                .Where(MailboxTable.Columns.IsRemoved.Prefix(mailbox_alias), false)
+                .Where(MailboxTable.Columns.Tenant.Prefix(mailbox_alias), tenant)
+                .Where(MailboxTable.Columns.User.Prefix(mailbox_alias), teamlabAccount.ID.ToString())
+                .Where(AddressTable.Columns.DomainId.Prefix(address_alias), domainId)
+                .Where(AddressTable.Columns.IsAlias.Prefix(address_alias), false);
 
             var userMailboxesCount = db.ExecuteScalar<int>(userTeamlabMailboxCountQuery);
 
@@ -110,34 +110,34 @@ namespace ASC.Mail.Server.Dal
 
             var serverInformation = GetTenantServer(db);
 
-            var dateCreated = DateTime.UtcNow.ToDbStyle();
+            var dateCreated = DateTime.UtcNow;
 
-            var insertQuery = new SqlInsert(MailboxTable.name)
-                .InColumnValue(MailboxTable.Columns.id, 0)
-                .InColumnValue(MailboxTable.Columns.id_tenant, tenant)
-                .InColumnValue(MailboxTable.Columns.id_user, teamlabAccount.ID.ToString())
-                .InColumnValue(MailboxTable.Columns.address, fullAddress)
-                .InColumnValue(MailboxTable.Columns.name, teamlabAccount.Name)
-                .InColumnValue(MailboxTable.Columns.password, InstanceCrypto.Encrypt(password))
-                .InColumnValue(MailboxTable.Columns.msg_count_last, 0)
-                .InColumnValue(MailboxTable.Columns.smtp_password, InstanceCrypto.Encrypt(password))
-                .InColumnValue(MailboxTable.Columns.size_last, 0)
-                .InColumnValue(MailboxTable.Columns.login_delay, Config.LoginDelayInSeconds)
-                .InColumnValue(MailboxTable.Columns.enabled, true)
-                .InColumnValue(MailboxTable.Columns.imap, true)
-                .InColumnValue(MailboxTable.Columns.service_type, 0)
-                .InColumnValue(MailboxTable.Columns.refresh_token, null)
-                .InColumnValue(MailboxTable.Columns.date_created, dateCreated)
-                .InColumnValue(MailboxTable.Columns.id_smtp_server, serverInformation.smtp_settings_id)
-                .InColumnValue(MailboxTable.Columns.id_in_server, serverInformation.imap_settings_id)
-                .InColumnValue(MailboxTable.Columns.is_teamlab_mailbox, true)
+            var insertQuery = new SqlInsert(MailboxTable.Name)
+                .InColumnValue(MailboxTable.Columns.Id, 0)
+                .InColumnValue(MailboxTable.Columns.Tenant, tenant)
+                .InColumnValue(MailboxTable.Columns.User, teamlabAccount.ID.ToString())
+                .InColumnValue(MailboxTable.Columns.Address, fullAddress)
+                .InColumnValue(MailboxTable.Columns.AddressName, name)
+                .InColumnValue(MailboxTable.Columns.Password, InstanceCrypto.Encrypt(password))
+                .InColumnValue(MailboxTable.Columns.MsgCountLast, 0)
+                .InColumnValue(MailboxTable.Columns.SmtpPassword, InstanceCrypto.Encrypt(password))
+                .InColumnValue(MailboxTable.Columns.SizeLast, 0)
+                .InColumnValue(MailboxTable.Columns.LoginDelay, Config.LoginDelayInSeconds)
+                .InColumnValue(MailboxTable.Columns.Enabled, true)
+                .InColumnValue(MailboxTable.Columns.Imap, true)
+                .InColumnValue(MailboxTable.Columns.ServiceType, 0)
+                .InColumnValue(MailboxTable.Columns.RefreshToken, null)
+                .InColumnValue(MailboxTable.Columns.DateCreated, dateCreated)
+                .InColumnValue(MailboxTable.Columns.SmtpServerId, serverInformation.smtp_settings_id)
+                .InColumnValue(MailboxTable.Columns.ServerId, serverInformation.imap_settings_id)
+                .InColumnValue(MailboxTable.Columns.IsTeamlabMailbox, true)
                 .Identity(0, 0, true);
 
 
             var result = db.ExecuteScalar<int>(insertQuery);
 
             var createdMailbox = new MailboxDto(result, teamlabAccount.ID.ToString(), tenant,
-                                                 fullAddress);
+                                                 fullAddress, name);
 
             var addressDal = new MailAddressDal(tenant);
 
@@ -149,6 +149,23 @@ namespace ASC.Mail.Server.Dal
             return resultDto;
         }
 
+        public void UpdateMailbox(IAccount teamlabAccount, int mailboxId, string name, DbManager db)
+        {
+            if (teamlabAccount == null)
+                throw new ArgumentNullException("teamlabAccount");
+
+            if (db == null)
+                throw new ArgumentNullException("db");
+
+            var updateQuery = new SqlUpdate(MailboxTable.Name)
+                .Set(MailboxTable.Columns.AddressName, name)
+                .Where(MailboxTable.Columns.Tenant, tenant)
+                .Where(MailboxTable.Columns.User, teamlabAccount.ID.ToString())
+                .Where(MailboxTable.Columns.Id, mailboxId);
+
+            db.ExecuteNonQuery(updateQuery);
+        }
+
         public List<MailboxWithAddressDto> GetMailboxes(DbManager db = null)
         {
             const string mailbox_alias = "mailbox";
@@ -156,9 +173,9 @@ namespace ASC.Mail.Server.Dal
             const string domain_alias = "domain";
 
             var query = GetMailboxQuery(mailbox_alias, domain_alias, address_alias)
-                .Where(MailboxTable.Columns.id_tenant.Prefix(mailbox_alias), tenant)
-                .Where(MailboxTable.Columns.is_teamlab_mailbox.Prefix(mailbox_alias), true)
-                .Where(MailboxTable.Columns.is_removed.Prefix(mailbox_alias), false);
+                .Where(MailboxTable.Columns.Tenant.Prefix(mailbox_alias), tenant)
+                .Where(MailboxTable.Columns.IsTeamlabMailbox.Prefix(mailbox_alias), true)
+                .Where(MailboxTable.Columns.IsRemoved.Prefix(mailbox_alias), false);
 
             var result = NullSafeExecuteList(db, query);
 
@@ -178,10 +195,10 @@ namespace ASC.Mail.Server.Dal
             const string domain_alias = "domain";
 
             var query = GetMailboxQuery(mailbox_alias, domain_alias, address_alias)
-                .Where(MailboxTable.Columns.id_tenant.Prefix(mailbox_alias), tenant)
-                .Where(MailboxTable.Columns.is_teamlab_mailbox.Prefix(mailbox_alias), true)
-                .Where(MailboxTable.Columns.is_removed.Prefix(mailbox_alias), false)
-                .Where(MailboxTable.Columns.id.Prefix(mailbox_alias), mailboxId);
+                .Where(MailboxTable.Columns.Tenant.Prefix(mailbox_alias), tenant)
+                .Where(MailboxTable.Columns.IsTeamlabMailbox.Prefix(mailbox_alias), true)
+                .Where(MailboxTable.Columns.IsRemoved.Prefix(mailbox_alias), false)
+                .Where(MailboxTable.Columns.Id.Prefix(mailbox_alias), mailboxId);
 
             var result = NullSafeExecuteList(db, query);
 
@@ -202,32 +219,33 @@ namespace ASC.Mail.Server.Dal
             if (string.IsNullOrEmpty(addressAlias))
                 throw new ArgumentNullException("addressAlias");
             
-            return new SqlQuery(MailboxTable.name.Alias(mailboxAlias))
-                .InnerJoin(AddressTable.name.Alias(addressAlias),
-                           Exp.EqColumns(MailboxTable.Columns.id.Prefix(mailboxAlias),
-                                         AddressTable.Columns.id_mailbox.Prefix(addressAlias)))
-                .InnerJoin(DomainTable.name.Alias(domainAlias),
-                           Exp.EqColumns(AddressTable.Columns.id_domain.Prefix(addressAlias),
-                                         DomainTable.Columns.id.Prefix(domainAlias))
+            return new SqlQuery(MailboxTable.Name.Alias(mailboxAlias))
+                .InnerJoin(AddressTable.Name.Alias(addressAlias),
+                           Exp.EqColumns(MailboxTable.Columns.Id.Prefix(mailboxAlias),
+                                         AddressTable.Columns.MailboxId.Prefix(addressAlias)))
+                .InnerJoin(DomainTable.Name.Alias(domainAlias),
+                           Exp.EqColumns(AddressTable.Columns.DomainId.Prefix(addressAlias),
+                                         DomainTable.Columns.Id.Prefix(domainAlias))
                 )
-                .Select(MailboxTable.Columns.id.Prefix(mailboxAlias))
-                .Select(MailboxTable.Columns.id_user.Prefix(mailboxAlias))
-                .Select(MailboxTable.Columns.id_tenant.Prefix(mailboxAlias))
-                .Select(MailboxTable.Columns.address.Prefix(mailboxAlias))
-                .Select(MailboxTable.Columns.date_created.Prefix(mailboxAlias))
-                .Select(AddressTable.Columns.id.Prefix(addressAlias))
-                .Select(AddressTable.Columns.tenant.Prefix(addressAlias))
-                .Select(AddressTable.Columns.name.Prefix(addressAlias))
-                .Select(AddressTable.Columns.id_domain.Prefix(addressAlias))
-                .Select(AddressTable.Columns.id_mailbox.Prefix(addressAlias))
-                .Select(AddressTable.Columns.is_mail_group.Prefix(addressAlias))
-                .Select(AddressTable.Columns.is_alias.Prefix(addressAlias))
-                .Select(AddressTable.Columns.date_created.Prefix(addressAlias))
-                .Select(DomainTable.Columns.id.Prefix(domainAlias))
-                .Select(DomainTable.Columns.name.Prefix(domainAlias))
-                .Select(DomainTable.Columns.tenant.Prefix(domainAlias))
-                .Select(DomainTable.Columns.date_added.Prefix(domainAlias))
-                .Select(DomainTable.Columns.is_verified.Prefix(domainAlias));
+                .Select(MailboxTable.Columns.Id.Prefix(mailboxAlias))
+                .Select(MailboxTable.Columns.User.Prefix(mailboxAlias))
+                .Select(MailboxTable.Columns.Tenant.Prefix(mailboxAlias))
+                .Select(MailboxTable.Columns.Address.Prefix(mailboxAlias))
+                .Select(MailboxTable.Columns.AddressName.Prefix(mailboxAlias))
+                .Select(MailboxTable.Columns.DateCreated.Prefix(mailboxAlias))
+                .Select(AddressTable.Columns.Id.Prefix(addressAlias))
+                .Select(AddressTable.Columns.Tenant.Prefix(addressAlias))
+                .Select(AddressTable.Columns.AddressName.Prefix(addressAlias))
+                .Select(AddressTable.Columns.DomainId.Prefix(addressAlias))
+                .Select(AddressTable.Columns.MailboxId.Prefix(addressAlias))
+                .Select(AddressTable.Columns.IsMailGroup.Prefix(addressAlias))
+                .Select(AddressTable.Columns.IsAlias.Prefix(addressAlias))
+                .Select(AddressTable.Columns.DateCreated.Prefix(addressAlias))
+                .Select(DomainTable.Columns.Id.Prefix(domainAlias))
+                .Select(DomainTable.Columns.DomainName.Prefix(domainAlias))
+                .Select(DomainTable.Columns.Tenant.Prefix(domainAlias))
+                .Select(DomainTable.Columns.DateAdded.Prefix(domainAlias))
+                .Select(DomainTable.Columns.IsVerified.Prefix(domainAlias));
         }
 
         public void DeleteMailbox(int mailboxId, DbManager db)
@@ -251,8 +269,8 @@ namespace ASC.Mail.Server.Dal
                 mailboxManager.QuotaUsedDelete(mailbox.TenantId, quotaSizeForClean);
             }
 
-            var deleteAddressesQuery = new SqlDelete(AddressTable.name)
-                .Where(AddressTable.Columns.id_mailbox, mailboxId);
+            var deleteAddressesQuery = new SqlDelete(AddressTable.Name)
+                .Where(AddressTable.Columns.MailboxId, mailboxId);
 
             db.ExecuteNonQuery(deleteAddressesQuery);
         }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,16 +24,17 @@
 */
 
 
-using System;
-using System.IO;
-using System.Security.Cryptography;
-using System.Text;
-using System.Web;
 using ASC.Core;
 using ASC.Data.Storage;
 using ASC.Web.Studio.Controls.FileUploader.HttpModule;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
+using System;
+using System.IO;
+using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
+using System.Web;
 
 namespace ASC.Web.Talk.HttpHandlers
 {
@@ -57,7 +58,7 @@ namespace ASC.Web.Talk.HttpHandlers
 
                 var fileName = file.FileName.Replace("~", "-");
                 var storage = StorageFactory.GetStorage(TenantProvider.CurrentTenantID.ToString(), "talk");
-                var fileURL = storage.Save(Path.Combine(MD5Hash, fileName), file.InputStream).ToString();
+                var fileURL = storage.Save(Path.Combine(MD5Hash, GenerateRandomString(), fileName), file.InputStream).ToString();
                 fileName = Path.GetFileName(fileURL);
 
                 return new FileUploadResult
@@ -78,7 +79,15 @@ namespace ASC.Web.Talk.HttpHandlers
             }
         }
 
-        private static String MD5Hash
+        private string GenerateRandomString()
+        {
+            const string chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+            var random = new Random();
+            return new string(Enumerable.Repeat(chars, 4)
+              .Select(s => s[random.Next(s.Length)]).ToArray());
+        }
+
+        private string MD5Hash
         {
             get
             {

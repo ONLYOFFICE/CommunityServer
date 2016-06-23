@@ -10,18 +10,38 @@
                     <td>
                         <div class="block-cnt-splitter header-address">
                             <div class="bold"><%= MailAdministrationResource.MailboxAddressLabel %>:</div>
-                            <div>"${mailbox.user.displayName}" &lt;${mailbox.address.email}&gt;</div>
+                            <div>${mailbox.address.email}</div>
                         </div>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <div id="mailbox_add_alias" class="requiredField">
+                        <div id="mailboxSenderName" class="block-cnt-splitter">
+                            <div class="headerPanelSmall bold"><%= MailAdministrationResource.SenderNameLabel %></div>
+                            <input type="text" class="senderName textEdit" maxlength="255" value="${mailbox.name}"/>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div id="mailbox_add_alias" class="requiredField addAliasBlock">
                             <span class="requiredErrorText"><%=MailScriptResource.ErrorEmptyField %></span>
                             <div class="headerPanelSmall bold"><%= MailAdministrationResource.MailboxAliasLabel %></div>
-                            <input type="text" class="alias_name textEdit" maxlength="64" />
-                            <span>@${domain.name}</span>
-                            <a class="plus plusmail addAlias" title="<%= MailAdministrationResource.AddButton %>" style="float: none;"></a>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="aliasNameBlock">
+                                            <input type="text" class="aliasName textEdit" maxlength="64" autofocus/>
+                                        </td>
+                                        <td>
+                                            <span class="domainName" title="${domain.name}">@${domain.name}</span>
+                                        </td>
+                                        <td>
+                                            <a class="plus plusmail addAlias" title="<%= MailAdministrationResource.AddButton %>" style="float: none;"></a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                             <div class="mailbox_aliases">
                                 <table>
                                     {{tmpl(mailbox.aliases) "mailboxAliasTableRowTmpl"}}

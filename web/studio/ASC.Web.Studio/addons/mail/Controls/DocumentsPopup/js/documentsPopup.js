@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -114,24 +114,17 @@ window.DocumentsPopup = (function($) {
         for (i = 0; i < folderFiles.length; i++) {
             var fileName = decodeURIComponent(folderFiles[i].title);
 
-            var exttype = ASC.Files.Utility.getCssClassByFileTitle(fileName, true);
-
-            var fileId = folderFiles[i].id;
-            var access = folderFiles[i].access;
-            var viewUrl = folderFiles[i].viewUrl;
-            var version = folderFiles[i].version;
-            var contentLength = folderFiles[i].contentLength;
-            var pureContentLength = folderFiles[i].pureContentLength;
             var file = {
                 title: fileName,
-                access: access,
-                exttype: exttype,
-                version: version,
-                id: fileId,
+                access: folderFiles[i].access,
+                exttype: ASC.Files.Utility.getCssClassByFileTitle(fileName, true),
+                version: folderFiles[i].version,
+                id: folderFiles[i].id,
                 type: "file",
-                ViewUrl: viewUrl,
-                size_string: contentLength,
-                size: pureContentLength,
+                ViewUrl: folderFiles[i].viewUrl,
+                webUrl: folderFiles[i].webUrl,
+                size_string: folderFiles[i].contentLength,
+                size: folderFiles[i].pureContentLength,
                 original: folderFiles[i]
             };
             content.push(file);
@@ -216,10 +209,10 @@ window.DocumentsPopup = (function($) {
                 if (ASC.Files.Utility.CanImageView(file.title)) {
                     type = "image";
                 } else {
-                    if (ASC.Files.Utility.CanWebEdit(file.title) && ASC.Resources.Master.TenantTariffDocsEdition) {
+                    if (ASC.Files.Utility.CanWebEdit(file.title)) {
                         type = "editedFile";
                     } else {
-                        if (ASC.Files.Utility.CanWebView(file.title) && ASC.Resources.Master.TenantTariffDocsEdition) {
+                        if (ASC.Files.Utility.CanWebView(file.title)) {
                             type = "viewedFile";
                         } else {
                             type = "noViewedFile";
@@ -256,7 +249,8 @@ window.DocumentsPopup = (function($) {
             eventsHandler.trigger(supportedCustomEvents.SelectFiles, { data: listfiles, asLinks: $attachFilesAsLinksSelector.is(':checked') });
 
             jq.unblockUI();
-        } catch(e) {
+        } catch (e) {
+            console.error(e);
             toggleButtons(false, true);
         }
     }

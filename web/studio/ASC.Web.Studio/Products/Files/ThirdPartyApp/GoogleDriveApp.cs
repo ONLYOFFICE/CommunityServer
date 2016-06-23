@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,15 +24,6 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Security;
-using System.Text;
-using System.Threading;
-using System.Web;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
@@ -58,6 +49,15 @@ using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.UserControls.Common;
 using ASC.Web.Studio.Utility;
 using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Net;
+using System.Security;
+using System.Text;
+using System.Threading;
+using System.Web;
 using File = ASC.Files.Core.File;
 using MimeMapping = ASC.Common.Web.MimeMapping;
 using SecurityContext = ASC.Core.SecurityContext;
@@ -131,20 +131,20 @@ namespace ASC.Web.Files.ThirdPartyApp
                 {
                     ID = ThirdPartySelector.BuildAppFileId(AppAttr, jsonFile.Value<string>("id")),
                     Title = Global.ReplaceInvalidCharsAndTruncate(GetCorrectTitle(jsonFile)),
-                    CreateOn = TenantUtil.DateTimeFromUtc(jsonFile.Value<DateTime>("createdDate")),
-                    ModifiedOn = TenantUtil.DateTimeFromUtc(jsonFile.Value<DateTime>("modifiedDate")),
-                    ContentLength = Convert.ToInt64(jsonFile.Value<string>("fileSize")),
-                    ModifiedByString = jsonFile.Value<string>("lastModifyingUserName"),
+                    CreateOn = TenantUtil.DateTimeFromUtc(jsonFile.Value<DateTime>("createdTime")),
+                    ModifiedOn = TenantUtil.DateTimeFromUtc(jsonFile.Value<DateTime>("modifiedTime")),
+                    ContentLength = Convert.ToInt64(jsonFile.Value<string>("size")),
+                    ModifiedByString = jsonFile["lastModifyingUser"]["displayName"].Value<string>(),
                     ProviderKey = "Google"
                 };
 
-            var owners = jsonFile.Value<JArray>("ownerNames");
+            var owners = jsonFile["owners"];
             if (owners != null)
             {
-                file.CreateByString = owners.ToObject<List<string>>().FirstOrDefault();
+                file.CreateByString = owners[0]["displayName"].Value<string>();
             }
 
-            editable = jsonFile.Value<bool>("editable");
+            editable = jsonFile["capabilities"]["canEdit"].Value<bool>();
             return file;
         }
 
@@ -407,8 +407,7 @@ namespace ASC.Web.Files.ThirdPartyApp
 
                 var jsonFile = JObject.Parse(driveFile);
 
-                var downloadUrl = jsonFile.Value<string>("downloadUrl");
-                var contentLength = jsonFile.Value<string>("fileSize");
+                var downloadUrl = GoogleLoginProvider.GoogleUrlFile + fileId + "?alt=media";
 
                 if (string.IsNullOrEmpty(downloadUrl))
                 {
@@ -427,6 +426,7 @@ namespace ASC.Web.Files.ThirdPartyApp
                 {
                     stream.StreamCopyTo(context.Response.OutputStream);
 
+                    var contentLength = jsonFile.Value<string>("size");
                     Global.Logger.Debug("GoogleDriveApp: get file stream  contentLength - " + contentLength);
                     context.Response.AddHeader("Content-Length", contentLength);
                 }
@@ -487,7 +487,7 @@ namespace ASC.Web.Files.ThirdPartyApp
             fileName = FileUtility.ReplaceFileExtension(fileName, ext);
 
             string driveFile;
-            using (var content = storeTemplate.IronReadStream("", path, 10))
+            using (var content = storeTemplate.GetReadStream("", path))
             {
                 driveFile = CreateFile(content, fileName, folderId, token);
             }
@@ -612,7 +612,8 @@ namespace ASC.Web.Files.ThirdPartyApp
             }
             try
             {
-                var resultResponse = RequestHelper.PerformRequest(GoogleLoginProvider.GoogleUrlFile + googleFileId,
+                var requestUrl = GoogleLoginProvider.GoogleUrlFile + googleFileId + "?fields=" + GoogleLoginProvider.FilesField;
+                var resultResponse = RequestHelper.PerformRequest(requestUrl,
                                                                   headers: new Dictionary<string, string> {{"Authorization", "Bearer " + token}});
                 Global.Logger.Debug("GoogleDriveApp: file response - " + resultResponse);
                 return resultResponse;
@@ -652,8 +653,8 @@ namespace ASC.Web.Files.ThirdPartyApp
             {
                 var boundary = DateTime.UtcNow.Ticks.ToString("x");
 
-                var folderdata = string.IsNullOrEmpty(folderId) ? "" : string.Format(",\"parents\":[{{\"id\":\"{0}\"}}]", folderId);
-                var metadata = string.Format("{{\"title\":\"{0}\"{1}}}", fileName, folderdata);
+                var folderdata = string.IsNullOrEmpty(folderId) ? "" : string.Format(",\"parents\":[\"{0}\"]", folderId);
+                var metadata = string.Format("{{\"name\":\"{0}\"{1}}}", fileName, folderdata);
                 var metadataPart = string.Format("\r\n--{0}\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n{1}", boundary, metadata);
                 var bytes = Encoding.UTF8.GetBytes(metadataPart);
                 tmpStream.Write(bytes, 0, bytes.Length);
@@ -762,34 +763,23 @@ namespace ASC.Web.Files.ThirdPartyApp
             var fileName = GetCorrectTitle(jsonFile);
             fileName = FileUtility.ReplaceFileExtension(fileName, FileUtility.GetInternalExtension(fileName));
 
-            var folderId = (string)jsonFile.SelectToken("parents[0].id");
+            var folderId = (string)jsonFile.SelectToken("parents[0]");
 
             Global.Logger.Info("GoogleDriveApp: create copy - " + fileName);
 
             var ext = GetCorrectExt(jsonFile);
+            var fileId = jsonFile.Value<string>("id");
             
             if (GoogleLoginProvider.GoogleDriveExt.Contains(ext))
             {
-                var links = jsonFile["exportLinks"];
-                if (links == null)
-                {
-                    Global.Logger.Error("GoogleDriveApp: exportLinks is null");
-                    throw new Exception("exportLinks is null");
-                }
-
                 var fileType = FileUtility.GetFileTypeByExtention(ext);
                 var internalExt = FileUtility.InternalExtension[fileType];
                 var requiredMimeType = MimeMapping.GetMimeMapping(internalExt);
 
-                var exportLinks = links.ToObject<Dictionary<string, string>>();
-                var downloadUrl = exportLinks[requiredMimeType] ?? "";
-
-                if (string.IsNullOrEmpty(downloadUrl))
-                {
-                    Global.Logger.Error("GoogleDriveApp: exportLinks without requested mime - " + links);
-                    throw new Exception("exportLinks without requested mime");
-                }
-
+                var downloadUrl = GoogleLoginProvider.GoogleUrlFile
+                                  + string.Format("{0}/export?mimeType={1}",
+                                                  fileId,
+                                                  HttpUtility.UrlEncode(requiredMimeType));
 
                 var request = (HttpWebRequest)WebRequest.Create(downloadUrl);
                 request.Method = "GET";
@@ -808,23 +798,17 @@ namespace ASC.Web.Files.ThirdPartyApp
                 {
                     Global.Logger.Error("GoogleDriveApp: Error download exportLink", e);
                     request.Abort();
-
-                    var httpResponse = (HttpWebResponse)e.Response;
-                    if (httpResponse.StatusCode == HttpStatusCode.Unauthorized && fileType == FileType.Spreadsheet)
-                    {
-                        throw new SecurityException(FilesCommonResource.AppDriveSpreadsheetException, e);
-                    }
                 }
             }
             else
             {
-                var downloadUrl = jsonFile.Value<string>("downloadUrl");
+                var downloadUrl = GoogleLoginProvider.GoogleUrlFile + fileId + "?alt=media";
 
                 var convertedUrl = ConvertFile(downloadUrl, ext, token);
 
                 if (string.IsNullOrEmpty(convertedUrl))
                 {
-                    Global.Logger.ErrorFormat("GoogleDriveApp: Error convertUrl. FileSize {0}", FileSizeComment.FilesSizeToString(jsonFile.Value<int>("fileSize")));
+                    Global.Logger.ErrorFormat("GoogleDriveApp: Error convertUrl. size {0}", FileSizeComment.FilesSizeToString(jsonFile.Value<int>("size")));
                     throw new Exception(FilesCommonResource.ErrorMassage_DocServiceException + " (convert)");
                 }
 
@@ -838,7 +822,7 @@ namespace ASC.Web.Files.ThirdPartyApp
 
         private static string GetCorrectTitle(JToken jsonFile)
         {
-            var title = (jsonFile.Value<string>("title") ?? "").ToLower();
+            var title = (jsonFile.Value<string>("name") ?? "").ToLower();
             var extTitle = FileUtility.GetFileExtension(title);
             var correctExt = GetCorrectExt(jsonFile);
 
@@ -856,7 +840,7 @@ namespace ASC.Web.Files.ThirdPartyApp
             var ext = MimeMapping.GetExtention(mimeType);
             if (!GoogleLoginProvider.GoogleDriveExt.Contains(ext))
             {
-                var title = (jsonFile.Value<string>("title") ?? "").ToLower();
+                var title = (jsonFile.Value<string>("name") ?? "").ToLower();
                 ext = FileUtility.GetFileExtension(title);
 
                 if (MimeMapping.GetMimeMapping(ext) != mimeType)

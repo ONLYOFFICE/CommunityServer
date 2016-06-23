@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,23 +24,22 @@
 */
 
 
+using ASC.Core.Billing;
+using ASC.Core.Tenants;
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Runtime.Remoting.Messaging;
 using System.Threading;
 using System.Web;
-using ASC.Core.Billing;
-using ASC.Core.Tenants;
 
 
 namespace ASC.Core
 {
     public class TenantManager
     {
-        private const string CURRENT_TENANT = "CURRENT_TENANT";
+        public const string CURRENT_TENANT = "CURRENT_TENANT";
         private readonly ITenantService tenantService;
         private readonly IQuotaService quotaService;
         private readonly ITariffService tariffService;
@@ -86,11 +85,13 @@ namespace ASC.Core
             {
                 t = tenantService.GetTenant("localhost");
             }
+            var isAlias = false;
             if (t == null)
             {
                 var baseUrl = CoreContext.Configuration.BaseDomain;
                 if (!String.IsNullOrEmpty(baseUrl) && domain.EndsWith("." + baseUrl, StringComparison.InvariantCultureIgnoreCase))
                 {
+                    isAlias = true;
                     t = tenantService.GetTenant(domain.Substring(0, domain.Length - baseUrl.Length - 1));
                 }
             }
@@ -98,7 +99,7 @@ namespace ASC.Core
             {
                 t = tenantService.GetTenant(domain);
             }
-            if (t == null && CoreContext.Configuration.Standalone)
+            if (t == null && CoreContext.Configuration.Standalone && !isAlias)
             {
                 t = GetTenants()
                     .OrderBy(a => a.Status)
@@ -145,8 +146,8 @@ namespace ASC.Core
 
         public Tenant GetCurrentTenant(bool throwIfNotFound)
         {
-            var tenant = CallContext.GetData(CURRENT_TENANT) as Tenant;
-            if (tenant == null && HttpContext.Current != null)
+            Tenant tenant = null;
+            if (HttpContext.Current != null)
             {
                 tenant = HttpContext.Current.Items[CURRENT_TENANT] as Tenant;
                 if (tenant == null && HttpContext.Current.Request != null)
@@ -154,6 +155,10 @@ namespace ASC.Core
                     tenant = GetTenant(HttpContext.Current.Request.GetUrlRewriter().Host);
                     HttpContext.Current.Items[CURRENT_TENANT] = tenant;
                 }
+            }
+            if (tenant == null)
+            {
+                tenant = CallContext.GetData(CURRENT_TENANT) as Tenant;
             }
             if (tenant == null && throwIfNotFound)
             {
@@ -167,6 +172,10 @@ namespace ASC.Core
             if (tenant != null)
             {
                 CallContext.SetData(CURRENT_TENANT, tenant);
+                if (HttpContext.Current != null)
+                {
+                    HttpContext.Current.Items[CURRENT_TENANT] = tenant;
+                }
                 Thread.CurrentThread.CurrentCulture = tenant.GetCulture();
                 Thread.CurrentThread.CurrentUICulture = tenant.GetCulture();
             }
@@ -218,10 +227,18 @@ namespace ASC.Core
             return q;
         }
 
+        public IDictionary<string, IEnumerable<Tuple<string, decimal>>> GetProductPriceInfo()
+        {
+            var productIds = GetTenantQuotas(true)
+                .Select(p => p.AvangateId)
+                .Where(id => !string.IsNullOrEmpty(id))
+                .Distinct()
+                .ToArray();
+            return tariffService.GetProductPriceInfo(productIds);
+        }
+
         public TenantQuota SaveTenantQuota(TenantQuota quota)
         {
-            if (!CoreContext.Configuration.Standalone) throw new NotImplementedException();
-
             quota = quotaService.SaveTenantQuota(quota);
             return quota;
         }

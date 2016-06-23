@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -30,7 +30,6 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
-using ActiveUp.Net.Mail;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
@@ -38,15 +37,14 @@ using ASC.Common.Web;
 using ASC.Data.Storage;
 using ASC.Data.Storage.S3;
 using ASC.Mail.Aggregator.Common;
+using ASC.Mail.Aggregator.Common.DataStorage;
+using ASC.Mail.Aggregator.Common.Exceptions;
 using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Common.Logging;
-using ASC.Mail.Aggregator.Dal.DbSchema;
-using ASC.Mail.Aggregator.DataStorage;
-using ASC.Mail.Aggregator.Exceptions;
+using ASC.Mail.Aggregator.DbSchema;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Api;
 using ASC.Web.Files.Utils;
-using HtmlAgilityPack;
 using File = ASC.Files.Core.File;
 
 namespace ASC.Mail.Aggregator
@@ -167,7 +165,7 @@ namespace ASC.Mail.Aggregator
         }
 
         public MailAttachment AttachFile(int tenant, string user, int messageId,
-            string name, Stream inputStream)
+            string name, Stream inputStream, string contentType = null)
         {
             if (messageId < 1)
                 throw new AttachmentsException(AttachmentsException.Types.BadParams, "Field 'id_message' must have non-negative value.");
@@ -181,12 +179,12 @@ namespace ASC.Mail.Aggregator
             if (inputStream.Length == 0)
                 throw new AttachmentsException(AttachmentsException.Types.EmptyFile, "Empty files not supported.");
 
-            var message = GetMailInfo(tenant, user, messageId, false, false);
+            var message = GetMailInfo(tenant, user, messageId, new MailMessage.Options());
 
             if(message == null)
                 throw new AttachmentsException(AttachmentsException.Types.MessageNotFound, "Message not found.");
 
-            if (message.Folder != MailFolder.Ids.drafts)
+            if (message.Folder != MailFolder.Ids.drafts && message.Folder != MailFolder.Ids.temp)
                 throw new AttachmentsException(AttachmentsException.Types.BadParams, "Message is not a draft.");
 
             if (string.IsNullOrEmpty(message.StreamId))
@@ -202,7 +200,7 @@ namespace ASC.Mail.Aggregator
             var attachment = new MailAttachment
             {
                 fileName = name,
-                contentType = MimeMapping.GetMimeMapping(name),
+                contentType = string.IsNullOrEmpty(contentType) ? MimeMapping.GetMimeMapping(name) : contentType,
                 fileNumber = fileNumber,
                 size = inputStream.Length,
                 data = inputStream.ReadToEnd(),
@@ -215,7 +213,8 @@ namespace ASC.Mail.Aggregator
             QuotaUsedAdd(tenant, inputStream.Length);
             try
             {
-                StoreAttachmentWithoutQuota(tenant, user, attachment);
+                var storage = new StorageManager(tenant, user);
+                storage.StoreAttachmentWithoutQuota(tenant, user, attachment);
             }
             catch
             {
@@ -241,11 +240,11 @@ namespace ASC.Mail.Aggregator
         {
             using (var db = GetDb())
             {
-                var query = new SqlQuery(AttachmentTable.name)
-                                .Select(AttachmentTable.Columns.id)
-                                .Where(AttachmentTable.Columns.id_mail, messageId)
-                                .Where(AttachmentTable.Columns.need_remove, false)
-                    .Where(AttachmentTable.Columns.content_id, contentId);
+                var query = new SqlQuery(AttachmentTable.Name)
+                                .Select(AttachmentTable.Columns.Id)
+                                .Where(AttachmentTable.Columns.MailId, messageId)
+                                .Where(AttachmentTable.Columns.NeedRemove, false)
+                    .Where(AttachmentTable.Columns.ContentId, contentId);
 
                 var attachId = db.ExecuteScalar<int>(query);
                 return attachId;
@@ -292,88 +291,9 @@ namespace ASC.Mail.Aggregator
             }
         }
 
-        public void StoreAttachmentWithoutQuota(int tenant, string user, MailAttachment attachment)
-        {
-            StoreAttachmentWithoutQuota(tenant, user, attachment, MailDataStore.GetDataStore(tenant));
-        }
+        
 
-        public void StoreAttachmentWithoutQuota(int tenant, string user, MailAttachment attachment, IDataStore storage)
-        {
-            try
-            {
-                if (attachment.data == null || attachment.data.Length == 0)
-                    return;
-
-                if (string.IsNullOrEmpty(attachment.fileName))
-                    attachment.fileName = "attachment.ext";
-
-                var contentDisposition = MailStoragePathCombiner.PrepareAttachmentName(attachment.fileName);
-
-                var ext = Path.GetExtension(attachment.fileName);
-
-                attachment.storedName = CreateStreamId();
-
-                if (!string.IsNullOrEmpty(ext))
-                    attachment.storedName = Path.ChangeExtension(attachment.storedName, ext);
-
-                attachment.fileNumber =
-                    !string.IsNullOrEmpty(attachment.contentId) //Upload hack: embedded attachment have to be saved in 0 folder
-                        ? 0
-                        : attachment.fileNumber;
-
-                var attachmentPath = MailStoragePathCombiner.GerStoredFilePath(attachment);
-
-                using (var reader = new MemoryStream(attachment.data))
-                {
-                    var uploadUrl = storage.UploadWithoutQuota(string.Empty, attachmentPath, reader, attachment.contentType, contentDisposition);
-                    attachment.storedFileUrl = MailStoragePathCombiner.GetStoredUrl(uploadUrl);
-                }
-            }
-            catch (Exception e)
-            {
-                _log.Error("StoreAttachmentWithoutQuota(). filename: {0}, ctype: {1} Exception:\r\n{2}\r\n",
-                    attachment.fileName,
-                    attachment.contentType,
-                    e.ToString());
-
-                throw;
-            }
-        }
-
-        public string StoreCKeditorImageWithoutQuota(int tenant, string user, int mailboxId, string fileName, byte[] imageData, IDataStore storage)
-        {
-            try
-            {
-                if (imageData == null || imageData.Length == 0)
-                    throw new ArgumentNullException("imageData");
-
-                var ext = string.IsNullOrEmpty(fileName) ? ".jpg" : Path.GetExtension(fileName);
-
-                if (string.IsNullOrEmpty(ext))
-                    ext = ".jpg";
-
-                var storeName = imageData.GetMd5();
-                storeName = Path.ChangeExtension(storeName, ext);
-
-                var contentDisposition = ContentDispositionUtil.GetHeaderValue(storeName);
-                var contentType = MimeTypesHelper.GetMimeqType(ext);
-
-                var signatureImagePath = MailStoragePathCombiner.GerStoredSignatureImagePath(mailboxId, storeName);
-
-                using (var reader = new MemoryStream(imageData))
-                {
-                    var uploadUrl = storage.UploadWithoutQuota(user, signatureImagePath, reader, contentType, contentDisposition);
-                    return MailStoragePathCombiner.GetStoredUrl(uploadUrl);
-                }
-            }
-            catch (Exception e)
-            {
-                _log.Error("StoreCKeditorImageWithoutQuota(). filename: {0} Exception:\r\n{1}\r\n", fileName,
-                           e.ToString());
-
-                throw;
-            }
-        }
+        
 
         public void DeleteMessageAttachments(int tenant, string user, int messageId, List<int> attachmentIds)
         {
@@ -384,8 +304,8 @@ namespace ASC.Mail.Aggregator
                 using (var tx = db.BeginTransaction(IsolationLevel.ReadUncommitted))
                 {
                     usedQuota = MarkAttachmetsNeedRemove(db, tenant,
-                                                          Exp.And(Exp.Eq(AttachmentTable.Columns.id_mail, messageId),
-                                                                  Exp.In(AttachmentTable.Columns.id, ids)));
+                                                          Exp.And(Exp.Eq(AttachmentTable.Columns.MailId, messageId),
+                                                                  Exp.In(AttachmentTable.Columns.Id, ids)));
                     ReCountAttachments(db, messageId);
                     UpdateMessageChainAttachmentsFlag(db, tenant, user, messageId);
 
@@ -402,13 +322,13 @@ namespace ASC.Mail.Aggregator
             using (var db = GetDb())
             {
                 var query = GetAttachmentsSelectQuery()
-                        .Where(AttachmentTable.Columns.id.Prefix(AttachmentTable.name), attachId)
-                    .Where(AttachmentTable.Columns.need_remove.Prefix(AttachmentTable.name), false)
-                    .Where(AttachmentTable.Columns.id_tenant.Prefix(AttachmentTable.name), tenant);
+                        .Where(AttachmentTable.Columns.Id.Prefix(AttachmentTable.Name), attachId)
+                    .Where(AttachmentTable.Columns.NeedRemove.Prefix(AttachmentTable.Name), false)
+                    .Where(AttachmentTable.Columns.IdTenant.Prefix(AttachmentTable.Name), tenant);
 
                 var whereExp = string.IsNullOrEmpty(user)
-                                    ? Exp.Eq(MailTable.Columns.id_tenant.Prefix(MailTable.name), tenant)
-                                    : GetUserWhere(user, tenant, MailTable.name);
+                                    ? Exp.Eq(MailTable.Columns.Tenant.Prefix(MailTable.Name), tenant)
+                                    : GetUserWhere(user, tenant, MailTable.Name);
 
                 query.Where(whereExp);
 
@@ -425,11 +345,11 @@ namespace ASC.Mail.Aggregator
             using (var db = GetDb())
             {
                 var totalSize = db.ExecuteList(
-                    new SqlQuery(AttachmentTable.name)
-                        .SelectSum(AttachmentTable.Columns.size)
-                        .Where(AttachmentTable.Columns.id_mail, messageId)
-                        .Where(AttachmentTable.Columns.need_remove, false)
-                        .Where(AttachmentTable.Columns.content_id, null))
+                    new SqlQuery(AttachmentTable.Name)
+                        .SelectSum(AttachmentTable.Columns.Size)
+                        .Where(AttachmentTable.Columns.MailId, messageId)
+                        .Where(AttachmentTable.Columns.NeedRemove, false)
+                        .Where(AttachmentTable.Columns.ContentId, null))
                         .ConvertAll(r => Convert.ToInt64(r[0]))
                         .FirstOrDefault();
 
@@ -442,10 +362,10 @@ namespace ASC.Mail.Aggregator
             using (var db = GetDb())
             {
                 var number = db.ExecuteList(
-                    new SqlQuery(AttachmentTable.name)
-                        .SelectMax(AttachmentTable.Columns.file_number)
-                        .Where(AttachmentTable.Columns.id_mail, messageId)
-                        .Where(AttachmentTable.Columns.id_tenant, tenant))
+                    new SqlQuery(AttachmentTable.Name)
+                        .SelectMax(AttachmentTable.Columns.FileNumber)
+                        .Where(AttachmentTable.Columns.MailId, messageId)
+                        .Where(AttachmentTable.Columns.IdTenant, tenant))
                         .ConvertAll(r => Convert.ToInt32(r[0]))
                         .FirstOrDefault();
 
@@ -483,9 +403,7 @@ namespace ASC.Mail.Aggregator
 
             try
             {
-                var safeBody = ReplaceEmbeddedImages(messageItem, _log);
-
-                using (var reader = new MemoryStream(Encoding.UTF8.GetBytes(safeBody)))
+                using (var reader = new MemoryStream(Encoding.UTF8.GetBytes(messageItem.HtmlBody)))
                 {
                     var res = storage
                         .UploadWithoutQuota(string.Empty, savePath, reader, "text/html", string.Empty)
@@ -530,36 +448,6 @@ namespace ASC.Mail.Aggregator
             return "";
         }
 
-        public string StoreMailEml(int tenant, string user, string streamId, Message message)
-        {
-            if (message.OriginalData == null || !message.OriginalData.Any())
-                return string.Empty;
-
-            // Using id_user as domain in S3 Storage - allows not to add quota to tenant.
-            var savePath = MailStoragePathCombiner.GetEmlKey(user, streamId);
-            var storage = MailDataStore.GetDataStore(tenant);
-
-            try
-            {
-                using (var reader = new MemoryStream(message.OriginalData))
-                {
-                    var res = storage
-                        .UploadWithoutQuota(string.Empty, savePath, reader, "message/rfc822", string.Empty)
-                        .ToString();
-
-                    _log.Debug("StoreMailEml() tenant='{0}', user_id='{1}', save_eml_path='{2}' Result: {3}",
-                        tenant, user, savePath, res);
-
-                    return res;
-                }
-            }
-            catch (Exception)
-            {
-                storage.Delete(string.Empty, savePath);
-                throw;
-            }
-        }
-
         public void SaveAttachments(int tenant, int messageId, List<MailAttachment> attachments)
         {
             using (var db = GetDb())
@@ -576,17 +464,17 @@ namespace ASC.Mail.Aggregator
         {
             if (!attachments.Any()) return;
 
-            CreateInsertDelegate createInsertQuery = () => new SqlInsert(AttachmentTable.name)
-                                                         .InColumns(AttachmentTable.Columns.id_mail,
-                                                                    AttachmentTable.Columns.name,
-                                                                    AttachmentTable.Columns.stored_name,
-                                                                    AttachmentTable.Columns.type,
-                                                                    AttachmentTable.Columns.size,
-                                                                    AttachmentTable.Columns.file_number,
-                                                                    AttachmentTable.Columns.need_remove,
-                                                                    AttachmentTable.Columns.content_id,
-                                                                    AttachmentTable.Columns.id_tenant,
-                                                                    AttachmentTable.Columns.id_mailbox);
+            CreateInsertDelegate createInsertQuery = () => new SqlInsert(AttachmentTable.Name)
+                                                         .InColumns(AttachmentTable.Columns.MailId,
+                                                                    AttachmentTable.Columns.RealName,
+                                                                    AttachmentTable.Columns.StoredName,
+                                                                    AttachmentTable.Columns.Type,
+                                                                    AttachmentTable.Columns.Size,
+                                                                    AttachmentTable.Columns.FileNumber,
+                                                                    AttachmentTable.Columns.NeedRemove,
+                                                                    AttachmentTable.Columns.ContentId,
+                                                                    AttachmentTable.Columns.IdTenant,
+                                                                    AttachmentTable.Columns.IdMailbox);
 
             var insertQuery = createInsertQuery();
 
@@ -624,18 +512,18 @@ namespace ASC.Mail.Aggregator
         public int SaveAttachment(DbManager db, int tenant, int messageId, MailAttachment attachment, bool needRecount)
         {
             var id = db.ExecuteScalar<int>(
-                        new SqlInsert(AttachmentTable.name)
-                            .InColumnValue(AttachmentTable.Columns.id, 0)
-                            .InColumnValue(AttachmentTable.Columns.id_mail, messageId)
-                            .InColumnValue(AttachmentTable.Columns.name, attachment.fileName)
-                            .InColumnValue(AttachmentTable.Columns.stored_name, attachment.storedName)
-                            .InColumnValue(AttachmentTable.Columns.type, attachment.contentType)
-                            .InColumnValue(AttachmentTable.Columns.size, attachment.size)
-                            .InColumnValue(AttachmentTable.Columns.file_number, attachment.fileNumber)
-                            .InColumnValue(AttachmentTable.Columns.need_remove, false)
-                            .InColumnValue(AttachmentTable.Columns.content_id, attachment.contentId)
-                            .InColumnValue(AttachmentTable.Columns.id_tenant, tenant)
-                            .InColumnValue(AttachmentTable.Columns.id_mailbox, attachment.mailboxId)
+                        new SqlInsert(AttachmentTable.Name)
+                            .InColumnValue(AttachmentTable.Columns.Id, 0)
+                            .InColumnValue(AttachmentTable.Columns.MailId, messageId)
+                            .InColumnValue(AttachmentTable.Columns.RealName, attachment.fileName)
+                            .InColumnValue(AttachmentTable.Columns.StoredName, attachment.storedName)
+                            .InColumnValue(AttachmentTable.Columns.Type, attachment.contentType)
+                            .InColumnValue(AttachmentTable.Columns.Size, attachment.size)
+                            .InColumnValue(AttachmentTable.Columns.FileNumber, attachment.fileNumber)
+                            .InColumnValue(AttachmentTable.Columns.NeedRemove, false)
+                            .InColumnValue(AttachmentTable.Columns.ContentId, attachment.contentId)
+                            .InColumnValue(AttachmentTable.Columns.IdTenant, tenant)
+                            .InColumnValue(AttachmentTable.Columns.IdMailbox, attachment.mailboxId)
                             .Identity(0, 0, true));
 
             if (needRecount)
@@ -667,6 +555,7 @@ namespace ASC.Mail.Aggregator
 
             try
             {
+                var storageManager = new StorageManager(tenant, user);
                 foreach (var attachment in attachments)
                 {
                     var isAttachmentNameHasBadName = string.IsNullOrEmpty(attachment.fileName)
@@ -681,7 +570,8 @@ namespace ASC.Mail.Aggregator
                     attachment.streamId = streamId;
                     attachment.tenant = tenant;
                     attachment.user = user;
-                    StoreAttachmentWithoutQuota(tenant, user, attachment, storage);
+
+                    storageManager.StoreAttachmentWithoutQuota(tenant, user, attachment, storage);
 
                     //This is dirty hack needed for mailbox updating on attachment processing. If we doesn't update mailbox checktime, it will be reset.
                     if (mailboxId > 0)
@@ -735,90 +625,17 @@ namespace ASC.Mail.Aggregator
             return AttachmentManager.GetAttachmentStream(attachment);
         }
 
-        public static string ReplaceEmbeddedImages(MailMessage m, ILogger log = null)
-        {
-            try
-            {
-                log = log ?? new NullLogger();
-
-                var doc = new HtmlDocument();
-
-                doc.LoadHtml(m.HtmlBody);
-
-                if (m.Attachments != null && m.Attachments.Count > 0)
-                {
-                    foreach (var attach in m.Attachments)
-                    {
-                        if (string.IsNullOrEmpty(attach.storedFileUrl)) continue;
-                        if (string.IsNullOrEmpty(attach.contentId) &&
-                            string.IsNullOrEmpty(attach.contentLocation)) continue;
-
-                        HtmlNodeCollection oldNodes = null;
-
-                        if (!string.IsNullOrEmpty(attach.contentId))
-                        {
-                            oldNodes =
-                                doc.DocumentNode.SelectNodes("//img[@src and (contains(@src,'cid:" +
-                                                             attach.contentId.Trim('<').Trim('>') + "'))]");
-                        }
-
-                        if (!string.IsNullOrEmpty(attach.contentLocation) && oldNodes == null)
-                        {
-                            oldNodes =
-                               doc.DocumentNode.SelectNodes("//img[@src and (contains(@src,'" +
-                                                            attach.contentLocation + "'))]");
-                        }
-
-                        if (oldNodes == null)
-                        {
-                            //This attachment is not embedded;
-                            attach.contentId = null;
-                            attach.contentLocation = null;
-                            continue;
-                        }
-
-                        foreach (var node in oldNodes)
-                            node.SetAttributeValue("src", attach.storedFileUrl);
-                    }
-                }
-
-                return doc.DocumentNode.OuterHtml;
-            }
-            catch (RecursionDepthException ex)
-            {
-                var data = Encoding.UTF8.GetBytes(m.HtmlBody);
-
-                m.Attachments.Add(new MailAttachment
-                {
-                    size = data.Length,
-                    fileName = "original_message.html",
-                    contentType = "text/html; charset=utf-8",
-                    data = data
-                });
-
-                m.HtmlBody = "<div>The received email size is too big. The complete text was saved into a separate file and attached to this email.</div>";
-
-                log.Error("ReplaceEmbeddedImages() \r\n Exception: \r\n{0}\r\n", ex.ToString());
-
-                return m.HtmlBody;
-            }
-            catch (Exception)
-            {
-                return m.HtmlBody;
-            }
-        }
-
         #endregion
 
         #region private methods
         private static int GetCountAttachments(IDbManager db, int messageId)
         {
             var countAttachments = db.ExecuteScalar<int>(
-                        new SqlQuery(AttachmentTable.name)
-                            .SelectCount(AttachmentTable.Columns.id)
-                            .Where(AttachmentTable.Columns.id_mail, messageId)
-                            .Where(AttachmentTable.Columns.need_remove, false)
-                            .Where(AttachmentTable.Columns.content_id, null));
+                        new SqlQuery(AttachmentTable.Name)
+                            .SelectCount(AttachmentTable.Columns.Id)
+                            .Where(AttachmentTable.Columns.MailId, messageId)
+                            .Where(AttachmentTable.Columns.NeedRemove, false)
+                            .Where(AttachmentTable.Columns.ContentId, null));
             return countAttachments;
         }
 
@@ -827,26 +644,26 @@ namespace ASC.Mail.Aggregator
             var countAttachments = GetCountAttachments(db, messageId);
 
             db.ExecuteNonQuery(
-                  new SqlUpdate(MailTable.name)
-                  .Set(MailTable.Columns.attach_count, countAttachments)
-                  .Where(MailTable.Columns.id, messageId));
+                  new SqlUpdate(MailTable.Name)
+                  .Set(MailTable.Columns.AttachCount, countAttachments)
+                  .Where(MailTable.Columns.Id, messageId));
         }
 
         // Returns size of all tenant attachments. This size used in the quota calculation.
         private static long MarkAttachmetsNeedRemove(IDbManager db, int tenant, Exp condition)
         {
-            var queryForAttachmentSizeCalculation = new SqlQuery(AttachmentTable.name)
-                                                                .SelectSum(AttachmentTable.Columns.size)
-                                                                .Where(AttachmentTable.Columns.id_tenant, tenant)
-                                                                .Where(AttachmentTable.Columns.need_remove, false)
+            var queryForAttachmentSizeCalculation = new SqlQuery(AttachmentTable.Name)
+                                                                .SelectSum(AttachmentTable.Columns.Size)
+                                                                .Where(AttachmentTable.Columns.IdTenant, tenant)
+                                                                .Where(AttachmentTable.Columns.NeedRemove, false)
                                                                 .Where(condition);
 
             var size = db.ExecuteScalar<long>(queryForAttachmentSizeCalculation);
 
             db.ExecuteNonQuery(
-                new SqlUpdate(AttachmentTable.name)
-                    .Set(AttachmentTable.Columns.need_remove, true)
-                    .Where(AttachmentTable.Columns.id_tenant, tenant)
+                new SqlUpdate(AttachmentTable.Name)
+                    .Set(AttachmentTable.Columns.NeedRemove, true)
+                    .Where(AttachmentTable.Columns.IdTenant, tenant)
                     .Where(condition));
 
             return size;

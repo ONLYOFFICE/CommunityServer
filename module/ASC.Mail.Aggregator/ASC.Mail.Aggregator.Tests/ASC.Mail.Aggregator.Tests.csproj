@@ -54,13 +54,22 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>..\..\..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MailKit">
+      <HintPath>..\..\..\packages\MailKit.1.2.23\lib\net451\MailKit.dll</HintPath>
+    </Reference>
+    <Reference Include="MimeKit">
+      <HintPath>..\..\..\packages\MimeKit.1.2.24\lib\net451\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\packages\MySql.Data.6.9.7\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+    <Reference Include="Newtonsoft.Json">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -87,9 +96,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\ExtarctTextFromHtmlTests.cs" />
+    <Compile Include="Common\MessageParserTests\ResultCreator.cs" />
     <Compile Include="Common\MySqlNormalizeTests.cs" />
     <Compile Include="Common\HtmlSanitizerTests.cs" />
-    <Compile Include="Common\Imap\ImapParseMailboxListTests.cs" />
     <Compile Include="Common\LoginFormatingTests.cs" />
     <Compile Include="Common\MailerParserTests.cs" />
     <Compile Include="Common\MessageParserTests\BadContentTests.cs" />
@@ -105,9 +115,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Right_Parsing\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup />
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -122,13 +130,13 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Common\ActiveUp.Net.Common.csproj">
-      <Project>{c8d2498b-ce0e-4e0a-ab1c-29599deb1c38}</Project>
-      <Name>ActiveUp.Net.Common</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ASC.Mail.Aggregator.Common\ASC.Mail.Aggregator.Common.csproj">
       <Project>{26222fc6-1f6d-44e9-a82b-36bb8355220e}</Project>
       <Name>ASC.Mail.Aggregator.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Mail.Aggregator.Core\ASC.Mail.Aggregator.Core.csproj">
+      <Project>{ED5E23B1-61A4-4527-A4EB-AE7E3853D2AF}</Project>
+      <Name>ASC.Mail.Aggregator.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
       <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>

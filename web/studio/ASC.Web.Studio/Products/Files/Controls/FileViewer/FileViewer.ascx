@@ -1,7 +1,6 @@
 ﻿<%@ Assembly Name="ASC.Web.Core" %>
 <%@ Assembly Name="ASC.Web.Files" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="FileViewer.ascx.cs" Inherits="ASC.Web.Files.Controls.FileViewer" %>
-<%@ Import Namespace="ASC.Web.Core.Mobile" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
 
 <div id="fileViewerDialog">
@@ -49,14 +48,11 @@
     </div>
     <div id="viewerOtherActions">
         <ul>
-            <% if (!MobileDetector.IsMobile)
-               { %>
             <li>
                 <a id="imageDownload" class="action-download" title="<%= FilesUCResource.ButtonDownload %>">
                     <%= FilesUCResource.ButtonDownload %>
                 </a>
             </li>
-            <% } %>
             <li>
                 <a id="imageDelete" class="action-delete" title="<%= FilesUCResource.ButtonDelete %>">
                     <%= FilesUCResource.ButtonDelete %>

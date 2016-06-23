@@ -159,8 +159,8 @@
   <data name="AddTag" xml:space="preserve">
     <value>Add Tag</value>
   </data>
-  <data name="AddToCRMContacts" xml:space="preserve">
-    <value>Add to CRM contacts</value>
+  <data name="AddToContacts" xml:space="preserve">
+    <value>Add to contacts</value>
   </data>
   <data name="AdvancedLinkLabel" xml:space="preserve">
     <value>Advanced</value>
@@ -274,7 +274,7 @@
     <value>Create Mailbox</value>
   </data>
   <data name="CreateNewAccountBtn" xml:space="preserve">
-    <value>Create New Account</value>
+    <value>Add New Account</value>
   </data>
   <data name="CreateNewTagBtn" xml:space="preserve">
     <value>Create New Tag</value>
@@ -295,7 +295,7 @@
     <value>Delete account</value>
   </data>
   <data name="DeleteAccountAttention" xml:space="preserve">
-    <value>If you delete your account all the letters removed from the mailbox.</value>
+    <value>If you delete your account all the messages will be removed from the mailbox.</value>
   </data>
   <data name="DeleteAccountLabel" xml:space="preserve">
     <value>Delete account</value>
@@ -393,6 +393,9 @@
   <data name="FullAccess" xml:space="preserve">
     <value>Full Access</value>
   </data>
+  <data name="Review" xml:space="preserve">
+    <value>Review</value>
+  </data>
   <data name="FullSize" xml:space="preserve">
     <value>Full size</value>
   </data>
@@ -436,7 +439,7 @@
     <value>Please, choose CRM items which this conversation will be attached to:</value>
   </data>
   <data name="LinkConversationPopupInfoMessage" xml:space="preserve">
-    <value>All letters from this conversation (including future letters) will be showed in CRM. Mailing history will be avaliable to CRM users according to access rights.</value>
+    <value>All messages from this conversation (including future messages) will be shown in CRM module. Mailing history will be available to CRM users according to their access rights.</value>
   </data>
   <data name="LinkConversationPopupLinkLabel" xml:space="preserve">
     <value>Link to:</value>
@@ -588,6 +591,9 @@
   <data name="SaveAttachToMyDocs" xml:space="preserve">
     <value>Save to My Docs</value>
   </data>
+  <data name="SaveAttachToDocs" xml:space="preserve">
+    <value>Save to Documents</value>
+  </data>
   <data name="SaveAttachToProjDocs" xml:space="preserve">
     <value>Save to Projects Docs</value>
   </data>
@@ -666,12 +672,21 @@
   <data name="UnlinkAllConfirmationMessage" xml:space="preserve">
     <value>Do you really want to unlink this conversation from CRM?</value>
   </data>
+  <data name="CreateAndLinkToCrmConfirmMessage" xml:space="preserve">
+    <value>Do you want to create a CRM contact and link with this conversation?</value>
+  </data>
   <data name="UnlinkAllInformationMessage" xml:space="preserve">
     <value>Unlinking this conversation from CRM you unlink it from all contacts, opportunities and cases you have choosed earlier.
 All messages which were received before, will left in the CRM mailing history, but future messages from the conversation won't showed in CRM.</value>
   </data>
   <data name="UnlinkAllPopupUnlinkBtnLabel" xml:space="preserve">
     <value>Unlink</value>
+  </data>
+  <data name="CreateCrmContactAndLinkPopupBtnLabel" xml:space="preserve">
+    <value>Create and link</value>
+  </data>
+  <data name="CreateCrmWithoutLinkPopupBtnLabel" xml:space="preserve">
+    <value>Just create contact</value>
   </data>
   <data name="UploadFileLabel" xml:space="preserve">
     <value>Upload file</value>
@@ -699,5 +714,62 @@ All messages which were received before, will left in the CRM mailing history, b
   </data>
   <data name="YesterdayLabel" xml:space="preserve">
     <value>Yesterday</value>
+  </data>
+  <data name="AddressBook" xml:space="preserve">
+    <value>Address book</value>
+  </data>
+  <data name="AddPhoneNumberLabel" xml:space="preserve">
+    <value>Add phone number</value>
+  </data>
+  <data name="DescriptionLabel" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="PhoneLabel" xml:space="preserve">
+    <value>Phone</value>
+  </data>
+  <data name="NameLabel" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="EditContact" xml:space="preserve">
+    <value>Edit contact</value>
+  </data>
+  <data name="ComposeLabel" xml:space="preserve">
+    <value>Compose</value>
+  </data>
+  <data name="SetMailAutoreply" xml:space="preserve">
+    <value>Mail autoreply</value>
+  </data>
+  <data name="TurnAutoreplyOn" xml:space="preserve">
+    <value>Turn autoreply on</value>
+  </data>
+  <data name="OnlySendAutoreplyToContacts" xml:space="preserve">
+    <value>Only send autoreply to people in contacts</value>
+  </data>
+  <data name="AutoreplyInformationText" xml:space="preserve">
+    <value>Replies automatically to all incoming messages, e.g. while you are absent. If some contact sends you several messages, the autoreply will be sent once every {0} at most.</value>
+  </data>
+  <data name="SaveAttachToCalendar" xml:space="preserve">
+    <value>Save to Calendar</value>
+  </data>
+  <data name="BodyLabel" xml:space="preserve">
+    <value>Body</value>
+  </data>
+  <data name="ErrorEmptyBody" xml:space="preserve">
+    <value>Body could not be empty</value>
+  </data>
+  <data name="EnabledAutoreplyNotification" xml:space="preserve">
+    <value>Mail autoreply is enabled for this account.</value>
+  </data>
+  <data name="TurnOffAutoreplyLabel" xml:space="preserve">
+    <value>You can turn it off.</value>
+  </data>
+  <data name="CalendarDateInformationText" xml:space="preserve">
+    <value>The current time is displayed according to your calendar settings.</value>
+  </data>
+  <data name="PublicShareAllowTitle" xml:space="preserve">
+    <value>Can be publicly shared</value>
+  </data>
+  <data name="PublicShareDenyTitle" xml:space="preserve">
+    <value>Cannot be publicly shared</value>
   </data>
 </root>

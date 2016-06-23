@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -222,7 +222,8 @@ namespace ASC.Mail.Server.PostfixAdministration
 
         #region .Mailboxes
 
-        protected override MailboxBase _CreateMailbox(string login, string password, string localpart, string domain, bool enableImap = true, bool enablePop = true)
+        protected override MailboxBase _CreateMailbox(string login, string password, string localpart, string domain, string name, 
+                                                      bool enableImap = true, bool enablePop = true)
         {
             var creationDate = DateTime.UtcNow;
 
@@ -230,7 +231,7 @@ namespace ASC.Mail.Server.PostfixAdministration
 
             var insertMailboxQuery = new SqlInsert(MailboxTable.name)
                                         .InColumnValue(MailboxTable.Columns.username, login)
-                                        .InColumnValue(MailboxTable.Columns.name, localpart)
+                                        .InColumnValue(MailboxTable.Columns.name, name)
                                         .InColumnValue(MailboxTable.Columns.password, PostfixPasswordEncryptor.EncryptString(HashType.Md5, password))
                                         .InColumnValue(MailboxTable.Columns.maildir, maildir)
                                         .InColumnValue(MailboxTable.Columns.localPart, localpart)
@@ -273,6 +274,7 @@ namespace ASC.Mail.Server.PostfixAdministration
 
             return new MailboxBase(new MailAccountBase(login),
                                    new MailAddressBase(localpart, new WebDomainBase(domain)),
+                                   name,
                                    new List<MailAddressBase>());
         }
 
@@ -389,8 +391,8 @@ namespace ASC.Mail.Server.PostfixAdministration
 
                 var mailbox = new MailboxBase(
                     new MailAccountBase(mailboxDto.username),
-                    new MailAddressBase(mailboxDto.local_part,
-                        new WebDomainBase(mailboxDto.domain)), aliasList);
+                    new MailAddressBase(mailboxDto.local_part, new WebDomainBase(mailboxDto.domain)),
+                    mailboxDto.name, aliasList);
 
                 mailboxList.Add(mailbox);
             }
@@ -478,7 +480,13 @@ namespace ASC.Mail.Server.PostfixAdministration
 
         protected override void _UpdateMailbox(MailboxBase mailbox)
         {
-            throw new NotSupportedException();
+            var updateMailboxQuery = new SqlUpdate(MailboxTable.name)
+                        .Set(MailboxTable.Columns.name, mailbox.Name)
+                        .Where(MailboxTable.Columns.username, mailbox.Address.ToString());
+            using (var db = _dbManager.GetAdminDb())
+            {
+                db.ExecuteNonQuery(updateMailboxQuery);
+            }
         }
 
         protected override void _DeleteMailbox(MailboxBase mailbox)
@@ -533,7 +541,7 @@ namespace ASC.Mail.Server.PostfixAdministration
 
         protected override MailboxBase _CreateNotificationAddress(string login, string password, string localpart, string domain)
         {
-            return _CreateMailbox(login, password, localpart, domain, false, false);
+            return _CreateMailbox(login, password, localpart, domain, localpart, false, false);
         }
 
         protected override void _DeleteNotificationAddress(string address)

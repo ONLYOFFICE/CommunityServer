@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -23,39 +23,46 @@
  *
 */
 
-
+@import "../../../../skins/base.less";
 /*-----Attachments control---------*/
 
 /*----question window----*/
 
-#questionWindowAttachments p:first-child {
-    margin-top: 0px;
-}
-#questionWindowAttachments p:last-child {
-    margin-top: 20px;
-    margin-bottom: 0px;
-}
+#questionWindowAttachments {
+    p:first-child {
+        margin-top: 0px;
+    }
 
-#questionWindowAttachments .button.blue.marginLikeButton {
-    margin-right: 8px;
+    p:last-child {
+        margin-top: 20px;
+        margin-bottom: 0px;
+    }
+
+    .button.blue.marginLikeButton {
+        margin-right: 8px;
+    }
 }
 /*-----empty screen control---------*/
 
 #emptyDocumentPanel .emptyScrCtrl .emptyScrBttnPnl {
     background-image: none;
+
+    a {
+        background-color: transparent;
+        background-position: left bottom;
+        background-repeat: no-repeat;
+        display: inline-block;
+        margin: 10px 0 0 20px;
+        padding: 0;
+        position: relative;
+        text-align: center;
+        color: #116d9d;
+    }
 }
-#emptyDocumentPanel .emptyScrCtrl .emptyScrBttnPnl a {
-    background-color: transparent;
-    background-position: left bottom;
-    background-repeat: no-repeat;
-    display: inline-block;
-    margin: 10px 0 0 20px;
-    padding: 0;
-    position: relative;
-    text-align: center;
-    color: #116d9d;
-}
-a#uploadFirstFile:after, a#createFirstDocument:after, a#attachProjDocuments:after{
+
+a#uploadFirstFile:after,
+a#createFirstDocument:after,
+a#attachProjDocuments:after{
     background-color: transparent;
     background-position: 0 0;
     background-repeat: no-repeat;
@@ -81,23 +88,24 @@ a#uploadFirstFile:after, a#createFirstDocument:after, a#attachProjDocuments:afte
 /*------info panel-----*/
 .infoPanelAttachFile {
     height: 31px;
-}
-.infoPanelAttachFile .warn {
-    display: none;
-}
-.infoPanelAttachFile #fileMaxSize {
-    color: #83888D;
-    font-size: 12px;
-    float: left;
-    padding: 8px 10px 8px 0px;
-}
-.infoPanelAttachFile .warn {
-    color: #83888D;
-    background-repeat: no-repeat;
-    background-position: 15px center;
-    padding: 8px 10px 8px 38px;
-    float: right;
-    background-color: #F6E1A4;
+
+
+    #fileMaxSize {
+        color: #83888D;
+        font-size: 12px;
+        float: left;
+        padding: 8px 10px 8px 0px;
+    }
+
+    .warn {
+        display: none;
+        color: #83888D;
+        background-repeat: no-repeat;
+        background-position: 15px center;
+        padding: 8px 10px 8px 38px;
+        float: right;
+        background-color: #F6E1A4;
+    }
 }
 /*-----*/
 .containerAction {
@@ -106,44 +114,51 @@ a#uploadFirstFile:after, a#createFirstDocument:after, a#attachProjDocuments:afte
     position: relative;
     clear: both;
     display: none;
+
+    .baseLinkAction {
+        color: #333;
+    }
+
+    > span {
+        display: block;
+        float: left;
+        background-repeat: no-repeat;
+        background-position: left center;
+        padding: 0 0 0 20px;
+        cursor: pointer;
+        margin-top: 10px;
+        margin-right: 15px;
+    }
+
+    #showDocumentPanel {
+        background-image: url("imagescss/new_file.png");
+        z-index: 4354565;
+    }
+
+    #linkNewDocumentUpload {
+        cursor: pointer;
+        background-image: url("imagescss/upload.png");
+        position: relative;
+
+        input {
+            height: 25px;
+            width: 180px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+            cursor: pointer;
+            font-size: 25px;
+        }
+    }
+
+    span.linkAttachFile {
+        background-image: url("imagescss/attach.png");
+        padding-left: 21px;
+    }
 }
-.containerAction .baseLinkAction {
-    color: #333;
-}
-.containerAction > span {
-    display: block;
-    float: left;
-    background-repeat: no-repeat;
-    background-position: left center;
-    padding: 0 0 0 20px;
-    cursor: pointer;
-    margin-top: 10px;
-    margin-right: 15px;
-}
-.containerAction #showDocumentPanel {
-    background-image: url("imagescss/new_file.png");
-    z-index: 4354565;
-}
-.containerAction #linkNewDocumentUpload {
-    cursor: pointer;
-    background-image: url("imagescss/upload.png");
-    position: relative;
-}
-.containerAction #linkNewDocumentUpload input {
-    height: 25px;
-    width: 180px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    filter:progid:DXImageTransform.Microsoft.Alpha(opacity=0);
-    cursor: pointer;
-    font-size: 25px;
-}
-.containerAction span.linkAttachFile {
-    background-image: url("imagescss/attach.png");
-    padding-left: 21px;
-}
+
 .wrapperFilesContainer {
     height:auto;
 }
@@ -159,11 +174,8 @@ span.version {
     background-color: #4AA4BB;
     float: left;
     display: none;
-}
-span.version {
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
+
+    .borderRadius(2px); 
     display: inline-block;
 }
 
@@ -173,93 +185,117 @@ span.version {
     width: 100%;
     border-collapse: collapse;
     clear: left;
-}
-#attachmentsContainer a {
-    outline: none;
-}
-#attachmentsContainer tr {
-    display: none;
-}
-#attachmentsContainer tr td {
-    border-top: 1px solid #D1D1D1;
-}
-#attachmentsContainer tr:first-child td {
-    border: none;
-}
-#attachmentsContainer tr:hover  {
-    background-color:#F2F2F2;
-}
-#attachmentsContainer tr td:last-child {
-    width: 40%;
-    text-align: right;
-    padding-right: 10px;
-}
-#attachmentsContainer tbody tr td.editFile a {
-    display:none;
-    float:right;
-    margin:4px 0 0 5px;
-    width:16px;
-    height:16px;
-}
-#attachmentsContainer tbody tr:hover td.editFile a {
-    display:inline-block;
+
+    a {
+        outline: none;
+    }
+
+    tr {
+        display: none;
+
+        td {
+            border-top: 1px solid #D1D1D1;
+
+            &:first-child {
+                padding-top: 5px;
+                width: 69%;
+
+                a {
+                    color: #333333;
+                    display: inline-block;
+                    margin-left: 5px;
+                    max-width: 500px;
+                    padding-left: 25px;
+                    padding-top: 4px;
+                    text-decoration: none;
+                    white-space: nowrap;
+                    width: auto;
+
+                    &:hover div.attachmentsTitle {
+                        text-decoration: underline;
+                    }
+
+                    &.noDecoration:hover div.attachmentsTitle {
+                        text-decoration: none;
+                        cursor: default;
+                    }
+
+                    &.noEdit:hover {
+                        text-decoration: none;
+                    }
+                }
+            }
+
+            &:last-child {
+                width: 40%;
+                text-align: right;
+                padding-right: 10px;
+            }
+        }
+
+        &:first-child td {
+            border: none;
+        }
+
+        &:hover {
+            background-color: #F2F2F2;
+        }
+
+        &.noAttach td {
+            color: #333;
+            text-align: left;
+            background-image: none;
+            background-color: #fff;
+            cursor: default;
+        }
+
+        &.newDoc {
+            display: none;
+
+            td:first-child {
+                padding: 3px 0 3px 31px;
+                width: 60%;
+                background-position: 6px -34px;
+            }
+        }
+    }
+
+    tbody tr {
+        td.editFile a {
+            display: none;
+            float: right;
+            margin: 4px 0 0 5px;
+            width: 16px;
+            height: 16px;
+
+            &[id^="editDoc_"] {
+                background: url("imagescss/pencil.png") no-repeat 0 0 transparent;
+            }
+
+            &.deleteDoc,
+            &.unlinkDoc {
+                background: url("imagescss/trash.png") no-repeat 0 0 transparent;
+            }
+
+            &.downloadLink {
+                background: url("imagescss/download_action.png") no-repeat 0 0 transparent;
+            }
+        }
+
+        &:hover td.editFile a {
+            display: inline-block;
+        }
+    }
+
+    div.attachmentsTitle {
+        overflow: hidden;
+        display: block;
+        float: left;
+        max-width: 390px;
+        .text-overflow();
+    }
 }
 
-#attachmentsContainer tbody tr td.editFile a[id^="editDoc_"] {
-
-    background:url("imagescss/pencil.png") no-repeat 0 0 transparent;
-}
-#attachmentsContainer tbody tr td.editFile a.deleteDoc,
-#attachmentsContainer tbody tr td.editFile a.unlinkDoc {
-    background:url("imagescss/trash.png") no-repeat 0 0 transparent;
-}
-
-#attachmentsContainer tbody tr td.editFile a.downloadLink {
-    background:url("imagescss/download_action.png") no-repeat 0 0 transparent;
-}
-
-#attachmentsContainer tr td:first-child {
-    padding-top: 5px;
-    width: 69%;
-}
-#attachmentsContainer tr td:first-child a {
-    color: #333333;
-    display: inline-block;
-    margin-left: 5px;
-    max-width: 500px;
-    padding-left: 25px;
-    padding-top: 4px;
-    text-decoration: none;
-    white-space: nowrap;
-    width: auto;
-}
-#attachmentsContainer div.attachmentsTitle {
-    overflow:hidden;
-    display: block;
-    float:left;
-    max-width: 390px;
-    text-overflow: ellipsis;
-}
-#attachmentsContainer tr td:first-child a:hover div.attachmentsTitle {
-    text-decoration:underline;
-}
-
-#attachmentsContainer tr td:first-child a.noDecoration:hover div.attachmentsTitle {
-    text-decoration: none;
-    cursor: default;
-}
-
-#attachmentsContainer tr td:first-child a.noEdit:hover {
-    text-decoration: none;
-}
-
-#attachmentsContainer tr.noAttach td {
-    color: #333;
-    text-align: left;
-    background-image: none;
-    background-color: #fff;
-    cursor: default;
-}
 
 td img[id^="imgZoom_"] {
     max-height: 800px;
@@ -267,25 +303,19 @@ td img[id^="imgZoom_"] {
 }
 
 /*---------New file---------*/
-#attachmentsContainer tr.newDoc {
-    display:none;
-}
+tr.newDoc {
+    input {
+        height: 20px;
+        width: 400px;
+        float: left;
+    }
 
-#attachmentsContainer tr.newDoc td:first-child {
-    padding: 3px 0 3px 31px;
-    width: 60%;
-    background-position: 6px -34px;
-}
-tr.newDoc input {
-    height: 20px;
-    width: 400px;
-    float:left;
-}
-tr.newDoc span.remove,
-tr.newDoc span.createFile {
-    cursor: pointer;
-    margin-left: 12px;
-    float:left;
+    span.remove,
+    span.createFile {
+        cursor: pointer;
+        margin-left: 12px;
+        float: left;
+    }
 }
 
 /*--- information-upload-panel --*/
@@ -293,16 +323,22 @@ tr.newDoc span.createFile {
 .information-upload-panel {
     clear: both;
     font-size: 11px;
-    color:#666;
+    color: #666;
+
+    div {
+        float: left;
+        margin-right: 15px;
+    }
+
+    .checkbox-container {
+        label {
+            float: left;
+        }
+
+        input {
+            float: left;
+            margin: 0 5px 0 0;
+        }
+    }
 }
-.information-upload-panel div {
-    float: left;
-    margin-right: 15px;
-}
-.information-upload-panel .checkbox-container input,
-.information-upload-panel .checkbox-container label {
-    float: left;
-}
-.information-upload-panel .checkbox-container input {
-    margin: 0 5px 0 0;
-}
+

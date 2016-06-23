@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -41,31 +41,35 @@ namespace ASC.Web.Studio.Masters.MasterResources
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            return new List<KeyValuePair<string, object>>(23)
+            return new List<KeyValuePair<string, object>>(1)
                    {
-                       RegisterObject("ExtsImagePreviewed", FileUtility.ExtsImagePreviewed),
-                       RegisterObject("ExtsWebPreviewed", FileUtility.ExtsWebPreviewed),
-                       RegisterObject("ExtsWebEdited", FileUtility.ExtsWebEdited),
-                       RegisterObject("ExtsCoAuthoring", FileUtility.ExtsCoAuthoring),
-                       RegisterObject("ExtsMustConvert", FileUtility.ExtsMustConvert),
-                       RegisterObject("ExtsConvertible", FileUtility.ExtsConvertible),
-                       RegisterObject("ExtsUploadable", FileUtility.ExtsUploadable),
-                       RegisterObject("ExtsArchive", FileUtility.ExtsArchive),
-                       RegisterObject("ExtsVideo", FileUtility.ExtsVideo),
-                       RegisterObject("ExtsAudio", FileUtility.ExtsAudio),
-                       RegisterObject("ExtsImage", FileUtility.ExtsImage),
-                       RegisterObject("ExtsSpreadsheet", FileUtility.ExtsSpreadsheet),
-                       RegisterObject("ExtsPresentation", FileUtility.ExtsPresentation),
-                       RegisterObject("ExtsDocument", FileUtility.ExtsDocument),
-                       RegisterObject("InternalFormats", FileUtility.InternalExtension),
-                       RegisterObject("ParamVersion", FilesLinkUtility.Version),
-                       RegisterObject("ParamOutType", FilesLinkUtility.OutType),
-                       RegisterObject("FileViewUrlString", FilesLinkUtility.FileViewUrlString),
-                       RegisterObject("FileDownloadUrlString", FilesLinkUtility.FileDownloadUrlString),
-                       RegisterObject("FileWebViewerUrlString", FilesLinkUtility.FileWebViewerUrlString),
-                       RegisterObject("FileWebViewerExternalUrlString", FilesLinkUtility.FileWebViewerExternalUrlString),
-                       RegisterObject("FileWebEditorUrlString", FilesLinkUtility.FileWebEditorUrlString),
-                       RegisterObject("FileWebEditorExternalUrlString", FilesLinkUtility.FileWebEditorExternalUrlString)
+                       RegisterObject(new
+                                      {
+                                          FileUtility.ExtsImagePreviewed, 
+                                          FileUtility.ExtsWebPreviewed, 
+                                          FileUtility.ExtsWebEdited, 
+                                          FileUtility.ExtsWebReviewed, 
+                                          FileUtility.ExtsCoAuthoring, 
+                                          FileUtility.ExtsMustConvert, 
+                                          FileUtility.ExtsConvertible, 
+                                          FileUtility.ExtsUploadable, 
+                                          FileUtility.ExtsArchive, 
+                                          FileUtility.ExtsVideo, 
+                                          FileUtility.ExtsAudio, 
+                                          FileUtility.ExtsImage, 
+                                          FileUtility.ExtsSpreadsheet, 
+                                          FileUtility.ExtsPresentation, 
+                                          FileUtility.ExtsDocument,
+                                          InternalFormats = FileUtility.InternalExtension,
+                                          ParamVersion = FilesLinkUtility.Version,
+                                          ParamOutType = FilesLinkUtility.OutType, 
+                                          FilesLinkUtility.FileViewUrlString, 
+                                          FilesLinkUtility.FileDownloadUrlString, 
+                                          FilesLinkUtility.FileWebViewerUrlString, 
+                                          FilesLinkUtility.FileWebViewerExternalUrlString, 
+                                          FilesLinkUtility.FileWebEditorUrlString, 
+                                          FilesLinkUtility.FileWebEditorExternalUrlString
+                                      })
                    };
         }
 

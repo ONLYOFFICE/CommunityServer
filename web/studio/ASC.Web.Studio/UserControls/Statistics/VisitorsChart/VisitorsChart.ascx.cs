@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -59,10 +59,10 @@ namespace ASC.Web.Studio.UserControls.Statistics
 
             Page.RegisterStyle("~/usercontrols/statistics/visitorschart/css/visitorschart_style.less");
 
-            Page.RegisterBodyScripts("~/usercontrols/statistics/visitorschart/js/excanvas.min.js");
-            Page.RegisterBodyScripts("~/usercontrols/statistics/visitorschart/js/jquery.flot.js");
-            Page.RegisterBodyScripts("~/usercontrols/statistics/visitorschart/js/tooltip.js");
-            Page.RegisterBodyScripts("~/usercontrols/statistics/visitorschart/js/visitorschart.js");
+            Page.RegisterBodyScripts("~/usercontrols/statistics/visitorschart/js/excanvas.min.js",
+                "~/usercontrols/statistics/visitorschart/js/jquery.flot.js",
+                "~/usercontrols/statistics/visitorschart/js/tooltip.js",
+                "~/usercontrols/statistics/visitorschart/js/visitorschart.js");
 
             var jsResources = new StringBuilder();
             jsResources.Append("jq(document).ready(function(){");

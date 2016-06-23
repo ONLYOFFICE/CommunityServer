@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -55,6 +55,8 @@ namespace ASC.Files.Core
         public Guid UserId { get; set; }
 
         public bool UseChunks { get; set; }
+
+        public string CultureName { get; set; }
 
         public readonly Dictionary<string, object> Items = new Dictionary<string, object>();
 

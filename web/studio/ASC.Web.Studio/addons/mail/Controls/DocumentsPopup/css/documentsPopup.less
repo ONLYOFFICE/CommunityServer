@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -116,6 +116,10 @@ p.containerCheckAll a {
 #popupDocumentUploader  .fileContainer ul.fileList li:hover 
 {
     background-color:#f2f2f2;
+
+    .link {
+        text-decoration: underline;
+    }
 }
 
 #popupDocumentUploader  .fileContainer ul.fileList li input {
@@ -146,7 +150,7 @@ p.containerCheckAll a {
     padding-top: 4px;
     padding-left: 25px;
     width: auto;
-    max-width: 260px;
+    max-width: 254px;
     overflow: hidden;
     -ms-text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
@@ -155,13 +159,23 @@ p.containerCheckAll a {
     vertical-align: top;
 }
 
-.fileContainer ul.fileList li .share-can {
-    display: inline-block;
-    vertical-align: middle;
-    margin-top: -4px;
-    background: url('../../../../../skins/default/imagescss/btn_row_icons.png') no-repeat scroll 0 0 transparent;
-    height: 16px;
-    width: 16px;
+.fileContainer .fileList {
+    .share-allow,
+    .share-deny {
+        display: inline-block;
+        vertical-align: sub;
+        height: 16px;
+        width: 16px;
+        margin-left: 8px;
+    }
+
+    .share-allow {
+        background: url(images/can-public-share.png) no-repeat scroll -16px 0 transparent;
+    }
+
+    .share-deny {
+        background: url(images/can-public-share.png) no-repeat scroll 0 0 transparent;
+    }
 }
 
 #filesViewContainer
@@ -219,6 +233,7 @@ p.containerCheckAll a {
     .radiobox-switcher {
         label {
             margin-right: 15px;
+            cursor: pointer;
         }
     }
 

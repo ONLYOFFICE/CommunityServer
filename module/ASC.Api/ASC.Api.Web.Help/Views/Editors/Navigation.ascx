@@ -9,6 +9,34 @@
     </li>
     <li>
         <%= Html.MenuActionLink("Integration Examples", "demopreview", "editors", "selected") %>
+        <ul class="treeview">
+            <li>
+                <%= Html.MenuActionLink(".Net (C#) Example", "example/csharp", "editors", "selected") %>
+            </li>
+            <li>
+                <%= Html.MenuActionLink("Node.js Example", "example/nodejs", "editors", "selected") %>
+            </li>
+            <li>
+                <%= Html.MenuActionLink("Java Example", "example/java", "editors", "selected") %>
+            </li>
+            <li>
+                <%= Html.MenuActionLink("PHP Example", "example/php", "editors", "selected") %>
+            </li>
+            <li>
+                <%= Html.MenuActionLink("Ruby Example", "example/ruby", "editors", "selected") %>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <%= Html.MenuActionLink("Integration Plugins", "plugins", "editors", "selected") %>
+        <ul class="treeview">
+            <li>
+                <%= Html.MenuActionLink("Alfresco integration", "alfresco", "editors", "selected") %>
+            </li>
+            <%--<li>
+                <%= Html.MenuActionLink("Confluence integration", "confluence", "editors", "selected") %>
+            </li>--%>
+        </ul>
     </li>
     <li>
         <%= Html.MenuActionLink("How It Works", "howitworks", "editors", "selected") %>
@@ -32,40 +60,40 @@
 <div class="treeheader">Documentation</div>
 <ul class="treeview root">
     <li>
-        <%= Html.MenuActionLink("License Server API", "license", "editors", "selected") %>
-    </li>
-    <li>
         <%= Html.MenuActionLink("Advanced parameters", "advanced", "editors", "selected") %>
     </li>
     <li>
-        <%= Html.MenuActionLink("Config", "config", "editors", "selected") %>
+        <%= Html.MenuActionLink("Config", "config/", "editors", "selected") %>
         <ul class="treeview">
             <li>
-                <%= Html.MenuActionLink("Document", "document", "editors", "selected") %>
+                <%= Html.MenuActionLink("Document", "config/document", "editors", "selected") %>
                 <ul class="treeview">
                     <li>
-                        <%= Html.MenuActionLink("Info", "docinfo", "editors", "selected") %>
+                        <%= Html.MenuActionLink("Info", "config/document/info", "editors", "selected") %>
                     </li>
                     <li>
-                        <%= Html.MenuActionLink("Permissions", "docpermissions", "editors", "selected") %>
+                        <%= Html.MenuActionLink("Permissions", "config/document/permissions", "editors", "selected") %>
                     </li>
                 </ul>
             </li>
             <li>
-                <%= Html.MenuActionLink("Editor", "editor", "editors", "selected") %>
+                <%= Html.MenuActionLink("Editor", "config/editor", "editors", "selected") %>
                 <ul class="treeview">
                     <li>
-                        <%= Html.MenuActionLink("Customization", "customization", "editors", "selected") %>
+                        <%= Html.MenuActionLink("Customization", "config/editor/customization", "editors", "selected") %>
                     </li>
                     <li>
-                        <%= Html.MenuActionLink("Embedded", "embedded", "editors", "selected") %>
+                        <%= Html.MenuActionLink("Embedded", "config/editor/embedded", "editors", "selected") %>
                     </li>
                 </ul>
             </li>
             <li>
-                <%= Html.MenuActionLink("Events", "events", "editors", "selected") %>
+                <%= Html.MenuActionLink("Events", "config/events", "editors", "selected") %>
             </li>
         </ul>
+    </li>
+    <li>
+        <%= Html.MenuActionLink("Methods", "methods", "editors", "selected") %>
     </li>
     <li>
         <%= Html.MenuActionLink("Callback handler", "callback", "editors", "selected") %>
@@ -75,4 +103,4 @@
     </li>
 </ul>
 
-<a class="forum" href="http://dev.onlyoffice.org/" target="_blank">Forum</a>
+<a class="forum" href="http://dev.onlyoffice.org/viewforum.php?f=9" target="_blank">Forum</a>

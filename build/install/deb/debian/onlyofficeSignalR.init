@@ -21,7 +21,7 @@ PID=""
 
 DIR=/var/www/onlyoffice/Services/TeamLabSvc
 EXEC=TeamLabSvc.exe
-ARGS="-d:$DIR -l:$LOCKFILE $DIR/$EXEC --service \"ASC.SignalR.Base.SignalRLauncher, ASC.SignalR.Base\" --log SignalR"
+ARGS="-d:$DIR -l:$LOCKFILE $DIR/$EXEC --service \"ASC.SignalR.Base.SignalRLauncher,ASC.SignalR.Base\" --log SignalR"
 
 
 do_start() {

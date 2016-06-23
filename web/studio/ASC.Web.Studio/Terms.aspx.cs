@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,10 +25,7 @@
 
 
 using System;
-using System.Web;
 using ASC.Core;
-using ASC.Web.Core.Utility.Skins;
-using ASC.Web.Studio.UserControls.Common.PersonalFooter;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio
@@ -44,26 +41,15 @@ namespace ASC.Web.Studio
         protected override void OnPreInit(EventArgs e)
         {
             base.OnPreInit(e);
-            if (!SecurityContext.IsAuthenticated && CoreContext.Configuration.Personal)
+            if (!CoreContext.Configuration.Personal)
+            {
+                Response.Redirect(CommonLinkUtility.GetDefault(), true);
+                return;
+            }
+            if (!SecurityContext.IsAuthenticated)
             {
                 SetLanguage();
             }
-        }
-
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (!CoreContext.Configuration.Personal)
-            {
-                Response.Redirect(CommonLinkUtility.GetDefault());
-            }
-            Master.DisabledSidePanel = true;
-            Master.TopStudioPanel.DisableProductNavigation = true;
-            Master.TopStudioPanel.DisableSettings = true;
-            Master.TopStudioPanel.DisableSearch = true;
-            Master.TopStudioPanel.TopLogo = WebImageSupplier.GetAbsoluteWebPath("personal_logo/logo_personal_terms.png");
-            Master.TopStudioPanel.DisableLoginPersonal = true;
-            PersonalFooterHolder.Controls.Add(LoadControl(PersonalFooter.Location));
-            Page.RegisterStyle("~/skins/personal.less");
         }
     }
 }

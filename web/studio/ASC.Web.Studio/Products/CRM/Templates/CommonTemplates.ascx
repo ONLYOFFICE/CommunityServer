@@ -40,7 +40,7 @@
     <span class="tag_item">
         <span class="tag_title" data-value="${jQuery.base64.encode(tagLabel)}">${ASC.CRM.Common.convertText(tagLabel, true)}</span>
         <a class="delete_tag" alt="<%= CRMCommonResource.DeleteTag %>" title="<%= CRMCommonResource.DeleteTag %>"
-            onclick="ASC.CRM.TagView.deleteTag(jq(this).parent())"></a>
+            onclick="ASC.CRM.TagView.deleteTag(jq(this).parent())">&times;</a>
      </span>
 </script>
 
@@ -52,13 +52,13 @@
 
 <script id="historyRowTmpl" type="text/x-jquery-tmpl">
     <tr id="event_${id}">
-        <td class="borderBase entityPlace">
+        <td class="entityPlace">
             <a name="${id}"></a>
             {{if typeof(category) != "undefined"}}
-            <label title="${category.title}" alt="${category.title}" class="event_category ${category.cssClass}"></label>
+            <label title="${category.title}" alt="${category.title}" class="event_category hover ${category.cssClass}"></label>
             {{/if}}
         </td>
-        <td class="borderBase title">
+        <td class="title">
             {{if contact != null && contact.id != ASC.CRM.HistoryView.ContactID }}
                 <a class="link underline gray" href="default.aspx?id=${contact.id}">${contact.displayName}</a>
                 {{if entity != null && entity.entityId != ASC.CRM.HistoryView.EntityID}}
@@ -86,9 +86,9 @@
             </div>
             {{/if}}
 
-            <span class="text-medium-describe">${createdDate} <%= CRMCommonResource.Author %>: ${createdBy.displayName}</span>
+            <span class="text-medium-describe">${displayDateCrtdate} ${displayTimeCrtdate} <%= CRMCommonResource.Author %>: ${createdBy.displayName}</span>
         </td>
-        <td class="borderBase activityData describe-text">
+        <td class="activityData describe-text">
             {{if files != null }}
                 <label class="event_attached_file" align="absmiddle"></label>
                 <a id="eventAttachSwither_${id}" class="baseLinkAction linkMedium">
@@ -112,7 +112,7 @@
                 </div>
             {{/if}}
         </td>
-        <td class="borderBase" style="width: 20px;">
+        <td style="width: 20px;">
           {{if canEdit == true }}
             <a id="eventTrashImg_${id}" class="crm-deleteLink" title="<%= CRMCommonResource.DeleteHistoryEvent %>"
                onclick="ASC.CRM.HistoryView.deleteEvent(${id})"></a>
@@ -127,13 +127,13 @@
 
 <script id="previewImportDataTemplate" type="text/x-jquery-tmpl">
     <tr>
-        <td class="borderBase">
+        <td>
           <input type="checkbox" checked="checked" />
         </td>
-        <td class="borderBase">
+        <td>
           <img src="${default_image}" />
         </td>
-        <td style="width:100%" class="borderBase">
+        <td style="width:100%">
               ${contact_title}
         </td>
     </tr>
@@ -150,13 +150,13 @@
 <script id="columnMappingTemplate" type="text/x-jquery-tmpl">
     {{each firstContactFields}}
         <tr>
-            <td class="borderBase">
+            <td>
               ${headerColumns[$index]}
             </td>
-            <td class="borderBase">
+            <td>
              {{html $item.renderSelector($index)}}
             </td>
-            <td class="borderBase">
+            <td>
                ${$value}
             </td>
         </tr>

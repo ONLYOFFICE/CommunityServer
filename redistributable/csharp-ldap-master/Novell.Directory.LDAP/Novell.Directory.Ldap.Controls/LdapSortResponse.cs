@@ -29,117 +29,116 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
-using Novell.Directory.Ldap;
 using Novell.Directory.Ldap.Asn1;
+using System;
+using System.IO;
 
 namespace Novell.Directory.Ldap.Controls
 {
-	
-	/// <summary>  LdapSortResponse - will be added in newer version of Ldap
-	/// Controls draft
-	/// </summary>
-	public class LdapSortResponse:LdapControl
-	{
-		/// <summary>  If not null, this returns the attribute that caused the sort
-		/// operation to fail.
-		/// </summary>
-		virtual public System.String FailedAttribute
-		{
-			get
-			{
-				return failedAttribute;
-			}
-			
-		}
-		/// <summary> Returns the result code from the sort</summary>
-		virtual public int ResultCode
-		{
-			get
-			{
-				return resultCode;
-			}
-			
-		}
-		
-		private System.String failedAttribute;
-		private int resultCode;
-		
-		/// <summary> This constructor is usually called by the SDK to instantiate an
-		/// a LdapControl corresponding to the Server response to a Ldap
-		/// Sort Control request.  Application programmers should not have
-		/// any reason to call the constructor.  This constructor besides
-		/// constructing a LdapControl object parses the contents of the response
-		/// control.
-		/// 
-		/// RFC 2891 defines this response control as follows:
-		/// 
-		/// The controlValue is an OCTET STRING, whose
-		/// value is the BER encoding of a value of the following SEQUENCE:
-		/// SortResult ::= SEQUENCE {
-		/// sortResult  ENUMERATED {
-		/// success                   (0), -- results are sorted
-		/// operationsError           (1), -- server internal failure
-		/// timeLimitExceeded         (3), -- timelimit reached before
-		/// -- sorting was completed
-		/// strongAuthRequired        (8), -- refused to return sorted
-		/// -- results via insecure
-		/// -- protocol
-		/// adminLimitExceeded       (11), -- too many matching entries
-		/// -- for the server to sort
-		/// noSuchAttribute          (16), -- unrecognized attribute
-		/// -- type in sort key
-		/// inappropriateMatching    (18), -- unrecognized or
-		/// -- inappropriate matching
-		/// -- rule in sort key
-		/// insufficientAccessRights (50), -- refused to return sorted
-		/// -- results to this client
-		/// busy                     (51), -- too busy to process
-		/// unwillingToPerform       (53), -- unable to sort
-		/// other                    (80)
-		/// },
-		/// attributeType [0] AttributeDescription OPTIONAL }
-		/// 
-		/// 
-		/// </summary>
-		/// <param name="oid">    The OID of the control, as a dotted string.
-		/// 
-		/// </param>
-		/// <param name="critical">  True if the Ldap operation should be discarded if
-		/// the control is not supported. False if
-		/// the operation can be processed without the control.
-		/// 
-		/// </param>
-		/// <param name="values">    The control-specific data.
-		/// </param>
-		[CLSCompliantAttribute(false)]
-		public LdapSortResponse(System.String oid, bool critical, sbyte[] values):base(oid, critical, values)
-		{
-			
-			// Create a decoder object
-			LBERDecoder decoder = new LBERDecoder();
-			if (decoder == null)
-				throw new System.IO.IOException("Decoding error");
-			
-			// We should get back an enumerated type
-			Asn1Object asnObj = decoder.decode(values);
-			
-			if ((asnObj == null) || (!(asnObj is Asn1Sequence)))
-				throw new System.IO.IOException("Decoding error");
-			
-			
-			Asn1Object asn1Enum = ((Asn1Sequence) asnObj).get_Renamed(0);
-			if ((asn1Enum != null) && (asn1Enum is Asn1Enumerated))
-				resultCode = ((Asn1Enumerated) asn1Enum).intValue();
-			
-			// Second element is the attributeType
-			if (((Asn1Sequence) asnObj).size() > 1)
-			{
-				Asn1Object asn1String = ((Asn1Sequence) asnObj).get_Renamed(1);
-				if ((asn1String != null) && (asn1String is Asn1OctetString))
-					failedAttribute = ((Asn1OctetString) asn1String).stringValue();
-			}
-			return ;
-		}
-	}
+
+    /// <summary>  LdapSortResponse - will be added in newer version of Ldap
+    /// Controls draft
+    /// </summary>
+    public class LdapSortResponse : LdapControl
+    {
+        /// <summary>  If not null, this returns the attribute that caused the sort
+        /// operation to fail.
+        /// </summary>
+        virtual public string FailedAttribute
+        {
+            get
+            {
+                return failedAttribute;
+            }
+        }
+
+        /// <summary> Returns the result code from the sort</summary>
+        virtual public int ResultCode
+        {
+            get
+            {
+                return resultCode;
+            }
+        }
+
+        private string failedAttribute;
+        private int resultCode;
+
+        /// <summary> This constructor is usually called by the SDK to instantiate an
+        /// a LdapControl corresponding to the Server response to a Ldap
+        /// Sort Control request.  Application programmers should not have
+        /// any reason to call the constructor.  This constructor besides
+        /// constructing a LdapControl object parses the contents of the response
+        /// control.
+        /// 
+        /// RFC 2891 defines this response control as follows:
+        /// 
+        /// The controlValue is an OCTET STRING, whose
+        /// value is the BER encoding of a value of the following SEQUENCE:
+        /// SortResult ::= SEQUENCE {
+        /// sortResult  ENUMERATED {
+        /// success                   (0), -- results are sorted
+        /// operationsError           (1), -- server internal failure
+        /// timeLimitExceeded         (3), -- timelimit reached before
+        /// -- sorting was completed
+        /// strongAuthRequired        (8), -- refused to return sorted
+        /// -- results via insecure
+        /// -- protocol
+        /// adminLimitExceeded       (11), -- too many matching entries
+        /// -- for the server to sort
+        /// noSuchAttribute          (16), -- unrecognized attribute
+        /// -- type in sort key
+        /// inappropriateMatching    (18), -- unrecognized or
+        /// -- inappropriate matching
+        /// -- rule in sort key
+        /// insufficientAccessRights (50), -- refused to return sorted
+        /// -- results to this client
+        /// busy                     (51), -- too busy to process
+        /// unwillingToPerform       (53), -- unable to sort
+        /// other                    (80)
+        /// },
+        /// attributeType [0] AttributeDescription OPTIONAL }
+        /// 
+        /// 
+        /// </summary>
+        /// <param name="oid">    The OID of the control, as a dotted string.
+        /// 
+        /// </param>
+        /// <param name="critical">  True if the Ldap operation should be discarded if
+        /// the control is not supported. False if
+        /// the operation can be processed without the control.
+        /// 
+        /// </param>
+        /// <param name="values">    The control-specific data.
+        /// </param>
+        [CLSCompliantAttribute(false)]
+        public LdapSortResponse(string oid, bool critical, sbyte[] values)
+            : base(oid, critical, values)
+        {
+
+            // Create a decoder object
+            LBERDecoder decoder = new LBERDecoder();
+            if (decoder == null)
+                throw new IOException("Decoding error");
+
+            // We should get back an enumerated type
+            Asn1Object asnObj = decoder.decode(values);
+
+            if ((asnObj == null) || (!(asnObj is Asn1Sequence)))
+                throw new IOException("Decoding error");
+
+
+            Asn1Object asn1Enum = ((Asn1Sequence)asnObj).get_Renamed(0);
+            if ((asn1Enum != null) && (asn1Enum is Asn1Enumerated))
+                resultCode = ((Asn1Enumerated)asn1Enum).intValue();
+
+            // Second element is the attributeType
+            if (((Asn1Sequence)asnObj).size() > 1)
+            {
+                Asn1Object asn1String = ((Asn1Sequence)asnObj).get_Renamed(1);
+                if ((asn1String != null) && (asn1String is Asn1OctetString))
+                    failedAttribute = ((Asn1OctetString)asn1String).stringValue();
+            }
+        }
+    }
 }

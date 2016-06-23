@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -27,17 +27,20 @@
 using System;
 using System.Net;
 using ASC.Mail.Aggregator.Common;
+using ASC.Mail.Aggregator.Common.DataStorage;
 using ASC.Mail.Aggregator.Common.Logging;
-using ASC.Mail.Aggregator.DataStorage;
 
 namespace ASC.Mail.Aggregator
 {
     public partial class MailBoxManager
     {
-        public void SaveEmailInData(MailBox mailbox, MailMessage message, ILogger log)
+        public void SaveEmailInData(MailBox mailbox, MailMessage message, string httpContextScheme = null, ILogger log = null)
         {
             if (string.IsNullOrEmpty(mailbox.EMailInFolder))
                 return;
+
+            if(log == null)
+                log = new NullLogger();
 
             try
             {
@@ -48,7 +51,7 @@ namespace ASC.Mail.Aggregator
                         log.Debug("SaveEmailInData->ApiHelper.UploadToDocuments(fileName: '{0}', folderId: {1})",
                                   file.FileName, mailbox.EMailInFolder);
 
-                        UploadToDocuments(file, attachment.contentType, mailbox, log);
+                        UploadToDocuments(file, attachment.contentType, mailbox, httpContextScheme, log);
                     }
 
                 }
@@ -62,11 +65,16 @@ namespace ASC.Mail.Aggregator
         }
 
 
-        private void UploadToDocuments(AttachmentStream file, string contentType, MailBox mailbox, ILogger log)
+        private void UploadToDocuments(AttachmentStream file, string contentType, MailBox mailbox, string httpContextScheme, ILogger log = null)
         {
+            if (log == null)
+                log = new NullLogger();
+
             try
             {
-                var uploadedFileId = ApiHelper.UploadToDocuments(file.FileStream, file.FileName, contentType, mailbox.EMailInFolder, true);
+
+                var apiHelper = new ApiHelper(httpContextScheme);
+                var uploadedFileId = apiHelper.UploadToDocuments(file.FileStream, file.FileName, contentType, mailbox.EMailInFolder, true);
 
                 log.Debug("ApiHelper.UploadToDocuments() -> uploadedFileId = {0}", uploadedFileId);
             }

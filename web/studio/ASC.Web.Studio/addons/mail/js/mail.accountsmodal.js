@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -246,7 +246,7 @@ window.accountsModal = (function($) {
                 TMMail.setRequiredHint('mail_server_add_my_mailbox', window.MailScriptResource.ErrorEmptyField);
                 TMMail.setRequiredError('mail_server_add_my_mailbox', true);
                 isValid = false;
-            } else if (!TMMail.reMailServerEmailStrict.test(mailboxName + '@' + currentDomain.name)) {
+            } else if (!ASC.Mail.Utility.IsValidEmail(mailboxName + '@' + currentDomain.name)) {
                 TMMail.setRequiredHint('mail_server_add_my_mailbox', window.MailScriptResource.ErrorIncorrectEmail);
                 TMMail.setRequiredError('mail_server_add_my_mailbox', true);
                 isValid = false;
@@ -275,8 +275,17 @@ window.accountsModal = (function($) {
                         if (TMMail.pageIs('sysfolders') && accountsManager.getAccountList().length == 0) {
                             blankPages.showEmptyFolder();
                         }
-
-                        accountsPage.addAccount(mailbox.address.email, params.enabled, params.oauth, true, true);
+                        var autoreply = {
+                            turnOn: false,
+                            turnOnToDate: false,
+                            fromDate: "0001-01-01T00:00:00",
+                            html: "",
+                            mailboxId: mailbox.id,
+                            onlyContacts: false,
+                            subject: "",
+                            toDate: "0001-01-01T00:00:00"
+                        };
+                        accountsPage.addAccount(mailbox.address.email, autoreply, params.enabled, params.oauth, true);
 
                         var account = {
                             name: TMMail.ltgt(params.name),
@@ -288,6 +297,7 @@ window.accountsModal = (function($) {
                                 mailboxId: mailbox.id,
                                 tenant: 0
                             },
+                            autoreply: autoreply,
                             is_alias: false,
                             is_group: false,
                             oauth: params.oauth,
@@ -496,7 +506,7 @@ window.accountsModal = (function($) {
         var options = { action: action };
 
         // If the email entered is OK
-        if (TMMail.reEmailStrict.test(email)) {
+        if (ASC.Mail.Utility.IsValidEmail(email)) {
             options.password = password;
             options.name = getVal(ids.name, true);
             serviceManager.getDefaultMailboxSettings(email, options,
@@ -582,7 +592,6 @@ window.accountsModal = (function($) {
         enable(ids.incoming_encryption_type);
         enable(ids.auth_type_in_sel);
         enable(ids.auth_type_smtp_sel);
-
     }
 
     function disableControls() {
@@ -707,7 +716,7 @@ window.accountsModal = (function($) {
         $('.popupMailBox #server-type').unbind('change').bind('change', function() {
             var email = getVal(ids.email);
 
-            var emailCorrect = TMMail.reEmailStrict.test(email);
+            var emailCorrect = ASC.Mail.Utility.IsValidEmail(email);
 
             var action;
             if ($(this).val() == 'pop') {
@@ -769,7 +778,7 @@ window.accountsModal = (function($) {
 
         if (email.length === 0) {
             TMMail.setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorEmptyField);
-        } else if (!TMMail.reEmailStrict.test(email)) {
+        } else if (!ASC.Mail.Utility.IsValidEmail(email)) {
             TMMail.setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorIncorrectEmail);
         } else if (accountsPage.isContain(email.toLowerCase())) {
             TMMail.setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorAccountAlreadyExists);
@@ -843,7 +852,7 @@ window.accountsModal = (function($) {
 
         if (settings.email.length === 0) {
             $("#mail_EMailContainer.requiredField span").text(window.MailScriptResource.ErrorEmptyField);
-        } else if (!TMMail.reEmailStrict.test(settings.email)) {
+        } else if (!ASC.Mail.Utility.IsValidEmail(settings.email)) {
             TMMail.setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorIncorrectEmail);
         } else if (newFlag && accountsPage.isContain(settings.email.toLowerCase())) {
             TMMail.setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorAccountAlreadyExists);
@@ -1004,8 +1013,7 @@ window.accountsModal = (function($) {
         if (!account)
             return;
 
-        if (onSuccessCallback)
-            onSuccessOperationCallback = onSuccessCallback;
+        onSuccessOperationCallback = onSuccessCallback;
 
         accountEmail = account;
         if (activated) {
@@ -1013,6 +1021,10 @@ window.accountsModal = (function($) {
         } else {
             questionBox('deactivate');
         }
+    }
+
+    function refreshAccount(account, activated) {
+        accountsPage.activateAccount(account, activated);
     }
 
     function hide(stopOnSaving) {
@@ -1066,6 +1078,7 @@ window.accountsModal = (function($) {
                 email: TMMail.ltgt(account.email),
                 enabled: account.enabled,
                 signature: account.signature,
+                autoreply: account.autoreply,
                 is_alias: account.isAlias,
                 is_group: account.isGroup,
                 oauth: account.oAuthConnection,
@@ -1078,7 +1091,7 @@ window.accountsModal = (function($) {
                 quotaError: account.quotaError
             };
 
-            accountsPage.addAccount(accountData.email, accountData.enabled, accountData.oauth);
+            accountsPage.addAccount(accountData.email, account.autoreply, accountData.enabled, accountData.oauth);
             accountsManager.addAccount(accountData);
             hide();
             informationBox(params);
@@ -1089,7 +1102,8 @@ window.accountsModal = (function($) {
     }
 
     function getAccountErrorFooter(address) {
-        return window.MailScriptResource.AccountCreationErrorGmailFooter.replace('{0}', '<a target="blank" class="linkDescribe" href="' + TMMail.getFaqLink(address) + '">').replace('{1}', '</a>');
+        return window.MailScriptResource.AccountCreationErrorGmailFooter
+            .replace('{0}', '<a target="blank" class="linkDescribe" href="' + TMMail.getFaqLink(address) + '">').replace('{1}', '</a>');
     }
 
     function showErrorModal(params, error) {
@@ -1146,7 +1160,7 @@ window.accountsModal = (function($) {
 
         if (email.length === 0) {
             TMMail.setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorEmptyField);
-        } else if (!TMMail.reEmailStrict.test(email)) {
+        } else if (!ASC.Mail.Utility.IsValidEmail(email)) {
             TMMail.setRequiredHint("mail_EMailContainer", window.MailScriptResource.ErrorIncorrectEmail);
         } else {
             emailCorrect = true;
@@ -1207,8 +1221,10 @@ window.accountsModal = (function($) {
         addBox: addBox,
         addMailbox: addMailbox,
         removeBox: removeBox,
+        hideLoader: hideLoader,
         activateSelectedAccount: activateSelectedAccount,
         activateAccount: activateAccount,
+        refreshAccount: refreshAccount,
         activateAccountWithoutQuestion: activateAccountWithoutQuestion,
         editBox: editBox,
         setDefaultAccount: setDefaultAccount,

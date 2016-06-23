@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -39,9 +39,11 @@ namespace ASC.Mail.Server.Administration.ServerModel.Base
 
         public List<MailAddressBase> Aliases { get; private set; }
 
+        public string Name { get; private set; }
+
         public DateTime DateCreated { get; set; }
 
-        public MailboxBase(MailAccountBase account, MailAddressBase address, List<MailAddressBase> aliases)
+        public MailboxBase(MailAccountBase account, MailAddressBase address, string name, List<MailAddressBase> aliases)
         {
             if (account == null)
                 throw new ArgumentException("Invalid account", "account");
@@ -55,10 +57,11 @@ namespace ASC.Mail.Server.Administration.ServerModel.Base
             Account = account;
             Address = address;
             Aliases = aliases;
+            Name = name;
         }
 
         public MailboxBase(IMailbox mailbox)
-            : this(new MailAccountBase(mailbox.Account), new MailAddressBase(mailbox.Address), mailbox.Aliases.Select(a => new MailAddressBase(a)).ToList())
+            : this(new MailAccountBase(mailbox.Account), new MailAddressBase(mailbox.Address), mailbox.Name, mailbox.Aliases.Select(a => new MailAddressBase(a)).ToList())
         {
             
         }

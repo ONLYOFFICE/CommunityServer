@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -52,7 +52,8 @@ window.ASC.Files.ServiceManager = (function () {
             ASC.Files.ServiceManager.events.GetNews,
             ASC.Files.ServiceManager.events.GetSiblingsImage,
             ASC.Files.ServiceManager.events.GetThirdParty,
-            ASC.Files.ServiceManager.events.GetHelpCenter
+            ASC.Files.ServiceManager.events.GetHelpCenter,
+            ASC.Files.ServiceManager.events.GetTreePath,
         ];
     };
 
@@ -254,7 +255,7 @@ window.ASC.Files.ServiceManager = (function () {
         var data;
 
         var ignorResponse = "<!DOCTYPE";
-        if (xmlHttpRequest.responseText.indexOf(ignorResponse) != 0) {
+        if (xmlHttpRequest.responseText && xmlHttpRequest.responseText.indexOf(ignorResponse) != 0) {
             try {
                 switch (dataType) {
                     case "xml":
@@ -453,7 +454,6 @@ window.ASC.Files.ServiceManager = (function () {
         ChunkUploadCheckConversion: "chunkuploadcheckconversion",
         ChunkUploadGetFileFromServer: "chunkuploadgetfilefromserver",
 
-        CanEditFile: "caneditfile",
         TrackEditFile: "trackeditfile",
         StartEdit: "startedit",
 
@@ -566,10 +566,6 @@ window.ASC.Files.ServiceManager = (function () {
 
     var checkEditing = function (eventType, params, data) {
         request("post", "json", eventType, params, data, "checkediting");
-    };
-
-    var canEditFile = function (eventType, params) {
-        request("get", "json", eventType, params, "canedit?fileId=" + encodeURIComponent(params.fileID) + params.shareLinkParam);
     };
 
     var saveEditing = function (eventType, params) {
@@ -698,7 +694,6 @@ window.ASC.Files.ServiceManager = (function () {
 
         trackEditFile: trackEditFile,
         checkEditing: checkEditing,
-        canEditFile: canEditFile,
         saveEditing: saveEditing,
         startEdit: startEdit,
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -157,6 +157,8 @@ namespace ASC.Xmpp.Server.Services.Jabber
             history.RemoveAllChildNodes();
             foreach (var m in archiveStore.GetMessages(iq.From, iq.To, history.From, history.To, history.Count))
             {
+                if (m == null) continue;
+
                 history.AddChild(HistoryItem.FromMessage(m));
             }
 

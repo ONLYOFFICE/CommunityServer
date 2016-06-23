@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -827,10 +827,9 @@ namespace ASC.Web.Community.Wiki
                 case SaveResult.OkPageRename:
                 case SaveResult.Ok:
                     PrintInfoMessage(WikiResource.msgSaveSucess, infoType);
-                    if (Action.Equals(ActionOnPage.AddNew))
+                    if (Action.Equals(ActionOnPage.AddNew) || Action.Equals(ActionOnPage.Edit))
                     {
-                        Response.RedirectLC(ActionHelper.GetEditPagePath(this.ResolveUrlLC("Default.aspx"), pageName), this);
-
+                        Response.RedirectLC(ActionHelper.GetViewPagePath(this.ResolveUrlLC("Default.aspx"), pageName), this);
                     }
                     else if (Action.Equals(ActionOnPage.AddNewFile))
                     {

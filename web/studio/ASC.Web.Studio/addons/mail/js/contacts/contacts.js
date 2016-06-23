@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,12 +26,19 @@
 
 window.contactsManager = (function() {
     var initFlag = false,
-        teamlabContacts = [];
+        teamlabContacts = [],
+        crmContacts = [],
+        personalContacts = [];
 
     var init = function() {
         if (!initFlag) {
             initFlag = true;
-            update();
+            updateTlContacts();
+            setInterval(function () {
+                crmContacts = [];
+                personalContacts = [];
+                updateTlContacts();
+            }, ASC.Mail.Constants.CHECK_NEWS_TIMEOUT * 10);
         }
     };
 
@@ -44,7 +51,7 @@ window.contactsManager = (function() {
         }
     };
 
-    var update = function() {
+    var updateTlContacts = function() {
         serviceManager.getProfiles({}, { success: onGetFullTlContacts });
     };
 
@@ -64,10 +71,119 @@ window.contactsManager = (function() {
         return result;
     };
 
+    function searchResult(contacts, email) {
+        return jq.grep(contacts, function(c) {
+            return c.email === email;
+        });
+    }
+
+    function searchResultIndex(contacts, email) {
+        for (var i = 0, n = contacts.length; i < n; i++) {
+            if (contacts[i].email === email) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
+    function inCrmContacts(email) {
+        var d = jq.Deferred();
+        var result = {
+            email: email,
+            exists: false
+        };
+
+        try {
+            if (!ASC.Mail.Constants.CRM_AVAILABLE) {
+                d.resolve(result);
+                return d.promise(); 
+            }
+
+            var found = searchResult(crmContacts, email);
+            if (found.length) {
+                d.resolve(found[0]);
+                return d.promise();
+            }
+
+            Teamlab.getContactsByContactInfo({ address: email }, { infoType: 1, data: email }, {
+                success: function (params, contacts) {
+                    result.email = params.address;
+                    result.exists = contacts.length > 0;
+                    crmContacts.push(result);
+                    d.resolve(result);
+                },
+                error: function (e) {
+                    console.error("Teamlab.getContactsByContactInfo", e);
+                },
+                async: true
+            });
+
+
+        } catch (e) {
+            console.error("inCrmContacts", e);
+            d.resolve(result);
+        }
+        return d.promise();
+    }
+
+    function inPersonalContacts(email) {
+        var d = jq.Deferred();
+        var result = {
+            email: email,
+            exists: false
+        };
+
+        try {
+            var found = searchResult(personalContacts, email);
+            if (found.length) {
+                d.resolve(found[0]);
+                return d.promise();
+            }
+
+            Teamlab.getMailContactsByInfo({ address: email }, { infoType: 1, data: email }, {
+                success: function (params, contacts) {
+                    result.email = params.address;
+                    result.exists = contacts.length > 0;
+                    personalContacts.push(result);
+                    d.resolve(result);
+                },
+                error: function (e) {
+                    console.error("Teamlab.getMailContactsByInfo", e);
+                    d.resolve(result);
+                },
+                async: true
+            });
+        } catch (e) {
+            console.error("inPersonalContacts", e);
+            d.resolve(result);
+        }
+        return d.promise();
+    }
+
+    function forgetCrmContact(email) {
+        var index = searchResultIndex(crmContacts, email);
+        if (index > -1) {
+            crmContacts.splice(index, 1);
+        }
+    }
+
+    function forgetPersonalContact(email) {
+        var index = searchResultIndex(personalContacts, email);
+        if (index > -1) {
+            personalContacts.splice(index, 1);
+        }
+    }
+
     return {
         init: init,
-        update: update,
+
+        updateTlContact: updateTlContacts,
         getTLContacts: getTlContacts,
-        getTLContactsByEmail: getTlContactsByEmail
+        getTLContactsByEmail: getTlContactsByEmail,
+        inCrmContacts: inCrmContacts,
+        inPersonalContacts: inPersonalContacts,
+        forgetCrmContact: forgetCrmContact,
+        forgetPersonalContact: forgetPersonalContact
     };
 })(jQuery);

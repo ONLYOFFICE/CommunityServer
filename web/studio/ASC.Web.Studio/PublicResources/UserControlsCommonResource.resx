@@ -211,9 +211,6 @@ will appear in this list.</value>
   <data name="EmptyListDocumentsDescrPoor" xml:space="preserve">
     <value>{2}Upload{3} files right on your portal.</value>
   </data>
-  <data name="EmptyListDocumentsDescrMobile" xml:space="preserve">
-    <value>Загрузить или создать файлы вы можете только на десктопном компьютере</value>
-  </data>
   <data name="EmptyListDocumentsHead" xml:space="preserve">
     <value>The list of documents is empty</value>
   </data>
@@ -340,6 +337,9 @@ will appear in this list.</value>
   <data name="LicenseRequestQuotaMore" xml:space="preserve">
     <value>{0}+ active users</value>
   </data>
+  <data name="LicenseAgreements" xml:space="preserve">
+    <value>By checking this box you accept the terms of the {0}License Agreements{1}</value>
+  </data>
   <data name="CompanyTitle" xml:space="preserve">
     <value>Company</value>
   </data>
@@ -457,18 +457,6 @@ will appear in this list.</value>
   <data name="ShowNextNews" xml:space="preserve">
     <value>Show next news</value>
   </data>
-  <data name="TariffDocsEditionLimitHeader" xml:space="preserve">
-    <value>The document cannot be opened</value>
-  </data>
-  <data name="TariffDocsEditionLimitReason" xml:space="preserve">
-    <value>The current pricing plan does not allow you to open or edit documents right on the portal. Please change the plan to one that includes TeamLab editors or download the document to open or edit it offline.</value>
-  </data>
-  <data name="TariffDocsEditionLimitReasonLicense" xml:space="preserve">
-    <value>The document cannot be opened as Online Office Apps are available only for users of registered portals. To get use of all TeamLab options, please, buy the license.</value>
-  </data>
-  <data name="TariffDocsEditionLimitTitle" xml:space="preserve">
-    <value>Opening the document</value>
-  </data>
   <data name="TariffFileSizeLimitReason" xml:space="preserve">
     <value>On your tariff plan strong restrictions on file size.</value>
   </data>
@@ -478,17 +466,11 @@ will appear in this list.</value>
   <data name="TariffFree" xml:space="preserve">
     <value>Free</value>
   </data>
-  <data name="TariffLicenseOver" xml:space="preserve">
-    <value>Your copy of TeamLab Office isn't registered</value>
-  </data>
   <data name="TariffLimitDecision" xml:space="preserve">
     <value>Would you like to choose a new pricing plan?</value>
   </data>
   <data name="TariffLimitOkButton" xml:space="preserve">
     <value>Yes, upgrade plan</value>
-  </data>
-  <data name="TariffLimitOkButtonLicense" xml:space="preserve">
-    <value>Buy now</value>
   </data>
   <data name="TariffNameSMonth" xml:space="preserve">
     <value>{0}1 Month{2}{1} Subscription</value>
@@ -505,14 +487,14 @@ will appear in this list.</value>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>You are using non-profit plan.</value>
   </data>
-  <data name="TariffOverdue" xml:space="preserve">
-    <value>You are using {0}/{1}{2} plan. {3}The payment is overdue.{4}{5} To continue using Teamlab Office, prolong the existing plan or change it using the table below.</value>
+  <data name="TariffOverduePlan" xml:space="preserve">
+    <value>You are using {0} - {1} active users plan. {2}The payment is overdue.{3}{4} To continue using Teamlab Office, prolong the existing plan or change it using the table below.</value>
   </data>
   <data name="TariffOverdueStandalone" xml:space="preserve">
     <value>You are using ONLYOFFICE™ Enterprise Edition. {0}The payment is overdue or no license could be found.{1}{2} To continue using ONLYOFFICE™, upload license file below.</value>
   </data>
-  <data name="TariffPaid" xml:space="preserve">
-    <value>You are using {0}/{1}{2} plan.</value>
+  <data name="TariffPaidPlan" xml:space="preserve">
+    <value>You are using {0} - {1} active users plan.</value>
   </data>
   <data name="TariffPaidStandalone" xml:space="preserve">
     <value>You are using ONLYOFFICE™ Enterprise Edition.</value>
@@ -538,6 +520,9 @@ will appear in this list.</value>
   <data name="TariffStorageLimitTitle" xml:space="preserve">
     <value>Not enough free storage space</value>
   </data>
+  <data name="TariffPortalLimitHeaer" xml:space="preserve">
+    <value>Adding a new portal will exceed the maximum number of portals allowed by your current pricing plan.</value>
+  </data>
   <data name="TariffUserLimitHeader" xml:space="preserve">
     <value>Cannot add new users</value>
   </data>
@@ -554,7 +539,7 @@ will appear in this list.</value>
     <value>How many users do you need?</value>
   </data>
   <data name="TariffUserDescr" xml:space="preserve">
-    <value>The plan that fits your team is {0}{2} - {3} active users{7} + {4}{1} Disk Storage{5} By buying this plan today you pay for {0}{6} users{1} only</value>
+    <value>The plan that fits your team is {0}{2} - {3} active users{7} + {4}{1} Disk Storage</value>
   </data>
   <data name="ActiveUserDescr" xml:space="preserve">
     <value>The active users are the portal members with the exception of guests and users with the "disabled" status</value>
@@ -563,7 +548,7 @@ will appear in this list.</value>
     <value>You cannot downgrade a tariff plan.</value>
   </data>
   <data name="TariffUserRequestDescr" xml:space="preserve">
-    <value>The pricing plans with more than {0} users are available upon request only.</value>
+    <value>The pricing plans with more than {0} active users{1} are available upon request only.</value>
   </data>
   <data name="TariffUserWarnRead" xml:space="preserve">
     <value>read more</value>
@@ -594,6 +579,9 @@ will appear in this list.</value>
   </data>
   <data name="TariffPricePer" xml:space="preserve">
     <value>{0} per user/mo</value>
+  </data>
+  <data name="TariffCurrencyHelp" xml:space="preserve">
+    <value>The full list of currencies see Awangate</value>
   </data>
   <data name="LicenseActivateHeader" xml:space="preserve">
     <value>Activate ONLYOFFICE Enterprise Edition</value>
@@ -651,5 +639,11 @@ will appear in this list.</value>
   </data>
   <data name="WhatsNew" xml:space="preserve">
     <value>What's New</value>
+  </data>
+  <data name="LicenseAgreements" xml:space="preserve">
+    <value>By checking this box you accept the terms of the {0}License Agreements{1}</value>
+  </data>
+  <data name="ChangeAliasHelper" xml:space="preserve">
+    <value>You can change the domain name later using the portal 'Settings' section.</value>
   </data>
 </root>

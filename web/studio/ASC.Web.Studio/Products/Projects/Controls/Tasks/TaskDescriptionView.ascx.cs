@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,14 +25,12 @@
 
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using ASC.Web.Core.Mobile;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
 using ASC.Web.Projects.Classes;
-using ASC.Web.Projects.Resources;
 
 namespace ASC.Web.Projects.Controls.Tasks
 {
@@ -47,10 +45,11 @@ namespace ASC.Web.Projects.Controls.Tasks
         public int SubtasksCount { get; set; }
 
         public bool CanCreateTimeSpend { get; set; }
-        public bool CanReadFiles { get; set; }
+        public bool CanAddFiles { get; set; }
         public bool CanEditTask { get; set; }
         public bool CanCreateSubtask { get; set; }
         public bool CanDeleteTask { get; set; }
+        public bool DoInitAttachments { get; set; }
 
         public int ProjectFolderId { get; set; }
         protected string CommentsCountTitle { get; set; }
@@ -70,13 +69,18 @@ namespace ASC.Web.Projects.Controls.Tasks
             var attachments = Page.EngineFactory.TaskEngine.GetFiles(Task);
             AttachmentsCount = attachments.Count();
 
+            CanAddFiles = CanEditTask && Task.Project.Status == ProjectStatus.Open;
+            DoInitAttachments = ProjectSecurity.CanReadFiles(Task.Project) && (CanAddFiles || AttachmentsCount > 0);
+
+            if(!DoInitAttachments) return;
+
             ProjectFolderId = (int)Page.EngineFactory.FileEngine.GetRoot(Task.Project.ID);
 
             var taskAttachments = (Studio.UserControls.Common.Attachments.Attachments)LoadControl(Studio.UserControls.Common.Attachments.Attachments.Location);
             taskAttachments.EmptyScreenVisible = false;
             taskAttachments.EntityType = "task";
             taskAttachments.ModuleName = "projects";
-            taskAttachments.CanAddFile = CanEditTask;
+            taskAttachments.CanAddFile = CanAddFiles;
             phAttachmentsControl.Controls.Add(taskAttachments);
         }
 
@@ -86,15 +90,14 @@ namespace ASC.Web.Projects.Controls.Tasks
             _hintPopupTaskRemove.Options.IsPopup = true;
             _newLinkError.Options.IsPopup = true;
 
-            CanReadFiles = ProjectSecurity.CanReadFiles(Task.Project);
+            SubtasksCount = Task.SubTasks.Count;
+
             CanEditTask = ProjectSecurity.CanEdit(Task);
             CanCreateSubtask = ProjectSecurity.CanCreateSubtask(Task);
             CanCreateTimeSpend = ProjectSecurity.CanCreateTimeSpend(Task);
             CanDeleteTask = ProjectSecurity.CanDelete(Task);
-            SubtasksCount = Task.SubTasks.Count;
 
-            if (CanReadFiles) InitAttachments();
-
+            InitAttachments();
             InitCommentBlock(commentList, Task);
 
             var timeList = Page.EngineFactory.TimeTrackingEngine.GetByTask(Task.ID);

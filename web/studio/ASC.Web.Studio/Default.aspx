@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" MasterPageFile="~/Masters/basetemplate.master" AutoEventWireup="true" EnableViewState="false" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Studio._Default" Title="ONLYOFFICE™" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Masters/basetemplate.master" AutoEventWireup="true" EnableViewState="false" CodeBehind="Default.aspx.cs" Inherits="ASC.Web.Studio._Default" %>
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
 <%@ Import Namespace="ASC.Web.Core" %>
 <%@ Import Namespace="ASC.Core.Users" %>
@@ -30,7 +30,7 @@
                    var productLabel =
                        product.ID == WebItemManager.CRMProductID
                        ? Resource.ProductCRMAndVoIP
-                       : (product.ID == WebItemManager.MailProductID && CurrentUser.IsAdmin() ?
+                       : (product.ID == WebItemManager.MailProductID && SetupInfo.IsVisibleSettings("AdministrationPage") && CurrentUser.IsAdmin() ?
                                     Resource.AdministrationLabel :
                                     HttpUtility.HtmlEncode(product.Name));
                 %>
@@ -66,7 +66,8 @@
     <script type="text/javascript" src="<%= SetupInfo.UserVoiceURL %>"></script>
     <% } %>
 </asp:Content>
-<asp:Content ID="Content1" ContentPlaceHolderID="FooterContent" runat="server">
+
+<%--<asp:Content ID="Content1" ContentPlaceHolderID="FooterContent" runat="server">
     <%if (IsAutorizePartner.HasValue && Partner != null) { %>
     <div class="footerAuth">
         <span class="float-right">
@@ -75,4 +76,4 @@
         </span>
     </div>
     <%} %>
-</asp:Content>
+</asp:Content>--%>

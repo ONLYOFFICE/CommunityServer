@@ -126,9 +126,6 @@
                     <div class="comment-error-msg-box">
                         <span class="red-text"><%= FeedResource.CommentErrorMsg %></span>
                     </div>
-                    <div class="comment-empty-error-msg-box">
-                        <span class="red-text"><%= FeedResource.CommentEmptyErrorMsg %></span>
-                    </div>
                     <a id="publish-comment-btn-${id}" class="publish-comment-btn button" href="#" 
                        data-id="${id}" 
                        data-entity="${item}" 

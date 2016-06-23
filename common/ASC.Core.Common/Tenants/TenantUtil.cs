@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,7 +25,6 @@
 
 
 using System;
-using System.Configuration;
 
 namespace ASC.Core.Tenants
 {
@@ -33,7 +32,7 @@ namespace ASC.Core.Tenants
     {
         public static String GetBaseDomain(string hostedRegion)
         {
-            var baseHost = ConfigurationManager.AppSettings["core.base-domain"];
+            var baseHost = CoreContext.Configuration.BaseDomain;
 
             if (string.IsNullOrEmpty(hostedRegion) || string.IsNullOrEmpty(baseHost) || !baseHost.Contains("."))
             {

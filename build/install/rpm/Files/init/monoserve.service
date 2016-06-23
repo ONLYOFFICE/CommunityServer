@@ -1,17 +1,18 @@
 [Unit]
-Description=Start FastCGI Mono server with hosts
+Description=FastCGI Mono server
 After=syslog.target
 
 [Service]
-ExecStart=/usr/bin/fastcgi-mono-server4 /applications=/:/var/www/onlyoffice/WebStudio/ /socket=tcp:127.0.0.1:8086 /logfile=/var/log/onlyoffice/$PROGRAM.log
+ExecStart=/usr/bin/fastcgi-mono-server4 /applications=/:/var/www/onlyoffice/WebStudio/ /socket=tcp:127.0.0.1:9000 /logfile=/var/log/onlyoffice/onlyoffice.log
 Environment=MONO_IOMAP=all MONO_ASPNET_WEBCONFIG_CACHESIZE=2000 MONO_THREADS_PER_CPU=2000 MONO_GC_PARAMS=nursery-size=64m
+
 User=onlyoffice
 Group=onlyoffice
 # Give up if ping don't get an answer
 TimeoutSec=600
 
 Restart=always
-PrivateTmp=false
+PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target

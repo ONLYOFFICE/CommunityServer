@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -107,8 +107,7 @@ namespace ASC.Web.UserControls.Bookmarking
                         Describe = BookmarkingUCResource.EmptyScreenText
                     };
 
-                BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
-                    BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+                var displayMode = BookmarkingBusinessFactory.GetDisplayMode();
 
                 if (displayMode.Equals(BookmarkDisplayMode.SearchBookmarks))
                 {
@@ -165,8 +164,8 @@ namespace ASC.Web.UserControls.Bookmarking
 
         private void LoadBookmarks(IList<Bookmark> bookmarks)
         {
-            BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
-                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+            var displayMode = BookmarkingBusinessFactory.GetDisplayMode();
+
             if (!BookmarkDisplayMode.SelectedBookmark.Equals(displayMode))
             {
                 singleBookmark = false;
@@ -216,8 +215,9 @@ namespace ASC.Web.UserControls.Bookmarking
         public object RemoveBookmarkFromFavourite(int userBookmarkID, string uniqueID)
         {
             var b = _serviceHelper.RemoveBookmarkFromFavourite(userBookmarkID);
-            BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
-                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+
+            var displayMode = BookmarkingBusinessFactory.GetDisplayMode();
+
             if (b == null)
             {
                 return BookmarkDisplayMode.SelectedBookmark == displayMode ? null : string.Empty;
@@ -270,12 +270,14 @@ namespace ASC.Web.UserControls.Bookmarking
         public object SaveBookmarkAjax(string BookmarkUrl, string BookmarkName, string BookmarkDescription, string BookmarkTags, string uniqueID)
         {
             var url = UpdateURL(BookmarkUrl);
-            var b = _serviceHelper.AddBookmark(url, BookmarkName, BookmarkDescription, BookmarkTags);
 
+            var b = _serviceHelper.AddBookmark(url, BookmarkName, BookmarkDescription, BookmarkTags);
             b = _serviceHelper.GetBookmarkWithUserBookmarks(url);
-            BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
-                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+
+            var displayMode = BookmarkingBusinessFactory.GetDisplayMode();
+
             var bookmarkString = GetBookmarkAsString(b, new Guid(uniqueID));
+
             if (BookmarkDisplayMode.SelectedBookmark == displayMode)
             {
                 var userImage = BookmarkingServiceHelper.GetHTMLUserAvatar();
@@ -535,8 +537,8 @@ namespace ASC.Web.UserControls.Bookmarking
         {
             try
             {
-                BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
-                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+                var displayMode = BookmarkingBusinessFactory.GetDisplayMode();
+
                 if (displayMode != BookmarkDisplayMode.AllBookmarks
                     && displayMode != BookmarkDisplayMode.SelectedBookmark
                     && displayMode != BookmarkDisplayMode.Favourites)
@@ -634,8 +636,8 @@ namespace ASC.Web.UserControls.Bookmarking
 
         public bool ShowCreateBookmarkLink()
         {
-            BookmarkDisplayMode displayMode = (BookmarkDisplayMode)Enum.Parse(typeof(BookmarkDisplayMode),
-                BookmarkingBusinessFactory.GetObjectFromCookies("BookmarkDisplayMode"));
+            var displayMode = BookmarkingBusinessFactory.GetDisplayMode();
+
             switch (displayMode)
             {
                 case BookmarkDisplayMode.AllBookmarks:

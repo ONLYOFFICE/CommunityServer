@@ -14,18 +14,16 @@
 
 <script id="groupTableRowTmpl" type="text/x-jquery-tmpl">
     <table class="group_menu">
-        <tr data_id="${id}" class='row'>
+        <tr data_id="${id}" class="row with-entity-menu">
             <td class="name_column">
-                <div class="group_name">
+                <div class="group_name" onclick="javascript:administrationPage.manageGroupContent('${id}');">
+                    <span class="expander-icon open"></span>
                     <span class="group_icon"></span>
                     <span class="name bold" title="<%: MailAdministrationResource.GroupLabel %>: ${email}">${email}</span>
-                    <span class="show_group gray link dotline open" onclick="javascript:administrationPage.showGroupContent('${id}');">
-                            <%: MailScriptResource.HidePasswordLinkLabel %>
-                    </span>
                 </div>
             </td>
             <td class="menu_column">
-                <div class="menu menu-small" title="<%: MailScriptResource.Actions %>" data_id="${id}"></div>
+                <div class="entity-menu" title="<%: MailScriptResource.Actions %>" data_id="${id}"></div>
             </td>
         </tr>
     </table>

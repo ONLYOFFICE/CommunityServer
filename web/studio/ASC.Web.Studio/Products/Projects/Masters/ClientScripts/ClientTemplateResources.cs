@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -39,22 +39,20 @@ namespace ASC.Web.Projects.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            return new List<KeyValuePair<string, object>>(13)
-                         {
-                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ListProjectsTemplates.ascx", context),
-                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ListMilestonesTemplates.ascx", context),
-                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/TimeTrackingTemplates.ascx", context),
-                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ProjectsTmplTemplates.ascx", context),
-                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ListTasksTemplates.ascx", context),
-                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/TaskDescriptionTemplates.ascx", context),
-                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/SubtaskTemplates.ascx", context),
-                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ListDiscussionsTemplates.ascx", context),
-                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/ActionPanelsTemplates.ascx", context),
-                             RegisterClientTemplatesPath("~/products/projects/ProjectsTemplates/PopupContentTemplates.ascx", context),
-                             RegisterClientTemplatesPath("~/products/crm/templates/SimpleContactListTemplate.ascx", context),
-                             RegisterClientTemplatesPath("~/products/crm/templates/ContactSelectorTemplates.ascx", context),
-                             RegisterClientTemplatesPath("~/products/crm/templates/ContactInfoCardTemplate.ascx", context)
-                         };
+            return RegisterClientTemplatesPath(context,
+                "~/products/projects/ProjectsTemplates/ListProjectsTemplates.ascx",
+                "~/products/projects/ProjectsTemplates/ListMilestonesTemplates.ascx",
+                "~/products/projects/ProjectsTemplates/TimeTrackingTemplates.ascx",
+                "~/products/projects/ProjectsTemplates/ProjectsTmplTemplates.ascx",
+                "~/products/projects/ProjectsTemplates/ListTasksTemplates.ascx",
+                "~/products/projects/ProjectsTemplates/TaskDescriptionTemplates.ascx",
+                "~/products/projects/ProjectsTemplates/SubtaskTemplates.ascx",
+                "~/products/projects/ProjectsTemplates/ListDiscussionsTemplates.ascx",
+                "~/products/projects/ProjectsTemplates/ActionPanelsTemplates.ascx",
+                "~/products/projects/ProjectsTemplates/PopupContentTemplates.ascx",
+                "~/products/crm/templates/SimpleContactListTemplate.ascx",
+                "~/products/crm/templates/ContactSelectorTemplates.ascx",
+                "~/products/crm/templates/ContactInfoCardTemplate.ascx");
         }
     }
 }

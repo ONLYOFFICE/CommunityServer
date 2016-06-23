@@ -18,8 +18,8 @@ BEGIN
 		commit;
 	END IF;
 
-	replace into tenants_quota (tenant, name, max_file_size, max_total_size, active_users, features) values (-1, 'default', 102400, 1048575, 10000, 'domain,docs');
-	insert ignore into core_settings(tenant, id, value) values (-1, 'SmtpSettings', 0xF052E090A1A3750DADCD4E9961DA04AA51EF0197E2C0623CF12C5838BFA40A9B9FDBAD2E6E1D503F5C2ED4BF7337EFD042EDE740C88EDE16908870DE10ACD479887FC663C7BD90306DE811DD537A285B1A182626646DE5A51495C5DCC0D3509A0A4E9C876624C17C8EC9A97A9FD597B262F21C3E73F1B745BAD86E1AFFE02695);
+	replace into tenants_quota (tenant, name, max_file_size, max_total_size, active_users, features) values (-1, 'default', 102400, 1048575, 10000, 'domain,audit,controlpanel,healthcheck,ldap,whitelabel,portals:2');
+	replace into core_settings(tenant, id, value) values (-1, 'SmtpSettings', 0xF052E090A1A3750DADCD4E9961DA04AA51EF0197E2C0623CF12C5838BFA40A9B48BAEFCBE371587731D7E3DC9E7C6009742F9E415D56DB0F0AE08E32F8904B2C441CC657C64543EAEE262044A28B4335DCB0F0C4E9401D891FA06369F984CA2D475C86C237917961C5827769831585230A66AC7787E6FB56FD3E37389267A46A);
 	insert ignore into core_settings(tenant, id, value) values (-1, 'FullTextSearchSettings', 0x0878CF0599B517CAA2D3DAED9D064C3EDCEEAF431F35A6F642DCADA04817E3513227BBB1DE6E2BABEB9E1077B2CF318C489814545E877501F633FBBE94022CFCDD025B5395973AF510943408BB56962EE35DA35F2F8374CF5FD12695359449D7CEFBC2C7BD112AE58752179AA2A59E5E17801E580CCC60FAEC8EBDD3D612C4886666D96D6CF060605E64C90A1FAA80C0);
 	insert ignore into webstudio_settings (tenantid, id, userid, data) select id, '9a925891-1f92-4ed7-b277-d6f649739f06', '00000000-0000-0000-0000-000000000000', '{"Completed":false}' from tenants_tenants;
 
@@ -138,8 +138,8 @@ BEGIN
 	insert ignore into core_acl (tenant, subject, action, object, acetype) values (-1, 'c5cc67d1-c3e8-43c0-a3ad-3928ae3e5b5e', '77777777-32ae-425f-99b5-83176061d1ae', 'ASC.Web.Core.WebItemSecurity+WebItemSecurityObject|28b10049dd204f54b986873bc14ccfc7', 0);
 	insert ignore into core_acl (tenant, subject, action, object, acetype) values (-1, 'c5cc67d1-c3e8-43c0-a3ad-3928ae3e5b5e', '77777777-32ae-425f-99b5-83176061d1ae', 'ASC.Web.Core.WebItemSecurity+WebItemSecurityObject|3cfd481b46f24a4ab55cb8c0c9def02c', 0);
 	insert ignore into core_acl (tenant, subject, action, object, acetype) values (-1, 'c5cc67d1-c3e8-43c0-a3ad-3928ae3e5b5e', '77777777-32ae-425f-99b5-83176061d1ae', 'ASC.Web.Core.WebItemSecurity+WebItemSecurityObject|6a598c7491ae437da5f4ad339bd11bb2', 0);
-	insert ignore into core_acl (tenant, subject, action, object, acetype) values (-1, 'c5cc67d1-c3e8-43c0-a3ad-3928ae3e5b5e', '77777777-32ae-425f-99b5-83176061d1ae', 'ASC.Web.Core.WebItemSecurity+WebItemSecurityObject|742cf945cbbc4a5782d61600a12cf8ca', 0);
-	insert ignore into core_acl (tenant, subject, action, object, acetype) values (-1, 'c5cc67d1-c3e8-43c0-a3ad-3928ae3e5b5e', '77777777-32ae-425f-99b5-83176061d1ae', 'ASC.Web.Core.WebItemSecurity+WebItemSecurityObject|853b6eb973ee438d9b098ffeedf36234', 0);
+	insert ignore into core_acl (tenant, subject, action, object, acetype) values (-1, 'c5cc67d1-c3e8-43c0-a3ad-3928ae3e5b5e', '77777777-32ae-425f-99b5-83176061d1ae', 'ASC.Web.Core.WebItemSecurity+WebItemSecurityObject|742cf945cbbc4a5782d61600a12cf8ca', 1);
+	insert ignore into core_acl (tenant, subject, action, object, acetype) values (-1, 'c5cc67d1-c3e8-43c0-a3ad-3928ae3e5b5e', '77777777-32ae-425f-99b5-83176061d1ae', 'ASC.Web.Core.WebItemSecurity+WebItemSecurityObject|853b6eb973ee438d9b098ffeedf36234', 1);
 
 	insert ignore into tenants_forbiden (address) values ('about');
 	insert ignore into tenants_forbiden (address) values ('affiliate');
@@ -349,7 +349,6 @@ BEGIN
 	insert into files_converts (input, output) values ('.rtf', '.docx');
 	insert into files_converts (input, output) values ('.rtf', '.odt');
 	insert into files_converts (input, output) values ('.rtf', '.txt');
-	insert into files_converts (input, output) values ('.svgt', '.svg');
 	insert into files_converts (input, output) values ('.txt', '.docx');
 	insert into files_converts (input, output) values ('.txt', '.odt');
 	insert into files_converts (input, output) values ('.xls', '.csv');
@@ -368,6 +367,8 @@ BEGIN
 	insert ignore into mail_imap_special_mailbox (server, name, folder_id, skip) values ('imap.gmx.com', 'Sent', 2, 0);
 	insert ignore into mail_imap_special_mailbox (server, name, folder_id, skip) values ('imap.gmx.com', 'Spam', 5, 0);
 	insert ignore into mail_imap_special_mailbox (server, name, folder_id, skip) values ('imap.gmx.com', 'Trash', 4, 1);
+    insert ignore into mail_imap_special_mailbox (server, name, folder_id, skip) values ('imap.googlemail.com', 'Migrated', 1, 1);
+    insert ignore into mail_imap_special_mailbox (server, name, folder_id, skip) values ('imap.googlemail.com', '[Gmail]', 1, 1);
 	insert ignore into mail_imap_special_mailbox (server, name, folder_id, skip) values ('imap.googlemail.com', '[Gmail]/Destacados', 0, 1);
 	insert ignore into mail_imap_special_mailbox (server, name, folder_id, skip) values ('imap.googlemail.com', '[Gmail]/Enviados', 2, 0);
 	insert ignore into mail_imap_special_mailbox (server, name, folder_id, skip) values ('imap.googlemail.com', '[Gmail]/Gesendet', 2, 0);
@@ -648,11 +649,11 @@ BEGIN
 	insert ignore into mail_mailbox_server (id, id_provider, type, hostname, port, socket_type, username, authentication, is_user_data) values (506, 5, 'smtp', 'amail.mail.plala.or.jp', 587, 'plain', '%EMAILLOCALPART%', '', 0);
 	insert ignore into mail_mailbox_server (id, id_provider, type, hostname, port, socket_type, username, authentication, is_user_data) values (507, 6, 'pop3', 'amber.mail.plala.or.jp', 110, 'plain', '%EMAILLOCALPART%', '', 0);
 	insert ignore into mail_mailbox_server (id, id_provider, type, hostname, port, socket_type, username, authentication, is_user_data) values (508, 6, 'smtp', 'amber.mail.plala.or.jp', 587, 'plain', '%EMAILLOCALPART%', '', 0);
-	insert ignore into mail_mailbox_server (id, id_provider, type, hostname, port, socket_type, username, authentication, is_user_data) values (509, 7, 'imap', 'imap.aol.com', 993, 'SSL', '%EMAILLOCALPART%', '', 0);
-	insert ignore into mail_mailbox_server (id, id_provider, type, hostname, port, socket_type, username, authentication, is_user_data) values (510, 7, 'imap', 'imap.aol.com', 143, 'STARTTLS', '%EMAILLOCALPART%', '', 0);
-	insert ignore into mail_mailbox_server (id, id_provider, type, hostname, port, socket_type, username, authentication, is_user_data) values (511, 7, 'pop3', 'pop.aol.com', 995, 'SSL', '%EMAILLOCALPART%', '', 0);
-	insert ignore into mail_mailbox_server (id, id_provider, type, hostname, port, socket_type, username, authentication, is_user_data) values (512, 7, 'pop3', 'pop.aol.com', 110, 'STARTTLS', '%EMAILLOCALPART%', '', 0);
-	insert ignore into mail_mailbox_server (id, id_provider, type, hostname, port, socket_type, username, authentication, is_user_data) values (513, 7, 'smtp', 'smtp.aol.com', 587, 'STARTTLS', '%EMAILLOCALPART%', '', 0);
+	insert ignore into mail_mailbox_server (id, id_provider, type, hostname, port, socket_type, username, authentication, is_user_data) values (509, 7, 'imap', 'imap.aol.com', 993, 'SSL', '%EMAILADDRESS%', '', 0);
+	insert ignore into mail_mailbox_server (id, id_provider, type, hostname, port, socket_type, username, authentication, is_user_data) values (510, 7, 'imap', 'imap.aol.com', 143, 'STARTTLS', '%EMAILADDRESS%', '', 0);
+	insert ignore into mail_mailbox_server (id, id_provider, type, hostname, port, socket_type, username, authentication, is_user_data) values (511, 7, 'pop3', 'pop.aol.com', 995, 'SSL', '%EMAILADDRESS%', '', 0);
+	insert ignore into mail_mailbox_server (id, id_provider, type, hostname, port, socket_type, username, authentication, is_user_data) values (512, 7, 'pop3', 'pop.aol.com', 110, 'STARTTLS', '%EMAILADDRESS%', '', 0);
+	insert ignore into mail_mailbox_server (id, id_provider, type, hostname, port, socket_type, username, authentication, is_user_data) values (513, 7, 'smtp', 'smtp.aol.com', 587, 'STARTTLS', '%EMAILADDRESS%', '', 0);
 	insert ignore into mail_mailbox_server (id, id_provider, type, hostname, port, socket_type, username, authentication, is_user_data) values (514, 8, 'pop3', 'apost.mail.plala.or.jp', 110, 'plain', '%EMAILLOCALPART%', '', 0);
 	insert ignore into mail_mailbox_server (id, id_provider, type, hostname, port, socket_type, username, authentication, is_user_data) values (515, 8, 'smtp', 'apost.mail.plala.or.jp', 587, 'plain', '%EMAILLOCALPART%', '', 0);
 	insert ignore into mail_mailbox_server (id, id_provider, type, hostname, port, socket_type, username, authentication, is_user_data) values (516, 9, 'pop3', 'aqua.mail.plala.or.jp', 110, 'plain', '%EMAILLOCALPART%', '', 0);

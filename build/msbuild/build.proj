@@ -52,7 +52,7 @@
     <ProjectToBuild Include="$(ASCDir)module\ASC.VoipService\ASC.VoipService.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.VoipService.Application\ASC.VoipService.Application.csproj"/>
     <ProjectToBuild Include="$(ASCDir)common\ASC.SingleSignOn\ASC.SingleSignOn.csproj" Condition=" Exists('$(ASCDir)common\ASC.SingleSignOn\') "/>
-    <ProjectToBuild Include="$(ASCDir)common\ASC.ActiveDirectory\ASC.ActiveDirectory.csproj" Condition=" Exists('$(ASCDir)common\ASC.ActiveDirectory\') "/>
+    <ProjectToBuild Include="$(ASCDir)common\ASC.ActiveDirectory\ASC.ActiveDirectory.csproj"/>
 
     <!-- Messaging system -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.MessagingSystem\ASC.MessagingSystem.csproj"/>
@@ -71,10 +71,10 @@
     <ProjectToBuild Include="$(ASCDir)module\ASC.Files.Thirdparty\ASC.Files.Thirdparty.csproj"/>
 
     <!-- Audit Trail -->
-    <ProjectToBuild Include="$(ASCDir)module\ASC.AuditTrail\ASC.AuditTrail.csproj" Condition=" Exists( '$(ASCDir)module\ASC.AuditTrail\ASC.AuditTrail.csproj' ) " />
+    <ProjectToBuild Include="$(ASCDir)module\ASC.AuditTrail\ASC.AuditTrail.csproj" />
 
     <!-- Backup -->
-    <ProjectToBuild Include="$(ASCDir)common\ASC.Data.Backup\ASC.Data.Backup.csproj" Condition=" Exists( '$(ASCDir)common\ASC.Data.Backup\' ) "/>
+    <ProjectToBuild Include="$(ASCDir)common\ASC.Data.Backup\ASC.Data.Backup.csproj" />
 
     <!-- Recycle -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.Recycle\ASC.Recycle.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Recycle\' ) "/>
@@ -91,25 +91,11 @@
     <!-- People-->
     <ProjectToBuild Include="$(ASCDir)web\studio\ASC.Web.Studio\Products\People\ASC.Web.People.csproj"/>
 
-
-    <!-- Mail ActiveUp -->
-    <ProjectToBuild Include="$(ASCDir)module\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Dns\ActiveUp.Net.Dns.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Common\ActiveUp.Net.Common.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Groupware\ActiveUp.Net.Groupware.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Imap4\ActiveUp.Net.Imap4.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Nntp\ActiveUp.Net.Nntp.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.MailSystem\ClassLibrary\ActiveUp.Net.OpenPGP\ActiveUp.Net.OpenPGP.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Pop3\ActiveUp.Net.Pop3.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Smtp\ActiveUp.Net.Smtp.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Mail\ActiveUp.Net.Mail.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.MailSystem\ClassLibrary\ActiveUp.Net.WhoIs\ActiveUp.Net.WhoIs.csproj"/>
-
     <!-- Mail Core -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail\ASC.Mail.Core\Net\ASC.Mail.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail\' ) "/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Dal\ASC.Mail.Aggregator.Dal.csproj" />
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Common\ASC.Mail.Aggregator.Common.csproj" />
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.DataStorage\ASC.Mail.Aggregator.DataStorage.csproj" />
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj"/>
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Core\ASC.Mail.Aggregator.Core.csproj"/>
 
     <!-- Mail Services -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.CollectionService\ASC.Mail.Aggregator.CollectionService.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Mail.Aggregator\' ) "/>
@@ -143,7 +129,7 @@
     <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Api.CRM\ASC.Api.CRM.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Feed.Aggregator\ASC.Feed.Aggregator.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Api.Feed\ASC.Api.Feed.csproj"/>
-    <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Api.Security\ASC.Api.Security.csproj" Condition=" Exists( '$(ASCDir)module\ASC.Api\ASC.Api.Security\ASC.Api.Security.csproj' ) " />
+    <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Api.Security\ASC.Api.Security.csproj" />
     <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Api.Mail\ASC.Api.Mail.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Api.MailServer\ASC.Api.MailServer.csproj"/>
     <ProjectToBuild Include="$(ASCDir)module\ASC.Api\ASC.Api.Portal\ASC.Api.Portal.csproj"/>
@@ -160,12 +146,14 @@
     <!-- SignalR service -->
     <ProjectToBuild Include="$(ASCDir)module\ASC.SignalR.Base\ASC.SignalR.Base.csproj" Condition=" Exists( '$(ASCDir)module\ASC.SignalR.Base\ASC.SignalR.Base.csproj' ) "/>
 
-    <!-- HealthCheck service -->
-    <ProjectToBuild Include="$(ASCDir)module\ASC.HealthCheck\ASC.HealthCheck\ASC.HealthCheck.csproj" Condition=" Exists( '$(ASCDir)module\ASC.HealthCheck\ASC.HealthCheck\ASC.HealthCheck.csproj' ) "/>
+    <!-- ThumbnailHelper -->
+    <ProjectToBuild Include="$(ASCDir)dev_tools\ThumbnailHelper\ThumbnailHelper.csproj" Condition=" Exists( '$(ASCDir)dev_tools\ThumbnailHelper\ThumbnailHelper.csproj' ) "/>
 
     <ProjectSitesToBuild Include="$(ASCDir)module\ASC.CRM\ASC.CRM.DatabaseSync\ASC.CRM.DatabaseSync.csproj" Condition="$(DeploySites)==1" />
     <ProjectSitesToBuild Include="$(ASCDir)web\Thumb\Thumb.csproj" Condition="$(DeploySites)==1" />
-    <ProjectSitesToBuild Include="$(ASCDir)module\ASC.Statistics\ASC.Statistics.sln" Condition="$(DeploySites)==1" />
+    <ProjectSitesToBuild Include="$(ASCDir)module\ASC.Statistics\ASC.Statistics\ASC.Statistics.csproj" Condition="$(DeploySites)==1" />
+    <ProjectSitesToBuild Include="$(ASCDir)module\ASC.Statistics\ASC.Statistics.Service\ASC.Statistics.Service.csproj" Condition="$(DeploySites)==1" />
+    <ProjectSitesToBuild Include="$(ASCDir)web\Statistics\ASC.Web.Stat\ASC.Web.Stat.csproj" Condition="$(DeploySites)==1" />
     <ProjectSitesToBuild Include="$(ASCDir)web\services\ASC.ApiSystem\ASC.ApiSystem.csproj" Condition="$(DeploySites)==1" />
     <ProjectSitesToBuild Include="$(ASCDir)web\services\ASC.Bar\ASC.Bar.csproj" Condition="$(DeploySites)==1" />
   </ItemGroup>

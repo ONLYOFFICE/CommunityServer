@@ -25,6 +25,7 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Info|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,7 +38,7 @@
     <Prefer32Bit>false</Prefer32Bit>
     <FilesToIncludeForPublish>AllFilesInProjectFolder</FilesToIncludeForPublish>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'COM|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\</OutputPath>
@@ -75,9 +76,9 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.Mvc">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.4.0.20710.0\lib\net40\System.Web.Mvc.dll</HintPath>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Mvc.4.0.30506.0\lib\net40\System.Web.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Web.Optimization, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -96,9 +97,9 @@
       <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Deployment.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+    <Reference Include="System.Web.WebPages.Razor">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\packages\Microsoft.AspNet.WebPages.2.0.20710.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.Razor.3.2.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Xml.Linq" />
@@ -117,6 +118,7 @@
   <ItemGroup>
     <Compile Include="CacheManifest.cs" />
     <Compile Include="Controllers\CacheManifestController.cs" />
+    <Compile Include="Controllers\ApiSystemController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PartnersController.cs" />
     <Compile Include="Controllers\EditorsController.cs" />
@@ -145,6 +147,7 @@
     <Content Include="500.htm" />
     <Content Include="Content\hightlight\default.css" />
     <Content Include="Content\img\conversion.jpg" />
+    <Content Include="Content\img\csharp\add.png" />
     <Content Include="Content\img\editors.png" />
     <Content Include="Content\img\Editor\create.png" />
     <Content Include="Content\img\Editor\customization.png" />
@@ -152,11 +155,29 @@
     <Content Include="Content\img\Editor\info.png" />
     <Content Include="Content\img\Editor\permissions.png" />
     <Content Include="Content\img\Editor\recent.png" />
+    <Content Include="Content\img\Editor\review.png" />
     <Content Include="Content\img\export.jpg" />
+    <Content Include="Content\img\java\author.jpg" />
+    <Content Include="Content\img\java\make-var.png" />
+    <Content Include="Content\img\java\manager-app.jpg" />
+    <Content Include="Content\img\java\manager.jpg" />
+    <Content Include="Content\img\java\tomcat-cmd.jpg" />
+    <Content Include="Content\img\java\upload-app.jpg" />
+    <Content Include="Content\img\java\war-file.jpg" />
     <Content Include="Content\img\opening.jpg" />
     <Content Include="Content\img\partners.png" />
+    <Content Include="Content\img\php\add.png" />
+    <Content Include="Content\img\php\browse.png" />
+    <Content Include="Content\img\php\handler-add.png" />
+    <Content Include="Content\img\php\handlerclick.png" />
+    <Content Include="Content\img\php\manager.png" />
+    <Content Include="Content\img\php\php-version-1.jpg" />
+    <Content Include="Content\img\php\php-version-2.jpg" />
     <Content Include="Content\img\portals.png" />
     <Content Include="Content\img\saving.jpg" />
+    <Content Include="Content\img\csharp\browse.png" />
+    <Content Include="Content\img\csharp\platform.png" />
+    <Content Include="Content\img\csharp\sitename.png" />
     <Content Include="Content\img\sprite.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\styles.css" />
@@ -167,23 +188,44 @@
     <Content Include="Scripts\treeview\jquery.treeview.js" />
     <Content Include="Scripts\zeroclipboard\zeroclipboard.js" />
     <Content Include="Scripts\zeroclipboard\ZeroClipboard10.swf" />
+    <Content Include="Views\ApiSystem\Authentication.aspx" />
+    <Content Include="Views\ApiSystem\Basic.aspx" />
+    <Content Include="Views\ApiSystem\GetTariff.aspx" />
+    <Content Include="Views\ApiSystem\SetTariff.aspx" />
+    <Content Include="Views\ApiSystem\StatusPortal.aspx" />
+    <Content Include="Views\ApiSystem\RemovePortal.aspx" />
+    <Content Include="Views\ApiSystem\GetPortals.aspx" />
+    <Content Include="Views\ApiSystem\RegisterPortal.aspx" />
+    <Content Include="Views\ApiSystem\ValidatePortalName.aspx" />
+    <Content Include="Views\ApiSystem\Index.aspx" />
+    <Content Include="Views\ApiSystem\Navigation.ascx" />
     <Content Include="Views\Editors\Callback.aspx" />
+    <Content Include="Views\Editors\Config\Default.ascx" />
     <Content Include="Views\Editors\Conversion.aspx" />
     <Content Include="Views\Editors\ConversionApi.aspx" />
+    <Content Include="Views\Editors\Alfresco.aspx" />
     <Content Include="Views\Editors\Advanced.aspx" />
-    <Content Include="Views\Editors\License.aspx" />
-    <Content Include="Views\Editors\Customization.aspx" />
-    <Content Include="Views\Editors\Embedded.aspx" />
+    <Content Include="Views\Editors\Confluence.aspx" />
+    <Content Include="Views\Editors\Plugins.aspx" />
+    <Content Include="Views\Editors\Example.aspx" />
+    <Content Include="Views\Editors\Example\Java.ascx" />
+    <Content Include="Views\Editors\Example\Nodejs.ascx" />
+    <Content Include="Views\Editors\Example\Php.ascx" />
+    <Content Include="Views\Editors\Example\Ruby.ascx" />
+    <Content Include="Views\Editors\Example\Csharp.ascx" />
+    <Content Include="Views\Editors\Methods.aspx" />
+    <Content Include="Views\Editors\Config\Editor\Customization.ascx" />
+    <Content Include="Views\Editors\Config\Editor\Embedded.ascx" />
     <Content Include="Views\Editors\DemoPreview.aspx" />
     <Content Include="Views\Editors\Hardware.aspx" />
     <Content Include="Views\Editors\Save.aspx" />
     <Content Include="Views\Editors\Open.aspx" />
-    <Content Include="Views\Editors\DocPermissions.aspx" />
+    <Content Include="Views\Editors\Config\Document\Permissions.ascx" />
     <Content Include="Views\Editors\Config.aspx" />
-    <Content Include="Views\Editors\DocInfo.aspx" />
-    <Content Include="Views\Editors\Document.aspx" />
-    <Content Include="Views\Editors\Editor.aspx" />
-    <Content Include="Views\Editors\Events.aspx" />
+    <Content Include="Views\Editors\Config\Document\Info.ascx" />
+    <Content Include="Views\Editors\Config\Document.ascx" />
+    <Content Include="Views\Editors\Config\Editor.ascx" />
+    <Content Include="Views\Editors\Config\Events.ascx" />
     <Content Include="Views\Editors\Basic.aspx" />
     <Content Include="Views\Editors\HowItWorks.aspx" />
     <Content Include="Views\Editors\Navigation.ascx" />
@@ -231,13 +273,19 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\class_descriptions.xml" />
+    <Content Include="App_Data\.Net %28C# MVC%29 Example.zip" />
+    <Content Include="App_Data\.Net %28C#%29 Example.zip" />
+    <Content Include="App_Data\Java Example.zip" />
+    <Content Include="App_Data\Node.js Example.zip" />
+    <Content Include="App_Data\PHP Example.zip" />
+    <Content Include="App_Data\Ruby Example.zip" />
     <None Include="Properties\PublishProfiles\api.onlyoffice.com.pubxml" />
     <None Include="Properties\PublishProfiles\api.teamlab.com.pubxml" />
     <None Include="Properties\PublishProfiles\api.teamlab.info.pubxml" />
     <Content Include="Views\Shared\Search.aspx" />
     <Content Include="Views\Shared\SearchForm.ascx" />
     <Content Include="Views\Portals\Auth.aspx" />
-    <None Include="Web.Release.config">
+    <None Include="Web.COM.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
@@ -301,6 +349,7 @@
       <Name>ASC.Specific</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

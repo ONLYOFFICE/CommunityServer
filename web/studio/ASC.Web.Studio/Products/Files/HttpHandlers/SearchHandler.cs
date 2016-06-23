@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,10 +24,6 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web.UI;
 using ASC.Common.Utils;
 using ASC.Files.Core;
 using ASC.Web.Core.Files;
@@ -35,9 +31,14 @@ using ASC.Web.Core.ModuleManagement.Common;
 using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Files.Classes;
+using ASC.Web.Files.Import;
 using ASC.Web.Files.Resources;
 using ASC.Web.Files.Utils;
 using ASC.Web.Studio.Core;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.UI;
 
 namespace ASC.Web.Files.Configuration
 {
@@ -75,10 +76,28 @@ namespace ASC.Web.Files.Configuration
         public IEnumerable<Folder> SearchFolders(string text)
         {
             var security = Global.GetFilesSecurity();
+            IEnumerable<Folder> result;
             using (var folderDao = Global.DaoFactory.GetFolderDao())
             {
-                return folderDao.Search(text, FolderType.USER | FolderType.COMMON).Where(security.CanRead);
+                result = folderDao.Search(text, FolderType.USER, FolderType.COMMON).Where(security.CanRead);
+
+                if (ImportConfiguration.SupportInclusion
+                    && (Global.IsAdministrator || FilesSettings.EnableThirdParty))
+                {
+                    var id = Global.FolderMy;
+                    if (!Equals(id, 0))
+                    {
+                        var folderMy = folderDao.GetFolder(id);
+                        result = result.Concat(EntryManager.GetThirpartyFolders(folderMy, text));
+                    }
+
+                    id = Global.FolderCommon;
+                    var folderCommon = folderDao.GetFolder(id);
+                    result = result.Concat(EntryManager.GetThirpartyFolders(folderCommon, text));
+                }
             }
+
+            return result;
         }
 
         public override SearchResultItem[] Search(string text)

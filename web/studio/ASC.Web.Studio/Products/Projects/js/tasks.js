@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -401,7 +401,16 @@ ASC.Projects.TasksManager = (function() {
             $taskListContainer.find(".task").removeClass('menuopen');
             jq(this).closest(".task").addClass('menuopen');
 
-            showActionsPanel.call(this, 'taskActionPanel', event ? { x: event.pageX | (event.clientX + event.scrollLeft), y: event.pageY | (event.clientY + event.scrollTop) } : undefined);
+            var params = undefined;
+            if (event)
+            {
+                params = {
+                    x: event.pageX | (event.clientX + event.scrollLeft),
+                    y: event.pageY | (event.clientY + event.scrollTop)
+                }
+
+            }
+            showActionsPanel.call(this, 'taskActionPanel', params);
 
             return false;
         }
@@ -412,6 +421,7 @@ ASC.Projects.TasksManager = (function() {
 
         $taskListContainer.on('contextmenu', '.task', function (event) {
             jq('.studio-action-panel, .filter-list').hide();
+            jq(".entity-menu.active").removeClass("active");
             return showEntityMenu.call(this, event);
         });
 
@@ -916,8 +926,8 @@ ASC.Projects.TasksManager = (function() {
                 }
             }
             else {
-                if (self.currentPage > 0) {
-                    self.currentPage--;
+                if (ASC.Projects.PageNavigator.currentPage > 0) {
+                    ASC.Projects.PageNavigator.setMaxPage(filterTaskCount);
                     getData();
                 }
             }
@@ -967,8 +977,13 @@ ASC.Projects.TasksManager = (function() {
     };
 
     var showActionsPanel = function (panelId, coord) {
-        var self = jq(this);
-        if (!self.is(".entity-menu") && panelId == "taskActionPanel") self = self.find(".entity-menu");
+        var self = jq(this),
+            menuClick = false;
+        if (self.is(".entity-menu")) {
+            menuClick = true;
+        } else if (panelId == "taskActionPanel") {
+            self = self.find(".entity-menu");
+        }
         var objid = '',
             objidAttr = '';
         var x, y;
@@ -990,13 +1005,14 @@ ASC.Projects.TasksManager = (function() {
             jq('.studio-action-panel, .filter-list').hide();
             jq('#' + statusListObject.listId).hide();
             jq('.changeStatusCombobox').removeClass('selected');
-
+            jq(".entity-menu.active").removeClass("active");
         } else {
             jq('.studio-action-panel, .filter-list').hide();
             jq('#' + statusListObject.listId).hide();
             jq('.changeStatusCombobox').removeClass('selected');
 
-            jq('#' + panelId).show();
+            //jq('#' + panelId).show();
+            //jq('#' + panelId).hide();
             // remove magic numbers
             if (panelId == 'taskDescrPanel') {
                 x = self.offset().left + 10;
@@ -1056,12 +1072,33 @@ ASC.Projects.TasksManager = (function() {
                 x = coord.x - jq('#' + panelId).outerWidth();
                 y = coord.y;
             }
-            jq('#' + panelId).css({ left: x, top: y });
 
-            jq('body').off("click.tasksShowActionsPanel");
-            jq('body').on("click.tasksShowActionsPanel", function (event) {
-                var elt = (event.target) ? event.target : event.srcElement;
-                var isHide = true;
+            var panelHeight = jq('#' + panelId).innerHeight(),
+                w = jq(window),
+                scrScrollTop = w.scrollTop(),
+                scrHeight = w.height(),
+                correctionY =
+                    panelHeight > y
+                    ? 0
+                    : (scrHeight + scrScrollTop - y > panelHeight ? 0 : panelHeight);
+
+            y = y - correctionY;
+
+            if (menuClick) {
+                jq(".entity-menu.active").removeClass("active");
+                self.addClass("active");
+
+                y = y - (correctionY == 0 ? 0 : self.outerHeight() + 2);
+            }
+
+            jq('#' + panelId).css({ left: x, top: y }).show();
+
+            jq('body')
+                .off("click.tasksShowActionsPanel")
+                .on("click.tasksShowActionsPanel", function (event) {
+
+                var elt = (event.target) ? event.target : event.srcElement,
+                    isHide = true;
                 if (jq(elt).is('[id="' + panelId + '"]') || (elt.id == this.id && this.id.length) || jq(elt).is('.entity-menu') || jq(elt).is('.other') || jq(elt).parents('#taskDescrPanel').length) {
                     isHide = false;
                 }
@@ -1084,6 +1121,7 @@ ASC.Projects.TasksManager = (function() {
     var hideTaskActionPanel = function () {
         jq('.studio-action-panel').hide();
         jq('.taskList .task').removeClass('menuopen');
+        jq(".entity-menu.active").removeClass("active");
     };
 
     var openedCount = function(items) {

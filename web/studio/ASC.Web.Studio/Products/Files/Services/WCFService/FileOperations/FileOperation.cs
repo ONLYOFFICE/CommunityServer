@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -55,6 +55,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
         public const string RESULT = "Result";
         public const string ERROR = "Error";
         public const string PROCESSED = "Processed";
+        public const string FINISHED = "Finished";
 
         private readonly IPrincipal principal;
         private readonly string culture;
@@ -145,6 +146,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
             {
                 try
                 {
+                    TaskInfo.SetProperty(FINISHED, true);
                     PublishTaskInfo();
 
                     FolderDao.Dispose();
@@ -178,13 +180,20 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
 
         protected virtual int InitTotalProgressSteps()
         {
-            return Files.Count + Folders.Count;
+            var count = Files.Count;
+            Folders.ForEach(f => count += 1 + (FolderDao.CanCalculateSubitems(f) ? FolderDao.GetItemsCount(f) : 0));
+            return count;
         }
 
-        protected void ProgressStep()
+        protected void ProgressStep(object folderId = null, object fileId = null)
         {
-            processed++;
-            PublishTaskInfo();
+            if (folderId == null && fileId == null
+                || folderId != null && Folders.Contains(folderId)
+                || fileId != null && Files.Contains(fileId))
+            {
+                processed++;
+                PublishTaskInfo();
+            }
         }
 
         protected bool ProcessedFolder(object folderId)

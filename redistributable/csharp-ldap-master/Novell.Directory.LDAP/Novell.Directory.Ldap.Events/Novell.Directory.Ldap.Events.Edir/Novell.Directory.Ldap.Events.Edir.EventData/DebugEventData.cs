@@ -29,133 +29,132 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
+using Novell.Directory.Ldap.Asn1;
 using System.Collections;
 using System.Text;
 
-using Novell.Directory.Ldap.Asn1;
-
 namespace Novell.Directory.Ldap.Events.Edir.EventData
 {
-  /// <summary> 
-  /// This class represents the data for Debug Events.
-  /// </summary>
-  public class DebugEventData : BaseEdirEventData
-  {
-    protected int ds_time;
-    public int DSTime
+    /// <summary> 
+    /// This class represents the data for Debug Events.
+    /// </summary>
+    public class DebugEventData : BaseEdirEventData
     {
-      get
-      {
-	return ds_time;
-      }
-    }
-
-    protected int milli_seconds;
-    public int MilliSeconds
-    {
-      get
-      {
-	return milli_seconds;
-      }
-    }
-
-    protected string strPerpetratorDN;
-    public string PerpetratorDN
-    {
-      get 
-      {
-	return strPerpetratorDN;
-      }
-    }
-
-    protected string strFormatString;
-    public string FormatString
-    {
-      get
-      {
-	return strFormatString;
-      }
-    }
-
-    protected int nVerb;
-    public int Verb
-    {
-      get
-      {
-	return nVerb;
-      }
-    }
-
-    protected int parameter_count;
-    public int ParameterCount
-    {
-      get
-      {
-	return parameter_count;
-      }
-    }
-
-    protected ArrayList parameter_collection;
-    public ArrayList Parameters
-    {
-      get
-      {
-	return parameter_collection;
-      }
-    }
-    
-    public DebugEventData(EdirEventDataType eventDataType, Asn1Object message)
-      : base(eventDataType, message)
-    {
-        int[] length = new int[1];
-
-        ds_time = ((Asn1Integer) decoder.decode(decodedData, length)).intValue();
-        milli_seconds =
-            ((Asn1Integer) decoder.decode(decodedData, length)).intValue();
-
-        strPerpetratorDN =
-            ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-        strFormatString =
-            ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-        nVerb = ((Asn1Integer) decoder.decode(decodedData, length)).intValue();
-        parameter_count =
-            ((Asn1Integer) decoder.decode(decodedData, length)).intValue();
-
-	parameter_collection = new ArrayList();
-
-        if (parameter_count > 0) 
-	{
-            Asn1Sequence seq = (Asn1Sequence) decoder.decode(decodedData, length);
-            for (int i = 0; i < parameter_count; i++) 
-	    {
-                parameter_collection.Add(
-                    new DebugParameter((Asn1Tagged) seq.get_Renamed(i))
-		    );
+        protected int ds_time;
+        public int DSTime
+        {
+            get
+            {
+                return ds_time;
             }
         }
 
-	DataInitDone();
-    }    
+        protected int milli_seconds;
+        public int MilliSeconds
+        {
+            get
+            {
+                return milli_seconds;
+            }
+        }
 
-    /// <summary> 
-    /// Returns a string representation of the object.
-    /// </summary>
-    public override string ToString()
-    {
-      StringBuilder buf = new StringBuilder();
-      buf.Append("[DebugEventData");
-      buf.AppendFormat("(Millseconds={0})", milli_seconds);
-      buf.AppendFormat("(DSTime={0})", ds_time);
-      buf.AppendFormat("(PerpetratorDN={0})", strPerpetratorDN);
-      buf.AppendFormat("(Verb={0})",nVerb);
-      buf.AppendFormat("(ParameterCount={0})", parameter_count);
-      for (int i = 0; i < parameter_count; i++)
-      {
-	buf.AppendFormat("(Parameter[{0}]={1})", i, parameter_collection[i]);
-      }
-      buf.Append("]");
+        protected string strPerpetratorDN;
+        public string PerpetratorDN
+        {
+            get
+            {
+                return strPerpetratorDN;
+            }
+        }
 
-      return buf.ToString();
+        protected string strFormatString;
+        public string FormatString
+        {
+            get
+            {
+                return strFormatString;
+            }
+        }
+
+        protected int nVerb;
+        public int Verb
+        {
+            get
+            {
+                return nVerb;
+            }
+        }
+
+        protected int parameter_count;
+        public int ParameterCount
+        {
+            get
+            {
+                return parameter_count;
+            }
+        }
+
+        protected ArrayList parameter_collection;
+        public ArrayList Parameters
+        {
+            get
+            {
+                return parameter_collection;
+            }
+        }
+
+        public DebugEventData(EdirEventDataType eventDataType, Asn1Object message)
+            : base(eventDataType, message)
+        {
+            int[] length = new int[1];
+
+            ds_time = ((Asn1Integer)decoder.decode(decodedData, length)).intValue();
+            milli_seconds =
+                ((Asn1Integer)decoder.decode(decodedData, length)).intValue();
+
+            strPerpetratorDN =
+                ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+            strFormatString =
+                ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+            nVerb = ((Asn1Integer)decoder.decode(decodedData, length)).intValue();
+            parameter_count =
+                ((Asn1Integer)decoder.decode(decodedData, length)).intValue();
+
+            parameter_collection = new ArrayList();
+
+            if (parameter_count > 0)
+            {
+                Asn1Sequence seq = (Asn1Sequence)decoder.decode(decodedData, length);
+                for (int i = 0; i < parameter_count; i++)
+                {
+                    parameter_collection.Add(
+                        new DebugParameter((Asn1Tagged)seq.get_Renamed(i))
+                );
+                }
+            }
+
+            DataInitDone();
+        }
+
+        /// <summary> 
+        /// Returns a string representation of the object.
+        /// </summary>
+        public override string ToString()
+        {
+            StringBuilder buf = new StringBuilder();
+            buf.Append("[DebugEventData");
+            buf.AppendFormat("(Millseconds={0})", milli_seconds);
+            buf.AppendFormat("(DSTime={0})", ds_time);
+            buf.AppendFormat("(PerpetratorDN={0})", strPerpetratorDN);
+            buf.AppendFormat("(Verb={0})", nVerb);
+            buf.AppendFormat("(ParameterCount={0})", parameter_count);
+            for (int i = 0; i < parameter_count; i++)
+            {
+                buf.AppendFormat("(Parameter[{0}]={1})", i, parameter_collection[i]);
+            }
+            buf.Append("]");
+
+            return buf.ToString();
+        }
     }
-  }
 }

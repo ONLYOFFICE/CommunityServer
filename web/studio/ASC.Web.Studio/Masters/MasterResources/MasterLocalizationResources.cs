@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -64,30 +64,35 @@ namespace ASC.Web.Studio.Masters.MasterResources
         {
             var dateTimeFormat = Thread.CurrentThread.CurrentCulture.DateTimeFormat;
 
-            return new List<KeyValuePair<string, object>>(22)
+            return new List<KeyValuePair<string, object>>(5)
                    {
                        RegisterResourceSet("Resource", ResourceJS.ResourceManager),
                        RegisterResourceSet("FeedResource", FeedResource.ResourceManager),
                        RegisterResourceSet("ChatResource", ChatResource.ResourceManager),
                        RegisterResourceSet("UserControlsCommonResource", UserControlsCommonResource.ResourceManager),
-                       RegisterObject("DatePattern", dateTimeFormat.ShortDatePattern),
-                       RegisterObject("TimePattern", dateTimeFormat.ShortTimePattern),
-                       RegisterObject("DateTimePattern", dateTimeFormat.FullDateTimePattern),
-                       RegisterObject("DatePatternJQ", DateTimeExtension.DateMaskForJQuery), //.Replace(" ", string.Empty) -  remove because, crash date in datepicker on czech language (bug 21954)
-                       RegisterObject("DatepickerDatePattern", GetDatepikerDateFormat(dateTimeFormat.ShortDatePattern)),
-                       RegisterObject("DatepickerTimePattern", GetDatepikerDateFormat(dateTimeFormat.ShortTimePattern)),
-                       RegisterObject("DatepickerDateTimePattern", GetDatepikerDateFormat(dateTimeFormat.FullDateTimePattern)),
-                       RegisterObject("FirstDay", (int)dateTimeFormat.FirstDayOfWeek),
-                       RegisterObject("DayNames", dateTimeFormat.AbbreviatedDayNames),
-                       RegisterObject("DayNamesFull", dateTimeFormat.DayNames),
-                       RegisterObject("MonthNames", Thread.CurrentThread.CurrentUICulture.DateTimeFormat.AbbreviatedMonthGenitiveNames),
-                       RegisterObject("MonthNamesFull", Thread.CurrentThread.CurrentUICulture.DateTimeFormat.MonthNames),
-                       RegisterObject("TwoLetterISOLanguageName", Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName),
-                       RegisterObject("CurrentCultureName", Thread.CurrentThread.CurrentCulture.Name.ToLowerInvariant()),
-                       RegisterObject("CurrentCulture", CultureInfo.CurrentCulture.Name),
-                       RegisterObject("FileSizePostfix", Resource.FileSizePostfix),
-                       RegisterObject("AccessRightsAccessToProduct", Resource.AccessRightsAccessToProduct),
-                       RegisterObject("AccessRightsDisabledProduct", Resource.AccessRightsDisabledProduct)
+                       RegisterObject(
+                            new
+                                {
+                                    DatePattern = dateTimeFormat.ShortDatePattern,
+                                    TimePattern = dateTimeFormat.ShortTimePattern,
+                                    DateTimePattern = dateTimeFormat.FullDateTimePattern,
+                                    DatePatternJQ = DateTimeExtension.DateMaskForJQuery,
+                                    //.Replace(" ", string.Empty) -  remove because, crash date in datepicker on czech language (bug 21954)
+                                    DatepickerDatePattern = GetDatepikerDateFormat(dateTimeFormat.ShortDatePattern),
+                                    DatepickerTimePattern = GetDatepikerDateFormat(dateTimeFormat.ShortTimePattern),
+                                    DatepickerDateTimePattern = GetDatepikerDateFormat(dateTimeFormat.FullDateTimePattern),
+                                    FirstDay = (int) dateTimeFormat.FirstDayOfWeek,
+                                    DayNames = dateTimeFormat.AbbreviatedDayNames,
+                                    DayNamesFull = dateTimeFormat.DayNames,
+                                    MonthNames = Thread.CurrentThread.CurrentUICulture.DateTimeFormat.AbbreviatedMonthGenitiveNames,
+                                    MonthNamesFull = Thread.CurrentThread.CurrentUICulture.DateTimeFormat.MonthNames,
+                                    Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName,
+                                    CurrentCultureName = Thread.CurrentThread.CurrentCulture.Name.ToLowerInvariant(),
+                                    CurrentCulture = CultureInfo.CurrentCulture.Name,
+                                    Resource.FileSizePostfix,
+                                    Resource.AccessRightsAccessToProduct,
+                                    Resource.AccessRightsDisabledProduct
+                                })
                    };
         }
     }
@@ -101,20 +106,24 @@ namespace ASC.Web.Studio.Masters.MasterResources
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            return new List<KeyValuePair<string, object>>(12)
+            return new List<KeyValuePair<string, object>>(1)
                    {
-                       RegisterObject("Admin", CustomNamingPeople.Substitute<Resource>("Administrator")),
-                       RegisterObject("User", CustomNamingPeople.Substitute<Resource>("User")),
-                       RegisterObject("Guest", CustomNamingPeople.Substitute<Resource>("Guest")),
-                       RegisterObject("Department", CustomNamingPeople.Substitute<Resource>("Department")),
-                       RegisterObject("ConfirmRemoveUser", CustomNamingPeople.Substitute<Resource>("ConfirmRemoveUser").HtmlEncode()),
-                       RegisterObject("ConfirmRemoveDepartment", CustomNamingPeople.Substitute<Resource>("DeleteDepartmentConfirmation").HtmlEncode()),
-                       RegisterObject("AddDepartmentHeader", CustomNamingPeople.Substitute<Resource>("AddDepartmentDlgTitle").HtmlEncode()),
-                       RegisterObject("EditDepartmentHeader", CustomNamingPeople.Substitute<Resource>("DepEditHeader").HtmlEncode()),
-                       RegisterObject("EmployeeAllDepartments", CustomNamingPeople.Substitute<Resource>("EmployeeAllDepartments").HtmlEncode()),
-                       RegisterObject("AddEmployees", CustomNamingPeople.Substitute<UserControlsCommonResource>("AddEmployees").HtmlEncode()),
-                       RegisterObject("AccessRightsAddUser", CustomNamingPeople.Substitute<Resources.Resource>("AccessRightsAddUser").HtmlEncode()),
-                       RegisterObject("AccessRightsAddGroup", CustomNamingPeople.Substitute<Resources.Resource>("AccessRightsAddGroup").HtmlEncode())
+                       RegisterObject(
+                       new
+                            {
+                                Admin = CustomNamingPeople.Substitute<Resource>("Administrator"),
+                                User = CustomNamingPeople.Substitute<Resource>("User"),
+                                Guest = CustomNamingPeople.Substitute<Resource>("Guest"),
+                                Department = CustomNamingPeople.Substitute<Resource>("Department"),
+                                ConfirmRemoveUser = CustomNamingPeople.Substitute<Resource>("ConfirmRemoveUser").HtmlEncode(),
+                                ConfirmRemoveDepartment = CustomNamingPeople.Substitute<Resource>("DeleteDepartmentConfirmation").HtmlEncode(),
+                                AddDepartmentHeader = CustomNamingPeople.Substitute<Resource>("AddDepartmentDlgTitle").HtmlEncode(),
+                                EditDepartmentHeader = CustomNamingPeople.Substitute<Resource>("DepEditHeader").HtmlEncode(),
+                                EmployeeAllDepartments = CustomNamingPeople.Substitute<Resource>("EmployeeAllDepartments").HtmlEncode(),
+                                AddEmployees = CustomNamingPeople.Substitute<UserControlsCommonResource>("AddEmployees").HtmlEncode(),
+                                AccessRightsAddUser = CustomNamingPeople.Substitute<Resources.Resource>("AccessRightsAddUser").HtmlEncode(),
+                                AccessRightsAddGroup = CustomNamingPeople.Substitute<Resources.Resource>("AccessRightsAddGroup").HtmlEncode()
+                            })
                    };
         }
     }

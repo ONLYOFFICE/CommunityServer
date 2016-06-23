@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -139,7 +139,7 @@ namespace ASC.Files.Core.Data
                 .Select("f.modified_on")
                 .Select("f.modified_by")
                 .Select(GetRootFolderType("folder_id"))
-                .Select(Exp.Exists(GetSharedQuery(FileEntryType.File)))
+                .Select(GetSharedQuery(FileEntryType.File))
                 .Select("converted_type")
                 .Select("f.comment")
                 .Where(where);
@@ -177,12 +177,11 @@ namespace ASC.Files.Core.Data
 
         protected SqlQuery GetSharedQuery(FileEntryType type)
         {
-            return new SqlQuery("files_security s")
-                .Select("s.tenant_id")
-                .Where(Exp.EqColumns("s.tenant_id", "f.tenant_id"))
-                .Where("s.entry_type", (int)type)
+            return Query("files_security s")
+                .SelectCount()
                 .Where(Exp.EqColumns("s.entry_id", "f.id"))
-                .Where("owner", SecurityContext.CurrentAccount.ID);
+                .Where("s.entry_type", (int) type)
+                .Where("owner", SecurityContext.CurrentAccount.ID.ToString());
         }
 
         protected SqlUpdate GetRecalculateFilesCountUpdate(object folderId)
@@ -221,7 +220,7 @@ namespace ASC.Files.Core.Data
 
             using (var DbManager = GetDb())
             {
-                if (id.ToString().StartsWith("sbox") || id.ToString().StartsWith("spoint") || id.ToString().StartsWith("drive"))
+                if (id.ToString().StartsWith("sbox") || id.ToString().StartsWith("box") || id.ToString().StartsWith("spoint") || id.ToString().StartsWith("drive"))
                     result = Regex.Replace(BitConverter.ToString(Hasher.Hash(id.ToString(), HashAlg.MD5)), "-", "").ToLower();
                 else
                     result = DbManager.ExecuteScalar<String>(Query("files_thirdparty_id_mapping")

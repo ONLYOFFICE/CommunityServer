@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -44,13 +44,11 @@ window.administrationPage = (function($) {
             administrationManager.events.bind('onremovemailgroup', onRemoveMailGroup);
             administrationManager.events.bind('onremovemaildomain', onRemoveMailDomain);
             administrationManager.events.bind('ongetfullinformation', onRefreshPage);
-            administrationManager.events.bind('onaddalias', onAddAlias);
-            administrationManager.events.bind('onremovealias', onRemoveAlias);
-            administrationManager.events.bind('onaddgroupaddress', onAddGroupAddress);
-            administrationManager.events.bind('onremovegroupaddress', onRemoveGroupAddress);
+            administrationManager.events.bind('onupdatemailbox', onUpdateMailbox);
+            administrationManager.events.bind('onupdatemailgroup', onUpdateMailgroup);
 
             mailboxActionButtons = [
-                { selector: "#mailboxActionMenu .editMailbox", handler: editMailboxAliases },
+                { selector: "#mailboxActionMenu .editMailbox", handler: editMailbox },
                 { selector: "#mailboxActionMenu .deleteMailbox", handler: showDeleteMailboxQuestion }
             ];
 
@@ -65,11 +63,7 @@ window.administrationPage = (function($) {
             ];
 
             page.find('#mail-server-add-domain').unbind('click').bind('click', function() {
-                if ($(this).hasClass('disable')) {
-                    return false;
-                }
                 createDomainModal.show(administrationManager.getServerInfo());
-                return false;
             });
         }
     }
@@ -98,8 +92,10 @@ window.administrationPage = (function($) {
         $('#administation_data_container .mailbox_table_container').actionMenu('mailboxActionMenu', mailboxActionButtons, pretreatment);
         $('#administation_data_container .group_menu').actionMenu('groupActionMenu', groupActionButtons);
 
-        show();
+        controlVisibilityDomainExpander();
         bindCreationLinks();
+        makeSortablTables();
+        show();
     }
 
     var pretreatment = function(id) {
@@ -113,6 +109,7 @@ window.administrationPage = (function($) {
             }
         }
         var $editMailboxAlias = $('#mailboxActionMenu .editMailbox');
+
         if (isSharedDomain) {
             $editMailboxAlias.hide();
         } else {
@@ -173,28 +170,13 @@ window.administrationPage = (function($) {
             bindDnsSettingsBtn(html);
             bindCreationLinks();
             $(html).find('.domain').actionMenu('domainActionMenu', domainActionButtons);
+            makeSortablTables();
+            controlVisibilityDomainExpander();
         } else {
             blankPages.hide();
             onRefreshPage(e, { domains: [domain], mailgroups: [], mailboxes: [] });
         }
     }
-
-    function onAddAlias(e, params) {
-        var html = $.tmpl('mailboxTableRowTmpl', params.mailbox);
-        $(html).actionMenu('mailboxActionMenu', mailboxActionButtons, pretreatment);
-        page.find('.mailbox_table .row[data_id="' + params.mailbox.id + '"]').replaceWith(html);
-        window.toastr.success(window.MailActionCompleteResource.AddAliasSuccess.format(params.alias.email));
-        processAliasesMore(html);
-    }
-
-    function onRemoveAlias(e, params) {
-        var html = $.tmpl('mailboxTableRowTmpl', params.mailbox);
-        $(html).actionMenu('mailboxActionMenu', mailboxActionButtons, pretreatment);
-        page.find('.mailbox_table .row[data_id="' + params.mailbox.id + '"]').replaceWith(html);
-        window.toastr.success(window.MailActionCompleteResource.RemoveAliasSuccess.format(params.alias.email));
-        processAliasesMore(html);
-    }
-
 
     function showDeleteDomainQuestion(domainId) {
         var domain = administrationManager.getDomain(domainId);
@@ -261,6 +243,8 @@ window.administrationPage = (function($) {
         var domains = administrationManager.getMailDomains();
         if (domains.length == 0) {
             showBlankPage();
+        } else {
+            controlVisibilityDomainExpander();
         }
         window.toastr.success(window.MailActionCompleteResource.RemoveDomainSuccess.format(domain.name));
     }
@@ -275,13 +259,21 @@ window.administrationPage = (function($) {
         var domainContainer = page.find('.domain_table_container[domain_id="' + mailbox.address.domainId + '"]');
         domainContainer.find('.mailboxes_content .mailbox_table').append(html);
 
-        domainContainer.find('.create_new_mailgroup').show();
+        domainContainer.find('.blankContent').hide();
+        domainContainer.find('.domain_content').show();
+        domainContainer.find('.help_center_column').show();
 
-        if (administrationManager.getMailgroupsByDomain(mailbox.address.domainId).length > 0) {
-            domainContainer.find('.mailboxes_group').show();
-        }
+        refreshFreeMailboxes(mailbox.address.domainId);
+        makeSortablTables();
 
         window.toastr.success(window.MailActionCompleteResource.AddMailboxSuccess.format(mailbox.address.email));
+    }
+
+    function onUpdateMailbox(e, params) {
+        var html = $.tmpl('mailboxTableRowTmpl', params.mailbox);
+        $(html).actionMenu('mailboxActionMenu', mailboxActionButtons, pretreatment);
+        processAliasesMore(html);
+        page.find('.mailbox_table .row[data_id="' + params.mailbox.id + '"]').replaceWith(html);
     }
 
     function deleteMailbox(id) {
@@ -299,19 +291,19 @@ window.administrationPage = (function($) {
         var mailboxElement = $('.mailbox_table tr[data_id=' + mailbox.id + ']');
         mailboxElement.remove();
 
-        if (administrationManager.getFreeMailboxesByDomain(mailbox.address.domainId).length == 0) {
+        refreshFreeMailboxes(mailbox.address.domainId);
+        if (administrationManager.getFreeMailboxesByDomain(mailbox.address.domainId).length == 0 && 
+            administrationManager.getMailGroupsByDomain(mailbox.address.domainId).length == 0) {
             var domainContainer = page.find('.domain_table_container[domain_id="' + mailbox.address.domainId + '"]');
-            domainContainer.find('.mailboxes_group').hide();
-
-            if (administrationManager.getMailGroupsByDomain(mailbox.address.domainId).length == 0) {
-                domainContainer.find('.create_new_mailgroup').hide();
-            }
+            domainContainer.find('.blankContent').show();
+            domainContainer.find('.domain_content').hide();
+            domainContainer.find('.help_center_column').hide();
         }
 
         window.toastr.success(window.MailActionCompleteResource.RemoveMailboxSuccess.format(mailbox.address.email));
     }
 
-    function editMailboxAliases(id) {
+    function editMailbox(id) {
         window.LoadingBanner.hideLoading();
         editMailboxModal.show(id);
     }
@@ -333,6 +325,7 @@ window.administrationPage = (function($) {
         groupElement.remove();
 
         refreshFreeMailboxes(params.group.address.domainId);
+        makeSortablTables();
 
         if (params.showToastr) {
             window.toastr.success(window.MailActionCompleteResource.RemoveMailGroupSuccess.format(params.group.address.email));
@@ -353,6 +346,7 @@ window.administrationPage = (function($) {
         domainContainer.find('.free_mailboxes').before(html);
 
         refreshFreeMailboxes(group.address.domainId);
+        makeSortablTables();
 
         window.toastr.success(window.MailActionCompleteResource.AddMailGroupSuccess.format(group.address.email));
     }
@@ -360,12 +354,11 @@ window.administrationPage = (function($) {
     function refreshFreeMailboxes(domainId) {
         var domainContainer = page.find('.domain_table_container[domain_id="' + domainId + '"]');
         var mailboxes = administrationManager.getFreeMailboxesByDomain(domainId);
-        var groups = administrationManager.getMailGroupsByDomain(domainId);
 
-        if (mailboxes.length > 0 && groups.length > 0) {
-            domainContainer.find('.mailboxes_group').show();
+        if (mailboxes.length > 0) {
+            domainContainer.find('.free_mailboxes').show();
         } else {
-            domainContainer.find('.mailboxes_group').hide();
+            domainContainer.find('.free_mailboxes').hide();
         }
 
         var html = $.tmpl('mailboxTableTmpl', { mailboxes: mailboxes });
@@ -373,27 +366,14 @@ window.administrationPage = (function($) {
         domainContainer.find('.free_mailboxes .mailbox_table_container').replaceWith(html);
     }
 
-    function onAddGroupAddress(e, params) {
+    function onUpdateMailgroup(e, params) {
         var html = $.tmpl('groupTableTmpl', params.group);
         $(html).find('.group_menu').actionMenu('groupActionMenu', groupActionButtons);
         $(html).find('.mailbox_table_container').actionMenu('mailboxActionMenu', mailboxActionButtons, pretreatment);
         page.find('.group_table_container[group_id="' + params.group.id + '"]').replaceWith(html);
 
         refreshFreeMailboxes(params.group.address.domainId);
-        window.toastr.success(window.MailActionCompleteResource.AddAddressSuccess.format(params.address.email));
-    }
-
-    function onRemoveGroupAddress(e, params) {
-        var html = $.tmpl('groupTableTmpl', params.group);
-        $(html).find('.group_menu').actionMenu('groupActionMenu', groupActionButtons);
-        $(html).find('.mailbox_table_container').actionMenu('mailboxActionMenu', mailboxActionButtons, pretreatment);
-        page.find('.group_table_container[group_id="' + params.group.id + '"]').replaceWith(html);
-
-        refreshFreeMailboxes(params.group.address.domainId);
-
-        if (params.showToastr) {
-            window.toastr.success(window.MailActionCompleteResource.RemoveAddressSuccess.format(params.address.email));
-        }
+        makeSortablTables();
     }
 
     function processAliasesMore($html) {
@@ -405,8 +385,7 @@ window.administrationPage = (function($) {
             var buttons = [];
             for (var i = 1; i < mailbox.aliases.length; i++) {
                 buttons.push({
-                    'text': TMMail.ltgt(mailbox.aliases[i].email),
-                    'title': MailAdministrationResource.AliasLabel + ': ' + TMMail.ltgt(mailbox.aliases[i].email),
+                    'text': mailbox.aliases[i].email,
                     'disabled': true
                 });
             }
@@ -415,31 +394,68 @@ window.administrationPage = (function($) {
         });
     }
 
-    function showGroupContent(groupId) {
+    function manageGroupContent(groupId) {
         var groupEl = page.find('.group_table_container[group_id="' + groupId + '"]');
-        var showGroupLink = groupEl.find('.group_menu .name_column .show_group');
-        showGroupLink.toggleClass('open');
+        var expander = groupEl.find('.group_menu .name_column .expander-icon');
+        expander.toggleClass('open');
 
-        if (showGroupLink.hasClass('open')) {
+        if (expander.hasClass('open')) {
             groupEl.find('.group_content').show();
-            showGroupLink.text(window.MailScriptResource.HidePasswordLinkLabel);
         } else {
             groupEl.find('.group_content').hide();
-            showGroupLink.text(window.MailScriptResource.ShowPasswordLinkLabel);
         }
     }
 
-    function showMailboxesContent(domainId) {
-        var domainEl = page.find('.domain_table_container[domain_id="' + domainId + '"]');
-        var showGroupLink = domainEl.find('.mailboxes_group .name_column .show_group');
-        showGroupLink.toggleClass('open');
+    function manageDomainContent(domainId) {
+        if (administrationManager.getMailDomains().length <= 1)
+            return;
 
-        if (showGroupLink.hasClass('open')) {
+        var domainEl = page.find('.domain_table_container[domain_id="' + domainId + '"]');
+        var expander = domainEl.find('.domain_menu .name_column .expander-icon');
+        expander.toggleClass('open');
+
+        if (expander.hasClass('open')) {
+            domainEl.find('.domain_content').show();
+        } else {
+            domainEl.find('.domain_content').hide();
+        }
+    }
+
+    function manageMailboxesContent(domainId) {
+        var domainEl = page.find('.domain_table_container[domain_id="' + domainId + '"]');
+        var expander = domainEl.find('.mailboxes_group .name_column .expander-icon');
+        expander.toggleClass('open');
+
+        if (expander.hasClass('open')) {
             domainEl.find('.mailboxes_content').show();
-            showGroupLink.text(window.MailScriptResource.HidePasswordLinkLabel);
         } else {
             domainEl.find('.mailboxes_content').hide();
-            showGroupLink.text(window.MailScriptResource.ShowPasswordLinkLabel);
+        }
+    }
+
+    function controlVisibilityDomainExpander() {
+        var domains = administrationManager.getMailDomains();
+        if (domains.length == 1) {
+            var domainEl = page.find('.domain_table_container');
+            if (administrationManager.getFreeMailboxesByDomain(domains[0].id).length != 0 ||
+                administrationManager.getMailGroupsByDomain(domains[0].id).length != 0) {
+                domainEl.find('.domain_content').show();
+            }
+            domainEl.find('.domain_menu .name_column .expander-icon').hide();
+        }
+        else if (domains.length == 2) {
+            var expanders = page.find('.domain_table_container .domain_menu .name_column .expander-icon');
+            expanders.each(function() {
+                $(this).addClass('open');
+                $(this).show();
+            });
+        }
+    }
+
+    function makeSortablTables() {
+        var tables = $('#administation_data_container .mailbox_table');
+        for (var i = 0; i < tables.length; i++) {
+            sorttable.makeSortable(tables[i]);
         }
     }
 
@@ -451,8 +467,9 @@ window.administrationPage = (function($) {
         init: init,
         hide: hide,
         show: show,
-        showGroupContent: showGroupContent,
-        showMailboxesContent: showMailboxesContent,
+        manageGroupContent: manageGroupContent,
+        manageDomainContent: manageDomainContent,
+        manageMailboxesContent: manageMailboxesContent,
         bindCreationLinks: bindCreationLinks
     };
 

@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -71,8 +71,10 @@ namespace ASC.Files.Thirdparty.SharePoint
             return ProviderInfo.GetFolderFolders(parentId).Select(r => ProviderInfo.ToFolder(r)).ToList();
         }
 
-        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false)
+        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
         {
+            if (filterType == FilterType.FilesOnly || filterType == FilterType.ByExtension) return new List<Folder>();
+
             var folders = GetFolders(parentId).AsEnumerable(); 
             //Filter
             switch (filterType)
@@ -182,16 +184,16 @@ namespace ASC.Files.Thirdparty.SharePoint
             ProviderInfo.DeleteFolder((string)folderId);
         }
 
-        public object MoveFolder(object folderId, object toRootFolderId)
+        public object MoveFolder(object folderId, object toFolderId)
         {
-            var newFolderId = ProviderInfo.MoveFolder(folderId, toRootFolderId);
+            var newFolderId = ProviderInfo.MoveFolder(folderId, toFolderId);
             UpdatePathInDB(ProviderInfo.MakeId((string)folderId), (string)newFolderId);
             return newFolderId;
         }
 
-        public Folder CopyFolder(object folderId, object toRootFolderId)
+        public Folder CopyFolder(object folderId, object toFolderId)
         {
-            return ProviderInfo.ToFolder(ProviderInfo.CopyFolder(folderId, toRootFolderId));
+            return ProviderInfo.ToFolder(ProviderInfo.CopyFolder(folderId, toFolderId));
         }
 
         public IDictionary<object, string> CanMoveOrCopy(object[] folderIds, object to)
@@ -217,9 +219,14 @@ namespace ASC.Files.Thirdparty.SharePoint
             return newFolderId;
         }
 
-        public int GetItemsCount(object folderId, bool withSubfoldes)
+        public int GetItemsCount(object folderId)
         {
-            return ProviderInfo.GetFolderById(folderId).ItemCount;
+            throw new NotImplementedException();
+        }
+
+        public bool IsEmpty(object folderId)
+        {
+            return ProviderInfo.GetFolderById(folderId).ItemCount == 0;
         }
 
         public bool UseTrashForRemove(Folder folder)
@@ -232,6 +239,11 @@ namespace ASC.Files.Thirdparty.SharePoint
             return false;
         }
 
+        public bool CanCalculateSubitems(object entryId)
+        {
+            return false;
+        }
+
         public long GetMaxUploadSize(object folderId, bool chunkedUpload = false)
         {
             return 2L * 1024L * 1024L * 1024L;
@@ -240,7 +252,7 @@ namespace ASC.Files.Thirdparty.SharePoint
 
         #region Only for TMFolderDao
 
-        public IEnumerable<Folder> Search(string text, FolderType folderType)
+        public IEnumerable<Folder> Search(string text, params FolderType[] folderTypes)
         {
             return null;
         }

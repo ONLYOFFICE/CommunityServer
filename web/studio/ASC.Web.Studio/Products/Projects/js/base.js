@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -250,7 +250,7 @@ ASC.Projects.PageNavigator = (function () {
             navig.hide();
         }
     };
-
+    
     var update = function (filterCount, nav) {
         jq("#totalCount").text(filterCount);
         self.pgNavigator.drawPageNavigator(self.currentPage + 1, filterCount);
@@ -260,6 +260,17 @@ ASC.Projects.PageNavigator = (function () {
             $tableForNavigation.show();
         }
         renderSimplePageNavigator(nav);
+    };
+
+    var setMaxPage = function (totalCount) {
+        var maxPage = Math.floor(totalCount / self.entryCountOnPage);
+
+        if (self.currentPage > maxPage) {
+            self.currentPage = maxPage;
+        }
+        if (self.currentPage === maxPage) {
+            self.currentPage = maxPage - 1;
+        }
     };
 
     var unbindListEvents = function () {
@@ -293,6 +304,7 @@ ASC.Projects.PageNavigator = (function () {
         pgNavigator: pgNavigator,
         hide: hide,
         show: show,
-        clear: clear
+        clear: clear,
+        setMaxPage: setMaxPage
     };
 })();

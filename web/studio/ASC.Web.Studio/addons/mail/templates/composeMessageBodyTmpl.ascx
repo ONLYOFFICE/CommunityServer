@@ -4,7 +4,7 @@
 
 <script id="replyMessageHtmlBodyTmpl" type="text/x-jquery-tmpl">
   <div class="reply-text" style="padding: 10px; font-family:open sans,sans-serif; font-size:12px; margin:0;">
-    <p style="margin: 0;">${message.date}, ${message.from}:</p>
+    <p style="margin: 0;">${message.date}, ${message.preprocessAddresses(message.from)}:</p>
     {{if !visibleQoute}}
         {{tmpl({}, {}) "blockquoteTmpl"}}
         <blockquote style="margin-left:20px; padding-left:20px; border-left:1px solid #D1D1D1; display:none;">
@@ -21,8 +21,11 @@
 <script id="forwardMessageHtmlBodyTmpl" type="text/x-jquery-tmpl">
   <div class="forward-text"  style="padding: 10px; font-family:open sans,sans-serif; font-size:12px; margin:0;">
     <p style="margin: 0;">-------- <%: MailScriptResource.ForwardTitle %> --------</p>
-    <p style="margin: 0;"><%: MailScriptResource.FromLabel %>: ${from}</p>
-    <p style="margin: 0;"><%: MailScriptResource.ToLabel %>: ${to}</p>
+    <p style="margin: 0;"><%: MailScriptResource.FromLabel %>: ${preprocessAddresses(from)}</p>
+    <p style="margin: 0;"><%: MailScriptResource.ToLabel %>: ${preprocessAddresses(to)}</p>
+    {{if typeof(cc) !== 'undefined' && cc !== null && cc !== ''}}
+    <p style="margin: 0;"><%: MailResource.CopyLabel %>: ${preprocessAddresses(cc)}</p>
+    {{/if}}
     <p style="margin: 0;"><%: MailScriptResource.DateLabel %>: ${date}</p>
     <p style="margin: 0;"><%: MailScriptResource.SubjectLabel %>: ${subject}</p>
     <br/>

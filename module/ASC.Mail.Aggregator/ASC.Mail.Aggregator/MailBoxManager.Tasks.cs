@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -32,13 +32,12 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Extension;
-using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Aggregator.DbSchema;
 
 namespace ASC.Mail.Aggregator
 {
     public partial class MailBoxManager
     {
-
         #region public methods
 
         public bool LockMailbox(int mailboxId, bool isAdditionalProccessedCheckNeeded = false)
@@ -52,16 +51,16 @@ namespace ASC.Mail.Aggregator
 
             bool success;
 
-            var updateQuery = new SqlUpdate(MailboxTable.name)
-                .Set(string.Format("{0} = UTC_TIMESTAMP()", MailboxTable.Columns.date_checked))
-                .Set(MailboxTable.Columns.is_processed, true)
-                .Where(MailboxTable.Columns.id, mailboxId);
+            var updateQuery = new SqlUpdate(MailboxTable.Name)
+                .Set(string.Format("{0} = UTC_TIMESTAMP()", MailboxTable.Columns.DateChecked))
+                .Set(MailboxTable.Columns.IsProcessed, true)
+                .Where(MailboxTable.Columns.Id, mailboxId);
 
             if (isAdditionalProccessedCheckNeeded)
             {
                 updateQuery = updateQuery
-                               .Where(MailboxTable.Columns.is_processed, false)
-                               .Where(MailboxTable.Columns.is_removed, false);
+                               .Where(MailboxTable.Columns.IsProcessed, false)
+                               .Where(MailboxTable.Columns.IsRemoved, false);
             }
 
             if (dbManager == null)
@@ -84,11 +83,11 @@ namespace ASC.Mail.Aggregator
         public List<int> ReleaseLockedMailboxes(int timeoutInMinutes)
         {
             // Reset is_processed field for potentially crushed aggregators
-            var query = new SqlQuery(MailboxTable.name)
-                .Select(MailboxTable.Columns.id)
-                .Where(MailboxTable.Columns.is_processed, true)
+            var query = new SqlQuery(MailboxTable.Name)
+                .Select(MailboxTable.Columns.Id)
+                .Where(MailboxTable.Columns.IsProcessed, true)
                 .Where(string.Format("{0} is not null AND TIMESTAMPDIFF(MINUTE, {0}, UTC_TIMESTAMP()) > {1}",
-                                     MailboxTable.Columns.date_checked, timeoutInMinutes));
+                                     MailboxTable.Columns.DateChecked, timeoutInMinutes));
 
             using (var db = GetDb())
             {
@@ -98,9 +97,9 @@ namespace ASC.Mail.Aggregator
 
                 if (oldTasksList.Any())
                 {
-                    var updateQuery = new SqlUpdate(MailboxTable.name)
-                        .Set(MailboxTable.Columns.is_processed, false)
-                        .Where(Exp.In(MailboxTable.Columns.id, oldTasksList.ToArray()));
+                    var updateQuery = new SqlUpdate(MailboxTable.Name)
+                        .Set(MailboxTable.Columns.IsProcessed, false)
+                        .Where(Exp.In(MailboxTable.Columns.Id, oldTasksList.ToArray()));
 
                     var rowAffected = db.ExecuteNonQuery(updateQuery);
 
@@ -117,16 +116,43 @@ namespace ASC.Mail.Aggregator
 
         public List<MailBox> GetMailboxesForProcessing(TasksConfig tasksConfig, int needTasks)
         {
-            var inactiveCount = (int) Math.Floor(needTasks*tasksConfig.InactiveMailboxesRatio/100);
+            var mailboxes = new List<MailBox>();
 
-            var activeCount = needTasks - inactiveCount;
+            var boundaryRatio = !(tasksConfig.InactiveMailboxesRatio > 0 && tasksConfig.InactiveMailboxesRatio < 100);
 
-            var mailboxes = GetActiveMailboxesForProcessing(tasksConfig, activeCount);
+            if (needTasks > 1 || boundaryRatio)
+            {
+                var inactiveCount = (int) Math.Round(needTasks*tasksConfig.InactiveMailboxesRatio/100, MidpointRounding.AwayFromZero);
 
-            var difference = inactiveCount + activeCount - mailboxes.Count;
+                var activeCount = needTasks - inactiveCount;
 
-            if (difference != 0)
-                mailboxes.AddRange(GetInactiveMailboxesForProcessing(tasksConfig, difference));
+                if (activeCount == needTasks)
+                {
+                    mailboxes.AddRange(GetActiveMailboxesForProcessing(tasksConfig, activeCount));
+                }
+                else if (inactiveCount == needTasks)
+                {
+                    mailboxes.AddRange(GetInactiveMailboxesForProcessing(tasksConfig, inactiveCount));
+                }
+                else
+                {
+                    mailboxes.AddRange(GetActiveMailboxesForProcessing(tasksConfig, activeCount));
+
+                    var difference = inactiveCount + activeCount - mailboxes.Count;
+
+                    if (difference > 0)
+                        mailboxes.AddRange(GetInactiveMailboxesForProcessing(tasksConfig, difference));
+                }
+            }
+            else
+            {
+                mailboxes.AddRange(GetActiveMailboxesForProcessing(tasksConfig, 1));
+
+                var difference = needTasks - mailboxes.Count;
+
+                if (difference > 0)
+                    mailboxes.AddRange(GetInactiveMailboxesForProcessing(tasksConfig, difference));
+            }
 
             return mailboxes;
         }
@@ -145,7 +171,7 @@ namespace ASC.Mail.Aggregator
             using (var db = GetDb())
             {
                 var updateAccountQuery = NextLoginDelayedQuery(tenant, (int)delay.TotalSeconds);
-                updateAccountQuery.Where(MailboxTable.Columns.id_user, user);
+                updateAccountQuery.Where(MailboxTable.Columns.User, user);
                 db.ExecuteNonQuery(updateAccountQuery);
             }
         }
@@ -167,15 +193,15 @@ namespace ASC.Mail.Aggregator
         {
             using (var db = GetDb())
             {
-                var updateAccountQuery = new SqlUpdate(MailboxTable.name)
-                    .Where(MailboxTable.Columns.id_tenant, tenant)
-                    .Where(MailboxTable.Columns.is_removed, false)
-                    .Where(MailboxTable.Columns.enabled, true)
-                    .Set(MailboxTable.Columns.is_processed, false)
-                    .Set(MailboxTable.Columns.enabled, false);
+                var updateAccountQuery = new SqlUpdate(MailboxTable.Name)
+                    .Where(MailboxTable.Columns.Tenant, tenant)
+                    .Where(MailboxTable.Columns.IsRemoved, false)
+                    .Where(MailboxTable.Columns.Enabled, true)
+                    .Set(MailboxTable.Columns.IsProcessed, false)
+                    .Set(MailboxTable.Columns.Enabled, false);
 
                 if (!string.IsNullOrEmpty(user))
-                    updateAccountQuery.Where(MailboxTable.Columns.id_user, user);
+                    updateAccountQuery.Where(MailboxTable.Columns.User, user);
 
                 db.ExecuteNonQuery(updateAccountQuery);
             }
@@ -187,11 +213,11 @@ namespace ASC.Mail.Aggregator
             {
                 return
                     db.ExecuteList(
-                        new SqlQuery(MailboxTable.name)
-                            .Select(MailboxTable.Columns.id_user)
-                            .Where(MailboxTable.Columns.id_tenant, tenant)
-                            .Where(MailboxTable.Columns.is_removed, false)
-                            .Where(MailboxTable.Columns.enabled, true)
+                        new SqlQuery(MailboxTable.Name)
+                            .Select(MailboxTable.Columns.User)
+                            .Where(MailboxTable.Columns.Tenant, tenant)
+                            .Where(MailboxTable.Columns.IsRemoved, false)
+                            .Where(MailboxTable.Columns.Enabled, true)
                             .Distinct()).ConvertAll(r => Convert.ToString(r[0]));
             }
         }
@@ -200,10 +226,14 @@ namespace ASC.Mail.Aggregator
         {
             using (var db = GetDb())
             {
-                Func<SqlUpdate> getBaseUpdate = () => new SqlUpdate(MailboxTable.name)
-                    .Where(MailboxTable.Columns.id_tenant, account.TenantId)
-                    .Where(MailboxTable.Columns.id, account.MailBoxId)
-                    .Set(MailboxTable.Columns.is_processed, false);
+                Func<SqlUpdate> getBaseUpdate = () => new SqlUpdate(MailboxTable.Name)
+                    .Where(MailboxTable.Columns.Tenant, account.TenantId)
+                    .Where(MailboxTable.Columns.Id, account.MailBoxId)
+                    .Set(MailboxTable.Columns.IsProcessed, false)
+                    .Set(string.Format("{0} = UTC_TIMESTAMP()", MailboxTable.Columns.DateChecked))
+                    .Set(string.Format("{0} = DATE_ADD(UTC_TIMESTAMP(), INTERVAL {1} SECOND)",
+                            MailboxTable.Columns.DateLoginDelayExpires,
+                            account.ServerLoginDelay));
 
                 var updateAccountQuery = getBaseUpdate();
 
@@ -224,22 +254,17 @@ namespace ASC.Mail.Aggregator
                     }
 
                     updateAccountQuery
-                        .Set(MailboxTable.Columns.quota_error, account.QuotaError);
+                        .Set(MailboxTable.Columns.QuotaError, account.QuotaError);
                 }
 
                 if (account.AuthErrorDate.HasValue)
                 {
-                    updateAccountQuery
-                        .Set(string.Format("{0} = DATE_ADD(UTC_TIMESTAMP(), INTERVAL {1} SECOND)",
-                            MailboxTable.Columns.date_login_delay_expires,
-                            account.ServerLoginDelay));
-
                     var difference = DateTime.UtcNow - account.AuthErrorDate.Value;
 
                     if (difference > AuthErrorDisableTimeout)
                     {
                         updateAccountQuery
-                            .Set(MailboxTable.Columns.enabled, false);
+                            .Set(MailboxTable.Columns.Enabled, false);
 
                         CreateAuthErrorDisableAlert(db, account.TenantId, account.UserId, account.MailBoxId);
                     }
@@ -251,15 +276,14 @@ namespace ASC.Mail.Aggregator
                 else
                 {
                     updateAccountQuery
-                        .Set(MailboxTable.Columns.msg_count_last, account.MessagesCount)
-                        .Set(MailboxTable.Columns.size_last, account.Size);
+                        .Set(MailboxTable.Columns.MsgCountLast, account.MessagesCount)
+                        .Set(MailboxTable.Columns.SizeLast, account.Size);
 
                     if (account.Imap && account.ImapFolderChanged)
                     {
                         updateAccountQuery
-                            .Where(MailboxTable.Columns.begin_date, account.BeginDate)
-                            .Set(MailboxTable.Columns.imap_intervals, account.ImapIntervalsJson)
-                            .Set(string.Format("{0} = UTC_TIMESTAMP()", MailboxTable.Columns.date_checked));
+                            .Where(MailboxTable.Columns.BeginDate, account.BeginDate)
+                            .Set(MailboxTable.Columns.ImapIntervals, account.ImapIntervalsJson);
 
                         var result = db.ExecuteNonQuery(updateAccountQuery);
 
@@ -270,12 +294,11 @@ namespace ASC.Mail.Aggregator
                             if (account.QuotaErrorChanged)
                             {
                                 updateAccountQuery
-                                    .Set(MailboxTable.Columns.quota_error, account.QuotaError);
+                                    .Set(MailboxTable.Columns.QuotaError, account.QuotaError);
                             }
 
                             updateAccountQuery
-                                .Set(MailboxTable.Columns.imap_intervals, null)
-                                .Set(string.Format("{0} = UTC_TIMESTAMP()", MailboxTable.Columns.date_checked));
+                                .Set(MailboxTable.Columns.ImapIntervals, null);
                         }
                         else
                         {
@@ -293,11 +316,11 @@ namespace ASC.Mail.Aggregator
             using (var db = GetDb())
             {
                 db.ExecuteNonQuery(
-                    new SqlUpdate(MailboxTable.name)
-                        .Where(MailboxTable.Columns.address, email)
-                        .Where(MailboxTable.Columns.is_removed, false)
+                    new SqlUpdate(MailboxTable.Name)
+                        .Where(MailboxTable.Columns.Address, email)
+                        .Where(MailboxTable.Columns.IsRemoved, false)
                         .Set(string.Format("{0} = DATE_ADD(UTC_TIMESTAMP(), INTERVAL {1} SECOND)",
-                            MailboxTable.Columns.date_login_delay_expires,
+                            MailboxTable.Columns.DateLoginDelayExpires,
                             delaySeconds)));
             }
         }
@@ -307,12 +330,12 @@ namespace ASC.Mail.Aggregator
             using (var db = GetDb())
             {
                 db.ExecuteNonQuery(
-                   new SqlUpdate(MailboxTable.name)
-                       .Where(MailboxTable.Columns.id_tenant, tenant)
-                       .Where(MailboxTable.Columns.id_user, user)
-                       .Where(MailboxTable.Columns.is_removed, false)
-                       .Set(string.Format("{0} = UTC_TIMESTAMP()", MailboxTable.Columns.date_user_checked))
-                       .Set(MailboxTable.Columns.user_online, userOnline));
+                   new SqlUpdate(MailboxTable.Name)
+                       .Where(MailboxTable.Columns.Tenant, tenant)
+                       .Where(MailboxTable.Columns.User, user)
+                       .Where(MailboxTable.Columns.IsRemoved, false)
+                       .Set(string.Format("{0} = UTC_TIMESTAMP()", MailboxTable.Columns.DateUserChecked))
+                       .Set(MailboxTable.Columns.UserOnline, userOnline));
             }
         }
 
@@ -320,20 +343,20 @@ namespace ASC.Mail.Aggregator
         {
             using (var db = GetDb())
             {
-                var updateQuery = new SqlUpdate(MailboxTable.name)
-                    .Where(MailboxTable.Columns.id, mailbox.MailBoxId)
-                    .Where(MailboxTable.Columns.id_user, mailbox.UserId)
-                    .Where(MailboxTable.Columns.id_tenant, mailbox.TenantId);
+                var updateQuery = new SqlUpdate(MailboxTable.Name)
+                    .Where(MailboxTable.Columns.Id, mailbox.MailBoxId)
+                    .Where(MailboxTable.Columns.User, mailbox.UserId)
+                    .Where(MailboxTable.Columns.Tenant, mailbox.TenantId);
 
                 if (isError)
                 {
                     mailbox.AuthErrorDate = DateTime.UtcNow;
-                    updateQuery.Where(MailboxTable.Columns.date_auth_error, null)
-                               .Set(MailboxTable.Columns.date_auth_error, mailbox.AuthErrorDate.Value);
+                    updateQuery.Where(MailboxTable.Columns.DateAuthError, null)
+                               .Set(MailboxTable.Columns.DateAuthError, mailbox.AuthErrorDate.Value);
                 }
                 else
                 {
-                    updateQuery.Set(MailboxTable.Columns.date_auth_error, null);
+                    updateQuery.Set(MailboxTable.Columns.DateAuthError, null);
                     mailbox.AuthErrorDate = null;
                 }
 
@@ -347,8 +370,11 @@ namespace ASC.Mail.Aggregator
 
         private List<MailBox> GetActiveMailboxesForProcessing(TasksConfig tasksConfig, int tasksLimit)
         {
-            _log.Debug("GetActiveMailboxForProcessing()");
+            if(tasksLimit <= 0)
+                return new List<MailBox>();
 
+            _log.Debug("GetActiveMailboxForProcessing()");
+            
             var mailboxes = GetMailboxesForProcessing(tasksConfig, tasksLimit, true);
 
             _log.Debug("Found {0} active tasks", mailboxes.Count);
@@ -358,6 +384,9 @@ namespace ASC.Mail.Aggregator
 
         private List<MailBox> GetInactiveMailboxesForProcessing(TasksConfig tasksConfig, int tasksLimit)
         {
+            if (tasksLimit <= 0)
+                return new List<MailBox>();
+
             _log.Debug("GetInactiveMailboxForProcessing()");
 
             var mailboxes = GetMailboxesForProcessing(tasksConfig, tasksLimit, false);
@@ -372,32 +401,42 @@ namespace ASC.Mail.Aggregator
             using (var db = GetDb())
             {
                 var whereLoginDelayExpiredString = string.Format("{0} < UTC_TIMESTAMP()",
-                                                                 MailboxTable.Columns.date_login_delay_expires
+                                                                 MailboxTable.Columns.DateLoginDelayExpires
                                                                              .Prefix(MAILBOX_ALIAS));
 
                 var query = GetSelectMailBoxFieldsQuery()
-                    .Where(MailboxTable.Columns.is_processed.Prefix(MAILBOX_ALIAS), false)
+                    .LeftOuterJoin(AutoreplyTable.Name.Alias(AUTOREPLY_ALIAS),
+                        Exp.EqColumns(AutoreplyTable.Columns.MailboxId.Prefix(AUTOREPLY_ALIAS),
+                                      MailboxTable.Columns.Id.Prefix(MAILBOX_ALIAS)))
+                    .Select(AutoreplyTable.Columns.TurnOn)
+                    .Select(AutoreplyTable.Columns.OnlyContacts)
+                    .Select(AutoreplyTable.Columns.TurnOnToDate)
+                    .Select(AutoreplyTable.Columns.FromDate)
+                    .Select(AutoreplyTable.Columns.ToDate)
+                    .Select(AutoreplyTable.Columns.Subject)
+                    .Select(AutoreplyTable.Columns.Html)
+                    .Where(MailboxTable.Columns.IsProcessed.Prefix(MAILBOX_ALIAS), false)
                     .Where(whereLoginDelayExpiredString)
-                    .Where(MailboxTable.Columns.is_removed.Prefix(MAILBOX_ALIAS), false)
-                    .Where(MailboxTable.Columns.enabled.Prefix(MAILBOX_ALIAS), true)
-                    .OrderBy(MailboxTable.Columns.date_checked.Prefix(MAILBOX_ALIAS), true)
+                    .Where(MailboxTable.Columns.IsRemoved.Prefix(MAILBOX_ALIAS), false)
+                    .Where(MailboxTable.Columns.Enabled.Prefix(MAILBOX_ALIAS), true)
+                    .OrderBy(MailboxTable.Columns.DateChecked.Prefix(MAILBOX_ALIAS), true)
                     .SetMaxResults(tasksLimit);
 
                 if (tasksConfig.AggregateMode != TasksConfig.AggregateModeType.All)
                 {
                     query
-                        .Where(MailboxTable.Columns.is_teamlab_mailbox, tasksConfig.AggregateMode == TasksConfig.AggregateModeType.Internal);
+                        .Where(MailboxTable.Columns.IsTeamlabMailbox, tasksConfig.AggregateMode == TasksConfig.AggregateModeType.Internal);
                 }
 
                 if (tasksConfig.EnableSignalr)
                 {
-                    query.Where(MailboxTable.Columns.user_online.Prefix(MAILBOX_ALIAS), active);
+                    query.Where(MailboxTable.Columns.UserOnline.Prefix(MAILBOX_ALIAS), active);
                 }
                 else
                 {
                     var whereUserCheckedString =
                         string.Format("({0} IS NULL OR TIMESTAMPDIFF(SECOND, {0}, UTC_TIMESTAMP()) {1} {2})",
-                                      MailboxTable.Columns.date_user_checked.Prefix(MAILBOX_ALIAS),
+                                      MailboxTable.Columns.DateUserChecked.Prefix(MAILBOX_ALIAS),
                                       active ? "<" : ">",
                                       tasksConfig.ActiveInterval.Seconds);
 
@@ -405,7 +444,7 @@ namespace ASC.Mail.Aggregator
                 }
 
                 if (tasksConfig.WorkOnUsersOnly.Any())
-                    query.Where(Exp.In(MailboxTable.Columns.id_user, tasksConfig.WorkOnUsersOnly));
+                    query.Where(Exp.In(MailboxTable.Columns.User, tasksConfig.WorkOnUsersOnly));
 
                 var listResults = db.ExecuteList(query);
 
@@ -419,12 +458,12 @@ namespace ASC.Mail.Aggregator
 
         private SqlUpdate NextLoginDelayedQuery(int tenant, int delaySeconds)
         {
-            return new SqlUpdate(MailboxTable.name)
-                .Where(MailboxTable.Columns.id_tenant, tenant)
-                .Where(MailboxTable.Columns.is_removed, false)
-                .Set(MailboxTable.Columns.is_processed, false)
+            return new SqlUpdate(MailboxTable.Name)
+                .Where(MailboxTable.Columns.Tenant, tenant)
+                .Where(MailboxTable.Columns.IsRemoved, false)
+                .Set(MailboxTable.Columns.IsProcessed, false)
                 .Set(string.Format("{0} = DATE_ADD(UTC_TIMESTAMP(), INTERVAL {1} SECOND)",
-                    MailboxTable.Columns.date_login_delay_expires,
+                    MailboxTable.Columns.DateLoginDelayExpires,
                     delaySeconds));
         }
 

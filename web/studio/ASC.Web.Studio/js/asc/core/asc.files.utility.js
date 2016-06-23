@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -71,7 +71,8 @@ ASC.Files.Utility.FileExtensionLibrary = {
     XpsExts: [".xps"],
     GdocExts: [".gdoc"],
     GsheetExts: [".gsheet"],
-    GslidesExts: [".gslides"]
+    GslidesExts: [".gslides"],
+    CalendarExts: [".ics", ".ical", ".ifb", ".icalendar"]
 };
 
 ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
@@ -149,6 +150,8 @@ ASC.Files.Utility.getCssClassByFileTitle = function (fileTitle, compact) {
         ext = "Gsheet";
     else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.GslidesExts) != -1)
         ext = "Gslides";
+    else if (jq.inArray(fileExt, ASC.Files.Utility.FileExtensionLibrary.CalendarExts) != -1)
+        ext = "Cal";
 
     return "ftFile_" + (compact === true ? 21 : 32) + " ft_" + ext;
 };
@@ -188,18 +191,20 @@ ASC.Files.Utility.CanImageView = function (fileTitle) {
 };
 
 ASC.Files.Utility.CanWebView = function (fileTitle) {
-    return ASC.Resources.Master.TenantTariffDocsEdition &&
-        jq.inArray(ASC.Files.Utility.GetFileExtension(fileTitle), ASC.Files.Utility.Resource.ExtsWebPreviewed) != -1;
+    return jq.inArray(ASC.Files.Utility.GetFileExtension(fileTitle), ASC.Files.Utility.Resource.ExtsWebPreviewed) != -1;
 };
 
 ASC.Files.Utility.CanWebEdit = function (fileTitle, withoutMobileDetect) {
     return (
-        ASC.Resources.Master.TenantTariffDocsEdition &&
         ASC.Files.Utility.CanWebEditBrowser && Teamlab.profile.isVisitor !== true
             ? jq.inArray(ASC.Files.Utility.GetFileExtension(fileTitle), ASC.Files.Utility.Resource.ExtsWebEdited) != -1
                 && (!jq.browser.mobile || withoutMobileDetect === true)
             : false
     );
+};
+
+ASC.Files.Utility.CanWebReview = function (fileTitle) {
+    return jq.inArray(ASC.Files.Utility.GetFileExtension(fileTitle), ASC.Files.Utility.Resource.ExtsWebReviewed) != -1;
 };
 
 ASC.Files.Utility.CanCoAuhtoring = function (fileTitle) {

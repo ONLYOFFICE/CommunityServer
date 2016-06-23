@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,10 +26,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
+using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core.HelpCenter;
 using ASC.Web.Studio.Utility;
 
@@ -44,7 +44,7 @@ namespace ASC.Web.Studio.UserControls.Common.VideoGuides
 
         public bool DisableVideo { get; set; }
         protected List<VideoGuideItem> VideoGuideItems { get; set; }
-        protected string AllVideoLink = CommonLinkUtility.GetHelpLink(true) + "video.aspx";
+        protected string AllVideoLink { get; set; }
 
 
         protected void Page_Load(object sender, EventArgs e)
@@ -55,12 +55,16 @@ namespace ASC.Web.Studio.UserControls.Common.VideoGuides
 
         protected void RenderVideoHandlers()
         {
-            if (string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink(false)))
+            var settings = AdditionalWhiteLabelSettings.Instance;
+
+            if (!settings.VideoGuidesEnabled || String.IsNullOrEmpty(settings.VideoGuidesUrl))
             {
                 DisableVideo = true;
                 return;
             }
 
+            AllVideoLink = CommonLinkUtility.GetRegionalUrl(settings.VideoGuidesUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
+            
             VideoGuideItems = HelpCenterHelper.GetVideoGuides();
 
             if (VideoGuideItems.Count > 0)

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -64,12 +64,19 @@ namespace ASC.Web.CRM.Masters.ClientScripts
 
         protected override IEnumerable<KeyValuePair<string, object>> GetClientVariables(HttpContext context)
         {
-            yield return RegisterObject("AddUser", Studio.Core.Users.CustomNamingPeople.Substitute<CRMCommonResource>("AddUser").HtmlEncode());
-            yield return RegisterObject("AddGroup", Studio.Core.Users.CustomNamingPeople.Substitute<CRMCommonResource>("AddGroup").HtmlEncode());
-            yield return RegisterObject("CurrentUser", Studio.Core.Users.CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser").HtmlEncode());
-            yield return RegisterObject("PrivatePanelAccessListLable", Studio.Core.Users.CustomNamingPeople.Substitute<CRMCommonResource>("PrivatePanelAccessListLable").HtmlEncode());
-            yield return RegisterObject("PrivatePanelDescription", Studio.Core.Users.CustomNamingPeople.Substitute<CRMCommonResource>("PrivatePanelDescription").HtmlEncode());
-            yield return RegisterObject("SocialMediaAccountNotFoundTwitter", ASC.Web.UserControls.SocialMedia.Resources.SocialMediaResource.SocialMediaAccountNotFoundTwitter.HtmlEncode());
+            return new List<KeyValuePair<string, object>>(1)
+                   {
+                       RegisterObject(
+                       new
+                       {
+                           AddUser = Studio.Core.Users.CustomNamingPeople.Substitute<CRMCommonResource>("AddUser").HtmlEncode(),
+                           AddGroup = Studio.Core.Users.CustomNamingPeople.Substitute<CRMCommonResource>("AddGroup").HtmlEncode(),
+                           CurrentUser = Studio.Core.Users.CustomNamingPeople.Substitute<CRMCommonResource>("CurrentUser").HtmlEncode(),
+                           PrivatePanelAccessListLable = Studio.Core.Users.CustomNamingPeople.Substitute<CRMCommonResource>("PrivatePanelAccessListLable").HtmlEncode(),
+                           PrivatePanelDescription = Studio.Core.Users.CustomNamingPeople.Substitute<CRMCommonResource>("PrivatePanelDescription").HtmlEncode(),
+                           SocialMediaAccountNotFoundTwitter = ASC.Web.UserControls.SocialMedia.Resources.SocialMediaResource.SocialMediaAccountNotFoundTwitter.HtmlEncode()
+                       })
+                   };
         }
     }
 }

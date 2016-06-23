@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -84,7 +84,7 @@ namespace ASC.Web.CRM.Controls.Contacts
             if (TargetContact is Company)
                 ExecPeopleContainerView();
 
-            Page.RegisterStyle("~/products/projects/app_themes/default/css/allprojects.css");
+            Page.RegisterStyle("~/products/projects/app_themes/default/css/allprojects.less");
             Page.RegisterBodyScripts("~/products/projects/js/base.js");
             Page.RegisterBodyScripts("~/products/projects/js/projects.js");
             RegisterScript();

@@ -29,9 +29,9 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
-using Novell.Directory.Ldap.Rfc2251;
 using Novell.Directory.Ldap.Asn1;
+using Novell.Directory.Ldap.Rfc2251;
+using System;
 using RespExtensionSet = Novell.Directory.Ldap.Utilclass.RespExtensionSet;
 
 namespace Novell.Directory.Ldap
@@ -44,14 +44,14 @@ namespace Novell.Directory.Ldap
 	/// The response can contain the OID of the extension, an octet string
 	/// with the operation's data, both, or neither.
 	/// </summary>
-	public class LdapExtendedResponse:LdapResponse
+	public class LdapExtendedResponse : LdapResponse
 	{
 		/// <summary> Returns the message identifier of the response.
 		/// 
 		/// </summary>
 		/// <returns> OID of the response.
 		/// </returns>
-		virtual public System.String ID
+		virtual public string ID
 		{
 			get
 			{
@@ -60,7 +60,6 @@ namespace Novell.Directory.Ldap
 					return null;
 				return respOID.stringValue();
 			}
-			
 		}
 
 		static LdapExtendedResponse()
@@ -71,12 +70,10 @@ namespace Novell.Directory.Ldap
 		public static RespExtensionSet RegisteredResponses
 		{
 			/* package */
-			
 			get
 			{
 				return registeredResponses;
 			}
-			
 		}
 
 		/// <summary> Returns the value part of the response in raw bytes.
@@ -93,9 +90,8 @@ namespace Novell.Directory.Ldap
 				if (tempString == null)
 					return null;
 				else
-					return (tempString.byteValue());
+					return tempString.byteValue();
 			}
-			
 		}
 		private static RespExtensionSet registeredResponses;
 		
@@ -106,7 +102,7 @@ namespace Novell.Directory.Ldap
 		/// <param name="message"> The RfcLdapMessage to convert to an
 		/// LdapExtendedResponse object.
 		/// </param>
-		public LdapExtendedResponse(RfcLdapMessage message):base(message)
+		public LdapExtendedResponse(RfcLdapMessage message) : base(message)
 		{
 		}
 
@@ -123,11 +119,9 @@ namespace Novell.Directory.Ldap
 		/// <param name="extendedResponseClass"> A class which can instantiate an 
 		/// LDAPExtendedResponse.
 		/// </param>
-		public static void  register(System.String oid, System.Type extendedResponseClass)
+		public static void register(string oid, Type extendedResponseClass)
 		{
 			registeredResponses.registerResponseExtension(oid, extendedResponseClass);
-			return ;
 		}
-
 	}
 }

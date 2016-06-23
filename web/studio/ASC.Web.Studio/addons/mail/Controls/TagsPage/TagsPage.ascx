@@ -4,7 +4,7 @@
 <div id="id_tags_page" class="hidden page_content">
     <div class="containerBodyBlock">
         <div class="content-header">
-            <a title="<%=ASC.Web.Mail.Resources.MailResource.CreateNewTagBtn%>" href="#" class="button gray" id="createNewTag">
+            <a title="<%=ASC.Web.Mail.Resources.MailResource.CreateNewTagBtn%>" class="button gray" id="createNewTag">
                 <div class="plus" style="background-position: -2px 1px;"><%=ASC.Web.Mail.Resources.MailResource.CreateNewTagBtn%></div>
             </a>
             <span class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'TagsHelperBlock'});"></span>

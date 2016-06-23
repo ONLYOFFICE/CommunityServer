@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -57,7 +57,13 @@ namespace ASC.Web.Core.Calendars
         TwoHours = 5,
         Day = 6
     }
-    
+
+    public enum EventStatus
+    {
+        Tentative = 0,
+        Confirmed = 1,
+        Cancelled = 2
+    }
 
     public class EventContext : ICloneable
     {
@@ -76,6 +82,7 @@ namespace ASC.Web.Core.Calendars
     public interface IEvent : IiCalFormatView
     {
         string Id { get; }
+        string Uid { get; }
         string CalendarId { get; }
         string Name { get; }
         string Description { get; }
@@ -87,5 +94,6 @@ namespace ASC.Web.Core.Calendars
         RecurrenceRule RecurrenceRule { get; }
         EventContext Context { get; }
         SharingOptions SharingOptions { get;}
+        EventStatus Status { get; }
     }
 }

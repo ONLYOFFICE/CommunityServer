@@ -33,82 +33,82 @@ using System.Text;
 
 namespace Novell.Directory.Ldap.Events
 {
-  /// <summary> 
-  /// This class represents the EventArgs corresponding to 
-  /// LdapSearchResult notification sent by Ldap Server.
-  /// </summary>
-  public class SearchResultEventArgs : LdapEventArgs
-  {
-    public SearchResultEventArgs(LdapMessage sourceMessage,
-				 EventClassifiers aClassification,
-				 LdapEventType aType)
-      : base(sourceMessage, EventClassifiers.CLASSIFICATION_LDAP_PSEARCH, aType)
+    /// <summary> 
+    /// This class represents the EventArgs corresponding to 
+    /// LdapSearchResult notification sent by Ldap Server.
+    /// </summary>
+    public class SearchResultEventArgs : LdapEventArgs
     {
-    }
+        public SearchResultEventArgs(LdapMessage sourceMessage,
+                     EventClassifiers aClassification,
+                     LdapEventType aType)
+            : base(sourceMessage, EventClassifiers.CLASSIFICATION_LDAP_PSEARCH, aType)
+        {
+        }
 
-    public LdapEntry Entry 
-    {
-        get
-	{ 
-	  return ((LdapSearchResult) ldap_message).Entry;
-	}
-    }
+        public LdapEntry Entry
+        {
+            get
+            {
+                return ((LdapSearchResult)ldap_message).Entry;
+            }
+        }
 
-    public override string ToString()
-    {
-      StringBuilder buf = new StringBuilder();
+        public override string ToString()
+        {
+            StringBuilder buf = new StringBuilder();
 
-      buf.AppendFormat("[{0}:", GetType());
-      buf.AppendFormat("(Classification={0})",eClassification);
-      buf.AppendFormat("(Type={0})", getChangeTypeString());
-      buf.AppendFormat("(EventInformation:{0})", getStringRepresentaionOfEventInformation());
-      buf.Append("]");
+            buf.AppendFormat("[{0}:", GetType());
+            buf.AppendFormat("(Classification={0})", eClassification);
+            buf.AppendFormat("(Type={0})", getChangeTypeString());
+            buf.AppendFormat("(EventInformation:{0})", getStringRepresentaionOfEventInformation());
+            buf.Append("]");
 
-      return buf.ToString();
-    }
+            return buf.ToString();
+        }
 
-    private string getStringRepresentaionOfEventInformation()
-    {
-      StringBuilder buf = new StringBuilder();
-      LdapSearchResult result = (LdapSearchResult)ldap_message;
+        private string getStringRepresentaionOfEventInformation()
+        {
+            StringBuilder buf = new StringBuilder();
+            LdapSearchResult result = (LdapSearchResult)ldap_message;
 
-      buf.AppendFormat("(Entry={0})", result.Entry);
-      LdapControl[] controls = result.Controls;
+            buf.AppendFormat("(Entry={0})", result.Entry);
+            LdapControl[] controls = result.Controls;
 
-      if (null != controls)
-      {
-	buf.Append("(Controls=");
-	int i = 0;
-	foreach(LdapControl control in controls)
-	{
-	  buf.AppendFormat("(Control{0}={1})", ++i, control.ToString());
-	}
-	buf.Append(")");
-      }
-      
-      return buf.ToString();
-    }
+            if (null != controls)
+            {
+                buf.Append("(Controls=");
+                int i = 0;
+                foreach (LdapControl control in controls)
+                {
+                    buf.AppendFormat("(Control{0}={1})", ++i, control.ToString());
+                }
+                buf.Append(")");
+            }
 
-    private string getChangeTypeString()
-    {
-      switch (eType)
-      {
-      case LdapEventType.LDAP_PSEARCH_ADD:
-	return "ADD";
+            return buf.ToString();
+        }
 
-      case LdapEventType.LDAP_PSEARCH_DELETE:
-	return "DELETE";
+        private string getChangeTypeString()
+        {
+            switch (eType)
+            {
+                case LdapEventType.LDAP_PSEARCH_ADD:
+                    return "ADD";
 
-      case LdapEventType.LDAP_PSEARCH_MODIFY:
-	return "MODIFY";
+                case LdapEventType.LDAP_PSEARCH_DELETE:
+                    return "DELETE";
 
-      case LdapEventType.LDAP_PSEARCH_MODDN:
-	return "MODDN";
+                case LdapEventType.LDAP_PSEARCH_MODIFY:
+                    return "MODIFY";
 
-      default:
-	return ("No change type: " + eType);
-      }
-    }
+                case LdapEventType.LDAP_PSEARCH_MODDN:
+                    return "MODDN";
 
-  } // end of class SearchResultEventArgs
+                default:
+                    return ("No change type: " + eType);
+            }
+        }
+
+    } // end of class SearchResultEventArgs
 }

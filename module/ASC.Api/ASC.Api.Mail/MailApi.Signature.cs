@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,8 +25,8 @@
 
 
 using ASC.Api.Attributes;
-using ASC.Mail.Aggregator.Dal;
-using ASC.Mail.Aggregator.Managers;
+using ASC.Mail.Aggregator.Common;
+using ASC.Mail.Aggregator.Common.DataStorage;
 
 namespace ASC.Api.Mail
 {
@@ -38,7 +38,7 @@ namespace ASC.Api.Mail
         /// <param name="mailbox_id"></param>
         /// <returns>Signature object</returns>
         [Read(@"signature/{mailbox_id:[0-9]+}")]
-        public SignatureDto GetSignature(int mailbox_id)
+        public MailSignature GetSignature(int mailbox_id)
         {
             return MailBoxManager.GetMailboxSignature(mailbox_id, Username, TenantId);
         }
@@ -50,13 +50,15 @@ namespace ASC.Api.Mail
         /// <param name="html">New signature value.</param>
         /// <param name="is_active">New signature status.</param>
         [Create(@"signature/update/{mailbox_id:[0-9]+}")]
-        public SignatureDto UpdateSignature(int mailbox_id, string html, bool is_active)
+        public MailSignature UpdateSignature(int mailbox_id, string html, bool is_active)
         {
             if (!string.IsNullOrEmpty(html))
             {
-                var imagesReplacer = new StorageManager(TenantId, Username, MailBoxManager);
-                html = imagesReplacer.ChangeSignatureEditorImagesLinks(html, mailbox_id);
+                var imagesReplacer = new StorageManager(TenantId, Username);
+                html = imagesReplacer.ChangeEditorImagesLinks(html, mailbox_id);
             }
+
+            MailBoxManager.CachedAccounts.Clear(Username);
 
             return MailBoxManager.UpdateOrCreateMailboxSignature(mailbox_id, Username, TenantId, html, is_active);
         }

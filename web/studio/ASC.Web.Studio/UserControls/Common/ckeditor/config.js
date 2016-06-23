@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2014, CKSource - Frederico Knabben. All rights reserved.
+ * @license Copyright (c) 2003-2015, CKSource - Frederico Knabben. All rights reserved.
  * For licensing, see LICENSE.html or http://ckeditor.com/license
  */
 
@@ -36,6 +36,7 @@ CKEDITOR.editorConfig = function( config ) {
     config.filebrowserWindowHeight = '480px';
     config.pasteFromWordRemoveFontStyles = false;
     config.image_previewText = ' ';
+    config.disableNativeSpellChecker = false;
 
     //--------toolbar settings
     this.getBaseConfig = function() {

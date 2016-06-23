@@ -151,14 +151,12 @@ namespace AppLimit.CloudComputing.SharpBox.Common.IO
                 // notify state
                 if (status != null)
                 {
-                    StreamHelperResultCodes action = StreamHelperResultCodes.OK;
-
                     // upadte the event                    
                     e.ReadBytesTotal = readBytesTotal;
                     e.ReadBytesCurrentOperation = readBytes;                    
                     
                     // call the callback
-                    action = status(sender, e, data);                        
+                    StreamHelperResultCodes action = status(sender, e, data);                        
 
                     // result
                     if (action == StreamHelperResultCodes.Aborted)

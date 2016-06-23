@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -40,6 +40,7 @@
 @import "accountpopup.less";
 @import "print.less";
 @import "administration.less";
+@import "calendar.less";
 
 .savedtime {
     padding: @message-spliter-width / 4 @message-spliter-width 0 0;
@@ -206,10 +207,10 @@ label.checkbox, label.mark_all_checkbox {
 }
 
 .menu-action-simple-pagenav {
-    a.pagerNextButtonCSSClass {
+    .pagerNextButtonCSSClass {
         margin-left: @message-spliter-width;
     }
-    a.pagerPrevButtonCSSClass {
+    .pagerPrevButtonCSSClass {
         margin-right: 0;
     }
     div {
@@ -312,21 +313,15 @@ div#itemContainer div.pages-navigation span.label, div#itemContainer div.pages-n
     }
 }
 
-div#itemContainer div.body, div#itemContainer div.body p {
-    font-weight: inherit;
-    font-style: inherit;
-    font-size: 100%;
-    vertical-align: baseline;
-    padding-bottom: 11px;
-
-    pre {
-        margin-top: 24px;
-    }
-}
-
 .lattersCount {
-    float: right;
     padding-right: 8px;
+    color: #333333;
+    position: relative;
+    text-decoration: none;
+    display: inline-block;
+    float: left;
+    white-space: nowrap;
+
     .unread {
         font-size:  14px;
         line-height: 17px;
@@ -450,13 +445,6 @@ div.studioSideBoxMailBody {
             width: 198px;
         }
     }
-    .menu-list.with-expander {
-        .menu-item.sub-list {
-            .expander {
-                padding-left: 4px;
-            }
-        }
-    }
 }
 
 h1.item {
@@ -474,6 +462,58 @@ h1.item {
 .simpleWrapper {
     width: auto;
     margin: 0;
+
+    #attachment_upload_pnl {
+        margin-top: 6px;
+        margin-bottom: 20px;
+
+        .attachLink {
+            cursor: pointer;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: normal;
+            padding-right: 16px;
+            position: relative;
+            text-align: center;
+            vertical-align: middle;
+            white-space: nowrap;
+        }
+
+        #attachments_limit_txt {
+            font-size: 12px;
+            font-weight: normal;
+            padding-right: 16px;
+            position: relative;
+            display: inline-block;
+            text-align: left;
+            vertical-align: middle;
+        }
+
+        .link.deleteAll, 
+        .link:active.deleteAll, 
+        .link:hover.deleteAll, 
+        .link:visited.deleteAll {
+            display: inline-block;
+            margin-left: 16px;
+            padding: 0;
+            position: relative;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .link.deleteAll:after {
+            background: url("@{base-icon-sprite-url}") no-repeat -57px -84px;
+            content: "";
+            cursor: pointer;
+            display: block;
+            height: 20px;
+            left: -17px;
+            margin-top: -12px;
+            position: absolute;
+            top: 50%;
+            width: 14px;
+        }
+    }
 }
 
 .subject, .subject a {
@@ -484,14 +524,6 @@ div#itemContainer div.pages-navigation a.button, div#itemContainer div.pages-nav
     min-width: 50px;
     cursor: pointer;
     border: 1px solid #C7C7C7;
-}
-
-div.body {
-    pre {
-        white-space: pre-wrap;
-        -ms-word-wrap: break-word;
-        word-wrap: break-word;
-    }
 }
 
 .del {
@@ -591,6 +623,9 @@ a.disable {
     padding: 10px;
     text-align: left;
     font-weight: normal;
+    max-height: 150px;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .mail-navigation-table {
@@ -692,10 +727,6 @@ noindex:-moz-any-link {
 
 input[type="checkbox"] {
     margin-right: 3px;
-}
-
-.expander {
-    margin-right: 0 !important;
 }
 
 div.checkbox {
@@ -828,25 +859,53 @@ textarea {
     }
 }
 
-.containerAction {
-    > span {
-        float: left;
-        margin-top: 4px;
-        margin-right: 15px;
-    }
 
-    .deleteAttachmentsIcon {
-        background: url("@{base-icon-sprite-url}") no-repeat -57px -84px;
-        padding-right: 20px;
-    }
-
-    #attachments_limit_txt {
-        margin: 7px 0 0 0;
-    }
-}
 
 .contentMenuWrapper {
     height: 30px;
+
+    .menuAction.btnNext {
+        height: 17px;
+        width: 10px;
+        
+        .arrow-right {
+          width: 0; 
+          height: 0; 
+          border-top: 5px solid transparent;
+          border-bottom: 5px solid transparent;  
+          border-left: 5px solid #999999;
+          margin-top: 4px;
+          margin-left: 3px;
+        }
+    }
+    
+    .menuAction.btnNext.unlockAction {
+        .arrow-right {  
+            border-left: 5px solid dimgray; 
+        }
+    }
+
+    .menuAction.btnPrev {
+        height: 17px;
+        width: 10px;
+        margin-left: 8px;
+
+        .arrow-left {
+          width: 0; 
+          height: 0; 
+          border-top: 5px solid transparent;
+          border-bottom: 5px solid transparent;  
+          border-right: 5px solid #999999; 
+          margin-top: 4px;
+          margin-left: 2px;
+        }
+    }
+
+    .menuAction.btnPrev.unlockAction {
+       .arrow-left {  
+            border-right: 5px solid dimgray; 
+        }
+    }
 }
 
 .no-messages {
@@ -1388,4 +1447,74 @@ body.media-width-0-1200
 
 .stick-over {
   z-index: @z-stick-over;
+}
+
+/* End Loading animation */
+
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+.loader-fx {
+    .loader-middle {
+        display: inline-block;
+    }
+
+    .loader-middle-lable {
+        display: inline-block;
+        line-height: 22px;
+        vertical-align: text-bottom;
+        padding-left: 4px;
+    }
+}
+
+/* End Loading animation */
+
+.ui-buttonset {
+    .ui-widget {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 12px;
+        line-height: 13px;
+    }
+
+    .ui-widget:not([aria-pressed]),
+    .ui-widget[aria-pressed="false"] {
+        color: #666666;
+        background-color: #dedede;
+        background-image: -webkit-gradient(linear, left 0%, left 100%, from(#f3f3f3), to(#dedede));
+        background-image: -webkit-linear-gradient(top, #f3f3f3, 0%, #dedede, 100%);
+        background-image: -moz-linear-gradient(top, #f3f3f3 0%, #dedede 100%);
+        background-image: linear-gradient(to bottom, #f3f3f3 0%, #dedede 100%);
+        background-repeat: repeat-x;
+        filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fff3f3f3', endColorstr='#ffdedede', GradientType=0);
+        border-width: 1px;
+        border-style: solid;
+        border-color: #bfbfbf;
+    }
+
+    .ui-button-text {
+        padding: 3px 24px;
+    }
+}
+
+#foldersContainer {
+    li { 
+        a { 
+            width: 100%; 
+            height: 100%;
+        }
+    }
 }

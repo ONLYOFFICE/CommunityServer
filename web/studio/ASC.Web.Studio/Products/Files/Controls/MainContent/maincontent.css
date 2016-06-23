@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -59,42 +59,7 @@
 .files-info-panel.warn {
     background: url("images/expl_16.png") no-repeat 10px 13px #FBFAD5;
 }
-/*******************************************************************************
-    switchViewFolder
-*******************************************************************************/
-#switchViewFolder {
-    float: right;
-}
-#switchToNormal,
-#switchToCompact {
-    background-color: transparent;
-    background-repeat: no-repeat;
-    background-image: url("images/switch_view.png");
-    display: inline-block;
-    height: 21px;
-    width: 24px;
-}
-#switchToNormal {
-    margin-right: -3px;
-}
-#switchViewFolder.compact #switchToNormal {
-    background-position: 0 -26px;
-    cursor: pointer;
-}
-#switchViewFolder.compact #switchToNormal:hover {
-    background-position: 0 -52px;
-}
-#switchToCompact {
-    background-position: -29px -26px;
-    cursor: pointer;
-}
-#switchToCompact:hover {
-    background-position: -29px -52px;
-}
-#switchViewFolder.compact #switchToCompact {
-    background-position: -29px 0;
-    cursor: default;
-}
+
 /*******************************************************************************
     Content Menu
 *******************************************************************************/
@@ -222,7 +187,7 @@ dt.confirm-remove-files {
 }
 .progress-dialog-header .actions-container {
     float: right;
-    margin: 10px 4px;
+    margin: 12px 4px 10px 4px;
 }
 .progress-dialog-body {
     background-color: #FFFFFF;

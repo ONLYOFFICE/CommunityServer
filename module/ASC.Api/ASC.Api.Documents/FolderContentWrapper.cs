@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -60,17 +60,31 @@ namespace ASC.Api.Documents
         /// <summary>
         /// </summary>
         [DataMember(IsRequired = false, EmitDefaultValue = true)]
+        public int StartIndex { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = true)]
+        public int Count { get; set; }
+
+        /// <summary>
+        /// </summary>
+        [DataMember(IsRequired = false, EmitDefaultValue = true)]
         public int Total { get; set; }
 
         /// <summary>
         /// </summary>
         /// <param name="folderItems"></param>
-        public FolderContentWrapper(DataWrapper folderItems)
+        /// <param name="startIndex"></param>
+        public FolderContentWrapper(DataWrapper folderItems, int startIndex)
         {
             Files = folderItems.Entries.OfType<File>().Select(x => new FileWrapper(x)).ToList();
             Folders = folderItems.Entries.OfType<Folder>().Select(x => new FolderWrapper(x)).ToList();
             Current = new FolderWrapper(folderItems.FolderInfo);
             PathParts = folderItems.FolderPathParts;
+
+            StartIndex = startIndex;
+            Count = Files.Count + Folders.Count;
             Total = folderItems.Total;
         }
 
@@ -83,18 +97,21 @@ namespace ASC.Api.Documents
         /// <returns></returns>
         public static FolderContentWrapper GetSample()
         {
-            return new FolderContentWrapper()
-            {
-                Current = FolderWrapper.GetSample(),
-                Files = new List<FileWrapper>(new[] { FileWrapper.GetSample(), FileWrapper.GetSample() }),
-                Folders = new List<FolderWrapper>(new[] { FolderWrapper.GetSample(), FolderWrapper.GetSample() }),
-                PathParts = new
+            return new FolderContentWrapper
                 {
-                    key = "Key",
-                    path = "//path//to//folder"
-                },
-                Total = 4
-            };
+                    Current = FolderWrapper.GetSample(),
+                    Files = new List<FileWrapper>(new[] {FileWrapper.GetSample(), FileWrapper.GetSample()}),
+                    Folders = new List<FolderWrapper>(new[] {FolderWrapper.GetSample(), FolderWrapper.GetSample()}),
+                    PathParts = new
+                        {
+                            key = "Key",
+                            path = "//path//to//folder"
+                        },
+
+                    StartIndex = 0,
+                    Count = 4,
+                    Total = 4,
+                };
         }
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -193,7 +193,7 @@ namespace ASC.CRM.Core.Dao
                         sqlQuery.OrderBy("price", orderBy.IsAsc);
                         break;
                     case InvoiceItemSortedByType.Quantity:
-                        sqlQuery.OrderBy("case when track_inventory = 1 then stock_quantity else quantity end", false).OrderBy("title", orderBy.IsAsc);
+                        sqlQuery.OrderBy("case when track_inventory = 1 then stock_quantity else quantity end", orderBy.IsAsc).OrderBy("title", true);
                         break;
                     case InvoiceItemSortedByType.Created:
                         sqlQuery.OrderBy("create_on", orderBy.IsAsc);

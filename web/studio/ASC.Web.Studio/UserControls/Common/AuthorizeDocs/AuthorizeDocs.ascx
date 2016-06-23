@@ -69,7 +69,7 @@
 
 <div id="sendEmailSuccessPopup" class="default-personal-popup">
     <div class="default-personal-popup_cnt">
-        <div class="default-personal-popup_closer">&times</div>
+        <div class="default-personal-popup_closer">&times;</div>
         <div class="default-personal-popup_text"><%: Resource.AuthDocsThanksRegistration %></div>
         <div class="default-personal-popup_text"><%= Resource.AuthDocsSendActivationEmail %> '<span id="activationEmail"></span>'</div>
         <div class="default-personal-popup_strong-text"><%= Resource.AuthDocsCheckEmail %></div>
@@ -78,7 +78,7 @@
 
 <div id="loginPopup" class="default-personal-popup login">
     <div class="default-personal-popup_cnt">
-        <div class="default-personal-popup_closer">&times</div>
+        <div class="default-personal-popup_closer">&times;</div>
         <h2 class="default-personal-popup_h"><%= Resource.Login %></h2>
         <div class="default-personal-popup_line"></div>
         <div class="default-personal-popup_form-i">

@@ -24,7 +24,7 @@
                                 <div id="emptyFileList" class="display-none">
                                     <asp:PlaceHolder runat="server" ID="_phEmptyDocView"></asp:PlaceHolder>
                                 </div>
-                                <div id="filesViewContainer">
+                                <div id="filesViewContainer" class="webkit-scrollbar">
                                     <ul class='fileList'>
                                     </ul>
                                 </div>

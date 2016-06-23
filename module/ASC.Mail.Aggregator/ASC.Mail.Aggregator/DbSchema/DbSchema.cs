@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,395 +24,582 @@
 */
 
 
-using System;
-
-namespace ASC.Mail.Aggregator.DbSchema {
-    // ReSharper disable MemberHidesStaticFromOuterClass
-    public static class AttachmentTable
+namespace ASC.Mail.Aggregator.DbSchema
+{
+    public static class MailboxTable
     {
-        public const string name = "mail_attachment";
+        public const string Name = "mail_mailbox";
 
         public static class Columns
         {
-            public const string id = "id";
-            public const string id_mail = "id_mail";
-            public const string name = "name";
-            public const string stored_name = "stored_name";
-            public const string type = "type";
-            public const string size = "size";
-            public const string need_remove = "need_remove";
-            public const string file_number = "file_number";
-            public const string content_id = "content_id";
-            public const string id_tenant = "tenant";
+            public const string Id = "id";
+            public const string User = "id_user";
+            public const string Tenant = "tenant";
+            public const string Address = "address";
+            public const string Enabled = "enabled";
+            public const string Password = "pop3_password";
+            public const string MsgCountLast = "msg_count_last";
+            public const string SizeLast = "size_last";
+            public const string SmtpPassword = "smtp_password";
+            public const string AddressName = "name";
+            public const string LoginDelay = "login_delay";
+            //public const string time_checked = "time_checked";
+            public const string IsProcessed = "is_processed";
+            //public const string user_time_checked = "user_time_checked";
+            //public const string login_delay_expires = "login_delay_expires";
+            public const string IsRemoved = "is_removed";
+            public const string QuotaError = "quota_error";
+            //public const string auth_error = "auth_error";
+            public const string Imap = "imap";
+            public const string BeginDate = "begin_date";
+            public const string ServiceType = "service_type";
+            public const string RefreshToken = "refresh_token";
+            public const string ImapIntervals = "imap_intervals";
+            public const string SmtpServerId = "id_smtp_server";
+            public const string ServerId = "id_in_server";
+            public const string EmailInFolder = "email_in_folder";
+            public const string IsTeamlabMailbox = "is_teamlab_mailbox";
+
+            public const string DateCreated = "date_created ";
+            public const string DateChecked = "date_checked ";
+            public const string DateUserChecked = "date_user_checked ";
+            public const string UserOnline = "user_online ";
+            public const string DateLoginDelayExpires = "date_login_delay_expires ";
+            public const string DateAuthError = "date_auth_error ";
+        }
+    }
+
+    public static class MailboxProviderTable
+    {
+        public const string Name = "mail_mailbox_provider";
+
+        public static class Columns
+        {
+            public const string Id = "id";
+            public const string ProviderName = "name";
+            public const string DisplayName = "display_name";
+            public const string DisplayShortName = "display_short_name";
+            public const string Documentation = "documentation";
+        }
+    }
+
+    public static class AttachmentTable
+    {
+        public const string Name = "mail_attachment";
+
+        public static class Columns
+        {
+            public const string Id = "id";
+            public const string MailId = "id_mail";
+            public const string RealName = "name";
+            public const string StoredName = "stored_name";
+            public const string Type = "type";
+            public const string Size = "size";
+            public const string NeedRemove = "need_remove";
+            public const string FileNumber = "file_number";
+            public const string ContentId = "content_id";
+            public const string IdTenant = "tenant";
+            public const string IdMailbox = "id_mailbox";
         }
     }
 
 
-    public static class Garbage
+    public static class GarbageTable
     {
-        public const string table = "mail_garbage";
+        public const string Name = "mail_garbage";
 
         public static class Columns
         {
-            public const string id = "id";
-            public const string tenant = "tenant";
-            public const string path = "path";
-            public const string is_processed = "is_processed";
-            public const string time_modified = "time_modified";
+            public const string Id = "id";
+            public const string Tenant = "tenant";
+            public const string Path = "path";
+            public const string IsProcessed = "is_processed";
+            public const string TimeModified = "time_modified";
         };
     }
 
 
     public static class MailTable
     {
-        public const string name = "mail_mail";
+        public const string Name = "mail_mail";
 
         public static class Columns
         {
-            public const string id = "id";
-            public const string id_mailbox = "id_mailbox";
-            public const string id_user = "id_user";
-            public const string id_tenant = "tenant";
-            public const string address = "address";
-            public const string uidl = "uidl";
-            public const string md5 = "md5";
-            public const string from = "from_text";
-            public const string to = "to_text";
-            public const string reply = "reply_to";
-            public const string cc = "cc";
-            public const string bcc = "bcc";
-            public const string subject = "subject";
-            public const string introduction = "introduction";
-            public const string importance = "importance";
-            public const string date_received = "date_received";
-            public const string date_sent = "date_sent";
-            public const string size = "size";
-            public const string attach_count = "attachments_count";
-            public const string unread = "unread";
-            public const string is_answered = "is_answered";
-            public const string is_forwarded = "is_forwarded";
-            public const string is_from_crm = "is_from_crm";
-            public const string is_from_tl = "is_from_tl";
-            public const string stream = "stream";
-            public const string folder = "folder";
-            public const string folder_restore = "folder_restore";
-            public const string spam = "spam";
-            public const string is_removed = "is_removed";
-            public const string time_modified = "time_modified";
-            public const string mime_message_id = "mime_message_id";
-            public const string mime_in_reply_to = "mime_in_reply_to";
-            public const string chain_id = "chain_id";
-            public const string chain_date = "chain_date";
-            public const string is_text_body_only = "is_text_body_only";
+            public const string Id = "id";
+            public const string MailboxId = "id_mailbox";
+            public const string User = "id_user";
+            public const string Tenant = "tenant";
+            public const string Address = "address";
+            public const string Uidl = "uidl";
+            public const string Md5 = "md5";
+            public const string From = "from_text";
+            public const string To = "to_text";
+            public const string Reply = "reply_to";
+            public const string Cc = "cc";
+            public const string Bcc = "bcc";
+            public const string Subject = "subject";
+            public const string Introduction = "introduction";
+            public const string Importance = "importance";
+            public const string DateReceived = "date_received";
+            public const string DateSent = "date_sent";
+            public const string Size = "size";
+            public const string AttachCount = "attachments_count";
+            public const string Unread = "unread";
+            public const string IsAnswered = "is_answered";
+            public const string IsForwarded = "is_forwarded";
+            public const string Stream = "stream";
+            public const string Folder = "folder";
+            public const string FolderRestore = "folder_restore";
+            public const string Spam = "spam";
+            public const string IsRemoved = "is_removed";
+            public const string TimeModified = "time_modified";
+            public const string MimeMessageId = "mime_message_id";
+            public const string MimeInReplyTo = "mime_in_reply_to";
+            public const string ChainId = "chain_id";
+            public const string ChainDate = "chain_date";
+            public const string IsTextBodyOnly = "is_text_body_only";
+            public const string HasParseError = "has_parse_error";
+            public const string CalendarUid = "calendar_uid";
         };
     }
 
 
     public static class ImapFlags
     {
-        public const string table = "mail_imap_flags";
+        public const string Name = "mail_imap_flags";
 
         public static class Columns
         {
-            public const string name = "name";
-            public const string folder_id = "folder_id";
-            public const string skip = "skip";
+            public const string FlagName = "name";
+            public const string FolderId = "folder_id";
+            public const string Skip = "skip";
         };
     }
 
 
     public static class ImapSpecialMailbox
     {
-        public const string table = "mail_imap_special_mailbox";
+        public const string Name = "mail_imap_special_mailbox";
 
         public static class Columns
         {
-            public const string name = "name";
-            public const string server = "server";
-            public const string folder_id = "folder_id";
-            public const string skip = "skip";
+            public const string MailboxName = "name";
+            public const string Server = "server";
+            public const string FolderId = "folder_id";
+            public const string Skip = "skip";
         };
     }
 
 
     public static class PopUnorderedDomain
     {
-        public const string table = "mail_pop_unordered_domain";
+        public const string Name = "mail_pop_unordered_domain";
 
         public static class Columns
         {
-            public const string server = "server";
+            public const string Server = "server";
         };
     }
 
 
     public static class ChainTable
     {
-        public const string name = "mail_chain";
+        public const string Name = "mail_chain";
 
         public static class Columns
         {
-            public const string id = "id";
-            public const string id_mailbox = "id_mailbox";
-            public const string id_tenant = "tenant";
-            public const string id_user = "id_user";
-            public const string folder = "folder";
-            public const string length = "length";
-            public const string unread = "unread";
-            public const string has_attachments = "has_attachments";
-            public const string importance = "importance";
-            public const string tags = "tags";
+            public const string Id = "id";
+            public const string MailboxId = "id_mailbox";
+            public const string Tenant = "tenant";
+            public const string User = "id_user";
+            public const string Folder = "folder";
+            public const string Length = "length";
+            public const string Unread = "unread";
+            public const string HasAttachments = "has_attachments";
+            public const string Importance = "importance";
+            public const string Tags = "tags";
         };
-    }
-
-    public class CrmContactEntity
-    {
-        public int Id { get; set;}
-        public ChainXCrmContactEntity.EntityTypes Type { get; set;}
     }
 
     public static class ChainXCrmContactEntity
     {
-        public const string name = "mail_chain_x_crm_entity";
+        public const string Name = "mail_chain_x_crm_entity";
 
         public static class Columns
         {
-            public const string id_tenant = "id_tenant";
-            public const string id_mailbox = "id_mailbox";
-            public const string id_chain = "id_chain";
-            public const string entity_id = "entity_id";
-            public const string entity_type = "entity_type";
-        }
-
-        public enum EntityTypes
-        {
-            Contact = 1,
-            Case = 2,
-            Opportunity = 3
-        }
-
-        public static class CrmEntityTypeNames
-        {
-            public const string contact = "contact";
-            public const string Case = "case";
-            public const string opportunity = "opportunity";
-        }
-
-        public static string StringName(this EntityTypes type)
-        {
-            switch (type)
-            {
-                case EntityTypes.Contact:
-                    return CrmEntityTypeNames.contact;
-                case EntityTypes.Case:
-                    return CrmEntityTypeNames.Case;
-                case EntityTypes.Opportunity:
-                    return CrmEntityTypeNames.opportunity;
-                default:
-                    throw new ArgumentException(String.Format("Invalid CrmEntityType: {0}", type), "type");
-            }
+            public const string Tenant = "id_tenant";
+            public const string MailboxId = "id_mailbox";
+            public const string ChainId = "id_chain";
+            public const string EntityId = "entity_id";
+            public const string EntityType = "entity_type";
         }
     }
 
     public static class SignatureTable
     {
-        public const string name = "mail_mailbox_signature";
+        public const string Name = "mail_mailbox_signature";
 
         public static class Columns
         {
-            public const string id_mailbox = "id_mailbox";
-            public const string id_tenant = "tenant";
-            public const string html = "html";
-            public const string is_active = "is_active";
+            public const string MailboxId = "id_mailbox";
+            public const string Tenant = "tenant";
+            public const string Html = "html";
+            public const string IsActive = "is_active";
         };
     }
 
-    public static class MailboxTable
+    public static class AutoreplyTable
     {
-        public const string name = "mail_mailbox";
+        public const string Name = "mail_mailbox_autoreply";
 
         public static class Columns
         {
-            public const string id = "id";
-            public const string id_user = "id_user";
-            public const string id_tenant = "tenant";
-            public const string address = "address";
-            public const string enabled = "enabled";
-            public const string password = "pop3_password";
-            public const string msg_count_last = "msg_count_last";
-            public const string size_last = "size_last";
-            public const string smtp_password = "smtp_password";
-            public const string name = "name";
-            public const string login_delay = "login_delay";
-            public const string time_checked = "time_checked";
-            public const string is_processed = "is_processed";
-            public const string user_time_checked = "user_time_checked";
-            public const string login_delay_expires = "login_delay_expires";
-            public const string is_removed = "is_removed";
-            public const string quota_error = "quota_error";
-            public const string auth_error = "auth_error";
-            public const string imap = "imap";
-            public const string begin_date = "begin_date";
-            public const string service_type = "service_type";
-            public const string refresh_token = "refresh_token";
-            public const string imap_folders = "imap_folders";
-            public const string id_smtp_server = "id_smtp_server";
-            public const string id_in_server = "id_in_server";
-            public const string is_teamlab_mailbox = "is_teamlab_mailbox ";
-            public const string date_created = "date_created ";
+            public const string MailboxId = "id_mailbox";
+            public const string Tenant = "tenant";
+            public const string TurnOn = "turn_on";
+            public const string OnlyContacts = "only_contacts";
+            public const string TurnOnToDate = "turn_on_to_date";
+            public const string FromDate = "from_date";
+            public const string ToDate = "to_date";
+            public const string Subject = "subject";
+            public const string Html = "html";
+        };
+    }
+
+    public static class AutoreplyHistoryTable
+    {
+        public const string Name = "mail_mailbox_autoreply_history";
+
+        public static class Columns
+        {
+            public const string MailboxId = "id_mailbox";
+            public const string Tenant = "tenant";
+            public const string SendingEmail = "sending_email";
+            public const string SendingDate = "sending_date";
+        };
+    }
+
+    public static class ContactsTable
+    {
+        public const string Name = "mail_contacts";
+
+        public static class Columns
+        {
+            public const string Id = "id";
+            public const string User = "id_user";
+            public const string Tenant = "tenant";
+            public const string ContactName = "name";
+            public const string Address = "address";
+            public const string Description = "description";
+            public const string Type = "type";
+            public const string HasPhoto = "has_photo";
+            public const string LastModified = "last_modified";
         }
     }
 
-    public static class MailboxProviderTable
+    public static class ContactInfoTable
     {
-        public const string name = "mail_mailbox_provider";
+        public const string Name = "mail_contact_info";
 
         public static class Columns
         {
-            public const string id = "id";
-            public const string name = "name";
-            public const string display_name = "display_name";
-            public const string display_short_name = "display_short_name";
-            public const string documentation = "documentation";
-        };
+            public const string Id = "id";
+            public const string Tenant = "tenant";
+            public const string User = "id_user";
+            public const string ContactId = "id_contact";
+            public const string Data = "data";
+            public const string Type = "type";
+            public const string IsPrimary = "is_primary";
+            public const string LastModified = "last_modified";
+        }
     }
 
     public static class MailboxDomainTable
     {
-        public const string name = "mail_mailbox_domain";
+        public const string Name = "mail_mailbox_domain";
 
         public static class Columns
         {
-#pragma warning disable 169
-            public const string id = "id";
-#pragma warning restore 169
-            public const string id_provider = "id_provider";
-            public const string name = "name";
+            public const string Id = "id";
+            public const string ProviderId = "id_provider";
+            public const string DomainName = "name";
         };
     }
 
     public static class MailboxServerTable
     {
-        public const string name = "mail_mailbox_server";
+        public const string Name = "mail_mailbox_server";
 
         public static class Columns
         {
-            public const string id = "id";
-            public const string id_provider = "id_provider";
-            public const string type = "type";
-            public const string hostname = "hostname";
-            public const string port = "port";
-            public const string socket_type = "socket_type";
-            public const string username = "username";
-            public const string authentication = "authentication";
-            public const string is_user_data = "is_user_data";
+            public const string Id = "id";
+            public const string ProviderId = "id_provider";
+            public const string Type = "type";
+            public const string Hostname = "hostname";
+            public const string Port = "port";
+            public const string SocketType = "socket_type";
+            public const string Username = "username";
+            public const string Authentication = "authentication";
+            public const string IsUserData = "is_user_data";
         };
     }
 
     public static class AddressTable
     {
-        public const string name = "mail_server_address";
+        public const string Name = "mail_server_address";
 
         public static class Columns
         {
-            public const string id = "id";
-            public const string name = "name";
-            public const string tenant = "tenant";
-            public const string id_domain = "id_domain";
-            public const string id_mailbox = "id_mailbox";
-            public const string is_mail_group = "is_mail_group";
-            public const string is_alias = "is_alias";
-            public const string date_created = "date_created";
+            public const string Id = "id";
+            public const string AddressName = "name";
+            public const string Tenant = "tenant";
+            public const string DomainId = "id_domain";
+            public const string MailboxId = "id_mailbox";
+            public const string IsMailGroup = "is_mail_group";
+            public const string IsAlias = "is_alias";
+            public const string DateCreated = "date_created";
         };
     }
 
 
     public static class DomainTable
     {
-        public const string name = "mail_server_domain";
+        public const string Name = "mail_server_domain";
 
         public static class Columns
         {
-            public const string id = "id";
-            public const string tenant = "tenant";
-            public const string name = "name";
-            public const string date_added = "date_added";
+            public const string Id = "id";
+            public const string Tenant = "tenant";
+            public const string DomainName = "name";
+            public const string IsVerified = "is_verified";
+            public const string DateAdded = "date_added";
+            public const string DateChecked = "date_checked";
         };
     }
 
     public static class ServerTable
     {
-        public const string name = "mail_server_server";
+        public const string Name = "mail_server_server";
 
         public static class Columns
         {
-            public const string id = "id";
-            public const string mx_record = "mx_record";
-            public const string connection_string = "connection_string";
-            public const string server_type = "server_type";
-            public const string smtp_settings_id = "smtp_settings_id";
-            public const string imap_settings_id = "imap_settings_id";
+            public const string Id = "id";
+            public const string MxRecord = "mx_record";
+            public const string ConnectionString = "connection_string";
+            public const string ServerType = "server_type";
+            public const string SmtpSettingsId = "smtp_settings_id";
+            public const string ImapSettingsId = "imap_settings_id";
         };
     }
 
     public static class TenantXServerTable
     {
-        public const string name = "mail_server_server_x_tenant";
+        public const string Name = "mail_server_server_x_tenant";
 
         public static class Columns
         {
-            public const string id_tenant = "id_tenant";
-            public const string id_server = "id_server";
-            public const string cname = "cname";
+            public const string Tenant = "id_tenant";
+            public const string ServerId = "id_server";
+            public const string Cname = "cname";
         };
     }
 
     public static class ServerTypeTable
     {
-        public const string name = "mail_server_server_type";
+        public const string Name = "mail_server_server_type";
 
         public static class Columns
         {
-            public const string id = "id";
-            public const string name = "name";
+            public const string Id = "id";
+            public const string TypeName = "name";
         };
     }
 
     public static class MailGroupTable
     {
-        public const string name = "mail_server_mail_group";
+        public const string Name = "mail_server_mail_group";
 
         public static class Columns
         {
-            public const string id = "id";
-            public const string id_tenant = "id_tenant";
-            public const string id_address = "id_address";
-            public const string date_created = "date_created";
+            public const string Id = "id";
+            public const string Tenant = "id_tenant";
+            public const string AddressId = "id_address";
+            public const string Address = "address";
+            public const string DateCreated = "date_created";
         }
     }
 
     public static class MailGroupXAddressesTable
     {
-        public const string name = "mail_server_mail_group_x_mail_server_address";
+        public const string Name = "mail_server_mail_group_x_mail_server_address";
 
         public static class Columns
         {
-            public const string id_mail_group = "id_mail_group";
-            public const string id_address = "id_address";
+            public const string MailGroupId = "id_mail_group";
+            public const string AddressId = "id_address";
         }
     }
 
-    public static class CNameXDomainTable
+    public static class DnsTable
     {
-        public const string name = "mail_server_domain_x_cname";
+        public const string Name = "mail_server_dns";
 
         public static class Columns
         {
-            public const string id_domain = "id_domain";
-            public const string cname = "cname";
-            public const string reference_url = "reference_url";
-            public const string verified = "verified";
+            public const string Id = "id";
+            public const string Tenant = "tenant";
+            public const string User = "id_user";
+            public const string DomainId = "id_domain";
+            public const string DkimSelector = "dkim_selector";
+            public const string DkimPrivateKey = "dkim_private_key";
+            public const string DkimPublicKey = "dkim_public_key";
+            public const string DomainCheck = "domain_check";
+            public const string Spf = "spf";
+            public const string TimeModified = "time_modified";
         }
     }
-    // ReSharper restore MemberHidesStaticFromOuterClass
+
+    public static class MailAlertsTable
+    {
+        public const string Name = "mail_alerts";
+
+        public static class Columns
+        {
+            public const string Id = "id";
+            public const string Tenant = "tenant";
+            public const string User = "id_user";
+            public const string MailboxId = "id_mailbox";
+            public const string Type = "type";
+            public const string Data = "data";
+        }
+    }
+
+    public static class FolderTable
+    {
+        public const string Name = "mail_folder";
+
+        public static class Columns
+        {
+            public const string User = "id_user";
+            public const string Tenant = "tenant";
+            public const string Folder = "folder";
+            public const string TimeModified = "time_modified";
+            public const string UnreadMessagesCount = "unread_messages_count";
+            public const string TotalMessagesCount = "total_messages_count";
+            public const string UnreadConversationsCount = "unread_conversations_count";
+            public const string TotalConversationsCount = "total_conversations_count";
+        }
+    }
+
+    public static class DisplayImagesTable
+    {
+        public const string Name = "mail_display_images";
+
+        public static class Columns
+        {
+            public const string User = "id_user";
+            public const string Tenant = "tenant";
+            public const string Address = "address";
+        }
+    }
+
+    public static class TagMailTable
+    {
+        public const string Name = "mail_tag_mail";
+
+        public static class Columns
+        {
+            public const string MailId = "id_mail";
+            public const string TagId = "id_tag";
+            public const string TimeCreated = "time_created";
+            public const string Tenant = "tenant";
+            public const string User = "id_user";
+        }
+    }
+
+    public static class TagTable
+    {
+        public const string Name = "mail_tag";
+
+        public static class Columns
+        {
+            public const string Id = "id";
+            public const string User = "id_user";
+            public const string Tenant = "tenant";
+            public const string TagName = "name";
+            public const string Style = "style";
+            public const string Addresses = "addresses";
+            public const string Count = "count";
+            public const string CrmId = "crm_id";
+        }
+    }
+
+    public static class TagAddressTable
+    {
+        public const string Name = "mail_tag_addresses";
+
+        public static class Columns
+        {
+            public const string TagId = "id_tag";
+            public const string Address = "address";
+            public const string Tenant = "tenant";
+        }
+    }
+
+    public static class CrmTagTable
+    {
+        public const string Name = "crm_tag";
+
+        public static class Columns
+        {
+            public const string Id = "id";
+            public const string Title = "title";
+            public const string Tenant = "tenant_id";
+            public const string EntityType = "entity_type";
+        }
+    }
+
+    public static class CrmEntityTagTable
+    {
+        public const string Name = "crm_entity_tag";
+
+        public static class Columns
+        {
+            public const string TagId = "tag_id";
+            public const string EntityType = "entity_type";
+            public const string EntityId = "entity_id";
+        }
+    }
+
+    public static class CrmContactTable
+    {
+        public const string Name = "crm_contact";
+
+        public static class Columns
+        {
+            public const string Id = "id";
+            public const string IsCompany = "is_company";
+            public const string FirstName = "first_name";
+            public const string LastName = "last_name";
+            public const string CompanyName = "company_name";
+            public const string DisplayName = "display_name";
+            public const string Data = "data";
+            public const string Tenant = "tenant_id";
+            public const string IsShared = "is_shared";
+        }
+    }
+
+    public static class CrmContactInfoTable
+    {
+        public const string Name = "crm_contact_info";
+
+        public static class Columns
+        {
+            public const string Id = "id";
+            public const string Data = "data";
+            public const string Tenant = "tenant_id";
+            public const string ContactId = "contact_id";
+            public const string Type = "type";
+        }
+    }
 }

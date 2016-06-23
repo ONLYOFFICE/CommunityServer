@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -79,13 +79,7 @@ ListTaskView.ascx
 
         td {
             text-align: left;
-        }
-
-        .taskRow {
             min-height: 50px;
-            border-top: medium none;
-            border-right: medium none;
-            border-left: medium none;
         }
 
         .ajax_edit_task {
@@ -109,23 +103,24 @@ taskStatusesMenu
     padding-left: 30px;
 }
 #taskStatusListContainer li.open .dropdown-item {
-    background-position: 8px -534px;
+    background-position: 8px -517px;
 }
 #taskStatusListContainer li.closed .dropdown-item {
-    background-position: 8px -552px;
+    background-position: 8px -535px;
 }
 #taskTable .changeStatusCombobox .open,
 #taskTable .changeStatusCombobox .overdue {
-    background: url("../images/icons.png") 0 -535px no-repeat transparent;
+    background: url("../images/icons.png") 0 -518px no-repeat transparent;
 }
 #taskTable .changeStatusCombobox .closed {
-    background: url("../images/icons.png") 0 -553px no-repeat transparent;
+    background: url("../images/icons.png") 0 -536px no-repeat transparent;
 }
 
 #taskTable {
     .check {
-       margin-left: 4px;
+        margin-left: 4px;
     }
+
     .changeStatusCombobox {
         border: 1px solid transparent;
         display: block;
@@ -133,25 +128,44 @@ taskStatusesMenu
         margin-top: 3px;
         text-align: center;
         width: 38px;
+
         &.canEdit {
-            background: url("../images/tr_off.png") no-repeat scroll 24px 9px white;
             border: 1px solid @borderColor;
             cursor: pointer;
+            position: relative;
             .borderRadius(3px);
+
+            &:after {
+                border-left: 4px solid transparent;
+                border-right: 4px solid transparent;
+                border-top: 4px solid #B8B8B8;
+                content: "";
+                height: 0;
+                position: absolute;
+                right: 6px;
+                top: 50%;
+                width: 0;
+                margin-top: -1px;
+            }
         }
     }
 
-    tr:hover .changeStatusCombobox.canEdit,
-             .changeStatusCombobox.canEdit.selected {
-        .bg-gradient-with-image("../images/tr_on.png", 24px, 9px, #cecece, #f6f6f6);
-        border-color: #A8A8A8;
-    }
-    .changeStatusCombobox span {
-        display: block;
-        margin: 0 0 3px 4px;
-        height: 16px;
-        width: 16px;
-    }
+        tr:hover .changeStatusCombobox.canEdit,
+        .changeStatusCombobox.canEdit.selected {
+            background-color: #eaeaea;
+            border-color: #A8A8A8;
+
+            &:after {
+                border-top-color: #888888;
+            }
+        }
+
+        .changeStatusCombobox span {
+            display: block;
+            margin: 0 0 3px 4px;
+            height: 16px;
+            width: 16px;
+        }
 } 
 
 

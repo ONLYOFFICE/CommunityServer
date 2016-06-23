@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -184,6 +184,22 @@
         vertical-align: top;
         width: 58px;
     }
+
+    &.tariff-user-question-right {
+        left: 58px;
+        right: auto;
+
+        &:after {
+            left: -58px;
+            right: auto;
+
+            -webkit-transform: scaleX(-1);
+            -moz-transform: scaleX(-1);
+            -ms-transform: scaleX(-1);
+            -o-transform: scaleX(-1);
+            transform: scaleX(-1);
+        }
+    }
 }
 
 .tariff-slider-container {
@@ -191,7 +207,6 @@
     height: 34px;
     margin: 49px auto 38px;
     padding: 0 15px;
-    width: 610px;
     .borderRadius(15px);
 }
 #pricingPlanSlider {
@@ -199,7 +214,6 @@
     height: 34px;
     margin: 0;
     padding: 0;
-    width: 610px;
 
     .ui-slider ol {
         padding: 14px 0;
@@ -224,7 +238,7 @@
 
 .tariff-user-panel {
     margin: 0 auto;
-    width: 600px;
+    width: 750px;
 
         .header-base {
         }
@@ -242,6 +256,34 @@
     display: block;
 }
 
+
+/****************************************\
+    Currency
+\****************************************/
+#currencyPanel {
+    float: right;
+}
+#currencySelector {
+    cursor: pointer;
+    display: inline-block;
+    padding: 5px 15px 5px 10px;
+    position: relative;
+}
+#currencySelector:after {
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #9d9d9d;
+    content: "";
+    height: 0;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 0;
+}
+#currencyList,
+#currencyHelp {
+    display: none;
+}
 
 /****************************************\
     Tarifs panel
@@ -326,10 +368,15 @@
     background-color: #AFAFAF;
     border-top: 1px solid #AFAFAF;
     color: #fff;
-    font-size: 12px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 400;
+    height: 28px;
     line-height: 15px;
-    padding: 8px 0 11px;
+    padding: 10px 0 3px;
+}
+.tariffs-price-dscr .price-string {
+    font-size: 30px;
+    font-weight: 600;
 }
 .tariffs-body-year .tariffs-price-dscr {
     background-color: #5aa6ce;
@@ -344,8 +391,8 @@
     padding: 53px 30px 0;
 }
 .tariffs-price {
-    font-size: 48px;
-    font-weight: 700;
+    font-size: 45px;
+    font-weight: 600;
     height: 75px;
     padding-top: 18px;
 
@@ -356,13 +403,12 @@
 .tariffs-descr {
     color: #7D7D7D;
     font-size: 11px;
-    visibility: hidden; //todo: remove
 }
 .tariffs-price-per {
     border-bottom: 1px solid #CFCFCF;
     color: #7D7D7D;
     font-size: 11px;
-    margin: 0 auto 6px;
+    margin: 0 auto 17px;
     padding-bottom: 17px;
     width: 230px;
 }
@@ -392,12 +438,29 @@
         color: #434341;
         font-size: 14px;
         margin-bottom: 8px;
+        width: 96%;
+    }
+
+    input.text-edit,
+    .text-edit-csize {
+        height: 34px;
+        padding: 0 6px;
+    }
+
+    .text-edit-csize option {
+        padding: 0 9px;
+    }
+
+    .text-edit-csize {
         width: 100%;
     }
 
-    input.text-edit {
-        height: 34px;
-        padding: 0 6px;
+    .text-edit-phone.phoneControlInput {
+        width: 282px;
+    }
+
+    #phoneControlDropDown ul.dropdown-content {
+        max-width: 334px;
     }
 
     textarea.text-edit {

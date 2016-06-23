@@ -29,62 +29,63 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
 using Novell.Directory.Ldap.Asn1;
+using System;
 
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> Represents an Ldap Attribute Value Assertion.
-	/// 
-	/// <pre>
-	/// AttributeValueAssertion ::= SEQUENCE {
-	/// attributeDesc   AttributeDescription,
-	/// assertionValue  AssertionValue }
-	/// </pre>
-	/// </summary>
-	public class RfcAttributeValueAssertion:Asn1Sequence
-	{
-		/// <summary> Returns the attribute description.
-		/// 
-		/// </summary>
-		/// <returns> the attribute description
-		/// </returns>
-		virtual public System.String AttributeDescription
-		{
-			get
-			{
-				return ((RfcAttributeDescription) get_Renamed(0)).stringValue();
-			}
-			
-		}
-		/// <summary> Returns the assertion value.
-		/// 
-		/// </summary>
-		/// <returns> the assertion value.
-		/// </returns>
-		[CLSCompliantAttribute(false)]
-		virtual public sbyte[] AssertionValue
-		{
-			get
-			{
-				return ((RfcAssertionValue) get_Renamed(1)).byteValue();
-			}
-			
-		}
-		
-		/// <summary> Creates an Attribute Value Assertion.
-		/// 
-		/// </summary>
-		/// <param name="ad">The assertion description
-		/// 
-		/// </param>
-		/// <param name="av">The assertion value
-		/// </param>
-		public RfcAttributeValueAssertion(RfcAttributeDescription ad, RfcAssertionValue av):base(2)
-		{
-			add(ad);
-			add(av);
-		}
-	}
+
+    /// <summary> Represents an Ldap Attribute Value Assertion.
+    /// 
+    /// <pre>
+    /// AttributeValueAssertion ::= SEQUENCE {
+    /// attributeDesc   AttributeDescription,
+    /// assertionValue  AssertionValue }
+    /// </pre>
+    /// </summary>
+    public class RfcAttributeValueAssertion : Asn1Sequence
+    {
+        /// <summary> Returns the attribute description.
+        /// 
+        /// </summary>
+        /// <returns> the attribute description
+        /// </returns>
+        virtual public string AttributeDescription
+        {
+            get
+            {
+                return ((RfcAttributeDescription)get_Renamed(0)).stringValue();
+            }
+
+        }
+        /// <summary> Returns the assertion value.
+        /// 
+        /// </summary>
+        /// <returns> the assertion value.
+        /// </returns>
+        [CLSCompliantAttribute(false)]
+        virtual public sbyte[] AssertionValue
+        {
+            get
+            {
+                return ((RfcAssertionValue)get_Renamed(1)).byteValue();
+            }
+
+        }
+
+        /// <summary> Creates an Attribute Value Assertion.
+        /// 
+        /// </summary>
+        /// <param name="ad">The assertion description
+        /// 
+        /// </param>
+        /// <param name="av">The assertion value
+        /// </param>
+        public RfcAttributeValueAssertion(RfcAttributeDescription ad, RfcAssertionValue av)
+            : base(2)
+        {
+            add(ad);
+            add(av);
+        }
+    }
 }

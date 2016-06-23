@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -180,7 +180,16 @@ namespace ASC.Web.CRM.Classes
                 return result ?? string.Empty;
             }
         }
-       
+
+        public static Int32 LinkMessageId
+        {
+            get
+            {
+                int result;
+                return int.TryParse(HttpContext.Current.Request[UrlConstant.LinkMessageId], out result) ? result : 0;
+            }
+        }
+
     }
 
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -105,11 +105,12 @@ namespace ASC.CRM.Core.Dao
         private string GetValidMask(CustomFieldType customFieldType, String mask)
         {
             var resultMask = new JObject();
-            if (String.IsNullOrEmpty(mask) ||
-                (customFieldType != CustomFieldType.TextField && customFieldType != CustomFieldType.TextArea && customFieldType != CustomFieldType.SelectBox))
-            {
+
+            if (customFieldType == CustomFieldType.CheckBox || customFieldType == CustomFieldType.Heading || customFieldType == CustomFieldType.Date)
                 return String.Empty;
-            }
+
+            if(String.IsNullOrEmpty(mask))
+                throw new ArgumentException(CRMErrorsResource.CustomFieldMaskNotValid);
 
             try
             {

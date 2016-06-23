@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -41,20 +41,7 @@ namespace ASC.Web.Studio.Utility
             if (TenantLogoManager.WhiteLabelEnabled)
             {
                 var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
-                imgUrl = _tenantWhiteLabelSettings.GetAbsoluteLogoPath(type, general);
-
-                if (type == WhiteLabelLogoTypeEnum.Dark)
-                {
-                    var defaultDarkLogoPath = TenantWhiteLabelSettings.GetAbsoluteDefaultLogoPath(WhiteLabelLogoTypeEnum.Dark, general);
-
-                    if (String.Equals(imgUrl, defaultDarkLogoPath, StringComparison.OrdinalIgnoreCase))
-                    {
-                        /*** simple scheme ***/
-                        var _tenantInfoSettings = SettingsManager.Instance.LoadSettings<TenantInfoSettings>(TenantProvider.CurrentTenantID);
-                        imgUrl = _tenantInfoSettings.GetAbsoluteCompanyLogoPath();
-                        /***/
-                    }
-                }
+                return _tenantWhiteLabelSettings.GetAbsoluteLogoPath(type, general);
             }
             else
             {

@@ -15,30 +15,54 @@
             <div class="message-wrap">
                 <div class="full-view">
                     <div class="head">
-                        <div class="row">
-                            <label><%: MailScriptResource.FromLabel %>:</label>
-                            <div class="value">${from}</div>
-                        </div>
-                        <div class="row">
-                            <label><%: MailScriptResource.ToLabel %>:</label>
-                            <div class="value">${to}</div>
-                        </div>
-                        {{if cc }}
-                        <div class="row">
-                            <label><%: MailResource.CopyLabel %>:</label>
-                            <div class="value">${cc}</div>
-                        </div>
-                        {{/if}}
-                        {{if bcc }}
-                        <div class="row">
-                            <label><%: MailResource.BCCLabel %>:</label>
-                            <div class="value">${bcc}</div>
-                        </div>
-                        {{/if}}
-                        <div class="row">
-                            <label><%: MailScriptResource.DateLabel %>:</label>
-                            <div class="value">${date}</div>
-                        </div>
+                         <table>
+                            <tbody>
+                                <tr class="row">
+                                    <td class="header-label">
+                                        <%: MailScriptResource.FromLabel %>:
+                                    </td>
+                                    <td class="header-value">
+                                        <div class="value">${from}</div>
+                                    </td>
+                                </tr>
+                                <tr class="row">
+                                    <td class="header-label">
+                                        <%: MailScriptResource.ToLabel %>:
+                                    </td>
+                                    <td class="header-value">
+                                        <div class="value">${to}</div>
+                                    </td>
+                                </tr>
+                                {{if cc }}
+                                <tr class="row">
+                                    <td class="header-label">
+                                        <%: MailResource.CopyLabel %>:
+                                    </td>
+                                    <td class="header-value">
+                                        <div class="value">${cc}</div>
+                                    </td>
+                                </tr>
+                                {{/if}}
+                                {{if bcc }}
+                                <tr class="row">
+                                    <td class="header-label">
+                                        <%: MailResource.BCCLabel %>:
+                                    </td>
+                                    <td class="header-value">
+                                        <div class="value">${bcc}</div>
+                                    </td>
+                                </tr>
+                                {{/if}}
+                                <tr class="row">
+                                    <td class="header-label">
+                                        <%: MailScriptResource.DateLabel %>:
+                                    </td>
+                                    <td class="header-value">
+                                        <div class="value">${date}</div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

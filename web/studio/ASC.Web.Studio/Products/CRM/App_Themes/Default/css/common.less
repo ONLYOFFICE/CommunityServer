@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -85,36 +85,54 @@ textarea {
 
 
 .crm-deleteLink{
-    background: url("../images/icons.png") 0 -280px no-repeat transparent;
+    background: url("../images/icons.png") 0 -263px no-repeat transparent;
     .crm-actionLinkBase;
 }
 .crm-editLink{
-    background: url("../images/icons.png") 0 -257px no-repeat transparent;
+    background: url("../images/icons.png") 0 -240px no-repeat transparent;
     .crm-actionLinkBase;
 }
 .crm-addNewLink{
-    background: url( "../images/icons.png" ) 0 -235px no-repeat transparent;
     .crm-actionLinkBase;
+    position: relative;
+
+    &:after {
+        color: #83888d;
+        content: "+";
+        cursor: pointer;
+        display: block;
+        font-size: 22px;
+        font-weight: 800;
+        height: 20px;
+        line-height: 20px;
+        left: 1px;
+        margin-top: -11px;
+        position: absolute;
+        top: 50%;
+        width: 12px;
+    }
 }
+
 .crm-acceptLink{
-    background: url("../images/icons.png") 0 -60px no-repeat  transparent;
+    background: url("../images/icons.png") 0 -43px no-repeat  transparent;
     .crm-actionLinkBase;
 }
+
 .crm-rejectLink{
-    background: url("../images/icons.png") 0 -44px no-repeat transparent;
+    background: url("../images/icons.png") 0 -21px no-repeat transparent;
     .crm-actionLinkBase;
 }
 .crm-removeLink{
     background: url("../images/remove.png") 0 -16px no-repeat transparent;
     .crm-actionLinkBase
 }
-.crm-moveLink{
+.crm-moveLink {
     background: url("../images/drug-n-drop_items.png") 0 0 no-repeat transparent;
     cursor: move;
     display: inline-block;
     height: 15px;
     width: 3px;
-    text-decoration:none;
+    text-decoration: none;
 }
 
 .crm-showMoreLink, .crm-showMoreLink:hover{
@@ -131,15 +149,15 @@ textarea {
     position: relative;
 }
 .crm-email:after {
-    background: url("../images/icons.png") 0 -493px no-repeat  transparent;
+    background: url("../images/icons.png") 0 -476px no-repeat  transparent;
     .crm-img-pseudo-base(2px);
 }
 .crm-phone:after {
-    background: url("../images/icons.png") 0 -475px no-repeat  transparent;
+    background: url("../images/icons.png") 0 -458px no-repeat  transparent;
     .crm-img-pseudo-base(2px);
 }
 .crm-address:after {
-    background: url("../images/icons.png") 0 -455px no-repeat  transparent;
+    background: url("../images/icons.png") 0 -438px no-repeat  transparent;
     .crm-img-pseudo-base;
 }
 .crm-email a {
@@ -188,9 +206,9 @@ textarea {
         background: url( "../images/import.png" ) no-repeat scroll 0 0 transparent;
         color: @textColor;
         cursor: pointer;
-        margin-left: -36px;
+        .crm-img-pseudo-base(50%, 0);
+        left: -19px;
         margin-top: -7px;
-        .crm-img-pseudo-base(50%, 16px);
     }
 }
 
@@ -200,7 +218,7 @@ select.disabled {
     color: #666562;
 }
 .crm-private-lock{
-    background: url("../images/icons.png") 1px -176px no-repeat transparent;
+    background: url("../images/icons.png") 1px -159px no-repeat transparent;
     
     display: inline-block;
     height: 16px;
@@ -224,20 +242,20 @@ select.disabled {
 
 div.advansed-filter-container .filter-item-custom-contact .contact-selector {
     display: inline-block;
-    height: 14px;
-    line-height: 14px;
+    height: 18px;
+    line-height: 18px;
     max-width: 150px;
     padding: 0 0 0 2px;
     position: relative;
     width: auto;
 
     .custom-value {
-        background: url("../images/combobox-bg-button.gif") no-repeat scroll right 1px rgba(0, 0, 0, 0);
         cursor: pointer;
-        height: 100%;
+        margin-top: -1px;
         padding: 0 0 0 2px;
         position: relative;
         display: block;
+        &:after{border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 4px solid #888888; content: ""; height: 0; position: absolute; right: 1px; top: 50%; width: 0; margin-top: -1px;}
 
         .inner-text .value {
             border-bottom: 1px dotted #1A6DB3;
@@ -346,15 +364,17 @@ Button with a triangle (arrow down) on the right
     position: relative;
 
     &:after {
-        background: url("../images/arrow_down.gif") no-repeat scroll 0 0 transparent;
-        content: " ";
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 4px solid #212121;
+        content: "";
         display: block;
-        height: 4px;
-        margin-top: -2px;
+        height: 0;
+        width: 0;
         position: absolute;
-        right: -12px;
         top: 50%;
-        width: 7px;
+        right: -13px;
+        margin-top: -2px;
     }
 }
 
@@ -374,7 +394,7 @@ a.attachLink, a.attachLink:active, a.attachLink:hover, a.attachLink:visited{
     position: relative;
     margin: 3px 4px 3px 20px;
     &:after {
-        background: url( "../images/icons.png" ) 0 -432px no-repeat;
+        background: url( "../images/icons.png" ) 0 -415px no-repeat;
         margin-top: -8px;
         margin-left: -30px;
         .crm-img-pseudo-base(50%, 10px);
@@ -424,7 +444,7 @@ a.attachLink, a.attachLink:active, a.attachLink:hover, a.attachLink:visited{
     float:left;
 }
 .mainContainerClass .containerHeaderBlock .privateMark {
-    background: url("../images/icons.png") 0 -200px no-repeat transparent;
+    background: url("../images/icons.png") 0 -183px no-repeat transparent;
     width: 24px;
     height: 24px;
 }
@@ -528,29 +548,58 @@ TagView.ascx
 
     span.tag_item {
         display: inline-block;
-        padding: 1px 24px 1px 12px;
+        padding: 1px 22px 1px 12px;
         margin: 0 2px 4px 0;
         position: relative;
-        background: url( "../images/icons.png" ) right -595px no-repeat #E9E9E9;
+        background-color: #E9E9E9;
+
+        &:after {
+            border-left: 8px solid #E9E9E9;
+            border-top: 9px solid #FFFFFF;
+            content: "";
+            display: block;
+            height: 0;
+            margin-top: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            width: 0;
+        }
+        &:before {
+            border-left: 8px solid #E9E9E9;
+            border-bottom: 10px solid #FFFFFF;
+            content: "";
+            display: block;
+            height: 0;
+            margin-top: 0;
+            position: absolute;
+            right: 0;
+            bottom: 0;
+            width: 0;
+        }
 
         a.delete_tag {
-            background: url( "../images/icons.png" ) 0 -576px no-repeat transparent;
+            color: #83888d;
             cursor: pointer;
             display: none;
-            margin-top: -8px;
-            width: 9px;
+            font-family: Arial;
+            font-size: 16px;
+            font-weight: 600;
             height: 16px;
+            line-height: 16px;
+            margin-top: -8px;
             position: absolute;
-            right: 11px;
+            right: 9px;
+            text-decoration: none;
             top: 50%;
         }
     }
 
-    span.tag_item:hover a.delete_tag,
-    span.tag_item.tag_hover a.delete_tag,
-    span.tag_item a.delete_tag:hover {
-        display: inline-block;
-    }
+        span.tag_item:hover a.delete_tag,
+        span.tag_item.tag_hover a.delete_tag,
+        span.tag_item a.delete_tag:hover {
+            display: inline-block;
+        }
 
     .clear {
         clear: both;
@@ -610,10 +659,11 @@ Navigation panel with page navigator
     margin-top: 20px;
 
     .tl-combobox {
-        background: url("../images/icons.png") right -647px no-repeat transparent;
-        vertical-align: middle;
         margin-bottom: 1px;
-
+        vertical-align: middle;
+        .combobox-title:after {
+            border-top-color: #83888D;
+        }
     }
 }
 
@@ -621,7 +671,7 @@ Navigation panel with page navigator
 File Uploader css style
 *******************************************************************************/
 .pm_deleteLinkCSSClass {
-    background:url("../images/icons.png") 0 -620px no-repeat transparent;
+    background:url("../images/icons.png") 0 -603px no-repeat transparent;
     .crm-actionLinkBase;
     text-decoration:none !important;
 }
@@ -632,7 +682,7 @@ File Uploader css style
     text-decoration:none !important;
 }
 .pm_completeCSSClass {
-    background:url("../images/icons.png") 0 -80px no-repeat transparent;
+    background:url("../images/icons.png") 0 -63px no-repeat transparent;
     .crm-actionLinkBase(16px);
     cursor:default;
     margin-top:2px;
@@ -647,10 +697,10 @@ File Uploader css style
 }
 .pm_overAllProcessBarCssClass div {
     height:8px;
-    background:url("../images/icons.png") 0 -715px repeat-x !important;
+    background:url("../images/icons.png") 0 -698px repeat-x !important;
 }
 .pm_uploadIcon {
-    background: url(../images/icons.png) 0 -670px no-repeat transparent;
+    background: url(../images/icons.png) 0 -653px no-repeat transparent;
     height: 32px;
     width: 32px;
 }
@@ -693,11 +743,27 @@ CategorySelector.ascx
     padding-left: 5px;
 }
 .categorySelector-selector {
-    background: url("../images/icons.png") 1px -148px no-repeat transparent;
     cursor: pointer;
+    display: block;
     float: left;
     height: 20px;
     width: 18px;
+    position: relative;
+
+    &:after{
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid #83888D;
+        content: "";
+        display: block;
+        height: 0;
+        width: 0;
+        margin: 0;
+        position: absolute;
+        right: 4px;
+        top: 8px;
+    }
+
 }
 
 .categorySelector-categoriesContainer {
@@ -823,7 +889,7 @@ label.event_category {
 }
 
 label.event_attached_file {
-    background: url("../images/icons.png") no-repeat scroll 0 -432px rgba(0, 0, 0, 0);
+    background: url("../images/icons.png") no-repeat scroll 0 -415px rgba(0, 0, 0, 0);
     content: " ";
     display: inline-block;
     height: 16px;
@@ -980,13 +1046,16 @@ ContactSelector.ascx
     }
 
     label.crossButton {
-        background: url("../images/icons.png") 0 -760px no-repeat transparent;
+        background: url("../images/icons.png") 0 -718px no-repeat transparent;
         .crm-actionLinkBase;
     }
 
     label.searchButton {
-        background: url("../images/icons.png") 0 -785px no-repeat transparent;
+        position: relative;
         .crm-actionLinkBase;
+
+        &:before{content: " "; position: absolute; width: 7px; height: 7px; border: 2px solid #8d9195; .borderRadius(7px); top: 1px; left: 1px; }
+        &:after{content: " "; position: absolute; width: 0; height: 6px; border-right: 2px solid #8d9195; top: 9px; left: 11px; .rotateTransform(135deg); }
     }
 }
 
@@ -1054,25 +1123,25 @@ HistoryView.ascx
             padding: 5px 0;
             .text-overflow(800px);
         }
+
+        p {
+            margin: 0;
+        }
     }
 
     #eventsTable {
-        border-collapse: collapse;
-        width: 100%;
-
         tbody {
+            tr:hover {
+                background-color: transparent;
+            }
+
             td {
-                border-left: medium none;
-                border-right: medium none;
                 text-align: left;
                 vertical-align: middle;
 
                 a.title {
                     font-weight: bold;
                 }
-            }
-            tr:last-child {
-                border-bottom: none;
             }
         }
     }
@@ -1303,7 +1372,7 @@ Import From CSV
             position: relative;
 
             &:after {
-                background: url("../images/icons.png") 0 -305px no-repeat transparent;
+                background: url("../images/icons.png") 0 -288px no-repeat transparent;
                 .crm-img-pseudo-base(50%, -16px, 14px, 14px);
                 margin-top: -7px;
             }
@@ -1315,13 +1384,17 @@ Import From CSV
     }
 
     .tl-combobox:not(.makePublicPanelSelector) {
-        background: url("../images/icons.png") right -647px no-repeat transparent;
         margin-bottom: 1px;
         vertical-align: middle;
+        .combobox-title {
+            &:after {
+                border-top-color: #83888D;
+            }
 
-        .combobox-title .inner-text {
-            border-bottom: 1px dotted @textColorBlackDark;
-            color: @textColorBlackDark;
+            .inner-text {
+                border-bottom: 1px dotted @textColorBlackDark;
+                color: @textColorBlackDark;
+            }
         }
     }
 

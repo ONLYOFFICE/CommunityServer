@@ -106,6 +106,15 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Review.
+        /// </summary>
+        public static string AceStatusEnum_Review {
+            get {
+                return ResourceManager.GetString("AceStatusEnum_Review", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Varies.
         /// </summary>
         public static string AceStatusEnum_Varies {
@@ -516,15 +525,6 @@ namespace ASC.Web.Files.Resources {
         public static string ErrorMassage_FileSize {
             get {
                 return ResourceManager.GetString("ErrorMassage_FileSize", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Not allowed to download on mobile device.
-        /// </summary>
-        public static string ErrorMassage_MobileDownload {
-            get {
-                return ResourceManager.GetString("ErrorMassage_MobileDownload", resourceCulture);
             }
         }
         

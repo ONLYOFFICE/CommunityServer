@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,18 +26,14 @@
 
 #region Import
 
+using ASC.Core;
+using ASC.CRM.Core;
+using ASC.Web.CRM.Classes;
+using ASC.Web.CRM.Core.Enums;
 using System;
-using System.Web;
 using System.Collections.Generic;
 using System.Linq;
-using ASC.CRM.Core;
-using ASC.Web.Core.Mobile;
-using ASC.Web.Core.Utility.Skins;
-using ASC.Web.CRM.Classes;
-using ASC.Core;
-using System.Text;
-using ASC.Core.Tenants;
-using ASC.Web.CRM.Core.Enums;
+using System.Web;
 
 #endregion
 
@@ -55,22 +51,15 @@ namespace ASC.Web.CRM.Controls.Common
 
         public int TargetContactID { get; set; }
 
-        protected bool MobileVer = false;
-
         #endregion
 
         #region Events
 
         private void Page_Load(object sender, EventArgs e)
         {
-            MobileVer = MobileDetector.IsMobile;
-
             Page.RegisterClientScript(typeof(Masters.ClientScripts.HistoryViewData));
 
-            if (!MobileVer)
-            {
-                _phfileUploader.Controls.Add(LoadControl(FileUploader.Location));
-            }
+            _phfileUploader.Controls.Add(LoadControl(FileUploader.Location));
 
             initUserSelectorListView();
             RegisterScript();

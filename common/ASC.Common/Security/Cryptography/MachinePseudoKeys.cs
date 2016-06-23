@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -35,13 +35,28 @@ namespace ASC.Security.Cryptography
 {
     public static class MachinePseudoKeys
     {
+        private static readonly byte[] confkey = null;
+
+
+        static MachinePseudoKeys()
+        {
+            var key = ConfigurationManager.AppSettings["core.machinekey"];
+            if (string.IsNullOrEmpty(key))
+            {
+                key = ConfigurationManager.AppSettings["asc.common.machinekey"];
+            }
+            if (!string.IsNullOrEmpty(key))
+            {
+                confkey = Encoding.UTF8.GetBytes(key);
+            }
+        }
+
+
         public static byte[] GetMachineConstant()
         {
-            var confkey = ConfigurationManager.AppSettings["core.machinekey"];
-            if (string.IsNullOrEmpty(confkey)) confkey = ConfigurationManager.AppSettings["asc.common.machinekey"];
-            if (!string.IsNullOrEmpty(confkey))
+            if (confkey != null)
             {
-                return Encoding.UTF8.GetBytes(confkey);
+                return confkey;
             }
 
             var path = typeof(MachinePseudoKeys).Assembly.Location;

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,8 +26,10 @@
 
 using System;
 using System.IO;
+using System.Web;
 using ASC.Api.Attributes;
 using ASC.Mail.Aggregator.Common;
+using ASC.Mail.Aggregator.Common.Utils;
 using ASC.Mail.Aggregator.Dal;
 
 namespace ASC.Api.Mail
@@ -38,16 +40,21 @@ namespace ASC.Api.Mail
         /// Export all message's attachments to MyDocuments
         /// </summary>
         /// <param name="id_message">Id of any message</param>
+        /// <param name="id_folder" optional="true">Id of Documents folder (if empty then @My)</param>
         /// <returns>Count of exported attachments</returns>
         /// <category>Messages</category>
         [Update(@"messages/attachments/export")]
-        public int ExportAttachmentsToMyDocuments(int id_message)
+        public int ExportAttachmentsToDocuments(int id_message, string id_folder = null)
         {
             if (id_message < 1)
                 throw new ArgumentException(@"Invalid message id", "id_message");
 
-            var documentsDal = new DocumentsDal(MailBoxManager, TenantId, Username);
-            var savedAttachmentsList = documentsDal.StoreAttachmentsToMyDocuments(id_message);
+            if (string.IsNullOrEmpty(id_folder))
+                id_folder = DocumentsDal.MY_DOCS_FOLDER_ID;
+
+            var scheme = HttpContext.Current == null ? Uri.UriSchemeHttp : HttpContext.Current.Request.GetUrlRewriter().Scheme;
+            var documentsDal = new DocumentsDal(MailBoxManager, TenantId, Username, scheme);
+            var savedAttachmentsList = documentsDal.StoreAttachmentsToDocuments(id_message, id_folder);
 
             return savedAttachmentsList.Count;
         }
@@ -56,16 +63,22 @@ namespace ASC.Api.Mail
         /// Export attachment to MyDocuments
         /// </summary>
         /// <param name="id_attachment">Id of any attachment from the message</param>
+        /// <param name="id_folder" optional="true">Id of Documents folder (if empty then @My)</param>
         /// <returns>Id document in My Documents</returns>
         /// <category>Messages</category>
         [Update(@"messages/attachment/export")]
-        public int ExportAttachmentToMyDocuments(int id_attachment)
+        public int ExportAttachmentToDocuments(int id_attachment, string id_folder = null)
         {
             if (id_attachment < 1)
                 throw new ArgumentException(@"Invalid attachment id", "id_attachment");
 
-            var documentsDal = new DocumentsDal(MailBoxManager, TenantId, Username);
-            var documentId = documentsDal.StoreAttachmentToMyDocuments(id_attachment);
+            if (string.IsNullOrEmpty(id_folder))
+                id_folder = DocumentsDal.MY_DOCS_FOLDER_ID;
+
+            var scheme = HttpContext.Current == null ? Uri.UriSchemeHttp : HttpContext.Current.Request.GetUrlRewriter().Scheme;
+
+            var documentsDal = new DocumentsDal(MailBoxManager, TenantId, Username, scheme);
+            var documentId = documentsDal.StoreAttachmentToDocuments(id_attachment, id_folder);
             return documentId;
         }
 
@@ -75,14 +88,47 @@ namespace ASC.Api.Mail
         /// <param name="id_message">Id of any message</param>
         /// <param name="name">File name</param>
         /// <param name="file">File stream</param>
+        /// <param name="content_type">File content type</param>
         /// <returns>MailAttachment</returns>
         /// <category>Messages</category>
         [Create(@"messages/attachment/add")]
-        public MailAttachment AddAttachment(int id_message, string name, Stream file)
+        public MailAttachment AddAttachment(int id_message, string name, Stream file, string content_type)
         {
-            var attachment = MailBoxManager.AttachFile(TenantId, Username, id_message, name, file);
+            var attachment = MailBoxManager.AttachFile(TenantId, Username, id_message, name, file, content_type);
 
             return attachment;
+        }
+
+        /// <summary>
+        /// Add attachment to draft
+        /// </summary>
+        /// <param name="id_message">Id of any message</param>
+        /// <param name="ical_body">File name</param>
+        /// <returns>MailAttachment</returns>
+        /// <category>Messages</category>
+        [Create(@"messages/calendarbody/add")]
+        public MailAttachment AddCalendarBody(int id_message, string ical_body)
+        {
+            if (string.IsNullOrEmpty(ical_body))
+                throw new ArgumentException(@"Empty calendar body", "ical_body");
+
+            var calendar = MailUtil.ParseValidCalendar(ical_body);
+
+            if (calendar == null)
+                throw new ArgumentException(@"Invalid calendar body", "ical_body");
+
+            using (var ms = new MemoryStream())
+            {
+                using (var writer = new StreamWriter(ms))
+                {
+                    writer.Write(ical_body);
+                    writer.Flush();
+                    ms.Position = 0;
+
+                    var attachment = MailBoxManager.AttachFile(TenantId, Username, id_message, calendar.Method.ToLowerInvariant() +  ".ics", ms, "text/calendar");
+                    return attachment;
+                }
+            }
         }
     }
 }

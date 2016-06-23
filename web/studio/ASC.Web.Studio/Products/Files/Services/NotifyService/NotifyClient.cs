@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,20 +24,21 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
 using ASC.Core;
 using ASC.Files.Core;
+using ASC.Files.Core.Security;
 using ASC.Notify;
 using ASC.Notify.Patterns;
 using ASC.Notify.Recipients;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Classes;
-using ASC.Web.Studio.Utility;
-using ASC.Files.Core.Security;
+using ASC.Web.Files.Resources;
 using ASC.Web.Studio.Core.Notify;
+using ASC.Web.Studio.Utility;
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 
 namespace ASC.Web.Files.Services.NotifyService
 {
@@ -138,9 +139,11 @@ namespace ASC.Web.Files.Services.NotifyService
             switch (fileShare)
             {
                 case FileShare.Read:
-                    return Resources.FilesCommonResource.ResourceManager.GetString("AceStatusEnum_Read", cultureInfo);
+                    return FilesCommonResource.ResourceManager.GetString("AceStatusEnum_Read", cultureInfo);
                 case FileShare.ReadWrite:
-                    return Resources.FilesCommonResource.ResourceManager.GetString("AceStatusEnum_ReadWrite", cultureInfo);
+                    return FilesCommonResource.ResourceManager.GetString("AceStatusEnum_ReadWrite", cultureInfo);
+                case FileShare.Review:
+                    return FilesCommonResource.ResourceManager.GetString("AceStatusEnum_Review", cultureInfo);
                 default:
                     return String.Empty;
             }

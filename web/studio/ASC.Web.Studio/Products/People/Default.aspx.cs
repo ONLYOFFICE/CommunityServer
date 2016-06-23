@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,40 +24,31 @@
 */
 
 
-#region Import
-
-using System;
-using System.Web;
 using ASC.Core;
+using ASC.Core.Billing;
 using ASC.Core.Users;
 using ASC.Web.Core.Utility.Skins;
-using ASC.Web.People.Core;
 using ASC.Web.People.Resources;
 using ASC.Web.Studio;
-using ASC.Web.Studio.Controls.Common;
-using ASC.Web.Studio.UserControls.Management;
+using ASC.Web.Studio.UserControls.Common.LoaderPage;
 using ASC.Web.Studio.UserControls.Users;
 using ASC.Web.Studio.UserControls.Users.UserProfile;
 using ASC.Web.Studio.Utility;
-using ASC.Web.Studio.UserControls.Common.LoaderPage;
-
-#endregion
+using System;
+using System.Linq;
+using System.Web;
 
 namespace ASC.Web.People
 {
     public partial class Default : MainPage
     {
-        #region Properies
-
         protected bool IsAdmin { get; private set; }
 
         protected bool IsFreeTariff { get; private set; }
 
+        protected bool DisplayPayments { get; private set; }
+
         private UserInfo userInfo;
-
-        #endregion
-
-        #region Events
 
         public AllowedActions Actions;
 
@@ -66,11 +57,15 @@ namespace ASC.Web.People
         {
             base.OnLoad(e);
 
-            this.Page.RegisterBodyScriptsControl("~/products/people/masters/DefaultBodyScripts.ascx");
+            Page.RegisterBodyScripts(ResolveUrl, 
+                                         "~/products/people/js/peoplemanager.js",
+                                         "~/products/people/js/filterHandler.js",
+                                         "~/products/people/js/navigatorHandler.js",
+                                         "~/products/people/js/peopleController.js");
 
-            this.Page.RegisterInlineScript(String.Format(" emptyScreenPeopleFilter = '{0}'; ",
-                                                        WebImageSupplier.GetAbsoluteWebPath("empty_screen_filter.png")),
-                                            onReady: false);
+            Page.RegisterInlineScript(String.Format(" emptyScreenPeopleFilter = '{0}'; ",
+                                                    WebImageSupplier.GetAbsoluteWebPath("empty_screen_filter.png")),
+                                      onReady: false);
 
         }
 
@@ -83,8 +78,9 @@ namespace ASC.Web.People
             var quota = TenantExtra.GetTenantQuota();
             IsFreeTariff = quota.Free && !quota.Open;
 
+            DisplayPayments = !CoreContext.Configuration.Standalone || quota.ActiveUsers != LicenseReader.MaxUserCount;
 
-            var controlEmailChange = (UserEmailChange)LoadControl(UserEmailChange.Location);
+            var controlEmailChange = (UserEmailChange) LoadControl(UserEmailChange.Location);
             controlEmailChange.UserInfo = userInfo;
             userEmailChange.Controls.Add(controlEmailChange);
 
@@ -97,7 +93,5 @@ namespace ASC.Web.People
             }
             Title = HeaderStringHelper.GetPageTitle(PeopleResource.ProductName);
         }
-
-        #endregion
     }
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -62,9 +62,13 @@ window.ASC.Files.UI = (function () {
             if (!ASC.Files.Common.isCorrectId(entryId)) {
                 return null;
             }
-            return jq("#filesMainContent .file-row[data-id=\"" + entryType + "_" + entryId + "\"]");
+            return jq("#filesMainContent .file-row" + ASC.Files.UI.getSelectorId(entryType + "_" + entryId));
         }
         return null;
+    };
+
+    var getSelectorId = function (id) {
+        return "[data-id=\"" + (id + "").replace(/\\/g, "\\\\").replace(/\"/g, "\\\"") + "\"]";
     };
 
     var getObjectData = function (entryObject) {
@@ -84,20 +88,32 @@ window.ASC.Files.UI = (function () {
         }
 
         var entryDataStr = entryObject.find(selectorData).val();
-        var resulat = jq.parseJSON(entryDataStr || null);
-        if (!resulat || !ASC.Files.Common.isCorrectId(resulat.id)) {
+        var result = null;
+        try {
+            result = jq.parseJSON(entryDataStr || null);
+        } catch (e) {
+            if (console && console.log) {
+                console.log("Error parseJSON: \n" + entryDataStr);
+            }
+        }
+
+        if (!result) {
             return null;
         }
 
-        resulat.entryId = resulat.id;
-        resulat.entryType = (resulat.entryType === "file" ? "file" : "folder");
-        resulat.create_by = entryObject.find("input:hidden[name=\"create_by\"]").val();
-        resulat.modified_by = entryObject.find("input:hidden[name=\"modified_by\"]").val();
-        resulat.comment = entryObject.find("input:hidden[name=\"comment\"]").val();
-        resulat.entryObject = entryObject;
-        resulat.error = (resulat.error != "" ? resulat.error : false);
-        resulat.title = (resulat.title || "").trim();
-        return resulat;
+        result.id = result.entryId = entryObject.find(selectorData).attr("data-id");
+        if (!ASC.Files.Common.isCorrectId(result.id)) {
+            return null;
+        }
+
+        result.entryType = (result.entryType === "file" ? "file" : "folder");
+        result.create_by = entryObject.find("input:hidden[name=\"create_by\"]").val();
+        result.modified_by = entryObject.find("input:hidden[name=\"modified_by\"]").val();
+        result.comment = entryObject.find("input:hidden[name=\"comment\"]").val();
+        result.entryObject = entryObject;
+        result.error = (result.error != "" ? result.error : false);
+        result.title = (result.title || "").trim();
+        return result;
     };
 
     var parseItemId = function (itemId) {
@@ -340,7 +356,7 @@ window.ASC.Files.UI = (function () {
         return fileType == "file"
             && ASC.Files.Folders.folderContainer != "trash"
             && !fileObj.hasClass("row-rename")
-            && ASC.Files.UI.accessEdit(fileData, fileObj)
+            && ASC.Files.UI.accessEdit(fileData, fileObj, true)
             && ASC.Files.Utility.CanWebEdit(title);
     };
 
@@ -391,19 +407,17 @@ window.ASC.Files.UI = (function () {
                         var entryUrl = ASC.Files.Utility.GetFileDownloadUrl(entryId);
 
                         if (ASC.Files.Utility.CanWebEdit(entryTitle)
-                            && !ASC.Files.Utility.MustConvert(entryTitle)
-                            && ASC.Resources.Master.TenantTariffDocsEdition) {
+                            && !ASC.Files.Utility.MustConvert(entryTitle)) {
                             entryUrl = ASC.Files.Utility.GetFileWebEditorUrl(entryId);
                             rowLink.attr("href", entryUrl).attr("target", "_blank");
-                        } else if (ASC.Files.Utility.CanWebView(entryTitle)
-                            && ASC.Resources.Master.TenantTariffDocsEdition) {
+                        } else if (ASC.Files.Utility.CanWebView(entryTitle)) {
                             entryUrl = ASC.Files.Utility.GetFileWebViewerUrl(entryId);
                             rowLink.attr("href", entryUrl).attr("target", "_blank");
                         } else if (typeof ASC.Files.ImageViewer != "undefined" && ASC.Files.Utility.CanImageView(entryTitle)) {
-                            entryUrl = "#" + ASC.Files.ImageViewer.getPreviewHash(entryId);
+                            entryUrl = "#" + ASC.Files.Common.getCorrectHash(ASC.Files.ImageViewer.getPreviewHash(entryId));
                             rowLink.attr("href", entryUrl);
                         } else {
-                            rowLink.attr("href", jq.browser.mobile ? "" : entryUrl);
+                            rowLink.attr("href", entryUrl);
                         }
 
                         var lockObj = entryObj.find(".file-lock");
@@ -444,13 +458,13 @@ window.ASC.Files.UI = (function () {
                         }
                     }
                 } else if (ASC.Files.Folders.folderContainer != "trash") {
-                    entryUrl = ASC.Files.Constants.URL_BASE + "#" + ASC.Files.Common.fixHash(entryId);
+                    entryUrl = ASC.Files.Constants.URL_BASE + "#" + ASC.Files.Common.getCorrectHash(entryId);
                     rowLink.attr("href", entryUrl);
                 }
 
                 if (ASC.Files.Folders.folderContainer == "trash"
                     || entryData.error) {
-                    rowLink.attr("href", ASC.Files.Constants.URL_BASE + "#" + ASC.Files.Folders.currentFolder.id);
+                    rowLink.attr("href", ASC.Files.Constants.URL_BASE + "#" + ASC.Files.Common.getCorrectHash(ASC.Files.Folders.currentFolder.id));
                 }
 
                 if (!jq("#filesMainContent").hasClass("without-share")
@@ -555,6 +569,7 @@ window.ASC.Files.UI = (function () {
 
         entryObj.find(".checkbox input").prop("checked", value === true);
         entryObj.toggleClass("row-selected", value).removeAttr("data-selected");
+        jq("#filesMainContent .menu-small.active").removeClass("active");
 
         return true;
     };
@@ -628,7 +643,7 @@ window.ASC.Files.UI = (function () {
         }
     };
 
-    var accessEdit = function (entryData, entryObj) {
+    var accessEdit = function (entryData, entryObj, review) {
         if (Teamlab.profile.isOutsider) {
             return false;
         }
@@ -681,6 +696,8 @@ window.ASC.Files.UI = (function () {
             case ASC.Files.Constants.AceStatusEnum.Read:
             case ASC.Files.Constants.AceStatusEnum.Restrict:
                 return false;
+            case ASC.Files.Constants.AceStatusEnum.Review:
+                return !!review;
             default:
                 return access;
         }
@@ -711,6 +728,10 @@ window.ASC.Files.UI = (function () {
         }
 
         if (ASC.Files.Folders.currentFolder.id == ASC.Files.Constants.FOLDER_ID_PROJECT) {
+            return false;
+        }
+
+        if (access == ASC.Files.Constants.AceStatusEnum.Read) {
             return false;
         }
 
@@ -752,14 +773,12 @@ window.ASC.Files.UI = (function () {
             return;
         }
 
-        Encoder.EncodeType = "!entity";
         var data = {
             entry: jq(list).map(function (i, item) {
                 var fileId = ASC.Files.UI.getObjectData(item).entryId;
-                return Encoder.htmlEncode(fileId);
+                return fileId;
             }).toArray()
         };
-        Encoder.EncodeType = "entity";
 
         ASC.Files.ServiceManager.checkEditing(ASC.Files.ServiceManager.events.CheckEditing, { list: data.entry }, { stringList: data });
     };
@@ -769,13 +788,12 @@ window.ASC.Files.UI = (function () {
 
         var entryData = ASC.Files.UI.getObjectData(entryObj);
 
-        Encoder.EncodeType = "!entity";
         var jsonData = {
             entryTooltip:
                 {
                     type: entryType,
-                    title: Encoder.htmlEncode(entryData.title),
-                    create_by: Encoder.htmlEncode(entryData.create_by),
+                    title: entryData.title,
+                    create_by: entryData.create_by,
                     date_type:
                         (ASC.Files.Folders.folderContainer == "trash"
                             ? "remove"
@@ -800,7 +818,7 @@ window.ASC.Files.UI = (function () {
                     comment: entryData.comment,
                 }
         };
-        Encoder.EncodeType = "entity";
+
         var stringData = ASC.Files.Common.jsonToXml(jsonData);
 
         var htmlTootlip = ASC.Files.TemplateManager.translateFromString(stringData);
@@ -839,7 +857,7 @@ window.ASC.Files.UI = (function () {
 
             jq(buttonSelector)
                 .attr("data-id", parentFolderId)
-                .attr("href", ASC.Files.Constants.URL_BASE + "#" + parentFolderId)
+                .attr("href", ASC.Files.Constants.URL_BASE + "#" + ASC.Files.Common.getCorrectHash(parentFolderId))
                 .attr("title", parentFolderTitle);
 
             jq(panelSelector || buttonSelector).show();
@@ -928,22 +946,6 @@ window.ASC.Files.UI = (function () {
         ASC.Files.UI.setDocumentTitle(ASC.Files.FilesJSResources.TitleMoreFeaturs);
     };
 
-    var displayTariffDocsEdition = function () {
-        if (!jq("#tariffLimitDocsEditionPanel").length) {
-            return false;
-        }
-        ASC.Files.UI.blockUI("#tariffLimitDocsEditionPanel", 500, 300, 0);
-        return true;
-    };
-
-    var displayHostedPartnerUnauthorized = function () {
-        if (!jq("#UnauthorizedPartnerPanel").length) {
-            return false;
-        }
-        ASC.Files.UI.blockUI("#UnauthorizedPartnerPanel", 500, 300, 0);
-        return true;
-    };
-
     var displayTariffLimitStorageExceed = function () {
         if (!jq("#tariffLimitExceedStoragePanel").length) {
             return false;
@@ -1011,6 +1013,7 @@ window.ASC.Files.UI = (function () {
         parseItemId: parseItemId,
         getEntryObject: getEntryObject,
         getObjectData: getObjectData,
+        getSelectorId: getSelectorId,
 
         getEntryTitle: getEntryTitle,
         getObjectTitle: getObjectTitle,
@@ -1074,10 +1077,8 @@ window.ASC.Files.UI = (function () {
         displayCommonSetting: displayCommonSetting,
         displayMoreFeaturs: displayMoreFeaturs,
 
-        displayTariffDocsEdition: displayTariffDocsEdition,
         displayTariffLimitStorageExceed: displayTariffLimitStorageExceed,
         displayTariffFileSizeExceed: displayTariffFileSizeExceed,
-        displayHostedPartnerUnauthorized: displayHostedPartnerUnauthorized,
 
         blockUI: blockUI,
 
@@ -1193,8 +1194,10 @@ window.ASC.Files.UI = (function () {
                 }
 
                 if (code == ASC.Files.Common.keyCode.n && e.shiftKey) {
-                    ASC.Files.Folders.typeNewDoc = "document";
-                    ASC.Files.Folders.createNewDoc();
+                    if (!ASC.Files.Utility.CanWebEdit(ASC.Files.Utility.Resource.InternalFormats.Document)) {
+                        ASC.Files.Folders.typeNewDoc = "document";
+                        ASC.Files.Folders.createNewDoc();
+                    }
                     return false;
                 }
             }
@@ -1214,6 +1217,10 @@ window.ASC.Files.UI = (function () {
 
                 if (ASC.Files.Actions) {
                     ASC.Files.Actions.hideAllActionPanels();
+                }
+
+                if (ASC.Files.ChunkUploads) {
+                    ASC.Files.ChunkUploads.hideDragHighlight();
                 }
                 return true;
             }

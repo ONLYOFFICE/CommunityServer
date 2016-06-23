@@ -150,13 +150,16 @@
 
     <div id="changeTypeDialogBody" class="display-none">
         <div id="userTypeInfo">
+            <% if (DisplayPayments)
+               { %>
             <div class="block-cnt-splitter">
                 <span class="tariff-limit"></span>
                 <%= PeopleResource.ChangeTypeDialogConstraint %>&nbsp;
                 <%= IsFreeTariff ? string.Format(PeopleResource.ReadAboutNonProfit,
-                    "<a class='link underline' href='http://helpcenter.onlyoffice.com/gettingstarted/configuration.aspx#PublicPortals' target='_blank'>",
-                    "</a>"): string.Empty%>
+                                                 "<a class='link underline' href='http://helpcenter.onlyoffice.com/gettingstarted/configuration.aspx#PublicPortals' target='_blank'>",
+                                                 "</a>") : string.Empty %>
             </div>
+            <% } %>
             <div class="block-cnt-splitter action-info">
                 <%= CustomNamingPeople.Substitute<PeopleResource>("ChangeTypeDialogToUser").HtmlEncode() %>
                 <br/>
@@ -182,10 +185,13 @@
         </div>
         <div class="error-popup display-none"></div>
         <div class="middle-button-container">
-            <a id="changeTypeDialogTariff" class="blue button middle" href="<%= TenantExtra.GetTariffPageLink() %>">
+            <% if (DisplayPayments && TenantExtra.EnableTarrifSettings)
+               { %>
+            <a id="changeTypeDialogTariff" class="button blue middle" href="<%= TenantExtra.GetTariffPageLink() %>">
                 <%= UserControlsCommonResource.UpgradeButton %></a>
             <span class="splitter-buttons"></span>
-            <a id="changeTypeDialogOk" class="button gray middle"><%= PeopleResource.ChangeType %></a>
+            <% } %>
+            <a id="changeTypeDialogOk" class="button <%= DisplayPayments && TenantExtra.EnableTarrifSettings ? "gray" : "blue" %> middle"><%= PeopleResource.ChangeType %></a>
             <span class="splitter-buttons"></span>
             <a id="changeTypeDialogCancel" class="button gray middle"><%= PeopleResource.LblCancelButton%></a>
         </div>
@@ -208,13 +214,16 @@
     
     <div id="changeStatusDialogBody" class="display-none">
         <div id="activeStatusInfo">
+            <% if (DisplayPayments)
+               { %>
             <div class="block-cnt-splitter">
                 <span class="tariff-limit"></span>
                 <%= PeopleResource.ChangeStatusDialogConstraint %>&nbsp;
                 <%= IsFreeTariff ? string.Format(PeopleResource.ReadAboutNonProfit,
-                    "<a class='link underline' href='http://helpcenter.onlyoffice.com/gettingstarted/configuration.aspx#PublicPortals' target='_blank'>",
-                    "</a>"): string.Empty%>
+                                                 "<a class='link underline' href='http://helpcenter.onlyoffice.com/gettingstarted/configuration.aspx#PublicPortals' target='_blank'>",
+                                                 "</a>") : string.Empty %>
             </div>
+            <% } %>
             <div class="block-cnt-splitter action-info">
                 <%= PeopleResource.ChangeStatusDialogToActive %>
                 <br/>
@@ -240,10 +249,13 @@
         </div>
         <div class="error-popup display-none"></div>
         <div class="middle-button-container">
-            <a id="changeStatusTariff" class="blue button middle" href="<%= TenantExtra.GetTariffPageLink() %>">
+            <% if (DisplayPayments && TenantExtra.EnableTarrifSettings)
+               { %>
+            <a id="changeStatusTariff" class="button blue middle" href="<%= TenantExtra.GetTariffPageLink() %>">
                 <%= UserControlsCommonResource.UpgradeButton %></a>
             <span class="splitter-buttons"></span>
-            <a id="changeStatusOkBtn" class="button gray middle"><%= PeopleResource.ChangeStatusButton %></a>
+            <% } %>
+            <a id="changeStatusOkBtn" class="button <%= DisplayPayments && TenantExtra.EnableTarrifSettings ? "gray" : "blue" %> middle"><%= PeopleResource.ChangeStatusButton %></a>
             <span class="splitter-buttons"></span>
             <a id="changeStatusCancelBtn" class="button gray middle"><%= PeopleResource.LblCancelButton%></a>
         </div>

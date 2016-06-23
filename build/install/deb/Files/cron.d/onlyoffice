@@ -1,0 +1,12 @@
+@midnight       root    sudo /etc/init.d/onlyofficeAutoreply restart >/dev/null 2>&1
+@midnight       root    sudo /etc/init.d/onlyofficeBackup restart >/dev/null 2>&1
+@midnight       root    sudo /etc/init.d/onlyofficeFeed restart >/dev/null 2>&1
+@midnight       root    sudo /etc/init.d/onlyofficeIndex restart >/dev/null 2>&1
+@midnight       root    sudo /etc/init.d/onlyofficeJabber restart >/dev/null 2>&1
+@midnight       root    sudo /etc/init.d/onlyoffficeMailAggregator restart >/dev/null 2>&1
+@midnight       root    sudo /etc/init.d/onlyofficeMailWatchdog restart >/dev/null 2>&1
+@midnight       root    sudo /etc/init.d/onlyofficeNotify restart >/dev/null 2>&1
+@midnight       root    sudo /etc/init.d/monoserve restart >/dev/null 2>&1
+@midnight       root    sudo /etc/init.d/monoserve2 restart >/dev/null 2>&1
+@midnight       root    sleep 10s; wget -b --no-check-certificate http://localhost/warmup1/StartUpSaaS.aspx >/dev/null 2>&1
+@midnight       root    sleep 10s; wget -b --no-check-certificate http://localhost/warmup2/StartUpSaaS.aspx >/dev/null 2>&1

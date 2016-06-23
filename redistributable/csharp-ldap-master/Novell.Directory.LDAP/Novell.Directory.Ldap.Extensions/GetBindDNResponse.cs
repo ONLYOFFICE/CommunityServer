@@ -29,82 +29,79 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
-using Novell.Directory.Ldap;
 using Novell.Directory.Ldap.Asn1;
-using Novell.Directory.Ldap.Utilclass;
 using Novell.Directory.Ldap.Rfc2251;
+using System.IO;
 
 namespace Novell.Directory.Ldap.Extensions
 {
-	
-	/// <summary>  Retrieves the identity from an GetBindDNResponse object.
-	/// 
-	/// An object in this class is generated from an LdapExtendedResponse object
-	/// using the ExtendedResponseFactory class.
-	/// 
-	/// The GetBindDNResponse extension uses the following OID:
-	/// 2.16.840.1.113719.1.27.100.32 
-	/// 
-	/// </summary>
-	public class GetBindDNResponse:LdapExtendedResponse
-	{
-		/// <summary> Returns the identity of the object.
-		/// 
-		/// </summary>
-		/// <returns> A string value specifying the bind dn returned by the server.
-		/// </returns>
-		virtual public System.String Identity
-		{
-			get
-			{
-				return identity;
-			}
-			
-		}
-		
-		// Identity returned by the server
-		private System.String identity;
-		
-		/// <summary> Constructs an object from the responseValue which contains the bind dn.
-		/// 
-		/// The constructor parses the responseValue which has the following
-		/// format:
-		/// responseValue ::=
-		/// identity   OCTET STRING
-		/// 
-		/// </summary>
-		/// <exception> IOException The return value could not be decoded.
-		/// </exception>
-		public GetBindDNResponse(RfcLdapMessage rfcMessage):base(rfcMessage)
-		{
-			
-			if (ResultCode == LdapException.SUCCESS)
-			{
-				// parse the contents of the reply
-				sbyte[] returnedValue = this.Value;
-				if (returnedValue == null)
-					throw new System.IO.IOException("No returned value");
-				
-				// Create a decoder object
-				LBERDecoder decoder = new LBERDecoder();
-				if (decoder == null)
-					throw new System.IO.IOException("Decoding error");
-				
-				// The only parameter returned should be an octet string
-				Asn1OctetString asn1_identity = (Asn1OctetString) decoder.decode(returnedValue);
-				if (asn1_identity == null)
-					throw new System.IO.IOException("Decoding error");
-				
-				// Convert to normal string object
-				identity = asn1_identity.stringValue();
-				if ((System.Object) identity == null)
-					throw new System.IO.IOException("Decoding error");
-			}
-			else
-			{
-				identity = "";
-			}
-		}
-	}
+
+    /// <summary>  Retrieves the identity from an GetBindDNResponse object.
+    /// 
+    /// An object in this class is generated from an LdapExtendedResponse object
+    /// using the ExtendedResponseFactory class.
+    /// 
+    /// The GetBindDNResponse extension uses the following OID:
+    /// 2.16.840.1.113719.1.27.100.32 
+    /// 
+    /// </summary>
+    public class GetBindDNResponse : LdapExtendedResponse
+    {
+        /// <summary> Returns the identity of the object.
+        /// 
+        /// </summary>
+        /// <returns> A string value specifying the bind dn returned by the server.
+        /// </returns>
+        virtual public string Identity
+        {
+            get
+            {
+                return identity;
+            }
+        }
+
+        // Identity returned by the server
+        private string identity;
+
+        /// <summary> Constructs an object from the responseValue which contains the bind dn.
+        /// 
+        /// The constructor parses the responseValue which has the following
+        /// format:
+        /// responseValue ::=
+        /// identity   OCTET STRING
+        /// 
+        /// </summary>
+        /// <exception> IOException The return value could not be decoded.
+        /// </exception>
+        public GetBindDNResponse(RfcLdapMessage rfcMessage)
+            : base(rfcMessage)
+        {
+            if (ResultCode == LdapException.SUCCESS)
+            {
+                // parse the contents of the reply
+                sbyte[] returnedValue = this.Value;
+                if (returnedValue == null)
+                    throw new IOException("No returned value");
+
+                // Create a decoder object
+                LBERDecoder decoder = new LBERDecoder();
+                if (decoder == null)
+                    throw new IOException("Decoding error");
+
+                // The only parameter returned should be an octet string
+                Asn1OctetString asn1_identity = (Asn1OctetString)decoder.decode(returnedValue);
+                if (asn1_identity == null)
+                    throw new IOException("Decoding error");
+
+                // Convert to normal string object
+                identity = asn1_identity.stringValue();
+                if (identity == null)
+                    throw new IOException("Decoding error");
+            }
+            else
+            {
+                identity = "";
+            }
+        }
+    }
 }

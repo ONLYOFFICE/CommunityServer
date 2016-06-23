@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -33,6 +33,7 @@ using ASC.Mail.Aggregator;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Logging;
 using ASC.SignalR.Base.Hubs.Counters;
+using log4net;
 using Microsoft.AspNet.SignalR;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,7 @@ namespace ASC.SignalR.Base.Hubs.Chat
         private static readonly IHubContext chatContext = GlobalHost.ConnectionManager.GetHubContext<Chat>();
         private static readonly IHubContext countersContext = GlobalHost.ConnectionManager.GetHubContext<CountersHub>();
         private static readonly FeedReadedDataProvider feedReadedProvider = new FeedReadedDataProvider();
+        private static readonly ILog log = LogManager.GetLogger(typeof(SignalrService));
 
         public void SendMessage(string callerUserName, string calleeUserName, string messageText, int tenantId, string domain)
         {
@@ -55,8 +57,8 @@ namespace ASC.SignalR.Base.Hubs.Chat
             {
                 var tenant = tenantId == -1 ? CoreContext.TenantManager.GetTenant(domain) : CoreContext.TenantManager.GetTenant(tenantId);
 
-                Chat.TraceMessage(Chat.TraceDebug, string.Format("Message is received. tenantId = {0}, callee = {1}, caller = {2}",
-                    tenant.TenantId, calleeUserName, callerUserName));
+                log.DebugFormat("Message is received. tenantId = {0}, callee = {1}, caller = {2}",
+                    tenant.TenantId, calleeUserName, callerUserName);
 
                 var isTenantUser = callerUserName == string.Empty;
                 var message = new MessageClass
@@ -74,8 +76,8 @@ namespace ASC.SignalR.Base.Hubs.Chat
             }
             catch (Exception e)
             {
-                Chat.TraceMessage(Chat.TraceError, string.Format("Unknown Error. callerUserName = {0}, calleeUserName = {1}, {2}, {3}, {4}", callerUserName,
-                   calleeUserName, e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Unknown Error. callerUserName = {0}, calleeUserName = {1}, {2}, {3}", callerUserName,
+                   calleeUserName, e.ToString(), e.InnerException != null ? e.InnerException.Message : string.Empty);
             }
         }
 
@@ -85,8 +87,8 @@ namespace ASC.SignalR.Base.Hubs.Chat
             {
                 var tenant = CoreContext.TenantManager.GetTenant(domain);
 
-                Chat.TraceMessage(Chat.TraceDebug, string.Format("Invite is received. chatRoomName = {0}, calleeUserName = {1}, domain {2}, tenantId={3}",
-                    chatRoomName, calleeUserName, domain, tenant.TenantId));
+                log.DebugFormat("Invite is received. chatRoomName = {0}, calleeUserName = {1}, domain {2}, tenantId={3}",
+                    chatRoomName, calleeUserName, domain, tenant.TenantId);
 
                 var message = new MessageClass
                 {
@@ -98,8 +100,8 @@ namespace ASC.SignalR.Base.Hubs.Chat
             }
             catch (Exception e)
             {
-                Chat.TraceMessage(Chat.TraceError, string.Format("Unknown Error. calleeUserName = {0}, {1}, {2}, {3}",
-                    calleeUserName, e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Unknown Error. calleeUserName = {0}, {1}, {2}",
+                    calleeUserName, e.ToString(), e.InnerException != null ? e.InnerException.Message : string.Empty);
             }
         }
 
@@ -112,8 +114,8 @@ namespace ASC.SignalR.Base.Hubs.Chat
                     tenantId = CoreContext.TenantManager.GetTenant(domain).TenantId;
                 }
 
-                Chat.TraceMessage(Chat.TraceDebug, string.Format("State is received. from = {0}, state = {1}, tenantId = {2}, domain = {3}",
-                    from, state, tenantId, domain));
+                log.DebugFormat("State is received. from = {0}, state = {1}, tenantId = {2}, domain = {3}",
+                    from, state, tenantId, domain);
 
                 if (state == Chat.UserOffline && Chat.Connections.GetConnectionsCount(tenantId, from) > 0)
                 {
@@ -124,8 +126,8 @@ namespace ASC.SignalR.Base.Hubs.Chat
             }
             catch (Exception e)
             {
-                Chat.TraceMessage(Chat.TraceError, string.Format("Unknown Error. from = {0}, {1}, {2}, {3}", from,
-                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Unknown Error. from = {0}, {1}, {2}", from,
+                    e.ToString(), e.InnerException != null ? e.InnerException.Message : string.Empty);
             }
         }
 
@@ -133,14 +135,14 @@ namespace ASC.SignalR.Base.Hubs.Chat
         {
             try
             {
-                Chat.TraceMessage(Chat.TraceDebug, string.Format("Offline messages is received. tenantId = {0}", tenantId));
+                log.DebugFormat("Offline messages is received. tenantId = {0}", tenantId);
                 // sendOfflineMessages
                 chatContext.Clients.Group(tenantId.ToString(CultureInfo.InvariantCulture) + callerUserName).som(users);
             }
             catch (Exception e)
             {
-                Chat.TraceMessage(Chat.TraceError, string.Format("Unknown Error. callerUserName = {0}, {1}, {2}, {3}", callerUserName,
-                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Unknown Error. callerUserName = {0}, {1}, {2}", callerUserName,
+                    e.ToString(), e.InnerException != null ? e.InnerException.Message : string.Empty);
             }
         }
 
@@ -148,7 +150,7 @@ namespace ASC.SignalR.Base.Hubs.Chat
         {
             try
             {
-                Chat.TraceMessage(Chat.TraceDebug, "SenUnreadCounts.");
+                log.Debug("SenUnreadCounts.");
                 var tenant = CoreContext.TenantManager.GetTenant(domain);
                 foreach(var pair in unreadCounts)
                 {
@@ -158,8 +160,8 @@ namespace ASC.SignalR.Base.Hubs.Chat
             }
             catch (Exception e)
             {
-                Chat.TraceMessage(Chat.TraceError, string.Format("Unknown Error. {0}, {1}, {2}",
-                    e.ToString(), e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Unknown Error. {0}, {1}", e.ToString(),
+                    e.InnerException != null ? e.InnerException.Message : string.Empty);
             }
         }
 
@@ -189,8 +191,8 @@ namespace ASC.SignalR.Base.Hubs.Chat
             }
             catch (Exception e)
             {
-                Chat.TraceMessage(Chat.TraceError, string.Format("Unknown Error. {0}, {1}, {2}", e.ToString(),
-                    e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Unknown Error. {0}, {1}", e.ToString(),
+                    e.InnerException != null ? e.InnerException.Message : string.Empty);
             }
         }
 
@@ -199,11 +201,11 @@ namespace ASC.SignalR.Base.Hubs.Chat
             try
             {
                 int count = 0;
-                var MailBoxManager =
-                    new MailBoxManager(LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "SignalrService"));
+                var mailBoxManager = new MailBoxManager(
+                    LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "SignalrService"));
 
                 List<MailBoxManager.MailFolderInfo> mailFolderInfos =
-                    MailBoxManager.GetFolders(tenant, userId, true);
+                    mailBoxManager.GetFolders(tenant, userId, true);
                 foreach (var mailFolderInfo in mailFolderInfos)
                 {
                     if (mailFolderInfo.id == MailFolder.Ids.inbox)
@@ -222,8 +224,8 @@ namespace ASC.SignalR.Base.Hubs.Chat
             }
             catch (Exception e)
             {
-                Chat.TraceMessage(Chat.TraceError, string.Format("Unknown Error. {0}, {1}, {2}", e.ToString(),
-                    e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Unknown Error. {0}, {1}", e.ToString(),
+                    e.InnerException != null ? e.InnerException.Message : string.Empty);
             }
         }
 
@@ -241,8 +243,8 @@ namespace ASC.SignalR.Base.Hubs.Chat
             }
             catch (Exception e)
             {
-                Chat.TraceMessage(Chat.TraceError, string.Format("Unknown Error. {0}, {1}, {2}", e.ToString(),
-                    e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty));
+                log.ErrorFormat("Unknown Error. {0}, {1}", e.ToString(),
+                    e.InnerException != null ? e.InnerException.Message : string.Empty);
             }
         }
     }

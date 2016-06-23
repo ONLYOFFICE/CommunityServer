@@ -85,6 +85,13 @@
     <Compile Include="UserControls\CalendarResources.ascx.designer.cs">
       <DependentUpon>CalendarResources.ascx</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SidePanel.ascx.cs">
+      <DependentUpon>SidePanel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControls\SidePanel.ascx.designer.cs">
+      <DependentUpon>SidePanel.ascx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Resources\CalendarJSResource.resx">
@@ -103,6 +110,7 @@
     <Content Include="App_Themes\Default\images\disabledlogo.png" />
     <Content Include="App_Themes\Default\images\minilogo.png" />
     <Content Include="default.aspx" />
+    <Content Include="UserControls\CalendarTemplates.ascx" />
     <Content Include="UserControls\CalendarControl.ascx" />
     <Content Include="UserControls\CalendarResources.ascx" />
     <Content Include="UserControls\css\jquery.jscrollpane.css" />
@@ -145,11 +153,10 @@
     <Content Include="UserControls\fullcalendar\fullcalendar.js" />
     <Content Include="UserControls\fullcalendar\img\calendar_16.png" />
     <Content Include="UserControls\fullcalendar\img\circle-close.png" />
-    <Content Include="UserControls\fullcalendar\img\dropdown.png" />
-    <Content Include="UserControls\fullcalendar\img\dropdown_white.png" />
     <Content Include="UserControls\fullcalendar\img\edit_pencil.png" />
     <Content Include="UserControls\fullcalendar\img\event-alert.png" />
     <Content Include="UserControls\fullcalendar\img\event-repeat.png" />
+    <Content Include="UserControls\fullcalendar\img\guest_statements.png" />
     <Content Include="UserControls\fullcalendar\img\header-add-calendar.png" />
     <Content Include="UserControls\fullcalendar\img\header-add-event.png" />
     <Content Include="UserControls\fullcalendar\img\header-add-subscriptions.png" />
@@ -160,24 +167,17 @@
     <Content Include="UserControls\fullcalendar\img\list-item-hidden.png" />
     <Content Include="UserControls\fullcalendar\img\list-item-shared.png" />
     <Content Include="UserControls\fullcalendar\img\list-item-visible.png" />
-    <Content Include="UserControls\fullcalendar\img\menu_button_blue_bg.png" />
-    <Content Include="UserControls\fullcalendar\img\plus_16.png" />
-    <Content Include="UserControls\fullcalendar\img\popup-close.png" />
     <Content Include="UserControls\fullcalendar\img\profile.png" />
     <Content Include="UserControls\fullcalendar\img\resizer.png" />
     <Content Include="UserControls\fullcalendar\img\settings_16.png" />
-    <Content Include="UserControls\fullcalendar\img\splitter-l.png" />
-    <Content Include="UserControls\fullcalendar\img\splitter-r.png" />
-    <Content Include="UserControls\fullcalendar\img\time-marker.png" />
     <Content Include="UserControls\fullcalendar\img\trash.png" />
-    <Content Include="UserControls\fullcalendar\img\tree-bullets.png" />
-    <Content Include="UserControls\fullcalendar\img\triangle-e.png" />
-    <Content Include="UserControls\fullcalendar\img\triangle-w.png" />
     <Content Include="UserControls\js\calendar_controller.js" />
+    <Content Include="UserControls\js\calendar_event_page.js" />
     <Content Include="UserControls\js\recurrence_rule.js" />
     <Content Include="UserControls\js\jquery.cookie.js" />
     <Content Include="UserControls\js\jquery.jscrollpane.min.js" />
     <Content Include="UserControls\js\jquery.mousewheel.js" />
+    <Content Include="UserControls\SidePanel.ascx" />
     <Content Include="UserControls\popup\css\popup.css" />
     <Content Include="UserControls\popup\img\popup-arrow-big.png" />
     <Content Include="UserControls\popup\img\popup-arrow.png" />

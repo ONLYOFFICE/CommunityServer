@@ -29,58 +29,57 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System.Text;
-
 using Novell.Directory.Ldap.Asn1;
+using System.Text;
 
 namespace Novell.Directory.Ldap.Events.Edir.EventData
 {
-  /// <summary> 
-  /// This class represents the data for Network Address Events.
-  /// </summary>
-  public class NetworkAddressEventData : BaseEdirEventData
-  {
-    protected int nType;
-    public int ValueType
-    {
-      get
-      {
-	return nType;
-      }
-    }
-
-    protected string strData;
-    public string Data
-    {
-      get
-      {
-	return strData;
-      }
-    }
-
-    public NetworkAddressEventData(EdirEventDataType eventDataType, Asn1Object message)
-      : base(eventDataType, message)
-    {
-      int[] length = new int[1];
-
-      nType = ((Asn1Integer) decoder.decode(decodedData, length)).intValue();
-      strData = ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-
-      DataInitDone();
-    }
-
     /// <summary> 
-    /// Returns a string representation of the object.
+    /// This class represents the data for Network Address Events.
     /// </summary>
-    public override string ToString() 
+    public class NetworkAddressEventData : BaseEdirEventData
     {
-      StringBuilder buf = new StringBuilder();
-      buf.Append("[NetworkAddress");
-      buf.AppendFormat("(type={0})", nType);
-      buf.AppendFormat("(Data={0})", strData);
-      buf.Append("]");
+        protected int nType;
+        public int ValueType
+        {
+            get
+            {
+                return nType;
+            }
+        }
 
-      return buf.ToString();
+        protected string strData;
+        public string Data
+        {
+            get
+            {
+                return strData;
+            }
+        }
+
+        public NetworkAddressEventData(EdirEventDataType eventDataType, Asn1Object message)
+            : base(eventDataType, message)
+        {
+            int[] length = new int[1];
+
+            nType = ((Asn1Integer)decoder.decode(decodedData, length)).intValue();
+            strData = ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+
+            DataInitDone();
+        }
+
+        /// <summary> 
+        /// Returns a string representation of the object.
+        /// </summary>
+        public override string ToString()
+        {
+            StringBuilder buf = new StringBuilder();
+            buf.Append("[NetworkAddress");
+            buf.AppendFormat("(type={0})", nType);
+            buf.AppendFormat("(Data={0})", strData);
+            buf.Append("]");
+
+            return buf.ToString();
+        }
     }
-  }
 }

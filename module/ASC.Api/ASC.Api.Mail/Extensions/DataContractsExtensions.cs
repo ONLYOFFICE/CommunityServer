@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,6 +24,7 @@
 */
 
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ASC.Api.Mail.DataContracts;
@@ -32,11 +33,15 @@ using ASC.Mail.Aggregator;
 using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Dal;
 using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Studio.Utility;
+using ASC.Mail.Aggregator.Common;
 
 namespace ASC.Api.Mail.Extensions
 {
     public static class DataContractsExtensions
     {
+        private const String BASE_VIRTUAL_PATH = "~/addons/mail/";
+        private static readonly String BaseAbsolutePath = CommonLinkUtility.ToAbsolute(BASE_VIRTUAL_PATH).ToLower();
 
         public static List<MailAccountData> ToAddressData(this AccountInfo account)
         {
@@ -54,6 +59,7 @@ namespace ASC.Api.Mail.Extensions
                 AuthError = account.AuthError,
                 QuotaError = account.QuotaError,
                 Signature = account.Signature,
+                Autoreply = account.Autoreply,
                 EMailInFolder = account.EMailInFolder,
                 IsAlias = false,
                 IsGroup = false,
@@ -75,6 +81,7 @@ namespace ASC.Api.Mail.Extensions
                     AuthError = account.AuthError,
                     QuotaError = account.QuotaError,
                     Signature = account.Signature,
+                    Autoreply = account.Autoreply,
                     EMailInFolder = account.EMailInFolder,
                     IsAlias = true,
                     IsGroup = false,
@@ -97,7 +104,9 @@ namespace ASC.Api.Mail.Extensions
                     OAuthConnection = false,
                     AuthError = false,
                     QuotaError = false,
-                    Signature = new SignatureDto(-1, account.Signature.Tenant, "", false),
+                    Signature = new MailSignature(-1, account.Signature.Tenant, "", false),
+                    Autoreply = new MailAutoreply(-1, account.Signature.Tenant, false, false,
+                        false, DateTime.MinValue, DateTime.MinValue, String.Empty, String.Empty), 
                     EMailInFolder = "",
                     IsAlias = false,
                     IsGroup = true,
@@ -116,6 +125,52 @@ namespace ASC.Api.Mail.Extensions
             fromEmailList = accounts.Aggregate(fromEmailList, (current, account) => current.Concat(account.ToAddressData()).ToList());
 
             return fromEmailList.DistinctBy(a => a.Email).ToList();
+        }
+
+        public static MailContactData ToContactData(this ContactCardDto contactCard)
+        {
+            var emails = new MailContactData.EmailsList<ContactInfo>();
+            var phones = new MailContactData.PhoneNumgersList<ContactInfo>();
+
+            foreach (var contact in contactCard.contacts)
+            {
+                switch (contact.type)
+                {
+                    case (int) ContactInfoType.Email:
+                        if(contact.isPrimary)
+                            emails.Insert(0, new ContactInfo { Id = contact.id, Value = contact.data, IsPrimary = contact.isPrimary });
+                        else
+                            emails.Add(new ContactInfo { Id = contact.id, Value = contact.data, IsPrimary = contact.isPrimary });
+                        break;
+                    case (int) ContactInfoType.Phone:
+                        if (contact.isPrimary)
+                            phones.Insert(0, new ContactInfo { Id = contact.id, Value = contact.data, IsPrimary = contact.isPrimary });
+                        else
+                            phones.Add(new ContactInfo { Id = contact.id, Value = contact.data, IsPrimary = contact.isPrimary });
+                        break;
+                }
+            }
+
+            var contactData = new MailContactData
+                {
+                    ContactId = contactCard.id,
+                    Name = contactCard.name,
+                    Description = contactCard.description,
+                    Emails = emails,
+                    PhoneNumbers = phones,
+                    Type = contactCard.type,
+                    SmallFotoUrl = String.Format("{0}HttpHandlers/contactphoto.ashx?cid={1}&ps=1", BaseAbsolutePath, contactCard.id).ToLower(),
+                    MediumFotoUrl = String.Format("{0}HttpHandlers/contactphoto.ashx?cid={1}&ps=2", BaseAbsolutePath, contactCard.id).ToLower()
+                };
+
+            return contactData;
+        }
+
+        public static List<MailContactData> ToContactData(this List<ContactCardDto> contacts)
+        {
+            var contactsList = contacts.Select(contact => contact.ToContactData()).ToList();
+
+            return contactsList;
         }
 
         public static void GetNeededAccounts(this List<MailAccountData> accounts, out MailAccountData defaultAccount,
@@ -169,8 +224,10 @@ namespace ASC.Api.Mail.Extensions
                 {
                     Id = folder.id,
                     UnreadCount = folder.unread,
-                    TotalCount = folder.total_count,
-                    TimeModified = folder.time_modified
+                    UnreadMessagesCount = folder.unreadMessages,
+                    TotalCount = folder.total,
+                    TotalMessgesCount = folder.totalMessages,
+                    TimeModified = folder.timeModified
                 };
         }
 

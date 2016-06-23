@@ -10,31 +10,33 @@
     <Configuration Condition="$(Configuration)==''">Debug</Configuration>
     <RootDir Condition="$(RootDir)==''">..\..\</RootDir>
     <BinDir>$(RootDir)web\studio\ASC.Web.Studio\bin\</BinDir>
-    <DeployTo Condition="$(DeployTo)==''">UNIX.SERVER</DeployTo>
+    <DeployTo Condition="$(DeployTo)==''">OPENSOURCE.SERVER</DeployTo>
     <DeployDir Condition="$(DeployDir)==''">$(RootDir)build\deploy\</DeployDir>
     <OutDir Condition="$(OutDir)==''">$(DeployDir)$(DeployTo)\</OutDir>
     <SplitServices Condition="$(SplitServices)==''">0</SplitServices>
     <LessCompile Condition="$(LessCompile)==''">1</LessCompile>
     <CssMinify Condition="$(CssMinify)==''">1</CssMinify>
+    <Uploads Condition="'$(Uploads)' == ''">1</Uploads>
   </PropertyGroup>
   <PropertyGroup>
     <LessCommand Condition=" '$(OS)' == 'Windows_NT'">$(RootDir)packages\dotless.1.5.1\tool\dotless.compiler.exe</LessCommand>
     <LessCommand Condition=" '$(OS)' != 'Windows_NT' ">mono $(RootDir)packages\dotless.1.5.1\tool\dotless.compiler.exe</LessCommand>
   </PropertyGroup>
   <ItemGroup>
+    <ServiceFiles Include="$(RootDir)packages\ARSoft.Tools.Net.1.8.1\lib\ARSoft.Tools.Net.dll" />
     <ServiceFiles Include="$(RootDir)packages\log4net.2.0.3\lib\net40-client\log4net.dll" />
     <ServiceFiles Include="$(RootDir)packages\MySql.Data.6.9.7\lib\net45\MySql.Data.dll" />
     <ServiceFiles Include="$(RootDir)packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll" />
     <ServiceFiles Include="$(RootDir)packages\HtmlAgilityPack.1.3.9.2\lib\net20\HtmlAgilityPack.dll" />
     <ServiceFiles Include="$(RootDir)packages\AWSSDK.2.3.5.0\lib\net45\AWSSDK.dll" />
     <ServiceFiles Include="$(RootDir)packages\Microsoft.VisualStudio.QualityTools.UnitTestFramework.11.0.50727.1\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Microsoft.AspNet.WebApi.Core.5.2.0\lib\net45\System.Web.Http.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Microsoft.AspNet.WebApi.WebHost.5.2.0\lib\net45\System.Web.Http.WebHost.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Microsoft.AspNet.WebApi.Client.5.2.0\lib\net45\System.Net.Http.Formatting.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll" />
     <ServiceFiles Include="$(RootDir)packages\Microsoft.Net.Http.2.2.28\lib\net45\System.Net.Http.Primitives.dll" />
     <ServiceFiles Include="$(RootDir)packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.dll" />
     <ServiceFiles Include="$(RootDir)packages\Microsoft.Bcl.Async.1.0.168\lib\net40\Microsoft.Threading.Tasks.Extensions.dll" />
-    <ServiceFiles Include="$(RootDir)packages\AntiXSS.4.2.1\lib\net40\HtmlSanitizationLibrary.dll" />
+    <ServiceFiles Include="$(RootDir)packages\AntiXSS.4.3.0\lib\net40\HtmlSanitizationLibrary.dll" />
     <ServiceFiles Include="$(RootDir)packages\Microsoft.SharePoint.Client.dll.15.0.4420.1017\Microsoft.SharePoint.Client.dll" />
     <ServiceFiles Include="$(RootDir)packages\Microsoft.SharePoint.Client.dll.15.0.4420.1017\Microsoft.SharePoint.Client.Runtime.dll" />
     <ServiceFiles Include="$(RootDir)packages\CommonServiceLocator.1.0\lib\NET35\Microsoft.Practices.ServiceLocation.dll" />
@@ -58,18 +60,25 @@
     <ServiceFiles Include="$(RootDir)packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll" />
     <ServiceFiles Include="$(RootDir)packages\Textile.1.3.0.0\lib\net35\Textile.dll" />
     <ServiceFiles Include="$(RootDir)packages\NVelocity.1.0.3\lib\NVelocity.dll" />
-    <ServiceFiles Include="$(RootDir)packages\AppLimit.CloudComputing.SharpBox.1.1.0.442\lib\net45\AppLimit.CloudComputing.SharpBox.dll" />
+    <ServiceFiles Include="$(RootDir)packages\AppLimit.CloudComputing.SharpBox.1.1.0.444\lib\net45\AppLimit.CloudComputing.SharpBox.dll" />
     <ServiceFiles Include="$(RootDir)packages\UAParser.1.0.2.0\lib\net40\UAParser.dll" />
     <ServiceFiles Include="$(RootDir)packages\YamlDotNet.3.0.0\lib\net35\YamlDotNet.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Google.Apis.1.9.1\lib\net40\Google.Apis.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Google.Apis.Auth.1.9.1\lib\net40\Google.Apis.Auth.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Google.Apis.Core.1.9.1\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Core.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Google.Apis.Drive.v2.1.9.0.1670\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Drive.v2.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Zlib.Portable.1.9.1.2\lib\portable-net4+sl4+wp71+win8\Zlib.Portable.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Google.Apis.1.10.0\lib\netcore45\Google.Apis.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Google.Apis.Auth.1.10.0\lib\netcore45\Google.Apis.Auth.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Google.Apis.Core.1.10.0\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Core.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Google.Apis.Drive.v3.1.10.0.10\lib\portable-net40+sl50+win+wpa81+wp80\Google.Apis.Drive.v3.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Box.V2.2.6.2\lib\portable-net40+sl50+win+wp80\Box.V2.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Zlib.Portable.Signed.1.11.0\lib\portable-net4+sl5+wp8+win8+wpa81+MonoTouch+MonoAndroid\Zlib.Portable.dll" />
     <ServiceFiles Include="$(RootDir)packages\NLog.2.1.0\lib\net45\NLog.dll" />
     <ServiceFiles Include="$(RootDir)packages\sharpcompress.0.11.1\lib\net40\SharpCompress.dll" />
-    <ServiceFiles Include="$(RootDir)packages\StackExchange.Redis.9.9.9.0\lib\net45\StackExchange.Redis.dll" />
-    <ServiceFiles Include="$(RootDir)packages\StackExchange.Redis.Extensions.Core.1.1.12.0\lib\net45\StackExchange.Redis.Extensions.Core.dll" />
+    <ServiceFiles Include="$(RootDir)packages\StackExchange.Redis.10.0.0.0\lib\net45\StackExchange.Redis.dll" />
+    <ServiceFiles Include="$(RootDir)packages\StackExchange.Redis.Extensions.Core.1.3.5.0\lib\net45\StackExchange.Redis.Extensions.Core.dll" />
+    <ServiceFiles Include="$(RootDir)packages\DDay.iCal.1.0.2.575\lib\DDay.iCal.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll" />
+    <ServiceFiles Include="$(RootDir)packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll" />
+    <ServiceFiles Include="$(RootDir)packages\MimeKit.1.2.24\lib\net451\MimeKit.dll" />
+    <ServiceFiles Include="$(RootDir)packages\MailKit.1.2.23\lib\net451\MailKit.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Nito.AsyncEx.2.1.3\lib\net45\Nito.AsyncEx.dll" />
     <ServiceFiles Include="$(BinDir)ASC.*.dll" />
     <ServiceFiles Include="$(RootDir)module\ASC.SignalR.Base\bin\$(Configuration)\ASC.SignalR.Base.dll" />
     <ServiceFiles Include="$(RootDir)module\ASC.Mail\ASC.Mail.Autoreply\bin\$(Configuration)\ASC.Mail.Autoreply.dll" />
@@ -80,15 +89,6 @@
     <ServiceFiles Include="$(RootDir)build\config\sphinx-min.conf.in" />
     <ServiceFiles Include="$(RootDir)build\ManageServices.bat" />
     <ServiceFiles Include="$(RootDir)module\ASC.Jabber\ASC.Xmpp.Server\crossdomain.xml" />
-    <HealthcheckFiles Include="$(RootDir)packages\DotNetZip.1.9.1.8\lib\net20\Ionic.Zip.dll" />
-    <HealthcheckFiles Include="$(RootDir)packages\RestSharp.104.4.0\lib\net4\RestSharp.dll" />
-    <HealthcheckFiles Include="$(RootDir)packages\Microsoft.AspNet.WebApi.Core.5.2.0\lib\net45\System.Web.Http.dll" />
-    <HealthcheckFiles Include="$(RootDir)packages\Microsoft.AspNet.WebApi.Client.5.2.0\lib\net45\System.Net.Http.Formatting.dll" />
-    <HealthcheckFiles Include="$(RootDir)packages\Microsoft.AspNet.WebApi.Owin.5.2.0\lib\net45\System.Web.Http.Owin.dll" />
-    <HealthcheckFiles Include="$(RootDir)packages\Microsoft.AspNet.WebApi.Cors.5.2.0\lib\net45\System.Web.Http.Cors.dll" />
-    <HealthcheckFiles Include="$(RootDir)packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll" />
-    <HealthcheckFiles Include="$(RootDir)module\ASC.HealthCheck\ASC.HealthCheck\bin\$(Configuration)\ASC.HealthCheck.dll" />
-    <MailFiles Include="$(BinDir)ASC.ActiveUp.Net.*.dll" />
     <MailFiles Include="$(BinDir)ASC.Api.dll" />
     <MailFiles Include="$(BinDir)ASC.Common.dll" />
     <MailFiles Include="$(BinDir)ASC.Core.Common.dll" />
@@ -122,7 +122,11 @@
     <MailFiles Include="$(RootDir)packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll" />
     <MailFiles Include="$(RootDir)packages\ARSoft.Tools.Net.1.8.1\lib\ARSoft.Tools.Net.dll" />
     <MailFiles Include="$(RootDir)packages\RestSharp.104.4.0\lib\net4\RestSharp.dll" />
-    <MailFiles Include="$(RootDir)packages\StackExchange.Redis.Extensions.Core.1.1.12.0\lib\net45\StackExchange.Redis.Extensions.Core.dll" />
+    <MailFiles Include="$(RootDir)packages\DDay.iCal.1.0.2.575\lib\DDay.iCal.dll" />
+    <MailFiles Include="$(RootDir)packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll" />
+    <MailFiles Include="$(RootDir)packages\MimeKit.1.2.24\lib\net451\MimeKit.dll" />
+    <MailFiles Include="$(RootDir)packages\MailKit.1.2.23\lib\net451\MailKit.dll" />
+    <MailFiles Include="$(RootDir)packages\StackExchange.Redis.Extensions.Core.1.3.5.0\lib\net45\StackExchange.Redis.Extensions.Core.dll" />
     <MailAggregatorFiles Include="@(MailFiles);$(RootDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.CollectionService\bin\$(Configuration)\ASC.Mail.Aggregator.CollectionService.exe;$(RootDir)module\ASC.Mail.Aggregator\ASC.Mail.EmlDownloader\bin\$(Configuration)\ASC.Mail.EmlDownloader.exe" />
     <MailWatchdogFiles Include="@(MailFiles);$(RootDir)module\ASC.Mail.Aggregator\ASC.Mail.Watchdog.Service\bin\$(Configuration)\ASC.Mail.Watchdog.Service.exe" />
     <MailDnsCheckerFiles Include="@(MailFiles);$(RootDir)module\ASC.Mail.Server\DnsCheckerService\bin\$(Configuration)\ASC.MailServer.DnsChecker.Service.exe" />
@@ -159,13 +163,12 @@
   </ItemGroup>
   <ItemGroup>
     <CommunityDeleteList Include="SingleSignOnSettings\SingleSignOnSettings.ascx" />
+    <CommunityDeleteList Include="AdditionalWhiteLabel\AdditionalWhiteLabel.ascx" />
     <CommunityDeleteList Include="WhiteLabel\WhiteLabel.ascx" />
     <CommunityDeleteList Include="Restore\Restore.ascx" />
     <CommunityDeleteList Include="Backup\Backup.ascx" />
     <CommunityDeleteList Include="AuditTrail\AuditTrail.ascx" />
-    <CommunityDeleteList Include="LoginHistory\LoginHistory.ascx" />
     <CommunityDeleteList Include="LdapSettings\LdapSettings.ascx" />
-    <CommunityDeleteList Include="UploadHttps\UploadHttps.ascx" />
   </ItemGroup>
   <Target Name="Deploy">
     <Message Text="Deploy parameters:" />
@@ -176,7 +179,7 @@
     <RemoveDuplicatesAssemblies SourceFolder="$(OutDir)WebStudio" />
     <CallTarget Targets="LessCompile" Condition=" '$(LessCompile)' == '1' " />
     <CallTarget Targets="CssMinify" Condition=" '$(CssMinify)' == '1' " />
-    <CopyDirectory Condition="Exists('$(RootDir)web\studio\ASC.Web.Upload\')" SourceFolder="$(RootDir)web\studio\ASC.Web.Upload\" DestinationFolder="$(OutDir)Uploads" ExcludeRegex="\\Data\\|\\obj\\|\\bin\\.*\.xml$|\\bin\\.*\.pdb$|\.sln$|\.cs$|\.csproj$|\.suo$|\.user$|\.mdb$|\.userprefs$" />
+    <CopyDirectory Condition=" '$(Uploads)' == '1' AND Exists('$(RootDir)web\studio\ASC.Web.Upload\') " SourceFolder="$(RootDir)web\studio\ASC.Web.Upload\" DestinationFolder="$(OutDir)Uploads" ExcludeRegex="\\Data\\|\\obj\\|\\bin\\.*\.xml$|\\bin\\.*\.pdb$|\.sln$|\.cs$|\.csproj$|\.suo$|\.user$|\.mdb$|\.userprefs$" />
     <Copy SourceFiles="@(MailAggregatorFiles)" DestinationFiles="@(MailAggregatorFiles-&gt;'$(OutDir)Services\MailAggregator\%(Filename)%(Extension)')" />
     <Copy SourceFiles="$(RootDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.CollectionService\App.config" DestinationFiles="$(OutDir)Services\MailAggregator\ASC.Mail.Aggregator.CollectionService.exe.config" />
     <Copy SourceFiles="$(RootDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.CollectionService\App.config" DestinationFiles="$(OutDir)Services\MailAggregator\ASC.Mail.EmlDownloader.exe.config" />
@@ -188,17 +191,16 @@
     <CreateItem Include="$(OutDir)WebStudio\web.appsettings.config;$(OutDir)WebStudio\web.connections.config;$(OutDir)WebStudio\web.storage.config">
       <Output ItemName="WebConfigurationFiles" TaskParameter="Include" />
     </CreateItem>
-    <Copy SourceFiles="@(WebConfigurationFiles)" DestinationFolder="$(OutDir)Uploads\" />
+    <Copy Condition="Exists('$(OutDir)Uploads\')" SourceFiles="@(WebConfigurationFiles)" DestinationFolder="$(OutDir)Uploads\" />
     <Copy SourceFiles="$(OutDir)WebStudio\web.consumers.config" DestinationFolder="$(OutDir)Services\MailAggregator\" />
     <Copy SourceFiles="$(OutDir)WebStudio\web.storage.config" DestinationFolder="$(OutDir)Services\MailAggregator\" />
     <Copy SourceFiles="$(RootDir)build\config\private\sp.pfx" DestinationFolder="$(OutDir)WebStudio\Certificates\" Condition="$(DeployTo)=='COM' Or $(DeployTo)=='EU.COM' Or $(DeployTo)=='SG.COM' Or $(DeployTo)=='INFO'" />
-    <Delete Files="@(CommunityDeleteList-&gt;'$(OutDir)WebStudio\UserControls\Management\%(Identity)')" Condition=" $(DeployTo)=='SERVER' Or $(DeployTo)=='UNIX.SERVER' " />
+    <Delete Files="@(CommunityDeleteList-&gt;'$(OutDir)WebStudio\UserControls\Management\%(Identity)')" Condition=" $(DeployTo)=='SERVER' Or $(DeployTo)=='UNIX.SERVER' Or $(DeployTo)=='AMI.SERVER' Or $(DeployTo)=='NCT' " />
     <Delete Files="$(OutDir)WebStudio\bin\Microsoft.VisualBasic.Activities.Compiler.dll" Condition=" Exists( '$(OutDir)WebStudio\bin\Microsoft.VisualBasic.Activities.Compiler.dll' ) " />
   </Target>
   <Target Name="DeployService">
     <Message Text="Deploying service $(ServiceName)" />
     <Copy SourceFiles="@(ServiceFiles)" DestinationFiles="@(ServiceFiles-&gt;'$(OutDir)Services\$(ServiceName)\%(Filename)%(Extension)')" />
-    <Copy SourceFiles="@(HealthcheckFiles)" DestinationFiles="@(HealthcheckFiles-&gt;'$(OutDir)Services\$(ServiceName)\%(Filename)%(Extension)')" Condition="Exists('$(RootDir)module\ASC.HealthCheck\')" />
     <RegexReplace Expression="(.+)\." Input="$(DeployTo)">
       <Output PropertyName="Substitution" TaskParameter="Output" />
     </RegexReplace>
@@ -234,6 +236,7 @@
       <LessFilesExlude Include="$(OutDir)WebStudio\skins\default\topstudiopanel.less" />
       <LessFilesExlude Include="$(OutDir)WebStudio\skins\default\voip.phone.less" />
       <LessFilesExlude Include="$(OutDir)WebStudio\skins\default\whitelabel.less" />
+      <LessFilesExlude Include="$(OutDir)WebStudio\skins\default\jquery-advansedfilter-theme.less" />
       <LessFilesExlude Include="$(OutDir)WebStudio\addons\mail\App_Themes\Default\less\icons.less" />
       <LessFilesExlude Include="$(OutDir)WebStudio\addons\mail\App_Themes\Default\less\autocomplete.less" />
       <LessFilesExlude Include="$(OutDir)WebStudio\addons\mail\App_Themes\Default\less\message.less" />

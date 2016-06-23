@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -275,6 +275,34 @@ namespace ASC.CRM.Core.Dao
                                 .Identity(1, 0, true));
         }
 
+
+        public Dictionary<string, int> GetAndAddTags(EntityType entityType, String[] tags)
+        {
+            tags = tags.Where(t => !string.IsNullOrWhiteSpace(t)).ToArray();
+            var tagNamesAndIds = new Dictionary<string, int>();
+
+            using (var db = GetDb())
+            using (var tx = db.BeginTransaction())
+            {
+
+                db.ExecuteList(Query("crm_tag").Select("id", "title")
+                        .Where(Exp.In("lower(title)", tags.ToList().ConvertAll(t => t.ToLower())) & Exp.Eq("entity_type", (int)entityType)))
+                        .ForEach(row =>
+                        { tagNamesAndIds[row[1].ToString()] = (int)row[0]; });
+
+                var tagsForCreate = tags.Where(t => !tagNamesAndIds.ContainsKey(t));
+
+                foreach (var tagName in tagsForCreate)
+                {
+                    tagNamesAndIds.Add(tagName, AddTag(entityType, tagName, db));
+                }
+
+                tx.Commit();
+                return tagNamesAndIds;
+            }
+        }
+
+
         public int AddTagToEntity(EntityType entityType, int entityID, String tagName, DbManager db)
         {
             if (String.IsNullOrEmpty(tagName) || entityID == 0)
@@ -384,6 +412,28 @@ namespace ASC.CRM.Core.Dao
                 tx.Commit();
             }
         }
+
+        private void AddTagToEntity(EntityType entityType, int entityID, int tagID, DbManager db)
+        {
+            db.ExecuteNonQuery(new SqlInsert("crm_entity_tag", true)
+                                        .InColumnValue("entity_id", entityID)
+                                        .InColumnValue("entity_type", (int)entityType)
+                                        .InColumnValue("tag_id", tagID));
+        }
+
+        public void AddTagToEntity(EntityType entityType, int entityID, int[] tagIDs)
+        {
+            using (var db = GetDb())
+            using (var tx = db.BeginTransaction())
+            {
+                foreach (var tagID in tagIDs)
+                {
+                    AddTagToEntity(entityType, entityID, tagID, db);
+                }
+                tx.Commit();
+            }
+        }
+
 
         #endregion
     }

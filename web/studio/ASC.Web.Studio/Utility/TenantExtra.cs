@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -34,7 +34,10 @@ using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.UserControls.Statistics;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 
 namespace ASC.Web.Studio.Utility
@@ -45,22 +48,26 @@ namespace ASC.Web.Studio.Utility
         {
             get
             {
-                return SetupInfo.IsVisibleSettings<TariffSettings>()
+                return
+                    SetupInfo.IsVisibleSettings<TariffSettings>()
                     && !SettingsManager.Instance.LoadSettings<TenantAccessSettings>(TenantProvider.CurrentTenantID).Anyone
                     && (!CoreContext.Configuration.Standalone || !string.IsNullOrEmpty(SetupInfo.ControlPanelUrl));
             }
         }
 
+        public static bool Enterprise
+        {
+            get { return CoreContext.Configuration.Standalone && !String.IsNullOrEmpty(SetupInfo.ControlPanelUrl); }
+        }
+
+        public static bool EnterprisePaid
+        {
+            get { return Enterprise && GetTenantQuota().Id != Tenant.DEFAULT_TENANT; }
+        }
+
         public static bool EnableControlPanel
         {
-            get
-            {
-                return
-                    CoreContext.Configuration.Standalone
-                    && !String.IsNullOrEmpty(SetupInfo.ControlPanelUrl)
-                    && GetTenantQuota().ControlPanel
-                    && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
-            }
+            get { return Enterprise && GetTenantQuota().ControlPanel && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin(); }
         }
 
         public static string GetTariffPageLink()
@@ -91,7 +98,7 @@ namespace ASC.Web.Studio.Utility
         private static TenantQuota GetPrevQuota(TenantQuota curQuota)
         {
             TenantQuota prev = null;
-            foreach (var quota in GetTenantQuotas().OrderBy(r => r.ActiveUsers).Where(r => r.DocsEdition && r.Year == curQuota.Year && r.Year3 == curQuota.Year3))
+            foreach (var quota in GetTenantQuotas().OrderBy(r => r.ActiveUsers).Where(r => r.Year == curQuota.Year && r.Year3 == curQuota.Year3))
             {
                 if (quota.Id == curQuota.Id)
                     return prev;
@@ -105,8 +112,6 @@ namespace ASC.Web.Studio.Utility
         {
             var prevQuota = GetPrevQuota(quota);
             if (prevQuota == null || prevQuota.Trial)
-                return 1;
-            if (prevQuota.DocsEdition != quota.DocsEdition)
                 return 1;
             return prevQuota.ActiveUsers + 1;
         }
@@ -128,7 +133,6 @@ namespace ASC.Web.Studio.Utility
                          .FirstOrDefault(q =>
                                          q.ActiveUsers > needUsersCount
                                          && q.MaxTotalSize > usedSpace
-                                         && q.DocsEdition
                                          && !q.Free
                                          && !q.Trial);
         }
@@ -143,6 +147,60 @@ namespace ASC.Web.Studio.Utility
         public static int GetRemainingCountUsers()
         {
             return GetTenantQuota().ActiveUsers - TenantStatisticsProvider.GetUsersCount();
+        }
+
+        private static DateTime _date = DateTime.MinValue;
+
+        public static DateTime VersionReleaseDate
+        {
+            get
+            {
+                if (_date != DateTime.MinValue) return _date;
+
+                _date = DateTime.MaxValue;
+                try
+                {
+                    var versionDate = ConfigurationManager.AppSettings["version.release-date"];
+                    var sign = ConfigurationManager.AppSettings["version.release-date.sign"];
+
+                    if (!sign.StartsWith("ASC "))
+                    {
+                        throw new Exception("sign without ASC");
+                    }
+
+                    var splitted = sign.Substring(4).Split(':');
+                    var pkey = splitted[0];
+                    if (pkey != versionDate)
+                    {
+                        throw new Exception("sign with different date");
+                    }
+
+                    var date = splitted[1];
+                    var orighash = splitted[2];
+
+                    var skey = ConfigurationManager.AppSettings["core.machinekey"];
+
+                    using (var hasher = new HMACSHA1(Encoding.UTF8.GetBytes(skey)))
+                    {
+                        var data = string.Join("\n", date, pkey);
+                        var hash = hasher.ComputeHash(Encoding.UTF8.GetBytes(data));
+                        if (HttpServerUtility.UrlTokenEncode(hash) != orighash && Convert.ToBase64String(hash) != orighash)
+                        {
+                            throw new Exception("incorrect hash");
+                        }
+                    }
+
+                    var year = Int32.Parse(versionDate.Substring(0, 4));
+                    var month = Int32.Parse(versionDate.Substring(4, 2));
+                    var day = Int32.Parse(versionDate.Substring(6, 2));
+                    _date = new DateTime(year, month, day);
+                }
+                catch (Exception ex)
+                {
+                    log4net.LogManager.GetLogger("WebStudio").Error("VersionReleaseDate", ex);
+                }
+                return _date;
+            }
         }
     }
 }

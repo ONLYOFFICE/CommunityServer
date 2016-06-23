@@ -17,12 +17,12 @@
     </div>
     <div class="taskList"></div>
 
-    <table id="tableListProjects">
+    <table id="tableListProjects" class="table-list height40">
         <tbody>
         </tbody>
     </table>
 
-    <table id="milestonesList">
+    <table id="milestonesList" class="table-list">
         <thead>
         </thead>
         <tbody>

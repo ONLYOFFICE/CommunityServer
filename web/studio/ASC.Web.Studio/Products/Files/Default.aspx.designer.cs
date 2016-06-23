@@ -49,6 +49,15 @@ namespace ASC.Web.Files {
         protected global::System.Web.UI.WebControls.PlaceHolder SettingPanelHolder;
         
         /// <summary>
+        /// ThirdPartyScriptsPlaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.PlaceHolder ThirdPartyScriptsPlaceHolder;
+        
+        /// <summary>
         /// Master property.
         /// </summary>
         /// <remarks>
@@ -59,14 +68,5 @@ namespace ASC.Web.Files {
                 return ((ASC.Web.Files.Masters.BasicTemplate)(base.Master));
             }
         }
-        
-        /// <summary>
-        /// ThirdPartyScriptsPlaceHolder control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.PlaceHolder ThirdPartyScriptsPlaceHolder;
     }
 }

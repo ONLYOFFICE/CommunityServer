@@ -1,4 +1,4 @@
-﻿<%@ Page MasterPageFile="~/Masters/basetemplate.master" Language="C#" AutoEventWireup="true" EnableViewState="false" CodeBehind="Management.aspx.cs" Inherits="ASC.Web.Studio.Management" Title="ONLYOFFICE™" %>
+﻿<%@ Page MasterPageFile="~/Masters/basetemplate.master" Language="C#" AutoEventWireup="true" EnableViewState="false" CodeBehind="Management.aspx.cs" Inherits="ASC.Web.Studio.Management" %>
 
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
@@ -14,8 +14,7 @@
     <div class="page-menu">
         <ul class="menu-list">
             <% foreach (var category in GetCategoryList().Where(r => r.Modules == null || r.Modules.Any()))
-               {%>
-            <% 
+               {
                    if ((category.Modules != null && DisplayModuleList(category)) || (NavigationList.Contains(category.ModuleUrl)))
                    { %>
             <li class="menu-item <%= category.Modules != null ? "" : "none-" %>sub-list 
@@ -84,7 +83,7 @@
             <asp:PlaceHolder ID="HelpHolder" runat="server"></asp:PlaceHolder>
             <asp:PlaceHolder ID="SupportHolder" runat="server"></asp:PlaceHolder>
             <asp:PlaceHolder ID="UserForumHolder" runat="server"></asp:PlaceHolder>
-            <asp:PlaceHolder ID="VideoGuides" runat="server"></asp:PlaceHolder>            
+            <asp:PlaceHolder ID="VideoGuides" runat="server"></asp:PlaceHolder>
         </ul>
     </div>
     <% if (!string.IsNullOrEmpty(SetupInfo.UserVoiceURL))

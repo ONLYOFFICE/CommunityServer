@@ -558,4 +558,163 @@
   <data name="LicenseAgreementsError" xml:space="preserve">
     <value>You need read and agree License Agreement</value>
   </data>
+  <data name="MailIcsRequestSubject" xml:space="preserve">
+    <value>Invitation: {0}</value>
+  </data>
+  <data name="MailIcsRequestDescription" xml:space="preserve">
+    <value>{0} invites you to</value>
+  </data>
+  <data name="MailIcsYouSentRequestDescription" xml:space="preserve">
+    <value>You sent the invitation to</value>
+  </data>
+  <data name="MailIcsYouReplyYesDescription" xml:space="preserve">
+    <value>You accepted the invitation to</value>
+  </data>
+  <data name="MailIcsYouReplyMaybeDescription" xml:space="preserve">
+    <value>You tentatively accepted the invitation to</value>
+  </data>
+  <data name="MailIcsYouReplyNoDescription" xml:space="preserve">
+    <value>You declined the invitation to</value>
+  </data>
+  <data name="MailIcsUpdateSubject" xml:space="preserve">
+    <value>Update: {0}</value>
+  </data>
+  <data name="MailIcsUpdateDescription" xml:space="preserve">
+    <value>Event has been changed.</value>
+  </data>
+  <data name="MailIcsFinishDescription" xml:space="preserve">
+    <value>Event has been finished.</value>
+  </data>
+  <data name="MailIcsReplySubject" xml:space="preserve">
+    <value>Reply: {0}</value>
+  </data>
+  <data name="MailIcsReplyYesDescription" xml:space="preserve">
+    <value>{0} accepted the invitation to</value>
+  </data>
+  <data name="MailIcsReplyMaybeDescription" xml:space="preserve">
+    <value>{0} tentatively accepted the invitation to</value>
+  </data>
+  <data name="MailIcsReplyNoDescription" xml:space="preserve">
+    <value>{0} declined the invitation to</value>
+  </data>
+  <data name="MailIcsCancelSubject" xml:space="preserve">
+    <value>Canceled: {0}</value>
+  </data>
+  <data name="MailIcsCancelDescription" xml:space="preserve">
+    <value>Event has been cancelled.</value>
+  </data>
+  <data name="MailIcsCancelDescriptionMerged" xml:space="preserve">
+    <value>Event "{0}" has been cancelled.</value>
+  </data>
+  <data name="MailSentIcalRequestText" xml:space="preserve">
+    <value>Your request has been sent to attendees.</value>
+  </data>
+  <data name="MailSentIcalResponseText" xml:space="preserve">
+    <value>Your response has been sent to the organizer.</value>
+  </data>
+  <data name="MailSentIcalCancelText" xml:space="preserve">
+    <value>Event cancellation notification has been sent to attendees.</value>
+  </data>
+  <data name="MailSentMessageText" xml:space="preserve">
+    <value>Message has been sent.</value>
+  </data>
+  <data name="MailSendMessageError" xml:space="preserve">
+    <value>A problem has occurred while trying to send this message.</value>
+  </data>
+  <data name="MailIcsCalendarAllDayEventLabel" xml:space="preserve">
+    <value>all day</value>
+  </data>
+  <data name="MailIcsRRuleEveryLabel" xml:space="preserve">
+    <value>every</value>
+  </data>
+  <data name="MailIcsRRuleUntilLabel" xml:space="preserve">
+    <value>until</value>
+  </data>
+  <data name="MailIcsRRuleForLabel" xml:space="preserve">
+    <value>for</value>
+  </data>
+  <data name="MailIcsRRuleTimesLabel" xml:space="preserve">
+    <value>times</value>
+  </data>
+  <data name="MailIcsRRuleTimeLabel" xml:space="preserve">
+    <value>time</value>
+  </data>
+  <data name="MailIcsRRuleApproximateLabel" xml:space="preserve">
+    <value>approximate</value>
+  </data>
+  <data name="MailIcsRRuleHoursLabel" xml:space="preserve">
+    <value>hours</value>
+  </data>
+  <data name="MailIcsRRuleHourLabel" xml:space="preserve">
+    <value>hour</value>
+  </data>
+  <data name="MailIcsRRuleWeekdaysLabel" xml:space="preserve">
+    <value>weekdays</value>
+  </data>
+  <data name="MailIcsRRuleWeekdayLabel" xml:space="preserve">
+    <value>weekday</value>
+  </data>
+  <data name="MailIcsRRuleDaysLabel" xml:space="preserve">
+    <value>days</value>
+  </data>
+  <data name="MailIcsRRuleDayLabel" xml:space="preserve">
+    <value>day</value>
+  </data>
+  <data name="MailIcsRRuleWeeksLabel" xml:space="preserve">
+    <value>weeks</value>
+  </data>
+  <data name="MailIcsRRuleWeekLabel" xml:space="preserve">
+    <value>week</value>
+  </data>
+  <data name="MailIcsRRuleMonthsLabel" xml:space="preserve">
+    <value>months</value>
+  </data>
+  <data name="MailIcsRRuleMonthLabel" xml:space="preserve">
+    <value>month</value>
+  </data>
+  <data name="MailIcsRRuleYearsLabel" xml:space="preserve">
+      <value>years</value>
+  </data>
+  <data name="MailIcsRRuleYearLabel" xml:space="preserve">
+      <value>year</value>
+  </data>
+  <data name="MailIcsRRuleOnLabel" xml:space="preserve">
+      <value>on</value>
+  </data>
+  <data name="MailIcsRRuleOnTheLabel" xml:space="preserve">
+      <value>on the</value>
+  </data>
+  <data name="MailIcsRRuleInLabel" xml:space="preserve">
+      <value>in</value>
+  </data>
+  <data name="MailIcsRRuleAtLabel" xml:space="preserve">
+      <value>at</value>
+  </data>
+  <data name="MailIcsRRuleTheLabel" xml:space="preserve">
+      <value>the</value>
+  </data>
+  <data name="MailIcsRRuleAndLabel" xml:space="preserve">
+      <value>and</value>
+  </data>
+  <data name="MailIcsRRuleOrLabel" xml:space="preserve">
+      <value>or</value>
+  </data>
+  <data name="MailIcsRRuleLastLabel" xml:space="preserve">
+      <value>last</value>
+  </data>
+  <data name="MailIcsRRuleStLabel" xml:space="preserve">
+      <value>st</value>
+  </data>
+  <data name="MailIcsRRuleNdLabel" xml:space="preserve">
+      <value>nd</value>
+  </data>
+  <data name="MailIcsRRuleRdLabel" xml:space="preserve">
+      <value>rd</value>
+  </data>
+  <data name="MailIcsRRuleThLabel" xml:space="preserve">
+      <value>th</value>
+  </data>
+  <data name="MailIcsRRuleParseErrorLabel" xml:space="preserve">
+      <value>unknown format</value>
+  </data>
 </root>

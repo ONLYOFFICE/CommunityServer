@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,12 +24,11 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Web;
-using ASC.Web.Core.Files;
 using AppLimit.CloudComputing.SharpBox;
 using AppLimit.CloudComputing.SharpBox.StorageProvider.DropBox;
+using ASC.Web.Core.Files;
+using System;
+using System.Web;
 
 namespace ASC.Web.Files.Import.DropBox
 {
@@ -44,6 +43,7 @@ namespace ASC.Web.Files.Import.DropBox
 
         private const string RequestTokenSessionKey = "requestToken";
         private const string AuthorizationUrlKey = "authorization";
+        private const string AuthorizationNotApproved = "not_approved";
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -53,26 +53,19 @@ namespace ASC.Web.Files.Import.DropBox
                 return;
             }
 
-            var config = CloudStorage.GetCloudConfigurationEasy(nSupportedCloudConfigurations.DropBox) as DropBoxConfiguration;
-            var callbackUri = new UriBuilder(Request.GetUrlRewriter());
+            if (Boolean.TrueString.Equals(Request.QueryString[AuthorizationNotApproved] ?? "false", StringComparison.InvariantCultureIgnoreCase))
+            {
+                SubmitError("Canceled at provider", Source);
+                return;
+            }
+
             if (!string.IsNullOrEmpty(Request.QueryString[AuthorizationUrlKey]) && Session[RequestTokenSessionKey] != null)
             {
                 //Authorization callback
                 try
                 {
-                    var accessToken = DropBoxStorageProviderTools.ExchangeDropBoxRequestTokenIntoAccessToken(config,
-                                                                                                             ImportConfiguration.DropboxAppKey,
-                                                                                                             ImportConfiguration.DropboxAppSecret,
-                                                                                                             Session[RequestTokenSessionKey] as DropBoxRequestToken);
-
-                    Session[RequestTokenSessionKey] = null; //Exchanged
-                    var storage = new CloudStorage();
-                    var base64token = storage.SerializeSecurityTokenToBase64Ex(accessToken, config.GetType(), new Dictionary<string, string>());
-                    storage.Open(config, accessToken); //Try open storage!
-                    var root = storage.GetRoot();
-                    if (root == null) throw new Exception();
-
-                    SubmitToken(base64token, Source);
+                    var dropboxToken = Session[RequestTokenSessionKey] as DropBoxRequestToken;
+                    SubmitToken(dropboxToken.ToString(), Source);
                 }
                 catch
                 {
@@ -81,10 +74,15 @@ namespace ASC.Web.Files.Import.DropBox
             }
             else
             {
+                var callbackUri = new UriBuilder(Request.GetUrlRewriter());
                 callbackUri.Query += string.Format("&{0}=1", AuthorizationUrlKey);
+
+                var config = CloudStorage.GetCloudConfigurationEasy(nSupportedCloudConfigurations.DropBox) as DropBoxConfiguration;
                 config.AuthorizationCallBack = callbackUri.Uri;
+
                 // create a request token
-                var requestToken = DropBoxStorageProviderTools.GetDropBoxRequestToken(config, ImportConfiguration.DropboxAppKey,
+                var requestToken = DropBoxStorageProviderTools.GetDropBoxRequestToken(config,
+                                                                                      ImportConfiguration.DropboxAppKey,
                                                                                       ImportConfiguration.DropboxAppSecret);
                 if (requestToken == null)
                 {
@@ -92,8 +90,9 @@ namespace ASC.Web.Files.Import.DropBox
                     return;
                 }
 
-                var authorizationUrl = DropBoxStorageProviderTools.GetDropBoxAuthorizationUrl(config, requestToken);
                 Session[RequestTokenSessionKey] = requestToken; //Store token into session!!!
+
+                var authorizationUrl = DropBoxStorageProviderTools.GetDropBoxAuthorizationUrl(config, requestToken);
                 Response.Redirect(authorizationUrl);
             }
         }

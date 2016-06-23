@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -28,7 +28,6 @@ using System.Collections.Generic;
 using System.Linq;
 using ASC.Mail.Aggregator.Common.Imap;
 using ASC.Mail.Aggregator.Common.Utils;
-using Newtonsoft.Json;
 using NUnit.Framework;
 
 namespace ASC.Mail.Aggregator.Tests.Common.Imap
@@ -63,7 +62,7 @@ namespace ASC.Mail.Aggregator.Tests.Common.Imap
         [Test]
         public void CreateIntervalsFromZeroItemsList()
         {
-            var imapIntervals = new ImapIntervals(new List<int> {1, int.MaxValue});
+            var imapIntervals = new ImapIntervals(new List<int> { 1, int.MaxValue });
             var uidIntervals = imapIntervals.GetUnhandledIntervalsCopy();
             Assert.IsTrue(uidIntervals.Contains(new UidInterval(1, int.MaxValue)));
             Assert.IsTrue(uidIntervals.Count == 1);
@@ -316,7 +315,6 @@ namespace ASC.Mail.Aggregator.Tests.Common.Imap
             var imapIntervals = MailUtil.ParseImapIntervals(json);
 
             Assert.AreEqual(1, imapIntervals.Count);
-
         }
 
         [Test]
@@ -328,7 +326,16 @@ namespace ASC.Mail.Aggregator.Tests.Common.Imap
             var imapIntervals = MailUtil.ParseImapIntervals(json);
 
             Assert.AreEqual(3, imapIntervals.Count);
+        }
 
+        [Test]
+        [ExpectedException("Newtonsoft.Json.JsonSerializationException")]
+        public void ParseFromJson5()
+        {
+            const string json =
+                "[{\"Key\":\"INBOX\",\"Value\":{\"BeginDateUid\":1,\"UnhandledUidIntervals\":[2129,2147483647]},{\"Key\":\"[Gmail]\\/&BB4EQgQ,BEAEMAQyBDsENQQ9BD0ESwQ1-\",\"Value\":{\"BeginDateUid\":1,\"UnhandledUidIntervals\":[131,2147483647]},{\"Key\":\"[Gmail]\\/&BCEEPwQwBDw-\",\"Value\":{\"BeginDateUid\":1,\"UnhandledUidIntervals\":[220,2147483647]}]";
+
+            MailUtil.ParseImapIntervals(json);
         }
     }
 }

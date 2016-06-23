@@ -34,106 +34,104 @@ using System;
 
 namespace Novell.Directory.Ldap.Events.Edir
 {
-  /// <summary> 
-  /// This is the source class for Edir events.
-  /// </summary>
-  public class EdirEventSource : LdapEventSource
-  {
-    protected EdirEventHandler edir_event;
-
-    /// <summary>
-    /// Caller has to register with this event in order to be notified of
-    /// corresponding Edir events.
-    /// </summary>
-    public event EdirEventHandler EdirEvent
-    {
-      add
-      {
-	edir_event += value;
-	ListenerAdded();
-      }
-      remove
-      {
-	edir_event -= value;
-	ListenerRemoved();
-      }
-    }
-
     /// <summary> 
-    /// EdirEventHandler is the delegate definition for EdirEvent.
-    /// The client (listener) has to register using this delegate in order to
-    /// get corresponding Edir events.
+    /// This is the source class for Edir events.
     /// </summary>
-    public delegate
-    void EdirEventHandler(object source,
-			  EdirEventArgs objEdirEventArgs);
-
-    protected override int GetListeners()
+    public class EdirEventSource : LdapEventSource
     {
-      int nListeners = 0;
-      if (null != edir_event)
-	nListeners = edir_event.GetInvocationList().Length;
+        protected EdirEventHandler edir_event;
 
-      return nListeners;
+        /// <summary>
+        /// Caller has to register with this event in order to be notified of
+        /// corresponding Edir events.
+        /// </summary>
+        public event EdirEventHandler EdirEvent
+        {
+            add
+            {
+                edir_event += value;
+                ListenerAdded();
+            }
+            remove
+            {
+                edir_event -= value;
+                ListenerRemoved();
+            }
+        }
+
+        /// <summary> 
+        /// EdirEventHandler is the delegate definition for EdirEvent.
+        /// The client (listener) has to register using this delegate in order to
+        /// get corresponding Edir events.
+        /// </summary>
+        public delegate void EdirEventHandler(object source, EdirEventArgs objEdirEventArgs);
+
+        protected override int GetListeners()
+        {
+            int nListeners = 0;
+            if (null != edir_event)
+                nListeners = edir_event.GetInvocationList().Length;
+
+            return nListeners;
+        }
+
+        protected LdapConnection mConnection;
+        protected MonitorEventRequest mRequestOperation = null;
+        protected LdapResponseQueue mQueue = null;
+
+        public EdirEventSource(EdirEventSpecifier[] specifier, LdapConnection conn)
+        {
+            if ((null == specifier) || (null == conn))
+                throw new ArgumentException("Null argument specified");
+
+            mRequestOperation = new MonitorEventRequest(specifier);
+            mConnection = conn;
+        }
+
+        protected override void StartSearchAndPolling()
+        {
+            mQueue = mConnection.ExtendedOperation(mRequestOperation, null, null);
+            int[] ids = mQueue.MessageIDs;
+
+            if (ids.Length != 1)
+            {
+                throw new LdapException(
+                            null,
+                            LdapException.LOCAL_ERROR,
+                            "Unable to Obtain Message Id"
+                            );
+            }
+
+            StartEventPolling(mQueue, mConnection, ids[0]);
+        }
+
+        protected override void StopSearchAndPolling()
+        {
+            mConnection.Abandon(mQueue);
+            StopEventPolling();
+        }
+
+        protected override bool NotifyEventListeners(LdapMessage sourceMessage,
+                       EventClassifiers aClassification,
+                       int nType)
+        {
+            bool bListenersNotified = false;
+            if (null != edir_event)
+            {
+                if (null != sourceMessage)
+                {
+                    if ((sourceMessage.Type == LdapMessage.INTERMEDIATE_RESPONSE) &&
+                        (sourceMessage is EdirEventIntermediateResponse))
+                    {
+                        edir_event(this,
+                               new EdirEventArgs(sourceMessage,
+                                     EventClassifiers.CLASSIFICATION_EDIR_EVENT));
+                        bListenersNotified = true;
+                    }
+                }
+            }
+
+            return bListenersNotified;
+        }
     }
-
-    protected LdapConnection mConnection;
-    protected MonitorEventRequest mRequestOperation = null;
-    protected LdapResponseQueue mQueue = null;
-
-    public EdirEventSource(EdirEventSpecifier[] specifier, LdapConnection conn)
-    {
-      if ((null == specifier) || (null == conn))
-	throw new ArgumentException("Null argument specified");
-
-      mRequestOperation = new MonitorEventRequest(specifier);
-      mConnection = conn;
-    }
-
-    protected override void StartSearchAndPolling()
-    {
-      mQueue = mConnection.ExtendedOperation(mRequestOperation, null, null);
-      int[] ids = mQueue.MessageIDs;
-
-      if (ids.Length != 1)
-      {
-	throw new LdapException(
-				null,
-				LdapException.LOCAL_ERROR,
-				"Unable to Obtain Message Id"
-				);
-      }
-
-      StartEventPolling(mQueue, mConnection, ids[0]);
-    }
-
-    protected override void StopSearchAndPolling()
-    {
-      mConnection.Abandon(mQueue);
-      StopEventPolling();
-    }
-
-    protected override bool NotifyEventListeners(LdapMessage sourceMessage,
-			       EventClassifiers aClassification,
-			       int nType)
-    {
-      bool bListenersNotified = false;
-      if (null != edir_event)
-      {
-	if (null != sourceMessage)
-	{
-	  if ((sourceMessage.Type == LdapMessage.INTERMEDIATE_RESPONSE) &&
-	      (sourceMessage is EdirEventIntermediateResponse))
-	  {
-	    edir_event(this,
-		       new EdirEventArgs(sourceMessage,
-					 EventClassifiers.CLASSIFICATION_EDIR_EVENT));
-	    bListenersNotified = true;
-	  }
-	}
-      }
-
-      return bListenersNotified;
-    }
-  }
 }

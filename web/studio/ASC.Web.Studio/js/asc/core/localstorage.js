@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -99,5 +99,13 @@ var storageManagerPrototype = function (storage) {
         clear: clear
     };
 };
-var localStorageManager = storageManagerPrototype(localStorage);
-var sessionStorageManager = storageManagerPrototype(sessionStorage);
+
+var localStorageManager;
+try {
+    localStorageManager = storageManagerPrototype(localStorage);
+} catch (e) { }
+
+var sessionStorageManager;
+try {
+    sessionStorageManager = storageManagerPrototype(sessionStorage);
+} catch (e) { }

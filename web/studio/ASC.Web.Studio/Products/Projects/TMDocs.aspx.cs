@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,12 +24,13 @@
 */
 
 
-using System.Web;
 using ASC.Projects.Engine;
 using ASC.Web.Files.Controls;
-using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility;
+using System.Web;
+using ASC.Web.Core.Files;
+using ASC.Web.Files.Classes;
 
 namespace ASC.Web.Projects
 {
@@ -51,11 +52,42 @@ namespace ASC.Web.Projects
 
             Title = HeaderStringHelper.GetPageTitle(ProjectsFileResource.Files);
 
-            Page.RegisterStyleControl("~/products/files/masters/styles.ascx");
-            Page.RegisterBodyScriptsControl("~/products/files/masters/FilesScripts.ascx");
+            Page.RegisterStyle(PathProvider.GetFileStaticRelativePath("common.css"));
+            Page.RegisterStyle(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                "controls/maincontent/maincontent.css",
+                "controls/contentlist/contentlist.css",
+                "controls/accessrights/accessrights.css",
+                "controls/fileviewer/fileviewer.css",
+                "controls/thirdparty/thirdparty.css",
+                "controls/convertfile/convertfile.css",
+                "controls/chunkuploaddialog/chunkuploaddialog.css");
+
+            Page.RegisterBodyScripts(ResolveUrl,
+                "~/js/third-party/jquery/jquery.mousewheel.js",
+                "~/js/third-party/jquery/jquery.uri.js",
+                "~/js/third-party/sorttable.js");
+
+            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath,
+                "auth.js",
+                "common.js",
+                "filter.js",
+                "templatemanager.js",
+                "servicemanager.js",
+                "ui.js",
+                "mousemanager.js",
+                "markernew.js",
+                "actionmanager.js",
+                "anchormanager.js",
+                "foldermanager.js");
+
+            Page.RegisterBodyScripts(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                "controls/createmenu/createmenu.js",
+                "controls/fileviewer/fileviewer.js",
+                "controls/convertfile/convertfile.js",
+                "controls/chunkuploaddialog/chunkuploadmanager.js");
+
             Page.RegisterClientLocalizationScript(typeof(Files.Masters.ClientScripts.FilesLocalizationResources));
             Page.RegisterClientScript(typeof(Files.Masters.ClientScripts.FilesConstantsResources));
-            Page.RegisterInlineScript("if (typeof ZeroClipboard != 'undefined') {ZeroClipboard.setMoviePath('" + CommonLinkUtility.ToAbsolute("~/js/flash/zeroclipboard/zeroclipboard10.swf") + "');}");
         }
     }
 }

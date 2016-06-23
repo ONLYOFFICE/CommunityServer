@@ -30,6 +30,7 @@
 //
 
 using System;
+using System.Collections;
 
 namespace Novell.Directory.Ldap.Utilclass
 {
@@ -39,7 +40,7 @@ namespace Novell.Directory.Ldap.Utilclass
 	/// </summary>
 	public class AttributeQualifier
 	{
-		virtual public System.String Name
+		virtual public string Name
 		{
 			/*
 			public void addValue( String value )
@@ -53,41 +54,40 @@ namespace Novell.Directory.Ldap.Utilclass
 			{
 				return name;
 			}
-			
 		}
-		virtual public System.String[] Values
+
+		virtual public string[] Values
 		{
 			get
 			{
-				System.String[] strValues = null;
+				string[] strValues = null;
 				if (values.Count > 0)
 				{
-					strValues = new System.String[values.Count];
+					strValues = new string[values.Count];
 					for (int i = 0; i < values.Count; i++)
 					{
-						strValues[i] = ((System.String) values[i]);
+						strValues[i] = ((string) values[i]);
 					}
 				}
 				return strValues;
 			}
-			
 		}
-		internal System.String name;
-		internal System.Collections.ArrayList values;
+
+		internal string name;
+		internal ArrayList values;
 		
-		public AttributeQualifier(System.String name, System.String[] value_Renamed)
+		public AttributeQualifier(string name, string[] value_Renamed)
 		{
-			if ((System.Object) name == null || value_Renamed == null)
+			if ((object) name == null || value_Renamed == null)
 			{
-				throw new System.ArgumentException("A null name or value " + "was passed in for a schema definition qualifier");
+				throw new ArgumentException("A null name or value " + "was passed in for a schema definition qualifier");
 			}
 			this.name = name;
-			values = new System.Collections.ArrayList(5);
+			values = new ArrayList(5);
 			for (int i = 0; i < value_Renamed.Length; i++)
 			{
 				values.Add(value_Renamed[i]);
 			}
-			return ;
 		}
 	}
 }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,6 +24,8 @@
 */
 
 
+using System;
+
 namespace ASC.Mail.Aggregator.Common
 {
     public class MailFolder
@@ -42,5 +44,19 @@ namespace ASC.Mail.Aggregator.Common
         {
             return folderId >= 0 && folderId <= 5;
         }
-	}
+
+        public int FolderId { get; private set; }
+        public string Name { get; private set; }
+        public string[] Tags { get; private set; }
+
+        public MailFolder(int folderId, string name, string[] tags = null)
+        {
+            if(!IsIdOk(folderId))
+                throw new ArgumentException("Incorrect folder id", "folderId");
+
+            FolderId = folderId;
+            Name = name;
+            Tags = tags ?? new string[] { };
+        }
+    }
 }

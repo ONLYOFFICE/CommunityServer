@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -174,14 +174,31 @@
         color: #333333;
         cursor: pointer;
         padding: 0 0 0 20px !important;
+        position: relative;
+
+        &:after {
+            content: "";
+            height: 0;
+            width: 0;
+            position: absolute;
+            top: 50%;
+        }
     }
 
-    .headerCollapse {
-        background: url("../images/icons.png") 0 -120px no-repeat transparent;
+    .headerCollapse:after {
+            border-bottom: 6px solid transparent;
+            border-left: 6px solid #83888D;
+            border-top: 6px solid transparent;
+            left: 5px;
+            margin-top: -7px;
     }
 
-    .headerExpand {
-        background: url("../images/icons.png") 0 -148px no-repeat transparent;
+    .headerExpand:after {
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-top: 6px solid #83888D;
+        left: 2px;
+        margin-top: -4px;
     }
 
     div.checkbox_list label {
@@ -228,7 +245,7 @@
             margin: 10px 0 0 0;
 
             label.deleteBtn {
-                background: url("../images/icons.png") 0 -280px no-repeat transparent;
+                background: url("../images/icons.png") 0 -263px no-repeat transparent;
                 cursor: pointer;
                 display: inline-block;
                 height: 16px;
@@ -436,11 +453,11 @@
     }
 
     .headerCollapse {
-        background: url("../images/icons.png") 0 -120px no-repeat transparent;
+        background: url("../images/icons.png") 0 -103px no-repeat transparent;
     }
 
     .headerExpand {
-        background: url("../images/icons.png") 0 -148px no-repeat transparent;
+        background: url("../images/icons.png") 0 -131px no-repeat transparent;
     }
 
     li, li:hover {
@@ -519,7 +536,7 @@ td.digits {
     background-color: #FEECD6;
 }
 #properties_webFormKey .refreshBtn {
-    background: url("../images/icons.png") 0 -810px no-repeat transparent;
+    background: url("../images/icons.png") 0 -743px no-repeat transparent;
     cursor: pointer;
     display: inline-block;
     margin-left: 5px;

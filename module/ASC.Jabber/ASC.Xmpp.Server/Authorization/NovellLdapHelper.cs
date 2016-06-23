@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -28,7 +28,6 @@ extern alias MonoAlias;
 using ASC.Core;
 using ASC.Data.Storage;
 using log4net;
-using MonoAlias.Mono.Security.Protocol.Tls;
 using MonoAlias.Mono.Security.X509;
 using Novell.Directory.Ldap;
 using Novell.Directory.Ldap.Events.Edir;
@@ -139,7 +138,7 @@ namespace ASC.Xmpp.Server.Authorization
             var ldapConnection = new LdapConnection();
             if (startTls)
             {
-                ldapConnection.UserDefinedServerCertValidationDelegate += new CertificateValidationCallback(TlsHandler);
+                ldapConnection.UserDefinedServerCertValidationDelegate += TlsHandler;
             }
             ldapConnection.Connect(server, portNumber);
             if (startTls)

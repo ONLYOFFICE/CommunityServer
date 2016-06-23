@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -28,7 +28,8 @@ window.editMailboxModal = (function($) {
     var mailbox,
         domain,
         needSaveAliases,
-        needRemoveAliases;
+        needRemoveAliases,
+        events = $({});
 
     function show(idMailbox) {
         needSaveAliases = [];
@@ -48,59 +49,122 @@ window.editMailboxModal = (function($) {
         var html = $.tmpl('editMailboxTmpl', { mailbox: mailbox, domain: domain });
         var $html = $(html);
         $html.find('.mailbox_aliases').toggleClass('empty_list', mailbox.aliases.length == 0);
-
+        $html.find('.cancel').unbind('click').bind('click', window.PopupKeyUpActionProvider.CloseDialog);
         $html.find('.addAlias').unbind('click').bind('click', addAlias);
         $html.find('.delete_entity').unbind('click').bind('click', deleteAlias);
-        $html.find('.save').unbind('click').bind('click', saveAliases);
-        $html.find('.cancel').unbind('click').bind('click', window.PopupKeyUpActionProvider.CloseDialog);
+        
+        $html.find('.save').unbind('click').bind('click', function() {
+            saveInfo()
+                .then(function() {
+                        events.trigger('onupdatemailbox', mailbox);
+                        window.LoadingBanner.hideLoading();
+                        window.toastr.success(window.MailActionCompleteResource.updateMailboxSuccess.format(mailbox.address.email));
+                    },
+                    function (ev, error) {
+                        events.trigger('onupdatemailbox', mailbox);
+                        window.LoadingBanner.hideLoading();
+                        administrationError.showErrorToastr("updateMailbox", error);
+                    }
+                );
+        });
 
-        popup.addPopup(window.MailAdministrationResource.EditMailboxAliasesLabel, html, 392);
+        popup.addPopup(window.MailAdministrationResource.EditMailboxLabel, html, 392, null, null, { focusInput: false });
 
         PopupKeyUpActionProvider.EnterAction = "jq('#mail_server_edit_mailbox:visible .addAlias').trigger('click');";
 
         setFocusToInput();
     }
 
-    function saveAliases() {
+    function saveInfo() {
+        var dfd = jq.Deferred();
+
         TMMail.setRequiredHint('mailbox_add_alias', '');
         TMMail.setRequiredError('mailbox_add_alias', false);
 
-        var aliasName = $('#mail_server_edit_mailbox').find('.alias_name').val();
+        var senderName = $('#mailboxSenderName').find('.senderName').val().trim();
+        var aliasName = $('#mail_server_edit_mailbox').find('.aliasName').val();
+
         if (aliasName.length > 0) {
             addAlias();
+        }
+
+        var functionArray = [];
+
+        if (senderName != TMMail.htmlDecode(mailbox.name)) {
+            functionArray.push(deferredUpdateMailbox(mailbox.id, senderName));
         }
 
         var i, len = needSaveAliases.length, alias;
         for (i = 0; i < len; i++) {
             alias = needSaveAliases[i];
-            serviceManager.addMailBoxAlias(mailbox.id, alias.name, { mailbox_id: mailbox.id, alias: alias },
-                {
-                    error: function(e, error) {
-                        administrationError.showErrorToastr("addMailboxAlias", error);
-                    }
-                });
+            functionArray.push(deferredAddAlias(mailbox.id, alias));
         }
 
         len = needRemoveAliases.length;
         for (i = 0; i < len; i++) {
             alias = needRemoveAliases[i];
             if (alias.id > 0) {
-                serviceManager.removeMailBoxAlias(mailbox.id, alias.id, { mailbox_id: mailbox.id, alias: alias },
-                    {
-                        error: function(e, error) {
-                            administrationError.showErrorToastr("removeMailboxAlias", error);
-                        }
-                    });
+                functionArray.push(deferredRemoveAlias(mailbox.id, alias));
             }
         }
 
-        if (needSaveAliases.length > 0 || needRemoveAliases.length > 0) {
-            serviceManager.getMailboxes({}, { error: administrationError.getErrorHandler("getMailboxes") }, ASC.Resources.Master.Resource.LoadingProcessing);
-            window.PopupKeyUpActionProvider.CloseDialog();
-        } else if (!TMMail.isRequiredErrorVisible('mailbox_add_alias')) {
-            TMMail.setRequiredHint('mailbox_add_alias', window.MailScriptResource.ErrorEmptyField);
-            TMMail.setRequiredError('mailbox_add_alias', true);
+        window.PopupKeyUpActionProvider.CloseDialog();
+
+        if (functionArray.length > 0) {
+            window.LoadingBanner.strLoading = ASC.Resources.Master.Resource.LoadingProcessing;
+            window.LoadingBanner.displayMailLoading(true, true);
+            jq.when.apply(jq, functionArray).done(function () {
+                dfd.resolve();
+            })
+            .fail(dfd.reject);
+        } else {
+            dfd.resolve();
         }
+
+        return dfd.promise();
+    }
+
+    function deferredUpdateMailbox(id, senderName) {
+        var dfd = jq.Deferred();
+        serviceManager.updateMailbox(id, senderName, { mailbox_id: id, name: senderName },
+            {
+                success: function (params, serverMailbox) {
+                    mailbox.name = params.name;
+                    dfd.resolve(params, serverMailbox);
+                },
+                error: dfd.reject
+            });
+
+        return dfd.promise();
+    }
+
+    function deferredAddAlias(mailboxId, alias) {
+        var dfd = jq.Deferred();
+        serviceManager.addMailBoxAlias(mailboxId, alias.name, { mailbox_id: mailboxId, alias: alias },
+            {
+                success: function (params, serverAlias) {
+                    mailbox.aliases.push(serverAlias);
+                    dfd.resolve(params, serverAlias);
+                },
+                error: dfd.reject
+            });
+        return dfd.promise();
+    }
+
+    function deferredRemoveAlias(mailboxId, alias) {
+        var dfd = jq.Deferred();
+        serviceManager.removeMailBoxAlias(mailboxId, alias.id, { mailbox_id: mailboxId, alias: alias },
+            {
+                success: function (params, id) {
+                    var aliasIndex = mailbox.aliases.indexOf(params.alias);
+                    if (aliasIndex > -1) {
+                        mailbox.aliases.splice(aliasIndex, 1);
+                    }
+                    dfd.resolve(params, id);
+                },
+                error: dfd.reject
+            });
+        return dfd.promise();
     }
 
     function deleteAlias() {
@@ -129,7 +193,7 @@ window.editMailboxModal = (function($) {
 
     function addAlias() {
         var domainName = domain.name;
-        var aliasName = $('#mail_server_edit_mailbox').find('.alias_name').val();
+        var aliasName = $('#mail_server_edit_mailbox').find('.aliasName').val();
         var aliasEmail = aliasName + '@' + domainName;
 
         var errorExists = false;
@@ -137,7 +201,7 @@ window.editMailboxModal = (function($) {
         if (aliasName.length === 0) {
             TMMail.setRequiredHint('mailbox_add_alias', window.MailScriptResource.ErrorEmptyField);
             errorExists = true;
-        } else if (!TMMail.reMailServerEmailStrict.test(aliasEmail)) {
+        } else if (!ASC.Mail.Utility.IsValidEmail(aliasEmail)) {
             TMMail.setRequiredHint("mailbox_add_alias", window.MailScriptResource.ErrorIncorrectEmail);
             errorExists = true;
         } else {
@@ -166,7 +230,7 @@ window.editMailboxModal = (function($) {
         $html.find('.delete_entity').unbind('click').bind('click', deleteAlias);
         $('#mail_server_edit_mailbox').find('.mailbox_aliases table').append(html);
         needSaveAliases.push(alias);
-        $('#mail_server_edit_mailbox').find('.alias_name').val('');
+        $('#mail_server_edit_mailbox').find('.aliasName').val('');
         $('#mail_server_edit_mailbox').find('.mailbox_aliases').toggleClass('empty_list', false);
         setFocusToInput();
     }
@@ -190,11 +254,12 @@ window.editMailboxModal = (function($) {
     }
 
     function setFocusToInput() {
-        $('#mail_server_edit_mailbox').find('.alias_name').focus();
+        $('#mail_server_edit_mailbox').find('.aliasName').focus();
     }
 
     return {
-        show: show
+        show: show,
+        events: events
     };
 
 })(jQuery);

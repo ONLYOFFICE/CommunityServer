@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -59,14 +59,20 @@ namespace ASC.Api.Impl
                     var values = requestParams.GetValues(parameterInfo.Name);
                     if (values != null && values.Any())
                     {
+                        if (Binder.IsCollection(parameterInfo.ParameterType))
+                        {
+                            callArg.Add(Binder.Bind(parameterInfo.ParameterType, requestParams, parameterInfo.Name));
+                            continue; //Go to next loop
+                        }
+
                         try
                         {
-                            callArg.Add(ConvertUtils.GetConverted(values.First(), parameterInfo));//NOTE; Get first value!
+                            callArg.Add(ConvertUtils.GetConverted(values.First(), parameterInfo)); //NOTE; Get first value!
                         }
                         catch (ApiArgumentMismatchException)
                         {
                             //Failed to convert. Try bind
-                            callArg.Add(Utils.Binder.Bind(parameterInfo.ParameterType, requestParams, parameterInfo.Name));
+                            callArg.Add(Binder.Bind(parameterInfo.ParameterType, requestParams, parameterInfo.Name));
                         }
                     }
                 }
@@ -85,14 +91,14 @@ namespace ASC.Api.Impl
                     else if (parameterInfo.ParameterType == typeof(ContentDisposition) && !string.IsNullOrEmpty(context.HttpContext.Request.Headers["Content-Disposition"]))
                     {
                         var disposition = new ContentDisposition(context.HttpContext.Request.Headers["Content-Disposition"]);
-                        disposition.FileName = HttpUtility.UrlDecode(disposition.FileName);//Decode uri name
+                        disposition.FileName = HttpUtility.UrlDecode(disposition.FileName); //Decode uri name
                         callArg.Add(disposition);
                     }
                     else if (parameterInfo.ParameterType.IsSubclassOf(typeof(HttpPostedFile)) && context.HttpContext.Request.Files[parameterInfo.Name] != null)
                     {
                         callArg.Add(context.HttpContext.Request.Files[parameterInfo.Name]);
                     }
-                    else if (Utils.Binder.IsCollection(parameterInfo.ParameterType) && parameterInfo.ParameterType.IsGenericType && parameterInfo.ParameterType.GetGenericArguments().First() == typeof(HttpPostedFileBase))
+                    else if (Binder.IsCollection(parameterInfo.ParameterType) && parameterInfo.ParameterType.IsGenericType && parameterInfo.ParameterType.GetGenericArguments().First() == typeof(HttpPostedFileBase))
                     {
                         //File catcher
                         var files = new List<HttpPostedFileBase>(context.HttpContext.Request.Files.Count);
@@ -114,14 +120,14 @@ namespace ASC.Api.Impl
                             if (IsTypeBindable(parameterInfo.ParameterType))
                             {
                                 //Custom type
-                                var binded = Utils.Binder.Bind(parameterInfo.ParameterType,
-                                    requestParams,
-                                    parameterInfo.Name);
+                                var binded = Binder.Bind(parameterInfo.ParameterType,
+                                                         requestParams,
+                                                         parameterInfo.Name);
 
                                 if (binded != null)
                                 {
                                     callArg.Add(binded);
-                                    continue;//Go to next loop
+                                    continue; //Go to next loop
                                 }
                             }
                             //Create null
@@ -147,33 +153,61 @@ namespace ASC.Api.Impl
 
         private static NameValueCollection GetRequestParams(RequestContext context)
         {
-            var requestType = string.IsNullOrEmpty(context.HttpContext.Request.ContentType) ? new ContentType("text/plain") : new ContentType(context.HttpContext.Request.ContentType);
             var collection = context.RouteData.Values.ToNameValueCollection();
+            var request = context.HttpContext.Request;
 
-            switch (requestType.MediaType)
+            if (request == null) return collection;
+            collection.Add(request.QueryString);
+
+            var contentType = string.IsNullOrEmpty(request.ContentType) ? new ContentType("text/plain") : new ContentType(request.ContentType);
+
+            switch (contentType.MediaType)
             {
                 case Constants.XmlContentType:
                     {
-                        using (var reader = new StreamReader(context.HttpContext.Request.InputStream))
+                        using (var stream = request.InputStream)
                         {
-                            FillCollectionFromXElement(XDocument.Load(reader).Root.Elements(), string.Empty, collection);
+                            if (stream != null)
+                            {
+                                using (var reader = new StreamReader(stream))
+                                {
+                                    var root = XDocument.Load(reader).Root;
+                                    if (root != null)
+                                    {
+                                        FillCollectionFromXElement(root.Elements(), string.Empty, collection);
+                                    }
+                                }
+                            }
                         }
                     }
                     break;
                 case Constants.JsonContentType:
                     {
-                        using (var reader = new StreamReader(context.HttpContext.Request.InputStream))
+                        using (var stream = request.InputStream)
                         {
-                            var xdoc = JsonConvert.DeserializeXNode(reader.ReadToEnd(),"request",false);
-                            FillCollectionFromXElement(xdoc.Root.Elements(), string.Empty,collection);
+                            if (stream != null)
+                            {
+                                using (var reader = new StreamReader(request.InputStream))
+                                {
+                                    var xdoc = JsonConvert.DeserializeXNode(reader.ReadToEnd(), "request", false);
+                                    var root = xdoc.Root;
+                                    if (root != null)
+                                    {
+                                        FillCollectionFromXElement(root.Elements(), string.Empty, collection);
+                                    }
+                                }
+                            }
                         }
                     }
                     break;
                 default:
-                    collection.Add(context.HttpContext.Request.QueryString);
-                    if (!"GET".Equals(context.HttpContext.Request.HttpMethod, StringComparison.InvariantCultureIgnoreCase))
+                    if (!"GET".Equals(request.HttpMethod, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        collection.Add(context.HttpContext.Request.Form);
+                        var form = request.Form;
+                        if (form != null)
+                        {
+                            collection.Add(request.Form);
+                        }
                     }
                     break;
             }
@@ -208,7 +242,7 @@ namespace ASC.Api.Impl
                     if (grouping.All(x => !x.HasElements))
                     {
                         //Simple collection
-                        foreach (XElement element in grouping)
+                        foreach (var element in grouping)
                         {
                             AddElement(prefix, collection, element);
                         }
@@ -216,7 +250,7 @@ namespace ASC.Api.Impl
                     else
                     {
                         var groupList = grouping.ToList();
-                        for (int i = 0; i < groupList.Count; i++)
+                        for (var i = 0; i < groupList.Count; i++)
                         {
                             FillCollectionFromXElement(groupList[i].Elements(), prefix + "." + grouping.Key + "[" + i + "]", collection);
                         }
@@ -232,7 +266,7 @@ namespace ASC.Api.Impl
             else
             {
                 var prefixes = prefix.TrimStart('.').Split('.');
-                string additional = string.Empty;
+                var additional = string.Empty;
                 if (prefixes.Length > 1)
                 {
                     additional = string.Join("", prefix.Skip(1).Select(x => "[" + x + "]").ToArray());

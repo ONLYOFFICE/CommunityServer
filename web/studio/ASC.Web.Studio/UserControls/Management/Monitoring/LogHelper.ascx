@@ -1,6 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="LogHelper.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.LogHelper" %>
-<%@ Import Namespace="ASC.Web.Studio.PublicResources" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
 <div class="monitoring-container clearFix">
@@ -26,9 +24,9 @@
     <div class="settings-block">
         <div class="header-base"><%= MonitoringResource.ContactUsTitle %></div>
         <p class="monitoring-describe">
-             <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+             <% if (!string.IsNullOrEmpty(HelpLink))
                 { %>
-            <%= string.Format(MonitoringResource.ContactUsText.HtmlEncode(), "<a href=\"" + CommonLinkUtility.GetHelpLink(true) + "faq/faq.aspx\" class=\"gray link underline\">", "</a>", "<a href=\"mailto:support@onlyoffice.com\")  class=\"gray link underline\">", "</a>") %>
+            <%= string.Format(MonitoringResource.ContactUsText.HtmlEncode(), "<a href=\"" + HelpLink + "/faq/faq.aspx\" class=\"gray link underline\">", "</a>", "<a href=\"mailto:support@onlyoffice.com\")  class=\"gray link underline\">", "</a>") %>
             <% }
                 else
                 { %>

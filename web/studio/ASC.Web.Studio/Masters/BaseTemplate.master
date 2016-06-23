@@ -1,6 +1,7 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="ASC.Web.Studio.Masters.BaseTemplate" CodeBehind="BaseTemplate.master.cs" %>
-<%@ Import Namespace="ASC.Web.Core.Mobile" %>
+
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
+<%@ Import Namespace="Resources" %>
 
 <%@ Register TagPrefix="client" Namespace="ASC.Web.Core.Client.Bundling" Assembly="ASC.Web.Core" %>
 <%@ Register TagPrefix="master" TagName="HeadStyles" Src="HeadStyles.ascx" %>
@@ -14,7 +15,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title>ONLYOFFICE™</title>
+    <title><%= (String.IsNullOrEmpty(Page.Title) ? Resource.MainPageTitle : Page.Title).HtmlEncode() %></title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
@@ -24,9 +25,12 @@
 
     <%= string.Format("<link href='{0}' rel='icon' type='image/x-icon' />", ASC.Web.Core.WhiteLabel.TenantLogoManager.GetFavicon(true, true)) %>
 
-    <% if (!String.IsNullOrEmpty(SetupInfo.FontOpenSansUrl)){ %>
+    <% if (!String.IsNullOrEmpty(SetupInfo.FontOpenSansUrl))
+       { %>
     <%= string.Format("<link href=\"{0}\" rel=\"stylesheet\" type=\"text/css\" />", SetupInfo.FontOpenSansUrl) %>
-    <% } else { %>
+    <% }
+       else
+       { %>
     <link type="text/css" rel="stylesheet" href="<%= ResolveUrl("~/skins/default/opensansoffline/opensansoffline.css") %>" />
     <% } %>
 
@@ -39,7 +43,7 @@
 
     <ucc:FeedControl ID="feadControl" runat="server" Title="Teamlab Portal" ContentOnly="true" AutoFill="false" />
 </head>
-<body class="<%= ColorThemeClass %> <%= MobileDetector.IsMobile ? "mobile" : "" %>">
+<body class="<%= ColorThemeClass %> <%= IsMobile ? "mobile" : "" %>">
 
     <asp:ContentPlaceHolder ID="GoogleTagManagerPlaceHolder" runat="server" />
     <asp:ContentPlaceHolder ID="GoogleAnalyticsScriptPlaceHolder" runat="server" />
@@ -58,19 +62,23 @@
                                 <% if (!DisabledSidePanel)
                                    { %>
                                 <td class="borderBase mainPageTableSidePanel">
-                                    <div id="studio_sidePanel" class="<%=EnabledWebChat ? "sidepanel-with-chat" : ""  %>">
+                                    <div id="studio_sidePanel" class="<%= EnabledWebChat ? "sidepanel-with-chat" : ""  %>">
                                         <asp:ContentPlaceHolder ID="SidePanel" runat="server" />
                                         <asp:PlaceHolder ID="InvitePanelHolder" runat="server" />
                                     </div>
                                     <asp:PlaceHolder ID="BannerHolder" runat="server" />
                                     <% if (EnabledWebChat && !IsMobile)
                                        { %>
-                                           <asp:PlaceHolder runat="server" ID="SmallChatHolder" />
+                                    <asp:PlaceHolder runat="server" ID="SmallChatHolder" />
                                     <% } %>
                                 </td>
                                 <% } %>
                                 <asp:ContentPlaceHolder ID="AdditionalColumns" runat="server" />
                                 <td class="mainPageContent" valign="top">
+
+                                    <noscript>
+                                        <div class="info-box excl"><%= Resource.ErrorNoscript %></div>
+                                    </noscript>
 
                                     <% if (!DisableTariffNotify)
                                        { %>
@@ -83,7 +91,7 @@
                                     <% if (!DisablePartnerPanel && Partner != null)
                                        { %>
                                     <div id="infoBoxPartnerPanel" class="info-box excl">
-                                        <div><%= String.Format(Resources.Resource.HostedExclNonAuthorized.HtmlEncode(), "<a target=\"_blank\" href=\"mailto:"+ (!string.IsNullOrEmpty(Partner.SupportEmail) ? Partner.SupportEmail : Partner.Email) + "\">", "</a>") %></div>
+                                        <div><%= String.Format(Resource.HostedExclNonAuthorized.HtmlEncode(), "<a target=\"_blank\" href=\"mailto:"+ (!string.IsNullOrEmpty(Partner.SupportEmail) ? Partner.SupportEmail : Partner.Email) + "\">", "</a>") %></div>
                                     </div>
                                     <% } %>
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -141,8 +141,12 @@ namespace ASC.Core.Caching
         public byte[] GetTenantSettings(int tenant, string key)
         {
             var cacheKey = string.Format("settings/{0}/{1}", tenant, key);
-            var data = cache.Get<byte[]>(cacheKey) ?? service.GetTenantSettings(tenant, key);
-            cache.Insert(cacheKey, data ?? new byte[0], DateTime.UtcNow + SettingsExpiration);
+            var data = cache.Get<byte[]>(cacheKey);
+            if (data == null)
+            {
+                data = service.GetTenantSettings(tenant, key);
+                cache.Insert(cacheKey, data ?? new byte[0], DateTime.UtcNow + SettingsExpiration);
+            }
             return data == null ? null : data.Length == 0 ? null : data;
         }
 

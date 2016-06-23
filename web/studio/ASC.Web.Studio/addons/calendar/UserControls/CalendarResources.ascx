@@ -7,11 +7,11 @@ var g_fcOptions = {
 
 		isRTL:           <%=(System.Globalization.CultureInfo.CurrentUICulture.TextInfo.IsRightToLeft ? "true" : "false")%>,
 
-		monthNames:      ['<%=System.String.Join("', '", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.MonthNames, 0, 12)%>'],
-		monthNamesShort: ['<%=System.String.Join("', '", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.AbbreviatedMonthNames, 0, 12)%>'],
+		monthNames:      ["<%=System.String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.MonthNames, 0, 12)%>"],
+		monthNamesShort: ["<%=System.String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.AbbreviatedMonthNames, 0, 12)%>"],
 
-		dayNames:        ['<%=System.String.Join("', '", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.DayNames, 0, 7)%>'],
-		dayNamesShort:   ['<%=System.String.Join("', '", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.AbbreviatedDayNames, 0, 7)%>'],
+		dayNames:        ["<%=System.String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.DayNames, 0, 7)%>"],
+		dayNamesShort:   ["<%=System.String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.AbbreviatedDayNames, 0, 7)%>"],
 		firstDay:        <%=(int)System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek%>,
 
 		titleFormat: {
@@ -106,13 +106,21 @@ var g_fcOptions = {
 			newEventTitle:               "<%=Resources.CalendarJSResource.calendar_newEventTitle%>",
 			// dialog
 			dialogHeader_add:            "<%=Resources.CalendarJSResource.calendarEventEditor_addHeader%>",
-            dialogOwnerLabel:            "<%=Resources.CalendarJSResource.calendarEventEditor_ownerLabel%>",
+			dialogSummaryLabel:          "<%=Resources.CalendarJSResource.calendarEventEditor_summaryLabel%>",
+			dialogLocationLabel:         "<%=Resources.CalendarJSResource.calendarEventEditor_locationLabel%>",
+			dialogAttendeesLabel:        "<%=Resources.CalendarJSResource.calendarEventEditor_attendeesLabel%>",
+		    dialogOwnerLabel:            "<%=Resources.CalendarJSResource.calendarEventEditor_ownerLabel%>",
+		    dialogOrganizerLabel:        "<%=Resources.CalendarJSResource.calendarEventEditor_organizerLabel%>",
 			dialogAllDayLabel:           "<%=Resources.CalendarJSResource.calendarEventEditor_allDayLabel%>",
 			dialogAllDay_no:             "<%=Resources.CalendarJSResource.calendarEventEditor_notAllDayEvent%>",
 			dialogAllDay_yes:            "<%=Resources.CalendarJSResource.calendarEventEditor_allDayEvent%>",
 			dialogFromLabel:             "<%=Resources.CalendarJSResource.calendarEventEditor_fromLabel%>",
 			dialogToLabel:               "<%=Resources.CalendarJSResource.calendarEventEditor_toLabel%>",
 			dialogRepeatLabel:           "<%=Resources.CalendarJSResource.calendarEventEditor_repeatLabel%>",
+			dialogStatusLabel:           "<%=Resources.CalendarJSResource.calendarEventEditor_statusLabel%>",
+			dialogStatusOption_tentative:"<%=Resources.CalendarJSResource.calendarEventEditor_statusTentative%>",
+			dialogStatusOption_confirmed:"<%=Resources.CalendarJSResource.calendarEventEditor_statusConfirmed%>",
+			dialogStatusOption_cancelled:"<%=Resources.CalendarJSResource.calendarEventEditor_statusCancelled%>",
 			dialogRepeatOption_never:    "<%=Resources.CalendarJSResource.calendarEventEditor_repeatNever%>",
 			dialogRepeatOption_day:      "<%=Resources.CalendarJSResource.calendarEventEditor_repeatDaily%>",
 			dialogRepeatOption_week:     "<%=Resources.CalendarJSResource.calendarEventEditor_repeatWeekly%>",
@@ -136,7 +144,12 @@ var g_fcOptions = {
 			dialogButton_close:          "<%=Resources.CalendarJSResource.calendarEventEditor_closeButton%>",
 			dialogButton_cancel:         "<%=Resources.CalendarJSResource.calendarEventEditor_cancelButton%>",
 			dialogButton_delete:         "<%=Resources.CalendarJSResource.calendarEventEditor_deleteButton%>",
-			dialogButton_unsubscribe:    "<%=Resources.CalendarJSResource.calendarEventEditor_unsubscribeButton%>"
+		    dialogButton_unsubscribe:    "<%=Resources.CalendarJSResource.calendarEventEditor_unsubscribeButton%>",
+		    dialogHeader_createEvent:    "<%=Resources.CalendarJSResource.calendarEventEditor_headerCreate%>",
+		    dialogHeader_editEvent:      "<%=Resources.CalendarJSResource.calendarEventEditor_headerEdit%>",
+		    dialogHeader_viewEvent:      "<%=Resources.CalendarJSResource.calendarEventEditor_headerView%>",
+		    dialogButton_moreDetails:    "<%=Resources.CalendarJSResource.calendarEventEditor_moreDetailsButtons%>",
+            dialogButton_details:        "<%=Resources.CalendarJSResource.calendarEventEditor_detailsButton%>"
 		},
 		
 		repeatSettings: {
@@ -170,8 +183,8 @@ var g_fcOptions = {
             dialogIntervalOption_month:   "<%=Resources.CalendarJSResource.repeatSettings_intervalMonth%>",
             dialogIntervalOption_year:    "<%=Resources.CalendarJSResource.repeatSettings_intervalYear%>",
             
-            dayNames:                     ['<%=System.String.Join("', '", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.DayNames, 0, 7)%>'],            
-            dayNamesShort:                ['<%=System.String.Join("', '", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.AbbreviatedDayNames, 0, 7)%>'],
+            dayNames:                     ["<%=System.String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.DayNames, 0, 7)%>"],            
+            dayNamesShort:                ["<%=System.String.Join("\", \"", System.Globalization.CultureInfo.CurrentUICulture.DateTimeFormat.AbbreviatedDayNames, 0, 7)%>"],
             
             dayAliasNames:                ["<%=Resources.CalendarJSResource.repeatSettings_firstLabel%>",
                                            "<%=Resources.CalendarJSResource.repeatSettings_secondLabel%>",
@@ -197,6 +210,30 @@ var g_fcOptions = {
             dialogButton_cancel:          "<%=Resources.CalendarJSResource.deleteSettings_cancelBtn%>"
         },
         
+        confirmPopup: {
+            // dialog
+            dialogAddEventHeader:         "<%=Resources.CalendarJSResource.confirmPopup_AddEventHeader%>",
+            dialogUpdateEventHeader:      "<%=Resources.CalendarJSResource.confirmPopup_UpdateEventHeader%>",
+            dialogDeleteEventHeader:      "<%=Resources.CalendarJSResource.confirmPopup_DeleteEventHeader%>",
+            dialogAddEventBody:           "<%=Resources.CalendarJSResource.confirmPopup_AddEventBody%>",
+            dialogUpdateEventBody:        "<%=Resources.CalendarJSResource.confirmPopup_UpdateEventBody%>",
+            dialogUpdateGuestsBody:       "<%=Resources.CalendarJSResource.confirmPopup_UpdateGuestsBody%>",
+            dialogDeleteEventBody:        "<%=Resources.CalendarJSResource.confirmPopup_DeleteEventBody%>",
+            
+            dialogSuccessToastText:       "<%=Resources.CalendarJSResource.confirmPopup_SuccessToastText%>",
+            dialogErrorToastText:         "<%=Resources.CalendarJSResource.confirmPopup_ErrorToastText%>",
+
+            // buttons
+            dialogButtonSend:            "<%=Resources.CalendarJSResource.confirmPopup_ButtonSend%>",
+            dialogButtonSendCustoms:     "<%=Resources.CalendarJSResource.confirmPopup_ButtonSendCustoms%>",
+            dialogButtonSendEveryone:    "<%=Resources.CalendarJSResource.confirmPopup_ButtonSendEveryone%>",
+            dialogButtonDontSend:        "<%=Resources.CalendarJSResource.confirmPopup_ButtonDontSend%>",
+
+            // infotext
+            editorInfoText:              "<%=Resources.CalendarJSResource.editorInfoText%>",
+            editorInfoTextSubscription:  "<%=Resources.CalendarJSResource.editorInfoTextSubscription%>"
+        },
+
         icalStream: {
             // dialog            
             newiCalTitle:                         "<%=Resources.CalendarJSResource.icalStream_newLabel%>",

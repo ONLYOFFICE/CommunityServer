@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -28,15 +28,27 @@ using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.ServiceProcess;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using ASC.Mail.Aggregator.CollectionService.Configuration;
+using ASC.Core;
 using ASC.Mail.Aggregator.CollectionService.Queue;
-using ASC.Mail.Aggregator.CollectionService.Workers;
 using ASC.Mail.Aggregator.Common;
+using ASC.Mail.Aggregator.Common.Clients;
+using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Common.Logging;
+using DotNetOpenAuth.Messaging;
+using MailKit.Security;
+using ASC.Core.Notify.Signalr;
+using ASC.Mail.Aggregator.Common.DataStorage;
+using ASC.Mail.Aggregator.Common.Utils;
+using ASC.Mail.Aggregator.Core.Clients;
+using MailKit.Net.Imap;
+using MailKit.Net.Pop3;
+using MimeKit;
 
 namespace ASC.Mail.Aggregator.CollectionService
 {
@@ -47,8 +59,8 @@ namespace ASC.Mail.Aggregator.CollectionService
 
         private readonly CancellationTokenSource _cancelTokenSource;
         readonly ManualResetEvent _resetEvent;
-        readonly TimeSpan _tsInterval;
-        private Timer _intervalTimer;
+        private Timer _workTimer;
+        private Timer _gcCleanerTimer;
 
         private readonly TasksConfig _tasksConfig;
 
@@ -56,9 +68,19 @@ namespace ASC.Mail.Aggregator.CollectionService
         readonly TaskFactory _taskFactory;
         private readonly TimeSpan _tsTaskStateCheckInterval;
 
-        private bool _IsFirstTime = true;
+        private bool _isFirstTime = true;
 
-        public AggregatorService(IEnumerable<string> workOnThisUsersOnly = null)
+        private static SignalrServiceClient _signalrServiceClient;
+
+        private const int SIGNALR_WAIT_SECONDS = 30;
+
+        private TimeSpan _gcCleanTimerInterval = TimeSpan.FromMinutes(5); 
+
+        private static readonly object Locker = new object();
+
+        private readonly TimeSpan _taskSecondsLifetime;
+
+        public AggregatorService(Options options)
         {
             ServiceName = AscMailCollectionServiceName;
             EventLog.Log = "Application";
@@ -76,81 +98,18 @@ namespace ASC.Mail.Aggregator.CollectionService
 
                 Environment.SetEnvironmentVariable("MONO_TLS_SESSION_CACHE_TIMEOUT", "0");
 
-                var queueSettings = MailQueueSettings.FromConfig;
-                
-                if (workOnThisUsersOnly != null)
-                    queueSettings.WorkOnUsersOnly = workOnThisUsersOnly.ToList();
-                else
-                {
-                    var userToWorkOn = ConfigurationManager.AppSettings["mail.OneUserMode"];
-                    if (!string.IsNullOrEmpty(userToWorkOn))
-                        queueSettings.WorkOnUsersOnly.Add(userToWorkOn);
-                }
+                _tasksConfig = TasksConfig.FromConfig;
 
-                var authErrorWarningTimeout =
-                    ConfigurationManager.AppSettings["mail.auth-error-warning-in-minutes"] != null
-                        ? TimeSpan.FromMinutes(
-                            Convert.ToInt32(ConfigurationManager.AppSettings["mail.auth-error-warning-in-minutes"]))
-                        : TimeSpan.FromHours(1);
+                if (options.OnlyUsers != null)
+                    _tasksConfig.WorkOnUsersOnly.AddRange(options.OnlyUsers.ToList());
 
-                _log.Info("Auth login error warning timeout is {0}.", authErrorWarningTimeout.ToString());
+                if (options.NoMessagesLimit)
+                    _tasksConfig.MaxMessagesPerSession = -1;
 
-                var authErrorDisableMailboxTimeout =
-                    ConfigurationManager.AppSettings["mail.auth-error-disable-mailbox-in-minutes"] != null
-                        ? TimeSpan.FromMinutes(
-                            Convert.ToInt32(ConfigurationManager.AppSettings["mail.auth-error-disable-mailbox-in-minutes"]))
-                        : TimeSpan.FromDays(3);
-
-                _log.Info("Auth login error disable mailbox timeout is {0}.", authErrorDisableMailboxTimeout.ToString());
-
-                _log.Info("MailWorkerQueue: ConcurrentThreadCount = {0} and CheckInterval = {1} CheckPOP3_UIDL_Chunck = {2}",
-                queueSettings.ConcurrentThreadCount, queueSettings.CheckInterval, queueSettings.CheckPop3UidlChunk);
-
-                var configBuilder = new TasksConfig.Builder();
-
-                if (queueSettings.WorkOnUsersOnly != null && queueSettings.WorkOnUsersOnly.Any())
-                {
-                    var i = 0;
-                    var users = string.Empty;
-                    queueSettings.WorkOnUsersOnly.ForEach(user => users += string.Format("\r\n\t\t\t\t{0}. \"{1}\"", ++i, user));
-
-                    _log.Info("Aggregator will get tasks for this users only:" + users);
-                }
-
-                var queueLifetime = ConfigurationManager.AppSettings["mail.queue-lifetime-seconds"] != null
-                        ? TimeSpan.FromSeconds(
-                            Convert.ToInt32(ConfigurationManager.AppSettings["mail.queue-lifetime-seconds"]))
-                        : TimeSpan.FromSeconds(30);
-
-                var showActiveUpLogs = ConfigurationManager.AppSettings["mail.show-activeup-logs"] != null &&
-                                       Convert.ToBoolean(
-                                           ConfigurationManager.AppSettings["mail.show-activeup-logs"]);
-
-                var saveOriginalMessage = ConfigurationManager.AppSettings["mail.save-original-message"] != null &&
-                                          Convert.ToBoolean(
-                                              ConfigurationManager.AppSettings["mail.save-original-message"]);
-
-                _tasksConfig = configBuilder.SetUsersToWorkOn(queueSettings.WorkOnUsersOnly)
-                                            .SetAggregateMode(queueSettings.AggregateMode)
-                                            .SetActiveInterval(queueSettings.ActivityTimeout)
-                                            .SetChunkOfPop3CheckUidLinDb(queueSettings.CheckPop3UidlChunk)
-                                            .SetEnableSignalr(queueSettings.EnableSignalr)
-                                            .SetMaxMessagesPerSession(queueSettings.MaxMessagesPerSession)
-                                            .SetMaxTasksAtOnce(queueSettings.ConcurrentThreadCount)
-                                            .SetQueueLifetime(queueLifetime)
-                                            .SetTenantCachingPeriod(queueSettings.TenantCachingPeriod)
-                                            .SetShowActiveUpLogs(showActiveUpLogs)
-                                            .SetInactiveMailboxesRatio(queueSettings.InactiveMailboxesRatio)
-                                            .SetAuthErrorWarningTimeout(authErrorWarningTimeout)
-                                            .SetAuthErrorDisableMailboxTimeout(authErrorDisableMailboxTimeout)
-                                            .SetMinQuotaBalance(queueSettings.MinQuotaBalance)
-                                            .SetOverdueAccountDelay(queueSettings.OverdueAccountDelay)
-                                            .SetTenantOverdueDays(queueSettings.OverdueDays)
-                                            .SetQuotaEndedDelay(queueSettings.QuotaEndedDelay)
-                                            .SetSaveOriginalMessageFlag(saveOriginalMessage)
-                                            .Build();
-
-                _tsInterval = queueSettings.CheckInterval;
+                _taskSecondsLifetime =
+                    TimeSpan.FromSeconds(ConfigurationManager.AppSettings["mail.task-process-lifetime-seconds"] != null
+                        ? Convert.ToInt32(ConfigurationManager.AppSettings["mail.task-process-lifetime-seconds"])
+                        : 300);
 
                 _queueManager = new QueueManager(_tasksConfig, _log);
 
@@ -165,12 +124,12 @@ namespace ASC.Mail.Aggregator.CollectionService
                             Convert.ToInt32(ConfigurationManager.AppSettings["mail.task-check-state-seconds"]))
                         : TimeSpan.FromSeconds(30);
 
-                if (ConfigurationManager.AppSettings["mail.default-api-scheme"] != null)
-                {
-                    var defaultApiScheme = ConfigurationManager.AppSettings["mail.default-api-scheme"];
+                if(_tasksConfig.EnableSignalr)
+                    _signalrServiceClient = new SignalrServiceClient();
 
-                    ApiHelper.SetupScheme(defaultApiScheme);
-                }
+                _workTimer = new Timer(workTimer_Elapsed, _cancelTokenSource.Token, Timeout.Infinite, Timeout.Infinite);
+
+                _gcCleanerTimer = new Timer(gcCleanerTimer_Elapsed, _cancelTokenSource.Token, _gcCleanTimerInterval, _gcCleanTimerInterval);
 
                 _log.Info("Service is ready.");
             }
@@ -178,6 +137,14 @@ namespace ASC.Mail.Aggregator.CollectionService
             {
                 _log.Fatal("CollectorService error under construct: {0}", ex.ToString());
             }
+        }
+
+        private void gcCleanerTimer_Elapsed(object state)
+        {
+            _log.Info("gcCleanerTimer_Elapsed: GC.Collect()");
+            _gcCleanerTimer.Change(Timeout.Infinite, Timeout.Infinite);
+            GC.Collect();
+            _gcCleanerTimer.Change(_gcCleanTimerInterval, _gcCleanTimerInterval);
         }
 
         #region - Overrides base -
@@ -193,9 +160,9 @@ namespace ASC.Mail.Aggregator.CollectionService
             {
                 _log.Info("Start service\r\n");
 
-                _intervalTimer = new Timer(IntervalTimer_Elapsed, _cancelTokenSource.Token, 0, Timeout.Infinite);
-
                 base.OnStart(args);
+
+                StartTimer(true);
             }
             catch (Exception)
             {
@@ -215,11 +182,18 @@ namespace ASC.Mail.Aggregator.CollectionService
 
             _queueManager.CancelHandler.WaitOne();
 
-            if (_intervalTimer != null)
+            StopTimer();
+
+            if (_workTimer != null)
             {
-                _intervalTimer.Change(Timeout.Infinite, Timeout.Infinite);
-                _intervalTimer.Dispose();
-                _intervalTimer = null;
+                _workTimer.Dispose();
+                _workTimer = null;
+            }
+
+            if (_gcCleanerTimer != null)
+            {
+                _gcCleanerTimer.Dispose();
+                _gcCleanerTimer = null;
             }
 
             _resetEvent.Set();
@@ -265,7 +239,7 @@ namespace ASC.Mail.Aggregator.CollectionService
         /// </summary>
         public void StartConsole()
         {
-            _log.Info("Service Start console daemon().");
+            _log.Info("Service Start in console-daemon mode");
             OnStart(null);
             Console.CancelKeyPress += (sender, e) => OnStop();
             _resetEvent.WaitOne();
@@ -275,15 +249,15 @@ namespace ASC.Mail.Aggregator.CollectionService
 
         #region - Timer_Elapsed -
 
-        private void IntervalTimer_Elapsed(object state)
+        private void workTimer_Elapsed(object state)
         {
-            _log.Debug("Timer->IntervalTimer_Elapsed");
+            _log.Debug("Timer->workTimer_Elapsed");
 
             var cancelToken = state as CancellationToken? ?? new CancellationToken();
 
             try
             {
-                if (_IsFirstTime)
+                if (_isFirstTime)
                 {
                     _queueManager.LoadQueueFromDump();
 
@@ -296,21 +270,27 @@ namespace ASC.Mail.Aggregator.CollectionService
                         _queueManager.SaveQueueToDump();
                     }
 
-                    _IsFirstTime = false;
+                    _isFirstTime = false;
                 }
 
-                if (cancelToken.IsCancellationRequested || _intervalTimer == null)
+                if (cancelToken.IsCancellationRequested)
                 {
-                    _log.Debug("Timer->IntervalTimer_Elapsed - {0}. Quit.", cancelToken.IsCancellationRequested ? "IsCancellationRequested" : "_intervalTimer == null");
+                    _log.Debug("Timer->workTimer_Elapsed: IsCancellationRequested. Quit.");
                     return;
                 }
 
-                _log.Debug("Setup _intervalTimer to Timeout.Infinite");
-                _intervalTimer.Change(Timeout.Infinite, Timeout.Infinite);
+                if (_workTimer == null)
+                {
+                    _log.Debug("Timer->workTimer_Elapsed: _workTimer == null. Quit.");
+                    OnStop();
+                    return;
+                }
+
+                StopTimer();
 
                 var tasks = CreateTasks(_tasksConfig.MaxTasksAtOnce, cancelToken);
 
-                if(tasks.Any())
+                if (tasks.Any())
                     _queueManager.SaveQueueToDump();
 
                 // ***Add a loop to process the tasks one at a time until none remain. 
@@ -365,7 +345,6 @@ namespace ASC.Mail.Aggregator.CollectionService
                 }
 
                 _log.Info("All mailboxes were processed. Go back to timer.");
-
             }
             catch (Exception ex)
             {
@@ -387,7 +366,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                     return;
                 }
 
-                _log.Error("Timer->IntervalTimer_Elapsed. Exception:\r\n{0}\r\n", ex.ToString());
+                _log.Error("Timer->workTimer_Elapsed. Exception:\r\n{0}\r\n", ex.ToString());
 
                 if (_queueManager.ProcessingCount != 0)
                 {
@@ -399,10 +378,42 @@ namespace ASC.Mail.Aggregator.CollectionService
 
             _queueManager.CancelHandler.Set();
 
-            if (_intervalTimer != null)
+            StartTimer();
+        }
+
+        private void StartTimer(bool immediately = false)
+        {
+            if (_workTimer == null)
+                return;
+
+            _log.Debug("Setup _workTimer to {0} seconds", _tasksConfig.CheckTimerInterval.TotalSeconds);
+            if (immediately)
             {
-                _log.Debug("Setup _intervalTimer to {0} seconds", _tsInterval.TotalSeconds);
-                _intervalTimer.Change(_tsInterval, _tsInterval);
+                _workTimer.Change(0, Timeout.Infinite);
+            }
+            else
+            {
+                _workTimer.Change(_tasksConfig.CheckTimerInterval, _tasksConfig.CheckTimerInterval);
+            }
+        }
+
+        private void StopTimer()
+        {
+            if (_workTimer == null)
+                return;
+
+            _log.Debug("Setup _workTimer to Timeout.Infinite");
+            _workTimer.Change(Timeout.Infinite, Timeout.Infinite);
+        }
+
+        private void NotifySignalr(MailBox mailbox, ILogger log)
+        {
+            log.Debug("signalrServiceClient.SendUnreadUser(UserId = {0} TenantId = {1})", mailbox.UserId,
+                mailbox.TenantId);
+
+            lock (Locker)
+            {
+                _signalrServiceClient.SendUnreadUser(mailbox.TenantId, mailbox.UserId);
             }
         }
 
@@ -415,8 +426,16 @@ namespace ASC.Mail.Aggregator.CollectionService
             var tasks =
                 mailboxes.Select(
                     mailbox =>
-                    _taskFactory.StartNew(() => ProcessMailbox(mailbox, _tasksConfig, cancelToken),
-                                          cancelToken)).ToList();
+                    {
+                        var timeoutCancel = new CancellationTokenSource(_taskSecondsLifetime);
+
+                        var commonCancelToken = CancellationTokenSource.CreateLinkedTokenSource(cancelToken, timeoutCancel.Token).Token;
+
+                        var task = _taskFactory.StartNew(() => ProcessMailbox(mailbox, _tasksConfig, commonCancelToken),
+                            commonCancelToken);
+
+                        return task;
+                    }).ToList();
 
             if (tasks.Any())
                 _log.Info("Created {0} tasks.", tasks.Count);
@@ -435,27 +454,23 @@ namespace ASC.Mail.Aggregator.CollectionService
                 mailbox.TenantId, mailbox.MailBoxId,
                 mailbox.EMail, mailbox.Active ? "Active" : "Inactive");
 
+            var manager = new MailBoxManager(taskLogger)
+            {
+                AuthErrorWarningTimeout = tasksConfig.AuthErrorWarningTimeout,
+                AuthErrorDisableTimeout = tasksConfig.AuthErrorDisableMailboxTimeout
+            };
+
             try
             {
-                var manager = new MailBoxManager(taskLogger)
+                using (var client = new MailClient(mailbox, cancelToken, _tasksConfig.TcpTimeout, _tasksConfig.SslCertificateErrorsPermit, taskLogger))
                 {
-                    AuthErrorWarningTimeout = tasksConfig.AuthErrorWarningTimeout,
-                    AuthErrorDisableTimeout = tasksConfig.AuthErrorDisableMailboxTimeout
-                };
+                    client.Authenticated += ClientOnAuthenticated;
+                    client.GetMessage += ClientOnGetMessage;
 
-                if (mailbox.Imap)
-                {
-                    using (var worker = new Imap4Worker(manager, mailbox, tasksConfig, cancelToken, tasksConfig.SaveOriginalMessage, taskLogger))
-                    {
-                        worker.Aggregate();
-                    }
-                }
-                else
-                {
-                    using (var worker = new Pop3Worker(manager, mailbox, tasksConfig, cancelToken, tasksConfig.SaveOriginalMessage, taskLogger))
-                    {
-                        worker.Aggregate();
-                    }
+                    client.Aggregate(tasksConfig, tasksConfig.MaxMessagesPerSession);
+
+                    client.GetMessage -= ClientOnGetMessage;
+                    client.Authenticated -= ClientOnAuthenticated;
                 }
 
                 taskLogger.Info("Mailbox '{0}' has been processed.", mailbox.EMail);
@@ -463,16 +478,316 @@ namespace ASC.Mail.Aggregator.CollectionService
             catch (OperationCanceledException)
             {
                 taskLogger.Info("Task canceled.");
-                throw;
+                if (_tasksConfig.EnableSignalr)
+                {
+                    NotifySignalr(mailbox, taskLogger);
+                }
+            }
+            catch (AuthenticationException authEx)
+            {
+                taskLogger.Error(
+                    "ProcessMailbox(Tenant = {0}, MailboxId = {1}, Address = '{2}')\r\nException: {3}\r\n",
+                    mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail, authEx.ToStringDescriptive());
+
+                if (!mailbox.AuthErrorDate.HasValue)
+                    manager.SetMailboxAuthError(mailbox, true);
             }
             catch (Exception ex)
             {
                 taskLogger.Error(
                     "ProcessMailbox(Tenant = {0}, MailboxId = {1}, Address = '{2}')\r\nException: {3}\r\n",
-                    mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail, ex.ToString());
+                    mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail,
+                    ex is ImapProtocolException || ex is Pop3ProtocolException ? ex.Message : ex.ToString());
             }
 
             return mailbox;
+        }
+
+        private void ClientOnAuthenticated(object sender, MailClientEventArgs mailClientEventArgs)
+        {
+            if (!mailClientEventArgs.Mailbox.AuthErrorDate.HasValue)
+                return;
+
+            var manager = new MailBoxManager();
+            manager.SetMailboxAuthError(mailClientEventArgs.Mailbox, false);
+        }
+
+        private void ClientOnGetMessage(object sender, MailClientMessageEventArgs mailClientMessageEventArgs)
+        {
+            var log = _log;
+
+            try
+            {
+                var mimeMessage = mailClientMessageEventArgs.Message;
+                var uid = mailClientMessageEventArgs.MessageUid;
+                var folder = mailClientMessageEventArgs.Folder;
+                var mailbox = mailClientMessageEventArgs.Mailbox;
+                var unread = mailClientMessageEventArgs.Unread;
+                var fromEmail = mimeMessage.From.Mailboxes.FirstOrDefault();
+                log = mailClientMessageEventArgs.Logger;
+
+                var manager = new MailBoxManager(log);
+
+                var md5 = string.Format("{0}|{1}|{2}|{3}",
+                    mimeMessage.From.Mailboxes.Any() ? mimeMessage.From.Mailboxes.First().Address : "",
+                    mimeMessage.Subject,
+                    mimeMessage.Date.UtcDateTime,
+                    mimeMessage.MessageId)
+                    .GetMd5();
+
+                var uidl = mailbox.Imap ? string.Format("{0}-{1}", uid, folder.FolderId) : uid;
+
+                var fromThisMailBox =
+                    fromEmail != null &&
+                    fromEmail.Address.ToLowerInvariant().Equals(mailbox.EMail.Address.ToLowerInvariant());
+
+                var toThisMailBox =
+                    mimeMessage.To.Mailboxes.Select(addr => addr.Address.ToLowerInvariant())
+                        .Contains(mailbox.EMail.Address.ToLowerInvariant());
+
+                log.Info(@"Message:
+    MimeId:   '{0}'
+    Subject:  '{1}'
+    Date:     {2}
+    FolderId: {3} ('{4}')
+    Unread:   {5}
+    Uidl:     '{6}'
+    Md5:      '{7}'
+    To->From: {8}
+    From->To: {9}",
+                    mimeMessage.MessageId,
+                    mimeMessage.Subject,
+                    mimeMessage.Date,
+                    folder.FolderId,
+                    folder.Name,
+                    unread,
+                    uidl,
+                    md5,
+                    fromThisMailBox,
+                    toThisMailBox);
+
+                var tagsIds = folder.Tags.Any() ? manager.GetOrCreateTags(mailbox.TenantId, mailbox.UserId, folder.Tags) : null;
+
+                var found = manager
+                    .SearchExistingMessagesAndUpdateIfNeeded(
+                        mailbox,
+                        folder.FolderId,
+                        uidl,
+                        md5,
+                        mimeMessage.MessageId,
+                        fromThisMailBox,
+                        toThisMailBox,
+                        tagsIds);
+
+                var needSave = !found;
+                if (!needSave)
+                    return;
+
+                var chainId = manager.DetectChainId(mailbox, mimeMessage.MessageId, mimeMessage.InReplyTo,
+                    mimeMessage.Subject);
+
+                var streamId = MailUtil.CreateStreamId();
+
+                log.Debug("MimeMessage->MailMessage");
+
+                var message = new MailMessage(mimeMessage, folder.FolderId, unread, chainId, streamId);
+
+                if (!TryStoreMailData(message, mailbox, log))
+                    return;
+
+                log.Debug("MailSave()");
+
+                var folderRestoreId = folder.FolderId == MailFolder.Ids.spam ? MailFolder.Ids.inbox : folder.FolderId;
+
+                message.Id = manager.MailSave(mailbox, message, 0, folder.FolderId, folderRestoreId, uidl, md5, true);
+
+                log.Info("MailSave(Account:{0}) returned mailId = {1}\r\n", mailbox.EMail, message.Id);
+
+                log.Debug("DoOptionalOperations()");
+
+                DoOptionalOperations(message, mimeMessage, mailbox, tagsIds, log);
+
+                bool isMailboxRemoved;
+                bool isMailboxDeactivated;
+                DateTime beginDate;
+
+                manager.GetMailBoxState(mailbox.MailBoxId, out isMailboxRemoved, out isMailboxDeactivated, out beginDate);
+
+                if (mailbox.BeginDate != beginDate)
+                {
+                    mailbox.BeginDateChanged = true;
+                    mailbox.BeginDate = beginDate;
+                }
+
+                var client = sender as MailClient;
+
+                if (isMailboxRemoved)
+                {
+                    if (client != null)
+                        client.Cancel();
+
+                    manager.DeleteMessages(
+                        mailbox.TenantId,
+                        mailbox.UserId,
+                        new List<int>
+                        {
+                            (int) message.Id
+                        });
+
+                    log.Info("MailBox with id={0} is removed.\r\n", mailbox.MailBoxId);
+                }
+
+                if (isMailboxDeactivated)
+                {
+                    if (client != null)
+                        client.Cancel();
+
+                    log.Info("MailBox with id={0} is deactivated.\r\n", mailbox.MailBoxId);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                log.Error("[ClientOnGetMessage] Exception:\r\n{0}\r\n", ex.ToString());
+            }
+        }
+
+        private void DoOptionalOperations(MailMessage message, MimeMessage mimeMessage, MailBox mailbox, int[] tagIds, ILogger log)
+        {
+            var manager = new MailBoxManager(log);
+
+            CoreContext.TenantManager.SetCurrentTenant(mailbox.TenantId);
+
+            SecurityContext.AuthenticateMe(new Guid(mailbox.UserId));
+
+            try
+            {
+                if (mailbox.Imap)
+                {
+                    if (tagIds != null) // Add new tags to existing messages
+                    {
+                        foreach (var tagId in tagIds)
+                            manager.SetMessagesTag(mailbox.TenantId, mailbox.UserId, tagId, new[] {(int) message.Id});
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                _log.Error("SetMessagesTag(tenant={0}, userId='{1}', messageId={2}, tagid = {3}) Exception:\r\n{4}\r\n",
+                    mailbox.TenantId, mailbox.UserId, message.Id, e.ToString(), tagIds != null ? string.Join(",", tagIds) : "null");
+            }
+
+            manager.AddRelationshipEventForLinkedAccounts(mailbox, message, _tasksConfig.DefaultApiSchema, log);
+
+            manager.SaveEmailInData(mailbox, message, _tasksConfig.DefaultApiSchema, log);
+
+            manager.SendAutoreply(mailbox, message, _tasksConfig.DefaultApiSchema, log);
+
+            manager.UploadIcsToCalendar(
+                mailbox, 
+                message.CalendarId,
+                message.CalendarUid,
+                message.CalendarEventIcs,
+                message.CalendarEventCharset,
+                message.CalendarEventMimeType,
+                mailbox.EMail.Address, 
+                _tasksConfig.DefaultApiSchema, log);
+
+            if (_tasksConfig.SaveOriginalMessage)
+                StoreMailEml(mailbox.TenantId, mailbox.UserId, message.StreamId, mimeMessage, log);
+
+            if (!_tasksConfig.EnableSignalr)
+                return;
+
+            var now = DateTime.UtcNow;
+
+            if (mailbox.LastSignalrNotify.HasValue &&
+                !((now - mailbox.LastSignalrNotify.Value).TotalSeconds > SIGNALR_WAIT_SECONDS))
+            {
+                mailbox.LastSignalrNotifySkipped = true;
+                return;
+            }
+
+            NotifySignalr(mailbox, log);
+
+            mailbox.LastSignalrNotify = now;
+            mailbox.LastSignalrNotifySkipped = false;
+        }
+
+        public string StoreMailEml(int tenant, string user, string streamId, MimeMessage message, ILogger logger)
+        {
+            if (message == null)
+                return string.Empty;
+
+            // Using id_user as domain in S3 Storage - allows not to add quota to tenant.
+            var savePath = MailStoragePathCombiner.GetEmlKey(user, streamId);
+            var storage = MailDataStore.GetDataStore(tenant);
+
+            try
+            {
+                using (var stream = new MemoryStream())
+                {
+                    message.WriteTo(stream);
+
+                    var res = storage
+                        .UploadWithoutQuota(string.Empty, savePath, stream, "message/rfc822", string.Empty)
+                        .ToString();
+
+                    logger.Debug("StoreMailEml() tenant='{0}', user_id='{1}', save_eml_path='{2}' Result: {3}",
+                        tenant, user, savePath, res);
+
+                    return res;
+                }
+            }
+            catch (Exception ex)
+            {
+                logger.Error("StoreMailEml Exception: {0}", ex.ToString());
+            }
+
+            return string.Empty;
+        }
+
+        private bool TryStoreMailData(MailMessage message, MailBox mailbox, ILogger log)
+        {
+            var manager = new MailBoxManager(log);
+
+            try
+            {
+                if (message.Attachments.Any())
+                {
+                    log.Debug("StoreAttachments()");
+                    var index = 0;
+                    message.Attachments.ForEach(att =>
+                    {
+                        att.fileNumber = ++index;
+                        att.mailboxId = mailbox.MailBoxId;
+                    });
+                    manager.StoreAttachments(mailbox.TenantId, mailbox.UserId, message.Attachments,
+                        message.StreamId);
+
+                    log.Debug("MailMessage.ReplaceEmbeddedImages()");
+                    message.ReplaceEmbeddedImages(_log);
+                }
+
+                log.Debug("StoreMailBody()");
+                manager.StoreMailBody(mailbox.TenantId, mailbox.UserId, message);
+            }
+            catch (Exception ex)
+            {
+                log.Error("TryStoreMailData(Account:{0}): Exception:\r\n{1}\r\n",
+                        mailbox.EMail, ex.ToString());
+
+                //Trying to delete all attachments and mailbody
+                if (manager.TryRemoveMailDirectory(mailbox, message.StreamId))
+                {
+                    log.Info("Problem with mail proccessing(Account:{0}). Body and attachment was deleted",
+                        mailbox.EMail);
+                }
+
+                return false;
+            }
+
+            return true;
         }
 
         private void FreeTask(Task<MailBox> task, ICollection<Task<MailBox>> tasks)
@@ -482,7 +797,15 @@ namespace ASC.Mail.Aggregator.CollectionService
             if (!tasks.Remove(task))
                 _log.Error("Task not exists in tasks array.");
 
-            ReleaseMailbox(task.Result);
+            var mailbox = task.Result;
+
+            if (mailbox != null)
+            {
+                if(mailbox.LastSignalrNotifySkipped)
+                    NotifySignalr(mailbox, _log);
+
+                ReleaseMailbox(mailbox);
+            }
 
             task.Dispose();
         }

@@ -30,11 +30,10 @@
 //
 
 
+using Novell.Directory.Ldap.Asn1;
+using Novell.Directory.Ldap.Utilclass;
 using System;
 using System.IO;
-
-using Novell.Directory.Ldap.Utilclass;
-using Novell.Directory.Ldap.Asn1;
 
 namespace Novell.Directory.Ldap.Events.Edir
 {
@@ -43,7 +42,7 @@ namespace Novell.Directory.Ldap.Events.Edir
     /// </summary>
     public class MonitorEventRequest : LdapExtendedOperation
     {
-        
+
         public static bool RegisterResponseTypes { get; set; }
 
         static MonitorEventRequest()

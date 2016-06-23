@@ -90,8 +90,15 @@
     <Reference Include="AWSSDK">
       <HintPath>..\..\..\packages\AWSSDK.2.3.5.0\lib\net45\AWSSDK.dll</HintPath>
     </Reference>
+    <Reference Include="BouncyCastle.Crypto">
+      <HintPath>..\..\..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
     <Reference Include="CommandLine">
       <HintPath>..\..\..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
+    </Reference>
+    <Reference Include="DDay.iCal, Version=1.0.2.575, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\DDay.iCal.1.0.2.575\lib\DDay.iCal.dll</HintPath>
     </Reference>
     <Reference Include="DotNetOpenAuth">
       <HintPath>..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
@@ -103,6 +110,12 @@
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="MailKit">
+      <HintPath>..\..\..\packages\MailKit.1.2.23\lib\net451\MailKit.dll</HintPath>
+    </Reference>
+    <Reference Include="MimeKit">
+      <HintPath>..\..\..\packages\MimeKit.1.2.24\lib\net451\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\packages\MySql.Data.6.9.7\lib\net45\MySql.Data.dll</HintPath>
@@ -147,17 +160,10 @@
     <Compile Include="AggregatorService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Configuration\MailQueueConfigurationElement.cs" />
-    <Compile Include="Configuration\CollectionServiceConfigurationSection.cs" />
-    <Compile Include="Configuration\Schema.cs" />
-    <Compile Include="Configuration\MailQueueSettings.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Program.Options.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queue\QueueManager.cs" />
-    <Compile Include="Workers\BaseWorker.cs" />
-    <Compile Include="Workers\Imap4Worker.cs" />
-    <Compile Include="Workers\Pop3Worker.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\web\studio\ASC.Web.Studio\web.consumers.config">
@@ -169,37 +175,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Common\ActiveUp.Net.Common.csproj">
-      <Project>{c8d2498b-ce0e-4e0a-ab1c-29599deb1c38}</Project>
-      <Name>ActiveUp.Net.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Dns\ActiveUp.Net.Dns.csproj">
-      <Project>{3fd92c0f-3209-4bdb-ac24-fb57d405e9a7}</Project>
-      <Name>ActiveUp.Net.Dns</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Imap4\ActiveUp.Net.Imap4.csproj">
-      <Project>{ebf85ded-be97-4610-b4ef-9aca73033aa5}</Project>
-      <Name>ActiveUp.Net.Imap4</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Mail\ActiveUp.Net.Mail.csproj">
-      <Project>{26e7dbda-08ef-4a83-95d5-e3c689add90b}</Project>
-      <Name>ActiveUp.Net.Mail</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Pop3\ActiveUp.Net.Pop3.csproj">
-      <Project>{382b91cf-56a7-4538-8e96-f6ea01a60f86}</Project>
-      <Name>ActiveUp.Net.Pop3</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Smtp\ActiveUp.Net.Smtp.csproj">
-      <Project>{d5eba7a8-a259-415a-a4aa-543a7bc025c5}</Project>
-      <Name>ActiveUp.Net.Smtp</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ASC.Mail.Aggregator.Common\ASC.Mail.Aggregator.Common.csproj">
       <Project>{26222fc6-1f6d-44e9-a82b-36bb8355220e}</Project>
       <Name>ASC.Mail.Aggregator.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ASC.Mail.Aggregator.Dal\ASC.Mail.Aggregator.Dal.csproj">
-      <Project>{d2f288a0-3622-406e-8d65-a308d1dbc2eb}</Project>
-      <Name>ASC.Mail.Aggregator.Dal</Name>
+    <ProjectReference Include="..\ASC.Mail.Aggregator.Core\ASC.Mail.Aggregator.Core.csproj">
+      <Project>{ed5e23b1-61a4-4527-a4eb-ae7e3853d2af}</Project>
+      <Name>ASC.Mail.Aggregator.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
       <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -73,8 +73,9 @@
     margin-top: 6px;
 }
 .birthday-remind {
+    display: inline-block;
     padding-top: 2px;
-    display: none;
+    visibility: hidden;
 }
 .birthday-remind-active {
     background-color: #F7E3AC;
@@ -94,7 +95,7 @@
     width: 8px;
 }
 .tableBase tr:hover .small-user-card:not(.active) .birthday-remind {
-    display: inline-block;
+    visibility: visible;
 }
 .small-user-card.active .birthday-remind-active {
     display: inline-block;

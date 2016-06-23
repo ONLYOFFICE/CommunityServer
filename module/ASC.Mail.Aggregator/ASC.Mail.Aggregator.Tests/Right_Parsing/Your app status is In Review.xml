@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><RightParserResult xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><From><Email>do_not_reply@apple.com</Email><Name>iTunes Store</Name></From><To><TestAddress><Email>alexander.yuzhin@teamlab.com</Email><Name /></TestAddress></To><Cc /><Subject>Your app status is In Review</Subject><TextEncoding>QuotedPrintable</TextEncoding><TextCharset>ascii</TextCharset><TextBody>Dear Ascensio System SIA,
+<?xml version="1.0" encoding="utf-8"?><RightParserResult xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><From><Email>do_not_reply@apple.com</Email><Name>iTunes Store</Name></From><To><TestAddress><Email>alexander.yuzhin@teamlab.com</Email><Name /></TestAddress></To><Cc /><Subject>Your app status is In Review</Subject><TextCharset>iso-8859-1</TextCharset><TextBody>Dear Ascensio System SIA,
 
 The status for the following app has changed to In Review.
 
@@ -16,7 +16,7 @@ If you have any questions regarding your app, click Contact Us in iTunes Connect
 
 Regards,
 The iTunes Store team
-</TextBody><HtmlEncoding>QuotedPrintable</HtmlEncoding><HtmlCharset>ISO-8859-1</HtmlCharset><HtmlBody>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;
+</TextBody><HtmlCharset>iso-8859-1</HtmlCharset><HtmlBody>&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"&gt;
 &lt;html&gt;
 &lt;head&gt;
   &lt;title&gt;iTunes Connect&lt;/title&gt;

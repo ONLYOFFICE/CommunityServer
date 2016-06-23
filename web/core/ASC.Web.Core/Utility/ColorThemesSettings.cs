@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,6 +25,7 @@
 
 
 using System;
+using System.Configuration;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Web;
@@ -40,6 +41,8 @@ namespace ASC.Web.Core.Utility
     {
         public const string ThemeFolderTemplate = "<theme_folder>";
         private const string DefaultName = "pure-orange";
+        private static readonly string desktopSkin = ConfigurationManager.AppSettings["web.desktop.skin"];
+
 
         [DataMember(Name = "ColorThemeName")]
         public string ColorThemeName { get; set; }
@@ -89,6 +92,11 @@ namespace ASC.Web.Core.Utility
 
         public static string GetColorThemesSettings()
         {
+            if (HttpContext.Current != null && HttpContext.Current.Request.DesktopApp() && !string.IsNullOrEmpty(desktopSkin))
+            {
+                return desktopSkin;
+            }
+
             var colorTheme = SettingsManager.Instance.LoadSettings<ColorThemesSettings>(TenantProvider.CurrentTenantID);
             var colorThemeName = colorTheme.ColorThemeName;
 

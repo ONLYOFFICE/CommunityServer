@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -120,11 +120,11 @@ namespace ASC.FullTextIndex.Service.Config
             }
             else
             {
-                var connectionStringParts = ParseConnectionString(connectionString.ConnectionString);
+                var parsed = ParseConnectionString(connectionString.ConnectionString);
                 settings = new FullTextSearchSettings
                 {
-                    Host = connectionStringParts["Server"],
-                    Port = Convert.ToInt32(connectionStringParts["Port"])
+                    Host = parsed.ContainsKey("Server") ? parsed["Server"] : "localhost",
+                    Port = Convert.ToInt32(parsed.ContainsKey("Port") ? parsed["Port"] : "9306")
                 };
                 CoreContext.Configuration.SaveSection(Tenant.DEFAULT_TENANT, settings);
             }
@@ -202,7 +202,12 @@ namespace ASC.FullTextIndex.Service.Config
                                             .Replace("%INDEX_PATH%", ReplaceBackSlash(dataPath))
                                             .Replace("%LOG_PATH%", ReplaceBackSlash(logPath)));
 
-            if (TextIndexCfg.Chunks <= 1) return;
+            if (TextIndexCfg.Chunks <= 1)
+            {
+                File.WriteAllText(confPath,
+                    File.ReadAllText(confPath).Replace("%having%", ""));
+                return;
+            }
 
             var oldFileDataLines = File.ReadAllLines(confPath);
             var newFileDataLines = new List<string>();
@@ -241,9 +246,9 @@ namespace ASC.FullTextIndex.Service.Config
                 {
                     var line = oldFileDataLines[newDataLineIndex].Replace(moduleInfo.Main, moduleInfo.GetChunk(chunk));
 
-                    if (line.Contains("sql_query"))
+                    if (line.Contains("%having%"))
                     {
-                        line += string.Format(" having {0}", idSelector);
+                        line = line.Replace("%having%", string.Format(" having {0}", idSelector));
                     }
 
                     result.Add(line);

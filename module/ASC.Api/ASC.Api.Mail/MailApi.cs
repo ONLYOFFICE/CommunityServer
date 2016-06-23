@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -31,7 +31,9 @@ using ASC.Api.Impl;
 using ASC.Api.Interfaces;
 using ASC.Core;
 using ASC.Mail.Aggregator;
+using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Logging;
+using ASC.Web.Studio.Core;
 
 namespace ASC.Api.Mail
 {
@@ -90,6 +92,58 @@ namespace ASC.Api.Mail
         private string MailDaemonEmail
         {
             get { return ConfigurationManager.AppSettings["mail.daemon-email"] ?? "mail-daemon@onlyoffice.com"; }
+        }
+
+        /// <summary>
+        /// Limit result per Contact System
+        /// </summary>
+        private int MailAutocompleteMaxCountPerSystem
+        {
+            get
+            {
+                var count = 20;
+                if(ConfigurationManager.AppSettings["mail.autocomplete-max-count"] == null) 
+                   return count;
+
+                int.TryParse(ConfigurationManager.AppSettings["mail.autocomplete-max-count"], out count);
+                return count;
+            }
+        }
+
+        /// <summary>
+        /// Timeout in milliseconds
+        /// </summary>
+        private int MailAutocompleteTimeout
+        {
+            get
+            {
+                var count = 3000;
+                if (ConfigurationManager.AppSettings["mail.autocomplete-timeout"] == null)
+                    return count;
+
+                int.TryParse(ConfigurationManager.AppSettings["mail.autocomplete-timeout"], out count);
+                return count;
+            }
+        }
+
+        /// <summary>
+        /// Need any mail's body http links change to proxy handler
+        /// </summary>
+        private bool NeedProxyHttp
+        {
+            get { return SetupInfo.IsVisibleSettings("ProxyHttpContent"); }
+        }
+
+        /// <summary>
+        /// Permit errors of SSL certificates
+        /// </summary>
+        private bool SslCertificatesErrorPermit
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["mail.certificate-permit"] != null &&
+                       Convert.ToBoolean(ConfigurationManager.AppSettings["mail.certificate-permit"]);
+            }
         }
 
         ///<summary>

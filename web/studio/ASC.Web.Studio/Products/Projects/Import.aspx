@@ -6,8 +6,6 @@
 <%@ MasterType TypeName="ASC.Web.Projects.Masters.BasicTemplate" %>
 
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
-<%@ Import Namespace="ASC.Web.Studio" %>
-<%@ Import Namespace="ASC.Web.Core.Utility.Skins"%>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
@@ -55,8 +53,13 @@
             <input type="checkbox" id="importAsCollaborators" <%if(QuotaEndFlag){ %> checked="checked" disabled="disabled"<%} %> />
             <label for="importAsCollaborators"><%= Resources.Resource.InviteUsersAsCollaborators%></label><div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'answerForHelpInviteGuests',position: 'fixed'});"></div>
             <div class="popup_helper" id="answerForHelpInviteGuests">
-                <p><%=string.Format(Resources.Resource.NoteForInviteCollaborator.HtmlEncode(), "<b>","</b>")%> 
-                     <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+                <p>
+                    <%= string.Format(Resources.Resource.NoteInviteCollaborator, "<b>","</b>") %>
+                    <% if (TenantExtra.EnableTarrifSettings)
+                       { %>
+                    <%= Resources.Resource.NotePriceCollaborator %>
+                    <% } %>
+                    <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
                        { %>
                     <a href="<%= CommonLinkUtility.GetHelpLink() %>" target="_blank"><%=Resources.Resource.LearnMore%></a>
                     <% } %>

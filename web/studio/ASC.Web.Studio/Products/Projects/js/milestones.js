@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -234,6 +234,13 @@ ASC.Projects.AllMilestones = (function () {
             hideDescriptionPanel();
         });
 
+        jq(document).on("keypress", function (evt) {
+            if (!(evt.hasOwnProperty("ctrlKey") && evt.ctrlKey === true && (evt.which === 99 || evt.which === 97))) {//ctrl + c and ctrl + a
+                overDescriptionPanel = false;
+                hideDescriptionPanel();
+            }
+        });
+
         self.$commonListContainer.on('click', '.project .value', function () {
             overDescriptionPanel = false;
             hideDescriptionPanel();
@@ -255,10 +262,14 @@ ASC.Projects.AllMilestones = (function () {
         function showEntityMenu() {
             hideStatusListContainer();
             var currentMilestone = selectedActionCombobox !== undefined ? selectedActionCombobox.attr('milestoneId') : -1;
-            milestoneList.find("#" + currentMilestone).find(".entity-menu").removeClass('selected');
+            milestoneList.find("#" + currentMilestone).find(".entity-menu").removeClass('active');
             selectedActionCombobox = jq(this);
 
-            if (!selectedActionCombobox.is(".entity-menu")) selectedActionCombobox = selectedActionCombobox.siblings(".actions").find(".entity-menu");
+            if (selectedActionCombobox.is(".entity-menu")) {
+                selectedActionCombobox.addClass('active');
+            } else {
+                selectedActionCombobox = selectedActionCombobox.find(".entity-menu");
+            }
 
             if (selectedActionCombobox.attr('milestoneId') !== milestoneActionContainer.attr('milestoneId')) {
                 milestoneActionContainer.attr('milestoneId', selectedActionCombobox.attr('milestoneId'));
@@ -274,13 +285,33 @@ ASC.Projects.AllMilestones = (function () {
             return false;
         });
         
-        milestoneList.on('contextmenu', 'td.title', function (event) {
+        milestoneList.on('contextmenu', 'tr', function (event) {
             showEntityMenu.call(this);
             
-            var top = (event.pageY | (event.clientY + event.scrollTop));
-            var left = (event.pageX | (event.clientX + event.scrollLeft)) - milestoneActionContainer.outerWidth();
-            milestoneActionContainer.css({ 'top': top, 'left': left });
-            milestoneActionContainer.show();
+            var ddiHeight = milestoneActionContainer.innerHeight(),
+                ddiWidth = milestoneActionContainer.innerWidth(),
+
+                top = (event.pageY | (event.clientY + event.scrollTop)),
+                left = (event.pageX | (event.clientX + event.scrollLeft)),
+
+                w = jq(window),
+                scrScrollTop = w.scrollTop(),
+                scrHeight = w.height();
+
+            correctionX = document.body.clientWidth - (left - pageXOffset + ddiWidth) > 0 ? 0 : ddiWidth,
+            correctionY =
+                    ddiHeight > top
+                    ? 0
+                    : (scrHeight + scrScrollTop - top > ddiHeight ? 0 : ddiHeight);
+
+            milestoneActionContainer.css(
+                {
+                    "top": top - correctionY,
+                    "left": left - correctionX,
+                    "right": "auto",
+                    "margin": "0"
+                })
+                .show();
 
             return false;
         });
@@ -551,6 +582,12 @@ ASC.Projects.AllMilestones = (function () {
             self.$noContentBlock.hide();
             milestoneList.show();
         } else {
+            if (ASC.Projects.PageNavigator.currentPage > 0 && filterMilestoneCount > 0) {
+                ASC.Projects.PageNavigator.setMaxPage(filterMilestoneCount);
+                getData(true);
+                return;
+            }
+
             ASC.Projects.PageNavigator.hide();
             if (ASC.Projects.ProjectsAdvansedFilter.baseFilter) {
                 jq('#mileEmptyScreenForFilter').hide();
@@ -708,15 +745,11 @@ ASC.Projects.AllMilestones = (function () {
     };
 
     var showMilestoneActionContainer = function () {
-        selectedActionCombobox.addClass('selected');
-
-
         var currentStatus = selectedActionCombobox.attr('status');
         if (currentStatus == 'closed') {
             jq('#updateMilestoneButton').hide();
             jq('#addMilestoneTaskButton').hide();
-        }
-        else {
+        } else {
             jq('#updateMilestoneButton').show();
             jq('#addMilestoneTaskButton').show();
         }
@@ -725,17 +758,35 @@ ASC.Projects.AllMilestones = (function () {
             jq('#removeMilestoneButton').hide();
         }
 
-        var top = selectedActionCombobox.offset().top + selectedActionCombobox.innerHeight();
+        var top = selectedActionCombobox.offset().top + selectedActionCombobox.outerHeight();
         var left = selectedActionCombobox.offset().left - milestoneActionContainer.innerWidth() + 29;
 
         if (milestoneActionContainer.position().top == top && (milestoneActionContainer.position().left == left)) {
             milestoneList.find("#" + selectedActionCombobox.attr('milestoneId')).removeClass("menuopen");
+            selectedActionCombobox.removeClass('active');
             toggleMilestoneActionContainer();
-            return;
+        } else {
+
+            var ddiHeight = milestoneActionContainer.innerHeight(),
+
+                w = jq(window),
+                scrScrollTop = w.scrollTop(),
+                scrHeight = w.height(),
+
+                correctionY =
+                        ddiHeight > top
+                        ? 0
+                        : (scrHeight + scrScrollTop - top > ddiHeight ? 0 : ddiHeight);
+
+            milestoneActionContainer.css(
+                {
+                    "top": top - correctionY + (correctionY == 0 ? 0 : -selectedActionCombobox.outerHeight() - 2),
+                    "left": left,
+                    "right": "auto",
+                    "margin": "0"
+                })
+                .show();
         }
-        
-        milestoneActionContainer.css({ 'top': top, 'left': left });
-        milestoneActionContainer.show();
     };
 
     var toggleMilestoneActionContainer = function () {
@@ -760,7 +811,7 @@ ASC.Projects.AllMilestones = (function () {
 
     var hideMilestoneActionContainer = function () {
         if (selectedActionCombobox) {
-            selectedActionCombobox.removeClass('selected');
+            selectedActionCombobox.removeClass('active');
             milestoneList.find(".menuopen").removeClass("menuopen");
         }
         milestoneActionContainer.hide();
@@ -853,10 +904,6 @@ ASC.Projects.AllMilestones = (function () {
 
             if (filterMilestoneCount == 0) {
                 showOrHideEmptyScreen(0);
-            }
-            else {
-                self.currentPage--;
-                getData(true);
             }
         }
         

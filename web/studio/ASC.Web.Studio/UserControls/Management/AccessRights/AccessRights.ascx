@@ -1,6 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="ASC.Web.Studio.UserControls.Management.AccessRights" %>
-
-<%@ Register TagPrefix="sa" Namespace="ASC.Web.Studio.Controls.Users" Assembly="ASC.Web.Studio" %>
 <%@ Import Namespace="ASC.Web.Core" %>
 
 <script id="adminTmpl" type="text/x-jquery-tmpl">

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -108,15 +108,8 @@ window.Attachments = (function() {
             if (module != "") moduleName = module;
 
             entityType = jq(".wrapperFilesContainer").attr("entityType");
-            if (!jq.browser.mobile) {
-                var warnText = jq(".infoPanelAttachFile #wrongSign").text() + " " + characterString;
-                jq(".infoPanelAttachFile #wrongSign").text(warnText);
-            } else {
-                jq("#emptyDocumentPanel .emptyScrBttnPnl").remove();
-                jq(".infoPanelAttachFile, .containerAction, .information-upload-panel").remove();
-            }
-
-
+            var warnText = jq(".infoPanelAttachFile #wrongSign").text() + " " + characterString;
+            jq(".infoPanelAttachFile #wrongSign").text(warnText);
 
             jq.tmpl("template-blockUIPanel", {
                 id: "questionWindowAttachments",
@@ -233,69 +226,67 @@ window.Attachments = (function() {
     };
 
     var createAjaxUploader = function(buttonId) {
-        if (!jq.browser.mobile) {
-            var storeFlag = jq("#storeOriginalFileFlag").is(":checked");
-            if (moduleName == 'crm') {
-                var ajaxUploader = Teamlab.createCrmUploadFile(
+        var storeFlag = jq("#storeOriginalFileFlag").is(":checked");
+        if (moduleName == 'crm') {
+            Teamlab.createCrmUploadFile(
+                null,
+                entityType, entityId,
+                {
+                    buttonId: buttonId,
+                    data: {
+                        storeOriginalFileFlag: storeFlag
+                    },
+                    autoSubmit: true
+                },
+                {
+                    before: LoadingBanner.displayLoading,
+                    error: function(params, errors) { onError(errors); },
+                    success: onUploadFiles
+                }
+            );
+        } else {
+            if (!uploadWithAttach) {
+                Teamlab.uploadFilesToPrjEntity(
                     null,
-                    entityType, entityId,
+                    entityId,
                     {
                         buttonId: buttonId,
+                        autoSubmit: true,
                         data: {
+                            entityType: entityType,
+                            folderid: rootFolderId,
+                            createNewIfExist: true,
                             storeOriginalFileFlag: storeFlag
-                        },
-                        autoSubmit: true
+                        }
                     },
                     {
                         before: LoadingBanner.displayLoading,
+
                         error: function(params, errors) { onError(errors); },
+
                         success: onUploadFiles
                     }
                 );
             } else {
-                if (!uploadWithAttach) {
-                    var ajaxUploader = Teamlab.uploadFilesToPrjEntity(
-                        null,
-                        entityId,
-                        {
-                            buttonId: buttonId,
-                            autoSubmit: true,
-                            data: {
-                                entityType: entityType,
-                                folderid: rootFolderId,
-                                createNewIfExist: true,
-                                storeOriginalFileFlag: storeFlag
-                            }
-                        },
-                        {
-                            before: LoadingBanner.displayLoading,
-
-                            error: function(params, errors) { onError(errors); },
-
-                            success: onUploadFiles
+                Teamlab.createDocUploadFile(
+                    null,
+                    rootFolderId,
+                    {
+                        buttonId: buttonId,
+                        autoSubmit: true,
+                        data: {
+                            createNewIfExist: true,
+                            storeOriginalFileFlag: storeFlag
                         }
-                    );
-                } else {
-                    var ajaxUploader = Teamlab.createDocUploadFile(
-                        null,
-                        rootFolderId,
-                        {
-                            buttonId: buttonId,
-                            autoSubmit: true,
-                            data: {
-                                createNewIfExist: true,
-                                storeOriginalFileFlag: storeFlag
-                            }
-                        },
-                        {
-                            before: LoadingBanner.displayLoading,
+                    },
+                    {
+                        before: LoadingBanner.displayLoading,
 
-                            error: function(params, errors) { onError(errors); },
+                        error: function(params, errors) { onError(errors); },
 
-                            success: onUploadFiles
-                        }
-                    );
-                }
+                        success: onUploadFiles
+                    }
+                );
             }
         }
         return;
@@ -314,14 +305,6 @@ window.Attachments = (function() {
 
     var createNewDocument = function(type) {
         hideNewFileMenu();
-
-        if (!ASC.Resources.Master.TenantTariffDocsEdition) {
-            if (!jq("#tariffLimitDocsEditionPanel").length) {
-                return;
-            }
-            StudioBlockUIManager.blockUI("#tariffLimitDocsEditionPanel", 500, 300, 0);
-            return;
-        }
 
         jq("#emptyDocumentPanel:not(.display-none)").addClass("display-none");
         jq("#attachmentsContainer tr.newDoc").remove();
@@ -376,10 +359,10 @@ window.Attachments = (function() {
         if (ASC.Files.Utility.CanImageView(fileTmpl.title)) {
             type = "image";
         } else {
-            if (ASC.Files.Utility.CanWebEdit(fileTmpl.title) && ASC.Resources.Master.TenantTariffDocsEdition && !ASC.Files.Utility.MustConvert(fileTmpl.title)) {
+            if (ASC.Files.Utility.CanWebEdit(fileTmpl.title) && !ASC.Files.Utility.MustConvert(fileTmpl.title)) {
                 type = "editedFile";
             } else {
-                if (ASC.Files.Utility.CanWebView(fileTmpl.title) && ASC.Resources.Master.TenantTariffDocsEdition && !ASC.Files.Utility.MustConvert(fileTmpl.title)) {
+                if (ASC.Files.Utility.CanWebView(fileTmpl.title) && !ASC.Files.Utility.MustConvert(fileTmpl.title)) {
                     type = "viewedFile";
                 } else {
                     type = "noViewedFile";

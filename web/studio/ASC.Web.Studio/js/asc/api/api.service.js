@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -1722,6 +1722,17 @@ window.ServiceManager = (function(helper) {
         return true;
     };
 
+    var getShortenLink = function (eventname, params, link, options) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'portal/getshortenlink.json',
+            {link: link},
+            options
+        );
+    };
+
     var updatePortalName = function (eventname, params, alias, options) {
         helper.request(
             eventname,
@@ -2202,7 +2213,7 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var saveDocServiceUrl = function (eventname, docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, options) {
+    var saveDocServiceUrl = function (eventname, docServiceUrlApi, docServiceUrlCommand, docServiceUrlStorage, docServiceUrlConverter, docServiceUrlPortal, options) {
         return helper.request(
             eventname,
             null,
@@ -2212,7 +2223,8 @@ window.ServiceManager = (function(helper) {
                 docServiceUrlApi: docServiceUrlApi,
                 docServiceUrlCommand: docServiceUrlCommand,
                 docServiceUrlStorage: docServiceUrlStorage,
-                docServiceUrlConverter: docServiceUrlConverter
+                docServiceUrlConverter: docServiceUrlConverter,
+                docServiceUrlPortal: docServiceUrlPortal,
             },
             options
         );
@@ -4742,15 +4754,26 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var getLinkedCrmEntitiesInfo = function(eventname, params, data, options) {
+    var updateMailboxAutoreply = function (eventname, params, id, data, options) {
         return helper.request(
             eventname,
             params,
-            GET,
-            'mail/crm/linked/entities.json',
+            ADD,
+            'mail/autoreply/update/' + id + '.json',
             data,
             options
         );
+    };
+
+    var getLinkedCrmEntitiesInfo = function(eventname, params, data, options) {
+        return helper.request(
+      eventname,
+      params,
+      GET,
+      'mail/crm/linked/entities.json',
+      data,
+      options
+    );
     };
 
     var getNextMailMessageId = function(eventname, params, id, filter_data, options) {
@@ -4804,17 +4827,6 @@ window.ServiceManager = (function(helper) {
             GET,
             'mail/conversation/' + id + '/prev.json',
             filter_data,
-            options
-        );
-    };
-
-    var getMailMessageTemplate = function(eventname, params, options) {
-        return helper.request(
-            eventname,
-            params,
-            GET,
-            'mail/messages/template.json',
-            null,
             options
         );
     };
@@ -5115,61 +5127,100 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var sendMailMessage = function (eventname, params, id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags, body, attachments,
-                                    fileLinksShareMode, options) {
+    var sendMailMessage = function (eventname, params, message, options) {
+        if (!(message instanceof ASC.Mail.Message)) {
+            console.error("Unsupported message format");
+            return null;
+        }
+
         return helper.request(
             eventname,
             params,
             UPDATE,
             'mail/messages/send.json',
-            {
-                id: id,
-                from: from,
-                to: to,
-                cc: cc,
-                bcc: bcc,
-                mimeReplyToId: mimeReplyToId,
-                importance: importance,
-                subject: subject,
-                tags: tags,
-                body: body,
-                attachments: attachments,
-                fileLinksShareMode: fileLinksShareMode
-            },
+            message.ToData(),
             options
         );
     };
 
-    var saveMailMessage = function (eventname, params, id, from, to, cc, bcc, mimeReplyToId, importance, subject, tags, body, attachments, options) {
+    var saveMailMessage = function (eventname, params, message, options) {
+        if (!(message instanceof ASC.Mail.Message)) {
+            console.error("Unsupported message format");
+            return null;
+        }
+
         return helper.request(
             eventname,
             params,
             UPDATE,
             'mail/messages/save.json',
-            {
-                id: id,
-                from: from,
-                to: to,
-                cc: cc,
-                bcc: bcc,
-                mimeReplyToId: mimeReplyToId,
-                importance: importance,
-                subject: subject,
-                tags: tags,
-                body: body,
-                attachments: attachments,
-            },
+            message.ToData(),
             options
         );
     };
 
-    var getMailContacts = function(eventname, params, data, options) {
+    var searchEmails = function (eventname, params, data, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'mail/emails/search.json',
+            data,
+            options
+        );
+    };
+
+    var getMailContacts = function (eventname, params, filterData, options) {
         return helper.request(
             eventname,
             params,
             GET,
             'mail/contacts.json',
+            filterData,
+            options
+        );
+    };
+
+    var getMailContactsByInfo = function (eventname, params, data, options) {
+        return helper.request(
+            eventname,
+            params,
+            GET,
+            'mail/contacts/bycontactinfo.json',
             data,
+            options
+        );
+    };
+
+    var createMailContact = function (eventname, params, name, description, emails, phoneNumbers, options) {
+        return helper.request(
+            eventname,
+            params,
+            ADD,
+            'mail/contact/add.json',
+            { name: name, description: description, emails: emails, phoneNumbers: phoneNumbers },
+            options
+        );
+    };
+
+    var deleteMailContacts = function (eventname, params, ids, options) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'mail/contacts/remove.json',
+            {ids: ids},
+            options
+        );
+    };
+
+    var updateMailContact = function (eventname, params, id, name, description, emails, phoneNumbers, options) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'mail/contact/update.json',
+            { id: id, name: name, description: description, emails: emails, phoneNumbers: phoneNumbers },
             options
         );
     };
@@ -5340,14 +5391,14 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var isConversationLinkedWithCrm = function (eventname, params, message_id, options) {
+    var isConversationLinkedWithCrm = function (eventname, params, messageId, options) {
         return helper.request(
             eventname,
             params,
             GET,
             'mail/conversations/link/crm/status.json',
             {
-                message_id: message_id,
+                message_id: messageId
             },
             options
         );
@@ -5376,6 +5427,20 @@ window.ServiceManager = (function(helper) {
             options
         );
     };
+
+    var exportAllAttachmentsToDocuments = function (eventname, params, message_id, folder_id, options) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'mail/messages/attachments/export.json',
+            {
+                id_message: message_id,
+                id_folder: folder_id
+            },
+            options
+        );
+    };
     
     var exportAttachmentToMyDocuments = function (eventname, params, attachment_id, options) {
         return helper.request(
@@ -5385,6 +5450,20 @@ window.ServiceManager = (function(helper) {
             'mail/messages/attachment/export.json',
             {
                 id_attachment: attachment_id
+            },
+            options
+        );
+    };
+
+    var exportAttachmentToDocuments = function (eventname, params, attachment_id, folder_id, options) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'mail/messages/attachment/export.json',
+            {
+                id_attachment: attachment_id,
+                id_folder: folder_id
             },
             options
         );
@@ -5481,13 +5560,13 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var addMailbox = function (eventname, params, mailbox_name, domain_id, user_id, options) {
+    var addMailbox = function (eventname, params, name, local_part, domain_id, user_id, options) {
         return helper.request(
             eventname,
             params,
             ADD,
             'mailserver/mailboxes/add.json',
-            { name: mailbox_name, domain_id: domain_id, user_id: user_id },
+            { name: name, local_part: local_part, domain_id: domain_id, user_id: user_id },
             options
         );
     };
@@ -5521,6 +5600,17 @@ window.ServiceManager = (function(helper) {
             REMOVE,
             'mailserver/mailboxes/remove/' + id_mailbox + '.json',
             null,
+            options
+        );
+    };
+
+    var updateMailbox = function (eventname, params, mailbox_id, name, options) {
+        return helper.request(
+            eventname,
+            params,
+            UPDATE,
+            'mailserver/mailboxes/update.json',
+            { mailbox_id: mailbox_id, name: name },
             options
         );
     };
@@ -5657,6 +5747,16 @@ window.ServiceManager = (function(helper) {
         );
     };
 
+    var addCalendarBody = function (eventname, params, id_message, ical_body, options) {
+        return helper.request(
+            eventname,
+            params,
+            ADD,
+            'mail/messages/calendarbody/add',
+            { id_message: id_message, ical_body: ical_body },
+            options
+        );
+    };
     /* </mail> */
 
     /* <settings> */
@@ -5899,7 +5999,7 @@ window.ServiceManager = (function(helper) {
         return true;
     };
 
-	var saveWhiteLabelSettings = function (eventname, params, data, options) {
+    var saveWhiteLabelSettings = function (eventname, params, data, options) {
         helper.request(
             eventname,
             params,
@@ -5911,7 +6011,7 @@ window.ServiceManager = (function(helper) {
         return true;
     };
 
-	var restoreWhiteLabelSettings = function (eventname, params, options) {
+    var restoreWhiteLabelSettings = function (eventname, params, options) {
         helper.request(
             eventname,
             params,
@@ -5923,6 +6023,56 @@ window.ServiceManager = (function(helper) {
         return true;
     };
 
+    var getCalendars = function (eventname, params, dateStart, dateEnd, options) {
+        var start = dateStart instanceof Date ? Teamlab.serializeTimestamp(dateStart, true) : dateStart;
+        var end = dateEnd instanceof Date ? Teamlab.serializeTimestamp(dateEnd, true) : dateEnd;
+
+        helper.request(
+            eventname,
+            params,
+            GET,
+            "calendar/calendars/" + start + "/" + end + ".json",
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getCalendarEventByUid = function (eventname, params, eventUid, options) {
+        helper.request(
+            eventname,
+            params,
+            GET,
+            "calendar/events/{0}/historybyuid.json".format(eventUid),
+            null,
+            options
+        );
+        return true;
+    };
+
+    var getCalendarEventById = function (eventname, params, eventId, options) {
+        helper.request(
+            eventname,
+            params,
+            GET,
+            "calendar/events/{0}/historybyid.json".format(eventId),
+            null,
+            options
+        );
+        return true;
+    };
+
+    var importCalendarEventIcs = function (eventname, params, calendarId, ics, options) {
+        helper.request(
+            eventname,
+            params,
+            ADD,
+            "calendar/importIcs.json",
+            { iCalString: ics, calendarId: calendarId },
+            options
+        );
+        return true;
+    };
 
     return {
         test: helper.test,
@@ -6081,6 +6231,7 @@ window.ServiceManager = (function(helper) {
         fckeRemoveCommentComplete: fckeRemoveCommentComplete,
         fckeCancelCommentComplete: fckeCancelCommentComplete,
         fckeEditCommentComplete: fckeEditCommentComplete,
+        getShortenLink: getShortenLink,
         updatePortalName: updatePortalName,
 
         getPrjTeam: getPrjTeam,
@@ -6346,7 +6497,6 @@ window.ServiceManager = (function(helper) {
         getMailConversation: getMailConversation,
         getNextMailConversationId: getNextMailConversationId,
         getPrevMailConversationId: getPrevMailConversationId,
-        getMailMessageTemplate: getMailMessageTemplate,
         removeMailFolderMessages: removeMailFolderMessages,
         restoreMailMessages: restoreMailMessages,
         moveMailMessages: moveMailMessages,
@@ -6372,7 +6522,12 @@ window.ServiceManager = (function(helper) {
         removeMailMessageAttachment: removeMailMessageAttachment,
         sendMailMessage: sendMailMessage,
         saveMailMessage: saveMailMessage,
+        searchEmails: searchEmails,
         getMailContacts: getMailContacts,
+        getMailContactsByInfo: getMailContactsByInfo,
+        createMailContact: createMailContact,
+        deleteMailContacts: deleteMailContacts,
+        updateMailContact: updateMailContact,
         getMailAlerts: getMailAlerts,
         deleteMailAlert: deleteMailAlert,
         getMailFilteredConversations: getMailFilteredConversations,
@@ -6392,8 +6547,11 @@ window.ServiceManager = (function(helper) {
         getMailHelpCenterHtml: getMailHelpCenterHtml,
         getMailboxSignature: getMailboxSignature,
         updateMailboxSignature: updateMailboxSignature,
+        updateMailboxAutoreply: updateMailboxAutoreply,
         exportAllAttachmentsToMyDocuments: exportAllAttachmentsToMyDocuments,
+        exportAllAttachmentsToDocuments: exportAllAttachmentsToDocuments,
         exportAttachmentToMyDocuments: exportAttachmentToMyDocuments,
+        exportAttachmentToDocuments: exportAttachmentToDocuments,
         setEMailInFolder: setEMailInFolder,
         getMailServer: getMailServer,
         getMailServerFullInfo: getMailServerFullInfo,
@@ -6406,6 +6564,7 @@ window.ServiceManager = (function(helper) {
         addMyMailbox: addMyMailbox,
         getMailboxes: getMailboxes,
         removeMailbox: removeMailbox,
+        updateMailbox: updateMailbox,
         addMailBoxAlias: addMailBoxAlias,
         removeMailBoxAlias: removeMailBoxAlias,
         addMailGroup: addMailGroup,
@@ -6418,6 +6577,7 @@ window.ServiceManager = (function(helper) {
         getDomainDnsSettings: getDomainDnsSettings,
         createNotificationAddress: createNotificationAddress,
         removeNotificationAddress: removeNotificationAddress,
+        addCalendarBody: addCalendarBody,
 
         getWebItemSecurityInfo: getWebItemSecurityInfo,
         setWebItemSecurity: setWebItemSecurity,
@@ -6442,6 +6602,12 @@ window.ServiceManager = (function(helper) {
 
         getTalkUnreadMessages: getTalkUnreadMessages,
         registerUserOnPersonal: registerUserOnPersonal,
+
+        getCalendars: getCalendars,
+        getCalendarEventByUid: getCalendarEventByUid,
+        getCalendarEventById: getCalendarEventById,
+        importCalendarEventIcs: importCalendarEventIcs,
+
         saveWhiteLabelSettings: saveWhiteLabelSettings,
         restoreWhiteLabelSettings: restoreWhiteLabelSettings
     };

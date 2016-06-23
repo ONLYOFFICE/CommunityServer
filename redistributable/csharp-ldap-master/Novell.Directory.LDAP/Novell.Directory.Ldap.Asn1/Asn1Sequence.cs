@@ -30,95 +30,96 @@
 //
 
 using System;
+using System.IO;
 
 namespace Novell.Directory.Ldap.Asn1
 {
-	
-	/// <summary> The Asn1Sequence class can hold an ordered collection of components with
-	/// distinct type.
-	/// 
-	/// This class inherits from the Asn1Structured class which
-	/// provides functionality to hold multiple Asn1 components.
-	/// </summary>
-	[CLSCompliantAttribute(true)]
-	public class Asn1Sequence:Asn1Structured
-	{
-		
-		/// <summary> ASN.1 SEQUENCE tag definition.</summary>
-		public const int TAG = 0x10;
-		
-		/// <summary> ID is added for Optimization.
-		/// 
-		/// id needs only be one Value for every instance Thus we create it only once.
-		/// </summary>
-		private static readonly Asn1Identifier ID = new Asn1Identifier(Asn1Identifier.UNIVERSAL, true, TAG);
-		/* Constructors for Asn1Sequence
-		*/
-		
-		/// <summary> Constructs an Asn1Sequence object with no actual Asn1Objects in it.
-		/// 
-		/// Assumes a default size of 10 elements.
-		/// </summary>
-		public Asn1Sequence():base(ID, 10)
-		{
-			return ;
-		}
-		
-		/// <summary> Constructs an Asn1Sequence object with the specified
-		/// number of placeholders for Asn1Objects.
-		/// 
-		/// It should be noted there are no actual Asn1Objects in this
-		/// SequenceOf object.
-		/// 
-		/// </summary>
-		/// <param name="size">Specifies the initial size of the collection.
-		/// </param>
-		public Asn1Sequence(int size):base(ID, size)
-		{
-			return ;
-		}
-		
-		/// <summary> Constructs an Asn1Sequence object with an array representing an
-		/// Asn1 sequence.
-		/// 
-		/// </summary>
-		/// <param name="newContent">the array containing the Asn1 data for the sequence
-		/// 
-		/// </param>
-		/// <param name="size">Specifies the number of items in the array
-		/// </param>
-		public Asn1Sequence(Asn1Object[] newContent, int size):base(ID, newContent, size)
-		{
-			return ;
-		}
-		
-		/// <summary> Constructs an Asn1Sequence object by decoding data from an
-		/// input stream.
-		/// 
-		/// </summary>
-		/// <param name="dec">The decoder object to use when decoding the
-		/// input stream.  Sometimes a developer might want to pass
-		/// in his/her own decoder object
-		/// 
-		/// </param>
-		/// <param name="in">A byte stream that contains the encoded ASN.1
-		/// 
-		/// </param>
-		[CLSCompliantAttribute(false)]
-		public Asn1Sequence(Asn1Decoder dec, System.IO.Stream in_Renamed, int len):base(ID)
-		{
-			decodeStructured(dec, in_Renamed, len);
-			return ;
-		}
-		
-		/* Asn1Sequence specific methods
-		*/
-		
-		/// <summary> Return a String representation of this Asn1Sequence.</summary>
-		[CLSCompliantAttribute(false)]
-		public override System.String ToString()
-		{
-			return base.toString("SEQUENCE: { ");
-		}
-	}
+
+    /// <summary> The Asn1Sequence class can hold an ordered collection of components with
+    /// distinct type.
+    /// 
+    /// This class inherits from the Asn1Structured class which
+    /// provides functionality to hold multiple Asn1 components.
+    /// </summary>
+    [CLSCompliantAttribute(true)]
+    public class Asn1Sequence : Asn1Structured
+    {
+
+        /// <summary> ASN.1 SEQUENCE tag definition.</summary>
+        public const int TAG = 0x10;
+
+        /// <summary> ID is added for Optimization.
+        /// 
+        /// id needs only be one Value for every instance Thus we create it only once.
+        /// </summary>
+        private static readonly Asn1Identifier ID = new Asn1Identifier(Asn1Identifier.UNIVERSAL, true, TAG);
+        /* Constructors for Asn1Sequence
+        */
+
+        /// <summary> Constructs an Asn1Sequence object with no actual Asn1Objects in it.
+        /// 
+        /// Assumes a default size of 10 elements.
+        /// </summary>
+        public Asn1Sequence()
+            : base(ID, 10)
+        {
+        }
+
+        /// <summary> Constructs an Asn1Sequence object with the specified
+        /// number of placeholders for Asn1Objects.
+        /// 
+        /// It should be noted there are no actual Asn1Objects in this
+        /// SequenceOf object.
+        /// 
+        /// </summary>
+        /// <param name="size">Specifies the initial size of the collection.
+        /// </param>
+        public Asn1Sequence(int size)
+            : base(ID, size)
+        {
+        }
+
+        /// <summary> Constructs an Asn1Sequence object with an array representing an
+        /// Asn1 sequence.
+        /// 
+        /// </summary>
+        /// <param name="newContent">the array containing the Asn1 data for the sequence
+        /// 
+        /// </param>
+        /// <param name="size">Specifies the number of items in the array
+        /// </param>
+        public Asn1Sequence(Asn1Object[] newContent, int size)
+            : base(ID, newContent, size)
+        {
+        }
+
+        /// <summary> Constructs an Asn1Sequence object by decoding data from an
+        /// input stream.
+        /// 
+        /// </summary>
+        /// <param name="dec">The decoder object to use when decoding the
+        /// input stream.  Sometimes a developer might want to pass
+        /// in his/her own decoder object
+        /// 
+        /// </param>
+        /// <param name="in">A byte stream that contains the encoded ASN.1
+        /// 
+        /// </param>
+        [CLSCompliantAttribute(false)]
+        public Asn1Sequence(Asn1Decoder dec, Stream in_Renamed, int len)
+            : base(ID)
+        {
+            decodeStructured(dec, in_Renamed, len);
+        }
+
+        /* Asn1Sequence specific methods
+        */
+
+        /// <summary> Return a String representation of this Asn1Sequence.</summary>
+        [CLSCompliantAttribute(false)]
+        public override string ToString()
+        {
+            return base.toString("SEQUENCE: { ");
+        }
+    }
 }

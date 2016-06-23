@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -28,7 +28,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Server.Administration.Interfaces;
 using ASC.Mail.Server.Administration.ServerModel.Base;
 using ASC.Mail.Server.Dal;
@@ -62,9 +61,9 @@ namespace ASC.Mail.Server.Administration.ServerModel
 
         public new ICollection<IMailAddress> Aliases { get; private set; }
 
-        protected MailboxModel(int id, int tenant, IMailAddress address, IMailAccount account,
+        protected MailboxModel(int id, int tenant, IMailAddress address, string name, IMailAccount account,
                             ICollection<IMailAddress> aliases, MailServerBase server)
-            : base(new MailAccountBase(account), new MailAddressBase(address), (aliases.Select(a => new MailAddressBase(a)).ToList()))
+            : base(new MailAccountBase(account), new MailAddressBase(address), name, (aliases.Select(a => new MailAddressBase(a)).ToList()))
         {
             if (id < 0)
                 throw new ArgumentException("Invalid domain id", "id");
@@ -99,7 +98,7 @@ namespace ASC.Mail.Server.Administration.ServerModel
 
             var addressBase = new MailAddressBase(aliasName, new WebDomainBase(domain))
                 {
-                    DateCreated = DateTime.UtcNow.ToDbStyle()
+                    DateCreated = DateTime.UtcNow
                 };
 
             MailAddressDto aliasDto;
@@ -161,6 +160,7 @@ namespace ASC.Mail.Server.Administration.ServerModel
                 !Id.Equals(other.Id) ||
                 !Tenant.Equals(other.Tenant) ||
                 !Server.Equals(other.Server) ||
+                !Name.Equals(other.Name) ||
                 Aliases.Count != other.Aliases.Count)
                 return false;
 
@@ -175,7 +175,7 @@ namespace ASC.Mail.Server.Administration.ServerModel
 
         public override int GetHashCode()
         {
-            return Account.GetHashCode() ^ Address.GetHashCode() ^ Aliases.GetHashCode() ^ Id ^ Tenant ^ Server.GetHashCode();
+            return Account.GetHashCode() ^ Address.GetHashCode() ^ Aliases.GetHashCode() ^ Id ^ Tenant ^ Server.GetHashCode() ^ Name.GetHashCode();
         }
     }
 }

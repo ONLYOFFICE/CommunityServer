@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,26 +24,24 @@
 */
 
 
+using ASC.Core;
+using ASC.Core.Tenants;
+using ASC.Core.Users;
+using ASC.Web.Core.Mobile;
+using ASC.Web.Core.Users;
+using ASC.Web.Studio.Core.SMS;
+using ASC.Web.Studio.Core.Users;
+using ASC.Web.Studio.UserControls.Management;
+using ASC.Web.Studio.UserControls.Users.UserProfile;
+using ASC.Web.Studio.Utility;
+using Resources;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Web;
-using System.Web.UI;
 using System.Web.Configuration;
-using ASC.Core;
-using ASC.Core.Users;
-using ASC.Core.Tenants;
-using ASC.MessagingSystem;
-using ASC.Web.Core.Mobile;
-using ASC.Web.Core.Users;
-using ASC.Web.Studio.Core.Notify;
-using ASC.Web.Studio.Core.Users;
-using ASC.Web.Studio.Core.SMS;
-using ASC.Web.Studio.UserControls.Management;
-using ASC.Web.Studio.UserControls.Users.UserProfile;
-using ASC.Web.Studio.Utility;
-using Resources;
+using System.Web.UI;
 
 namespace ASC.Web.Studio.UserControls.Users
 {
@@ -56,8 +54,8 @@ namespace ASC.Web.Studio.UserControls.Users
         {
             var isOwner = userInfo.IsOwner();
             var isMe = userInfo.IsMe();
-            AllowAddOrDelete = SecurityContext.CheckPermissions(ASC.Core.Users.Constants.Action_AddRemoveUser) && (!isOwner || isMe);
-            AllowEdit = SecurityContext.CheckPermissions(new UserSecurityProvider(userInfo.ID), ASC.Core.Users.Constants.Action_EditUser) && (!isOwner || isMe);
+            AllowAddOrDelete = SecurityContext.CheckPermissions(Constants.Action_AddRemoveUser) && (!isOwner || isMe);
+            AllowEdit = SecurityContext.CheckPermissions(new UserSecurityProvider(userInfo.ID), Constants.Action_EditUser) && (!isOwner || isMe);
         }
     }
 
@@ -326,15 +324,14 @@ namespace ASC.Web.Studio.UserControls.Users
 
             if (UserInfo.Status != EmployeeStatus.Terminated)
             {
-                List<GroupInfo> Groups = CoreContext.UserManager.GetUserGroups(UserInfo.ID).ToList();
-                if (!Groups.Any())
+                var groups = CoreContext.UserManager.GetUserGroups(UserInfo.ID).ToList();
+                if (!groups.Any())
                 {
                     DepartmentsRepeater.Visible = false;
                 }
 
-                DepartmentsRepeater.DataSource = Groups;
+                DepartmentsRepeater.DataSource = groups;
                 DepartmentsRepeater.DataBind();
-
             }
         }
 
@@ -342,23 +339,19 @@ namespace ASC.Web.Studio.UserControls.Users
         {
             if (!UserInfo.BirthDate.HasValue) return -1;
 
-            var now = TenantUtil.DateTimeNow();
-            var birthday = UserInfo.BirthDate;
-            var today = new DateTime(now.Year, now.Month, now.Day);
+            var birthday = UserInfo.BirthDate.Value;
 
-            var daysInMonth = DateTime.DaysInMonth(today.Year, birthday.Value.Month);
-            if (daysInMonth < birthday.Value.Day)
-            {
-                return -1;
-            }
+            var today = TenantUtil.DateTimeNow();
+            var checkYear = (DateTime.IsLeapYear(today.Year) || birthday.Month == 2 && birthday.Day == 29)
+                           ? 2000 : 2001;
 
-            var fest = new DateTime(today.Year, birthday.Value.Month, birthday.Value.Day);
+            var checkToday = new DateTime(checkYear, today.Month, today.Day);
+            var checkBirthday = new DateTime(checkYear, birthday.Month, birthday.Day);
 
-            if ((fest - today).Days < 0)
-            {
-                fest = new DateTime(today.Year + 1, birthday.Value.Month, birthday.Value.Day);
-            }
-            return (fest - today).Days;
+            var days = checkBirthday.DayOfYear - checkToday.DayOfYear;
+
+            if (days < 0) days += 365;
+            return days;
         }
     }
 }

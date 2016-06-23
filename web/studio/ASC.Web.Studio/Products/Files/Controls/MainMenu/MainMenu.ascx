@@ -2,23 +2,20 @@
 <%@ Assembly Name="ASC.Web.Files" %>
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="MainMenu.ascx.cs" Inherits="ASC.Web.Files.Controls.MainMenu" %>
 <%@ Import Namespace="ASC.Core" %>
-<%@ Import Namespace="ASC.Web.Core.Mobile" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
 <%@ Import Namespace="ASC.Web.Files.Import" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
 
-<% if(!Global.IsOutsider) { %>
+<% if (!Global.IsOutsider)
+   { %>
 <ul id="mainMenuHolder" class="menu-actions">
-    <li id="menuCreateNewButton" class="menu-main-button disable <%= CreateButtonClass %>" title="<%= FilesUCResource.ButtonCreate %>">
+    <li id="menuCreateNewButton" class="menu-main-button without-separator disable middle" title="<%= FilesUCResource.ButtonCreate %>">
         <span class="main-button-text"><%= FilesUCResource.ButtonCreate %></span>
         <span class="white-combobox">&nbsp;</span>
     </li>
-    <% if (!MobileDetector.IsMobile)
-       {%>
     <li id="buttonUpload" class="menu-upload-button disable" title="<%= FilesUCResource.ButtonUpload %>">
         <span class="menu-upload-icon">&nbsp;</span>
     </li>
-    <% } %>
 </ul>
 <% } %>
 
@@ -29,7 +26,8 @@
 
     <% if (!CoreContext.Configuration.Personal)
        { %>
-    <% if(!Global.IsOutsider) { %>
+    <% if (!Global.IsOutsider)
+       { %>
     <li id="treeSetting" class="menu-item sub-list add-block">
         <div class="category-wrapper">
             <span class="expander"></span>
@@ -78,27 +76,27 @@
     <ul class="tree-thirdparty-list clearFix">
         <% if (ImportConfiguration.SupportGoogleDriveInclusion)
            { %>
-        <li class="add-account-button GoogleDrive" data-provider="GoogleDrive" title="<%= FilesUCResource.ButtonAddGoogle %>" ></li>
+        <li class="add-account-button GoogleDrive" data-provider="GoogleDrive" title="<%= FilesUCResource.ButtonAddGoogle %>"></li>
         <% } %>
-        <% if (ImportConfiguration.SupportBoxNetInclusion)
+        <% if (ImportConfiguration.SupportBoxInclusion)
            { %>
-        <li class="add-account-button BoxNet" data-provider="BoxNet" title="<%= FilesUCResource.ButtonAddBoxNet %>" ></li>
+        <li class="add-account-button Box" data-provider="Box" title="<%= FilesUCResource.ButtonAddBoxNet %>"></li>
         <% } %>
         <% if (ImportConfiguration.SupportDropboxInclusion)
            { %>
-        <li class="add-account-button DropBox" data-provider="DropBox" title="<%= FilesUCResource.ButtonAddDropBox %>" ></li>
+        <li class="add-account-button DropBox" data-provider="DropBox" title="<%= FilesUCResource.ButtonAddDropBox %>"></li>
         <% } %>
         <% if (ImportConfiguration.SupportOneDriveInclusion)
            { %>
-        <li class="add-account-button SkyDrive" data-provider="SkyDrive" title="<%= FilesUCResource.ButtonAddSkyDrive %>" ></li>
+        <li class="add-account-button SkyDrive" data-provider="SkyDrive" title="<%= FilesUCResource.ButtonAddSkyDrive %>"></li>
         <% } %>
         <% if (ImportConfiguration.SupportWebDavInclusion)
            { %>
-        <li class="add-account-button OwnCloud" data-provider="WebDav" title="<%= FilesUCResource.ButtonAddOwnCloud %>" ></li>
+        <li class="add-account-button OwnCloud" data-provider="WebDav" title="<%= FilesUCResource.ButtonAddOwnCloud %>"></li>
         <% } %>
         <% if (ImportConfiguration.SupportWebDavInclusion)
            { %>
-        <li class="account-connect add-account-button WebDav" title="<%= FilesUCResource.AddAccount %>" ></li>
+        <li class="account-connect add-account-button WebDav" title="<%= FilesUCResource.AddAccount %>"></li>
         <% } %>
     </ul>
 </div>

@@ -82,9 +82,9 @@
                 <% { %>
                 <span class="add-account-big add-account-button GoogleDrive" data-provider="GoogleDrive" title="<%= FilesUCResource.ThirdPartyGoogleDrive %>"></span>
                 <% } %>
-                <% if (ImportConfiguration.SupportBoxNetInclusion) %>
+                <% if (ImportConfiguration.SupportBoxInclusion) %>
                 <% { %>
-                <span class="add-account-big add-account-button BoxNet" data-provider="BoxNet" title="<%= FilesUCResource.ThirdPartyBoxNet %>"></span>
+                <span class="add-account-big add-account-button Box" data-provider="Box" title="<%= FilesUCResource.ThirdPartyBoxNet %>"></span>
                 <% } %>
                 <% if (ImportConfiguration.SupportDropboxInclusion) %>
                 <% { %>

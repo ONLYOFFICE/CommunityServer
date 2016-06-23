@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,12 +25,9 @@
 
 
 using System;
-using System.Text;
 using System.Web;
 using System.Web.UI;
-using ASC.Core;
 using ASC.Projects.Engine;
-using ASC.Web.Core;
 using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Configuration;
@@ -178,22 +175,62 @@ namespace ASC.Web.Projects.Masters
 
             if (Page is GanttChart)
             {
-                Page.RegisterBodyScriptsControl("~/products/projects/masters/GanttBodyScripts.ascx");
+                Master.AddBodyScripts(ResolveUrl, "~/js/third-party/jquery/jquery.autosize.js");
+                Master.AddBodyScripts(PathProvider.GetFileStaticRelativePath,
+                                          "jq_projects_extensions.js",
+                                          "common.js",
+                                          "taskaction.js",
+                                          "milestoneaction.js",
+                                          "ganttchart_min.js",
+                                          "ganttchartpage.js");
                 return;
             }
 
-            Page.RegisterStyleControl("~/products/projects/masters/Styles.ascx");
-            Page.RegisterBodyScriptsControl("~/products/projects/masters/CommonBodyScripts.ascx");
+            Master.AddStyles(PathProvider.GetFileStaticRelativePath, 
+                                 "common.css",
+                                 "allprojects.less",
+                                 "projectaction.css",
+                                 "milestones.less",
+                                 "tasks.css",
+                                 "alltasks.less",
+                                 "discussions.css",
+                                 "timetracking.css",
+                                 "projectteam.less",
+                                 "projecttemplates.css",
+                                 "import.css",
+                                 "reports.css");
+
+            Master.AddBodyScripts(PathProvider.GetFileStaticRelativePath, 
+                                      "jq_projects_extensions.js",
+                                      "common.js",
+                                      "base.js",
+                                      "navsidepanel.js",
+                                      "taskaction.js",
+                                      "milestoneaction.js",
+                                      "projectnavpanel.js",
+                                      "common_filter_projects.js",
+                                      "subtasks.js",
+                                      "tasks.js",
+                                      "taskdescription.js",
+                                      "projects.js",
+                                      "projecttemplates.js",
+                                      "projectteam.js",
+                                      "milestones.js",
+                                      "discussions.js",
+                                      "timetracking.js",
+                                      "apitimetraking.js");
+
+            Master.AddBodyScripts(ResolveUrl, "~/js/third-party/jquery/jquery.autosize.js","~/js/uploader/ajaxupload.js");
         }
 
         public void RegisterCRMResources()
         {
-            Page.RegisterStyle("~/products/crm/app_themes/default/css/common.less");
-            Page.RegisterStyle("~/products/crm/app_themes/default/css/contacts.less");
+            Page.RegisterStyle("~/products/crm/app_themes/default/css/common.less",
+                "~/products/crm/app_themes/default/css/contacts.less");
 
-            Page.RegisterBodyScripts("~/js/third-party/jquery/jquery.watermarkinput.js");
-            Page.RegisterBodyScripts("~/products/crm/js/contacts.js");
-            Page.RegisterBodyScripts("~/products/crm/js/common.js");
+            Page.RegisterBodyScripts("~/js/third-party/jquery/jquery.watermarkinput.js",
+                "~/products/crm/js/contacts.js",
+                "~/products/crm/js/common.js");
         }
 
         public void WriteProjectResources()

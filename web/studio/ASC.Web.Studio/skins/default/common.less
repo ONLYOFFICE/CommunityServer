@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -73,7 +73,7 @@ html
     MozUserSelect: none;
 }
 .text-overflow {
-    text-overflow: ellipsis;
+    .textOverflowEllipsis();
 }
 .border-style {
     border:1px solid @borderColor;
@@ -142,9 +142,10 @@ input,textarea, select {
         border-left: medium none;
         border-top: medium none;
         overflow: hidden;
-        text-overflow: ellipsis;
+        .textOverflowEllipsis();
         min-width: 240px;
         width: 240px;
+        padding-bottom: 24px;
         padding-right: 24px;
         vertical-align: top;
 
@@ -169,7 +170,7 @@ input,textarea, select {
 
 #studio_sidePanel {
     overflow: hidden;
-    text-overflow: ellipsis;
+    .textOverflowEllipsis();
     width: 240px;
 }
 .sidepanel-with-chat {
@@ -493,12 +494,20 @@ a.linkAction:hover {
 
 /*----------------Arrow------------------*/
 
-.arrow-group {
-    .arrow-close(4px, #000);
-    left: 0;
-    margin-top: -4px;
-    &.open {
-        .arrow-down(4px, #000);
+.with-arrow-right {
+    position: relative;
+
+    &:after {
+        .arrow-close(4px, #212121);
+        left: 0;
+        margin-top: -4px;
+    }
+}
+.with-arrow-down {
+    position: relative;
+
+    &:after {
+        .arrow-down(4px, #212121);
         left: 0;
         margin-top: -2px;
     }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -193,10 +193,8 @@ window.accountsPanel = (function($) {
                 var sysfolderAnchor = '#' + folder + MailFilter.toAnchor(false, { to: filterTo == account.email.toLowerCase() ? '' : account.email }, true);
                 ASC.Controls.AnchorController.move(sysfolderAnchor);
             } else if (TMMail.pageIs('writemessage')) {
-                var title = TMMail.ltgt(account.name + " <" + account.email + ">");
                 messagePage.selectFromAccount({}, {
-                    account: account,
-                    title: title
+                    account: account
                 });
             } else {
                 ASC.Controls.AnchorController.move('#inbox/to=' + encodeURIComponent(account.email) + '/');

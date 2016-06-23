@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -194,13 +194,28 @@ blockquote {
 }
 
 .menu-small {
-    background: transparent url("@{img-change-url}actions_icon.png") center top no-repeat;
+    border: 3px solid @entity-menu-color;
+    .borderRadius(14px);
     cursor: pointer;
-    display:inline-block;
-    height: 20px;
+    display: inline-block;
+    height: 14px;
+    width: 14px;
     margin:5px 0 0 7px;
     vertical-align: top;
-    width: 20px;
+    position: relative;
+    &:after {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid @entity-menu-color;
+            content: "";
+            height: 0;
+            width: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -4px;
+            margin-top: -2px;
+        }
 }
 
 .menu-small:hover,
@@ -208,8 +223,12 @@ blockquote {
 .menu-small.active,
 .menu-small.active:hover,
 .header-with-menu:hover .menu-small.active,
-.header-with-menu:hover + .menu-small  {
-    background-position: center bottom;
+.header-with-menu:hover + .menu-small {
+    border-color: @entity-menu-active-color;
+
+    &:after {
+        border-top-color: @entity-menu-active-color;
+    }
 }
 
 .UserInfoBlock
@@ -275,17 +294,29 @@ blockquote {
     color: @textColorBlackDark;    
     text-decoration: underline;
 }
-.on-top-link:after {
-    background: url("@{imagesBaseUrl}on_top.png") no-repeat scroll left center transparent;
-    color: @textColor;
+.on-top-link:before {
     content: " ";
     display: block;
-    height: 11px;
-    left: -14px;
-    margin-top: -5px;
+    position: absolute;
+    left: -11px;
+    top: 50%;
+    margin-top: 0;
+    width: 5px;
+    height: 4px;
+    background-color: #666;
+}
+.on-top-link:after {
+    border-left: 5px solid transparent;
+    border-bottom: 5px solid #666;
+    border-right: 6px solid transparent;
+    content: "";
+    display: block;
+    height: 0;
+    width: 0;
     position: absolute;
     top: 50%;
-    width: 11px;
+    margin-top: -4px;
+    left: -14px;
 }
 .menu-action-on-top,
 .menu-action-simple-pagenav,
@@ -373,21 +404,42 @@ body.media-width-0-1200 {
         Menu Icon in Lists
 *******************************************************************************/
 
-    .with-entity-menu {
-	    &:hover .entity-menu,
-	    .entity-menu.active {
-		    background-position: center bottom;
-	    }
+.with-entity-menu {
+    &:hover .entity-menu,
+    .entity-menu.active {
+        border-color: @entity-menu-active-color;
 
-	    .entity-menu {
-		    background: url("@{img-change-url}actions_icon.png") center top no-repeat transparent;
-		    cursor: pointer;
-		    display: block;
-		    height: 20px;
-		    margin: auto;	
-		    width: 20px;
-	    }
+        &:after {
+            border-top-color: @entity-menu-active-color;
+        }
     }
+
+    .entity-menu {
+        border: 3px solid @entity-menu-color;
+        .borderRadius(14px);
+        cursor: pointer;
+        display: block;
+        height: 14px;
+        width: 14px;
+        margin: auto;
+        padding: 0;
+        position: relative;
+
+        &:after {
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 5px solid @entity-menu-color;
+            content: "";
+            height: 0;
+            width: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-left: -4px;
+            margin-top: -2px;
+        }
+    }
+}
 
 
 .loading-block {
@@ -493,6 +545,7 @@ body.media-width-0-1200 {
     border-bottom: 4px solid transparent;
     border-top: 4px solid transparent;
     display: inline-block;
+
     &.open {
         border-left: 4px solid transparent;
         border-right: 4px solid transparent;

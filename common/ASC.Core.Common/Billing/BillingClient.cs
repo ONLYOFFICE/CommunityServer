@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -34,6 +34,7 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.Web;
 using System.Xml.Linq;
+using System.Xml.XPath;
 
 namespace ASC.Core.Billing
 {
@@ -41,6 +42,7 @@ namespace ASC.Core.Billing
     {
         private readonly static ILog log = LogManager.GetLogger(typeof(TariffService));
         private readonly bool test;
+        private readonly string filesDocServiceKey;
 
 
         public BillingClient()
@@ -51,6 +53,7 @@ namespace ASC.Core.Billing
         public BillingClient(bool test)
         {
             this.test = test;
+            filesDocServiceKey = ConfigurationManager.AppSettings["files.docservice.key"];
         }
 
 
@@ -107,7 +110,7 @@ namespace ASC.Core.Billing
         {
             var urls = new Dictionary<string, Tuple<Uri, Uri>>();
 
-            var additionalParameters = new List<Tuple<string, string>>(2){Tuple.Create("PaymentSystemId", "1")};
+            var additionalParameters = new List<Tuple<string, string>>(2) { Tuple.Create("PaymentSystemId", "1") };
             if (!string.IsNullOrEmpty(affiliateId))
             {
                 additionalParameters.Add(Tuple.Create("AffiliateId", affiliateId));
@@ -222,7 +225,7 @@ namespace ASC.Core.Billing
                     return new PaymentOffice
                     {
                         Key1 = GetValueString(xelement.Element("customer-id")),
-                        Key2 = skey != null ? skey.Value : ConfigurationManager.AppSettings["files.docservice.key"],
+                        Key2 = skey != null ? skey.Value : filesDocServiceKey,
                         StartDate = GetValueDateTime(xelement.Element("start-date")),
                         EndDate = GetValueDateTime(xelement.Element("end-date")),
                         UsersCount = resources != null ? (int)GetValueDecimal(resources.Element("users-max")) : default(int),
@@ -243,7 +246,7 @@ namespace ASC.Core.Billing
                 return new PaymentOffice
                 {
                     Key1 = portalId,
-                    Key2 = ConfigurationManager.AppSettings["files.docservice.key"],
+                    Key2 = filesDocServiceKey,
                     EndDate = DateTime.MaxValue,
                     UsersCount = int.MaxValue,
                     CoEditing = true,
@@ -272,6 +275,31 @@ namespace ASC.Core.Billing
                 return string.Empty;
             }
         }
+
+        public IDictionary<string, IEnumerable<Tuple<string, decimal>>> GetProductPriceInfo(params string[] productIds)
+        {
+            if (productIds == null)
+            {
+                throw new ArgumentNullException("productIds");
+            }
+
+            var responce = Request("GetBatchAvangateProductPriceInfo", null, productIds.Select(pid => Tuple.Create("ProductId", pid)).ToArray());
+            var xelement = ToXElement(responce);
+            return productIds
+                .Select(p =>
+                {
+                    var prices = Enumerable.Empty<Tuple<string, decimal>>();
+                    var product = xelement.XPathSelectElement(string.Format("/avangate-product/internal-id[text()=\"{0}\"]", p));
+                    if (product != null)
+                    {
+                        prices = product.Parent.Element("prices").Elements("price-item")
+                            .Select(e => Tuple.Create(e.Element("currency").Value, decimal.Parse(e.Element("amount").Value)));
+                    }
+                    return new { ProductId = p, Prices = prices, };
+                })
+                .ToDictionary(e => e.ProductId, e => e.Prices);
+        }
+
 
         private string Request(string method, string portalId, params Tuple<string, string>[] parameters)
         {

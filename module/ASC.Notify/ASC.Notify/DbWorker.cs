@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,16 +24,15 @@
 */
 
 
-using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Notify.Config;
 using ASC.Notify.Messages;
-using log4net;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Linq;
 
 namespace ASC.Notify
 {
@@ -43,7 +42,7 @@ namespace ASC.Notify
         private readonly object syncRoot = new object();
 
 
-        public void SaveMessage(NotifyMessage m)
+        public int SaveMessage(NotifyMessage m)
         {
             using (var db = GetDb())
             using (var tx = db.BeginTransaction(IsolationLevel.ReadCommitted))
@@ -58,9 +57,10 @@ namespace ASC.Notify
                 i = new SqlInsert("notify_info")
                     .InColumns("notify_id", "state", "attempts", "modify_date", "priority")
                     .Values(id, 0, 0, DateTime.UtcNow, m.Priority);
-                db.ExecuteNonQuery(i);
+                var affected = db.ExecuteNonQuery(i);
 
                 tx.Commit();
+                return affected;
             }
         }
 

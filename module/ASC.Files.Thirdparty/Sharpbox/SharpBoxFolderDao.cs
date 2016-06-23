@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -40,7 +40,6 @@ namespace ASC.Files.Thirdparty.Sharpbox
         public SharpBoxFolderDao(SharpBoxDaoSelector.SharpBoxInfo sharpBoxInfo, SharpBoxDaoSelector sharpBoxDaoSelector)
             : base(sharpBoxInfo, sharpBoxDaoSelector)
         {
-
         }
 
         public Folder GetFolder(object folderId)
@@ -54,6 +53,11 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return ToFolder(parentFolder.OfType<ICloudDirectoryEntry>().FirstOrDefault(x => x.Name.Equals(title, StringComparison.OrdinalIgnoreCase)));
         }
 
+        public Folder GetRootFolder(object folderId)
+        {
+            return ToFolder(RootFolder());
+        }
+
         public Folder GetRootFolderByFile(object fileId)
         {
             return ToFolder(RootFolder());
@@ -61,13 +65,14 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
         public List<Folder> GetFolders(object parentId)
         {
-
             var parentFolder = SharpBoxProviderInfo.Storage.GetFolder(MakePath(parentId));
             return parentFolder.OfType<ICloudDirectoryEntry>().Select(ToFolder).ToList();
         }
 
-        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false)
+        public List<Folder> GetFolders(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false)
         {
+            if (filterType == FilterType.FilesOnly || filterType == FilterType.ByExtension) return new List<Folder>();
+
             var folders = GetFolders(parentId).AsEnumerable(); //TODO:!!!
             //Filter
             switch (filterType)
@@ -191,11 +196,11 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return false;
         }
 
-        public object MoveFolder(object folderId, object toRootFolderId)
+        public object MoveFolder(object folderId, object toFolderId)
         {
             var oldIdValue = MakeId(GetFolderById(folderId));
 
-            SharpBoxProviderInfo.Storage.MoveFileSystemEntry(MakePath(folderId), MakePath(toRootFolderId));
+            SharpBoxProviderInfo.Storage.MoveFileSystemEntry(MakePath(folderId), MakePath(toFolderId));
 
             var newIdValue = MakeId(GetFolderById(folderId));
 
@@ -204,11 +209,12 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return newIdValue;
         }
 
-        public Folder CopyFolder(object folderId, object toRootFolderId)
+        public Folder CopyFolder(object folderId, object toFolderId)
         {
             var folder = GetFolderById(folderId);
-            SharpBoxProviderInfo.Storage.CopyFileSystemEntry(MakePath(folderId), MakePath(toRootFolderId));
-            return ToFolder(GetFolderById(toRootFolderId).OfType<ICloudDirectoryEntry>().FirstOrDefault(x => x.Name == folder.Name));
+            if (!SharpBoxProviderInfo.Storage.CopyFileSystemEntry(MakePath(folderId), MakePath(toFolderId)))
+                throw new Exception("Error while copying");
+            return ToFolder(GetFolderById(toFolderId).OfType<ICloudDirectoryEntry>().FirstOrDefault(x => x.Name == folder.Name));
         }
 
         public IDictionary<object, string> CanMoveOrCopy(object[] folderIds, object to)
@@ -249,10 +255,14 @@ namespace ASC.Files.Thirdparty.Sharpbox
             return newId;
         }
 
-        public int GetItemsCount(object folderId, bool withSubfoldes)
+        public int GetItemsCount(object folderId)
         {
-            var folder = GetFolderById(folderId);
-            return folder.Count;
+            throw new NotImplementedException();
+        }
+
+        public bool IsEmpty(object folderId)
+        {
+            return GetFolderById(folderId).Count == 0;
         }
 
         public bool UseTrashForRemove(Folder folder)
@@ -261,6 +271,11 @@ namespace ASC.Files.Thirdparty.Sharpbox
         }
 
         public bool UseRecursiveOperation(object folderId, object toRootFolderId)
+        {
+            return false;
+        }
+
+        public bool CanCalculateSubitems(object entryId)
         {
             return false;
         }
@@ -280,7 +295,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
 
         #region Only for TMFolderDao
 
-        public IEnumerable<Folder> Search(string text, FolderType folderType)
+        public IEnumerable<Folder> Search(string text, params FolderType[] folderTypes)
         {
             return null;
         }

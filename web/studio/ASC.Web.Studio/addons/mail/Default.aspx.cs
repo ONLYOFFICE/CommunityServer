@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -113,8 +113,82 @@ namespace ASC.Web.Mail
                 tlContactsContainer.Visible = false;
             }
 
-            Page.RegisterBodyScriptsControl("~/addons/mail/masters/BodyScripts.ascx");
-            Page.RegisterStyleControl("~/addons/mail/masters/Styles.ascx");
+            Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute, 
+                                         "~/js/third-party/setImmediate.js",
+                                         "~/js/third-party/sorttable.js",
+                                         "~/js/third-party/moment.min.js",
+                                         "~/js/third-party/moment-timezone.min.js",
+                                         "~/js/third-party/rrule.js",
+                                         "~/js/third-party/nlp.js",
+                                         "~/addons/mail/js/third-party/autoresize.jquery.js",
+                                         "~/addons/mail/js/third-party/jquery.dotdotdot.min.js",
+                                         "~/addons/mail/js/third-party/jquery.textchange.min.js",
+                                         "~/addons/mail/js/third-party/linkify.min.js",
+                                         "~/addons/mail/js/third-party/linkify-string.min.js",
+                                         "~/addons/mail/js/third-party/placeholder.js",
+                                         "~/addons/mail/js/containers/set.js",
+                                         "~/addons/mail/js/mail.common.js",
+                                         "~/addons/mail/js/dropdown.js",
+                                         "~/addons/mail/js/mail.crmLinkPopup.js",
+                                         "~/addons/mail/js/mail.default.js",
+                                         "~/addons/mail/js/mail.servicemanager.js",
+                                         "~/addons/mail/js/fromsenderfilter.js",
+                                         "~/addons/mail/js/mail.filter.js",
+                                         "~/addons/mail/js/mail.folderfilter.js",
+                                         "~/addons/mail/js/mail.folderpanel.js",
+                                         "~/addons/mail/js/mail.mailbox.js",
+                                         "~/addons/mail/js/mail.accounts.js",
+                                         "~/addons/mail/js/mail.accountsmodal.js",
+                                         "~/addons/mail/js/mail.accountspage.js",
+                                         "~/addons/mail/js/wysiwyg.js",
+                                         "~/addons/mail/js/mail.cache.js",
+                                         "~/addons/mail/js/mail.messagepage.js",
+                                         "~/addons/mail/js/mail.printpage.js",
+                                         "~/addons/mail/js/mail.navigation.js",
+                                         "~/addons/mail/js/mail.settingspanel.js",
+                                         "~/addons/mail/js/mail.attachmentmanager.js",
+                                         "~/addons/mail/js/actionMenu.js",
+                                         "~/addons/mail/js/actionPanel.js",
+                                         "~/addons/mail/js/emailAutocomplete.js",
+                                         "~/addons/mail/js/hidePanel.js",
+                                         "~/addons/mail/js/tags/tags.js",
+                                         "~/addons/mail/js/tags/panel.js",
+                                         "~/addons/mail/js/tags/colorspopup.js",
+                                         "~/addons/mail/js/tags/dropdown.js",
+                                         "~/addons/mail/js/tags/page.js",
+                                         "~/addons/mail/js/administration/error.js",
+                                         "~/addons/mail/js/administration/administration.js",
+                                         "~/addons/mail/js/administration/page.js",
+                                         "~/addons/mail/js/administration/forms.js",
+                                         "~/addons/mail/js/administration/modal/editmailgroup.js",
+                                         "~/addons/mail/js/administration/modal/editmailbox.js",
+                                         "~/addons/mail/js/administration/modal/createdomain.js",
+                                         "~/addons/mail/js/administration/modal/createmailbox.js",
+                                         "~/addons/mail/js/administration/modal/createmailgroup.js",
+                                         "~/addons/mail/js/tags/modal.js",
+                                         "~/addons/mail/js/contacts/filter/crmFilter.js",
+                                         "~/addons/mail/js/contacts/page.js",
+                                         "~/addons/mail/js/contacts/panel.js",
+                                         "~/addons/mail/js/contacts/types.js",
+                                         "~/addons/mail/js/contacts/filter/tlFilter.js",
+                                         "~/addons/mail/js/contacts/filter/customFilter.js",
+                                         "~/addons/mail/js/contacts/tlGroups.js",
+                                         "~/addons/mail/js/contacts/contacts.js",
+                                         "~/addons/mail/js/contacts/modal/editContact.js",
+                                         "~/addons/mail/js/blankpage.js",
+                                         "~/addons/mail/js/popup.js",
+                                         "~/addons/mail/js/alerts.js",
+                                         "~/addons/mail/js/filterCache.js",
+                                         "~/addons/mail/js/accountsPanel.js",
+                                         "~/addons/mail/js/trustedAddresses.js",
+                                         "~/addons/mail/js/init.js",
+                                         "~/addons/mail/js/helpcenter/panel.js",
+                                         "~/addons/mail/js/helpcenter/page.js",
+                                         "~/addons/mail/js/administration/plugin/jquery-mailboxadvansedselector.js",
+                                         "~/addons/mail/js/administration/plugin/jquery-domainadvansedselector.js",
+                                         "~/addons/mail/js/mail.calendar.js");
+
+            Page.RegisterStyle(ResolveUrl, "~/addons/mail/app_themes/default/less/mail.less");
             Page.RegisterClientLocalizationScript(typeof(ClientLocalizationResources));
             Page.RegisterClientLocalizationScript(typeof(ClientTemplateResources));
 
@@ -193,6 +267,11 @@ namespace ASC.Web.Mail
             return WebItemSecurity.IsAvailableForUser(WebItemManager.PeopleProductID.ToString(), SecurityContext.CurrentAccount.ID);
         }
 
+        public static bool IsCalndarAvailable()
+        {
+            return WebItemSecurity.IsAvailableForUser(WebItemManager.CalendarProductID.ToString(), SecurityContext.CurrentAccount.ID);
+        }
+
         public static bool IsMailCommonDomainAvailable()
         {
             return SetupInfo.IsVisibleSettings<AdministrationPage>() && SetupInfo.IsVisibleSettings("MailCommonDomain") && !CoreContext.Configuration.Standalone;
@@ -218,6 +297,11 @@ namespace ASC.Web.Mail
             return WebConfigurationManager.AppSettings["mail.view-document-handler-url"] ?? "/addons/mail/httphandlers/viewdocument.ashx?attachid={0}";
         }
 
+        public static string GetMailContactPhotoHandlerUri()
+        {
+            return WebConfigurationManager.AppSettings["mail.contact-photo-handler-url"] ?? "/addons/mail/httphandlers/contactphoto.ashx?cid={0}&ps={1}";
+        }
+
         public static string GetMailEditDocumentHandlerUri()
         {
             return WebConfigurationManager.AppSettings["mail.edit-document-handler-url"] ?? "/addons/mail/httphandlers/editdocument.ashx?attachid={0}";
@@ -228,6 +312,10 @@ namespace ASC.Web.Mail
             return WebConfigurationManager.AppSettings["mail.daemon-email"] ?? "mail-daemon@onlyoffice.com";
         }
 
+        public static string GetProxyHttpUrl()
+        {
+            return WebConfigurationManager.AppSettings["proxy.http-url"] ?? "/httphandlers/urlProxy.ashx";
+        }
         protected MailBoxManager dataManager;
 
         protected MailBoxManager DataManager
@@ -351,6 +439,8 @@ namespace ASC.Web.Mail
                     JsonConvert.SerializeObject(IsCrmAvailable()))
                 .AppendFormat("ASC.Mail.Constants.PEOPLE_AVAILABLE = {0};\r\n",
                     JsonConvert.SerializeObject(IsPeopleAvailable()))
+                .AppendFormat("ASC.Mail.Constants.CALENDAR_AVAILABLE = {0};\r\n",
+                    JsonConvert.SerializeObject(IsCalndarAvailable()))
                 .AppendFormat("ASC.Mail.Constants.COMMON_DOMAIN_AVAILABLE = {0};\r\n",
                     JsonConvert.SerializeObject(IsMailCommonDomainAvailable()))
                 .AppendFormat("ASC.Mail.Constants.PRINT_AVAILABLE = {0};\r\n",
@@ -367,6 +457,8 @@ namespace ASC.Web.Mail
                     JsonConvert.SerializeObject(GetMailViewDocumentHandlerUri()))
                 .AppendFormat("ASC.Mail.Constants.EDIT_DOCUMENT_HANDLER_URL = {0};\r\n",
                     JsonConvert.SerializeObject(GetMailEditDocumentHandlerUri()))
+                .AppendFormat("ASC.Mail.Constants.CONTACT_PHOTO_HANDLER_URL = {0};\r\n",
+                    JsonConvert.SerializeObject(GetMailContactPhotoHandlerUri()))
                 .AppendFormat("ASC.Mail.Constants.Errors = {0};\r\n",
                     JsonConvert.SerializeObject(GetErrorConstants()))
                 .AppendFormat("ASC.Mail.Constants.Alerts = {0};\r\n",
@@ -374,7 +466,11 @@ namespace ASC.Web.Mail
                 .AppendFormat("ASC.Mail.Constants.MAIL_DAEMON_EMAIL = {0};\r\n",
                     JsonConvert.SerializeObject(GetMailDaemonEmail()))
                 .AppendFormat("ASC.Mail.Constants.FiLTER_BY_GROUP_LOCALIZE = {0};\r\n",
-                    JsonConvert.SerializeObject(CustomNamingPeople.Substitute<Resources.MailResource>("FilterByGroup")));
+                    JsonConvert.SerializeObject(CustomNamingPeople.Substitute<Resources.MailResource>("FilterByGroup")))
+                .AppendFormat("ASC.Mail.Constants.NEED_PROXY_HTTP_URL = {0};\r\n",
+                    JsonConvert.SerializeObject(SetupInfo.IsVisibleSettings("ProxyHttpContent")))
+                .AppendFormat("ASC.Mail.Constants.PROXY_HTTP_URL = {0};\r\n",
+                    JsonConvert.SerializeObject(GetProxyHttpUrl()));
 
             return sbScript.ToString();
         }

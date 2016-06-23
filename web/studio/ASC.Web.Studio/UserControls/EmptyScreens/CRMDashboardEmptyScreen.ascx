@@ -10,7 +10,7 @@
     <div class="header">
         <% if (!UseStaticPosition)
            { %>
-            <span class="close"></span>
+            <span class="close">&times;</span>
         <% } %>
         <%= CRMCommonResource.DashboardTitle %>
     </div>

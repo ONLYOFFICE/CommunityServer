@@ -6,7 +6,6 @@
 <%@ Import Namespace="ASC.Web.Core.Files" %>
 <%@ Import Namespace="ASC.Web.Files.Classes" %>
 <%@ Import Namespace="ASC.Web.Files.Resources" %>
-<%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
 <div class="files-content-panel" data-title="<%= TitlePage %>" data-rootid="<%= FolderIDCurrentRoot %>">
@@ -32,7 +31,7 @@
         <li id="mainDownload" class="menuAction" title="<%= FilesUCResource.ButtonDownload %>">
             <span><%= FilesUCResource.ButtonDownload %></span>
         </li>
-        <% if (0 < FileUtility.ExtsConvertible.Count && TenantExtra.GetTenantQuota().DocsEdition)
+        <% if (0 < FileUtility.ExtsConvertible.Count)
            { %>
         <li id="mainConvert" class="menuAction" title="<%= FilesUCResource.DownloadAs %>">
             <span><%= FilesUCResource.DownloadAs %></span>
@@ -61,11 +60,11 @@
             <span><%= FilesUCResource.ButtonEmptyTrash %></span>
         </li>
         <% } %>
-        <li id="switchViewFolder">
-            <div id="switchToNormal" title="<%= FilesUCResource.SwitchViewToNormal %>">
+        <li id="switchViewFolder" class="menuSwitchViewFolder">
+            <div id="switchToNormal" class="switchToNormal" title="<%= FilesUCResource.SwitchViewToNormal %>">
                 &nbsp;
             </div>
-            <div id="switchToCompact" title="<%= FilesUCResource.SwitchViewToCompact %>">
+            <div id="switchToCompact" class="switchToCompact" title="<%= FilesUCResource.SwitchViewToCompact %>">
                 &nbsp;
             </div>
         </li>
@@ -109,7 +108,7 @@
         <li id="buttonDownload"><a class="dropdown-item">
             <%= FilesUCResource.ButtonDownload %>
             (<span></span>)</a> </li>
-        <% if (0 < FileUtility.ExtsConvertible.Count && TenantExtra.GetTenantQuota().DocsEdition)
+        <% if (0 < FileUtility.ExtsConvertible.Count)
            { %>
         <li id="buttonConvert"><a class="dropdown-item">
             <%= FilesUCResource.DownloadAs %>

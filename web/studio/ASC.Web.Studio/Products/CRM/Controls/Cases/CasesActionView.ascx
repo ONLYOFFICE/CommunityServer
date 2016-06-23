@@ -18,7 +18,7 @@
             <dd id="membersCasesSelectorsContainer"></dd>
             <dt style="margin:20px 0;" class="hiddenFields">
                 <div id="casesContactListBox">
-                    <table id="contactTable" class="tableBase" cellpadding="4" cellspacing="0">
+                    <table id="contactTable" class="table-list" cellpadding="4" cellspacing="0">
                         <tbody>
                         </tbody>
                     </table>

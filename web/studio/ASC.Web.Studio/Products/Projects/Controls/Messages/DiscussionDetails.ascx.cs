@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,17 +24,16 @@
 */
 
 
-using System;
-using System.Globalization;
-using System.Linq;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.Projects.Core.Domain;
 using ASC.Projects.Engine;
-using ASC.Web.Core.Mobile;
 using ASC.Web.Projects.Classes;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.UserControls.Common.Attachments;
+using System;
+using System.Globalization;
+using System.Linq;
 
 namespace ASC.Web.Projects.Controls.Messages
 {
@@ -70,10 +69,10 @@ namespace ASC.Web.Projects.Controls.Messages
 
             CanEdit = ProjectSecurity.CanEdit(Discussion);
             CanReadFiles = ProjectSecurity.CanReadFiles(Discussion.Project);
-            CanEditFiles = ProjectSecurity.IsInTeam(Project) && Discussion.Status == MessageStatus.Open;
+            CanEditFiles = ProjectSecurity.IsInTeam(Project) && Discussion.Status == MessageStatus.Open && Project.Status == ProjectStatus.Open;
             Author = CoreContext.UserManager.GetUsers(Discussion.CreateBy);
             FilesCount = Page.EngineFactory.MessageEngine.GetFiles(Discussion).Count();
-            FilesAvailable = CanReadFiles && !MobileDetector.IsMobile && (CanEditFiles || FilesCount > 0);
+            FilesAvailable = CanReadFiles && (CanEditFiles || FilesCount > 0);
             CommentsAvailable = Discussion.Status == MessageStatus.Open || Discussion.CommentsCount > 0;
 
             CommentsCountTitle = Discussion.CommentsCount != 0 ? Discussion.CommentsCount.ToString(CultureInfo.InvariantCulture) : "";

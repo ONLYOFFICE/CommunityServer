@@ -29,55 +29,52 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
 using Novell.Directory.Ldap.Asn1;
-using Novell.Directory.Ldap;
 using Novell.Directory.Ldap.Utilclass;
 
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/// <summary> Represents the Ldap Unbind request.
-	/// 
-	/// <pre>
-	/// UnbindRequest ::= [APPLICATION 2] NULL
-	/// </pre>
-	/// </summary>
-	public class RfcUnbindRequest:Asn1Null, RfcRequest
-	{
-		
-		//*************************************************************************
-		// Constructor for UnbindRequest
-		//*************************************************************************
-		
-		/// <summary> Construct an RfCUnbind Request</summary>
-		public RfcUnbindRequest():base()
-		{
-			return ;
-		}
-		
-		//*************************************************************************
-		// Accessors
-		//*************************************************************************
-		
-		/// <summary> Override getIdentifier to return an application-wide id.
-		/// <pre>
-		/// ID = CLASS: APPLICATION, FORM: PRIMITIVE, TAG: 2. (0x42)
-		/// </pre>
-		/// </summary>
-		public override Asn1Identifier getIdentifier()
-		{
-			return new Asn1Identifier(Asn1Identifier.APPLICATION, false, LdapMessage.UNBIND_REQUEST);
-		}
-		
-		public RfcRequest dupRequest(System.String base_Renamed, System.String filter, bool request)
-		{
-			throw new LdapException(ExceptionMessages.NO_DUP_REQUEST, new System.Object[]{"unbind"}, LdapException.Ldap_NOT_SUPPORTED, (System.String) null);
-		}
-		
-		public System.String getRequestDN()
-		{
-			return null;
-		}
-	}
+
+    /// <summary> Represents the Ldap Unbind request.
+    /// 
+    /// <pre>
+    /// UnbindRequest ::= [APPLICATION 2] NULL
+    /// </pre>
+    /// </summary>
+    public class RfcUnbindRequest : Asn1Null, RfcRequest
+    {
+        //*************************************************************************
+        // Constructor for UnbindRequest
+        //*************************************************************************
+
+        /// <summary> Construct an RfCUnbind Request</summary>
+        public RfcUnbindRequest()
+            : base()
+        {
+        }
+
+        //*************************************************************************
+        // Accessors
+        //*************************************************************************
+
+        /// <summary> Override getIdentifier to return an application-wide id.
+        /// <pre>
+        /// ID = CLASS: APPLICATION, FORM: PRIMITIVE, TAG: 2. (0x42)
+        /// </pre>
+        /// </summary>
+        public override Asn1Identifier getIdentifier()
+        {
+            return new Asn1Identifier(Asn1Identifier.APPLICATION, false, LdapMessage.UNBIND_REQUEST);
+        }
+
+        public RfcRequest dupRequest(string base_Renamed, string filter, bool request)
+        {
+            throw new LdapException(ExceptionMessages.NO_DUP_REQUEST, new object[] { "unbind" }, LdapException.Ldap_NOT_SUPPORTED, null);
+        }
+
+        public string getRequestDN()
+        {
+            return null;
+        }
+    }
 }

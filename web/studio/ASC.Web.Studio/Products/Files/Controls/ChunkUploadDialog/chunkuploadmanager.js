@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -109,8 +109,13 @@ window.ASC.Files.ChunkUploads = (function () {
                 initResponse = data.response;
             },
             error: function (data) {
-                var resp = jq.parseJSON(data.responseText);
-                initResponse = "{\"success\":false,\"message\":\"" + resp.error.message + "\"}";
+                try {
+                    var resp = jq.parseJSON(data.responseText);
+                    var message = resp.error.message;
+                } catch (e) {
+                    message = data.statusText;
+                }
+                initResponse = "{\"success\":false,\"message\":\"" + message + "\"}";
             }
         });
 
@@ -416,7 +421,7 @@ window.ASC.Files.ChunkUploads = (function () {
 
     var onDragLeave = function (e) {
         if (e.relatedTarget == null) {
-            dragLeaveTimeout = setTimeout(hideDragHighlight, 1);
+            dragLeaveTimeout = setTimeout(ASC.Files.ChunkUploads.hideDragHighlight, 1);
         }
     };
 
@@ -442,7 +447,7 @@ window.ASC.Files.ChunkUploads = (function () {
             return true;
         }
 
-        hideDragHighlight();
+        ASC.Files.ChunkUploads.hideDragHighlight();
         return false;
     };
 
@@ -480,7 +485,7 @@ window.ASC.Files.ChunkUploads = (function () {
             return false;
         }
 
-        var sizeF = file.size | 0;
+        var sizeF = file.size;
 
         if (sizeF <= 0) {
             ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.ErrorMassage_EmptyFile, true);
@@ -703,6 +708,10 @@ window.ASC.Files.ChunkUploads = (function () {
 
             var percent = parseInt(loaded / size * 100, 10);
 
+            if (percent == 100) {
+                percent = 99;
+            }
+
             if (percent > 0) {
                 text = ASC.Files.FilesJSResources.UploadingProgress.format(count, percent);
             } else {
@@ -716,7 +725,7 @@ window.ASC.Files.ChunkUploads = (function () {
     var changeQuotaText = function () {
         var usedSize = window.FileSizeManager.filesSizeToString(ASC.Files.ChunkUploads.tenantQuota.usedSize);
         var storageSize = window.FileSizeManager.filesSizeToString(ASC.Files.ChunkUploads.tenantQuota.storageSize);
-        jq("#chunkUploadDialog .info-container .free-space").text(
+        jq("#chunkUploadDialog .upload-info-container .free-space").text(
             ASC.Files.FilesJSResources.UsedSize.format(usedSize, storageSize)
         );
     };
@@ -863,7 +872,7 @@ window.ASC.Files.ChunkUploads = (function () {
     };
 
     var disableBrowseButton = function (disable) {
-        jq("#fileupload").prop("disabled", disable);
+        jq("#fileupload").prop("disabled", disable).css("visibility", disable ? "hidden": "visible");
     };
 
 
@@ -964,32 +973,28 @@ window.ASC.Files.ChunkUploads = (function () {
                 var percent = obj[i].progress || 0;
 
                 var isDone = false;
-                var fileResult = null;
+                var convertResult = null;
                 if (obj[i].result) {
-                    fileResult = jq.parseJSON(obj[i].result);
+                    convertResult = jq.parseJSON(obj[i].result);
                 }
 
-                if (fileResult) {
-                    var fileObj = ASC.Files.UI.getEntryObject("file", fileResult.file.id);
+                if (convertResult) {
+                    var fileObj = ASC.Files.UI.getEntryObject("file", convertResult.id);
                     var odjData = ASC.Files.UI.getObjectData(fileObj);
                 }
 
-                if (odjData && odjData.version == fileResult.file.version | 0) {
+                if (odjData && odjData.version == convertResult.version | 0) {
                     percent = 100;
                     isDone = true;
-                } else if (percent == 100 && fileResult) {
-                    if (fileResult.folderId != ASC.Files.Folders.currentFolder.id) {
+                } else if (percent == 100 && convertResult) {
+                    if (convertResult.folderId != ASC.Files.Folders.currentFolder.id) {
                         correctFolderCount(file.fid);
                     } else if (!ASC.Files.UI.isSettingsPanel()) {
-                        var stringXmlFile = fileResult.file.fileXml;
-                        writeFileRow(fileResult.file.id, stringXmlFile, true);
+                        var stringXmlFile = convertResult.fileXml;
+                        writeFileRow(convertResult.id, stringXmlFile, true);
                     }
 
-                    if (!ASC.Files.Common.storeOriginal) {
-                        ASC.Files.UI.getEntryObject("file", source.id).remove();
-                    } else {
-                        showFileData(source.id);
-                    }
+                    showFileData(source.id);
                     percent = 100;
                     isDone = true;
                 }
@@ -1000,11 +1005,8 @@ window.ASC.Files.ChunkUploads = (function () {
 
                 if (file) {
                     file.percent = percent;
-                    if (isDone && fileResult) {
-                        file.convertedData = fileResult.file;
-                        if (!ASC.Files.Common.storeOriginal) {
-                            delete file.data;
-                        }
+                    if (isDone && convertResult) {
+                        file.convertedData = convertResult;
                     }
                     updateFileRow(file);
                 }
@@ -1114,6 +1116,8 @@ window.ASC.Files.ChunkUploads = (function () {
         changeCompactView: changeCompactView,
 
         createdSubfolders: createdSubfolders,
+
+        hideDragHighlight: hideDragHighlight,
     };
 })();
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,144 +25,124 @@
 
 
 @imagepathlink:'/usercontrols/users/userprofile/css/images/';
-.invite
-{
+
+.invite {
     padding-top:10px;
 }
 
-.account-links
-{
-    text-align:left;
-}
+.account-links {
+    text-align: left;
 
-.account-links ul
-{
-    margin:0;
-    padding:0;
-    list-style:none;
-    display:inline-block;
-}
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: inline-block;
+    }
 
-.account-links .label
-{
-    display: none;
-}
+    .label {
+        display: none;
+    }
 
-.account-links li
-{
-  vertical-align:middle;
-    height:35px;
-    line-height:35px;
-    padding-left:40px;
-    background-position:left center;
-    background-repeat:no-repeat;
-}
-.account-links li.facebook
-{
-    background:url('@{imagepathlink}acc_facebook.png');
-    background-position:left center;
-    background-repeat:no-repeat;
-}
-.account-links li.linkedin
-{
-    background:url('@{imagepathlink}acc_linkedin.png');
-    background-position:left center;
-    background-repeat:no-repeat;
-}
-.account-links li.google
-{
-    background:url('@{imagepathlink}acc_google.png');
-    background-position:left center;
-    background-repeat:no-repeat;
-}
+    li {
+        vertical-align: middle;
+        height: 35px;
+        line-height: 35px;
+        padding-left: 40px;
+        background-position: left center;
+        background-repeat: no-repeat;
+        background-image: url('@{imagepathlink}acc_social.png');
 
-.account-links li.twitter
-{
-    background:url('@{imagepathlink}acc_twitter.png');
-    background-position:left center;
-    background-repeat:no-repeat;
-}
+        &.facebook {
+            background-position: 0 1px;
+        }
 
-.account-links li a
-{
-    margin:5px;
+        &.linkedin {
+            background-position: 0 -66px;
+        }
+
+        &.google {
+            background-position: 0 -33px;
+        }
+
+        &.twitter {
+            background-position: 0 -99px;
+        }
+
+        a {
+            margin: 5px;
+        }
+    }
 }
 
 /* ------------------ */
-#social .account-links
-{
-    text-align:center;
-    display:block;
-}
+#social .account-links {
+    text-align: center;
+    display: block;
 
-#social .account-links .info
-{
-    float:left;
-    height:24px;
-    line-height:24px;
-vertical-align:middle;
-    text-align:right;
-    width:50%;
-}
+    .info {
+        float: left;
+        height: 24px;
+        line-height: 24px;
+        vertical-align: middle;
+        text-align: right;
+        width: 50%;
+    }
 
-#social .account-links ul
-{
-    padding:0;
-    list-style:none;
-    display:inline-block;
-    margin:0;
-    text-align:left;
-    
-}
+    ul {
+        padding: 0;
+        list-style: none;
+        display: inline-block;
+        margin: 0;
+        text-align: left;
+    }
 
-#social .account-links li
-{
-      height:24px;
-    line-height:24px;
-    padding-left:0;
-    float:left;
-}
+    li {
+        height: 24px;
+        line-height: 24px;
+        padding-left: 0;
+        float: left;
+        background-image: none;
 
-#social .account-links li a
-{
-    display:block;
-    width:24px;
-    height:24px;
-    margin:0 0 0 6px;
-    text-indent:-10000px;
-    position:relative;
-}
+        a {
+            display: block;
+            width: 24px;
+            height: 24px;
+            margin: 0 0 0 6px;
+            text-indent: -10000px;
+            position: relative;
+            background-image: url('@{imagepathlink}acc_social_small.png');
+            background-repeat: no-repeat;
 
-#social .account-links li a span.linked
-{
-    display:block;
-    position:absolute;
-    width:16px;
-    height:16px;
-    background:url('@{imagepathlink}acc_linked.png');
-    bottom:0;
-    right:0;
-}
+            span.linked {
+                display: block;
+                position: absolute;
+                width: 16px;
+                height: 16px;
+                background: url('@{imagepathlink}acc_linked.png');
+                bottom: 0;
+                right: 0;
+            }
+        }
 
 
-#social .account-links li .facebook
-{
-    background:url('@{imagepathlink}acc_facebook_small.png');
-}
 
-#social .account-links li .linkedin
-{
-    background:url('@{imagepathlink}acc_linkedin_small.png');
-}
+        .facebook {
+            background-position: 0 0;
+        }
 
-#social .account-links li .google
-{
-    background:url('@{imagepathlink}acc_google_small.png') center left no-repeat;
-}
+        .linkedin {
+            background-position: -50px 0;
+        }
 
-#social .account-links li .twitter
-{
-    background:url('@{imagepathlink}acc_twitter_small.png');
+        .google {
+            background-position: -25px 0;
+        }
+
+        .twitter {
+            background-position: -75px 0;
+        }
+    }
 }
 
 /******************************************\
@@ -173,33 +153,40 @@ vertical-align:middle;
     color: #FFFFFF;
     font-size: 16px;
 }
-.social-login .account-links li{
-    float: left;
-    height: 118px;
-    line-height: 118px;
-    padding-left: 0;
-}
-.social-login .account-links li a {
-    background-color: transparent;
-    background-position: 0 0;
-    background-repeat: no-repeat;
-    display: block;
-    height: 118px;
-    margin: 0 5px;
-    outline: medium none;
-    position: relative;
-    text-indent: -10000px;
-    width: 118px;
-}
-.social-login li .facebook {
-    background: url("@{imagepathlink}facebook-button.png");
-}
-.social-login li .linkedin {
-    background: url("@{imagepathlink}linkedin-button.png");
-}
-.social-login li .google {
-    background: url("@{imagepathlink}google-button.png");
-}
-.social-login li .twitter {
-    background: url("@{imagepathlink}twitter-button.png");
+.social-login {
+    .account-links li {
+        float: left;
+        height: 118px;
+        line-height: 118px;
+        padding-left: 0;
+
+        a {
+            background-color: transparent;
+            background-position: 0 0;
+            background-repeat: no-repeat;
+            display: block;
+            height: 118px;
+            margin: 0 5px;
+            outline: medium none;
+            position: relative;
+            text-indent: -10000px;
+            width: 118px;
+        }
+    }
+
+    li .facebook {
+        background: url("@{imagepathlink}facebook-button.png");
+    }
+
+    li .linkedin {
+        background: url("@{imagepathlink}linkedin-button.png");
+    }
+
+    li .google {
+        background: url("@{imagepathlink}google-button.png");
+    }
+
+    li .twitter {
+        background: url("@{imagepathlink}twitter-button.png");
+    }
 }

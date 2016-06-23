@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -46,7 +46,6 @@ namespace ASC.Core.Common.Tests
         public void GetTeriffsTest()
         {
             var tariff = tariffSyncService.GetTariffs(70, null).FirstOrDefault(t => t.Id == -38);
-            tariff = tariffSyncService.GetTariffs(70, null).FirstOrDefault(t => t.Id == -38);
             Assert.AreEqual(1024 * 1024 * 1024, tariff.MaxFileSize);
             tariff = tariffSyncService.GetTariffs(74, null).FirstOrDefault(t => t.Id == -38);
             Assert.AreEqual(100 * 1024 * 1024, tariff.MaxFileSize);

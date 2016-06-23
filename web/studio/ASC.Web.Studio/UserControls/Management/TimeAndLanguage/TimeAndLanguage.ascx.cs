@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -32,6 +32,8 @@ using System.Text;
 using System.Web;
 using System.Web.UI;
 using ASC.MessagingSystem;
+using ASC.Web.Core.WhiteLabel;
+using ASC.Web.Studio.Utility;
 using AjaxPro;
 using ASC.Core;
 using ASC.Core.Tenants;
@@ -52,6 +54,10 @@ namespace ASC.Web.Studio.UserControls.Management
 
         protected Tenant _currentTenant;
 
+        protected string HelpLink { get; set; }
+
+        protected bool ShowHelper { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
@@ -60,6 +66,10 @@ namespace ASC.Web.Studio.UserControls.Management
             Page.RegisterStyle("~/usercontrols/management/TimeAndLanguage/css/TimeAndLanguage.less");
 
             _currentTenant = CoreContext.TenantManager.GetCurrentTenant();
+
+            HelpLink = CommonLinkUtility.GetHelpLink();
+
+            ShowHelper = !(CoreContext.Configuration.Standalone && !CompanyWhiteLabelSettings.Instance.IsDefault);
         }
 
         protected string RenderLanguageSelector()
@@ -98,7 +108,10 @@ namespace ASC.Web.Studio.UserControls.Management
                     }
                 }
 
-                sb.AppendFormat("<option {0}value=\"{1}\">{2}</option>", tz.Equals(_currentTenant.TimeZone) ? "selected " : string.Empty, tz.Id, displayName);
+                sb.AppendFormat("<option {0}value=\"{1}\">{2}</option>", 
+                    _currentTenant.TimeZone != null && tz.Id.Equals(_currentTenant.TimeZone.Id) ? "selected " : string.Empty, 
+                    tz.Id, 
+                    displayName);
             }
             sb.Append("</select>");
             return sb.ToString();

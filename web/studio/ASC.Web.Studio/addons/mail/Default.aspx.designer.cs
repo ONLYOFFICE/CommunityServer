@@ -49,6 +49,15 @@ namespace ASC.Web.Mail {
         protected global::System.Web.UI.WebControls.PlaceHolder MailSidePanelContainer;
         
         /// <summary>
+        /// customContactsContainer control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl customContactsContainer;
+        
+        /// <summary>
         /// tlContactsContainer control.
         /// </summary>
         /// <remarks>

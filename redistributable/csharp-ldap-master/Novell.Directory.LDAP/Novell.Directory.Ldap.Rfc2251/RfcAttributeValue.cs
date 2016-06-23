@@ -29,27 +29,27 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
 using Novell.Directory.Ldap.Asn1;
+using System;
 
 namespace Novell.Directory.Ldap.Rfc2251
 {
-	
-	/* 
-	* Represents an Ldap Attribute Value.
-	*/
-	public class RfcAttributeValue:Asn1OctetString
-	{
-		
-		/// <summary> </summary>
-		public RfcAttributeValue(System.String value_Renamed):base(value_Renamed)
-		{
-		}
-		
-		/// <summary> </summary>
-		[CLSCompliantAttribute(false)]
-		public RfcAttributeValue(sbyte[] value_Renamed):base(value_Renamed)
-		{
-		}
-	}
+    /* 
+    * Represents an Ldap Attribute Value.
+    */
+    public class RfcAttributeValue : Asn1OctetString
+    {
+        /// <summary> </summary>
+        public RfcAttributeValue(string value_Renamed)
+            : base(value_Renamed)
+        {
+        }
+
+        /// <summary> </summary>
+        [CLSCompliantAttribute(false)]
+        public RfcAttributeValue(sbyte[] value_Renamed)
+            : base(value_Renamed)
+        {
+        }
+    }
 }

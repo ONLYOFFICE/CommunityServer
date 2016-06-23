@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -52,11 +52,15 @@ namespace ASC.Web.Studio.UserControls.Management
             get { return _authServiceList ?? (_authServiceList = GetAuthServices().ToList()); }
         }
 
+        protected string HelpLink { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType(), Page);
             Page.RegisterBodyScripts("~/usercontrols/management/AuthorizationKeys/js/authorizationkeys.js");
             Page.ClientScript.RegisterClientScriptBlock(GetType(), "authorizationkeys_style", "<link rel=\"stylesheet\" type=\"text/css\" href=\"" + WebPath.GetPath("usercontrols/management/authorizationkeys/css/authorizationkeys.css") + "\">", false);
+
+            HelpLink = CommonLinkUtility.GetHelpLink();
         }
 
         private static IEnumerable<AuthService> GetAuthServices()

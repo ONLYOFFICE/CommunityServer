@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,8 +25,8 @@
 
 
 using ASC.Core;
+using ASC.Core.Common.Notify.Push;
 using ASC.Core.Users;
-using ASC.Files.Core;
 using ASC.Web.Core.Mobile;
 using ASC.Web.Files.Classes;
 using ASC.Web.Files.Controls;
@@ -37,7 +37,9 @@ using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.UserControls.Common.LoaderPage;
 using System;
+using System.Linq;
 using System.Web;
+using ASC.Web.Core.Files;
 
 namespace ASC.Web.Files
 {
@@ -49,7 +51,7 @@ namespace ASC.Web.Files
 
         protected bool Desktop
         {
-            get { return !string.IsNullOrEmpty(Request["desktop"]); }
+            get { return Request.DesktopApp(); }
         }
 
         protected void Page_Load(object sender, EventArgs e)
@@ -60,12 +62,11 @@ namespace ASC.Web.Files
 
             var mobileAppRegistrator = new CachedMobileAppInstallRegistrator(new MobileAppInstallRegistrator());
             var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-            var isRegistered = mobileAppRegistrator.IsInstallRegistered(currentUser.Email, null);
 
             DisplayAppsBanner =
                 SetupInfo.DisplayMobappBanner("files")
                 && !CoreContext.Configuration.Standalone
-                && !isRegistered;
+                && !mobileAppRegistrator.IsInstallRegistered(currentUser.Email, MobileAppType.IosDocuments);
 
             if (CoreContext.Configuration.Personal)
             {
@@ -75,7 +76,7 @@ namespace ASC.Web.Files
 
             #region third-party scripts
 
-            if (AddCustomScript && (string)Session["campaign"] == "personal")
+            if (AddCustomScript && (string) Session["campaign"] == "personal")
             {
                 Session["campaign"] = "";
 
@@ -94,7 +95,8 @@ namespace ASC.Web.Files
                 ThirdPartyScriptsPlaceHolder.Visible = false;
             }
 
-            if (AddCustomScript) {
+            if (AddCustomScript)
+            {
                 var YandexScriptLocation = PathProvider.GetFileControlPath("YandexScript.js");
                 if (System.IO.File.Exists(HttpContext.Current.Server.MapPath(YandexScriptLocation)))
                 {
@@ -111,8 +113,39 @@ namespace ASC.Web.Files
 
         private void LoadScripts()
         {
-            Page.RegisterStyleControl("~/products/files/masters/styles.ascx");
-            Page.RegisterBodyScriptsControl("~/products/files/masters/FilesScripts.ascx");
+            Page.RegisterStyle(PathProvider.GetFileStaticRelativePath, "common.css");
+            Page.RegisterStyle(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                "controls/maincontent/maincontent.css",
+                "controls/contentlist/contentlist.css",
+                "controls/accessrights/accessrights.css",
+                "controls/fileviewer/fileviewer.css",
+                "controls/thirdparty/thirdparty.css",
+                "controls/convertfile/convertfile.css",
+                "controls/chunkuploaddialog/chunkuploaddialog.css");
+
+            Page.RegisterBodyScripts(ResolveUrl, 
+                                         "~/js/third-party/jquery/jquery.mousewheel.js",
+                                         "~/js/third-party/jquery/jquery.uri.js",
+                                         "~/js/third-party/sorttable.js");
+
+            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath,
+                                         "auth.js",
+                                         "common.js",
+                                         "filter.js",
+                                         "templatemanager.js",
+                                         "servicemanager.js",
+                                         "ui.js",
+                                         "mousemanager.js",
+                                         "markernew.js",
+                                         "actionmanager.js",
+                                         "anchormanager.js",
+                                         "foldermanager.js");
+
+            Page.RegisterBodyScripts(r => FilesLinkUtility.FilesBaseAbsolutePath + r,
+                                         "controls/createmenu/createmenu.js",
+                                         "controls/fileviewer/fileviewer.js",
+                                         "controls/convertfile/convertfile.js",
+                                         "controls/chunkuploaddialog/chunkuploadmanager.js");
         }
 
         private void LoadControls()

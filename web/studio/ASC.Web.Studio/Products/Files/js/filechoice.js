@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -33,10 +33,13 @@ window.ASC.Files.FileChoice = (function () {
 
             jq("#fileSelectorTree").css("visibility", "visible");
 
-            if (thirdParty) {
-                ASC.Files.FileSelector.toggleThirdParty(true);
+            var callback = function () {
+                ASC.Files.FileSelector.openDialog(folderId, onlyFolder, thirdParty);
+            };
 
-                ASC.Files.FileSelector.createThirdPartyTree();
+            if (thirdParty) {
+                jq("#fileSelectorTree>ul>li:not(.third-party-entry)").toggle(false);
+                ASC.Files.FileSelector.createThirdPartyTree(callback);
             }
 
             if (onlyFolder) {
@@ -100,7 +103,9 @@ window.ASC.Files.FileChoice = (function () {
                 window.parent.postMessage(message, "*");
             };
 
-            ASC.Files.FileSelector.openDialog(folderId, onlyFolder, thirdParty);
+            if (!thirdParty) {
+                callback();
+            }
         }
     };
 

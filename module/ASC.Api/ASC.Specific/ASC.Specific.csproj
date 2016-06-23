@@ -79,6 +79,7 @@
     <Compile Include="ASCBasicAuthorization.cs" />
     <Compile Include="AuthorizationApi\AuthenticationEntryPoint.cs" />
     <Compile Include="AuthorizationApi\AuthenticationTokenData.cs" />
+    <Compile Include="WarmUpApi\WarnUpEntryPoint.cs" />
     <Compile Include="GlobalFilters\ProductSecurityFilter.cs" />
     <Compile Include="IApiSortableDate.cs" />
     <Compile Include="Log4netLog.cs" />

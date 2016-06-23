@@ -1,8 +1,6 @@
 ﻿<%@ Assembly Name="ASC.Web.Projects" %>
 
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="EditTemplate.ascx.cs" Inherits="ASC.Web.Projects.Controls.Templates.EditTemplate" %>
-
-<%@ Import Namespace="ASC.Web.Projects.Classes" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
 
 <%@ Register TagPrefix="act" TagName="AddMilestoneContainer" Src="../../Controls/Common/AddMilestoneContainer.ascx" %>

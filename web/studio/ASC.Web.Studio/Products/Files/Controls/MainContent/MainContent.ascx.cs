@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,6 +24,12 @@
 */
 
 
+using ASC.Web.Core.Files;
+using ASC.Web.Files.Classes;
+using ASC.Web.Files.Services.WCFService;
+using ASC.Web.Files.Services.WCFService.FileOperations;
+using ASC.Web.Studio.UserControls.Management;
+using Microsoft.Practices.ServiceLocation;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -31,14 +37,6 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web;
 using System.Web.UI;
-using ASC.Core;
-using ASC.Web.Core.Files;
-using ASC.Web.Files.Classes;
-using ASC.Web.Files.Services.WCFService;
-using ASC.Web.Files.Services.WCFService.FileOperations;
-using ASC.Web.Studio.UserControls.Management;
-using ASC.Web.Studio.Utility;
-using Microsoft.Practices.ServiceLocation;
 
 namespace ASC.Web.Files.Controls
 {
@@ -70,8 +68,7 @@ namespace ASC.Web.Files.Controls
             contenList.FolderIDCurrentRoot = FolderIDCurrentRoot;
             ListHolder.Controls.Add(contenList);
 
-            if (TenantExtra.GetTenantQuota().DocsEdition)
-                ControlPlaceHolder.Controls.Add(LoadControl(ConvertFile.Location));
+            ControlPlaceHolder.Controls.Add(LoadControl(ConvertFile.Location));
 
             ControlPlaceHolder.Controls.Add(LoadControl(TariffLimitExceed.Location));
 

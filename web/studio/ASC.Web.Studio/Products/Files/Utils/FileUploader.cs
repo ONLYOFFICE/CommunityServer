@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -38,6 +38,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Security;
+using System.Threading;
 using System.Web;
 using File = ASC.Files.Core.File;
 using SecurityContext = ASC.Core.SecurityContext;
@@ -196,6 +197,7 @@ namespace ASC.Web.Files.Utils
                 uploadSession.TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
                 uploadSession.UserId = SecurityContext.CurrentAccount.ID;
                 uploadSession.FolderId = folderId;
+                uploadSession.CultureName = Thread.CurrentThread.CurrentUICulture.Name;
 
                 ChunkedUploadSessionHolder.StoreSession(uploadSession);
 

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -888,14 +888,14 @@ window.ServiceFactory = (function() {
 
     var serializeTimestamp = function(d, safeurl) {
         var timestamp = d instanceof Date ? '' + [d.getFullYear(), leftPad((d.getMonth() + 1)), leftPad(d.getDate())].join('-') + 'T' + [leftPad(d.getHours()), leftPad(d.getMinutes()), leftPad(d.getSeconds())].join(':') : '';
-        return timestamp;
+        return safeurl === true ? timestamp.replace(/:/g, '-') : timestamp;
 
-        var timestamp = d instanceof Date ? '' + [d.getFullYear(), leftPad((d.getMonth() + 1)), leftPad(d.getDate())].join('-') + 'T' + [leftPad(d.getHours()), leftPad(d.getMinutes()), leftPad(d.getSeconds())].join(':') + '.' + leftPad(d.getMilliseconds(), 7) + portalUtcOffset : '';
-        //return safeurl === true ? timestamp.replace(/:/g, '-') : timestamp;
-        return timestamp;
+        //var timestamp = d instanceof Date ? '' + [d.getFullYear(), leftPad((d.getMonth() + 1)), leftPad(d.getDate())].join('-') + 'T' + [leftPad(d.getHours()), leftPad(d.getMinutes()), leftPad(d.getSeconds())].join(':') + '.' + leftPad(d.getMilliseconds(), 7) + portalUtcOffset : '';
+        ////return safeurl === true ? timestamp.replace(/:/g, '-') : timestamp;
+        //return timestamp;
 
-        return d instanceof Date ? '' + [d.getFullYear(), leftPad((d.getUTCMonth() + 1)), leftPad(d.getUTCDate())].join('-') + 'T' + [leftPad(d.getUTCHours()), leftPad(d.getUTCMinutes()), leftPad(d.getUTCSeconds())].join(':') + '.' + leftPad(d.getMilliseconds(), 7) + 'Z' : '';
-        return JSON.stringify(d);
+        //return d instanceof Date ? '' + [d.getFullYear(), leftPad((d.getUTCMonth() + 1)), leftPad(d.getUTCDate())].join('-') + 'T' + [leftPad(d.getUTCHours()), leftPad(d.getUTCMinutes()), leftPad(d.getUTCSeconds())].join(':') + '.' + leftPad(d.getMilliseconds(), 7) + 'Z' : '';
+        //return JSON.stringify(d);
     };
 
     function formatingDateTerm(date, term, dayshortnames, daynames, monthshortnames, monthnames) {
@@ -928,7 +928,7 @@ window.ServiceFactory = (function() {
             case 'MM':
                 return leftPad(date.getMonth() + 1);
             case 'MMM':
-                return dayshortnames[date.getMonth()];
+                return monthshortnames[date.getMonth()];
             case 'MMMM':
                 return monthnames[date.getMonth()];
             case 's':

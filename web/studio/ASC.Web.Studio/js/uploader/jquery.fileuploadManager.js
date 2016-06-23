@@ -67,7 +67,7 @@ var FileUploadManager = new function() {
     };
 
     this.DisableBrowseBtn = function (disable) {
-        jq("#fileupload").prop("disable", disable);
+        jq("#fileupload").prop("disabled", disable).css("visibility", disable ? "hidden": "visible");
     };
 
     this.GetFiles = function () {

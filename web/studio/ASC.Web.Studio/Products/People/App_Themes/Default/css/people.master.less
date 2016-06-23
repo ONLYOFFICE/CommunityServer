@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -67,17 +67,17 @@
 
 .btn.email:after, .withHoverArrowDown:after {
     display: block;
-    background: url(../imgs/angle06.png) left bottom  no-repeat;
-    height: 4px;
-    width: 7px;
-    margin: -1px 0 0;
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    border-top: 4px solid #666666;
+    content: "";
+    height: 0;
     position: absolute;
     right: 0;
     top: 50%;
-    z-index: 0;
-    content: " ";
+    margin-top: -2px;
+    width: 0;
     text-align: center;
-    color: #FFF;
 }
 .ui-btn {
     display: inline-block;

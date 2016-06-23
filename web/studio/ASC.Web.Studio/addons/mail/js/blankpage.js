@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -158,6 +158,24 @@ window.blankPages = (function($) {
         );
     }
 
+    function showEmptyMailContacts() {
+        var buttons = [{
+            text: MailScriptResource.CreateContactButton,
+            cssClass: "addFirstElement",
+            handler: function () {
+                editContactModal.show(null, true);
+                return false;
+            },
+            href: null
+        }];
+
+        showPage(MailScriptResource.EmptyScrCrmHeader,
+            MailScriptResource.EmptyScrMailContactsDescription,
+            'contacts',
+            buttons
+        );
+    }
+
     function showNoCrmContacts() {
         var buttons = [{
             text: MailScriptResource.ResetFilterButton,
@@ -189,6 +207,24 @@ window.blankPages = (function($) {
 
         showPage(MailScriptResource.ResetTlContactsFilterHeader,
             MailScriptResource.ResetTlContactsFilterDescription,
+            'filter',
+            buttons
+        );
+    }
+
+    function showNoMailContacts() {
+        var buttons = [{
+            text: MailScriptResource.ResetFilterButton,
+            cssClass: "clearFilterButton",
+            handler: function () {
+                contactsPage.resetFilter();
+                return false;
+            },
+            href: null
+        }];
+
+        showPage(MailScriptResource.ResetMailContactsFilterHeader,
+            MailScriptResource.ResetMailContactsFilterDescription,
             'filter',
             buttons
         );
@@ -252,8 +288,10 @@ window.blankPages = (function($) {
         showNoLettersFilter: showNoLettersFilter,
         showEmptyFolder: showEmptyFolder,
         showEmptyCrmContacts: showEmptyCrmContacts,
+        showEmptyMailContacts: showEmptyMailContacts,
         showNoCrmContacts: showNoCrmContacts,
         showNoTlContacts: showNoTlContacts,
+        showNoMailContacts: showNoMailContacts,
         showEmptyTags: showEmptyTags,
         showNoMailDomains: showNoMailDomains,
         hide: hide

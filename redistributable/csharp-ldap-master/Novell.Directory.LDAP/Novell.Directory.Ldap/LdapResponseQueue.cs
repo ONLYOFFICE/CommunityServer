@@ -29,50 +29,47 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
 
 namespace Novell.Directory.Ldap
 {
-	
-	/// <summary>  A mechanism for processing asynchronous messages received from a server.
-	/// It represents the message queue associated with a particular asynchronous
-	/// Ldap operation or operations.
-	/// </summary>
-	public class LdapResponseQueue:LdapMessageQueue
-	{
-		/// <summary> Constructs a response queue using the specified message agent
-		/// 
-		/// </summary>
-		/// <param name="agent">The message agent to associate with this queue
-		/// </param>
-		/* package */
-		internal LdapResponseQueue(MessageAgent agent):base("LdapResponseQueue", agent)
-		{
-			return ;
-		}
-		
-		/// <summary> Merges two message queues.  It appends the current and
-		/// future contents from another queue to this one.
-		/// 
-		/// After the operation, queue2.getMessageIDs()
-		/// returns an empty array, and its outstanding responses
-		/// have been removed and appended to this queue.
-		/// 
-		/// </summary>
-		/// <param name="queue2">   The queue that is merged from.  Following
-		/// the merge, this queue object will no
-		/// longer receive any data, and calls made
-		/// to its methods will fail with a RuntimeException.
-		/// The queue can be reactivated by using it in an 
-		/// Ldap request, after which it will receive responses
-		/// for that request..
-		/// </param>
-		public virtual void  merge(LdapMessageQueue queue2)
-		{
-			LdapResponseQueue q = (LdapResponseQueue) queue2;
-			agent.merge(q.MessageAgent);
-			
-			return ;
-		}
-	}
+
+    /// <summary>  A mechanism for processing asynchronous messages received from a server.
+    /// It represents the message queue associated with a particular asynchronous
+    /// Ldap operation or operations.
+    /// </summary>
+    public class LdapResponseQueue : LdapMessageQueue
+    {
+        /// <summary> Constructs a response queue using the specified message agent
+        /// 
+        /// </summary>
+        /// <param name="agent">The message agent to associate with this queue
+        /// </param>
+        /* package */
+        internal LdapResponseQueue(MessageAgent agent)
+            : base("LdapResponseQueue", agent)
+        {
+        }
+
+        /// <summary> Merges two message queues.  It appends the current and
+        /// future contents from another queue to this one.
+        /// 
+        /// After the operation, queue2.getMessageIDs()
+        /// returns an empty array, and its outstanding responses
+        /// have been removed and appended to this queue.
+        /// 
+        /// </summary>
+        /// <param name="queue2">   The queue that is merged from.  Following
+        /// the merge, this queue object will no
+        /// longer receive any data, and calls made
+        /// to its methods will fail with a RuntimeException.
+        /// The queue can be reactivated by using it in an 
+        /// Ldap request, after which it will receive responses
+        /// for that request..
+        /// </param>
+        public virtual void merge(LdapMessageQueue queue2)
+        {
+            LdapResponseQueue q = (LdapResponseQueue)queue2;
+            agent.merge(q.MessageAgent);
+        }
+    }
 }

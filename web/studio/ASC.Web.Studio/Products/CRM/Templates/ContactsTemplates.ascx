@@ -56,7 +56,7 @@
             </ul>
             <div class="header-menu-spacer">&nbsp;</div>
 
-            <table id="companyTable" class="tableBase" cellpadding="4" cellspacing="0">
+            <table id="companyTable" class="table-list" cellpadding="4" cellspacing="0">
                 <colgroup>
                     <col style="width: 26px;"/>
                     <col style="width: 40px;"/>
@@ -160,13 +160,13 @@
 
 <script id="contactTmpl" type="text/x-jquery-tmpl">
     <tr id="contactItem_${id}" class="with-entity-menu">
-        <td class="borderBase" style="padding-left: 6px;">
+        <td style="padding-left: 6px;">
             <input type="checkbox" id="check_contact_${id}" onclick="ASC.CRM.ListContactView.selectItem(this);" style="margin-left: 2px;" {{if isChecked == true}}checked="checked"{{/if}} />
             <div id="loaderImg_${id}" class="loader-middle baseList_loaderImg"></div>
         </td>
 
 
-        <td class="borderBase">
+        <td>
             <div class="contactItemPhotoImgContainer{{if isShared === true}} sharedContact{{/if}}">
                 {{if isCompany == true}}
                 <img class="contactItemPhotoImg" src="<%=ContactPhotoManager.GetSmallSizePhoto(0, true) %>" alt="${displayName}" title="${displayName}" onload="ASC.CRM.Common.loadContactFoto(jq(this), jq(this).next(), '${smallFotoUrl}');" />
@@ -177,7 +177,7 @@
             </div>
         </td>
 
-        <td class="borderBase">
+        <td>
             <div class="contactTitle">
                 <a class="linkHeaderMedium" href="default.aspx?id=${id}">
                     ${displayName}
@@ -193,7 +193,7 @@
             {{/if}}
         </td>
 
-        <td class="borderBase">
+        <td>
             <div class="primaryDataContainer">
                 <input type="text" id="addPrimaryPhone_${id}" class="textEdit addPrimaryDataInput" autocomplete="off" maxlength="100"/>
             {{if primaryPhone != null}}
@@ -202,7 +202,7 @@
             </div>
         </td>
 
-        <td class="borderBase">
+        <td>
             <div class="primaryDataContainer">
                 <input type="text" id="addPrimaryEmail_${id}" class="textEdit addPrimaryDataInput" autocomplete="off" maxlength="100"/>
             {{if primaryEmail != null}}
@@ -213,7 +213,7 @@
             </div>
         </td>
 
-        <td class="borderBase">
+        <td>
             {{if nearTask != null}}
                 <span id="taskTitle_${nearTask.id}" class="header-base-small nearestTask"
                     ttl_label="<%=CRMCommonResource.Title%>" ttl_value="${nearTask.title}"
@@ -223,7 +223,7 @@
                 </span>
             {{/if}}
         </td>
-        <td class="borderBase">
+        <td>
             <div id="contactMenu_${id}" class="entity-menu" title="<%= CRMCommonResource.Actions %>"></div>
         </td>
     </tr>

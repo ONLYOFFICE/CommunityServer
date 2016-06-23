@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -110,11 +110,11 @@ namespace ASC.Web.Files.Services.DocumentService
                                                                     + "?" + FilesLinkUtility.Action + "=track"
                                                                     + "&vkey=" + HttpUtility.UrlEncode(Signature.Create(fileId, StudioKeySettings.GetSKey()))
                                                                     + "&new=" + isNew.ToString().ToLower());
-
+            callbackUrl = DocumentServiceConnector.ReplaceCommunityAdress(callbackUrl);
             return DocumentServiceConnector.Command(CommandMethod.Info, docKeyForTrack, fileId, callbackUrl);
         }
 
-        public static void ProcessData(string fileId, bool isNew, string trackDataString)
+        public static string ProcessData(string fileId, bool isNew, string trackDataString)
         {
             if (string.IsNullOrEmpty(trackDataString))
             {
@@ -141,13 +141,13 @@ namespace ASC.Web.Files.Services.DocumentService
 
                 case TrackerStatus.MustSave:
                 case TrackerStatus.Corrupted:
-                    ProcessSave(fileId, isNew, fileData);
-                    break;
+                    return ProcessSave(fileId, isNew, fileData);
 
                 case TrackerStatus.MailMerge:
                     ProcessMailMerge(fileId, fileData);
                     break;
             }
+            return null;
         }
 
         private static void ProcessEdit(string fileId, bool isNew, TrackerData fileData)
@@ -196,7 +196,7 @@ namespace ASC.Web.Files.Services.DocumentService
             }
         }
 
-        private static void ProcessSave(string fileId, bool isNew, TrackerData fileData)
+        private static string ProcessSave(string fileId, bool isNew, TrackerData fileData)
         {
             Guid userId;
             var comments = new List<string>();
@@ -271,6 +271,10 @@ namespace ASC.Web.Files.Services.DocumentService
             FileTracker.Remove(fileId);
 
             DocumentServiceConnector.Command(CommandMethod.Saved, fileData.Key, fileId, null, userId.ToString(), saved ? "1" : "0");
+
+            return saved
+                       ? "0" //error:0 - saved
+                       : "1"; //error:1 - some error
         }
 
         private static void ProcessMailMerge(string fileId, TrackerData fileData)

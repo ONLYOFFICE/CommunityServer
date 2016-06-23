@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -63,7 +63,7 @@ namespace ASC.Web.Files
             Master.Master.DisabledSidePanel = true;
             Master.Master.DisabledTopStudioPanel = true;
 
-            Page.RegisterStyle(PathProvider.GetFileStaticRelativePath("filechoice.css"));
+            Page.RegisterStyle(PathProvider.GetFileStaticRelativePath, "filechoice.css");
 
             var fileSelector = (FileSelector) LoadControl(FileSelector.Location);
             fileSelector.IsFlat = true;
@@ -75,7 +75,7 @@ namespace ASC.Web.Files
 
         private void InitScript()
         {
-            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("filechoice.js"));
+            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, "filechoice.js");
 
             var script = new StringBuilder();
 

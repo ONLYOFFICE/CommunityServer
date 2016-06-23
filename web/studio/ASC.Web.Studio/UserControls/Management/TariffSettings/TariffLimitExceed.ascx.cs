@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,13 +24,10 @@
 */
 
 
-using System;
-using System.Web.Configuration;
-using System.Web.UI;
-using ASC.Core;
-using ASC.Core.Tenants;
 using ASC.Web.Studio.Utility;
+using System;
 using System.Web;
+using System.Web.UI;
 
 namespace ASC.Web.Studio.UserControls.Management
 {
@@ -41,28 +38,18 @@ namespace ASC.Web.Studio.UserControls.Management
             get { return "~/UserControls/Management/TariffSettings/TariffLimitExceed.ascx"; }
         }
 
-        protected Partner HostedPartner;
-
-        protected bool IsDefaultTariff;
-
         protected bool IsFreeTariff;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (CoreContext.Configuration.PartnerHosted && WebConfigurationManager.AppSettings["files.onlyauthorized"] != "false")
-                HostedPartner = CoreContext.PaymentManager.GetApprovedPartner() ?? new Partner();
-
             Page.RegisterBodyScripts("~/usercontrols/management/tariffsettings/js/tarifflimitexceed.js");
             Page.RegisterStyle("~/usercontrols/management/tariffsettings/css/tarifflimitexceed.less");
 
             tariffLimitExceedUsersDialog.Options.IsPopup = true;
             tariffLimitExceedStorageDialog.Options.IsPopup = true;
             tariffLimitExceedFileSizeDialog.Options.IsPopup = true;
-            tariffLimitDocsEditionDialog.Options.IsPopup = true;
-            UnauthorizedPartnerDialog.Options.IsPopup = true;
 
             var quota = TenantExtra.GetTenantQuota();
-            IsDefaultTariff = quota.Id.Equals(Tenant.DEFAULT_TENANT);
             IsFreeTariff = (quota.Free || quota.NonProfit || quota.Trial) && !quota.Open;
         }
     }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -31,30 +31,30 @@ using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Mail.Aggregator;
-using ASC.Mail.Aggregator.Dal.DbSchema;
+using ASC.Mail.Aggregator.DbSchema;
 
 namespace ASC.Mail.Server.Dal
 {
     public abstract class DalBase
     {
-        protected readonly string db_connection_string_name;
+        protected readonly string dbConnectionStringName;
         protected readonly int tenant;
 
         protected DalBase(string dbConnectionStringName, int tenant)
         {
-            db_connection_string_name = dbConnectionStringName;
+            this.dbConnectionStringName = dbConnectionStringName;
             this.tenant = tenant;
         }
 
         public MailDbContext CreateMailDbContext(bool needTransaction = false)
         {
-            return new MailDbContext(db_connection_string_name, needTransaction);
+            return new MailDbContext(dbConnectionStringName, needTransaction);
         }
 
         //Todo: think about rewriting method GetDb for working with already open conncetions
         protected DbManager GetDb()
         {
-            return new DbManager(db_connection_string_name);
+            return new DbManager(dbConnectionStringName);
         }
 
         protected MailBoxManager GetMailboxManager()
@@ -105,15 +105,15 @@ namespace ASC.Mail.Server.Dal
         {
             if (db == null) throw new ArgumentNullException("db");
 
-            var serverInformationQuery = new SqlQuery(ServerTable.name)
-                              .InnerJoin(TenantXServerTable.name, Exp.EqColumns(TenantXServerTable.Columns.id_server, ServerTable.Columns.id))
-                              .Select(ServerTable.Columns.id)
-                              .Select(ServerTable.Columns.connection_string)
-                              .Select(ServerTable.Columns.mx_record)
-                              .Select(ServerTable.Columns.server_type)
-                              .Select(ServerTable.Columns.smtp_settings_id)
-                              .Select(ServerTable.Columns.imap_settings_id)
-                              .Where(TenantXServerTable.Columns.id_tenant, tenant);
+            var serverInformationQuery = new SqlQuery(ServerTable.Name)
+                              .InnerJoin(TenantXServerTable.Name, Exp.EqColumns(TenantXServerTable.Columns.ServerId, ServerTable.Columns.Id))
+                              .Select(ServerTable.Columns.Id)
+                              .Select(ServerTable.Columns.ConnectionString)
+                              .Select(ServerTable.Columns.MxRecord)
+                              .Select(ServerTable.Columns.ServerType)
+                              .Select(ServerTable.Columns.SmtpSettingsId)
+                              .Select(ServerTable.Columns.ImapSettingsId)
+                              .Where(TenantXServerTable.Columns.Tenant, tenant);
 
             var serverInformation = db.ExecuteList(serverInformationQuery);
             return serverInformation.Select(record => record.ToTenantServerDto()).FirstOrDefault();

@@ -54,10 +54,10 @@
                     </div>
                 </div>
                 <div class="advansed-filter-button btn-show-filters">
-                    <div class="inner-text"><span class="text"></span></div>
+                    <div class="inner-text"><span class="text">+</span></div>
                 </div>
                 <div class="advansed-filter-input">
-                    <label class="advansed-filter-reset btn-reset-filter"></label>
+                    <label class="advansed-filter-reset btn-reset-filter">&times;</label>
                     <input class="advansed-filter advansed-filter-input advansed-filter-complete" type="text" placeholder="<%= Resources.UserControlsCommonResource.LblFilterPlaceholder%>" maxlength="255"/>
                 </div>
             </div>
@@ -114,6 +114,6 @@
             <span class="default-value"><span class="inner-text"><span class="value"><%= Resources.UserControlsCommonResource.LblSelect%></span></span></span>
         </span>
     </span>
-    <span class="btn-delete"></span>
+    <span class="btn-delete">&times;</span>
 </div>
 </script>

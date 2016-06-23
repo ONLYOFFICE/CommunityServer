@@ -38,15 +38,18 @@
         <p>
             <%= Resource.ErrorNotAllowedOption %>
         </p>
+        <% if (TenantExtra.EnableTarrifSettings)
+           { %>
         <a href="<%= TenantExtra.GetTariffPageLink() %>" target="_blank">
             <%= Resource.ViewTariffPlans %></a>
+        <% } %>
         <% }
            else
            { %>
         <p><%= String.Format(Resource.HelpAnswerDNSSettings.HtmlEncode(), "<br />", "<b>", "</b>") %></p>
-        <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
+        <% if (!string.IsNullOrEmpty(HelpLink))
            { %>
-        <a href="<%= CommonLinkUtility.GetHelpLink() + "gettingstarted/configuration.aspx#CustomizingPortal_block" %>" target="_blank"><%= Resource.LearnMore %></a>
+        <a href="<%= HelpLink + "/gettingstarted/configuration.aspx#CustomizingPortal_block" %>" target="_blank"><%= Resource.LearnMore %></a>
         <% } %>
         <% } %>
     </div>

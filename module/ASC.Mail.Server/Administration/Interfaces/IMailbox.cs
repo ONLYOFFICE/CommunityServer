@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -34,6 +34,7 @@ namespace ASC.Mail.Server.Administration.Interfaces
         ICollection<IMailAddress> Aliases { get; }
         IMailAccount Account { get; }
         MailServerBase Server { get; }
+        string Name { get; }
 
         IMailAddress AddAlias(string aliasName, IWebDomain domain, IMailServerFactory factory);
         void RemoveAlias(int aliasId);

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -44,10 +44,8 @@ window.administrationManager = (function($) {
             serviceManager.bind(window.Teamlab.events.addMailGroup, onAddMailGroup);
             serviceManager.bind(window.Teamlab.events.removeMailGroup, onRemoveMailGroup);
             serviceManager.bind(window.Teamlab.events.removeMailDomain, onRemoveMailDomain);
-            serviceManager.bind(window.Teamlab.events.addMailBoxAlias, onAddMailAlias);
-            serviceManager.bind(window.Teamlab.events.removeMailBoxAlias, onRemoveMailAlias);
-            serviceManager.bind(window.Teamlab.events.addMailGroupAddress, onAddMailgroupAddress);
-            serviceManager.bind(window.Teamlab.events.removeMailGroupAddress, onRemoveMailgroupAddress);
+            editMailboxModal.events.bind('onupdatemailbox', onUpdateMailbox);
+            editMailGroupModal.events.bind('onupdategroup', onUpdateMailgroup);
 
             administrationPage.init();
         }
@@ -77,6 +75,7 @@ window.administrationManager = (function($) {
         var mailbox = {};
         mailbox.id = serverMailbox.id;
         mailbox.address = serverMailbox.address;
+        mailbox.name = serverMailbox.name;
         var aliases = [];
         for (var j = 0; j < serverMailbox.aliases.length; j++) {
             var alias = serverMailbox.aliases[j];
@@ -167,22 +166,13 @@ window.administrationManager = (function($) {
         }
     }
 
-    function onAddMailAlias(params, alias) {
-        var mailbox = getMailbox(params.mailbox_id);
-        mailbox.aliases.push(alias);
-        events.trigger('onaddalias', { mailbox: mailbox, alias: alias });
-        if (mailbox.user.id == window.Teamlab.profile.id) {
-            serviceManager.getAccounts();
-        }
-    }
-
-    function onRemoveMailAlias(params, mailboxId) {
-        var mailbox = getMailbox(mailboxId);
-        var index = mailbox.aliases.indexOf(params.alias);
+    function onUpdateMailbox(e, updatedMailbox) {
+        var mailbox = getMailbox(updatedMailbox.id);
+        var index = mailboxes.indexOf(mailbox);
         if (index > -1) {
-            mailbox.aliases.splice(index, 1);
+            mailboxes[index] = updatedMailbox;
         }
-        events.trigger('onremovealias', { mailbox: mailbox, alias: params.alias });
+        events.trigger('onupdatemailbox', { mailbox: updatedMailbox });
         if (mailbox.user.id == window.Teamlab.profile.id) {
             serviceManager.getAccounts();
         }
@@ -227,26 +217,16 @@ window.administrationManager = (function($) {
         }
     }
 
-    function onAddMailgroupAddress(params, serverGroup) {
-        var newGroup = convertServerGroup(serverGroup);
-        var mailgroup = getMailGroup(newGroup.id);
-        mailgroup.mailboxes = newGroup.mailboxes;
-        events.trigger('onaddgroupaddress', { group: mailgroup, address: params.address });
+    function onUpdateMailgroup(e, group) {
+        var mailgroup = getMailGroup(group.id);
+        mailgroup.mailboxes = group.mailboxes;
+        events.trigger('onupdatemailgroup', { group: mailgroup });
 
-        var mailbox = getMailboxByEmail(params.address.email);
-        if (mailbox.user.id == window.Teamlab.profile.id) {
-            serviceManager.getAccounts();
-        }
-    }
-
-    function onRemoveMailgroupAddress(params) {
-        var mailbox = getMailboxByEmail(params.address.email);
-        var group = getMailGroup(params.group.id);
-
-        removeMailboxFromGroup(group, mailbox, true);
-
-        if (mailbox.user.id == window.Teamlab.profile.id) {
-            serviceManager.getAccounts();
+        for (var i = 0, len = mailgroup.mailboxes.length; i < len; i++) {
+            if (mailgroup.mailboxes[i].user.id == window.Teamlab.profile.id) {
+                serviceManager.getAccounts();
+                break;
+            }
         }
     }
 
@@ -393,6 +373,9 @@ window.administrationManager = (function($) {
     return {
         init: init,
         loadData: loadData,
+
+        convertServerGroup: convertServerGroup,
+        convertServerMailbox: convertServerMailbox,
 
         getMailDomains: getMailDomains,
         getMailboxes: getMailboxes,

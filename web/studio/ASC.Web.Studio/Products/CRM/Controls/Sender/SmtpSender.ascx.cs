@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,15 +24,11 @@
 */
 
 
+using ASC.Web.CRM.Classes;
+using ASC.Web.CRM.Controls.Common;
 using System;
 using System.Text;
 using System.Web;
-using ASC.Web.CRM.Controls.Common;
-using ASC.Web.Core.Mobile;
-using ASC.Web.CRM.Classes;
-using ASC.Common.Threading.Progress;
-using System.Collections.Generic;
-using System.Globalization;
 
 namespace ASC.Web.CRM.Controls.Sender
 {
@@ -43,16 +39,9 @@ namespace ASC.Web.CRM.Controls.Sender
             get { return PathProvider.GetFileStaticRelativePath("sender/smtpsender.ascx"); }
         }
 
-        protected bool MobileVer = false;
-
         protected void Page_Load(object sender, EventArgs e)
         {
-            MobileVer = MobileDetector.IsMobile;
-
-            if (!MobileVer)
-            {
-                phFileUploader.Controls.Add(LoadControl(FileUploader.Location));
-            }
+            phFileUploader.Controls.Add(LoadControl(FileUploader.Location));
 
             RegisterScript();
         }
@@ -88,11 +77,7 @@ namespace ASC.Web.CRM.Controls.Sender
         private void RegisterScript()
         {
             Page.RegisterClientScript(typeof(Masters.ClientScripts.SmtpSenderData));
-
-            if (!MobileVer)
-            {
-                Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
-            }
+            Page.RegisterBodyScripts("~/usercontrols/common/ckeditor/ckeditor-connector.js");
 
             var sb = new StringBuilder();
 

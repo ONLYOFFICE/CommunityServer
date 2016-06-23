@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,6 +24,7 @@
 */
 
 
+using ASC.Core.Tenants;
 using ASC.Data.Storage;
 using ASC.Web.Core.Client;
 using ASC.Web.Core.Files;
@@ -69,7 +70,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
                 return new List<VideoGuideItem>();
             }
 
-            url += "video.aspx";
+            url += "/video.aspx";
 
             var storageData = VideoGuideStorage.GetVideoGuide();
             if (storageData == null)
@@ -155,7 +156,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
                 return new List<HelpCenterItem>();
             }
 
-            url += "gettingstarted/" + module;
+            url += "/gettingstarted/" + module;
 
             var storageData = HelpCenterStorage.GetHelpCenter();
             if (storageData == null)
@@ -324,10 +325,9 @@ namespace ASC.Web.Studio.Core.HelpCenter
             try
             {
                 externalUrl = externalUrl.ToLower().Trim();
-                var imagePath = ClientSettings.StorePath.Trim('/') + "/helpcenter/" + externalUrl.GetHashCode().ToString(CultureInfo.InvariantCulture);
-                imagePath += FileUtility.GetFileExtension(externalUrl);
+                var imagePath = externalUrl.GetHashCode().ToString(CultureInfo.InvariantCulture) + FileUtility.GetFileExtension(externalUrl);
 
-                var storage = StorageFactory.GetStorage("-1", "common_static");
+                var storage = StorageFactory.GetStorage(Tenant.DEFAULT_TENANT.ToString(CultureInfo.InvariantCulture), "static_helpcenter");
 
                 if (storage.IsFile(imagePath))
                     return storage.GetUri(imagePath).ToString();

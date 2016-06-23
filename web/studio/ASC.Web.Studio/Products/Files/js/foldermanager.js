@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -59,7 +59,7 @@ window.ASC.Files.Folders = (function () {
     var getItems = function (dataIds, folderToId) {
         var data = {
             entry: jq(typeof dataIds == "object" ? dataIds : [dataIds]).map(function (i, id) {
-                return Encoder.htmlEncode(id);
+                return id;
             }).toArray()
         };
 
@@ -76,7 +76,10 @@ window.ASC.Files.Folders = (function () {
     };
 
     var clickOnFolder = function (folderId) {
-        if (ASC.Files.Folders.folderContainer == "trash") {
+        var folderObj = ASC.Files.UI.getEntryObject("folder", folderId);
+
+        if (ASC.Files.Folders.folderContainer == "trash"
+            && jq("#filesMainContent").find(folderObj).is(":visible")) {
             return;
         }
 
@@ -84,7 +87,7 @@ window.ASC.Files.Folders = (function () {
             && ASC.Files.Tree.folderIdCurrentRoot
             && ASC.Files.Tree.folderIdCurrentRoot != ASC.Files.Constants.FOLDER_ID_PROJECT) {
             location.href = "tmdocs.aspx";
-            return false;
+            return;
         }
 
         ASC.Files.Anchor.navigationSet(folderId);
@@ -108,11 +111,6 @@ window.ASC.Files.Folders = (function () {
         if (typeof ASC.Files.ImageViewer != "undefined" && ASC.Files.Utility.CanImageView(fileTitle)) {
             var hash = ASC.Files.ImageViewer.getPreviewHash(fileId);
             ASC.Files.Anchor.move(hash);
-            return true;
-        }
-
-        if (jq.browser.mobile) {
-            ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.ErrorMassage_MobileDownload, true);
             return true;
         }
 
@@ -143,11 +141,6 @@ window.ASC.Files.Folders = (function () {
         }
 
         if (entryType === "file") {
-            if (jq.browser.mobile) {
-                ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.ErrorMassage_MobileDownload, true);
-                return;
-            }
-
             ASC.Files.Marker.removeNewIcon(entryType, entryId);
 
             window.open(ASC.Files.Utility.GetFileDownloadUrl(entryId, version), "_blank");
@@ -164,7 +157,7 @@ window.ASC.Files.Folders = (function () {
         if (ASC.Files.Common.isCorrectId(entryId)) {
             data.push(
                 {
-                    Key: Encoder.htmlEncode(entryType + "_" + entryId),
+                    Key: entryType + "_" + entryId,
                     Value: ""
                 });
 
@@ -175,7 +168,7 @@ window.ASC.Files.Folders = (function () {
 
                 data.push(
                     {
-                        Key: Encoder.htmlEncode(curItemData.entryType + "_" + curItemData.entryId),
+                        Key: curItemData.entryType + "_" + curItemData.entryId,
                         Value: ""
                     });
 
@@ -322,14 +315,6 @@ window.ASC.Files.Folders = (function () {
 
     var createNewDoc = function () {
         if (ASC.Files.ImageViewer && ASC.Files.ImageViewer.isView()) {
-            return;
-        }
-
-        if (!ASC.Resources.Master.TenantTariffDocsEdition) {
-            ASC.Files.UI.displayTariffDocsEdition();
-            return;
-        }
-        if (ASC.Files.UI.displayHostedPartnerUnauthorized()) {
             return;
         }
 
@@ -854,7 +839,6 @@ window.ASC.Files.Folders = (function () {
         var data = {};
         data.entry = new Array();
 
-        Encoder.EncodeType = "!entity";
         jq("#filesMainContent .file-row:not(.checkloading):not(.new-folder):not(.new-file):not(.error-entry):has(.checkbox input:checked)").each(function () {
             var entryData = ASC.Files.UI.getObjectData(this);
             var entryType = entryData.entryType;
@@ -880,13 +864,12 @@ window.ASC.Files.Folders = (function () {
                                     ASC.Files.FilesJSResources.DescriptMove,
                                 true);
 
-                            data.entry.push(Encoder.htmlEncode(entryType + "_" + entryId));
+                            data.entry.push(entryType + "_" + entryId);
                         }
                     }
                 }
             }
         });
-        Encoder.EncodeType = "entity";
 
         if (moveAccessDeny) {
             ASC.Files.UI.displayInfoPanel(ASC.Files.FilesJSResources.InfoMoveAccessError, true);
@@ -1058,15 +1041,15 @@ window.ASC.Files.Folders = (function () {
             if (listChecked.length == 0) {
                 return;
             }
-            Encoder.EncodeType = "!entity";
+
             data.entry = jq(listChecked).map(function (j, item) {
                 var entryConfirmType = jq(item).attr("entryType");
                 var entryConfirmId = jq(item).attr("entryId");
                 var entryConfirmObj = ASC.Files.UI.getEntryObject(entryConfirmType, entryConfirmId);
                 ASC.Files.UI.blockObject(entryConfirmObj, true, ASC.Files.FilesJSResources.DescriptRemove, true);
-                return Encoder.htmlEncode(entryConfirmType + "_" + entryConfirmId);
+                return entryConfirmType + "_" + entryConfirmId;
             }).toArray();
-            Encoder.EncodeType = "entity";
+
             ASC.Files.UI.updateMainContentHeader();
             ASC.Files.ServiceManager.deleteItem(ASC.Files.ServiceManager.events.DeleteItem, { list: data.entry, doNow: true }, { stringList: data });
         });
@@ -1206,7 +1189,14 @@ window.ASC.Files.Folders = (function () {
             return false;
         });
 
-        jq("#filesMainContent").on("click", ".folder-row:not(.error-entry) .entry-title .name a, .folder-row:not(.error-entry) .thumb-folder", function () {
+        jq("#filesMainContent").on("click", ".folder-row:not(.error-entry) .entry-title .name a, .folder-row:not(.error-entry) .thumb-folder", function (event) {
+            ASC.Files.Actions.hideAllActionPanels();
+
+            if (ASC.Files.Folders.folderContainer == "trash") {
+                ASC.Files.UI.clickRow(event, jq(this).closest(".file-row"));
+                return false;
+            }
+
             var folderId = ASC.Files.UI.getObjectData(this).id;
             if (folderId != 0) {
                 ASC.Files.Folders.clickOnFolder(folderId);
@@ -1220,8 +1210,14 @@ window.ASC.Files.Folders = (function () {
             return false;
         });
 
-        jq("#filesMainContent").on("click", ".file-row:not(.folder-row):not(.error-entry) .entry-title .name a, .file-row:not(.folder-row):not(.error-entry) .thumb-file", function () {
+        jq("#filesMainContent").on("click", ".file-row:not(.folder-row):not(.error-entry) .entry-title .name a, .file-row:not(.folder-row):not(.error-entry) .thumb-file", function (event) {
             ASC.Files.Actions.hideAllActionPanels();
+
+            if (ASC.Files.Folders.folderContainer == "trash") {
+                ASC.Files.UI.clickRow(event, jq(this).closest(".file-row"));
+                return false;
+            }
+
             var fileData = ASC.Files.UI.getObjectData(this);
             if (fileData.id != 0) {
                 var fileObj = fileData.entryObject;

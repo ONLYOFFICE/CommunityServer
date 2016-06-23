@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -42,12 +42,16 @@ namespace ASC.Web.Files.Import
 
         public static bool SupportInclusion
         {
-            get { return SupportBoxNetInclusion || SupportDropboxInclusion || SupportGoogleDriveInclusion || SupportOneDriveInclusion || SupportSharePointInclusion || SupportWebDavInclusion; }
+            get { return SupportBoxInclusion || SupportDropboxInclusion || SupportGoogleDriveInclusion || SupportOneDriveInclusion || SupportSharePointInclusion || SupportWebDavInclusion; }
         }
 
-        public static bool SupportBoxNetInclusion
+        public static bool SupportBoxInclusion
         {
-            get { return ThirdPartyProviders.Contains("boxnet"); }
+            get
+            {
+                return ThirdPartyProviders.Contains("box") &&
+                       !(string.IsNullOrEmpty(BoxLoginProvider.BoxOAuth20ClientId) || string.IsNullOrEmpty(BoxLoginProvider.BoxOAuth20ClientSecret) || string.IsNullOrEmpty(BoxLoginProvider.BoxOAuth20RedirectUrl));
+            }
         }
 
         public static bool SupportDropboxInclusion

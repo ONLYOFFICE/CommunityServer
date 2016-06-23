@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -41,19 +41,17 @@ window.ASC.Files.CreateMenu = (function () {
     };
 
     var updateCreateDocList = function () {
-        var unauthorizedPartner = !!jq("#UnauthorizedPartnerPanel").length;
-        
-        if (!ASC.Files.Utility.CanWebEdit(ASC.Files.Utility.Resource.InternalFormats.Document) || unauthorizedPartner) {
+        if (!ASC.Files.Utility.CanWebEdit(ASC.Files.Utility.Resource.InternalFormats.Document)) {
             jq("#createDocument").remove();
             jq("#emptyContainer .empty-folder-create-document").remove();
         }
 
-        if (!ASC.Files.Utility.CanWebEdit(ASC.Files.Utility.Resource.InternalFormats.Spreadsheet) || unauthorizedPartner) {
+        if (!ASC.Files.Utility.CanWebEdit(ASC.Files.Utility.Resource.InternalFormats.Spreadsheet)) {
             jq("#createSpreadsheet").remove();
             jq("#emptyContainer .empty-folder-create-spreadsheet").remove();
         }
 
-        if (!ASC.Files.Utility.CanWebEdit(ASC.Files.Utility.Resource.InternalFormats.Presentation) || unauthorizedPartner) {
+        if (!ASC.Files.Utility.CanWebEdit(ASC.Files.Utility.Resource.InternalFormats.Presentation)) {
             jq("#createPresentation").remove();
             jq("#emptyContainer .empty-folder-create-presentation").remove();
         }

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -83,18 +83,8 @@ namespace ASC.Files.Core
         /// 
         /// </summary>
         /// <param name="parentId"></param>
-        /// <param name="withSubfolders"></param>
         /// <returns></returns>
-        List<object> GetFiles(object parentId, bool withSubfolders);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="parentIds"></param>
-        /// <param name="searchText"></param>
-        /// <param name="searchSubfolders"></param>
-        /// <returns></returns>
-        List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false);
+        List<object> GetFiles(object parentId);
 
         /// <summary>
         ///     Get files in folder
@@ -104,12 +94,12 @@ namespace ASC.Files.Core
         /// <param name="subjectID"></param>
         /// <param name="filterType">filterType type</param>
         /// <param name="searchText"> </param>
-        /// <param name="searchSubfolders"> </param>
+        /// <param name="withSubfolders"> </param>
         /// <returns>list of files</returns>
         /// <remarks>
         ///    Return only the latest versions of files of a folder
         /// </remarks>
-        List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool searchSubfolders = false);
+        List<File> GetFiles(object parentId, OrderBy orderBy, FilterType filterType, Guid subjectID, string searchText, bool withSubfolders = false);
 
         /// <summary>
         /// Get stream of file
@@ -232,6 +222,15 @@ namespace ASC.Files.Core
         #endregion
 
         #region Only in TMFileDao
+
+        /// <summary>
+        /// Search files in SharedWithMe & Projects
+        /// </summary>
+        /// <param name="parentIds"></param>
+        /// <param name="searchText"></param>
+        /// <param name="searchSubfolders"></param>
+        /// <returns></returns>
+        List<File> GetFiles(object[] parentIds, string searchText = "", bool searchSubfolders = false);
 
         /// <summary>
         /// Search the list of files containing text

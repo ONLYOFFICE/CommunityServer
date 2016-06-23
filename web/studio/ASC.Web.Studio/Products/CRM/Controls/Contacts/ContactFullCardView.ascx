@@ -25,13 +25,12 @@
                             title="<%= TargetContact.GetTitle().HtmlEncode() %>"
                             alt="<%= TargetContact.GetTitle().HtmlEncode() %>" />
                     </div>
-                    <% if(!MobileVer) {%>
+
                     <div class="under_logo">
                         <a onclick="ASC.CRM.SocialMedia.OpenLoadPhotoWindow(); return false;" class="linkChangePhoto grey-phone">
                              <span class="bold"><%= CRMContactResource.ChangePhoto%></span>
                         </a>
                     </div>
-                    <% } %>
                 </div>
             </td>
             <td>

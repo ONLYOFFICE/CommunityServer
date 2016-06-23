@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -186,18 +186,15 @@ namespace ASC.Files.Core
             {
                 if (string.IsNullOrEmpty(ConvertedType)) return FileUtility.GetFileExtension(Title);
 
-                //hack: Use only for old internal format
-                ConvertedType = ConvertedType.Trim('.');
-
                 var curFileType = FileUtility.GetFileTypeByFileName(Title);
                 switch (curFileType)
                 {
                     case FileType.Image:
-                        return ConvertedType == "zip" ? ".pptt" : ConvertedType;
+                        return ConvertedType.Trim('.') == "zip" ? ".pptt" : ConvertedType;
                     case FileType.Spreadsheet:
-                        return ConvertedType != "xlsx" ? ".xlst" : ConvertedType;
+                        return ConvertedType.Trim('.') != "xlsx" ? ".xlst" : ConvertedType;
                     case FileType.Document:
-                        return ConvertedType == "zip" ? ".doct" : ConvertedType;
+                        return ConvertedType.Trim('.') == "zip" ? ".doct" : ConvertedType;
                 }
                 return ConvertedType;
             }

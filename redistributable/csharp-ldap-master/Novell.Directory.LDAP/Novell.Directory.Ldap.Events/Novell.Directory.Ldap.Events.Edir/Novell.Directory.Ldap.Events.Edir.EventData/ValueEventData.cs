@@ -29,150 +29,148 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System.IO;
-using System.Text;
-
 using Novell.Directory.Ldap.Asn1;
+using System.Text;
 
 namespace Novell.Directory.Ldap.Events.Edir.EventData
 {
-  /// <summary> 
-  /// This class represents the data for Value Events.
-  /// </summary>
-  public class ValueEventData : BaseEdirEventData
-  {
-    protected string strAttribute;
-    public string Attribute
-    {
-      get
-      {
-	return strAttribute;
-      }
-    }
-
-    protected string strClassId;
-    public string ClassId
-    {
-      get
-      {
-	return strClassId;
-      }
-    }
-
-    protected string strData;
-    public string Data
-    {
-      get
-      {
-	return strData;
-      }
-    }
-
-    protected byte[] binData;
-    public byte[] BinaryData
-    {
-      get
-      {
-	return binData;
-      }
-    }
-
-    protected string strEntry;
-    public string Entry
-    {
-      get
-      {
-	return strEntry;
-      }
-    }
-
-    protected string strPerpetratorDN;
-    public string PerpetratorDN
-    {
-      get 
-      {
-	return strPerpetratorDN;
-      }
-    }
-
-    // syntax
-    protected string strSyntax;
-    public string Syntax
-    {
-      get
-      {
-	return strSyntax;
-      }
-    }
-
-    protected DSETimeStamp timeStampObj;
-    public DSETimeStamp TimeStamp
-    {
-      get
-      {
-	return timeStampObj;
-      }
-    }
-
-    protected int nVerb;
-    public int Verb
-    {
-      get
-      {
-	return nVerb;
-      }
-    }
-
-    public ValueEventData(EdirEventDataType eventDataType, Asn1Object message)
-      : base(eventDataType, message)
-    {
-        int[] length = new int[1];
-	Asn1OctetString octData;
-
-        strPerpetratorDN =
-            ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-        strEntry =
-            ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-        strAttribute =
-            ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-        strSyntax =
-            ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-
-        strClassId =
-            ((Asn1OctetString) decoder.decode(decodedData, length)).stringValue();
-
-        timeStampObj =
-            new DSETimeStamp((Asn1Sequence) decoder.decode(decodedData, length));
-
-        octData = ((Asn1OctetString) decoder.decode(decodedData, length));
-	strData = octData.stringValue();
-	binData = SupportClass.ToByteArray(octData.byteValue());
-
-        nVerb = ((Asn1Integer) decoder.decode(decodedData, length)).intValue();
-
-	DataInitDone();
-    }    
-
     /// <summary> 
-    /// Returns a string representation of the object.
+    /// This class represents the data for Value Events.
     /// </summary>
-    public override string ToString() 
+    public class ValueEventData : BaseEdirEventData
     {
-      StringBuilder buf = new StringBuilder();
+        protected string strAttribute;
+        public string Attribute
+        {
+            get
+            {
+                return strAttribute;
+            }
+        }
 
-      buf.Append("[ValueEventData");
-      buf.AppendFormat("(Attribute={0})", strAttribute);
-      buf.AppendFormat("(Classid={0})", strClassId);
-      buf.AppendFormat("(Data={0})", strData);
-      buf.AppendFormat("(Data={0})", binData);
-      buf.AppendFormat("(Entry={0})", strEntry);
-      buf.AppendFormat("(Perpetrator={0})", strPerpetratorDN);
-      buf.AppendFormat("(Syntax={0})", strSyntax);
-      buf.AppendFormat("(TimeStamp={0})", timeStampObj);
-      buf.AppendFormat("(Verb={0})", nVerb);
-      buf.Append("]");
-      
-      return buf.ToString();
+        protected string strClassId;
+        public string ClassId
+        {
+            get
+            {
+                return strClassId;
+            }
+        }
+
+        protected string strData;
+        public string Data
+        {
+            get
+            {
+                return strData;
+            }
+        }
+
+        protected byte[] binData;
+        public byte[] BinaryData
+        {
+            get
+            {
+                return binData;
+            }
+        }
+
+        protected string strEntry;
+        public string Entry
+        {
+            get
+            {
+                return strEntry;
+            }
+        }
+
+        protected string strPerpetratorDN;
+        public string PerpetratorDN
+        {
+            get
+            {
+                return strPerpetratorDN;
+            }
+        }
+
+        // syntax
+        protected string strSyntax;
+        public string Syntax
+        {
+            get
+            {
+                return strSyntax;
+            }
+        }
+
+        protected DSETimeStamp timeStampObj;
+        public DSETimeStamp TimeStamp
+        {
+            get
+            {
+                return timeStampObj;
+            }
+        }
+
+        protected int nVerb;
+        public int Verb
+        {
+            get
+            {
+                return nVerb;
+            }
+        }
+
+        public ValueEventData(EdirEventDataType eventDataType, Asn1Object message)
+            : base(eventDataType, message)
+        {
+            int[] length = new int[1];
+            Asn1OctetString octData;
+
+            strPerpetratorDN =
+                ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+            strEntry =
+                ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+            strAttribute =
+                ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+            strSyntax =
+                ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+
+            strClassId =
+                ((Asn1OctetString)decoder.decode(decodedData, length)).stringValue();
+
+            timeStampObj =
+                new DSETimeStamp((Asn1Sequence)decoder.decode(decodedData, length));
+
+            octData = ((Asn1OctetString)decoder.decode(decodedData, length));
+            strData = octData.stringValue();
+            binData = SupportClass.ToByteArray(octData.byteValue());
+
+            nVerb = ((Asn1Integer)decoder.decode(decodedData, length)).intValue();
+
+            DataInitDone();
+        }
+
+        /// <summary> 
+        /// Returns a string representation of the object.
+        /// </summary>
+        public override string ToString()
+        {
+            StringBuilder buf = new StringBuilder();
+
+            buf.Append("[ValueEventData");
+            buf.AppendFormat("(Attribute={0})", strAttribute);
+            buf.AppendFormat("(Classid={0})", strClassId);
+            buf.AppendFormat("(Data={0})", strData);
+            buf.AppendFormat("(Data={0})", binData);
+            buf.AppendFormat("(Entry={0})", strEntry);
+            buf.AppendFormat("(Perpetrator={0})", strPerpetratorDN);
+            buf.AppendFormat("(Syntax={0})", strSyntax);
+            buf.AppendFormat("(TimeStamp={0})", timeStampObj);
+            buf.AppendFormat("(Verb={0})", nVerb);
+            buf.Append("]");
+
+            return buf.ToString();
+        }
     }
-  }
 }

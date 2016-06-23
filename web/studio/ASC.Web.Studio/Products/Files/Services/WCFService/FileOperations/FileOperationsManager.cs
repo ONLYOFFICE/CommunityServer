@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -70,6 +70,7 @@ namespace ASC.Web.Files.Services.WCFService.FileOperations
                 Processed = o.GetProperty<int>(FileOperation.PROCESSED).ToString(),
                 Result = o.GetProperty<string>(FileOperation.RESULT),
                 Error = o.GetProperty<string>(FileOperation.ERROR),
+                Finished = o.GetProperty<bool>(FileOperation.FINISHED),
             });
 
             return new ItemList<FileOperationResult>(results);

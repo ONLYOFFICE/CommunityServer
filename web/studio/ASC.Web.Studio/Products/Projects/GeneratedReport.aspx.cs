@@ -1,6 +1,6 @@
-/*
+﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -34,7 +34,6 @@ using ASC.Projects.Core.Domain.Reports;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Utils;
 using ASC.Web.Projects.Classes;
-using ASC.Web.Projects.Controls;
 using ASC.Web.Projects.Controls.Reports;
 using ASC.Web.Projects.Resources;
 using ASC.Web.Studio.Utility;
@@ -56,7 +55,7 @@ namespace ASC.Web.Projects
         protected override void PageLoad()
         {
             Page.RegisterBodyScripts("~/js/third-party/sorttable.js");
-            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath("reports.js"));
+            Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, "reports.js");
 
             exportReportPopup.Options.IsPopup = true;
             HasData = true;

@@ -30,6 +30,7 @@
 //
 
 using System;
+using System.IO;
 
 namespace Novell.Directory.Ldap.Asn1
 {
@@ -47,8 +48,8 @@ namespace Novell.Directory.Ldap.Asn1
 			{
 				return length;
 			}
-			
 		}
+
 		/// <summary> Returns the encoded length of this Asn1Length.</summary>
 		virtual public int EncodedLength
 		{
@@ -56,7 +57,6 @@ namespace Novell.Directory.Ldap.Asn1
 			{
 				return encodedLength;
 			}
-			
 		}
 		
 		/* Private variables
@@ -72,6 +72,7 @@ namespace Novell.Directory.Ldap.Asn1
 		public Asn1Length()
 		{
 		}
+
 		/// <summary> Constructs an Asn1Length</summary>
 		public Asn1Length(int length)
 		{
@@ -85,7 +86,7 @@ namespace Novell.Directory.Ldap.Asn1
 		/// <param name="in">A byte stream that contains the encoded ASN.1
 		/// 
 		/// </param>
-		public Asn1Length(System.IO.Stream in_Renamed)
+		public Asn1Length(Stream in_Renamed)
 		{
 			int r = in_Renamed.ReadByte();
 			encodedLength++;
@@ -101,7 +102,7 @@ namespace Novell.Directory.Ldap.Asn1
 					int part = in_Renamed.ReadByte();
 					encodedLength++;
 					if (part < 0)
-						throw new System.IO.EndOfStreamException("BERDecoder: decode: EOF in Asn1Length");
+						throw new EndOfStreamException("BERDecoder: decode: EOF in Asn1Length");
 					length = (length << 8) + part;
 				}
 			}
@@ -116,7 +117,7 @@ namespace Novell.Directory.Ldap.Asn1
 		/// <param name="in">A byte stream that contains the encoded ASN.1
 		/// 
 		/// </param>
-		public void  reset(System.IO.Stream in_Renamed)
+		public void reset(Stream in_Renamed)
 		{
 			encodedLength = 0;
 			int r = in_Renamed.ReadByte();
@@ -133,7 +134,7 @@ namespace Novell.Directory.Ldap.Asn1
 					int part = in_Renamed.ReadByte();
 					encodedLength++;
 					if (part < 0)
-						throw new System.IO.EndOfStreamException("BERDecoder: decode: EOF in Asn1Length");
+						throw new EndOfStreamException("BERDecoder: decode: EOF in Asn1Length");
 					length = (length << 8) + part;
 				}
 			}

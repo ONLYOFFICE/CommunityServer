@@ -1078,4 +1078,10 @@
   <data name="Currency_CubanPeso" xml:space="preserve">
     <value>Cuban Peso</value>
   </data>
+  <data name="Currency_OmaniRial" xml:space="preserve">
+    <value>Omani Rial</value>
+  </data>
+  <data name="Currency_KenyanShilling" xml:space="preserve">
+    <value>Kenyan Shilling</value>
+  </data>
 </root>

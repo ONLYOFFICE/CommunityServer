@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -247,8 +247,7 @@ namespace ASC.Web.Studio.Core.Backup
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            if (!SetupInfo.IsVisibleSettings(ManagementType.Backup.ToString())
-                || !TenantExtra.GetTenantQuota().HasBackup)
+            if (!SetupInfo.IsVisibleSettings(ManagementType.Backup.ToString()))
                 throw new BillingException(Resource.ErrorNotAllowedOption, "Backup");
         }
 
@@ -316,8 +315,7 @@ namespace ASC.Web.Studio.Core.Backup
         {
             SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
 
-            if (!SetupInfo.IsVisibleSettings("Restore")
-                || !TenantExtra.GetTenantQuota().HasBackup)
+            if (!SetupInfo.IsVisibleSettings("Restore"))
                 throw new BillingException(Resource.ErrorNotAllowedOption, "Restore");
         }
 

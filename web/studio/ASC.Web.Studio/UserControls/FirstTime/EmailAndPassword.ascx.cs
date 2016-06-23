@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,6 +24,8 @@
 */
 
 
+using ASC.Web.Core.WhiteLabel;
+using ASC.Web.Studio.Core.Notify;
 using AjaxPro;
 using ASC.Core;
 using ASC.Core.Billing;
@@ -68,13 +70,28 @@ namespace ASC.Web.Studio.UserControls.FirstTime
             }
         }
 
-        protected bool Enterprise
+        protected bool RequestLicense
         {
-            get { return CoreContext.Configuration.Standalone && TenantExtra.EnableTarrifSettings; }
+            get
+            {
+                return TenantExtra.EnableTarrifSettings && TenantExtra.Enterprise && !TenantExtra.EnterprisePaid;
+            }
         }
+
+        protected AdditionalWhiteLabelSettings Settings;
+
+        protected bool RequestLicenseAccept
+        {
+            get { return !TariffSettings.LicenseAccept && Settings.LicenseAgreementsEnabled; }
+        }
+
+        protected bool ShowPortalRename { get; set; }
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            Settings = AdditionalWhiteLabelSettings.Instance;
+            Settings.LicenseAgreementsUrl = CommonLinkUtility.GetRegionalUrl(Settings.LicenseAgreementsUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
+            
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
 
             InitScript();
@@ -82,12 +99,14 @@ namespace ASC.Web.Studio.UserControls.FirstTime
             var timeAndLanguage = (TimeAndLanguage)LoadControl(TimeAndLanguage.Location);
             timeAndLanguage.WithoutButton = true;
             _dateandtimeHolder.Controls.Add(timeAndLanguage);
+
+            ShowPortalRename = SetupInfo.IsVisibleSettings("PortalRename");
         }
 
         private void InitScript()
         {
-            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js");
-            Page.RegisterBodyScripts("~/usercontrols/firsttime/js/manager.js");
+            Page.RegisterBodyScripts("~/js/uploader/ajaxupload.js",
+                "~/usercontrols/firsttime/js/manager.js");
             Page.RegisterStyle("~/usercontrols/firsttime/css/EmailAndPassword.less");
 
             var script = new StringBuilder();
@@ -105,7 +124,7 @@ namespace ASC.Web.Studio.UserControls.FirstTime
 
         [AjaxMethod]
         [SecurityPassthrough]
-        public object SaveData(string email, string pwd, string lng, string promocode, string licenseKey)
+        public object SaveData(string email, string pwd, string lng, string promocode)
         {
             try
             {
@@ -158,33 +177,29 @@ namespace ASC.Web.Studio.UserControls.FirstTime
                     }
                 }
 
-                if (Enterprise)
+                if (RequestLicense)
                 {
-                    if (string.IsNullOrEmpty(licenseKey)) throw new ArgumentNullException("licenseKey", UserControlsCommonResource.LicenseKeyNotFound);
-
                     TariffSettings.LicenseAccept = true;
-
-                    var licenseKeys = licenseKey.Split('|');
-
                     MessageService.Send(HttpContext.Current.Request, MessageAction.LicenseKeyUploaded);
 
-                    LicenseClient.SetLicenseKeys(licenseKeys[0], licenseKeys.Length > 1 ? licenseKeys[1] : null);
+                    LicenseReader.RefreshLicense();
                 }
 
                 settings.Completed = true;
                 SettingsManager.Instance.SaveSettings(settings, tenant.TenantId);
 
                 TrySetLanguage(tenant, lng);
-                FirstTimeTenantSettings.SetDefaultTenantSettings();
+
+                StudioNotifyService.Instance.SendCongratulations(currentUser);
                 FirstTimeTenantSettings.SendInstallInfo(currentUser);
 
                 return new { Status = 1, Message = Resource.EmailAndPasswordSaved };
             }
-            catch (BillingNotConfiguredException)
-            {
-                return new { Status = 0, Message = UserControlsCommonResource.LicenseKeyNotCorrect };
-            }
             catch (BillingNotFoundException)
+            {
+                return new { Status = 0, Message = UserControlsCommonResource.LicenseKeyNotFound };
+            }
+            catch (BillingNotConfiguredException)
             {
                 return new { Status = 0, Message = UserControlsCommonResource.LicenseKeyNotCorrect };
             }
@@ -194,6 +209,7 @@ namespace ASC.Web.Studio.UserControls.FirstTime
             }
             catch (Exception ex)
             {
+                LogManager.GetLogger("ASC.Web.FirstTime").Error(ex);
                 return new { Status = 0, Message = ex.Message };
             }
         }

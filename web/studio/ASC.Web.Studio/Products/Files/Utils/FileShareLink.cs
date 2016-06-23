@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -42,7 +42,7 @@ namespace ASC.Web.Files.Utils
         {
             var url = file.ViewUrl;
 
-            if (!FileUtility.CanImageView(file.Title) && TenantExtra.GetTenantQuota().DocsEdition)
+            if (!FileUtility.CanImageView(file.Title))
                 url = FilesLinkUtility.GetFileWebPreviewUrl(file.Title, file.ID);
 
             var linkParams = CreateKey(file.ID.ToString());
@@ -64,7 +64,7 @@ namespace ASC.Web.Files.Utils
         public static bool Check(string key, bool checkRead, IFileDao fileDao, out File file)
         {
             var fileShare = Check(key, fileDao, out file);
-            return (!checkRead && fileShare == FileShare.ReadWrite) || (checkRead && fileShare <= FileShare.Read);
+            return (!checkRead && (fileShare == FileShare.ReadWrite || fileShare == FileShare.Review)) || (checkRead && fileShare != FileShare.Restrict);
         }
 
         public static FileShare Check(string key, IFileDao fileDao, out File file)
@@ -77,6 +77,7 @@ namespace ASC.Web.Files.Utils
 
             var filesSecurity = Global.GetFilesSecurity();
             if (filesSecurity.CanEdit(file, FileConstant.ShareLinkId)) return FileShare.ReadWrite;
+            if (filesSecurity.CanReview(file, FileConstant.ShareLinkId)) return FileShare.Review;
             if (filesSecurity.CanRead(file, FileConstant.ShareLinkId)) return FileShare.Read;
             return FileShare.Restrict;
         }

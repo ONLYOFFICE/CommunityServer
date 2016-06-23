@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -24,13 +24,16 @@
 */
 
 
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
-using ActiveUp.Net.Mail;
+using ASC.Mail.Aggregator.Common.Utils;
+using ASC.Mail.Aggregator.Core.Clients;
+using MimeKit;
 using NUnit.Framework;
 
 namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
@@ -43,53 +46,124 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
 
         protected readonly string utf8Charset = Encoding.UTF8.HeaderName;
 
-        protected void CreateRightResult(Message emlMessage, string outFilePath)
+        protected RightParserResult ConvertToRightResult(MimeMessage emlMessage)
         {
-            var result = new RightParserResult();
-            result.From = new TestAddress();
+            var from = emlMessage.From.Mailboxes.FirstOrDefault();
 
-            result.From.Email = emlMessage.From.Email;
-            result.From.Name = emlMessage.From.Name;
-
-            result.To = new List<TestAddress>();
-            foreach (var to_adresses in emlMessage.To)
+            var result = new RightParserResult
             {
-                result.To.Add(new TestAddress {Name = to_adresses.Name, Email = to_adresses.Email});
+                From = new TestAddress
+                {
+                    Email = from == null ? "" : from.Address,
+                    Name = from == null ? "" : from.Name
+                },
+                To = new List<TestAddress>()
+            };
+
+            foreach (var toAdresses in emlMessage.To.Mailboxes)
+            {
+                result.To.Add(new TestAddress {Name = toAdresses.Name, Email = toAdresses.Address});
             }
 
             result.Cc = new List<TestAddress>();
-            foreach (var cc_adresses in emlMessage.Cc)
+            foreach (var ccAdresses in emlMessage.Cc.Mailboxes)
             {
-                result.Cc.Add(new TestAddress {Name = cc_adresses.Name, Email = cc_adresses.Email});
+                result.Cc.Add(new TestAddress {Name = ccAdresses.Name, Email = ccAdresses.Address});
             }
 
             result.Subject = emlMessage.Subject;
-            result.AttachmentCount = emlMessage.Attachments.Count;
-            result.UnknownPatsCount = emlMessage.UnknownDispositionMimeParts.Count;
+            result.AttachmentCount = emlMessage.Attachments.Count();
 
-            result.HtmlBody = emlMessage.BodyHtml.Text;
-            result.HtmlCharset = emlMessage.BodyHtml.Charset;
-            result.HtmlEncoding = emlMessage.BodyHtml.ContentTransferEncoding;
+            //result.UnknownPatsCount = emlMessage.Body.;
 
-            result.TextBody = emlMessage.BodyText.Text;
-            result.TextCharset = emlMessage.BodyText.Charset;
-            result.TextEncoding = emlMessage.BodyText.ContentTransferEncoding;
+            result.TextBody = emlMessage.TextBody ?? "";
+            result.HtmlBody = emlMessage.HtmlBody ?? "";
 
-            result.ToXml(outFilePath);
+            var bodyParts = emlMessage.BodyParts;
+
+            var mimeEntities = bodyParts as IList<MimeEntity> ?? bodyParts.ToList();
+            var textPart = mimeEntities.FirstOrDefault(b => b.ContentType.MimeType == "text/plain") as TextPart;
+            var htmlPart = mimeEntities.FirstOrDefault(b => b.ContentType.MimeType == "text/html") as TextPart;
+
+            var internalMessages = mimeEntities.Where(t => t.ContentType.IsMimeType("message", "*")).ToList();
+            if(internalMessages.Any())
+            {
+                result.AttachmentCount += internalMessages.Count();
+            }
+
+            if (textPart != null)
+            {
+                if (textPart.ContentType.Charset != null)
+                {
+                    var encoding = EncodingTools.GetEncodingByCodepageName(textPart.ContentType.Charset);
+
+                    if (!encoding.HeaderName.Equals(textPart.ContentType.Charset,
+                        StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        result.TextBody = textPart.GetText(encoding);
+                        result.TextCharset = encoding.HeaderName.ToLowerInvariant();
+                    }
+                    else
+                    {
+                        result.TextCharset = textPart.ContentType.Charset.ToLowerInvariant();
+                    }
+                }
+                else
+                {
+                    //TODO: Try to find charset in other parts and detect encoding and right text
+                    result.TextCharset = "utf-8";
+                }
+            }
+            else
+            {
+                result.TextCharset = "utf-8";
+            }
+
+            if (htmlPart != null)
+            {
+                if (htmlPart.ContentType.Charset != null)
+                {
+                    var encoding = EncodingTools.GetEncodingByCodepageName(htmlPart.ContentType.Charset);
+
+                    if (!encoding.HeaderName.Equals(htmlPart.ContentType.Charset,
+                        StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        result.HtmlBody = htmlPart.GetText(encoding);
+                        result.HtmlCharset = htmlPart.ContentType.Charset;
+                    }
+                    else
+                    {
+                        result.HtmlCharset = htmlPart.ContentType.Charset.ToLowerInvariant();
+                    }
+                }
+                else
+                {
+                    //TODO: Try to find charset in other parts and detect encoding and right text
+                    result.HtmlCharset = "utf-8";
+                }
+            }
+            else
+            {
+                result.HtmlCharset = "utf-8";
+            }
+
+            return result;
         }
 
-        protected Message ParseEml(string emlFileName)
+        protected void CreateRightResult(MimeMessage emlMessage, string outFilePath)
         {
-            var emlMessage = Parser.ParseMessageFromFile(TestFolderPath + emlFileName);
-            return emlMessage;
+            var result = ConvertToRightResult(emlMessage);
+            result.ToXml(outFilePath);
         }
 
         protected void Test(string emlFileName)
         {
-            var emlMessage = ParseEml(emlFileName);
+            var mimeMessage = MailClient.ParseMimeMessage(TestFolderPath + emlFileName);
+            var emlMessage = ConvertToRightResult(mimeMessage);
             var rightResult = RightParserResult.FromXml(RightParserResultsPath + emlFileName.Replace(".eml", ".xml"));
+            
 #if NEED_OUT
-            eml_message.StoreToFile(test_results_path + eml_file_name);
+            mimeMessage.WriteTo(TestFolderPath + emlFileName);
 #endif
             Assert.AreEqual(rightResult.From.Email, emlMessage.From.Email);
             Assert.AreEqual(rightResult.From.Name, emlMessage.From.Name);
@@ -112,27 +186,24 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
             }
 
             Assert.AreEqual(rightResult.Subject, emlMessage.Subject);
-            Assert.AreEqual(rightResult.AttachmentCount, emlMessage.Attachments.Count);
-            Assert.AreEqual(rightResult.UnknownPatsCount, emlMessage.UnknownDispositionMimeParts.Count);
+            Assert.AreEqual(rightResult.AttachmentCount, emlMessage.AttachmentCount);
+            //Assert.AreEqual(rightResult.UnknownPatsCount, emlMessage.UnknownDispositionMimeParts.Count);
 
-            //Replace needed for correct file loading
-            Assert.AreEqual(rightResult.HtmlBody, emlMessage.BodyHtml.Text);
-            Assert.AreEqual(rightResult.HtmlEncoding, emlMessage.BodyHtml.ContentTransferEncoding);
-            Assert.AreEqual(rightResult.HtmlCharset, emlMessage.BodyHtml.Charset);
+            Assert.AreEqual(rightResult.TextBody, emlMessage.TextBody);
+            Assert.AreEqual(rightResult.TextCharset, emlMessage.TextCharset);
+            //Assert.AreEqual(rightResult.TextContentDisposition, emlMessage.TextContentDisposition);
 
-            Assert.AreEqual(rightResult.TextBody, emlMessage.BodyText.Text);
-            Assert.AreEqual(rightResult.TextCharset, emlMessage.BodyText.Charset);
-            Assert.AreEqual(rightResult.TextEncoding, emlMessage.BodyText.ContentTransferEncoding);
+            Assert.AreEqual(rightResult.HtmlBody, emlMessage.HtmlBody);
+            Assert.AreEqual(rightResult.HtmlCharset, emlMessage.HtmlCharset);
+            //Assert.AreEqual(rightResult.HtmlContentDisposition, emlMessage.HtmlContentDisposition);
         }
     }
-
 
     public class TestAddress
     {
         public string Email { get; set; }
         public string Name { get; set; }
     }
-
 
     public class RightParserResult
     {
@@ -141,39 +212,39 @@ namespace ASC.Mail.Aggregator.Tests.Common.MessageParserTests
         public List<TestAddress> Cc { get; set; }
         public string Subject { get; set; }
 
-        public ContentTransferEncoding TextEncoding { get; set; }
+        //public ContentTransferEncoding TextEncoding { get; set; }
         public string TextCharset { get; set; }
         public string TextBody { get; set; }
-        public ContentTransferEncoding HtmlEncoding { get; set; }
+        //public ContentTransferEncoding HtmlEncoding { get; set; }
         public string HtmlCharset { get; set; }
         public string HtmlBody { get; set; }
 
         public int AttachmentCount { get; set; }
         public int UnknownPatsCount { get; set; }
 
-
-        public void ToXml(string file_path)
+        public void ToXml(string filePath)
         {
-            var settings = new XmlWriterSettings();
-            settings.NewLineHandling = NewLineHandling.None;
-            settings.Indent = false;
+            var settings = new XmlWriterSettings
+            {
+                NewLineHandling = NewLineHandling.None,
+                Indent = false
+            };
 
             var serializer = new XmlSerializer(typeof (RightParserResult));
-            using (var text_writer = XmlWriter.Create(new StreamWriter(file_path), settings))
+            using (var textWriter = XmlWriter.Create(new StreamWriter(filePath), settings))
             {
-                serializer.Serialize(text_writer, this);
+                serializer.Serialize(textWriter, this);
             }
         }
 
-
-        public static RightParserResult FromXml(string file_path)
+        public static RightParserResult FromXml(string filePath)
         {
             var deserializer = new XmlSerializer(typeof (RightParserResult));
             RightParserResult result;
-            using (var text_reader = new XmlTextReader(new StreamReader(file_path)))
+            using (var textReader = new XmlTextReader(new StreamReader(filePath)))
             {
-                text_reader.Normalization = false;
-                result = (RightParserResult) deserializer.Deserialize(text_reader);
+                textReader.Normalization = false;
+                result = (RightParserResult) deserializer.Deserialize(textReader);
             }
 
             return result;

@@ -17,7 +17,7 @@
         <span class="hdr">Integration Examples</span>
     </h1>
 
-    <h2>To start ingegrating document editors into your own website you need to do the following:</h2>
+    <h2>To start integrating document editors into your own website you need to do the following:</h2>
 
     <ol>
         <li>Download Document Server installation and set it up on your local server:
@@ -46,7 +46,7 @@
 
     <p>The result should look like the demo preview below.</p>
 
-    <h2>Demo Preview</h2>
+    <h2 id="DemoPreview">Demo Preview</h2>
     <table class="demo-tab-panel">
         <tr>
             <td>
@@ -64,6 +64,11 @@
     <div class="demo-block">
         <div id="embeddedEditor"></div>
     </div>
+
+    <p>
+        If you have any further questions, please contact us at
+        <a href="mailto:integration@onlyoffice.com" class="underline" onclick="if(window.ga){window.ga('send','event','mailto');}return true;">integration@onlyoffice.com</a>.
+    </p>
 
 </asp:Content>
 

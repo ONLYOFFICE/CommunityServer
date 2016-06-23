@@ -612,6 +612,9 @@
   <data name="AceStatusEnum_ReadWrite" xml:space="preserve">
     <value>Full Access</value>
   </data>
+  <data name="AceStatusEnum_Review" xml:space="preserve">
+    <value>Review</value>
+  </data>
   <data name="AceStatusEnum_Restrict" xml:space="preserve">
     <value>Deny Access</value>
   </data>

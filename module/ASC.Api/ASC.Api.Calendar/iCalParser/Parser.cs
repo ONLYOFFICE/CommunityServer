@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -254,14 +254,6 @@ namespace ASC.Api.Calendar.iCalParser
         protected void reportError(Scanner s, string msg)
         {
             s.ConsumeToEOL();
-            //Console.Error.WriteLine( "Found an error on line " + linenumber + " : " + msg );
-            errors.Add(new ParserError(linenumber, msg));
-        }
-
-        protected void reportFatalError(Scanner s, string msg)
-        {
-            s.ConsumeToEOL();
-            //Console.Error.WriteLine( "Found a fatal error on line " + linenumber + " : " + msg );
             errors.Add(new ParserError(linenumber, msg));
         }
 
@@ -395,7 +387,7 @@ namespace ASC.Api.Calendar.iCalParser
             }
 
             Token sep = scan.GetNextToken(ScannerState.ParseSimple);
-            if (sep == null || sep.TokenVal == TokenValue.Error || sep.TokenVal != TokenValue.Equals)
+            if (sep == null || sep.TokenVal != TokenValue.Equals)
             {
                 // some kind of error - skip rest of line and continue
                 if (sep == null)

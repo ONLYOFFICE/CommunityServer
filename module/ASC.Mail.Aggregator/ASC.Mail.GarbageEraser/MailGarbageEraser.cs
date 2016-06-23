@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -31,8 +31,6 @@ using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Common.Logging;
 using ASC.Mail.Aggregator.Dal;
-using ASC.Mail.Aggregator.DataStorage;
-using ASC.Mail.Aggregator.Iterators;
 using ASC.Mail.Server.Administration.Interfaces;
 using ASC.Mail.Server.Dal;
 using ASC.Mail.Server.PostfixAdministration;
@@ -43,33 +41,37 @@ using System.Linq;
 using System.Runtime.Caching;
 using System.Threading;
 using System.Threading.Tasks;
+using ASC.Mail.Aggregator.Common.DataStorage;
+using ASC.Mail.Aggregator.Core.Iterators;
 using ServerType = ASC.Mail.Server.Dal.ServerType;
 
 namespace ASC.Mail.GarbageEraser
 {
-    public class MailGarbageEraser
+    public class MailGarbageEraser: IDisposable
     {
         private readonly ILogger _log;
         private readonly MailBoxManager _mailBoxManager;
         private readonly MailGarbageCleanDal _garbageManager;
         private readonly MemoryCache _tenantMemCache;
-        private readonly int _tenantCacheDays = 1;
-        private readonly int _tenantOverdueDays = 30;
-        private readonly int _garbageOverdueDays = 30;
-        private readonly int _maxTasksAtOnce = 10;
-        private readonly int _maxFilesToRemoveAtOnce = 100;
+        private readonly int _tenantCacheDays;
+        private readonly int _tenantOverdueDays;
+        private readonly int _garbageOverdueDays;
+        private readonly int _maxTasksAtOnce;
+        private readonly int _maxFilesToRemoveAtOnce;
+        private readonly string _httpContextScheme;
 
-        readonly LimitedConcurrencyLevelTaskScheduler _lcts;
-        readonly TaskFactory _taskFactory;
+        private readonly TaskFactory _taskFactory;
 
-        public MailGarbageEraser(int maxTasksAtOnce, int maxFilesToRemoveAtOnce, int tenantCacheDays, int tenantOverdueDays, int garbageOverdueDays,
-                                 ILogger log = null)
+        public MailGarbageEraser(int maxTasksAtOnce, int maxFilesToRemoveAtOnce, int tenantCacheDays,
+            int tenantOverdueDays, int garbageOverdueDays, string httpContextScheme,
+            ILogger log = null)
         {
             _maxTasksAtOnce = maxTasksAtOnce;
             _maxFilesToRemoveAtOnce = maxFilesToRemoveAtOnce;
             _tenantCacheDays = tenantCacheDays;
             _tenantOverdueDays = tenantOverdueDays;
             _garbageOverdueDays = garbageOverdueDays;
+            _httpContextScheme = httpContextScheme;
 
             _log = log ?? new NullLogger();
 
@@ -79,9 +81,9 @@ namespace ASC.Mail.GarbageEraser
 
             _tenantMemCache = new MemoryCache("GarbageEraserTenantCache");
 
-            _lcts = new LimitedConcurrencyLevelTaskScheduler(_maxTasksAtOnce);
+            var lcts = new LimitedConcurrencyLevelTaskScheduler(_maxTasksAtOnce);
 
-            _taskFactory = new TaskFactory(_lcts);
+            _taskFactory = new TaskFactory(lcts);
         }
 
         #region - Public methods -
@@ -180,7 +182,7 @@ namespace ASC.Mail.GarbageEraser
 
                 taskLog.Debug("GetTenantStatus(OverdueDays={0})", _tenantOverdueDays);
 
-                type = mailbox.GetTenantStatus(_tenantOverdueDays, _log);
+                type = mailbox.GetTenantStatus(_tenantOverdueDays, _httpContextScheme, _log);
 
                 var cacheItem = new CacheItem(mailbox.TenantId.ToString(CultureInfo.InvariantCulture), type);
 
@@ -439,5 +441,13 @@ namespace ASC.Mail.GarbageEraser
         }
 
         #endregion
+
+        public void Dispose()
+        {
+            if (_tenantMemCache != null)
+            {
+                _tenantMemCache.Dispose();
+            }
+        }
     }
 }

@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -345,7 +345,7 @@ namespace ASC.Projects.Data.DAO
                 if (users == null)
                 {
                     var q = new SqlQuery(FollowingProjectTable).Select("participant_id").Where("project_id", projectId);
-                    users = db.ExecuteList(q).ConvertAll(r => new Guid((string) r[0]));
+                    users = db.ExecuteList(q).ConvertAll(r => new Guid((string)r[0]));
                     followCache.Add(projectId.ToString(CultureInfo.InvariantCulture), users);
                 }
 
@@ -371,7 +371,7 @@ namespace ASC.Projects.Data.DAO
                 .Select(new SqlQuery("projects_tasks t").SelectCount().Where(Exp.EqColumns("t.project_id", "p.id")).Where(!Exp.Eq("t.status", TaskStatus.Closed)))
                 .Select(new SqlQuery("projects_project_participant pp").SelectCount().Where(Exp.EqColumns("pp.project_id", "p.id") & Exp.Eq("pp.removed", false)))
                 .Where("p.id", projectId)
-                .Where("p.tenant_id", Tenant); 
+                .Where("p.tenant_id", Tenant);
 
             using (var db = new DbManager(DatabaseId))
             {
@@ -535,30 +535,22 @@ namespace ASC.Projects.Data.DAO
         {
             using (var db = new DbManager(DatabaseId))
             {
-                using (var tx = db.BeginTransaction())
-                {
-                    var insert = Insert(ProjectsTable)
-                        .InColumns(ProjectColumns)
-                        .Values(
-                            project.ID,
-                            project.Title,
-                            project.Description,
-                            project.Status,
-                            project.Responsible.ToString(),
-                            project.Private,
-                            project.CreateBy.ToString(),
-                            TenantUtil.DateTimeToUtc(project.CreateOn),
-                            project.LastModifiedBy.ToString(),
-                            TenantUtil.DateTimeToUtc(project.LastModifiedOn))
-                        .InColumnValue("status_changed", project.StatusChangedOn)
-                        .Identity(1, 0, true);
-                    project.ID = db.ExecuteScalar<int>(insert);
-
-                    //remove not used tags
-                    db.ExecuteNonQuery(Delete(TagsTable).Where(!Exp.In("id", new SqlQuery("projects_project_tag").Select("tag_id"))));
-
-                    tx.Commit();
-                }
+                var insert = Insert(ProjectsTable)
+                    .InColumns(ProjectColumns)
+                    .Values(
+                        project.ID,
+                        project.Title,
+                        project.Description,
+                        project.Status,
+                        project.Responsible.ToString(),
+                        project.Private,
+                        project.CreateBy.ToString(),
+                        TenantUtil.DateTimeToUtc(project.CreateOn),
+                        project.LastModifiedBy.ToString(),
+                        TenantUtil.DateTimeToUtc(project.LastModifiedOn))
+                    .InColumnValue("status_changed", project.StatusChangedOn)
+                    .Identity(1, 0, true);
+                project.ID = db.ExecuteScalar<int>(insert);
             }
 
             return project;
@@ -573,16 +565,15 @@ namespace ASC.Projects.Data.DAO
                     db.ExecuteNonQuery(new SqlDelete(ParticipantTable).Where("project_id", projectId));
                     db.ExecuteNonQuery(new SqlDelete(FollowingProjectTable).Where("project_id", projectId));
                     db.ExecuteNonQuery(new SqlDelete(ProjectTagTable).Where("project_id", projectId));
-                    db.ExecuteNonQuery(Delete(TagsTable).Where(!Exp.In("id", new SqlQuery("projects_project_tag").Select("tag_id"))));
                     db.ExecuteNonQuery(Delete(TimeTrackingTable).Where("project_id", projectId));
 
                     var messages = db.ExecuteList(Query(MessagesTable)
                                 .Select("concat('Message_', cast(id as char))")
-                                .Where("project_id", projectId)).ConvertAll(r => (string) r[0]);
+                                .Where("project_id", projectId)).ConvertAll(r => (string)r[0]);
 
                     var milestones = db.ExecuteList(Query(MilestonesTable)
                                                         .Select("concat('Milestone_', cast(id as char))")
-                                                        .Where("project_id", projectId)).ConvertAll(r => (string) r[0]);
+                                                        .Where("project_id", projectId)).ConvertAll(r => (string)r[0]);
 
                     var tasks = db.ExecuteList(Query(TasksTable)
                                                    .Select("id")
@@ -590,7 +581,7 @@ namespace ASC.Projects.Data.DAO
 
                     db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", messages)));
                     db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", milestones)));
-                    db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", new object[]{ tasks.Select(r=> "Task_" + r) })));
+                    db.ExecuteNonQuery(Delete(CommentsTable).Where(Exp.In("target_uniq_id", new object[] { tasks.Select(r => "Task_" + r) })));
 
                     db.ExecuteNonQuery(Delete(MessagesTable).Where("project_id", projectId));
                     db.ExecuteNonQuery(Delete(MilestonesTable).Where("project_id", projectId));
@@ -603,6 +594,7 @@ namespace ASC.Projects.Data.DAO
 
                     tx.Commit();
                 }
+                db.ExecuteNonQuery(Delete(TagsTable).Where(!Exp.In("id", new SqlQuery("projects_project_tag").Select("tag_id"))));
             }
         }
 
@@ -661,7 +653,7 @@ namespace ASC.Projects.Data.DAO
 
         public List<Participant> GetTeam(Project project)
         {
-            if(project == null) return new List<Participant>();
+            if (project == null) return new List<Participant>();
 
             using (var db = new DbManager(DatabaseId))
             {
@@ -724,7 +716,7 @@ namespace ASC.Projects.Data.DAO
                 db.ExecuteNonQuery(
                     new SqlUpdate(ParticipantTable)
                         .Set("updated", DateTime.UtcNow)
-                        .Set("security", (int) teamSecurity)
+                        .Set("security", (int)teamSecurity)
                         .Where("tenant", Tenant)
                         .Where("project_id", projectId)
                         .Where("participant_id", participantId.ToString()));
@@ -772,7 +764,7 @@ namespace ASC.Projects.Data.DAO
 
                 foreach (var prj in projectList)
                 {
-                    teamCacheItem = new TeamCacheItem(true, (ProjectTeamSecurity) Convert.ToInt32(prj[1]));
+                    teamCacheItem = new TeamCacheItem(true, (ProjectTeamSecurity)Convert.ToInt32(prj[1]));
                     key = string.Format("{0}|{1}", prj[0], participantId);
                     teamCache.Add(key, teamCacheItem);
                 }
@@ -780,7 +772,7 @@ namespace ASC.Projects.Data.DAO
                 var currentProject = projectList.Find(r => Convert.ToInt32(r[0]) == projectId);
                 teamCacheItem = new TeamCacheItem(currentProject != null,
                                                   currentProject != null
-                                                      ? (ProjectTeamSecurity) Convert.ToInt32(currentProject[1])
+                                                      ? (ProjectTeamSecurity)Convert.ToInt32(currentProject[1])
                                                       : ProjectTeamSecurity.None);
                 key = string.Format("{0}|{1}", projectId, participantId);
                 teamCache.Add(key, teamCacheItem);
@@ -809,7 +801,7 @@ namespace ASC.Projects.Data.DAO
                   .Select("task_order")
                   .Where("project_id", projectID);
 
-                return db.ExecuteList(query, r=> Convert.ToString(r[0])).FirstOrDefault();
+                return db.ExecuteList(query, r => Convert.ToString(r[0])).FirstOrDefault();
             }
         }
 
@@ -856,10 +848,10 @@ namespace ASC.Projects.Data.DAO
         public static Participant ToParticipant(object[] r)
         {
             return new Participant(new Guid((string)r[0]), (ProjectTeamSecurity)Convert.ToInt32(r[1]))
-                   {
-                       ProjectID = Convert.ToInt32(r[2]),
-                       IsManager = Convert.ToBoolean(r[3])
-                   };
+            {
+                ProjectID = Convert.ToInt32(r[2]),
+                IsManager = Convert.ToBoolean(r[3])
+            };
         }
 
         private class TeamCacheItem

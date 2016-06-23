@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -70,8 +70,18 @@ window.printPage = (function($) {
     }
 
     function getMessage(id, cb) {
-        return serviceManager.getMessage(id, false, true, {}, {
-            success: function(params, message) {
+        return serviceManager.getMessage(id, false, {}, {
+            success: function (params, message) {
+                var res = ASC.Mail.Sanitizer.Sanitize(message.htmlBody, {
+                    urlProxyHandler: ASC.Mail.Constants.PROXY_HTTP_URL,
+                    needProxyHttp: ASC.Mail.Constants.NEED_PROXY_HTTP_URL,
+                    loadImages: false
+                });
+
+                message.htmlBody = res.html;
+                message.contentIsBlocked = res.imagesBlocked;
+                message.sanitized = res.sanitized;
+
                 messagePage.preprocessMessages(null, [message]);
                 cb(message);
             },
@@ -83,7 +93,21 @@ window.printPage = (function($) {
 
     function getConversation(id, cb) {
         return serviceManager.getConversation(id, true, {}, {
-            success: function(params, messages) {
+            success: function (params, messages) {
+
+                for (var i = 0, n = messages.length; i < n; i++) {
+                    var message = messages[i];
+                    var res = ASC.Mail.Sanitizer.Sanitize(message.htmlBody, {
+                        urlProxyHandler: ASC.Mail.Constants.PROXY_HTTP_URL,
+                        needProxyHttp: ASC.Mail.Constants.NEED_PROXY_HTTP_URL,
+                        loadImages: false
+                    });
+
+                    message.htmlBody = res.html;
+                    message.contentIsBlocked = res.imagesBlocked;
+                    message.sanitized = res.sanitized;
+                }
+
                 messagePage.preprocessMessages(null, messages);
                 cb(messages);
             },
@@ -126,7 +150,7 @@ window.printPage = (function($) {
 
         //set up images
         var showImages = showImagesIds.indexOf(message.id.toString()) != -1;
-        var senderAddress = TMMail.parseEmailFromFullAddress(message.from);
+        var senderAddress = ASC.Mail.Utility.ParseAddress(message.from).email;
         if (trustedAddresses.isTrusted(senderAddress) || showImages) {
             $body.find('img[tl_disabled_src]').each(function() {
                 var $el = $(this);

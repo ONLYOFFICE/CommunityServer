@@ -119,13 +119,16 @@
           </xsl:if>
 
           <input type="hidden" name="entry_data">
+            <xsl:attribute name="data-id">
+              <xsl:value-of select="id" />
+            </xsl:attribute>
             <xsl:attribute name="value">
               {
               "entryType": "folder",
               "access": <xsl:value-of select="access" />,
               "create_by_id": "<xsl:value-of select="create_by_id" />",
               "create_on": "<xsl:value-of select="create_on" />",
-              "id": "<xsl:value-of select="id" />",
+              <!--"id": "<xsl:value-of select="id" />",-->
               "modified_on": "<xsl:value-of select="modified_on" />",
               "shared": <xsl:value-of select="shared" />,
               "title": "<xsl:value-of select="title" />",
@@ -331,13 +334,16 @@
           </xsl:if>
 
           <input type="hidden" name="entry_data">
+            <xsl:attribute name="data-id">
+              <xsl:value-of select="id" />
+            </xsl:attribute>
             <xsl:attribute name="value">
               {
               "entryType": "file",
               "access": <xsl:value-of select="access" />,
               "create_by_id": "<xsl:value-of select="create_by_id" />",
               "create_on": "<xsl:value-of select="create_on" />",
-              "id": "<xsl:value-of select="id" />",
+              <!--"id": "<xsl:value-of select="id" />",-->
               "modified_on": "<xsl:value-of select="modified_on" />",
               "shared": <xsl:value-of select="shared" />,
               "title": "<xsl:value-of select="title" />",

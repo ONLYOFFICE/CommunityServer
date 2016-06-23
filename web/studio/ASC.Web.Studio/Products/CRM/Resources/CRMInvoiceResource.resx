@@ -387,9 +387,6 @@
   <data name="InfoiceItemsFilterWatermarkText" xml:space="preserve">
     <value>Find by title, SKU or description</value>
   </data>
-  <data name="InfoicesFilterWatermarkText" xml:space="preserve">
-    <value>Find by number or description</value>
-  </data>
   <data name="Invoice" xml:space="preserve">
     <value>Invoice</value>
   </data>

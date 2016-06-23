@@ -29,72 +29,69 @@
 // (C) 2003 Novell, Inc (http://www.novell.com)
 //
 
-using System;
-using Novell.Directory.Ldap;
 using Novell.Directory.Ldap.Asn1;
 using Novell.Directory.Ldap.Utilclass;
+using System;
+using System.IO;
 
 namespace Novell.Directory.Ldap.Extensions
 {
-	
-	/// <summary> Splits a new orphan partitiont.
-	/// 
-	/// To split a new orphan partition, you must create an instance of
-	/// this class and then call the extendedOperation method with this object
-	/// as the required LdapExtendedOperation parameter.
-	/// 
-	/// The SplitOrphanPartitionRequest extension uses the following OID:
-	/// 2.16.840.1.113719.1.27.100.39
-	/// 
-	/// The requestValue has the following format:
-	/// 
-	/// requestValue ::=
-	///   serverDN     LdapDN
-	///   contextName  LdapDN
-	/// </summary>
-	public class SplitOrphanPartitionRequest:LdapExtendedOperation
-	{
-		
-		/// <summary> 
-		/// Constructs an extended operation object for creating an orphan partition.
-		/// 
-		/// 
-		/// </summary>
-		/// <param name="serverDN">   The distinguished name of the server on which
-		/// the new orphan partition will reside.
-		/// 
-		/// </param>
-		/// <param name="contextName">The distinguished name of the
-		/// new orphan partition.
-		/// 
-		/// </param>
-		/// <exception> LdapException A general exception which includes an error message
-		/// and an Ldap error code.
-		/// </exception>
-		public SplitOrphanPartitionRequest(System.String serverDN, System.String contextName):base(ReplicationConstants.CREATE_ORPHAN_NAMING_CONTEXT_REQ, null)
-		{
-			
-			try
-			{
-				
-				if (((System.Object) serverDN == null) || ((System.Object) contextName == null))
-					throw new System.ArgumentException(ExceptionMessages.PARAM_ERROR);
-				
-				System.IO.MemoryStream encodedData = new System.IO.MemoryStream();
-				LBEREncoder encoder = new LBEREncoder();
-				
-				Asn1OctetString asn1_serverDN = new Asn1OctetString(serverDN);
-				Asn1OctetString asn1_contextName = new Asn1OctetString(contextName);
-				
-				asn1_serverDN.encode(encoder, encodedData);
-				asn1_contextName.encode(encoder, encodedData);
-				
-				setValue(SupportClass.ToSByteArray(encodedData.ToArray()));
-			}
-			catch (System.IO.IOException ioe)
-			{
-				throw new LdapException(ExceptionMessages.ENCODING_ERROR, LdapException.ENCODING_ERROR, (System.String) null);
-			}
-		}
-	}
+    /// <summary> Splits a new orphan partitiont.
+    /// 
+    /// To split a new orphan partition, you must create an instance of
+    /// this class and then call the extendedOperation method with this object
+    /// as the required LdapExtendedOperation parameter.
+    /// 
+    /// The SplitOrphanPartitionRequest extension uses the following OID:
+    /// 2.16.840.1.113719.1.27.100.39
+    /// 
+    /// The requestValue has the following format:
+    /// 
+    /// requestValue ::=
+    ///   serverDN     LdapDN
+    ///   contextName  LdapDN
+    /// </summary>
+    public class SplitOrphanPartitionRequest : LdapExtendedOperation
+    {
+        /// <summary> 
+        /// Constructs an extended operation object for creating an orphan partition.
+        /// 
+        /// 
+        /// </summary>
+        /// <param name="serverDN">   The distinguished name of the server on which
+        /// the new orphan partition will reside.
+        /// 
+        /// </param>
+        /// <param name="contextName">The distinguished name of the
+        /// new orphan partition.
+        /// 
+        /// </param>
+        /// <exception> LdapException A general exception which includes an error message
+        /// and an Ldap error code.
+        /// </exception>
+        public SplitOrphanPartitionRequest(string serverDN, string contextName)
+            : base(ReplicationConstants.CREATE_ORPHAN_NAMING_CONTEXT_REQ, null)
+        {
+            try
+            {
+                if (serverDN == null || contextName == null)
+                    throw new ArgumentException(ExceptionMessages.PARAM_ERROR);
+
+                MemoryStream encodedData = new MemoryStream();
+                LBEREncoder encoder = new LBEREncoder();
+
+                Asn1OctetString asn1_serverDN = new Asn1OctetString(serverDN);
+                Asn1OctetString asn1_contextName = new Asn1OctetString(contextName);
+
+                asn1_serverDN.encode(encoder, encodedData);
+                asn1_contextName.encode(encoder, encodedData);
+
+                setValue(SupportClass.ToSByteArray(encodedData.ToArray()));
+            }
+            catch (IOException)
+            {
+                throw new LdapException(ExceptionMessages.ENCODING_ERROR, LdapException.ENCODING_ERROR, null);
+            }
+        }
+    }
 }

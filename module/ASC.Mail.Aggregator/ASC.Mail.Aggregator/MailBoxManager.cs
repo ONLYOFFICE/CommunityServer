@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -33,6 +33,7 @@ using ASC.Common.Data;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Core;
 using ASC.Core.Tenants;
+using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Logging;
 using ASC.Security.Cryptography;
 using MailMessage = ASC.Mail.Aggregator.Common.MailMessage;
@@ -46,6 +47,7 @@ namespace ASC.Mail.Aggregator
         public const string ConnectionStringName = "mail";
 
         private readonly ILogger _log;
+        private CachedAccounts _cachedAccounts;
 
         private TimeSpan _authErrorWarningTimeout = TimeSpan.FromHours(2);
         private TimeSpan _authErrorDisableTimeout = TimeSpan.FromDays(3);
@@ -53,6 +55,11 @@ namespace ASC.Mail.Aggregator
         private const string DATA_TAG = "666ceac1-4532-4f8c-9cba-8f510eca2fd1";
 
         private const string GOOGLE_HOST = "gmail.com";
+
+        public CachedAccounts CachedAccounts
+        {
+            get { return _cachedAccounts ?? (_cachedAccounts = new CachedAccounts()); }
+        }
 
         public TimeSpan AuthErrorWarningTimeout
         {
@@ -188,13 +195,11 @@ namespace ASC.Mail.Aggregator
                 IsNew           = Convert.ToBoolean(r[10]),
                 IsAnswered      = Convert.ToBoolean(r[11]),
                 IsForwarded     = Convert.ToBoolean(r[12]),
-                IsFromCRM       = Convert.ToBoolean(r[13]),
-                IsFromTL        = Convert.ToBoolean(r[14]),
-                LabelsString    = (string)r[15],
-                RestoreFolderId = r[16] != null ? Convert.ToInt32(r[16]) : -1,
-                ChainId         = (string)(r[17] ?? ""),
-                ChainLength     = r[17] == null ? 1 : Convert.ToInt32(r[18]),
-                Folder          = Convert.ToInt32(r[19]),
+                LabelsString    = (string)r[13],
+                RestoreFolderId = r[14] != null ? Convert.ToInt32(r[14]) : -1,
+                ChainId         = (string)(r[15] ?? ""),
+                ChainLength     = r[15] == null ? 1 : Convert.ToInt32(r[16]),
+                Folder          = Convert.ToInt32(r[17]),
                 IsToday         = isToday,
                 IsYesterday     = isYesterday
             };

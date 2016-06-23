@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -40,6 +40,16 @@ var TariffSettings = new function () {
         }
 
         jq.switcherAction("#switcherPayments", "#paymentsContainer");
+
+        jq.dropdownToggle({
+            switcherSelector: "#currencySelector",
+            dropdownID: "currencyList",
+            rightPos: true,
+        });
+
+        jq("#currencyHelpSwitcher").click(function () { jq(this).helper({BlockHelperID: "currencyHelp"}) });
+
+        PhoneController.Init(jq(".text-edit-phone"), CountriesManager.countriesList, ["US"]);
 
         initMainProperties();
         initSlider();
@@ -98,7 +108,7 @@ var TariffSettings = new function () {
 
             slideRefreshText($thisHandle, ui.value);
         } else {
-            $thisHandle.parent().slider("option", "value", ui.value);
+            selectUserCount(jq(ui.handle), ui.curTariffMaxUsers);
         }
     };
 
@@ -107,7 +117,10 @@ var TariffSettings = new function () {
         var curTariffMaxUsers = getTariffMaxUsersByCurUsrCnt(_defaultTariff);
 
         sliderHandle.append("<div class=\"ui-slider-handle-text\">" + curTariffMaxUsers + "</div><div class=\"ui-slider-handle-q\"></div>");
-        sliderHandle.children(".ui-slider-handle-q").append(jq(".tariff-user-question:first").removeClass("display-none"));
+        sliderHandle.children(".ui-slider-handle-q").append(jq(".tariff-user-question:first"));
+        if (_defaultTariff / _sliderVals.length < 0.3) {
+            jq(".tariff-user-question").addClass("tariff-user-question-right");
+        }
 
         selectUserCount(sliderHandle, curTariffMaxUsers);
     };
@@ -115,9 +128,12 @@ var TariffSettings = new function () {
     var onSliderStop = function (event, ui) {
         var curTariffMaxUsers = getTariffMaxUsersByCurUsrCnt(ui.value);
 
-        slideExt(null, { handle: ui.handle, value: _maxTariff < ui.value ? _sliderVals[_sliderVals.length - 1] : curTariffMaxUsers });
-
-        selectUserCount(jq(ui.handle), curTariffMaxUsers);
+        slideExt(null,
+            {
+                handle: ui.handle,
+                value: _maxTariff < ui.value ? _sliderVals[_sliderVals.length - 1] : curTariffMaxUsers,
+                curTariffMaxUsers: curTariffMaxUsers
+            });
     };
 
     var onSliderStart = function (event, ui) {
@@ -128,7 +144,7 @@ var TariffSettings = new function () {
         return {
             values: _sliderVals,
             defaultClasses: _sliderClasses,
-            width: '10px',
+            width: Math.floor(parseInt(jq("#pricingPlanSlider").css("width")) / (_maxTariff + 10)),
             height: '6px',
 
             sliderOptions: {
@@ -182,11 +198,11 @@ var TariffSettings = new function () {
                 ['<li class="',
                 liClass,
                 '" style="left:',
-                (parseInt(options.width) * i).toFixed(0), 'px;',
+                options.width * i, 'px;',
                 ' height: ',
                 (options.height != null ? options.height : "100%"),
                 '; width:',
-                options.width,
+                options.width, "px",
                 ';"></li>'
                 ]
                 .join(''));
@@ -209,8 +225,6 @@ var TariffSettings = new function () {
         var userMinWarn = curTariffMaxUsers < _minTariff,
             userMaxWarn = _maxTariff < curTariffMaxUsers;
 
-        slideRefreshText(handle, curTariffMaxUsers);
-
         jq(".tariff-user-descr-item, .tariff-item").hide();
         jq(".tariff-user-descr-item[data-users=\"" + curTariffMaxUsers + "\"], .tariff-item[data-users=\"" + curTariffMaxUsers + "\"]").show();
 
@@ -218,7 +232,7 @@ var TariffSettings = new function () {
         jq("#pricingPlanSlider").toggleClass("warn-slider", userMinWarn);
         jq(".tariff-user-warn-min").toggle(userMinWarn);
         jq(".tariff-user-warn-max, .tariff-request-panel").toggle(userMaxWarn);
-        jq(".tariffs-panel, .see-full-price").toggle(!userMaxWarn);
+        jq(".tariffs-panel, .see-full-price, #currencyPanel").toggle(!userMaxWarn);
         if (userMinWarn || userMaxWarn) {
             jq(".tariff-user-descr-item").hide();
         }
@@ -266,15 +280,21 @@ var TariffSettings = new function () {
     };
 
     var requestTariff = function () {
-        var name = jq(".text-edit-name").val().trim();
+        var fname = jq(".text-edit-fname").val().trim();
+        var lname = jq(".text-edit-lname").val().trim();
+        var title = jq(".text-edit-title").val().trim();
         var email = jq(".text-edit-email").val().trim();
+        var phone = jq(".text-edit-phone").val().trim();
+        var ctitle = jq(".text-edit-ctitle").val().trim();
+        var csize = jq(".text-edit-csize").val().trim();
+        var site = jq(".text-edit-site").val().trim();
         var message = jq(".text-edit-message").val().trim();
-        if (!name.length || !email.length || !message.length) {
+        if (!fname.length || !email.length || !message.length || !phone.length || !ctitle.length || !csize.length || !site.length) {
             toastr.error(ASC.Resources.Master.Resource.ErrorEmptyField);
             return;
         }
 
-        TariffUsageController.RequestTariff(name, email, message,
+        TariffUsageController.RequestTariff(fname, lname, title, email, phone, ctitle, csize, site, message,
             function (result) {
                 if (result.error != null) {
                     toastr.error(result.error.Message);

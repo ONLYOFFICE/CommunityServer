@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -58,8 +58,10 @@ namespace ASC.Mail.Server.Administration.TestCases
             peter_alias = TestContext.CreateRandomMailAddress(peter_domain);
             peter_account = TestContext.GetMailAccount(peter_address.LocalPart, _peterDomainName);
             peter_second_account = TestContext.GetMailAccount(peter_second_address.LocalPart, _peterDomainName);
-            peter_mailbox = server.CreateMailbox(peter_address.LocalPart, PETER_PASSWORD, peter_domain, peter_account, TestContext.ServerFactory);
-            peter_second_mailbox = server.CreateMailbox(peter_second_address.LocalPart, PETER_PASSWORD, peter_domain, peter_second_account, TestContext.ServerFactory);
+            peter_mailbox = server.CreateMailbox(peter_account.TeamlabAccount.Name, peter_address.LocalPart, 
+                                                 PETER_PASSWORD, peter_domain, peter_account, TestContext.ServerFactory);
+            peter_second_mailbox = server.CreateMailbox(peter_second_account.TeamlabAccount.Name, peter_second_address.LocalPart, 
+                                                 PETER_PASSWORD, peter_domain, peter_second_account, TestContext.ServerFactory);
         }
 
         [TearDown]

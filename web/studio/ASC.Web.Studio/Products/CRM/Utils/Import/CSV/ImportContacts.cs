@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -43,24 +43,29 @@ namespace ASC.Web.CRM.Classes
 {
     public partial class ImportDataOperation
     {
+        private Int32 DaoIterationStep = 200;
+
         private void ImportContactsData()
         {
+            var index = 0;
+
+            var personFakeIdCompanyNameHash = new Dictionary<int, String>();
+
+            var contactDao = _daoFactory.GetContactDao();
+            var contactInfoDao = _daoFactory.GetContactInfoDao();
+            var customFieldDao = _daoFactory.GetCustomFieldDao();
+            var tagDao = _daoFactory.GetTagDao();
+
+            var findedContacts = new Dictionary<int, Contact>();
+            var findedTags = new Dictionary<int, List<String>>();
+            var findedCustomField = new List<CustomField>();
+            var findedContactInfos = new List<ContactInfo>();
+
+            #region Read csv
             using (var CSVFileStream = _dataStore.GetReadStream("temp", _CSVFileURI))
             using (CsvReader csv = ImportFromCSV.CreateCsvReaderInstance(CSVFileStream, _importSettings))
             {
                 int currentIndex = 0;
-
-                var personFakeIdCompanyNameHash = new Dictionary<int, String>();
-
-                var contactDao = _daoFactory.GetContactDao();
-                var contactInfoDao = _daoFactory.GetContactInfoDao();
-                var customFieldDao = _daoFactory.GetCustomFieldDao();
-                var tagDao = _daoFactory.GetTagDao();
-
-                var findedContacts = new Dictionary<int, Contact>();
-                var findedTags = new Dictionary<int, List<String>>();
-                var findedCustomField = new List<CustomField>();
-                var findedContactInfos = new List<ContactInfo>();
 
                 while (csv.ReadNextRecord())
                 {
@@ -111,171 +116,285 @@ namespace ASC.Web.CRM.Classes
                     if (currentIndex + 1 > ImportFromCSV.MaxRoxCount) break;
                     currentIndex++;
                 }
+            }
+            _log.InfoFormat("ImportContactsData. Reading {0} findedContacts complete", findedContacts.Count);
 
-                Percentage = 37.5;
+            #endregion
 
-                if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
+            Percentage = 37.5;
+
+            #region Check Cancel flag | Insert Operation InCache
+            if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
+            {
+                ImportDataCache.ResetAll(EntityType.Contact);
+
+                throw new OperationCanceledException();
+            }
+
+            ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone()); 
+            #endregion
+
+            #region Processing duplicate rule
+
+            _DuplicateRecordRuleProcess(ref findedContacts, ref personFakeIdCompanyNameHash, ref findedContactInfos, ref findedCustomField, ref findedTags);
+
+            _log.Info("ImportContactsData. _DuplicateRecordRuleProcess. End");
+
+            if (IsCompleted) {
+                return;
+            }
+
+            #endregion
+
+            Percentage += 12.5;
+
+            #region Check Cancel flag | Insert Operation InCache
+            if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
+            {
+                ImportDataCache.ResetAll(EntityType.Contact);
+
+                throw new OperationCanceledException();
+            }
+
+            ImportDataCache.Insert(EntityType.Contact,(ImportDataOperation)Clone());
+            #endregion
+
+            #region Manipulation for saving Companies for persons + CRMSecurity
+
+            var findedCompanies = findedContacts.Where(x => x.Value is Company).ToDictionary(x => x.Key, y => y.Value);
+            var findedPeoples = findedContacts.Where(x => x.Value is Person).ToDictionary(x => x.Key, y => y.Value);
+
+            var fakeRealContactIdHash = new Dictionary<int, int>();
+            var companyNameRealIdHash = new Dictionary<String, int>();
+
+
+            var findedCompaniesList = findedCompanies.Values.ToList();
+            if (findedCompaniesList.Count != 0)
+            {
+                index = 0;
+                while (index < findedCompaniesList.Count)
                 {
-                    ImportDataCache.ResetAll(EntityType.Contact);
+                    var portion = findedCompaniesList.Skip(index).Take(DaoIterationStep).ToList();// Get next step
 
-                    throw new OperationCanceledException();
-                }
-
-                ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());               
-
-
-                #region Processing duplicate rule
-
-                _DuplicateRecordRuleProcess(ref findedContacts, ref personFakeIdCompanyNameHash, ref findedContactInfos, ref findedCustomField, ref findedTags);
-
-                #endregion
-
-                Percentage += 12.5;
-
-                if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
-                {
-                    ImportDataCache.ResetAll(EntityType.Contact);
-
-                    throw new OperationCanceledException();
-                }
-
-                ImportDataCache.Insert(EntityType.Contact,(ImportDataOperation)Clone());               
-                
-                var findedCompanies = findedContacts.Where(x => x.Value is Company).ToDictionary(x => x.Key, y => y.Value);
-                var findedPeoples = findedContacts.Where(x => x.Value is Person).ToDictionary(x => x.Key, y => y.Value);
-
-                var fakeRealContactIdHash = contactDao.SaveContactList(findedCompanies.Values.ToList())
-                                            .ToDictionary(item => item.Key, item => item.Value);
-
-                var companyNameRealIdHash = new Dictionary<String, int>();
-
-                foreach (Company item in findedCompanies.Values)
-                {
-                    if (companyNameRealIdHash.ContainsKey(item.CompanyName)) continue;
-
-                    companyNameRealIdHash.Add(item.CompanyName, item.ID);
-                }
-
-                foreach (var item in personFakeIdCompanyNameHash)
-                {
-                    var person = (Person)findedPeoples[item.Key];
+                    fakeRealContactIdHash = fakeRealContactIdHash.Union(
+                        contactDao.SaveContactList(portion))
+                        .ToDictionary(item => item.Key, item => item.Value);
 
 
-                    if (companyNameRealIdHash.ContainsKey(item.Value))
+            #region CRMSecurity set -by every item-
+
+                    portion.ForEach(ct => CRMSecurity.SetAccessTo(ct, _importSettings.ContactManagers));
+
+            #endregion
+
+
+                    index += DaoIterationStep;
+                    if (index > findedCompaniesList.Count)
                     {
-                        person.CompanyID = companyNameRealIdHash[item.Value];
+                        index = findedCompaniesList.Count;
+                    }
+                }
+            }
+
+
+            foreach (Company item in findedCompanies.Values)
+            {
+                if (companyNameRealIdHash.ContainsKey(item.CompanyName)) continue;
+
+                companyNameRealIdHash.Add(item.CompanyName, item.ID);
+            }
+
+            foreach (var item in personFakeIdCompanyNameHash)
+            {
+                var person = (Person)findedPeoples[item.Key];
+
+                if (companyNameRealIdHash.ContainsKey(item.Value))
+                {
+                    person.CompanyID = companyNameRealIdHash[item.Value];
+                }
+                else
+                {
+                    var findedCompany = contactDao.GetContactsByName(item.Value, true).FirstOrDefault();
+
+                    // Why ???
+                    if (findedCompany == null)
+                    {
+                        #region create COMPANY for person in csv
+                            
+                        findedCompany = new Company
+                        {
+                            CompanyName = item.Value,
+                            ShareType = _importSettings.ShareType
+                        };
+                        findedCompany.ID = contactDao.SaveContact(findedCompany);
+
+                        person.CompanyID = findedCompany.ID;
+                        CRMSecurity.SetAccessTo(findedCompany, _importSettings.ContactManagers);
+
+                        if (_importSettings.Tags.Count != 0)
+                        {
+                            tagDao.SetTagToEntity(EntityType.Contact, person.CompanyID, _importSettings.Tags.ToArray());
+                        }
+
+                        #endregion
                     }
                     else
                     {
-                        var findedCompany = contactDao.GetContactsByName(item.Value, true).FirstOrDefault();
+                        person.CompanyID = findedCompany.ID;
+                    }
 
-                        // Why ???
-                        if (findedCompany == null)
-                        {
-                            #region create COMPANY for person in csv
-                            
-                            findedCompany = new Company
-                            {
-                                CompanyName = item.Value,
-                                ShareType = _importSettings.ShareType
-                            };
-                            findedCompany.ID = contactDao.SaveContact(findedCompany);
+                    companyNameRealIdHash.Add(item.Value, person.CompanyID);
+                }
+            }
+            #endregion
 
-                            person.CompanyID = findedCompany.ID;
-                            CRMSecurity.SetAccessTo(findedCompany, _importSettings.ContactManagers);
+            #region Saving People common data -by portions- + CRMSecurity
 
-                            if (_importSettings.Tags.Count != 0)
-                            {
-                                tagDao.SetTagToEntity(EntityType.Contact, person.CompanyID, _importSettings.Tags.ToArray());
-                            }
+            var findedPeopleList = findedPeoples.Values.ToList();
+            if (findedPeopleList.Count != 0)
+            {
+                index = 0;
+                while (index < findedPeopleList.Count)
+                {
+                    var portion = findedPeopleList.Skip(index).Take(DaoIterationStep).ToList();// Get next step
 
-                            #endregion
-                        }
-                        else
-                        {
-                            person.CompanyID = findedCompany.ID;
-                        }
+                    fakeRealContactIdHash = fakeRealContactIdHash.Union(
+                        contactDao.SaveContactList(portion))
+                        .ToDictionary(item => item.Key, item => item.Value);
 
-                        companyNameRealIdHash.Add(item.Value, person.CompanyID);
+                #region CRMSecurity set -by every item-
+
+                    portion.ForEach(ct => CRMSecurity.SetAccessTo(ct, _importSettings.ContactManagers));
+
+                #endregion
+
+
+                    index += DaoIterationStep;
+                    if (index > findedPeopleList.Count)
+                    {
+                        index = findedPeopleList.Count;
                     }
                 }
-
-                fakeRealContactIdHash = fakeRealContactIdHash.Union(contactDao.SaveContactList(findedPeoples.Values.ToList()))
-                    .ToDictionary(item => item.Key, item => item.Value);
-
-                Percentage += 12.5;
-
-                if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
-                {
-                    ImportDataCache.ResetAll(EntityType.Contact);
-
-                    throw new OperationCanceledException();
-                }
-
-                ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());               
-
-
-                #region Save contact infos
-
-                findedContactInfos.ForEach(item => item.ContactID = fakeRealContactIdHash[item.ContactID]);
-                contactInfoDao.SaveList(findedContactInfos);
-
-                #endregion
-
-                Percentage += 12.5;
-
-                if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
-                {
-                    ImportDataCache.ResetAll(EntityType.Contact);
-
-                    throw new OperationCanceledException();
-                }
-
-                ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());               
-                
-                #region Save custom fields
-
-                findedCustomField.ForEach(item => item.EntityID = fakeRealContactIdHash[item.EntityID]);
-                customFieldDao.SaveList(findedCustomField);
-
-                #endregion
-
-                Percentage += 12.5;
-
-                if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
-                {
-                    ImportDataCache.ResetAll(EntityType.Contact);
-
-                    throw new OperationCanceledException();
-                }
-
-                ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());               
-
-
-                #region Save tags
-                foreach (var findedTagKey in findedTags.Keys)
-                {
-                    tagDao.SetTagToEntity(EntityType.Contact, fakeRealContactIdHash[findedTagKey], findedTags[findedTagKey].ToArray());
-                }
-                #endregion
-
-                #region CRMSecurity set
-
-                findedContacts.Values.ToList().ForEach(contact => CRMSecurity.SetAccessTo(contact, _importSettings.ContactManagers));
-
-                #endregion
-
-                Percentage += 12.5;
-
-                if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
-                {
-                    ImportDataCache.ResetAll(EntityType.Contact);
-
-                    throw new OperationCanceledException();
-                }
-
-                ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());      
             }
+            _log.Info("ImportContactsData. Contacts common data saved");
+            #endregion
+
+            Percentage += 12.5;
+
+            #region Check Cancel flag | Insert Operation InCache
+            if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
+            {
+                ImportDataCache.ResetAll(EntityType.Contact);
+
+                throw new OperationCanceledException();
+            }
+
+            ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());  
+            #endregion
+
+            #region Save contact infos -by portions-
+
+            if (findedContactInfos.Count != 0)
+            {
+                findedContactInfos.ForEach(item => item.ContactID = fakeRealContactIdHash[item.ContactID]);
+
+                index = 0;
+                while (index < findedContactInfos.Count)
+                {
+                    var portion = findedContactInfos.Skip(index).Take(DaoIterationStep).ToList();// Get next step
+
+                    contactInfoDao.SaveList(portion);
+
+                    index += DaoIterationStep;
+                    if (index > findedContactInfos.Count)
+                    {
+                        index = findedContactInfos.Count;
+                    }
+                }
+            }
+            _log.Info("ImportContactsData. Contacts infos saved");
+            #endregion
+
+            Percentage += 12.5;
+
+            #region Check Cancel flag | Insert Operation InCache
+            if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
+            {
+                ImportDataCache.ResetAll(EntityType.Contact);
+
+                throw new OperationCanceledException();
+            }
+
+            ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());
+            #endregion
+
+            #region Save custom fields -by portions-
+
+            if (findedCustomField.Count != 0)
+            {
+                findedCustomField.ForEach(item => item.EntityID = fakeRealContactIdHash[item.EntityID]);
+                
+                index = 0;
+                while (index < findedCustomField.Count)
+                {
+                    var portion = findedCustomField.Skip(index).Take(DaoIterationStep).ToList();// Get next step
+
+                    customFieldDao.SaveList(portion);
+
+                    index += DaoIterationStep;
+                    if (index > findedCustomField.Count)
+                    {
+                        index = findedCustomField.Count;
+                    }
+                }
+            }
+            _log.Info("ImportContactsData. Custom fields saved");
+            #endregion
+
+            Percentage += 12.5;
+
+            #region Check Cancel flag | Insert Operation InCache
+            if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
+            {
+                ImportDataCache.ResetAll(EntityType.Contact);
+
+                throw new OperationCanceledException();
+            }
+
+            ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone()); 
+            #endregion
+
+            #region Save tags
+
+            var findedTagsValues = new List<string>();
+
+            findedTags.Values.ToList().ForEach(t => { findedTagsValues.AddRange(t); });
+            findedTagsValues = findedTagsValues.Distinct().ToList();
+
+            var allTagsForImport = tagDao.GetAndAddTags(EntityType.Contact, findedTagsValues.Distinct().ToArray());
+
+            foreach (var findedTagKey in findedTags.Keys)
+            {
+                var curTagNames = findedTags[findedTagKey];
+                var curTagIds = curTagNames.ConvertAll(n => allTagsForImport.ContainsKey(n) ? allTagsForImport[n] : 0).Where(id => id != 0).ToArray();
+
+                tagDao.AddTagToEntity(EntityType.Contact, fakeRealContactIdHash[findedTagKey], curTagIds);
+            }
+            _log.Info("ImportContactsData. Tags saved");
+            #endregion
+
+            Percentage += 12.5;
+
+            #region Check Cancel flag | Insert Operation InCache
+            if (ImportDataCache.CheckCancelFlag(EntityType.Contact))
+            {
+                ImportDataCache.ResetAll(EntityType.Contact);
+
+                throw new OperationCanceledException();
+            }
+
+            ImportDataCache.Insert(EntityType.Contact, (ImportDataOperation)Clone());
+            #endregion
 
             Complete();
         }
@@ -289,7 +408,7 @@ namespace ASC.Web.CRM.Classes
             if (String.IsNullOrEmpty(firstName) && String.IsNullOrEmpty(lastName) && String.IsNullOrEmpty(companyName))
                 return false;
 
-            Percentage += 1.0 * 100 / (ImportFromCSV.MaxRoxCount * 2);
+            Percentage += 1.0 * 100 / (ImportFromCSV.MaxRoxCount * 3);
 
             var listItemDao = _daoFactory.GetListItemDao();
 
@@ -359,6 +478,8 @@ namespace ASC.Web.CRM.Classes
 
             return true;
         }
+
+        #region Read methods
 
         private void _ReadTags(ref Dictionary<int, List<String>> findedTags, Contact contact)
         {
@@ -456,6 +577,8 @@ namespace ASC.Web.CRM.Classes
                 IsPrimary = isPrimary
             });
         }
+        
+        #endregion
 
         private void _DuplicateRecordRuleProcess(
             ref Dictionary<int, Contact> findedContacts,
@@ -466,47 +589,82 @@ namespace ASC.Web.CRM.Classes
         {
             var contactDao = _daoFactory.GetContactDao();
 
+            _log.Info("_DuplicateRecordRuleProcess. Start");
+
             switch (_importSettings.DuplicateRecordRule)
             {
                 case 1:  // Skip  
                     {
                         var emails = findedContactInfos.Where(item => item.InfoType == ContactInfoType.Email).ToList();
 
-                        var duplicateContactsID = contactDao.FindDuplicateByEmail(emails)
-                            .Select(row => Convert.ToInt32(row[0]))
-                            .Distinct()
-                            .ToList();
+                        if (emails.Count == 0) break;
 
-                        if (duplicateContactsID.Count == 0) break;
-
-                        findedContacts = findedContacts.Where(item => !duplicateContactsID.Contains(item.Key)).ToDictionary(x => x.Key, y => y.Value);
-
-                        personFakeIdCompanyNameHash = personFakeIdCompanyNameHash.Where(item => !duplicateContactsID.Contains(item.Key)).ToDictionary(x => x.Key, y => y.Value);
-
-                        if (findedContacts.Count == 0)
+                        var index = 0;
+                        while (index < emails.Count)
                         {
-                            Complete();
+                            var emailsIteration = emails.Skip(index).Take(DaoIterationStep).ToList();// Get next step
 
-                            return;
-                        }
+                            var duplicateContactsID = contactDao.FindDuplicateByEmail(emailsIteration, false)
+                                                        .Distinct()
+                                                        .ToList();
 
-                        findedContactInfos = findedContactInfos.Where(item => !duplicateContactsID.Contains(item.ContactID)).ToList();
-                        findedCustomField = findedCustomField.Where(item => !duplicateContactsID.Contains(item.EntityID)).ToList();
+                            if (duplicateContactsID.Count != 0)
+                            {
+                                findedContacts = findedContacts.Where(item => !duplicateContactsID.Contains(item.Key)).ToDictionary(x => x.Key, y => y.Value);
 
-                        foreach (var exceptID in duplicateContactsID)
-                        {
-                            if (findedTags.ContainsKey(exceptID)) findedTags.Remove(exceptID);
+                                personFakeIdCompanyNameHash = personFakeIdCompanyNameHash.Where(item => !duplicateContactsID.Contains(item.Key)).ToDictionary(x => x.Key, y => y.Value);
+
+                                if (findedContacts.Count == 0)
+                                {
+                                    Complete();
+                                    return;
+                                }
+
+                                findedContactInfos = findedContactInfos.Where(item => !duplicateContactsID.Contains(item.ContactID)).ToList();
+                                findedCustomField = findedCustomField.Where(item => !duplicateContactsID.Contains(item.EntityID)).ToList();
+
+                                foreach (var exceptID in duplicateContactsID)
+                                {
+                                    if (findedTags.ContainsKey(exceptID)) findedTags.Remove(exceptID);
+                                }
+                            }
+
+                            index += DaoIterationStep;
+                            if (index > emails.Count)
+                            {
+                                index = emails.Count;
+                            }
                         }
                     }
                     break;
                 case 2:  // Overwrite  
                     {
                         var emailContactInfos = findedContactInfos.Where(item => item.InfoType == ContactInfoType.Email).ToList();
+                        if (emailContactInfos.Count == 0) break;
 
-                        var duplicateContactsID = contactDao.FindDuplicateByEmail(emailContactInfos).Select(
-                             row => Convert.ToInt32(row[2])).Distinct().ToArray();
+                        _log.InfoFormat("_DuplicateRecordRuleProcess. Overwrite. Start. All emeails count = {0}", emailContactInfos.Count);
 
-                        contactDao.DeleteBatchContact(duplicateContactsID);
+                        var index = 0;
+                        while (index < emailContactInfos.Count)
+                        {
+                            var emailsIteration = emailContactInfos.Skip(index).Take(DaoIterationStep).ToList();// Get next step
+
+                            _log.InfoFormat("_DuplicateRecordRuleProcess. Overwrite. Portion from index = {0}. count = {1}", index, emailsIteration.Count);
+                            var duplicateContactsID = contactDao.FindDuplicateByEmail(emailsIteration, true)
+                                                        .Distinct()
+                                                        .ToArray();
+
+                            _log.InfoFormat("_DuplicateRecordRuleProcess. Overwrite. FindDuplicateByEmail result count = {0}", duplicateContactsID.Length);
+                            var deleted = contactDao.DeleteBatchContact(duplicateContactsID);
+
+                            _log.InfoFormat("_DuplicateRecordRuleProcess. Overwrite. DeleteBatchContact. Was deleted {0} contacts", deleted != null ? deleted.Count : 0);
+
+                            index += DaoIterationStep;
+                            if (index > emailContactInfos.Count)
+                            {
+                                index = emailContactInfos.Count;
+                            }
+                        }
 
                         break;
                     }

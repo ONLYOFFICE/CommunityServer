@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -26,14 +26,19 @@
 
 using System.Collections.Generic;
 using ASC.Files.Core.Security;
+using ASC.Mail.Aggregator.Common.Utils;
 
 namespace ASC.Mail.Aggregator.Common
 {
     public class MailDraft
     {
+        private readonly string _calendarEventUid;
+        private readonly string _calendarMethod;
+        private readonly string _calendarIcs;
+
         public MailDraft(int id, MailBox mailBox, string from, List<string> to, List<string> cc, List<string> bcc,
                          string subject, string mimeMessageId, string mimeReplyToId, bool important,
-                         List<int> tags, string body, string streamId, List<MailAttachment> attachments)
+                         List<int> tags, string body, string streamId, List<MailAttachment> attachments, string calendarIcs = "")
         {
             Id = id;
             Mailbox = mailBox;
@@ -48,9 +53,20 @@ namespace ASC.Mail.Aggregator.Common
             Labels = tags;
             HtmlBody = body;
             StreamId = streamId;
-            DisplayName = mailBox.Name;
             Attachments = attachments;
             AttachmentsEmbedded = new List<MailAttachment>();
+
+            if (!string.IsNullOrEmpty(calendarIcs))
+            {
+                _calendarIcs = calendarIcs;
+
+                var calendar = MailUtil.ParseValidCalendar(_calendarIcs);
+                if (calendar != null)
+                {
+                    _calendarMethod = calendar.Method;
+                    _calendarEventUid = calendar.Events[0].UID;
+                }
+            }
         }
 
         public int Id { get; set; }
@@ -77,12 +93,6 @@ namespace ASC.Mail.Aggregator.Common
 
         public string StreamId { get; set; }
 
-        public string DisplayName
-        {
-            get { return string.IsNullOrEmpty(_displayName) ? "" : _displayName; }
-            set { _displayName = value; }
-        }
-
         public int ReplyToId { get; set; }
 
         public List<int> Labels { get; set; }
@@ -99,6 +109,16 @@ namespace ASC.Mail.Aggregator.Common
 
         public int PreviousMailboxId { get; set; }
 
-        private string _displayName = string.Empty;
+        public string CalendarIcs {
+            get { return _calendarIcs; }
+        }
+
+        public string CalendarEventUid {
+            get { return _calendarEventUid; }
+        }
+
+        public string CalendarMethod {
+            get { return _calendarMethod; }
+        }
     }
 }

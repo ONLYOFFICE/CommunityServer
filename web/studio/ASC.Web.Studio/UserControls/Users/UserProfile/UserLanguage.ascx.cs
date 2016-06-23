@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -28,6 +28,8 @@ using System;
 using System.Web;
 using System.Web.UI;
 using ASC.MessagingSystem;
+using ASC.Web.Core.WhiteLabel;
+using ASC.Web.Studio.Utility;
 using AjaxPro;
 using ASC.Core;
 using ASC.Web.Studio.Core;
@@ -43,11 +45,19 @@ namespace ASC.Web.Studio.UserControls.Users
             get { return "~/UserControls/Users/UserProfile/UserLanguage.ascx"; }
         }
 
+        protected string HelpLink { get; set; }
+
+        protected bool ShowHelper { get; set; }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
             Page.RegisterStyle(ResolveUrl("~/usercontrols/users/userprofile/css/userlanguages.less"));
             Page.RegisterBodyScripts(VirtualPathUtility.ToAbsolute("~/usercontrols/users/userprofile/js/userlanguage.js"));
+
+            HelpLink = CommonLinkUtility.GetHelpLink();
+
+            ShowHelper = !(CoreContext.Configuration.Standalone && !CompanyWhiteLabelSettings.Instance.IsDefault);
         }
 
         [AjaxMethod(HttpSessionStateRequirement.ReadWrite)]

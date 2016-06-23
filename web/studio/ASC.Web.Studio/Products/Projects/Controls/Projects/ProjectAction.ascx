@@ -4,7 +4,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ProjectAction.ascx.cs" Inherits="ASC.Web.Projects.Controls.Projects.ProjectAction" %>
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Core.Users" %>
-<%@ Import Namespace="ASC.Projects.Core.Domain" %>
 <%@ Import Namespace="ASC.Projects.Engine" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
@@ -110,7 +109,7 @@
         <div class="headerPanelSmall"><%= ProjectsCommonResource.ProjectLinkedWithContacts %></div>
         <div class="no-linked-contacts"><%= ProjectsCommonResource.NoCRMContactsForLink %></div>
         <div id="contactListBox">
-            <table id="contactTable" class="tableBase" cellpadding="4" cellspacing="0">
+            <table id="contactTable" class="table-list" cellpadding="4" cellspacing="0">
                 <tbody>
                 </tbody>
             </table>

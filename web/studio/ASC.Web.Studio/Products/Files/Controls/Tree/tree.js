@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -29,7 +29,10 @@ window.ASC.Files.TreePrototype = function (root, rootId) {
         if (folderId == treeNodeRootId) {
             return treeNodeRoot;
         }
-        return treeNodeRoot.find(".tree-node[data-id=\"" + folderId + "\"]");
+        if (ASC.Files.UI) {
+            return treeNodeRoot.find(".tree-node" + ASC.Files.UI.getSelectorId(folderId));
+        }
+        return treeNodeRoot.find(".tree-node[data-id=\"" + (folderId + "").replace(/\\/g, "\\\\").replace(/\"/g, "\\\"") + "\"]");
     };
 
     var getFolderId = function (treeNode) {
@@ -50,7 +53,7 @@ window.ASC.Files.TreePrototype = function (root, rootId) {
             treeNode.removeClass("jstree-empty").append("<ul>" + htmlData + "</ul>");
             treeNode.find("ul a").each(function () {
                 var hash = getFolderId(this);
-                hash = ASC.Files.Constants.URL_BASE + "#" + ASC.Files.Common.fixHash(hash);
+                hash = ASC.Files.Constants.URL_BASE + "#" + ASC.Files.Common.getCorrectHash(hash);
                 jq(this).attr("href", hash);
             });
         } else {
@@ -90,13 +93,12 @@ window.ASC.Files.TreePrototype = function (root, rootId) {
         var treeNode = jq(this).parent();
         var folderId = getFolderId(treeNode);
 
-        if (tree.clickOnFolder(folderId) !== false) {
-            select(treeNode);
-        }
+        var checkSelected = tree.clickOnFolder(folderId) !== false;
+        select(treeNode, checkSelected);
         return false;
     };
 
-    var select = function (treeNode) {
+    var select = function (treeNode, checkSelected) {
         treeNodeRoot.find("a.selected").removeClass("selected");
         treeNodeRoot.find(".parent-selected").removeClass("parent-selected");
 
@@ -113,7 +115,7 @@ window.ASC.Files.TreePrototype = function (root, rootId) {
             treeNodeRoot.scrollTop(nodeY);
         }
 
-        tree.selectedFolderId = getFolderId(treeNode);
+        tree.selectedFolderId = checkSelected ? getFolderId(treeNode) : null;
     };
 
     var getTreeSubFolders = function (folderId, ajaxsync) {
@@ -150,6 +152,9 @@ window.ASC.Files.TreePrototype = function (root, rootId) {
         var treeNode = getTreeNode(folderId);
 
         if (!treeNode.length) {
+            if (treeNodeRootId != null) {
+                return;
+            }
             treeNode = treeNodeRoot;
         }
 
@@ -196,7 +201,7 @@ window.ASC.Files.TreePrototype = function (root, rootId) {
             treeNode = getTreeNode(folderId);
         }
 
-        select(treeNode);
+        select(treeNode, true);
     };
 
     this.resetFolder = function (folderId) {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -300,6 +300,48 @@ jQuery.extend({
         }
 
         return e;
+    },
+
+    showDropDownByContext: function (evt, target, dropdownItem) {
+        var ddiHeight = dropdownItem.innerHeight(),
+            ddiWidth = dropdownItem.innerWidth(),
+
+            w = jq(window),
+            scrScrollTop = w.scrollTop(),
+            scrHeight = w.height();
+
+        if (target.is(".entity-menu") || target.is(".menu-small")) {
+            target.addClass("active");
+
+            var
+                baseTop = target.offset().top + target.outerHeight() - 2,
+                correctionY =
+                    ddiHeight > target.offset().top
+                    ? 0
+                    : (scrHeight + scrScrollTop - baseTop > ddiHeight ? 0 : ddiHeight);
+
+            dropdownItem.css({
+                "top": baseTop - correctionY + (correctionY == 0 ? 2 : -target.outerHeight() - 2),
+                "left": target.offset().left + target.outerWidth() - ddiWidth + 10,
+                "right": "auto"
+            });
+        } else {
+            var
+                correctionX = document.body.clientWidth - (evt.pageX - pageXOffset + ddiWidth) > 0 ? 0 : ddiWidth,
+                correctionY =
+                    ddiHeight > evt.pageY
+                    ? 0
+                    : (scrHeight + scrScrollTop - evt.pageY > ddiHeight ? 0 : ddiHeight);
+
+            dropdownItem.css(
+                {
+                    "top": evt.pageY - correctionY,
+                    "left": evt.pageX - correctionX,
+                    "right": "auto",
+                    "margin": "0"
+                });
+        }
+        dropdownItem.show();
     }
 });
 
@@ -312,6 +354,12 @@ String.prototype.format = function() {
     }
     return txt;
 };
+
+String.prototype.removeAt = function (start, length) {
+    var chars = this.split("");
+    chars.splice(start, length);
+    return chars.join("");
+}
 
 StudioBlockUIManager = {
     blockUI: function (obj, width, height, top, position, opts) {
@@ -499,6 +547,11 @@ var StudioManager = new function () {
             return path;
         }
         return path;
+    };
+
+    this.getCurrentModule = function () {
+        var parts = location.pathname.toLowerCase().split("/");
+        return parts.length > 2 ? parts[2] : (parts.length === 2 && parts[1] !== "" ? parts[1].replace(".aspx", "") : "main");
     };
 
     this.createCustomSelect = function (selects, hiddenBorder, AdditionalBottomOption) {

@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -25,7 +25,9 @@
 
 
 using ASC.Web.Files.Resources;
+using log4net;
 using System;
+using System.Diagnostics;
 using System.Net;
 using System.Net.Http;
 using System.Runtime.Serialization;
@@ -35,12 +37,27 @@ namespace ASC.Web.Files.Services.WCFService
 {
     class FileExceptionFilterAttribute : ExceptionFilterAttribute
     {
+        private static readonly ILog log = LogManager.GetLogger("ASC.Web.Files");
+
+
         public override void OnException(HttpActionExecutedContext actionExecutedContext)
         {
             if (actionExecutedContext.Exception != null && actionExecutedContext.Response == null)
             {
                 var fileError = new FileError(actionExecutedContext.Exception);
                 actionExecutedContext.Response = actionExecutedContext.Request.CreateResponse(HttpStatusCode.BadRequest, fileError);
+            }
+            LogException(actionExecutedContext.Exception);
+        }
+
+
+        [Conditional("DEBUG")]
+        private void LogException(Exception err)
+        {
+            while (err != null)
+            {
+                log.Error(err);
+                err = err.InnerException;
             }
         }
 

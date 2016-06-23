@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -236,14 +236,14 @@ namespace ASC.Data.Storage.S3
 
 
             using (var client = GetClient())
+            using (var uploader = new TransferUtility(client))
             {
-
                 var mime = string.IsNullOrEmpty(contentType)
                                   ? MimeMapping.GetMimeMapping(Path.GetFileName(path))
                                   : contentType;
                 var buffered = stream.GetBuffered();
 
-                var request = new PutObjectRequest
+                var request = new TransferUtilityUploadRequest
                 {
                     BucketName = _bucket,
                     Key = MakePath(domain, path),
@@ -280,10 +280,7 @@ namespace ASC.Data.Storage.S3
                     QuotaController.QuotaUsedAdd(_modulename, domain, _dataList.GetData(domain), buffered.Length);
                 }
 
-                var response = client.PutObject(request);
-                var destinationObjectEncryptionStatus = response.ServerSideEncryptionMethod;
-
-                //..ServerSideEncryptionMethod;
+                uploader.Upload(request);
 
                 InvalidateCloudFront(MakePath(domain, path));
 
@@ -530,7 +527,7 @@ namespace ASC.Data.Storage.S3
 
         public override void DeleteFiles(string domain, List<string> paths)
         {
-            if(!paths.Any()) return;
+            if (!paths.Any()) return;
 
             var keysToDel = new List<string>();
 
@@ -570,10 +567,10 @@ namespace ASC.Data.Storage.S3
             using (var client = GetClient())
             {
                 var deleteRequest = new DeleteObjectsRequest
-                    {
-                        BucketName = _bucket,
-                        Objects = keysToDel.Select(key => new KeyVersion { Key = key }).ToList()
-                    };
+                {
+                    BucketName = _bucket,
+                    Objects = keysToDel.Select(key => new KeyVersion { Key = key }).ToList()
+                };
 
                 client.DeleteObjects(deleteRequest);
             }

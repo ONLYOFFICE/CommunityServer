@@ -2,7 +2,6 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TaskDescriptionView.ascx.cs"
     Inherits="ASC.Web.Projects.Controls.Tasks.TaskDescriptionView" %>
 <%@ Import Namespace="ASC.Projects.Core.Domain" %>
-<%@ Import Namespace="ASC.Web.Core.Mobile" %>
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Register TagPrefix="scl" Namespace="ASC.Web.Studio.UserControls.Common.Comments" Assembly="ASC.Web.Studio" %>
@@ -105,14 +104,15 @@
     </div>
     <% } %>
     
-    <% if(CanReadFiles)
-        if ((CanEditTask && !MobileDetector.IsMobile) || (AttachmentsCount > 0)) { %>
+    <% if (DoInitAttachments)
+       { %>
     <div id="filesTab" class="tabs-section">
         <span class="header-base">
             <%= ProjectsCommonResource.DocsModuleTitle %>
             <span class="count">
-                <%if (AttachmentsCount>0){%>
-                (<%=AttachmentsCount %>)
+                <% if (AttachmentsCount > 0)
+                   { %>
+                (<%= AttachmentsCount %>)
                 <% } %>
             </span>
         </span>
@@ -121,10 +121,10 @@
             <%= ProjectsCommonResource.Hide %>
         </span>
     </div>
-    <div id="filesContainer" style="margin-bottom: 8px;" data-projectFolderId = "<%=ProjectFolderId %>">
+    <div id="filesContainer" style="margin-bottom: 8px;" data-projectFolderId = "<%= ProjectFolderId %>">
         <asp:PlaceHolder runat="server" ID="phAttachmentsControl" />
     </div>
-    <%} %>
+    <% } %>
     
     <div id="linkedTasksTab" class="tabs-section">
         <span class="header-base">

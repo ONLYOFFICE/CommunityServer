@@ -1,6 +1,6 @@
 ﻿/*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -322,7 +322,7 @@ namespace ASC.Web.Studio.UserControls.Users
             var notifyBy = ConvertToNotifyByValue(subscriptionManager, Constants.ActionSendWhatsNew);
 
             return string.Format(@"
-<select id='NotifyByCombobox_WhatsNew' class='comboBox notify-by-combobox' style='display: none;' onchange='CommonSubscriptionManager.SetWhatsNewNotifyByMethod(jq(this).val());'>
+<select id='NotifyByCombobox_WhatsNew' class='comboBox notify-by-combobox' onchange='CommonSubscriptionManager.SetWhatsNewNotifyByMethod(jq(this).val());'>
 	<option class='optionItem' value='0'{3}>{0}</option>
 	<option class='optionItem' value='1'{4}>{1}</option>
 	<option class='optionItem' value='2'{5}>{2}</option>
@@ -396,7 +396,7 @@ namespace ASC.Web.Studio.UserControls.Users
             var notifyBy = ConvertToNotifyByValue(subscriptionManager, Constants.ActionAdminNotify);
 
             return string.Format(@"
-<select id='NotifyByCombobox_AdminNotify' class='comboBox notify-by-combobox' style='display: none;' onchange='CommonSubscriptionManager.SetAdminNotifyNotifyByMethod(jq(this).val());'>
+<select id='NotifyByCombobox_AdminNotify' class='comboBox notify-by-combobox' onchange='CommonSubscriptionManager.SetAdminNotifyNotifyByMethod(jq(this).val());'>
 	<option class='optionItem' value='0'{3}>{0}</option>
 	<option class='optionItem' value='1'{4}>{1}</option>
 	<option class='optionItem' value='2'{5}>{2}</option>

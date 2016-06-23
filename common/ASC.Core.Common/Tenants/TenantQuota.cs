@@ -1,6 +1,6 @@
 /*
  *
- * (c) Copyright Ascensio System Limited 2010-2015
+ * (c) Copyright Ascensio System Limited 2010-2016
  *
  * This program is freeware. You can redistribute it and/or modify it under the terms of the GNU 
  * General Public License (GPL) version 3 as published by the Free Software Foundation (https://www.gnu.org/copyleft/gpl.html). 
@@ -111,29 +111,28 @@ namespace ASC.Core.Tenants
             set { SetFeature("open", value); }
         }
 
-
         public bool ControlPanel
         {
             get { return GetFeature("controlpanel"); }
             set { SetFeature("controlpanel", value); }
         }
 
+        public bool Update
+        {
+            get { return GetFeature("update"); }
+            set { SetFeature("update", value); }
+        }
+
+        public bool Support
+        {
+            get { return GetFeature("support"); }
+            set { SetFeature("support", value); }
+        }
+
         public bool Audit
         {
             get { return GetFeature("audit"); }
             set { SetFeature("audit", value); }
-        }
-
-        public bool DocsEdition
-        {
-            get { return GetFeature("docs"); }
-            set { SetFeature("docs", value); }
-        }
-
-        public bool HasBackup
-        {
-            get { return GetFeature("backup"); }
-            set { SetFeature("backup", value); }
         }
 
         public bool HasDomain
@@ -184,6 +183,32 @@ namespace ASC.Core.Tenants
             set { SetFeature("whitelabel", value); }
         }
 
+        public int CountPortals
+        {
+            get
+            {
+                var features = (Features ?? string.Empty).Split(' ', ',', ';').ToList();
+                var portals = features.FirstOrDefault(f => f.StartsWith("portals:"));
+                int countPortals;
+                if (portals == null || !Int32.TryParse(portals.Replace("portals:", ""), out countPortals) || countPortals <= 0)
+                {
+                    countPortals = 0;
+                }
+                return countPortals;
+            }
+            set
+            {
+                var features = (Features ?? string.Empty).Split(' ', ',', ';').ToList();
+                var portals = features.FirstOrDefault(f => f.StartsWith("portals:"));
+                features.Remove(portals);
+                if (value > 0)
+                {
+                    features.Add("portals:" + value);
+                }
+                Features = string.Join(",", features.ToArray());
+            }
+        }
+
 
         public TenantQuota(int tenant)
         {
@@ -210,7 +235,9 @@ namespace ASC.Core.Tenants
 
         internal void SetFeature(string feature, bool set)
         {
-            var features = (Features ?? string.Empty).Split(' ', ',', ';').ToList();
+            var features = (Features == null
+                                ? new string[] {}
+                                : Features.Split(' ', ',', ';')).ToList();
             if (set && !features.Contains(feature))
             {
                 features.Add(feature);

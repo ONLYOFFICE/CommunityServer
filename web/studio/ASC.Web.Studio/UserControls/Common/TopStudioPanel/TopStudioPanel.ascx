@@ -3,6 +3,7 @@
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Core" %>
+<%@ Import Namespace="ASC.Web.Core.WhiteLabel" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
 <%@ Import Namespace="ASC.Web.Studio.UserControls.Statistics" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
@@ -175,20 +176,45 @@
                     <span class="dropdown-item dropdown-about-btn"><%= Resource.AboutCompanyTitle %> </span>
 
                     <div id="aboutCompanyPopupBody" class="display-none">
-                        <img class="confirmation-popup_logo" src="<%= ConfirmationLogo %>" />                                                               
+                        <div class="confirmation-popup_logo" style="<%= ConfirmationLogoStyle %>"></div>                                                           
                         <div class="confirmation-popup_version gray-text">
                             <%= string.IsNullOrEmpty(VersionNumber) ? "" : Resource.AboutCompanyVersion + " " + VersionNumber %>
                         </div>
+
+                        <% if (Settings.IsLicensor) { %>
                         <div class="confirmation-popup_licensor"><%= Resource.AboutCompanyLicensor %></div>
-                        <div class="confirmation-popup_name">Ascensio System SIA</div>
+                        <% } %>
+
+                        <% if (!String.IsNullOrEmpty(Settings.CompanyName)) { %>
+                        <div class="confirmation-popup_name"><%= Settings.CompanyName %></div>
+                        <% } %>
+
                         <ul class="confirmation-popup_info">
-                            <li><span class="gray-text"><%= Resource.AboutCompanyAddressTitle %>: 
-                                </span>Lubanas st. 125a-25, Riga, Latvia, EU, LV-1021</li>
-                            <li><span class="gray-text"><%= Resource.AboutCompanyEmailTitle %>: 
-                                </span><a href="mailto:support@onlyoffice.com" class="link">support@onlyoffice.com</a></li>
-                            <li><span class="gray-text"><%= Resource.AboutCompanyTelTitle %>: 
-                                </span>+371 660-16425</li>
-                            <li><a href="http://www.onlyoffice.com" target="_blank" class="link">www.onlyoffice.com</a></li>
+                            <% if (!String.IsNullOrEmpty(Settings.Address)) { %>
+                            <li>
+                                <span class="gray-text"><%= Resource.AboutCompanyAddressTitle %>: 
+                                </span><%= Settings.Address %>
+                            </li>
+                            <% } %>
+                            <% if (!String.IsNullOrEmpty(Settings.Email)) { %>
+                            <li>
+                                <span class="gray-text"><%= Resource.AboutCompanyEmailTitle %>: 
+                                </span><a href="mailto:<%= Settings.Email %>" class="link"><%= Settings.Email %></a>
+                            </li>
+                            <% } %>
+                            <% if (!String.IsNullOrEmpty(Settings.Phone)) { %>
+                            <li>
+                                <span class="gray-text"><%= Resource.AboutCompanyTelTitle %>: 
+                                </span><%= Settings.Phone %>
+                            </li>
+                            <% } %>
+                            <% if (!String.IsNullOrEmpty(Settings.Site)) { %>
+                            <li>
+                                <a href="<%= Settings.Site %>" target="_blank" class="link">
+                                    <%= Settings.Site.Replace(Uri.UriSchemeHttp + Uri.SchemeDelimiter, String.Empty).Replace(Uri.UriSchemeHttps + Uri.SchemeDelimiter, String.Empty) %>
+                                </a>
+                            </li>
+                            <% } %>
                         </ul>
 
                         <% if (IsAuthorizedPartner.HasValue && IsAuthorizedPartner.Value && Partner != null)
@@ -221,6 +247,34 @@
                                     { %>
                                     <li><a href="<%= Partner.Url.StartsWith("http:") || Partner.Url.StartsWith("https:") ? Partner.Url : string.Concat("http://", Partner.Url) %>" target="_blank" class="link"><%= Partner.Url %></a></li>
                                 <% } %>
+                            </ul>
+                        <% } %>
+
+                        <% if (!Settings.IsDefault && !Settings.IsLicensor)
+                           {
+                               var defaultSettings = Settings.GetDefault() as CompanyWhiteLabelSettings;
+                               %>
+                            <br />
+                            <div class="confirmation-popup_licensor"><%= Resource.AboutCompanyLicensor %></div>
+                            <div class="confirmation-popup_name"><%= defaultSettings.CompanyName %></div>
+                            <ul class="confirmation-popup_info">
+                                <li>
+                                    <span class="gray-text"><%= Resource.AboutCompanyAddressTitle %>: 
+                                    </span><%= defaultSettings.Address %>
+                                </li>
+                                <li>
+                                    <span class="gray-text"><%= Resource.AboutCompanyEmailTitle %>: 
+                                    </span><a href="mailto:<%= defaultSettings.Email %>" class="link"><%= defaultSettings.Email %></a>
+                                </li>
+                                <li>
+                                    <span class="gray-text"><%= Resource.AboutCompanyTelTitle %>: 
+                                    </span><%= defaultSettings.Phone %>
+                                </li>
+                                <li>
+                                    <a href="<%= defaultSettings.Site %>" target="_blank" class="link">
+                                        <%= defaultSettings.Site.Replace(Uri.UriSchemeHttp + Uri.SchemeDelimiter, String.Empty).Replace(Uri.UriSchemeHttps + Uri.SchemeDelimiter, String.Empty) %>
+                                    </a>
+                                </li>
                             </ul>
                         <% } %>
                     </div>

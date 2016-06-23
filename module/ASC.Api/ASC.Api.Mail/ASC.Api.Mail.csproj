@@ -83,6 +83,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Web.Files.dll</HintPath>
     </Reference>
+    <Reference Include="DDay.iCal, Version=1.0.2.575, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\DDay.iCal.1.0.2.575\lib\DDay.iCal.dll</HintPath>
+    </Reference>
     <Reference Include="DotNetOpenAuth">
       <HintPath>..\..\..\packages\DotNetOpenAuth.Ultimate.4.1.0.12182\lib\net45-full\DotNetOpenAuth.dll</HintPath>
       <Private>False</Private>
@@ -103,16 +107,23 @@
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.Http">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContracts\MailAccountData.cs" />
     <Compile Include="DataContracts\MailBoxAccountSettings.cs" />
+    <Compile Include="DataContracts\MailContactData.cs" />
     <Compile Include="DataContracts\MailFolderData.cs" />
     <Compile Include="DataContracts\MailTagData.cs" />
     <Compile Include="Extensions\DataContractsExtensions.cs" />
     <Compile Include="MailApi.Attachments.cs" />
+    <Compile Include="MailApi.Autoreply.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="MailApi.cs" />
     <Compile Include="MailApi.HelpCenter.cs" />
     <Compile Include="MailApi.Signature.cs" />
@@ -161,41 +172,13 @@
       <Project>{26222fc6-1f6d-44e9-a82b-36bb8355220e}</Project>
       <Name>ASC.Mail.Aggregator.Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Dal\ASC.Mail.Aggregator.Dal.csproj">
-      <Project>{d2f288a0-3622-406e-8d65-a308d1dbc2eb}</Project>
-      <Name>ASC.Mail.Aggregator.Dal</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.DataStorage\ASC.Mail.Aggregator.DataStorage.csproj">
-      <Project>{709dd978-95f3-43e8-9392-fb52d413caa9}</Project>
-      <Name>ASC.Mail.Aggregator.DataStorage</Name>
+    <ProjectReference Include="..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.Core\ASC.Mail.Aggregator.Core.csproj">
+      <Project>{ED5E23B1-61A4-4527-A4EB-AE7E3853D2AF}</Project>
+      <Name>ASC.Mail.Aggregator.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.Mail.Aggregator\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
       <Project>{7080343d-fbe7-423a-9405-4f883f6e235b}</Project>
       <Name>ASC.Mail.Aggregator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Common\ActiveUp.Net.Common.csproj">
-      <Project>{c8d2498b-ce0e-4e0a-ab1c-29599deb1c38}</Project>
-      <Name>ActiveUp.Net.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Dns\ActiveUp.Net.Dns.csproj">
-      <Project>{3fd92c0f-3209-4bdb-ac24-fb57d405e9a7}</Project>
-      <Name>ActiveUp.Net.Dns</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Imap4\ActiveUp.Net.Imap4.csproj">
-      <Project>{ebf85ded-be97-4610-b4ef-9aca73033aa5}</Project>
-      <Name>ActiveUp.Net.Imap4</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Mail\ActiveUp.Net.Mail.csproj">
-      <Project>{26e7dbda-08ef-4a83-95d5-e3c689add90b}</Project>
-      <Name>ActiveUp.Net.Mail</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Pop3\ActiveUp.Net.Pop3.csproj">
-      <Project>{382b91cf-56a7-4538-8e96-f6ea01a60f86}</Project>
-      <Name>ActiveUp.Net.Pop3</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\ASC.MailSystem\ClassLibrary\ActiveUp.Net.Smtp\ActiveUp.Net.Smtp.csproj">
-      <Project>{d5eba7a8-a259-415a-a4aa-543a7bc025c5}</Project>
-      <Name>ActiveUp.Net.Smtp</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.Thrdparty\ASC.FederatedLogin\ASC.FederatedLogin.csproj">
       <Project>{481b0d9c-b2f8-4de9-8597-ba8d24585099}</Project>
