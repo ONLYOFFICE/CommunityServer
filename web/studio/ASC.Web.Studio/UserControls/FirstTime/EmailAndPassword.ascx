@@ -108,7 +108,7 @@
     <input type="checkbox" id="policyAcceptedOpenSource">
     <label for="policyAcceptedOpenSource">
         <%= string.Format(UserControlsCommonResource.LicenseAgreements,
-                          "<a href=\"https://www.gnu.org/licenses/agpl-3.0.html\" target=\"_blank\">",
+                          "<a href=\"https://www.gnu.org/licenses/gpl-3.0.html\" target=\"_blank\">",
                           "</a>") %></label>
 </div>
 <% } %>
