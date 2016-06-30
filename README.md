@@ -37,12 +37,12 @@ License: [GNU GPL v3.0](https://www.gnu.org/copyleft/gpl.html "GNU GPL v3.0")
 
 SaaS version: [http://www.onlyoffice.com](http://www.onlyoffice.com "http://www.onlyoffice.com")
 
-## ONLYOFFICE One Click Installation
+## ONLYOFFICE Community Edition
 
-ONLYOFFICE Community Server is a part of **ONLYOFFICE Free Edition** that comprises also Document Server and Mail Server. To get ONLYOFFICE Free Edition in one click, make use of [ONLYOFFICE One Click Installation](https://controlpanel.onlyoffice.com/ "ONLYOFFICE One Click Installation").
+ONLYOFFICE Community Server is a part of **ONLYOFFICE Community Edition** that comprises also Document Server and Mail Server. To install ONLYOFFICE Community Edition, make use of the [Docker](https://github.com/ONLYOFFICE/Docker-CommunityServer#installing-onlyoffice-community-server-integrated-with-document-and-mail-servers "https://github.com/ONLYOFFICE/Docker-CommunityServer#installing-onlyoffice-community-server-integrated-with-document-and-mail-servers") or one of the available [virtual machines](http://www.onlyoffice.com/download.aspx "http://www.onlyoffice.com/download.aspx") with ONLYOFFICE Community Edition pre-installed.
 
 ## User Feedback and Support
 
-If you have any problems with or questions about this image, please contact us through a [dev.onlyoffice.org][1].
+If you have any problems with or questions about ONLYOFFICE, please contact us through [dev.onlyoffice.org][1].
 
   [1]: http://dev.onlyoffice.org
