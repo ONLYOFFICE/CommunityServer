@@ -418,7 +418,7 @@ window.TMMail = (function($) {
     }
 
     function getFaqLink(address) {
-        address = address || "";
+        address = (address || "").toLowerCase();
         var anchor = "";
         if (/@gmail\./.test(address.toLowerCase()) || /@googlemail\./.test(address.toLowerCase())) {
             anchor = "#IssueswithGmailcomService_block";

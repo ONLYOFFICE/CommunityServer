@@ -32,6 +32,8 @@ using System.Linq;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Web;
 using System.Xml;
 using ASC.Core;
 using ASC.Mail.Aggregator.Common.Imap;
@@ -40,6 +42,7 @@ using DDay.iCal;
 using HtmlAgilityPack;
 using MimeKit;
 using Newtonsoft.Json;
+using Org.BouncyCastle.Asn1.X509.Qualified;
 
 namespace ASC.Mail.Aggregator.Common.Utils
 {
@@ -482,6 +485,30 @@ namespace ASC.Mail.Aggregator.Common.Utils
             }
         }
 
+        public static bool HasUnsubscribeLink(Stream htmlStream)
+        {
+            try
+            {
+                if (htmlStream == null || htmlStream.Length == 0)
+                    return false;
+
+                var doc = new HtmlDocument();
+                doc.Load(htmlStream);
+
+                var hasUnsubscribe = doc.DocumentNode.SelectNodes("//a[@href]")
+                    .Any(
+                        link =>
+                            link.Attributes["href"].Value
+                                .IndexOf("unsubscribe", StringComparison.OrdinalIgnoreCase) != -1);
+
+                return hasUnsubscribe;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
         /// <summary>
         /// Return encoding based on encoding name
         /// Tries to resolve some wrong-formatted encoding names
@@ -605,6 +632,94 @@ namespace ASC.Mail.Aggregator.Common.Utils
             }
 
             return string.IsNullOrEmpty(filename) ? "attachment.ext" : filename;
+        }
+
+        static readonly Regex UrlReg = new Regex(@"(?:(?:(?:http|ftp|gopher|telnet|news)://)(?:w{3}\.)?(?:[a-zA-Z0-9/;\?&=:\-_\$\+!\*'\(\|\\~\[\]#%\.])+)", RegexOptions.IgnoreCase | RegexOptions.Compiled);
+        static readonly Regex EmailReg = new Regex(@"\b[A-Z0-9._%-]+@[A-Z0-9.-]+\.[A-Z]{2,4}\b", RegexOptions.Compiled | RegexOptions.Singleline | RegexOptions.IgnoreCase);
+
+        public static string MakeHtmlFromText(string textBody)
+        {
+            var listText = textBody.Split(new[] { "\r\n" }, StringSplitOptions.None).ToList();
+
+            var builder = new StringBuilder(textBody.Length);
+
+            listText.ForEach(line =>
+            {
+                if (!string.IsNullOrEmpty(line))
+                {
+                    var modifiedLine = line;
+
+                    var foundUrls = new List<string>();
+
+                    for (var m = UrlReg.Match(modifiedLine); m.Success; m = m.NextMatch())
+                    {
+                        var foundUrl = m.Groups[0].Value;
+
+                        foundUrls.Add(string.Format("<a href=\"{0}\" target=\"_blank\">{0}</a>", foundUrl));
+
+                        modifiedLine = modifiedLine.Replace(foundUrl, "{" + foundUrls.Count.ToString(CultureInfo.InvariantCulture) + "}");
+                    }
+
+                    for (var m = EmailReg.Match(modifiedLine); m.Success; m = m.NextMatch())
+                    {
+                        var foundMailAddress = m.Groups[0].Value;
+
+                        foundUrls.Add(string.Format("<a href=\"mailto:{0}\">{1}</a>",
+                            HttpUtility.UrlEncode(foundMailAddress),
+                            foundMailAddress));
+
+                        modifiedLine = modifiedLine.Replace(foundMailAddress, "{" + foundUrls.Count.ToString(CultureInfo.InvariantCulture) + "}");
+                    }
+
+                    modifiedLine = HttpUtility.HtmlEncode(modifiedLine);
+
+                    if (foundUrls.Count > 0)
+                    {
+                        for (int i = 0; i < foundUrls.Count; i++)
+                        {
+                            modifiedLine = modifiedLine.Replace("{" + (i + 1).ToString(CultureInfo.InvariantCulture) + "}", foundUrls.ElementAt(i));
+                        }
+                    }
+
+                    builder.Append(modifiedLine);
+                }
+                builder.Append("<br/>");
+
+                Thread.Sleep(1);
+
+            });
+
+            return builder.ToString();
+        }
+
+        public static void SaveToJson<T>(string path, T obj)
+        {
+            if (obj == null)
+                return;
+
+            if (File.Exists(path))
+                File.Delete(path);
+
+            //serialize
+            using (var stream = File.Create(path))
+            {
+                var ser = new DataContractJsonSerializer(typeof(T));
+
+                ser.WriteObject(
+                    stream,
+                    obj);
+            }
+        }
+
+        public static T RestoreFromJson<T>(string path)
+        {
+            //deserialize
+            using (var stream = File.Open(path, FileMode.Open))
+            {
+                var ser = new DataContractJsonSerializer(typeof(T));
+
+                return (T)ser.ReadObject(stream);
+            }
         }
     }
 }

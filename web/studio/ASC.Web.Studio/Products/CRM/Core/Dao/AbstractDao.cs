@@ -109,7 +109,7 @@ namespace ASC.CRM.Core.Dao
                 foreach (var tag in tags)
                     tagIDs.Add(db.ExecuteScalar<int>(Query("crm_tag")
                           .Select("id")
-                          .Where(Exp.Eq("entity_type", (int)entityType) & Exp.Eq("title", tag))));
+                          .Where(Exp.Eq("entity_type", (int)entityType) & Exp.Eq("trim(lower(title))", tag.Trim().ToLower()))));
 
                 var sqlQuery = new SqlQuery("crm_entity_tag")
                     .Select("entity_id")

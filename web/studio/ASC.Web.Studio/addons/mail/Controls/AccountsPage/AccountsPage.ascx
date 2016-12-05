@@ -11,7 +11,7 @@
 <div id="id_accounts_page" class="hidden page_content">
     <div class="containerBodyBlock">
         <div class="content-header">
-            <% if (SetupInfo.IsVisibleSettings<AdministrationPage>() && SetupInfo.IsVisibleSettings("MailCommonDomain") && !CoreContext.Configuration.Standalone) 
+            <% if (ASC.Web.Mail.Configuration.Settings.IsMailCommonDomainAvailable()) 
                { %>
             <a title="<%=MailResource.CreateMailboxBtn%>" class="button gray" id="createNewMailbox" style="margin-right: 4px;">
                 <div class="plus" style="background-position: -2px 1px;"><%=MailResource.CreateMailboxBtn%></div>

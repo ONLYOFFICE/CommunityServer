@@ -148,8 +148,8 @@ if (typeof window.serviceManager === 'undefined') {
             window.Teamlab.createMailMailboxSimple(params, email, password, options);
         });
 
-        var createOAuthBox = wrapper(5, function(email, refreshToken, serviceType, params, options) {
-            window.Teamlab.createMailMailboxOAuth(params, email, refreshToken, serviceType, options);
+        var createOAuthBox = wrapper(5, function(code, serviceType, params, options) {
+            window.Teamlab.createMailMailboxOAuth(params, code, serviceType, options);
         });
 
         var getDefaultMailboxSettings = wrapper(3, function(email, params, options) {

@@ -30,16 +30,17 @@ using ASC.Notify.Patterns;
 using log4net;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net;
-using System.Net.Mail;
-using System.Net.Mime;
-using System.Text;
+using MailKit;
+using MailKit.Security;
+using MimeKit;
 
 namespace ASC.Core.Notify.Senders
 {
     internal class SmtpSender : INotifySender
     {
-        private const string htmlFormat =
+        private const string HTML_FORMAT =
             @"<!DOCTYPE html PUBLIC ""-//W3C//DTD HTML 4.01 Transitional//EN"">
 <html>
 <head>
@@ -50,35 +51,34 @@ namespace ASC.Core.Notify.Senders
 
         protected ILog Log { get; private set; }
 
-        private string host;
-        private int port;
-        private bool ssl;
-        private ICredentialsByHost credentials;
-        private bool useCoreSettings;
-
+        private string _host;
+        private int _port;
+        private bool _ssl;
+        private ICredentials _credentials;
+        private bool _useCoreSettings;
+        const int NETWORK_TIMEOUT = 30000; 
 
         public SmtpSender()
         {
             Log = LogManager.GetLogger("ASC.Notify");
         }
 
-
         public virtual void Init(IDictionary<string, string> properties)
         {
             if (properties.ContainsKey("useCoreSettings") && bool.Parse(properties["useCoreSettings"]))
             {
-                useCoreSettings = true;
+                _useCoreSettings = true;
             }
             else
             {
-                host = properties["host"];
-                port = properties.ContainsKey("port") ? int.Parse(properties["port"]) : 25;
-                ssl = properties.ContainsKey("enableSsl") && bool.Parse(properties["enableSsl"]);
+                _host = properties["host"];
+                _port = properties.ContainsKey("port") ? int.Parse(properties["port"]) : 25;
+                _ssl = properties.ContainsKey("enableSsl") && bool.Parse(properties["enableSsl"]);
                 if (properties.ContainsKey("userName"))
                 {
-                    credentials = new NetworkCredential(
-                        properties["userName"],
-                        properties["password"]);
+                    _credentials = new NetworkCredential(
+                         properties["userName"],
+                         properties["password"]);
                 }
             }
         }
@@ -86,10 +86,12 @@ namespace ASC.Core.Notify.Senders
         private void InitUseCoreSettings()
         {
             var s = CoreContext.Configuration.SmtpSettings;
-            host = s.Host;
-            port = s.Port;
-            ssl = s.EnableSSL;
-            credentials = new NetworkCredential(s.CredentialsUserName, s.CredentialsUserPassword);
+            _host = s.Host;
+            _port = s.Port;
+            _ssl = s.EnableSSL;
+            _credentials = !string.IsNullOrEmpty(s.CredentialsUserName)
+                ? new NetworkCredential(s.CredentialsUserName, s.CredentialsUserPassword)
+                : null;
         }
 
         public virtual NoticeSendResult Send(NotifyMessage m)
@@ -101,122 +103,201 @@ namespace ASC.Core.Notify.Senders
             {
                 try
                 {
+                    if (_useCoreSettings)
+                        InitUseCoreSettings();
+
                     var mail = BuildMailMessage(m);
 
-                    if (WorkContext.IsMono)
+                    Log.DebugFormat("SmtpSender - host={0}; port={1}; enableSsl={2} enableAuth={3}", _host, _port, _ssl, _credentials != null);
+
+                    smtpClient.Connect(_host, _port,
+                        _ssl ? SecureSocketOptions.Auto : SecureSocketOptions.None);
+
+                    if (_credentials != null)
                     {
-                        ServicePointManager.ServerCertificateValidationCallback = (s, cert, c, p) => true;
+                        smtpClient.Authenticate(_credentials);
                     }
 
                     smtpClient.Send(mail);
                     result = NoticeSendResult.OK;
                 }
-                catch(Exception e)
+                catch (Exception e)
                 {
                     Log.ErrorFormat("Tenant: {0}, To: {1} - {2}", m.Tenant, m.To, e);
                     throw;
                 }
             }
-            catch(ArgumentException)
-            {
-                result = NoticeSendResult.MessageIncorrect;
-            }
-            catch(ObjectDisposedException)
+            catch (ObjectDisposedException)
             {
                 result = NoticeSendResult.SendingImpossible;
             }
-            catch(InvalidOperationException)
+            catch (InvalidOperationException)
             {
-                result = string.IsNullOrEmpty(smtpClient.Host) || smtpClient.Port == 0 ? NoticeSendResult.SendingImpossible : NoticeSendResult.TryOnceAgain;
+                result = string.IsNullOrEmpty(_host) || _port == 0
+                    ? NoticeSendResult.SendingImpossible
+                    : NoticeSendResult.TryOnceAgain;
             }
-            catch(SmtpFailedRecipientException e)
+            catch (IOException)
             {
-                if (e.StatusCode == SmtpStatusCode.MailboxBusy ||
-                    e.StatusCode == SmtpStatusCode.MailboxUnavailable ||
-                    e.StatusCode == SmtpStatusCode.ExceededStorageAllocation)
+                result = NoticeSendResult.TryOnceAgain;
+            }
+            catch (MailKit.Net.Smtp.SmtpProtocolException)
+            {
+                result = NoticeSendResult.SendingImpossible;
+            }
+            catch (MailKit.Net.Smtp.SmtpCommandException e)
+            {
+                switch (e.StatusCode)
                 {
-                    result = NoticeSendResult.TryOnceAgain;
-                }
-                else if (e.StatusCode == SmtpStatusCode.MailboxNameNotAllowed ||
-                         e.StatusCode == SmtpStatusCode.UserNotLocalWillForward ||
-                         e.StatusCode == SmtpStatusCode.UserNotLocalTryAlternatePath)
-                {
-                    result = NoticeSendResult.MessageIncorrect;
-                }
-                else if (e.StatusCode != SmtpStatusCode.Ok)
-                {
-                    result = NoticeSendResult.TryOnceAgain;
+                    case MailKit.Net.Smtp.SmtpStatusCode.MailboxBusy:
+                    case MailKit.Net.Smtp.SmtpStatusCode.MailboxUnavailable:
+                    case MailKit.Net.Smtp.SmtpStatusCode.ExceededStorageAllocation:
+                        result = NoticeSendResult.TryOnceAgain;
+                        break;
+                    case MailKit.Net.Smtp.SmtpStatusCode.MailboxNameNotAllowed:
+                    case MailKit.Net.Smtp.SmtpStatusCode.UserNotLocalWillForward:
+                    case MailKit.Net.Smtp.SmtpStatusCode.UserNotLocalTryAlternatePath:
+                        result = NoticeSendResult.MessageIncorrect;
+                        break;
+                    default:
+                        if (e.StatusCode != MailKit.Net.Smtp.SmtpStatusCode.Ok)
+                        {
+                            result = NoticeSendResult.TryOnceAgain;
+                        }
+                        break;
                 }
             }
-            catch(SmtpException)
+            catch (Exception)
             {
                 result = NoticeSendResult.SendingImpossible;
             }
             finally
             {
+                if (smtpClient.IsConnected)
+                    smtpClient.Disconnect(true);
+
                 smtpClient.Dispose();
             }
             return result;
         }
 
-        private MailMessage BuildMailMessage(NotifyMessage m)
+        private MimeMessage BuildMailMessage(NotifyMessage m)
         {
-            var email = new MailMessage
-                {
-                    BodyEncoding = Encoding.UTF8,
-                    SubjectEncoding = Encoding.UTF8,
-                    From = MailAddressUtils.Create(m.From),
-                    Subject = m.Subject,
-                };
-
-            foreach (var to in m.To.Split(new[] {'|'}, StringSplitOptions.RemoveEmptyEntries))
+            var mimeMessage = new MimeMessage
             {
-                email.To.Add(MailAddressUtils.Create(to));
+                Subject = m.Subject
+            };
+
+            var fromAddress = MailboxAddress.Parse(ParserOptions.Default, m.From);
+
+            mimeMessage.From.Add(fromAddress);
+
+            foreach (var to in m.To.Split(new[] { '|' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                mimeMessage.To.Add(MailboxAddress.Parse(ParserOptions.Default, to));
             }
 
             if (m.ContentType == Pattern.HTMLContentType)
             {
-                email.Body = HtmlUtil.GetText(m.Content);
-                var aview = AlternateView.CreateAlternateViewFromString(GetHtmlView(m.Content), Encoding.UTF8, "text/html");
-                aview.TransferEncoding = TransferEncoding.Base64;
-                email.AlternateViews.Add(aview);
+                var textPart = new TextPart("plain")
+                {
+                    Text = HtmlUtil.GetText(m.Content),
+                    ContentTransferEncoding = ContentEncoding.QuotedPrintable
+                };
+
+                var multipartAlternative = new MultipartAlternative { textPart };
+
+                var htmlPart = new TextPart("html")
+                {
+                    Text = GetHtmlView(m.Content),
+                    ContentTransferEncoding = ContentEncoding.QuotedPrintable
+                };
+
+                if (m.EmbeddedAttachments != null && m.EmbeddedAttachments.Length > 0)
+                {
+                    var multipartRelated = new MultipartRelated
+                        {
+                            Root = htmlPart
+                        };
+
+                    foreach (var attachment in m.EmbeddedAttachments)
+                    {
+                        var mimeEntity = ConvertAttachmentToMimePart(attachment);
+                        if(mimeEntity != null)
+                            multipartRelated.Add(mimeEntity);
+                    }
+
+                    multipartAlternative.Add(multipartRelated);
+                }
+                else
+                {
+                    multipartAlternative.Add(htmlPart);
+                }
+
+                mimeMessage.Body = multipartAlternative;
             }
             else
             {
-                email.Body = m.Content;
+                mimeMessage.Body = new TextPart("plain")
+                    {
+                        Text = m.Content,
+                        ContentTransferEncoding = ContentEncoding.QuotedPrintable
+                    };
             }
 
             if (!string.IsNullOrEmpty(m.ReplyTo))
             {
-                email.ReplyToList.Add(MailAddressUtils.Create(m.ReplyTo));
+                mimeMessage.ReplyTo.Add(MailboxAddress.Parse(ParserOptions.Default, m.ReplyTo));
             }
 
-            return email;
+            mimeMessage.Headers.Add("Auto-Submitted", "auto-generated");
+
+            return mimeMessage;
         }
 
         protected string GetHtmlView(string body)
         {
-            return string.Format(htmlFormat, body);
+            return string.Format(HTML_FORMAT, body);
         }
 
-        private SmtpClient GetSmtpClient()
+        private MailKit.Net.Smtp.SmtpClient GetSmtpClient()
         {
-            if (useCoreSettings)
+            var smtpClient = new MailKit.Net.Smtp.SmtpClient
             {
-                InitUseCoreSettings();
-            }
-            Log.DebugFormat("SmtpSender - host={0}; port={1}; enableSsl={2}", host, port, ssl);
-            var smtpClient = new SmtpClient(host, port)
-                {
-                    DeliveryMethod = SmtpDeliveryMethod.Network,
-                    EnableSsl = ssl
-                };
-            if (credentials != null)
-            {
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.Credentials = credentials;
-            }
+                ServerCertificateValidationCallback = (sender, certificate, chain, errors) =>
+                    WorkContext.IsMono ||
+                    MailService.DefaultServerCertificateValidationCallback(sender, certificate, chain, errors),
+                Timeout = NETWORK_TIMEOUT
+            };
+
             return smtpClient;
+        }
+
+        private static MimePart ConvertAttachmentToMimePart(NotifyMessageAttachment attachment)
+        {
+            try
+            {
+                if (attachment == null || string.IsNullOrEmpty(attachment.FileName) || string.IsNullOrEmpty(attachment.ContentId) || attachment.Content == null)
+                    return null;
+
+                var extension = Path.GetExtension(attachment.FileName);
+
+                if (string.IsNullOrEmpty(extension))
+                    return null;
+
+                return new MimePart("image", extension.TrimStart('.'))
+                {
+                    ContentId = attachment.ContentId,
+                    ContentObject = new ContentObject(new MemoryStream(attachment.Content)),
+                    ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
+                    ContentTransferEncoding = ContentEncoding.Base64,
+                    FileName = attachment.FileName
+                };
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
     }
 }

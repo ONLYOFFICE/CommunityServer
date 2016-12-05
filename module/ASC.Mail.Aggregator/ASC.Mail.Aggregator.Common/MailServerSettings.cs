@@ -26,7 +26,7 @@
 
 namespace ASC.Mail.Aggregator.Common
 {
-    public class MailServerSettings
+    public class MailBoxServerSettings
     {
         public string Url { get; set; }
         public int Port { get; set; }
@@ -36,7 +36,7 @@ namespace ASC.Mail.Aggregator.Common
         public EncryptionType EncryptionType { get; set; }
         public int MailServerOperationTimeoutInMilliseconds { get; set; }
 
-        public MailServerSettings()
+        public MailBoxServerSettings()
         {
             MailServerOperationTimeoutInMilliseconds = 5000; 
         }   

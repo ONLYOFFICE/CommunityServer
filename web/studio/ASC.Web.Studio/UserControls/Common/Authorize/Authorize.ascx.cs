@@ -32,6 +32,7 @@ using ASC.IPSecurity;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
 using ASC.Web.Core;
+using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Import;
 using ASC.Web.Studio.Core.SMS;
@@ -185,11 +186,6 @@ namespace ASC.Web.Studio.UserControls.Common
                     throw new InvalidCredentialException("login");
                 }
 
-                if (!IPSecurity.IPSecurity.Verify(TenantProvider.CurrentTenantID))
-                {
-                    throw new IPSecurityException();
-                }
-
                 if (!string.IsNullOrEmpty(Request["pwd"]))
                 {
                     Password = Request["pwd"];
@@ -217,6 +213,13 @@ namespace ASC.Web.Studio.UserControls.Common
                 if (!CoreContext.UserManager.UserExists(userInfo.ID))
                 {
                     throw new InvalidCredentialException();
+                }
+
+                var tenant = CoreContext.TenantManager.GetCurrentTenant();
+                var settings = SettingsManager.Instance.LoadSettings<IPRestrictionsSettings>(tenant.TenantId);
+                if (settings.Enable && userInfo.ID != tenant.OwnerId && !IPSecurity.IPSecurity.Verify(tenant))
+                {
+                    throw new IPSecurityException();
                 }
 
                 if (StudioSmsNotificationSettings.IsVisibleSettings

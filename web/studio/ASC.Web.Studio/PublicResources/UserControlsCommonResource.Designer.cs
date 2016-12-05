@@ -605,6 +605,33 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to If you want to pay for your ONLYOFFICE portal, click the Buy Now button..
+        /// </summary>
+        public static string HostedBuyDescr {
+            get {
+                return ResourceManager.GetString("HostedBuyDescr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Portal payment.
+        /// </summary>
+        public static string HostedBuyLabel {
+            get {
+                return ResourceManager.GetString("HostedBuyLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please pay for your ONLYOFFICE and get:.
+        /// </summary>
+        public static string HostedPayAndGet {
+            get {
+                return ResourceManager.GetString("HostedPayAndGet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Портал не авторизован, редактирование и просмотр документов не доступны..
         /// </summary>
         public static string HostedUnauthorizedEditing {
@@ -686,7 +713,16 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Activate Now.
+        ///   Looks up a localized string similar to Please activate ONLYOFFICE and get:.
+        /// </summary>
+        public static string LicenseActivateAndGet {
+            get {
+                return ResourceManager.GetString("LicenseActivateAndGet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Activate it.
         /// </summary>
         public static string LicenseActivateButton {
             get {
@@ -695,20 +731,11 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To activate ONLYOFFICE Enterprise Edition you need to buy a license key..
+        ///   Looks up a localized string similar to If you have already purchased an ONLYOFFICE license, please upload the file into the field below..
         /// </summary>
         public static string LicenseActivateDescr {
             get {
                 return ResourceManager.GetString("LicenseActivateDescr", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Activate ONLYOFFICE Enterprise Edition.
-        /// </summary>
-        public static string LicenseActivateHeader {
-            get {
-                return ResourceManager.GetString("LicenseActivateHeader", resourceCulture);
             }
         }
         
@@ -722,11 +749,38 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This software is licensed under {0}GNU GPL v.3{1}.
+        /// </summary>
+        public static string LicensedUnder {
+            get {
+                return ResourceManager.GetString("LicensedUnder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to License expired or users quota does not match the license.
         /// </summary>
         public static string LicenseException {
             get {
                 return ResourceManager.GetString("LicenseException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you want to review or buy an ONLYOFFICE license, click the Buy Now button. You will be redirected to the ONLYOFFICE order page on the Avangate website..
+        /// </summary>
+        public static string LicenseKeyBuyDescr {
+            get {
+                return ResourceManager.GetString("LicenseKeyBuyDescr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Buy a License.
+        /// </summary>
+        public static string LicenseKeyBuyLabel {
+            get {
+                return ResourceManager.GetString("LicenseKeyBuyLabel", resourceCulture);
             }
         }
         
@@ -740,7 +794,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Upload license file.
+        ///   Looks up a localized string similar to Upload Your License File.
         /// </summary>
         public static string LicenseKeyLabel {
             get {
@@ -763,6 +817,69 @@ namespace Resources {
         public static string LicenseKeyNotFound {
             get {
                 return ResourceManager.GetString("LicenseKeyNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ONLYOFFICE Modules and Tools:.
+        /// </summary>
+        public static string LicenseModules {
+            get {
+                return ResourceManager.GetString("LicenseModules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Control Panel.
+        /// </summary>
+        public static string LicenseModulesControlPanel {
+            get {
+                return ResourceManager.GetString("LicenseModulesControlPanel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0}Online Documents Editors{1}{0}Document Management{1}{0}Mail{1}{0}Projects{1}{0}CRM{1}{0}Calendar{1}{0}Community{1}.
+        /// </summary>
+        public static string LicenseModulesList {
+            get {
+                return ResourceManager.GetString("LicenseModulesList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Multitenancy.
+        /// </summary>
+        public static string LicenseModulesMultitenancy {
+            get {
+                return ResourceManager.GetString("LicenseModulesMultitenancy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to One Year Support.
+        /// </summary>
+        public static string LicenseModulesSupport {
+            get {
+                return ResourceManager.GetString("LicenseModulesSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ONLYOFFICE Updates.
+        /// </summary>
+        public static string LicenseModulesUpdates {
+            get {
+                return ResourceManager.GetString("LicenseModulesUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to White Label.
+        /// </summary>
+        public static string LicenseModulesWhiteLabel {
+            get {
+                return ResourceManager.GetString("LicenseModulesWhiteLabel", resourceCulture);
             }
         }
         
@@ -1055,6 +1172,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Have a questions? Please, contact our sales department at {0}.
+        /// </summary>
+        public static string SalesQuestions {
+            get {
+                return ResourceManager.GetString("SalesQuestions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save.
         /// </summary>
         public static string SaveButton {
@@ -1132,6 +1258,15 @@ namespace Resources {
         public static string SiteTitle {
             get {
                 return ResourceManager.GetString("SiteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Source code is availible on {0}GitHub{1}.
+        /// </summary>
+        public static string SourceCode {
+            get {
+                return ResourceManager.GetString("SourceCode", resourceCulture);
             }
         }
         
@@ -1249,6 +1384,15 @@ namespace Resources {
         public static string TariffNonProfit {
             get {
                 return ResourceManager.GetString("TariffNonProfit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your portal payment has expired..
+        /// </summary>
+        public static string TariffOverdueHosted {
+            get {
+                return ResourceManager.GetString("TariffOverdueHosted", resourceCulture);
             }
         }
         

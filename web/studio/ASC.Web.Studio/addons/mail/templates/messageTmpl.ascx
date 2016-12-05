@@ -143,7 +143,7 @@
                             <td class="header-label">
                                 <%: MailScriptResource.ToLabel %>:
                             </td>
-                            <td class="header-value" colspan="2"">
+                            <td class="header-value">
                                 <div class="value to-addresses">${to}</div>
                             </td>
                         </tr>
@@ -152,7 +152,7 @@
                                 <td class="header-label">
                                     <%: MailResource.CopyLabel %>:
                                 </td>
-                                <td class="header-value" colspan="2">
+                                <td class="header-value">
                                     <div class="value cc-addresses">${cc}</div>
                                 </td>
                             </tr>
@@ -162,7 +162,7 @@
                                 <td class="header-label">
                                     <%: MailResource.BCCLabel %>:
                                 </td>
-                                <td class="header-value" colspan="2">
+                                <td class="header-value">
                                     <div class="value bcc-addresses">${bcc}</div>
                                 </td>
                             </tr>
@@ -324,7 +324,6 @@
                 {{/if}}
                 <li class="menuAction btnMore unlockAction">
                     <span title="<%: MailResource.MoreMenuButton %>">...</span>
-
                 </li>
                 <li class="menuAction btnNext unlockAction pull-right" title="<%: MailResource.GoToNextMessage %>">
                     <div class="arrow-right"></div>
@@ -333,9 +332,9 @@
                     <div class="arrow-left"></div>
                  </li>                
                 {{if typeof($item.needSortButton)!=='undefined' && $item.needSortButton}}
-                <li class="menu-action-simple-pagenav">
+                <li class="menu-action-simple-pagenav" style="display: list-item;">
                     <span id="sort-conversation" class="sort-icon hidden-min"></span>
-                    <span id="collapse-conversation" class="collapse-conversation hidden-min">Expand all</span>
+                    <span id="collapse-conversation" class="collapse-conversation hidden-min"><%: MailScriptResource.ExpandAllLabel %></span>
                 </li>
                 {{/if}}
                 <li class="menu-action-on-top">

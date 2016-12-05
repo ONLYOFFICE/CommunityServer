@@ -50,7 +50,12 @@ namespace ASC.Web.Studio
             get { return CoreContext.Configuration.Personal; }
         }
 
-        private ProfileHelper _helper;
+        protected bool IsAdmin()
+        {
+            return CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
+        }
+
+        protected ProfileHelper _helper;
 
         protected override void OnPreInit(EventArgs e)
         {

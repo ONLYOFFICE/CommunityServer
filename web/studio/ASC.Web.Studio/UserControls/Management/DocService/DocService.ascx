@@ -13,8 +13,8 @@
     <div class="doc-service-item">
         <div class="header-base-small"><%= Resource.DocServiceUrlApi %></div>
         <input id="docServiceUrlApi" type="text" class="doc-service-value textEdit"
-            value="<%= FilesLinkUtility.DocServiceApiUrl %>" placeholder="https://<editors-dns-name>/OfficeWeb/apps/api/documents/api.js" />
-        <div class="gray-text"><%= string.Format(Resource.DocServiceUrlExample, "https://&lt;editors-dns-name&gt;/OfficeWeb/apps/api/documents/api.js") %> </div>
+            value="<%= FilesLinkUtility.DocServiceApiUrl %>" placeholder="https://<editors-dns-name>/web-apps/apps/api/documents/api.js" />
+        <div class="gray-text"><%= string.Format(Resource.DocServiceUrlExample, "https://&lt;editors-dns-name&gt;/web-apps/apps/api/documents/api.js") %> </div>
     </div>
     <div class="doc-service-item">
         <div class="header-base-small"><%= Resource.DocServiceUrlCommand %></div>

@@ -158,10 +158,6 @@ namespace ASC.Core
                 // for LDAP users only
                 if (u.Sid != null)
                 {
-                    if (u.Sid.StartsWith("l"))
-                    {
-                        throw new SecurityException("LDAP settings were changed.");
-                    }
                     if (!CoreContext.TenantManager.GetTenantQuota(CoreContext.TenantManager.GetCurrentTenant().TenantId).Ldap)
                     {
                         throw new BillingException("Your tariff plan does not support this option.", "Ldap");

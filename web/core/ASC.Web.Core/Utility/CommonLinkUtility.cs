@@ -62,7 +62,8 @@ namespace ASC.Web.Studio.Utility
         HelpCenter = 16,
         DocService = 17,
         FullTextSearch = 18,
-        WhiteLabel = 19
+        WhiteLabel = 19,
+        MailService = 20
     }
 
     //  emp-invite - confirm ivite by email

@@ -39,6 +39,7 @@ using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Authorization;
 using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Common.Imap;
+using ASC.Mail.Aggregator.Common.Logging;
 using ASC.Mail.Aggregator.Dal;
 using ASC.Mail.Aggregator.DbSchema;
 using MailMessage = ASC.Mail.Aggregator.Common.MailMessage;
@@ -56,7 +57,7 @@ namespace ASC.Mail.Aggregator
 
         # region public methods
 
-        public bool SaveMailBox(MailBox mailbox)
+        public bool SaveMailBox(MailBox mailbox, AuthorizationServiceType authType = AuthorizationServiceType.None)
         {
             if (mailbox == null) throw new ArgumentNullException("mailbox");
 
@@ -64,102 +65,145 @@ namespace ASC.Mail.Aggregator
 
             using (var db = GetDb())
             {
-                int result;
-
-                var loginDelayTime = GetLoginDelayTime(mailbox);
-
-                if (idMailbox == 0)
+                using (var tx = db.BeginTransaction())
                 {
-                    var utcNow = DateTime.UtcNow;
-                    
-                    result = db.ExecuteScalar<int>(
-                        new SqlInsert(MailboxTable.Name)
-                            .InColumnValue(MailboxTable.Columns.Id, 0)
-                            .InColumnValue(MailboxTable.Columns.Tenant, mailbox.TenantId)
-                            .InColumnValue(MailboxTable.Columns.User, mailbox.UserId)
-                            .InColumnValue(MailboxTable.Columns.Address, GetAddress(mailbox.EMail))
-                            .InColumnValue(MailboxTable.Columns.AddressName, mailbox.Name)
-                            .InColumnValue(MailboxTable.Columns.Password, EncryptPassword(mailbox.Password))
-                            .InColumnValue(MailboxTable.Columns.MsgCountLast, mailbox.MessagesCount)
-                            .InColumnValue(MailboxTable.Columns.SmtpPassword,
-                                           string.IsNullOrEmpty(mailbox.SmtpPassword)
-                                               ? EncryptPassword(mailbox.Password)
-                                               : EncryptPassword(mailbox.SmtpPassword))
-                            .InColumnValue(MailboxTable.Columns.SizeLast, mailbox.Size)
-                            .InColumnValue(MailboxTable.Columns.LoginDelay, loginDelayTime)
-                            .InColumnValue(MailboxTable.Columns.Enabled, true)
-                            .InColumnValue(MailboxTable.Columns.Imap, mailbox.Imap)
-                            .InColumnValue(MailboxTable.Columns.BeginDate, mailbox.BeginDate)
-                            .InColumnValue(MailboxTable.Columns.ServiceType, mailbox.ServiceType)
-                            .InColumnValue(MailboxTable.Columns.RefreshToken, mailbox.RefreshToken)
-                            .InColumnValue(MailboxTable.Columns.SmtpServerId, mailbox.SmtpServerId)
-                            .InColumnValue(MailboxTable.Columns.ServerId, mailbox.InServerId)
-                            .InColumnValue(MailboxTable.Columns.DateCreated, utcNow)
-                            .Identity(0, 0, true));
-
-                    mailbox.MailBoxId = result;
-                    mailbox.Enabled = true;
-                }
-                else
-                {
-                    mailbox.MailBoxId = idMailbox;
-
-                    var queryUpdate = new SqlUpdate(MailboxTable.Name)
-                        .Where(MailboxTable.Columns.Id, idMailbox)
-                        .Set(MailboxTable.Columns.Tenant, mailbox.TenantId)
-                        .Set(MailboxTable.Columns.User, mailbox.UserId)
-                        .Set(MailboxTable.Columns.Address, GetAddress(mailbox.EMail))
-                        .Set(MailboxTable.Columns.AddressName, mailbox.Name)
-                        .Set(MailboxTable.Columns.Password, EncryptPassword(mailbox.Password))
-                        .Set(MailboxTable.Columns.MsgCountLast, mailbox.MessagesCount)
-                        .Set(MailboxTable.Columns.SmtpPassword,
-                             string.IsNullOrEmpty(mailbox.SmtpPassword)
-                                 ? EncryptPassword(mailbox.Password)
-                                 : EncryptPassword(mailbox.SmtpPassword))
-                        .Set(MailboxTable.Columns.SizeLast, mailbox.Size)
-                        .Set(MailboxTable.Columns.LoginDelay, loginDelayTime)
-                        .Set(MailboxTable.Columns.IsRemoved, false)
-                        .Set(MailboxTable.Columns.Imap, mailbox.Imap)
-                        .Set(MailboxTable.Columns.BeginDate, mailbox.BeginDate)
-                        .Set(MailboxTable.Columns.ServiceType, mailbox.ServiceType)
-                        .Set(MailboxTable.Columns.RefreshToken, mailbox.RefreshToken)
-                        .Set(MailboxTable.Columns.SmtpServerId, mailbox.SmtpServerId)
-                        .Set(MailboxTable.Columns.ServerId, mailbox.InServerId);
-
-                    if (mailbox.BeginDate == MinBeginDate)
-                    {
-                        var currentMailbox = GetMailBox(idMailbox);
-
-                        if (currentMailbox == null)
-                            throw new ItemNotFoundException("Mailbox was removed");
-
-                        if (mailbox.BeginDate != currentMailbox.BeginDate)
+                    mailbox.InServerId = SaveMailBoxServerSettings(db, mailbox.EMail,
+                        new MailBoxServerSettings
                         {
-                            foreach (var folderName in currentMailbox.ImapIntervals.Keys)
-                            {
-                                var imapIntervals =
-                                    new ImapIntervals(currentMailbox.ImapIntervals[folderName].UnhandledUidIntervals);
+                            AccountName = mailbox.Account,
+                            AccountPass = mailbox.Password,
+                            AuthenticationType =
+                                mailbox.Authentication,
+                            EncryptionType =
+                                mailbox.Encryption,
+                            Port = mailbox.Port,
+                            Url = mailbox.Server
+                        },
+                        mailbox.Imap ? "imap" : "pop3",
+                        authType);
 
-                                if (currentMailbox.ImapIntervals[folderName].BeginDateUid != 1)
-                                    imapIntervals.AddUnhandledInterval(new UidInterval(1,
-                                                                                       currentMailbox.ImapIntervals[
-                                                                                           folderName].BeginDateUid));
-                                
-                                currentMailbox.ImapIntervals[folderName].UnhandledUidIntervals =
-                                    new List<int>(imapIntervals.ToIndexes());
+                    mailbox.SmtpServerId = SaveMailBoxServerSettings(db, mailbox.EMail,
+                        new MailBoxServerSettings
+                        {
+                            AccountName = mailbox.SmtpAccount,
+                            AccountPass = mailbox.SmtpPassword,
+                            AuthenticationType =
+                                mailbox.SmtpAuthentication,
+                            EncryptionType =
+                                mailbox.SmtpEncryption,
+                            Port = mailbox.SmtpPort,
+                            Url = mailbox.SmtpServer
+                        },
+                        "smtp",
+                        authType);
 
-                                currentMailbox.ImapIntervals[folderName].BeginDateUid = 1;
-                            }
+                    int result;
 
-                            queryUpdate.Set(MailboxTable.Columns.ImapIntervals, currentMailbox.ImapIntervalsJson);
+                    var loginDelayTime = GetLoginDelayTime(mailbox);
+
+                    if (idMailbox == 0)
+                    {
+                        var utcNow = DateTime.UtcNow;
+
+                        result = db.ExecuteScalar<int>(
+                            new SqlInsert(MailboxTable.Name)
+                                .InColumnValue(MailboxTable.Columns.Id, 0)
+                                .InColumnValue(MailboxTable.Columns.Tenant, mailbox.TenantId)
+                                .InColumnValue(MailboxTable.Columns.User, mailbox.UserId)
+                                .InColumnValue(MailboxTable.Columns.Address, GetAddress(mailbox.EMail))
+                                .InColumnValue(MailboxTable.Columns.AddressName, mailbox.Name)
+                                .InColumnValue(MailboxTable.Columns.Password, EncryptPassword(mailbox.Password))
+                                .InColumnValue(MailboxTable.Columns.MsgCountLast, mailbox.MessagesCount)
+                                .InColumnValue(MailboxTable.Columns.SmtpPassword,
+                                    mailbox.SmtpAuth
+                                        ? EncryptPassword(mailbox.SmtpPassword)
+                                        : "")
+                                .InColumnValue(MailboxTable.Columns.SizeLast, mailbox.Size)
+                                .InColumnValue(MailboxTable.Columns.LoginDelay, loginDelayTime)
+                                .InColumnValue(MailboxTable.Columns.Enabled, true)
+                                .InColumnValue(MailboxTable.Columns.Imap, mailbox.Imap)
+                                .InColumnValue(MailboxTable.Columns.BeginDate, mailbox.BeginDate)
+                                .InColumnValue(MailboxTable.Columns.OAuthType, mailbox.OAuthType)
+                                .InColumnValue(MailboxTable.Columns.OAuthToken,
+                                    !string.IsNullOrEmpty(mailbox.OAuthToken)
+                                        ? EncryptPassword(mailbox.OAuthToken)
+                                        : "")
+                                .InColumnValue(MailboxTable.Columns.SmtpServerId, mailbox.SmtpServerId)
+                                .InColumnValue(MailboxTable.Columns.ServerId, mailbox.InServerId)
+                                .InColumnValue(MailboxTable.Columns.DateCreated, utcNow)
+                                .Identity(0, 0, true));
+
+                        mailbox.MailBoxId = result;
+                        mailbox.Enabled = true;
+                    }
+                    else
+                    {
+                        mailbox.MailBoxId = idMailbox;
+
+                        var queryUpdate = new SqlUpdate(MailboxTable.Name)
+                            .Where(MailboxTable.Columns.Id, idMailbox)
+                            .Set(MailboxTable.Columns.Tenant, mailbox.TenantId)
+                            .Set(MailboxTable.Columns.User, mailbox.UserId)
+                            .Set(MailboxTable.Columns.Address, GetAddress(mailbox.EMail))
+                            .Set(MailboxTable.Columns.AddressName, mailbox.Name)
+                            .Set(MailboxTable.Columns.Password, EncryptPassword(mailbox.Password))
+                            .Set(MailboxTable.Columns.MsgCountLast, mailbox.MessagesCount)
+                            .Set(MailboxTable.Columns.SmtpPassword,
+                                mailbox.SmtpAuth
+                                    ? EncryptPassword(mailbox.SmtpPassword)
+                                    : "")
+                            .Set(MailboxTable.Columns.SizeLast, mailbox.Size)
+                            .Set(MailboxTable.Columns.LoginDelay, loginDelayTime)
+                            .Set(MailboxTable.Columns.IsRemoved, false)
+                            .Set(MailboxTable.Columns.Imap, mailbox.Imap)
+                            .Set(MailboxTable.Columns.BeginDate, mailbox.BeginDate)
+                            .Set(MailboxTable.Columns.OAuthType, mailbox.OAuthType)
+                            .Set(MailboxTable.Columns.SmtpServerId, mailbox.SmtpServerId)
+                            .Set(MailboxTable.Columns.ServerId, mailbox.InServerId);
+
+                        if (!string.IsNullOrEmpty(mailbox.OAuthToken) && mailbox.AccessTokenRefreshed)
+                        {
+                            queryUpdate.Set(MailboxTable.Columns.OAuthToken, EncryptPassword(mailbox.OAuthToken));
                         }
 
+                        if (mailbox.BeginDate == MinBeginDate)
+                        {
+                            var currentMailbox = GetMailBox(idMailbox);
+
+                            if (currentMailbox == null)
+                                throw new ItemNotFoundException("Mailbox was removed");
+
+                            if (mailbox.BeginDate != currentMailbox.BeginDate)
+                            {
+                                foreach (var folderName in currentMailbox.ImapIntervals.Keys)
+                                {
+                                    var imapIntervals =
+                                        new ImapIntervals(currentMailbox.ImapIntervals[folderName].UnhandledUidIntervals);
+
+                                    if (currentMailbox.ImapIntervals[folderName].BeginDateUid != 1)
+                                        imapIntervals.AddUnhandledInterval(
+                                            new UidInterval(1, currentMailbox.ImapIntervals[
+                                                folderName].BeginDateUid));
+
+                                    currentMailbox.ImapIntervals[folderName].UnhandledUidIntervals =
+                                        new List<int>(imapIntervals.ToIndexes());
+
+                                    currentMailbox.ImapIntervals[folderName].BeginDateUid = 1;
+                                }
+
+                                queryUpdate.Set(MailboxTable.Columns.ImapIntervals, currentMailbox.ImapIntervalsJson);
+                            }
+
+                        }
+
+                        result = db.ExecuteNonQuery(queryUpdate);
                     }
 
-                    result = db.ExecuteNonQuery(queryUpdate);
+                    tx.Commit();
+
+                    return result > 0;
                 }
 
-                return result > 0;
             }
         }
 
@@ -190,7 +234,7 @@ namespace ASC.Mail.Aggregator
                 .Select(MailboxTable.Columns.AddressName.Prefix(mailbox_alias))
                 .Select(MailboxTable.Columns.QuotaError.Prefix(mailbox_alias))
                 .Select(MailboxTable.Columns.DateAuthError.Prefix(mailbox_alias))
-                .Select(MailboxTable.Columns.RefreshToken.Prefix(mailbox_alias))
+                .Select(MailboxTable.Columns.OAuthToken.Prefix(mailbox_alias))
                 .Select(MailboxTable.Columns.IsTeamlabMailbox.Prefix(mailbox_alias))
                 .Select(MailboxTable.Columns.EmailInFolder.Prefix(mailbox_alias))
                 .Select(AddressTable.Columns.Id.Prefix(server_address))
@@ -771,24 +815,21 @@ namespace ASC.Mail.Aggregator
                                 Password = password,
                                 Server = FormatServerFromDb(incomingServer.Hostname, host),
                                 Port = incomingServer.Port,
-                                IncomingEncryptionType = incomingServer.SocketType.ToEncryptionType(),
-                                OutcomingEncryptionType = outgoingServer.SocketType.ToEncryptionType(),
-                                AuthenticationTypeIn = incomingServer.Authentication.ToSaslMechanism(),
-                                AuthenticationTypeSmtp = outgoingServer.Authentication.ToSaslMechanism(),
+                                Encryption = incomingServer.SocketType.ToEncryptionType(),
+                                SmtpEncryption = outgoingServer.SocketType.ToEncryptionType(),
+                                Authentication = incomingServer.Authentication.ToSaslMechanism(),
+                                SmtpAuthentication = outgoingServer.Authentication.ToSaslMechanism(),
                                 Imap = imap.Value,
 
                                 SmtpAccount = outgoingServerLogin,
                                 SmtpPassword = password,
                                 SmtpServer = FormatServerFromDb(outgoingServer.Hostname, host),
                                 SmtpPort = outgoingServer.Port,
-                                SmtpAuth = !string.IsNullOrEmpty(outgoingServer.Username),
-
                                 Enabled = true,
                                 TenantId = tenant,
                                 UserId = user,
-                                Restrict = true,
                                 BeginDate = DateTime.UtcNow.Subtract(new TimeSpan(MailBox.DefaultMailLimitedTimeDelta)),
-                                ServiceType = (byte) type
+                                OAuthType = (byte) type
                             };
                         }
                     }
@@ -813,90 +854,109 @@ namespace ASC.Mail.Aggregator
                     Password = password,
                     Server = string.Format((isImap ? "imap.{0}" : "pop.{0}"), host),
                     Port = (isImap ? 993 : 110),
-                    IncomingEncryptionType = isImap ? EncryptionType.SSL : EncryptionType.None,
-                    OutcomingEncryptionType = EncryptionType.None,
+                    Encryption = isImap ? EncryptionType.SSL : EncryptionType.None,
+                    SmtpEncryption = EncryptionType.None,
                     Imap = isImap,
                     SmtpAccount = email,
                     SmtpPassword = password,
                     SmtpServer = string.Format("smtp.{0}", host),
                     SmtpPort = 25,
-                    SmtpAuth = true,
                     Enabled = true,
                     TenantId = tenant,
                     UserId = user,
-                    Restrict = true,
                     BeginDate = DateTime.UtcNow.Subtract(new TimeSpan(MailBox.DefaultMailLimitedTimeDelta)),
-                    AuthenticationTypeIn = SaslMechanism.Login,
-                    AuthenticationTypeSmtp = SaslMechanism.Login
+                    Authentication = SaslMechanism.Login,
+                    SmtpAuthentication = SaslMechanism.Login
                 };
         }
 
-        public int SaveMailServerSettings(MailAddress email, MailServerSettings settings, string serverType,
-            AuthorizationServiceType authorizationType)
+        public int SaveMailBoxServerSettings(MailAddress email, MailBoxServerSettings settings,
+            string serverType, AuthorizationServiceType authorizationType)
         {
-            var host = (authorizationType == AuthorizationServiceType.Google) ? GOOGLE_HOST : email.Host;
-
             using (var db = GetDb())
             {
-                var providerId = db.ExecuteScalar<int>(new SqlQuery(MailboxDomainTable.Name)
-                                                            .Select(MailboxDomainTable.Columns.ProviderId)
-                                                            .Where(MailboxProviderTable.Columns.ProviderName, host));
-
-                //Save Mailbox provider if not exists
-                if (providerId == 0)
-                {
-                    providerId = db.ExecuteScalar<int>(new SqlInsert(MailboxProviderTable.Name)
-                                                            .InColumnValue(MailboxProviderTable.Columns.Id, 0)
-                                                            .InColumnValue(MailboxProviderTable.Columns.ProviderName, email.Host)
-                                                            .Identity(0, 0, true));
-                    db.ExecuteNonQuery(new SqlInsert(MailboxDomainTable.Name)
-                                                            .InColumnValue(MailboxDomainTable.Columns.ProviderId, providerId)
-                                                            .InColumnValue(MailboxDomainTable.Columns.DomainName, email.Host));
-                }
-
-                //Identify mask for account name
-                var accountNameMask = "";
-                if (settings.AuthenticationType != SaslMechanism.None)
-                {
-                    accountNameMask = GetLoginFormatFrom(email, settings.AccountName);
-                    if (String.IsNullOrEmpty(accountNameMask))
-                    {
-                        accountNameMask = settings.AccountName;
-                    }
-                }
-
-                var settingsId = db.ExecuteScalar<int>(new SqlQuery(MailboxServerTable.Name)
-                    .Select(MailboxServerTable.Columns.Id)
-                    .Where(MailboxServerTable.Columns.ProviderId, providerId)
-                    .Where(MailboxServerTable.Columns.Type, serverType)
-                    .Where(MailboxServerTable.Columns.Hostname, settings.Url)
-                    .Where(MailboxServerTable.Columns.Port, settings.Port)
-                    .Where(MailboxServerTable.Columns.SocketType,
-                           settings.EncryptionType.ToNameString())
-                     .Where(MailboxServerTable.Columns.Authentication,
-                                    settings.AuthenticationType.ToNameString())
-                     .Where(MailboxServerTable.Columns.Username, accountNameMask)
-                     .Where(MailboxServerTable.Columns.IsUserData, false));
-
-                if (settingsId == 0)
-                {
-                    settingsId = db.ExecuteScalar<int>(new SqlInsert(MailboxServerTable.Name)
-                                           .InColumnValue(MailboxServerTable.Columns.Id, 0)
-                                           .InColumnValue(MailboxServerTable.Columns.ProviderId, providerId)
-                                           .InColumnValue(MailboxServerTable.Columns.Type, serverType)
-                                           .InColumnValue(MailboxServerTable.Columns.Hostname, settings.Url)
-                                           .InColumnValue(MailboxServerTable.Columns.Port, settings.Port)
-                                           .InColumnValue(MailboxServerTable.Columns.SocketType,
-                                                          settings.EncryptionType.ToNameString())
-                                           .InColumnValue(MailboxServerTable.Columns.Authentication,
-                                                          settings.AuthenticationType.ToNameString())
-                                           .InColumnValue(MailboxServerTable.Columns.Username, accountNameMask)
-                                           .InColumnValue(MailboxServerTable.Columns.IsUserData, true)
-                                           .Identity(0, 0, true));
-                }
-
-                return settingsId;
+                return SaveMailBoxServerSettings(db, email, settings, serverType, authorizationType);
             }
+        }
+
+        public int SaveMailBoxServerSettings(DbManager db, MailAddress email, MailBoxServerSettings settings,
+            string serverType, AuthorizationServiceType authorizationType, int id = -1)
+        {
+            //TODO: Check id of stored setting if it's not equals -1 for removing old settings
+
+            var host = (authorizationType == AuthorizationServiceType.Google) ? GOOGLE_HOST : email.Host;
+
+            var selectQuery = new SqlQuery(MailboxDomainTable.Name)
+                .Select(MailboxDomainTable.Columns.ProviderId)
+                .Where(MailboxProviderTable.Columns.ProviderName, host);
+
+            var providerId = db.ExecuteScalar<int>(selectQuery);
+
+            SqlInsert insertQuery;
+
+            //Save Mailbox provider if not exists
+            if (providerId == 0)
+            {
+                insertQuery = new SqlInsert(MailboxProviderTable.Name)
+                    .InColumnValue(MailboxProviderTable.Columns.Id, 0)
+                    .InColumnValue(MailboxProviderTable.Columns.ProviderName, email.Host)
+                    .Identity(0, 0, true);
+
+                providerId = db.ExecuteScalar<int>(insertQuery);
+
+                insertQuery = new SqlInsert(MailboxDomainTable.Name)
+                    .InColumnValue(MailboxDomainTable.Columns.ProviderId, providerId)
+                    .InColumnValue(MailboxDomainTable.Columns.DomainName, email.Host);
+
+                db.ExecuteNonQuery(insertQuery);
+            }
+
+            //Identify mask for account name
+            var accountNameMask = "";
+            if (settings.AuthenticationType != SaslMechanism.None)
+            {
+                accountNameMask = GetLoginFormatFrom(email, settings.AccountName);
+                if (string.IsNullOrEmpty(accountNameMask))
+                {
+                    accountNameMask = settings.AccountName;
+                }
+            }
+
+            selectQuery = new SqlQuery(MailboxServerTable.Name)
+                .Select(MailboxServerTable.Columns.Id)
+                .Where(MailboxServerTable.Columns.ProviderId, providerId)
+                .Where(MailboxServerTable.Columns.Type, serverType)
+                .Where(MailboxServerTable.Columns.Hostname, settings.Url)
+                .Where(MailboxServerTable.Columns.Port, settings.Port)
+                .Where(MailboxServerTable.Columns.SocketType,
+                    settings.EncryptionType.ToNameString())
+                .Where(MailboxServerTable.Columns.Authentication,
+                    settings.AuthenticationType.ToNameString())
+                .Where(MailboxServerTable.Columns.Username, accountNameMask)
+                .Where(MailboxServerTable.Columns.IsUserData, false);
+
+            var settingsId = db.ExecuteScalar<int>(selectQuery);
+
+            if (settingsId != 0)
+                return settingsId;
+
+            insertQuery = new SqlInsert(MailboxServerTable.Name)
+                .InColumnValue(MailboxServerTable.Columns.Id, 0)
+                .InColumnValue(MailboxServerTable.Columns.ProviderId, providerId)
+                .InColumnValue(MailboxServerTable.Columns.Type, serverType)
+                .InColumnValue(MailboxServerTable.Columns.Hostname, settings.Url)
+                .InColumnValue(MailboxServerTable.Columns.Port, settings.Port)
+                .InColumnValue(MailboxServerTable.Columns.SocketType,
+                    settings.EncryptionType.ToNameString())
+                .InColumnValue(MailboxServerTable.Columns.Authentication,
+                    settings.AuthenticationType.ToNameString())
+                .InColumnValue(MailboxServerTable.Columns.Username, accountNameMask)
+                .InColumnValue(MailboxServerTable.Columns.IsUserData, true)
+                .Identity(0, 0, true);
+
+            settingsId = db.ExecuteScalar<int>(insertQuery);
+
+            return settingsId;
         }
 
         public MailSignature GetMailboxSignature(int mailboxId, string user, int tenant)
@@ -980,7 +1040,7 @@ namespace ASC.Mail.Aggregator
         {
             IdTenant, IdUser, Name, Address, Account, Password, InServer, InPort, SizeLast, MsgCountLast,
             SmtpServer, SmtpPort, SmtpPassword, SmtpAccount, LoginDelay, Id, Enabled, QuotaError, AuthError,
-            Imap, BeginDate, ServiceType, RefreshToken, ImapIntervals, OutcomingEncryptionType, IncomingEncryptionType,
+            Imap, BeginDate, OAuthType, OAuthToken, ImapIntervals, OutcomingEncryptionType, IncomingEncryptionType,
             AuthTypeIn, AuthtTypeSmtp, IdSmtpServer, IdInServer, EMailInFolder, IsTeamlabMailbox, IsRemoved,
             AutoreplyTurnOn, AutoreplyOnlyContacts, AutoreplyTurnOnToDate, AutoreplyFromDate, AutoreplyToDate,
             AutoreplySubject, AutoreplyHtml
@@ -1030,8 +1090,8 @@ namespace ASC.Mail.Aggregator
             fieldsForSelect[(int)MailBoxFieldSelectPosition.AuthError] = MailboxTable.Columns.DateAuthError.Prefix(MAILBOX_ALIAS);
             fieldsForSelect[(int)MailBoxFieldSelectPosition.Imap] = MailboxTable.Columns.Imap.Prefix(MAILBOX_ALIAS);
             fieldsForSelect[(int)MailBoxFieldSelectPosition.BeginDate] = MailboxTable.Columns.BeginDate.Prefix(MAILBOX_ALIAS);
-            fieldsForSelect[(int)MailBoxFieldSelectPosition.ServiceType] = MailboxTable.Columns.ServiceType.Prefix(MAILBOX_ALIAS);
-            fieldsForSelect[(int)MailBoxFieldSelectPosition.RefreshToken] = MailboxTable.Columns.RefreshToken.Prefix(MAILBOX_ALIAS);
+            fieldsForSelect[(int)MailBoxFieldSelectPosition.OAuthType] = MailboxTable.Columns.OAuthType.Prefix(MAILBOX_ALIAS);
+            fieldsForSelect[(int)MailBoxFieldSelectPosition.OAuthToken] = MailboxTable.Columns.OAuthToken.Prefix(MAILBOX_ALIAS);
             fieldsForSelect[(int)MailBoxFieldSelectPosition.ImapIntervals] = MailboxTable.Columns.ImapIntervals.Prefix(MAILBOX_ALIAS);
             fieldsForSelect[(int)MailBoxFieldSelectPosition.EMailInFolder] = MailboxTable.Columns.EmailInFolder.Prefix(MAILBOX_ALIAS);
             fieldsForSelect[(int)MailBoxFieldSelectPosition.OutcomingEncryptionType] = MailboxServerTable.Columns.SocketType.Prefix(OUT_SERVER_ALIAS);
@@ -1060,73 +1120,129 @@ namespace ASC.Mail.Aggregator
                 return null;
             }
 
-            var inMailAddress = new MailAddress((string)r[(int)MailBoxFieldSelectPosition.Address]);
-            var inAccount = FormatLoginFromDb((string)r[(int)MailBoxFieldSelectPosition.Account], inMailAddress);
-            var smtpAccount = FormatLoginFromDb((string)r[(int)MailBoxFieldSelectPosition.SmtpAccount], inMailAddress);
-            var inServerOldFormat = string.Format("{0}:{1}", r[(int)MailBoxFieldSelectPosition.InServer], r[(int)MailBoxFieldSelectPosition.InPort]);
+            var mailboxId = Convert.ToInt32(r[(int) MailBoxFieldSelectPosition.Id]);
+            var tenant = Convert.ToInt32(r[(int) MailBoxFieldSelectPosition.IdTenant]);
+            var user = (string) r[(int) MailBoxFieldSelectPosition.IdUser];
+            var name = (string) r[(int) MailBoxFieldSelectPosition.Name];
+
+            var address = new MailAddress((string)r[(int)MailBoxFieldSelectPosition.Address]);
+
+            var account = FormatLoginFromDb((string)r[(int)MailBoxFieldSelectPosition.Account], address);
+            var serverOldFormat = string.Format("{0}:{1}", r[(int)MailBoxFieldSelectPosition.InServer], r[(int)MailBoxFieldSelectPosition.InPort]);
+            var encryption = ((string)r[(int)MailBoxFieldSelectPosition.IncomingEncryptionType]).ToEncryptionType();
+            var auth = ((string)r[(int)MailBoxFieldSelectPosition.AuthTypeIn]).ToSaslMechanism();
+            var imap = Convert.ToBoolean(r[(int) MailBoxFieldSelectPosition.Imap]);
+
+            var smtpAccount = FormatLoginFromDb((string)r[(int)MailBoxFieldSelectPosition.SmtpAccount], address);
             var smtpServerOldFormat = string.Format("{0}:{1}", (string)r[(int)MailBoxFieldSelectPosition.SmtpServer], r[(int)MailBoxFieldSelectPosition.SmtpPort]);
-            var inEncryption = ((string)r[(int)MailBoxFieldSelectPosition.IncomingEncryptionType]).ToEncryptionType();
             var smtpEncryption = ((string)r[(int)MailBoxFieldSelectPosition.OutcomingEncryptionType]).ToEncryptionType();
-            var inAuth = ((string)r[(int)MailBoxFieldSelectPosition.AuthTypeIn]).ToSaslMechanism();
             var smtpAuth = ((string)r[(int)MailBoxFieldSelectPosition.AuthtTypeSmtp]).ToSaslMechanism();
 
-            string inPassword, outPassword = null;
+            string password, smtpPassword = null, oAuthToken = null;
 
-            TryDecryptPassword((string) r[(int) MailBoxFieldSelectPosition.Password], out inPassword);
+            TryDecryptPassword((string) r[(int) MailBoxFieldSelectPosition.Password], out password);
 
             if (r[(int) MailBoxFieldSelectPosition.SmtpPassword] != null)
             {
-                TryDecryptPassword((string) r[(int) MailBoxFieldSelectPosition.SmtpPassword], out outPassword);
+                TryDecryptPassword((string) r[(int) MailBoxFieldSelectPosition.SmtpPassword], out smtpPassword);
             }
 
-            var res = new MailBox(
-                Convert.ToInt32(r[(int) MailBoxFieldSelectPosition.IdTenant]),
-                (string) r[(int) MailBoxFieldSelectPosition.IdUser],
-                (string) r[(int) MailBoxFieldSelectPosition.Name],
-                inMailAddress,
-                inAccount,
-                inPassword,
-                inServerOldFormat,
-                Convert.ToBoolean(r[(int) MailBoxFieldSelectPosition.Imap]),
-                smtpServerOldFormat,
-                outPassword,
-                inAuth != SaslMechanism.None,
-                Convert.ToInt32(r[(int) MailBoxFieldSelectPosition.Id]),
-                (DateTime) r[(int) MailBoxFieldSelectPosition.BeginDate],
-                inEncryption,
-                smtpEncryption,
-                Convert.ToByte(r[(int) MailBoxFieldSelectPosition.ServiceType]),
-                (string) r[(int) MailBoxFieldSelectPosition.RefreshToken],
-                (string) r[(int) MailBoxFieldSelectPosition.EMailInFolder],
-                Convert.ToBoolean(r[(int) MailBoxFieldSelectPosition.IsRemoved])
-                )
+            var accessTokenRefreshed = false;
+            var oAuthType = Convert.ToByte(r[(int) MailBoxFieldSelectPosition.OAuthType]);
+
+            if (r[(int)MailBoxFieldSelectPosition.OAuthToken] != null)
+            {
+                if(!TryDecryptPassword((string)r[(int)MailBoxFieldSelectPosition.OAuthToken], out oAuthToken))
                 {
-                    Size = Convert.ToInt64(r[(int) MailBoxFieldSelectPosition.SizeLast]),
-                    MessagesCount = Convert.ToInt32(r[(int) MailBoxFieldSelectPosition.MsgCountLast]),
-                    SmtpAccount = smtpAccount,
-                    ServerLoginDelay = Convert.ToInt32(r[(int) MailBoxFieldSelectPosition.LoginDelay]),
-                    Enabled = Convert.ToBoolean(r[(int) MailBoxFieldSelectPosition.Enabled]),
-                    IsTeamlab = Convert.ToBoolean(r[(int) MailBoxFieldSelectPosition.IsTeamlabMailbox]),
-                    QuotaError = Convert.ToBoolean(r[(int) MailBoxFieldSelectPosition.QuotaError]),
-                    AuthErrorDate = r[(int) MailBoxFieldSelectPosition.AuthError] != null
-                                        ? Convert.ToDateTime(r[(int) MailBoxFieldSelectPosition.AuthError])
-                                        : (DateTime?) null,
-                    ImapIntervalsJson = (string) r[(int) MailBoxFieldSelectPosition.ImapIntervals],
-                    AuthenticationTypeIn = inAuth,
-                    AuthenticationTypeSmtp = smtpAuth,
-                    SmtpServerId = (int) r[(int) MailBoxFieldSelectPosition.IdSmtpServer],
-                    InServerId = (int) r[(int) MailBoxFieldSelectPosition.IdInServer],
-                    MailAutoreply = r.Length == SELECT_MAIL_BOX_FIELDS_COUNT_WITH_AUTOREPLY ?
-                        new MailAutoreply(Convert.ToInt32(r[(int)MailBoxFieldSelectPosition.Id]),
-                            Convert.ToInt32(r[(int)MailBoxFieldSelectPosition.IdTenant]),
-                            Convert.ToBoolean(r[(int)MailBoxFieldSelectPosition.AutoreplyTurnOn]),
-                            Convert.ToBoolean(r[(int)MailBoxFieldSelectPosition.AutoreplyOnlyContacts]),
-                            Convert.ToBoolean(r[(int)MailBoxFieldSelectPosition.AutoreplyTurnOnToDate]),
-                            Convert.ToDateTime(r[(int)MailBoxFieldSelectPosition.AutoreplyFromDate]),
-                            Convert.ToDateTime(r[(int)MailBoxFieldSelectPosition.AutoreplyToDate]),
-                            Convert.ToString(r[(int)MailBoxFieldSelectPosition.AutoreplySubject]),
-                            Convert.ToString(r[(int)MailBoxFieldSelectPosition.AutoreplyHtml])) : null
-                };
+                    // Fix old refresh_token
+                    try
+                    {
+                        if ((AuthorizationServiceType) Convert.ToByte(r[(int) MailBoxFieldSelectPosition.OAuthType]) ==
+                            AuthorizationServiceType.Google)
+                        {
+                            var googleAuth = new GoogleOAuth2Authorization(new NullLogger());
+                            oAuthToken = googleAuth.RequestAccessToken((string)r[(int)MailBoxFieldSelectPosition.OAuthToken]).ToJson();
+                            accessTokenRefreshed = true;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        // skip
+                    }
+                }
+            }
+
+            var beginDate = (DateTime) r[(int) MailBoxFieldSelectPosition.BeginDate];
+            var emailInFolder = (string) r[(int) MailBoxFieldSelectPosition.EMailInFolder];
+            var isEnabled = Convert.ToBoolean(r[(int) MailBoxFieldSelectPosition.Enabled]);
+            var isRemoved = Convert.ToBoolean(r[(int) MailBoxFieldSelectPosition.IsRemoved]);
+            var isTeamlabMailbox = Convert.ToBoolean(r[(int) MailBoxFieldSelectPosition.IsTeamlabMailbox]);
+            var quotaError = Convert.ToBoolean(r[(int) MailBoxFieldSelectPosition.QuotaError]);
+            var authErrorDate = r[(int) MailBoxFieldSelectPosition.AuthError] != null
+                ? Convert.ToDateTime(r[(int) MailBoxFieldSelectPosition.AuthError])
+                : (DateTime?) null;
+
+            var mailboxSize = Convert.ToInt64(r[(int) MailBoxFieldSelectPosition.SizeLast]);
+            var mailboxMessages = Convert.ToInt32(r[(int) MailBoxFieldSelectPosition.MsgCountLast]);
+            var loginDelay = Convert.ToInt32(r[(int) MailBoxFieldSelectPosition.LoginDelay]);
+            var imapIntervalsJson = (string) r[(int) MailBoxFieldSelectPosition.ImapIntervals];
+
+            var serverSettingsId = (int) r[(int) MailBoxFieldSelectPosition.IdInServer];
+            var smtpServerSettingsId = (int) r[(int) MailBoxFieldSelectPosition.IdSmtpServer];
+
+            var mailAutoReply = r.Length == SELECT_MAIL_BOX_FIELDS_COUNT_WITH_AUTOREPLY
+                ? new MailAutoreply(Convert.ToInt32(r[(int) MailBoxFieldSelectPosition.Id]),
+                    Convert.ToInt32(r[(int) MailBoxFieldSelectPosition.IdTenant]),
+                    Convert.ToBoolean(r[(int) MailBoxFieldSelectPosition.AutoreplyTurnOn]),
+                    Convert.ToBoolean(r[(int) MailBoxFieldSelectPosition.AutoreplyOnlyContacts]),
+                    Convert.ToBoolean(r[(int) MailBoxFieldSelectPosition.AutoreplyTurnOnToDate]),
+                    Convert.ToDateTime(r[(int) MailBoxFieldSelectPosition.AutoreplyFromDate]),
+                    Convert.ToDateTime(r[(int) MailBoxFieldSelectPosition.AutoreplyToDate]),
+                    Convert.ToString(r[(int) MailBoxFieldSelectPosition.AutoreplySubject]),
+                    Convert.ToString(r[(int) MailBoxFieldSelectPosition.AutoreplyHtml]))
+                : null;
+
+            var res = new MailBox(
+                tenant,
+                user,
+                mailboxId,
+
+                name,
+                address,
+
+                account,
+                password,
+                serverOldFormat,
+                encryption,
+                auth,
+                imap,
+
+                smtpAccount,
+                smtpPassword,
+                smtpServerOldFormat,
+                smtpEncryption,
+                smtpAuth,
+
+                oAuthType,
+                oAuthToken)
+            {
+                Size = mailboxSize,
+                MessagesCount = mailboxMessages,
+                ServerLoginDelay = loginDelay,
+                BeginDate = beginDate,
+                QuotaError = quotaError,
+                AuthErrorDate = authErrorDate,
+                ImapIntervalsJson = imapIntervalsJson,
+                SmtpServerId = smtpServerSettingsId,
+                InServerId = serverSettingsId,
+                EMailInFolder = emailInFolder,
+                MailAutoreply = mailAutoReply,
+                AccessTokenRefreshed = accessTokenRefreshed,
+
+                Enabled = isEnabled,
+                IsRemoved = isRemoved,
+                IsTeamlab = isTeamlabMailbox,
+            };
 
             return res;
         }

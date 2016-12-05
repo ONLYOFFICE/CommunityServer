@@ -234,22 +234,16 @@ namespace ASC.Web.Mail
             return WebConfigurationManager.AppSettings["mail.support-url"] ?? "mailto:support@onlyoffice.com";
         }
 
-        public static string GetImportOAuthAccessUrl()
-        {
-            return WebConfigurationManager.AppSettings["mail.import-oauth-url"] ?? "";
-        }
-
         public static bool IsTurnOnOAuth()
         {
             return !(string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20ClientId)
                      || string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20ClientSecret)
-                     || string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20RedirectUrl)
-                     || string.IsNullOrEmpty(GetImportOAuthAccessUrl()));
+                     || string.IsNullOrEmpty(GoogleLoginProvider.GoogleOAuth20RedirectUrl));
         }
 
         public static bool IsTurnOnServer()
         {
-            return SetupInfo.IsVisibleSettings<AdministrationPage>();
+            return Configuration.Settings.IsAdministrationPageAvailable();
         }
 
         public static bool IsTurnOnAttachmentsGroupOperations()
@@ -274,7 +268,7 @@ namespace ASC.Web.Mail
 
         public static bool IsMailCommonDomainAvailable()
         {
-            return SetupInfo.IsVisibleSettings<AdministrationPage>() && SetupInfo.IsVisibleSettings("MailCommonDomain") && !CoreContext.Configuration.Standalone;
+            return Configuration.Settings.IsMailCommonDomainAvailable();
         }
 
         public static bool IsMailPrintAvailable()

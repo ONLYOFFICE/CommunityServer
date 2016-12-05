@@ -1998,8 +1998,8 @@ window.Teamlab = (function() {
         return _single_sm_request('createMailMailboxSimple', params, email, password, options);
     };
 
-    var createMailMailboxOAuth = function(params, email, refreshToken, serviceType, options) {
-        return _single_sm_request('createMailMailboxOAuth', params, email, refreshToken, serviceType, options);
+    var createMailMailboxOAuth = function(params, code, serviceType, options) {
+        return _single_sm_request('createMailMailboxOAuth', params, code, serviceType, options);
     };
 
     var createMailMailbox = function(params, name, email, ssl, pop3_account, pop3_password, pop3_port, pop3_server,

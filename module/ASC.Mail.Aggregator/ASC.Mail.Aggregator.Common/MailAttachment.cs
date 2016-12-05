@@ -24,6 +24,7 @@
 */
 
 
+using System.IO;
 using System.Runtime.Serialization;
 using AjaxPro;
 
@@ -35,7 +36,14 @@ namespace ASC.Mail.Aggregator.Common
         private string _contentId;
         public MailAttachment()
         {
-            data = new byte[0];
+            data = null;
+            dataStream = null;
+        }
+
+        ~MailAttachment()
+        {
+            if (dataStream != null)
+                dataStream.Dispose();
         }
 
         //DO NOT RENAME field's lower case, for AjaxPro.JavaScriptSerializer (Upload handler) and Api.Serializer (Mail.Api) equal result;
@@ -77,6 +85,10 @@ namespace ASC.Mail.Aggregator.Common
         [IgnoreDataMember]
         [AjaxNonSerializable]
         public byte[] data { get; set; }
+
+        [IgnoreDataMember]
+        [AjaxNonSerializable]
+        public Stream dataStream { get; set; }
 
         [IgnoreDataMember]
         [AjaxNonSerializable]

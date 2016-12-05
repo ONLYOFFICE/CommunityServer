@@ -1,0 +1,18 @@
+[Unit]
+Description=FastCGI Mono server ApiSystem
+After=syslog.target
+
+[Service]
+ExecStart=/var/www/onlyoffice/onlyoffice.service start onlyofficeApiSystem
+ExecStop=/var/www/onlyoffice/onlyoffice.service stop onlyofficeApiSystem
+Environment=LD_LIBRARY_PATH=/usr/lib MONO_IOMAP=all MONO_ASPNET_WEBCONFIG_CACHESIZE=2000 MONO_THREADS_PER_CPU=2000 MONO_OPTIONS="--server" MONO_GC_PARAMS=nursery-size=64m
+User=onlyoffice
+Group=onlyoffice
+# Give up if ping don't get an answer
+TimeoutSec=600
+
+Restart=always
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

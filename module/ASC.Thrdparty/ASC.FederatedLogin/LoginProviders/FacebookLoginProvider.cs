@@ -38,11 +38,11 @@ namespace ASC.FederatedLogin.LoginProviders
 {
     public class FacebookLoginProvider : ILoginProvider
     {
-        private const string FacebookProfileUrl = "https://graph.facebook.com/v2.3/me";
+        private const string FacebookProfileUrl = "https://graph.facebook.com/v2.7/me?fields=email,id,birthday,link,first_name,last_name,gender,timezone,locale";
         private const string FacebookProfileScope = "email,public_profile";
 
-        public const string FacebookOauthCodeUrl = "https://www.facebook.com/v2.3/dialog/oauth/";
-        public const string FacebookOauthTokenUrl = "https://graph.facebook.com/v2.3/oauth/access_token";
+        public const string FacebookOauthCodeUrl = "https://www.facebook.com/v2.7/dialog/oauth/";
+        public const string FacebookOauthTokenUrl = "https://graph.facebook.com/v2.7/oauth/access_token";
 
 
         public static string FacebookOAuth20ClientId
@@ -119,7 +119,7 @@ namespace ASC.FederatedLogin.LoginProviders
 
         private static LoginProfile RequestProfile(string accessToken)
         {
-            var facebookProfile = RequestHelper.PerformRequest(FacebookProfileUrl + "?access_token=" + accessToken);
+            var facebookProfile = RequestHelper.PerformRequest(FacebookProfileUrl + "&access_token=" + accessToken);
             var loginProfile = ProfileFromFacebook(facebookProfile);
             return loginProfile;
         }

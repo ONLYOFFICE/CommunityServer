@@ -477,7 +477,7 @@ namespace ASC.Files.Thirdparty.Sharpbox
         {
             try
             {
-                return SharpBoxProviderInfo.Storage.GetFile(MakePath(fileId), RootFolder());
+                return SharpBoxProviderInfo.Storage.GetFile(MakePath(fileId), null);
             }
             catch (Exception ex)
             {

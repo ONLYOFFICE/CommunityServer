@@ -56,7 +56,7 @@
     <ServiceFiles Include="$(RootDir)packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll" />
     <ServiceFiles Include="$(RootDir)packages\AjaxPro.2.2.9.17.2\lib\net20\AjaxPro.2.dll" />
     <ServiceFiles Include="$(RootDir)packages\Mono.Security.3.2.3.0\lib\net45\Mono.Security.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Novell.Directory.Ldap.2.2.2.0\lib\net45\Novell.Directory.Ldap.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Novell.Directory.Ldap.2.2.3.0\lib\net45\Novell.Directory.Ldap.dll" />
     <ServiceFiles Include="$(RootDir)packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll" />
     <ServiceFiles Include="$(RootDir)packages\Textile.1.3.0.0\lib\net35\Textile.dll" />
     <ServiceFiles Include="$(RootDir)packages\NVelocity.1.0.3\lib\NVelocity.dll" />
@@ -76,8 +76,8 @@
     <ServiceFiles Include="$(RootDir)packages\DDay.iCal.1.0.2.575\lib\DDay.iCal.dll" />
     <ServiceFiles Include="$(RootDir)packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll" />
     <ServiceFiles Include="$(RootDir)packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll" />
-    <ServiceFiles Include="$(RootDir)packages\MimeKit.1.2.24\lib\net451\MimeKit.dll" />
-    <ServiceFiles Include="$(RootDir)packages\MailKit.1.2.23\lib\net451\MailKit.dll" />
+    <ServiceFiles Include="$(RootDir)packages\MimeKit.1.4.1\lib\net45\MimeKit.dll" />
+    <ServiceFiles Include="$(RootDir)packages\MailKit.1.4.1\lib\net45\MailKit.dll" />
     <ServiceFiles Include="$(RootDir)packages\Nito.AsyncEx.2.1.3\lib\net45\Nito.AsyncEx.dll" />
     <ServiceFiles Include="$(BinDir)ASC.*.dll" />
     <ServiceFiles Include="$(RootDir)module\ASC.SignalR.Base\bin\$(Configuration)\ASC.SignalR.Base.dll" />
@@ -88,7 +88,6 @@
     <ServiceFiles Include="$(RootDir)build\config\TeamLabSvc.exe.Config" />
     <ServiceFiles Include="$(RootDir)build\config\sphinx-min.conf.in" />
     <ServiceFiles Include="$(RootDir)build\ManageServices.bat" />
-    <ServiceFiles Include="$(RootDir)module\ASC.Jabber\ASC.Xmpp.Server\crossdomain.xml" />
     <MailFiles Include="$(BinDir)ASC.Api.dll" />
     <MailFiles Include="$(BinDir)ASC.Common.dll" />
     <MailFiles Include="$(BinDir)ASC.Core.Common.dll" />
@@ -124,8 +123,8 @@
     <MailFiles Include="$(RootDir)packages\RestSharp.104.4.0\lib\net4\RestSharp.dll" />
     <MailFiles Include="$(RootDir)packages\DDay.iCal.1.0.2.575\lib\DDay.iCal.dll" />
     <MailFiles Include="$(RootDir)packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll" />
-    <MailFiles Include="$(RootDir)packages\MimeKit.1.2.24\lib\net451\MimeKit.dll" />
-    <MailFiles Include="$(RootDir)packages\MailKit.1.2.23\lib\net451\MailKit.dll" />
+    <MailFiles Include="$(RootDir)packages\MimeKit.1.4.1\lib\net45\MimeKit.dll" />
+    <MailFiles Include="$(RootDir)packages\MailKit.1.4.1\lib\net45\MailKit.dll" />
     <MailFiles Include="$(RootDir)packages\StackExchange.Redis.Extensions.Core.1.3.5.0\lib\net45\StackExchange.Redis.Extensions.Core.dll" />
     <MailAggregatorFiles Include="@(MailFiles);$(RootDir)module\ASC.Mail.Aggregator\ASC.Mail.Aggregator.CollectionService\bin\$(Configuration)\ASC.Mail.Aggregator.CollectionService.exe;$(RootDir)module\ASC.Mail.Aggregator\ASC.Mail.EmlDownloader\bin\$(Configuration)\ASC.Mail.EmlDownloader.exe" />
     <MailWatchdogFiles Include="@(MailFiles);$(RootDir)module\ASC.Mail.Aggregator\ASC.Mail.Watchdog.Service\bin\$(Configuration)\ASC.Mail.Watchdog.Service.exe" />

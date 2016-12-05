@@ -27,12 +27,7 @@
             <% foreach (var product in defaultListProducts) %>
             <% {
                    var productStartUrl = VirtualPathUtility.ToAbsolute(product.StartURL);
-                   var productLabel =
-                       product.ID == WebItemManager.CRMProductID
-                       ? Resource.ProductCRMAndVoIP
-                       : (product.ID == WebItemManager.MailProductID && SetupInfo.IsVisibleSettings("AdministrationPage") && CurrentUser.IsAdmin() ?
-                                    Resource.AdministrationLabel :
-                                    HttpUtility.HtmlEncode(product.Name));
+                   var productLabel = GetProductLabel(product);
                 %>
                 <div class="product clearFix">
                         <a class="image-link" href="<%= productStartUrl %>">

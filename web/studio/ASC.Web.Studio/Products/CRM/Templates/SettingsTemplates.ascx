@@ -433,11 +433,9 @@
                         <a class="gray-text" href="${relativeItemsUrl}">${relativeItemsString}</a>
                     </td>
                     <td style="width:40px;">
-                    {{if relativeItemsCount == 0 }}
                         <a class="crm-deleteLink" title="<%= CRMSettingResource.DeleteTag %>" alt="<%= CRMSettingResource.DeleteTag %>"
                             onclick='ASC.CRM.TagSettingsView.deleteTag(this);'></a>
                         <div class="ajax_loader loader-middle" title="">&nbsp;</div>
-                    {{/if}}
                     </td>
                 </tr>
             </tbody>

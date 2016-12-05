@@ -556,6 +556,15 @@ namespace ASC.Web.Mail.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Connect.
+        /// </summary>
+        public static string ConnectLabel {
+            get {
+                return ResourceManager.GetString("ConnectLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Copy to My Documents.
         /// </summary>
         public static string CopyFilesToMyDocumentsBtn {
@@ -1029,6 +1038,15 @@ namespace ASC.Web.Mail.Resources {
         public static string GetDefaultSettingsLinkLabel {
             get {
                 return ResourceManager.GetString("GetDefaultSettingsLinkLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Google.
+        /// </summary>
+        public static string GoogleLabel {
+            get {
+                return ResourceManager.GetString("GoogleLabel", resourceCulture);
             }
         }
         

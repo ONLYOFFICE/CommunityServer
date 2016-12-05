@@ -407,14 +407,14 @@ window.accountsModal = (function($) {
 
         if ($(html).find('#oauth_frame_blocker').length) {
             blockUi(540, $("#manageWindow"));
+
+            $(".oauth-block").click(function () {
+                var url = $(this).attr("data-url");
+                var params = "height=600,width=1020,resizable=0,status=0,toolbar=0,menubar=0,location=1";
+                window.open(url, "Authorization", params);
+            });
         } else {
             blockUi(400, $("#manageWindow"));
-        }
-
-        if (window.addEventListener) {
-            window.addEventListener('message', onGetOAuthInfo, false);
-        } else {
-            window.attachEvent('onmessage', onGetOAuthInfo);
         }
 
         $('.containerBodyBlock .buttons #save').unbind('click').bind('click', function() {
@@ -472,31 +472,29 @@ window.accountsModal = (function($) {
         }
     }
 
-    function onGetOAuthInfo(evt) {
-        var obj;
-        if (typeof evt.data == "string") {
-            try {
-                obj = window.jQuery.parseJSON(evt.data);
-            } catch(err) {
-                return;
-            }
-        } else {
-            obj = evt.data;
+    function onGetOAuthInfo(code, error) {
+        if (error) {
+            showErrorModal({
+                oauth: true,
+                simple: true,
+                settings: {
+                    name: ''
+                }
+            }, [error]);
+            return;
         }
 
-        if (obj.Tpr === "OAuthImporter") {
-            if (obj.error && obj.error !== "Canceled at provider") {
-                var email = obj.Data !== null ? obj.Data.Email || '' : '';
-                showErrorModal({ oauth: true, simple: true, settings: { email: email, name: '' } }, [obj.error]);
-            } else if (obj.Data != null && obj.Data.Email != null && obj.Data.RefreshToken != null) {
-                showLoader(window.MailScriptResource.MailboxCreation);
-                serviceManager.createOAuthBox(obj.Data.Email, obj.Data.RefreshToken, 1, //google service
-                    { oauth: true, settings: { email: obj.Data.Email, name: '', enabled: true, restrict: true } },
-                    { error: showErrorModal });
-            }
-        } else {
-            hide();
-        }
+        showLoader(window.MailScriptResource.MailboxCreation);
+        serviceManager.createOAuthBox(code, 1, //google service
+            {
+                oauth: true,
+                settings: {
+                    name: '',
+                    enabled: true,
+                    restrict: true
+                }
+            },
+            {error: showErrorModal});
     }
 
     function switchToAdvanced(action) {
@@ -639,7 +637,7 @@ window.accountsModal = (function($) {
             $('#password').placeholder();
         }
 
-        if ("refresh_token" in account && account.refresh_token != null) {
+        if ("is_oauth" in account && account.is_oauth) {
             disableControls();
             $('.popupMailBox #getDefaultSettings').hide();
         }
@@ -978,7 +976,7 @@ window.accountsModal = (function($) {
         }
 
         var footer;
-        if (/@gmail.com$/.test(params.settings.email.toLowerCase())) {
+        if (/@gmail.com$/.test((params.settings.email || "").toLowerCase())) {
             footer = window.MailScriptResource.ImportGmailAttention;
         } else {
             footer = window.MailScriptResource.ImportProblemText;
@@ -986,7 +984,7 @@ window.accountsModal = (function($) {
 
         footer = footer
             .replace('{0}', '<a href="{0}"class="linkDescribe" target="blank">'
-                .format(TMMail.getFaqLink(params.settings.email.toLowerCase())))
+                .format(TMMail.getFaqLink(params.settings.email)))
             .replace('{1}', '</a>');
 
         var body = $($.tmpl("accountSuccessTmpl", {
@@ -1033,12 +1031,6 @@ window.accountsModal = (function($) {
             if (loader != undefined && loader.is(':visible')) {
                 return;
             }
-        }
-
-        if (window.removeEventListener) {
-            window.removeEventListener("message", onGetOAuthInfo, false);
-        } else {
-            window.detachEvent("message", onGetOAuthInfo);
         }
 
         window.PopupKeyUpActionProvider.ClearActions();
@@ -1231,6 +1223,7 @@ window.accountsModal = (function($) {
         hide: hide,
         onError: onError,
         showInformationBox: informationBox,
-        showSignatureBox: signatureBox
+        showSignatureBox: signatureBox,
+        onGetOAuthInfo: onGetOAuthInfo,
     };
 })(jQuery);

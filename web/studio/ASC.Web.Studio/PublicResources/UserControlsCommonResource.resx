@@ -320,7 +320,25 @@ will appear in this list.</value>
     <value>Activation license file</value>
   </data>
   <data name="LicenseKeyLabel" xml:space="preserve">
-    <value>Upload license file</value>
+    <value>Upload Your License File</value>
+  </data>
+  <data name="LicenseActivateDescr" xml:space="preserve">
+    <value>If you have already purchased an ONLYOFFICE license, please upload the file into the field below.</value>
+  </data>
+  <data name="LicenseKeyBuyLabel" xml:space="preserve">
+    <value>Buy a License</value>
+  </data>
+  <data name="HostedBuyLabel" xml:space="preserve">
+    <value>Portal payment</value>
+  </data>
+  <data name="HostedBuyDescr" xml:space="preserve">
+    <value>If you want to pay for your ONLYOFFICE portal, click the Buy Now button.</value>
+  </data>
+  <data name="SalesQuestions" xml:space="preserve">
+    <value>Have a questions? Please, contact our sales department at {0}</value>
+  </data>
+  <data name="LicenseKeyBuyDescr" xml:space="preserve">
+    <value>If you want to review or buy an ONLYOFFICE license, click the Buy Now button. You will be redirected to the ONLYOFFICE order page on the Avangate website.</value>
   </data>
   <data name="LicenseKeyNotFound" xml:space="preserve">
     <value>You must put license key</value>
@@ -487,6 +505,9 @@ will appear in this list.</value>
   <data name="TariffNonProfit" xml:space="preserve">
     <value>You are using non-profit plan.</value>
   </data>
+  <data name="TariffOverdueHosted" xml:space="preserve">
+    <value>Your portal payment has expired.</value>
+  </data>
   <data name="TariffOverduePlan" xml:space="preserve">
     <value>You are using {0} - {1} active users plan. {2}The payment is overdue.{3}{4} To continue using Teamlab Office, prolong the existing plan or change it using the table below.</value>
   </data>
@@ -583,14 +604,35 @@ will appear in this list.</value>
   <data name="TariffCurrencyHelp" xml:space="preserve">
     <value>The full list of currencies see Awangate</value>
   </data>
-  <data name="LicenseActivateHeader" xml:space="preserve">
-    <value>Activate ONLYOFFICE Enterprise Edition</value>
+  <data name="LicenseActivateAndGet" xml:space="preserve">
+    <value>Please activate ONLYOFFICE and get:</value>
   </data>
-  <data name="LicenseActivateDescr" xml:space="preserve">
-    <value>To activate ONLYOFFICE Enterprise Edition you need to buy a license key.</value>
+  <data name="HostedPayAndGet" xml:space="preserve">
+    <value>Please pay for your ONLYOFFICE and get:</value>
+  </data>
+  <data name="LicenseModules" xml:space="preserve">
+    <value>ONLYOFFICE Modules and Tools:</value>
+  </data>
+  <data name="LicenseModulesList" xml:space="preserve">
+    <value>{0}Online Documents Editors{1}{0}Document Management{1}{0}Mail{1}{0}Projects{1}{0}CRM{1}{0}Calendar{1}{0}Community{1}</value>
+  </data>
+  <data name="LicenseModulesControlPanel" xml:space="preserve">
+    <value>Control Panel</value>
+  </data>
+  <data name="LicenseModulesWhiteLabel" xml:space="preserve">
+    <value>White Label</value>
+  </data>
+  <data name="LicenseModulesMultitenancy" xml:space="preserve">
+    <value>Multitenancy</value>
+  </data>
+  <data name="LicenseModulesUpdates" xml:space="preserve">
+    <value>ONLYOFFICE Updates</value>
+  </data>
+  <data name="LicenseModulesSupport" xml:space="preserve">
+    <value>One Year Support</value>
   </data>
   <data name="LicenseActivateButton" xml:space="preserve">
-    <value>Activate Now</value>
+    <value>Activate it</value>
   </data>
   <data name="LicenseRequestHeader" xml:space="preserve">
     <value>Discover your special offer</value>
@@ -640,10 +682,13 @@ will appear in this list.</value>
   <data name="WhatsNew" xml:space="preserve">
     <value>What's New</value>
   </data>
-  <data name="LicenseAgreements" xml:space="preserve">
-    <value>By checking this box you accept the terms of the {0}License Agreements{1}</value>
-  </data>
   <data name="ChangeAliasHelper" xml:space="preserve">
     <value>You can change the domain name later using the portal 'Settings' section.</value>
+  </data>
+  <data name="LicensedUnder" xml:space="preserve">
+    <value>This software is licensed under {0}GNU GPL v.3{1}</value>
+  </data>
+  <data name="SourceCode" xml:space="preserve">
+    <value>Source code is availible on {0}GitHub{1}</value>
   </data>
 </root>

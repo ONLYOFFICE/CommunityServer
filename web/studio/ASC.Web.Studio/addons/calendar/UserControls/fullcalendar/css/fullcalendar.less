@@ -2205,6 +2205,19 @@ div.fc-todo-list {
     max-width: 40em;
 }
 
+#fc_delete_settings .single-content {
+    display: none;
+}
+#fc_delete_settings .repeat-content {
+    display: block;
+}
+#fc_delete_settings.single .single-content {
+    display: block;
+}
+#fc_delete_settings.single .repeat-content {
+    display: none;
+}
+
 #fc_ical_stream {
     z-index: 200;
     padding: 1em;
@@ -2293,7 +2306,8 @@ div.fc-todo-list {
 .event-editor .buttons .close-btn,
 .event-editor .buttons .cancel-btn,
 .event-editor .buttons .delete-btn,
-#fc_delete_settings .buttons .save-btn {
+#fc_delete_settings .buttons .save-btn,
+#fc_delete_settings .buttons .ok-btn {
 	margin-right: .5em;
 }
 
@@ -2331,7 +2345,8 @@ div.fc-todo-list {
 .event-editor .buttons .view-details,
 .event-editor.add-dialog .buttons .delete-btn,
 .event-editor.add-popup .buttons .delete-btn,
-#fc_delete_settings .buttons .save-btn {
+#fc_delete_settings .buttons .save-btn,
+#fc_delete_settings .buttons .ok-btn {
 	display: none;
 }
 
@@ -2341,7 +2356,8 @@ div.fc-todo-list {
 .event-editor.add-dialog .buttons .view-details,
 .event-editor.add-popup .buttons .view-details,
 .event-editor.edit-popup .buttons .view-details,
-#fc_delete_settings.add-popup .buttons .save-btn {
+#fc_delete_settings.add-popup .buttons .save-btn,
+#fc_delete_settings.add-popup .buttons .ok-btn {
 	display: inline-block;
 }
 
@@ -2360,15 +2376,13 @@ div.fc-todo-list {
 	display: none;
 }
 
-.event-editor .editor,
-#fc_delete_settings .delete-selector {
+.event-editor .editor {
 	display: none;
 }
 
 .event-editor.add-dialog .editor,
 .event-editor.add-popup .editor,
-.event-editor.edit-popup .editor,
-#fc_delete_settings.add-popup .delete-selector {
+.event-editor.edit-popup .editor {
 	display: block;
 }
 
@@ -3485,7 +3499,7 @@ div.fc-todo-list {
 	border-bottom: 1px dotted #808080;
 }
 
-.delete-selector {
+.delete-selector, .delete-text {
 	margin-bottom: 2.5em;
 }
 

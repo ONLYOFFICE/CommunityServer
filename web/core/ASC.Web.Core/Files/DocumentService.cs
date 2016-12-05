@@ -280,6 +280,7 @@ namespace ASC.Web.Core.Files
         /// <param name="callbackUrl">Url to the callback handler</param>
         /// <param name="users">users id for drop</param>
         /// <param name="status">saving status</param>
+        /// <param name="version">server version</param>
         /// <returns>Response</returns>
         public CommandResultTypes CommandRequest(
             string documentTrackerUrl,
@@ -287,7 +288,8 @@ namespace ASC.Web.Core.Files
             string documentRevisionId,
             string callbackUrl,
             string users,
-            string status)
+            string status,
+            out string version)
         {
             var validateKey = GenerateValidateKey(documentRevisionId, string.Empty);
 
@@ -326,6 +328,15 @@ namespace ASC.Web.Core.Files
 
             var jResponse = JObject.Parse(data);
 
+            try
+            {
+                version = jResponse.Value<string>("version");
+            }
+            catch (Exception)
+            {
+                version = "0";
+            }
+
             return (CommandResultTypes)jResponse.Value<int>("error");
         }
 
@@ -334,7 +345,7 @@ namespace ASC.Web.Core.Files
             Info,
             Drop,
             Saved, //not used
-            Test, //not used
+            Version, //not used
         }
 
         public enum CommandResultTypes

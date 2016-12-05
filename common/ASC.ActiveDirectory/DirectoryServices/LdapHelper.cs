@@ -24,6 +24,7 @@
 */
 
 
+using System.Linq;
 using log4net;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace ASC.ActiveDirectory.DirectoryServices
 {
     public abstract class LdapHelper
     {
-        protected readonly ILog log = LogManager.GetLogger(typeof(LdapHelper));
+        protected readonly ILog Log = LogManager.GetLogger(typeof(LdapHelper));
 
         public abstract  LDAPObject GetDomain(LDAPSupportSettings settings);
 
@@ -47,7 +48,7 @@ namespace ASC.ActiveDirectory.DirectoryServices
 
         public abstract List<LDAPObject> GetUsersByAttributesAndFilter(LDAPSupportSettings settings, string filter);
 
-        public abstract List<LDAPObject> GetUsersFromPrimaryGroup(LDAPSupportSettings settings, string primaryGroupID);
+        public abstract List<LDAPObject> GetUsersFromPrimaryGroup(LDAPSupportSettings settings, string primaryGroupId);
 
         public abstract LDAPObject GetUserBySid(LDAPSupportSettings settings, string sid);
 
@@ -60,21 +61,23 @@ namespace ASC.ActiveDirectory.DirectoryServices
         {
             try
             {
-                var members = domainGroup.GetValues(groupAttribute);
-                if (memberString != null)
+                if (domainGroup == null ||
+                    string.IsNullOrEmpty(memberString) ||
+                    string.IsNullOrEmpty(groupAttribute))
                 {
-                    foreach (var member in members)
-                    {
-                        if (memberString.Equals(member, StringComparison.InvariantCultureIgnoreCase))
-                        {
-                            return true;
-                        }
-                    }
+                    return false;
                 }
+
+                var members = domainGroup.GetValues(groupAttribute);
+                if (members == null)
+                    return false;
+
+                if (members.Any(member => memberString.Equals(member, StringComparison.InvariantCultureIgnoreCase)))
+                    return true;
             }
             catch (Exception e)
             {
-                log.ErrorFormat("Wrong Group Attribute parameters: {0}. {1}", groupAttribute, e);
+                Log.ErrorFormat("Wrong Group Attribute parameters: {0}. {1}", groupAttribute, e);
             }
             return false;
         }
@@ -91,7 +94,7 @@ namespace ASC.ActiveDirectory.DirectoryServices
             }
             catch (Exception e)
             {
-                log.ErrorFormat("Wrong  User Attribute parameters: {0}. {1}", userAttribute, e);
+                Log.ErrorFormat("Wrong  User Attribute parameters: {0}. {1}", userAttribute, e);
             }
             return null;
         }
@@ -104,7 +107,7 @@ namespace ASC.ActiveDirectory.DirectoryServices
             }
             catch (Exception e)
             {
-                log.ErrorFormat("Wrong Group Attribute parameters: {0}. {1}", groupAttribute, e);
+                Log.ErrorFormat("Wrong Group Attribute parameters: {0}. {1}", groupAttribute, e);
             }
             return null;
         }

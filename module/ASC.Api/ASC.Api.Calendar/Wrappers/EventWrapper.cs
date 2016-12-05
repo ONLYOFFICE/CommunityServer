@@ -133,6 +133,9 @@ namespace ASC.Api.Calendar.Wrappers
                     else
                         return new ApiDateTime(startD, CoreContext.TenantManager.GetCurrentTenant().TimeZone);
 
+                if (_baseEvent.GetType().Namespace == new BusinessObjects.Event().GetType().Namespace)
+                    return new ApiDateTime(startD, _timeZone.BaseUtcOffset);
+
                 return new ApiDateTime(startD, _timeZone);
             }
         }
@@ -153,6 +156,9 @@ namespace ASC.Api.Calendar.Wrappers
                         return new ApiDateTime(endD, TimeZoneInfo.Utc);
                     else
                         return new ApiDateTime(endD, CoreContext.TenantManager.GetCurrentTenant().TimeZone);
+
+                if (_baseEvent.GetType().Namespace == new BusinessObjects.Event().GetType().Namespace)
+                    return new ApiDateTime(endD, _timeZone.BaseUtcOffset);
 
                 return new ApiDateTime(endD, _timeZone);
             }

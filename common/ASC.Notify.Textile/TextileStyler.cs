@@ -106,7 +106,7 @@ namespace ASC.Notify.Textile
                     }
                     else
                     {
-                        logoText = TenantWhiteLabelSettings.DefaultLogo;
+                        logoText = TenantWhiteLabelSettings.DefaultLogoText;
                     }
                 }
 

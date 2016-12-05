@@ -24,6 +24,7 @@
 */
 
 
+using System.Linq;
 using Novell.Directory.Ldap;
 using System;
 using System.Collections.Generic;
@@ -32,16 +33,16 @@ using System.DirectoryServices;
 namespace ASC.ActiveDirectory
 {
     /// <summary>
-    /// Фабрика для создания объектов LDAP
+    /// LDAP objects Factory Class
     /// </summary>
-    public class LDAPObjectFactory
+    public static class LDAPObjectFactory
     {
         /// <summary>
-        /// Создание конкретного объекта по DirectoryEntry
+        /// Create LDAPObject by DirectoryEntry
         /// </summary>
-        /// <param name="directoryEntry"></param>
-        /// <returns>конкретный объект</returns>
-        public LDAPObject CreateObject(DirectoryEntry directoryEntry)
+        /// <param name="directoryEntry">init directoryEntry</param>
+        /// <returns>LDAPObject</returns>
+        public static LDAPObject CreateObject(DirectoryEntry directoryEntry)
         {
             if (directoryEntry == null)
                 throw new ArgumentNullException("directoryEntry");
@@ -50,11 +51,11 @@ namespace ASC.ActiveDirectory
        }
 
         /// <summary>
-        /// Создание конкретного объекта по LdapEntry
+        /// Create LDAPObject by LdapEntry
         /// </summary>
-        /// <param name="ldapEntry"></param>
-        /// <returns>конкретный объект</returns>
-        public LDAPObject CreateObject(LdapEntry ldapEntry)
+        /// <param name="ldapEntry">init ldapEntry</param>
+        /// <returns>LDAPObject</returns>
+        public static LDAPObject CreateObject(LdapEntry ldapEntry)
         {
             if (ldapEntry == null)
                 throw new ArgumentNullException("ldapEntry");
@@ -63,50 +64,33 @@ namespace ASC.ActiveDirectory
         }
 
         /// <summary>
-        /// Создание списка конкретных объектов по списку DirectoryEntry
+        /// Create lis of LDAPObject by DirectoryEntry list
         /// </summary>
-        /// <param name="entries">список DirectoryEntry</param>
-        /// <returns>список конкретных объектов</returns>
-        public List<LDAPObject> CreateObjects(IEnumerable<DirectoryEntry> entries)
+        /// <param name="entries">list of DirectoryEntry</param>
+        /// <returns>list of LDAPObjects</returns>
+        public static List<LDAPObject> CreateObjects(IEnumerable<DirectoryEntry> entries)
         {
-            List<LDAPObject> list = new List<LDAPObject>();
-            foreach (var item in entries)
-            {
-                list.Add(CreateObject(item));
-            }
-
-            return list;
+            return entries.Select(CreateObject).ToList();
         }
 
         /// <summary>
-        /// Создание списка конкретных объектов по списку DirectoryEntry
+        /// Create lis of LDAPObject by LdapEntry list
         /// </summary>
-        /// <param name="entries">список LdapEntry</param>
-        /// <returns>список конкретных объектов</returns>
-        public List<LDAPObject> CreateObjects(IEnumerable<LdapEntry> entries)
+        /// <param name="entries">list of LdapEntry</param>
+        /// <returns>list of LDAPObjects</returns>
+        public static List<LDAPObject> CreateObjects(IEnumerable<LdapEntry> entries)
         {
-            List<LDAPObject> list = new List<LDAPObject>();
-            foreach (var item in entries)
-            {
-                list.Add(CreateObject(item));
-            }
-
-            return list;
+            return entries.Select(CreateObject).ToList();
         }
 
         /// <summary>
-        /// Создание списка конкретных объектов по DirectoryEntries
+        /// Create lis of LDAPObject by DirectoryEntries Collection
         /// </summary>
-        /// <param name="entries">коллекция DirectoryEntries</param>
-        /// <returns>список конкретных объектов</returns>
-        public IList<LDAPObject> CreateObjects(DirectoryEntries entries)
+        /// <param name="entries">DirectoryEntries</param>
+        /// <returns>list of LDAPObjects</returns>
+        public static IList<LDAPObject> CreateObjects(DirectoryEntries entries)
         {
-            List<LDAPObject> list = new List<LDAPObject>();
-            foreach (DirectoryEntry item in entries)
-            {
-                list.Add(CreateObject(item));
-            }
-            return list;
+            return (from DirectoryEntry item in entries select CreateObject(item)).ToList();
         }
     }
 }

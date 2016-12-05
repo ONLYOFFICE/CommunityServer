@@ -240,6 +240,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                 var address = data.Columns.Cast<DataColumn>().Single(c => c.ColumnName == "address");
                 var smtp = data.Columns.Cast<DataColumn>().Single(c => c.ColumnName == "smtp_password");
                 var pop3 = data.Columns.Cast<DataColumn>().Single(c => c.ColumnName == "pop3_password");
+                var token = data.Columns.Cast<DataColumn>().Single(c => c.ColumnName == "token");
                 for (var i = 0; i < data.Rows.Count; i++)
                 {
                     var row = data.Rows[i];
@@ -247,6 +248,7 @@ namespace ASC.Data.Backup.Tasks.Modules
                     {
                         row[smtp] = Helpers.CreateHash2(row[smtp] as string);
                         row[pop3] = Helpers.CreateHash2(row[pop3] as string);
+                        row[token] = Helpers.CreateHash2(row[token] as string);
                     }
                     catch (Exception ex)
                     {

@@ -39,312 +39,196 @@ namespace ASC.ActiveDirectory
     [DataContract]
     public class LDAPSupportSettings : ISettings
     {
-        [NonSerialized]
-        private readonly LdapHelper ldapHelper;
+        [NonSerialized] 
+        private LdapHelper _ldapHelper;
 
         public LDAPSupportSettings()
         {
-            ldapHelper = !WorkContext.IsMono ? (LdapHelper)new SystemLdapHelper() : new NovellLdapHelper();
+            _ldapHelper = !WorkContext.IsMono ? (LdapHelper) new SystemLdapHelper() : new NovellLdapHelper();
         }
 
         public Guid ID
         {
-            get
-            {
-                return new Guid("{197149b3-fbc9-44c2-b42a-232f7e729c16}");
-            }
+            get { return new Guid("{197149b3-fbc9-44c2-b42a-232f7e729c16}"); }
         }
 
         public ISettings GetDefault()
         {
-            string domainName = null;
-            string userFilter;
-            string loginAttribute;
-            string userAttribute;
-            string groupFilter;
-            string groupAttribute;
+            var domainName = "";
+            var distinguishedName = "";
 
-            string firstNameAttribute = Constants.ADSchemaAttributes.FirstName;
-            string secondNameAttribute = Constants.ADSchemaAttributes.Surname;
-            string mailAttribute = Constants.ADSchemaAttributes.Mail;
-            string titleAttribute = Constants.ADSchemaAttributes.Title;
-            string mobilePhoneAttribute = Constants.ADSchemaAttributes.Mobile;
-            string locationAttribute = Constants.ADSchemaAttributes.Street;
-            string groupNameAttribute = Constants.ADSchemaAttributes.CommonName;
+            var isMono = WorkContext.IsMono;
 
-            if (!WorkContext.IsMono)
+            if (!isMono)
             {
                 try
                 {
                     var domain = Domain.GetCurrentDomain();
-                    domainName = String.Format(@"LDAP://{0}", domain.Name);
+                    domainName = string.Format(@"LDAP://{0}", domain.Name);
+
+                    if(_ldapHelper == null)
+                        _ldapHelper = new SystemLdapHelper();
+
+                    distinguishedName =
+                        _ldapHelper.GetDefaultDistinguishedName(domainName, Constants.STANDART_LDAP_PORT) ?? "";
                 }
-                catch
+                catch(Exception)
                 {
-                    domainName = null;
+                    domainName = "";
+                    distinguishedName = "";
                 }
-                userFilter = "(" + Constants.ADSchemaAttributes.UserPrincipalName + "=*)";
-                loginAttribute = Constants.ADSchemaAttributes.AccountName;
-                groupFilter = "(" + Constants.ADSchemaAttributes.ObjectClass + "=" + Constants.ObjectClassKnowedValues.Group + ")";
-                userAttribute = Constants.ADSchemaAttributes.DistinguishedName;
-                groupAttribute = Constants.ADSchemaAttributes.Member;
-            }
-            else
-            {
-                userFilter = "(" + Constants.RFCLDAPAttributes.Uid + "=*)";
-                loginAttribute = Constants.RFCLDAPAttributes.Uid;
-                groupFilter = "(" + Constants.ADSchemaAttributes.ObjectClass + "=" + Constants.ObjectClassKnowedValues.PosixGroup + ")";
-                userAttribute = Constants.RFCLDAPAttributes.Uid;
-                groupAttribute = Constants.RFCLDAPAttributes.MemberUId;
             }
 
-            string distinguishedName = ldapHelper.GetDefaultDistinguishedName(domainName, Constants.STANDART_LDAP_PORT);
-
-            return new LDAPSupportSettings
+            var settings = new LDAPSupportSettings
             {
                 Server = domainName,
                 UserDN = distinguishedName,
                 PortNumber = Constants.STANDART_LDAP_PORT,
-                UserFilter = userFilter,
-                LoginAttribute = loginAttribute,
-                FirstNameAttribute = firstNameAttribute,
-                SecondNameAttribute = secondNameAttribute,
-                MailAttribute = mailAttribute,
-                TitleAttribute = titleAttribute,
-                MobilePhoneAttribute = mobilePhoneAttribute,
-                LocationAttribute = locationAttribute,
+                UserFilter = string.Format("({0}=*)",
+                    isMono
+                        ? Constants.RfcLDAPAttributes.UID
+                        : Constants.ADSchemaAttributes.USER_PRINCIPAL_NAME),
+                LoginAttribute = isMono
+                    ? Constants.RfcLDAPAttributes.UID
+                    : Constants.ADSchemaAttributes.ACCOUNT_NAME,
+                FirstNameAttribute = Constants.ADSchemaAttributes.FIRST_NAME,
+                SecondNameAttribute = Constants.ADSchemaAttributes.SURNAME,
+                MailAttribute = Constants.ADSchemaAttributes.MAIL,
+                TitleAttribute = Constants.ADSchemaAttributes.TITLE,
+                MobilePhoneAttribute = Constants.ADSchemaAttributes.MOBILE,
+                LocationAttribute = Constants.ADSchemaAttributes.STREET,
                 GroupDN = distinguishedName,
-                GroupFilter = groupFilter,
-                UserAttribute = userAttribute,
-                GroupAttribute = groupAttribute,
-                GroupNameAttribute = groupNameAttribute,
-                Authentication = distinguishedName == null,
+                GroupFilter = string.Format("({0}={1})", Constants.ADSchemaAttributes.OBJECT_CLASS,
+                    isMono
+                        ? Constants.ObjectClassKnowedValues.POSIX_GROUP
+                        : Constants.ObjectClassKnowedValues.GROUP),
+                UserAttribute =
+                    isMono
+                        ? Constants.RfcLDAPAttributes.UID
+                        : Constants.ADSchemaAttributes.DISTINGUISHED_NAME,
+                GroupAttribute = isMono ? Constants.RfcLDAPAttributes.MEMBER_UID : Constants.ADSchemaAttributes.MEMBER,
+                GroupNameAttribute = Constants.ADSchemaAttributes.COMMON_NAME,
+                Authentication = string.IsNullOrEmpty(distinguishedName)
             };
+
+            return settings;
         }
 
         public override bool Equals(object obj)
         {
-            LDAPSupportSettings settings = obj as LDAPSupportSettings;
-            if (settings == null ||
-                EnableLdapAuthentication != settings.EnableLdapAuthentication ||
-                StartTls != settings.StartTls ||
-                Server != settings.Server ||
-                UserDN != settings.UserDN ||
-                PortNumber != settings.PortNumber ||
-                UserFilter != settings.UserFilter ||
-                LoginAttribute != settings.LoginAttribute ||
-                FirstNameAttribute != settings.FirstNameAttribute ||
-                SecondNameAttribute != settings.SecondNameAttribute ||
-                MailAttribute != settings.MailAttribute ||
-                TitleAttribute != settings.TitleAttribute ||
-                MobilePhoneAttribute != settings.MobilePhoneAttribute ||
-                LocationAttribute != settings.LocationAttribute ||
-                GroupMembership != settings.GroupMembership ||
-                GroupDN != settings.GroupDN ||
-                GroupNameAttribute != settings.GroupNameAttribute ||
-                GroupFilter != settings.GroupFilter ||
-                UserAttribute != settings.UserAttribute ||
-                GroupAttribute != settings.GroupAttribute ||
-                Login != settings.Login)
-            {
-                return false;
-            }
-            return true;
+            var settings = obj as LDAPSupportSettings;
+
+            return settings != null && EnableLdapAuthentication == settings.EnableLdapAuthentication &&
+                   StartTls == settings.StartTls &&
+                   (string.IsNullOrEmpty(Server) && string.IsNullOrEmpty(settings.Server) || Server == settings.Server) &&
+                   (string.IsNullOrEmpty(UserDN) && string.IsNullOrEmpty(settings.UserDN) || UserDN == settings.UserDN) &&
+                   PortNumber == settings.PortNumber && UserFilter == settings.UserFilter &&
+                   LoginAttribute == settings.LoginAttribute && FirstNameAttribute == settings.FirstNameAttribute &&
+                   SecondNameAttribute == settings.SecondNameAttribute && MailAttribute == settings.MailAttribute &&
+                   TitleAttribute == settings.TitleAttribute && MobilePhoneAttribute == settings.MobilePhoneAttribute &&
+                   LocationAttribute == settings.LocationAttribute && GroupMembership == settings.GroupMembership &&
+                   (string.IsNullOrEmpty(GroupDN) && string.IsNullOrEmpty(settings.GroupDN) || GroupDN == settings.GroupDN) &&
+                   GroupFilter == settings.GroupFilter && UserAttribute == settings.UserAttribute &&
+                   GroupAttribute == settings.GroupAttribute && Login == settings.Login;
         }
 
         public override int GetHashCode()
         {
-            int hash = 3;
-            hash = (hash * 2) + EnableLdapAuthentication.GetHashCode();
-            hash = (hash * 2) + StartTls.GetHashCode();
-            hash = (hash * 2) + Server.GetHashCode();
-            hash = (hash * 2) + UserDN.GetHashCode();
-            hash = (hash * 2) + PortNumber.GetHashCode();
-            hash = (hash * 2) + UserFilter.GetHashCode();
-            hash = (hash * 2) + LoginAttribute.GetHashCode();
-            hash = (hash * 2) + FirstNameAttribute.GetHashCode();
-            hash = (hash * 2) + SecondNameAttribute.GetHashCode();
-            hash = (hash * 2) + MailAttribute.GetHashCode();
-            hash = (hash * 2) + TitleAttribute.GetHashCode();
-            hash = (hash * 2) + MobilePhoneAttribute.GetHashCode();
-            hash = (hash * 2) + LocationAttribute.GetHashCode();
-            hash = (hash * 2) + GroupMembership.GetHashCode();
-            hash = (hash * 2) + GroupDN.GetHashCode();
-            hash = (hash * 2) + GroupNameAttribute.GetHashCode();
-            hash = (hash * 2) + GroupFilter.GetHashCode();
-            hash = (hash * 2) + UserAttribute.GetHashCode();
-            hash = (hash * 2) + GroupAttribute.GetHashCode();
-            hash = (hash * 2) + Authentication.GetHashCode();
-            hash = (hash * 2) + Login.GetHashCode();
+            var hash = 3;
+            hash = (hash*2) + EnableLdapAuthentication.GetHashCode();
+            hash = (hash*2) + StartTls.GetHashCode();
+            hash = (hash*2) + Server.GetHashCode();
+            hash = (hash*2) + UserDN.GetHashCode();
+            hash = (hash*2) + PortNumber.GetHashCode();
+            hash = (hash*2) + UserFilter.GetHashCode();
+            hash = (hash*2) + LoginAttribute.GetHashCode();
+            hash = (hash*2) + FirstNameAttribute.GetHashCode();
+            hash = (hash*2) + SecondNameAttribute.GetHashCode();
+            hash = (hash*2) + MailAttribute.GetHashCode();
+            hash = (hash*2) + TitleAttribute.GetHashCode();
+            hash = (hash*2) + MobilePhoneAttribute.GetHashCode();
+            hash = (hash*2) + LocationAttribute.GetHashCode();
+            hash = (hash*2) + GroupMembership.GetHashCode();
+            hash = (hash*2) + GroupDN.GetHashCode();
+            hash = (hash*2) + GroupNameAttribute.GetHashCode();
+            hash = (hash*2) + GroupFilter.GetHashCode();
+            hash = (hash*2) + UserAttribute.GetHashCode();
+            hash = (hash*2) + GroupAttribute.GetHashCode();
+            hash = (hash*2) + Authentication.GetHashCode();
+            hash = (hash*2) + Login.GetHashCode();
             return hash;
         }
 
         [DataMember]
-        public bool EnableLdapAuthentication
-        {
-            get;
-            set;
-        }
+        public bool EnableLdapAuthentication { get; set; }
 
         [DataMember]
-        public bool StartTls
-        {
-            get;
-            set;
-        }
+        public bool StartTls { get; set; }
 
         [DataMember]
-        public string Server
-        {
-            get;
-            set;
-        }
+        public string Server { get; set; }
 
         [DataMember]
-        public string UserDN
-        {
-            get;
-            set;
-        }
+        public string UserDN { get; set; }
 
         [DataMember]
-        public int PortNumber
-        {
-            get;
-            set;
-        }
+        public int PortNumber { get; set; }
 
         [DataMember]
-        public string UserFilter
-        {
-            get;
-            set;
-        }
+        public string UserFilter { get; set; }
 
         [DataMember]
-        public string LoginAttribute
-        {
-            get;
-            set;
-        }
+        public string LoginAttribute { get; set; }
 
         [DataMember]
-        public string FirstNameAttribute
-        {
-            get;
-            set;
-        }
+        public string FirstNameAttribute { get; set; }
 
         [DataMember]
-        public string SecondNameAttribute
-        {
-            get;
-            set;
-        }
+        public string SecondNameAttribute { get; set; }
 
         [DataMember]
-        public string MailAttribute
-        {
-            get;
-            set;
-        }
+        public string MailAttribute { get; set; }
 
         [DataMember]
-        public string TitleAttribute
-        {
-            get;
-            set;
-        }
+        public string TitleAttribute { get; set; }
 
         [DataMember]
-        public string MobilePhoneAttribute
-        {
-            get;
-            set;
-        }
+        public string MobilePhoneAttribute { get; set; }
 
         [DataMember]
-        public string LocationAttribute
-        {
-            get;
-            set;
-        }
-        
-        [DataMember]
-        public bool GroupMembership
-        {
-            get;
-            set;
-        }
+        public string LocationAttribute { get; set; }
 
         [DataMember]
-        public string GroupDN
-        {
-            get;
-            set;
-        }
+        public bool GroupMembership { get; set; }
 
         [DataMember]
-        public string GroupNameAttribute
-        {
-            get;
-            set;
-        }
+        public string GroupDN { get; set; }
 
         [DataMember]
-        public string GroupFilter
-        {
-            get;
-            set;
-        }
+        public string GroupNameAttribute { get; set; }
 
         [DataMember]
-        public string UserAttribute
-        {
-            get;
-            set;
-        }
+        public string GroupFilter { get; set; }
 
         [DataMember]
-        public string GroupAttribute
-        {
-            get;
-            set;
-        }
+        public string UserAttribute { get; set; }
 
         [DataMember]
-        public bool Authentication
-        {
-            get;
-            set;
-        }
+        public string GroupAttribute { get; set; }
 
         [DataMember]
-        public string Login
-        {
-            get;
-            set;
-        }
+        public bool Authentication { get; set; }
 
         [DataMember]
-        public string Password
-        {
-            get;
-            set;
-        }
+        public string Login { get; set; }
 
         [DataMember]
-        public byte[] PasswordBytes
-        {
-            get;
-            set;
-        }
+        public string Password { get; set; }
 
         [DataMember]
-        public bool IsDefault
-        {
-            get;
-            set;
-        }
+        public byte[] PasswordBytes { get; set; }
+
+        [DataMember]
+        public bool IsDefault { get; set; }
     }
 }

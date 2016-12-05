@@ -1,0 +1,76 @@
+#!/bin/sh
+
+NAME=$2
+PROGRAM=hyperfastcgi4
+DAEMON=$(which $PROGRAM)
+USER=onlyoffice
+GROUP=$USER
+LOCKFILE=/var/lock/subsys/$NAME
+PID=""
+
+ARGS="/logfile=/var/log/onlyoffice/$NAME.log /config=/etc/hyperfastcgi/$NAME"
+
+do_start() {
+	echo -n "Starting $NAME... "
+	export LD_LIBRARY_PATH=/usr/lib
+	export MONO_IOMAP=all
+	export MONO_ASPNET_WEBCONFIG_CACHESIZE=2000
+	export MONO_THREADS_PER_CPU=2000
+	export MONO_OPTIONS="--server"
+	export MONO_GC_PARAMS=nursery-size=64m
+
+	[ -e /var/run/onlyoffice/$NAME.socket ] && rm -f /var/run/onlyoffice/$NAME.socket
+	$DAEMON $ARGS
+	echo "OK"
+}
+
+do_stop() {
+	echo -n "Stopping $NAME... "
+	kill $PID
+	echo "OK"
+}
+
+get_pid() {
+	PID=$(ps auxf | grep HyperFastCgi.exe | grep $NAME.log | grep -v grep | awk '{print $2}')
+}
+
+case "$1" in
+	start)
+		get_pid
+		if [ -z "$PID" ]; then
+			rm -f "$LOCKFILE"
+			do_start
+		fi
+	;;
+
+	stop)
+		get_pid
+		if [ -n "$PID" ]; then
+			do_stop
+			rm -f "$LOCKFILE"
+		fi
+	;;
+
+	status)
+		get_pid
+		if [ -z "$PID" ]; then
+			echo "$NAME is not running"
+		else
+			echo "$NAME is running (pid $PID)"
+		fi
+	;;
+
+	restart|force-reload)
+		get_pid
+		[ -n "$PID" ] && do_stop
+		rm -f "$LOCKFILE"
+		sleep 2
+		do_start
+	;;
+
+	*)
+		echo $"Usage: $0 {start|stop|status|restart|force-reload}"
+	;;
+esac
+
+exit 0

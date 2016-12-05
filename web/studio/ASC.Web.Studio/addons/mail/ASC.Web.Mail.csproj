@@ -99,6 +99,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Themes\Default\Images\24x_google.png" />
     <Content Include="App_Themes\Default\Images\background_sprite.png" />
     <Content Include="App_Themes\Default\Images\base_sprite.png" />
     <Content Include="App_Themes\Default\Images\blank_modal_sprite.png" />
@@ -128,6 +129,7 @@
     <Content Include="Controls\DocumentsPopup\css\documentsPopup.less" />
     <Content Include="Controls\DocumentsPopup\css\images\project-documents.png" />
     <Content Include="Default.aspx" />
+    <Content Include="OAuth.aspx" />
     <Content Include="js\accountsPanel.js" />
     <Content Include="js\actionMenu.js" />
     <Content Include="js\actionPanel.js" />
@@ -231,6 +233,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Addon\MailAddon.cs" />
+    <Compile Include="Configuration\Settings.cs" />
     <Compile Include="Configuration\MailSpaceUsageStatManager.cs" />
     <Compile Include="Controls\AccountsPage\AccountsPage.ascx.cs">
       <DependentUpon>AccountsPage.ascx</DependentUpon>
@@ -294,6 +297,13 @@
     </Compile>
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OAuth.aspx.cs">
+      <DependentUpon>OAuth.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OAuth.aspx.designer.cs">
+      <DependentUpon>OAuth.aspx</DependentUpon>
     </Compile>
     <Compile Include="HttpHandlers\Download.ashx.cs">
       <DependentUpon>Download.ashx</DependentUpon>

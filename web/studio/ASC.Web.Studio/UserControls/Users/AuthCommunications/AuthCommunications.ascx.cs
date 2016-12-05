@@ -161,7 +161,7 @@ namespace ASC.Web.Studio.UserControls
                 if (tenant != null)
                 {
                     var settings = SettingsManager.Instance.LoadSettings<IPRestrictionsSettings>(tenant.TenantId);
-                    if (settings.Enable && !IPSecurity.IPSecurity.Verify(tenant.TenantId))
+                    if (settings.Enable && !IPSecurity.IPSecurity.Verify(tenant))
                     {
                         resp.rs2 = Resource.ErrorAccessRestricted;
                         return resp;

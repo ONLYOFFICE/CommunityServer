@@ -1,0 +1,48 @@
+﻿<%@ Page MasterPageFile="~/Masters/basetemplate.master" Language="C#" AutoEventWireup="true" CodeBehind="PaymentRequired.aspx.cs" Inherits="ASC.Web.Studio.PaymentRequired" %>
+
+<%@ Import Namespace="Resources" %>
+
+<%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
+
+<asp:Content ContentPlaceHolderID="PageContent" runat="server">
+    <div class="tariff-page">
+        <div class="current-tariff-desc">
+            <b><%= UserControlsCommonResource.TariffOverdueHosted %></b>
+        </div>
+        <div class="license-section">
+            <span class="header-base"><%= UserControlsCommonResource.HostedPayAndGet.HtmlEncode() %></span>
+        </div>
+        <table class="license-list" cellpadding="0" cellspacing="0">
+            <tbody>
+                <tr>
+                    <td rowspan="5">
+                        <div class="license-item">
+                            <div class="license-item-modules"><%= UserControlsCommonResource.LicenseModules.HtmlEncode() %></div>
+                            <%= string.Format(UserControlsCommonResource.LicenseModulesList, "- ", "<br />") %>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <% if (!string.IsNullOrEmpty(Settings.BuyUrl))
+           { %>
+        <div class="license-section">
+            <span class="header-base"><%= UserControlsCommonResource.LicenseKeyBuyLabel %></span>
+        </div>
+        <div><%= UserControlsCommonResource.HostedBuyDescr.HtmlEncode() %></div>
+
+        <div class="button-margin">
+            <a href="<%= Settings.BuyUrl %>" class="button blue big" target="_blank"><%= Resource.TariffButtonBuy %></a>
+        </div>
+        <% } %>
+
+        <% if (!string.IsNullOrEmpty(Settings.SalesEmail))
+           { %>
+        <div class="license-questions">
+            <%= string.Format(UserControlsCommonResource.SalesQuestions,
+                              string.Format("<a href=\"mailto:{0}\" >{0}</a>", Settings.SalesEmail)) %>
+        </div>
+        <% } %>
+    </div>
+</asp:Content>

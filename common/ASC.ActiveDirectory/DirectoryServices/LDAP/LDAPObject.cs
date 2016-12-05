@@ -38,53 +38,49 @@ using System.Web.Hosting;
 namespace ASC.ActiveDirectory
 {
     /// <summary>
-    /// Класс для объекта из службы каталогов при работе через LDAP
+    /// LDAP object class
     /// </summary>
-    /// <remarks>Предназначен для выполнения общей работы.
     public class LDAPObject
     {
-        private readonly DirectoryEntry directoryEntry = null;
-        private readonly LdapEntry ldapEntry = null;
-        protected readonly ILog log = LogManager.GetLogger(typeof(LDAPObject));
+        private readonly DirectoryEntry _directoryEntry;
+        private readonly LdapEntry _ldapEntry;
+        protected readonly ILog Log = LogManager.GetLogger(typeof(LDAPObject));
 
         /// <summary>
-        /// Внутренний конструктор
+        /// Constructor
         /// </summary>
-        /// <param name="directoryEntry">инициализурующая запись из службы сервисов</param>
+        /// <param name="directoryEntry">init directory entry</param>
         public LDAPObject(DirectoryEntry directoryEntry)
         {
             if (directoryEntry == null)
                 throw new ArgumentNullException("directoryEntry");
 
-            this.directoryEntry = directoryEntry;
+            _directoryEntry = directoryEntry;
         }
 
         /// <summary>
-        /// Внутренний конструктор
+        /// Constructor
         /// </summary>
-        /// <param name="ldapEntry">инициализурующая запись из службы сервисов</param>
+        /// <param name="ldapEntry">init ldap entry</param>
         public LDAPObject(LdapEntry ldapEntry)
         {
             if (ldapEntry == null)
                 throw new ArgumentNullException("ldapEntry");
 
-            this.ldapEntry = ldapEntry;
+            _ldapEntry = ldapEntry;
         }
 
-        #region публичные свойства
+        #region .Public
 
         public string DistinguishedName
         {
             get
             {
-                if (directoryEntry != null)
+                if (_directoryEntry != null)
                 {
-                    return InvokeGet(Constants.ADSchemaAttributes.DistinguishedName) as string;
+                    return InvokeGet(Constants.ADSchemaAttributes.DISTINGUISHED_NAME) as string;
                 }
-                else
-                {
-                    return ldapEntry.DN;
-                }
+                return _ldapEntry.DN;
             }
         }
 
@@ -92,12 +88,12 @@ namespace ASC.ActiveDirectory
         {
             get
             {
-                if (directoryEntry != null)
+                if (_directoryEntry != null)
                 {
-                    SecurityIdentifier sid = new SecurityIdentifier(WellKnownSidType.AnonymousSid, null);
+                    var sid = new SecurityIdentifier(WellKnownSidType.AnonymousSid, null);
                     try
                     {
-                        byte[] binaryForm = InvokeGet(Constants.ADSchemaAttributes.ObjectSid) as byte[];
+                        var binaryForm = InvokeGet(Constants.ADSchemaAttributes.OBJECT_SID) as byte[];
                         if (binaryForm != null)
                         {
                             sid = new SecurityIdentifier(binaryForm, 0);
@@ -105,44 +101,42 @@ namespace ASC.ActiveDirectory
                     }
                     catch (Exception e)
                     {
-                        log.ErrorFormat("Can't get LDAPObject Sid property. {0}", e);
+                        Log.ErrorFormat("Can't get LDAPObject Sid property. {0}", e);
                     }
                     return sid.Value;
                 }
-                else
+
+                try
                 {
-                    try
+                    string sid;
+                    var ldapUniqueIdAttribute = ConfigurationManager.AppSettings["ldap.unique.id"];
+                    if (ldapUniqueIdAttribute == null)
                     {
-                        string sid;
-                        string ldapUniqueIdAttribute = ConfigurationManager.AppSettings["ldap.unique.id"];
-                        if (ldapUniqueIdAttribute == null)
+                        sid = InvokeGet(Constants.RfcLDAPAttributes.ENTRY_UUID) as string;
+                        if (sid == null)
                         {
-                            sid = InvokeGet(Constants.RFCLDAPAttributes.EntryUUID) as string;
+                            sid = InvokeGet(Constants.RfcLDAPAttributes.NS_UNIQUE_ID) as string;
                             if (sid == null)
                             {
-                                sid = InvokeGet(Constants.RFCLDAPAttributes.NSUniqueId) as string;
+                                sid = InvokeGet(Constants.RfcLDAPAttributes.GUID) as string;
                                 if (sid == null)
                                 {
-                                    sid = InvokeGet(Constants.RFCLDAPAttributes.GUID) as string;
-                                    if (sid == null)
-                                    {
-                                        sid = InvokeGet(Constants.ADSchemaAttributes.ObjectSid) as string;
-                                    }
+                                    sid = InvokeGet(Constants.ADSchemaAttributes.OBJECT_SID) as string;
                                 }
                             }
                         }
-                        else
-                        {
-                            sid = InvokeGet(ldapUniqueIdAttribute) as string;
-                        }
-                        return sid;
                     }
-                    catch (Exception e)
+                    else
                     {
-                        log.ErrorFormat("Can't get LDAPObject Sid property. {0}", e);
+                        sid = InvokeGet(ldapUniqueIdAttribute) as string;
                     }
-                    return null;
+                    return sid;
                 }
+                catch (Exception e)
+                {
+                    Log.ErrorFormat("Can't get LDAPObject Sid property. {0}", e);
+                }
+                return null;
             }
         }
 
@@ -150,73 +144,63 @@ namespace ASC.ActiveDirectory
         {
             get
             {
-                if (directoryEntry != null)
-                {
-                    Constants.UserAccauntControl userAccauntControl = Constants.UserAccauntControl.Empty;
-                    try
-                    {
-                        int uac = Convert.ToInt32(InvokeGet(Constants.ADSchemaAttributes.UserAccountControl));
-                        userAccauntControl = (Constants.UserAccauntControl)uac;
-                    }
-                    catch (Exception e)
-                    {
-                        log.ErrorFormat("Can't get LDAPUser UserAccauntControl property. {0}", e);
-                    }
-                    return (userAccauntControl & Constants.UserAccauntControl.ADS_UF_ACCOUNTDISABLE) > 0;
-                }
-                else
-                {
+                if (_directoryEntry == null)
                     return false;
+                
+                var userAccauntControl = Constants.UserAccountControl.EMPTY;
+                try
+                {
+                    var uac = Convert.ToInt32(InvokeGet(Constants.ADSchemaAttributes.USER_ACCOUNT_CONTROL));
+                    userAccauntControl = (Constants.UserAccountControl) uac;
                 }
+                catch (Exception e)
+                {
+                    Log.ErrorFormat("Can't get LDAPUser UserAccauntControl property. {0}", e);
+                }
+
+                return (userAccauntControl & Constants.UserAccountControl.ADS_UF_ACCOUNTDISABLE) > 0;
             }
         }
 
         #endregion
 
         /// <summary>
-        /// Получение значения указанного свойства
+        /// Get property object
         /// </summary>
-        /// <param name="propertyName">название свойства</param>
-        /// <returns>его значение</returns>
+        /// <param name="propertyName">property name</param>
+        /// <returns>value object</returns>
         public object InvokeGet(string propertyName)
         {
-            if (directoryEntry != null)
+            if (_directoryEntry == null)
+                return _ldapEntry.GetAttributeValue(propertyName);
+
+            using (HostingEnvironment.Impersonate())
             {
-                using (HostingEnvironment.Impersonate())
-                {
-                    return directoryEntry.InvokeGet(propertyName);
-                }
-            }
-            else
-            {
-                return ldapEntry.GetAttributeValue(propertyName);
+                return _directoryEntry.InvokeGet(propertyName);
             }
         }
 
         /// <summary>
-        /// Получение значений свойсва
+        /// Get property values
         /// </summary>
-        /// <param name="propertyName">название свойства</param>
-        /// <returns>значения</returns>
+        /// <param name="propertyName">property name</param>
+        /// <returns>list of values</returns>
         public List<string> GetValues(string propertyName)
         {
             var properties = new List<string>();
-            if (directoryEntry != null)
+            if (_directoryEntry != null)
             {
-                PropertyValueCollection propertyValueCollection = directoryEntry.Properties[propertyName];
+                var propertyValueCollection = _directoryEntry.Properties[propertyName];
                 if (propertyValueCollection == null || propertyValueCollection.Value == null)
                 {
                     return null;
                 }
 
-                foreach (var val in propertyValueCollection)
-                {
-                    properties.Add(val.ToString());
-                }
+                properties.AddRange(from object val in propertyValueCollection select val.ToString());
             }
             else
             {
-                var propertyValueArray = ldapEntry.GetAttributeArrayValue(propertyName);
+                var propertyValueArray = _ldapEntry.GetAttributeArrayValue(propertyName);
                 if (propertyValueArray == null)
                 {
                     return null;

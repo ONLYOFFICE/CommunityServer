@@ -347,8 +347,10 @@ ASC.Projects.TasksManager = (function() {
                         if (jq(targetObject).attr('updated').length) {
                             descriptionObj.closedDate = jq(targetObject).attr('updated').substr(0, 10);
                         }
-                        if (jq(targetObject).attr('createdby').length) {
-                            descriptionObj.closedBy = Encoder.htmlEncode(jq(targetObject).attr('createdby'));
+                    }
+                    if (typeof jq(targetObject).attr('updatedBy') != 'undefined') {
+                        if (jq(targetObject).attr('updatedBy').length) {
+                            descriptionObj.closedBy = Encoder.htmlEncode(jq(targetObject).attr('updatedBy'));
                         }
                     }
                 } else {

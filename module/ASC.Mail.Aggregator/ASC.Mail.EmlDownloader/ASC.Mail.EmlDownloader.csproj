@@ -58,10 +58,10 @@
       <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="MailKit">
-      <HintPath>..\..\..\packages\MailKit.1.2.23\lib\net451\MailKit.dll</HintPath>
+      <HintPath>..\..\..\packages\MailKit.1.4.1\lib\net45\MailKit.dll</HintPath>
     </Reference>
     <Reference Include="MimeKit">
-      <HintPath>..\..\..\packages\MimeKit.1.2.24\lib\net451\MimeKit.dll</HintPath>
+      <HintPath>..\..\..\packages\MimeKit.1.4.1\lib\net45\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="MySql.Data">
       <SpecificVersion>False</SpecificVersion>

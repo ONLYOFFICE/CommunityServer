@@ -25,6 +25,7 @@
 
 
 using System;
+using System.IO;
 using System.Net;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.DataStorage;
@@ -46,14 +47,25 @@ namespace ASC.Mail.Aggregator
             {
                 foreach (var attachment in message.Attachments)
                 {
-                    using (var file = AttachmentManager.GetAttachmentStream(attachment))
+                    if (attachment.dataStream != null)
                     {
                         log.Debug("SaveEmailInData->ApiHelper.UploadToDocuments(fileName: '{0}', folderId: {1})",
-                                  file.FileName, mailbox.EMailInFolder);
+                                      attachment.fileName, mailbox.EMailInFolder);
 
-                        UploadToDocuments(file, attachment.contentType, mailbox, httpContextScheme, log);
+                        attachment.dataStream.Seek(0, SeekOrigin.Begin);
+
+                        UploadToDocuments(attachment.dataStream, attachment.fileName, attachment.contentType, mailbox, httpContextScheme, log);
                     }
+                    else
+                    {
+                        using (var file = AttachmentManager.GetAttachmentStream(attachment))
+                        {
+                            log.Debug("SaveEmailInData->ApiHelper.UploadToDocuments(fileName: '{0}', folderId: {1})",
+                                      file.FileName, mailbox.EMailInFolder);
 
+                            UploadToDocuments(file.FileStream, file.FileName, attachment.contentType, mailbox, httpContextScheme, log);
+                        }
+                    }
                 }
 
             }
@@ -65,7 +77,7 @@ namespace ASC.Mail.Aggregator
         }
 
 
-        private void UploadToDocuments(AttachmentStream file, string contentType, MailBox mailbox, string httpContextScheme, ILogger log = null)
+        private void UploadToDocuments(Stream fileStream, string fileName, string contentType, MailBox mailbox, string httpContextScheme, ILogger log = null)
         {
             if (log == null)
                 log = new NullLogger();
@@ -74,7 +86,7 @@ namespace ASC.Mail.Aggregator
             {
 
                 var apiHelper = new ApiHelper(httpContextScheme);
-                var uploadedFileId = apiHelper.UploadToDocuments(file.FileStream, file.FileName, contentType, mailbox.EMailInFolder, true);
+                var uploadedFileId = apiHelper.UploadToDocuments(fileStream, fileName, contentType, mailbox.EMailInFolder, true);
 
                 log.Debug("ApiHelper.UploadToDocuments() -> uploadedFileId = {0}", uploadedFileId);
             }
@@ -100,7 +112,7 @@ namespace ASC.Mail.Aggregator
                 }
 
                 log.Error("SaveEmailInData->ApiHelper.UploadToDocuments(fileName: '{0}', folderId: {1}) Exception:\r\n{2}\r\n",
-                                      file.FileName, mailbox.EMailInFolder, ex.ToString());
+                                      fileName, mailbox.EMailInFolder, ex.ToString());
 
             }
         }

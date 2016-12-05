@@ -29,7 +29,7 @@ using CommandLine.Text;
 
 namespace ASC.Mail.ConnectionTest
 {
-    partial class Program
+    internal partial class Program
     {
         private sealed class Options
         {

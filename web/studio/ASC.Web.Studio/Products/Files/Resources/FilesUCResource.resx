@@ -675,4 +675,22 @@
   <data name="MailMergeOpenTab" xml:space="preserve">
     <value>Open merge document in new tab</value>
   </data>
+  <data name="DesktopWelcomeHeader" xml:space="preserve">
+    <value>Congratulations</value>
+  </data>
+  <data name="DesktopOpenBrowser" xml:space="preserve">
+    <value>Open in browser</value>
+  </data>
+  <data name="DesktopWelcome" xml:space="preserve">
+    <value>Welcome to your portal!</value>
+  </data>
+  <data name="DesktopDescr" xml:space="preserve">
+    <value>You have just created your ONLYOFFICE portal.{0} Upload your offline files to the portal to collaborate on them without leaving the app.{0}{0} Open your portal in browser to find more features, including {1}Projects{2}, {1}CRM{2}, {1}Calendar{2}, {1}Mail{2} and more.</value>
+  </data>
+  <data name="DesktopSupport" xml:space="preserve">
+    <value>If you have some technical problems, contact us at {0}.</value>
+  </data>
+  <data name="DesktopSales" xml:space="preserve">
+    <value>For any purchase questions, email us at {0}.</value>
+  </data>
 </root>

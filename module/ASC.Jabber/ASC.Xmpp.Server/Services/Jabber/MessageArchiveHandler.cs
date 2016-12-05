@@ -47,7 +47,7 @@ namespace ASC.Xmpp.Server.Services.Jabber
 
         private static readonly int BUFFER_SIZE = 25;
 
-        private List<Message> messageBuffer = new List<Message>(BUFFER_SIZE);
+        private readonly List<Message> messageBuffer = new List<Message>(BUFFER_SIZE);
 
         private static readonly ILog log = LogManager.GetLogger(typeof(MessageArchiveHandler));
 

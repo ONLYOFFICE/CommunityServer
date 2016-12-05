@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ProductQuotes.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Statistics.ProductQuotes" %>
 <%@ Import Namespace="ASC.Core" %>
+<%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="Resources" %>
 
 <%-- Quotes --%>
@@ -11,7 +12,7 @@
                 <td class="value"><% =RenderCreatedDate() %></td>
             </tr>
             <tr>
-                <td class="name"><%= Resource.TenantUsersTotal %>:</td>
+                <td class="name"><%= CustomNamingPeople.Substitute<Resource>("TenantUsersTotal") %>:</td>
                 <td class="value"><%= RenderUsersTotal() %></td>
             </tr>
         </table>
@@ -29,7 +30,7 @@
     <asp:Repeater ID="_itemsRepeater" runat="server">
         <ItemTemplate>
             <div class="header-base header">
-                <img align="absmiddle" src="<%# ((ASC.Web.Studio.UserControls.Statistics.ProductQuotes.Product)Container.DataItem).Icon %>" alt="" /> <%# ((ASC.Web.Studio.UserControls.Statistics.ProductQuotes.Product)Container.DataItem).Name.HtmlEncode() %>
+                <img align="absmiddle" src="<%# ((Product)Container.DataItem).Icon %>" alt="" /> <%# ((Product)Container.DataItem).Name.HtmlEncode() %>
             </div>
             <div class="contentBlock">
                 <asp:Repeater ID="_usageSpaceRepeater" runat="server">

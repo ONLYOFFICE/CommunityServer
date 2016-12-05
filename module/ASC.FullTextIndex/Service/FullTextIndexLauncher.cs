@@ -29,6 +29,7 @@ using ASC.FullTextIndex.Service.Config;
 using log4net;
 using log4net.Config;
 using System;
+using System.Diagnostics;
 using System.ServiceModel;
 
 namespace ASC.FullTextIndex.Service
@@ -45,7 +46,7 @@ namespace ASC.FullTextIndex.Service
             try
             {
                 var successInit = TextIndexCfg.Init();
-                if (successInit)
+                if (successInit && CheckIndexer(TextIndexCfg.IndexerName))
                 {
                     indexer = new TextIndexerService();
                     indexer.Start();
@@ -73,6 +74,38 @@ namespace ASC.FullTextIndex.Service
             {
                 searcher.Close();
                 searcher = null;
+            }
+        }
+
+        public static bool CheckIndexer(string fileName)
+        {
+            try
+            {
+                var startInfo = new ProcessStartInfo
+                {
+                    CreateNoWindow = false,
+                    UseShellExecute = false,
+                    FileName = fileName,
+                    WindowStyle = ProcessWindowStyle.Hidden,
+                    WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory,
+                    RedirectStandardError = true,
+                    RedirectStandardInput = true,
+                    RedirectStandardOutput = true
+                };
+
+                using (Process.Start(startInfo))
+                {
+                }
+
+                return true;
+            }
+            catch (System.ComponentModel.Win32Exception)
+            {
+                return false;
+            }
+            catch (Exception)
+            {
+                return false;
             }
         }
     }

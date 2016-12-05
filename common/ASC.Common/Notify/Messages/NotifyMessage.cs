@@ -102,5 +102,38 @@ namespace ASC.Notify.Messages
             get;
             set;
         }
+
+        [DataMember(Order = 11)]
+        public NotifyMessageAttachment[] EmbeddedAttachments
+        {
+            get;
+            set;
+        }
+    }
+
+    [Serializable]
+    [DataContract]
+    public class NotifyMessageAttachment
+    {
+        [DataMember(Order = 1)]
+        public string FileName
+        {
+            get;
+            set;
+        }
+
+        [DataMember(Order = 3)]
+        public string ContentId
+        {
+            get;
+            set;
+        }
+
+        [DataMember(Order = 2)]
+        public byte[] Content
+        {
+            get;
+            set;
+        }
     }
 }

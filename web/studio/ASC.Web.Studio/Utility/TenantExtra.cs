@@ -55,19 +55,29 @@ namespace ASC.Web.Studio.Utility
             }
         }
 
+        public static bool Saas
+        {
+            get { return !CoreContext.Configuration.Standalone; }
+        }
+
         public static bool Enterprise
         {
             get { return CoreContext.Configuration.Standalone && !String.IsNullOrEmpty(SetupInfo.ControlPanelUrl); }
         }
 
+        public static bool Opensource
+        {
+            get { return CoreContext.Configuration.Standalone && String.IsNullOrEmpty(SetupInfo.ControlPanelUrl); }
+        }
+
         public static bool EnterprisePaid
         {
-            get { return Enterprise && GetTenantQuota().Id != Tenant.DEFAULT_TENANT; }
+            get { return Enterprise && GetTenantQuota().Id != Tenant.DEFAULT_TENANT && GetCurrentTariff().State < TariffState.NotPaid; }
         }
 
         public static bool EnableControlPanel
         {
-            get { return Enterprise && GetTenantQuota().ControlPanel && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin(); }
+            get { return Enterprise && GetTenantQuota().ControlPanel && GetCurrentTariff().State < TariffState.NotPaid && CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin(); }
         }
 
         public static string GetTariffPageLink()

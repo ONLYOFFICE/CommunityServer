@@ -10,8 +10,10 @@ DB_USER=""
 DB_PWD=""
 
 apply_connection_string(){
-	if [ -d /var/www/onlyoffice/ ]; then
-		find "/var/www/onlyoffice/" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"Server=$DB_HOST;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
+	if [ "$DB_HOST" != "localhost" ] || [ "$DB_NAME" != "onlyoffice" ] || [ "$DB_USER" != "root" ] || [ "$DB_PWD" != "" ]; then
+		if [ -d /var/www/onlyoffice/ ]; then
+			find "/var/www/onlyoffice/" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"Server=$DB_HOST;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
+		fi
 	fi
 }
 

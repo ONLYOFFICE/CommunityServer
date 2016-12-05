@@ -51,7 +51,6 @@ namespace ASC.Mail.Aggregator.Common
         public TimeSpan QuotaEndedDelay { get; set; }
         public TimeSpan TenantCachingPeriod { get; set; }
         public TimeSpan QueueLifetime { get; set; }
-        public bool ShowMailEngineLogs { get; set; }
         public double InactiveMailboxesRatio { get; set; }
         public TimeSpan AuthErrorWarningTimeout { get; set; }
         public TimeSpan AuthErrorDisableMailboxTimeout { get; set; }
@@ -67,6 +66,8 @@ namespace ASC.Mail.Aggregator.Common
         public TimeSpan TaskLifetime { get; set; }
         public bool SslCertificateErrorsPermit { get; set; }
         public int TcpTimeout { get; set; }
+        public string ProtocolLogPath { get; set; }
+        public bool CollectStatistics { get; set; }
 
         public static readonly TasksConfig Default = new TasksConfig
         {
@@ -82,7 +83,6 @@ namespace ASC.Mail.Aggregator.Common
             QuotaEndedDelay = TimeSpan.FromSeconds(600),
             TenantCachingPeriod = TimeSpan.FromSeconds(86400), // 1 day
             QueueLifetime = TimeSpan.FromSeconds(30),
-            ShowMailEngineLogs = false,
             InactiveMailboxesRatio = 25,
             AuthErrorWarningTimeout = TimeSpan.FromHours(1),
             AuthErrorDisableMailboxTimeout = TimeSpan.FromDays(3),
@@ -97,7 +97,9 @@ namespace ASC.Mail.Aggregator.Common
             DefaultApiSchema = Uri.UriSchemeHttp,
             TaskLifetime = TimeSpan.FromSeconds(300),
             SslCertificateErrorsPermit = false,
-            TcpTimeout = 30000
+            TcpTimeout = 30000,
+            ProtocolLogPath = "",
+            CollectStatistics = true
         };
 
         public static TasksConfig FromConfig
@@ -201,12 +203,6 @@ namespace ASC.Mail.Aggregator.Common
                             Convert.ToInt32(ConfigurationManager.AppSettings["mail.queue-lifetime-seconds"]));
                 }
 
-                if (ConfigurationManager.AppSettings["mail.show-mail-engine-logs"] != null)
-                {
-                    config.ShowMailEngineLogs = Convert.ToBoolean(
-                        ConfigurationManager.AppSettings["mail.show-mail-engine-logs"]);
-                }
-
                 if (ConfigurationManager.AppSettings["mail.inactive-mailboxes-ratio"] != null)
                 {
                     config.InactiveMailboxesRatio =
@@ -273,6 +269,16 @@ namespace ASC.Mail.Aggregator.Common
                 {
                     config.TcpTimeout =
                         Convert.ToInt32(ConfigurationManager.AppSettings["mail.tcp-timeout"]);
+                }
+
+                if (ConfigurationManager.AppSettings["mail.protocol-log-path"] != null)
+                {
+                    config.ProtocolLogPath = ConfigurationManager.AppSettings["mail.protocol-log-path"] ?? "";
+                }
+
+                if (ConfigurationManager.AppSettings["mail.collect-statistics"] != null)
+                {
+                    config.CollectStatistics = Convert.ToBoolean(ConfigurationManager.AppSettings["mail.collect-statistics"] ?? "true");
                 }
 
                 return config;

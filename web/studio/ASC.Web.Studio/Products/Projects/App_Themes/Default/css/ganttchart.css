@@ -56,6 +56,7 @@
 .gantt-chart-top-panel {
     padding:24px;
     height: 32px;
+    overflow: visible;
 }
 .addition {
     background-color:#E9E9E9;

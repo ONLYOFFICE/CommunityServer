@@ -84,9 +84,9 @@ namespace ASC.Mail.PasswordFinder
                         current.AppendFormat("\t\tHost:\t\t{0}\r\n", mailbox.Server);
                         current.AppendFormat("\t\tPort:\t\t{0}\r\n", mailbox.Port);
                         current.AppendFormat("\t\tAuthType:\t{0}\r\n",
-                            Enum.GetName(typeof(SaslMechanism), mailbox.AuthenticationTypeIn));
+                            Enum.GetName(typeof(SaslMechanism), mailbox.Authentication));
                         current.AppendFormat("\t\tEncryptType:\t{0}\r\n",
-                            Enum.GetName(typeof(EncryptionType), mailbox.IncomingEncryptionType));
+                            Enum.GetName(typeof(EncryptionType), mailbox.Encryption));
 
                         current.AppendLine();
 
@@ -103,9 +103,9 @@ namespace ASC.Mail.PasswordFinder
                         current.AppendFormat("\t\tHost:\t\t{0}\r\n", mailbox.SmtpServer);
                         current.AppendFormat("\t\tPort:\t\t{0}\r\n", mailbox.SmtpPort);
                         current.AppendFormat("\t\tAuthType:\t{0}\r\n",
-                            Enum.GetName(typeof(SaslMechanism), mailbox.AuthenticationTypeSmtp));
+                            Enum.GetName(typeof(SaslMechanism), mailbox.SmtpAuthentication));
                         current.AppendFormat("\t\tEncryptType:\t{0}\r\n",
-                            Enum.GetName(typeof(EncryptionType), mailbox.OutcomingEncryptionType));
+                            Enum.GetName(typeof(EncryptionType), mailbox.SmtpEncryption));
 
                         current.AppendLine();
 

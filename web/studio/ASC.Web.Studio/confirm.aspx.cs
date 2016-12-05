@@ -24,26 +24,22 @@
 */
 
 
+using System;
+using System.Web;
 using ASC.Core;
 using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
 using ASC.Web.Core;
-using ASC.Web.Core.Files;
-using ASC.Web.Core.Users;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.SMS;
-using ASC.Web.Studio.UserControls.FirstTime;
 using ASC.Web.Studio.UserControls.Management;
 using ASC.Web.Studio.Utility;
+using log4net;
 using Resources;
-using System;
-using System.IO;
-using System.Net;
-using System.Web;
 using Constants = ASC.Core.Users.Constants;
 
 namespace ASC.Web.Studio
@@ -103,15 +99,7 @@ namespace ASC.Web.Studio
             var tenant = CoreContext.TenantManager.GetCurrentTenant();
             if (tenant.Status != TenantStatus.Active && _type != ConfirmType.PortalContinue)
             {
-                if (string.IsNullOrEmpty(SetupInfo.NoTenantRedirectURL))
-                {
-                    Response.StatusCode = (int)HttpStatusCode.NotFound;
-                    Response.End();
-                }
-                else
-                {
-                    Response.Redirect(SetupInfo.NoTenantRedirectURL, true);
-                }
+                Response.Redirect(CommonLinkUtility.GetDefault(), true);
                 return;
             }
 
@@ -156,8 +144,9 @@ namespace ASC.Web.Studio
                 case ConfirmType.Auth:
                     {
                         var first = Request["first"] ?? "";
+                        var module = Request["module"] ?? "";
 
-                        checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + first, key, authInterval);
+                        checkKeyResult = EmailValidationKeyProvider.ValidateEmailKey(_email + _type + first + module, key, authInterval);
 
                         if (checkKeyResult == EmailValidationKeyProvider.ValidationResult.Ok)
                         {
@@ -184,7 +173,9 @@ namespace ASC.Web.Studio
                                 MessageService.Send(HttpContext.Current.Request, messageAction);
                             }
 
-                            AuthRedirect(user, first.ToLower() == "true");
+                            SetDefaultModule(module);
+
+                            AuthRedirect(first.ToLower() == "true");
                         }
                     }
                     break;
@@ -362,27 +353,35 @@ namespace ASC.Web.Studio
             }
         }
 
-        private void AuthRedirect(UserInfo user, bool first)
+        private void AuthRedirect(bool first)
         {
             var wizardSettings = SettingsManager.Instance.LoadSettings<WizardSettings>(TenantProvider.CurrentTenantID);
             if (first && wizardSettings.Completed)
             {
-                // wizardSettings.Completed - open source, Request["first"] - cloud
                 wizardSettings.Completed = false;
                 SettingsManager.Instance.SaveSettings(wizardSettings, TenantProvider.CurrentTenantID);
             }
 
+            string url;
             if (wizardSettings.Completed)
             {
-                StudioNotifyService.Instance.SendCongratulations(user);
-                FirstTimeTenantSettings.SendInstallInfo(user);
-
-                Response.Redirect(CommonLinkUtility.GetDefault(), true);
+                url = CommonLinkUtility.GetDefault();
             }
             else
             {
-                Response.Redirect(SecurityContext.IsAuthenticated ? "~/wizard.aspx" : "~/auth.aspx", true);
+                url = SecurityContext.IsAuthenticated ? "~/wizard.aspx" : "~/auth.aspx";
             }
+
+            if (Request.DesktopApp())
+            {
+                if (wizardSettings.Completed)
+                {
+                    url = WebItemManager.Instance[WebItemManager.DocumentsProductID].StartURL;
+                }
+                url += "?desktop=true&first=true";
+            }
+
+            Response.Redirect(url, true);
         }
 
         public static string SmsConfirmUrl(UserInfo user)
@@ -397,6 +396,26 @@ namespace ASC.Web.Studio
                     : ConfirmType.PhoneAuth;
 
             return CommonLinkUtility.GetConfirmationUrl(user.Email, confirmType);
+        }
+
+        private static void SetDefaultModule(string module)
+        {
+            if (string.IsNullOrEmpty(module)) return;
+            try
+            {
+                LogManager.GetLogger("ASC.Web").Debug("SetDefaultModule " + module);
+                var defaultPageSettingsObj = new StudioDefaultPageSettings
+                    {
+                        DefaultProductID = new Guid(module),
+                    };
+                SettingsManager.Instance.SaveSettings(defaultPageSettingsObj, TenantProvider.CurrentTenantID);
+
+                MessageService.Send(HttpContext.Current.Request, MessageAction.DefaultStartPageSettingsUpdated);
+            }
+            catch (Exception ex)
+            {
+                LogManager.GetLogger("ASC.Web").Error("SetDefaultModule", ex);
+            }
         }
     }
 }

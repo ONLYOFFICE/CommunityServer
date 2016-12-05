@@ -314,5 +314,31 @@ namespace ASC.Api.Calendar.iCalParser
             return result;
         }
 
+
+        public static DDay.iCal.IEvent CreateEvent(string name, string description, DateTime startUtcDate, DateTime endUtcDate, string repeatType, bool isAllDayLong, EventStatus status)
+        {
+            var evt = new DDay.iCal.Event
+                {
+                    Summary = name,
+                    Location = string.Empty,
+                    Description = description,
+                    IsAllDay = isAllDayLong,
+                    DTStamp = new DDay.iCal.iCalDateTime(DateTime.UtcNow, TimeZoneInfo.Utc.Id),
+                    Start = new DDay.iCal.iCalDateTime(startUtcDate, TimeZoneInfo.Utc.Id),
+                    End = new DDay.iCal.iCalDateTime(endUtcDate, TimeZoneInfo.Utc.Id),
+                    RecurrenceRules = new List<DDay.iCal.IRecurrencePattern>(),
+                    Status = (DDay.iCal.EventStatus) status
+                };
+
+            var rrule = RecurrenceRule.Parse(repeatType).ToString(true);
+
+            if (!string.IsNullOrEmpty(rrule))
+            {
+                evt.RecurrenceRules.Add(new DDay.iCal.RecurrencePattern(rrule));
+            }
+
+            return evt;
+        }
+
     }
 }

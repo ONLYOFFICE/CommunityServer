@@ -1079,6 +1079,24 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The deleted event cannot be restored. Are you sure you want to continue?.
+        /// </summary>
+        public static string deleteSettings_singleBody {
+            get {
+                return ResourceManager.GetString("deleteSettings_singleBody", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete event.
+        /// </summary>
+        public static string deleteSettings_singleHeader {
+            get {
+                return ResourceManager.GetString("deleteSettings_singleHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Только это событие.
         /// </summary>
         public static string deleteSettings_thisLabel {

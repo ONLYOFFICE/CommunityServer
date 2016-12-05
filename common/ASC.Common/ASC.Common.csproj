@@ -267,5 +267,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Utils\TimeZoneConverter\windowsZones.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

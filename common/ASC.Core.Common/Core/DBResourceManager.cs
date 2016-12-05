@@ -47,9 +47,14 @@ namespace TMResourceData
     public class DBResourceManager : ResourceManager
     {
         public static bool WhiteLableEnabled = false;
+        public static bool ResourcesFromDataBase { get; private set; }
         private static readonly ILog log = LogManager.GetLogger("ASC.Resources");
         private readonly ConcurrentDictionary<string, ResourceSet> resourceSets = new ConcurrentDictionary<string, ResourceSet>();
 
+        static DBResourceManager()
+        {
+            ResourcesFromDataBase = string.Equals(ConfigurationManager.AppSettings["resources.from-db"], "true");
+        }
 
         public DBResourceManager(string filename, Assembly assembly)
                     : base(filename, assembly)
@@ -266,7 +271,7 @@ namespace TMResourceData
         private static readonly ILog log = LogManager.GetLogger("ASC.Resources");
         private static readonly ConcurrentDictionary<int, string> whiteLabelDictionary = new ConcurrentDictionary<int, string>();
         private static readonly string replPattern = ConfigurationManager.AppSettings["resources.whitelabel-text.replacement.pattern"] ?? "(?<=[^@/\\\\]|^)({0})(?!\\.com)";
-        public static string DefaultLogo = "";
+        public static string DefaultLogoText = "";
 
 
         public static void SetNewText(int tenantId, string newText)
@@ -323,7 +328,7 @@ namespace TMResourceData
                             newTextReplacement = newTextReplacement.Replace("{", "{{").Replace("}", "}}");
                         }
                         
-                        var pattern = string.Format(replPattern, DefaultLogo);
+                        var pattern = string.Format(replPattern, DefaultLogoText);
                         //Hack for resource strings with mails looked like ...@onlyoffice... or with website http://www.onlyoffice.com link or with the https://www.facebook.com/pages/OnlyOffice/833032526736775
 
                         return Regex.Replace(resourceValue, pattern, newTextReplacement, RegexOptions.IgnoreCase).Replace("™", "");

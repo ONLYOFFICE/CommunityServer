@@ -35,12 +35,10 @@ using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Web;
 using ASC.Data.Storage;
-using ASC.Data.Storage.S3;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.DataStorage;
 using ASC.Mail.Aggregator.Common.Exceptions;
 using ASC.Mail.Aggregator.Common.Extension;
-using ASC.Mail.Aggregator.Common.Logging;
 using ASC.Mail.Aggregator.DbSchema;
 using ASC.Web.Core.Files;
 using ASC.Web.Files.Api;
@@ -73,7 +71,7 @@ namespace ASC.Mail.Aggregator
                 File file;
                 var checkLink = FileShareLink.Check(shareLink, true, fileDao, out file);
                 if (!checkLink && file == null)
-                    file = String.IsNullOrEmpty(version)
+                    file = string.IsNullOrEmpty(version)
                                ? fileDao.GetFile(fileId)
                                : fileDao.GetFile(fileId, Convert.ToInt32(version));
 
@@ -214,7 +212,7 @@ namespace ASC.Mail.Aggregator
             try
             {
                 var storage = new StorageManager(tenant, user);
-                storage.StoreAttachmentWithoutQuota(tenant, user, attachment);
+                storage.StoreAttachmentWithoutQuota(attachment);
             }
             catch
             {
@@ -390,30 +388,43 @@ namespace ASC.Mail.Aggregator
             return id;
         }
 
-        public string StoreMailBody(int tenant, string user, MailMessage messageItem)
+        public string StoreMailBody(MailBox mailBox, MailMessage messageItem)
         {
-            if (string.IsNullOrEmpty(messageItem.HtmlBody))
-            {
+            if (string.IsNullOrEmpty(messageItem.HtmlBody) && (messageItem.HtmlBodyStream == null || messageItem.HtmlBodyStream.Length == 0))
                 return string.Empty;
-            }
 
             // Using id_user as domain in S3 Storage - allows not to add quota to tenant.
-            var savePath = MailStoragePathCombiner.GetBodyKey(user, messageItem.StreamId);
-            var storage = MailDataStore.GetDataStore(tenant);
+            var savePath = MailStoragePathCombiner.GetBodyKey(mailBox.UserId, messageItem.StreamId);
+            var storage = MailDataStore.GetDataStore(mailBox.TenantId);
+
+            storage.QuotaController = null;
 
             try
             {
-                using (var reader = new MemoryStream(Encoding.UTF8.GetBytes(messageItem.HtmlBody)))
+                string response;
+
+                if (messageItem.HtmlBodyStream != null && messageItem.HtmlBodyStream.Length > 0)
                 {
-                    var res = storage
-                        .UploadWithoutQuota(string.Empty, savePath, reader, "text/html", string.Empty)
-                        .ToString();
+                    messageItem.HtmlBodyStream.Seek(0, SeekOrigin.Begin);
 
-                    _log.Debug("StoreMailBody() tenant='{0}', user_id='{1}', save_body_path='{2}' Result: {3}",
-                        tenant, user, savePath, res);
-
-                    return res;
+                    response = storage
+                            .Save(savePath, messageItem.HtmlBodyStream, MailStoragePathCombiner.BODY_FILE_NAME)
+                            .ToString();
                 }
+                else
+                {
+                    using (var reader = new MemoryStream(Encoding.UTF8.GetBytes(messageItem.HtmlBody)))
+                    {
+                        response = storage
+                            .Save(savePath, reader, MailStoragePathCombiner.BODY_FILE_NAME)
+                            .ToString();
+                    }
+                }
+
+                _log.Debug("StoreMailBody() tenant='{0}', user_id='{1}', save_body_path='{2}' Result: {3}",
+                            mailBox.TenantId, mailBox.UserId, savePath, response);
+
+                return response;
             }
             catch (Exception ex)
             {
@@ -535,27 +546,17 @@ namespace ASC.Mail.Aggregator
         #endregion
 
         #region private methods
-        public void StoreAttachments(int tenant, string user, List<MailAttachment> attachments, string streamId)
-        {
-            StoreAttachments(tenant, user, attachments, streamId, -1);
-        }
 
-        public void StoreAttachments(int tenant, string user, List<MailAttachment> attachments, string streamId, int mailboxId)
+        public void StoreAttachments(MailBox mailBox, List<MailAttachment> attachments, string streamId)
         {
             if (!attachments.Any() || string.IsNullOrEmpty(streamId)) return;
 
-            var storage = MailDataStore.GetDataStore(tenant);
-
-            if(storage == null)
-                throw new NullReferenceException("GetDataStore has returned null reference.");
-
-            var quotaAddSize = attachments.Sum(a => a.data.LongLength);
-
-            QuotaUsedAdd(tenant, quotaAddSize);
-
             try
             {
-                var storageManager = new StorageManager(tenant, user);
+                var quotaAddSize = attachments.Sum(a => a.data != null ? a.data.LongLength : a.dataStream.Length);
+
+                var storageManager = new StorageManager(mailBox.TenantId, mailBox.UserId);
+
                 foreach (var attachment in attachments)
                 {
                     var isAttachmentNameHasBadName = string.IsNullOrEmpty(attachment.fileName)
@@ -568,17 +569,13 @@ namespace ASC.Mail.Aggregator
                     }
 
                     attachment.streamId = streamId;
-                    attachment.tenant = tenant;
-                    attachment.user = user;
+                    attachment.tenant = mailBox.TenantId;
+                    attachment.user = mailBox.UserId;
 
-                    storageManager.StoreAttachmentWithoutQuota(tenant, user, attachment, storage);
-
-                    //This is dirty hack needed for mailbox updating on attachment processing. If we doesn't update mailbox checktime, it will be reset.
-                    if (mailboxId > 0)
-                    {
-                        LockMailbox(mailboxId);
-                    }
+                    storageManager.StoreAttachmentWithoutQuota(attachment);
                 }
+
+                QuotaUsedAdd(mailBox.TenantId, quotaAddSize);
             }
             catch
             {
@@ -587,28 +584,15 @@ namespace ASC.Mail.Aggregator
                                             .Select(MailStoragePathCombiner.GerStoredFilePath)
                                             .ToList();
 
-                //Todo: Rewrite this ugly code
-                var isQuotaCleaned = false;
                 if (storedAttachmentsKeys.Any())
                 {
-                    var s3Storage = storage as S3Storage;
-                    if (s3Storage != null)
-                    {
-                        // ToDo: Delete with quota argument needs to be moved to IDataStore!
-                        storedAttachmentsKeys
-                            .ForEach(key => s3Storage.Delete(string.Empty, key, false));
-                    }
-                    else
-                    {
-                        isQuotaCleaned = true;
-                        storedAttachmentsKeys.ForEach(key => storage.Delete(string.Empty, key));
-                    }
+                    var storage = MailDataStore.GetDataStore(mailBox.TenantId);
+
+                    storedAttachmentsKeys.ForEach(key => storage.Delete(string.Empty, key));
                 }
 
-                if(!isQuotaCleaned)
-                    QuotaUsedDelete(tenant, quotaAddSize);
+                _log.Info("[Failed] StoreAttachments(mailboxId={0}). All message attachments were deleted.", mailBox.MailBoxId);
 
-                _log.Debug(String.Format("Problems with attachment saving in mailboxId={0}. All message attachments was deleted.", mailboxId));
                 throw;
             }
         }

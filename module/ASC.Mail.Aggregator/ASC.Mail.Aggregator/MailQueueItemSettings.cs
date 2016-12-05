@@ -91,11 +91,14 @@ namespace ASC.Mail.Aggregator
         {
             var list = new Dictionary<string, int>
                 {
+                    {"inbox", 1},
                     {"sent", 2},
+                    {"sent items", 2},
                     {"drafts", 3},
                     {"trash", 4},
                     {"spam", 5},
-                    {"junk", 5}
+                    {"junk", 5},
+                    {"bulk", 5}
                 };
 
             try

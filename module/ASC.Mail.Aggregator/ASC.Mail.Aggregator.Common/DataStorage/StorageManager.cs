@@ -128,7 +128,7 @@ namespace ASC.Mail.Aggregator.Common.DataStorage
 
                         var bytes = LoadDataStoreItemData(CKEDITOR_IMAGES_DOMAIN, fileLink, ckStorage);
 
-                        var stableImageLink = StoreCKeditorImageWithoutQuota(Tenant, User, mailboxId, fileName, bytes,
+                        var stableImageLink = StoreCKeditorImageWithoutQuota(mailboxId, fileName, bytes,
                                                                signatureStorage);
 
                         linkNode.SetAttributeValue("src", stableImageLink);
@@ -145,7 +145,7 @@ namespace ASC.Mail.Aggregator.Common.DataStorage
             return newHtml;
         }
 
-        public string StoreCKeditorImageWithoutQuota(int tenant, string user, int mailboxId, string fileName, byte[] imageData, IDataStore storage)
+        public string StoreCKeditorImageWithoutQuota(int mailboxId, string fileName, byte[] imageData, IDataStore storage)
         {
             try
             {
@@ -167,7 +167,7 @@ namespace ASC.Mail.Aggregator.Common.DataStorage
 
                 using (var reader = new MemoryStream(imageData))
                 {
-                    var uploadUrl = storage.UploadWithoutQuota(user, signatureImagePath, reader, contentType, contentDisposition);
+                    var uploadUrl = storage.Save(User, signatureImagePath, reader, contentType, contentDisposition);
                     return MailStoragePathCombiner.GetStoredUrl(uploadUrl);
                 }
             }
@@ -180,29 +180,26 @@ namespace ASC.Mail.Aggregator.Common.DataStorage
             }
         }
 
-        public void StoreAttachmentWithoutQuota(int tenant, string user, MailAttachment attachment)
-        {
-            StoreAttachmentWithoutQuota(tenant, user, attachment, MailDataStore.GetDataStore(tenant));
-        }
-
-        public void StoreAttachmentWithoutQuota(int tenant, string user, MailAttachment attachment, IDataStore storage)
+        public void StoreAttachmentWithoutQuota(MailAttachment attachment)
         {
             try
             {
-                if (attachment.data == null || attachment.data.Length == 0)
+                if ((attachment.dataStream == null || attachment.dataStream.Length == 0) && (attachment.data == null || attachment.data.Length == 0))
                     return;
 
                 if (string.IsNullOrEmpty(attachment.fileName))
                     attachment.fileName = "attachment.ext";
 
-                var contentDisposition = MailStoragePathCombiner.PrepareAttachmentName(attachment.fileName);
+                var storage = MailDataStore.GetDataStore(Tenant);
+
+                storage.QuotaController = null;
 
                 var ext = Path.GetExtension(attachment.fileName);
 
                 attachment.storedName = MailUtil.CreateStreamId();
 
                 if (!string.IsNullOrEmpty(ext))
-                    attachment.storedName = Path.ChangeExtension(attachment.storedName, ext);
+                    attachment.storedName = Path.ChangeExtension(attachment.storedName, ext); 
 
                 attachment.fileNumber =
                     !string.IsNullOrEmpty(attachment.contentId) //Upload hack: embedded attachment have to be saved in 0 folder
@@ -211,9 +208,17 @@ namespace ASC.Mail.Aggregator.Common.DataStorage
 
                 var attachmentPath = MailStoragePathCombiner.GerStoredFilePath(attachment);
 
-                using (var reader = new MemoryStream(attachment.data))
+                if (attachment.data != null)
                 {
-                    var uploadUrl = storage.UploadWithoutQuota(string.Empty, attachmentPath, reader, attachment.contentType, contentDisposition);
+                    using (var reader = new MemoryStream(attachment.data))
+                    {
+                        var uploadUrl = storage.Save(attachmentPath, reader, attachment.fileName);
+                        attachment.storedFileUrl = MailStoragePathCombiner.GetStoredUrl(uploadUrl);
+                    }
+                }
+                else
+                {
+                    var uploadUrl = storage.Save(attachmentPath, attachment.dataStream, attachment.fileName);
                     attachment.storedFileUrl = MailStoragePathCombiner.GetStoredUrl(uploadUrl);
                 }
             }

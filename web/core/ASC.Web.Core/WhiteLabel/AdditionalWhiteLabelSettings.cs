@@ -64,8 +64,8 @@ namespace ASC.Web.Core.WhiteLabel
         [DataMember(Name = "SalesEmail")]
         public string SalesEmail { get; set; }
 
-        [DataMember(Name = "PricingUrl")]
-        public string PricingUrl { get; set; }
+        [DataMember(Name = "BuyUrl")]
+        public string BuyUrl { get; set; }
 
         [DataMember(Name = "LicenseAgreementsEnabled")]
         public bool LicenseAgreementsEnabled { get; set; }
@@ -90,7 +90,7 @@ namespace ASC.Web.Core.WhiteLabel
                        VideoGuidesEnabled == defaultSettings.VideoGuidesEnabled &&
                        VideoGuidesUrl == defaultSettings.VideoGuidesUrl &&
                        SalesEmail == defaultSettings.SalesEmail &&
-                       PricingUrl == defaultSettings.PricingUrl &&
+                       BuyUrl == defaultSettings.BuyUrl &&
                        LicenseAgreementsEnabled == defaultSettings.LicenseAgreementsEnabled &&
                        LicenseAgreementsUrl == defaultSettings.LicenseAgreementsUrl;
             }
@@ -116,7 +116,7 @@ namespace ASC.Web.Core.WhiteLabel
                     VideoGuidesEnabled = DefaultVideoGuidesUrl != null,
                     VideoGuidesUrl = DefaultVideoGuidesUrl,
                     SalesEmail = DefaultMailSalesEmail,
-                    PricingUrl = DefaultPricingUrl,
+                    BuyUrl = DefaultBuyUrl,
                     LicenseAgreementsEnabled = true,
                     LicenseAgreementsUrl = DefaultLicenseAgreements
                 };
@@ -171,12 +171,12 @@ namespace ASC.Web.Core.WhiteLabel
             }
         }
 
-        public static string DefaultPricingUrl
+        public static string DefaultBuyUrl
         {
             get
             {
-                var email = WebConfigurationManager.AppSettings["web.teamlab-site"];
-                return !string.IsNullOrEmpty(email) ? email + "/enterprise-edition.aspx" : "http://www.onlyoffice.com/enterprise-edition.aspx";
+                var site = WebConfigurationManager.AppSettings["web.teamlab-site"];
+                return !string.IsNullOrEmpty(site) ? site + "/post.ashx?type=buyenterprise" : "";
             }
         }
 

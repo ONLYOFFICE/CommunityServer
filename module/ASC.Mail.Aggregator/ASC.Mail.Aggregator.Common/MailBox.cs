@@ -29,7 +29,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Net.Mail;
 using System.Runtime.Serialization;
+using ASC.FederatedLogin;
+using ASC.FederatedLogin.Helpers;
+using ASC.FederatedLogin.LoginProviders;
+using ASC.Mail.Aggregator.Common.Authorization;
 using ASC.Mail.Aggregator.Common.Imap;
+using ASC.Mail.Aggregator.Common.Logging;
 using ASC.Mail.Aggregator.Common.Utils;
 using Newtonsoft.Json;
 
@@ -98,7 +103,7 @@ namespace ASC.Mail.Aggregator.Common
                 {
                     return port;
                 }
-                return OutcomingEncryptionType != EncryptionType.None ? WellKnownPorts.SMTP_SSL : WellKnownPorts.SMTP;
+                return SmtpEncryption != EncryptionType.None ? WellKnownPorts.SMTP_SSL : WellKnownPorts.SMTP;
             }
             set { SmtpPortStr = value.ToString(CultureInfo.InvariantCulture); }
         }
@@ -113,7 +118,9 @@ namespace ASC.Mail.Aggregator.Common
         public string SmtpPassword { get; set; }
 
         [DataMember(Name = "smtp_auth")]
-        public bool SmtpAuth { get; set; }
+        public bool SmtpAuth {
+            get { return SmtpAuthentication != SaslMechanism.None; }
+        }
 
         public int Port
         {
@@ -124,7 +131,7 @@ namespace ASC.Mail.Aggregator.Common
                 {
                     return port;
                 }
-                return IncomingEncryptionType != EncryptionType.None ? WellKnownPorts.POP3_SSL : WellKnownPorts.POP3;
+                return Encryption != EncryptionType.None ? WellKnownPorts.POP3_SSL : WellKnownPorts.POP3;
             }
             set { PortStr = value.ToString(CultureInfo.InvariantCulture); }
         }
@@ -133,16 +140,16 @@ namespace ASC.Mail.Aggregator.Common
         public string PortStr { get; set; }
 
         [DataMember(Name = "incoming_encryption_type")]
-        public EncryptionType IncomingEncryptionType { get; set;}
+        public EncryptionType Encryption { get; set;}
 
         [DataMember(Name = "outcoming_encryption_type")]
-        public EncryptionType OutcomingEncryptionType { get; set; }
+        public EncryptionType SmtpEncryption { get; set; }
 
         [DataMember(Name = "auth_type_in")]
-        public SaslMechanism AuthenticationTypeIn { get; set; }
+        public SaslMechanism Authentication { get; set; }
 
         [DataMember(Name = "auth_type_smtp")]
-        public SaslMechanism AuthenticationTypeSmtp { get; set; }
+        public SaslMechanism SmtpAuthentication { get; set; }
 
         public long Size { get; set; }
 
@@ -200,20 +207,94 @@ namespace ASC.Mail.Aggregator.Common
             get { return 10000; }
         }
 
+        private string _oAuthToken;
+
+        private OAuth20Token _token;
+
         [DataMember(Name = "imap")]
         public bool Imap { get; set; }
 
         [DataMember(Name = "begin_date")]
         public DateTime BeginDate { get; set; }
 
-        [DataMember(Name = "service_type")]
-        public byte ServiceType { get; set; }
+        [DataMember(Name = "is_oauth")]
+        public bool IsOAuth {
+            get { return !string.IsNullOrEmpty(_oAuthToken); }
+        }
 
-        [DataMember(Name = "refresh_token")]
-        public string RefreshToken { get; set; }
+        [IgnoreDataMember]
+        public byte OAuthType { get; set; }
+
+        [IgnoreDataMember]
+        public string OAuthToken {
+            get { return _oAuthToken; }
+            set
+            {
+                _oAuthToken = value;
+
+                try
+                {
+                    _token = OAuth20Token.FromJson(_oAuthToken);
+                }
+                catch (Exception)
+                {
+                    try
+                    {
+                        if((AuthorizationServiceType)OAuthType != AuthorizationServiceType.Google)
+                            return;
+
+                        // If it is old refresh token then change to oAuthToken
+                        var auth = new GoogleOAuth2Authorization(new NullLogger());
+                        _token = auth.RequestAccessToken(_oAuthToken);
+
+                        AccessTokenRefreshed = true;
+                    }
+                    catch (Exception)
+                    {
+                        // skip
+                    }
+                }
+            }
+        }
+
+        [IgnoreDataMember]
+        public string AccessToken
+        {
+            get
+            {
+                if (_token == null)
+                    throw new Exception("Cannot create OAuth session with given token");
+
+                if (!_token.IsExpired)
+                    return _token.AccessToken;
+
+                var requestUrl = "";
+
+                switch ((AuthorizationServiceType)OAuthType)
+                {
+                    case AuthorizationServiceType.Google:
+                        requestUrl = GoogleLoginProvider.GoogleOauthTokenUrl;
+                        break;
+                    case AuthorizationServiceType.None:
+                        requestUrl = "";
+                        break;
+                }
+
+                _token = OAuth20TokenHelper.RefreshToken(requestUrl, _token);
+
+                AccessTokenRefreshed = true;
+
+                return _token.AccessToken;
+            }
+        }
+
+        [IgnoreDataMember]
+        public bool AccessTokenRefreshed { get; set; }
 
         [DataMember(Name = "restrict")]
-        public bool Restrict { get; set; }
+        public bool Restrict {
+            get { return !(BeginDate.Equals(MailBeginTimestamp)); }
+        }
 
         public bool ImapFolderChanged { get; set; }
 
@@ -283,11 +364,12 @@ namespace ASC.Mail.Aggregator.Common
             ImapIntervals = new Dictionary<string, ImapFolderUids>();
         }
 
-        public MailBox(int tenant, string user, string name,
-            MailAddress email, string account, string password, string server, bool imap,
-            string smtpServer, string smtpPassword, bool smtpauth, int mailboxId, DateTime beginDate,
-            EncryptionType incomingEncryptionType, EncryptionType outcomingEncryptionType, byte service,
-            string refreshToken, string emailInFolder, bool isRemoved)
+        public MailBox(int tenant, string user, int mailboxId, string name,
+            MailAddress email, string account, string password, string server,
+            EncryptionType encryption, SaslMechanism authentication, bool imap,
+            string smtpAccount, string smtpPassword, string smtpServer, 
+            EncryptionType smtpEncryption, SaslMechanism smtpAuthentication,
+            byte oAuthType, string oAuthToken)
         {
             if (string.IsNullOrEmpty(user)) throw new ArgumentNullException("user");
             if (email == null) throw new ArgumentNullException("email");
@@ -296,34 +378,38 @@ namespace ASC.Mail.Aggregator.Common
             if (!server.Contains(":")) throw new FormatException("Valid server string format is <server:port>");
             if (!smtpServer.Contains(":")) throw new FormatException("Valid server string format is <server:port>");
 
+            TenantId = tenant;
+            UserId = user;
+            MailBoxId = mailboxId;
+
+            Name = name;
+            EMail = email;
+
+            Account = account;
+            Password = password;
+            Server = server.Split(':')[0];
+            Port = int.Parse(server.Split(':')[1]);
+            Encryption = encryption;
+            Authentication = authentication;
+            Imap = imap;
+
+            SmtpAccount = smtpAccount;
+            SmtpPassword = smtpPassword;
+            SmtpServer = smtpServer.Split(':')[0];
+            SmtpPort = int.Parse(smtpServer.Split(':')[1]);
+            SmtpEncryption = smtpEncryption;
+            SmtpAuthentication = smtpAuthentication;
+
+            OAuthType = oAuthType;
+            OAuthToken = oAuthToken;
+
             MailLimitedTimeDelta = DefaultMailLimitedTimeDelta;
             MailBeginTimestamp = new DateTime(DefaultMailBeginTimestamp);
 
-            MailBoxId = mailboxId;
-            TenantId = tenant;
-            UserId = user;
-            EMail = email;
-            Account = account;
-            Name = name;
-            Server = server.Split(':')[0];
-            Port = int.Parse(server.Split(':')[1]);
-            SmtpServer = smtpServer.Split(':')[0];
-            SmtpPort = int.Parse(smtpServer.Split(':')[1]);
-            SmtpAuth = smtpauth;
-            Imap = imap;
-
-            Password = password;
-            SmtpPassword = smtpPassword;
-            IncomingEncryptionType = incomingEncryptionType;
-            OutcomingEncryptionType = outcomingEncryptionType;
             ServerLoginDelay = DefaultServerLoginDelay;
-            BeginDate = beginDate;
-            Restrict = !(BeginDate.Equals(MailBeginTimestamp));
-            ServiceType = service;
-            RefreshToken = refreshToken;
+            BeginDate = MailBeginTimestamp;
+           
             ImapIntervals = new Dictionary<string, ImapFolderUids>();
-            EMailInFolder = emailInFolder;
-            IsRemoved = isRemoved;
         }
 
         public override string ToString()

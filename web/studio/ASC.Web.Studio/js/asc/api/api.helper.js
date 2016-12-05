@@ -154,6 +154,7 @@
             case 'delete':
                 if (data && typeof data === 'object') {
                     opts = objectToParams(opts, data, null);
+                    data = null;
                 }
                 break;
         }

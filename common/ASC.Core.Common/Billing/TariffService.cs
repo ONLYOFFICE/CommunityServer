@@ -144,7 +144,7 @@ namespace ASC.Core.Billing
                                     asynctariff.Autorenewal = p.Autorenewal;
                                     asynctariff.DueDate = 9999 <= p.EndDate.Year ? DateTime.MaxValue : p.EndDate;
 
-                                    if (SaveBillingInfo(tenantId, Tuple.Create(asynctariff.QuotaId, asynctariff.DueDate)))
+                                    if (SaveBillingInfo(tenantId, Tuple.Create(asynctariff.QuotaId, asynctariff.DueDate), false))
                                     {
                                         asynctariff = CalculateTariff(tenantId, asynctariff);
                                         ClearCache(tenantId);
@@ -392,7 +392,7 @@ namespace ASC.Core.Billing
                 .SingleOrDefault();
         }
 
-        private bool SaveBillingInfo(int tenant, Tuple<int, DateTime> bi)
+        private bool SaveBillingInfo(int tenant, Tuple<int, DateTime> bi, bool renewal = true)
         {
             var inserted = false;
             if (!Equals(bi, GetBillingInfo(tenant)))
@@ -402,7 +402,7 @@ namespace ASC.Core.Billing
                 {
                     // last record is not the same
                     var q = new SqlQuery("tenants_tariff").SelectCount().Where("tenant", tenant).Where("tariff", bi.Item1).Where("stamp", bi.Item2);
-                    if (bi.Item2 == DateTime.MaxValue || db.ExecuteScalar<int>(q) == 0)
+                    if (bi.Item2 == DateTime.MaxValue || renewal || db.ExecuteScalar<int>(q) == 0)
                     {
                         var i = new SqlInsert("tenants_tariff")
                             .InColumnValue("tenant", tenant)
@@ -490,7 +490,7 @@ namespace ASC.Core.Billing
             {
                 tariff.State = TariffState.NotPaid;
 
-                if (config.Standalone)
+                if ((q == null || !q.Trial) && config.Standalone)
                 {
                     var licenseDate = tariff.DueDate;
                     tariff = Tariff.CreateDefault();

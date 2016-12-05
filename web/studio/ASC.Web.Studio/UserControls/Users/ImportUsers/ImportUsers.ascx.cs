@@ -302,7 +302,7 @@ namespace ASC.Web.Studio.UserControls.Users
                             Data.Add(new UserResults
                                 {
                                     Email = userData.Email,
-                                    Result = Resource.ImportContactsAlreadyExists,
+                                    Result = CustomNamingPeople.Substitute<Resource>("ImportContactsAlreadyExists"),
                                     Class = "error2"
                                 });
                             error++;

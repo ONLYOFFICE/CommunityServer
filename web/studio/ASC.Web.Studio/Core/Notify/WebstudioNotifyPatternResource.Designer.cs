@@ -2332,6 +2332,25 @@ namespace ASC.Web.Studio.Core.Notify {
         /// <summary>
         ///   Looks up a localized string similar to Dear $UserName,
         ///
+        ///Thank  you for checking out ${LetterLogoTextTM} service. Hope, everything&apos;s  going fine. We just want to remind you that the trial period for your Enterprise Edition will be over in seven days. 
+        ///
+        ///Please, check all the available pricing plans for Enterprise Edition and choose the most suitable rate for your business.
+        ///
+        ///$GreenButton
+        ///
+        ///$BlueButton
+        ///
+        ///If any questions related to our pricing and payment policy arise, please, contact us at &quot;sales@onlyoffice.com&quot;:&quot;sales@onlyoffice.com&quot;. For  [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_tariff_warning_trial_enterprise {
+            get {
+                return ResourceManager.GetString("pattern_tariff_warning_trial_enterprise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dear $UserName,
+        ///
         ///Thank you for having given ${LetterLogoTextTM} a try. The free plan for your portal at &quot;${__VirtualRootPath}&quot;:&quot;${__VirtualRootPath}&quot; is due to expire today.
         ///
         ///To continue using your account, proceed to the &quot;Pricing page&quot;:&quot;$PricingPage&quot;, where you can check out all the models and choose the most suitable for you.
@@ -2343,6 +2362,21 @@ namespace ASC.Web.Studio.Core.Notify {
         public static string pattern_tariff_warning_trial2 {
             get {
                 return ResourceManager.GetString("pattern_tariff_warning_trial2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Dear $UserName,
+        ///
+        ///Thank you for having given ${LetterLogoTextTM} a try. Your trial version of Enterprise Edition is due to expire today.
+        ///
+        ///To continue using it please visit our &quot;Server pricing page&quot;:&quot;http://www.onlyoffice.com/enterprise-edition.aspx&quot; where you can check out all the pricing plans and choose the most suitable one for you or buy the Enterprise Edition Standard &quot;right now&quot;:&quot;$PricingPage&quot;.
+        ///
+        ///If any questions related to our pricing and payment policy arise, please, contact us at &quot;sales@onlyoff [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string pattern_tariff_warning_trial2_enterprise {
+            get {
+                return ResourceManager.GetString("pattern_tariff_warning_trial2_enterprise", resourceCulture);
             }
         }
         
@@ -3097,11 +3131,29 @@ namespace ASC.Web.Studio.Core.Notify {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to How is your trial going so far?.
+        /// </summary>
+        public static string subject_tariff_warning_trial_enterprise {
+            get {
+                return ResourceManager.GetString("subject_tariff_warning_trial_enterprise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your ${LetterLogoTextTM} trial expires today.
         /// </summary>
         public static string subject_tariff_warning_trial2 {
             get {
                 return ResourceManager.GetString("subject_tariff_warning_trial2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Enterprise Edition trial expires today.
+        /// </summary>
+        public static string subject_tariff_warning_trial2_enterprise {
+            get {
+                return ResourceManager.GetString("subject_tariff_warning_trial2_enterprise", resourceCulture);
             }
         }
         

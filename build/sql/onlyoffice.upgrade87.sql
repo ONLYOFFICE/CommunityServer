@@ -4,6 +4,10 @@ DROP PROCEDURE IF EXISTS upgrade87 DLM00
 
 CREATE PROCEDURE upgrade87()
 BEGIN
+	IF EXISTS(SELECT * FROM information_schema.`COLUMNS` WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'files_file' AND COLUMN_NAME = 'content_type') THEN
+		ALTER TABLE `files_file` DROP COLUMN `content_type`;
+	END IF;
+
 	IF NOT EXISTS(SELECT * FROM information_schema.`COLUMNS` WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tenants_partners' AND COLUMN_NAME = 'affiliate_id') THEN
 		ALTER TABLE `tenants_partners` ADD COLUMN `affiliate_id` VARCHAR(50) DEFAULT NULL;
 		ALTER TABLE `tenants_partners` ALTER `partner_id` DROP DEFAULT;

@@ -159,7 +159,9 @@ namespace ASC.Mail.Aggregator
                 (!string.IsNullOrEmpty(message.From) &&
                  _listFromTextToSkip.Any(f =>
                      message.From.IndexOf(f, StringComparison.OrdinalIgnoreCase) != -1)) ||
-                MailUtil.HasUnsubscribeLink(message.HtmlBody);
+                message.HtmlBodyStream.Length > 0
+                    ? MailUtil.HasUnsubscribeLink(message.HtmlBodyStream)
+                    : MailUtil.HasUnsubscribeLink(message.HtmlBody);
 
             return isMassSending;
         }

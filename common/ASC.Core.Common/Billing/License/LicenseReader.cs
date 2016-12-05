@@ -209,19 +209,20 @@ namespace ASC.Core.Billing
 
             CustomerId = customerId;
 
-            var tenant = CoreContext.TenantManager.GetCurrentTenant();
+            var defaultQuota = CoreContext.TenantManager.GetTenantQuota(Tenant.DEFAULT_TENANT);
 
             var quota = new TenantQuota(-1000)
                 {
                     ActiveUsers = activeUsers,
-                    MaxFileSize = 1024 * 1024 * 1024,
-                    MaxTotalSize = 1024L * 1024 * 1024 * 1024 - 1,
+                    MaxFileSize = defaultQuota.MaxFileSize,
+                    MaxTotalSize = defaultQuota.MaxTotalSize,
                     Name = "license",
                     HasDomain = true,
                     Audit = true,
                     ControlPanel = true,
                     HealthCheck = true,
                     Ldap = true,
+                    Sso = true,
                     WhiteLabel = true,
                     Update = true,
                     Support = true,
@@ -241,6 +242,7 @@ namespace ASC.Core.Billing
             var affiliateId = licenseJson.Value<string>("affiliate_id");
             if (!string.IsNullOrEmpty(affiliateId))
             {
+                var tenant = CoreContext.TenantManager.GetCurrentTenant();
                 tenant.AffiliateId = affiliateId;
                 CoreContext.TenantManager.SaveTenant(tenant);
             }

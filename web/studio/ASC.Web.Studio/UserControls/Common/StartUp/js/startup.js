@@ -25,7 +25,7 @@
 
 
 ProgressStartUpManager = new function () {
-    var scripts = [], returnUrl, progress = 0, totalScripts, percentage;
+    var scripts = [], returnUrl = window.location.href, progress = 0, totalScripts = 0, percentage;
     var progressTimeout;
 
     this.init = function (currentProgress) {
@@ -56,37 +56,52 @@ ProgressStartUpManager = new function () {
     }
 
     function getProgressResponseHandler(response) {
-        if (response.error || !response.value) {
-            location.reload();
-            return;
-        }
 
-        var responseProgress = JSON.parse(response.value);
-        var newProgress = Math.floor(responseProgress.ProgressPercent);
-        if (newProgress > progress) {
-            progress = newProgress;
-            showProgress();
+        try {
 
-            if (progressTimeout) {
-                clearTimeout(progressTimeout);
-                progressTimeout = 0;
+            if (response.error || !response.value) {
+                window.location.reload();
+                return;
             }
 
-        } else if (!progressTimeout) {
-            progressTimeout = setTimeout(function() { location.reload(); }, 60000);
-        }
+            var responseProgress = JSON.parse(response.value);
+            var newProgress = Math.floor(responseProgress.ProgressPercent);
+            if (newProgress > progress) {
+                progress = newProgress;
+                showProgress();
 
-        if (responseProgress.Completed) {
-            onComplete(responseProgress);
-        } else {
-            getProgressDelay();
+                if (progressTimeout) {
+                    clearTimeout(progressTimeout);
+                    progressTimeout = 0;
+                }
+
+            } else if (!progressTimeout) {
+                progressTimeout = setTimeout(function () { location.reload(); }, 60000);
+            }
+
+            if (responseProgress.Link) {
+                returnUrl = responseProgress.Link;
+            }
+
+            if (responseProgress.Bundles && responseProgress.Bundles.length) {
+                scripts = responseProgress.Bundles;
+                totalScripts = scripts.length;
+            }
+
+            if (responseProgress.Completed) {
+                onComplete(responseProgress);
+            } else {
+                getProgressDelay();
+            }
+
+        } catch (ex) {
+            console.error(ex);
+            window.location.reload();
+            return;
         }
     }
 
     function onComplete(responseProgress) {
-        returnUrl = responseProgress.Link;
-        scripts = responseProgress.Bundles;
-        totalScripts = scripts.length;
         percentage = parseInt(responseProgress.Percentage);
         getScript();
     }

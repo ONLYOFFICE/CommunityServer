@@ -1,6 +1,7 @@
 #!/bin/sh
 
 DIR=/var/www/onlyoffice
+SERVICES_DIR="${DIR}/Services"
 CONF=$DIR/WebStudio/web.connections.config
 DB_HOST=""
 DB_NAME=""
@@ -14,10 +15,12 @@ MYSQL=""
 restart_services() {
 	[ -a /etc/nginx/conf.d/default.conf ] && mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.old
 	echo -n "Restarting services... "
-	for SVC in redis.service monoserve monoserve2 nginx onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeSignalR onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog
+	for SVC in redis monoserve monoserve2 monoserveApiSystem nginx onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog
 	do
-		systemctl stop $SVC 
-		systemctl start $SVC
+		systemctl stop $SVC.service 
+		systemctl start $SVC.service
+
+		echo -n " $SVC.service "
 	done
 	echo "OK"
 }
@@ -47,6 +50,12 @@ save_db_params() {
 	if [ -d "$DIR" ]; then
 		find "$DIR/" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"$CONN_STR\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
 	fi
+	
+	sed 's!\(sql_host\s*=\s*\)\S*!\1'${DB_HOST}'!' -i ${SERVICES_DIR}/TeamLabSvc/sphinx-min.conf.in;
+	sed 's!\(sql_pass\s*=\s*\)\S*!\1'${DB_PWD}'!' -i ${SERVICES_DIR}/TeamLabSvc/sphinx-min.conf.in;
+	sed 's!\(sql_user\s*=\s*\)\S*!\1'${DB_USER}'!' -i ${SERVICES_DIR}/TeamLabSvc/sphinx-min.conf.in;
+	sed 's!\(sql_db\s*=\s*\)\S*!\1'${DB_NAME}'!' -i ${SERVICES_DIR}/TeamLabSvc/sphinx-min.conf.in;
+	
 }
 
 establish_db_conn() {
@@ -70,29 +79,63 @@ establish_db_conn() {
 }
 
 execute_db_scripts() {
-	echo -n "Installing MySQL database... "
-	$MYSQL -e "CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8 COLLATE 'utf8_general_ci';"
-	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.sql
-	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.data.sql
-	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.resources.sql
-	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade85.sql
-	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade86.sql
-	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade87.sql
-	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade88.sql
+
+    if [ -e  /etc/my.cnf ]; then 
+
+		echo "max_connections = 1000" >> /etc/my.cnf # new config mysql 5.7 ignore errors
+		
+	    if grep -q "sql_mode" /etc/my.cnf; then
+			sed "s/sql_mode.*/sql_mode = 'NO_ENGINE_SUBSTITUTION'/" -i /etc/my.cnf || true # disable new STRICT mode in mysql 5.7	 
+		else
+			echo "sql_mode = 'NO_ENGINE_SUBSTITUTION'" >> /etc/my.cnf # disable new STRICT mode in mysql 5.7
+		fi
+		
+		systemctl stop mysqld
+		systemctl start mysqld
+
+	fi
+	
+	DB_TABLES_COUNT=$($MYSQL --silent --skip-column-names -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='${DB_NAME}'");
+	
+	if [ "${DB_TABLES_COUNT}" -eq "0" ]; then
+		echo "Installing MySQL database... "
+	
+		$MYSQL -e "CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8 COLLATE 'utf8_general_ci';"
+		$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.sql
+		$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.data.sql
+		$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.resources.sql
+	fi
+
+	echo "Upgrading MySQL database... "
+	
+	for i in $(ls $DIR/Sql/onlyoffice.upgrade*); do
+        $MYSQL "$DB_NAME" < ${i};
+	done
+	
 	echo "OK"
 }
 
 install_sphinx() {
+
+	if ! grep -q "name=\"textindex\"" $DIR/Services/TeamLabSvc/TeamLabSvc.exe.Config; then
+			sed -i 's/.*<add\s*name="default"\s*connectionString=.*/&\n<add name="textindex" connectionString="Server=localhost;Port=9306;Pooling=True;Character Set=utf8;AutoEnlist=false" providerName="MySql.Data.MySqlClient"\/>/' $DIR/Services/TeamLabSvc/TeamLabSvc.exe.Config;
+		else
+			sed -i '/textindex/s/connectionString=.*/connectionString="Server=localhost;Port=9306;Pooling=True;Character Set=utf8;AutoEnlist=false" providerName="MySql.Data.MySqlClient"\/>/' $DIR/Services/TeamLabSvc/TeamLabSvc.exe.Config;
+	fi
+
 	if [ -x /usr/bin/searchd ]; then
 		echo "Sphinx already installed."
 	else
 		echo -n "Installing sphinx... "
 		yum -y install postgresql-libs unixODBC
-		if [ ! -f /tmp/sphinx-2.2.10-1.rhel7.x86_64.rpm ]; then
-			wget http://sphinxsearch.com/files/sphinx-2.2.10-1.rhel7.x86_64.rpm -O /tmp/sphinx-2.2.10-1.rhel7.x86_64.rpm
+		if [ ! -f /tmp/sphinx-2.2.11-1.rhel7.x86_64.rpm ]; then
+			wget http://sphinxsearch.com/files/sphinx-2.2.11-1.rhel7.x86_64.rpm -O /tmp/sphinx-2.2.11-1.rhel7.x86_64.rpm
 		fi
-		rpm -Uhv /tmp/sphinx-2.2.10-1.rhel7.x86_64.rpm
+		rpm -Uhv /tmp/sphinx-2.2.11-1.rhel7.x86_64.rpm
 		echo "OK"
+	
+		
+
 	fi
 }
 

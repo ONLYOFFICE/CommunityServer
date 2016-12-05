@@ -43,7 +43,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
-using System.Threading.Tasks;
 
 namespace ASC.Xmpp.Host
 {
@@ -70,8 +69,7 @@ namespace ASC.Xmpp.Host
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("Unexpected error, {0}, {1}, {2}",
-                    e.Message, e.StackTrace, e.InnerException != null ? e.InnerException.ToString() : string.Empty);
+                _log.Error(e);
             }
             return count;
         }
@@ -85,8 +83,7 @@ namespace ASC.Xmpp.Host
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("Unexpected error, userName = {0}, {1}, {2}, {3}", userName,
-                    e.Message, e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty);
+                _log.Error(e);
             }
             return token;
         }
@@ -143,8 +140,7 @@ namespace ASC.Xmpp.Host
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("Unexpected error, from = {0}, to = {1}, {2}, {3}, {4}", from, to,
-                    e.Message, e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty);
+                _log.Error(e);
             }
         }
 
@@ -169,8 +165,7 @@ namespace ASC.Xmpp.Host
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("Unexpected error, from = {0}, to = {1}, {2}, {3}, {4}", from, to,
-                    e.Message, e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty);
+                _log.Error(e);
             }
         }
 
@@ -252,8 +247,7 @@ namespace ASC.Xmpp.Host
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("Unexpected error, userName = {0}, {1}, {2}, {3}", userName,
-                    e.Message, e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty);
+                _log.Error(e);
             }
             return GetState(tenantId, userName);
         }
@@ -270,12 +264,8 @@ namespace ASC.Xmpp.Host
                 _xmppServer.StreamManager.RemoveStream(connectionId);
                 listener.CloseXmppConnection(connectionId);
                 var sender = (IXmppSender)_xmppServer.GetService(typeof(IXmppSender));
-                Task.Run(() =>
-                {
-                    sender.Broadcast(_xmppServer.SessionManager.GetSessions(),
-                        new Presence { Priority = SignalRHelper.PRIORITY, From = jid, Type = PresenceType.unavailable });
-                });
-
+                sender.Broadcast(_xmppServer.SessionManager.GetSessions(),
+                    new Presence { Priority = SignalRHelper.PRIORITY, From = jid, Type = PresenceType.unavailable });
                 var userSession = _xmppServer.SessionManager.GetAvailableSession(jid.BareJid);
                 if (userSession != null && userSession.Presence != null && userSession.Presence.Type != PresenceType.unavailable)
                 {
@@ -284,8 +274,7 @@ namespace ASC.Xmpp.Host
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("Unexpected error, userName = {0}, {1}, {2}, {3}", userName,
-                    e.Message, e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty);
+                _log.Error(e);
             }
             return SignalRHelper.USER_OFFLINE;
         }
@@ -310,8 +299,7 @@ namespace ASC.Xmpp.Host
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("Unexpected error, userName = {0}, {1}, {2}, {3}", userName,
-                    e.Message, e.StackTrace, e.InnerException != null ? e.InnerException.Message : string.Empty);
+                _log.Error(e);
             }
             return SignalRHelper.USER_OFFLINE;
         }
@@ -349,8 +337,7 @@ namespace ASC.Xmpp.Host
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("Unexpected error, from = {0}, to = {1}, {2}, {3}, {4}", from, to,
-                    e.Message, e.StackTrace, e.InnerException != null ? e.InnerException.ToString() : string.Empty);
+                _log.Error(e);
             }
             return messageClasses;
         }
@@ -365,7 +352,7 @@ namespace ASC.Xmpp.Host
                 ASCContext.SetCurrentTenant(userJid.Server);
 
                 foreach (var user in ASCContext.UserManager.GetUsers().Where(u => !u.IsMe()))
-			    {
+                {
                     userJid = GetJid(user.UserName, tenantId);
                     var session = _xmppServer.SessionManager.GetAvailableSession(userJid.BareJid);
                     if (session != null && session.Presence != null && session.Presence.Type != PresenceType.unavailable)
@@ -376,8 +363,7 @@ namespace ASC.Xmpp.Host
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("Unexpected error, {0}, {1}, {2}",
-                    e.Message, e.StackTrace, e.InnerException != null ? e.InnerException.ToString() : string.Empty);
+                _log.Error(e);
             }
             return states;
         }
@@ -394,8 +380,7 @@ namespace ASC.Xmpp.Host
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("Unexpected error, {0}, {1}, {2}",
-                    e.Message, e.StackTrace, e.InnerException != null ? e.InnerException.ToString() : string.Empty);
+                _log.Error(e);
             }
             return SignalRHelper.USER_OFFLINE;
         }
@@ -418,59 +403,16 @@ namespace ASC.Xmpp.Host
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("Unexpected error, {0}, {1}, {2}",
-                    e.Message, e.StackTrace, e.InnerException != null ? e.InnerException.ToString() : string.Empty);
+                _log.Error(e);
             }
         }
 
         public string HealthCheck(string userName, int tenantId)
         {
-            try
-            {
-                Random rand = new Random();
-                string connectionId = Guid.NewGuid().ToString();
-                byte state = (byte)rand.Next(SignalRHelper.USER_ONLINE, SignalRHelper.USER_OFFLINE);
-                var jid = GetJid(userName, tenantId);
-                if (_xmppServer.SessionManager != null)
-                {
-                    state = AddXmppConnection(connectionId, userName, state, tenantId);
-                    var session = _xmppServer.SessionManager.GetSession(jid);
-                    if (session != null)
-                    {
-                        var realState = SignalRHelper.GetState(session.Presence.Show, session.Presence.Type);
-                        if (realState != state)
-                        {
-                            throw new Exception("State is " + realState + " but should be " + state);
-                        }
-
-                        state = (byte)rand.Next(SignalRHelper.USER_ONLINE, SignalRHelper.USER_OFFLINE);
-                        SendState(tenantId, userName, state);
-                        session = _xmppServer.SessionManager.GetSession(jid);
-                        realState = SignalRHelper.GetState(session.Presence.Show, session.Presence.Type);
-                        if (realState != state)
-                        {
-                            throw new Exception("State is " + realState + " but should be " + state);
-                        }
-
-                        GetRecentMessages(tenantId, userName, "test.user", 0);
-                    }
-                    RemoveXmppConnection(connectionId, userName, tenantId);
-                }
-                else
-                {
-                    throw new Exception("SessionManager is null");
-                }
-            }
-            catch (Exception e)
-            {
-                _log.ErrorFormat("Unexpected error, {0}, {1}, {2}",
-                    e.Message, e.StackTrace, e.InnerException != null ? e.InnerException.ToString() : string.Empty);
-                return e.ToString();
-            }
             return string.Empty;
         }
 
-        private Presence GetNewPresence(byte state, Presence presence = null, Jid jid = null)
+        private Presence GetNewPresence(byte state, Presence presence, Jid jid)
         {
             if (presence == null)
             {

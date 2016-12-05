@@ -159,6 +159,12 @@ namespace ASC.Core.Tenants
             set { SetFeature("ldap", value); }
         }
 
+        public bool Sso
+        {
+            get { return GetFeature("sso"); }
+            set { SetFeature("sso", value); }
+        }
+
         public bool Sms
         {
             get { return GetFeature("sms"); }

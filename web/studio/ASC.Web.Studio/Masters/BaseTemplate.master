@@ -43,7 +43,7 @@
 
     <ucc:FeedControl ID="feadControl" runat="server" Title="Teamlab Portal" ContentOnly="true" AutoFill="false" />
 </head>
-<body class="<%= ColorThemeClass %> <%= IsMobile ? "mobile" : "" %>">
+<body class="<%= ColorThemeClass %> <%= IsMobile ? "mobile" : "" %> <%= Request.DesktopApp() ? "desktop" : "" %>">
 
     <asp:ContentPlaceHolder ID="GoogleTagManagerPlaceHolder" runat="server" />
     <asp:ContentPlaceHolder ID="GoogleAnalyticsScriptPlaceHolder" runat="server" />

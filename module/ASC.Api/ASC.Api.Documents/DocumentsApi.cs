@@ -244,9 +244,10 @@ namespace ASC.Api.Documents
         /// <param name="files" visible="false">List of files when posted as multipart/form-data</param>
         /// <param name="createNewIfExist" visible="false">Create New If Exist</param>
         /// <param name="storeOriginalFileFlag" visible="false">If True, upload documents in original formats as well</param>
+        /// <param name="keepConvertStatus" visible="false">Keep status conversation after finishing</param>
         /// <returns>Uploaded file</returns>
         [Create("{folderId}/upload")]
-        public object UploadFile(string folderId, Stream file, ContentType contentType, ContentDisposition contentDisposition, IEnumerable<System.Web.HttpPostedFileBase> files, bool createNewIfExist, bool storeOriginalFileFlag)
+        public object UploadFile(string folderId, Stream file, ContentType contentType, ContentDisposition contentDisposition, IEnumerable<HttpPostedFileBase> files, bool createNewIfExist, bool storeOriginalFileFlag, bool keepConvertStatus = false)
         {
             FilesSettings.StoreOriginalFiles = storeOriginalFileFlag;
 
@@ -256,10 +257,10 @@ namespace ASC.Api.Documents
                 {
                     //Only one file. return it
                     var postedFile = files.First();
-                    return InsertFile(folderId, postedFile.InputStream, postedFile.FileName, createNewIfExist);
+                    return InsertFile(folderId, postedFile.InputStream, postedFile.FileName, createNewIfExist, keepConvertStatus);
                 }
                 //For case with multiple files
-                return files.Select(postedFile => InsertFile(folderId, postedFile.InputStream, postedFile.FileName, createNewIfExist)).ToList();
+                return files.Select(postedFile => InsertFile(folderId, postedFile.InputStream, postedFile.FileName, createNewIfExist, keepConvertStatus)).ToList();
             }
             if (file != null)
             {
@@ -269,7 +270,7 @@ namespace ASC.Api.Documents
                     fileName = contentDisposition.FileName;
                 }
 
-                return InsertFile(folderId, file, fileName, createNewIfExist);
+                return InsertFile(folderId, file, fileName, createNewIfExist, keepConvertStatus);
             }
             throw new InvalidOperationException("No input files");
         }
@@ -280,12 +281,13 @@ namespace ASC.Api.Documents
         /// <param name="file" visible="false">Request Input stream</param>
         /// <param name="title">Name of file which has to be uploaded</param>
         /// <param name="createNewIfExist" visible="false">Create New If Exist</param>
+        /// <param name="keepConvertStatus" visible="false">Keep status conversation after finishing</param>
         /// <category>Uploads</category>
         /// <returns></returns>
         [Create("@my/insert")]
-        public FileWrapper InsertFileToMy(Stream file, string title, bool createNewIfExist)
+        public FileWrapper InsertFileToMy(Stream file, string title, bool createNewIfExist, bool keepConvertStatus = false)
         {
-            return InsertFile(Global.FolderMy.ToString(), file, title, createNewIfExist);
+            return InsertFile(Global.FolderMy.ToString(), file, title, createNewIfExist, keepConvertStatus);
         }
 
         /// <summary>
@@ -294,12 +296,13 @@ namespace ASC.Api.Documents
         /// <param name="file" visible="false">Request Input stream</param>
         /// <param name="title">Name of file which has to be uploaded</param>
         /// <param name="createNewIfExist" visible="false">Create New If Exist</param>
+        /// <param name="keepConvertStatus" visible="false">Keep status conversation after finishing</param>
         /// <category>Uploads</category>
         /// <returns></returns>
         [Create("@common/insert")]
-        public FileWrapper InsertFileToCommon(Stream file, string title, bool createNewIfExist)
+        public FileWrapper InsertFileToCommon(Stream file, string title, bool createNewIfExist, bool keepConvertStatus = false)
         {
-            return InsertFile(Global.FolderCommon.ToString(), file, title, createNewIfExist);
+            return InsertFile(Global.FolderCommon.ToString(), file, title, createNewIfExist, keepConvertStatus);
         }
 
         /// <summary>
@@ -309,14 +312,15 @@ namespace ASC.Api.Documents
         /// <param name="file" visible="false">Request Input stream</param>
         /// <param name="title">Name of file which has to be uploaded</param>
         /// <param name="createNewIfExist" visible="false">Create New If Exist</param>
+        /// <param name="keepConvertStatus" visible="false">Keep status conversation after finishing</param>
         /// <category>Uploads</category>
         /// <returns></returns>
         [Create("{folderId}/insert")]
-        public FileWrapper InsertFile(string folderId, Stream file, string title, bool createNewIfExist)
+        public FileWrapper InsertFile(string folderId, Stream file, string title, bool createNewIfExist, bool keepConvertStatus = false)
         {
             try
             {
-                var resultFile = FileUploader.Exec(folderId, title, file.Length, file, createNewIfExist);
+                var resultFile = FileUploader.Exec(folderId, title, file.Length, file, createNewIfExist, !keepConvertStatus);
                 return new FileWrapper(resultFile);
             }
             catch (FileNotFoundException e)
@@ -970,6 +974,7 @@ namespace ASC.Api.Documents
         /// <param name="fileId">File ID</param>
         /// <param name="version">Version of history</param>
         /// <param name="continueVersion">Mark as version or revision</param>
+        /// <category>Files</category>
         /// <returns></returns>
         [Update("file/{fileId}/history")]
         public IEnumerable<FileWrapper> ChangeHistory(string fileId, int version, bool continueVersion)
@@ -1096,6 +1101,7 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <param name="fileId">File ID</param>
         /// <param name="share">Access right</param>
+        /// <category>Files</category>
         /// <returns>Shared file link</returns>
         [Update("{fileId}/sharedlink")]
         public string GenerateSharedLink(string fileId, FileShare share)

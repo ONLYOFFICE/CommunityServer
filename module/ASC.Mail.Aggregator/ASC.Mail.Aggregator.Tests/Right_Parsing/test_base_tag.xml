@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?><RightParserResult xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><From><Email>a.g.safronov@gmail.com</Email><Name>Алексей Сафронов</Name></From><To><TestAddress><Email>test.mail@qip.ru</Email><Name /></TestAddress></To><Cc /><Subject>test base tag</Subject><TextEncoding>QuotedPrintable</TextEncoding><TextCharset>iso-8859-1</TextCharset><TextBody> W3Schools &lt;http://www.w3schools.com&gt;
-</TextBody><HtmlEncoding>QuotedPrintable</HtmlEncoding><HtmlCharset>iso-8859-1</HtmlCharset><HtmlBody>&lt;br&gt;
-&lt;base href="http://www.w3schools.com/images/" target="_blank"&gt;
-
-
-
-&lt;img src="stickman.gif"&gt;
-&lt;a href="http://www.w3schools.com"&gt;W3Schools&lt;/a&gt;
-</HtmlBody><AttachmentCount>0</AttachmentCount><UnknownPatsCount>0</UnknownPatsCount></RightParserResult>
