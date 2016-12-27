@@ -38,71 +38,74 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
 using System.Linq;
-using ASC.ActiveDirectory.DirectoryServices;
 using Syscert = System.Security.Cryptography.X509Certificates;
 
 namespace ASC.ActiveDirectory.Novell
 {
     public class NovellLdapSearcher
     {
-        private readonly ILog _log = LogManager.GetLogger(typeof(LdapSettingsChecker));
-        private readonly int _currentTenantId = TenantProvider.CurrentTenantID;
-        private readonly NovellLdapCertificateConfirmRequest _certificateConfirmRequest = new NovellLdapCertificateConfirmRequest();
-        private static readonly ICache Cache = AscCache.Default;
-        private static readonly object RootSync = new object();
+        private readonly ILog log = LogManager.GetLogger(typeof(LdapSettingsChecker));
+        private readonly int currentTenantID = TenantProvider.CurrentTenantID;
+        private readonly NovellLdapCertificateConfirmRequest certificateConfirmRequest = new NovellLdapCertificateConfirmRequest();
+        private static readonly ICache cache = AscCache.Default;
+        private static readonly object rootSync = new object();
 
         public NovellLdapSearcher(bool acceptCertificate)
         {
-            if (!acceptCertificate)
-                return;
-
-            _certificateConfirmRequest.Approved = true;
-            _certificateConfirmRequest.Requested = false;
+            if (acceptCertificate)
+            {
+                certificateConfirmRequest.Approved = true;
+                certificateConfirmRequest.Requested = false;
+            }
         }
 
         public List<LDAPObject> Search(string login, string password, string server, int portNumber,
-                                       int scope, bool startTls, Criteria criteria, string userFilter = null,
-                                       string disnguishedName = null, string[] attributes = null)
+            int scope, bool startTls, Criteria criteria, string userFilter = null, string disnguishedName = null, string[] attributes = null)
         {
             if (!string.IsNullOrEmpty(userFilter) && !userFilter.StartsWith("(") && !userFilter.EndsWith(")"))
+            {
                 userFilter = "(" + userFilter + ")";
-
-            var searchFilter = criteria != null ? "(&" + criteria + userFilter + ")" : userFilter;
-            return Search(login, password, server, portNumber, scope, startTls, searchFilter, disnguishedName,
-                          attributes);
+            }
+            string searchFilter = criteria != null ? "(&" + criteria.ToString() + userFilter + ")" : userFilter;
+            return Search(login, password, server, portNumber, scope, startTls, searchFilter, disnguishedName, attributes);
         }
 
         public List<LDAPObject> Search(string login, string password, string server, int portNumber,
-                                       int scope, bool startTls, string searchFilter = null,
-                                       string disnguishedName = null, string[] attributes = null)
+            int scope, bool startTls, string searchFilter = null, string disnguishedName = null, string[] attributes = null)
         {
             if (portNumber != LdapConnection.DEFAULT_PORT && portNumber != LdapConnection.DEFAULT_SSL_PORT)
+            {
                 throw new SystemException("Wrong port");
-
+            }
             if (server.StartsWith("LDAP://"))
+            {
                 server = server.Substring("LDAP://".Length);
-
+            }
+            var factory = new LDAPObjectFactory();
             var entries = new List<LdapEntry>();
             var ldapConnection = new LdapConnection();
-
             if (startTls || portNumber == LdapConnection.DEFAULT_SSL_PORT)
+            {
                 ldapConnection.UserDefinedServerCertValidationDelegate += ServerCertValidationHandler;
-
+            }
+            
             ldapConnection.Connect(server, portNumber);
-
             if (portNumber == LdapConnection.DEFAULT_SSL_PORT)
+            {
                 ldapConnection.SecureSocketLayer = true;
-
-            if (startTls) // does not call stopTLS because it does not work
+            }
+            if (startTls)
+            {
+                // does not call stopTLS because it does not work
                 ldapConnection.startTLS();
-
+            }
             ldapConnection.Bind(LdapConnection.Ldap_V3, login, password);
 
             if (startTls)
             {
-                var errorMessage = ServerCertValidate();
+                string errorMessage = ServerCertValidate();
                 // error in ServerCertValidationHandler
-                if (!string.IsNullOrEmpty(errorMessage))
+                if (!String.IsNullOrEmpty(errorMessage))
                 {
                     ldapConnection.Disconnect();
                     throw new Exception(errorMessage);
@@ -110,19 +113,15 @@ namespace ASC.ActiveDirectory.Novell
             }
 
             // certificate confirmation requested
-            if ((startTls && _certificateConfirmRequest != null &&
-                 _certificateConfirmRequest.Requested && !_certificateConfirmRequest.Approved))
+            if ((startTls && certificateConfirmRequest != null &&
+                certificateConfirmRequest.Requested && !certificateConfirmRequest.Approved))
             {
-
-                _log.Debug("LDAP certificate confirmation requested.");
-
+                log.Debug("LDAP certificate confirmation requested.");
                 ldapConnection.Disconnect();
-
                 var exception = new NovellLdapTlsCertificateRequestedException
-                    {
-                        CertificateConfirmRequest = _certificateConfirmRequest
-                    };
-
+                {
+                    CertificateConfirmRequest = certificateConfirmRequest
+                };
                 throw exception;
             }
 
@@ -131,34 +130,26 @@ namespace ASC.ActiveDirectory.Novell
                 ldapConnection.Disconnect();
                 return null;
             }
-
             if (attributes == null)
             {
-                var ldapUniqueIdAttribute = ConfigurationManager.AppSettings["ldap.unique.id"];
-
+                string ldapUniqueIdAttribute = ConfigurationManager.AppSettings["ldap.unique.id"];
                 if (ldapUniqueIdAttribute == null)
                 {
-                    attributes = new[]
-                        {
-                            "*", Constants.RfcLDAPAttributes.ENTRY_DN, Constants.RfcLDAPAttributes.ENTRY_UUID,
-                            Constants.RfcLDAPAttributes.NS_UNIQUE_ID, Constants.RfcLDAPAttributes.GUID
-                        };
+                    attributes = new [] { "*", Constants.RFCLDAPAttributes.EntryDN, Constants.RFCLDAPAttributes.EntryUUID,
+                        Constants.RFCLDAPAttributes.NSUniqueId, Constants.RFCLDAPAttributes.GUID };
                 }
                 else
                 {
-                    attributes = new[] { "*", ldapUniqueIdAttribute };
+                    attributes = new [] { "*", ldapUniqueIdAttribute };
                 }
             }
-
-            var ldapSearchConstraints = new LdapSearchConstraints
-                {
-                    MaxResults = int.MaxValue,
-                    HopLimit = 0
-                };
-
-            var ldapSearchResults = ldapConnection.Search(disnguishedName,
-                                                          scope, searchFilter, attributes, false, ldapSearchConstraints);
-
+            LdapSearchConstraints ldapSearchConstraints = new LdapSearchConstraints
+            {
+                MaxResults = int.MaxValue,
+                HopLimit = 0
+            };
+            LdapSearchResults ldapSearchResults = ldapConnection.Search(disnguishedName,
+                scope, searchFilter, attributes, false, ldapSearchConstraints);
             while (ldapSearchResults.hasMore())
             {
                 LdapEntry nextEntry;
@@ -170,56 +161,48 @@ namespace ASC.ActiveDirectory.Novell
                 {
                     continue;
                 }
-
                 if (nextEntry != null)
+                {
                     entries.Add(nextEntry);
+                }
             }
-
-            var result = LDAPObjectFactory.CreateObjects(entries);
-
+            var result = factory.CreateObjects(entries);
             ldapConnection.Disconnect();
-
             return result;
         }
 
         private bool ServerCertValidationHandler(Syscert.X509Certificate certificate, int[] certificateErrors)
         {
-            foreach (var error in certificateErrors)
+            foreach (int error in certificateErrors)
             {
-                _log.DebugFormat("ServerCertValidationHandler CertificateError: {0}", error);
+                log.DebugFormat("ServerCertValidationHandler CertificateError: {0}", error);
             }
-
-            lock (RootSync)
+            lock (rootSync)
             {
-                Cache.Insert("ldapCertificate", certificate, DateTime.MaxValue);
-                Cache.Insert("ldapCertificateErrors", certificateErrors, DateTime.MaxValue);
-                _certificateConfirmRequest.CertificateErrors = certificateErrors;
+                cache.Insert("ldapCertificate", certificate, DateTime.MaxValue);
+                cache.Insert("ldapCertificateErrors", certificateErrors, DateTime.MaxValue);
+                certificateConfirmRequest.CertificateErrors = certificateErrors;
             }
-
             return true;
         }
 
         private string ServerCertValidate()
         {
-            var errorMessage = String.Empty;
-
-            var store = WorkContext.IsMono
-                            ? X509StoreManager.CurrentUser.TrustedRoot
-                            : X509StoreManager.LocalMachine.TrustedRoot;
-
+            string errorMessage = String.Empty;
+            X509Store store = WorkContext.IsMono ? X509StoreManager.CurrentUser.TrustedRoot :
+                X509StoreManager.LocalMachine.TrustedRoot;
             var storage = StorageFactory.GetStorage("-1", "certs");
-
             try
             {
-                CoreContext.TenantManager.SetCurrentTenant(_currentTenantId);
+                CoreContext.TenantManager.SetCurrentTenant(currentTenantID);
 
                 // Import the details of the certificate from the server.
-                lock (RootSync)
+                lock (rootSync)
                 {
-                    var certificate = Cache.Get<Syscert.X509Certificate>("ldapCertificate");
+                    var certificate = cache.Get<Syscert.X509Certificate>("ldapCertificate");
                     if (certificate != null)
                     {
-                        var data = certificate.GetRawCertData();
+                        byte[] data = certificate.GetRawCertData();
                         var x509 = new X509Certificate(data);
                         // Check for ceritficate in store.
                         if (!store.Certificates.Contains(x509))
@@ -236,7 +219,7 @@ namespace ASC.ActiveDirectory.Novell
                                     return String.Empty;
                                 }
                             }
-                            if (_certificateConfirmRequest.Approved)
+                            if (certificateConfirmRequest.Approved)
                             {
                                 AddCertificateToStorage(storage, x509);
                                 // Add the certificate to the store.
@@ -244,17 +227,17 @@ namespace ASC.ActiveDirectory.Novell
                                 store.Certificates.Add(x509);
                                 return String.Empty;
                             }
-                            if (!_certificateConfirmRequest.Requested)
+                            if (!certificateConfirmRequest.Requested)
                             {
-                                _certificateConfirmRequest.SerialNumber = CryptoConvert.ToHex(x509.SerialNumber);
-                                _certificateConfirmRequest.IssuerName = x509.IssuerName;
-                                _certificateConfirmRequest.SubjectName = x509.SubjectName;
-                                _certificateConfirmRequest.ValidFrom = x509.ValidFrom;
-                                _certificateConfirmRequest.ValidUntil = x509.ValidUntil;
-                                _certificateConfirmRequest.Hash = CryptoConvert.ToHex(x509.Hash);
-                                var certificateErrors = Cache.Get<int[]>("ldapCertificateErrors");
-                                _certificateConfirmRequest.CertificateErrors = certificateErrors.ToArray();
-                                _certificateConfirmRequest.Requested = true;
+                                certificateConfirmRequest.SerialNumber = CryptoConvert.ToHex(x509.SerialNumber);
+                                certificateConfirmRequest.IssuerName = x509.IssuerName;
+                                certificateConfirmRequest.SubjectName = x509.SubjectName;
+                                certificateConfirmRequest.ValidFrom = x509.ValidFrom;
+                                certificateConfirmRequest.ValidUntil = x509.ValidUntil;
+                                certificateConfirmRequest.Hash = CryptoConvert.ToHex(x509.Hash);
+                                var certificateErrors = cache.Get<int[]>("ldapCertificateErrors");
+                                certificateConfirmRequest.CertificateErrors = certificateErrors.ToArray();
+                                certificateConfirmRequest.Requested = true;
                             }
                         }
                     }
@@ -270,23 +253,21 @@ namespace ASC.ActiveDirectory.Novell
                             store.Certificates.Add(storageX509);
                             return String.Empty;
                         }
-
-                        errorMessage = "LDAP TlsHandler. Certificate not found in certificate store.";
-
-                        _log.Error(errorMessage);
-
-                        return errorMessage;
+                        else
+                        {
+                            errorMessage = "LDAP TlsHandler. Certificate not found in certificate store.";
+                            log.Error(errorMessage);
+                            return errorMessage;
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
                 errorMessage = String.Format("LDAP TlsHandler error: {0}. {1}. store path = {2}",
-                                             ex, ex.InnerException != null ? ex.InnerException.ToString() : string.Empty,
-                                             store.Name);
-                _log.ErrorFormat(errorMessage);
+                    ex.ToString(), ex.InnerException != null ? ex.InnerException.ToString() : string.Empty, store.Name);
+                log.ErrorFormat(errorMessage);
             }
-
             return errorMessage;
         }
 
@@ -298,17 +279,17 @@ namespace ASC.ActiveDirectory.Novell
             }
         }
 
-        private static void AddCertificateToStorage(IDataStore storage, X509Certificate x509)
+        private void AddCertificateToStorage(IDataStore storage, X509Certificate x509)
         {
             var stream = new MemoryStream(x509.RawData);
             storage.DeleteDirectory("ldap");
             storage.Save("ldap/ldap.cer", stream);
         }
 
-        private static byte[] ReadFully(Stream input)
+        private byte[] ReadFully(Stream input)
         {
-            var buffer = new byte[4 * 1024];
-            using (var ms = new MemoryStream())
+            byte[] buffer = new byte[4 * 1024];
+            using (MemoryStream ms = new MemoryStream())
             {
                 int read;
                 while ((read = input.Read(buffer, 0, buffer.Length)) > 0)
@@ -319,7 +300,7 @@ namespace ASC.ActiveDirectory.Novell
             }
         }
 
-        private static bool CompareHash(byte[] hash1, byte[] hash2)
+        private bool CompareHash(byte[] hash1, byte[] hash2)
         {
             if ((hash1 == null) && (hash2 == null))
             {
@@ -333,7 +314,14 @@ namespace ASC.ActiveDirectory.Novell
             {
                 return false;
             }
-            return !hash1.Where((t, i) => t != hash2[i]).Any();
+            for (int i = 0; i < hash1.Length; i++)
+            {
+                if (hash1[i] != hash2[i])
+                {
+                    return false;
+                }
+            }
+            return true;
         }
     }
 }

@@ -561,7 +561,7 @@ namespace ASC.Web.CRM.Classes
                 var contactTags = String.Empty;
 
                 if (tags.ContainsKey(contact.ID))
-                    contactTags = String.Join(",", tags[contact.ID].OrderBy(x => x));
+                    contactTags = String.Join(",", tags[contact.ID].ToArray());
 
                 String firstName;
                 String lastName;
@@ -798,7 +798,7 @@ namespace ASC.Web.CRM.Classes
                 var contactTags = String.Empty;
 
                 if (tags.ContainsKey(deal.ID))
-                    contactTags = String.Join(",", tags[deal.ID].OrderBy(x => x));
+                    contactTags = String.Join(",", tags[deal.ID].ToArray());
 
                 String bidType;
 
@@ -920,7 +920,7 @@ namespace ASC.Web.CRM.Classes
                 var contactTags = String.Empty;
 
                 if (tags.ContainsKey(item.ID))
-                    contactTags = String.Join(",", tags[item.ID].OrderBy(x => x));
+                    contactTags = String.Join(",", tags[item.ID].ToArray());
 
                 var dataRow = dataTable.Rows.Add(new[]
                     {

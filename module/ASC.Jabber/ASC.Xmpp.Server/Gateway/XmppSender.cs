@@ -24,24 +24,25 @@
 */
 
 
-using ASC.Xmpp.Core.protocol.client;
-using ASC.Xmpp.Core.utils.Xml.Dom;
-using ASC.Xmpp.Server.Session;
-using ASC.Xmpp.Server.Streams;
-using log4net;
-using log4net.Core;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using System.Text;
 using System.Xml;
+using ASC.Xmpp.Core.utils.Xml.Dom;
+using ASC.Xmpp.Server.Handler;
+using ASC.Xmpp.Server.Session;
+using ASC.Xmpp.Server.Streams;
+using log4net;
 using Uri = ASC.Xmpp.Core.protocol.Uri;
+using ASC.Xmpp.Core.protocol.client;
 
 namespace ASC.Xmpp.Server.Gateway
 {
     class XmppSender : IXmppSender
     {
-        private readonly XmppGateway gateway;
+        private XmppGateway gateway;
 
         private static readonly ILog _log = LogManager.GetLogger("ASC.Xmpp.Server.Messages");
         private static readonly SignalrServiceClient signalrServiceClient = new SignalrServiceClient();
@@ -71,7 +72,7 @@ namespace ASC.Xmpp.Server.Gateway
             var connection = GetXmppConnection(to.ConnectionId);
             if (connection != null)
             {
-                _log.Logger.Log(GetType(), Level.Trace, string.Format(SEND_FORMAT, to.ConnectionId, to.Namespace, node.ToString(Formatting.Indented)), null);
+                _log.DebugFormat(SEND_FORMAT, to.ConnectionId, to.Namespace, node.ToString(Formatting.Indented));
                 connection.Send(node, Encoding.UTF8);
             }
         }
@@ -84,7 +85,7 @@ namespace ASC.Xmpp.Server.Gateway
             var connection = GetXmppConnection(to.ConnectionId);
             if (connection != null)
             {
-                _log.Logger.Log(GetType(), Level.Trace, string.Format(SEND_FORMAT, to.ConnectionId, to.Namespace, text), null);
+                _log.DebugFormat(SEND_FORMAT, to.ConnectionId, to.Namespace, text);
                 connection.Send(text, Encoding.UTF8);
             }
         }

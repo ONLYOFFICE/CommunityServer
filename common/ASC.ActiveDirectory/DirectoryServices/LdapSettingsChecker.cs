@@ -24,14 +24,12 @@
 */
 
 
-using System;
-using System.Linq;
-using System.Text;
-using ASC.ActiveDirectory.DirectoryServices.LDAP;
 using ASC.Security.Cryptography;
 using log4net;
+using System;
+using System.Text;
 
-namespace ASC.ActiveDirectory.DirectoryServices
+namespace ASC.ActiveDirectory
 {
     public abstract class LdapSettingsChecker
     {
@@ -53,11 +51,10 @@ namespace ASC.ActiveDirectory.DirectoryServices
         public const byte WRONG_SID_ATTRIBUTE = 15;
         public const byte CERTIFICATE_REQUEST = 16;
         public const byte TLS_NOT_SUPPORTED = 17;
-        public const byte DOMAIN_NOT_FOUND = 18;
 
         protected ILog log = LogManager.GetLogger(typeof(LdapSettingsChecker));
 
-        public abstract byte CheckSettings(LDAPUserImporter importer, bool acceptCertificate = false);
+        public abstract byte CheckSettings(LDAPSupportSettings settings, LDAPUserImporter importer, bool acceptCertificate = false);
 
         public abstract void CheckCredentials(string login, string password, string server, int portNumber, bool startTls);
 
@@ -146,73 +143,6 @@ namespace ASC.ActiveDirectory.DirectoryServices
                 password = string.Empty;
             }
             return password;
-        }
-
-        public abstract string GetDomain(LDAPSupportSettings settings);
-
-        public bool? IsLDAPDomainExists(string domain, LDAPSupportSettings settings)
-        {
-            try
-            {
-                if (string.IsNullOrEmpty(domain))
-                    return null;
-
-                var ldapDomain = GetDomain(settings);
-
-                if (string.IsNullOrEmpty(ldapDomain))
-                    return null;
-
-                var domainTest = domain.Trim();
-                ldapDomain = ldapDomain.Trim();
-
-                return domainTest.Equals(ldapDomain, StringComparison.InvariantCultureIgnoreCase) ||
-                       ldapDomain.StartsWith(domainTest);
-            }
-            catch (Exception e)
-            {
-                log.ErrorFormat("ExistsLDAPDomain(domain: {0}) error: {1}", domain, e);
-            }
-
-            return null;
-        }
-
-        public LDAPLogin ParseLogin(string login)
-        {
-            if (string.IsNullOrEmpty(login))
-                return null;
-
-            string username;
-            string domain = null;
-
-            if (login.Contains("\\"))
-            {
-                var splited = login.Split('\\');
-
-                if (!splited.Any() || splited.Length != 2)
-                    return null;
-
-                domain = splited[0];
-                username = splited[1];
-
-            }
-            else if (login.Contains("@"))
-            {
-                var splited = login.Split('@');
-
-                if (!splited.Any() || splited.Length != 2)
-                    return null;
-
-                username = splited[0];
-                domain = splited[1];
-            }
-            else
-            {
-                username = login;
-            }
-
-            var result = new LDAPLogin(username, domain);
-
-            return result;
         }
     }
 }

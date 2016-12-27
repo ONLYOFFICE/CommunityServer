@@ -96,10 +96,6 @@ window.ASC.Files.FileSelector = (function () {
             });
 
             jq("#closeFileSelector").click(function () { ASC.Files.FileSelector.onCancel(); });
-            
-            if (window.location.href.indexOf("compact") != -1) {
-                jq("body").addClass("file-selector-compact");
-            }
         }
         ASC.Files.FileSelector.onInit();
     };

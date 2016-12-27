@@ -668,7 +668,7 @@
                             </div>
                             <div class="users-list attendees-user-list"></div>
                             <div class="attendees-noaccount">
-                                <a href="<%= VirtualPathUtility.ToAbsolute("~/addons/mail/default.aspx") %>">
+                                <a href="<%= VirtualPathUtility.ToAbsolute("~/addons/mail") %>">
                                     <%=Resources.CalendarJSResource.attendeesNoAccountLink%>
                                 </a>
                                 <%=Resources.CalendarJSResource.attendeesNoAccountText%>

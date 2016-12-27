@@ -1111,8 +1111,7 @@ window.ServiceFactory = (function() {
             title: o.title || '',
             notes: o.notes || '',
             culture: o.cultureName || '',
-            profileUrl: o.profileUrl || '',
-            isLDAP: typeof (o.isLDAP) != "undefined" ? o.isLDAP : typeof (o.isldap) != "undefined" ? o.isldap : false
+            profileUrl: o.profileUrl || ''
         };
 
         return person;

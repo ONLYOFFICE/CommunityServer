@@ -46,7 +46,7 @@ namespace ASC.Xmpp.Server.Authorization
     class AuthHandler : XmppStreamHandler
     {
         private readonly ILog log = LogManager.GetLogger(typeof(AuthHandler));
-        private readonly IDictionary<string, AuthData> authData = new Dictionary<string, AuthData>();
+        private IDictionary<string, AuthData> authData = new Dictionary<string, AuthData>();
 
         public override void StreamEndHandle(XmppStream stream, ICollection<Node> notSendedBuffer, XmppHandlerContext context)
         {
@@ -169,28 +169,30 @@ namespace ASC.Xmpp.Server.Authorization
                 context.Sender.SendToAndClose(stream, XmppFailureError.TemporaryAuthFailure);
                 return;
             }
-
-            if (authStep.Step == AuthStep.Step1)
+            if (!authStep.IsPlain)
             {
-                var challenge = ProcessStep1(stream, response, context);
-                if (challenge != null)
+                if (authStep.Step == AuthStep.Step1)
                 {
-                    context.Sender.SendTo(stream, challenge);
-                    authStep.DoStep();
+                    var challenge = ProcessStep1(stream, response, context);
+                    if (challenge != null)
+                    {
+                        context.Sender.SendTo(stream, challenge);
+                        authStep.DoStep();
+                    }
+                    else
+                    {
+                        context.Sender.SendToAndClose(stream, XmppFailureError.NotAuthorized);
+                    }
+                }
+                else if (authStep.Step == AuthStep.Step2)
+                {
+                    var success = ProcessStep2(stream, response, context);
+                    context.Sender.SendTo(stream, success);
                 }
                 else
                 {
-                    context.Sender.SendToAndClose(stream, XmppFailureError.NotAuthorized);
+                    context.Sender.SendToAndClose(stream, XmppFailureError.TemporaryAuthFailure);
                 }
-            }
-            else if (authStep.Step == AuthStep.Step2)
-            {
-                var success = ProcessStep2(stream, context);
-                context.Sender.SendTo(stream, success);
-            }
-            else
-            {
-                context.Sender.SendToAndClose(stream, XmppFailureError.TemporaryAuthFailure);
             }
         }
 
@@ -203,6 +205,12 @@ namespace ASC.Xmpp.Server.Authorization
         {
             var challenge = new Challenge();
             challenge.TextBase64 = string.Format("realm=\"{0}\",nonce=\"{1}\",qop=\"auth\",charset=utf-8,algorithm=md5-sess", domain, UniqueId.CreateNewId());
+            return challenge;
+        }
+
+        private Challenge GetPlainChallenge(string domain)
+        {
+            var challenge = new Challenge();
             return challenge;
         }
 
@@ -235,7 +243,7 @@ namespace ASC.Xmpp.Server.Authorization
             return null;
         }
 
-        private Success ProcessStep2(XmppStream stream, XmppHandlerContext ctx)
+        private Success ProcessStep2(XmppStream stream, Response response, XmppHandlerContext ctx)
         {
             lock (authData)
             {
@@ -254,6 +262,15 @@ namespace ASC.Xmpp.Server.Authorization
 
         private class AuthData
         {
+            public AuthData()
+            {
+            }
+
+            public AuthData(bool isPlain)
+            {
+                IsPlain = isPlain;
+            }
+
             public string UserName
             {
                 get;
@@ -264,6 +281,12 @@ namespace ASC.Xmpp.Server.Authorization
             {
                 get;
                 private set;
+            }
+
+            public bool IsPlain
+            {
+                get;
+                set; 
             }
 
             public void DoStep()

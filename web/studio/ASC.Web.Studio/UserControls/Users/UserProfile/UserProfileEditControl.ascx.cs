@@ -63,14 +63,6 @@ namespace ASC.Web.Studio.UserControls.Users.UserProfile
             }
         }
 
-        protected bool IsLDAP
-        {
-            get
-            {
-                return UserInfo.Sid != null;
-            }
-        }
-
         protected class RoleUser
         {
             public string Class { get; set; }

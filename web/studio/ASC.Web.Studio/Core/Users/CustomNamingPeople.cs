@@ -203,7 +203,7 @@ namespace ASC.Web.Studio.Core.Users
 
         public static string Substitute(string text)
         {
-            return SubstituteGuest(SubstituteUserPost(SubstituteRegDate(SubstituteGroupHead(SubstitutePost(SubstituteGroup(SubstituteUser(text)))))));
+            return SubstituteGuest(SubstituteUserPost(SubstituteRegDate(SubstituteGroupHead(SubstitutePost(SubstituteGroup(SubstituteAddUsers(SubstituteUser(text))))))));
         }
 
         public static Dictionary<string, string> GetSchemas()
@@ -301,6 +301,20 @@ namespace ASC.Web.Studio.Core.Users
                     .Replace("{!user}", item.UserCaption.ToLower())
                     .Replace("{!Users}", item.UsersCaption)
                     .Replace("{!users}", item.UsersCaption.ToLower());
+            }
+            return text;
+        }
+
+        private static string SubstituteAddUsers(string text)
+        {
+            var item = Current;
+            if (item != null)
+            {
+                return text
+                    .Replace("{!AddUsers}", "Add Users")
+                    .Replace("{!addusers}", "Add Users")
+                    .Replace("{!Addusers}", "Add Users")
+                    .Replace("{!addUsers}", "Add Users");
             }
             return text;
         }

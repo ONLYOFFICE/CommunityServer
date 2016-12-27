@@ -140,12 +140,6 @@ namespace ASC.Core.Notify
                 m.Priority = Convert.ToInt32(priority.Value);
             }
 
-            var attachmentTag = message.Arguments.FirstOrDefault(x => x.Tag == "EmbeddedAttachments");
-            if (attachmentTag != null && attachmentTag.Value != null)
-            {
-                m.EmbeddedAttachments = attachmentTag.Value as NotifyMessageAttachment[];
-            }
-
             return m;
         }
     }

@@ -100,7 +100,7 @@ namespace ASC.Xmpp.Server.Storage
             }
             catch (Exception ex)
             {
-                log.Error(ex);
+                log.ErrorFormat("{0}, {1}", ex.Message, ex.StackTrace);
             }
         }
 

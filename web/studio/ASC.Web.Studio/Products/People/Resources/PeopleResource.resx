@@ -308,7 +308,7 @@ You cannot delete the users if they have 'Active' or 'Pending' status, they need
     <value>{!Head}</value>
   </data>
   <data name="ChooseUser" xml:space="preserve">
-    <value>Choose {!user}</value>
+    <value>Choose user</value>
   </data>
   <data name="CancelButton" xml:space="preserve">
     <value>Cancel</value>

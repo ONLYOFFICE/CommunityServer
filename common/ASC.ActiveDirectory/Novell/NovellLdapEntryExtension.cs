@@ -24,7 +24,6 @@
 */
 
 
-using System.Globalization;
 using Novell.Directory.Ldap;
 using System;
 using System.Text;
@@ -35,21 +34,20 @@ namespace ASC.ActiveDirectory.Novell
     {
         public static object GetAttributeValue(this LdapEntry ldapEntry, string attributeName)
         {
-            var attribute = ldapEntry.getAttribute(attributeName);
+            LdapAttribute attribute = ldapEntry.getAttribute(attributeName);
             if (attribute == null)
+            {
                 return null;
+            }
 
-            if (string.Equals(attributeName, Constants.ADSchemaAttributes.OBJECT_SID, StringComparison.OrdinalIgnoreCase))
+            if (string.Equals(attributeName, Constants.ADSchemaAttributes.ObjectSid, StringComparison.OrdinalIgnoreCase))
             {
                 if (attribute.ByteValue == null)
                 {
                     return null;
                 }
-
-                var value = new byte[attribute.ByteValue.Length];
-
+                byte[] value = new byte[attribute.ByteValue.Length];
                 Buffer.BlockCopy(attribute.ByteValue, 0, value, 0, attribute.ByteValue.Length);
-
                 return DecodeSID(value);
             }
 
@@ -58,37 +56,38 @@ namespace ASC.ActiveDirectory.Novell
 
         public static string[] GetAttributeArrayValue(this LdapEntry ldapEntry, string attributeName)
         {
-            var attribute = ldapEntry.getAttribute(attributeName);
-            return attribute == null ? null : attribute.StringValueArray;
+            LdapAttribute attribute = ldapEntry.getAttribute(attributeName);
+            if (attribute == null)
+            {
+                return null;
+            }
+            return attribute.StringValueArray;
         }
 
         private static string DecodeSID(byte[] sid)
         {
-            var strSid = new StringBuilder("S-");
+            StringBuilder strSid = new StringBuilder("S-");
 
             // get version
             int revision = sid[0];
-            strSid.Append(revision.ToString(CultureInfo.InvariantCulture));
+            strSid.Append(revision.ToString());
 
             //next byte is the count of sub-authorities
             int countSubAuths = sid[1] & 0xFF;
 
             //get the authority
             long authority = 0;
-
             //String rid = "";
             for (int i = 2; i <= 7; i++)
             {
                 authority |= ((long)sid[i]) << (8 * (5 - (i - 2)));
             }
-
             strSid.Append("-");
             strSid.Append(authority.ToString("X4"));
 
             //iterate all the sub-auths
             int offset = 8;
-            const int size = 4; //4 bytes for each sub auth
-
+            int size = 4; //4 bytes for each sub auth
             for (int j = 0; j < countSubAuths; j++)
             {
                 long subAuthority = 0;
@@ -102,7 +101,6 @@ namespace ASC.ActiveDirectory.Novell
 
                 offset += size;
             }
-
             return strSid.ToString();
         }
     }

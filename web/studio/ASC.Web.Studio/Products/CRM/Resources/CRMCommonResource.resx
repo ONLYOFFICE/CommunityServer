@@ -1084,7 +1084,4 @@
   <data name="Currency_KenyanShilling" xml:space="preserve">
     <value>Kenyan Shilling</value>
   </data>
-  <data name="Currency_RomanianLeu" xml:space="preserve">
-    <value>Romanian Leu</value>
-  </data>
 </root>

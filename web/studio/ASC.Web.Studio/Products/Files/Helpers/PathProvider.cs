@@ -141,7 +141,7 @@ namespace ASC.Web.Files.Classes
             return uriBuilder.Uri + "?" + query;
         }
 
-        public static string GetFileChangesUrl(File file)
+        public static string GetFileDifferenceUrl(File file)
         {
             if (file == null) throw new ArgumentNullException("file", FilesCommonResource.ErrorMassage_FileNotFound);
 

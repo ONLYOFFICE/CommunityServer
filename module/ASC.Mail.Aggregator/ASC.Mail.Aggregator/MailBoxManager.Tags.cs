@@ -295,7 +295,7 @@ namespace ASC.Mail.Aggregator
                                     r[3] == null ? null : r[3].ToString().Split(';').ToList(), ConvertToString(r[2]), 0));
         }
 
-        public List<int> GetOrCreateTags(int tenant, string user, string[] names)
+        public int[] GetOrCreateTags(int tenant, string user, string[] names)
         {
             var exp = names.Aggregate(Exp.Empty, (current, name) => current | Exp.Eq(TagTable.Columns.TagName, name));
             var existingTags = GetMailTags(tenant, user, exp);
@@ -314,7 +314,7 @@ namespace ASC.Mail.Aggregator
                              )
                          into newTag
                          select newTag.Id);
-            return res.ToList();
+            return res.ToArray();
         }
 
         public MailTag SaveMailTag(int tenant, string user, MailTag tag)
@@ -488,43 +488,40 @@ namespace ASC.Mail.Aggregator
                 UpdateChainTags(db, chain.Key.chain_id, chain.Key.folder, chain.Key.id_mailbox, tenant, user);
         }
 
-        /// <summary>
-        /// Get crm tags by email.
-        /// </summary>
-        /// <param name="email">email for CRM entity search</param>
-        /// <param name="tenant">id tenant</param>
-        /// <param name="user">id user</param>
-        public List<int> GetCrmTags(string email, int tenant, string user)
+        // Add tags from Teamlab CRM to mail if needed.
+        private void SetCrmTags(MailMessage mail, int tenant, string user)
         {
-            var tagIds = new List<int>();
-
             try
             {
-                var allowedContactIds = GetCrmContactsId(tenant, user, email);
+                if (mail.ParticipantsCrmContactsId == null)
+                    mail.ParticipantsCrmContactsId = GetCrmContactsId(tenant, user, mail.FromEmail);
 
-                if (!allowedContactIds.Any())
-                    return tagIds;
+                var allowedContactIds = mail.ParticipantsCrmContactsId;
 
                 //Todo: Rewrite this to Api call
 
-                using (var db = GetDb())
+                using (var db = new DbManager("crm"))
                 {
-                    var query = new SqlQuery(CrmEntityTagTable.Name)
-                        .Distinct()
-                        .Select(CrmEntityTagTable.Columns.TagId)
-                        .Where(CrmEntityTagTable.Columns.EntityType, (int) EntityType.Contact)
-                        .Where(Exp.In(CrmEntityTagTable.Columns.EntityId, allowedContactIds));
+                    #region Extract CRM tags
 
-                    tagIds = db.ExecuteList(query)
-                        .ConvertAll(r => -Convert.ToInt32(r[0]));
+                    if (allowedContactIds.Count == 0) return;
+
+                    var tagIds = db.ExecuteList(new SqlQuery(CrmEntityTagTable.Name)
+                                                           .Distinct()
+                                                           .Select(CrmEntityTagTable.Columns.TagId)
+                                                           .Where(CrmEntityTagTable.Columns.EntityType, (int)EntityType.Contact)
+                                                           .Where(Exp.In(CrmEntityTagTable.Columns.EntityId, allowedContactIds)))
+                                          .ConvertAll(r => -Convert.ToInt32(r[0]));
+
+                    mail.TagIds = new ItemList<int>(tagIds);
+
+                    #endregion
                 }
             }
             catch (Exception e)
             {
-                _log.Error("GetCrmTags() Exception:\r\n{0}\r\n", e.ToString());
+                _log.Error("SetCrmTags() Exception:\r\n{0}\r\n", e.ToString());
             }
-
-            return tagIds;
         }
 
         private void UpdateTagsCount(DbManager db, int tenant, string user, IEnumerable<int> tagIds)

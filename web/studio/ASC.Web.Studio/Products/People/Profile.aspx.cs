@@ -27,7 +27,6 @@
 using System;
 using System.Web;
 using System.Text;
-using ASC.Core;
 using ASC.Core.Users;
 using ASC.Web.Studio;
 using ASC.Web.Studio.Core.Users;
@@ -41,11 +40,6 @@ namespace ASC.Web.People
     public partial class Profile : MainPage
     {
         public ProfileHelper ProfileHelper;
-
-        protected bool IsAdmin()
-        {
-            return CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID).IsAdmin();
-        }
 
         protected void Page_Load(object sender, EventArgs e)
         {

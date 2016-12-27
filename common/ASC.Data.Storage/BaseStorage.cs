@@ -71,6 +71,9 @@ namespace ASC.Data.Storage
                                  string contentDisposition);
         public abstract Uri Save(string domain, string path, Stream stream, string contentEncoding, int cacheDays);
 
+        public abstract Uri UploadWithoutQuota(string domain, string path, Stream stream, string contentType,
+                                 string contentDisposition);
+
         #region chunking
 
         public virtual string InitiateChunkedUpload(string domain, string path)

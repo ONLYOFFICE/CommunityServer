@@ -1,5 +1,4 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="PortalAccessSettings.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.PortalAccessSettings" %>
-<%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="Resources" %>
 <% if (Enabled)
    { %>
@@ -20,7 +19,7 @@
                 <label for="radioPublicPortal"><%= Resource.PortalAccessSettingsAnyone %></label>
                 <div id="cbxRegisterUsersContainer" class="clearFix">
                     <input type="checkbox" id="cbxRegisterUsers" <%= (Settings.RegisterUsersImmediately ? "checked=\"checked\"" : "") %>/>
-                    <label for="cbxRegisterUsers"><%= CustomNamingPeople.Substitute<Resource>("RegisterNewUsersImmediately") %></label>
+                    <label for="cbxRegisterUsers"><%= Resource.RegisterNewUsersImmediately %></label>
                 </div>
             </div>
         </div>

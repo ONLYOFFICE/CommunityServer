@@ -57,12 +57,12 @@ namespace ASC.Xmpp.Server.Storage
 
             try
             {
-                ExecuteNonQuery(
-                    new SqlInsert("jabber_vcard", true)
-                    .InColumnValue("jid", jid.Bare.ToLowerInvariant())
-                    .InColumnValue("vcard", ElementSerializer.SerializeElement(vcard)));
                 lock (vcardsCache)
                 {
+                    ExecuteNonQuery(
+                        new SqlInsert("jabber_vcard", true)
+                        .InColumnValue("jid", jid.Bare.ToLowerInvariant())
+                        .InColumnValue("vcard", ElementSerializer.SerializeElement(vcard)));
                     vcardsCache[jid.Bare.ToLowerInvariant()] = vcard;
                 }
             }
@@ -78,12 +78,12 @@ namespace ASC.Xmpp.Server.Storage
 
             try
             {
-                var bareJid = jid.Bare.ToLowerInvariant();
-                var vcardStr = ExecuteScalar<string>(new SqlQuery("jabber_vcard").Select("vcard").Where("jid", bareJid));
                 lock (vcardsCache)
                 {
+                    var bareJid = jid.Bare.ToLowerInvariant();
                     if (!vcardsCache.ContainsKey(bareJid))
                     {
+                        var vcardStr = ExecuteScalar<string>(new SqlQuery("jabber_vcard").Select("vcard").Where("jid", bareJid));
                         vcardsCache[bareJid] = !string.IsNullOrEmpty(vcardStr) ? ElementSerializer.DeSerializeElement<Vcard>(vcardStr) : null;
                     }
                     return vcardsCache[bareJid];

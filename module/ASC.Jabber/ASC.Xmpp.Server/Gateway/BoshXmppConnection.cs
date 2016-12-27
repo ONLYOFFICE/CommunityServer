@@ -24,14 +24,14 @@
 */
 
 
+using ASC.Core;
 using ASC.Xmpp.Core.protocol;
 using ASC.Xmpp.Core.protocol.extensions.bosh;
 using ASC.Xmpp.Core.utils.Xml.Dom;
 using ASC.Xmpp.Server.Utils;
 using log4net;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Collections.Concurrent;
 using System.Net;
 using System.Text;
 using System.Threading;
@@ -41,190 +41,287 @@ namespace ASC.Xmpp.Server.Gateway
 {
     public class BoshXmppConnection : IXmppConnection
     {
-        private const int defaultTimeout = 60; // seconds
-
         private static readonly ILog log = LogManager.GetLogger(typeof(BoshXmppConnection));
 
-        private readonly object locker = new object();
-        private readonly TimeSpan waitTimeout;
-        private readonly TimeSpan inactivityTimeout;
+        private TimeSpan waitPeriod = TimeSpan.FromSeconds(60);
+
+        private TimeSpan inactivityPeriod = TimeSpan.FromSeconds(60);
+
+        private long rid;
+
+        private int window = 5;
+
+        private ConcurrentQueue<Node> sendBuffer = new ConcurrentQueue<Node>();
+
+        private readonly object wait = new object();
+
         private int closed;
-        private BoshXmppRequest currentRequest;
-        private readonly List<Node> sendBuffer = new List<Node>();
-        private DateTime lastRequestTime;
 
 
-        public string Id { get; private set; }
-
-
-        public event EventHandler<XmppStreamStartEventArgs> XmppStreamStart = delegate { };
-
-        public event EventHandler<XmppStreamEndEventArgs> XmppStreamEnd = delegate { };
-
-        public event EventHandler<XmppStreamEventArgs> XmppStreamElement = delegate { };
-
-        public event EventHandler<XmppConnectionCloseEventArgs> Closed = delegate { };
-
-
-        public BoshXmppConnection(Body body)
+        public BoshXmppConnection()
         {
             Id = UniqueId.CreateNewId();
-
-            waitTimeout = TimeSpan.FromSeconds(0 < body.Wait ? body.Wait : defaultTimeout);
-            inactivityTimeout = TimeSpan.FromSeconds(0 < body.Inactivity ? body.Inactivity : defaultTimeout);
+            IdleWatcher.StartWatch(Id, inactivityPeriod, IdleTimeout);
+            log.DebugFormat("Create new Bosh connection Id = {0}", Id);
         }
 
+        #region IXmppConnection Members
 
-        public void BeginReceive()
+        public string Id
         {
-            IdleWatcher.StartWatch(Id, waitTimeout, OnWait);
+            get;
+            private set;
         }
 
         public void Reset()
         {
-            // nothing to do
-        }
-
-        public void Send(string text, Encoding encoding)
-        {
-            // ignore, send only node
-        }
-
-        public void Send(Node node, Encoding encoding)
-        {
-            lock (locker)
-            {
-                if (node != null)
-                {
-                    sendBuffer.Add(node);
-                }
-                if (currentRequest != null && sendBuffer.Any())
-                {
-                    try
-                    {
-                        var terminate = Volatile.Read(ref closed) == 1;
-                        currentRequest.SendAndClose(sendBuffer, terminate);
-                        sendBuffer.Clear();
-                    }
-                    catch (Exception e)
-                    {
-                        log.ErrorFormat("Connection {0} Error send buffer: {1}", Id, e);
-                    }
-                    currentRequest = null;
-                }
-            }
+            log.DebugFormat("Reset connection {0}", Id);
         }
 
         public void Close()
         {
             if (Interlocked.CompareExchange(ref closed, 1, 0) == 0)
             {
-                log.DebugFormat("Close connection {0}", Id);
-
-                CloseRequest(true);
+                lock (wait)
+                {
+                    Monitor.PulseAll(wait);
+                }
+                IdleWatcher.StopWatch(Id);
 
                 try
                 {
-                    XmppStreamEnd(this, new XmppStreamEndEventArgs(Id, sendBuffer));
+                    var handler = XmppStreamEnd;
+                    if (handler != null) XmppStreamEnd(this, new XmppStreamEndEventArgs(Id, sendBuffer));
                 }
                 catch { }
                 finally
                 {
-                    sendBuffer.Clear();
+                    sendBuffer = new ConcurrentQueue<Node>();
                 }
 
                 try
                 {
-                    Closed(this, new XmppConnectionCloseEventArgs());
+                    var handler = Closed;
+                    if (handler != null) handler(this, new XmppConnectionCloseEventArgs());
                 }
                 catch { }
+
+                log.DebugFormat("Close connection {0}", Id);
             }
         }
+
+        public void Send(Node node, Encoding encoding)
+        {
+            var text = node.ToString();
+            if (log.IsDebugEnabled) log.DebugFormat("Add node {0} to send buffer connection {1}", 200 < text.Length ? text.Substring(0, 195) + " ... " : text, Id);
+
+            sendBuffer.Enqueue(node);
+            lock (wait)
+            {
+                Monitor.PulseAll(wait);
+            }
+        }
+
+        public void Send(string text, Encoding encoding)
+        {
+            log.DebugFormat("Ignore send text connection {0}", Id);
+        }
+
+        public void BeginReceive()
+        {
+
+        }
+
+        public event EventHandler<XmppStreamStartEventArgs> XmppStreamStart;
+
+        public event EventHandler<XmppStreamEndEventArgs> XmppStreamEnd;
+
+        public event EventHandler<XmppStreamEventArgs> XmppStreamElement;
+
+        public event EventHandler<XmppConnectionCloseEventArgs> Closed;
+
+        #endregion
 
         public void ProcessBody(Body body, HttpListenerContext ctx)
         {
-            log.DebugFormat("Start process body connection {0}", Id);
-
-            lock (locker)
-            {
-                CloseRequest(false);
-
-                lastRequestTime = DateTime.Now;
-                currentRequest = new BoshXmppRequest(Id, body, ctx);
-            }
-
-            if (body.Type == BoshType.terminate)
-            {
-                Close();
-                return;
-            }
-
-            if (Volatile.Read(ref closed) == 1)
-            {
-                CloseRequest(true);
-                return;
-            }
-
-            IdleWatcher.UpdateTimeout(Id, waitTimeout);
-
-            if (string.IsNullOrEmpty(body.Sid) || body.XmppRestart)
-            {
-                var stream = new Stream
-                {
-                    Prefix = Uri.PREFIX,
-                    Namespace = Uri.STREAM,
-                    Version = body.Version,
-                    Language = body.GetAttribute("lang"),
-                    To = body.To,
-                };
-                XmppStreamStart(this, new XmppStreamStartEventArgs(Id, stream, Uri.CLIENT));
-            }
-            foreach (var element in body.ChildNodes.OfType<Element>())
-            {
-                XmppStreamElement(this, new XmppStreamEventArgs(Id, element));
-            }
-
-            Send((Node)null, null); // try to send a non-empty buffer
-        }
-
-        private void OnWait(object _, TimeoutEventArgs a)
-        {
             try
             {
-                lock (locker)
+                IdleWatcher.UpdateTimeout(Id, TimeSpan.MaxValue);
+
+                if (body == null) throw new ArgumentNullException("body");
+                if (ctx == null) throw new ArgumentNullException("httpContext");
+
+                log.DebugFormat("Start process body connection {0}\r\n{1}\r\n", Id, body);
+
+                if (!ValidateBody(body))
                 {
-                    if (currentRequest != null)
-                    {
-                        log.DebugFormat("Close request {0}", Id);
-                        currentRequest.Close(false);
-                        currentRequest = null;
-                    }
+                    BoshXmppHelper.TerminateBoshSession(ctx, "bad-request");
+                    return;
+                }
+                if (body.Type == BoshType.terminate)
+                {
+                    Close();
+                    ctx.Response.Close();
+                    return;
+                }
+
+                ReadBodyHeaders(body);
+
+                if (string.IsNullOrEmpty(body.Sid) || body.XmppRestart)
+                {
+                    InvokeStreamStart(body);
+                }
+                foreach (var node in body.ChildNodes)
+                {
+                    if (node is Element) InvokeStreamElement((Element)node);
+                }
+
+                WriteBodyHeaders(body);
+
+                log.DebugFormat("Connection {0} WAIT ...", Id);
+
+                var waitResult = WaitAnswerOrDrop();
+
+                if (waitResult == WaitResult.Success)
+                {
+                    log.DebugFormat("Connection {0} send answer", Id);
+                    SendAnswer(body, ctx);
+                }
+                else if (waitResult == WaitResult.Timeout)
+                {
+                    log.DebugFormat("Connection {0} drop by timeout", Id);
+                    BoshXmppHelper.SendAndCloseResponse(ctx, new Body().ToString());
+                }
+                else
+                {
+                    log.DebugFormat("Connection {0} terminate", Id);
+                    BoshXmppHelper.TerminateBoshSession(ctx, body);
                 }
             }
             finally
             {
-                if (lastRequestTime + waitTimeout + inactivityTimeout < DateTime.Now)
-                {
-                    Close();
-                }
-                else
-                {
-                    IdleWatcher.StartWatch(Id, waitTimeout, OnWait);
-                }
+                IdleWatcher.UpdateTimeout(Id, inactivityPeriod);
             }
         }
 
-        private void CloseRequest(bool terminate)
+        private bool ValidateBody(Body body)
         {
-            lock (locker)
+            if (0 < body.Window) window = body.Window;
+            if (0 < body.Polling) window = body.Polling;
+
+            if (Volatile.Read(ref closed) == 1) return false;
+            if (rid != 0 && window < Math.Abs(body.Rid - rid)) return false;
+            return true;
+        }
+
+        private void ReadBodyHeaders(Body body)
+        {
+            rid = body.Rid;
+            if (0 < body.Wait) waitPeriod = TimeSpan.FromSeconds(body.Wait);
+            if (0 < body.Inactivity) inactivityPeriod = TimeSpan.FromSeconds(body.Inactivity);
+        }
+
+        private Body WriteBodyHeaders(Body body)
+        {
+            if (string.IsNullOrEmpty(body.Sid))
             {
-                if (currentRequest != null)
-                {
-                    currentRequest.Close(terminate);
-                    currentRequest = null;
-                }
+                body.Sid = Id;
+                body.Secure = false;
             }
-            log.DebugFormat("Close request {0}{1}", Id, terminate ? " with termination" : "");
+            body.Ack = body.Rid != 0 ? body.Rid : rid;
+            body.RemoveAttribute("rid");
+            body.To = null;
+            if (body.HasAttribute("xmpp:version") || body.HasAttribute("xmpp:restart"))
+            {
+                body.SetAttribute("xmlns:xmpp", "urn:xmpp:xbosh");
+            }
+            body.RemoveAllChildNodes();
+            return body;
+        }
+
+        private WaitResult WaitAnswerOrDrop()
+        {
+            lock (wait)
+            {
+                Monitor.PulseAll(wait);
+                if (!sendBuffer.IsEmpty)
+                {
+                    return WaitResult.Success;
+                }
+                Monitor.Wait(wait, waitPeriod);
+            }
+
+            if (Volatile.Read(ref closed) == 1)
+            {
+                // connection close
+                return WaitResult.Terminate;
+            }
+
+            if (!sendBuffer.IsEmpty)
+            {
+                // connection not closed and need to send message
+                return WaitResult.Success;
+            }
+
+            return WaitResult.Timeout; // ok, timeout, continue polling
+        }
+
+        private void SendAnswer(Body body, HttpListenerContext ctx)
+        {
+            try
+            {
+                var copy = Interlocked.Exchange(ref sendBuffer, new ConcurrentQueue<Node>());
+                foreach (var node in copy)
+                {
+                    body.AddChild(node);
+                    if (node.Namespace == Uri.STREAM) body.SetAttribute("xmlns:stream", Uri.STREAM);
+                }
+
+                if (Volatile.Read(ref closed) == 1) body.Type = BoshType.terminate;
+                BoshXmppHelper.SendAndCloseResponse(ctx, body.ToString(), true, null);
+
+                log.DebugFormat("Connection {0} Send buffer:\r\n{1}", Id, body);
+            }
+            catch (Exception e)
+            {
+                //BUG: Я думаю баг тут из за обрыва соединения при плохом качестве соединения.
+                log.DebugFormat("Connection {0} Error send buffer: {1}", Id, e);
+                Close();
+            }
+        }
+
+        private void InvokeStreamStart(Body body)
+        {
+            var stream = new Stream();
+            stream.Prefix = Uri.PREFIX;
+            stream.Namespace = Uri.STREAM;
+            stream.Version = body.Version;
+            stream.Language = body.GetAttribute("lang");
+            stream.To = body.To;
+
+            var handler = XmppStreamStart;
+            if (handler != null) handler(this, new XmppStreamStartEventArgs(Id, stream, Uri.CLIENT));
+        }
+
+        private void InvokeStreamElement(Element element)
+        {
+            var handler = XmppStreamElement;
+            if (handler != null) handler(this, new XmppStreamEventArgs(Id, element));
+        }
+
+        private void IdleTimeout(object sender, TimeoutEventArgs e)
+        {
+            if (!Id.Equals(e.IdleObject)) return;
+
+            log.DebugFormat("Close connection {0} by inactivity timeout.", Id);
+            Close();
+        }
+
+        private enum WaitResult
+        {
+            Success,
+            Terminate,
+            Timeout
         }
     }
 }

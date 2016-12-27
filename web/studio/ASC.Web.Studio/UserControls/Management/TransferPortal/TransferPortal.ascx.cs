@@ -45,7 +45,12 @@ namespace ASC.Web.Studio.UserControls.Management
     {
         public const string Location = "~/UserControls/Management/TransferPortal/TransferPortal.ascx";
 
-        private static List<TransferRegion> transferRegions;
+        public class TransferRegionWithName : TransferRegion
+        {
+            public string FullName { get; set; }
+        }
+
+        private static List<TransferRegionWithName> _transferRegions;
 
         protected string CurrentRegion
         {
@@ -57,9 +62,9 @@ namespace ASC.Web.Studio.UserControls.Management
             get { return TransferRegions.Where(x => x.IsCurrentRegion).Select(x => x.BaseDomain).FirstOrDefault() ?? string.Empty; }
         }
 
-        public static List<TransferRegion> TransferRegions
+        public static List<TransferRegionWithName> TransferRegions
         {
-            get { return transferRegions ?? (transferRegions = GetRegions()); }
+            get { return _transferRegions ?? (_transferRegions = GetRegions()); }
         }
 
         protected bool IsVisibleMigration
@@ -102,28 +107,27 @@ namespace ASC.Web.Studio.UserControls.Management
             popupTransferStart.Options.IsPopup = true;
         }
 
-        private static List<TransferRegion> GetRegions()
+        private static List<TransferRegionWithName> GetRegions()
         {
             try
             {
                 using (var backupClient = new BackupServiceClient())
                 {
-                    return backupClient.GetTransferRegions();
+                    return backupClient.GetTransferRegions()
+                                       .Select(x => new TransferRegionWithName
+                                           {
+                                               Name = x.Name,
+                                               IsCurrentRegion = x.IsCurrentRegion,
+                                               BaseDomain = x.BaseDomain,
+                                               FullName = TransferResourceHelper.GetRegionDescription(x.Name)
+                                           })
+                                       .ToList();
                 }
             }
             catch
             {
-                return new List<TransferRegion>();
+                return new List<TransferRegionWithName>();
             }
-        }
-    }
-
-    public static class TransferRegionExtension
-    {
-        public static string GetFullName(this TransferRegion transferRegion)
-        {
-            var result = TransferResourceHelper.GetRegionDescription(transferRegion.Name);
-            return !string.IsNullOrEmpty(result) ? result : transferRegion.Name;
         }
     }
 }

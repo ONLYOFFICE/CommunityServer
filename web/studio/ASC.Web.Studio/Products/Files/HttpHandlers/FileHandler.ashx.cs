@@ -232,8 +232,7 @@ namespace ASC.Web.Files
                     if (CoreContext.Configuration.Standalone &&
                         WorkContext.IsMono &&
                         Global.GetStore() is DiscDataStore &&
-                        !file.ProviderEntry &&
-                        !FileConverter.EnableConvert(file, ext)
+                        !file.ProviderEntry
                         )
                     {
                         var diskDataStore = (DiscDataStore)Global.GetStore();

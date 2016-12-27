@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="false" EnableViewState="false" %>
-<%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="Resources" %>
 <%@ Import Namespace="ASC.Web.Core.Utility.Skins" %>
 
@@ -12,8 +11,8 @@
         <span>${Name}</span>
     </span> 
     <span id="switcherAccessRights_${ItemName}" data-id="${ItemName}" class="toggle-button"
-            data-switcher="0" data-showtext="<%=Resource.Show%>" data-hidetext="<%=Resource.Hide%>">
-            <%=Resource.Hide%>
+            data-switcher="0" data-showtext="<%=Resources.Resource.Show%>" data-hidetext="<%=Resources.Resource.Hide%>">
+            <%=Resources.Resource.Hide%>
     </span>
 </div>
 
@@ -27,12 +26,12 @@
                         <div class="accessRightsItems">
                             <input type="radio" id="all_${ID}" name="radioList_${ID}"
                              onclick="ASC.Settings.AccessRights.changeAccessType(this, '${ItemName}')">
-                            <label for="all_${ID}"><%= CustomNamingPeople.Substitute<Resource>("AccessRightsAllUsers") %></label>
+                            <label for="all_${ID}"><%= Resources.Resource.AccessRightsAllUsers %></label>
                         </div>
                         <div class="accessRightsItems">
                             <input type="radio" id="fromList_${ID}" name="radioList_${ID}"
                              onclick="ASC.Settings.AccessRights.changeAccessType(this, '${ItemName}')">
-                            <label for="fromList_${ID}"><%= CustomNamingPeople.Substitute<Resource>("AccessRightsUsersFromList") %></label>
+                            <label for="fromList_${ID}"><%= Resources.Resource.AccessRightsUsersFromList %></label>
                         </div>
                     </td>
                     <td valign="top">
@@ -48,7 +47,7 @@
         </table>
         <div id="selectorContent_${ItemName}" class="accessRightProductBlock">
             <div id="emptyUserListLabel_${ItemName}" class="describe-text accessRightsEmptyUserList">
-                <%= CustomNamingPeople.Substitute<Resource>("AccessRightsEmptyUserList") %>
+                <%= Resources.Resource.AccessRightsEmptyUserList %>
             </div>
             <div id="selectedUsers_${ItemName}" class="clearFix">
                 {{if SelectedUsers != null &&  SelectedUsers.length > 0}}
@@ -56,7 +55,7 @@
                         <div class="accessRights-selectedItem" id="selectedUser_${ItemName}_${usr.ID}">
                             <img src="<%= WebImageSupplier.GetAbsoluteWebPath("user_12.png") %>">
                             <img src="<%= WebImageSupplier.GetAbsoluteWebPath("trash_12.png") %>" id="deleteSelectedUserImg_${ItemName}_${usr.ID}"
-                                title="<%= Resource.DeleteButton %>" class="display-none">
+                                title="<%= Resources.Resource.DeleteButton %>" class="display-none">
                             ${usr.DisplayUserName}
                         </div>
                     {{/each}}
@@ -69,7 +68,7 @@
                         <div class="accessRights-selectedItem" id="selectedGroup_${ItemName}_${gr.ID}">
                             <img src="<%= WebImageSupplier.GetAbsoluteWebPath("group_12.png") %>">
                             <img src="<%= WebImageSupplier.GetAbsoluteWebPath("trash_12.png") %>" id="deleteSelectedGroupImg_${ItemName}_${gr.ID}"
-                                title="<%= Resource.DeleteButton %>" class="display-none">
+                                title="<%= Resources.Resource.DeleteButton %>" class="display-none">
                             ${gr.Name}
                         </div>
                     {{/each}}

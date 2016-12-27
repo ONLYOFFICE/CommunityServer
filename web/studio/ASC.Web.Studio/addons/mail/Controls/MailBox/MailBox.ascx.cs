@@ -56,7 +56,7 @@ namespace ASC.Web.Mail.Controls
         TagsPageHolder.Controls.Add(LoadControl(AccountsPage.Location) as AccountsPage);
         TagsPageHolder.Controls.Add(LoadControl(ContactsPage.Location) as ContactsPage);
 
-        if (Configuration.Settings.IsAdministrationPageAvailable())
+        if (SetupInfo.IsVisibleSettings<AdministrationPage>())
             TagsPageHolder.Controls.Add(LoadControl(AdministrationPage.Location) as AdministrationPage);
         //init Page Navigator
         _phPagerContent.Controls.Add(new PageNavigator

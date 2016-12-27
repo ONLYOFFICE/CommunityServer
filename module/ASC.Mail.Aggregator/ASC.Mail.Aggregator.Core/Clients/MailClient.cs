@@ -35,9 +35,7 @@ namespace ASC.Mail.Aggregator.Core.Clients
         private CancellationToken CancelToken { get; set; }
         private CancellationTokenSource StopTokenSource { get; set; }
 
-        private const int CONNECT_TIMEOUT = 10000;
-        private const int ENABLE_UTF8_TIMEOUT = 10000;
-        private const int LOGIN_TIMEOUT = 30000;
+        private readonly TimeSpan _loginTimeout;
 
         /// <summary>
         /// Occurs when the client has been successfully authenticated.
@@ -96,6 +94,8 @@ namespace ASC.Mail.Aggregator.Core.Clients
             bool certificatePermit = false, string protocolLogPath = "",
             ILogger log = null)
         {
+            _loginTimeout = TimeSpan.FromSeconds(10);
+
             var protocolLogger = !string.IsNullOrEmpty(protocolLogPath)
                 ? (IProtocolLogger)
                     new ProtocolLogger(protocolLogPath)
@@ -381,7 +381,7 @@ namespace ASC.Mail.Aggregator.Core.Clients
             {
                 var t = Imap.ConnectAsync(Account.Server, Account.Port, secureSocketOptions, CancelToken);
 
-                if (!t.Wait(CONNECT_TIMEOUT, CancelToken))
+                if (!t.Wait(_loginTimeout))
                     throw new TimeoutException("Imap.ConnectAsync timeout");
 
                 if (enableUtf8 && (Imap.Capabilities & ImapCapabilities.UTF8Accept) != ImapCapabilities.None)
@@ -390,7 +390,7 @@ namespace ASC.Mail.Aggregator.Core.Clients
 
                     t = Imap.EnableUTF8Async(CancelToken);
 
-                    if (!t.Wait(ENABLE_UTF8_TIMEOUT, CancelToken))
+                    if (!t.Wait(_loginTimeout))
                         throw new TimeoutException("Imap.EnableUTF8Async timeout");
                 }
 
@@ -411,7 +411,7 @@ namespace ASC.Mail.Aggregator.Core.Clients
                     t = Imap.AuthenticateAsync(Account.Account, Account.AccessToken, CancelToken);
                 }
 
-                if (!t.Wait(LOGIN_TIMEOUT, CancelToken))
+                if (!t.Wait(_loginTimeout))
                 {
                     Imap.Authenticated -= ImapOnAuthenticated;
                     throw new TimeoutException("Imap.AuthenticateAsync timeout");
@@ -761,10 +761,12 @@ namespace ASC.Mail.Aggregator.Core.Clients
                   FolderAttributes.NoSelect |
                   FolderAttributes.NoInferiors |
                   FolderAttributes.NonExistent |
+                  FolderAttributes.Unmarked |
                   FolderAttributes.Trash |
                   FolderAttributes.Archive |
                   FolderAttributes.Drafts |
-                  FolderAttributes.Flagged)) != 0)
+                  FolderAttributes.Flagged |
+                  FolderAttributes.Marked)) != 0)
             {
                 return null; // Skip folders
             }
@@ -871,7 +873,7 @@ namespace ASC.Mail.Aggregator.Core.Clients
             {
                 var t = Pop.ConnectAsync(Account.Server, Account.Port, secureSocketOptions, CancelToken);
 
-                if (!t.Wait(CONNECT_TIMEOUT, CancelToken))
+                if (!t.Wait(_loginTimeout))
                     throw new TimeoutException("Pop.ConnectAsync timeout");
 
                 if (enableUtf8 && (Pop.Capabilities & Pop3Capabilities.UTF8) != Pop3Capabilities.None)
@@ -880,7 +882,7 @@ namespace ASC.Mail.Aggregator.Core.Clients
 
                     t = Pop.EnableUTF8Async(CancelToken);
 
-                    if (!t.Wait(ENABLE_UTF8_TIMEOUT, CancelToken))
+                    if (!t.Wait(_loginTimeout))
                         throw new TimeoutException("Pop.EnableUTF8Async timeout");
                 }
 
@@ -901,7 +903,7 @@ namespace ASC.Mail.Aggregator.Core.Clients
                     t = Pop.AuthenticateAsync(Account.Account, Account.AccessToken, CancelToken);
                 }
 
-                if (!t.Wait(LOGIN_TIMEOUT, CancelToken))
+                if (!t.Wait(_loginTimeout))
                 {
                     Pop.Authenticated -= PopOnAuthenticated;
                     throw new TimeoutException("Pop.AuthenticateAsync timeout");
@@ -1152,7 +1154,7 @@ namespace ASC.Mail.Aggregator.Core.Clients
 
                 var t = Smtp.ConnectAsync(Account.SmtpServer, Account.SmtpPort, secureSocketOptions, CancelToken);
 
-                if (!t.Wait(CONNECT_TIMEOUT, CancelToken))
+                if (!t.Wait(_loginTimeout))
                     throw new TimeoutException("Smtp.ConnectAsync timeout");
 
                 if (!Account.SmtpAuth)
@@ -1180,7 +1182,7 @@ namespace ASC.Mail.Aggregator.Core.Clients
                     t = Smtp.AuthenticateAsync(Account.SmtpAccount, Account.AccessToken, CancelToken);
                 }
 
-                if (!t.Wait(LOGIN_TIMEOUT, CancelToken))
+                if (!t.Wait(_loginTimeout))
                 {
                     Smtp.Authenticated -= SmtpOnAuthenticated;
                     throw new TimeoutException("Smtp.AuthenticateAsync timeout");

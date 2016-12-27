@@ -70,8 +70,6 @@ namespace ASC.Xmpp.Host
             {
                 try
                 {
-                    log.InfoFormat("Start cleaner interation.");
-
                     using (var db = new DbManager("default"))
                     {
                         var t = new SqlCreate.Table("jabber_clear", true)
@@ -98,7 +96,7 @@ having max(v.visitdate) between ? and ?";
                                 tenants.Add(Tuple.Create(reader.GetInt32(0), reader.GetString(1)));
                             }
                         }
-                        log.DebugFormat("Find {0} tenants for clear jabber messages", tenants.Count);
+                        log.InfoFormat("Find {0} tenants for clear jabber messages", tenants.Count);
 
                         foreach (var tid in tenants)
                         {
@@ -180,7 +178,7 @@ having max(v.visitdate) between ? and ?";
                             using (var cmd = CreateCommand(db, "delete from jabber_offmessage where id < ?", id))
                             {
                                 var affected = cmd.ExecuteNonQuery();
-                                log.DebugFormat("Remove {0} messages from jabber_offmessage", affected);
+                                log.InfoFormat("Remove {0} messages from jabber_offmessage", affected);
                             }
                         }
                     }
@@ -220,7 +218,7 @@ having max(v.visitdate) between ? and ?";
                 var affected = del.ExecuteNonQuery();
                 if (0 < affected)
                 {
-                    log.DebugFormat("Remove from jabber_archive {0} rows with jid {1}", affected, jid);
+                    log.InfoFormat("Remove from jabber_archive {0} rows with jid {1}", affected, jid);
                 }
             }
         }

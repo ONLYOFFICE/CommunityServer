@@ -203,7 +203,8 @@ namespace ASC.Xmpp.Server
 
         private void ProcessError(Exception e)
         {
-            _log.ErrorFormat("Service Error: {0}", e);
+            _log.ErrorFormat("Service Error: {0}, {1}, {2}", e.Message, e.StackTrace, 
+                (e.InnerException != null) ? e.InnerException.Message : string.Empty);
             if (e is CommunicationException || e is TimeoutException)
             {
                 lastErrorTime = DateTime.Now;

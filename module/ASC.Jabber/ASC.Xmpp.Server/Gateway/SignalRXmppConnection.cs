@@ -124,7 +124,7 @@ namespace ASC.Xmpp.Server.Gateway
         {
             try
             {
-                if (!Id.Equals(e.Id)) return;
+                if (!Id.Equals(e.IdleObject)) return;
 
                 _log.DebugFormat("Close jabber-signalr connection {0} by inactivity timeout.", Id);
 

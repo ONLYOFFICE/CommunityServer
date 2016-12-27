@@ -114,7 +114,6 @@ namespace ASC.Data.Backup.Storage
             using (var fileDao = GetFileDao())
             {
                 fileDao.DeleteFile(fileId);
-                fileDao.DeleteFolder(fileId);
             }
         }
 

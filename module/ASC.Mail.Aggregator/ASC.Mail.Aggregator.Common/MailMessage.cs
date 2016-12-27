@@ -375,8 +375,7 @@ namespace ASC.Mail.Aggregator.Common
                             }
                             else
                             {
-                                LoadAttachments(new List<MimeEntity> {part},
-                                    multipart == null || !multipart.ContentType.MimeType.ToLowerInvariant().Equals("multipart/related"));
+                                LoadAttachments(new List<MimeEntity> {part}, true);
                             }
                         }
                         else if (multipart != null)
@@ -440,10 +439,6 @@ namespace ASC.Mail.Aggregator.Common
                                         setBodyOrAttachment(part);
                                     }
                                     else if (!string.IsNullOrEmpty(part.ContentId) || part.ContentLocation != null)
-                                    {
-                                        LoadAttachments(new List<MimeEntity> { part });
-                                    }
-                                    else
                                     {
                                         loadRealAttachment(part);
                                     }
@@ -819,23 +814,8 @@ namespace ASC.Mail.Aggregator.Common
         [DataMember(EmitDefaultValue = false)]
         public string Introduction { get; set; }
 
-        private string _htmlBody;
-
         [DataMember(EmitDefaultValue = false)]
-        public string HtmlBody {
-            get
-            {
-                if (HtmlBodyStream == null || HtmlBodyStream.Length <= 0)
-                    return _htmlBody;
-
-                HtmlBodyStream.Seek(0, SeekOrigin.Begin);
-                _htmlBody = Encoding.UTF8.GetString(HtmlBodyStream.ReadToEnd());
-                HtmlBodyStream.Seek(0, SeekOrigin.Begin);
-
-                return _htmlBody;
-            }
-            set { _htmlBody = value; }
-        }
+        public string HtmlBody { get; set; }
 
         [DataMember]
         public bool ContentIsBlocked { get; set; }
@@ -978,6 +958,8 @@ namespace ASC.Mail.Aggregator.Common
         public int MailboxId { get; set; }
 
         public List<CrmContactEntity> LinkedCrmEntityIds { get; set; }
+
+        public List<int> ParticipantsCrmContactsId { get; set; }
 
         [DataMember]
         public bool IsBodyCorrupted { get; set; }

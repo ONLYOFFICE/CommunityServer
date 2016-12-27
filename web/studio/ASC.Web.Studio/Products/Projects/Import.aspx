@@ -6,9 +6,7 @@
 <%@ MasterType TypeName="ASC.Web.Projects.Masters.BasicTemplate" %>
 
 <%@ Import Namespace="ASC.Web.Projects.Resources" %>
-<%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
-<%@ Import Namespace="Resources" %>
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
 
@@ -53,17 +51,17 @@
         </div>
         <div class="checkbox-container"> 
             <input type="checkbox" id="importAsCollaborators" <%if(QuotaEndFlag){ %> checked="checked" disabled="disabled"<%} %> />
-            <label for="importAsCollaborators"><%= CustomNamingPeople.Substitute<Resource>("InviteUsersAsCollaborators") %></label><div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'answerForHelpInviteGuests',position: 'fixed'});"></div>
+            <label for="importAsCollaborators"><%= Resources.Resource.InviteUsersAsCollaborators%></label><div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'answerForHelpInviteGuests',position: 'fixed'});"></div>
             <div class="popup_helper" id="answerForHelpInviteGuests">
                 <p>
-                    <%= string.Format(CustomNamingPeople.Substitute<Resource>("NoteInviteCollaborator"), "<b>","</b>") %>
+                    <%= string.Format(Resources.Resource.NoteInviteCollaborator, "<b>","</b>") %>
                     <% if (TenantExtra.EnableTarrifSettings)
                        { %>
-                    <%= Resource.NotePriceCollaborator %>
+                    <%= Resources.Resource.NotePriceCollaborator %>
                     <% } %>
                     <% if (!string.IsNullOrEmpty(CommonLinkUtility.GetHelpLink()))
                        { %>
-                    <a href="<%= CommonLinkUtility.GetHelpLink() %>" target="_blank"><%=Resource.LearnMore%></a>
+                    <a href="<%= CommonLinkUtility.GetHelpLink() %>" target="_blank"><%=Resources.Resource.LearnMore%></a>
                     <% } %>
                 </p>
             </div> 
@@ -212,26 +210,26 @@
     
     <div id="popupUsersQuotaEnds" style="display: none;">
         <sc:Container id="users_quota_ends" runat="server">
-            <header><%=Resource.ImportUserLimitTitle%></header>
+            <header><%=Resources.Resource.ImportUserLimitTitle%></header>
             <body>
                 <div class="tariff-limitexceed-users">
-                    <div class="header-base-medium" data-zero-users-text="<%=Resource.ImportUserOverlimitHeader %>">
-                        <%=String.Format(Resource.ImportUserLimitHeader, "<span id='userLimit'></span>")%>
+                    <div class="header-base-medium" data-zero-users-text="<%=Resources.Resource.ImportUserOverlimitHeader %>">
+                        <%=String.Format(Resources.Resource.ImportUserLimitHeader, "<span id='userLimit'></span>")%>
                     </div>
                     <br/>
                     <br/>
-                    <span id="limitReasonText" data-zero-users-text="<%=Resource.ImportUserOverlimitReason %>"><%=Resource.ImportUserLimitReason%></span>
+                    <span id="limitReasonText" data-zero-users-text="<%=Resources.Resource.ImportUserOverlimitReason %>"><%=Resources.Resource.ImportUserLimitReason%></span>
                     <br/>
                     <br/>
-                    <%=Resource.ImportUserLimitDecision%>
+                    <%=Resources.Resource.ImportUserLimitDecision%>
                 </div>
                 <div class="middle-button-container">
                     <a id="continueImport" class="blue button">
-                        <%=Resource.ImportUserLimitOkButtons%>
+                        <%=Resources.Resource.ImportUserLimitOkButtons%>
                     </a>
                     <span class="splitter-buttons"></span>
                     <a class="button gray" onclick="javascript: jq.unblockUI();">
-                        <%= Resource.ImportContactsCancelButton %>
+                        <%= Resources.Resource.ImportContactsCancelButton %>
                     </a>
                 </div>
             </body>

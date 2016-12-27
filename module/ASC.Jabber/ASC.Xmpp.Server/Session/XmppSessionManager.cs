@@ -27,70 +27,87 @@
 using ASC.Xmpp.Core.protocol;
 using ASC.Xmpp.Core.protocol.client;
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace ASC.Xmpp.Server.Session
 {
     public class XmppSessionManager
     {
-        private readonly ConcurrentDictionary<Jid, XmppSession> sessions = new ConcurrentDictionary<Jid, XmppSession>();
+        private IDictionary<Jid, XmppSession> sessions = new Dictionary<Jid, XmppSession>();
 
+        private ReaderWriterLockSlim locker = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
 
         public XmppSession GetSession(Jid jid)
         {
-            if (jid == null)
+            if (jid == null) throw new ArgumentNullException("jid");
+            try
             {
-                throw new ArgumentNullException("jid");
+                locker.EnterReadLock();
+                if (jid.HasResource)
+                {
+                    return sessions.ContainsKey(jid) ? sessions[jid] : null;
+                }
+                return (from s in sessions.Values where s.Jid.Bare == jid.Bare orderby s.Priority select s).LastOrDefault();
             }
-
-            if (jid.HasResource)
+            finally
             {
-                XmppSession s;
-                sessions.TryGetValue(jid, out s);
-                return s;
+                locker.ExitReadLock();
             }
-            return sessions.Values
-                .Where(s => s.Jid.Bare == jid.Bare)
-                .OrderBy(s => s.Priority)
-                .LastOrDefault();
         }
 
         public XmppSession GetAvailableSession(Jid jid)
         {
-            if (jid == null)
+            if (jid == null) throw new ArgumentNullException("jid");
+            try
             {
-                throw new ArgumentNullException("jid");
+                locker.EnterReadLock();
+                if (jid.HasResource)
+                {
+                    return sessions.ContainsKey(jid) ? sessions[jid] : null;
+                }
+                return (from s in sessions.Values
+                        where (s.Jid.Bare == jid.Bare && s.Presence != null && s.Presence.Type != PresenceType.unavailable)
+                        orderby s.Priority select s).LastOrDefault();
             }
-
-            if (jid.HasResource)
+            finally
             {
-                XmppSession s;
-                sessions.TryGetValue(jid, out s);
-                return s;
+                locker.ExitReadLock();
             }
-            return sessions.Values
-                .Where(s => s.Jid.Bare == jid.Bare && s.Presence != null && s.Presence.Type != PresenceType.unavailable)
-                .OrderBy(s => s.Priority)
-                .LastOrDefault();
         }
 
         public ICollection<XmppSession> GetSessions()
         {
-            return sessions.Values;
+            try
+            {
+                locker.EnterReadLock();
+                return sessions.Values.ToList();
+            }
+            finally
+            {
+                locker.ExitReadLock();
+            }
         }
 
         public IEnumerable<XmppSession> GetStreamSessions(string streamId)
         {
-            if (string.IsNullOrEmpty(streamId))
+            if (string.IsNullOrEmpty(streamId)) return new List<XmppSession>();
+            try
             {
-                return new XmppSession[0];
+                locker.EnterReadLock();
+                return (from s in sessions.Values where s.Stream.Id == streamId select s).ToList();
             }
+            finally
+            {
+                locker.ExitReadLock();
+            }
+        }
 
-            return sessions.Values
-                .Where(s => s.Stream.Id == streamId)
-                .ToList();
+        public ICollection<XmppSession> GetBareJidSessions(string jid)
+        {
+            if (string.IsNullOrEmpty(jid)) return new List<XmppSession>();
+            return GetBareJidSessions(new Jid(jid));
         }
 
         public ICollection<XmppSession> GetBareJidSessions(Jid jid)
@@ -100,31 +117,40 @@ namespace ASC.Xmpp.Server.Session
 
         public ICollection<XmppSession> GetBareJidSessions(Jid jid, GetSessionsType getType)
         {
-            if (jid == null)
+            if (jid == null) return new List<XmppSession>();
+            try
             {
-                return new XmppSession[0];
-            }
+                locker.EnterReadLock();
 
-            var bares = sessions.Values.Where(s => s.Jid.Bare == jid.Bare);
-            if (getType == GetSessionsType.Available)
-            {
-                bares = bares.Where(s => s.Available);
+                var bares = from s in sessions.Values where s.Jid.Bare == jid.Bare select s;
+                if (getType == GetSessionsType.Available)
+                {
+                    bares = from s in bares where s.Available select s;
+                }
+                if (getType == GetSessionsType.RosterRequested)
+                {
+                    bares = from s in bares where s.RosterRequested select s;
+                }
+                return bares.ToList();
             }
-            else if (getType == GetSessionsType.RosterRequested)
+            finally
             {
-                bares = bares.Where(s => s.RosterRequested);
+                locker.ExitReadLock();
             }
-            return bares.ToList();
         }
 
         public void AddSession(XmppSession session)
         {
-            if (session == null)
+            if (session == null) throw new ArgumentNullException("session");
+            try
             {
-                throw new ArgumentNullException("session");
+                locker.EnterWriteLock();
+                sessions.Add(session.Jid, session);
             }
-
-            sessions.TryAdd(session.Jid, session);
+            finally
+            {
+                locker.ExitWriteLock();
+            }
         }
 
         public void CloseSession(Jid jid)
@@ -135,19 +161,24 @@ namespace ASC.Xmpp.Server.Session
                 SoftInvokeEvent(SessionUnavailable, session);
             }
 
-            sessions.TryRemove(jid, out session);
+            try
+            {
+                locker.EnterWriteLock();
+                if (sessions.ContainsKey(jid))
+                {
+                    sessions.Remove(jid);
+                }
+            }
+            finally
+            {
+                locker.ExitWriteLock();
+            }
         }
 
         public void SetSessionPresence(XmppSession session, Presence presence)
         {
-            if (session == null)
-            {
-                throw new ArgumentNullException("session");
-            }
-            if (presence == null)
-            {
-                throw new ArgumentNullException("presence");
-            }
+            if (session == null) throw new ArgumentNullException("session");
+            if (presence == null) throw new ArgumentNullException("presence");
 
             var oldPresence = session.Presence;
             session.Presence = presence;
@@ -177,7 +208,8 @@ namespace ASC.Xmpp.Server.Session
 
         private bool IsAvailablePresence(Presence presence)
         {
-            return presence != null && (presence.Type == PresenceType.available || presence.Type == PresenceType.invisible);
+            if (presence == null) return false;
+            return presence.Type == PresenceType.available || presence.Type == PresenceType.invisible;
         }
     }
 

@@ -98,38 +98,26 @@ namespace ASC.Xmpp.Server.Gateway
 		protected override void DoStop()
 		{
 			tcpListener.Stop();
+			tcpListener = null;
 		}
 
 		private void BeginAcceptCallback(IAsyncResult asyncResult)
-        {
-            try
-            {
-                var socket = tcpListener.EndAcceptSocket(asyncResult);
-                if (Started)
-                {
-                    var nossl = Certificate == null || StartTls != XmppStartTlsOption.None;
-                    AddNewXmppConnection(nossl ? new TcpXmppConnection(socket, maxPacket) : new TcpSslXmppConnection(socket, maxPacket, Certificate));
-                }
-            }
-            catch (ObjectDisposedException) { return; }
-            catch (Exception e)
-            {
-                log.ErrorFormat("Error listener '{0}' on AcceptCallback: {1}", Name, e);
-            }
-            finally
-            {
-                if (Started)
-                {
-                    try
-                    {
-                        tcpListener.BeginAcceptSocket(BeginAcceptCallback, null);
-                    }
-                    catch(Exception e)
-                    {
-                        log.ErrorFormat("Error listener '{0}' on AcceptCallback: {1}", Name, e);
-                    }
-                }
-            }
-        }
+		{
+			try
+			{
+				if (!Started) return;
+
+				tcpListener.BeginAcceptSocket(BeginAcceptCallback, null);
+
+				var socket = tcpListener.EndAcceptSocket(asyncResult);
+                AddNewXmppConnection(Certificate == null || StartTls != XmppStartTlsOption.None ?
+                    new TcpXmppConnection(socket, maxPacket) : new TcpSslXmppConnection(socket, maxPacket, Certificate));
+			}
+			catch (ObjectDisposedException) { return; }
+			catch (Exception e)
+			{
+				log.ErrorFormat("Error listener '{0}' on AcceptCallback: {1}", Name, e);
+			}
+		}
     }
 }

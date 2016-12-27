@@ -243,7 +243,7 @@ namespace ASC.Web.Mail
 
         public static bool IsTurnOnServer()
         {
-            return Configuration.Settings.IsAdministrationPageAvailable();
+            return SetupInfo.IsVisibleSettings<AdministrationPage>();
         }
 
         public static bool IsTurnOnAttachmentsGroupOperations()
@@ -268,7 +268,7 @@ namespace ASC.Web.Mail
 
         public static bool IsMailCommonDomainAvailable()
         {
-            return Configuration.Settings.IsMailCommonDomainAvailable();
+            return SetupInfo.IsVisibleSettings<AdministrationPage>() && SetupInfo.IsVisibleSettings("MailCommonDomain") && !CoreContext.Configuration.Standalone;
         }
 
         public static bool IsMailPrintAvailable()

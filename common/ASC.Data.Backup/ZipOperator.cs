@@ -105,7 +105,7 @@ namespace ASC.Data.Backup
         public Stream GetEntry(string key)
         {
             var filePath = Path.Combine(tmpdir, key);
-            return File.Exists(filePath) ? File.Open(filePath, FileMode.Open,FileAccess.ReadWrite,FileShare.Read) : null;
+            return File.Exists(filePath) ? File.Open(filePath, FileMode.Open) : null;
         }
 
         public void Dispose()

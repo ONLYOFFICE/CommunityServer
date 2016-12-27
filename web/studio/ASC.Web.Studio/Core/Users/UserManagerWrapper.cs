@@ -26,7 +26,6 @@
 
 using System;
 using System.Globalization;
-using System.Linq;
 using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -36,7 +35,6 @@ using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core.Notify;
-using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 
 namespace ASC.Web.Studio.Core.Users
@@ -68,10 +66,10 @@ namespace ASC.Web.Studio.Core.Users
             return uniqueName;
         }
 
-        public static bool CheckUniqueEmail(Guid userId, string email)
+        public static bool CheckUniqueEmail(Guid userID, string email)
         {
             var foundUser = CoreContext.UserManager.GetUserByEmail(email);
-            return Equals(foundUser, ASC.Core.Users.Constants.LostUser) || foundUser.ID == userId;
+            return Equals(foundUser, ASC.Core.Users.Constants.LostUser) || foundUser.ID == userID;
         }
 
         public static UserInfo AddUser(UserInfo userInfo, string password, bool afterInvite = false, bool notify = true, bool isVisitor = false, bool fromInviteLink = false, bool makeUniqueName = true)
@@ -147,157 +145,14 @@ namespace ASC.Web.Studio.Core.Users
             return newUserInfo;
         }
 
-        public static UserInfo AddLDAPUser(UserInfo ldapUserInfo, bool asVisitor)
-        {
-            var attempt = 3;
-
-            do
-            {
-                try
-                {
-                    return AddUser(ldapUserInfo, GeneratePassword(), true,
-                        false, asVisitor);
-                }
-                catch (ArgumentOutOfRangeException ex)
-                {
-                    if (!ex.ParamName.StartsWith("Duplicate username."))
-                        throw;
-
-                    attempt--;
-                    Thread.Sleep(TimeSpan.FromSeconds(10));
-
-                    if (attempt <= 0)
-                        throw;
-                }
-            } while (attempt > 0);
-
-            throw new ArgumentOutOfRangeException("Duplicate username.");
-        }
-
-        public static UserInfo SyncUserLDAP(UserInfo ldapUserInfo)
-        {
-            UserInfo result = null;
-
-            var foundDbUser = SearchExistingUser(ldapUserInfo);
-
-            var asVisitor = TenantStatisticsProvider.GetUsersCount() >=
-                                    TenantExtra.GetTenantQuota().ActiveUsers;
-
-            if (Equals(foundDbUser, ASC.Core.Users.Constants.LostUser))
-            {
-                if (ldapUserInfo.Status != EmployeeStatus.Active)
-                    return ASC.Core.Users.Constants.LostUser;
-
-                result = AddLDAPUser(ldapUserInfo, asVisitor);
-            }
-            else
-            {
-                if (!NeedUpdateUser(foundDbUser, ldapUserInfo))
-                    return foundDbUser;
-
-                // Update info on existing user from LDAP info
-
-                if (!foundDbUser.IsLDAP() || 
-                    Equals(foundDbUser.Email, ldapUserInfo.Email) ||
-                    Equals(foundDbUser.Sid, ldapUserInfo.Sid))
-                {
-                    result = UpdateUserWithLDAPInfo(foundDbUser, ldapUserInfo);
-                }
-                else if (foundDbUser.IsLDAP())
-                {
-                    if(foundDbUser.IsOwner())
-                    {
-                        result = UpdateUserWithLDAPInfo(foundDbUser, ldapUserInfo);
-                    }
-                    else
-                    {
-                        CoreContext.UserManager.DeleteUser(foundDbUser.ID);
-
-                        result = AddLDAPUser(ldapUserInfo, asVisitor);
-                    }
-                }
-                else if (!Equals(foundDbUser.Email, ldapUserInfo.Email))
-                {
-                    var userByNewEmail = CoreContext.UserManager.GetUserByEmail(ldapUserInfo.Email);
-
-                    if (Equals(userByNewEmail, ASC.Core.Users.Constants.LostUser))
-                    {
-                        result = UpdateUserWithLDAPInfo(foundDbUser, ldapUserInfo);
-                    }
-                    else
-                    {
-                        if (foundDbUser.IsOwner())
-                        {
-                            result = UpdateUserWithLDAPInfo(foundDbUser, ldapUserInfo);
-                        }
-                        else
-                        {
-                            CoreContext.UserManager.DeleteUser(foundDbUser.ID);
-
-                            result = UpdateUserWithLDAPInfo(userByNewEmail, ldapUserInfo);
-                        }
-                    }
-                }
-            }
-
-            return result;
-        }
-
-        private static UserInfo SearchExistingUser(UserInfo userInfo)
-        {
-            var foundUser = CoreContext.UserManager.GetUserBySid(userInfo.Sid);
-
-            if (Equals(foundUser, ASC.Core.Users.Constants.LostUser))
-            {
-                foundUser = CoreContext.UserManager.GetUserByEmail(userInfo.Email);
-            }
-
-            return foundUser;
-        }
-
-        private static bool NeedUpdateUser(UserInfo foundUser, UserInfo userInfo)
-        {
-            var needUpdate = foundUser.FirstName != userInfo.FirstName ||
-                             foundUser.LastName != userInfo.LastName ||
-                             foundUser.Email != userInfo.Email ||
-                             foundUser.Sid != userInfo.Sid ||
-                             foundUser.ActivationStatus != userInfo.ActivationStatus ||
-                             foundUser.Status != userInfo.Status ||
-                             foundUser.Title != userInfo.Title ||
-                             foundUser.Location != userInfo.Location ||
-                             userInfo.Contacts.Any(c => !foundUser.Contacts.Contains(c));
-
-            return needUpdate;
-        }
-
-        private static UserInfo UpdateUserWithLDAPInfo(UserInfo userToUpdate, UserInfo updateInfo)
-        {
-            userToUpdate.FirstName = updateInfo.FirstName;
-            userToUpdate.LastName = updateInfo.LastName;
-            userToUpdate.Email = updateInfo.Email;
-            userToUpdate.Sid = updateInfo.Sid;
-            userToUpdate.ActivationStatus = updateInfo.ActivationStatus;
-            userToUpdate.Contacts = updateInfo.Contacts;
-            userToUpdate.Title = updateInfo.Title;
-            userToUpdate.Location = updateInfo.Location;
-
-            if (!userToUpdate.IsOwner()) // Owner must never be terminated by LDAP!
-            {
-                userToUpdate.Status = updateInfo.Status;
-            }
-
-            return CoreContext.UserManager.SaveUserInfo(userToUpdate);
-        }
-
         #region Password
 
-        public static void SetUserPassword(Guid userId, string password, bool skipPasswordPolicy = false)
+        public static void SetUserPassword(Guid userID, string password)
         {
-            if (!skipPasswordPolicy)
-                CheckPasswordPolicy(password);
+            CheckPasswordPolicy(password);
 
-            SecurityContext.SetUserPassword(userId, password);
-            StudioNotifyService.Instance.UserPasswordChanged(userId, password);
+            SecurityContext.SetUserPassword(userID, password);
+            StudioNotifyService.Instance.UserPasswordChanged(userID, password);
         }
 
         public static void CheckPasswordPolicy(string password)
@@ -341,16 +196,16 @@ namespace ASC.Web.Studio.Core.Users
                                  ps.SpecSymbols ? GeneratePassword(1, 1, Noise.Substring(Noise.Length - 4, 4).ToUpper()) : String.Empty);
         }
 
-        private static readonly Random Rnd = new Random();
+        private static Random rnd = new Random();
 
         internal static string GeneratePassword(int minLength, int maxLength, string noise)
         {
-            var length = Rnd.Next(minLength, maxLength + 1);
+            var length = rnd.Next(minLength, maxLength + 1);
 
             var pwd = string.Empty;
             while (length-- > 0)
             {
-                pwd += noise.Substring(Rnd.Next(noise.Length - 1), 1);
+                pwd += noise.Substring(rnd.Next(noise.Length - 1), 1);
             }
             return pwd;
         }

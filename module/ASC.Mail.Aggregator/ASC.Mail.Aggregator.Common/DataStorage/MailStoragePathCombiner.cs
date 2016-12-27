@@ -40,9 +40,6 @@ namespace ASC.Mail.Aggregator.Common.DataStorage
 {
     public static class MailStoragePathCombiner
     {
-        public const string BODY_FILE_NAME = "body.html";
-        public const string EML_FILE_NAME = "message.eml";
-
         private static readonly Dictionary<char, string> Replacements = new Dictionary<char, string>
                 {
                     {'+', "%2b"}, {'#', "%23"}, {'|', "_"}, {'<', "_"}, {'>', "_"}, {'"', "_"}, {':', "_"}, {'~', "_"}, {'?', "_"}
@@ -118,22 +115,22 @@ namespace ASC.Mail.Aggregator.Common.DataStorage
 
         public static string GetFileKey(string user, string stream, int fileNumber, string fileName)
         {
-            return string.Format("{0}/{1}/attachments/{2}/{3}", user, stream, fileNumber, ComplexReplace(fileName, BAD_CHARS_IN_PATH));
+            return String.Format("{0}/{1}/attachments/{2}/{3}", user, stream, fileNumber, ComplexReplace(fileName, BAD_CHARS_IN_PATH));
         }
 
         public static string GetBodyKey(string stream)
         {
-            return string.Format("{0}/{1}", stream, BODY_FILE_NAME);
+            return String.Format("{0}/body.html", stream);
         }
 
         public static string GetBodyKey(string user, string stream)
         {
-            return string.Format("{0}/{1}/{2}", user, stream, BODY_FILE_NAME);
+            return String.Format("{0}/{1}/body.html", user, stream);
         }
 
         public static string GetEmlKey(string user, string stream)
         {
-            return string.Format("{0}/{1}/{2}", user, stream, EML_FILE_NAME);
+            return String.Format("{0}/{1}/message.eml", user, stream);
         }
 
         public static string GerStoredFilePath(MailAttachment attachment)

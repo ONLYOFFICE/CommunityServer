@@ -108,7 +108,7 @@ ASC.People.PeopleController = (function() {
         filter = filter || {};
         filter.sortby = "displayname";
 
-        filter.fields = 'id,status,isAdmin,isOwner,isVisitor,activationStatus,userName,email,displayName,avatarSmall,listAdminModules,birthday,title,groups,location,isLDAP';
+        filter.fields = 'id,status,isAdmin,isOwner,isVisitor,activationStatus,userName,email,displayName,avatarSmall,listAdminModules,birthday,title,groups,location';
         
         var anchor = jq.anchorToObject(ASC.Controls.AnchorController.getAnchor());
 
@@ -426,16 +426,14 @@ ASC.People.PeopleController = (function() {
             isVisitor = $person.attr("data-isVisitor"),
             $actionMenu = jq("#peopleActionMenu"),
             canEdit = $actionMenu.attr("data-canedit").toLowerCase(),
-            canDel = $actionMenu.attr("data-candel").toLowerCase(),
-            isLDAP = $person.attr("data-isLDAP");
+            canDel = $actionMenu.attr("data-candel").toLowerCase();
 
         var profile = {
             id: personId,
             email: email,
             username: username,
             status: status,
-            isOwner: isOwner,
-            isLDAP: isLDAP
+            isOwner: isOwner
         };
         var $menu = jq.tmpl("userActionMenuTemplate",
             { user: profile, isAdmin: Teamlab.profile.isAdmin, isMe: (profile.id === Teamlab.profile.id), canEdit: canEdit, canDel: canDel });
@@ -855,33 +853,32 @@ ASC.People.PeopleController = (function() {
             return;
         } else {
             for (var i = 0, n = _selectedItems.length; i < n; i++) {
-                var user = _selectedItems[i];
                 enableChangeStatus++;
-                if (!user.isTerminated) {
-                    if (!(user.isAdmin || user.listAdminModules.length || user.isPortalOwner)) {
+                if (!_selectedItems[i].isTerminated) {
+                    if (!(_selectedItems[i].isAdmin || _selectedItems[i].listAdminModules.length || _selectedItems[i].isPortalOwner)) {
                         enableChangeType++;
                     }
-                    if (!user.isActivated && !user.isLDAP) {
+                    if (!_selectedItems[i].isActivated) {
                         enableSendInvite++;
                     }
                 }
-                else if (!user.isLDAP) {
+                else {
                     enableRemoveUsers++;
                 }
                 
-                if (user.isVisitor) {
+                if (_selectedItems[i].isVisitor) {
                     onlyUsersFlag--;
                 } else {
                     onlyGuestsFlag--;
                 }
                 
-                if (user.isTerminated) {
+                if (_selectedItems[i].isTerminated) {
                     onlyTerminatedFlag--;
                 } else {
                     onlyActiveFlag--;
                 }
 
-                if (user.isPortalOwner || user.isLDAP) {
+                if (_selectedItems[i].isPortalOwner) {
                     enableChangeStatus--;
                 }
             }
@@ -1236,7 +1233,7 @@ ASC.People.PeopleController = (function() {
         var users = jq.extend(true, [], _selectedItems);
         for (var i = 0, n = users.length; i < n; i++) {
             var item = users[i];
-            if (item.isPortalOwner || item.isMe || item.isLDAP) {
+            if (item.isPortalOwner || item.isMe) {
                 item.locked = true;
             }
             if (_selectedStatus == 1 && !item.isTerminated) {
@@ -1309,7 +1306,7 @@ ASC.People.PeopleController = (function() {
         var users = jq.extend(true, [], _selectedItems);
         for (var i = 0, n = users.length; i < n; i++) {
             var item = users[i];
-            if (item.isActivated || item.isTerminated || item.isLDAP) {
+            if (item.isActivated || item.isTerminated) {
                 item.locked = true;
             }
         }
@@ -1369,7 +1366,7 @@ ASC.People.PeopleController = (function() {
         var users = jq.extend(true, [], _selectedItems);
         for (var i = 0, n = users.length; i < n; i++) {
             var item = users[i];
-            if (!item.isTerminated || item.isLDAP) {
+            if (!item.isTerminated) {
                 item.locked = true;
             }
         }

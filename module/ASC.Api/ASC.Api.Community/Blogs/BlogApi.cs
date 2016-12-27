@@ -159,7 +159,6 @@ namespace ASC.Api.Community
         ///<param name="postid">post ID to delete</param>
         ///<returns>Nothing</returns>
         ///<exception cref="ItemNotFoundException"></exception>
-        ///<category>Blogs</category>
         [Delete("blog/{postid}")]
         public BlogPostWrapperFull DeletePost(Guid postid)
         {

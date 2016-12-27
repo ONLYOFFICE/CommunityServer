@@ -141,7 +141,6 @@
       <HintPath>..\..\..\packages\StackExchange.Redis.Extensions.Core.1.3.5.0\lib\net45\StackExchange.Redis.Extensions.Core.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Collections" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
@@ -232,10 +231,6 @@
     <Content Include="App_Themes\codehighlighter\vs.css" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Core\Https\HttpsManager.cs" />
-    <Compile Include="Core\Import\LDAP\LDAPOperation.cs" />
-    <Compile Include="Core\Import\LDAP\LDAPOperationType.cs" />
-    <Compile Include="Core\Import\LDAP\LDAPSaveSyncOperation.cs" />
     <Compile Include="PaymentRequired.aspx.cs">
       <DependentUpon>PaymentRequired.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -525,13 +520,6 @@
     </Compile>
     <Compile Include="UserControls\Management\Backup\Backup.ascx.designer.cs" Condition="Exists('UserControls\Management\Backup\Backup.ascx.designer.cs')">
       <DependentUpon>Backup.ascx</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\Management\MailService\MailService.ascx.cs">
-      <DependentUpon>MailService.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="UserControls\Management\MailService\MailService.ascx.designer.cs">
-      <DependentUpon>MailService.ascx</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Management\DnsSettings\DnsSettings.ascx.cs">
       <DependentUpon>DnsSettings.ascx</DependentUpon>
@@ -1543,9 +1531,6 @@
     <Content Include="UserControls\Management\Backup\css\backup.less" />
     <Content Include="UserControls\Management\Backup\js\backup.js" />
     <Content Include="UserControls\Management\ConfirmInviteActivation\css\images\sprite_acc.png" />
-    <Content Include="UserControls\Management\MailService\css\mailservice.css" />
-    <Content Include="UserControls\Management\MailService\MailService.ascx" />
-    <Content Include="UserControls\Management\MailService\js\mailservice.js" />
     <Content Include="UserControls\Management\DnsSettings\DnsSettings.ascx" />
     <Content Include="UserControls\Management\DnsSettings\dnssettings.js" />
     <Content Include="UserControls\Management\PortalRename\js\portalrename.js" />

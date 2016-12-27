@@ -26,9 +26,7 @@
 
 using System;
 using System.Globalization;
-using System.IO;
 using System.Linq;
-using System.Net;
 using System.Runtime.Remoting.Messaging;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -37,11 +35,9 @@ using ASC.Core.Tenants;
 using ASC.Core.Users;
 using ASC.Notify;
 using ASC.Notify.Engine;
-using ASC.Notify.Messages;
 using ASC.Notify.Patterns;
 using ASC.Web.Core;
 using ASC.Web.Studio.Utility;
-using MimeKit.Utils;
 using log4net;
 using ASC.Web.Core.WhiteLabel;
 
@@ -51,7 +47,7 @@ namespace ASC.Web.Studio.Core.Notify
     {
         private static bool configured = false;
         private static object locker = new object();
-        private static readonly Regex urlReplacer = new Regex(@"(<a [^>]*href=(('(?<url>[^>']*)')|(""(?<url>[^>""]*)""))[^>]*>)|(<img [^>]*src=(('(?<url>(?![data:|cid:])[^>']*)')|(""(?<url>(?![data:|cid:])[^>""]*)""))[^/>]*/?>)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex urlReplacer = new Regex(@"(<a [^>]*href=(('(?<url>[^>']*)')|(""(?<url>[^>""]*)""))[^>]*>)|(<img [^>]*src=(('(?<url>(?!data:)[^>']*)')|(""(?<url>(?!data:)[^>""]*)""))[^/>]*/?>)", RegexOptions.Compiled | RegexOptions.IgnoreCase);
         private static readonly Regex textileLinkReplacer = new Regex(@"""(?<text>[\w\W]+?)"":""(?<link>[^""]+)""", RegexOptions.Singleline | RegexOptions.Compiled);
 
         public static void Configure()
@@ -385,6 +381,7 @@ namespace ASC.Web.Studio.Core.Notify
             request.Arguments.Add(new TagValue(CommonTags.RecipientID, Context.SYS_RECIPIENT_ID));
             request.Arguments.Add(new TagValue(CommonTags.RecipientSubscriptionConfigURL, CommonLinkUtility.GetMyStaff()));
             request.Arguments.Add(new TagValue("Partner", GetPartnerInfo()));
+            request.Arguments.Add(new TagValue(Constants.LetterLogo, CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoDark(true))));
             request.Arguments.Add(new TagValue(Constants.LetterLogoText, logoText));
             request.Arguments.Add(new TagValue(Constants.LetterLogoTextTM, logoTextTM));
             request.Arguments.Add(new TagValue(Constants.MailWhiteLabelSettings, MailWhiteLabelSettings.Instance));
@@ -392,55 +389,6 @@ namespace ASC.Web.Studio.Core.Notify
             if (!request.Arguments.Any(x => CommonTags.SendFrom.Equals(x.Tag)))
             {
                 request.Arguments.Add(new TagValue(CommonTags.SendFrom, CoreContext.TenantManager.GetCurrentTenant().Name));
-            }
-
-            AddLetterLogo(request);
-        }
-
-        private static void AddLetterLogo(NotifyRequest request)
-        {
-            var logoUrl = CommonLinkUtility.GetFullAbsolutePath(TenantLogoManager.GetLogoDark(true));
-
-            if (CoreContext.Configuration.Standalone)
-            {
-                var attachment = ConvertImageUrlToAttachment(logoUrl);
-
-                if (attachment != null)
-                {
-                    request.Arguments.Add(new TagValue(Constants.LetterLogo, "cid:" + attachment.ContentId));
-                    request.Arguments.Add(new TagValue(Constants.EmbeddedAttachments, new[] {attachment}));
-                    return;
-                }
-            }
-
-            request.Arguments.Add(new TagValue(Constants.LetterLogo, logoUrl));
-        }
-
-        private static NotifyMessageAttachment ConvertImageUrlToAttachment(string url)
-        {
-            try
-            {
-                var uri = new Uri(url).AbsoluteUri;
-
-                var filename = Path.GetFileName(uri) ?? "logo.png";
-
-                byte[] imageData;
-
-                using (var wc = new WebClient())
-                    imageData = wc.DownloadData(url);
-
-                if (imageData == null) return null;
-
-                return new NotifyMessageAttachment
-                    {
-                        FileName = filename,
-                        Content = imageData,
-                        ContentId = MimeUtils.GenerateMessageId()
-                    };
-            }
-            catch (Exception)
-            {
-                return null;
             }
         }
     }

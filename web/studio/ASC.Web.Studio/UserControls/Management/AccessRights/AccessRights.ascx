@@ -1,7 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" Inherits="ASC.Web.Studio.UserControls.Management.AccessRights" %>
 <%@ Import Namespace="ASC.Web.Core" %>
-<%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
-<%@ Import Namespace="Resources" %>
 
 <script id="adminTmpl" type="text/x-jquery-tmpl">
     <tr id="adminItem_${id}" class="adminItem">
@@ -28,7 +26,7 @@
 </script>
 
 <div class="header-base owner">
-    <%= Resource.PortalOwner %>
+    <%= Resources.Resource.PortalOwner %>
 </div>
 
 <div class="clearFix">
@@ -36,8 +34,8 @@
         <asp:PlaceHolder runat="server" ID="_phOwnerCard" />
     </div>
     <div class="possibilitiesAdmin">
-        <div><%= Resource.AccessRightsOwnerCan %>:</div>
-        <% foreach (var item in Resource.AccessRightsOwnerOpportunities.Split('|')) %>
+        <div><%= Resources.Resource.AccessRightsOwnerCan %>:</div>
+        <% foreach (var item in Resources.Resource.AccessRightsOwnerOpportunities.Split('|')) %>
         <% { %>
             <div class="simple-marker-list"><%= item.Trim() %>;</div>
         <% } %>
@@ -48,26 +46,26 @@
 <% { %>
     <div id="ownerSelectorContent" class="clearFix">
         <div class="changeOwnerText">
-            <%= Resource.AccessRightsChangeOwnerText %>
+            <%= Resources.Resource.AccessRightsChangeOwnerText %>
         </div>
         <span class="link dotline" data-id="" id="ownerSelector">
-            <%= Resource.ChooseOwner %>
+            <%= Resources.Resource.ChooseOwner %>
         </span>
         <div class="changeOwnerTextBlock">
-            <a class="button blue disable" id="changeOwnerBtn"><%= Resource.AccessRightsChangeOwnerButtonText %></a>
+            <a class="button blue disable" id="changeOwnerBtn"><%= Resources.Resource.AccessRightsChangeOwnerButtonText %></a>
             <span class="splitter"></span>
-            <span class="describe-text"><%= Resource.AccessRightsChangeOwnerConfirmText %></span>
+            <span class="describe-text"><%= Resources.Resource.AccessRightsChangeOwnerConfirmText %></span>
         </div>
     </div>
 <% } %>
 
 <div class="tabs-section">
     <span class="header-base">
-        <span><%= Resource.AdminSettings %></span>
+        <span><%= Resources.Resource.AdminSettings %></span>
     </span> 
     <span id="switcherAccessRights_Admin" data-id="Admin" class="toggle-button"
-          data-switcher="0" data-showtext="<%= Resource.Show %>" data-hidetext="<%= Resource.Hide %>">
-        <%= Resource.Hide %>
+          data-switcher="0" data-showtext="<%= Resources.Resource.Show %>" data-hidetext="<%= Resources.Resource.Hide %>">
+        <%= Resources.Resource.Hide %>
     </span>
 </div>
 
@@ -78,7 +76,7 @@
                 <th></th>
                 <th></th>
                 <th class="cbxHeader">
-                    <%= Resource.AccessRightsFullAccess %>
+                    <%= Resources.Resource.AccessRightsFullAccess %>
                     <div class="HelpCenterSwitcher" onclick=" jq(this).helper({ BlockHelperID: 'full_panelQuestion' }); "></div>
                 </th>
                 <% foreach (var p in ProductsForAccessSettings) %>
@@ -96,7 +94,7 @@
         <tbody></tbody>
     </table>
     <div id="adminAdvancedSelector" class="advanced-selector-select">
-          <%= CustomNamingPeople.Substitute<Resource>("ChooseUser") %>
+          <%=Resources.Resource.ChooseUser %>
      </div>
     <div>
         <div id="full_panelQuestion" class="popup_helper">
@@ -115,7 +113,7 @@
             <% if (p.GetAdminOpportunities().Count > 0) %>
             <% { %>
                 <div id="<%= p.GetSysName() %>_panelQuestion" class="popup_helper">
-                    <div><%= String.Format(Resource.AccessRightsProductAdminsCan, p.Name) %>:</div>
+                    <div><%= String.Format(Resources.Resource.AccessRightsProductAdminsCan, p.Name) %>:</div>
                     <% foreach (var oprtunity in p.GetAdminOpportunities()) %>
                     <% { %>
                         <div class="simple-marker-list"><%= oprtunity %>;</div>

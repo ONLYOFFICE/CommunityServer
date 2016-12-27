@@ -33,7 +33,6 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using Newtonsoft.Json;
 
 namespace ASC.Notify
 {
@@ -49,8 +48,8 @@ namespace ASC.Notify
             using (var tx = db.BeginTransaction(IsolationLevel.ReadCommitted))
             {
                 var i = new SqlInsert("notify_queue")
-                    .InColumns("notify_id", "tenant_id", "sender", "reciever", "subject", "content_type", "content", "sender_type", "creation_date", "reply_to", "attachments")
-                    .Values(0, m.Tenant, m.From, m.To, m.Subject, m.ContentType, m.Content, m.Sender, m.CreationDate, m.ReplyTo, JsonConvert.SerializeObject(m.EmbeddedAttachments))
+                    .InColumns("notify_id", "tenant_id", "sender", "reciever", "subject", "content_type", "content", "sender_type", "creation_date", "reply_to")
+                    .Values(0, m.Tenant, m.From, m.To, m.Subject, m.ContentType, m.Content, m.Sender, m.CreationDate, m.ReplyTo)
                     .Identity(0, 0, true);
 
                 var id = db.ExecuteScalar<int>(i);
@@ -74,7 +73,7 @@ namespace ASC.Notify
                 {
                     var q = new SqlQuery("notify_queue q")
                         .InnerJoin("notify_info i", Exp.EqColumns("q.notify_id", "i.notify_id"))
-                        .Select("q.notify_id", "q.tenant_id", "q.sender", "q.reciever", "q.subject", "q.content_type", "q.content", "q.sender_type", "q.creation_date", "q.reply_to", "q.attachments")
+                        .Select("q.notify_id", "q.tenant_id", "q.sender", "q.reciever", "q.subject", "q.content_type", "q.content", "q.sender_type", "q.creation_date", "q.reply_to")
                         .Where(Exp.Eq("i.state", MailSendingState.NotSended) | (Exp.Eq("i.state", MailSendingState.Error) & Exp.Lt("i.modify_date", DateTime.UtcNow - NotifyServiceCfg.AttemptsInterval)))
                         .OrderBy("i.priority", true)
                         .OrderBy("i.notify_id", true)
@@ -95,7 +94,6 @@ namespace ASC.Notify
                                 Sender = (string)r[7],
                                 CreationDate = Convert.ToDateTime(r[8]),
                                 ReplyTo = (string)r[9],
-                                EmbeddedAttachments = JsonConvert.DeserializeObject<NotifyMessageAttachment[]>((string)r[10])
                             });
 
                     var u = new SqlUpdate("notify_info").Set("state", MailSendingState.Sending).Where(Exp.In("notify_id", messages.Keys));

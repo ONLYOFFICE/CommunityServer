@@ -49,8 +49,5 @@ namespace ASC.ActiveDirectory
 
         [DataMember]
         public NovellLdapCertificateConfirmRequest CertificateConfirmRequest { get; set; }
-
-        [DataMember]
-        public string Source { get; set; }
     }
 }

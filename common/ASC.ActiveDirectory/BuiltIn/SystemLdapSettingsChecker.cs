@@ -29,24 +29,21 @@ using System;
 using System.DirectoryServices;
 using System.DirectoryServices.Protocols;
 using System.Runtime.InteropServices;
-using System.Linq;
 
 namespace ASC.ActiveDirectory.BuiltIn
 {
     public class SystemLdapSettingsChecker : LdapSettingsChecker
     {
-        private readonly LdapHelper _ldapHelper = new SystemLdapHelper();
+        private readonly LdapHelper ldapHelper = new SystemLdapHelper();
 
-        public override byte CheckSettings(LDAPUserImporter importer,
-                                           bool acceptCertificate = false)
+        public override byte CheckSettings(LDAPSupportSettings settings, LDAPUserImporter importer, bool acceptCertificate = false)
         {
-            var settings = importer.Settings;
-
             if (!settings.EnableLdapAuthentication)
+            {
                 return OPERATION_OK;
+            }
 
-            var password = GetPassword(settings.PasswordBytes);
-
+            string password = GetPassword(settings.PasswordBytes);
             try
             {
                 if (settings.Authentication)
@@ -54,7 +51,7 @@ namespace ASC.ActiveDirectory.BuiltIn
                     CheckCredentials(settings.Login, password, settings.Server, settings.PortNumber, settings.StartTls);
                 }
                 if (!CheckServerAndPort(settings.Server,
-                                        settings.PortNumber, settings.Authentication, settings.Login, password))
+                    settings.PortNumber, settings.Authentication, settings.Login, password))
                 {
                     return WRONG_SERVER_OR_PORT;
                 }
@@ -69,59 +66,70 @@ namespace ASC.ActiveDirectory.BuiltIn
             }
 
             if (!CheckUserDN(settings.UserDN, settings.Server, settings.PortNumber,
-                             settings.Authentication, settings.Login, password, settings.StartTls))
+                settings.Authentication, settings.Login, password, settings.StartTls))
             {
                 return WRONG_USER_DN;
             }
-
-            if (settings.GroupMembership)
+            try
             {
-                if (!CheckGroupDN(settings.UserDN, settings.Server, settings.PortNumber,
-                                  settings.Authentication, settings.Login, password, settings.StartTls))
-                {
-                    return WRONG_USER_DN;
-                }
-
-                if (!importer.TryLoadLDAPGroups())
-                    return INCORRECT_GROUP_LDAP_FILTER;
-
-                if (!importer.AllDomainGroups.Any())
-                    return GROUPS_NOT_FOUND;
-
-                foreach (var group in importer.AllDomainGroups)
-                {
-                    if (!CheckGroupAttribute(group, settings.GroupAttribute))
-                        return WRONG_GROUP_ATTRIBUTE;
-
-                    if (!CheckGroupNameAttribute(group, settings.GroupNameAttribute))
-                        return WRONG_GROUP_NAME_ATTRIBUTE;
-
-                    if (group.Sid == null)
-                        return WRONG_SID_ATTRIBUTE;
-                }
+                importer.AllDomainUsers = ldapHelper.GetUsersByAttributes(settings);
             }
-
-            if (!importer.TryLoadLDAPDomain())
-                return DOMAIN_NOT_FOUND;
-
-            if (!importer.TryLoadLDAPUsers())
+            catch (ArgumentException)
+            {
+                log.ErrorFormat("Incorrect filter. userFilter = {0}", settings.UserFilter);
                 return INCORRECT_LDAP_FILTER;
-
-            if (!importer.AllDomainUsers.Any())
+            }
+            if (importer.AllDomainUsers == null || importer.AllDomainUsers.Count == 0)
+            {
+                log.ErrorFormat("Any user is not found. userDN = {0}", settings.UserDN);
                 return USERS_NOT_FOUND;
-
+            }
             foreach (var user in importer.AllDomainUsers)
             {
                 if (!CheckLoginAttribute(user, settings.LoginAttribute))
+                {
                     return WRONG_LOGIN_ATTRIBUTE;
-
-                if (user.Sid == null)
-                    return WRONG_SID_ATTRIBUTE;
-
-                if (settings.GroupMembership && !CheckUserAttribute(user, settings.UserAttribute))
-                    return WRONG_USER_ATTRIBUTE;
+                }
             }
-
+            if (settings.GroupMembership)
+            {
+                if (!CheckGroupDN(settings.UserDN, settings.Server, settings.PortNumber,
+                   settings.Authentication, settings.Login, password, settings.StartTls))
+                {
+                    return WRONG_USER_DN;
+                }
+                try
+                {
+                    importer.DomainGroups = ldapHelper.GetGroupsByAttributes(settings);
+                }
+                catch (ArgumentException)
+                {
+                    log.ErrorFormat("Incorrect group filter. groupFilter = {0}", settings.GroupFilter);
+                    return INCORRECT_GROUP_LDAP_FILTER;
+                }
+                if (importer.DomainGroups == null || importer.DomainGroups.Count == 0)
+                {
+                    return GROUPS_NOT_FOUND;
+                }
+                foreach (var group in importer.DomainGroups)
+                {
+                    if (!CheckGroupAttribute(group, settings.GroupAttribute))
+                    {
+                        return WRONG_GROUP_ATTRIBUTE;
+                    }
+                    if (!CheckGroupNameAttribute(group, settings.GroupNameAttribute))
+                    {
+                        return WRONG_GROUP_NAME_ATTRIBUTE;
+                    }
+                }
+                foreach (var user in importer.AllDomainUsers)
+                {
+                    if (!CheckUserAttribute(user, settings.UserAttribute))
+                    {
+                        return WRONG_USER_ATTRIBUTE;
+                    }
+                }
+            }
             return OPERATION_OK;
         }
 
@@ -129,7 +137,7 @@ namespace ASC.ActiveDirectory.BuiltIn
         {
             try
             {
-                _ldapHelper.CheckCredentials(login, password, server, portNumber, startTls);
+                ldapHelper.CheckCredentials(login, password, server, portNumber, startTls);
             }
             catch (LdapException e)
             {
@@ -152,7 +160,7 @@ namespace ASC.ActiveDirectory.BuiltIn
         {
             try
             {
-                return _ldapHelper.CheckGroupDN(groupDN, server, portNumber, authentication, login, password, startTls);
+                return ldapHelper.CheckGroupDN(groupDN, server, portNumber, authentication, login, password, startTls);
             }
             catch (Exception e)
             {
@@ -166,7 +174,7 @@ namespace ASC.ActiveDirectory.BuiltIn
         {
             try
             {
-                return _ldapHelper.CheckUserDN(userDN, server, portNumber, authentication, login, password, startTls);
+                return ldapHelper.CheckUserDN(userDN, server, portNumber, authentication, login, password, startTls);
             }
             catch (Exception e)
             {
@@ -181,17 +189,15 @@ namespace ASC.ActiveDirectory.BuiltIn
             try
             {
                 var type = AuthenticationTypes.ReadonlyServer | AuthenticationTypes.Secure;
-
                 if (portNumber == Constants.SSL_LDAP_PORT)
                 {
                     type |= AuthenticationTypes.SecureSocketsLayer;
                 }
-
                 var rootEntry = authentication ?
                     new DirectoryEntry(server + ":" + portNumber, login, password, type) :
                     new DirectoryEntry(server + ":" + portNumber);
 
-                if (rootEntry.SchemaClassName != Constants.ObjectClassKnowedValues.DOMAIN_DNS)
+                if (rootEntry.SchemaClassName != Constants.ObjectClassKnowedValues.DomainDNS)
                 {
                     log.ErrorFormat("Wrong Server Address or Port: {0}:{1}", server, portNumber);
                     return false;
@@ -207,19 +213,7 @@ namespace ASC.ActiveDirectory.BuiltIn
                 log.ErrorFormat("Wrong Server Address or Port: {0}:{1}. {2}", server, portNumber, e);
                 throw new COMException(e.Message);
             }
-
             return true;
-        }
-
-        public override string GetDomain(LDAPSupportSettings settings)
-        {
-            var dataInfo = _ldapHelper.GetDomain(settings);
-
-            var domainName = dataInfo != null && dataInfo.DistinguishedName != null
-                                 ? dataInfo.DistinguishedName.Remove(0, 3).Replace(",DC=", ".").Replace(",dc=", ".")
-                                 : null;
-
-            return domainName;
         }
     }
 }

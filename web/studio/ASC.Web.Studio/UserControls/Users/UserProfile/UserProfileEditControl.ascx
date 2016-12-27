@@ -4,15 +4,10 @@
 <%@ Import Namespace="ASC.Web.Studio.Core.SMS" %>
 <%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="Resources" %>
-<%@ Import Namespace="ASC.Core.Users" %>
 
 <div id="userProfileEditPage" class="containerBodyBlock">
     <div class="clearFix profile-title header-with-menu">
         <span id="titleEditProfile" class="header text-overflow"><%= GetTitle() %></span>
-        <% if ((IsAdmin() || UserInfo.IsMe()) && UserInfo.IsLDAP())
-        { %>
-        <span class="ldap-lock-big" title="<%= Resource.LdapUsersListLockTitle %>"></span>
-        <% } %>
     </div>
     <div class="profile-action-content clearFix">
         <div class="profile-photo-block">
@@ -114,32 +109,21 @@
             <tr class="userdata-field">
                 <td class="userdata-title describe-text requiredTitle"><%= Resource.FirstName %>:</td>
                 <td class="userdata-value requiredField">
-                    <input type="text" id="profileFirstName" class="textEdit" value="<%= GetFirstName() %>" autocomplete="off" <%= IsLDAP ? "disabled title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : "" %> />
+                    <input type="text" id="profileFirstName" class="textEdit" value="<%= GetFirstName() %>" autocomplete="off" />
                 </td>
             </tr>
             <%--LastName--%>
             <tr class="userdata-field">
                 <td class="userdata-title describe-text requiredTitle"><%= Resource.LastName %>:</td>
                 <td class="userdata-value requiredField">
-                    <input type="text" id="profileSecondName" class="textEdit" value="<%= GetLastName() %>" autocomplete="off" <%= IsLDAP ? "disabled title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : "" %>/>
+                    <input type="text" id="profileSecondName" class="textEdit" value="<%= GetLastName() %>" autocomplete="off" />
                 </td>
             </tr>
             <%--Email--%>
             <tr class="userdata-field">
-                <td class="userdata-title describe-text">
-                    <span class="requiredTitle"><%= IsLDAP ? Resource.Login : Resource.Email %>:</span> 
-                       <% if (IsLDAP)
-                       { %>
-                            <div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'LoginEmailInfo'});"></div>
-                            <div class="popup_helper" id="LoginEmailInfo">
-                                <p>
-                                    <%= Resource.LoginDescription %>
-                                </p>
-                            </div>
-                     <% } %>
-                </td>
+                <td class="userdata-title describe-text requiredTitle"><%= Resource.Email %>:</td>
                 <td class="userdata-value requiredField">
-                    <input type="email" id="profileEmail" value="<%= GetEmail() %>" autocomplete="off" class="textEdit" <%= IsPageEditProfileFlag && !(CoreContext.Configuration.Personal && CoreContext.Configuration.Standalone) || IsLDAP ? "disabled" : "" %> <%= IsLDAP ? " title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : "" %> />
+                    <input type="email" id="profileEmail" value="<%= GetEmail() %>" autocomplete="off" class="textEdit" <%= IsPageEditProfileFlag && !(CoreContext.Configuration.Personal && CoreContext.Configuration.Standalone) ? "disabled" : "" %> />
                 </td>
             </tr>
             <%--Department--%>
@@ -172,7 +156,7 @@
             <tr class="userdata-field">
                 <td class="userdata-title describe-text"><%= CustomNamingPeople.Substitute<Resource>("UserPost").HtmlEncode() %>:</td>
                 <td class="userdata-value requiredField">
-                    <input type="text" id="profilePosition" <%= IsAdmin() && !IsLDAP ? "" : "disabled = 'disabled'"%> <%= IsLDAP ? "title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : "" %> class="textEdit" value="<%= GetPosition() %>" autocomplete="off" />
+                    <input type="text" id="profilePosition" <%= IsAdmin() ? "" : "disabled = 'disabled'"%> class="textEdit" value="<%= GetPosition() %>" autocomplete="off" />
                     <span class="requiredErrorText"><%= Resource.ErrorMessageLongField64 %></span>
                 </td>
             </tr>
@@ -220,7 +204,7 @@
             <tr class="userdata-field">
                 <td class="userdata-title describe-text"><%= Resource.Location %>:</td>
                 <td class="userdata-value requiredField">
-                    <input type="text" id="profilePlace" class="textEdit" value="<%= GetPlace() %>" autocomplete="off" <%= IsLDAP ? "disabled title=\"" + Resource.LdapUserEditCanOnlyAdminTitle + "\"" : "" %> />
+                    <input type="text" id="profilePlace" class="textEdit" value="<%= GetPlace() %>" autocomplete="off" />
                     <span class="requiredErrorText"><%= Resource.ErrorMessageLongField255 %></span>
                 </td>
             </tr>

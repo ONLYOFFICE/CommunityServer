@@ -110,13 +110,6 @@
     <Compile Include="Controls\ContentList\ContentList.ascx.designer.cs">
       <DependentUpon>ContentList.ascx</DependentUpon>
     </Compile>
-    <Compile Include="Controls\Desktop\Desktop.ascx.cs">
-      <DependentUpon>Desktop.ascx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Controls\Desktop\Desktop.ascx.designer.cs">
-      <DependentUpon>Desktop.ascx</DependentUpon>
-    </Compile>
     <Compile Include="Controls\FileSelector\FileSelector.ascx.cs">
       <DependentUpon>FileSelector.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -241,10 +234,6 @@
     <Content Include="Controls\ContentList\Images\lock.png" />
     <Content Include="Controls\ContentList\Images\throbber.gif" />
     <Content Include="Controls\ContentList\Images\version_operation.png" />
-    <Content Include="Controls\Desktop\Desktop.ascx" />
-    <Content Include="Controls\Desktop\desktop.css" />
-    <Content Include="Controls\Desktop\desktop.js" />
-    <Content Include="Controls\Desktop\Images\logo.png" />
     <Content Include="Controls\ThirdParty\Images\retina\thirdparty_boxnet.png" />
     <Content Include="Controls\YandexScript.js" />
     <Content Include="Controls\FileSelector\fileselector.js" />

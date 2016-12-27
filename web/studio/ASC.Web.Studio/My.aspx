@@ -2,7 +2,6 @@
 <%@ MasterType TypeName="ASC.Web.Studio.Masters.BaseTemplate" %>
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="Resources" %>
-<%@ Import Namespace="ASC.Core.Users" %>
 
 <asp:Content ContentPlaceHolderID="PageContent" runat="server">
     <style type="text/css" rel="stylesheet">
@@ -20,10 +19,6 @@
     </style>
     <div class="clearFix profile-title header-with-menu">
          <span class="header text-overflow" title="<%= UserName %>"><%= UserName %></span>
-        <% if ((IsAdmin() || _helper.UserInfo.IsMe()) && _helper.UserInfo.IsLDAP())
-        { %>
-        <span class="ldap-lock-big" title="<%= Resource.LdapUsersListLockTitle %>"></span>
-        <% } %>
         <asp:PlaceHolder ID="actionsHolder" runat="server" />
     </div>
     <div class="profile-container">

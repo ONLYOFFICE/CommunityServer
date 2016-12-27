@@ -42,7 +42,6 @@ using ASC.Web.Core.Utility;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Core.WhiteLabel;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Core.Https;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.SMS;
 using ASC.Web.Studio.UserControls.FirstTime;
@@ -57,7 +56,6 @@ using System.Linq;
 using System.Net;
 using System.Security;
 using System.Web;
-using ASC.Common.Threading;
 using SecurityContext = ASC.Core.SecurityContext;
 
 
@@ -69,7 +67,7 @@ namespace ASC.Api.Settings
     public partial class SettingsApi : IApiEntryPoint
     {
         private const int ONE_THREAD = 1;
-        private static readonly DistributedTaskQueue ldapTasks = new DistributedTaskQueue("ldapOperations", ONE_THREAD);
+        private static ProgressQueue ldapTasks = new ProgressQueue(ONE_THREAD, TimeSpan.FromMinutes(15), true);
 
         public string Name
         {
@@ -91,7 +89,7 @@ namespace ASC.Api.Settings
             get { return SecurityContext.CurrentAccount.ID; }
         }
 
-        private static DistributedTaskQueue LDAPTasks
+        private static ProgressQueue LdapTasks
         {
             get { return ldapTasks; }
         }
@@ -685,55 +683,6 @@ namespace ASC.Api.Settings
             if (!CoreContext.Configuration.Standalone) return false;
             LicenseReader.RefreshLicense();
             return true;
-        }
-
-        ///<visible>false</visible>
-        [Read("https/check")]
-        public object CheckHttpsCertificate()
-        {
-            try
-            {
-                return new
-                    {
-                        success = true,
-                        exist = HttpsManager.IsExistHttpsCertificate()
-                    };
-            }
-            catch (Exception exception)
-            {
-                LogManager.GetLogger(typeof(HttpsManager)).Error(exception);
-
-                return new
-                {
-                    success = false,
-                    message = exception.Message
-                };
-            }
-        }
-
-        ///<visible>false</visible>
-        [Update("https/upload")]
-        public object UploadHttpsCertificate(string filePath, string password)
-        {
-            try
-            {
-                HttpsManager.UploadCertificate(filePath, password);
-
-                return new
-                {
-                    success = true
-                };
-            }
-            catch (Exception exception)
-            {
-                LogManager.GetLogger(typeof(HttpsManager)).Error(exception);
-
-                return new
-                {
-                    success = false,
-                    message = exception.Message
-                };
-            }
         }
     }
 }

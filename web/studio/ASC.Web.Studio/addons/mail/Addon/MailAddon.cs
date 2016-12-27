@@ -75,7 +75,6 @@ namespace ASC.Web.Mail
                 {
                     DisabledIconFileName = "mail_disabled.png",
                     IconFileName = "mail.png",
-                    LargeIconFileName = "product_logolarge.png",
                     SpaceUsageStatManager = new Configuration.MailSpaceUsageStatManager()
                 };
         }

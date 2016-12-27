@@ -1579,7 +1579,6 @@ namespace ASC.Api.CRM
             return result;
         }
 
-        /// <category>Contacts</category>
         [Read(@"contact/{contactid:[0-9]+}/tweets")]
         public List<Message> GetUserTweets(int contactid, int count)
         {
@@ -1637,7 +1636,6 @@ namespace ASC.Api.CRM
         }
 
 
-        /// <category>Contacts</category>
         [Read(@"contact/twitterprofile")]
         public List<TwitterUserInfo> FindTwitterProfiles(string searchText)
         {
@@ -1660,7 +1658,6 @@ namespace ASC.Api.CRM
             }
         }
 
-        /// <category>Contacts</category>
         [Read(@"contact/facebookprofile")]
         public List<FacebookUserInfo> FindFacebookProfiles(string searchText, bool isUser)
         {
@@ -1681,7 +1678,6 @@ namespace ASC.Api.CRM
             }
         }
 
-        /// <category>Contacts</category>
         [Delete(@"contact/{contactid:[0-9]+}/avatar")]
         public string DeleteContactAvatar(int contactId, string contactType, bool uploadOnly)
         {
@@ -1707,14 +1703,12 @@ namespace ASC.Api.CRM
             return "";
         }
 
-        /// <category>Contacts</category>
         [Read(@"contact/{contactid:[0-9]+}/socialmediaavatar")]
         public List<SocialMediaImageDescription> GetContactSMImages(int contactId)
         {
             return new SocialMediaUI().GetContactSMImages(contactId);
         }
 
-        /// <category>Contacts</category>
         [Create(@"contact/socialmediaavatar")]
         public List<SocialMediaImageDescription> GetContactSMImagesByNetworks(List<ContactInfoWrapper> socialNetworks)
         {
@@ -1732,7 +1726,6 @@ namespace ASC.Api.CRM
             return new SocialMediaUI().GetContactSMImages(twitter, facebook);
         }
 
-        /// <category>Contacts</category>
         [Update(@"contact/{contactid:[0-9]+}/avatar")]
         public string UploadUserAvatarFromSocialNetwork(int contactId, SocialNetworks socialNetwork, string userIdentity, bool uploadOnly)
         {
@@ -2113,7 +2106,7 @@ namespace ASC.Api.CRM
 
                 if (contactTags.ContainsKey(contact.ID))
                 {
-                    contactWrapper.Tags = contactTags[contact.ID].OrderBy(x => x);
+                    contactWrapper.Tags = contactTags[contact.ID];
                 }
 
                 if (addresses.ContainsKey(contact.ID))

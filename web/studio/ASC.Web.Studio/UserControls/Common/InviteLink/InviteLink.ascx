@@ -1,5 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="InviteLink.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Common.InviteLink.InviteLink" %>
-<%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="Resources" %>
 
 
@@ -8,7 +7,7 @@
         <a id="menuInviteUsersBtn" class="menu-item-label outer-text text-overflow">
             <span class="menu-item-icon inviteusers"></span>
             <span class="menu-item-label inner-text">
-                <%= CustomNamingPeople.Substitute<Resource>("InviteUsersToPortalLink").HtmlEncode() %>
+                <%= Resource.InviteUsersToPortalLink %>
             </span>
         </a>
     </div>

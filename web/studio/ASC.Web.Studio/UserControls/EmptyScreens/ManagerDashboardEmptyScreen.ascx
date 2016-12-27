@@ -1,7 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ManagerDashboardEmptyScreen.ascx.cs" Inherits="ASC.Web.Studio.UserControls.EmptyScreens.ManagerDashboardEmptyScreen" %>
 <%@ Import Namespace="ASC.Web.Core" %>
 <%@ Import Namespace="ASC.Web.People.Core" %>
-<%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="Resources" %>
 
 <div id="manager-empty-screen">
@@ -15,7 +14,7 @@
         <a href="<%= VirtualPathUtility.ToAbsolute(PeopleProduct.GetStartURL()) %>" class="link underline medium" target="_blank">
             <%= Resource.ManagerEmptyScreen_PeopleLink %>
         </a>
-        <div class="module-link-dscr"><%= CustomNamingPeople.Substitute<Resource>("ManagerEmptyScreen_PeopleLinkDscr") %></div>
+        <div class="module-link-dscr"><%= Resource.ManagerEmptyScreen_PeopleLinkDscr %></div>
     </div>
     <% } %>
 

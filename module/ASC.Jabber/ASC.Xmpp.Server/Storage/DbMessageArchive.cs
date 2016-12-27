@@ -116,20 +116,9 @@ namespace ASC.Xmpp.Server.Storage
             var q = new SqlQuery("jabber_archive")
                 .Select("message")
                 .Where("jid", GetKey(from, to))
+                .Where(Exp.Between("stamp", start, end))
                 .OrderBy("id", false);
-
-            if (start != DateTime.MinValue)
-            {
-                q.Where(Exp.Ge("stamp", start));
-            }
-            if (end != DateTime.MaxValue)
-            {
-                q.Where(Exp.Le("stamp", end));
-            }
-            if (0 < count && count < int.MaxValue)
-            {
-                q.SetMaxResults(count);
-            }
+            if (0 < count && count < int.MaxValue) q.SetMaxResults(count);
 
             var messages = ExecuteList(q).ConvertAll(r => ElementSerializer.DeSerializeElement<Message>((string)r[0]));
             messages.Reverse();

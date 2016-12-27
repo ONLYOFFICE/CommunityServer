@@ -26,6 +26,7 @@
 
 using System;
 using System.Runtime.Serialization;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ASC.ActiveDirectory.Novell
 {
@@ -33,28 +34,28 @@ namespace ASC.ActiveDirectory.Novell
     [DataContract]
     public class NovellLdapCertificateConfirmRequest
     {
-        private volatile bool _approved;
-        private volatile bool _requested;
-        private volatile string _serialNumber;
-        private volatile string _issuerName;
-        private volatile string  _subjectName;
-        private volatile string _hash;
-        private volatile int[] _certificateErrors;
+        private volatile bool approved;
+        private volatile bool requested;
+        private volatile string serialNumber;
+        private volatile string issuerName;
+        private volatile string  subjectName;
+        private volatile string hash;
+        private volatile int[] certificateErrors;
 
         [DataMember]
-        public bool Approved { get { return _approved; } set { _approved = value; } }
+        public bool Approved { get { return approved; } set { approved = value; } }
 
         [DataMember]
-        public bool Requested { get { return _requested; } set { _requested = value; } }
+        public bool Requested { get { return requested; } set { requested = value; } }
 
         [DataMember]
-        public string SerialNumber { get { return _serialNumber; } set { _serialNumber = value; } }
+        public string SerialNumber { get { return serialNumber; } set { serialNumber = value; } }
 
         [DataMember]
-        public string IssuerName { get { return _issuerName; } set { _issuerName = value; } }
+        public string IssuerName { get { return issuerName; } set { issuerName = value; } }
 
         [DataMember]
-        public string SubjectName { get { return _subjectName; } set { _subjectName = value; } }
+        public string SubjectName { get { return subjectName; } set { subjectName = value; } }
 
         [DataMember]
         public DateTime ValidFrom { get; set; }
@@ -63,9 +64,9 @@ namespace ASC.ActiveDirectory.Novell
         public DateTime ValidUntil { get; set; }
 
         [DataMember]
-        public string Hash { get { return _hash; } set { _hash = value; } }
+        public string Hash { get { return hash; } set { hash = value; } }
 
         [DataMember]
-        public int[] CertificateErrors { get { return _certificateErrors; } set { _certificateErrors = value; } }
+        public int[] CertificateErrors { get { return certificateErrors; } set { certificateErrors = value; } }
     }
 }

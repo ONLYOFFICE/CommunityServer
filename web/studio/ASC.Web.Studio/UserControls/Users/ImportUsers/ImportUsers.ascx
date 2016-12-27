@@ -4,7 +4,6 @@
 <%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Core.Mobile" %>
 <%@ Import Namespace="ASC.Web.Studio.Core" %>
-<%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.UserControls.Management" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
@@ -70,9 +69,9 @@
 <div id="importUsers">
     <div class="blockUI blockMsg blockElement" id="upload"><img/></div>
         <div class="desc">
-            <%= String.Format(CustomNamingPeople.Substitute<Resource>("ImportContactsDescription"),"<span class=\"starStyle\">*</span>")%>
+            <%= String.Format(ASC.Web.Studio.Core.Users.CustomNamingPeople.Substitute<Resource>("ImportContactsDescription"),"<span class=\"starStyle\">*</span>")%>
         </div>
-        <div class="smallDesc"><span class="starStyle">*</span> <%= CustomNamingPeople.Substitute<Resource>("ImportContactsSmallDescription").HtmlEncode() %></div>
+        <div class="smallDesc"><span class="starStyle">*</span> <%= Resource.ImportContactsSmallDescription.HtmlEncode() %></div>
         <div class="clearFix importUsers" id="panel">
             <div class="frame <%= MobileDetector.IsMobile ? "framePad" : "" %>">
                 <iframe src="<%= SetupInfo.GetImportServiceUrl() %>" style="border: none; width: <%= MobileDetector.IsMobile ? "100%" : "505px" %>; height: 50px; overflow: hidden; filter: alpha(opacity=100);" frameborder="0" id="ifr"></iframe>
@@ -129,7 +128,7 @@
         <label>
             <input type="checkbox" id="importAsCollaborators" onclick="ImportUsersManager.ChangeInviteLinkType();"
             <%= EnableInviteLink ? "" : "disabled=\"disabled\" checked=\"checked\"" %> />
-            <%= CustomNamingPeople.Substitute<Resource>("InviteUsersAsCollaborators") %>
+            <%= Resource.InviteUsersAsCollaborators%>
         </label>
         <div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'answerForHelpInviteGuests',position: 'fixed'});"></div>
     </div>
@@ -144,7 +143,7 @@
             </div>
         </div>
         <a id="import-btn" class="button blue disable impBtn" onclick="ImportUsersManager.ImportList();">
-            <%=Resource.ImportContactsSaveButton %>
+            <%=Resource.ImportContactsSaveButton%>
         </a>
         <span class="splitter-buttons"></span>
         <a id="import-delete-btn" class="button gray disable buttonsImportContact cncBtn" onclick="ImportUsersManager.DeleteSelected();">
@@ -167,7 +166,7 @@
                 </div>
                 <div class="popup_helper" id="answerForHelpInviteGuests">
                     <p>
-                        <%= string.Format(CustomNamingPeople.Substitute<Resource>("NoteInviteCollaborator"), "<b>","</b>")%>
+                        <%= string.Format(Resource.NoteInviteCollaborator, "<b>","</b>")%>
                         <% if (TenantExtra.EnableTarrifSettings && TenantExtra.GetTenantQuota().ActiveUsers != LicenseReader.MaxUserCount)
                            { %>
                         <%= Resource.NotePriceCollaborator %>
@@ -220,7 +219,7 @@
                 <span class="splitter-buttons"></span>
                 <% } %>
                     <a id="import-limit-btn" class="<%= TenantExtra.EnableTarrifSettings ? "gray" : "blue" %> button" onclick="ImportUsersManager.ConfirmationLimit();">
-                        <%= CustomNamingPeople.Substitute<Resource>("AddUsersCaption") %>
+                        <%= Resource.AddUsersCaption %>
                     </a>
                     <span class="splitter-buttons"></span>
                     <a id="import-limit-cancel-btn" class="button gray" onclick="ImportUsersManager.HideImportUserLimitPanel();">
@@ -235,7 +234,7 @@
     <tr>
         <td class="fistable">
             <div class="desc">
-                <%= CustomNamingPeople.Substitute<Resource>("ImportContactsFirstable").HtmlEncode() %>
+                <%= Resource.ImportContactsFirstable.HtmlEncode() %>
             </div>
         </td>
     </tr>

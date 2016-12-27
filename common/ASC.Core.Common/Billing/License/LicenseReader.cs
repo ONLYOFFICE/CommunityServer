@@ -222,7 +222,6 @@ namespace ASC.Core.Billing
                     ControlPanel = true,
                     HealthCheck = true,
                     Ldap = true,
-                    Sso = true,
                     WhiteLabel = true,
                     Update = true,
                     Support = true,

@@ -11,7 +11,7 @@
     <%--login by email email--%>
     <div id="_AuthByEmail" class="login" runat="server">
         <input maxlength="255" class="pwdLoginTextbox" type="<%= (EnableLdap ? "text" : "email") %>"
-            placeholder="<%= EnableLdap ? Resource.RegistrationLoginWatermark : Resource.RegistrationEmailWatermark %>" id="login" name="login"
+            placeholder="<%= Resource.RegistrationEmailWatermark %>" id="login" name="login"
             <%= String.IsNullOrEmpty(Login)
                 ? ""
                 : ("value=\"" + Login.HtmlEncode() + "\"") %> />

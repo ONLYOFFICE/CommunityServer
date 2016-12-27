@@ -25,16 +25,16 @@
 
 
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Linq;
+using System.Threading;
 
 namespace ASC.Xmpp.Server.Gateway
 {
     public abstract class XmppListenerBase : IXmppListener
     {
-        private readonly object locker = new object();
-        private readonly ConcurrentDictionary<string, IXmppConnection> connections = new ConcurrentDictionary<string, IXmppConnection>();
+        private readonly IDictionary<string, IXmppConnection> connections = new Dictionary<string, IXmppConnection>();
+
+        private readonly ReaderWriterLockSlim locker = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
 
         protected bool Started
         {
@@ -50,80 +50,127 @@ namespace ASC.Xmpp.Server.Gateway
 
         public void Start()
         {
-            lock (locker)
+            try
             {
-                if (!Started)
-                {
-                    Started = true;
-                    DoStart();
-                }
+                locker.EnterWriteLock();
+                if (Started) return;
+                connections.Clear();
+                Started = true;
+                DoStart();
+            }
+            finally
+            {
+                locker.ExitWriteLock();
             }
         }
 
         public void Stop()
         {
-            lock (locker)
+            try
             {
-                connections.Values
-                    .ToList()
-                    .ForEach(c => c.Close());
-                connections.Clear();
-
-                if (Started)
+                locker.EnterWriteLock();
+                if (!Started) return;
+                Started = false;
+                DoStop();
+                var keys = new string[connections.Keys.Count];
+                connections.Keys.CopyTo(keys, 0);
+                foreach (var key in keys)
                 {
-                    Started = false;
-                    DoStop();
+                    if (connections.ContainsKey(key)) connections[key].Close();
                 }
+                connections.Clear();
+            }
+            finally
+            {
+                locker.ExitWriteLock();
             }
         }
 
         public IXmppConnection GetXmppConnection(string connectionId)
         {
-            if (string.IsNullOrEmpty(connectionId))
+            if (string.IsNullOrEmpty(connectionId)) return null;
+            try
             {
-                return null;
+                locker.EnterReadLock();
+                return connections.ContainsKey(connectionId) ? connections[connectionId] : null;
             }
-            IXmppConnection conn;
-            connections.TryGetValue(connectionId, out conn);
-            return conn;
+            finally
+            {
+                locker.ExitReadLock();
+            }
         }
 
-        public event EventHandler<XmppConnectionOpenEventArgs> OpenXmppConnection = delegate { };
+        public void RemoveXmppXonnections()
+        {
+            connections.Clear();
+        }
+
+        public event EventHandler<XmppConnectionOpenEventArgs> OpenXmppConnection;
 
         protected void AddNewXmppConnection(IXmppConnection xmppConnection)
         {
-            if (xmppConnection == null)
+            if (xmppConnection == null) throw new ArgumentNullException("xmppConnection");
+
+            try
             {
-                throw new ArgumentNullException("xmppConnection");
+                locker.EnterWriteLock();
+                connections.Add(xmppConnection.Id, xmppConnection);
+                xmppConnection.Closed += XmppConnectionClosed;
+            }
+            finally
+            {
+                locker.ExitWriteLock();
             }
 
-            connections.TryAdd(xmppConnection.Id, xmppConnection);
-            xmppConnection.Closed += XmppConnectionClosed;
+            var handler = OpenXmppConnection;
+            if (handler != null) handler(this, new XmppConnectionOpenEventArgs(xmppConnection));
 
-            OpenXmppConnection(this, new XmppConnectionOpenEventArgs(xmppConnection));
             xmppConnection.BeginReceive();
         }
 
         protected void CloseXmppConnection(string connectionId)
         {
-            IXmppConnection conn;
-            if (connections.TryRemove(connectionId, out conn))
+            try
             {
-                conn.Closed -= XmppConnectionClosed;
+                locker.EnterWriteLock();
+
+                var connection = GetXmppConnection(connectionId);
+                if (connection != null)
+                {
+                    connection.Closed -= XmppConnectionClosed;
+                    connections.Remove(connectionId);
+                }
+            }
+            finally
+            {
+                locker.ExitWriteLock();
             }
         }
 
         private void XmppConnectionClosed(object sender, XmppConnectionCloseEventArgs e)
         {
-            var connection = (IXmppConnection)sender;
-            if (connection != null)
+            try
             {
-                connection.Closed -= XmppConnectionClosed;
-                connections.TryRemove(connection.Id, out connection);
+                locker.EnterWriteLock();
+
+                var connection = (IXmppConnection)sender;
+                if (connection != null)
+                {
+                    connection.Closed -= XmppConnectionClosed;
+                    connections.Remove(connection.Id);
+                }
+            }
+            finally
+            {
+                locker.ExitWriteLock();
             }
         }
 
+        #region IConfigurable Members
+
         public abstract void Configure(IDictionary<string, string> properties);
+
+        #endregion
 
         protected abstract void DoStart();
 

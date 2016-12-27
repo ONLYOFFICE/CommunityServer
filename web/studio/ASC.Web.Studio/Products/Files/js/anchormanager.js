@@ -177,16 +177,14 @@ window.ASC.Files.Anchor = (function () {
             location.reload(true);
             return;
         }
-        if (ASC.Files.Tree) {
-            if (!ASC.Files.Tree.folderIdCurrentRoot) {
-                if (!ASC.Files.Constants.FOLDER_ID_MY_FILES) {
-                    ASC.Files.Anchor.navigationSet(ASC.Files.Constants.FOLDER_ID_COMMON_FILES);
-                } else if (ASC.Files.Folders.currentFolder.id != ASC.Files.Constants.FOLDER_ID_MY_FILES || ASC.Files.UI.isSettingsPanel()) {
-                    ASC.Files.Anchor.navigationSet(ASC.Files.Constants.FOLDER_ID_MY_FILES);
-                }
-            } else if (ASC.Files.Folders.currentFolder.id != ASC.Files.Tree.folderIdCurrentRoot) {
-                ASC.Files.Anchor.navigationSet(ASC.Files.Tree.folderIdCurrentRoot);
+        if (!ASC.Files.Tree.folderIdCurrentRoot) {
+            if (!ASC.Files.Constants.FOLDER_ID_MY_FILES) {
+                ASC.Files.Anchor.navigationSet(ASC.Files.Constants.FOLDER_ID_COMMON_FILES);
+            } else if (ASC.Files.Folders.currentFolder.id != ASC.Files.Constants.FOLDER_ID_MY_FILES || ASC.Files.UI.isSettingsPanel()) {
+                ASC.Files.Anchor.navigationSet(ASC.Files.Constants.FOLDER_ID_MY_FILES);
             }
+        } else if (ASC.Files.Folders.currentFolder.id != ASC.Files.Tree.folderIdCurrentRoot) {
+            ASC.Files.Anchor.navigationSet(ASC.Files.Tree.folderIdCurrentRoot);
         }
     };
 
@@ -201,8 +199,6 @@ window.ASC.Files.Anchor = (function () {
 
 (function ($) {
     $(function () {
-        if (window.parent == window) {
-            ASC.Files.Anchor.init();
-        }
+        ASC.Files.Anchor.init();
     });
 })(jQuery);

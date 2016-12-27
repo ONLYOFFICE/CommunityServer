@@ -28,7 +28,7 @@
     <br />
     <%= String.Format(Resource.TariffPortalStatistics,
                       (TenantExtra.EnableControlPanel
-                           ? "<a class=\"link-black-14 bold\" href=\"" + SetupInfo.ControlPanelUrl.TrimEnd('/') + "/multiportals" + "\" target=\"_blank\">" + TenantCount + "</a>"
+                           ? "<a class=\"link-black-14 bold\" href=\"" + SetupInfo.ControlPanelUrl + "multiportals" + "\" target=\"_blank\">" + TenantCount + "</a>"
                            : "<span class=\"bold\">" + TenantCount + "</span>")
                       + "/" + CurrentQuota.CountPortals) %>
     <% } %>

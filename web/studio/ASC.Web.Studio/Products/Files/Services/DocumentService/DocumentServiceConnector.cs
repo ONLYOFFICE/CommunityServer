@@ -131,15 +131,13 @@ namespace ASC.Web.Files.Services.DocumentService
             Global.Logger.DebugFormat("DocService command {0} fileId '{1}' docKey '{2}' callbackUrl '{3}' users '{4}' status '{5}'", method, fileId, docKeyForTrack, callbackUrl, users, status);
             try
             {
-                string version;
                 var result = GetDocumentService().CommandRequest(
                     FilesLinkUtility.DocServiceCommandUrl,
                     method,
                     GenerateRevisionId(docKeyForTrack),
                     callbackUrl,
                     users,
-                    status,
-                    out version);
+                    status);
 
                 if (result == Web.Core.Files.DocumentService.CommandResultTypes.NoError)
                 {
@@ -153,35 +151,6 @@ namespace ASC.Web.Files.Services.DocumentService
                 Global.Logger.Error("DocService command error", e);
             }
             return false;
-        }
-
-        public static string GetVersion()
-        {
-            Global.Logger.DebugFormat("DocService request version"); 
-            try
-            {
-                string version;
-                var result = GetDocumentService().CommandRequest(
-                    FilesLinkUtility.DocServiceCommandUrl,
-                    CommandMethod.Version,
-                    GenerateRevisionId(null),
-                    null,
-                    null,
-                    null,
-                    out version);
-
-                if (result == Web.Core.Files.DocumentService.CommandResultTypes.NoError)
-                {
-                    return version;
-                }
-
-                Global.Logger.ErrorFormat("DocService command response: '{0}'", result);
-            }
-            catch (Exception e)
-            {
-                Global.Logger.Error("DocService command error", e);
-            }
-            return "4.1.5.1";
         }
 
         public static bool CheckDocServiceUrl(string docServiceUrlCommand, string docServiceUrlStorage, string docServiceUrlConverter, string docServiceUrlPortal)
@@ -239,8 +208,7 @@ namespace ASC.Web.Files.Services.DocumentService
 
             try
             {
-                string version;
-                var response = documentService.CommandRequest(docServiceUrlCommand, CommandMethod.Version, key, null, null, null, out version);
+                var response = documentService.CommandRequest(docServiceUrlCommand, CommandMethod.Test, key, null, null, null);
 
                 return response == Web.Core.Files.DocumentService.CommandResultTypes.NoError
                        || response == Web.Core.Files.DocumentService.CommandResultTypes.CommandError;

@@ -26,6 +26,7 @@
 
 using ASC.Xmpp.Core.utils.Xml;
 using ASC.Xmpp.Core.utils.Xml.Dom;
+using ASC.Xmpp.Server.Statistics;
 using ASC.Xmpp.Server.Utils;
 using log4net;
 using System;
@@ -199,9 +200,8 @@ namespace ASC.Xmpp.Server.Gateway
                 if (0 < readed)
                 {
                     streamParser.Push(buffer, 0, readed);
-
                     BeginReceive();
-
+                    NetStatistics.ReadBytes(readed);
                     packetSize += readed;
                     if (packetSize > maxPacket)
                     {
@@ -242,6 +242,7 @@ namespace ASC.Xmpp.Server.Gateway
                 {
                     if (sendingQueue.TryDequeue(out item))
                     {
+                        NetStatistics.WriteBytes(item.Item1.Length);
                         stream.BeginWrite(item.Item1, 0, item.Item1.Length, WriteCallback, stream);
                     }
                     else

@@ -120,64 +120,11 @@ namespace ASC.Mail.Aggregator.Common.Extension
             return mimeMessage;
         }
 
-        private static MimePart ConvertToMimePart(MailAttachment attachment, string contentId = null)
-        {
-            var contentType = ContentType.Parse(
-                !string.IsNullOrEmpty(attachment.contentType)
-                    ? attachment.contentType
-                    : MimeMapping.GetMimeMapping(attachment.fileName));
-
-            var mimePart = new MimePart(contentType)
-            {
-                ContentTransferEncoding = ContentEncoding.Base64,
-                FileName = attachment.fileName
-            };
-
-            if (string.IsNullOrEmpty(contentId))
-            {
-                mimePart.ContentDisposition = new ContentDisposition(ContentDisposition.Attachment);
-            }
-            else
-            {
-                mimePart.ContentDisposition = new ContentDisposition();
-                mimePart.ContentId = contentId;
-            }
-
-            MemoryStream ms;
-
-            if (attachment.data == null)
-            {
-                var s3Key = MailStoragePathCombiner.GerStoredFilePath(attachment);
-
-                ms = new MemoryStream();
-
-                using (var stream = StorageManager
-                    .GetDataStoreForAttachments(attachment.tenant)
-                    .GetReadStream(s3Key))
-                {
-                    stream.StreamCopyTo(ms);
-                }
-            }
-            else
-            {
-                ms = new MemoryStream(attachment.data);
-            }
-
-            mimePart.ContentObject = new ContentObject(ms);
-
-            Parameter param;
-
-            if (mimePart.ContentDisposition.Parameters.TryGetValue("filename", out param))
-                param.EncodingMethod = ParameterEncodingMethod.Rfc2047;
-
-            if (mimePart.ContentType.Parameters.TryGetValue("name", out param))
-                param.EncodingMethod = ParameterEncodingMethod.Rfc2047;
-
-            return mimePart;
-        }
-
         private static MimeEntity ToMimeMessageBody(MailDraft draft)
         {
+            var linkedResources = new AttachmentCollection(true);
+            var attachments = new AttachmentCollection();
+
             string textBody;
             MailUtil.TryExtractTextFromHtml(draft.HtmlBody, out textBody);
 
@@ -220,7 +167,31 @@ namespace ASC.Mail.Aggregator.Common.Extension
 
                     foreach (var emb in draft.AttachmentsEmbedded)
                     {
-                        var linkedResource = ConvertToMimePart(emb, emb.contentId);
+                        MimeEntity linkedResource;
+
+                        if (emb.data == null)
+                        {
+                            var s3Key = MailStoragePathCombiner.GerStoredFilePath(emb);
+
+                            var contentType =
+                                ContentType.Parse(string.IsNullOrEmpty(emb.contentType)
+                                    ? MimeMapping.GetMimeMapping(emb.fileName)
+                                    : emb.contentType);
+
+                            using (var stream = StorageManager
+                                .GetDataStoreForAttachments(emb.tenant)
+                                .GetReadStream(s3Key))
+                            {
+                                linkedResource = linkedResources.Add(emb.fileName, stream, contentType);
+                            }
+                        }
+                        else
+                        {
+                            linkedResource = linkedResources.Add(emb.fileName, emb.data);
+                        }
+
+                        linkedResource.ContentId = emb.contentId;
+
                         multipartRelated.Add(linkedResource);
                     }
 
@@ -261,8 +232,25 @@ namespace ASC.Mail.Aggregator.Common.Extension
 
                 foreach (var att in draft.Attachments)
                 {
-                    var attachment = ConvertToMimePart(att);
-                    multipart.Add(attachment);
+                    MimeEntity attachmentResource;
+
+                    if (att.data == null)
+                    {
+                        var s3Key = MailStoragePathCombiner.GerStoredFilePath(att);
+
+                        using (var stream = StorageManager
+                            .GetDataStoreForAttachments(att.tenant)
+                            .GetReadStream(s3Key))
+                        {
+                            attachmentResource = attachments.Add(att.fileName, stream);
+                        }
+                    }
+                    else
+                    {
+                        attachmentResource = attachments.Add(att.fileName, att.data);
+                    }
+
+                    multipart.Add(attachmentResource);
                 }
 
                 if (!string.IsNullOrEmpty(draft.CalendarIcs))
@@ -285,19 +273,9 @@ namespace ASC.Mail.Aggregator.Common.Extension
                     contentType.Parameters.Add("method", draft.CalendarMethod);
                     contentType.Parameters.Add("name", filename);
 
-                    var calendarResource = new MimePart(contentType)
-                    {
-                        ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
-                        ContentTransferEncoding = ContentEncoding.Base64,
-                        FileName = filename
-                    };
-
                     var data = Encoding.UTF8.GetBytes(draft.CalendarIcs);
 
-                    var ms = new MemoryStream(data);
-
-                    calendarResource.ContentObject = new ContentObject(ms);
-
+                    var calendarResource = attachments.Add(filename, data, contentType);
                     multipart.Add(calendarResource);
                 }
 

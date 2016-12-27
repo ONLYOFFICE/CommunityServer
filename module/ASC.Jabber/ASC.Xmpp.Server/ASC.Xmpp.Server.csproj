@@ -63,7 +63,7 @@
       <Aliases>MonoAlias</Aliases>
     </Reference>
     <Reference Include="Novell.Directory.LDAP">
-      <HintPath>..\..\..\packages\Novell.Directory.LDAP.2.2.3.0\lib\net45\Novell.Directory.LDAP.dll</HintPath>
+      <HintPath>..\..\..\packages\Novell.Directory.LDAP.2.2.2.0\lib\net45\Novell.Directory.LDAP.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
@@ -95,7 +95,6 @@
     <Compile Include="Configuration\Schema.cs" />
     <Compile Include="Configuration\ServiceConfigurationCollection.cs" />
     <Compile Include="Configuration\ServiceConfigurationElement.cs" />
-    <Compile Include="Gateway\BoshXmppRequest.cs" />
     <Compile Include="Gateway\SignalRXmppConnection.cs" />
     <Compile Include="Gateway\SignalRXmppListener.cs" />
     <Compile Include="Gateway\TcpSslXmppConnection.cs" />
@@ -120,6 +119,7 @@
     <Compile Include="Services\VCardSearch\VCardSearchService.cs" />
     <Compile Include="Session\ClientInfo.cs" />
     <Compile Include="SignalRHelper.cs" />
+    <Compile Include="Statistics\NetStatistics.cs" />
     <Compile Include="Storage\DbLdapSettingsStore.cs" />
     <Compile Include="Storage\DbMessageArchive.cs" />
     <Compile Include="Storage\LastActivity.cs" />
@@ -238,6 +238,9 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="crossdomain.xml" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\common\ASC.Common\ASC.Common.csproj">

@@ -40,7 +40,6 @@ using ASC.Web.Core.Utility.Skins;
 using ASC.Web.Studio.Controls.Users;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
-using ASC.Web.Studio.Core.Users;
 using ASC.Web.Studio.Utility;
 
 using Resources;
@@ -258,13 +257,13 @@ namespace ASC.Web.Studio.UserControls.Management
                         DisabledIconUrl = p.GetDisabledIconAbsoluteURL(),
                         SubItems = new List<Item>(),
                         ItemName = p.GetSysName().HtmlEncode(),
-                        UserOpportunitiesLabel = String.Format(CustomNamingPeople.Substitute<Resource>("AccessRightsProductUsersCan"), p.Name).HtmlEncode(),
+                        UserOpportunitiesLabel = String.Format(Resource.AccessRightsProductUsersCan, p.Name).HtmlEncode(),
                         UserOpportunities = userOpportunities != null ? userOpportunities.ConvertAll(uo => uo.HtmlEncode()) : null,
                         CanNotBeDisabled = p.CanNotBeDisabled()
                     };
 
                 if (p.HasComplexHierarchyOfAccessRights())
-                    item.UserOpportunitiesLabel = String.Format(CustomNamingPeople.Substitute<Resource>("AccessRightsProductUsersWithRightsCan"), item.Name).HtmlEncode();
+                    item.UserOpportunitiesLabel = String.Format(Resource.AccessRightsProductUsersWithRightsCan, item.Name).HtmlEncode();
 
                 var productInfo = WebItemSecurity.GetSecurityInfo(item.ID.ToString());
                 item.Disabled = !productInfo.Enabled;

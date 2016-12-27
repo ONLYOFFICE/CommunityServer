@@ -67,7 +67,6 @@ namespace ASC.Mail.Aggregator.Common
         public bool SslCertificateErrorsPermit { get; set; }
         public int TcpTimeout { get; set; }
         public string ProtocolLogPath { get; set; }
-        public bool CollectStatistics { get; set; }
 
         public static readonly TasksConfig Default = new TasksConfig
         {
@@ -98,8 +97,7 @@ namespace ASC.Mail.Aggregator.Common
             TaskLifetime = TimeSpan.FromSeconds(300),
             SslCertificateErrorsPermit = false,
             TcpTimeout = 30000,
-            ProtocolLogPath = "",
-            CollectStatistics = true
+            ProtocolLogPath = ""
         };
 
         public static TasksConfig FromConfig
@@ -274,11 +272,6 @@ namespace ASC.Mail.Aggregator.Common
                 if (ConfigurationManager.AppSettings["mail.protocol-log-path"] != null)
                 {
                     config.ProtocolLogPath = ConfigurationManager.AppSettings["mail.protocol-log-path"] ?? "";
-                }
-
-                if (ConfigurationManager.AppSettings["mail.collect-statistics"] != null)
-                {
-                    config.CollectStatistics = Convert.ToBoolean(ConfigurationManager.AppSettings["mail.collect-statistics"] ?? "true");
                 }
 
                 return config;

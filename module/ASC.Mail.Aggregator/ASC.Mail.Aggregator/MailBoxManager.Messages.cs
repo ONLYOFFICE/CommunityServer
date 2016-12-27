@@ -496,7 +496,7 @@ namespace ASC.Mail.Aggregator
                 message.Attachments.ForEach(attachment => StoreAttachmentCopy(draft.Mailbox.TenantId, draft.Mailbox.UserId, attachment, draft.StreamId));
             }
 
-            StoreMailBody(draft.Mailbox, message);
+            StoreMailBody(draft.Mailbox.TenantId, draft.Mailbox.UserId, message);
 
             long usedQuota;
 
@@ -745,7 +745,7 @@ namespace ASC.Mail.Aggregator
         }
 
         public bool SearchExistingMessagesAndUpdateIfNeeded(MailBox mailbox, int folderId, string uidl, string md5,
-            string mimeMessageId, bool fromThisMailBox, bool toThisMailBox, List<int> tagsIds = null)
+            string mimeMessageId, bool fromThisMailBox, bool toThisMailBox, int[] tagsIds = null)
         {
             var messagesInfo = GetInfoOnExistingMessages(
                 mailbox.MailBoxId, md5, mimeMessageId, new[]
@@ -796,6 +796,7 @@ namespace ASC.Mail.Aggregator
             {
                 if (!fromThisMailBox && toThisMailBox && messagesInfo.Count == 1)
                 {
+                    
                     _log.Info("Message already exists: mailId={0}. Outbox clone", messagesInfo.First().id);
                     return true;
                 }
@@ -816,15 +817,6 @@ namespace ASC.Mail.Aggregator
 
                     return true;
                 }
-            }
-
-            if (folderId == MailFolder.Ids.spam)
-            {
-                var first = messagesInfo.First();
-
-                _log.Info("Message already exists: mailId={0}. It was moved to spam on server", first.id);
-
-                return true;
             }
 
             var fullClone = messagesInfo.FirstOrDefault(m => m.folder_orig == folderId && m.uidl == uidl);
@@ -1869,7 +1861,7 @@ namespace ASC.Mail.Aggregator
                             storage = new StorageManager(draft.Mailbox.TenantId, draft.Mailbox.UserId);
                         }
 
-                        storage.StoreAttachmentWithoutQuota(attach);
+                        storage.StoreAttachmentWithoutQuota(draft.Mailbox.TenantId, draft.Mailbox.UserId, attach);
 
                         embededAttachmentsForSaving.Add(attach);
                     }

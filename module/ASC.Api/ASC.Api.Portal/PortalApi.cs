@@ -89,6 +89,7 @@ namespace ASC.Api.Portal
         ///<short>
         ///Current portal
         ///</short>
+        /// <category>Portal info</category>
         ///<returns>Portal</returns>
         [Read("")]
         public Tenant Get()
@@ -102,7 +103,7 @@ namespace ASC.Api.Portal
         ///<short>
         ///User with specified userID
         ///</short>
-        /// <category>Users</category>
+        /// <category>Portal info</category>
         ///<returns>User</returns>
         [Read("users/{userID}")]
         public UserInfo GetUser(Guid userID)
@@ -120,7 +121,9 @@ namespace ASC.Api.Portal
         /// <param name="employeeType">
         ///  User or Visitor
         /// </param>
-        ///<category>Users</category>
+        ///<category>
+        /// Portal info
+        ///</category>
         ///<returns>
         /// Invite link
         ///</returns>
@@ -150,7 +153,7 @@ namespace ASC.Api.Portal
         ///<short>
         ///Used space of the current portal
         ///</short>
-        /// <category>Quota</category>
+        /// <category>Portal info</category>
         ///<returns>Used space</returns>
         [Read("usedspace")]
         public double GetUsedSpace()
@@ -167,7 +170,7 @@ namespace ASC.Api.Portal
         ///<short>
         ///Users count of the current portal
         ///</short>
-        /// <category>Users</category>
+        /// <category>Portal info</category>
         ///<returns>Users count</returns>
         [Read("userscount")]
         public long GetUsersCount()
@@ -181,7 +184,7 @@ namespace ASC.Api.Portal
         ///<short>
         ///Tariff of the current portal
         ///</short>
-        /// <category>Quota</category>
+        /// <category>Portal info</category>
         ///<returns>Tariff</returns>
         [Read("tariff")]
         public Tariff GetTariff()
@@ -195,7 +198,7 @@ namespace ASC.Api.Portal
         ///<short>
         ///Quota of the current portal
         ///</short>
-        /// <category>Quota</category>
+        /// <category>Portal info</category>
         ///<returns>Quota</returns>
         [Read("quota")]
         public TenantQuota GetQuota()
@@ -209,7 +212,7 @@ namespace ASC.Api.Portal
         ///<short>
         ///Quota of the current portal
         ///</short>
-        /// <category>Quota</category>
+        /// <category>Portal info</category>
         ///<returns>Quota</returns>
         [Read("quota/right")]
         public TenantQuota GetRightQuota()
@@ -230,6 +233,7 @@ namespace ASC.Api.Portal
         ///<short>
         ///path
         ///</short>
+        ///<category>Portal info</category>
         ///<returns>path</returns>
         ///<visible>false</visible>
         [Read("path")]
@@ -253,7 +257,6 @@ namespace ASC.Api.Portal
             return 0;
         }
 
-        ///<visible>false</visible>
         [Create("mobile/registration")]
         public void RegisterMobileAppInstall(MobileAppType type)
         {
@@ -265,7 +268,6 @@ namespace ASC.Api.Portal
         /// <summary>
         /// Returns the backup schedule of the current portal
         /// </summary>
-        /// <category>Backup</category>
         /// <returns>Backup Schedule</returns>
         [Read("getbackupschedule")]
         public BackupAjaxHandler.Schedule GetBackupSchedule()
@@ -281,7 +283,6 @@ namespace ASC.Api.Portal
         /// <param name="backupsStored">Max of the backup's stored copies</param>
         /// <param name="cronParams">Cron parameters</param>
         /// <param name="backupMail">Include mail in the backup</param>
-        /// <category>Backup</category>
         [Create("createbackupschedule")]
         public void CreateBackupSchedule(BackupStorageType storageType, BackupAjaxHandler.StorageParams storageParams, int backupsStored, BackupAjaxHandler.CronParams cronParams, bool backupMail)
         {
@@ -291,7 +292,6 @@ namespace ASC.Api.Portal
         /// <summary>
         /// Delete the backup schedule of the current portal
         /// </summary>
-        /// <category>Backup</category>
         [Delete("deletebackupschedule")]
         public void DeleteBackupSchedule()
         {
@@ -304,7 +304,6 @@ namespace ASC.Api.Portal
         /// <param name="storageType">Storage Type</param>
         /// <param name="storageParams">Storage Params</param>
         /// <param name="backupMail">Include mail in the backup</param>
-        /// <category>Backup</category>
         /// <returns>Backup Progress</returns>
         [Create("startbackup")]
         public BackupProgress StartBackup(BackupStorageType storageType, BackupAjaxHandler.StorageParams storageParams, bool backupMail)
@@ -315,7 +314,6 @@ namespace ASC.Api.Portal
         /// <summary>
         /// Returns the progress of the started backup
         /// </summary>
-        /// <category>Backup</category>
         /// <returns>Backup Progress</returns>
         [Read("getbackupprogress")]
         public BackupProgress GetBackupProgress()
@@ -326,7 +324,6 @@ namespace ASC.Api.Portal
         /// <summary>
         /// Returns the backup history of the started backup
         /// </summary>
-        /// <category>Backup</category>
         /// <returns>Backup History</returns>
         [Read("getbackuphistory")]
         public List<BackupHistoryRecord> GetBackupHistory()
@@ -337,7 +334,6 @@ namespace ASC.Api.Portal
         /// <summary>
         /// Delete the backup with the specified id
         /// </summary>
-        /// <category>Backup</category>
         [Delete("deletebackup/{id}")]
         public void DeleteBackup(Guid id)
         {
@@ -347,7 +343,6 @@ namespace ASC.Api.Portal
         /// <summary>
         /// Delete all backups of the current portal
         /// </summary>
-        /// <category>Backup</category>
         /// <returns>Backup History</returns>
         [Delete("deletebackuphistory")]
         public void DeleteBackupHistory()
@@ -362,7 +357,6 @@ namespace ASC.Api.Portal
         /// <param name="storageType">Storage Type</param>
         /// <param name="storageParams">Storage Params</param>
         /// <param name="notify">Notify about backup to users</param>
-        /// <category>Backup</category>
         /// <returns>Restore Progress</returns>
         [Create("startrestore")]
         public BackupProgress StartBackupRestore(string backupId, BackupStorageType storageType, BackupAjaxHandler.StorageParams storageParams, bool notify)
@@ -373,7 +367,6 @@ namespace ASC.Api.Portal
         /// <summary>
         /// Returns the progress of the started restore
         /// </summary>
-        /// <category>Backup</category>
         /// <returns>Restore Progress</returns>
         [Read("getrestoreprogress")]
         public BackupProgress GetRestoreProgress()

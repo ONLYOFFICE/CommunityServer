@@ -742,8 +742,6 @@ if (typeof ASC.Mail.Utility === "undefined") {
 
                 function parseAndAppend(s) {
                     s = obj2Contact(contact2Obj(s));
-                    if (!s)
-                        return;
                     var parsed = emailAddresses.parseOneAddress(s);
                     if (parsed) {
                         var isValid = true;
@@ -1761,49 +1759,12 @@ if (typeof ASC.Mail.Sanitizer === "undefined") {
             return needChangeStyle ? cleanStyle : styles.cssText;
         }
 
-        /**
-         * detect IE
-         * returns version of IE or false, if browser is not Internet Explorer
-         */
-        function detectIE() {
-            var ua = window.navigator.userAgent;
-
-            // Test values; Uncomment to check result …
-
-            // IE 10
-            // ua = 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)';
-
-            // IE 11
-            // ua = 'Mozilla/5.0 (Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko';
-
-            // Edge 12 (Spartan)
-            // ua = 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.71 Safari/537.36 Edge/12.0';
-
-            // Edge 13
-            // ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/46.0.2486.0 Safari/537.36 Edge/13.10586';
-
-            var msie = ua.indexOf('MSIE ');
-            if (msie > 0) {
-                // IE 10 or older => return version number
-                return parseInt(ua.substring(msie + 5, ua.indexOf('.', msie)), 10);
-            }
-
-            var trident = ua.indexOf('Trident/');
-            if (trident > 0) {
-                // IE 11 => return version number
-                var rv = ua.indexOf('rv:');
-                return parseInt(ua.substring(rv + 3, ua.indexOf('.', rv)), 10);
-            }
-
-            var edge = ua.indexOf('Edge/');
-            if (edge > 0) {
-                // Edge (IE 12+) => return version number
-                return parseInt(ua.substring(edge + 5, ua.indexOf('.', edge)), 10);
-            }
-
-            // other browser
-            return false;
-        }
+        var COMMENT_PSEUDO_COMMENT_OR_LT_BANG = new RegExp(
+            '<!--[\\s\\S]*?(?:-->)?' +
+            '<!---+>?' + // A comment with no body
+            '|<!(?![dD][oO][cC][tT][yY][pP][eE]|\\[CDATA\\[)[^>]*>?' +
+            '|<[?][^>]*>?', // A pseudo-comment
+            'g');
 
         function sanitize(html, options) {
             checkOptions(options);
@@ -1826,8 +1787,7 @@ if (typeof ASC.Mail.Sanitizer === "undefined") {
             }
             iframe["sandbox"] = "allow-same-origin";
             iframe.style.display = "none";
-            if (!detectIE())
-                iframe.src = "data:text/html;base64,PHNwYW4+ZmFrZSBodG1sPC9zcGFuPg==";
+            iframe.src = "data:text/html;base64,PHNwYW4+ZmFrZSBodG1sPC9zcGFuPg==";
             document.body.appendChild(iframe); // necessary so the iframe contains a document
 
             function insertHtmlToSandbox(htmlStr) {
@@ -1838,14 +1798,39 @@ if (typeof ASC.Mail.Sanitizer === "undefined") {
 
             try {
                 var temp = html
+                    .replace(/<\/?script\b.*?>/g, "")
                     .replace(/<\/?link\b.*?>/g, "")
-                    .replace(/ on\w+=".*?"/g, "");
-
+                    .replace(/ on\w+=".*?"/g, "")
+                    .replace(COMMENT_PSEUDO_COMMENT_OR_LT_BANG, "");
                 insertHtmlToSandbox(temp);
 
             } catch (e) {
                 insertHtmlToSandbox(html);
             } 
+
+            var styleSheets = iframe.contentDocument.styleSheets;
+            if (styleSheets.length > 0) {
+                for (var i = 0, n = styleSheets.length; i < n; i++) {
+                    var rules = styleSheets[i].cssRules || [];
+                    for (var j = 0, m = rules.length; j < m; j++) {
+                        if (rules[j].hasOwnProperty("media"))
+                            continue; // Skips media queries
+                        var ruleSelector = "";
+                        try {
+                            ruleSelector = rules[j].selectorText;
+                            if (!ruleSelector)
+                                continue;
+
+                            var collection = iframe.contentDocument.querySelectorAll(ruleSelector);
+                            for (var k = 0, l = collection.length; k < l; k++) {
+                                collection[k].style.cssText += rules[j].style.cssText;
+                            }
+                        } catch (ex) {
+                            console.error("Failed rewrite style's rule (%s): ", ruleSelector, ex);
+                        }
+                    }
+                }
+            }
 
             function makeSanitizedCopy(node) {
                 var newNode;
@@ -1855,6 +1840,8 @@ if (typeof ASC.Mail.Sanitizer === "undefined") {
                     break;
                 case Node.ELEMENT_NODE:
                     var tagName = node.tagName.toUpperCase();
+                    if (tagName.indexOf("O:") === 0) // fix MS tags
+                        tagName = tagName.replace("O:", "");
 
                     if (!tagWhitelist[tagName]) {
                         newNode = document.createDocumentFragment();

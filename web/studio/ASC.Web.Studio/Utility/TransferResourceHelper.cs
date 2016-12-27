@@ -24,6 +24,7 @@
 */
 
 
+using System;
 namespace ASC.Web.Studio.Utility
 {
     public static class TransferResourceHelper
@@ -32,15 +33,28 @@ namespace ASC.Web.Studio.Utility
         {
             region = region.ToLower().Trim();
 
+            var result = String.Empty;
+
             switch (region)
             {
-                case "eu": return Resources.Resource.EuServerRegion;
-                case "us": return Resources.Resource.UsServerRegion;
-                case "sg": return Resources.Resource.SgServerRegion;
-                case "org": return Resources.Resource.OrgServerRegion;
+                case "eu":
+                    result = Resources.Resource.EuServerRegion;
+                    break;
+                case "us":
+                    result = Resources.Resource.UsServerRegion;
+                    break;
+                case "sg":
+                    result = Resources.Resource.SgServerRegion;
+                    break;
+                case "org":
+                    result = Resources.Resource.OrgServerRegion;
+                    break;
+                default:
+                    break;
+
             }
 
-            return string.Empty;
+            return result;
         }
     }
 }

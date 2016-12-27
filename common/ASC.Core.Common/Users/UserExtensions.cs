@@ -56,12 +56,5 @@ namespace ASC.Core.Users
         {
             return IsVisitor(ui) && ui.ID == Constants.OutsideUser.ID;
         }
-
-        public static bool IsLDAP(this UserInfo ui)
-        {
-            if (ui == null) return false;
-
-            return !string.IsNullOrEmpty(ui.Sid);
-        }
     }
 }

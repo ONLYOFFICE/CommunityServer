@@ -105,15 +105,11 @@
                             
                             <% if (Actions.AllowEdit && UserInfo.Status != EmployeeStatus.Terminated && UserInfo.ActivationStatus == EmployeeActivationStatus.Activated)
                                { %>
-                            
-                            <% if (!UserInfo.IsLDAP())
-                               { %>
                             <div class="field">
                                 <span class="field-title describe-text"><%= Resource.Password %>:</span>
                                 <span id="passwordUserProfile" class="field-value">********</span>
                                 <a onclick="PasswordTool.ShowPwdReminderDialog('1','<%= UserInfo.Email %>'); return false;" class="baseLinkAction">&nbsp;</a>
-                            </div> 
-                            <% } %>
+                            </div>
                             <% if (UserInfo.IsMe())
                                { %>
                             <asp:PlaceHolder ID="_phLanguage" runat="server"></asp:PlaceHolder>

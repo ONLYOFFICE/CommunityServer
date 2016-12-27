@@ -43,17 +43,9 @@ install_db(){
 		MYSQL="$MYSQL -p$DB_PWD"
 	fi
 
-	sed "s/#max_connections.*/max_connections = 1000/" -i /etc/mysql/my.cnf || true # ignore errors
-	
-	if [ -e /etc/mysql/mysql.conf.d/mysqld.cnf ]; then 
-	    sed "s/#max_connections.*/max_connections = 1000/" -i /etc/mysql/mysql.conf.d/mysqld.cnf || true # new config mysql 5.7 ignore errors
-		echo "sql_mode = 'NO_ENGINE_SUBSTITUTION'" >> /etc/mysql/mysql.conf.d/mysqld.cnf # disable new STRICT mode in mysql 5.7
-		service mysql restart
-	fi
-	
 	# test mysql connection
 	$MYSQL -e ";" &>/dev/null || ( service mysql start &>/dev/null && $MYSQL -e ";" >/dev/null )
-	
+
 	$MYSQL -e "CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8 COLLATE 'utf8_general_ci';"
 
 	DB_TABLES_COUNT=$($MYSQL --silent --skip-column-names -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='${DB_NAME}'");
@@ -70,7 +62,12 @@ install_db(){
         $MYSQL "$DB_NAME" < ${i};
 	done
 
+	sed "s/#max_connections.*/max_connections = 1000/" -i /etc/mysql/my.cnf || true # ignore errors
 	
+	if [ -e /etc/mysql/mysql.conf.d/mysqld.cnf ]; then 
+	    sed "s/#max_connections.*/max_connections = 1000/" -i /etc/mysql/mysql.conf.d/mysqld.cnf || true # new config mysql 5.7 ignore errors
+		echo "sql_mode = ''" >> /etc/mysql/mysql.conf.d/mysqld.cnf # disable new STRICT mode in mysql 5.7
+	fi
 }
 
 apply_connection_string(){

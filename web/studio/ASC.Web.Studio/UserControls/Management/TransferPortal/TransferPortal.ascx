@@ -1,10 +1,8 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="TransferPortal.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.TransferPortal" %>
 <%@ Import Namespace="ASC.Core" %>
-<%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="Resources" %>
 
 <%@ Register TagPrefix="sc" Namespace="ASC.Web.Studio.Controls.Common" Assembly="ASC.Web.Studio" %>
-<%@ Import Namespace="ASC.Web.Studio.UserControls.Management" %>
 
 <% if (IsVisibleMigration)
    { %>
@@ -20,7 +18,7 @@
             <% foreach (var item in TransferRegions)
                {%>
                 <option <%= item.IsCurrentRegion ? "selected=\"selected\"" : "" %> value="<%= item.Name %>" data-url=".<%= item.BaseDomain %>">
-                    <%= item.GetFullName() %>
+                    <%= (item.FullName != String.Empty) ? item.FullName : item.Name %>
                 </option>            
             <% } %>
         </select>
@@ -40,7 +38,7 @@
             <div>
                 <input id="notifyAboutMigration" type="checkbox" checked="checked" />
                 <label for="notifyAboutMigration">
-                    <%: CustomNamingPeople.Substitute<Resource>("NotifyPortalMigration") %></label>
+                    <%: Resource.NotifyPortalMigration %></label>
             </div>
         </div>
         <div class="header-base red-text"><%= Resource.Warning %></div>

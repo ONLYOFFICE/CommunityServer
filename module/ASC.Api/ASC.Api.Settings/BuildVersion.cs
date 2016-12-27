@@ -2,11 +2,12 @@
 using System.Net;
 using System.Runtime.Serialization;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Web.Configuration;
 
 using ASC.Core;
 using ASC.Web.Core.Files;
-using ASC.Web.Files.Services.DocumentService;
+
 using Newtonsoft.Json.Linq;
 
 namespace ASC.Api.Settings
@@ -25,59 +26,45 @@ namespace ASC.Api.Settings
 
         public static BuildVersion GetCurrentBuildVersion()
         {
-            return new BuildVersion
-                {
-                    CommunityServer = GetCommunityVersion(),
-                    DocumentServer = GetDocumentVersion(),
-                    MailServer = GetMailVersion()
-                };
-        }
-
-        private static string GetCommunityVersion()
-        {
-            return WebConfigurationManager.AppSettings["version.number"] ?? "8.5.0";
-        }
-
-        private static string GetDocumentVersion()
-        {
-            if (string.IsNullOrEmpty(FilesLinkUtility.DocServiceApiUrl))
-                return null;
-
-            return DocumentServiceConnector.GetVersion();
-        }
-
-        private static string GetMailVersion()
-        {
-            String url = null;
-
-            // GetTenantServer() throw System.IO.InvalidDataException if no mail servers registered.
-            try
-            {
-                var serverDal = new Mail.Server.Dal.ServerDal(CoreContext.TenantManager.GetCurrentTenant().TenantId);
-                url = serverDal.GetTenantServer().ApiVersionUrl;
-            }
-            catch (Exception e)
-            {
-                log4net.LogManager.GetLogger(typeof (SettingsApi)).Warn(e.Message, e);
-            }
-
-            if (string.IsNullOrEmpty(url))
-                return null;
+            var result = new BuildVersion
+                             {
+                                 CommunityServer = WebConfigurationManager.AppSettings["version.number"] ?? "8.5.0"
+                             };
 
             try
             {
                 using (var client = new WebClient())
                 {
-                    var response = Encoding.UTF8.GetString(client.DownloadData(url));
-                    return JObject.Parse(response)["global_vars"]["value"].ToString();
+                    var data = Encoding.UTF8.GetString(client.DownloadData(FilesLinkUtility.DocServiceApiUrl));
+                    var matches = Regex.Matches(data, @"DocsAPI.DocEditor.version = function\(\) \{
+        return '(\S+)';
+    \};");
+                    if (matches.Count > 0 && matches[0].Groups.Count > 1)
+                        result.DocumentServer = matches[0].Groups[1].Value;
                 }
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                log4net.LogManager.GetLogger(typeof(SettingsApi)).Error(e.Message, e);
+
             }
 
-            return null;
+            try
+            {
+                var serverDal = new Mail.Server.Dal.ServerDal(CoreContext.TenantManager.GetCurrentTenant().TenantId);
+                var requestUrl = serverDal.GetTenantServer().ApiVersionUrl;
+
+                using (var client = new WebClient())
+                {
+                    var response = Encoding.UTF8.GetString(client.DownloadData(requestUrl));
+                    result.MailServer = JObject.Parse(response)["global_vars"]["value"].ToString();
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+
+            return result;
         }
     }
 }

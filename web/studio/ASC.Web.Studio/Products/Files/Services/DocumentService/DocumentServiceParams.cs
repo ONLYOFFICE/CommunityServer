@@ -253,8 +253,8 @@ namespace ASC.Web.Files.Services.DocumentService
             {
                 return
                     _user.ID.Equals(ASC.Core.Configuration.Constants.Guest.ID)
-                        ? new[] { Guid.NewGuid().ToString(), FilesCommonResource.Guest, string.Empty, FilesCommonResource.Guest }
-                        : new[] { _user.ID.ToString(), _user.FirstName, _user.LastName, _user.DisplayUserName(false) };
+                        ? new[] { Guid.NewGuid().ToString(), FilesCommonResource.Guest, string.Empty }
+                        : new[] { _user.ID.ToString(), _user.FirstName, _user.LastName };
             }
             set { }
         }

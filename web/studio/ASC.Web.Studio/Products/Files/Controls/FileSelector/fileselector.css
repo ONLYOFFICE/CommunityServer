@@ -83,17 +83,3 @@
 .file-selector-files .file-row .checkbox input[type=radio] {
     display: inline;
 }
-
-.file-selector-compact .mainPageTable {
-    height: 450px;
-}
-.file-selector-compact .mainPageTable .mainPageContent {
-    padding-bottom: 0;
-}
-.file-selector-compact #fileSelectorTree {
-    height: 400px;
-}
-.file-selector-compact #mainContent {
-    height: 400px;
-    min-height: 400px;
-}

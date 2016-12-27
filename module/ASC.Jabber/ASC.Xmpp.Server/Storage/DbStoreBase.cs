@@ -27,42 +27,56 @@
 using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Xmpp.Server.Configuration;
+using ASC.Xmpp.Server.Utils;
 using log4net;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.Linq;
+using System.Data.Common;
+using System.IO;
 
 namespace ASC.Xmpp.Server.Storage
 {
-    public abstract class DbStoreBase : IConfigurable
+    public abstract class DbStoreBase : IConfigurable, IDisposable
     {
-        private const int ATTEMPTS_COUNT = 2;
         protected static readonly int MESSAGE_COLUMN_LEN = (int)Math.Pow(2, 24) - 1;
+        private readonly static ILog _log = LogManager.GetLogger(typeof(DbStoreBase));
 
-        private string dbid;
+        private readonly object syncRoot = new object();
+        private DbManager db;
 
 
         public virtual void Configure(IDictionary<string, string> properties)
         {
-            if (!properties.ContainsKey("connectionStringName"))
+            if (properties.ContainsKey("connectionStringName"))
             {
-                throw new ConfigurationErrorsException("Cannot create database connection: no connectionString or connectionStringName properties.");
-            }
+                db = new DbManager(properties["connectionStringName"], false);
 
-            dbid = properties["connectionStringName"];
-            using (var db = new DbManager(dbid, false))
-            {
                 if (!properties.ContainsKey("generateSchema") || Convert.ToBoolean(properties["generateSchema"]))
                 {
                     var creates = GetCreateSchemaScript();
-                    if (creates != null && creates.Any())
+                    if (creates != null && 0 < creates.Length)
                     {
                         foreach (var c in creates)
                         {
                             db.ExecuteNonQuery(c);
                         }
                     }
+                }
+            }
+            else
+            {
+                throw new ConfigurationErrorsException("Can not create database connection: no connectionString or connectionStringName properties.");
+            }
+        }
+
+        public void Dispose()
+        {
+            lock (syncRoot)
+            {
+                if (db != null)
+                {
+                    db.Dispose();
                 }
             }
         }
@@ -76,42 +90,76 @@ namespace ASC.Xmpp.Server.Storage
 
         protected List<object[]> ExecuteList(ISqlInstruction sql)
         {
-            return ExecWithAttempts(db => db.ExecuteList(sql), ATTEMPTS_COUNT);
+            lock (syncRoot)
+            {
+                try
+                {
+                    return db.ExecuteList(sql);
+                }
+                catch (DbException)
+                {
+                    db.Dispose();
+                    db = new DbManager(db.DatabaseId, false);
+                    return db.ExecuteList(sql);
+                }
+            }
         }
 
         protected T ExecuteScalar<T>(ISqlInstruction sql)
         {
-            return ExecWithAttempts(db => db.ExecuteScalar<T>(sql), ATTEMPTS_COUNT);
+            lock (syncRoot)
+            {
+                try
+                {
+                    return db.ExecuteScalar<T>(sql);
+                }
+                catch (DbException)
+                {
+                    db.Dispose();
+                    db = new DbManager(db.DatabaseId, false);
+                    return db.ExecuteScalar<T>(sql);
+                }
+            }
         }
 
         protected int ExecuteNonQuery(ISqlInstruction sql)
         {
-            return ExecWithAttempts(db => db.ExecuteNonQuery(sql), ATTEMPTS_COUNT);
+            lock (syncRoot)
+            {
+                try
+                {
+                    return db.ExecuteNonQuery(sql);
+                }
+                catch (DbException ex)
+                {
+                    _log.ErrorFormat("DbException: {0} {1} {2}",
+                        ex, ex.InnerException != null ? ex.InnerException.Message : String.Empty, sql.ToString());
+                    db.Dispose();
+                    db = new DbManager(db.DatabaseId, false);
+                    return db.ExecuteNonQuery(sql);
+                }
+            }
         }
 
         protected int ExecuteBatch(IEnumerable<ISqlInstruction> batch)
         {
-            return ExecWithAttempts(db => db.ExecuteBatch(batch), ATTEMPTS_COUNT);
-        }
-
-        private T ExecWithAttempts<T>(Func<DbManager, T> action, int attempsCount)
-        {
-            var counter = 0;
-            while(true)
+            lock (syncRoot)
             {
                 try
                 {
-                    using (var db = new DbManager(dbid, false))
-                    {
-                        return action(db);
-                    }
+                    return db.ExecuteBatch(batch);
                 }
-                catch (Exception err)
+                catch (DbException ex)
                 {
-                    if (attempsCount <= ++counter || err is TimeoutException || err.InnerException is TimeoutException)
+                    _log.ErrorFormat("DbException: {0} {1}",
+                        ex, ex.InnerException != null ? ex.InnerException.Message : String.Empty);
+                    foreach (var sql in batch)
                     {
-                        throw;
+                        _log.ErrorFormat("sql = {0}", sql.ToString());
                     }
+                    db.Dispose();
+                    db = new DbManager(db.DatabaseId, false);
+                    return db.ExecuteBatch(batch);
                 }
             }
         }

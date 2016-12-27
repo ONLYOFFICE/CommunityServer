@@ -194,7 +194,6 @@ window.ASC.Files.Editor = (function () {
                     id: serviceParams.user[0],
                     firstname: serviceParams.user[1],
                     lastname: serviceParams.user[2],
-                    name: serviceParams.user[3],
                 };
 
                 if (serviceParams.type != "embedded") {
@@ -203,13 +202,6 @@ window.ASC.Files.Editor = (function () {
                         editorConfig.recent = listRecent.toArray();
                     }
                 }
-            }
-
-            if (ASC.Files.Editor.pluginsUrl) {
-                editorConfig.plugins = {
-                    "url": ASC.Files.Editor.pluginsUrl,
-                    "pluginsData": ASC.Files.Editor.pluginsData.split("|"),
-                };
             }
 
             var typeConfig = serviceParams.type;
@@ -540,18 +532,21 @@ window.ASC.Files.Editor = (function () {
         }
 
         if (typeof errorMessage != "undefined") {
-            jsonData = {
-                error: errorMessage || "Connection is lost",
+            var data = {
+                error: errorMessage || "Connection is lost"
+            };
+        } else {
+            data = {
                 version: params.version,
+                url: jsonData.key,
+                changesUrl: jsonData.value,
+
+                //todo: remove
+                urlDiff: jsonData.value
             };
         }
 
-        //todo: remove support old version
-        if (jsonData.previous && DocsAPI.DocEditor.version && !DocsAPI.DocEditor.version().indexOf("3")) {
-            jsonData.url = jsonData.previous.url;
-        }
-
-        ASC.Files.Editor.docEditor.setHistoryData(jsonData);
+        ASC.Files.Editor.docEditor.setHistoryData(data);
     };
 
     var completeGetMails = function (jsonData, params, errorMessage) {

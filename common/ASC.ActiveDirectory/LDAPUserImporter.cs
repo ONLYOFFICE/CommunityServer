@@ -33,428 +33,355 @@ using ASC.Core.Users;
 using log4net;
 using System;
 using System.Collections.Generic;
-﻿using System.IO;
-﻿using System.Linq;
-﻿using System.Runtime.Serialization.Formatters.Binary;
-﻿using ASC.ActiveDirectory.DirectoryServices.LDAP;
+using System.Linq;
 
 namespace ASC.ActiveDirectory
 {
     public class LDAPUserImporter
     {
-        private const int MAX_NUMBER_OF_SYMBOLS = 64;
-        private const string MOB_PHONE = "mobphone";
-        private const string MAIL = "mail";
+        private const int maxNumberOfSymbols = 64;
+        private const string unknownDomain = "unknowndomain";
+        private const string mobPhone = "mobphone";
+        private const string primaryGroupId = "513";
+        private const char hyphen = '-';
+        public List<LDAPObject> AllDomainUsers { get; set; }
+        public List<LDAPObject> DomainGroups { get; set; }
+        private List<LDAPObject> domainUsers;
+        private GroupInfo primaryGroup;
+        private readonly RelationGroupCache relationGroupCache = new RelationGroupCache();
+        private readonly LdapHelper ldapHelper;
+        private readonly ILog log = LogManager.GetLogger(typeof(LDAPUserImporter));
 
-        public List<LDAPObject> AllDomainUsers { get; private set; }
-        public List<LDAPObject> AllDomainGroups { get; private set; }
-        public string LDAPDomain { get; private set; }
-
-        public LDAPSupportSettings Settings
+        public LDAPUserImporter()
         {
-            get { return _settings; }
+            ldapHelper = !WorkContext.IsMono ? (LdapHelper)new SystemLdapHelper() : new NovellLdapHelper();
         }
 
-        private readonly LDAPSupportSettings _settings;
-
-        private readonly LdapHelper _ldapHelper;
-        private readonly ILog _log = LogManager.GetLogger(typeof(LDAPUserImporter));
-
-        public LDAPUserImporter(LDAPSupportSettings settings)
+        public string GetSidOfCurrentUser(string login, LDAPSupportSettings settings)
         {
-            if (settings == null)
-                throw new ArgumentNullException("settings");
-
-            _ldapHelper = !WorkContext.IsMono ? (LdapHelper) new SystemLdapHelper() : new NovellLdapHelper();
-
-            _settings = DeepClone(settings);
-
-            if (_settings.EnableLdapAuthentication)
+            var users = ldapHelper.GetUsersByAttributesAndFilter(settings, "(" + settings.LoginAttribute + "=" + login + ")");
+            if (users.Count != 0)
             {
-                if (string.IsNullOrEmpty(_settings.UserFilter) ||
-                    _settings.GroupMembership && string.IsNullOrEmpty(_settings.GroupFilter))
+                foreach (var user in users)
                 {
-                    var defaultSettings = settings.GetDefault() as LDAPSupportSettings;
-
-                    if (defaultSettings != null)
+                    if (user != null)
                     {
-                        if (string.IsNullOrEmpty(_settings.UserFilter))
-                        {
-                            _settings.UserFilter = defaultSettings.UserFilter;
-                        }
-
-                        if (_settings.GroupMembership && string.IsNullOrEmpty(_settings.GroupFilter))
-                        {
-                            _settings.GroupFilter = defaultSettings.GroupFilter;
-                        }
+                        return user.Sid;
                     }
                 }
             }
-
-            AllDomainUsers = new List<LDAPObject>();
-            AllDomainGroups = new List<LDAPObject>();
+            return null;
         }
 
-        private static T DeepClone<T>(T obj)
-        {
-            using (var ms = new MemoryStream())
-            {
-                var formatter = new BinaryFormatter();
-                formatter.Serialize(ms, obj);
-                ms.Position = 0;
-
-                return (T)formatter.Deserialize(ms);
-            }
-        }
-
-        public string GetSidOfCurrentUser(string login)
-        {
-            // if login with domain
-            var loginLocalPart = login;
-
-            if (login.Contains("\\"))
-            {
-                var splited = login.Split('\\');
-                loginLocalPart = splited[1];
-            }
-            else if (login.Contains("@"))
-            {
-                var splited = login.Split('@');
-                loginLocalPart = splited[0];
-            }
-
-            var users = _ldapHelper
-                .GetUsersByAttributesAndFilter(
-                    _settings,
-                    string.Format("({0}={1})",
-                                  _settings.LoginAttribute,
-                                  loginLocalPart));
-
-            return users.Any()
-                       ? (from user in users
-                          where user != null
-                          select user.Sid)
-                             .FirstOrDefault()
-                       : null;
-        }
-
-        public List<UserInfo> GetDiscoveredUsersByAttributes()
+        public List<UserInfo> GetDiscoveredUsersByAttributes(LDAPSupportSettings settings)
         {
             var users = new List<UserInfo>();
-
-            if (!AllDomainUsers.Any() && !TryLoadLDAPUsers())
-                return users;
-
-            var usersToAdd = AllDomainUsers.Select(CreateUserInfo);
-
-            users.AddRange(usersToAdd);
-
-            return users;
-        }
-
-        public List<GroupInfo> GetDiscoveredGroupsByAttributes()
-        {
-            if (!_settings.GroupMembership)
-                return new List<GroupInfo>();
-
-            if (!AllDomainGroups.Any() && !TryLoadLDAPGroups())
-                return new List<GroupInfo>();
-
-            var groups = new List<GroupInfo>();
-
-            var groupsToAdd = from g in AllDomainGroups
-                              select new GroupInfo
-                                  {
-                                      Name = g.InvokeGet(_settings.GroupNameAttribute) as string,
-                                      Sid = g.Sid
-                                  };
-
-            groups.AddRange(groupsToAdd);
-
-            return groups;
-        }
-
-        public UserInfo GetDiscoveredUser(string sid)
-        {
-            var domainUser = _ldapHelper.GetUserBySid(_settings, sid);
-
-            if (domainUser == null)
-                return Core.Users.Constants.LostUser;
-
-            var userInfo = CreateUserInfo(domainUser);
-            return userInfo;
-        }
-
-        public List<UserInfo> GetGroupUsers(GroupInfo groupInfo)
-        {
-            var users = new List<UserInfo>();
-
-            if (!AllDomainGroups.Any() && !TryLoadLDAPGroups())
-                return users;
-
-            var domainGroup = AllDomainGroups.FirstOrDefault(lg => lg.Sid.Equals(groupInfo.Sid));
-
-            if (domainGroup == null)
-                return users;
-
-            if (domainGroup.Sid.EndsWith("-513"))
+            if (AllDomainUsers == null)
             {
-                // Domain Users found
-
-               //var ldapUsers = _ldapHelper.GetUsersByAttributesAndFilter(_settings, "(&(objectCategory=person)(objectClass=user)(primaryGroupID=513))");
-
-                var ldapUsers = _ldapHelper.GetUsersFromPrimaryGroup(_settings, "513");
-
-               if (ldapUsers == null)
-                   return users;
-
-                foreach (var ldapUser in ldapUsers)
-                {
-                    var userInfo = CreateUserInfo(ldapUser);
-
-                    if (!users.Exists(u => u.Sid == userInfo.Sid))
-                        users.Add(userInfo);
-                }
+                AllDomainUsers = ldapHelper.GetUsersByAttributes(settings);
             }
-            else
+            domainUsers = new List<LDAPObject>();
+            if (AllDomainUsers != null)
             {
-                var members = _ldapHelper.GetGroupAttribute(domainGroup, _settings.GroupAttribute);
-
-                if (members == null)
-                    return users;
-
-                foreach (var member in members)
+                foreach (var user in AllDomainUsers)
                 {
-                    var ldapUser = FindUserByMember(member);
-
-                    if (ldapUser != null)
+                    if (user != null && !user.IsDisabled && IsUserExistsInGroup(user, settings))
                     {
-                        var userInfo = CreateUserInfo(ldapUser);
-
-                        if (!users.Exists(u => u.Sid == userInfo.Sid))
+                        domainUsers.Add(user);
+                        var userInfo = CreateUserInfo(user, settings);
+                        if (CoreContext.UserManager.GetUserBySid("l" + userInfo.Sid).ID == Core.Users.Constants.LostUser.ID &&
+                            CoreContext.UserManager.GetUserBySid(userInfo.Sid).ID == Core.Users.Constants.LostUser.ID)
+                        {
                             users.Add(userInfo);
+                        }
                     }
-                }                
+                }
             }
-
             return users;
         }
 
-        public bool IsUserExistsInGroups(UserInfo ldapUser)
+        public UserInfo GetDiscoveredUser(LDAPSupportSettings settings, string sid)
         {
-            try
+            var domainUser = ldapHelper.GetUserBySid(settings, sid);
+            if (domainUser != null && !domainUser.IsDisabled && IsUserExistsInGroup(domainUser, settings))
             {
-                if (!_settings.GroupMembership)
-                    return false;
-
-                if (ldapUser == null ||
-                    Equals(ldapUser, Core.Users.Constants.LostUser) ||
-                    string.IsNullOrEmpty(ldapUser.Sid))
-                {
-                    return false;
-                }
-
-                if(!AllDomainGroups.Any() && !TryLoadLDAPGroups())
-                    return false;
-
-                var domainUser = _ldapHelper.GetUserBySid(_settings, ldapUser.Sid);
-
-                if (domainUser == null)
-                    return false;
-
-                var distinguishedName = _ldapHelper.GetUserAttribute(domainUser, _settings.UserAttribute);
-
-                foreach (var domainGroup in AllDomainGroups)
-                {
-                    if (_ldapHelper.UserExistsInGroup(domainGroup, distinguishedName, _settings.GroupAttribute))
-                    {
-                        return true;
-                    }
-                }
+                domainUsers = new List<LDAPObject> { domainUser };
+                var userInfo = CreateUserInfo(domainUser, settings);
+                CheckEmailIsNew(userInfo);
+                return userInfo;
             }
-            catch (Exception ex)
-            {
-                if (ldapUser != null)
-                    _log.ErrorFormat("IsUserExistInGroups(login: '{0}' sid: '{1}') error {2}", ldapUser.UserName, ldapUser.Sid, ex);
-            }
-
-            return false;
+            return Core.Users.Constants.LostUser;
         }
 
-        public void SyncUserGroupMembership(UserInfo user)
+        public List<GroupInfo> GetDiscoveredGroupsByAttributes(LDAPSupportSettings settings, out List<GroupInfo> existingGroups)
         {
-            if (user == null ||
-                !_settings.GroupMembership ||
-                AllDomainGroups == null ||
-                !AllDomainGroups.Any() && !TryLoadLDAPGroups() ||
-                !AllDomainUsers.Any() && !TryLoadLDAPUsers())
+            existingGroups = new List<GroupInfo>();
+            if (settings.GroupMembership)
+            {
+                if (DomainGroups == null)
+                {
+                    DomainGroups = ldapHelper.GetGroupsByAttributes(settings);
+                }
+                if (DomainGroups != null)
+                {
+                    var groups = new List<GroupInfo>(DomainGroups.Count);
+                    var removedGroups = new List<LDAPObject>();
+                    foreach (var domainGroup in DomainGroups)
+                    {
+                        var lastId = domainGroup.Sid.Split(hyphen).Last();
+                        if (lastId != primaryGroupId)
+                        {
+                            var members = ldapHelper.GetGroupAttribute(domainGroup, settings.GroupAttribute);
+                            if (members == null)
+                            {
+                                removedGroups.Add(domainGroup);
+                                continue;
+                            }
+                        }
+                        string sid = domainGroup.Sid;
+                        var groupInfo = new GroupInfo
+                        {
+                            Name = domainGroup.InvokeGet(settings.GroupNameAttribute) as string,
+                            Sid = sid
+                        };
+                        // Domain Users - primary group
+                        if (sid.Split(hyphen).Last() == primaryGroupId)
+                        {
+                            primaryGroup = groupInfo;
+                        }
+                        if (CoreContext.UserManager.GetGroupInfoBySid(groupInfo.Sid).ID == Core.Users.Constants.LostGroupInfo.ID)
+                        {
+                            groups.Add(groupInfo);
+                        }
+                        else
+                        {
+                            existingGroups.Add(groupInfo);
+                        }
+                    }
+                    foreach (var domainGroup in removedGroups)
+                    {
+                        if (DomainGroups.Contains(domainGroup))
+                        {
+                            DomainGroups.Remove(domainGroup);
+                        }
+                    }
+                    return groups;
+                }
+            }
+            return null;
+        }
+
+        public void AddUserIntoGroups(UserInfo user, LDAPSupportSettings settings)
+        {
+            if (user == null || !settings.GroupMembership || DomainGroups == null)
             {
                 return;
             }
 
-            var domainUser = AllDomainUsers.FirstOrDefault(u => u.Sid.Equals(user.Sid));
+            var domainUser = FindDomainUser(user.Sid);
             if (domainUser == null)
             {
                 return;
             }
 
-            var userAttributeValue = _ldapHelper.GetUserAttribute(domainUser, _settings.UserAttribute);
+            var userAttributeValue = ldapHelper.GetUserAttribute(domainUser, settings.UserAttribute);
 
-            foreach (var domainGroup in AllDomainGroups)
+            foreach (var domainGroup in DomainGroups)
             {
-                var sid = domainGroup.Sid;
-
-                var members = _ldapHelper.GetGroupAttribute(domainGroup, _settings.GroupAttribute);
-
-                if (members == null)
-                    continue;
-
-                foreach (var member in members)
+                string sid = domainGroup.Sid;
+                var members = ldapHelper.GetGroupAttribute(domainGroup, settings.GroupAttribute);
+                if (members != null)
                 {
-                    var ldapUser = FindUserByMember(member);
-
-                    if (ldapUser == null) 
-                        continue;
-
-                    if (!userAttributeValue.Equals(member, StringComparison.InvariantCultureIgnoreCase)) 
-                        continue;
-
-                    var groupInfo = CoreContext.UserManager.GetGroupInfoBySid(sid);
-
-                    if (!Equals(groupInfo, Core.Users.Constants.LostGroupInfo))
+                    foreach (string member in members)
                     {
-                        CoreContext.UserManager.AddUserIntoGroup(user.ID, groupInfo.ID);
+                        if (IsUser(member, settings.UserAttribute))
+                        {
+                            if (userAttributeValue.Equals(member, StringComparison.InvariantCultureIgnoreCase))
+                            {
+                                var group = CoreContext.UserManager.GetGroupInfoBySid(sid);
+                                if (group != Core.Users.Constants.LostGroupInfo)
+                                {
+                                    CoreContext.UserManager.AddUserIntoGroup(user.ID, group.ID);
+                                }
+                            }
+                        }
+                        else if (!relationGroupCache.Exists(member, sid) && IsGroup(member, settings.UserAttribute))
+                        {
+                            relationGroupCache.Add(member, sid);
+                        }
                     }
                 }
             }
-
-            var primaryGroup = AllDomainGroups.FirstOrDefault(g => g.Sid.EndsWith("-513"));
-
-            if (primaryGroup == null)
-                return;
-
-            var getPrimaryGroup = CoreContext.UserManager.GetGroupInfoBySid(primaryGroup.Sid);
-
-            if (!Equals(getPrimaryGroup, Core.Users.Constants.LostGroupInfo))
+            if (primaryGroup != null)
             {
-                CoreContext.UserManager.AddUserIntoGroup(user.ID, getPrimaryGroup.ID);
+                var getPrimaryGroup = CoreContext.UserManager.GetGroupInfoBySid(primaryGroup.Sid);
+                if (getPrimaryGroup != Core.Users.Constants.LostGroupInfo)
+                {
+                    CoreContext.UserManager.AddUserIntoGroup(user.ID, getPrimaryGroup.ID);
+                }
             }
         }
 
-        public bool TryLoadLDAPUsers()
+        public void AddUserInCacheGroups(UserInfo user)
         {
-            try
+            if (relationGroupCache != null && relationGroupCache.Value.Count != 0)
             {
-                if (!_settings.EnableLdapAuthentication)
-                    return false;
+                foreach (var pair in relationGroupCache.Value)
+                {
+                    var childDomainGroup = GetLDAPGroup(pair.Key);
+                    if (childDomainGroup != null)
+                    {
+                        string childDomainGroupSid = childDomainGroup.Sid;
+                        var childGroup = CoreContext.UserManager.GetGroupInfoBySid(childDomainGroupSid);
+                        if (childGroup != Core.Users.Constants.LostGroupInfo)
+                        {
+                            foreach (var sid in pair.Value)
+                            {
+                                var group = CoreContext.UserManager.GetGroupInfoBySid(sid);
+                                if (group != Core.Users.Constants.LostGroupInfo)
+                                {
+                                    CoreContext.UserManager.AddUserIntoGroup(user.ID, group.ID);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
-                AllDomainUsers = _ldapHelper.GetUsersByAttributes(_settings) ?? new List<LDAPObject>();
+        public Dictionary<string, IList<string>> GetCache()
+        {
+            return relationGroupCache.Value;
+        }
 
+        public void CheckEmailIsNew(UserInfo userInfo)
+        {
+            if (CoreContext.UserManager.GetUserByEmail(userInfo.Email).ID != Core.Users.Constants.LostUser.ID)
+            {
+                int count = 0;
+                while (true)
+                {
+                    var email = userInfo.Email + (++count);
+                    if (CoreContext.UserManager.GetUserByEmail(email).ID == Core.Users.Constants.LostUser.ID)
+                    {
+                        userInfo.Email = email;
+                        break;
+                    }
+                }
+            }
+        }
+
+        private LDAPObject GetLDAPGroup(string distinguishedName)
+        {
+            for (int i = 0; i < DomainGroups.Count; i++)
+            {
+                if (DomainGroups[i].DistinguishedName.Equals(distinguishedName, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return DomainGroups[i];
+                }
+            }
+            return null;
+        }
+
+        private bool IsUser(string userAttributeValue, string userAttribute)
+        {
+            foreach (var user in domainUsers)
+            {
+                var userAttrVal = user.InvokeGet(userAttribute) as string;
+                if (userAttributeValue.Equals(userAttrVal, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool IsGroup(string userAttributeValue, string userAttribute)
+        {
+            string userAttrVal;
+            foreach (var group in DomainGroups)
+            {
+                userAttrVal = group.InvokeGet(userAttribute) as string;
+                if (userAttributeValue.Equals(userAttrVal, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private LDAPObject GetGroup(string dn)
+        {
+            for (int i = 0; i < DomainGroups.Count; i++)
+            {
+                if (DomainGroups[i].DistinguishedName.Equals(dn, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    return DomainGroups[i];
+                }
+            }
+            return null;
+        }
+
+        private bool IsUserExistsInGroup(LDAPObject domainUser, LDAPSupportSettings settings)
+        {
+            if (!settings.GroupMembership || DomainGroups == null || DomainGroups.Count == 0 || primaryGroup != null)
+            {
                 return true;
             }
-            catch (ArgumentException)
+
+            var distinguishedName = ldapHelper.GetUserAttribute(domainUser, settings.UserAttribute);
+
+            foreach (var domainGroup in DomainGroups)
             {
-                _log.ErrorFormat("Incorrect filter. userFilter = {0}", _settings.UserFilter);
+                if (ldapHelper.UserExistsInGroup(domainGroup, distinguishedName, settings.GroupAttribute))
+                {
+                    return true;
+                }
             }
 
             return false;
         }
 
-        public bool TryLoadLDAPGroups()
+        private UserInfo CreateUserInfo(LDAPObject domainUser, LDAPSupportSettings settings)
         {
-            try
-            {
-                if (!_settings.EnableLdapAuthentication || !_settings.GroupMembership)
-                    return false;
-
-                AllDomainGroups = _ldapHelper.GetGroupsByAttributes(_settings) ?? new List<LDAPObject>();
-
-                return true;
-            }
-            catch (ArgumentException)
-            {
-                _log.ErrorFormat("Incorrect group filter. groupFilter = {0}", _settings.GroupFilter);
-            }
-
-            return false;
-        }
-
-        public bool TryLoadLDAPDomain()
-        {
-            try
-            {
-                if (!_settings.EnableLdapAuthentication)
-                    return false;
-
-                var domain = _ldapHelper.GetDomain(_settings);
-
-                if (domain == null || string.IsNullOrEmpty(domain.DistinguishedName))
-                    return false;
-
-                LDAPDomain = domain.DistinguishedName.Remove(0, 3).Replace(",DC=", ".").Replace(",dc=", ".");
-
-                return true;
-            }
-            catch (ArgumentException)
-            {
-                _log.ErrorFormat("Incorrect filter. domainFilter = {0}", _settings.UserFilter);
-            }
-
-            return false;
-        }
-
-        private LDAPObject FindUserByMember(string userAttributeValue)
-        {
-            if (!AllDomainUsers.Any() && !TryLoadLDAPUsers())
-                return null;
-
-            return AllDomainUsers.FirstOrDefault(u =>
-                                                  Convert.ToString(u.InvokeGet(_settings.UserAttribute))
-                                                         .Equals(userAttributeValue,
-                                                                 StringComparison.InvariantCultureIgnoreCase));
-        }
-
-        public UserInfo CreateUserInfo(LDAPObject domainUser)
-        {
-            var userName = GetAttributeFromUser(domainUser, _settings.LoginAttribute);
-            var firstName = GetAttributeFromUser(domainUser, _settings.FirstNameAttribute);
-            var secondName = GetAttributeFromUser(domainUser, _settings.SecondNameAttribute);
-            var mail = GetAttributeFromUser(domainUser, _settings.MailAttribute);
-            var mobilePhone = GetAttributeFromUser(domainUser, _settings.MobilePhoneAttribute);
-            var title = GetAttributeFromUser(domainUser, _settings.TitleAttribute);
-            var location = GetAttributeFromUser(domainUser, _settings.LocationAttribute);
-            var contacts = new List<string>();
+            string userName = GetAttributeFromUser(domainUser, settings.LoginAttribute);
+            string firstName = GetAttributeFromUser(domainUser, settings.FirstNameAttribute);
+            string secondName = GetAttributeFromUser(domainUser, settings.SecondNameAttribute);
+            string mail = GetAttributeFromUser(domainUser, settings.MailAttribute);
+            string mobilePhone = GetAttributeFromUser(domainUser, settings.MobilePhoneAttribute);
+            string title = GetAttributeFromUser(domainUser, settings.TitleAttribute);
+            string location = GetAttributeFromUser(domainUser, settings.LocationAttribute);
+            List<string> contacts = new List<string>(2);
 
             if (!string.IsNullOrEmpty(mobilePhone))
             {
-                contacts.Add(MOB_PHONE);
+                contacts.Add(mobPhone);
                 contacts.Add(mobilePhone);
             }
 
-            if (!string.IsNullOrEmpty(mail))
-            {
-                contacts.Add(MAIL);
-                contacts.Add(mail);
-            }
-
             var user = new UserInfo
-                {
-                    ID = Guid.NewGuid(),
-                    UserName = userName,
-                    Sid = domainUser.Sid,
-                    ActivationStatus = EmployeeActivationStatus.Activated,
-                    Status = domainUser.IsDisabled ? EmployeeStatus.Terminated : EmployeeStatus.Active,
-                    Title = (!string.IsNullOrEmpty(title) ? title : string.Empty),
-                    Location = (!string.IsNullOrEmpty(location) ? location : string.Empty),
-                    WorkFromDate = TenantUtil.DateTimeNow(),
-                    Contacts = contacts
-                };
+            {
+                ID = Guid.NewGuid(),
+                UserName = userName,
+                Sid = domainUser.Sid,
+                ActivationStatus = (!string.IsNullOrEmpty(mail) ? EmployeeActivationStatus.Activated : EmployeeActivationStatus.NotActivated),
+                Email = (!string.IsNullOrEmpty(mail) ? mail : string.Empty),
+                Title = (!string.IsNullOrEmpty(title) ? title : string.Empty),
+                Location = (!string.IsNullOrEmpty(location) ? location : string.Empty),
+                WorkFromDate = TenantUtil.DateTimeNow(),
+                Contacts = contacts
+            };
 
             if (!string.IsNullOrEmpty(firstName))
             {
-                user.FirstName = firstName.Length > MAX_NUMBER_OF_SYMBOLS
-                                     ? firstName.Substring(0, MAX_NUMBER_OF_SYMBOLS)
-                                     : firstName;
+                if (firstName.Length > maxNumberOfSymbols)
+                {
+                    user.FirstName = firstName.Substring(0, maxNumberOfSymbols);
+                }
+                else
+                {
+                    user.FirstName = firstName;
+                }
             }
             else
             {
@@ -463,21 +390,30 @@ namespace ASC.ActiveDirectory
 
             if (!string.IsNullOrEmpty(secondName))
             {
-                user.LastName = secondName.Length > MAX_NUMBER_OF_SYMBOLS
-                                    ? secondName.Substring(0, MAX_NUMBER_OF_SYMBOLS)
-                                    : secondName;
+                if (secondName.Length > maxNumberOfSymbols)
+                {
+                    user.LastName = secondName.Substring(0, maxNumberOfSymbols);
+                }
+                else
+                {
+                    user.LastName = secondName;
+                }
             }
             else
             {
                 user.LastName = string.Empty;
             }
 
-            if(string.IsNullOrEmpty(LDAPDomain) && !TryLoadLDAPDomain())
-                throw new Exception("LDAP domain not found");
-
-            var email = userName.Contains("@") ? userName : userName + "@" + LDAPDomain;
-
-            user.Email = email;
+            if (user.Email == string.Empty)
+            {
+                var domain = ldapHelper.GetDomain(settings);
+                //DC= or dc=
+                var domainName = domain != null && domain.DistinguishedName != null ?
+                    domain.DistinguishedName.Remove(0, 3).Replace(",DC=", ".").Replace(",dc=", ".") : unknownDomain;
+                string loginName = domainUser.InvokeGet(settings.LoginAttribute).ToString();
+                string email = loginName.Contains("@") ? loginName : loginName + "@" + domainName;
+                user.Email = email.Replace(" ", string.Empty);
+            }
 
             return user;
         }
@@ -494,68 +430,26 @@ namespace ASC.ActiveDirectory
             }
             catch (Exception e)
             {
-                _log.ErrorFormat("Can't get attribute from user: attr = {0}, dn = {1}, {2}",
-                                 attribute, domainUser.DistinguishedName, e);
+                log.ErrorFormat("Can't get attribute from user: attr = {0}, dn = {1}, {2}",
+                    attribute, domainUser.DistinguishedName, e);
                 return String.Empty;
             }
         }
 
-        public List<KeyValuePair<UserInfo, LDAPObject>> FindLdapUsers(LDAPLogin ldapLogin)
+        private LDAPObject FindDomainUser(string sid)
         {
-            var settings = Settings;
-
-            var listResults = new List<KeyValuePair<UserInfo, LDAPObject>>();
-
-            var ldapHelper = WorkContext.IsMono
-                        ? new NovellLdapHelper()
-                        : new SystemLdapHelper() as LdapHelper;
-
-            var fullLogin = ldapLogin.ToString();
-
-            var searchTerm = ldapLogin.Username.Equals(fullLogin)
-                ? string.Format("({0}={1})", settings.LoginAttribute, ldapLogin.Username)
-                : string.Format("(|({0}={1})({0}={2}))", settings.LoginAttribute, ldapLogin.Username, fullLogin);
-
-            var users = ldapHelper.GetUsersByAttributesAndFilter(
-                settings, searchTerm)
-                .Where(user => user != null)
-                .ToList();
-
-            if (!users.Any())
+            if (domainUsers != null)
             {
-                return listResults;
-            }
-
-            var loginString = ldapLogin.ToString();
-
-            foreach (var ldapObject in users)
-            {
-                var currentUser = CreateUserInfo(ldapObject);
-
-                if (Equals(currentUser, Core.Users.Constants.LostUser))
-                    continue;
-
-                if (string.IsNullOrEmpty(ldapLogin.Domain))
+                foreach (var user in domainUsers)
                 {
-                    listResults.Add(new KeyValuePair<UserInfo, LDAPObject>(currentUser, ldapObject));
-                    continue;
+                    string userSid = user.Sid;
+                    if (userSid == sid || "l" + userSid == sid)
+                    {
+                        return user;
+                    }
                 }
-
-                string accessableLogin = null;
-                var dotIndex = currentUser.Email.LastIndexOf(".", StringComparison.Ordinal);
-                if (dotIndex > -1)
-                {
-                    accessableLogin = currentUser.Email.Remove(dotIndex);
-                }
-
-                if (!currentUser.Email.Equals(loginString, StringComparison.InvariantCultureIgnoreCase) &&
-                    (accessableLogin == null || !accessableLogin.Equals(loginString, StringComparison.InvariantCultureIgnoreCase)))
-                    continue;
-
-                listResults.Add(new KeyValuePair<UserInfo, LDAPObject>(currentUser, ldapObject));
             }
-
-            return listResults;
+            return null;
         }
     }
 }

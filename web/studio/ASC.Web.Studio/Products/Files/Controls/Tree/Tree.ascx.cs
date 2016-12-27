@@ -58,8 +58,7 @@ namespace ASC.Web.Files.Controls
                 Page.RegisterBodyScripts(PathProvider.GetFileStaticRelativePath, 
                     "common.js", 
                     "templatemanager.js",
-                    "servicemanager.js",
-                    "anchormanager.js");
+                    "servicemanager.js");
 
                 Page.RegisterStyle(FilesLinkUtility.FilesBaseAbsolutePath + "controls/thirdparty/thirdparty.css");
             }

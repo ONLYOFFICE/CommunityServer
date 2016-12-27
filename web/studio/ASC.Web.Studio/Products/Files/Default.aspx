@@ -16,31 +16,16 @@
 <asp:Content runat="server" ContentPlaceHolderID="BTHeaderContent">
     <% if (Desktop)
        { %>
-    <script type="text/javascript">
-        if (window.AscDesktopEditor) {
-            var regDesktop = function () {
-                jq(document).ready(function () {
-                    try {
-                        var data = {
-                            displayName: Teamlab.profile.displayName,
-                            domain: new RegExp("^http(s)?:\/\/[^\/]+\/").exec(location)[0],
-                            email: Teamlab.profile.email,
-                        };
-
-                        window.AscDesktopEditor.execCommand("portal:login", JSON.stringify(data));
-                    } catch (e) {
-                        console.log(e);
-                    }
-                });
-            };
-
-            if (window.addEventListener) {
-                window.addEventListener("load", regDesktop);
-            } else if (window.attachEvent) {
-                window.attachEvent("onload", regDesktop);
-            }
+    <style type="text/css">
+        body {
+            user-select: none;
+            -moz-user-select: none;
+            -khtml-user-select: none;
+            -webkit-user-select: none;
+            -o-user-select: none;
+            MozUserSelect: none;
         }
-    </script>
+    </style>
     <% } %>
 </asp:Content>
 

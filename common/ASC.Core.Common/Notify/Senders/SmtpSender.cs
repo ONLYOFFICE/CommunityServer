@@ -197,53 +197,19 @@ namespace ASC.Core.Notify.Senders
                 mimeMessage.To.Add(MailboxAddress.Parse(ParserOptions.Default, to));
             }
 
+            var bodyBuilder = new BodyBuilder();
+
             if (m.ContentType == Pattern.HTMLContentType)
             {
-                var textPart = new TextPart("plain")
-                {
-                    Text = HtmlUtil.GetText(m.Content),
-                    ContentTransferEncoding = ContentEncoding.QuotedPrintable
-                };
-
-                var multipartAlternative = new MultipartAlternative { textPart };
-
-                var htmlPart = new TextPart("html")
-                {
-                    Text = GetHtmlView(m.Content),
-                    ContentTransferEncoding = ContentEncoding.QuotedPrintable
-                };
-
-                if (m.EmbeddedAttachments != null && m.EmbeddedAttachments.Length > 0)
-                {
-                    var multipartRelated = new MultipartRelated
-                        {
-                            Root = htmlPart
-                        };
-
-                    foreach (var attachment in m.EmbeddedAttachments)
-                    {
-                        var mimeEntity = ConvertAttachmentToMimePart(attachment);
-                        if(mimeEntity != null)
-                            multipartRelated.Add(mimeEntity);
-                    }
-
-                    multipartAlternative.Add(multipartRelated);
-                }
-                else
-                {
-                    multipartAlternative.Add(htmlPart);
-                }
-
-                mimeMessage.Body = multipartAlternative;
+                bodyBuilder.HtmlBody = GetHtmlView(m.Content);
+                bodyBuilder.TextBody = HtmlUtil.GetText(m.Content);
             }
             else
             {
-                mimeMessage.Body = new TextPart("plain")
-                    {
-                        Text = m.Content,
-                        ContentTransferEncoding = ContentEncoding.QuotedPrintable
-                    };
+                bodyBuilder.TextBody = m.Content;
             }
+
+            mimeMessage.Body = bodyBuilder.ToMessageBody();
 
             if (!string.IsNullOrEmpty(m.ReplyTo))
             {
@@ -271,33 +237,6 @@ namespace ASC.Core.Notify.Senders
             };
 
             return smtpClient;
-        }
-
-        private static MimePart ConvertAttachmentToMimePart(NotifyMessageAttachment attachment)
-        {
-            try
-            {
-                if (attachment == null || string.IsNullOrEmpty(attachment.FileName) || string.IsNullOrEmpty(attachment.ContentId) || attachment.Content == null)
-                    return null;
-
-                var extension = Path.GetExtension(attachment.FileName);
-
-                if (string.IsNullOrEmpty(extension))
-                    return null;
-
-                return new MimePart("image", extension.TrimStart('.'))
-                {
-                    ContentId = attachment.ContentId,
-                    ContentObject = new ContentObject(new MemoryStream(attachment.Content)),
-                    ContentDisposition = new ContentDisposition(ContentDisposition.Attachment),
-                    ContentTransferEncoding = ContentEncoding.Base64,
-                    FileName = attachment.FileName
-                };
-            }
-            catch (Exception)
-            {
-                return null;
-            }
         }
     }
 }

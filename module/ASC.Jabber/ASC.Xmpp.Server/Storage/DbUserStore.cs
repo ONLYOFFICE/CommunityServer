@@ -90,14 +90,13 @@ namespace ASC.Xmpp.Server.Storage
         public void SaveUser(User user)
         {
             if (user == null) throw new ArgumentNullException("user");
-
-            var bareJid = GetBareJid(user.Jid);
-            ExecuteNonQuery(new SqlInsert("jabber_user", true)
-                .InColumnValue("jid", bareJid)
-                .InColumnValue("pwd", user.Password)
-                .InColumnValue("admin", user.IsAdmin));
             lock (syncRoot)
             {
+                var bareJid = GetBareJid(user.Jid);
+                ExecuteNonQuery(new SqlInsert("jabber_user", true)
+                    .InColumnValue("jid", bareJid)
+                    .InColumnValue("pwd", user.Password)
+                    .InColumnValue("admin", user.IsAdmin));
                 Users[bareJid] = user;
             }
         }
@@ -105,9 +104,9 @@ namespace ASC.Xmpp.Server.Storage
         public void RemoveUser(Jid jid)
         {
             var bareJid = GetBareJid(jid);
-            ExecuteNonQuery(new SqlDelete("jabber_user").Where("jid", bareJid));
             lock (syncRoot)
             {
+                ExecuteNonQuery(new SqlDelete("jabber_user").Where("jid", bareJid));
                 Users.Remove(bareJid);
             }
         }

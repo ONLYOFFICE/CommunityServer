@@ -27,6 +27,7 @@
 <body>
   <div id="wrapper">
     <div id="container">
+        <img id="portalLogo" src="/TenantLogo.ashx?logotype=2&defifnoco=true" alt="" />
         <p>Sorry, portal is</p>
         <p>on maintenance.</p>
         <p>It may take a few minutes.</p>

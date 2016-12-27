@@ -41,10 +41,10 @@ namespace ASC.Web.Studio.Core
 {
     public static class SetupInfo
     {
-        private static string web_import_contacts_url;
-        private static string web_autotest_secret_email;
-        private static string[] web_display_mobapps_banner;
-        private static string[] hideSettings;
+        private static readonly string web_import_contacts_url;
+        private static readonly string web_autotest_secret_email;
+        private static readonly string[] web_display_mobapps_banner;
+        private static readonly string[] hideSettings;
 
 
         public static string StatisticTrackURL
@@ -270,19 +270,8 @@ namespace ASC.Web.Studio.Core
             private set;
         }
 
-        public static string StartProductList
-        {
-            get;
-            private set;
-        }
-
 
         static SetupInfo()
-        {
-            Refresh();
-        }
-
-        public static void Refresh()
         {
             StatisticTrackURL = GetAppSettings("web.track-url", string.Empty);
             UserVoiceURL = GetAppSettings("web.uservoice", string.Empty);
@@ -326,9 +315,12 @@ namespace ASC.Web.Studio.Core
             ApiCacheUrl = GetAppSettings("web.api-cache", "");
             ControlPanelUrl = GetAppSettings("web.controlpanel.url", "");
             FontOpenSansUrl = GetAppSettings("web.font.opensans.url", "");
-            StartProductList = GetAppSettings("web.start.product.list", "");
 
-            hideSettings = GetAppSettings("web.hide-settings", string.Empty).Split(new[] {',', ';', ' '}, StringSplitOptions.RemoveEmptyEntries);
+            var s = GetAppSettings("web.hide-settings", null);
+            if (!string.IsNullOrEmpty(s))
+            {
+                hideSettings = s.Split(new[] { ',', ';', ' ' });
+            }
         }
 
 

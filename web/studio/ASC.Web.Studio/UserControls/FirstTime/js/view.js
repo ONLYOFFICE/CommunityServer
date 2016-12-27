@@ -42,14 +42,9 @@ ASC.Controls.FirstTimeView = new function() {
 window.uetq = window.uetq || []; 
 
  window.uetq.push({ 'ec':'onlyoffice_msn', 'ea':'clickto', 'el':'onbutton', 'ev':'1' }); 
-        } catch (err) { }
+        } catch (err) { } 
 
-        var url = "default.aspx";
-        if (jq("body").is(".desktop")) {
-            url += "?desktop=true&first=true";
-        }
-
-        location.href = url;
+        location.href = "default.aspx";
     }
 
     this.SaveRequiredStep = function() {

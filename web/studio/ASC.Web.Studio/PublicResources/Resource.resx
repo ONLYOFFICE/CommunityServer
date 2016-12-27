@@ -198,7 +198,7 @@
     <value>Добавить {!user}</value>
   </data>
   <data name="AccessRightsAllUsers" xml:space="preserve">
-    <value>All {!users}</value>
+    <value>Всем пользователям</value>
   </data>
   <data name="AccessRightsChangeOwnerButtonText" xml:space="preserve">
     <value>Change portal owner</value>
@@ -213,7 +213,7 @@
     <value>Продукт {0} отключен и не отображается на портале. Для его подключения перейдите в настройки продуктов и инструментов</value>
   </data>
   <data name="AccessRightsEmptyUserList" xml:space="preserve">
-    <value>The {!user} list is empty</value>
+    <value>Список пользователей пуст</value>
   </data>
   <data name="AccessRightsFullAccess" xml:space="preserve">
     <value>Полный доступ</value>
@@ -231,13 +231,13 @@
     <value>Администраторы {0} могут</value>
   </data>
   <data name="AccessRightsProductUsersCan" xml:space="preserve">
-    <value>{0} {!users} can</value>
+    <value>Пользователи {0} могут</value>
   </data>
   <data name="AccessRightsProductUsersWithRightsCan" xml:space="preserve">
-    <value>{0} {!users} having different access rights can</value>
+    <value>Пользователи {0} могут, имея различные уровни доступа</value>
   </data>
   <data name="AccessRightsUsersFromList" xml:space="preserve">
-    <value>{!Users} from list</value>
+    <value>Из списка</value>
   </data>
   <data name="AccountActivationTitle" xml:space="preserve">
     <value>Your account is almost active now</value>
@@ -306,10 +306,10 @@
     <value>Add trusted domain</value>
   </data>
   <data name="AddUsersCaption" xml:space="preserve">
-    <value>Add {!Users}</value>
+    <value>Add Users</value>
   </data>
   <data name="AddUsersForSharingButton" xml:space="preserve">
-    <value>Add {!Users}</value>
+    <value>{!AddUsers}</value>
   </data>
   <data name="Administration" xml:space="preserve">
     <value>Settings</value>
@@ -348,7 +348,7 @@
     <value>Please describe your issue</value>
   </data>
   <data name="AdminMessageTitle" xml:space="preserve">
-    <value>If you are an existing {!user} and have problems accessing this portal or you want to register as the portal new {!user}, please contact the portal administrator using the form below.</value>
+    <value>If you are an existing user and have problems accessing this portal or you want to register as the portal new user, please contact the portal administrator using the form below.</value>
   </data>
   <data name="AdminSettings" xml:space="preserve">
     <value>Administrators</value>
@@ -584,7 +584,7 @@
     <value>Choose Region</value>
   </data>
   <data name="ChooseUser" xml:space="preserve">
-    <value>Choose {!user}</value>
+    <value>Choose user</value>
   </data>
   <data name="ChromeStoreBannerTitle" xml:space="preserve">
     <value>Rate and review us in Chrome Store</value>
@@ -1436,7 +1436,7 @@ Are you sure want to delete {!group} {0}?</value>
     <value>Add</value>
   </data>
   <data name="ImportContactsAlreadyExists" xml:space="preserve">
-    <value>{!User} already exists</value>
+    <value>User already exists</value>
   </data>
   <data name="ImportContactsCancelButton" xml:space="preserve">
     <value>Cancel</value>
@@ -1445,7 +1445,7 @@ Are you sure want to delete {!group} {0}?</value>
     <value>Delete selected</value>
   </data>
   <data name="ImportContactsDescription" xml:space="preserve">
-    <value>Add {!users} using the contact information from Google, Yahoo from a CSV file{0} or an email client contact book, or entering the {!user} first and last name and email manually.</value>
+    <value>{!Addusers} using the contact information from Google, Yahoo, Windws Live from a CSV file{0} or an email client contact book, or entering the user first and last name and email manually.</value>
   </data>
   <data name="ImportContactsEmail" xml:space="preserve">
     <value>User's email</value>
@@ -1472,7 +1472,7 @@ Are you sure want to delete {!group} {0}?</value>
     <value>Enter your last name</value>
   </data>
   <data name="ImportContactsFirstable" xml:space="preserve">
-    <value>Please, enter the first name, last name and email of a {!user} who will be added to the portal into the fields above. Click the 'Add' button to append the {!user} to the list.</value>
+    <value>Please, enter firstname, lastname and email of a user who will be added to the portal into the fileds above. Click the 'Add' button to append the user to the list.</value>
   </data>
   <data name="ImportContactsFirstName" xml:space="preserve">
     <value>User's name</value>
@@ -1490,7 +1490,7 @@ Are you sure want to delete {!group} {0}?</value>
     <value>MS Outlook Express CSV</value>
   </data>
   <data name="ImportContactsHeader" xml:space="preserve">
-    <value>Add {!users} to the portal</value>
+    <value>{!Addusers} to the portal</value>
   </data>
   <data name="ImportContactsIncorrectFields" xml:space="preserve">
     <value>Make sure that all user fields including first name, last name and email address are filled correctly</value>
@@ -1511,7 +1511,7 @@ Are you sure want to delete {!group} {0}?</value>
     <value>Add selected users</value>
   </data>
   <data name="ImportContactsSmallDescription" xml:space="preserve">
-    <value>You need a properly formed CSV file to import {!users} from it. The file must have the following row structure: Email,First name,Last name</value>
+    <value>Before import users from CSV file you need place daata in CSV file in the following order: Email;Name;Surname</value>
   </data>
   <data name="ImportUserLimitDecision" xml:space="preserve">
     <value>Do you agree to add users with the specified rights?</value>
@@ -1571,7 +1571,7 @@ Are you sure want to delete {!group} {0}?</value>
     <value>You are invited to join this portal!</value>
   </data>
   <data name="InviteUsersAsCollaborators" xml:space="preserve">
-    <value>Add users as {!guests}</value>
+    <value>Invite users as guests</value>
   </data>
   <data name="IPSecurityDisable" xml:space="preserve">
     <value>Disable</value>
@@ -1599,7 +1599,7 @@ Are you sure want to delete {!group} {0}?</value>
     <value>Join to our Affilliate Program</value>
   </data>
   <data name="KeepTariffInviteGuests" xml:space="preserve">
-    <value>You can keep adding the users as {!guests} or change the pricing plan for the one with a larger number of users.</value>
+    <value>You can keep adding the users as guests or change the pricing plan for the one with a larger number of users.</value>
   </data>
   <data name="LabelDontShowMessage" xml:space="preserve">
     <value>Do not show this message</value>
@@ -1721,9 +1721,6 @@ Are you sure want to delete {!group} {0}?</value>
   <data name="LdapSettingsRestoreDefaultSettings" xml:space="preserve">
     <value>Restore to default settings</value>
   </data>
-  <data name="LdapSettingsSyncUsers" xml:space="preserve">
-    <value>Sync LDAP</value>
-  </data>
   <data name="LdapSettingsSave" xml:space="preserve">
     <value>Save</value>
   </data>
@@ -1742,26 +1739,11 @@ Are you sure want to delete {!group} {0}?</value>
   <data name="LdapSettingsStatusGettingGroupsFromLdap" xml:space="preserve">
     <value>Получение списка групп от LDAP сервера</value>
   </data>
-  <data name="LdapSettingsModifyLdapUsers" xml:space="preserve">
-    <value>Modifying LDAP users on ordinary portal users</value>
-  </data>
   <data name="LdapSettingsStatusGettingUsersFromLdap" xml:space="preserve">
     <value>Получение списка пользователей от LDAP сервера</value>
   </data>
-  <data name="LdapSettingsStatusGettingUsersFromDb" xml:space="preserve">
-    <value>Retrieving existing LDAP user list from the People</value>
-  </data>
-  <data name="LdapSettingsStatusLoadingBaseInfo" xml:space="preserve">
-    <value>Loading LDAP base info</value>
-  </data>
   <data name="LdapSettingsStatusSavingGroups" xml:space="preserve">
     <value>Сохранение  групп</value>
-  </data>
-  <data name="LdapSettingsStatusRemovingOldGroups" xml:space="preserve">
-    <value>Удаление устаревших групп, загруженных по LDAP ранее</value>
-  </data>
-  <data name="LdapSettingsStatusRemovingOldUsers" xml:space="preserve">
-    <value>Удаление устаревших пользователей, загруженных по LDAP ранее</value>
   </data>
   <data name="LdapSettingsStatusSavingSettings" xml:space="preserve">
     <value>Сохранение настроек</value>
@@ -1802,15 +1784,6 @@ Are you sure want to delete {!group} {0}?</value>
   <data name="LdapSettingsUserNameHelper" xml:space="preserve">
     <value>Укажите {0} пользователя, у которого есть права на чтение данных из LDAP сервера/Active Directory.</value>
   </data>
-  <data name="LdapSettingsDscr" xml:space="preserve">
-    <value>The LDAP module allows you to import users and groups from the LDAP server, as well as provide user authentication on the portal using the login/password, stored in an LDAP server. Users will be imported immediately after saving the settings. New users added later will be imported during their first authentication on the portal. The information about the users edited at the LDAP server can be immediately updated using the 'Sync LDAP' button below. The LDAP module can be very flexibly configured to meet specific needs, but also requires some knowledge of LDAP.</value>
-  </data>
-  <data name="NoteShouldKnowHeader" xml:space="preserve">
-    <value>Things you should know:</value>
-  </data>
-  <data name="NoteLDAPShouldKnow" xml:space="preserve">
-    <value>The portal email user will be formed the following way: 'Login Attribute + @ + LDAP Domain'. In case such email does not exist, the user will not receive any portal notifications.</value>
-  </data>
   <data name="LearnMore" xml:space="preserve">
     <value>Learn more...</value>
   </data>
@@ -1834,9 +1807,6 @@ Are you sure want to delete {!group} {0}?</value>
   </data>
   <data name="Login" xml:space="preserve">
     <value>Login</value>
-  </data>
-  <data name="LoginDescription" xml:space="preserve">
-    <value>The login is also used as an email for notifications. If you do not receive notifications and you are not sure if such an email exists, please contact your portal administrator.</value>
   </data>
   <data name="LoginButton" xml:space="preserve">
     <value>Sign In</value>
@@ -1899,7 +1869,7 @@ Are you sure want to delete {!group} {0}?</value>
     <value>Invite your team members</value>
   </data>
   <data name="ManagerEmptyScreen_PeopleLinkDscr" xml:space="preserve">
-    <value>View portal {!users}, add or import them</value>
+    <value>Add users via email or import them from other services</value>
   </data>
   <data name="ManagerEmptyScreen_ProjectsLink" xml:space="preserve">
     <value>Start your project</value>
@@ -2046,7 +2016,7 @@ Are you sure want to delete {!group} {0}?</value>
     <value>Больше никого нет, отвечай сам!</value>
   </data>
   <data name="NoteInviteCollaborator" xml:space="preserve">
-    <value>Roles for the users added as {!guests} can be later changed in the {0}People{1} module.</value>
+    <value>Roles for the users added as guests can be later changed in the {0}People{1} module.</value>
   </data>
   <data name="NotePriceCollaborator" xml:space="preserve">
     <value>They will not be included into the total number of users in the portal pricing.</value>
@@ -2067,7 +2037,7 @@ Are you sure want to delete {!group} {0}?</value>
     <value>Talk</value>
   </data>
   <data name="NotifyPortalMigration" xml:space="preserve">
-    <value>Notify {!users} about portal migration</value>
+    <value>Notify users about portal migration</value>
   </data>
   <data name="Offline" xml:space="preserve">
     <value>Offline</value>
@@ -2325,7 +2295,7 @@ Are you sure want to delete {!group} {0}?</value>
     <value>Products &amp; Instruments</value>
   </data>
   <data name="ProductsAndInstruments_Info" xml:space="preserve">
-    <value>Select the ONLYOFFICE™ modules and tools you need. The disabled modules and tools will be hidden from all portal {!users}. Keep in mind that after enabling the modules and tools again they will become available for all portal {!users} as well. To restrict the access, refer to the Access Rights section of the Portal Settings.</value>
+    <value>Select the TeamLab modules and tools you need. The disabled modules and tools will be hidden from all portal users. Keep in mind that after enabling the modules and tools again they will become available for all portal users as well. To restrict the access, refer to the Access Rights section of the Portal Settings.</value>
   </data>
   <data name="ProductsAndInstruments_Instruments" xml:space="preserve">
     <value>Instruments</value>
@@ -2367,13 +2337,10 @@ Are you sure want to delete {!group} {0}?</value>
     <value>Registration Date</value>
   </data>
   <data name="RegisterNewUsersImmediately" xml:space="preserve">
-    <value>Register new {!users} immediately</value>
+    <value>Register new users immediately</value>
   </data>
   <data name="RegistrationEmailWatermark" xml:space="preserve">
     <value>Your registration e-mail</value>
-  </data>
-  <data name="RegistrationLoginWatermark" xml:space="preserve">
-    <value>Your registration login</value>
   </data>
   <data name="RegistryButton" xml:space="preserve">
     <value>Sign Up</value>
@@ -2504,7 +2471,7 @@ Clear the list{1}.</value>
     <value>Click here to join</value>
   </data>
   <data name="SendInviteToJoinDescription" xml:space="preserve">
-    <value>Want to become the portal {!user}?</value>
+    <value>Want to become the portal user?</value>
   </data>
   <data name="SendInviteToJoinEmailDesc" xml:space="preserve">
     <value>Please enter the email address where the invitation will be sent:</value>
@@ -2955,7 +2922,7 @@ To register, enter your email and click on Send Invitation.  An email message wi
     <value>{0} is the maximum storage space available  for portal.</value>
   </data>
   <data name="TenantUsersTotal" xml:space="preserve">
-    <value>Total number of {!users}</value>
+    <value>Users total</value>
   </data>
   <data name="TimePeriod" xml:space="preserve">
     <value>Time period</value>
@@ -3262,7 +3229,7 @@ To register, enter your email and click on Send Invitation.  An email message wi
     <value>Get shorten link</value>
   </data>
   <data name="InviteUsersToPortalLink" xml:space="preserve">
-    <value>Invite {!users} to portal</value>
+    <value>Invite users to portal</value>
   </data>
   <data name="ErrorBadRequest" xml:space="preserve">
     <value>Bad request</value>
@@ -3443,68 +3410,5 @@ To register, enter your email and click on Send Invitation.  An email message wi
   </data>
   <data name="AccountDeactivationConfirmMsg" xml:space="preserve">
     <value>Before you delete the portal, please make sure that automatic billing turned off. You may ckeck on the status of automatic billing in your {0}Avangate account{1}.</value>
-  </data>
-  <data name="MailService" xml:space="preserve">
-    <value>Mail Service</value>
-  </data>
-  <data name="MailServiceExample" xml:space="preserve">
-    <value>Example: {0}</value>
-  </data>
-  <data name="MailServicePassword" xml:space="preserve">
-    <value>Mail Server database password</value>
-  </data>
-  <data name="MailServiceText" xml:space="preserve">
-    <value>Once connected, the {0}Mail Server{1} will {2}become available{3} within the {0}Mail{1} module, and you will be able to create mailboxes for the portal users using your own mail domain name.</value>
-  </data>
-  <data name="MailServiceTitle" xml:space="preserve">
-    <value>Mail Server Connection Settings</value>
-  </data>
-  <data name="MailServiceHelp" xml:space="preserve">
-    <value>This option allows to connect your portal to the {0}Mail Server{1} installed on a remote computer using the {2}Docker installation{3}.</value>
-  </data>
-  <data name="MailServiceUser" xml:space="preserve">
-    <value>Mail Server database user name</value>
-  </data>
-  <data name="MailServiceServerIp" xml:space="preserve">
-    <value>Mail Server IP</value>
-  </data>
-  <data name="MailServiceShowAdvancedSettings" xml:space="preserve">
-    <value>Show Advanced Settings</value>
-  </data>
-  <data name="MailServiceHideAdvancedSettings" xml:space="preserve">
-    <value>Hide Advanced Settings</value>
-  </data>
-  <data name="ConnectButton" xml:space="preserve">
-    <value>Connect</value>
-  </data>
-  <data name="MailServiceConnectSuccessMsg" xml:space="preserve">
-    <value>Successful connection</value>
-  </data>
-  <data name="MailServiceCouldNotGetErrorMsg" xml:space="preserve">
-    <value>Error: Сould not get hostname or auth token</value>
-  </data>
-  <data name="MailServicePingErrorMsg" xml:space="preserve">
-    <value>Error pinging host {0}:3306</value>
-  </data>
-  <data name="MailServiceSaveSuccessMsg" xml:space="preserve">
-    <value>Service successfully connected</value>
-  </data>
-  <data name="MailServiceGoToMailserver" xml:space="preserve">
-    <value>Configure Mail Server</value>
-  </data>
-  <data name="MailServiceWarning" xml:space="preserve">
-    <value>Warning: you already have Mail Domain settings and mailboxes for users present in your {0}Mail{1} module. Changing the settings here you realize that these changes can affect their work and result in mail server failure. If you completely moved the {0}Mail Server{1} to another computer and/or changed database access credentials, just update the {0}Mail Server IP{1} and/or credentials here. If you created a new {0}Mail Server{1} and want to connect it, you need to delete the old data at the {2}Mail Server page{3} first.</value>
-  </data>
-  <data name="LdapUsersListLockTitle" xml:space="preserve">
-    <value>The user has been imported from LDAP</value>
-  </data>
-  <data name="LdapUserEditCanOnlyAdminTitle" xml:space="preserve">
-    <value>The user has been imported from LDAP. Contact your LDAP administrator if you want to change the locked profile fields.</value>
-  </data>
-  <data name="LdapSettingsTooManyOperations" xml:space="preserve">
-    <value>Too many LDAP operations.</value>
-  </data>
-  <data name="LdapSettingsErrorDomainNotFound" xml:space="preserve">
-    <value>LDAP domain not found.</value>
   </data>
 </root>
