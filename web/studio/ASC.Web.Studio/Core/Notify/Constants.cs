@@ -79,6 +79,8 @@ namespace ASC.Web.Studio.Core.Notify
 
         public static string MailWhiteLabelSettings = "MailWhiteLabelSettings";
 
+        public static string EmbeddedAttachments = "EmbeddedAttachments";
+
         public static INotifyAction ActionAdminNotify = new NotifyAction("admin_notify", "admin notifications");
         public static INotifyAction ActionSelfProfileUpdated = new NotifyAction("self_profile_updated", "self profile updated");
         public static INotifyAction ActionUserHasJoin = new NotifyAction("user_has_join", "user has join");

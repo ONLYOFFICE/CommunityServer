@@ -403,7 +403,7 @@ namespace ASC.Mail.Aggregator.Core
                 notifyMessageItem.ChainId = notifyMessageItem.MimeMessageId;
                 notifyMessageItem.IsNew = true;
 
-                manager.StoreMailBody(draft.Mailbox.TenantId, draft.Mailbox.UserId, notifyMessageItem);
+                manager.StoreMailBody(draft.Mailbox, notifyMessageItem);
 
                 var mailDaemonMessageid = manager.MailSave(draft.Mailbox, notifyMessageItem, 0, MailFolder.Ids.inbox, MailFolder.Ids.inbox,
                     string.Empty, string.Empty, false);

@@ -3,8 +3,10 @@
 <%@ Import Namespace="ASC.Core" %>
 <%@ Import Namespace="ASC.Core.Users" %>
 <%@ Import Namespace="ASC.Web.People.Resources" %>
+<%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
+<%@ Import Namespace="Resources" %>
 
- <script id="userActionMenuTemplate" type="text/x-jquery-tmpl">
+<script id="userActionMenuTemplate" type="text/x-jquery-tmpl">
         <ul class="dropdown-content">
             {{if ($data.canEdit === "true") && ($data.isAdmin === true || $data.isMe === true ) && (user.status !== "blocked")}}
               <li><a class="edit-profile dropdown-item"><%= PeopleResource.LblEdit %></a></li>
@@ -12,19 +14,19 @@
             {{if ($data.canDel === "true") && ($data.isAdmin === true) && (user.status === "blocked")}}
               <li><a class="enable-profile dropdown-item"><%= PeopleResource.EnableUserButton%></a></li>
             {{/if}}
-            {{if ($data.canEdit === "true") && ($data.isAdmin === true || $data.isMe === true) && (user.status !== "blocked") && (user.status !== "waited")}}
+            {{if ($data.canEdit === "true") && ($data.isAdmin === true || $data.isMe === true) && (user.status !== "blocked") && (user.status !== "waited") && (user.isLDAP === "false")}}
               <li><a class="change-password dropdown-item"><%= PeopleResource.LblChangePassword %></a></li>
             {{/if}}
-            {{if ($data.isAdmin === true || $data.isMe === true) && (user.status !== "blocked") && (user.status !== "waited")}}
+            {{if ($data.isAdmin === true || $data.isMe === true) && (user.status !== "blocked") && (user.status !== "waited") && (user.isLDAP === "false")}}
               <li><a class="change-email dropdown-item"><%= PeopleResource.LblChangeEmail %></a></li>
             {{/if}}
             {{if ($data.isAdmin === true || $data.isMe === true) && (user.status === "waited")}}
               <li><a class="email-activation dropdown-item"><%= PeopleResource.LblSendActivation%></a></li>
             {{/if}}
-            {{if ($data.canDel === "true") && ($data.isAdmin === true) && ($data.isMe !== true) && (user.status !== "blocked")}}
+            {{if ($data.canDel === "true") && ($data.isAdmin === true) && ($data.isMe !== true) && (user.status !== "blocked") && (user.isLDAP === "false")}}
               <li><a class="block-profile dropdown-item"><%= PeopleResource.DisableUserButton%></a></li>
             {{/if}}
-            {{if (user.isOwner !== "true") && ((($data.canDel === "true") && ($data.isAdmin === true) && (user.status === "blocked")) || ($data.isMe === true)) }}
+            {{if (user.isOwner !== "true") && ((($data.canDel === "true") && ($data.isAdmin === true) && (user.status === "blocked") && (user.isLDAP === "false")) || ($data.isMe === true) && (user.isLDAP === "false"))}}
               <li><a class="delete-profile dropdown-item"><%= PeopleResource.LblDeleteProfile %></a></li>
             {{/if}}
 
@@ -32,8 +34,8 @@
 </script>
 
 <script id="userListTemplate" type="text/x-jquery-tmpl">
-{{each(i, user) users}}
-  <tr id="user_${user.id}" class="item profile {{if ($data.isAdmin === true || user.isMe === true) && (user.isMe === true || user.isPortalOwner !== true)}} with-entity-menu {{/if}} {{if user.isTerminated}} blocked{{else user.isActivated === false}} waited{{/if}} {{if user.isChecked == true}} selected{{/if}}"
+    {{each(i, user) users}}
+    <tr id="user_${user.id}" class="item profile {{if ($data.isAdmin === true || user.isMe === true) && (user.isMe === true || user.isPortalOwner !== true)}} with-entity-menu {{/if}} {{if user.isTerminated}} blocked{{else user.isActivated === false}} waited{{/if}} {{if user.isChecked == true}} selected{{/if}}"
         data-id="${user.id}"
         data-username="${user.userName}"
         data-email="${user.email}"
@@ -42,6 +44,7 @@
         data-isAdmin="${user.isAdmin}"
         data-isOwner="${user.isPortalOwner}"
         data-isVisitor="${user.isVisitor}"
+        data-isLDAP="${user.isLDAP}"
       >
        
     {{if ($data.isAdmin === true)}}
@@ -54,21 +57,22 @@
       <a class="ava" href="${user.link}">
         <img src="${user.avatarSmall}" title="${user.displayName}" /> 
         
-        {{if ($data.isAdmin === true && user.isVisitor)}}<span class="role collaborator" title="<%= ASC.Web.Studio.Core.Users.CustomNamingPeople.Substitute<Resources.Resource>("Guest").HtmlEncode() %>"></span>{{/if}}
-        {{if (user.isAdmin || listAdminModules.length) && (!user.isPortalOwner)}}<span class="role admin" title="<%= Resources.Resource.Administrator %>"></span>{{/if}}
-        {{if (user.isPortalOwner)}}<span class="role owner" title="<%= Resources.Resource.Owner %>"></span>{{/if}}
+        {{if ($data.isAdmin === true && user.isVisitor)}}<span class="role collaborator" title="<%= CustomNamingPeople.Substitute<Resource>("Guest").HtmlEncode() %>"></span>{{/if}}
+        {{if (user.isAdmin || listAdminModules.length) && (!user.isPortalOwner)}}<span class="role admin" title="<%= Resource.Administrator %>"></span>{{/if}}
+        {{if (user.isPortalOwner)}}<span class="role owner" title="<%= Resource.Owner %>"></span>{{/if}}
 
         {{if (user.isTerminated || user.isActivated === false)}}<span class="status"></span> {{/if}}
       </a>
     </td>
     <td class="name">
         <a class="link bold" href="${user.link}">${user.displayName}</a>
+        <span class="{{if $data.isAdmin === true && user.isLDAP === true}}ldap-lock{{/if}}"{{if $data.isAdmin === true && user.isLDAP === true}} title="${ASC.Resources.Master.LdapUsersListLockTitle}"{{/if}}></span>
       {{if user.bithdayDaysLeft != null}}
         <div class="birthday">
-        {{if user.bithdayDaysLeft == 0}}<%= Resources.Resource.DrnToday %>
-        {{else user.bithdayDaysLeft==1}}<%= Resources.Resource.DrnTomorrow %>
-        {{else user.bithdayDaysLeft==2}}<%= Resources.Resource.In %> <% = DateTimeExtension.Yet(2) %>
-        {{else user.bithdayDaysLeft==3}}<%= Resources.Resource.In %> <% = DateTimeExtension.Yet(3) %>
+        {{if user.bithdayDaysLeft == 0}}<%= Resource.DrnToday %>
+        {{else user.bithdayDaysLeft==1}}<%= Resource.DrnTomorrow %>
+        {{else user.bithdayDaysLeft==2}}<%= Resource.In %> <% = DateTimeExtension.Yet(2) %>
+        {{else user.bithdayDaysLeft==3}}<%= Resource.In %> <% = DateTimeExtension.Yet(3) %>
         {{/if}}
         </div>
       {{/if}}
@@ -87,7 +91,7 @@
         </a>
         {{else user.groups.length > 1}}
             <span id="peopleGroupsSwitcher_${user.id}" class="withHoverArrowDown">
-                <span class="link dotted">${user.groups.length} <%=ASC.Web.Studio.Core.Users.CustomNamingPeople.Substitute<Resources.Resource>("Departments").HtmlEncode()%></span>
+                <span class="link dotted">${user.groups.length} <%= CustomNamingPeople.Substitute<Resource>("Departments").HtmlEncode()%></span>
             </span>
             <div id="peopleGroups_${user.id}" class="studio-action-panel">
                 <ul class="dropdown-content">
@@ -155,7 +159,7 @@
             ${ASC.People.Resources.DepartmentMaster}:
         </div>
         <span id="headAdvancedSelector" class="link dotline plus">
-            <%= PeopleResource.ChooseUser %>
+            <%= CustomNamingPeople.Substitute<PeopleResource>("ChooseUser") %>
         </span>
         <div id="departmentManager" class="advanced-selector-select-result display-none">
             <span class="result-name" data-id=""></span>

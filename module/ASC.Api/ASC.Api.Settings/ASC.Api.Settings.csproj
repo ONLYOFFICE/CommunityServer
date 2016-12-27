@@ -61,6 +61,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ASC.Data.Storage, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Data.Storage.dll</HintPath>
+    </Reference>
     <Reference Include="log4net">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\packages\log4net.2.0.3\lib\net40-client\log4net.dll</HintPath>
@@ -132,6 +136,10 @@
     <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\ASC.Web.Studio.csproj">
       <Project>{e7be6ce8-f6b0-4b9b-831b-ba0c85c8d130}</Project>
       <Name>ASC.Web.Studio</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\web\studio\ASC.Web.Studio\Products\Files\ASC.Web.Files.csproj">
+      <Project>{8c534af7-5696-4e68-9ff4-ffc311893c10}</Project>
+      <Name>ASC.Web.Files</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\ASC.Mail.Server\Dal\MailServerDal\MailServerDal.csproj">
       <Project>{c436e243-3092-441d-8b25-aeba1cf2cefe}</Project>

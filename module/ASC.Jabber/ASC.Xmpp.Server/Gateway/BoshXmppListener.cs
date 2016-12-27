@@ -24,11 +24,9 @@
 */
 
 
-using ASC.Xmpp.Server.Utils;
 using log4net;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Net;
 
 namespace ASC.Xmpp.Server.Gateway
@@ -36,16 +34,10 @@ namespace ASC.Xmpp.Server.Gateway
     class BoshXmppListener : XmppListenerBase
     {
         private const string DEFAULT_BIND_URL = "http://*:5280/http-poll/";
-        private const string DEFAULT_POLICY_FILE = "crossdomain.xml";
 
         private readonly HttpListener httpListener = new HttpListener();
 
         private Uri bindUri;
-        private Uri domainUri;
-
-        private string policyFile = DEFAULT_POLICY_FILE;
-        private string policy = string.Empty;
-        private bool policyLoaded = false;
         private long maxPacket = 1048576; //1024 kb
 
         private static readonly ILog log = LogManager.GetLogger(typeof(BoshXmppListener));
@@ -60,22 +52,9 @@ namespace ASC.Xmpp.Server.Gateway
                 string bindPrefix = properties.ContainsKey("bind") ? properties["bind"] : DEFAULT_BIND_URL;
                 bindUri = new Uri(bindPrefix.Replace("*", hostname));
 
-                string policyPrefix = properties.ContainsKey("policy") ? properties["policy"] : bindUri.Scheme + "://*:" + bindUri.Port;
-                domainUri = new Uri(policyPrefix.Replace("*", hostname));
-
-                if (policyPrefix.Contains(".")) policyPrefix = policyPrefix.Substring(0, policyPrefix.LastIndexOf("/"));
-                if (!policyPrefix.EndsWith("/")) policyPrefix += "/";
-
                 httpListener.Prefixes.Add(bindPrefix);
-                httpListener.Prefixes.Add(policyPrefix);
 
                 log.InfoFormat("Configure listener {0} on {1}", Name, bindPrefix);
-                log.InfoFormat("Configure policy {0} on {1}", Name, policyPrefix);
-
-                BoshXmppHelper.CompressResponse = properties.ContainsKey("compress") ? bool.Parse(properties["compress"]) : true;
-
-                if (properties.ContainsKey("policyFile")) policyFile = properties["policyFile"];
-                policyFile = PathUtils.GetAbsolutePath(policyFile);
 
                 if (properties.ContainsKey("maxpacket"))
                 {
@@ -129,10 +108,7 @@ namespace ASC.Xmpp.Server.Gateway
                     return;
                 }
 
-                var url = ctx.Request.Url;
-                log.DebugFormat("{0}: Begin process http request {1}", Name, url);
-
-                if (url.AbsolutePath == bindUri.AbsolutePath)
+                if (ctx.Request.Url.AbsolutePath == bindUri.AbsolutePath)
                 {
                     var body = BoshXmppHelper.ReadBodyFromRequest(ctx);
                     if (body == null)
@@ -151,46 +127,28 @@ namespace ASC.Xmpp.Server.Gateway
 
                     if (connection == null)
                     {
-                        connection = new BoshXmppConnection();
+                        connection = new BoshXmppConnection(body);
+                        log.DebugFormat("Create new Bosh connection Id = {0}", connection.Id);
+
                         AddNewXmppConnection(connection);
                     }
 
                     connection.ProcessBody(body, ctx);
                 }
-                else if ((url.AbsolutePath == domainUri.AbsolutePath || url.AbsolutePath == "/crossdomain.xml") && ctx.Request.HttpMethod == "GET")
-                {
-                    SendPolicy(ctx);
-                }
                 else
                 {
                     BoshXmppHelper.TerminateBoshSession(ctx, "bad-request");
+                    log.DebugFormat("{0}: Unknown uri request {1}", Name, ctx.Request.Url);
                 }
             }
-            catch (ObjectDisposedException) { }
             catch (Exception e)
             {
-                if (ctx != null) BoshXmppHelper.TerminateBoshSession(ctx, "internal-server-error");
-                if (Started) log.ErrorFormat("{0}: Error GetContextCallback: {1}", Name, e);
-            }
-        }
-
-        private void SendPolicy(HttpListenerContext ctx)
-        {
-            log.DebugFormat("{0}: Send policy.", Name);
-
-            if (!policyLoaded)
-            {
-                try
+                BoshXmppHelper.TerminateBoshSession(ctx, "internal-server-error");
+                if (Started && !(e is ObjectDisposedException))
                 {
-                    policy = File.ReadAllText(policyFile);
+                    log.ErrorFormat("{0}: Error GetContextCallback: {1}", Name, e);
                 }
-                catch (Exception ex)
-                {
-                    log.ErrorFormat("Can not load policy file: {0}, error: {1}", policyFile, ex);
-                }
-                policyLoaded = true;
             }
-            BoshXmppHelper.SendAndCloseResponse(ctx, policy);
         }
     }
 }

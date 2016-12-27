@@ -154,7 +154,7 @@ namespace ASC.Web.Studio.UserControls.Management
             {
                 ServerCertificateValidationCallback = (sender, certificate, chain, errors) =>
                     sslCertificatePermit ||
-                    MailService.DefaultServerCertificateValidationCallback(sender, certificate, chain, errors),
+                    MailKit.MailService.DefaultServerCertificateValidationCallback(sender, certificate, chain, errors),
                 Timeout = (int) TimeSpan.FromSeconds(30).TotalMilliseconds
             })
             {

@@ -133,33 +133,6 @@ namespace ASC.Data.Storage.DiscStorage
 
         }
 
-        public override Uri UploadWithoutQuota(string domain, string path, Stream stream, string contentType, string contentDisposition)
-        {
-            if (path == null) throw new ArgumentNullException("path");
-            if (stream == null) throw new ArgumentNullException("stream");
-
-            //Try seek to start
-            if (stream.CanSeek)
-            {
-                stream.Seek(0, SeekOrigin.Begin);
-            }
-
-            //Lookup domain
-            var target = GetTarget(domain, path);
-            CreateDirectory(target);
-            //Copy stream
-            using (var fs = File.Open(target, FileMode.Create))
-            {
-                var buffer = new byte[BufferSize];
-                int readed;
-                while ((readed = stream.Read(buffer, 0, BufferSize)) != 0)
-                {
-                    fs.Write(buffer, 0, readed);
-                }
-            }
-            return GetUri(domain, path);
-        }
-
         public override Uri Save(string domain, string path, Stream stream)
         {
             var postWriteCheck = false;
@@ -198,7 +171,7 @@ namespace ASC.Data.Storage.DiscStorage
             //optimaze disk file copy
             var fileStream = stream as FileStream;
             var fslen = 0L;
-            if (fileStream != null)
+            if (fileStream != null && WorkContext.IsMono)
             {
                 File.Copy(fileStream.Name, target, true);
                 fslen = fileStream.Length;

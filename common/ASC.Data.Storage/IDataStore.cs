@@ -132,17 +132,6 @@ namespace ASC.Data.Storage
         /// <returns></returns>
          Uri Save(string domain, string path, Stream stream, string contentEncoding, int cacheDays);
 
-        /// <summary>
-        /// Upload the contents of the stream in the repository without quota.
-        /// </summary>
-        /// <param name="domain"></param>
-        /// <param name="path"></param>
-        /// <param name="stream"></param>
-        /// <param name="contentType"></param>
-        /// <param name="contentDisposition"></param>
-        /// <returns></returns>
-        Uri UploadWithoutQuota(string domain, string path, Stream stream, string contentType, string contentDisposition);
-
         string InitiateChunkedUpload(string domain, string path);
 
         string UploadChunk(string domain, string path, string uploadId, Stream stream, int chunkNumber, long chunkLength);

@@ -51,7 +51,10 @@ namespace ASC.Data.Backup.Storage
         {
             var cron = new CronExpression(Cron);
             var tenantTimeZone = CoreContext.TenantManager.GetTenant(TenantId).TimeZone;
-            var lastBackupTime = TenantUtil.DateTimeFromUtc(tenantTimeZone, LastBackupTime);
+            var lastBackupTime = LastBackupTime.Equals(default(DateTime))
+                ? DateTime.UtcNow.Date.AddSeconds(-1)
+                : TenantUtil.DateTimeFromUtc(tenantTimeZone, LastBackupTime);
+
             var nextBackupTime = cron.GetTimeAfter(lastBackupTime);
 
             if (!nextBackupTime.HasValue) return false;

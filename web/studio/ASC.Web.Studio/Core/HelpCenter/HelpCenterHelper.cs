@@ -24,14 +24,6 @@
 */
 
 
-using ASC.Core.Tenants;
-using ASC.Data.Storage;
-using ASC.Web.Core.Client;
-using ASC.Web.Core.Files;
-using ASC.Web.Core.Users;
-using ASC.Web.Studio.Utility;
-using HtmlAgilityPack;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -40,6 +32,14 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web.Configuration;
+using ASC.Core.Tenants;
+using ASC.Data.Storage;
+using ASC.Web.Core.Client;
+using ASC.Web.Core.Files;
+using ASC.Web.Core.Users;
+using ASC.Web.Studio.Utility;
+using HtmlAgilityPack;
+using log4net;
 
 namespace ASC.Web.Studio.Core.HelpCenter
 {
@@ -94,7 +94,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
                 var data = ParseVideoGuideHtml(html);
 
                 videoGuideData = new VideoGuideData { ListItems = new List<VideoGuideItem>() };
-                if (data.Any())
+                //if (data.Any())
                 {
                     videoGuideData.ListItems = data;
                     videoGuideData.ResetCacheKey = ClientSettings.ResetCacheKey;
@@ -117,7 +117,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
                 var doc = new HtmlDocument();
                 doc.LoadHtml(html);
 
-                var titles = doc.DocumentNode.SelectNodes("//div[@class='MainHelpCenter PageVideo']//li");
+                var titles = doc.DocumentNode.SelectNodes("//div[@class='MainHelpCenter PageVideo']//div");
 
                 if (titles == null || titles.Count(a => a.Attributes["id"] != null) != titles.Count() || !titles.Elements("a").Any()) return data;
 
@@ -180,7 +180,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
                 var data = ParseHelpCenterHtml(html, helpLinkBlock);
 
                 helpCenterData = new HelpCenterData();
-                if (data.Any())
+                //if (data.Any())
                 {
                     helpCenterData.ListItems = data;
                     helpCenterData.ResetCacheKey = ClientSettings.ResetCacheKey;
@@ -361,28 +361,51 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
         #endregion
 
+        private static bool _stopRequesting;
+
         private static String SendRequest(string url)
         {
+            if (_stopRequesting) return string.Empty;
             try
             {
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
 
                 httpWebRequest.AllowAutoRedirect = false;
+                httpWebRequest.Timeout = 15000;
                 httpWebRequest.Method = "GET";
                 httpWebRequest.Headers["Accept-Language"] = "en"; // get correct en lang
 
-                using (var httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
-                using (var stream = httpWebResponse.GetResponseStream())
-                using (var reader = new StreamReader(stream, Encoding.GetEncoding(httpWebResponse.CharacterSet)))
+                var countTry = 0;
+                const int maxTry = 3;
+                while (countTry < maxTry)
                 {
-                    return reader.ReadToEnd();
+                    try
+                    {
+                        countTry++;
+                        using (var httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+                        using (var stream = httpWebResponse.GetResponseStream())
+                        using (var reader = new StreamReader(stream, Encoding.GetEncoding(httpWebResponse.CharacterSet)))
+                        {
+                            return reader.ReadToEnd();
+                        }
+                    }
+                    catch (WebException ex)
+                    {
+                        if (ex.Status != WebExceptionStatus.Timeout)
+                        {
+                            throw;
+                        }
+                    }
                 }
+
+                _stopRequesting = true;
+                throw new WebException("Timeout " + maxTry, WebExceptionStatus.Timeout);
             }
             catch (Exception e)
             {
                 _log.Error(string.Format("HelpCenter is not avaliable by url {0}", url), e);
             }
-            return "";
+            return string.Empty;
         }
     }
 }

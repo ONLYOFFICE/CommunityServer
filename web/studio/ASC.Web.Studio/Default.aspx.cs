@@ -66,7 +66,9 @@ namespace ASC.Web.Studio
             if (defaultPageSettings != null && defaultPageSettings.DefaultProductID != Guid.Empty)
             {
                 if (defaultPageSettings.DefaultProductID == defaultPageSettings.FeedModuleID && !CurrentUser.IsOutsider())
-                    Context.Response.Redirect("feed.aspx");
+                {
+                    Response.Redirect("feed.aspx", true);
+                }
 
                 var products = WebItemManager.Instance.GetItemsAll<IProduct>();
                 foreach (var p in products)
@@ -76,7 +78,16 @@ namespace ASC.Web.Studio
                         var productInfo = WebItemSecurity.GetSecurityInfo(p.ID.ToString());
                         if (productInfo.Enabled && WebItemSecurity.IsAvailableForUser(p.ID.ToString(), CurrentUser.ID))
                         {
-                            Context.Response.Redirect(p.StartURL);
+                            var url = p.StartURL;
+                            if (Request.DesktopApp())
+                            {
+                                url += "?desktop=true";
+                                if (!string.IsNullOrEmpty(Request["first"]))
+                                {
+                                    url += "&first=true";
+                                }
+                            }
+                            Response.Redirect(url, true);
                         }
                     }
                 }
@@ -92,23 +103,29 @@ namespace ASC.Web.Studio
                 defaultListProducts.RemoveAll(r => r.ID == _showDocs.ProductID);
             }
 
-
             var mailProduct = WebItemManager.Instance[WebItemManager.MailProductID];
             if (mailProduct != null && !mailProduct.IsDisabled()) {
-                mailProduct.Context.LargeIconFileName = "product_logolarge.png";
                 defaultListProducts.Add(mailProduct);
             }
 
-            var  priority = new Dictionary<Guid, Int32>
-	        {
-	            {WebItemManager.ProjectsProductID, 0},
-	            {WebItemManager.CRMProductID, 1},
-	            {WebItemManager.MailProductID, 2},
-	            {WebItemManager.PeopleProductID, 3},
-                {WebItemManager.CommunityProductID, 4}
-	        };
+            var calendarProduct = WebItemManager.Instance[WebItemManager.CalendarProductID];
+            if (calendarProduct != null && !calendarProduct.IsDisabled())
+            {
+                defaultListProducts.Add(calendarProduct);
+            }
 
-            defaultListProducts = defaultListProducts.OrderBy(p => (priority.Keys.Contains(p.ID) ? priority[p.ID] : 10)).ToList();
+            var talkProduct = WebItemManager.Instance[WebItemManager.TalkProductID];
+            if (talkProduct != null && !talkProduct.IsDisabled())
+            {
+                defaultListProducts.Add(talkProduct);
+            }
+
+            var priority = GetStartProductsPriority();
+
+            defaultListProducts = defaultListProducts
+                .Where(p => priority.Keys.Contains(p.ID))
+                .OrderBy(p => priority[p.ID])
+                .ToList();
 
             if (CoreContext.Configuration.PartnerHosted)
             {
@@ -120,6 +137,76 @@ namespace ASC.Web.Studio
                     Partner = partner;
                 }
             }
+        }
+
+        private static Dictionary<Guid, Int32> GetStartProductsPriority()
+        {
+            var priority = new Dictionary<Guid, Int32>
+                    {
+                        {WebItemManager.ProjectsProductID, 0},
+                        {WebItemManager.CRMProductID, 1},
+                        {WebItemManager.MailProductID, 2},
+                        {WebItemManager.PeopleProductID, 3},
+                        {WebItemManager.CommunityProductID, 4}
+                    };
+
+            if (!string.IsNullOrEmpty(SetupInfo.StartProductList))
+            {
+                var products = SetupInfo.StartProductList.Split(',');
+
+                if (products.Any())
+                {
+                    priority = new Dictionary<Guid, int>();
+
+                    for (var i = 0; i < products.Length; i++)
+                    {
+                        var productId = GetProductId(products[i]);
+                        if (productId != Guid.Empty)
+                            priority.Add(productId, i);
+                    }
+                }
+            }
+
+            return priority;
+        }
+
+        private static Guid GetProductId(string productName)
+        {
+            switch (productName.ToLowerInvariant())
+            {
+                case "documents":
+                    return WebItemManager.DocumentsProductID;
+                case "projects":
+                    return WebItemManager.ProjectsProductID;
+                case "crm":
+                    return WebItemManager.CRMProductID;
+                case "people":
+                    return WebItemManager.PeopleProductID;
+                case "community":
+                    return WebItemManager.CommunityProductID;
+                case "mail":
+                    return WebItemManager.MailProductID;
+                case "calendar":
+                    return WebItemManager.CalendarProductID;
+                case "talk":
+                    return WebItemManager.TalkProductID;
+                default:
+                    return Guid.Empty;
+            }
+        }
+
+        protected string GetProductLabel(IWebItem product)
+        {
+            if (product.ID == WebItemManager.CRMProductID)
+                return Resource.ProductCRMAndVoIP;
+
+            if (product.ID == WebItemManager.MailProductID &&
+                SetupInfo.IsVisibleSettings("AdministrationPage") &&
+                CurrentUser.IsAdmin() &&
+                UserControls.Management.MailService.MailServiceHelper.GetMailServerInfo() != null)
+                return Resource.AdministrationLabel;
+
+            return HttpUtility.HtmlEncode(product.Name);
         }
     }
 }

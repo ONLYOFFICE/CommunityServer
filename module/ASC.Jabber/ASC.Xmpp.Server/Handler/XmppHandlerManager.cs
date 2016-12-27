@@ -273,7 +273,8 @@ namespace ASC.Xmpp.Server.Handler
             {
                 if (logMessages.IsDebugEnabled)
                 {
-                    logMessages.DebugFormat(RECIEVE_FORMAT, e.ConnectionId, e.Namespace, e.Node.ToString(Formatting.Indented));
+                    var msg = string.Format(RECIEVE_FORMAT, e.ConnectionId, e.Namespace, e.Node.ToString(Formatting.Indented));
+                    logMessages.Logger.Log(GetType(), log4net.Core.Level.Trace, msg, null);
                 }
 
                 var xmppStream = streamManager.GetOrCreateNewStream(e.ConnectionId);
@@ -291,7 +292,8 @@ namespace ASC.Xmpp.Server.Handler
             {
                 if (logMessages.IsDebugEnabled)
                 {
-                    logMessages.DebugFormat(RECIEVE_FORMAT, e.ConnectionId, string.Empty, e.Node.ToString(Formatting.Indented));
+                    var msg = string.Format(RECIEVE_FORMAT, e.ConnectionId, string.Empty, e.Node.ToString(Formatting.Indented));
+                    logMessages.Logger.Log(GetType(), log4net.Core.Level.Trace, msg, null);
                 }
 
                 var stream = streamManager.GetStream(e.ConnectionId);

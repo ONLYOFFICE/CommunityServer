@@ -32,4 +32,20 @@
       <guests>DefaultGuests</guests>
     </names>
   </item>
+  <item>
+    <id>Education</id>
+    <names>
+      <schemaname>EducationSchemaName</schemaname>
+      <user>EducationUser</user>
+      <users>EducationUsers</users>
+      <group>EducationGroup</group>
+      <groups>EducationGroups</groups>
+      <userpost>EducationUserTitle</userpost>
+      <grouphead>EducationGroupHead</grouphead>
+      <regdate>EducationRegDate</regdate>
+      <addusers>EducationAddUsers</addusers>
+      <guest>EducationGuest</guest>
+      <guests>EducationGuests</guests>
+    </names>
+  </item>
 </root>

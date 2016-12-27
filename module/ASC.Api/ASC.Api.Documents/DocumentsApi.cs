@@ -974,6 +974,7 @@ namespace ASC.Api.Documents
         /// <param name="fileId">File ID</param>
         /// <param name="version">Version of history</param>
         /// <param name="continueVersion">Mark as version or revision</param>
+        /// <category>Files</category>
         /// <returns></returns>
         [Update("file/{fileId}/history")]
         public IEnumerable<FileWrapper> ChangeHistory(string fileId, int version, bool continueVersion)
@@ -1100,6 +1101,7 @@ namespace ASC.Api.Documents
         /// </summary>
         /// <param name="fileId">File ID</param>
         /// <param name="share">Access right</param>
+        /// <category>Files</category>
         /// <returns>Shared file link</returns>
         [Update("{fileId}/sharedlink")]
         public string GenerateSharedLink(string fileId, FileShare share)

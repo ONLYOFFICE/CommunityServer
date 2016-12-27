@@ -56,7 +56,7 @@
     <ServiceFiles Include="$(RootDir)packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll" />
     <ServiceFiles Include="$(RootDir)packages\AjaxPro.2.2.9.17.2\lib\net20\AjaxPro.2.dll" />
     <ServiceFiles Include="$(RootDir)packages\Mono.Security.3.2.3.0\lib\net45\Mono.Security.dll" />
-    <ServiceFiles Include="$(RootDir)packages\Novell.Directory.Ldap.2.2.2.0\lib\net45\Novell.Directory.Ldap.dll" />
+    <ServiceFiles Include="$(RootDir)packages\Novell.Directory.Ldap.2.2.3.0\lib\net45\Novell.Directory.Ldap.dll" />
     <ServiceFiles Include="$(RootDir)packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll" />
     <ServiceFiles Include="$(RootDir)packages\Textile.1.3.0.0\lib\net35\Textile.dll" />
     <ServiceFiles Include="$(RootDir)packages\NVelocity.1.0.3\lib\NVelocity.dll" />
@@ -88,7 +88,6 @@
     <ServiceFiles Include="$(RootDir)build\config\TeamLabSvc.exe.Config" />
     <ServiceFiles Include="$(RootDir)build\config\sphinx-min.conf.in" />
     <ServiceFiles Include="$(RootDir)build\ManageServices.bat" />
-    <ServiceFiles Include="$(RootDir)module\ASC.Jabber\ASC.Xmpp.Server\crossdomain.xml" />
     <MailFiles Include="$(BinDir)ASC.Api.dll" />
     <MailFiles Include="$(BinDir)ASC.Common.dll" />
     <MailFiles Include="$(BinDir)ASC.Core.Common.dll" />

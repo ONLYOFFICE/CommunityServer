@@ -233,6 +233,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Addon\MailAddon.cs" />
+    <Compile Include="Configuration\Settings.cs" />
     <Compile Include="Configuration\MailSpaceUsageStatManager.cs" />
     <Compile Include="Controls\AccountsPage\AccountsPage.ascx.cs">
       <DependentUpon>AccountsPage.ascx</DependentUpon>

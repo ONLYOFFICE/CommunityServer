@@ -91,7 +91,10 @@ namespace ASC.Web.Studio.Masters.MasterResources
                                     CurrentCulture = CultureInfo.CurrentCulture.Name,
                                     Resource.FileSizePostfix,
                                     Resource.AccessRightsAccessToProduct,
-                                    Resource.AccessRightsDisabledProduct
+                                    Resource.AccessRightsDisabledProduct,
+									Resource.LdapUsersListLockTitle,
+									Resource.LdapUserEditCanOnlyAdminTitle,
+                                    Resource.LdapSettingsSuccess
                                 })
                    };
         }

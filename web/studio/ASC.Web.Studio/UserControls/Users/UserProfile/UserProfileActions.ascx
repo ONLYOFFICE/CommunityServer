@@ -30,7 +30,7 @@
             </a>
         </li>
         <% }
-           if (Actions.AllowEdit && ProfileHelper.UserInfo.ActivationStatus == EmployeeActivationStatus.Activated)
+       if (Actions.AllowEdit && ProfileHelper.UserInfo.ActivationStatus == EmployeeActivationStatus.Activated && !ProfileHelper.UserInfo.IsLDAP())
            { %>
         <li class="psw-change <%= (ProfileHelper.UserInfo.Status != EmployeeStatus.Terminated) ? "" :  "display-none"%>">
             <a title="<%= Resource.PasswordChangeButton %>"
@@ -39,7 +39,7 @@
             </a>
         </li>
         <% }
-           if (Actions.AllowEdit && ProfileHelper.UserInfo.ActivationStatus == EmployeeActivationStatus.Activated)
+       if (Actions.AllowEdit && ProfileHelper.UserInfo.ActivationStatus == EmployeeActivationStatus.Activated && !ProfileHelper.UserInfo.IsLDAP())
            { %>
         <li class="email-change <%= (ProfileHelper.UserInfo.Status != EmployeeStatus.Terminated) ? "" :  "display-none"%>">
             <a title="<%= Resource.EmailChangeButton %>"
@@ -48,7 +48,7 @@
             </a>
         </li>
         <% }
-           if (Actions.AllowEdit && ProfileHelper.UserInfo.ActivationStatus != EmployeeActivationStatus.Activated)
+       if (Actions.AllowEdit && ProfileHelper.UserInfo.ActivationStatus != EmployeeActivationStatus.Activated && !ProfileHelper.UserInfo.IsLDAP())
            { %>
         <li class="email-activate <%= (ProfileHelper.UserInfo.Status != EmployeeStatus.Terminated) ? "" :  "display-none"%>">
             <a title="<%= Resource.ActivateEmailAgain %>"
@@ -66,7 +66,7 @@
             </a> 
         </li>
         <% }
-           if (!MyStaff && Actions.AllowAddOrDelete)
+           if (!MyStaff && Actions.AllowAddOrDelete && !ProfileHelper.UserInfo.IsLDAP())
            { %>
         <li class="disable-user <%= (ProfileHelper.UserInfo.Status != EmployeeStatus.Terminated) ? "" :  "display-none"%>">
             <a class="dropdown-item"
@@ -75,7 +75,7 @@
             </a>
         </li>
         <% }
-           if (MyStaff && !ProfileHelper.UserInfo.IsOwner() && !CoreContext.Configuration.Personal)
+           if (MyStaff && !ProfileHelper.UserInfo.IsOwner() && !CoreContext.Configuration.Personal && !ProfileHelper.UserInfo.IsLDAP())
            { %>
         <li class="delete-user">
             <a class="dropdown-item" title="<%= Resource.DeleteProfileButton %>">

@@ -30,7 +30,6 @@ using ASC.Xmpp.Server.Gateway;
 using ASC.Xmpp.Server.Handler;
 using ASC.Xmpp.Server.Services;
 using ASC.Xmpp.Server.Session;
-using ASC.Xmpp.Server.Statistics;
 using ASC.Xmpp.Server.Storage;
 using ASC.Xmpp.Server.Streams;
 using ASC.Xmpp.Server.Users;
@@ -38,7 +37,7 @@ using System;
 
 namespace ASC.Xmpp.Server
 {
-	public class XmppServer : IServiceProvider, IDisposable
+    public class XmppServer : IServiceProvider, IDisposable
 	{
 		private UserManager userManager;
 
@@ -106,7 +105,6 @@ namespace ASC.Xmpp.Server
 
 		public void StartListen()
 		{
-			NetStatistics.Enabled = true;
 			gateway.Start();
 		}
 

@@ -79,6 +79,21 @@ establish_db_conn() {
 }
 
 execute_db_scripts() {
+
+    if [ -e  /etc/my.cnf ]; then 
+
+		echo "max_connections = 1000" >> /etc/my.cnf # new config mysql 5.7 ignore errors
+		
+	    if grep -q "sql_mode" /etc/my.cnf; then
+			sed "s/sql_mode.*/sql_mode = 'NO_ENGINE_SUBSTITUTION'/" -i /etc/my.cnf || true # disable new STRICT mode in mysql 5.7	 
+		else
+			echo "sql_mode = 'NO_ENGINE_SUBSTITUTION'" >> /etc/my.cnf # disable new STRICT mode in mysql 5.7
+		fi
+		
+		systemctl stop mysqld
+		systemctl start mysqld
+
+	fi
 	
 	DB_TABLES_COUNT=$($MYSQL --silent --skip-column-names -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='${DB_NAME}'");
 	

@@ -25,8 +25,10 @@
 
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -45,6 +47,7 @@ using ASC.Core.Notify.Signalr;
 using ASC.Mail.Aggregator.Common.DataStorage;
 using ASC.Mail.Aggregator.Common.Utils;
 using ASC.Mail.Aggregator.Core.Clients;
+using log4net;
 using MailKit.Net.Imap;
 using MailKit.Net.Pop3;
 using MimeKit;
@@ -55,8 +58,17 @@ namespace ASC.Mail.Aggregator.CollectionService
 {
     public sealed class AggregatorService: ServiceBase
     {
-        public const string AscMailCollectionServiceName = "ASC Mail Collection Service";
+        public const string ASC_MAIL_COLLECTION_SERVICE_NAME = "ASC Mail Collection Service";
+
+        private const string S_FAIL = "error";
+        private const string S_OK = "success";
+
+        private const string PROCESS_MESSAGE = "process message";
+        private const string PROCESS_MAILBOX = "process mailbox";
+        private const string CONNECT_MAILBOX = "connect mailbox";
+
         private readonly ILogger _log;
+        private readonly ILog _logStat;
         private readonly CancellationTokenSource _cancelTokenSource;
         readonly ManualResetEvent _resetEvent;
         private Timer _workTimer;
@@ -72,7 +84,7 @@ namespace ASC.Mail.Aggregator.CollectionService
 
         public AggregatorService(Options options)
         {
-            ServiceName = AscMailCollectionServiceName;
+            ServiceName = ASC_MAIL_COLLECTION_SERVICE_NAME;
             EventLog.Log = "Application";
 
             // These Flags set whether or not to handle that specific
@@ -85,6 +97,8 @@ namespace ASC.Mail.Aggregator.CollectionService
             try
             {
                 _log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "MainThread");
+
+                _logStat = LogManager.GetLogger("ASC.MAIL.STAT");
 
                 _tasksConfig = TasksConfig.FromConfig;
 
@@ -448,7 +462,16 @@ namespace ASC.Mail.Aggregator.CollectionService
         private MailClient CreateMailClient(MailBox mailbox, ILogger log, CancellationToken cancelToken)
         {
             MailClient client = null;
+
             var connectError = false;
+
+            Stopwatch watch = null;
+
+            if (_tasksConfig.CollectStatistics)
+            {
+                watch = new Stopwatch();
+                watch.Start();
+            }
 
             var manager = new MailBoxManager(log)
             {
@@ -526,6 +549,13 @@ namespace ASC.Mail.Aggregator.CollectionService
                         client = null;
                     }
                 }
+
+                if (_tasksConfig.CollectStatistics && watch != null)
+                {
+                    watch.Stop();
+
+                    LogStat(CONNECT_MAILBOX, mailbox, watch.Elapsed, connectError);
+                }
             }
 
             return client;
@@ -534,6 +564,16 @@ namespace ASC.Mail.Aggregator.CollectionService
         private MailBox ProcessMailbox(MailClient client, TasksConfig tasksConfig)
         {
             var mailbox = client.Account;
+
+            Stopwatch watch = null;
+
+            if (_tasksConfig.CollectStatistics)
+            {
+                watch = new Stopwatch();
+                watch.Start();
+            }
+
+            var failed = false;
 
             var taskLogger = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net,
                 string.Format("Mbox_{0} Task_{1}", mailbox.MailBoxId, Task.CurrentId));
@@ -568,6 +608,8 @@ namespace ASC.Mail.Aggregator.CollectionService
                     "ProcessMailbox(Tenant = {0}, MailboxId = {1}, Address = '{2}')\r\nException: {3}\r\n",
                     mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail,
                     ex is ImapProtocolException || ex is Pop3ProtocolException ? ex.Message : ex.ToString());
+
+                failed = true;
             }
             finally
             {
@@ -583,6 +625,13 @@ namespace ASC.Mail.Aggregator.CollectionService
                         "[DISPOSE] ProcessMailbox->client.Dispose(Tenant = {0}, MailboxId = {1}, Address = '{2}')\r\nException: {3}\r\n",
                         mailbox.TenantId, mailbox.MailBoxId, mailbox.EMail,
                         ex is ImapProtocolException || ex is Pop3ProtocolException ? ex.Message : ex.ToString());
+                }
+
+                if (_tasksConfig.CollectStatistics && watch != null)
+                {
+                    watch.Stop();
+
+                    LogStat(PROCESS_MAILBOX, mailbox, watch.Elapsed, failed);
                 }
             }
 
@@ -638,12 +687,25 @@ namespace ASC.Mail.Aggregator.CollectionService
         {
             var log = _log;
 
+            Stopwatch watch = null;
+
+            if (_tasksConfig.CollectStatistics)
+            {
+                watch = new Stopwatch();
+                watch.Start();
+            }
+
+            var failed = false;
+
+            var mailbox = mailClientMessageEventArgs.Mailbox;
+
             try
             {
+                
+
                 var mimeMessage = mailClientMessageEventArgs.Message;
                 var uid = mailClientMessageEventArgs.MessageUid;
                 var folder = mailClientMessageEventArgs.Folder;
-                var mailbox = mailClientMessageEventArgs.Mailbox;
                 var unread = mailClientMessageEventArgs.Unread;
                 var fromEmail = mimeMessage.From.Mailboxes.FirstOrDefault();
                 log = mailClientMessageEventArgs.Logger;
@@ -653,20 +715,27 @@ namespace ASC.Mail.Aggregator.CollectionService
 
                 var manager = new MailBoxManager(log);
 
-                var md5 = string.Format("{0}|{1}|{2}|{3}", mimeMessage.From.Mailboxes.Any() ? mimeMessage.From.Mailboxes.First().Address : "", mimeMessage.Subject, mimeMessage.Date.UtcDateTime, mimeMessage.MessageId).GetMd5();
+                var md5 =
+                    string.Format("{0}|{1}|{2}|{3}",
+                        mimeMessage.From.Mailboxes.Any() ? mimeMessage.From.Mailboxes.First().Address : "",
+                        mimeMessage.Subject, mimeMessage.Date.UtcDateTime, mimeMessage.MessageId).GetMd5();
 
                 var uidl = mailbox.Imap ? string.Format("{0}-{1}", uid, folder.FolderId) : uid;
 
-                var fromThisMailBox = fromEmail != null && fromEmail.Address.ToLowerInvariant().Equals(mailbox.EMail.Address.ToLowerInvariant());
+                var fromThisMailBox = fromEmail != null &&
+                                      fromEmail.Address.ToLowerInvariant()
+                                          .Equals(mailbox.EMail.Address.ToLowerInvariant());
 
-                var toThisMailBox = mimeMessage.To.Mailboxes.Select(addr => addr.Address.ToLowerInvariant()).Contains(mailbox.EMail.Address.ToLowerInvariant());
+                var toThisMailBox =
+                    mimeMessage.To.Mailboxes.Select(addr => addr.Address.ToLowerInvariant())
+                        .Contains(mailbox.EMail.Address.ToLowerInvariant());
 
                 log.Info(
                     @"Message: Subject: '{1}' Date: {2} Unread: {5} FolderId: {3} ('{4}') MimeId: '{0}' Uidl: '{6}' Md5: '{7}' To->From: {8} From->To: {9}",
                     mimeMessage.MessageId, mimeMessage.Subject, mimeMessage.Date, folder.FolderId, folder.Name, unread,
                     uidl, md5, fromThisMailBox, toThisMailBox);
 
-                int[] tagsIds = null;
+                List<int> tagsIds = null;
 
                 if (folder.Tags.Any())
                 {
@@ -677,7 +746,8 @@ namespace ASC.Mail.Aggregator.CollectionService
 
                 log.Debug("SearchExistingMessagesAndUpdateIfNeeded()");
 
-                var found = manager.SearchExistingMessagesAndUpdateIfNeeded(mailbox, folder.FolderId, uidl, md5, mimeMessage.MessageId, fromThisMailBox, toThisMailBox, tagsIds);
+                var found = manager.SearchExistingMessagesAndUpdateIfNeeded(mailbox, folder.FolderId, uidl, md5,
+                    mimeMessage.MessageId, fromThisMailBox, toThisMailBox, tagsIds);
 
                 var needSave = !found;
                 if (!needSave)
@@ -685,7 +755,8 @@ namespace ASC.Mail.Aggregator.CollectionService
 
                 log.Debug("DetectChainId()");
 
-                var chainId = manager.DetectChainId(mailbox, mimeMessage.MessageId, mimeMessage.InReplyTo, mimeMessage.Subject);
+                var chainId = manager.DetectChainId(mailbox, mimeMessage.MessageId, mimeMessage.InReplyTo,
+                    mimeMessage.Subject);
 
                 var streamId = MailUtil.CreateStreamId();
 
@@ -709,7 +780,10 @@ namespace ASC.Mail.Aggregator.CollectionService
                 log.Debug("TryStoreMailData()");
 
                 if (!TryStoreMailData(message, mailbox, log))
+                {
+                    failed = true;
                     return;
+                }
 
                 var folderRestoreId = folder.FolderId == MailFolder.Ids.spam ? MailFolder.Ids.inbox : folder.FolderId;
 
@@ -747,6 +821,17 @@ namespace ASC.Mail.Aggregator.CollectionService
             catch (Exception ex)
             {
                 log.Error("[ClientOnGetMessage] Exception:\r\n{0}\r\n", ex.ToString());
+
+                failed = true;
+            }
+            finally
+            {
+                if (_tasksConfig.CollectStatistics && watch != null)
+                {
+                    watch.Stop();
+
+                    LogStat(PROCESS_MESSAGE, mailbox, watch.Elapsed, failed);
+                }
             }
         }
 
@@ -793,7 +878,63 @@ namespace ASC.Mail.Aggregator.CollectionService
             return MailboxState.NoChanges;
         }
 
-        private void DoOptionalOperations(MailMessage message, MimeMessage mimeMessage, MailBox mailbox, int[] tagIds,
+        private readonly ConcurrentDictionary<string, bool> _userCrmAvailabeDictionary = new ConcurrentDictionary<string, bool>();
+        private readonly object _locker = new object();
+
+        private bool IsCrmAvailable(MailBox mailbox, ILogger log)
+        {
+            bool crmAvailable;
+
+            lock (_locker)
+            {
+                if (_userCrmAvailabeDictionary.TryGetValue(mailbox.UserId, out crmAvailable))
+                    return crmAvailable;
+
+                crmAvailable = mailbox.IsCrmAvailable(_tasksConfig.DefaultApiSchema, log);
+                _userCrmAvailabeDictionary.GetOrAdd(mailbox.UserId, crmAvailable);
+            }
+
+            return crmAvailable;
+        }
+
+        private void SetMessageTags(MailBoxManager manager, MailMessage message, MailBox mailbox, List<int> tagIds,
+            ILogger log)
+        {
+            var messageId = (int) message.Id;
+
+            if (tagIds == null)
+                tagIds = new List<int>();
+
+            if (IsCrmAvailable(mailbox, log))
+            {
+                var crmTagIds = manager.GetCrmTags(message.FromEmail, mailbox.TenantId, mailbox.UserId);
+
+                if (crmTagIds.Any())
+                {
+                    tagIds.AddRange(crmTagIds);
+                }
+            }
+
+            if (!tagIds.Any())
+                return;
+
+            foreach (var tagId in tagIds)
+            {
+                try
+                {
+                    manager.SetMessagesTag(mailbox.TenantId, mailbox.UserId, tagId, new[] {messageId});
+                }
+                catch (Exception e)
+                {
+                    _log.Error(
+                        "SetMessagesTag(tenant={0}, userId='{1}', messageId={2}, tagid = {3}) Exception:\r\n{4}\r\n",
+                        mailbox.TenantId, mailbox.UserId, messageId, e.ToString(),
+                        tagIds != null ? string.Join(",", tagIds) : "null");
+                }
+            }
+        }
+
+        private void DoOptionalOperations(MailMessage message, MimeMessage mimeMessage, MailBox mailbox, List<int> tagIds,
             ILogger log)
         {
             var manager = new MailBoxManager(log);
@@ -802,24 +943,7 @@ namespace ASC.Mail.Aggregator.CollectionService
 
             SecurityContext.AuthenticateMe(new Guid(mailbox.UserId));
 
-            try
-            {
-                if (mailbox.Imap)
-                {
-                    if (tagIds != null) // Add new tags to existing messages
-                    {
-                        foreach (var tagId in tagIds)
-                            manager.SetMessagesTag(mailbox.TenantId, mailbox.UserId, tagId, new[] {(int) message.Id});
-                    }
-                }
-            }
-            catch (Exception e)
-            {
-                _log.Error(
-                    "SetMessagesTag(tenant={0}, userId='{1}', messageId={2}, tagid = {3}) Exception:\r\n{4}\r\n",
-                    mailbox.TenantId, mailbox.UserId, message.Id, e.ToString(),
-                    tagIds != null ? string.Join(",", tagIds) : "null");
-            }
+            SetMessageTags(manager, message, mailbox, tagIds, log);
 
             manager.AddRelationshipEventForLinkedAccounts(mailbox, message, _tasksConfig.DefaultApiSchema, log);
 
@@ -867,7 +991,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                 {
                     message.WriteTo(stream);
 
-                    var res = storage.UploadWithoutQuota(string.Empty, savePath, stream, "message/rfc822", string.Empty).ToString();
+                    var res = storage.Save(savePath, stream, MailStoragePathCombiner.EML_FILE_NAME).ToString();
 
                     logger.Debug("StoreMailEml() tenant='{0}', user_id='{1}', save_eml_path='{2}' Result: {3}", tenant, user, savePath, res);
 
@@ -897,14 +1021,14 @@ namespace ASC.Mail.Aggregator.CollectionService
                         att.fileNumber = ++index;
                         att.mailboxId = mailbox.MailBoxId;
                     });
-                    manager.StoreAttachments(mailbox.TenantId, mailbox.UserId, message.Attachments, message.StreamId);
+                    manager.StoreAttachments(mailbox, message.Attachments, message.StreamId);
 
                     log.Debug("MailMessage.ReplaceEmbeddedImages()");
                     message.ReplaceEmbeddedImages(log);
                 }
 
                 log.Debug("StoreMailBody()");
-                manager.StoreMailBody(mailbox.TenantId, mailbox.UserId, message);
+                manager.StoreMailBody(mailbox, message);
             }
             catch (Exception ex)
             {
@@ -913,7 +1037,7 @@ namespace ASC.Mail.Aggregator.CollectionService
                 //Trying to delete all attachments and mailbody
                 if (manager.TryRemoveMailDirectory(mailbox, message.StreamId))
                 {
-                    log.Info("Problem with mail proccessing(Account:{0}). Body and attachment was deleted", mailbox.EMail);
+                    log.Info("Problem with mail proccessing(Account:{0}). Body and attachment have been deleted", mailbox.EMail);
                 }
 
                 return false;
@@ -945,6 +1069,18 @@ namespace ASC.Mail.Aggregator.CollectionService
                 NotifySignalr(mailbox, _log);
 
             _queueManager.ReleaseMailbox(mailbox);
+        }
+
+        private void LogStat(string method, MailBox mailBox, TimeSpan duration, bool failed)
+        {
+            if(!_tasksConfig.CollectStatistics)
+                return;
+
+            ThreadContext.Properties["duration"] = duration.TotalMilliseconds;
+            ThreadContext.Properties["mailboxId"] = mailBox.MailBoxId;
+            ThreadContext.Properties["address"] = mailBox.EMail.ToString();
+            ThreadContext.Properties["status"] = failed ? S_FAIL : S_OK;
+            _logStat.Debug(method);
         }
 
         #endregion

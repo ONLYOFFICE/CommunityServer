@@ -27,9 +27,8 @@
 <body>
   <div id="wrapper">
     <div id="container">
-        <img id="portalLogo" src="/TenantLogo.ashx?logotype=2&defifnoco=true" alt="" />
-        <p>Sorry, the resource cannot be found.</p>
-        <p><a href="/">Escape.</a></p>
+        <p>Sorry, the resource</p>
+        <p>cannot be found.</p>
     </div>
   </div>
 </body>

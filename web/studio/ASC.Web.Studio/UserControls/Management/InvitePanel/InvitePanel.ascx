@@ -1,4 +1,5 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeBehind="InvitePanel.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.InvitePanel" %>
+<%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
 <%@ Import Namespace="ASC.Web.Studio.Utility" %>
 <%@ Import Namespace="Resources" %>
 
@@ -11,7 +12,7 @@
         <% } else { %>
         <p>
             <%= UserControlsCommonResource.TariffUserLimitReason%>
-            <%= Resource.KeepTariffInviteGuests%>
+            <%= CustomNamingPeople.Substitute<Resource>("KeepTariffInviteGuests") %>
         </p>
         <% if (TenantExtra.EnableTarrifSettings) { %>
         <a href="<%= TenantExtra.GetTariffPageLink() %>">
@@ -34,7 +35,7 @@
 
                     <div id="chkVisitorContainer" class="clearFix">
                         <input type="checkbox" id="chkVisitor" <%= EnableInviteLink ? "" : "disabled=\"disabled\" checked=\"checked\"" %> />
-                        <label for="chkVisitor"><%= Resource.InviteUsersAsCollaborators%></label>
+                        <label for="chkVisitor"><%= CustomNamingPeople.Substitute<Resource>("InviteUsersAsCollaborators") %></label>
 
                         <input id="hiddenVisitorLink" type="hidden" value="<%= GeneratedVisitorLink%>" />
                         <% if (EnableInviteLink) { %>

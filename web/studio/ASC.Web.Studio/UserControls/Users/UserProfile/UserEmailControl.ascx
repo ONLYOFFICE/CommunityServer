@@ -4,7 +4,18 @@
 
 <% if (!String.IsNullOrEmpty(User.Email)) { %>
 <div class="field clearFix">
-    <span class="field-title mail describe-text"><%=Resources.Resource.Email%>:</span>
+        <div class="field-title mail describe-text">
+            <%= User.IsLDAP() ? Resources.Resource.Login : Resources.Resource.Email%>:
+            <% if (User.IsLDAP())
+                { %>
+                    <div class="HelpCenterSwitcher" onclick="jq(this).helper({ BlockHelperID: 'LoginEmailInfo'});"></div>
+                    <div class="popup_helper" id="LoginEmailInfo">
+                        <p>
+                            <%= Resources.Resource.LoginDescription %>
+                        </p>
+                    </div>
+            <% } %>
+        </div>
     <div id="emailUserProfile" class="field-value">
     <% if (Viewer.IsAdmin() || Viewer.ID == User.ID) {
         if (User.ActivationStatus == EmployeeActivationStatus.Activated) { %>
@@ -12,7 +23,7 @@
             <a class="mail" <%= RenderMailLinkAttribute() %> title="<%=HttpUtility.HtmlEncode(User.Email.ToLower())%>">
                 <%=HttpUtility.HtmlEncode(User.Email.ToLower())%>
             </a>
-            <% if (User.Status != EmployeeStatus.Terminated && (!User.IsOwner() || Viewer.IsOwner()))
+            <% if (User.Status != EmployeeStatus.Terminated && (!User.IsOwner() || Viewer.IsOwner()) && User.Sid == null)
                { %>
             <a class="linkAction baseLinkAction" onclick="EmailOperationManager.ShowEmailChangeWindow('<%=User.Email%>','<%=User.ID%>');return false;">&nbsp;</a>
             <% } %>

@@ -133,11 +133,11 @@ namespace ASC.Files.Thirdparty.Box
         {
             if (boxItem is BoxFolder)
             {
-                _boxClient.FoldersManager.DeleteAsync(boxItem.Id);
+                _boxClient.FoldersManager.DeleteAsync(boxItem.Id, true).Wait();
             }
             else
             {
-                _boxClient.FilesManager.DeleteAsync(boxItem.Id);
+                _boxClient.FilesManager.DeleteAsync(boxItem.Id).Wait();
             }
         }
 

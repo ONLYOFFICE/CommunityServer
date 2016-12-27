@@ -687,7 +687,7 @@ namespace ASC.Api.Employee
 
             var user = GetUserInfo(userid);
 
-            if (CoreContext.UserManager.IsSystemUser(user.ID))
+            if (CoreContext.UserManager.IsSystemUser(user.ID) || user.IsLDAP())
                 throw new SecurityException();
 
             if (user.Status != EmployeeStatus.Terminated)
@@ -923,7 +923,7 @@ namespace ASC.Api.Employee
             {
                 SecurityContext.DemandPermissions(new UserSecurityProvider(id), Core.Users.Constants.Action_EditUser);
                 var u = CoreContext.UserManager.GetUsers(id);
-                if (u.ID == Core.Users.Constants.LostUser.ID) continue;
+                if (u.ID == Core.Users.Constants.LostUser.ID || u.IsLDAP()) continue;
 
                 u.ActivationStatus = activationstatus;
                 CoreContext.UserManager.SaveUserInfo(u);
@@ -993,9 +993,8 @@ namespace ASC.Api.Employee
         {
             SecurityContext.DemandPermissions(Core.Users.Constants.Action_EditUser);
 
-            var users = userIds
-                .Where(userId => !CoreContext.UserManager.IsSystemUser(userId))
-                .Select(userId => CoreContext.UserManager.GetUsers(userId))
+            var users = userIds.Select(userId => CoreContext.UserManager.GetUsers(userId))
+                .Where(u => !CoreContext.UserManager.IsSystemUser(u.ID) && !u.IsLDAP())
                 .ToList();
 
             foreach (var user in users)
@@ -1082,9 +1081,8 @@ namespace ASC.Api.Employee
         {
             SecurityContext.DemandPermissions(Core.Users.Constants.Action_AddRemoveUser);
 
-            var users = userIds
-                .Where(userId => !CoreContext.UserManager.IsSystemUser(userId))
-                .Select(userId => CoreContext.UserManager.GetUsers(userId))
+            var users = userIds.Select(userId => CoreContext.UserManager.GetUsers(userId))
+                .Where(u => !CoreContext.UserManager.IsSystemUser(u.ID) && !u.IsLDAP())
                 .ToList();
 
             var userNames = users.Select(x => x.DisplayUserName(false)).ToList();
@@ -1114,6 +1112,10 @@ namespace ASC.Api.Employee
         public string SendInstructionsToDelete()
         {
             var user = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+
+            if(user.IsLDAP())
+                throw new SecurityException();
+
             StudioNotifyService.Instance.SendMsgProfileDeletion(user.Email);
             MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentDeleteInstructions);
 
@@ -1154,19 +1156,16 @@ namespace ASC.Api.Employee
                 }
             }
 
-
-            UserManagerWrapper.SendUserPassword(email);
-
-
             var userInfo = CoreContext.UserManager.GetUserByEmail(email);
             if (userInfo.Sid != null)
             {
                 throw new Exception("<div>" + Resource.CouldNotRecoverPasswordForLdapUser + "</div>");
             }
 
+            UserManagerWrapper.SendUserPassword(email);
+
             string displayUserName = userInfo.DisplayUserName(false);
             MessageService.Send(HttpContext.Current.Request, MessageAction.UserSentPasswordChangeInstructions, displayUserName);
-
 
             return String.Format(Resource.MessageYourPasswordSuccessfullySendedToEmail, "<b>" + email + "</b>");
         }

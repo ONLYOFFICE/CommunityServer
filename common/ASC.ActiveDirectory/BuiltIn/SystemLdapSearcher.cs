@@ -24,6 +24,7 @@
 */
 
 
+using System.Linq;
 using ASC.ActiveDirectory.Expressions;
 using ASC.Security.Cryptography;
 using log4net;
@@ -37,12 +38,13 @@ namespace ASC.ActiveDirectory.BuiltIn
 {
     public class SystemLdapSearcher
     {
-        private readonly ILog log = LogManager.GetLogger(typeof(SystemLdapSearcher));
+        private readonly ILog _log = LogManager.GetLogger(typeof(SystemLdapSearcher));
 
         public List<LDAPObject> Search(string root, Criteria criteria, LDAPSupportSettings settings)
         {
             var type = AuthenticationTypes.ReadonlyServer | AuthenticationTypes.Secure;
             string password;
+
             try
             {
                 password = new UnicodeEncoding().GetString(InstanceCrypto.Decrypt(settings.PasswordBytes));
@@ -51,20 +53,26 @@ namespace ASC.ActiveDirectory.BuiltIn
             {
                 password = string.Empty;
             }
+
             if (settings.PortNumber == Constants.SSL_LDAP_PORT)
-            {
                 type |= AuthenticationTypes.SecureSocketsLayer;
-            }
-            var entry = settings.Authentication ? new DirectoryEntry(root, settings.Login, password, type) : new DirectoryEntry(root);
+
+            var entry = settings.Authentication
+                            ? new DirectoryEntry(root, settings.Login, password, type)
+                            : new DirectoryEntry(root);
             try
             {
-                object nativeObject = entry.NativeObject;
+                // ReSharper disable UnusedVariable
+                var nativeObject = entry.NativeObject;
+                // ReSharper restore UnusedVariable
             }
             catch (Exception e)
             {
-                log.ErrorFormat("Error authenticating user. Current user has not access to read this directory: {0}. {1}", root, e);
+                _log.ErrorFormat(
+                    "Error authenticating user. Current user has not access to read this directory: {0}. {1}", root, e);
                 return null;
             }
+
             return SearchInternal(root, criteria != null ? criteria.ToString() : null, SearchScope.Subtree, settings);
         }
 
@@ -72,6 +80,7 @@ namespace ASC.ActiveDirectory.BuiltIn
         {
             var type = AuthenticationTypes.ReadonlyServer | AuthenticationTypes.Secure;
             string password;
+
             try
             {
                 password = new UnicodeEncoding().GetString(InstanceCrypto.Decrypt(settings.PasswordBytes));
@@ -80,18 +89,23 @@ namespace ASC.ActiveDirectory.BuiltIn
             {
                 password = string.Empty;
             }
+
             if (settings.PortNumber == Constants.SSL_LDAP_PORT)
-            {
                 type |= AuthenticationTypes.SecureSocketsLayer;
-            }
-            var entry = settings.Authentication ? new DirectoryEntry(root, settings.Login, password, type) : new DirectoryEntry(root);
+
+            var entry = settings.Authentication
+                            ? new DirectoryEntry(root, settings.Login, password, type)
+                            : new DirectoryEntry(root);
             try
             {
-                object nativeObject = entry.NativeObject;
+                // ReSharper disable UnusedVariable
+                var nativeObject = entry.NativeObject;
+                // ReSharper restore UnusedVariable
             }
             catch (Exception e)
             {
-                log.ErrorFormat("Error authenticating user. Current user has not access to read this directory: {0}. {1}", root, e);
+                _log.ErrorFormat(
+                    "Error authenticating user. Current user has not access to read this directory: {0}. {1}", root, e);
                 return new List<LDAPObject>(0);
             }
 
@@ -100,30 +114,28 @@ namespace ASC.ActiveDirectory.BuiltIn
                 userFilter = "(" + userFilter + ")";
             }
 
-            return SearchInternal(root, criteria != null ? "(&" + criteria.ToString() + userFilter + ")" : userFilter, SearchScope.Subtree, settings);
+            return SearchInternal(root, criteria != null ? "(&" + criteria + userFilter + ")" : userFilter,
+                                  SearchScope.Subtree, settings);
         }
 
-        private List<LDAPObject> SearchInternal(string root, string criteria, SearchScope scope, LDAPSupportSettings settings)
+        private List<LDAPObject> SearchInternal(string root, string criteria, SearchScope scope,
+                                                LDAPSupportSettings settings)
         {
-            log.InfoFormat("ADDomain.Search(root: \"{0}\", criteria: \"{1}\", scope: {2})",
-                root, criteria, scope);
+            _log.InfoFormat("ADDomain.Search(root: \"{0}\", criteria: \"{1}\", scope: {2})",
+                            root, criteria, scope);
 
-            List<DirectoryEntry> entries = Search(root, criteria, scope, settings);
-            if (entries == null)
-            {
-                entries = new List<DirectoryEntry>(0);
-            }
-            return new LDAPObjectFactory().CreateObjects(entries);
+            var entries = Search(root, criteria, scope, settings) ?? new List<DirectoryEntry>(0);
+            return LDAPObjectFactory.CreateObjects(entries);
         }
 
-        private List<DirectoryEntry> Search(string rootDistinguishedName, string filter, SearchScope scope, LDAPSupportSettings settings)
+        private List<DirectoryEntry> Search(string rootDistinguishedName, string filter, SearchScope scope,
+                                            LDAPSupportSettings settings)
         {
-            DirectoryEntry de;
             var type = AuthenticationTypes.ReadonlyServer | AuthenticationTypes.Secure;
+
             if (settings.PortNumber == Constants.SSL_LDAP_PORT)
-            {
                 type |= AuthenticationTypes.SecureSocketsLayer;
-            }
+
             string password;
             try
             {
@@ -133,62 +145,51 @@ namespace ASC.ActiveDirectory.BuiltIn
             {
                 password = string.Empty;
             }
-            de = settings.Authentication ? CreateDirectoryEntry(rootDistinguishedName, settings.Login, password, type) :
-                CreateDirectoryEntry(rootDistinguishedName);
-            if (de != null)
-            {
-                return Search(de, filter, scope);
-            }
-            else
-            {
-                return null;
-            }
+
+            var de = settings.Authentication
+                                    ? CreateDirectoryEntry(rootDistinguishedName, settings.Login, password, type)
+                                    : CreateDirectoryEntry(rootDistinguishedName);
+
+            return de != null ? Search(de, filter, scope) : null;
         }
 
         private List<DirectoryEntry> Search(DirectoryEntry root, string filter, SearchScope scope)
         {
             if (root == null)
-            {
                 throw new ArgumentNullException("root");
-            }
+
             using (HostingEnvironment.Impersonate())
             {
                 DirectorySearcher directorySearcher = null;
-                IEnumerable<SearchResult> result = null;
-                List<DirectoryEntry> list = new List<DirectoryEntry>();
+                var list = new List<DirectoryEntry>();
                 try
                 {
                     // create directory searcher
+                    directorySearcher = new DirectorySearcher(root)
+                        {
+                            PageSize = 1000,
+                            SearchScope = scope,
+                            ReferralChasing = ReferralChasingOption.All
+                        };
 
-                    directorySearcher = new DirectorySearcher(root);
                     // PageSize = 1000 for receiving all (more then default 1000) results
-                    directorySearcher.PageSize = 1000;
-                    directorySearcher.SearchScope = scope;
-                    directorySearcher.ReferralChasing = ReferralChasingOption.All;
-
-                    if (!String.IsNullOrEmpty(filter))
-                    {
+                    if (!string.IsNullOrEmpty(filter))
                         directorySearcher.Filter = filter;
-                    }
 
                     //search
-                    result = SafeFindAll(directorySearcher);
+                    var result = SafeFindAll(directorySearcher);
 
                     //enumerating
-
-                    foreach (SearchResult entry in result)
-                    {
-                        list.Add(entry.GetDirectoryEntry());
-                    }
+                    list.AddRange(result.Select(entry => entry.GetDirectoryEntry()));
                 }
                 catch (ArgumentException e)
                 {
-                    log.InfoFormat("Wrong filter. {0}", e);
+                    _log.InfoFormat("Wrong filter. {0}", e);
                     throw new ArgumentException(e.Message);
                 }
                 catch (Exception e)
                 {
-                    log.ErrorFormat("Internal error {0}", e);
+                    _log.ErrorFormat("Internal error {0}", e);
                 }
                 finally
                 {
@@ -197,13 +198,14 @@ namespace ASC.ActiveDirectory.BuiltIn
                         directorySearcher.Dispose();
                     }
                 }
+
                 return list;
             }
         }
 
-        private IEnumerable<SearchResult> SafeFindAll(DirectorySearcher searcher)
+        private static IEnumerable<SearchResult> SafeFindAll(DirectorySearcher searcher)
         {
-            using (SearchResultCollection results = searcher.FindAll())
+            using (var results = searcher.FindAll())
             {
                 foreach (SearchResult result in results)
                 {
@@ -220,12 +222,13 @@ namespace ASC.ActiveDirectory.BuiltIn
             }
             catch (Exception e)
             {
-                log.ErrorFormat("Can't get access to directory: {0}. {1}", rootDistinguishedName, e);
+                _log.ErrorFormat("Can't get access to directory: {0}. {1}", rootDistinguishedName, e);
                 return null;
             }
         }
 
-        private DirectoryEntry CreateDirectoryEntry(string rootDistinguishedName, string login, string password, AuthenticationTypes type)
+        private DirectoryEntry CreateDirectoryEntry(string rootDistinguishedName, string login, string password,
+                                                    AuthenticationTypes type)
         {
             try
             {
@@ -233,7 +236,7 @@ namespace ASC.ActiveDirectory.BuiltIn
             }
             catch (Exception e)
             {
-                log.ErrorFormat("Can't get access to directory: {0}. {1}", rootDistinguishedName, e);
+                _log.ErrorFormat("Can't get access to directory: {0}. {1}", rootDistinguishedName, e);
                 return null;
             }
         }

@@ -52,7 +52,6 @@ namespace ASC.Mail.Aggregator.Common
     {
         private const int MAIL_CRM_HISTORY_CATEGORY = -3;
         private const string ERR_MESSAGE = "Error retrieving response. Check inner details for more info.";
-        private const string LOCALHOST = "localhost";
         private Cookie _cookie;
         private readonly ILogger _log;
 
@@ -106,25 +105,9 @@ namespace ASC.Mail.Aggregator.Common
 
             var ubBase = new UriBuilder
             {
-                Scheme = Scheme
+                Scheme = Scheme,
+                Host = tenant.GetTenantDomain(false)
             };
-
-            if (!string.IsNullOrEmpty(tenant.MappedDomain))
-            {
-                var mapped = tenant.MappedDomain.ToLowerInvariant();
-                if (!mapped.Contains(Uri.SchemeDelimiter))
-                {
-                    ubBase.Host = mapped;
-                }
-                else
-                {
-                    ubBase = new UriBuilder(mapped); 
-                }
-            }
-            else
-            {
-                ubBase.Host = tenant.TenantAlias == LOCALHOST ? LOCALHOST : string.Format("{0}.{1}", tenant.TenantAlias, CoreContext.Configuration.BaseDomain);
-            }
 
             var virtualDir = WebConfigurationManager.AppSettings["api.virtual-dir"];
             if (!string.IsNullOrEmpty(virtualDir))
@@ -618,6 +601,20 @@ namespace ASC.Mail.Aggregator.Common
                     o =>
                         o["webItemId"] != null &&
                         o["webItemId"].ToString() == WebItemManager.MailProductID.ToString());
+
+            var isAvailable = jWebItem != null && jWebItem["enabled"] != null && Convert.ToBoolean(jWebItem["enabled"]);
+            return isAvailable;
+        }
+
+        public bool IsCrmModuleAvailable()
+        {
+            var json = GetPortalSettings();
+            var crmId = WebItemManager.CRMProductID.ToString();
+            var jWebItem = json["response"].Children<JObject>()
+                .FirstOrDefault(
+                    o =>
+                        o["webItemId"] != null &&
+                        o["webItemId"].ToString() == crmId);
 
             var isAvailable = jWebItem != null && jWebItem["enabled"] != null && Convert.ToBoolean(jWebItem["enabled"]);
             return isAvailable;

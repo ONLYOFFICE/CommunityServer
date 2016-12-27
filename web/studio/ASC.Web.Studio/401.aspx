@@ -27,7 +27,6 @@
 <body>
   <div id="wrapper">
     <div id="container">
-        <img id="portalLogo" src="/TenantLogo.ashx?logotype=2&defifnoco=true" alt="" />
         <p>Sorry, Unauthorized</p>
     </div>
   </div>

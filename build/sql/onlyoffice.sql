@@ -1736,6 +1736,7 @@ CREATE TABLE IF NOT EXISTS `notify_queue` (
   `sender_type` varchar(64) DEFAULT NULL,
   `reply_to` varchar(1024) DEFAULT NULL,
   `creation_date` datetime NOT NULL,
+  `attachments` text NULL,
   PRIMARY KEY (`notify_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

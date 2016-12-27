@@ -78,11 +78,11 @@ namespace ASC.Web.Studio
 
             AjaxSecurityChecker.Instance.CheckMethodPermissions += AjaxCheckMethodPermissions;
 
-            try
-            {
-                AmiPublicDnsSyncService.Synchronize();
-            }
-            catch { }
+            //try
+            //{
+            //    AmiPublicDnsSyncService.Synchronize();
+            //}
+            //catch { }
 
             NotifyConfiguration.Configure();
 

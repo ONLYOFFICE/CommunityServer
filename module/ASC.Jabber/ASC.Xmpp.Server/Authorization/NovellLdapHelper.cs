@@ -201,61 +201,55 @@ namespace ASC.Xmpp.Server.Authorization
             {
                 var storage = StorageFactory.GetStorage("-1", "certs");
                 // Import the details of the certificate from the server.
+                X509Certificate x509 = null;
                 lock (rootSync)
                 {
-                    X509Certificate x509 = null;
                     if (certificate != null)
                     {
-                        byte[] data = certificate.GetRawCertData();
-                        if (data != null)
-                        {
-                            x509 = new X509Certificate(data);
-                        }
-                        else
-                        {
-                            errorMessage = "certificate.GetRawCertData is null";
-                            log.Error(errorMessage);
-                            return errorMessage;
-                        }
-                        // Check for ceritficate in store.
-                        if (!store.Certificates.Contains(x509))
-                        {
-                            if (storage.IsFile("ldap/ldap.cer"))
-                            {
-                                var storageData = GetCertificateFromStorage(storage);
-                                var storageX509 = new X509Certificate(storageData);
-                                if (CompareHash(storageX509.Hash, x509.Hash))
-                                {
-                                    // Add the certificate to the store.
-                                    store.Import(storageX509);
-                                    store.Certificates.Add(storageX509);
-                                    return String.Empty;
-                                }
-                            }
-                            errorMessage = String.Format("LDAP TlsHandler. Certificate not found in certificate store. {0}.", x509.IssuerName);
-                            log.Error(errorMessage);
-                            return errorMessage;
-                        }
-                        log.DebugFormat("LDAP TlsHandler. Certificate found in certificate store. {0}.", x509.IssuerName);
+                        var data = certificate.GetRawCertData();
+                        x509 = new X509Certificate(data);
                     }
-                    else
+                }
+                if (x509 != null)
+                {
+                    // Check for ceritficate in store.
+                    if (!store.Certificates.Contains(x509))
                     {
-                        // for AD
                         if (storage.IsFile("ldap/ldap.cer"))
                         {
                             var storageData = GetCertificateFromStorage(storage);
                             var storageX509 = new X509Certificate(storageData);
-                            // Add the certificate to the store.
-                            store.Import(storageX509);
-                            store.Certificates.Add(storageX509);
-                            return String.Empty;
+                            if (CompareHash(storageX509.Hash, x509.Hash))
+                            {
+                                // Add the certificate to the store.
+                                store.Import(storageX509);
+                                store.Certificates.Add(storageX509);
+                                return String.Empty;
+                            }
                         }
-                        else
-                        {
-                            errorMessage = "LDAP TlsHandler. Certificate not found in certificate store.";
-                            log.Error(errorMessage);
-                            return errorMessage;
-                        }
+                        errorMessage = String.Format("LDAP TlsHandler. Certificate not found in certificate store. {0}.", x509.IssuerName);
+                        log.Error(errorMessage);
+                        return errorMessage;
+                    }
+                    log.DebugFormat("LDAP TlsHandler. Certificate found in certificate store. {0}.", x509.IssuerName);
+                }
+                else
+                {
+                    // for AD
+                    if (storage.IsFile("ldap/ldap.cer"))
+                    {
+                        var storageData = GetCertificateFromStorage(storage);
+                        var storageX509 = new X509Certificate(storageData);
+                        // Add the certificate to the store.
+                        store.Import(storageX509);
+                        store.Certificates.Add(storageX509);
+                        return String.Empty;
+                    }
+                    else
+                    {
+                        errorMessage = "LDAP TlsHandler. Certificate not found in certificate store.";
+                        log.Error(errorMessage);
+                        return errorMessage;
                     }
                 }
                 return String.Empty;

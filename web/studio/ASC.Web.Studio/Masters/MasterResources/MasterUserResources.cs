@@ -143,7 +143,8 @@ namespace ASC.Web.Studio.Masters.MasterResources
                 isOwner = userInfo.IsOwner(),
                 contacts = GetContacts(userInfo),
                 created = userInfo.CreateDate,
-                email = userInfo.Email
+                email = userInfo.Email,
+                isLDAP = userInfo.Sid != null
             };
         }
     }

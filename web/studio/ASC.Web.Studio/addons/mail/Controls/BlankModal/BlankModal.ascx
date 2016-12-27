@@ -12,7 +12,7 @@
         <span class="close" onclick=" blankModal.close(); ">&times;</span><%= MailResource.BlankModalHeader %>
     </div>
     <div class="content clearFix">
-        <% if (IsAdmin() && SetupInfo.IsVisibleSettings<AdministrationPage>())
+        <% if (IsAdmin() && ASC.Web.Mail.Configuration.Settings.IsAdministrationPageAvailable())
            { %>
             <div class="module-block">
                 <div class="img server"></div>
@@ -59,7 +59,7 @@
         <% if (IsAdmin())
            { %>
             <a class="button huge create-button" href="javascript:void(0)" onclick=" blankModal.addAccount(); "><%= MailResource.BlankModalCreateBtn %></a>
-            <% if (SetupInfo.IsVisibleSettings<AdministrationPage>())
+            <% if (ASC.Web.Mail.Configuration.Settings.IsAdministrationPageAvailable())
                { %>
             <span class="or-split"><%= MailResource.Or %></span>
             <a class="link create-button-link" href="javascript:void(0)" onclick=" blankModal.setUpDomain(); "><%= MailResource.BlankModalSetUpDomainBtn %></a>
@@ -68,7 +68,7 @@
            else
            { %>
             <a class="button huge create-button" href="javascript:void(0)" onclick=" blankModal.addAccount(); "><%= MailResource.BlankModalCreateBtn %></a>
-            <% if (SetupInfo.IsVisibleSettings<AdministrationPage>())
+            <% if (ASC.Web.Mail.Configuration.Settings.IsAdministrationPageAvailable())
                { %>
             <span class="or-split"><%= MailResource.Or %></span>
             <a class="link create-button-link" href="javascript:void(0)" onclick=" blankModal.addMailbox(); "><%= MailResource.BlankModalCreateMailboxBtn %></a>

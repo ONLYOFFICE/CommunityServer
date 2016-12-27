@@ -118,9 +118,7 @@ namespace ASC.CRM.Core.Dao
                  new SqlQuery("crm_entity_tag")
                 .Select("entity_id", "title")
                 .LeftOuterJoin("crm_tag", Exp.EqColumns("id", "tag_id"))
-                .Where(Exp.Eq("crm_tag.entity_type", (int)entityType) & Exp.Eq("crm_tag.tenant_id", TenantID))
-                .OrderBy("entity_id", true)
-                .OrderBy("title", true);
+                .Where(Exp.Eq("crm_tag.entity_type", (int)entityType) & Exp.Eq("crm_tag.tenant_id", TenantID));
 
             using (var db = GetDb())
             {

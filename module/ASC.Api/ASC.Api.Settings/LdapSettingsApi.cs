@@ -27,160 +27,205 @@
 using ASC.ActiveDirectory;
 using ASC.ActiveDirectory.Novell;
 using ASC.Api.Attributes;
-using ASC.Api.Interfaces;
-using ASC.Common.Caching;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
-using ASC.Web.Studio.Core.Import;
+using ASC.Web.Studio.Core.Import.LDAP;
 using ASC.Web.Studio.Utility;
-using log4net;
 using Resources;
 using System;
+using System.Diagnostics;
 using System.Linq;
+using ASC.Common.Threading;
+using Newtonsoft.Json;
 
 namespace ASC.Api.Settings
 {
-    public partial class SettingsApi : IApiEntryPoint
+    public partial class SettingsApi
     {
         /// <summary>
-        /// Get ldap settings
+        /// Returns current portal LDAP settings
         /// </summary>
-        /// <returns>LDAPSupportSettings</returns>
+        /// <short>
+        /// Get LDAP settings
+        /// </short>
+        /// <returns>LDAPSupportSettings object</returns>
         [Read("ldap")]
         public LDAPSupportSettings GetLdapSettings()
         {
-            if (!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) ||
-                CoreContext.Configuration.Standalone && !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap)
-            {
-                throw new BillingException(Resource.ErrorNotAllowedOption, "Ldap");
-            }
-            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+            CheckLdapPermissions();
 
             var settings = SettingsManager.Instance.LoadSettings<LDAPSupportSettings>(TenantProvider.CurrentTenantID);
 
             settings.Password = null;
             settings.PasswordBytes = null;
-            settings.IsDefault = settings.Equals(new LDAPSupportSettings().GetDefault() as LDAPSupportSettings);
+
+            if (settings.IsDefault)
+                return settings;
+
+            var defaultSettings = settings.GetDefault();
+
+            if (settings.Equals(defaultSettings))
+                settings.IsDefault = true;
 
             return settings;
         }
 
         /// <summary>
-        /// save ldap settings
+        /// Start sync users and groups process by LDAP
         /// </summary>
-        /// <returns></returns>
+        /// <short>
+        /// Sync LDAP
+        /// </short>
+        [Read("ldap/sync")]
+        public LDAPSupportSettingsResult SyncLdap()
+        {
+            CheckLdapPermissions();
+
+            var operations = LDAPTasks.GetTasks()
+                .Where(t => t.GetProperty<int>(LDAPOperation.OWNER) == TenantProvider.CurrentTenantID);
+
+            if (operations.Any(o => o.Status <= DistributedTaskStatus.Running))
+            {
+                throw new InvalidOperationException(Resource.LdapSettingsTooManyOperations);
+            }
+
+            var ldapSettings =
+                SettingsManager.Instance.LoadSettings<LDAPSupportSettings>(TenantProvider.CurrentTenantID);
+
+            var op = new LDAPSaveSyncOperation(ldapSettings, syncOnly: true);
+
+            return QueueTask(op);
+        }
+
+        /// <summary>
+        /// Save LDAP settings and start import/sync users and groups process by LDAP
+        /// </summary>
+        /// <short>
+        /// Save LDAP settings
+        /// </short>
+        /// <param name="settings">LDAPSupportSettings serialized string</param>
+        /// <param name="acceptCertificate">Flag permits errors of checking certificates</param>
         [Create("ldap")]
-        public void SaveLdapSettings(string settings, bool acceptCertificate)
+        public LDAPSupportSettingsResult SaveLdapSettings(string settings, bool acceptCertificate)
         {
-            ILog log = LogManager.GetLogger(typeof(SettingsApi));
-            try
+            CheckLdapPermissions();
+
+            var operations = LDAPTasks.GetTasks()
+                .Where(t => t.GetProperty<int>(LDAPOperation.OWNER) == TenantProvider.CurrentTenantID);
+
+            if (operations.Any(o => o.Status <= DistributedTaskStatus.Running))
             {
-                if (!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) ||
-                    CoreContext.Configuration.Standalone && !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap)
-                {
-                    throw new BillingException(Resource.ErrorNotAllowedOption, "Ldap");
-                }
-                SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
-
-                lock (LdapTasks.SynchRoot)
-                {
-                    var task = LdapTasks.GetItems().OfType<SaveLdapSettingTask>().
-                        FirstOrDefault(t => (int)t.Id == TenantProvider.CurrentTenantID);
-                    if (task != null)
-                    {
-                        bool isCompleted = (bool?)AscCache.Default.Get<object>("SaveLdapSettingTaskIsCompleted") ?? true;
-                        if (isCompleted)
-                        {
-                            LdapTasks.Remove(task);
-                            task = null;
-                        }
-                    }
-                    if (task == null)
-                    {
-                        string started = AscCache.Default.Get<string>("SaveLdapSettingTaskStarted");
-                        if (started == null)
-                        {
-                            AscCache.Default.Insert("SaveLdapSettingTaskStarted", "started", TimeSpan.FromMinutes(15));
-
-                            AscCache.Default.Remove("SaveLdapSettingTaskId");
-                            AscCache.Default.Remove("SaveLdapSettingTaskIsCompleted");
-                            AscCache.Default.Remove("SaveLdapSettingTaskPercentage");
-                            AscCache.Default.Remove("SaveLdapSettingTaskStatus");
-                            AscCache.Default.Remove("SaveLdapSettingTaskError");
-                            AscCache.Default.Remove("NovellLdapCertificateConfirmRequest");
-
-                            task = new SaveLdapSettingTask(settings, TenantProvider.CurrentTenantID, string.Empty, acceptCertificate);
-                            LdapTasks.Add(task);
-                        }
-                    }
-                }
+                throw new InvalidOperationException(Resource.LdapSettingsTooManyOperations);
             }
-            catch (Exception ex)
-            {
-                log.ErrorFormat("Save LDAP settings, error: {0}", ex.ToString());
-            }
+
+            var ldapSettings = JsonConvert.DeserializeObject<LDAPSupportSettings>(settings);
+
+            var op = new LDAPSaveSyncOperation(ldapSettings, acceptCertificate: acceptCertificate);
+
+            return QueueTask(op);
         }
 
         /// <summary>
-        /// read ldap settings status
+        /// Returns LDAP sync process status
         /// </summary>
-        /// <returns>LDAPSupportSettingsResult</returns>
+        /// <short>
+        /// Get LDAP sync process status
+        /// </short>
+        /// <returns>LDAPSupportSettingsResult object</returns>
         [Read("ldap/status")]
-        public LDAPSupportSettingsResult GetLdapSettingsStatus()
+        public LDAPSupportSettingsResult GetLdapSyncStatus()
         {
-            if (!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) ||
-                CoreContext.Configuration.Standalone && !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap)
-            {
-                throw new BillingException(Resource.ErrorNotAllowedOption, "Ldap");
-            }
-            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+            CheckLdapPermissions();
 
-            lock (LdapTasks.SynchRoot)
-            {
-                return ToLdapSettingsResult();
-            }
+            return ToLdapSettingsResult();
         }
 
         /// <summary>
-        /// read default ldap settings
+        /// Returns LDAP default settings
         /// </summary>
-        /// <returns>LDAPSupportSettings</returns>
+        /// <short>
+        /// Get LDAP default settings
+        /// </short>
+        /// <returns>LDAPSupportSettings object</returns>
         [Read("ldap/default")]
         public LDAPSupportSettings GetDefaultLdapSettings()
         {
+            CheckLdapPermissions();
+
+            return new LDAPSupportSettings().GetDefault() as LDAPSupportSettings;
+        }
+
+        private static LDAPSupportSettingsResult ToLdapSettingsResult()
+        {
+            var operations = LDAPTasks.GetTasks().ToList();
+
+            foreach (var o in operations)
+            {
+                if (!string.IsNullOrEmpty(o.InstanseId) &&
+                    Process.GetProcesses().Any(p => p.Id == int.Parse(o.InstanseId)))
+                    continue;
+
+                o.SetProperty(LDAPOperation.PROGRESS, 100);
+                LDAPTasks.RemoveTask(o.Id);
+            }
+
+            var operation =
+                operations
+                    .FirstOrDefault(t => t.GetProperty<int>(LDAPOperation.OWNER) == TenantProvider.CurrentTenantID);
+
+            if (operation == null)
+            {
+                return new LDAPSupportSettingsResult
+                {
+                    Id = null,
+                    Completed = true,
+                    Percents = 100,
+                    Status = "",
+                    Error = Resource.LdapSettingsInternalServerError,
+                    Source = ""
+                };
+            }
+
+            if (DistributedTaskStatus.Running < operation.Status)
+            {
+                operation.SetProperty(LDAPOperation.PROGRESS, 100);
+                LDAPTasks.RemoveTask(operation.Id);
+            }
+
+            var certificateConfirmRequest = operation.GetProperty<NovellLdapCertificateConfirmRequest>(LDAPOperation.CERT_REQUEST);
+
+            var result = new LDAPSupportSettingsResult
+            {
+                Id = operation.Id,
+                Completed = operation.GetProperty<bool>(LDAPOperation.FINISHED),
+                Percents = operation.GetProperty<int>(LDAPOperation.PROGRESS),
+                Status = operation.GetProperty<string>(LDAPOperation.RESULT),
+                Error = operation.GetProperty<string>(LDAPOperation.ERROR),
+                CertificateConfirmRequest = certificateConfirmRequest,
+                Source = operation.GetProperty<string>(LDAPOperation.SOURCE)
+            };
+
+            return result;
+        }
+
+        private static void CheckLdapPermissions()
+        {
+            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
+
             if (!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) ||
-                CoreContext.Configuration.Standalone && !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap)
+                (CoreContext.Configuration.Standalone &&
+                 !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap))
             {
                 throw new BillingException(Resource.ErrorNotAllowedOption, "Ldap");
             }
-            SecurityContext.DemandPermissions(SecutiryConstants.EditPortalSettings);
-
-            lock (LdapTasks.SynchRoot)
-            {
-                return new LDAPSupportSettings().GetDefault() as LDAPSupportSettings;
-            }
         }
 
-        private LDAPSupportSettingsResult ToLdapSettingsResult()
+        private LDAPSupportSettingsResult QueueTask(LDAPOperation op)
         {
-            var id = AscCache.Default.Get<string>("SaveLdapSettingTaskId");
-            bool isCompleted = Convert.ToBoolean(AscCache.Default.Get<string>("SaveLdapSettingTaskIsCompleted") ?? "true");
-            int percentage = Convert.ToInt32(AscCache.Default.Get<string>("SaveLdapSettingTaskPercentage") ?? "0");
-            string status = AscCache.Default.Get<string>("SaveLdapSettingTaskStatus");
-            string error = AscCache.Default.Get<string>("SaveLdapSettingTaskError");
-            NovellLdapCertificateConfirmRequest certificateConfirmRequest = 
-                AscCache.Default.Get<NovellLdapCertificateConfirmRequest>("NovellLdapCertificateConfirmRequest");
-            return new LDAPSupportSettingsResult
-            {
-                Id = id,
-                Completed = isCompleted,
-                Percents = percentage,
-                Status = status,
-                Error = error,
-                CertificateConfirmRequest = certificateConfirmRequest
-            };
+            LDAPTasks.QueueTask(op.RunJob, op.GetDistributedTask());
+            return ToLdapSettingsResult();
         }
     }
 }

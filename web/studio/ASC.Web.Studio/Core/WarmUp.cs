@@ -37,6 +37,7 @@ using System.Web;
 using System.Web.Optimization;
 using System.Web.Script.Serialization;
 using ASC.Common.Caching;
+using ASC.Common.Threading;
 using ASC.Core;
 using ASC.Web.Core.Client;
 using ASC.Web.Core.Utility.Settings;
@@ -58,9 +59,11 @@ namespace ASC.Web.Studio.Core
         private List<string> Urls { get; set; }
         private readonly object locker = new object();
         private readonly CancellationTokenSource tokenSource;
+        private readonly ParallelOptions parallelOptions;
         private readonly ICacheNotify cacheNotify = AscCache.Notify;
         private readonly Dictionary<string, StartupProgress> startupProgresses;
         private StartupProgress progress;
+        private bool successInitialized = false;
 
         internal bool Started { get; private set; }
 
@@ -70,21 +73,66 @@ namespace ASC.Web.Studio.Core
 
         private WarmUp()
         {
-            tokenSource = new CancellationTokenSource();
-            TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
-
-            int instanceCount;
-            if (!int.TryParse(ConfigurationManager.AppSettings["web.warmup.count"], out instanceCount))
+            try
             {
-                instanceCount = 1;
+                int timeout;
+
+                if (!int.TryParse(ConfigurationManager.AppSettings["web.warmup.timeout"], out timeout))
+                {
+                    timeout = 15;
+                }
+
+                tokenSource = new CancellationTokenSource(TimeSpan.FromMinutes(timeout));
+                parallelOptions = new ParallelOptions
+                {
+                    MaxDegreeOfParallelism = Environment.ProcessorCount,
+                    CancellationToken = tokenSource.Token
+                };
+
+                TenantId = CoreContext.TenantManager.GetCurrentTenant().TenantId;
+
+                int instanceCount;
+                if (!int.TryParse(ConfigurationManager.AppSettings["web.warmup.count"], out instanceCount))
+                {
+                    instanceCount = 1;
+                }
+
+                startupProgresses = new Dictionary<string, StartupProgress>(instanceCount);
+
+                Urls = GetUrlsForRequests();
+
+                progress = new StartupProgress(Urls.Count);
+
+                Subscribe();
+
+                Publish();
+
+                successInitialized = true;
             }
+            catch (Exception e)
+            {
+                LogManager.GetLogger("ASC.Web").Error("Warmup error", e);
+            }
+            
+        }
 
-            startupProgresses = new Dictionary<string, StartupProgress>(instanceCount);
+        public bool CheckCompleted()
+        {
+            return startupProgresses.All(pair => pair.Value.Completed);
+        }
 
-            Urls = GetUrlsForRequests();
+        public string GetSerializedProgress()
+        {
+            var combinedProgress = (StartupProgress)progress.Clone();
 
-            progress = new StartupProgress(Urls.Count);
+            var averageProgress = startupProgresses.Average(pair => pair.Value.Progress);
+            combinedProgress.Progress = Convert.ToInt32(averageProgress);
 
+            return new JavaScriptSerializer().Serialize(combinedProgress);
+        }
+
+        private void Subscribe()
+        {
             cacheNotify.Subscribe<KeyValuePair<string, StartupProgress>>(
                 (kv, action) =>
                 {
@@ -112,23 +160,6 @@ namespace ASC.Web.Studio.Core
                             break;
                     }
                 });
-
-            Publish();
-        }
-
-        public bool CheckCompleted()
-        {
-            return startupProgresses.All(pair => pair.Value.Completed);
-        }
-
-        public string GetSerializedProgress()
-        {
-            var combinedProgress = (StartupProgress)progress.Clone();
-
-            var averageProgress = startupProgresses.Average(pair => pair.Value.Progress);
-            combinedProgress.Progress = Convert.ToInt32(averageProgress);
-
-            return new JavaScriptSerializer().Serialize(combinedProgress);
         }
 
         private static List<string> GetUrlsForRequests()
@@ -234,24 +265,6 @@ namespace ASC.Web.Studio.Core
                                   });
             }
 
-            var controlPanelUrl = SetupInfo.ControlPanelUrl;
-            if (!string.IsNullOrEmpty(controlPanelUrl))
-            {
-                controlPanelUrl = "~" + controlPanelUrl;
-                result.AddRange(new List<string>
-                                {
-                                    controlPanelUrl + "Https",
-                                    controlPanelUrl + "Update",
-                                    controlPanelUrl + "Rebranding",
-                                    controlPanelUrl + "Ldap",
-                                    controlPanelUrl + "Backup",
-                                    controlPanelUrl + "Restore",
-                                    controlPanelUrl + "HealthCheck",
-                                    controlPanelUrl + "LoginHistory",
-                                    controlPanelUrl + "AuditTrail"
-                                });
-            }
-
             return result.Select(GetFullAbsolutePath).ToList();
         }
 
@@ -277,13 +290,25 @@ namespace ASC.Web.Studio.Core
 
         internal void Start()
         {
+            if(!successInitialized) return;
+
             if (!Started)
             {
                 Started = true;
+
                 Task.Run(() =>
-                         {
-                             Parallel.ForEach(Urls, new ParallelOptions {MaxDegreeOfParallelism = 4, CancellationToken = tokenSource.Token}, MakeRequest);
-                         }, tokenSource.Token);
+                {
+                    try
+                    {
+                        Parallel.ForEach(Urls, parallelOptions, MakeRequest);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        Terminate();
+                        LogManager.GetLogger("ASC.Web").Error("Warmup canceled");
+                    }
+                    
+                }, tokenSource.Token);
             }
         }
 

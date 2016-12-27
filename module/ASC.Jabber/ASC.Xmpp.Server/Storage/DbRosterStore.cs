@@ -108,18 +108,18 @@ namespace ASC.Xmpp.Server.Storage
 
             try
             {
+                if (string.IsNullOrEmpty(item.Name)) item.Name = item.Jid.Bare;
+                rosterJid = new Jid(rosterJid.Bare.ToLowerInvariant());
+                ExecuteNonQuery(new SqlInsert("jabber_roster", true)
+                    .InColumnValue("jid", rosterJid.ToString())
+                    .InColumnValue("item_jid", item.Jid.ToString())
+                    .InColumnValue("name", item.Name)
+                    .InColumnValue("subscription", (Int32)item.Subscribtion)
+                    .InColumnValue("ask", (Int32)item.Ask)
+                    .InColumnValue("groups", string.Join(GroupSeparator, item.Groups.ToArray())));
+
                 lock (syncRoot)
                 {
-                    if (string.IsNullOrEmpty(item.Name)) item.Name = item.Jid.Bare;
-                    rosterJid = new Jid(rosterJid.Bare.ToLowerInvariant());
-                    ExecuteNonQuery(new SqlInsert("jabber_roster", true)
-                        .InColumnValue("jid", rosterJid.ToString())
-                        .InColumnValue("item_jid", item.Jid.ToString())
-                        .InColumnValue("name", item.Name)
-                        .InColumnValue("subscription", (Int32)item.Subscribtion)
-                        .InColumnValue("ask", (Int32)item.Ask)
-                        .InColumnValue("groups", string.Join(GroupSeparator, item.Groups.ToArray())));
-
                     if (!RosterItems.ContainsKey(rosterJid)) RosterItems[rosterJid] = new UserRosterItemDic();
                     RosterItems[rosterJid][item.Jid] = item;
 
@@ -136,14 +136,13 @@ namespace ASC.Xmpp.Server.Storage
         {
             try
             {
+                rosterJid = new Jid(rosterJid.Bare.ToLowerInvariant());
+                itemJid = new Jid(itemJid.Bare.ToLowerInvariant());
+                ExecuteNonQuery(new SqlDelete("jabber_roster").Where("jid", rosterJid.ToString()).Where("item_jid", itemJid.ToString()));
                 lock (syncRoot)
                 {
-                    rosterJid = new Jid(rosterJid.Bare.ToLowerInvariant());
-                    itemJid = new Jid(itemJid.Bare.ToLowerInvariant());
-
                     if (RosterItems.ContainsKey(rosterJid) && RosterItems[rosterJid].ContainsKey(itemJid))
                     {
-                        ExecuteNonQuery(new SqlDelete("jabber_roster").Where("jid", rosterJid.ToString()).Where("item_jid", itemJid.ToString()));
                         RosterItems[rosterJid].Remove(itemJid);
                     }
                 }

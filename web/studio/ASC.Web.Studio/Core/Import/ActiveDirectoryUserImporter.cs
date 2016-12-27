@@ -29,166 +29,159 @@ using ASC.ActiveDirectory.BuiltIn;
 using ASC.ActiveDirectory.DirectoryServices;
 using ASC.ActiveDirectory.Novell;
 using ASC.Core;
-using ASC.Core.Billing;
 using ASC.Core.Users;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core.Users;
-using ASC.Web.Studio.UserControls.Statistics;
 using ASC.Web.Studio.Utility;
 using log4net;
-using Resources;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using Constants = ASC.ActiveDirectory.Constants;
 
 namespace ASC.Web.Studio.Core.Import
 {
     public static class ActiveDirectoryUserImporter
     {
-        private static ILog log = LogManager.GetLogger(typeof(ActiveDirectoryUserImporter));
+        private static readonly ILog Log = LogManager.GetLogger(typeof(ActiveDirectoryUserImporter));
 
         public static bool TryGetLdapUserInfo(string login, string password, out UserInfo userInfo)
         {
             userInfo = ASC.Core.Users.Constants.LostUser;
 
-            if (!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString())
-                || CoreContext.Configuration.Standalone && !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap)
-            {
-                return false;
-            }
-
-            var settings = SettingsManager.Instance.LoadSettings<LDAPSupportSettings>(TenantProvider.CurrentTenantID);
-            if (!settings.EnableLdapAuthentication)
-            {
-                return false;
-            }
             try
             {
-                var importer = new LDAPUserImporter();
+                if (!LdapIsEnable)
+                {
+                    return false;
+                }
+
+                var settings = SettingsManager.Instance.LoadSettings<LDAPSupportSettings>(TenantProvider.CurrentTenantID);
+                if (!settings.EnableLdapAuthentication)
+                {
+                    return false;
+                }
+
+                var importer = new LDAPUserImporter(settings);
+
+                var ldapUserInfo = ASC.Core.Users.Constants.LostUser;
                 try
                 {
-                    LdapSettingsChecker ldapSettingsChecker;
-                    string currentLogin;
-                    if (!WorkContext.IsMono)
+                    var ldapSettingsChecker = WorkContext.IsMono 
+                        ? new NovellLdapSettingsChecker()
+                        : new SystemLdapSettingsChecker() as LdapSettingsChecker;
+
+                    var parsedLogin = ldapSettingsChecker.ParseLogin(login);
+
+                    var ldapUsers = importer.FindLdapUsers(parsedLogin);
+
+                    foreach (var ldapUser in ldapUsers)
                     {
-                        ldapSettingsChecker = new SystemLdapSettingsChecker();
-                        currentLogin = login;
-                    }
-                    else
-                    {
-                        currentLogin = GetEntryDN(settings, login);
-                        if (currentLogin == null)
+                        try
                         {
-                            return false;
+                            ldapUserInfo = ldapUser.Key;
+                            var ldapUserObject = ldapUser.Value;
+
+                            if (ldapUserInfo.Equals(ASC.Core.Users.Constants.LostUser)
+                                || ldapUserObject == null
+                                || string.IsNullOrEmpty(ldapUserObject.DistinguishedName))
+                            {
+                                continue;
+                            }
+
+                            string currentLogin;
+
+                            if (!WorkContext.IsMono)
+                            {
+                                currentLogin =
+                                    ldapUserObject.InvokeGet(Constants.ADSchemaAttributes.ACCOUNT_NAME) as string;
+                            }
+                            else
+                            {
+                                currentLogin = ldapUserObject.DistinguishedName;
+                            }
+
+                            ldapSettingsChecker.CheckCredentials(currentLogin, password, settings.Server,
+                                settings.PortNumber,
+                                settings.StartTls);
+
+                            break;
+
                         }
-                        ldapSettingsChecker = new NovellLdapSettingsChecker();
+                        catch (Exception)
+                        {
+                            ldapUserInfo = ASC.Core.Users.Constants.LostUser;
+                        }
                     }
-                    ldapSettingsChecker.CheckCredentials(currentLogin, password, settings.Server, settings.PortNumber, settings.StartTls);
+
+                    if (ldapUserInfo.Equals(ASC.Core.Users.Constants.LostUser))
+                        return false;
+
                 }
                 catch (Exception)
                 {
                     return false;
                 }
 
-                if (login.Contains("\\"))
-                {
-                    login = login.Split('\\')[1];
-                }
-                var sid = importer.GetSidOfCurrentUser(login, settings);
-                if (sid == null)
-                {
-                    return false;
-                }
-                List<GroupInfo> existingGroups;
-                importer.GetDiscoveredGroupsByAttributes(settings, out existingGroups);
-                if (importer.GetDiscoveredUser(settings, sid).Equals(ASC.Core.Users.Constants.LostUser))
+                if (settings.GroupMembership && !importer.IsUserExistsInGroups(ldapUserInfo))
                 {
                     return false;
                 }
 
-                userInfo = CoreContext.UserManager.GetUserBySid("l" + sid);
-                if (userInfo.Equals(ASC.Core.Users.Constants.LostUser))
+                try
                 {
-                    userInfo = CoreContext.UserManager.GetUserBySid(sid);
-                    if (userInfo.Equals(ASC.Core.Users.Constants.LostUser))
+                    SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
+
+                    userInfo = UserManagerWrapper.SyncUserLDAP(ldapUserInfo);
+
+                    if (userInfo == null || userInfo.Equals(ASC.Core.Users.Constants.LostUser))
                     {
-                        userInfo = importer.GetDiscoveredUser(settings, sid);
-                        if (userInfo.Equals(ASC.Core.Users.Constants.LostUser))
-                        {
-                            return false;
-                        }
-                        if (userInfo.FirstName == string.Empty)
-                        {
-                            userInfo.FirstName = Resource.FirstName;
-                        }
-                        if (userInfo.LastName == string.Empty)
-                        {
-                            userInfo.LastName = Resource.LastName;
-                        }
-                        try
-                        {
-                            SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
-
-                            var asVisitor = TenantStatisticsProvider.GetUsersCount() >= TenantExtra.GetTenantQuota().ActiveUsers;
-                            userInfo = UserManagerWrapper.AddUser(userInfo, UserManagerWrapper.GeneratePassword(), true, false, asVisitor);
-
-                            importer.AddUserIntoGroups(userInfo, settings);
-                            importer.AddUserInCacheGroups(userInfo);
-                        }
-                        finally
-                        {
-                            SecurityContext.Logout();
-                        }
+                        return false;
                     }
+
+                    userInfo.Sid = ldapUserInfo.Sid;
+
+                    importer.SyncUserGroupMembership(userInfo);
                 }
-                else
+                finally
                 {
-                    userInfo.Sid = sid;
-                    try
-                    {
-                        SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
-
-                        var asVisitor = TenantStatisticsProvider.GetUsersCount() >= TenantExtra.GetTenantQuota().ActiveUsers;
-
-                        userInfo = UserManagerWrapper.AddUser(userInfo, UserManagerWrapper.GeneratePassword(), true, false, asVisitor, false, false);
-                    }
-                    finally
-                    {
-                        SecurityContext.Logout();
-                    }
+                    SecurityContext.Logout();
                 }
 
                 return true;
             }
             catch (Exception e)
             {
-                log.ErrorFormat("Unexpected error: {0}", e);
+                Log.ErrorFormat("TryGetLdapUserInfo(login: '{0}') Unexpected error: {1}", login, e);
                 userInfo = ASC.Core.Users.Constants.LostUser;
                 return false;
             }
-        }
-
-        private static string GetEntryDN(LDAPSupportSettings settings, string login)
-        {
-            LdapHelper ldapHelper = new NovellLdapHelper();
-            var users = ldapHelper.GetUsersByAttributesAndFilter(
-                settings, "(" + settings.LoginAttribute + "=" + login + ")");
-            if (users.Count == 0)
-            {
-                return null;
-            }
-            var currentUser = users.FirstOrDefault(user => user != null);
-            return currentUser == null ? null : currentUser.DistinguishedName;
         }
 
         public static bool LdapIsEnable
         {
             get
             {
-                return SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) &&
-                       (!CoreContext.Configuration.Standalone || CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap) &&
-                       SettingsManager.Instance.LoadSettings<LDAPSupportSettings>(TenantProvider.CurrentTenantID).EnableLdapAuthentication;
+                try
+                {
+                    if (!SetupInfo.IsVisibleSettings(ManagementType.LdapSettings.ToString()) ||
+                        (CoreContext.Configuration.Standalone &&
+                         !CoreContext.TenantManager.GetTenantQuota(TenantProvider.CurrentTenantID).Ldap))
+                    {
+                        return false;
+                    }
+
+                    var enabled =
+                                SettingsManager.Instance.LoadSettings<LDAPSupportSettings>(
+                                    TenantProvider.CurrentTenantID)
+                                    .EnableLdapAuthentication;
+
+                    return enabled;
+                }
+                catch(Exception ex)
+                {
+                    Log.Error("[LDAP] LdapIsEnable: " + ex);
+                    return false;
+                }
             }
-        }
+        }    
     }
 }
