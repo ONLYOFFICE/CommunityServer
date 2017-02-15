@@ -5,28 +5,36 @@
 ## Version 9.0
 
 ### General
+
 * Modularity support
 * Allow to add administrator to the People module
 * CKEditors/MediaWiki update
 * Session time limit
 * Separate settings for Mail Server within the portal
 * Integration with CPanel, Plesk, APS STANDART
+
 ### Documents module
+
 * Integration with DocuSign, adobe sign
 * Sharing menu and dialog window redesign
 * Sharing of documents with a password
 * Sharing of documents with a limited time
 * Document copying, downloading and printing denial
 * Changing of document owner by administrator
+
 ### Mail module
+
 * Possibility to disable mail message threads
+
 ### CRM
+
 * IP-telephony integration
 * Reports with export to document editors
 
 ## Version 9.5
 
 ### General
+
 * Inactive portal data removal
 * Creating user with login/password combination
 * Creating operating system image (CoreOS)
@@ -34,14 +42,20 @@
 * Portal registration using email only
 * Two-factor authentication using disposable password generation
 * Generation of demo data for new users
+
 ### Control Panel
+
 * Customization of editors
+
 ### Documents module
+
 * Adding watermarks to documents
 * Integration with SyncThing (DropBox analog)
 * Document digital signature
 * Full-text search by the document contents
+
 ### Mail module
+
 * Integration with Microsoft Exchange
 * Mail message templates
 * Possibility to create mail boxes at the custom domain during the user creation
@@ -50,7 +64,9 @@
 * Possibility to create own mail folders
 * Possibility to create own rules for the automated mail sorting
 * Mail Server API
+
 ### CRM
+
 * SMS messaging to the contacts
 * Task templates
 * Integration with accounting software (e.g., 1C)
@@ -62,13 +78,16 @@
 ## Version 10.0
 
 ### General
+
 * Possibility to use tags for the search in Feed
 * Possibility to centrally manage user subscriptions
 * Video/audio connection for the portal users
 * Export of poll results to a spreadsheet
 * Smart polls (possibility to create up to 50 questions in a single poll)
 * Possibility to create private rooms in Talk with the access by password
+
 ### Documents module
+
 * Video view in browser
 
 
