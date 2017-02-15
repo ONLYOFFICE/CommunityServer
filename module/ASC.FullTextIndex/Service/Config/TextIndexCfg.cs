@@ -202,6 +202,18 @@ namespace ASC.FullTextIndex.Service.Config
                                             .Replace("%INDEX_PATH%", ReplaceBackSlash(dataPath))
                                             .Replace("%LOG_PATH%", ReplaceBackSlash(logPath)));
 
+
+            if (CoreContext.Configuration.Standalone)
+            {
+                File.WriteAllText(confPath,
+                File.ReadAllText(confPath).Replace("%advancedQueryFilter%", " or true "));
+            }
+            else
+            {
+                File.WriteAllText(confPath,
+                File.ReadAllText(confPath).Replace("%advancedQueryFilter%", ""));
+            }
+
             if (TextIndexCfg.Chunks <= 1)
             {
                 File.WriteAllText(confPath,
@@ -209,6 +221,7 @@ namespace ASC.FullTextIndex.Service.Config
                 return;
             }
 
+         
             var oldFileDataLines = File.ReadAllLines(confPath);
             var newFileDataLines = new List<string>();
 

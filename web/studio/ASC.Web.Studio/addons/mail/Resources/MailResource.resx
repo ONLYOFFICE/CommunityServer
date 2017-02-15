@@ -513,6 +513,12 @@
   <data name="OAuthLabel" xml:space="preserve">
     <value>or link with:</value>
   </data>
+  <data name="ConnectLabel" xml:space="preserve">
+    <value>Connect</value>
+  </data>
+  <data name="GoogleLabel" xml:space="preserve">
+    <value>Google</value>
+  </data>
   <data name="OnTopLabel" xml:space="preserve">
     <value>On top</value>
   </data>

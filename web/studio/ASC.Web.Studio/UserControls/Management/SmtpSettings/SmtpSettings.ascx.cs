@@ -25,9 +25,9 @@
 
 
 using System;
-using System.Net;
-using System.Net.Mail;
+using System.Configuration;
 using System.Text;
+using System.Threading;
 using System.Web;
 using System.Web.UI;
 using ASC.Core;
@@ -36,6 +36,9 @@ using ASC.Data.Storage;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
 using AjaxPro;
+using MailKit;
+using MailKit.Security;
+using MimeKit;
 using Newtonsoft.Json;
 using Resources;
 using SmtpSettingsConfig = ASC.Core.Configuration.SmtpSettings;
@@ -122,29 +125,49 @@ namespace ASC.Web.Studio.UserControls.Management
                 config = ToSmtpSettingsConfig(model);
             }
 
-            using (var smtpClient = new SmtpClient(config.Host, config.Port))
+            var sslCertificatePermit = ConfigurationManager.AppSettings["mail.certificate-permit"] != null &&
+                                    Convert.ToBoolean(ConfigurationManager.AppSettings["mail.certificate-permit"]);
+
+            var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
+            var toAddress = new MailboxAddress(currentUser.UserName, currentUser.Email);
+            var fromAddress = new MailboxAddress(config.SenderDisplayName, config.SenderAddress);
+
+            var mimeMessage = new MimeMessage
             {
-                smtpClient.Timeout = (int)TimeSpan.FromSeconds(10).TotalMilliseconds;
-                smtpClient.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtpClient.EnableSsl = config.EnableSSL;
+                Subject = Core.Notify.WebstudioNotifyPatternResource.subject_smtp_test
+            };
+
+            mimeMessage.From.Add(fromAddress);
+
+            mimeMessage.To.Add(toAddress);
+
+            var bodyBuilder = new MimeKit.BodyBuilder
+            {
+                TextBody = Core.Notify.WebstudioNotifyPatternResource.pattern_smtp_test
+            };
+
+            mimeMessage.Body = bodyBuilder.ToMessageBody();
+
+            mimeMessage.Headers.Add("Auto-Submitted", "auto-generated");
+
+            using (var client = new MailKit.Net.Smtp.SmtpClient
+            {
+                ServerCertificateValidationCallback = (sender, certificate, chain, errors) =>
+                    sslCertificatePermit ||
+                    MailKit.MailService.DefaultServerCertificateValidationCallback(sender, certificate, chain, errors),
+                Timeout = (int) TimeSpan.FromSeconds(30).TotalMilliseconds
+            })
+            {
+                client.Connect(config.Host, config.Port,
+                    config.EnableSSL ? SecureSocketOptions.Auto : SecureSocketOptions.None);
 
                 if (config.EnableAuth)
                 {
-                    smtpClient.UseDefaultCredentials = false;
-                    smtpClient.Credentials = new NetworkCredential(config.CredentialsUserName,
+                    client.Authenticate(config.CredentialsUserName,
                         config.CredentialsUserPassword);
                 }
 
-                var currentUser = CoreContext.UserManager.GetUsers(SecurityContext.CurrentAccount.ID);
-                var toAddress = new MailAddress(currentUser.Email);
-                var fromAddress = new MailAddress(config.SenderAddress, config.SenderDisplayName);
-                var mailMessage = new MailMessage(fromAddress, toAddress)
-                {
-                    Subject = Core.Notify.WebstudioNotifyPatternResource.subject_smtp_test,
-                    Body = Core.Notify.WebstudioNotifyPatternResource.pattern_smtp_test
-                };
-
-                smtpClient.Send(mailMessage);
+                client.Send(FormatOptions.Default, mimeMessage, CancellationToken.None);
             }
         }
 

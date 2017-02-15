@@ -24,6 +24,7 @@
 */
 
 
+using System.Web.Configuration;
 using ASC.Core;
 using ASC.Core.Billing;
 using ASC.Core.Users;
@@ -396,6 +397,8 @@ namespace ASC.Web.Files
 
             inlineScript.Append(BuildOptions());
 
+            inlineScript.Append(BuildPlugins());
+
             inlineScript.AppendFormat("\nASC.Files.Editor.docServiceParams = {0};",
                                       DocumentServiceParams.Serialize(_docParams));
 
@@ -419,6 +422,14 @@ namespace ASC.Web.Files
             }
 
             return string.Format("\nASC.Files.Editor.options = {0};", opts);
+        }
+
+        private static string BuildPlugins()
+        {
+            return string.Format("\nASC.Files.Editor.pluginsUrl = \"{0}\";" +
+                                 "ASC.Files.Editor.pluginsData = \"{1}\";",
+                                 WebConfigurationManager.AppSettings["files.docservice.url.plugins"],
+                                 WebConfigurationManager.AppSettings["files.docservice.plugins-data"]);
         }
 
         protected string RenderCustomScript()

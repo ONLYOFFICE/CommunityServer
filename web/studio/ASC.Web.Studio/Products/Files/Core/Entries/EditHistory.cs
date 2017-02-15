@@ -46,20 +46,52 @@ namespace ASC.Files.Core
         [DataMember(Name = "key")] public string Key;
         [DataMember(Name = "version")] public int Version;
         [DataMember(Name = "versionGroup")] public int VersionGroup;
-        //todo: delete
-        [DataMember(Name = "version_group")] public int VersionGroupOld { get { return VersionGroup; } set { VersionGroup = value; } }
 
         [DataMember(Name = "user")] public EditHistoryAuthor ModifiedBy;
 
-        public string ChangesString;
+        [DataMember(Name = "changeshistory", EmitDefaultValue = false)] public string ChangesString;
 
-        [DataMember(Name = "changes")]
+        [DataMember(Name = "changes", EmitDefaultValue = false)]
         public List<EditHistoryChanges> Changes
         {
             get
             {
                 var changes = new List<EditHistoryChanges>();
                 if (string.IsNullOrEmpty(ChangesString)) return changes;
+
+                //new scheme
+                Exception newSchemeException = null;
+                try
+                {
+                    var jObject = JObject.Parse(ChangesString);
+                    ServerVersion = jObject.Value<string>("serverVersion");
+
+                    var jChanges = jObject.Value<JArray>("changes");
+
+                    changes = jChanges.Children()
+                                      .Select(jChange =>
+                                          {
+                                              var jUser = jChange.Value<JObject>("user");
+                                              return new EditHistoryChanges
+                                                  {
+                                                      Date = jChange.Value<string>("created"),
+                                                      Author = new EditHistoryAuthor
+                                                          {
+                                                              Id = new Guid(jUser.Value<string>("id") ?? Guid.Empty.ToString()),
+                                                              Name = jUser.Value<string>("name"),
+                                                          },
+                                                  };
+                                          })
+                                      .ToList();
+                    return changes;
+                }
+                catch (Exception ex)
+                {
+                    newSchemeException = ex;
+                }
+
+                //old scheme
+                //todo: delete
                 try
                 {
                     var jChanges = JArray.Parse(ChangesString);
@@ -79,8 +111,10 @@ namespace ASC.Files.Core
                 }
                 catch (Exception ex)
                 {
-                    Global.Logger.Error("DeSerialize exception", ex);
+                    Global.Logger.Error("DeSerialize new scheme exception", newSchemeException);
+                    Global.Logger.Error("DeSerialize old scheme exception", ex);
                 }
+
                 return changes;
             }
             set { throw new NotImplementedException(); }
@@ -94,6 +128,8 @@ namespace ASC.Files.Core
             get { return ModifiedOn.Equals(default(DateTime)) ? null : ModifiedOn.ToString("g"); }
             set { throw new NotImplementedException(); }
         }
+
+        [DataMember(Name = "serverVersion", EmitDefaultValue = false)] public string ServerVersion;
     }
 
     [DataContract(Name = "user", Namespace = "")]
@@ -139,5 +175,29 @@ namespace ASC.Files.Core
                 }
             }
         }
+    }
+
+    [DataContract(Name = "data")]
+    [DebuggerDisplay("{Version}")]
+    public class EditHistoryData
+    {
+        [DataMember(Name = "changesUrl", EmitDefaultValue = false)] public string ChangesUrl;
+
+        [DataMember(Name = "key")] public string Key;
+
+        [DataMember(Name = "previous", EmitDefaultValue = false)] public EditHistoryUrl Previous;
+
+        [DataMember(Name = "url")] public string Url;
+
+        [DataMember(Name = "version")] public int Version;
+    }
+
+    [DataContract(Name = "url")]
+    [DebuggerDisplay("{Key} - {Url}")]
+    public class EditHistoryUrl
+    {
+        [DataMember(Name = "key")] public string Key;
+
+        [DataMember(Name = "url")] public string Url;
     }
 }

@@ -37,7 +37,7 @@ namespace ASC.Web.Files.Services.WCFService
 {
     class FileExceptionFilterAttribute : ExceptionFilterAttribute
     {
-        private static readonly ILog log = LogManager.GetLogger("ASC.Web.Files");
+        private static readonly ILog log = LogManager.GetLogger("ASC.Files");
 
 
         public override void OnException(HttpActionExecutedContext actionExecutedContext)

@@ -2040,4 +2040,32 @@ For your convenience, when you purchase your next renewal, you can also enable t
 Sincerely,
 ONLYOFFICE Team</value>
   </data>
+  <data name="pattern_tariff_warning_trial2_enterprise" xml:space="preserve">
+    <value>Dear $UserName,
+
+Thank you for having given ${LetterLogoTextTM} a try. Your trial version of Enterprise Edition is due to expire today.
+
+To continue using it please visit our "Server pricing page":"http://www.onlyoffice.com/enterprise-edition.aspx" where you can check out all the pricing plans and choose the most suitable one for you or buy the Enterprise Edition Standard "right now":"$PricingPage".
+
+If any questions related to our pricing and payment policy arise, please, contact us at "sales@onlyoffice.com":"sales@onlyoffice.com". For solving any technical problems you face do not hesitate to write to "support@onlyoffice.com":"support@onlyoffice.com"</value>
+  </data>
+  <data name="pattern_tariff_warning_trial_enterprise" xml:space="preserve">
+    <value>Dear $UserName,
+
+Thank  you for checking out ${LetterLogoTextTM} service. Hope, everything's  going fine. We just want to remind you that the trial period for your Enterprise Edition will be over in seven days. 
+
+Please, check all the available pricing plans for Enterprise Edition and choose the most suitable rate for your business.
+
+$GreenButton
+
+$BlueButton
+
+If any questions related to our pricing and payment policy arise, please, contact us at "sales@onlyoffice.com":"sales@onlyoffice.com". For solving any technical problems you face do not hesitate to write to "support@onlyoffice.com":"support@onlyoffice.com"</value>
+  </data>
+  <data name="subject_tariff_warning_trial2_enterprise" xml:space="preserve">
+    <value>Your Enterprise Edition trial expires today</value>
+  </data>
+  <data name="subject_tariff_warning_trial_enterprise" xml:space="preserve">
+    <value>How is your trial going so far?</value>
+  </data>
 </root>

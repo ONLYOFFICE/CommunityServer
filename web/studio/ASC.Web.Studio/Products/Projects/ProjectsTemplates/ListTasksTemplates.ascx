@@ -34,6 +34,7 @@
                             {{if $item.data.milestone != null}}milestoneid="${milestone.id}" milestone="[${milestone.displayDateDeadline}] ${milestone.title}" milestoneurl="milestones.aspx?prjID=${projectOwner.id}&id=${milestone.id}"{{/if}}
                             {{if typeof $item.data.responsibles != 'undefined' && $item.data.responsibles.length}} responsible="${responsibles[0].displayName}"{{/if}}
                             {{if typeof $item.data.createdBy != 'undefined'}}createdBy="${createdBy.displayName}"{{/if}}
+                            {{if typeof $item.data.updatedBy != 'undefined' && $item.data.updatedBy != null}}updatedBy="${updatedBy.displayName}"{{/if}}
                             project =  "${projectOwner.title}"
                             created="${displayDateCrtdate}" 
                             updated="${displayDateUptdate}"                         

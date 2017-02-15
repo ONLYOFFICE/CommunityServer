@@ -217,6 +217,13 @@
                             <% } %>
                         </ul>
 
+                        <% if (TenantExtra.Opensource)
+                           { %>
+                        <br />
+                        <div><%= string.Format(UserControlsCommonResource.LicensedUnder, "<a href=\"https://www.gnu.org/licenses/gpl-3.0.html\" class=\"link underline\" target=\"_blank\">", "</a>") %></div>
+                        <div><%= string.Format(UserControlsCommonResource.SourceCode, "<a href=\"https://github.com/ONLYOFFICE/CommunityServer\" class=\"link underline\" target=\"_blank\">", "</a>") %></div>
+                        <% } %>
+
                         <% if (IsAuthorizedPartner.HasValue && IsAuthorizedPartner.Value && Partner != null)
                             { %>
                             <br />

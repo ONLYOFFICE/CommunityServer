@@ -354,7 +354,7 @@ ASC.Projects.SubtasksManager = (function () {
                     descriptionObj.closedDate = $targetParent.attr('updated').substr(0, 10);
                 }
                 if (typeof $targetParent.attr('createdby') != 'undefined') {
-                    descriptionObj.closedBy = jq.htmlEncodeLight($targetParent.attr('createdby'));
+                    descriptionObj.closedBy = jq.htmlEncodeLight($targetParent.attr('updatedBy'));
                 }
             } else {
                 if (typeof $targetParent.attr('created') != 'undefined') {

@@ -52,8 +52,8 @@ namespace ASC.Mail.Aggregator.DbSchema
             //public const string auth_error = "auth_error";
             public const string Imap = "imap";
             public const string BeginDate = "begin_date";
-            public const string ServiceType = "service_type";
-            public const string RefreshToken = "refresh_token";
+            public const string OAuthType = "token_type";
+            public const string OAuthToken = "token";
             public const string ImapIntervals = "imap_intervals";
             public const string SmtpServerId = "id_smtp_server";
             public const string ServerId = "id_in_server";

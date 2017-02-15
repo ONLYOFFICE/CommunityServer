@@ -52,7 +52,7 @@ namespace ASC.Web.Files.Utils
             return Exec(folderId, title, contentLength, data, !FilesSettings.UpdateIfExist);
         }
 
-        public static File Exec(string folderId, string title, long contentLength, Stream data, bool createNewIfExist)
+        public static File Exec(string folderId, string title, long contentLength, Stream data, bool createNewIfExist, bool deleteConvertStatus = true)
         {
             if (contentLength <= 0)
                 throw new Exception(FilesCommonResource.ErrorMassage_EmptyFile);
@@ -67,7 +67,7 @@ namespace ASC.Web.Files.Utils
             FileMarker.MarkAsNew(file);
 
             if (FileConverter.EnableAsUploaded && FileConverter.MustConvert(file))
-                FileConverter.ExecAsync(file, true);
+                FileConverter.ExecAsync(file, deleteConvertStatus);
 
             return file;
         }

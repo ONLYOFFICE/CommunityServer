@@ -170,9 +170,8 @@ namespace ASC.Specific
 
         private string ToRoundTripString(DateTime date, TimeSpan offset)
         {
-
             var dateString = date.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffff", CultureInfo.InvariantCulture);
-            var offsetString = offset.Ticks == 0 ? "Z" : string.Format("{0}{1,2:00}:{2,2:00}", offset.Ticks > 0 ? "+" : "", offset.Hours, offset.Minutes);
+            var offsetString = offset.Ticks == 0 ? "Z" : ((offset < TimeSpan.Zero) ? "-" : "+") + offset.ToString("hh\\:mm", CultureInfo.InvariantCulture);
             return dateString + offsetString;
         }
 

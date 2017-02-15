@@ -2,12 +2,12 @@ Summary: Office suite and business productivity tools
 Name: onlyoffice-communityserver
 Version: 8.8.1
 Release: 0
-License: AGPLv3
+License: GPLv3
 Group: Applications/Internet
 URL: http://onlyoffice.com/
 Vendor: ONLYOFFICE (Online documents editor)
 Packager: ONLYOFFICE (Online documents editor) <support@onlyoffice.com>
-Requires: mono >= 3.2.0, xsp, mono-locale-extras, nginx >= 0.8.21, mysql-server, wget, redis
+Requires: mono >= 4.2.0, xsp, mono-locale-extras, nginx >= 0.8.21, mysql-server, wget, redis, ruby, mono-webserver-hyperfastcgi
 BuildArch: noarch
 AutoReq: no
 AutoProv: no
@@ -32,10 +32,18 @@ mkdir -p "$RPM_BUILD_ROOT/var/log/onlyoffice/"
 #install init scripts
 mkdir -p "$RPM_BUILD_ROOT/usr/lib/systemd/system/"
 cp ../../Files/init/*.service "$RPM_BUILD_ROOT/usr/lib/systemd/system/"
+cp ../../Files/onlyoffice/onlyoffice.service "$RPM_BUILD_ROOT/var/www/onlyoffice/"
 
 #install nginx config
 mkdir -p "$RPM_BUILD_ROOT/etc/nginx/conf.d/"
 cp ../../Files/nginx/onlyoffice.conf "$RPM_BUILD_ROOT/etc/nginx/conf.d/"
+
+#install hyperfastcgi config
+mkdir -p "$RPM_BUILD_ROOT/etc/hyperfastcgi/"
+cp ../../Files/hyperfastcgi/onlyoffice "$RPM_BUILD_ROOT/etc/hyperfastcgi/"
+cp ../../Files/hyperfastcgi/onlyoffice2 "$RPM_BUILD_ROOT/etc/hyperfastcgi/"
+cp ../../Files/hyperfastcgi/onlyofficeApiSystem "$RPM_BUILD_ROOT/etc/hyperfastcgi/"
+
 
 #list onlyoffice files
 OLD_IFS="$IFS"
@@ -70,6 +78,9 @@ rm -rf "$RPM_BUILD_ROOT"
 %attr(-, onlyoffice, onlyoffice) /var/log/onlyoffice/
 %config %attr(-, root, root) /usr/lib/systemd/system/*.service
 %config %attr(-, root, root) /etc/nginx/conf.d/onlyoffice.conf
+%config %attr(-, root, root) /etc/hyperfastcgi/onlyoffice
+%config %attr(-, root, root) /etc/hyperfastcgi/onlyoffice2
+%config %attr(-, root, root) /etc/hyperfastcgi/onlyofficeApiSystem
 
 %pre
 #add group and user for onlyoffice app
@@ -89,10 +100,15 @@ mkdir -p -m 700 /var/run/onlyoffice/.config/.mono/keypairs
 chown nginx:nginx /var/cache/nginx/onlyoffice
 chown onlyoffice:nginx /var/run/onlyoffice
 chmod g+s+w /var/run/onlyoffice
+chmod +x /var/www/onlyoffice/onlyoffice.service
+
+# fix for mono 4.4.2.11
+ln -s /usr/lib64/libMonoPosixHelper.so /usr/lib/libMonoPosixHelper.so
 
 #register all services
 systemctl daemon-reload
 systemctl enable redis
+systemctl enable nginx
 systemctl start redis
 
 for SVC in monoserve monoserve2 onlyofficeBackup onlyofficeFeed onlyofficeJabber onlyofficeIndex onlyofficeNotify onlyofficeMailAggregator onlyofficeMailWatchdog; do

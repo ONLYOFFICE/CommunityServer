@@ -165,10 +165,5 @@ jq(function () {
 
     jq("#licenseRequest").click(TariffStandalone.request);
 
-    jq("#activateCancel").click(function () {
-        jq("#licenseKeyText").text("");
-        jq("#activateButton").addClass("disable");
-    });
-
     jq("#policyAccepted").click(TariffStandalone.licenseKeyEdit);
 });

@@ -880,6 +880,60 @@ namespace ASC.Web.Files.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to You have just created your ONLYOFFICE portal.{0} Upload your offline files to the portal to collaborate on them without leaving the app.{0}{0} Open your portal in browser to find more features, including {1}Projects{2}, {1}CRM{2}, {1}Calendar{2}, {1}Mail{2} and more..
+        /// </summary>
+        public static string DesktopDescr {
+            get {
+                return ResourceManager.GetString("DesktopDescr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open in browser.
+        /// </summary>
+        public static string DesktopOpenBrowser {
+            get {
+                return ResourceManager.GetString("DesktopOpenBrowser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to For any purchase questions, email us at {0}..
+        /// </summary>
+        public static string DesktopSales {
+            get {
+                return ResourceManager.GetString("DesktopSales", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to If you have some technical problems, contact us at {0}..
+        /// </summary>
+        public static string DesktopSupport {
+            get {
+                return ResourceManager.GetString("DesktopSupport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to your portal!.
+        /// </summary>
+        public static string DesktopWelcome {
+            get {
+                return ResourceManager.GetString("DesktopWelcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Congratulations.
+        /// </summary>
+        public static string DesktopWelcomeHeader {
+            get {
+                return ResourceManager.GetString("DesktopWelcomeHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Documents.
         /// </summary>
         public static string Documents {

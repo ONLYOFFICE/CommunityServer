@@ -1,3 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?><RightParserResult xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><From><Email>test.mail@qip.ru</Email><Name>тест</Name></From><To><TestAddress><Email>test.mail@qip.ru</Email><Name>тест</Name></TestAddress></To><Cc /><Subject>тест</Subject><TextEncoding>QuotedPrintable</TextEncoding><TextCharset>utf-8</TextCharset><TextBody>тест
-</TextBody><HtmlEncoding>QuotedPrintable</HtmlEncoding><HtmlCharset>utf-8</HtmlCharset><HtmlBody>&lt;a href='www.teamlab.com'&gt;тест&lt;/a&gt;
-</HtmlBody><AttachmentCount>0</AttachmentCount><UnknownPatsCount>0</UnknownPatsCount></RightParserResult>

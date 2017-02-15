@@ -288,49 +288,6 @@ namespace ASC.Data.Storage.S3
             }
         }
 
-        public override Uri UploadWithoutQuota(string domain, string path, Stream stream, string contentType, string contentDisposition)
-        {
-            var acl = ACL.Auto;
-            using (var client = GetClient())
-            {
-                var util = new TransferUtility(client);
-                var mime = string.IsNullOrEmpty(contentType)
-                                  ? MimeMapping.GetMimeMapping(Path.GetFileName(path))
-                                  : contentType;
-
-                var buffered = stream.GetBuffered();
-                var request = new TransferUtilityUploadRequest
-                {
-                    BucketName = _bucket,
-                    Key = MakePath(domain, path),
-                    CannedACL = acl == ACL.Auto ? GetDomainACL(domain) : GetS3Acl(acl),
-                    ContentType = mime,
-                    InputStream = buffered,
-                    AutoCloseStream = false,
-                    Headers =
-                    {
-                        CacheControl = string.Format("public, maxage={0}", (int)TimeSpan.FromDays(5).TotalSeconds),
-                        Expires = DateTime.UtcNow.Add(TimeSpan.FromDays(5)),
-                    }
-                };
-
-                if (!string.IsNullOrEmpty(contentDisposition))
-                {
-                    request.Headers.ContentDisposition = Uri.EscapeDataString(contentDisposition);
-                }
-                else if (mime == "application/octet-stream")
-                {
-                    request.Headers.ContentDisposition = "attachment";
-                }
-
-                util.Upload(request);
-
-                InvalidateCloudFront(MakePath(domain, path));
-
-                return GetUri(domain, path);
-            }
-        }
-
         private void InvalidateCloudFront(params string[] paths)
         {
             if (!_revalidateCloudFront || string.IsNullOrEmpty(_distributionId)) return;
@@ -480,15 +437,11 @@ namespace ASC.Data.Storage.S3
 
         public override void Delete(string domain, string path)
         {
-            Delete(domain, path, true);
-        }
-
-        public void Delete(string domain, string path, bool quotaDelete)
-        {
             using (var client = GetClient())
             {
                 var key = MakePath(domain, path);
-                if (quotaDelete)
+
+                if (QuotaController != null)
                 {
                     QuotaDelete(domain, client, key);
                 }
@@ -661,7 +614,7 @@ namespace ASC.Data.Storage.S3
                 };
 
                 client.CopyObject(request);
-                Delete(srcdomain, srcpath, false);
+                Delete(srcdomain, srcpath);
                 return GetUri(newdomain, newpath);
             }
         }

@@ -1045,17 +1045,19 @@ namespace ASC.Api.Calendar
         /// <param name="alertType">Event notification type</param>
         /// <param name="isAllDayLong">Event duration type: all day long or not</param>
         /// <param name="sharingOptions">Event sharing access parameters</param>
-        /// <param name="uid">Event unique identifier</param>
-        /// <param name="status">Event status</param>
         /// <returns>Event list</returns>
         [Create("event")]
-        public List<EventWrapper> AddEvent(string name, string description, ApiDateTime startDate, ApiDateTime endDate, string repeatType, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions, string uid, EventStatus status)
+        public List<EventWrapper> AddEvent(string name, string description, ApiDateTime startDate, ApiDateTime endDate, string repeatType, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions)
         {
             var calendar = LoadInternalCalendars().First(x => !x.IsSubscription);
             int calendarId;
 
             if (int.TryParse(calendar.Id, out calendarId))
-                return CreateEvent(calendarId, name, description, startDate.UtcTime, endDate.UtcTime, RecurrenceRule.Parse(repeatType), alertType, isAllDayLong, sharingOptions, uid, status);
+            {
+                var cal = new DDay.iCal.iCalendar();
+                cal.Events.Add(DDayICalParser.CreateEvent(name, description, startDate.UtcTime, endDate.UtcTime, repeatType, isAllDayLong, EventStatus.Confirmed));
+                return AddEvent(calendarId, DDayICalParser.SerializeCalendar(cal), alertType, sharingOptions);
+            }
 
             throw new Exception(string.Format("Can't parse {0} to int", calendar.Id));
         }
@@ -1075,13 +1077,13 @@ namespace ASC.Api.Calendar
         /// <param name="alertType">Event notification type</param>
         /// <param name="isAllDayLong">Event duration type: all day long or not</param>
         /// <param name="sharingOptions">Event sharing access parameters</param>
-        /// <param name="uid">Event unique identifier</param>
-        /// <param name="status">Event status</param>
         /// <returns>Event list</returns>
         [Create("{calendarId}/event")]
-        public List<EventWrapper> AddEvent(int calendarId, string name, string description, ApiDateTime startDate, ApiDateTime endDate, string repeatType, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions, string uid, EventStatus status)
+        public List<EventWrapper> AddEvent(int calendarId, string name, string description, ApiDateTime startDate, ApiDateTime endDate, string repeatType, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions)
         {
-            return CreateEvent(calendarId, name, description, startDate.UtcTime, endDate.UtcTime, RecurrenceRule.Parse(repeatType), alertType, isAllDayLong, sharingOptions, uid, status);
+            var cal = new DDay.iCal.iCalendar();
+            cal.Events.Add(DDayICalParser.CreateEvent(name, description, startDate.UtcTime, endDate.UtcTime, repeatType, isAllDayLong, EventStatus.Confirmed));
+            return AddEvent(calendarId, DDayICalParser.SerializeCalendar(cal), alertType, sharingOptions);
         }
 
         private List<EventWrapper> CreateEvent(int calendarId, string name, string description, DateTime utcStartDate, DateTime utcEndDate, RecurrenceRule rrule, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions, string uid, EventStatus status)
@@ -1161,13 +1163,21 @@ namespace ASC.Api.Calendar
         /// <param name="status">Event status</param>
         /// <returns>Updated event list</returns>
         [Update("{calendarId}/{eventId}")]
-        public List<EventWrapper> UpdateEvent(string calendarId, int eventId, string name, string description, ApiDateTime startDate, ApiDateTime endDate, string repeatType, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions, EventStatus status)
+        public List<EventWrapper> Update(string calendarId, int eventId, string name, string description, ApiDateTime startDate, ApiDateTime endDate, string repeatType, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions, EventStatus status)
+        {
+            var cal = new DDay.iCal.iCalendar();
+            cal.Events.Add(DDayICalParser.CreateEvent(name, description, startDate.UtcTime, endDate.UtcTime, repeatType, isAllDayLong, status));
+            return UpdateEvent(eventId, calendarId, DDayICalParser.SerializeCalendar(cal), alertType, sharingOptions);
+        }
+
+
+        private List<EventWrapper> UpdateEvent(string calendarId, int eventId, string name, string description, ApiDateTime startDate, ApiDateTime endDate, string repeatType, EventAlertType alertType, bool isAllDayLong, List<SharingParam> sharingOptions, EventStatus status)
         {
             var sharingOptionsList = sharingOptions ?? new List<SharingParam>();
 
             var oldEvent = _dataProvider.GetEventById(eventId);
 
-            if(oldEvent == null)
+            if (oldEvent == null)
                 throw new Exception(Resources.CalendarApiResource.ErrorItemNotFound);
 
             var cal = _dataProvider.GetCalendarById(Int32.Parse(oldEvent.CalendarId));

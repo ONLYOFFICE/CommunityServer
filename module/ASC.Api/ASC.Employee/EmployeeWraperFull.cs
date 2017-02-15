@@ -96,6 +96,9 @@ namespace ASC.Api.Employee
         [DataMember(Order = 20)]
         public bool IsAdmin { get; set; }
 
+        [DataMember(Order = 20)]
+        public bool IsLDAP { get; set; }
+
         [DataMember(Order = 20, EmitDefaultValue = false)]
         public List<string> ListAdminModules { get; set; }
 
@@ -202,6 +205,8 @@ namespace ASC.Api.Employee
             }
 
             IsOwner = userInfo.IsOwner();
+
+            IsLDAP = userInfo.Sid != null;
         }
 
         private void FillConacts(UserInfo userInfo)

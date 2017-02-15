@@ -25,14 +25,15 @@
 
 
 using ASC.Api.Attributes;
-using ASC.Api.Impl;
 using ASC.Api.Interfaces;
 using ASC.Api.Utils;
 using ASC.Core;
 using ASC.Core.Users;
 using ASC.FederatedLogin.LoginProviders;
+using ASC.IPSecurity;
 using ASC.MessagingSystem;
 using ASC.Security.Cryptography;
+using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Import;
 using ASC.Web.Studio.Core.Notify;
@@ -58,14 +59,6 @@ namespace ASC.Specific.AuthorizationApi
         public string Name
         {
             get { return "authentication"; }
-        }
-
-        ///<summary>
-        /// Constructor
-        ///</summary>
-        ///<param name="context"></param>
-        public AuthenticationEntryPoint(ApiContext context)
-        {
         }
 
         private static HttpRequest Request
@@ -275,9 +268,9 @@ namespace ASC.Specific.AuthorizationApi
         {
             viaEmail = true;
             var action = MessageAction.LoginFailViaApi;
+            UserInfo user;
             try
             {
-                UserInfo user;
                 if (string.IsNullOrEmpty(provider) || provider == "email")
                 {
                     userName.ThrowIfNull(new ArgumentException("userName empty", "userName"));
@@ -295,25 +288,33 @@ namespace ASC.Specific.AuthorizationApi
                     {
                         throw new Exception("user not found");
                     }
-
-                    return user;
                 }
+                else
+                {
 
-                viaEmail = false;
+                    viaEmail = false;
 
-                action = MessageAction.LoginFailViaApiSocialAccount;
-                var thirdPartyProfile = ProviderManager.GetLoginProfile(provider, accessToken);
-                userName = thirdPartyProfile.EMail;
+                    action = MessageAction.LoginFailViaApiSocialAccount;
+                    var thirdPartyProfile = ProviderManager.GetLoginProfile(provider, accessToken);
+                    userName = thirdPartyProfile.EMail;
 
-                user = LoginWithThirdParty.GetUserByThirdParty(thirdPartyProfile);
-
-                return user;
+                    user = LoginWithThirdParty.GetUserByThirdParty(thirdPartyProfile);
+                }
             }
             catch
             {
                 MessageService.Send(Request, string.IsNullOrEmpty(userName) ? userName : AuditResource.EmailNotSpecified, action);
                 throw new AuthenticationException("User authentication failed");
             }
+
+            var tenant = CoreContext.TenantManager.GetCurrentTenant();
+            var settings = SettingsManager.Instance.LoadSettings<IPRestrictionsSettings>(tenant.TenantId);
+            if (settings.Enable && user.ID != tenant.OwnerId && !IPSecurity.IPSecurity.Verify(tenant))
+            {
+                throw new IPSecurityException();
+            }
+
+            return user;
         }
     }
 }

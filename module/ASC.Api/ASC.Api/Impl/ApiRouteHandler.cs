@@ -76,10 +76,10 @@ namespace ASC.Api.Impl
             if (authorizations.Any(apiAuthorization => apiAuthorization.OnAuthorizationFailed(requestContext.HttpContext)))
             {
                 log.Debug("Unauthorized");
-                return new ErrorHttpHandler((int)HttpStatusCode.Unauthorized, HttpStatusCode.Unauthorized.ToString());
+                return new ErrorHttpHandler(HttpStatusCode.Unauthorized, HttpStatusCode.Unauthorized.ToString());
             }
             log.Debug("Forbidden");
-            return new ErrorHttpHandler((int)HttpStatusCode.Unauthorized, HttpStatusCode.Unauthorized.ToString());
+            return new ErrorHttpHandler(HttpStatusCode.Unauthorized, HttpStatusCode.Unauthorized.ToString());
         }
 
         public virtual IHttpHandler GetHandler(IUnityContainer container,RequestContext requestContext)

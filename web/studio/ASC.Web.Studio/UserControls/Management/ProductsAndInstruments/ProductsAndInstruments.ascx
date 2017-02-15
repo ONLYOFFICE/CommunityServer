@@ -1,4 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ProductsAndInstruments.ascx.cs" Inherits="ASC.Web.Studio.UserControls.Management.ProductsAndInstruments" %>
+<%@ Import Namespace="ASC.Web.Studio.Core.Users" %>
+<%@ Import Namespace="Resources" %>
 
 <div id="studio_productSettings">
     <div class="clearFix">
@@ -6,7 +8,7 @@
         <div class="clearFix">
             <div class="web-item-list">
                 <div class="header-base">
-                    <%=Resources.Resource.ProductsAndInstruments_Products%>
+                    <%=Resource.ProductsAndInstruments_Products%>
                 </div>
                 <% foreach (var product in Products) %>
                 <% { %>
@@ -34,7 +36,7 @@
 
             <div class="web-item-list">
                 <div class="header-base">
-                    <%=Resources.Resource.ProductsAndInstruments_Instruments%>
+                    <%=Resource.ProductsAndInstruments_Instruments%>
                 </div>
                 <% foreach (var module in Modules) %>
                 <% { %>
@@ -50,13 +52,13 @@
         </div>
             <div class="middle-button-container">
                 <a id="btnSaveSettings" class="button blue <%= TenantAccessAnyone ? "disable" : "" %>">
-                    <%=Resources.Resource.SaveButton%>
+                    <%=Resource.SaveButton%>
                 </a>
             </div>
         </div>
         <div class="settings-help-block">
             <p>
-                <%: Resources.Resource.ProductsAndInstruments_Info %>
+                <%: CustomNamingPeople.Substitute<Resource>("ProductsAndInstruments_Info") %>
             </p>
         </div>
     </div>

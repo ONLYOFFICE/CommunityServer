@@ -33,155 +33,161 @@ namespace ASC.Xmpp.Server.Utils
 {
     static class IdleWatcher
     {
-        private static readonly object syncRoot;
-
-        private static readonly IDictionary<object, IdleItem> items;
-
-        private static readonly TimeSpan timerPeriod;
-
-        private static readonly Timer timer;
-
-        private static bool timerStoped;
-
         private static readonly ILog log = LogManager.GetLogger(typeof(IdleWatcher));
 
-        private const double TIMER_PERIOD = 1.984363;
+        private static readonly object locker = new object();
+        private static readonly TimeSpan timerPeriod = TimeSpan.FromSeconds(1.984363);
+        private static readonly Timer timer;
+        private static int timerInWork;
+
+        private static readonly IDictionary<string, IdleItem> items = new Dictionary<string, IdleItem>();
+
 
         static IdleWatcher()
         {
-            syncRoot = new object();
-            items = new Dictionary<object, IdleItem>();
-            timerPeriod = TimeSpan.FromSeconds(TIMER_PERIOD);
-            timer = new Timer(TimerCallback, null, Timeout.Infinite, 0);
-            timerStoped = true;
+            timer = new Timer(OnTimer, null, timerPeriod, timerPeriod);
         }
 
-        public static void StartWatch(object idleObject, TimeSpan timeout, EventHandler<TimeoutEventArgs> handler)
+        public static void StartWatch(string id, TimeSpan timeout, EventHandler<TimeoutEventArgs> handler)
         {
-            StartWatch(idleObject, timeout, handler, null);
+            StartWatch(id, timeout, handler, null);
         }
 
-        public static void StartWatch(object idleObject, TimeSpan timeout, EventHandler<TimeoutEventArgs> handler, object data)
+        public static void StartWatch(string id, TimeSpan timeout, EventHandler<TimeoutEventArgs> handler, object data)
         {
-            if (idleObject == null) throw new ArgumentNullException("idleObject");
-            if (handler == null) throw new ArgumentNullException("handler");
-            if (timeout == TimeSpan.Zero) throw new ArgumentOutOfRangeException("timeout");
-
-            lock (syncRoot)
+            if (id == null)
             {
-                if (items.ContainsKey(idleObject))
-                {
-                    log.WarnFormat("An item with the same key ({0}) has already been added.", idleObject);
-                }
-                items[idleObject] = new IdleItem(idleObject, timeout, handler, data);
-                if (timerStoped)
-                {
-                    timer.Change(timerPeriod, timerPeriod);
-                    timerStoped = false;
-                    log.DebugFormat("Timer started.");
-                }
+                throw new ArgumentNullException("id");
             }
-            log.DebugFormat("Start watch idle object: {0}, timeout: {1}", idleObject, timeout);
-        }
-
-        public static void UpdateTimeout(object idleObject)
-        {
-            UpdateTimeout(idleObject, TimeSpan.Zero);
-        }
-
-        public static void UpdateTimeout(object idleObject, TimeSpan timeout)
-        {
-            if (idleObject == null) throw new ArgumentNullException("idleObject");
-            lock (syncRoot)
+            if (handler == null)
             {
-                if (items.ContainsKey(idleObject)) items[idleObject].UpdateTimeout(timeout);
+                throw new ArgumentNullException("handler");
             }
-            log.DebugFormat("Update timeout idle object: {0}, timeout: {1}", idleObject, timeout);
+            if (timeout == TimeSpan.Zero)
+            {
+                throw new ArgumentOutOfRangeException("timeout");
+            }
+
+            lock (locker)
+            {
+                if (items.ContainsKey(id))
+                {
+                    log.WarnFormat("An item with the same key ({0}) has already been added.", id);
+                }
+                items[id] = new IdleItem(id, timeout, handler, data);
+            }
+            log.DebugFormat("Start watch idle object: {0}, timeout: {1}", id, timeout);
         }
 
-        public static bool StopWatch(object idleObject)
+        public static void UpdateTimeout(string id, TimeSpan timeout)
         {
-            bool result = false;
-            if (idleObject != null)
+            if (id == null)
             {
-                lock (syncRoot)
+                throw new ArgumentNullException("id");
+            }
+
+            lock (locker)
+            {
+                IdleItem item;
+                if (items.TryGetValue(id, out item))
                 {
-                    try
-                    {
-                        result = items.Remove(idleObject);
-                        StopTimerIfNeeded();
-                    }
-                    catch (Exception ex)
-                    {
-                        log.DebugFormat("Error stop watch idle object: {0}, ex: {1}", idleObject, ex);
-                    }
+                    item.UpdateItemTimeout(timeout);
                 }
             }
-            if (result) log.DebugFormat("Stop watch idle object: {0}", idleObject);
-            else log.DebugFormat("Stop watch idle object: {0} - idle object not found.", idleObject);
+            log.DebugFormat("Update timeout idle object: {0}, timeout: {1}", id, timeout);
+        }
+
+        public static bool StopWatch(string id)
+        {
+            var result = false;
+
+            if (id == null)
+            {
+                return result;
+            }
+
+            lock (locker)
+            {
+                result = items.Remove(id);
+            }
+            log.DebugFormat("Stop watch idle object: {0}" + (result ? "" : " - idle object not found."), id);
 
             return result;
         }
 
-        private static void TimerCallback(object state)
+        private static void OnTimer(object _)
         {
-            try
+            if (Interlocked.CompareExchange(ref timerInWork, 1, 0) == 0)
             {
-                lock (syncRoot)
+                try
                 {
-                    foreach (var item in new Dictionary<object, IdleItem>(items))
+                    var expiredItems = new List<IdleItem>();
+                    lock (locker)
                     {
-                        if (!item.Value.IsExpired()) continue;
-
-                        log.DebugFormat("Find idle object: {0}, invoke handler.", item.Key);
-                        item.Value.InvokeHandler();
-                        items.Remove(item.Key);
+                        foreach (var item in new Dictionary<string, IdleItem>(items))
+                        {
+                            if (item.Value.IsExpired())
+                            {
+                                items.Remove(item.Key);
+                                expiredItems.Add(item.Value);
+                            }
+                        }
                     }
-                    StopTimerIfNeeded();
+
+                    foreach (var item in expiredItems)
+                    {
+                        try
+                        {
+                            log.DebugFormat("Find idle object: {0}, invoke handler.", item.Id);
+                            item.InvokeHandler();
+                        }
+                        catch (Exception err)
+                        {
+                            log.ErrorFormat("Error in handler idle object: {0}", err);
+                        }
+                    }
+                }
+                catch (Exception err)
+                {
+                    log.Error(err);
+                }
+                finally
+                {
+                    timerInWork = 0;
                 }
             }
-            catch (Exception err)
+            else
             {
-                log.Error(err);
+                log.WarnFormat("Idle timer works more than {0}s.", Math.Round(timerPeriod.TotalSeconds, 2));
             }
-        }
-
-        private static void StopTimerIfNeeded()
-        {
-            lock (syncRoot)
-            {
-                if (timerStoped || items.Count != 0) return;
-            }
-            timer.Change(Timeout.Infinite, 0);
-            timerStoped = true;
-            log.DebugFormat("Timer stopped.");
         }
 
 
         private class IdleItem
         {
+            private readonly EventHandler<TimeoutEventArgs> handler;
+            private readonly object data;
             private DateTime created;
-
-            private EventHandler<TimeoutEventArgs> handler;
-
             private TimeSpan timeout;
 
-            private object obj;
+            public string Id { get; private set; }
 
-            private object data;
 
-            public IdleItem(object obj, TimeSpan timeout, EventHandler<TimeoutEventArgs> handler, object data)
+            public IdleItem(string id, TimeSpan timeout, EventHandler<TimeoutEventArgs> handler, object data)
             {
-                this.obj = obj;
+                Id = id;
                 this.data = data;
                 this.handler = handler;
-                UpdateTimeout(timeout);
+                UpdateItemTimeout(timeout);
             }
 
-            public void UpdateTimeout(TimeSpan timeout)
+            public void UpdateItemTimeout(TimeSpan timeout)
             {
                 created = DateTime.UtcNow;
-                if (timeout != TimeSpan.Zero) this.timeout = timeout.Duration();
+                if (timeout != TimeSpan.Zero)
+                {
+                    this.timeout = timeout.Duration();
+                }
             }
 
             public bool IsExpired()
@@ -191,18 +197,14 @@ namespace ASC.Xmpp.Server.Utils
 
             public void InvokeHandler()
             {
-                try
-                {
-                    handler.BeginInvoke(this, new TimeoutEventArgs(obj, data), null, null);
-                }
-                catch { }
+                handler(this, new TimeoutEventArgs(Id, data));
             }
         }
     }
 
     class TimeoutEventArgs : EventArgs
     {
-        public object IdleObject
+        public string Id
         {
             get;
             private set;
@@ -214,9 +216,9 @@ namespace ASC.Xmpp.Server.Utils
             private set;
         }
 
-        public TimeoutEventArgs(object obj, object data)
+        public TimeoutEventArgs(string id, object data)
         {
-            IdleObject = obj;
+            Id = id;
             Data = data;
         }
     }

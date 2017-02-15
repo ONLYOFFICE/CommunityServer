@@ -200,6 +200,8 @@ var g_fcOptions = {
         deleteSettings: {
             // dialog            
             dialogHeader:                 "<%=Resources.CalendarJSResource.deleteSettings_header%>",
+            dialogSingleHeader:           "<%=Resources.CalendarJSResource.deleteSettings_singleHeader%>",
+            dialogSingleBody:             "<%=Resources.CalendarJSResource.deleteSettings_singleBody%>",
             
             dialogDeleteOnlyThisLabel:    "<%=Resources.CalendarJSResource.deleteSettings_thisLabel%>",
             dialogDeleteFollowingLabel:   "<%=Resources.CalendarJSResource.deleteSettings_followingLabel%>",

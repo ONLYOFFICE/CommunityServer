@@ -72,7 +72,7 @@
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Web.Files.dll</HintPath>
     </Reference>
     <Reference Include="BouncyCastle.Crypto">
-      <HintPath>..\..\..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
+      <HintPath>..\..\packages\BouncyCastle.1.8.1\lib\BouncyCastle.Crypto.dll</HintPath>
     </Reference>
     <Reference Include="DDay.iCal, Version=1.0.2.575, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -93,11 +93,11 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="MailKit">
-      <HintPath>..\..\..\packages\MailKit.1.2.23\lib\net451\MailKit.dll</HintPath>
+      <HintPath>..\..\packages\MailKit.1.4.1\lib\net45\MailKit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="MimeKit">
-      <HintPath>..\..\..\packages\MimeKit.1.2.24\lib\net451\MimeKit.dll</HintPath>
+      <HintPath>..\..\packages\MimeKit.1.4.1\lib\net45\MimeKit.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json">
       <SpecificVersion>False</SpecificVersion>
@@ -131,6 +131,7 @@
   <ItemGroup>
     <Compile Include="AccountInfo.cs" />
     <Compile Include="ApiHelper.cs" />
+    <Compile Include="MailServerType.cs" />
     <Compile Include="Authorization\AuthorizationServiceType.cs" />
     <Compile Include="Authorization\AuthorizationTracker.cs" />
     <Compile Include="Authorization\BaseOAuth2Authorization.cs" />

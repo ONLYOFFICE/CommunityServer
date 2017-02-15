@@ -31,6 +31,7 @@ using ASC.Common.Data;
 using ASC.Common.Data.Sql;
 using ASC.Common.Data.Sql.Expressions;
 using ASC.Common.Security.Authentication;
+using ASC.Mail.Aggregator.Common.Authorization;
 using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.DbSchema;
 using ASC.Security.Cryptography;
@@ -125,8 +126,8 @@ namespace ASC.Mail.Server.Dal
                 .InColumnValue(MailboxTable.Columns.LoginDelay, Config.LoginDelayInSeconds)
                 .InColumnValue(MailboxTable.Columns.Enabled, true)
                 .InColumnValue(MailboxTable.Columns.Imap, true)
-                .InColumnValue(MailboxTable.Columns.ServiceType, 0)
-                .InColumnValue(MailboxTable.Columns.RefreshToken, null)
+                .InColumnValue(MailboxTable.Columns.OAuthType, AuthorizationServiceType.None)
+                .InColumnValue(MailboxTable.Columns.OAuthToken, null)
                 .InColumnValue(MailboxTable.Columns.DateCreated, dateCreated)
                 .InColumnValue(MailboxTable.Columns.SmtpServerId, serverInformation.smtp_settings_id)
                 .InColumnValue(MailboxTable.Columns.ServerId, serverInformation.imap_settings_id)

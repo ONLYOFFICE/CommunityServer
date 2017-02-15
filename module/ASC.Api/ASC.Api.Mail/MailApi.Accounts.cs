@@ -36,6 +36,8 @@ using ASC.Api.Mail.DataContracts;
 using ASC.Api.Mail.Extensions;
 using ASC.Api.Mail.Resources;
 using ASC.Core;
+using ASC.FederatedLogin.Helpers;
+using ASC.FederatedLogin.LoginProviders;
 using ASC.Mail.Aggregator;
 using ASC.Mail.Aggregator.Common;
 using ASC.Mail.Aggregator.Common.Authorization;
@@ -112,7 +114,7 @@ namespace ASC.Api.Mail
                     {
                         LoginResult loginResult;
 
-                        using (var client = new MailClient(mb, CancellationToken.None, 5000, SslCertificatesErrorPermit, _log))
+                        using (var client = new MailClient(mb, CancellationToken.None, 5000, SslCertificatesErrorPermit, log: _log))
                         {
                             loginResult = client.TestLogin();
                         }
@@ -137,13 +139,13 @@ namespace ASC.Api.Mail
                             if (!loginResult.IngoingSuccess)
                             {
                                 errorText += GetFormattedTextError(loginResult.IngoingException,
-                                    loginResult.Imap ? ServerType.Imap : ServerType.Pop3, false) + "<br>";
+                                    loginResult.Imap ? MailServerType.Imap : MailServerType.Pop3, false) + "<br>";
                                     // exImap is ImapConnectionTimeoutException
                             }
 
                             if (!loginResult.OutgoingSuccess)
                             {
-                                errorText += GetFormattedTextError(loginResult.OutgoingException, ServerType.Smtp, false) + "<br>";
+                                errorText += GetFormattedTextError(loginResult.OutgoingException, MailServerType.Smtp, false) + "<br>";
                                 // exSmtp is SmtpConnectionTimeoutException);
                             }
                         }
@@ -161,38 +163,6 @@ namespace ASC.Api.Mail
 
             try
             {
-                if (mbox == null)
-                    throw new Exception();
-
-                mbox.InServerId = MailBoxManager.SaveMailServerSettings(mbox.EMail,
-                    new MailServerSettings
-                    {
-                        AccountName = mbox.Account,
-                        AccountPass = mbox.Password,
-                        AuthenticationType =
-                            mbox.AuthenticationTypeIn,
-                        EncryptionType =
-                            mbox.IncomingEncryptionType,
-                        Port = mbox.Port,
-                        Url = mbox.Server
-                    },
-                    mbox.Imap ? "imap" : "pop3",
-                    AuthorizationServiceType.Unknown);
-
-                mbox.SmtpServerId = MailBoxManager.SaveMailServerSettings(mbox.EMail,
-                    new MailServerSettings
-                    {
-                        AccountName = mbox.SmtpAccount,
-                        AccountPass = mbox.SmtpPassword,
-                        AuthenticationType =
-                            mbox.AuthenticationTypeSmtp,
-                        EncryptionType =
-                            mbox.OutcomingEncryptionType,
-                        Port = mbox.SmtpPort,
-                        Url = mbox.SmtpServer
-                    },
-                    "smtp", AuthorizationServiceType.Unknown);
-
                 MailBoxManager.SaveMailBox(mbox);
                 MailBoxManager.CachedAccounts.Clear(Username);
 
@@ -219,53 +189,39 @@ namespace ASC.Api.Mail
         /// <summary>
         ///    Creates Mail account with OAuth authentication. Only Google OAuth supported.
         /// </summary>
-        /// <param name="email">Account email in string format like: name@domain</param>
-        /// <param name="token">Oauth token</param>
+        /// <param name="code">Oauth code</param>
         /// <param name="type">Type of OAuth service. 0- Unknown, 1 - Google.</param>
         /// <exception cref="Exception">Exception contains text description of happened error.</exception>
         /// <returns>Created account</returns>
         /// <short>Create OAuth account</short> 
         /// <category>Accounts</category>
         [Create(@"accounts/oauth")]
-        public MailAccountData CreateAccountOAuth(string email, string token, byte type)
+        public MailAccountData CreateAccountOAuth(string code, byte type)
         {
-            if (string.IsNullOrEmpty(token)) throw new ArgumentException(@"Empty oauth token", "token");
-            if (string.IsNullOrEmpty(email)) throw new ArgumentException(@"Empty email", "email");
+            if (string.IsNullOrEmpty(code)) throw new ArgumentException(@"Empty oauth code", "code");
+
+            var oAuthToken = OAuth20TokenHelper.GetAccessToken(GoogleLoginProvider.GoogleOauthTokenUrl,
+                                                          GoogleLoginProvider.GoogleOAuth20ClientId,
+                                                          GoogleLoginProvider.GoogleOAuth20ClientSecret,
+                                                          GoogleLoginProvider.GoogleOAuth20RedirectUrl,
+                                                          code);
+
+            if (oAuthToken == null) throw new Exception(@"Empty oauth token");
+
+            var loginProfile = new GoogleLoginProvider().GetLoginProfile(oAuthToken.AccessToken);
+            var email = loginProfile.EMail;
+
+            if (string.IsNullOrEmpty(email)) throw new Exception(@"Empty email");
 
             var beginDate = DateTime.UtcNow.Subtract(new TimeSpan(MailBox.DefaultMailLimitedTimeDelta));
 
             var mboxImap = MailBoxManager.ObtainMailboxSettings(TenantId, Username, email, "", (AuthorizationServiceType) type, true, false);
-            mboxImap.RefreshToken = token;
+            mboxImap.OAuthToken = oAuthToken.ToJson();
             mboxImap.BeginDate = beginDate; // Apply restrict for download
 
             try
             {
-                mboxImap.InServerId = MailBoxManager.SaveMailServerSettings(mboxImap.EMail,
-                                        new MailServerSettings
-                                        {
-                                            AccountName = mboxImap.Account,
-                                            AccountPass = mboxImap.Password,
-                                            AuthenticationType = mboxImap.AuthenticationTypeIn,
-                                            EncryptionType = mboxImap.IncomingEncryptionType,
-                                            Port = mboxImap.Port,
-                                            Url = mboxImap.Server
-                                        },
-                                        "imap",
-                                        (AuthorizationServiceType)type);
-                mboxImap.SmtpServerId = MailBoxManager.SaveMailServerSettings(mboxImap.EMail,
-                                        new MailServerSettings
-                                        {
-                                            AccountName = mboxImap.SmtpAccount,
-                                            AccountPass = mboxImap.SmtpPassword,
-                                            AuthenticationType = mboxImap.AuthenticationTypeSmtp,
-                                            EncryptionType = mboxImap.OutcomingEncryptionType,
-                                            Port = mboxImap.SmtpPort,
-                                            Url = mboxImap.SmtpServer
-                                        },
-                                        "smtp",
-                                        (AuthorizationServiceType)type);
-
-                MailBoxManager.SaveMailBox(mboxImap);
+                MailBoxManager.SaveMailBox(mboxImap, (AuthorizationServiceType)type);
                 MailBoxManager.CachedAccounts.Clear(Username);
 
                 if (IsSignalRAvailable)
@@ -280,7 +236,7 @@ namespace ASC.Api.Mail
             }
             catch (Exception imapException)
             {
-                throw new Exception(GetFormattedTextError(imapException, ServerType.ImapOAuth, imapException is ImapConnectionTimeoutException));
+                throw new Exception(GetFormattedTextError(imapException, MailServerType.ImapOAuth, imapException is ImapConnectionTimeoutException));
             }
         }
 
@@ -340,23 +296,21 @@ namespace ASC.Api.Mail
                     SmtpPassword = smtp_password,
                     SmtpPort = smtp_port,
                     SmtpServer = smtp_server,
-                    SmtpAuth = smtp_auth,
                     Imap = imap,
-                    Restrict = restrict,
                     TenantId = TenantId,
                     UserId = Username,
                     BeginDate = restrict ? 
                         DateTime.Now.Subtract(new TimeSpan(MailBox.DefaultMailLimitedTimeDelta)) : 
                         new DateTime(MailBox.DefaultMailBeginTimestamp),
-                    IncomingEncryptionType = incoming_encryption_type,
-                    OutcomingEncryptionType = outcoming_encryption_type,
-                    AuthenticationTypeIn = auth_type_in,
-                    AuthenticationTypeSmtp = auth_type_smtp
-                };
+                    Encryption = incoming_encryption_type,
+                    SmtpEncryption = outcoming_encryption_type,
+                    Authentication = auth_type_in,
+                    SmtpAuthentication = smtp_auth ? auth_type_smtp : SaslMechanism.None
+        };
 
             LoginResult loginResult;
 
-            using (var client = new MailClient(mbox, CancellationToken.None, 5000, SslCertificatesErrorPermit, _log))
+            using (var client = new MailClient(mbox, CancellationToken.None, 5000, SslCertificatesErrorPermit, log: _log))
             {
                 loginResult = client.TestLogin();
             }
@@ -364,7 +318,7 @@ namespace ASC.Api.Mail
             if (!loginResult.IngoingSuccess)
             {
                 errorText = GetFormattedTextError(loginResult.IngoingException,
-                    mbox.Imap ? ServerType.Imap : ServerType.Pop3, false); // exImap is ImapConnectionTimeoutException
+                    mbox.Imap ? MailServerType.Imap : MailServerType.Pop3, false); // exImap is ImapConnectionTimeoutException
             }
 
             if (!loginResult.OutgoingSuccess)
@@ -372,7 +326,7 @@ namespace ASC.Api.Mail
                 if (!string.IsNullOrEmpty(errorText))
                     errorText += "\r\n";
 
-                errorText += GetFormattedTextError(loginResult.OutgoingException, ServerType.Smtp, false);
+                errorText += GetFormattedTextError(loginResult.OutgoingException, MailServerType.Smtp, false);
                     // exSmtp is SmtpConnectionTimeoutException);
             }
 
@@ -381,34 +335,6 @@ namespace ASC.Api.Mail
 
             try
             {
-                mbox.InServerId = MailBoxManager.SaveMailServerSettings(mbox.EMail,
-                                                                        new MailServerSettings
-                                                                            {
-                                                                                AccountName = mbox.Account,
-                                                                                AccountPass = mbox.Password,
-                                                                                AuthenticationType =
-                                                                                    mbox.AuthenticationTypeIn,
-                                                                                EncryptionType =
-                                                                                    mbox.IncomingEncryptionType,
-                                                                                Port = mbox.Port,
-                                                                                Url = mbox.Server
-                                                                            },
-                                                                        imap ? "imap" : "pop3",
-                                                                        AuthorizationServiceType.Unknown);
-                mbox.SmtpServerId = MailBoxManager.SaveMailServerSettings(mbox.EMail,
-                                                                          new MailServerSettings
-                                                                              {
-                                                                                  AccountName = mbox.SmtpAccount,
-                                                                                  AccountPass = mbox.SmtpPassword,
-                                                                                  AuthenticationType =
-                                                                                      mbox.AuthenticationTypeSmtp,
-                                                                                  EncryptionType =
-                                                                                      mbox.OutcomingEncryptionType,
-                                                                                  Port = mbox.SmtpPort,
-                                                                                  Url = mbox.SmtpServer
-                                                                              },
-                                                                          "smtp", AuthorizationServiceType.Unknown);
-
                 MailBoxManager.SaveMailBox(mbox);
                 MailBoxManager.CachedAccounts.Clear(Username);
 
@@ -500,46 +426,22 @@ namespace ASC.Api.Mail
             mbox.Server = server;
             mbox.SmtpPort = smtp_port;
             mbox.SmtpServer = smtp_server;
-            mbox.SmtpAuth = smtp_auth;
-            mbox.Restrict = restrict;
-            mbox.BeginDate = mbox.Restrict ? 
-                DateTime.Now.Subtract(new TimeSpan(mbox.MailLimitedTimeDelta)) : 
-                mbox.MailBeginTimestamp;
-            mbox.IncomingEncryptionType = incoming_encryption_type;
-            mbox.OutcomingEncryptionType = outcoming_encryption_type;
-            mbox.AuthenticationTypeIn = auth_type_in;
-            mbox.AuthenticationTypeSmtp = auth_type_smtp;
 
-            mbox.InServerId = MailBoxManager.SaveMailServerSettings(mbox.EMail,
-                        new MailServerSettings
-                        {
-                            AccountName = mbox.Account,
-                            AccountPass = mbox.Password,
-                            AuthenticationType = mbox.AuthenticationTypeIn,
-                            EncryptionType = mbox.IncomingEncryptionType,
-                            Port = mbox.Port,
-                            Url = mbox.Server
-                        },
-                        mbox.Imap ? "imap" : "pop3", AuthorizationServiceType.Unknown);
-            mbox.SmtpServerId = MailBoxManager.SaveMailServerSettings(mbox.EMail,
-                                    new MailServerSettings
-                                    {
-                                        AccountName = mbox.SmtpAccount,
-                                        AccountPass = mbox.SmtpPassword,
-                                        AuthenticationType = mbox.AuthenticationTypeSmtp,
-                                        EncryptionType = mbox.OutcomingEncryptionType,
-                                        Port = mbox.SmtpPort,
-                                        Url = mbox.SmtpServer
-                                    },
-                                    "smtp", AuthorizationServiceType.Unknown);
+            mbox.BeginDate = restrict
+                ? DateTime.Now.Subtract(new TimeSpan(mbox.MailLimitedTimeDelta))
+                : mbox.MailBeginTimestamp;
+            mbox.Encryption = incoming_encryption_type;
+            mbox.SmtpEncryption = outcoming_encryption_type;
+            mbox.Authentication = auth_type_in;
+            mbox.SmtpAuthentication = smtp_auth ? auth_type_smtp : SaslMechanism.None;
 
             try
             {
-                if (string.IsNullOrEmpty(mbox.RefreshToken))
+                if (string.IsNullOrEmpty(mbox.OAuthToken))
                 {
                     LoginResult loginResult;
 
-                    using (var client = new MailClient(mbox, CancellationToken.None, 5000, SslCertificatesErrorPermit, _log))
+                    using (var client = new MailClient(mbox, CancellationToken.None, 5000, SslCertificatesErrorPermit, log: _log))
                     {
                         loginResult = client.TestLogin();
                     }
@@ -547,7 +449,7 @@ namespace ASC.Api.Mail
                     if (!loginResult.IngoingSuccess)
                     {
                         errorText = GetFormattedTextError(loginResult.IngoingException,
-                            mbox.Imap ? ServerType.Imap : ServerType.Pop3, false); // exImap is ImapConnectionTimeoutException
+                            mbox.Imap ? MailServerType.Imap : MailServerType.Pop3, false); // exImap is ImapConnectionTimeoutException
                     }
 
                     if (!loginResult.OutgoingSuccess)
@@ -555,7 +457,7 @@ namespace ASC.Api.Mail
                         if (!string.IsNullOrEmpty(errorText))
                             errorText += "\r\n";
 
-                        errorText += GetFormattedTextError(loginResult.OutgoingException, ServerType.Smtp, false);
+                        errorText += GetFormattedTextError(loginResult.OutgoingException, MailServerType.Smtp, false);
                         // exSmtp is SmtpConnectionTimeoutException);
                     }
 
@@ -639,7 +541,7 @@ namespace ASC.Api.Mail
 
                 LoginResult loginResult;
 
-                using (var client = new MailClient(mailbox, CancellationToken.None, 5000, SslCertificatesErrorPermit, _log))
+                using (var client = new MailClient(mailbox, CancellationToken.None, 5000, SslCertificatesErrorPermit, log: _log))
                 {
                     loginResult = client.TestLogin();
                 }
@@ -647,7 +549,7 @@ namespace ASC.Api.Mail
                 if (!loginResult.IngoingSuccess)
                 {
                     errorText = GetFormattedTextError(loginResult.IngoingException,
-                        mailbox.Imap ? ServerType.Imap : ServerType.Pop3, false); // exImap is ImapConnectionTimeoutException
+                        mailbox.Imap ? MailServerType.Imap : MailServerType.Pop3, false); // exImap is ImapConnectionTimeoutException
                 }
 
                 if (!loginResult.OutgoingSuccess)
@@ -655,7 +557,7 @@ namespace ASC.Api.Mail
                     if (!string.IsNullOrEmpty(errorText))
                         errorText += "\r\n";
 
-                    errorText += GetFormattedTextError(loginResult.OutgoingException, ServerType.Smtp, false);
+                    errorText += GetFormattedTextError(loginResult.OutgoingException, MailServerType.Smtp, false);
                     // exSmtp is SmtpConnectionTimeoutException);
                 }
 
@@ -768,20 +670,20 @@ namespace ASC.Api.Mail
         {
             if (action == "get_imap_pop_settings")
             {
-                return MailBoxManager.ObtainMailboxSettings(TenantId, Username, email, "", AuthorizationServiceType.Unknown, true, true) ??
-                       MailBoxManager.ObtainMailboxSettings(TenantId, Username, email, "", AuthorizationServiceType.Unknown, false, false);
+                return MailBoxManager.ObtainMailboxSettings(TenantId, Username, email, "", AuthorizationServiceType.None, true, true) ??
+                       MailBoxManager.ObtainMailboxSettings(TenantId, Username, email, "", AuthorizationServiceType.None, false, false);
             }
             if (action == "get_imap_server" || action == "get_imap_server_full")
             {
-                return MailBoxManager.ObtainMailboxSettings(TenantId, Username, email, "", AuthorizationServiceType.Unknown, true, false);
+                return MailBoxManager.ObtainMailboxSettings(TenantId, Username, email, "", AuthorizationServiceType.None, true, false);
             }
             
             if (action == "get_pop_server" || action == "get_pop_server_full")
             {
-                return MailBoxManager.ObtainMailboxSettings(TenantId, Username, email, "", AuthorizationServiceType.Unknown, false, false);
+                return MailBoxManager.ObtainMailboxSettings(TenantId, Username, email, "", AuthorizationServiceType.None, false, false);
             }
 
-            return MailBoxManager.ObtainMailboxSettings(TenantId, Username, email, "", AuthorizationServiceType.Unknown, null, false);
+            return MailBoxManager.ObtainMailboxSettings(TenantId, Username, email, "", AuthorizationServiceType.None, null, false);
         }
 
         /// <summary>
@@ -804,33 +706,25 @@ namespace ASC.Api.Mail
             MailBoxManager.CachedAccounts.Clear(Username);
         }
 
-        enum ServerType
-        {
-            ImapOAuth = 0,
-            Imap = 1,
-            Pop3 = 2,
-            Smtp = 3
-        }
-
-        private static string GetFormattedTextError(Exception ex, ServerType serverType, bool timeoutFlag = true)
+        private static string GetFormattedTextError(Exception ex, MailServerType mailServerType, bool timeoutFlag = true)
         {
             var headerText = string.Empty;
             var errorExplain = string.Empty;
 
-            switch (serverType)
+            switch (mailServerType)
             {
-                case ServerType.Imap:
-                case ServerType.ImapOAuth:
+                case MailServerType.Imap:
+                case MailServerType.ImapOAuth:
                     headerText = MailApiResource.ImapResponse;
                     if (timeoutFlag)
                         errorExplain = MailApiResource.ImapConnectionTimeoutError;
                     break;
-                case ServerType.Pop3:
+                case MailServerType.Pop3:
                     headerText = MailApiResource.Pop3Response;
                     if (timeoutFlag)
                         errorExplain = MailApiResource.Pop3ConnectionTimeoutError;
                     break;
-                case ServerType.Smtp:
+                case MailServerType.Smtp:
                     headerText = MailApiResource.SmtRresponse;
                     if (timeoutFlag)
                         errorExplain = MailApiResource.SmtpConnectionTimeoutError;

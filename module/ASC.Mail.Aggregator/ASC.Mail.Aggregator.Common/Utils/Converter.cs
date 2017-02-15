@@ -28,7 +28,6 @@ namespace ASC.Mail.Aggregator.Common.Utils
                     Name = "",
                     UserId = user,
                     TenantId = tenant,
-                    Restrict = true,
                     BeginDate = DateTime.UtcNow.Subtract(new TimeSpan(MailBox.DefaultMailLimitedTimeDelta)),
                     Imap = inServer.Type == "imap",
                     Account =
@@ -39,8 +38,8 @@ namespace ASC.Mail.Aggregator.Common.Utils
                     Password = password,
                     Server = inServer.Hostname.Replace("%EMAILDOMAIN%", host),
                     Port = inServer.Port,
-                    AuthenticationTypeIn = inServer.Authentication.ToSaslMechanism(),
-                    IncomingEncryptionType = inServer.SocketType.ToEncryptionType(),
+                    Authentication = inServer.Authentication.ToSaslMechanism(),
+                    Encryption = inServer.SocketType.ToEncryptionType(),
                     SmtpAccount =
                         outServer.Username.Replace("%EMAILADDRESS%", address.Address)
                             .Replace("%EMAILLOCALPART%", address.User)
@@ -49,9 +48,9 @@ namespace ASC.Mail.Aggregator.Common.Utils
                     SmtpPassword = password,
                     SmtpServer = outServer.Hostname.Replace("%EMAILDOMAIN%", host),
                     SmtpPort = outServer.Port,
-                    SmtpAuth = smtpAuthenticationType != SaslMechanism.None,
-                    AuthenticationTypeSmtp = smtpAuthenticationType,
-                    OutcomingEncryptionType = outServer.SocketType.ToEncryptionType()
+
+                    SmtpAuthentication = smtpAuthenticationType,
+                    SmtpEncryption = outServer.SocketType.ToEncryptionType()
                 });
 
             tempList = tempList.OrderByDescending(t => t.Imap).ToList();

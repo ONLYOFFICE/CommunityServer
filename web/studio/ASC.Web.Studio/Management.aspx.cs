@@ -144,6 +144,8 @@ namespace ASC.Web.Studio
                     return Resource.DocService;
                 case ManagementType.WhiteLabel:
                     return Resource.WhiteLabel;
+                case ManagementType.MailService:
+                    return Resource.MailService;
                 default:
                     return Resource.ResourceManager.GetString(module.ToString()) ?? module.ToString();
             }
@@ -180,6 +182,9 @@ namespace ASC.Web.Studio
                 case ManagementType.DeletionPortal:
                     //only SaaS or Server+ControlPanel
                     return !CoreContext.Configuration.Standalone || !string.IsNullOrEmpty(SetupInfo.ControlPanelUrl);
+                case ManagementType.MailService:
+                    //only if MailServer available
+                    return SetupInfo.IsVisibleSettings("AdministrationPage");
             }
 
             return true;
@@ -265,6 +270,7 @@ namespace ASC.Web.Studio
                                                                        ManagementType.LdapSettings,
                                                                        ManagementType.ThirdPartyAuthorization,
                                                                        ManagementType.DocService,
+                                                                       ManagementType.MailService,
                                                                        ManagementType.SmtpSettings
                                                                    })
                                               {

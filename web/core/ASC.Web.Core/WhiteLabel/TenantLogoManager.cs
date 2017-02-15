@@ -110,9 +110,9 @@ namespace ASC.Web.Core.WhiteLabel
             {
                 var _tenantWhiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(TenantProvider.CurrentTenantID);
 
-                return _tenantWhiteLabelSettings.LogoText != null ? _tenantWhiteLabelSettings.LogoText : TenantWhiteLabelSettings.DefaultLogo;
+                return _tenantWhiteLabelSettings.LogoText != null ? _tenantWhiteLabelSettings.LogoText : TenantWhiteLabelSettings.DefaultLogoText;
             }
-            return TenantWhiteLabelSettings.DefaultLogo;
+            return TenantWhiteLabelSettings.DefaultLogoText;
         }
 
         public static bool IsRetina(HttpRequest request)

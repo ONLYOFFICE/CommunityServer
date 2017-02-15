@@ -410,7 +410,8 @@ For terms of use, see http://www.unicode.org/copyright.html
 			<mapZone other="Syria Standard Time" territory="SY" type="Asia/Damascus"/>
 
 			<!-- (UTC+02:00) E. Europe -->
-			<!-- Unmappable -->
+            <mapZone other="E. Europe Standard Time" territory="001" type="Europe/Chisinau"/>
+			<mapZone other="E. Europe Standard Time" territory="MD" type="Europe/Chisinau"/>
 
 			<!-- (UTC+02:00) Harare, Pretoria -->
 			<mapZone other="South Africa Standard Time" territory="001" type="Africa/Johannesburg"/>

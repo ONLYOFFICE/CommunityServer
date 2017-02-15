@@ -323,6 +323,8 @@ var defaults = function defaultsModule() {return {
 			// dialog
 			dialogTemplate:               "",
 			dialogHeader:                 "Удалить повторяющееся событие",
+			dialogSingleHeader:           "Удалить событие",
+			dialogSingleBody:             "Вы действительно хотите удалить событие без возможности восстановления?",
 			
 			dialogDeleteOnlyThisLabel:    "Только это событие",
 			dialogDeleteFollowingLabel:   "Это событие и все следующие",
@@ -1195,6 +1197,8 @@ function initTemplates(options) {
 	
     templateData = {
         dialogHeader: htmlEscape(ds.dialogHeader),
+        dialogSingleHeader: htmlEscape(ds.dialogSingleHeader),
+        dialogSingleBody: htmlEscape(ds.dialogSingleBody),
         dialogDeleteOnlyThisLabel: htmlEscape(ds.dialogDeleteOnlyThisLabel),
         dialogDeleteFollowingLabel: htmlEscape(ds.dialogDeleteFollowingLabel),
         dialogDeleteAllLabel: htmlEscape(ds.dialogDeleteAllLabel),
@@ -4989,17 +4993,7 @@ function EventEditor(calendar, uiBlocker) {
 		});
 		_dialog.find(".buttons .delete-btn").click(function() {
 			if (_canDelete) {
-				if (_eventObj.repeatRule.Freq == ASC.Api.iCal.Frequency.Never) {
-					if (_getConfirmViewMode.call(_this)) {
-					    confirmSettings.selectedDeleteMode = deleteMode.single;
-					    _openConfirmPopup.call(_this);
-					} else {
-					    _deleteEvent.call(_this, deleteMode.single, _eventObj._start);
-					    _close.call(_this, false, true);
-					}
-				} else {
-					_openDelSettings.call(_this, "addPopupDelSettings");
-				}
+			    _openDelSettings.call(_this, "addPopupDelSettings", _eventObj.repeatRule.Freq == ASC.Api.iCal.Frequency.Never);
 			}
 		});
 		_dialog.find(".buttons .unsubs-btn").click(function() {
@@ -5399,35 +5393,31 @@ function EventEditor(calendar, uiBlocker) {
 		
 		_delSettings.find(".delete-selector .delete-this-label").click(function() {
 			_setCheckedAttrValue.call(_this, _delSettings.find(".delete-selector .delete-this"), true);
-			//_setCheckedAttrValue.call(_this, _delSettings.find(".delete-selector .delete-following"), false);
-			//_setCheckedAttrValue.call(_this, _delSettings.find(".delete-selector .delete-all"), false);
 		});
 		
 		_delSettings.find(".delete-selector .delete-following-label").click(function() {
-			//_setCheckedAttrValue.call(_this, _delSettings.find(".delete-selector .delete-this"), false);
 			_setCheckedAttrValue.call(_this, _delSettings.find(".delete-selector .delete-following"), true);
-			//_setCheckedAttrValue.call(_this, _delSettings.find(".delete-selector .delete-all"), false);
 		});
 		
 		_delSettings.find(".delete-selector .delete-all-label").click(function() {
-			//_setCheckedAttrValue.call(_this, _delSettings.find(".delete-selector .delete-this"), false);
-			//_setCheckedAttrValue.call(_this, _delSettings.find(".delete-selector .delete-following"), false);
 			_setCheckedAttrValue.call(_this, _delSettings.find(".delete-selector .delete-all"), true);
 		});
-		//
 		
 		_delSettings.find(".buttons .save-btn").click(function() {
 		    if (jq(this).hasClass("disable"))
 		        return;
 		    
 		    var delType = deleteMode.single;
-			if (_delSettings.find(".delete-following").is(":checked")) {
-				delType = deleteMode.allFollowing;
-			}
-			else if (_delSettings.find(".delete-all").is(":checked")) {
-				delType = deleteMode.allSeries;
-			}
-			
+
+		    if(!_delSettings.hasClass("single")) {
+		        if (_delSettings.find(".delete-following").is(":checked")) {
+				    delType = deleteMode.allFollowing;
+			    }
+			    else if (_delSettings.find(".delete-all").is(":checked")) {
+				    delType = deleteMode.allSeries;
+			    }
+		    }
+		    
 			_closeDelSettings.call(_this, true);
 
 			if (_getConfirmViewMode.call(_this)) {
@@ -6148,10 +6138,15 @@ function EventEditor(calendar, uiBlocker) {
 		}
 	}
 	
-	function _openDelSettings(mode)
+	function _openDelSettings(mode, single)
 	{
 	    _dialog.popupFrame("close");
 	    $(document).unbind("keyup", _checkEscKey);
+
+	    if (single)
+	        _delSettings.addClass("single");
+	    else
+	        _delSettings.removeClass("single");
 
 	    _delSettings.popupFrame("close");
 		_delSettings.find("input[type=radio]:first").prop("checked", true);
@@ -7384,18 +7379,7 @@ function EventPage(calendar) {
         
         _dialog.find(".buttons .delete-btn").click(function() {
             if (_canDelete) {
-                if (_eventObj.repeatRule.Freq == ASC.Api.iCal.Frequency.Never) {
-                    if (_getConfirmViewMode.call(_this, true)) {
-                        confirmSettings.selectedDeleteMode = deleteMode.single;
-                        _openConfirmPopup.call(_this);
-                    } else {
-                        _deleteEvent.call(_this, deleteMode.single, _eventObj._start);
-                        _close.call(_this, false, true);
-                    }
-                }
-                else {
-                    _openDelSettings.call(_this);
-                }
+                _openDelSettings.call(_this, _eventObj.repeatRule.Freq == ASC.Api.iCal.Frequency.Never);
             }
         });
         
@@ -7760,13 +7744,15 @@ function EventPage(calendar) {
                 return;
 		    
             var delType = deleteMode.single;
-            if (_delSettings.find(".delete-following").is(":checked")) {
-                delType = deleteMode.allFollowing;
+
+            if (!_delSettings.hasClass("single")) {
+                if (_delSettings.find(".delete-following").is(":checked")) {
+                    delType = deleteMode.allFollowing;
+                } else if (_delSettings.find(".delete-all").is(":checked")) {
+                    delType = deleteMode.allSeries;
+                }
             }
-            else if (_delSettings.find(".delete-all").is(":checked")) {
-                delType = deleteMode.allSeries;
-            }
-			
+            
             _closeDelSettings.call(_this, true);
 
             if (_getConfirmViewMode.call(_this, true)) {
@@ -8385,9 +8371,14 @@ function EventPage(calendar) {
         }
     }
 	
-    function _openDelSettings()
+    function _openDelSettings(single)
     {
         _delSettings.popupFrame("close");
+
+        if (single)
+            _delSettings.addClass("single");
+        else
+            _delSettings.removeClass("single");
 
         _delSettings.find("input[type=radio]:first").prop("checked", true);
 

@@ -80,7 +80,7 @@ namespace ASC.Web.Projects.Configuration
 
         public override string StartURL
         {
-            get { return string.Concat(PathProvider.BaseVirtualPath, "projects.aspx"); }
+            get { return PathProvider.BaseVirtualPath; }
         }
 
         public override string ProductClassName

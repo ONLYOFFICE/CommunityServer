@@ -237,6 +237,12 @@ namespace ASC.Mail.Aggregator
 
                 var updateAccountQuery = getBaseUpdate();
 
+                if (account.AccessTokenRefreshed)
+                {
+                    updateAccountQuery
+                        .Set(MailboxTable.Columns.OAuthToken, EncryptPassword(account.OAuthToken));
+                }
+
                 if (account.QuotaErrorChanged)
                 {
                     if (account.QuotaError)

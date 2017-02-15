@@ -24,12 +24,7 @@
 */
 
 
-using System;
-using System.Configuration;
-using System.Linq;
-using System.Reflection;
-using System.Web;
-
+using AjaxPro.Security;
 using ASC.Common.Data;
 using ASC.Core;
 using ASC.Core.Configuration;
@@ -39,19 +34,21 @@ using ASC.Web.Core;
 using ASC.Web.Core.Client.Bundling;
 using ASC.Web.Core.Security;
 using ASC.Web.Core.Utility;
-using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Core.Notify;
 using ASC.Web.Studio.Core.SearchHandlers;
 using ASC.Web.Studio.Utility;
-using TMResourceData;
-
-using AjaxPro.Security;
 using log4net.Config;
 using RedisSessionProvider.Config;
 using StackExchange.Redis;
-using System.Collections.Generic;
 using StackExchange.Redis.Extensions.Core.Configuration;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Web;
+using TMResourceData;
+using WhiteLabelHelper = ASC.Web.Studio.Utility.WhiteLabelHelper;
 
 namespace ASC.Web.Studio
 {
@@ -73,18 +70,19 @@ namespace ASC.Web.Studio
 
             ConfigureWebApi();
 
-            if (ConfigurationManager.AppSettings["resources.from-db"] == "true")
+            if (DBResourceManager.ResourcesFromDataBase)
             {
+                DBResourceManager.WhiteLableEnabled = true;
                 DBResourceManager.PatchAssemblies();
             }
 
             AjaxSecurityChecker.Instance.CheckMethodPermissions += AjaxCheckMethodPermissions;
 
-            try
-            {
-                AmiPublicDnsSyncService.Synchronize();
-            }
-            catch { }
+            //try
+            //{
+            //    AmiPublicDnsSyncService.Synchronize();
+            //}
+            //catch { }
 
             NotifyConfiguration.Configure();
 
@@ -93,12 +91,21 @@ namespace ASC.Web.Studio
             SearchHandlerManager.Registry(new StudioSearchHandler());
 
             StorageFactory.InitializeHttpHandlers();
-            (new S3UploadGuard()).DeleteExpiredUploads(TimeSpan.FromDays(1));
 
             BundleConfig.Configure();
 
             if (CoreContext.Configuration.Standalone)
                 WarmUp.Instance.Start();
+
+            WhiteLabelHelper.ApplyPartnerWhiteLableSettings();
+
+            try
+            {
+                (new S3UploadGuard()).DeleteExpiredUploads(TimeSpan.FromDays(1));//todo:
+            }
+            catch (Exception)
+            {
+            }
         }
 
 

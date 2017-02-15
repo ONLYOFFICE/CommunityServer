@@ -291,7 +291,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Всем пользователям.
+        ///   Looks up a localized string similar to All {!users}.
         /// </summary>
         public static string AccessRightsAllUsers {
             get {
@@ -336,7 +336,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Список пользователей пуст.
+        ///   Looks up a localized string similar to The {!user} list is empty.
         /// </summary>
         public static string AccessRightsEmptyUserList {
             get {
@@ -390,7 +390,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Пользователи {0} могут.
+        ///   Looks up a localized string similar to {0} {!users} can.
         /// </summary>
         public static string AccessRightsProductUsersCan {
             get {
@@ -399,7 +399,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Пользователи {0} могут, имея различные уровни доступа.
+        ///   Looks up a localized string similar to {0} {!users} having different access rights can.
         /// </summary>
         public static string AccessRightsProductUsersWithRightsCan {
             get {
@@ -408,7 +408,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Из списка.
+        ///   Looks up a localized string similar to {!Users} from list.
         /// </summary>
         public static string AccessRightsUsersFromList {
             get {
@@ -624,7 +624,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add Users.
+        ///   Looks up a localized string similar to Add {!Users}.
         /// </summary>
         public static string AddUsersCaption {
             get {
@@ -633,7 +633,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {!AddUsers}.
+        ///   Looks up a localized string similar to Add {!Users}.
         /// </summary>
         public static string AddUsersForSharingButton {
             get {
@@ -750,7 +750,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to If you are an existing user and have problems accessing this portal or you want to register as the portal new user, please contact the portal administrator using the form below..
+        ///   Looks up a localized string similar to If you are an existing {!user} and have problems accessing this portal or you want to register as the portal new {!user}, please contact the portal administrator using the form below..
         /// </summary>
         public static string AdminMessageTitle {
             get {
@@ -1472,7 +1472,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose user.
+        ///   Looks up a localized string similar to Choose {!user}.
         /// </summary>
         public static string ChooseUser {
             get {
@@ -1748,6 +1748,15 @@ namespace Resources {
         public static string CongratulateBirthday {
             get {
                 return ResourceManager.GetString("CongratulateBirthday", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Connect.
+        /// </summary>
+        public static string ConnectButton {
+            get {
+                return ResourceManager.GetString("ConnectButton", resourceCulture);
             }
         }
         
@@ -4400,7 +4409,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User already exists.
+        ///   Looks up a localized string similar to {!User} already exists.
         /// </summary>
         public static string ImportContactsAlreadyExists {
             get {
@@ -4427,7 +4436,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {!Addusers} using the contact information from Google, Yahoo, Windws Live from a CSV file{0} or an email client contact book, or entering the user first and last name and email manually..
+        ///   Looks up a localized string similar to Add {!users} using the contact information from Google, Yahoo from a CSV file{0} or an email client contact book, or entering the {!user} first and last name and email manually..
         /// </summary>
         public static string ImportContactsDescription {
             get {
@@ -4508,7 +4517,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Please, enter firstname, lastname and email of a user who will be added to the portal into the fileds above. Click the &apos;Add&apos; button to append the user to the list..
+        ///   Looks up a localized string similar to Please, enter the first name, last name and email of a {!user} who will be added to the portal into the fields above. Click the &apos;Add&apos; button to append the {!user} to the list..
         /// </summary>
         public static string ImportContactsFirstable {
             get {
@@ -4562,7 +4571,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {!Addusers} to the portal.
+        ///   Looks up a localized string similar to Add {!users} to the portal.
         /// </summary>
         public static string ImportContactsHeader {
             get {
@@ -4625,7 +4634,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Before import users from CSV file you need place daata in CSV file in the following order: Email;Name;Surname.
+        ///   Looks up a localized string similar to You need a properly formed CSV file to import {!users} from it. The file must have the following row structure: Email,First name,Last name.
         /// </summary>
         public static string ImportContactsSmallDescription {
             get {
@@ -4805,7 +4814,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite users as guests.
+        ///   Looks up a localized string similar to Add users as {!guests}.
         /// </summary>
         public static string InviteUsersAsCollaborators {
             get {
@@ -4814,7 +4823,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invite users to portal.
+        ///   Looks up a localized string similar to Invite {!users} to portal.
         /// </summary>
         public static string InviteUsersToPortalLink {
             get {
@@ -4896,7 +4905,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can keep adding the users as guests or change the pricing plan for the one with a larger number of users..
+        ///   Looks up a localized string similar to You can keep adding the users as {!guests} or change the pricing plan for the one with a larger number of users..
         /// </summary>
         public static string KeepTariffInviteGuests {
             get {
@@ -4968,6 +4977,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The LDAP module allows you to import users and groups from the LDAP server, as well as provide user authentication on the portal using the login/password, stored in an LDAP server. Users will be imported immediately after saving the settings. New users added later will be imported during their first authentication on the portal. The information about the users edited at the LDAP server can be immediately updated using the &apos;Sync LDAP&apos; button below. The LDAP module can be very flexibly configured to meet spec [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string LdapSettingsDscr {
+            get {
+                return ResourceManager.GetString("LdapSettingsDscr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Empty field.
         /// </summary>
         public static string LdapSettingsEmptyField {
@@ -5018,6 +5036,15 @@ namespace Resources {
         public static string LdapSettingsErrorCredentialsNotValid {
             get {
                 return ResourceManager.GetString("LdapSettingsErrorCredentialsNotValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LDAP domain not found..
+        /// </summary>
+        public static string LdapSettingsErrorDomainNotFound {
+            get {
+                return ResourceManager.GetString("LdapSettingsErrorDomainNotFound", resourceCulture);
             }
         }
         
@@ -5346,6 +5373,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Modifying LDAP users on ordinary portal users.
+        /// </summary>
+        public static string LdapSettingsModifyLdapUsers {
+            get {
+                return ResourceManager.GetString("LdapSettingsModifyLdapUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login DN.
         /// </summary>
         public static string LdapSettingsMonoLogin {
@@ -5490,11 +5526,47 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Retrieving existing LDAP user list from the People.
+        /// </summary>
+        public static string LdapSettingsStatusGettingUsersFromDb {
+            get {
+                return ResourceManager.GetString("LdapSettingsStatusGettingUsersFromDb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Получение списка пользователей от LDAP сервера.
         /// </summary>
         public static string LdapSettingsStatusGettingUsersFromLdap {
             get {
                 return ResourceManager.GetString("LdapSettingsStatusGettingUsersFromLdap", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading LDAP base info.
+        /// </summary>
+        public static string LdapSettingsStatusLoadingBaseInfo {
+            get {
+                return ResourceManager.GetString("LdapSettingsStatusLoadingBaseInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Удаление устаревших групп, загруженных по LDAP ранее.
+        /// </summary>
+        public static string LdapSettingsStatusRemovingOldGroups {
+            get {
+                return ResourceManager.GetString("LdapSettingsStatusRemovingOldGroups", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Удаление устаревших пользователей, загруженных по LDAP ранее.
+        /// </summary>
+        public static string LdapSettingsStatusRemovingOldUsers {
+            get {
+                return ResourceManager.GetString("LdapSettingsStatusRemovingOldUsers", resourceCulture);
             }
         }
         
@@ -5544,6 +5616,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sync LDAP.
+        /// </summary>
+        public static string LdapSettingsSyncUsers {
+            get {
+                return ResourceManager.GetString("LdapSettingsSyncUsers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Достигнут лимит количества пользователей для текущего тарифа.
         /// </summary>
         public static string LdapSettingsTenantQuotaSettled {
@@ -5585,6 +5666,15 @@ namespace Resources {
         public static string LdapSettingsTlsNotSupported {
             get {
                 return ResourceManager.GetString("LdapSettingsTlsNotSupported", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Too many LDAP operations..
+        /// </summary>
+        public static string LdapSettingsTooManyOperations {
+            get {
+                return ResourceManager.GetString("LdapSettingsTooManyOperations", resourceCulture);
             }
         }
         
@@ -5666,6 +5756,24 @@ namespace Resources {
         public static string LdapSettingsWrongSidAttribute {
             get {
                 return ResourceManager.GetString("LdapSettingsWrongSidAttribute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user has been imported from LDAP. Contact your LDAP administrator if you want to change the locked profile fields..
+        /// </summary>
+        public static string LdapUserEditCanOnlyAdminTitle {
+            get {
+                return ResourceManager.GetString("LdapUserEditCanOnlyAdminTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The user has been imported from LDAP.
+        /// </summary>
+        public static string LdapUsersListLockTitle {
+            get {
+                return ResourceManager.GetString("LdapUsersListLockTitle", resourceCulture);
             }
         }
         
@@ -5765,6 +5873,15 @@ namespace Resources {
         public static string LoginButton {
             get {
                 return ResourceManager.GetString("LoginButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The login is also used as an email for notifications. If you do not receive notifications and you are not sure if such an email exists, please contact your portal administrator..
+        /// </summary>
+        public static string LoginDescription {
+            get {
+                return ResourceManager.GetString("LoginDescription", resourceCulture);
             }
         }
         
@@ -5922,6 +6039,150 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mail Service.
+        /// </summary>
+        public static string MailService {
+            get {
+                return ResourceManager.GetString("MailService", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Successful connection.
+        /// </summary>
+        public static string MailServiceConnectSuccessMsg {
+            get {
+                return ResourceManager.GetString("MailServiceConnectSuccessMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error: Сould not get hostname or auth token.
+        /// </summary>
+        public static string MailServiceCouldNotGetErrorMsg {
+            get {
+                return ResourceManager.GetString("MailServiceCouldNotGetErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Example: {0}.
+        /// </summary>
+        public static string MailServiceExample {
+            get {
+                return ResourceManager.GetString("MailServiceExample", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Configure Mail Server.
+        /// </summary>
+        public static string MailServiceGoToMailserver {
+            get {
+                return ResourceManager.GetString("MailServiceGoToMailserver", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This option allows to connect your portal to the {0}Mail Server{1} installed on a remote computer using the {2}Docker installation{3}..
+        /// </summary>
+        public static string MailServiceHelp {
+            get {
+                return ResourceManager.GetString("MailServiceHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide Advanced Settings.
+        /// </summary>
+        public static string MailServiceHideAdvancedSettings {
+            get {
+                return ResourceManager.GetString("MailServiceHideAdvancedSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mail Server database password.
+        /// </summary>
+        public static string MailServicePassword {
+            get {
+                return ResourceManager.GetString("MailServicePassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error pinging host {0}:3306.
+        /// </summary>
+        public static string MailServicePingErrorMsg {
+            get {
+                return ResourceManager.GetString("MailServicePingErrorMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Service successfully connected.
+        /// </summary>
+        public static string MailServiceSaveSuccessMsg {
+            get {
+                return ResourceManager.GetString("MailServiceSaveSuccessMsg", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mail Server IP.
+        /// </summary>
+        public static string MailServiceServerIp {
+            get {
+                return ResourceManager.GetString("MailServiceServerIp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show Advanced Settings.
+        /// </summary>
+        public static string MailServiceShowAdvancedSettings {
+            get {
+                return ResourceManager.GetString("MailServiceShowAdvancedSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Once connected, the {0}Mail Server{1} will {2}become available{3} within the {0}Mail{1} module, and you will be able to create mailboxes for the portal users using your own mail domain name..
+        /// </summary>
+        public static string MailServiceText {
+            get {
+                return ResourceManager.GetString("MailServiceText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mail Server Connection Settings.
+        /// </summary>
+        public static string MailServiceTitle {
+            get {
+                return ResourceManager.GetString("MailServiceTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mail Server database user name.
+        /// </summary>
+        public static string MailServiceUser {
+            get {
+                return ResourceManager.GetString("MailServiceUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning: you already have Mail Domain settings and mailboxes for users present in your {0}Mail{1} module. Changing the settings here you realize that these changes can affect their work and result in mail server failure. If you completely moved the {0}Mail Server{1} to another computer and/or changed database access credentials, just update the {0}Mail Server IP{1} and/or credentials here. If you created a new {0}Mail Server{1} and want to connect it, you need to delete the old data at the {2}Mail Server pa [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string MailServiceWarning {
+            get {
+                return ResourceManager.GetString("MailServiceWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to TeamLab.
         /// </summary>
         public static string MainPageTitle {
@@ -6021,7 +6282,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add users via email or import them from other services.
+        ///   Looks up a localized string similar to View portal {!users}, add or import them.
         /// </summary>
         public static string ManagerEmptyScreen_PeopleLinkDscr {
             get {
@@ -6480,11 +6741,20 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Roles for the users added as guests can be later changed in the {0}People{1} module..
+        ///   Looks up a localized string similar to Roles for the users added as {!guests} can be later changed in the {0}People{1} module..
         /// </summary>
         public static string NoteInviteCollaborator {
             get {
                 return ResourceManager.GetString("NoteInviteCollaborator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The portal email user will be formed the following way: &apos;Login Attribute + @ + LDAP Domain&apos;. In case such email does not exist, the user will not receive any portal notifications..
+        /// </summary>
+        public static string NoteLDAPShouldKnow {
+            get {
+                return ResourceManager.GetString("NoteLDAPShouldKnow", resourceCulture);
             }
         }
         
@@ -6494,6 +6764,15 @@ namespace Resources {
         public static string NotePriceCollaborator {
             get {
                 return ResourceManager.GetString("NotePriceCollaborator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Things you should know:.
+        /// </summary>
+        public static string NoteShouldKnowHeader {
+            get {
+                return ResourceManager.GetString("NoteShouldKnowHeader", resourceCulture);
             }
         }
         
@@ -6543,7 +6822,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Notify users about portal migration.
+        ///   Looks up a localized string similar to Notify {!users} about portal migration.
         /// </summary>
         public static string NotifyPortalMigration {
             get {
@@ -6903,6 +7182,15 @@ namespace Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payment required.
+        /// </summary>
+        public static string PaymentRequired {
+            get {
+                return ResourceManager.GetString("PaymentRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Payment History.
         /// </summary>
         public static string PaymentsTitle {
@@ -7092,7 +7380,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Select the TeamLab modules and tools you need. The disabled modules and tools will be hidden from all portal users. Keep in mind that after enabling the modules and tools again they will become available for all portal users as well. To restrict the access, refer to the Access Rights section of the Portal Settings..
+        ///   Looks up a localized string similar to Select the ONLYOFFICE™ modules and tools you need. The disabled modules and tools will be hidden from all portal {!users}. Keep in mind that after enabling the modules and tools again they will become available for all portal {!users} as well. To restrict the access, refer to the Access Rights section of the Portal Settings..
         /// </summary>
         public static string ProductsAndInstruments_Info {
             get {
@@ -7218,7 +7506,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Register new users immediately.
+        ///   Looks up a localized string similar to Register new {!users} immediately.
         /// </summary>
         public static string RegisterNewUsersImmediately {
             get {
@@ -7232,6 +7520,15 @@ namespace Resources {
         public static string RegistrationEmailWatermark {
             get {
                 return ResourceManager.GetString("RegistrationEmailWatermark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your registration login.
+        /// </summary>
+        public static string RegistrationLoginWatermark {
+            get {
+                return ResourceManager.GetString("RegistrationLoginWatermark", resourceCulture);
             }
         }
         
@@ -7625,7 +7922,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Want to become the portal user?.
+        ///   Looks up a localized string similar to Want to become the portal {!user}?.
         /// </summary>
         public static string SendInviteToJoinDescription {
             get {
@@ -9012,7 +9309,7 @@ namespace Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Users total.
+        ///   Looks up a localized string similar to Total number of {!users}.
         /// </summary>
         public static string TenantUsersTotal {
             get {

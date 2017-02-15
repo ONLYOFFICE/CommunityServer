@@ -428,6 +428,14 @@ $activity.Key
     <subject resource="|subject_tariff_warning_trial4|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
     <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_tariff_warning_trial4|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
   </pattern>
+  <pattern id="tariff_warning_trial_enterprise">
+    <subject resource="|subject_tariff_warning_trial_enterprise|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_tariff_warning_trial_enterprise|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
+  <pattern id="tariff_warning_trial2_enterprise">
+    <subject resource="|subject_tariff_warning_trial2_enterprise|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+    <body styler="ASC.Notify.Textile.TextileStyler,ASC.Notify.Textile" resource="|pattern_tariff_warning_trial2_enterprise|ASC.Web.Studio.Core.Notify.WebstudioNotifyPatternResource,ASC.Web.Studio" />
+  </pattern>
 
   <!-- after creation -->
   <pattern id="after_creation1">

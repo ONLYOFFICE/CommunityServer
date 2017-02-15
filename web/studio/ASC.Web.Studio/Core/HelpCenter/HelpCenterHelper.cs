@@ -24,14 +24,6 @@
 */
 
 
-using ASC.Core.Tenants;
-using ASC.Data.Storage;
-using ASC.Web.Core.Client;
-using ASC.Web.Core.Files;
-using ASC.Web.Core.Users;
-using ASC.Web.Studio.Utility;
-using HtmlAgilityPack;
-using log4net;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -40,6 +32,14 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Web.Configuration;
+using ASC.Core.Tenants;
+using ASC.Data.Storage;
+using ASC.Web.Core.Client;
+using ASC.Web.Core.Files;
+using ASC.Web.Core.Users;
+using ASC.Web.Studio.Utility;
+using HtmlAgilityPack;
+using log4net;
 
 namespace ASC.Web.Studio.Core.HelpCenter
 {
@@ -94,7 +94,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
                 var data = ParseVideoGuideHtml(html);
 
                 videoGuideData = new VideoGuideData { ListItems = new List<VideoGuideItem>() };
-                if (data.Any())
+                //if (data.Any())
                 {
                     videoGuideData.ListItems = data;
                     videoGuideData.ResetCacheKey = ClientSettings.ResetCacheKey;
@@ -117,7 +117,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
                 var doc = new HtmlDocument();
                 doc.LoadHtml(html);
 
-                var titles = doc.DocumentNode.SelectNodes("//div[@class='MainHelpCenter PageVideo']//li");
+                var titles = doc.DocumentNode.SelectNodes("//div[@class='MainHelpCenter PageVideo']//div");
 
                 if (titles == null || titles.Count(a => a.Attributes["id"] != null) != titles.Count() || !titles.Elements("a").Any()) return data;
 
@@ -180,7 +180,7 @@ namespace ASC.Web.Studio.Core.HelpCenter
                 var data = ParseHelpCenterHtml(html, helpLinkBlock);
 
                 helpCenterData = new HelpCenterData();
-                if (data.Any())
+                //if (data.Any())
                 {
                     helpCenterData.ListItems = data;
                     helpCenterData.ResetCacheKey = ClientSettings.ResetCacheKey;
@@ -213,32 +213,40 @@ namespace ASC.Web.Studio.Core.HelpCenter
                     .Where(r => r.Attributes["id"] != null)
                     .Select(x => x.Attributes["id"].Value).ToList();
 
+                var i = 0;
                 foreach (var block in mainContent.SelectNodes(".//div[@class='gs_content']"))
                 {
-                    var hrefs = block.SelectNodes(".//a[@href]")
-                                     .Where(r =>
-                                         {
-                                             var value = r.Attributes["href"].Value;
-                                             return r.Attributes["href"] != null
-                                                    && !string.IsNullOrEmpty(value)
-                                                    && !value.StartsWith("mailto:")
-                                                    && !value.StartsWith("http");
-                                         });
-
-                    foreach (var href in hrefs)
+                    try
                     {
-                        var value = href.Attributes["href"].Value;
+                        i++;
+                    var hrefs = block.SelectNodes(".//a[@href]");
 
-                        if (value.IndexOf("#", StringComparison.Ordinal) != 0 && value.Length > 1)
+                    if (hrefs != null)
+                    {
+                        foreach (var href in hrefs.Where(r =>
+                            {
+                                var value = r.Attributes["href"].Value;
+                                return r.Attributes["href"] != null
+                                       && !string.IsNullOrEmpty(value)
+                                       && !value.StartsWith("mailto:")
+                                       && !value.StartsWith("http");
+                            }))
                         {
-                            href.Attributes["href"].Value = urlHelp + value.Substring(1);
-                            href.SetAttributeValue("target", "_blank");
-                        }
-                        else
-                        {
-                            if (!blocks.Contains(value.Substring(1))) continue;
+                            var value = href.Attributes["href"].Value;
 
-                            href.Attributes["href"].Value = helpLinkBlock + blocks.IndexOf(value.Substring(1)).ToString(CultureInfo.InvariantCulture);
+                            if (value.IndexOf("#", StringComparison.Ordinal) != 0 && value.Length > 1)
+                            {
+                                href.Attributes["href"].Value = urlHelp + value.Substring(1);
+                                href.SetAttributeValue("target", "_blank");
+                            }
+                            else
+                            {
+                                if (!blocks.Contains(value.Substring(1))) continue;
+
+                                href.Attributes["href"].Value = helpLinkBlock +
+                                                                blocks.IndexOf(value.Substring(1))
+                                                                      .ToString(CultureInfo.InvariantCulture);
+                            }
                         }
                     }
 
@@ -308,11 +316,16 @@ namespace ASC.Web.Studio.Core.HelpCenter
                     {
                         helpCenterItems.Add(new HelpCenterItem { Title = titles.InnerText, Content = contents.InnerHtml });
                     }
+                    }
+                    catch(Exception e)
+                    {
+                        _log.Error(string.Format("Error parse help html in {0} block: {1}. Culture {2}", i, helpLinkBlock, CultureInfo.CurrentCulture.TwoLetterISOLanguageName), e);
+                    }
                 }
             }
             catch (Exception e)
             {
-                _log.Error("Error parse help html", e);
+                _log.Error(string.Format("Error parse help html: {0}. Culture {1}", helpLinkBlock, CultureInfo.CurrentCulture.TwoLetterISOLanguageName), e);
             }
             return helpCenterItems;
         }
@@ -348,28 +361,51 @@ namespace ASC.Web.Studio.Core.HelpCenter
 
         #endregion
 
+        private static bool _stopRequesting;
+
         private static String SendRequest(string url)
         {
+            if (_stopRequesting) return string.Empty;
             try
             {
                 var httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
 
                 httpWebRequest.AllowAutoRedirect = false;
+                httpWebRequest.Timeout = 15000;
                 httpWebRequest.Method = "GET";
                 httpWebRequest.Headers["Accept-Language"] = "en"; // get correct en lang
 
-                using (var httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
-                using (var stream = httpWebResponse.GetResponseStream())
-                using (var reader = new StreamReader(stream, Encoding.GetEncoding(httpWebResponse.CharacterSet)))
+                var countTry = 0;
+                const int maxTry = 3;
+                while (countTry < maxTry)
                 {
-                    return reader.ReadToEnd();
+                    try
+                    {
+                        countTry++;
+                        using (var httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse())
+                        using (var stream = httpWebResponse.GetResponseStream())
+                        using (var reader = new StreamReader(stream, Encoding.GetEncoding(httpWebResponse.CharacterSet)))
+                        {
+                            return reader.ReadToEnd();
+                        }
+                    }
+                    catch (WebException ex)
+                    {
+                        if (ex.Status != WebExceptionStatus.Timeout)
+                        {
+                            throw;
+                        }
+                    }
                 }
+
+                _stopRequesting = true;
+                throw new WebException("Timeout " + maxTry, WebExceptionStatus.Timeout);
             }
             catch (Exception e)
             {
                 _log.Error(string.Format("HelpCenter is not avaliable by url {0}", url), e);
             }
-            return "";
+            return string.Empty;
         }
     }
 }

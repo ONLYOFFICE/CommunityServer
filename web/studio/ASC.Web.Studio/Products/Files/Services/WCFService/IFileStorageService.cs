@@ -95,7 +95,7 @@ namespace ASC.Web.Files.Services.WCFService
 
         ItemList<EditHistory> GetEditHistory(String fileId, String shareLinkKey);
 
-        KeyValuePair<string, string> GetEditDiffUrl(String fileId, int version, String doc = null);
+        EditHistoryData GetEditDiffUrl(String fileId, int version, String doc = null);
 
         #endregion
 

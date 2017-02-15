@@ -145,6 +145,7 @@ window.folderPanel = (function($) {
     function markFolder(folderId) {
         $('#foldersContainer > .active').removeClass('active');
         $('#foldersContainer').children('[folderid=' + folderId + ']').addClass('active');
+        MailFilter.setFolder(folderId);
     }
 
     function getMarkedFolder() {

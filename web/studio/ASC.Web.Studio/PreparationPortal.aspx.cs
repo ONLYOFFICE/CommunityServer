@@ -57,7 +57,7 @@ namespace ASC.Web.Studio
                     Title = Resource.RestoreTitle;
                     break;
                 default:
-                    Title = Resource.MainPageTitle.HtmlEncode();
+                    Title = Resource.MainPageTitle;
                     break;
             }
         }

@@ -36,6 +36,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -48,24 +49,6 @@
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ASC.ActiveUp.Net.Common">
-      <HintPath>..\..\..\redistributable\asc\ASC.ActiveUp.Net.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.ActiveUp.Net.Dns">
-      <HintPath>..\..\..\redistributable\asc\ASC.ActiveUp.Net.Dns.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.ActiveUp.Net.Imap4">
-      <HintPath>..\..\..\redistributable\asc\ASC.ActiveUp.Net.Imap4.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.ActiveUp.Net.Mail">
-      <HintPath>..\..\..\redistributable\asc\ASC.ActiveUp.Net.Mail.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.ActiveUp.Net.Pop3">
-      <HintPath>..\..\..\redistributable\asc\ASC.ActiveUp.Net.Pop3.dll</HintPath>
-    </Reference>
-    <Reference Include="ASC.Mail.Aggregator.Common">
-      <HintPath>..\..\..\redistributable\asc\ASC.Mail.Aggregator.Common.dll</HintPath>
-    </Reference>
     <Reference Include="CommandLine">
       <HintPath>..\..\..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
     </Reference>
@@ -104,6 +87,14 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ASC.Mail.Aggregator.Common\ASC.Mail.Aggregator.Common.csproj">
+      <Project>{26222fc6-1f6d-44e9-a82b-36bb8355220e}</Project>
+      <Name>ASC.Mail.Aggregator.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ASC.Mail.Aggregator.Core\ASC.Mail.Aggregator.Core.csproj">
+      <Project>{ed5e23b1-61a4-4527-a4eb-ae7e3853d2af}</Project>
+      <Name>ASC.Mail.Aggregator.Core</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ASC.Mail.Aggregator\ASC.Mail.Aggregator.csproj">
       <Project>{7080343D-FBE7-423A-9405-4F883F6E235B}</Project>
       <Name>ASC.Mail.Aggregator</Name>

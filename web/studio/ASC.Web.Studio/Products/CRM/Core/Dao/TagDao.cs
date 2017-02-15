@@ -62,13 +62,13 @@ namespace ASC.CRM.Core.Dao
             }
         }
 
-        public bool IsExist(EntityType entityType, String tagName, DbManager db)
+        private bool IsExist(EntityType entityType, String tagName, DbManager db)
         {
             var q = new SqlQuery("crm_tag")
                .Select("1")
                .Where("tenant_id", TenantID)
                .Where("entity_type", (int)entityType)
-               .Where("lower(title)", tagName.ToLower())
+               .Where("trim(lower(title))", tagName.Trim().ToLower())
                .SetMaxResults(1);
 
             return db.ExecuteScalar<bool>(q);
@@ -118,9 +118,7 @@ namespace ASC.CRM.Core.Dao
                  new SqlQuery("crm_entity_tag")
                 .Select("entity_id", "title")
                 .LeftOuterJoin("crm_tag", Exp.EqColumns("id", "tag_id"))
-                .Where(Exp.Eq("crm_tag.entity_type", (int)entityType) & Exp.Eq("crm_tag.tenant_id", TenantID))
-                .OrderBy("entity_id", true)
-                .OrderBy("title", true);
+                .Where(Exp.Eq("crm_tag.entity_type", (int)entityType) & Exp.Eq("crm_tag.tenant_id", TenantID));
 
             using (var db = GetDb())
             {
@@ -174,14 +172,9 @@ namespace ASC.CRM.Core.Dao
             using (var db = GetDb())
             {
                 var tagID = db.ExecuteScalar<int>(Query("crm_tag").Select("id")
-                                     .Where(Exp.Eq("lower(title)", tagName.ToLower()) & Exp.Eq("entity_type", (int)entityType)));
+                                     .Where(Exp.Eq("trim(lower(title))", tagName.Trim().ToLower()) & Exp.Eq("entity_type", (int)entityType)));
 
-                if (tagID == 0) return false;
-
-                var count = db.ExecuteScalar<int>(new SqlQuery("crm_entity_tag").SelectCount()
-                                        .Where(Exp.Eq("tag_id", tagID)));
-
-                return count == 0;
+                return tagID != 0;
             }
         }
 
@@ -197,7 +190,7 @@ namespace ASC.CRM.Core.Dao
             using (var db = GetDb())
             {
                 var tagID = db.ExecuteScalar<int>(Query("crm_tag").Select("id")
-                                     .Where(Exp.Eq("lower(title)", tagName.ToLower()) & Exp.Eq("entity_type", (int)entityType)));
+                                     .Where(Exp.Eq("trim(lower(title))", tagName.Trim().ToLower()) & Exp.Eq("entity_type", (int)entityType)));
 
                 if (tagID == 0) return;
 
@@ -255,6 +248,8 @@ namespace ASC.CRM.Core.Dao
 
         public int AddTag(EntityType entityType, String tagName)
         {
+            tagName = CorrectTag(tagName);
+
             if (String.IsNullOrEmpty(tagName))
                 throw new ArgumentNullException(CRMErrorsResource.TagNameNotSet);
 
@@ -265,7 +260,7 @@ namespace ASC.CRM.Core.Dao
             }
         }
 
-        public int AddTag(EntityType entityType, String tagName, DbManager db)
+        private int AddTag(EntityType entityType, String tagName, DbManager db)
         {
             return db.ExecuteScalar<int>(
                                 Insert("crm_tag")
@@ -278,7 +273,8 @@ namespace ASC.CRM.Core.Dao
 
         public Dictionary<string, int> GetAndAddTags(EntityType entityType, String[] tags)
         {
-            tags = tags.Where(t => !string.IsNullOrWhiteSpace(t)).ToArray();
+            tags = tags.Select(CorrectTag).Where(t => !string.IsNullOrWhiteSpace(t)).ToArray();
+
             var tagNamesAndIds = new Dictionary<string, int>();
 
             using (var db = GetDb())
@@ -286,7 +282,7 @@ namespace ASC.CRM.Core.Dao
             {
 
                 db.ExecuteList(Query("crm_tag").Select("id", "title")
-                        .Where(Exp.In("lower(title)", tags.ToList().ConvertAll(t => t.ToLower())) & Exp.Eq("entity_type", (int)entityType)))
+                        .Where(Exp.In("trim(lower(title))", tags.ToList().ConvertAll(t => t.ToLower())) & Exp.Eq("entity_type", (int)entityType)))
                         .ForEach(row =>
                         { tagNamesAndIds[row[1].ToString()] = (int)row[0]; });
 
@@ -303,14 +299,15 @@ namespace ASC.CRM.Core.Dao
         }
 
 
-        public int AddTagToEntity(EntityType entityType, int entityID, String tagName, DbManager db)
+        private int AddTagToEntity(EntityType entityType, int entityID, String tagName, DbManager db)
         {
+            tagName = CorrectTag(tagName);
+
             if (String.IsNullOrEmpty(tagName) || entityID == 0)
                 throw new ArgumentException();
-            tagName = tagName.Trim();
 
             var tagID = db.ExecuteScalar<int>(Query("crm_tag").Select("id")
-                                    .Where(Exp.Eq("lower(title)", tagName.ToLower()) & Exp.Eq("entity_type", (int)entityType)));
+                                    .Where(Exp.Eq("trim(lower(title))", tagName.ToLower()) & Exp.Eq("entity_type", (int)entityType)));
 
             if (tagID == 0)
                 tagID = AddTag(entityType, tagName, db);
@@ -325,10 +322,6 @@ namespace ASC.CRM.Core.Dao
 
         public int AddTagToEntity(EntityType entityType, int entityID, String tagName)
         {
-            if (String.IsNullOrEmpty(tagName) || entityID == 0)
-                throw new ArgumentException();
-            tagName = tagName.Trim();
-
             using (var db = GetDb())
             {
                 return AddTagToEntity(entityType, entityID, tagName, db);
@@ -337,21 +330,19 @@ namespace ASC.CRM.Core.Dao
 
         public int AddTagToContacts(int[] contactID, String tagName)
         {
+            tagName = CorrectTag(tagName);
+
             if (String.IsNullOrEmpty(tagName) || contactID == null || contactID.Length == 0)
                 throw new ArgumentException();
-
-            tagName = tagName.Trim();
-
-            var entityType = EntityType.Contact;
 
             using (var db = GetDb())
             using (var tx = db.BeginTransaction())
             {
                 var tagID = db.ExecuteScalar<int>(Query("crm_tag").Select("id")
-                                        .Where(Exp.Eq("lower(title)", tagName.ToLower()) & Exp.Eq("entity_type", (int)entityType)));
+                                        .Where(Exp.Eq("trim(lower(title))", tagName.ToLower()) & Exp.Eq("entity_type", (int)EntityType.Contact)));
 
                 if (tagID == 0)
-                    tagID = AddTag(entityType, tagName, db);
+                    tagID = AddTag(EntityType.Contact, tagName, db);
 
                 foreach (var id in contactID)
                 {
@@ -370,15 +361,11 @@ namespace ASC.CRM.Core.Dao
             if (String.IsNullOrEmpty(tagName) || contactID == null || contactID.Length == 0)
                 throw new ArgumentException();
 
-            tagName = tagName.Trim();
-
-            var entityType = EntityType.Contact;
-
             using (var db = GetDb())
             using (var tx = db.BeginTransaction())
             {
                 var tagID = db.ExecuteScalar<int>(Query("crm_tag").Select("id")
-                                           .Where(Exp.Eq("lower(title)", tagName.ToLower()) & Exp.Eq("entity_type", (int)entityType)));
+                                           .Where(Exp.Eq("trim(lower(title))", tagName.Trim().ToLower()) & Exp.Eq("entity_type", (int)EntityType.Contact)));
 
                 if (tagID == 0)
                     throw new ArgumentException();
@@ -388,7 +375,7 @@ namespace ASC.CRM.Core.Dao
                 {
                     db.ExecuteNonQuery(new SqlDelete("crm_entity_tag")
                                             .Where(Exp.Eq("entity_id", id) &
-                                                   Exp.Eq("entity_type", (int)entityType) &
+                                                   Exp.Eq("entity_type", (int)EntityType.Contact) &
                                                    Exp.Eq("tag_id", tagID)));
 
                 }
@@ -434,6 +421,15 @@ namespace ASC.CRM.Core.Dao
             }
         }
 
+        private static string CorrectTag(string tag)
+        {
+            return tag == null
+                       ? null
+                       : tag.Trim()
+                            .Replace("\r\n", string.Empty)
+                            .Replace("\n", string.Empty)
+                            .Replace("\r", string.Empty);
+        }
 
         #endregion
     }

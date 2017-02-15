@@ -43,30 +43,40 @@ install_db(){
 		MYSQL="$MYSQL -p$DB_PWD"
 	fi
 
-	# test mysql connection
-	$MYSQL -e ";" &>/dev/null || ( service mysql start &>/dev/null && $MYSQL -e ";" >/dev/null )
-
-	$MYSQL -e "CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8 COLLATE 'utf8_general_ci';"
-	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.sql
-	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.data.sql
-	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.resources.sql
-
-	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade81.sql
-	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade85.sql
-	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade86.sql
-	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade87.sql
-	$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.upgrade88.sql
-
 	sed "s/#max_connections.*/max_connections = 1000/" -i /etc/mysql/my.cnf || true # ignore errors
 	
 	if [ -e /etc/mysql/mysql.conf.d/mysqld.cnf ]; then 
 	    sed "s/#max_connections.*/max_connections = 1000/" -i /etc/mysql/mysql.conf.d/mysqld.cnf || true # new config mysql 5.7 ignore errors
-		echo "sql_mode = ''" >> /etc/mysql/mysql.conf.d/mysqld.cnf # disable new STRICT mode in mysql 5.7
+		echo "sql_mode = 'NO_ENGINE_SUBSTITUTION'" >> /etc/mysql/mysql.conf.d/mysqld.cnf # disable new STRICT mode in mysql 5.7
+		service mysql restart
 	fi
+	
+	# test mysql connection
+	$MYSQL -e ";" &>/dev/null || ( service mysql start &>/dev/null && $MYSQL -e ";" >/dev/null )
+	
+	$MYSQL -e "CREATE DATABASE IF NOT EXISTS $DB_NAME CHARACTER SET utf8 COLLATE 'utf8_general_ci';"
+
+	DB_TABLES_COUNT=$($MYSQL --silent --skip-column-names -e "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='${DB_NAME}'");
+
+	if [ "${DB_TABLES_COUNT}" -eq "0" ]; then
+	
+		$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.sql
+		$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.data.sql
+		$MYSQL "$DB_NAME" < $DIR/Sql/onlyoffice.resources.sql
+
+	fi
+	
+	for i in $(ls $DIR/Sql/onlyoffice.upgrade*); do
+        $MYSQL "$DB_NAME" < ${i};
+	done
+
+	
 }
 
 apply_connection_string(){
-	find "$DIR/" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"Server=$DB_HOST;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
+	if [ "$DB_HOST" != "localhost" ] || [ "$DB_NAME" != "onlyoffice" ] || [ "$DB_USER" != "root" ] || [ "$DB_PWD" != "" ]; then
+		find "$DIR/" -type f -name "*.[cC]onfig" -exec sed -i "s/connectionString=.*/connectionString=\"Server=$DB_HOST;Database=$DB_NAME;User ID=$DB_USER;Password=$DB_PWD;Pooling=true;Character Set=utf8;AutoEnlist=false\" providerName=\"MySql.Data.MySqlClient\"\/>/" {} \;
+	fi
 }
 
 upgrade_storage(){

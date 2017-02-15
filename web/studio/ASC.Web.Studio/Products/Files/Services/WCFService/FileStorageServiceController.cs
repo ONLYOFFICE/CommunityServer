@@ -694,7 +694,7 @@ namespace ASC.Web.Files.Services.WCFService
         }
 
         [ActionName("edit-diff-url"), HttpGet, AllowAnonymous]
-        public KeyValuePair<string, string> GetEditDiffUrl(String fileId, int version = 0, String doc = null)
+        public EditHistoryData GetEditDiffUrl(String fileId, int version = 0, String doc = null)
         {
             using (var fileDao = GetFileDao())
             {
@@ -718,18 +718,26 @@ namespace ASC.Web.Files.Services.WCFService
                 ErrorIf(!readLink && !FileSecurity.CanRead(file), FilesCommonResource.ErrorMassage_SecurityException_ReadFile);
                 ErrorIf(file.ProviderEntry, FilesCommonResource.ErrorMassage_BadRequest);
 
-                string sourceFileUrl = null;
-                string diffUrl = null;
+                var result = new EditHistoryData
+                    {
+                        Key = DocumentServiceHelper.GetDocKey(file.ID, file.Version, file.CreateOn),
+                        Url = DocumentServiceConnector.ReplaceCommunityAdress(PathProvider.GetFileStreamUrl(file)),
+                        Version = version,
+                    };
 
                 var historyItem = fileDao.GetEditHistory(file.ID, file.Version).FirstOrDefault();
                 if (historyItem != null && !string.IsNullOrEmpty(historyItem.ChangesString))
                 {
+                    string previouseKey;
+                    string sourceFileUrl;
                     if (file.Version > 1)
                     {
                         var previousFile = fileDao.GetFile(file.ID, file.Version - 1);
                         ErrorIf(previousFile == null, FilesCommonResource.ErrorMassage_FileNotFound);
 
                         sourceFileUrl = PathProvider.GetFileStreamUrl(previousFile);
+
+                        previouseKey = DocumentServiceHelper.GetDocKey(previousFile.ID, previousFile.Version, previousFile.CreateOn);
                     }
                     else
                     {
@@ -748,18 +756,19 @@ namespace ASC.Web.Files.Services.WCFService
 
                         sourceFileUrl = storeTemplate.GetPreSignedUri("", path, TimeSpan.FromHours(1), null).ToString();
                         sourceFileUrl = CommonLinkUtility.GetFullAbsolutePath(sourceFileUrl);
+
+                        previouseKey = DocumentServiceConnector.GenerateRevisionId(Guid.NewGuid().ToString());
                     }
 
-                    diffUrl = PathProvider.GetFileDifferenceUrl(file);
-                }
-                else
-                {
-                    sourceFileUrl = PathProvider.GetFileStreamUrl(file);
+                    result.Previous = new EditHistoryUrl
+                        {
+                            Key = previouseKey,
+                            Url = DocumentServiceConnector.ReplaceCommunityAdress(sourceFileUrl),
+                        };
+                    result.ChangesUrl = PathProvider.GetFileChangesUrl(file);
                 }
 
-                return new KeyValuePair<string, string>(
-                    DocumentServiceConnector.ReplaceCommunityAdress(sourceFileUrl),
-                    diffUrl);
+                return result;
             }
         }
 

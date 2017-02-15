@@ -24,9 +24,54 @@
 */
 
 
+.license-section {
+    margin-bottom: 6px;
+    margin-top: 24px;
+}
+
+.license-list {
+    margin: 14px 0 0;
+
+    td {
+        vertical-align: top;
+
+        .license-item {
+            font-size: 14px;
+            background: url("img/modules.png") no-repeat 0 -195px transparent;
+            line-height: 23px;
+            padding: 0 16px 8px 40px;
+            width: 280px;
+
+            &.license-item-controlpanel {
+                background-position: 0 0;
+            }
+
+            &.license-item-whitelabel {
+                background-position: 0 -39px;
+            }
+
+            &.license-item-multitenancy {
+                background-position: 0 -78px;
+            }
+
+            &.license-item-updates {
+                background-position: 0 -117px;
+            }
+
+            &.license-item-support {
+                background-position: 0 -156px;
+            }
+
+            .license-item-modules {
+                margin-bottom: 10px;
+            }
+        }
+    }
+}
+
 #licenseKeyText {
     float: left;
-    margin: 10px 0 0 8px;
+    margin: 2px 0 0 8px;
 
     &.error {
         color: #DF1B1B;
@@ -35,12 +80,11 @@
 
 #licenseKey {
     float: left;
-    margin-top: 8px;
 }
 
 .license-accept {
     margin-bottom: -6px;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 
 #policyAccepted {
@@ -63,4 +107,12 @@ textarea.textEdit {
 }
 .text-edit-message {
     resize: vertical;
+}
+
+.button-margin {
+    margin-top: 18px;
+}
+
+.license-questions {
+    margin-top: 40px;
 }

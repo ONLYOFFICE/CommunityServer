@@ -1,4 +1,4 @@
-TeamLab uses code from the following 3rd party projects.
+ONLYOFFICE Community Server uses code from the following 3rd party projects.
 
 1. AjaxMin - The Microsoft Ajax Minifier enables you to improve the performance of your web applications by reducing the size of your Cascading Style Sheet and JavaScript files. 
 

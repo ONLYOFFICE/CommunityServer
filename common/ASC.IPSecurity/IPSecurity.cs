@@ -24,38 +24,37 @@
 */
 
 
+using ASC.Core;
+using ASC.Core.Tenants;
+using log4net;
 using System;
 using System.Configuration;
 using System.Linq;
 using System.Net;
 using System.Web;
-using ASC.Core;
-using log4net;
 
 namespace ASC.IPSecurity
 {
     public static class IPSecurity
     {
-        private static readonly ILog log = LogManager.GetLogger("ASC.IPSecurity");
+        private static readonly ILog Log = LogManager.GetLogger("ASC.IPSecurity");
 
-        private static bool IpSecurityEnabled
+        public static bool IpSecurityEnabled { get; private set; }
+
+        static IPSecurity()
         {
-            get
-            {
-                var setting = ConfigurationManager.AppSettings["ipsecurity.enabled"];
-                return !string.IsNullOrEmpty(setting) && setting == "true";
-            }
+            var hideSettings = (ConfigurationManager.AppSettings["web.hide-settings"] ?? "").Split(new[] {',', ';', ' '});
+            IpSecurityEnabled = !hideSettings.Contains("IpSecurity", StringComparer.CurrentCultureIgnoreCase);
         }
 
-        public static bool Verify(int tenant)
+        public static bool Verify(Tenant tenant)
         {
             if (!IpSecurityEnabled) return true;
 
-            var currentTenant = CoreContext.TenantManager.GetCurrentTenant();
-            if (currentTenant != null && SecurityContext.CurrentAccount.ID == currentTenant.OwnerId) return true;
-
             var httpContext = HttpContext.Current;
             if (httpContext == null) return true;
+
+            if (tenant == null || SecurityContext.CurrentAccount.ID == tenant.OwnerId) return true;
 
             var request = httpContext.Request;
             var requestIps = request.Headers["X-Forwarded-For"] ?? request.UserHostAddress;
@@ -69,23 +68,23 @@ namespace ASC.IPSecurity
 
             try
             {
-                var restrictions = IPRestrictionsService.Get(tenant);
+                var restrictions = IPRestrictionsService.Get(tenant.TenantId).ToList();
 
                 if (!restrictions.Any()) return true;
 
                 var ips = string.IsNullOrWhiteSpace(requestIps)
-                              ? new string[] {} :
-                              requestIps.Split(new[] {",", " "}, StringSplitOptions.RemoveEmptyEntries);
+                              ? new string[] {}
+                              : requestIps.Split(new[] {",", " "}, StringSplitOptions.RemoveEmptyEntries);
 
-                foreach (var ip in ips)
+                if (ips.Select(GetIpWithoutPort)
+                       .Any(requestIp => restrictions.Any(restriction => MatchIPs(requestIp, restriction.Ip))))
                 {
-                    var requestIp = GetIpWithoutPort(ip);
-                    if (restrictions.Any(restriction => MatchIPs(requestIp, restriction.Ip))) return true;
+                    return true;
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                log.Error(string.Format("Can't verify request with IP-address: {0}. Tenant: {1}. Error: {2} ", requestIps, tenant, ex));
+                Log.Error(string.Format("Can't verify request with IP-address: {0}. Tenant: {1}. Error: {2} ", requestIps, tenant, ex));
                 return false;
             }
 

@@ -85,7 +85,6 @@ namespace ASC.Web.Studio.UserControls.Management
             TenantCount = CoreContext.TenantManager.GetTenants().Count(t => t.Status == TenantStatus.Active);
 
             Settings = AdditionalWhiteLabelSettings.Instance;
-            Settings.PricingUrl = CommonLinkUtility.GetRegionalUrl(Settings.PricingUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
             Settings.LicenseAgreementsUrl = CommonLinkUtility.GetRegionalUrl(Settings.LicenseAgreementsUrl, CultureInfo.CurrentCulture.TwoLetterISOLanguageName);
 
             AjaxPro.Utility.RegisterTypeForAjax(GetType());
@@ -109,23 +108,21 @@ namespace ASC.Web.Studio.UserControls.Management
             }
 
             if (TenantExtra.EnterprisePaid
-                && CurrentTariff.State == TariffState.Paid
                 && CurrentTariff.DueDate.Date >= DateTime.Today)
             {
-                return "<b>" + UserControlsCommonResource.TariffPaidStandalone + "</b> "
+                return "<b>" + UserControlsCommonResource.TariffPaidStandalone.HtmlEncode() + "</b> "
                        + (CurrentTariff.DueDate.Date != DateTime.MaxValue.Date
                               ? string.Format(Resource.TariffExpiredDate, CurrentTariff.DueDate.Date.ToLongDateString())
                               : string.Empty);
             }
 
-            return String.Format(UserControlsCommonResource.TariffOverdueStandalone,
+            return String.Format(UserControlsCommonResource.TariffOverdueStandalone.HtmlEncode(),
                                  "<span class='tariff-marked'>",
                                  "</span>",
                                  "<br />");
         }
 
         [AjaxMethod]
-        [SecurityPassthrough]
         public object ActivateLicenseKey()
         {
             if (!CoreContext.Configuration.Standalone) throw new NotSupportedException();

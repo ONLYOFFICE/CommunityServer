@@ -5,7 +5,6 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using ASC.Mail.Aggregator.Common;
-using ASC.Mail.Aggregator.Common.Authorization;
 using ASC.Mail.Aggregator.Common.Clients;
 using ASC.Mail.Aggregator.Common.Extension;
 using ASC.Mail.Aggregator.Common.Imap;
@@ -13,6 +12,7 @@ using ASC.Mail.Aggregator.Common.Logging;
 using MailKit;
 using MailKit.Net.Imap;
 using MailKit.Net.Pop3;
+using MailKit.Net.Smtp;
 using MailKit.Search;
 using MailKit.Security;
 using MimeKit;
@@ -26,7 +26,7 @@ namespace ASC.Mail.Aggregator.Core.Clients
     public class MailClient : IDisposable
     {
         public MailBox Account { get; private set; }
-        public ILogger Log { get; private set; }
+        public ILogger Log { get; set; }
 
         public ImapClient Imap { get; private set; }
         public Pop3Client Pop { get; private set; }
@@ -34,6 +34,10 @@ namespace ASC.Mail.Aggregator.Core.Clients
 
         private CancellationToken CancelToken { get; set; }
         private CancellationTokenSource StopTokenSource { get; set; }
+
+        private const int CONNECT_TIMEOUT = 10000;
+        private const int ENABLE_UTF8_TIMEOUT = 10000;
+        private const int LOGIN_TIMEOUT = 30000;
 
         /// <summary>
         /// Occurs when the client has been successfully authenticated.
@@ -88,9 +92,15 @@ namespace ASC.Mail.Aggregator.Core.Clients
 
         #region .Constructor
 
-        public MailClient(MailBox mailbox, CancellationToken cancelToken, int tcpTimeout = 30000, bool certificatePermit = false,
+        public MailClient(MailBox mailbox, CancellationToken cancelToken, int tcpTimeout = 30000,
+            bool certificatePermit = false, string protocolLogPath = "",
             ILogger log = null)
         {
+            var protocolLogger = !string.IsNullOrEmpty(protocolLogPath)
+                ? (IProtocolLogger)
+                    new ProtocolLogger(protocolLogPath)
+                : new NullProtocolLogger();
+
             Account = mailbox;
             Log = log ?? new NullLogger();
 
@@ -100,7 +110,7 @@ namespace ASC.Mail.Aggregator.Core.Clients
 
             if (Account.Imap)
             {
-                Imap = new ImapClient
+                Imap = new ImapClient(protocolLogger)
                 {
                     ServerCertificateValidationCallback = (sender, certificate, chain, errors) =>
                         certificatePermit ||
@@ -112,7 +122,7 @@ namespace ASC.Mail.Aggregator.Core.Clients
             }
             else
             {
-                Pop = new Pop3Client
+                Pop = new Pop3Client(protocolLogger)
                 {
                     ServerCertificateValidationCallback = (sender, certificate, chain, errors) =>
                         certificatePermit ||
@@ -122,7 +132,7 @@ namespace ASC.Mail.Aggregator.Core.Clients
                 Imap = null;
             }
 
-            Smtp = new SmtpClient
+            Smtp = new SmtpClient(protocolLogger)
             {
                 ServerCertificateValidationCallback = (sender, certificate, chain, errors) =>
                     certificatePermit ||
@@ -215,35 +225,60 @@ namespace ASC.Mail.Aggregator.Core.Clients
 
         public void Dispose()
         {
-            if (Imap != null)
+            Log.Info("MailClient->Dispose()");
+
+            try
             {
-                if (Imap.IsConnected)
-                    Imap.Disconnect(true, CancelToken);
+                if (Imap != null)
+                {
+                    if (Imap.IsConnected)
+                        Imap.Disconnect(true, CancelToken);
 
-                Imap.Dispose();
+                    Imap.Dispose();
+                }
+
+                if (Pop != null)
+                {
+                    if (Pop.IsConnected)
+                        Pop.Disconnect(true, CancelToken);
+
+                    Pop.Dispose();
+                }
+
+                if (Smtp != null)
+                {
+                    if (Smtp.IsConnected)
+                        Smtp.Disconnect(true, CancelToken);
+
+                    Smtp.Dispose();
+                }
+
+                Authenticated = null;
+                SendMessage = null;
+                GetMessage = null;
+
+                StopTokenSource.Dispose();
+
             }
-
-            if (Pop != null)
+            catch (Exception ex)
             {
-                if (Pop.IsConnected)
-                    Pop.Disconnect(true, CancelToken);
-
-                Pop.Dispose();
+                Log.Error("MailClient->Dispose(Mb_Id={0} Mb_Addres: '{1}') Exception: {2}", Account.MailBoxId,
+                    Account.EMail.Address, ex.Message);
             }
+        }
 
-            if (Smtp != null)
+        public void LoginImapPop()
+        {
+            if (Account.Imap)
             {
-                if (Smtp.IsConnected)
-                    Smtp.Disconnect(true, CancelToken);
-
-                Smtp.Dispose();
+                if (!Imap.IsAuthenticated)
+                    LoginImap();
             }
-
-            Authenticated = null;
-            SendMessage = null;
-            GetMessage = null;
-
-            StopTokenSource.Dispose();
+            else
+            {
+                if (!Pop.IsAuthenticated)
+                    LoginPop3();
+            }
         }
 
         public LoginResult TestLogin()
@@ -324,11 +359,9 @@ namespace ASC.Mail.Aggregator.Core.Clients
 
         private void LoginImap(bool enableUtf8 = true)
         {
-            Imap.Authenticated += (sender, args) => OnAuthenticated(args.Message);
-
             var secureSocketOptions = SecureSocketOptions.Auto;
 
-            switch (Account.IncomingEncryptionType)
+            switch (Account.Encryption)
             {
                 case EncryptionType.StartTLS:
                     secureSocketOptions = SecureSocketOptions.StartTlsWhenAvailable;
@@ -341,22 +374,60 @@ namespace ASC.Mail.Aggregator.Core.Clients
                     break;
             }
 
-            Log.Debug("Imap.Connect({0}:{1}, {2})", Account.Server, Account.Port, Enum.GetName(typeof(SecureSocketOptions), secureSocketOptions));
+            Log.Debug("Imap.Connect({0}:{1}, {2})", Account.Server, Account.Port,
+                Enum.GetName(typeof(SecureSocketOptions), secureSocketOptions));
 
-            Imap.Connect(Account.Server, Account.Port, secureSocketOptions, CancelToken);
-
-            if (enableUtf8 && (Imap.Capabilities & ImapCapabilities.UTF8Accept) != ImapCapabilities.None)
-                Imap.EnableUTF8(CancelToken);
-
-            if (string.IsNullOrEmpty(Account.RefreshToken))
+            try
             {
-                Imap.AuthenticationMechanisms.Remove("XOAUTH2");
-                Imap.Authenticate(Account.Account, Account.Password, CancelToken);
+                var t = Imap.ConnectAsync(Account.Server, Account.Port, secureSocketOptions, CancelToken);
+
+                if (!t.Wait(CONNECT_TIMEOUT, CancelToken))
+                    throw new TimeoutException("Imap.ConnectAsync timeout");
+
+                if (enableUtf8 && (Imap.Capabilities & ImapCapabilities.UTF8Accept) != ImapCapabilities.None)
+                {
+                    Log.Debug("Imap.EnableUTF8");
+
+                    t = Imap.EnableUTF8Async(CancelToken);
+
+                    if (!t.Wait(ENABLE_UTF8_TIMEOUT, CancelToken))
+                        throw new TimeoutException("Imap.EnableUTF8Async timeout");
+                }
+
+                Imap.Authenticated += ImapOnAuthenticated;
+
+                if (string.IsNullOrEmpty(Account.OAuthToken))
+                {
+                    Log.Debug("Imap.Authentication({0})", Account.Account);
+
+                    Imap.AuthenticationMechanisms.Remove("XOAUTH2");
+
+                    t = Imap.AuthenticateAsync(Account.Account, Account.Password, CancelToken);
+                }
+                else
+                {
+                    Log.Debug("Imap.AuthenticationByOAuth({0})", Account.Account);
+
+                    t = Imap.AuthenticateAsync(Account.Account, Account.AccessToken, CancelToken);
+                }
+
+                if (!t.Wait(LOGIN_TIMEOUT, CancelToken))
+                {
+                    Imap.Authenticated -= ImapOnAuthenticated;
+                    throw new TimeoutException("Imap.AuthenticateAsync timeout");
+                }
+
+                Imap.Authenticated -= ImapOnAuthenticated;
             }
-            else
+            catch (AggregateException aggEx)
             {
-                Imap.Authenticate(Account.Account, GetOauthAccessToken(Account.RefreshToken), CancelToken);
+                throw aggEx.InnerException;
             }
+        }
+
+        private void ImapOnAuthenticated(object sender, AuthenticatedEventArgs authenticatedEventArgs)
+        {
+            OnAuthenticated(authenticatedEventArgs.Message);
         }
 
         private void AggregateImap(TasksConfig tasksConfig, int limitMessages = -1)
@@ -364,54 +435,79 @@ namespace ASC.Mail.Aggregator.Core.Clients
             if (!Imap.IsAuthenticated)
                 LoginImap();
 
-            var loaded = 0;
-
-            var folders = GetImapFolders();
-
-            foreach (var folder in folders)
+            try
             {
-                if (!Imap.IsConnected || CancelToken.IsCancellationRequested)
-                    return;
+                var loaded = 0;
 
-                var mailFolder = DetectFolder(tasksConfig, folder);
+                var folders = GetImapFolders();
 
-                if (mailFolder == null)
+                foreach (var folder in folders)
                 {
-                    Log.Info("[folder] x '{0}' (skipped)", folder.Name);
-                    continue;
+                    if (!Imap.IsConnected || CancelToken.IsCancellationRequested)
+                        return;
+
+                    var mailFolder = DetectFolder(tasksConfig, folder);
+
+                    if (mailFolder == null)
+                    {
+                        Log.Info("[folder] x '{0}' (skipped)", folder.Name);
+                        continue;
+                    }
+
+                    Log.Info("[folder] >> '{0}' (fId={1}) {2}", folder.Name, mailFolder.FolderId,
+                        mailFolder.Tags.Any() ? string.Format("tag='{0}'", mailFolder.Tags.FirstOrDefault()) : "");
+
+                    try
+                    {
+                        folder.Open(FolderAccess.ReadOnly, CancelToken);
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        // Skip log error
+                        continue;
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error("Open faild: {0} Exception: {1}", folder.Name, e.Message);
+                        continue;
+                    }
+
+                    loaded += LoadFolderMessages(folder, mailFolder, limitMessages);
+
+                    if (limitMessages <= 0 || loaded < limitMessages)
+                        continue;
+
+                    Log.Debug("Limit of maximum number messages per session is exceeded!");
+                    break;
                 }
-
-                Log.Info("[folder] >> '{0}' (fId={1})", folder.Name, mailFolder.FolderId);
-
-                try
-                {
-                    folder.Open(FolderAccess.ReadOnly, CancelToken);
-                }
-                catch (Exception e)
-                {
-                    Log.Warn("Open faild: {0} Exception: {1}", folder.Name, e.Message);
-                    continue;
-                }
-
-                loaded += LoadFolderMessages(folder, mailFolder, limitMessages);
-
-                if (limitMessages <= 0 || loaded < limitMessages)
-                    continue;
-
-                Log.Debug("Limit of maximum number messages per session is exceeded!");
-                break;
+            }
+            catch (AggregateException aggEx)
+            {
+                throw aggEx.InnerException;
             }
         }
 
         private static bool CompareFolders(IMailFolder f1, IMailFolder f2)
         {
-            return (f1.Attributes.HasFlag(FolderAttributes.Inbox) || 
-                    f1.Name.Equals("inbox", StringComparison.InvariantCultureIgnoreCase) ||
-                    f1.Attributes.HasFlag(FolderAttributes.Sent) &&
-                    !f2.Attributes.HasFlag(FolderAttributes.Inbox) ||
-                    f1.Attributes.HasFlag(FolderAttributes.Junk) &&
-                    !f2.Attributes.HasFlag(FolderAttributes.Inbox) &&
-                    !f2.Attributes.HasFlag(FolderAttributes.Sent));
+            Func<IMailFolder, bool> isInbox = (f) => f.Attributes.HasFlag(FolderAttributes.Inbox) ||
+                                                     f.Name.Equals("inbox", StringComparison.InvariantCultureIgnoreCase);
+
+            Func<IMailFolder, bool> isSent = (f) => f.Attributes.HasFlag(FolderAttributes.Sent) || 
+                                                    f.Name.Equals("sent", StringComparison.InvariantCultureIgnoreCase) ||
+                                                    f.Name.Equals("sent items", StringComparison.InvariantCultureIgnoreCase);
+
+            Func<IMailFolder, bool> isSpam = (f) => f.Attributes.HasFlag(FolderAttributes.Junk) ||
+                                                    f.Name.Equals("spam", StringComparison.InvariantCultureIgnoreCase) ||
+                                                    f.Name.Equals("junk", StringComparison.InvariantCultureIgnoreCase) ||
+                                                    f.Name.Equals("bulk", StringComparison.InvariantCultureIgnoreCase);
+
+            if (isInbox(f1))
+                return true;
+
+            if (isSent(f1) && !isInbox(f2))
+                return true;
+
+            return isSpam(f1) && !isInbox(f2) && !isSent(f2);
         }
 
         private IEnumerable<IMailFolder> GetImapFolders()
@@ -425,10 +521,20 @@ namespace ASC.Mail.Aggregator.Core.Clients
 
             var folders = new List<IMailFolder>(personal);
 
-            foreach (var folder in personal)
+            foreach (var folder in
+                personal.Where(
+                    f => f.Attributes.HasFlag(FolderAttributes.HasChildren)))
+            {
                 folders.AddRange(GetImapSubFolders(folder));
+            }
 
-            folders = folders.Distinct().ToList();
+            folders =
+                folders.Where(
+                    f =>
+                        !f.Attributes.HasFlag(FolderAttributes.NoSelect) &&
+                        !f.Attributes.HasFlag(FolderAttributes.NonExistent))
+                    .Distinct()
+                    .ToList();
 
             if (folders.Count <= 1)
                 return folders;
@@ -451,25 +557,20 @@ namespace ASC.Mail.Aggregator.Core.Clients
 
                 var tempList = new List<IMailFolder>();
 
-                foreach (var subfolder in subfolders)
+                foreach (var subfolder in
+                    subfolders.Where(
+                        f => f.Attributes.HasFlag(FolderAttributes.HasChildren)))
                 {
-                    try
-                    {
-                        tempList.AddRange(GetImapSubFolders(subfolder));
-                    }
-                    catch
-                    {
-                        //Skip 
-                    }
+                    tempList.AddRange(GetImapSubFolders(subfolder));
                 }
 
                 subfolders.AddRange(tempList);
 
                 return subfolders;
             }
-            catch
+            catch(Exception ex)
             {
-               //Skip 
+                Log.Error("GetImapSubFolders: {0} Exception: {1}", folder.Name, ex.Message);
             }
 
             return new List<IMailFolder>();
@@ -660,12 +761,10 @@ namespace ASC.Mail.Aggregator.Core.Clients
                   FolderAttributes.NoSelect |
                   FolderAttributes.NoInferiors |
                   FolderAttributes.NonExistent |
-                  FolderAttributes.Unmarked |
                   FolderAttributes.Trash |
                   FolderAttributes.Archive |
                   FolderAttributes.Drafts |
-                  FolderAttributes.Flagged |
-                  FolderAttributes.Marked)) != 0)
+                  FolderAttributes.Flagged)) != 0)
             {
                 return null; // Skip folders
             }
@@ -751,11 +850,9 @@ namespace ASC.Mail.Aggregator.Core.Clients
 
         private void LoginPop3(bool enableUtf8 = true)
         {
-            Pop.Authenticated += (sender, args) => OnAuthenticated(args.Message);
-
             var secureSocketOptions = SecureSocketOptions.Auto;
 
-            switch (Account.IncomingEncryptionType)
+            switch (Account.Encryption)
             {
                 case EncryptionType.StartTLS:
                     secureSocketOptions = SecureSocketOptions.StartTlsWhenAvailable;
@@ -768,22 +865,59 @@ namespace ASC.Mail.Aggregator.Core.Clients
                     break;
             }
 
-            Log.Debug("Pop.Connect({0}:{1}, {2})", Account.Server, Account.Port, Enum.GetName(typeof(SecureSocketOptions), secureSocketOptions));
-
-            Pop.Connect(Account.Server, Account.Port, secureSocketOptions, CancelToken);
-
-            if (enableUtf8 && (Pop.Capabilities & Pop3Capabilities.UTF8) != Pop3Capabilities.None)
-                Pop.EnableUTF8(CancelToken);
-
-            if (string.IsNullOrEmpty(Account.RefreshToken))
+            Log.Debug("Pop.Connect({0}:{1}, {2})", Account.Server, Account.Port,
+                Enum.GetName(typeof(SecureSocketOptions), secureSocketOptions));
+            try
             {
-                Pop.AuthenticationMechanisms.Remove("XOAUTH2");
-                Pop.Authenticate(Account.Account, Account.Password, CancelToken);
+                var t = Pop.ConnectAsync(Account.Server, Account.Port, secureSocketOptions, CancelToken);
+
+                if (!t.Wait(CONNECT_TIMEOUT, CancelToken))
+                    throw new TimeoutException("Pop.ConnectAsync timeout");
+
+                if (enableUtf8 && (Pop.Capabilities & Pop3Capabilities.UTF8) != Pop3Capabilities.None)
+                {
+                    Log.Debug("Pop.EnableUTF8");
+
+                    t = Pop.EnableUTF8Async(CancelToken);
+
+                    if (!t.Wait(ENABLE_UTF8_TIMEOUT, CancelToken))
+                        throw new TimeoutException("Pop.EnableUTF8Async timeout");
+                }
+
+                Pop.Authenticated += PopOnAuthenticated;
+
+                if (string.IsNullOrEmpty(Account.OAuthToken))
+                {
+                    Log.Debug("Pop.Authentication({0})", Account.Account);
+
+                    Pop.AuthenticationMechanisms.Remove("XOAUTH2");
+
+                    t = Pop.AuthenticateAsync(Account.Account, Account.Password, CancelToken);
+                }
+                else
+                {
+                    Log.Debug("Pop.AuthenticationByOAuth({0})", Account.Account);
+
+                    t = Pop.AuthenticateAsync(Account.Account, Account.AccessToken, CancelToken);
+                }
+
+                if (!t.Wait(LOGIN_TIMEOUT, CancelToken))
+                {
+                    Pop.Authenticated -= PopOnAuthenticated;
+                    throw new TimeoutException("Pop.AuthenticateAsync timeout");
+                }
+
+                Pop.Authenticated -= PopOnAuthenticated;
             }
-            else
+            catch (AggregateException aggEx)
             {
-                Pop.Authenticate(Account.Account, GetOauthAccessToken(Account.RefreshToken), CancelToken);
+                throw aggEx.InnerException;
             }
+        }
+
+        private void PopOnAuthenticated(object sender, AuthenticatedEventArgs authenticatedEventArgs)
+        {
+            OnAuthenticated(authenticatedEventArgs.Message);
         }
 
         private void AggregatePop3(TasksConfig tasksConfig, int limitMessages = -1)
@@ -793,120 +927,145 @@ namespace ASC.Mail.Aggregator.Core.Clients
 
             var mailFolder = new MailFolder(MailFolder.Ids.inbox, "INBOX");
 
-            var loaded = 0;
-
-            var newMessages = GetPop3NewMessagesIDs(tasksConfig);
-
-            if (newMessages.Count == 0)
-            {
-                Log.Debug("New messages not found.\r\n");
-                return;
-            }
-
-            Log.Debug("Found {0} new messages.\r\n", newMessages.Count);
-
             try
             {
-                var fstMailHeaders = Pop.GetMessageHeaders(newMessages.First().Key, CancelToken).ToList();
-                var lstMailHeaders = Pop.GetMessageHeaders(newMessages.Last().Key, CancelToken).ToList();
+
+                var loaded = 0;
+
+                var newMessages = GetPop3NewMessagesIDs(tasksConfig);
+
+                if (newMessages.Count == 0)
+                {
+                    Log.Debug("New messages not found.\r\n");
+                    return;
+                }
+
+                Log.Debug("Found {0} new messages.\r\n", newMessages.Count);
+
+                newMessages = FixPop3UidsOrder(newMessages);
+
+                var skipOnDate = Account.BeginDate != MailBoxManager.MinBeginDate;
+
+                var skipBreakOnDate = tasksConfig.PopUnorderedDomains.Contains(Account.Server.ToLowerInvariant());
+
+                foreach (var newMessage in newMessages)
+                {
+                    if (!Pop.IsConnected || CancelToken.IsCancellationRequested)
+                        break;
+
+                    Log.Debug("Processing new message\tUID: {0}\tUIDL: {1}\t",
+                        newMessage.Key,
+                        newMessage.Value);
+
+                    try
+                    {
+                        var message = Pop.GetMessage(newMessage.Key, CancelToken);
+
+                        message.FixDateIssues(logger: Log);
+
+                        if (message.Date < Account.BeginDate && skipOnDate)
+                        {
+                            if (!skipBreakOnDate)
+                            {
+                                Log.Info("Skip other messages older then {0}.", Account.BeginDate);
+                                break;
+                            }
+                            Log.Debug("Skip message (Date = {0}) on BeginDate = {1}", message.Date,
+                                Account.BeginDate);
+                            continue;
+                        }
+
+                        message.FixEncodingIssues();
+
+                        OnGetMessage(message, newMessage.Value, true, mailFolder);
+
+                        loaded++;
+
+                        if (limitMessages <= 0 || loaded < limitMessages)
+                            continue;
+
+                        Log.Debug("Limit of max messages per session is exceeded!");
+                        break;
+                    }
+                    catch (OperationCanceledException)
+                    {
+                        // Skip log error
+                    }
+                    catch (Exception e)
+                    {
+                        Log.Error(
+                            "ProcessMessages() Tenant={0} User='{1}' Account='{2}', MailboxId={3}, MessageIndex={4}, UIDL='{5}' Exception:\r\n{6}\r\n",
+                            Account.TenantId, Account.UserId, Account.EMail.Address, Account.MailBoxId,
+                            newMessage.Key, newMessage.Value, e);
+
+                        if (e is IOException)
+                        {
+                            break; // stop checking other mailboxes
+                        }
+                    }
+                }
+            }
+            catch (AggregateException aggEx)
+            {
+                throw aggEx.InnerException;
+            }
+        }
+
+        private Dictionary<int, string> FixPop3UidsOrder(Dictionary<int, string> newMessages)
+        {
+            try
+            {
+                if (newMessages.Count < 2)
+                    return newMessages;
+
+                newMessages = newMessages
+                    .OrderBy(item => item.Key)
+                    .ToDictionary(id => id.Key, id => id.Value);
+
+                var fstIndex = newMessages.First().Key;
+                var lstIndex = newMessages.Last().Key;
+
+                var fstMailHeaders = Pop.GetMessageHeaders(fstIndex, CancelToken).ToList();
+                var lstMailHeaders = Pop.GetMessageHeaders(lstIndex, CancelToken).ToList();
+
                 var fstDateHeader =
                     fstMailHeaders.FirstOrDefault(
                         h => h.Field.Equals("Date", StringComparison.InvariantCultureIgnoreCase));
+
                 var lstDateHeader =
                     lstMailHeaders.FirstOrDefault(
                         h => h.Field.Equals("Date", StringComparison.InvariantCultureIgnoreCase));
 
-                var found = false;
+                DateTime fstDate;
+                DateTime lstDate;
 
-                if (fstDateHeader != null && lstDateHeader != null)
+                if (fstDateHeader != null && DateTime.TryParse(fstDateHeader.Value, out fstDate) &&
+                    lstDateHeader != null &&
+                    DateTime.TryParse(lstDateHeader.Value, out lstDate))
                 {
-                    DateTime fstDate;
-                    DateTime lstDate;
-                    if (DateTime.TryParse(fstDateHeader.Value, out fstDate) &&
-                        DateTime.TryParse(lstDateHeader.Value, out lstDate))
+                    if (fstDate < lstDate)
                     {
-                        found = true;
-                        if (fstDate < lstDate)
-                        {
-                            Log.Debug("Account '{0}' order is DESC", Account.EMail.Address);
-                            newMessages = newMessages
-                                .OrderByDescending(item => item.Key)
-                                // This is to ensure that the newest message would be handled primarily.
-                                .ToDictionary(id => id.Key, id => id.Value);
-                        }
+                        Log.Debug("Account '{0}' uids order is DESC", Account.EMail.Address);
+                        newMessages = newMessages
+                            .OrderByDescending(item => item.Key)
+                            .ToDictionary(id => id.Key, id => id.Value);
+                        return newMessages;
                     }
                 }
 
-                if (!found)
-                {
-                    Log.Debug("Account '{0}' order is ASC", Account.EMail.Address);
-                }
+
+                Log.Debug("Account '{0}' uids order is ASC", Account.EMail.Address);
             }
             catch (Exception)
             {
-                Log.Warn("Calculating order skipped! Account '{0}' order is ASC", Account.EMail.Address);
+                newMessages = newMessages
+                    .OrderByDescending(item => item.Key)
+                    .ToDictionary(id => id.Key, id => id.Value);
+
+                Log.Warn("Calculating order skipped! Account '{0}' uids order is DESC", Account.EMail.Address);
             }
 
-            var skipOnDate = Account.BeginDate != MailBoxManager.MinBeginDate;
-
-            var skipBreakOnDate = tasksConfig.PopUnorderedDomains.Contains(Account.Server.ToLowerInvariant());
-
-            foreach (var newMessage in newMessages)
-            {
-                if (!Pop.IsConnected || CancelToken.IsCancellationRequested)
-                    break;
-
-                Log.Debug("Processing new message\tUID: {0}\tUIDL: {1}\t",
-                    newMessage.Key,
-                    newMessage.Value);
-
-                try
-                {
-                    var message = Pop.GetMessage(newMessage.Key, CancelToken);
-
-                    message.FixDateIssues(logger: Log);
-
-                    if (message.Date < Account.BeginDate && skipOnDate)
-                    {
-                        if (!skipBreakOnDate)
-                        {
-                            Log.Info("Skip other messages older then {0}.", Account.BeginDate);
-                            break;
-                        }
-                        Log.Debug("Skip message (Date = {0}) on BeginDate = {1}", message.Date,
-                            Account.BeginDate);
-                        continue;
-                    }
-
-                    message.FixEncodingIssues();
-
-                    OnGetMessage(message, newMessage.Value, true, mailFolder);
-
-                    loaded++;
-
-                    if (limitMessages <= 0 || loaded < limitMessages)
-                        continue;
-
-                    Log.Debug("Limit of max messages per session is exceeded!");
-                    break;
-                }
-                catch (OperationCanceledException)
-                {
-                    break;
-                }
-                catch (Exception e)
-                {
-                    Log.Error(
-                        "ProcessMessages() Tenant={0} User='{1}' Account='{2}', MailboxId={3}, MessageIndex={4}, UIDL='{5}' Exception:\r\n{6}\r\n",
-                        Account.TenantId, Account.UserId, Account.EMail.Address, Account.MailBoxId,
-                        newMessage.Key, newMessage.Value, e);
-
-                    if (e is IOException)
-                    {
-                        break; // stop checking other mailboxes
-                    }
-                }
-            }
+            return newMessages;
         }
 
         private Dictionary<int, string> GetPop3NewMessagesIDs(TasksConfig tasksConfig)
@@ -962,11 +1121,6 @@ namespace ASC.Mail.Aggregator.Core.Clients
                 chunkUidls = uidls.Skip(i).Take(chunk).ToList();
             } while (chunkUidls.Any());
 
-            newMessages = newMessages
-                                .OrderByDescending(item => item.Key)
-                                // This is to ensure that the newest message would be handled primarily.
-                                .ToDictionary(id => id.Key, id => id.Value);
-
             return newMessages;
         }
 
@@ -976,11 +1130,9 @@ namespace ASC.Mail.Aggregator.Core.Clients
 
         private void LoginSmtp()
         {
-            Smtp.Authenticated += (sender, args) => OnAuthenticated(args.Message);
-
             var secureSocketOptions = SecureSocketOptions.Auto;
 
-            switch (Account.IncomingEncryptionType)
+            switch (Account.SmtpEncryption)
             {
                 case EncryptionType.StartTLS:
                     secureSocketOptions = SecureSocketOptions.StartTlsWhenAvailable;
@@ -993,40 +1145,58 @@ namespace ASC.Mail.Aggregator.Core.Clients
                     break;
             }
 
-            Log.Debug("Smtp.Connect({0}:{1}, {2})", Account.Server, Account.Port, Enum.GetName(typeof(SecureSocketOptions), secureSocketOptions));
-
-            Smtp.Connect(Account.SmtpServer, Account.SmtpPort,
-                Account.OutcomingEncryptionType == EncryptionType.StartTLS ||
-                Account.OutcomingEncryptionType == EncryptionType.SSL
-                    ? SecureSocketOptions.Auto
-                    : SecureSocketOptions.None, CancelToken);
-
-            if (!Account.SmtpAuth)
-                return;
-
-            if (string.IsNullOrEmpty(Account.RefreshToken))
+            Log.Debug("Smtp.Connect({0}:{1}, {2})", Account.SmtpServer, Account.SmtpPort,
+                Enum.GetName(typeof(SecureSocketOptions), secureSocketOptions));
+            try
             {
-                Smtp.AuthenticationMechanisms.Remove("XOAUTH2");
-                Smtp.Authenticate(Account.SmtpAccount, Account.SmtpPassword, CancelToken);
+
+                var t = Smtp.ConnectAsync(Account.SmtpServer, Account.SmtpPort, secureSocketOptions, CancelToken);
+
+                if (!t.Wait(CONNECT_TIMEOUT, CancelToken))
+                    throw new TimeoutException("Smtp.ConnectAsync timeout");
+
+                if (!Account.SmtpAuth)
+                {
+                    if ((Smtp.Capabilities & SmtpCapabilities.Authentication) != 0)
+                        throw new AuthenticationException("SmtpAuth is required (setup Authentication Type)");
+
+                    return;
+                }
+
+                Smtp.Authenticated += SmtpOnAuthenticated;
+
+                if (string.IsNullOrEmpty(Account.OAuthToken))
+                {
+                    Log.Debug("Smtp.Authentication({0})", Account.SmtpAccount);
+
+                    Smtp.AuthenticationMechanisms.Remove("XOAUTH2");
+
+                    t = Smtp.AuthenticateAsync(Account.SmtpAccount, Account.SmtpPassword, CancelToken);
+                }
+                else
+                {
+                    Log.Debug("Smtp.AuthenticationByOAuth({0})", Account.SmtpAccount);
+
+                    t = Smtp.AuthenticateAsync(Account.SmtpAccount, Account.AccessToken, CancelToken);
+                }
+
+                if (!t.Wait(LOGIN_TIMEOUT, CancelToken))
+                {
+                    Smtp.Authenticated -= SmtpOnAuthenticated;
+                    throw new TimeoutException("Smtp.AuthenticateAsync timeout");
+                }
+
+                Smtp.Authenticated -= SmtpOnAuthenticated;
             }
-            else
+            catch (AggregateException aggEx)
             {
-                Smtp.Authenticate(Account.SmtpAccount, GetOauthAccessToken(Account.RefreshToken), CancelToken);
+                throw aggEx.InnerException;
             }
         }
 
-        #endregion
-
-        #region .XOAUTH
-
-        private string GetOauthAccessToken(string refreshToken)
+        private void SmtpOnAuthenticated(object sender, AuthenticatedEventArgs authenticatedEventArgs)
         {
-            var auth = new GoogleOAuth2Authorization(Log);
-            var grantedAccess = auth.RequestAccessToken(refreshToken);
-            if (grantedAccess == null)
-                throw new AuthenticationException("XOAUTH2: Access denied.");
-
-            return grantedAccess.AccessToken;
+            OnAuthenticated(authenticatedEventArgs.Message);
         }
 
         #endregion

@@ -72,6 +72,7 @@ namespace ASC.Web.Files.Services.DocumentService
         {
             public string ChangesUrl;
             public string ChangesHistory;
+            public object History;
             public string Key;
             public TrackerStatus Status;
             public string Url;
@@ -265,7 +266,7 @@ namespace ASC.Web.Files.Services.DocumentService
                 if (user != null)
                     FilesMessageService.Send(file, MessageInitiator.DocsService, MessageAction.UserFileUpdated, user.DisplayUserName(false), file.Title);
 
-                SaveHistory(file, fileData.ChangesHistory, fileData.ChangesUrl);
+                SaveHistory(file, string.IsNullOrEmpty(fileData.ChangesHistory) ? fileData.History.ToString() : fileData.ChangesHistory, fileData.ChangesUrl);
             }
 
             FileTracker.Remove(fileId);

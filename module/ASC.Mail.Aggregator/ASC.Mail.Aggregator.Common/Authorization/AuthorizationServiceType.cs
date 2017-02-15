@@ -28,7 +28,7 @@ namespace ASC.Mail.Aggregator.Common.Authorization
 {
     public enum AuthorizationServiceType
     {
-        Unknown = 0,
+        None = 0,
         Google
     };
 }

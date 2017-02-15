@@ -39,9 +39,6 @@
     <Reference Include="ASC.Data.Storage">
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Data.Storage.dll</HintPath>
     </Reference>
-    <Reference Include="ASC.Mail.Aggregator.DataStorage">
-      <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Mail.Aggregator.DataStorage.dll</HintPath>
-    </Reference>
     <Reference Include="ASC.Mail.Server.Administration.Interfaces">
       <HintPath>..\..\..\web\studio\ASC.Web.Studio\bin\ASC.Mail.Server.Administration.Interfaces.dll</HintPath>
     </Reference>

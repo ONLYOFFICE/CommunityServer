@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using ASC.Core;
+using ASC.Core.Billing;
 using ASC.Web.Core;
 using ASC.Web.Studio.Core;
 using ASC.Web.Studio.Utility;
@@ -101,9 +102,17 @@ namespace ASC.Web.Studio.UserControls.Statistics
             return String.Format("{0}", CoreContext.TenantManager.GetCurrentTenant().CreatedDateTime.ToShortDateString());
         }
 
-        protected int RenderUsersTotal()
+        protected string RenderUsersTotal()
         {
-            return TenantStatisticsProvider.GetUsersCount();
+            var result = TenantStatisticsProvider.GetUsersCount().ToString();
+
+            var maxActiveUsers = TenantExtra.GetTenantQuota().ActiveUsers;
+            if (!CoreContext.Configuration.Standalone || maxActiveUsers != LicenseReader.MaxUserCount)
+            {
+                result += " / " + maxActiveUsers;
+            }
+
+            return result;
         }
 
         protected String GetMaxTotalSpace()

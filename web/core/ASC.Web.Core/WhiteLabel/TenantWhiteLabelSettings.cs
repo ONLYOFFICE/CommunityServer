@@ -24,6 +24,12 @@
 */
 
 
+using ASC.Core.Tenants;
+using ASC.Data.Storage;
+using ASC.Web.Core.Users;
+using ASC.Web.Core.Utility.Settings;
+using ASC.Web.Core.Utility.Skins;
+using ASC.Web.Studio.Utility;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -32,15 +38,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
-using ASC.Core.Tenants;
-using ASC.Data.Storage;
-using ASC.Web.Core.Client;
-using ASC.Web.Core.Utility.Settings;
-using ASC.Web.Core.Utility.Skins;
-using ASC.Web.Core.Users;
-using ASC.Web.Studio.Utility;
 using TMResourceData;
-
 
 namespace ASC.Web.Core.WhiteLabel
 {
@@ -48,7 +46,7 @@ namespace ASC.Web.Core.WhiteLabel
     [DataContract]
     public class TenantWhiteLabelSettings : ISettings
     {
-        public const string DefaultLogo = "ONLYOFFICE";
+        public const string DefaultLogoText = "ONLYOFFICE";
 
         #region Logos information: extension, isDefault, text for img auto generating
 
@@ -80,11 +78,11 @@ namespace ASC.Web.Core.WhiteLabel
         {
             get
             {
-                if (!String.IsNullOrEmpty(_logoText) && _logoText != DefaultLogo)
+                if (!String.IsNullOrEmpty(_logoText) && _logoText != DefaultLogoText)
                     return _logoText;
 
                 var partnerSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(Tenant.DEFAULT_TENANT);
-                return String.IsNullOrEmpty(partnerSettings._logoText) ? DefaultLogo : partnerSettings._logoText;
+                return String.IsNullOrEmpty(partnerSettings._logoText) ? DefaultLogoText : partnerSettings._logoText;
             }
             set { _logoText = value; }
         }
@@ -485,12 +483,18 @@ namespace ASC.Web.Core.WhiteLabel
 
         #region Save for Resource replacement
 
+        private static readonly List<int> AppliedTenants = new List<int>();
+
         public static void Apply(int tenantId)
         {
-            if (ConfigurationManager.AppSettings["resources.from-db"] != "true") return;
+            if (!DBResourceManager.ResourcesFromDataBase) return;
+
+            if (AppliedTenants.Contains(tenantId)) return;
 
             var whiteLabelSettings = SettingsManager.Instance.LoadSettings<TenantWhiteLabelSettings>(tenantId);
             whiteLabelSettings.SetNewLogoText(tenantId);
+
+            if (!AppliedTenants.Contains(tenantId)) AppliedTenants.Add(tenantId);
         }
 
         public void Save(int tenantId, bool restore = false)
@@ -501,7 +505,7 @@ namespace ASC.Web.Core.WhiteLabel
 
         private void SetNewLogoText(int tenantId, bool restore = false)
         {
-            WhiteLabelHelper.DefaultLogo = DefaultLogo;
+            WhiteLabelHelper.DefaultLogoText = DefaultLogoText;
             if (restore)
             {
                 WhiteLabelHelper.RestoreOldText(tenantId);

@@ -184,6 +184,11 @@ namespace ASC.Web.Files
             {
                 SettingPanelHolder.Controls.Add(LoadControl(ThirdParty.Location));
             }
+
+            if (Desktop)
+            {
+                CommonContainerHolder.Controls.Add(LoadControl(Files.Controls.Desktop.Location));
+            }
         }
 
         private void PersonalProcess()

@@ -52,7 +52,7 @@
       <Private>False</Private>
     </Reference>
     <Reference Include="Facebook">
-      <HintPath>..\..\..\packages\Facebook.5.0.26.0\lib\net40-client\Facebook.dll</HintPath>
+      <HintPath>..\..\..\packages\Facebook.7.0.6\lib\net45\Facebook.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="LinkedIn">

@@ -25,6 +25,10 @@ ONLYOFFICE Community Server is a free open source collaborative system developed
 * Instant Messenger
 * Support of more than 20 languages
 
+## Compiling
+
+To compile source, follow this [instruction] (http://helpcenter.onlyoffice.com/server/windows/community/compile-source-code.aspx).
+
 ## Project Information
 
 Official website: [http://www.onlyoffice.org](http://onlyoffice.org "http://www.onlyoffice.org")

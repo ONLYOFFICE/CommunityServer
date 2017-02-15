@@ -32,16 +32,18 @@
                         <a id="advancedLinkButton" class="anchorLinkButton link dotline"><%: MailResource.AdvancedLinkLabel %></a>
                     </div>
                 </td>
-                <% if (MailPage.IsTurnOnOAuth()) 
-                    { %>
+                <% if (MailPage.IsTurnOnOAuth())
+                   { %>
                     <td></td>
                     <td>
-                        <div>
-                            <div class="headerPanelSmall bold">
-                                <%: MailResource.OAuthLabel %>
+                        <div class="headerPanelSmall bold"><%: MailResource.OAuthLabel %></div>
+                        <div id="oauth_frame_blocker"></div>
+                        <div class="oauth-block" data-url="<%= VirtualPathUtility.ToAbsolute(OAuth.Location) %>">
+                            <div class="google-oauth-image"></div>
+                            <div>
+                                <span class="oauth-label"><%= MailResource.GoogleLabel %></span>
+                                <span class="oauth-connect-label"><%= MailResource.ConnectLabel %></span>
                             </div>
-                            <div id="oauth_frame_blocker"></div>
-                            <iframe id="ifr" src="<%: MailPage.GetImportOAuthAccessUrl() %>"></iframe>
                         </div>
                     </td>
                 <% } %>

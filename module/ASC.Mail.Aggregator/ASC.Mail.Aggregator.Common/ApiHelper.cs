@@ -71,6 +71,17 @@ namespace ASC.Mail.Aggregator.Common
 
             _log = LoggerFactory.GetLogger(LoggerFactory.LoggerType.Log4Net, "ASC.Api");
             Scheme = scheme;
+
+            if (scheme.Equals(Uri.UriSchemeHttps) && ConfigurationManager.AppSettings["mail.certificate-permit"] != null)
+            {
+                var sslCertificateErrorsPermit =
+                    Convert.ToBoolean(ConfigurationManager.AppSettings["mail.certificate-permit"]);
+
+                if (sslCertificateErrorsPermit)
+                {
+                    ServicePointManager.ServerCertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true;
+                }
+            }
         }
 
         private void Setup()
@@ -90,26 +101,25 @@ namespace ASC.Mail.Aggregator.Common
             var hs = new HostedSolution(ConfigurationManager.ConnectionStrings["default"]);
             var authenticationCookie = hs.CreateAuthenticationCookie(tenant.TenantId, user.ID);
 
-            var tempUrl = WebConfigurationManager.AppSettings["api.url"].Trim('~', '/');
+            var tempUrl = (WebConfigurationManager.AppSettings["api.url"] ?? "").Trim('~', '/');
 
-            var ubBase = new UriBuilder(Scheme, tenant.TenantAlias);
-
-            if (tenant.TenantAlias == "localhost")
+            var ubBase = new UriBuilder
             {
-                var virtualDir = WebConfigurationManager.AppSettings["core.virtual-dir"];
-                if (!string.IsNullOrEmpty(virtualDir))
-                    tempUrl = string.Format("{0}/{1}", virtualDir.Trim('/'), tempUrl);
+                Scheme = Scheme,
+                Host = tenant.GetTenantDomain(false)
+            };
 
-                var host = WebConfigurationManager.AppSettings["core.host"];
-                if (!string.IsNullOrEmpty(host))
-                    ubBase.Host = host;
+            var virtualDir = WebConfigurationManager.AppSettings["api.virtual-dir"];
+            if (!string.IsNullOrEmpty(virtualDir))
+                tempUrl = string.Format("{0}/{1}", virtualDir.Trim('/'), tempUrl);
 
-                var port = WebConfigurationManager.AppSettings["core.port"];
-                if (!string.IsNullOrEmpty(port))
-                    ubBase.Port = int.Parse(port);
-            }
-            else
-                ubBase.Host = string.Format("{0}.{1}", ubBase.Host, CoreContext.Configuration.BaseDomain);
+            var host = WebConfigurationManager.AppSettings["api.host"];
+            if (!string.IsNullOrEmpty(host))
+                ubBase.Host = host;
+
+            var port = WebConfigurationManager.AppSettings["api.port"];
+            if (!string.IsNullOrEmpty(port))
+                ubBase.Port = int.Parse(port);
 
             ubBase.Path = tempUrl;
 
@@ -591,6 +601,20 @@ namespace ASC.Mail.Aggregator.Common
                     o =>
                         o["webItemId"] != null &&
                         o["webItemId"].ToString() == WebItemManager.MailProductID.ToString());
+
+            var isAvailable = jWebItem != null && jWebItem["enabled"] != null && Convert.ToBoolean(jWebItem["enabled"]);
+            return isAvailable;
+        }
+
+        public bool IsCrmModuleAvailable()
+        {
+            var json = GetPortalSettings();
+            var crmId = WebItemManager.CRMProductID.ToString();
+            var jWebItem = json["response"].Children<JObject>()
+                .FirstOrDefault(
+                    o =>
+                        o["webItemId"] != null &&
+                        o["webItemId"].ToString() == crmId);
 
             var isAvailable = jWebItem != null && jWebItem["enabled"] != null && Convert.ToBoolean(jWebItem["enabled"]);
             return isAvailable;

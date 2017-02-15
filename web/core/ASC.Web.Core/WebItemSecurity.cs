@@ -43,7 +43,7 @@ namespace ASC.Web.Core
     public static class WebItemSecurity
     {
         private static readonly SecurityAction Read = new SecurityAction(new Guid("77777777-32ae-425f-99b5-83176061d1ae"), "ReadWebItem", false, true);
-        private static readonly ICache cache = AscCache.Memory;
+        private static readonly ICache cache = AscCache.Default;
 
                 
         public static bool IsAvailableForUser(string id, Guid @for)

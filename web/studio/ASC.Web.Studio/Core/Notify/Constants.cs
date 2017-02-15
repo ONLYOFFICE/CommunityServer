@@ -79,6 +79,8 @@ namespace ASC.Web.Studio.Core.Notify
 
         public static string MailWhiteLabelSettings = "MailWhiteLabelSettings";
 
+        public static string EmbeddedAttachments = "EmbeddedAttachments";
+
         public static INotifyAction ActionAdminNotify = new NotifyAction("admin_notify", "admin notifications");
         public static INotifyAction ActionSelfProfileUpdated = new NotifyAction("self_profile_updated", "self profile updated");
         public static INotifyAction ActionUserHasJoin = new NotifyAction("user_has_join", "user has join");
@@ -138,6 +140,9 @@ namespace ASC.Web.Studio.Core.Notify
         public static INotifyAction ActionTariffWarningTrial2 = new NotifyAction("tariff_warning_trial2");
         public static INotifyAction ActionTariffWarningTrial3 = new NotifyAction("tariff_warning_trial3");
         public static INotifyAction ActionTariffWarningTrial4 = new NotifyAction("tariff_warning_trial4");
+
+        public static INotifyAction ActionTariffWarningTrialEnterprise = new NotifyAction("tariff_warning_trial_enterprise");
+        public static INotifyAction ActionTariffWarningTrial2Enterprise = new NotifyAction("tariff_warning_trial2_enterprise");
 
         public static INotifyAction ActionAfterRegistrationPersonal1 = new NotifyAction("after_registration_personal1");
         public static INotifyAction ActionAfterRegistrationPersonal7 = new NotifyAction("after_registration_personal7");

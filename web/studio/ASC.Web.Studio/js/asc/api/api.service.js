@@ -5029,13 +5029,13 @@ window.ServiceManager = (function(helper) {
         );
     };
 
-    var createMailMailboxOAuth = function(eventname, params, email, refreshToken, serviceType, options) {
+    var createMailMailboxOAuth = function(eventname, params, code, serviceType, options) {
         return helper.request(
             eventname,
             params,
             ADD,
             'mail/accounts/oauth.json',
-            { email: email, token: refreshToken, type: serviceType },
+            { code: code, type: serviceType },
             options
         );
     };

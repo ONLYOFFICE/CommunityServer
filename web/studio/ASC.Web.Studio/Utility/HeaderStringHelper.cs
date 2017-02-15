@@ -26,6 +26,7 @@
 
 using System;
 using ASC.Web.Core;
+using Resources;
 
 namespace ASC.Web.Studio.Utility
 {
@@ -33,7 +34,7 @@ namespace ASC.Web.Studio.Utility
     {
         public static string GetHTMLSearchHeader(string searchString)
         {
-            return String.Format("{0}: \"{1}\"", Resources.Resource.SearchResult, searchString.HtmlEncode());
+            return String.Format("{0}: \"{1}\"", Resource.SearchResult, searchString.HtmlEncode());
         }
 
         public static string GetPageTitle(string pageTitle)
@@ -43,7 +44,7 @@ namespace ASC.Web.Studio.Utility
             if (product != null)
                 productName = product.Name;
 
-            productName = String.IsNullOrEmpty(productName) ? Resources.Resource.WebStudioName.HtmlEncode() : productName;
+            productName = String.IsNullOrEmpty(productName) ? Resource.WebStudioName : productName;
 
             return
                 string.IsNullOrEmpty(pageTitle)

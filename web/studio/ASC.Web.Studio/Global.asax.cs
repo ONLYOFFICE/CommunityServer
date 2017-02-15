@@ -63,8 +63,6 @@ namespace ASC.Web.Studio
                     {
                         applicationStarted = true;
                         Startup.Configure();
-                        TMResourceData.DBResourceManager.WhiteLableEnabled = true;
-                        WhiteLabelHelper.ApplyPartnerWhiteLableSettings();
                     }
                 }
             }
@@ -74,13 +72,12 @@ namespace ASC.Web.Studio
             BlockNotFoundPortal(tenant);
             BlockRemovedOrSuspendedPortal(tenant);
             BlockTransferingOrRestoringPortal(tenant);
+            BlockNotPaidPortal(tenant);
+            TenantWhiteLabelSettings.Apply(tenant.TenantId);
 
             Authenticate();
-            ResolveUserCulture();
-
-            BlockNotPaidPortal(tenant);
             BlockIPSecurityPortal(tenant);
-            TenantWhiteLabelSettings.Apply(tenant.TenantId);
+            ResolveUserCulture();
         }
 
         protected void Application_EndRequest(object sender, EventArgs e)
@@ -296,7 +293,7 @@ namespace ASC.Web.Studio
         {
             if (tenant == null) return;
 
-            var passthroughtRequestEndings = new[] { ".htm", ".ashx", ".png", ".ico" };
+            var passthroughtRequestEndings = new[] {".htm", ".ashx", ".png", ".ico", ".less", ".css", ".js"};
             if (passthroughtRequestEndings.Any(path => Request.Url.AbsolutePath.EndsWith(path, StringComparison.InvariantCultureIgnoreCase)))
             {
                 return;
@@ -304,7 +301,17 @@ namespace ASC.Web.Studio
 
             if (!TenantExtra.EnableTarrifSettings && TenantExtra.GetCurrentTariff().State >= TariffState.NotPaid)
             {
-                ResponseRedirect("~/402.htm", HttpStatusCode.PaymentRequired);
+                if (string.IsNullOrEmpty(AdditionalWhiteLabelSettings.Instance.BuyUrl)
+                    || AdditionalWhiteLabelSettings.Instance.BuyUrl == AdditionalWhiteLabelSettings.DefaultBuyUrl)
+                {
+                    Response.StatusCode = (int) HttpStatusCode.PaymentRequired;
+                    Response.End();
+                }
+                else if (!Request.Url.AbsolutePath.EndsWith(CommonLinkUtility.ToAbsolute(PaymentRequired.Location)))
+                {
+                    ResponseRedirect(PaymentRequired.Location, HttpStatusCode.PaymentRequired);
+                }
+                return;
             }
 
             if (CoreContext.Configuration.Standalone)
@@ -312,7 +319,8 @@ namespace ASC.Web.Studio
                 var licenseDay = TenantExtra.GetCurrentTariff().LicenseDate.Date;
                 if (licenseDay < DateTime.Today && licenseDay < TenantExtra.VersionReleaseDate)
                 {
-                    ResponseRedirect("~/402.htm", HttpStatusCode.PaymentRequired);
+                    Response.StatusCode = (int) HttpStatusCode.PaymentRequired;
+                    Response.End();
                 }
             }
         }
@@ -322,7 +330,7 @@ namespace ASC.Web.Studio
             if (tenant == null) return;
 
             var settings = SettingsManager.Instance.LoadSettings<IPRestrictionsSettings>(tenant.TenantId);
-            if (settings.Enable && SecurityContext.IsAuthenticated && !IPSecurity.IPSecurity.Verify(tenant.TenantId))
+            if (settings.Enable && SecurityContext.IsAuthenticated && !IPSecurity.IPSecurity.Verify(tenant))
             {
                 Auth.ProcessLogout();
 

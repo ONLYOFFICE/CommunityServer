@@ -23,7 +23,6 @@
  *
 */
 
-
 using ASC.ActiveDirectory;
 using ASC.ActiveDirectory.BuiltIn;
 using ASC.ActiveDirectory.Novell;
@@ -35,8 +34,6 @@ using ASC.Core.Users;
 using ASC.Security.Cryptography;
 using ASC.Web.Core.Utility.Settings;
 using ASC.Web.Studio.Core.Users;
-using ASC.Web.Studio.UserControls.Statistics;
-using ASC.Web.Studio.Utility;
 using log4net;
 using Newtonsoft.Json;
 using Resources;
@@ -44,302 +41,343 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Net.Mail;
 using System.Text;
 using System.Threading;
+using ASC.ActiveDirectory.DirectoryServices;
 
 namespace ASC.Web.Studio.Core.Import
 {
     public class SaveLdapSettingTask : IProgressItem
     {
-        private const int WAITING_TIMEOUT = 600;
-        private string _serializeSettings;
-        private readonly ILog log = LogManager.GetLogger(typeof(SaveLdapSettingTask));
-        private readonly LDAPUserImporter importer = new LDAPUserImporter();
-        private readonly LdapSettingsChecker ldapSettingsChecker;
+        #region .Fields
+        private readonly LDAPSupportSettings _settings;
+        private readonly ILog _log = LogManager.GetLogger(typeof(SaveLdapSettingTask));
+        private LDAPUserImporter _importer;
+        private readonly LdapSettingsChecker _ldapSettingsChecker;
+        private static readonly TimeSpan CacheExpired = TimeSpan.FromMinutes(15);
+        private readonly bool _skipSaveSettings;
+        #endregion
 
+        #region .Public
+
+        #region .Properties
         public object Id { get; set; }
-
         public object Status { get; set; }
         public object Error { get; set; }
         public double Percentage { get; set; }
         public bool IsCompleted { get; set; }
+        #endregion
 
-        public SaveLdapSettingTask(string serializeSettings, int tenantId, string status, bool acceptCertificate = false)
+        #region .Constuctor
+
+        public SaveLdapSettingTask(string serializeSettings, int tenantId, string status,
+                                   bool acceptCertificate = false, bool skipSaveSettings = false)
+            : this(JsonConvert.DeserializeObject<LDAPSupportSettings>(serializeSettings),
+                   tenantId, status, acceptCertificate, skipSaveSettings)
         {
-            _serializeSettings = serializeSettings;
-            Id = tenantId;
-            AscCache.Default.Insert("SaveLdapSettingTaskId", Id, TimeSpan.FromMinutes(15));
-            AscCache.Default.Insert("SaveLdapSettingTaskStatus", status, TimeSpan.FromMinutes(15));
-            AscCache.Default.Insert("SaveLdapSettingTaskAcceptCertificate", acceptCertificate, TimeSpan.FromMinutes(15));
-            ldapSettingsChecker = !WorkContext.IsMono ?
-                (LdapSettingsChecker)new SystemLdapSettingsChecker() : new NovellLdapSettingsChecker();
         }
+
+        public SaveLdapSettingTask(LDAPSupportSettings settings, int tenantId, string status, bool acceptCertificate = false, bool skipSaveSettings = false)
+        {
+            _settings = settings;
+            
+            Id = tenantId;
+
+            AscCache.Default.Remove(Constants.LDAP_SETTING_TASK_ID);
+            AscCache.Default.Remove(Constants.LDAP_SETTING_TASK_IS_COMPLETED);
+            AscCache.Default.Remove(Constants.LDAP_SETTING_TASK_PERCENTAGE);
+            AscCache.Default.Remove(Constants.LDAP_SETTING_TASK_STATUS);
+            AscCache.Default.Remove(Constants.LDAP_SETTING_TASK_ERROR);
+            AscCache.Default.Remove(Constants.NOVELL_LDAP_CERTIFICATE_CONFIRM_REQUEST);
+
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_ID, Id);
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_STATUS, status);
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_ACCEPT_CERTIFICATE, acceptCertificate);
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_STARTED, "started");
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_IS_COMPLETED, false);
+            
+            _ldapSettingsChecker = !WorkContext.IsMono
+                                       ? (LdapSettingsChecker) new SystemLdapSettingsChecker()
+                                       : new NovellLdapSettingsChecker();
+
+            _skipSaveSettings = skipSaveSettings;
+        }
+
+        #endregion
 
         public void RunJob()
         {
             try
             {
                 SecurityContext.AuthenticateMe(ASC.Core.Configuration.Constants.CoreSystem);
-                var tenantId = (int)Id;
-                CoreContext.TenantManager.SetCurrentTenant(tenantId);
-                ResolveCulture();
-                AscCache.Default.Insert("SaveLdapSettingTaskPercentage", 1, TimeSpan.FromMinutes(15));
-                AscCache.Default.Insert("SaveLdapSettingTaskStatus",
-                    Resource.LdapSettingsStatusCheckingLdapSettings, TimeSpan.FromMinutes(15));
-                AscCache.Default.Insert("SaveLdapSettingTaskIsCompleted", false, TimeSpan.FromMinutes(15));
 
-                if (_serializeSettings == null)
+                var tenantId = (int) Id;
+
+                CoreContext.TenantManager.SetCurrentTenant(tenantId);
+
+                ResolveCulture();
+
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, 1);
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_STATUS, Resource.LdapSettingsStatusCheckingLdapSettings);
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_IS_COMPLETED, false);
+
+                if (_settings == null)
                 {
-                    log.Error("Can't save default LDAP settings.");
-                    AscCache.Default.Insert("SaveLdapSettingTaskError",
-                        Resource.LdapSettingsErrorCantGetLdapSettings, TimeSpan.FromMinutes(15));
-                    AscCache.Default.Insert("SaveLdapSettingTaskIsCompleted", true, TimeSpan.FromMinutes(15));
+                    _log.Error("Can't save default LDAP settings.");
+                    SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR, Resource.LdapSettingsErrorCantGetLdapSettings);
                     return;
                 }
                 try
                 {
-                    var settings = JsonConvert.DeserializeObject<LDAPSupportSettings>(_serializeSettings);
-                    PrepareSettings(settings);
-                    bool acceptCertificate = (bool?)AscCache.Default.Get<object>("SaveLdapSettingTaskAcceptCertificate") ?? false;
-                    byte result = ldapSettingsChecker.CheckSettings(settings, importer, acceptCertificate);
+                    PrepareSettings(_settings);
+
+                    var acceptCertificate =
+                        (bool?) AscCache.Default.Get<object>(Constants.LDAP_SETTING_TASK_ACCEPT_CERTIFICATE) ?? false;
+
+                    if (_importer == null)
+                    {
+                        _importer = new LDAPUserImporter(_settings);
+                    }
+
+                    SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, 5);
+                    SetProggressInfo(Constants.LDAP_SETTING_TASK_STATUS, Resource.LdapSettingsStatusLoadingBaseInfo);
+
+                    var result = _ldapSettingsChecker.CheckSettings(_importer, acceptCertificate);
+
                     if (result == LdapSettingsChecker.CERTIFICATE_REQUEST)
                     {
-                        AscCache.Default.Insert("SaveLdapSettingTaskPercentage", 0, TimeSpan.FromMinutes(15));
-                        AscCache.Default.Insert("SaveLdapSettingTaskStatus",
-                            Resource.LdapSettingsStatusCertificateVerification, TimeSpan.FromMinutes(15));
-                        AscCache.Default.Insert("NovellLdapCertificateConfirmRequest",
-                            ((NovellLdapSettingsChecker)ldapSettingsChecker).CertificateConfirmRequest, TimeSpan.FromMinutes(15));
-                        AscCache.Default.Insert("SaveLdapSettingTaskIsCompleted", true, TimeSpan.FromMinutes(15));
+                        SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, 0);
+                        SetProggressInfo(Constants.LDAP_SETTING_TASK_STATUS,
+                                         Resource.LdapSettingsStatusCertificateVerification);
+                        SetProggressInfo(Constants.NOVELL_LDAP_CERTIFICATE_CONFIRM_REQUEST,
+                                         ((NovellLdapSettingsChecker) _ldapSettingsChecker).CertificateConfirmRequest);
                         return;
                     }
+
                     var error = GetError(result);
-                    if (error == string.Empty)
+                    if (error != string.Empty)
                     {
-                        AscCache.Default.Insert("SaveLdapSettingTaskStatus",
-                            Resource.LdapSettingsStatusSavingSettings, TimeSpan.FromMinutes(15));
-                        AscCache.Default.Insert("SaveLdapSettingTaskPercentage", 10, TimeSpan.FromMinutes(15));
-                        if (!SettingsManager.Instance.SaveSettings<LDAPSupportSettings>(settings, tenantId))
+                        SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR, error);
+                        return;
+                    }
+
+                    if (!_skipSaveSettings)
+                    {
+                        SetProggressInfo(Constants.LDAP_SETTING_TASK_STATUS, Resource.LdapSettingsStatusSavingSettings);
+                        SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, 10);
+
+                        _settings.IsDefault = _settings.Equals(_settings.GetDefault());
+
+                        if (!SettingsManager.Instance.SaveSettings(_settings, tenantId))
                         {
-                            log.Error("Can't save LDAP settings.");
-                            AscCache.Default.Insert("SaveLdapSettingTaskError",
-                                Resource.LdapSettingsErrorCantSaveLdapSettings, TimeSpan.FromMinutes(15));
-                            AscCache.Default.Insert("SaveLdapSettingTaskIsCompleted", true, TimeSpan.FromMinutes(15));
+                            _log.Error("Can't save LDAP settings.");
+                            SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR,
+                                             Resource.LdapSettingsErrorCantSaveLdapSettings);
                             return;
                         }
-                        // for logout old ldap users
-                        AddLToSids();
+                    }
 
-                        if (settings.EnableLdapAuthentication)
-                        {
-                            var wrongUser = CreateUsersAndGroups(settings);
-                            if (wrongUser != null)
-                            {
-                                log.ErrorFormat("FormatException error. wrongUser.Email = {0}, wrongUser.FirstName = {1}, wrongUser.LastName = {2}",
-                                    wrongUser.Email, wrongUser.FirstName, wrongUser.LastName);
-                                AscCache.Default.Insert("SaveLdapSettingTaskError",
-                                    String.Format(Resource.LdapSettingsWrongEmail, wrongUser.Email, wrongUser.FirstName ?? String.Empty,
-                                    wrongUser.LastName ?? String.Empty), TimeSpan.FromMinutes(15));
-                                AscCache.Default.Insert("SaveLdapSettingTaskIsCompleted", true, TimeSpan.FromMinutes(15));
-                                return;
-                            }
-                        }
-                        AscCache.Default.Insert("SaveLdapSettingTaskPercentage", 100, TimeSpan.FromMinutes(15));
+                    RemoveOldWorkaroundOnLogoutLDAPUsers();
+
+                    if (_settings.EnableLdapAuthentication)
+                    {
+                        SyncLDAP();
+
+                        var taskError = AscCache.Default.Get<string>(Constants.LDAP_SETTING_TASK_ERROR);
+                        if (!string.IsNullOrEmpty(taskError))
+                            return;
                     }
                     else
                     {
-                        AscCache.Default.Insert("SaveLdapSettingTaskError", error, TimeSpan.FromMinutes(15));
+                        SetProggressInfo(Constants.LDAP_SETTING_TASK_STATUS, Resource.LdapSettingsModifyLdapUsers);
+                        SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, 50);
+
+                        var existingLDAPUsers = CoreContext.UserManager.GetUsers().Where(u => u.Sid != null).ToList();
+                        foreach (var existingLDAPUser in existingLDAPUsers)
+                        {
+                            existingLDAPUser.Sid = null;
+                            CoreContext.UserManager.SaveUserInfo(existingLDAPUser);
+                        }
                     }
-                }
-                catch (GroupsNotFoundException e)
-                {
-                    log.ErrorFormat("GroupsNotFoundException. {0}", e);
-                    AscCache.Default.Insert("SaveLdapSettingTaskError", Resource.LdapSettingsGroupsNotFound, TimeSpan.FromMinutes(15));
+
+                    SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, 100);
                 }
                 catch (TenantQuotaException e)
                 {
-                    log.ErrorFormat("TenantQuotaException. {0}", e);
-                    AscCache.Default.Insert("SaveLdapSettingTaskError", Resource.LdapSettingsTenantQuotaSettled, TimeSpan.FromMinutes(15));
+                    _log.ErrorFormat("TenantQuotaException. {0}", e);
+                    SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR, Resource.LdapSettingsTenantQuotaSettled);
                 }
                 catch (FormatException e)
                 {
-                    log.ErrorFormat("FormatException error. {0}", e);
-                    AscCache.Default.Insert("SaveLdapSettingTaskError", Resource.LdapSettingsErrorCantCreateUsers, TimeSpan.FromMinutes(15));
+                    _log.ErrorFormat("FormatException error. {0}", e);
+                    SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR, Resource.LdapSettingsErrorCantCreateUsers);
                 }
                 catch (Exception e)
                 {
-                    log.ErrorFormat("Internal server error. {0}", e);
-                    AscCache.Default.Insert("SaveLdapSettingTaskError", Resource.LdapSettingsInternalServerError, TimeSpan.FromMinutes(15));
+                    _log.ErrorFormat("Internal server error. {0}", e);
+                    SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR, Resource.LdapSettingsInternalServerError);
                 }
             }
             finally
             {
-                AscCache.Default.Insert("SaveLdapSettingTaskIsCompleted", true, TimeSpan.FromMinutes(15));
-                AscCache.Default.Remove("SaveLdapSettingTaskStarted");
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_IS_COMPLETED, true);
+                AscCache.Default.Remove(Constants.LDAP_SETTING_TASK_STARTED);
                 SecurityContext.Logout();
             }
         }
+
+        public object Clone()
+        {
+            return MemberwiseClone();
+        }
+
+        #endregion
+
+        #region .Private
 
         private void PrepareSettings(LDAPSupportSettings settings)
         {
             if (settings == null)
             {
-                log.Error("Wrong LDAP settings were received from client.");
-                AscCache.Default.Insert("SaveLdapSettingTaskError", Resource.LdapSettingsErrorCantGetLdapSettings, TimeSpan.FromMinutes(15));
-                AscCache.Default.Insert("SaveLdapSettingTaskIsCompleted", true, TimeSpan.FromMinutes(15));
+                _log.Error("Wrong LDAP settings were received from client.");
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR, Resource.LdapSettingsErrorCantGetLdapSettings);
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_IS_COMPLETED, true);
                 return;
             }
-            if (settings.EnableLdapAuthentication)
+
+            if (!settings.EnableLdapAuthentication)
             {
-                if (!string.IsNullOrWhiteSpace(settings.Server))
-                {
-                    settings.Server = settings.Server.Trim();
-                }
+                settings.Password = string.Empty;
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(settings.Server))
+                settings.Server = settings.Server.Trim();
+            else
+            {
+                _log.Error("settings.Server is null or empty.");
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR, Resource.LdapSettingsErrorCantGetLdapSettings);
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_IS_COMPLETED, true);
+                return;
+            }
+
+            if (!settings.Server.StartsWith("LDAP://"))
+                settings.Server = "LDAP://" + settings.Server;
+
+            if (!string.IsNullOrWhiteSpace(settings.UserDN))
+                settings.UserDN = settings.UserDN.Trim();
+            else
+            {
+                _log.Error("settings.UserDN is null or empty.");
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR, Resource.LdapSettingsErrorCantGetLdapSettings);
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_IS_COMPLETED, true);
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(settings.LoginAttribute))
+                settings.LoginAttribute = settings.LoginAttribute.Trim();
+            else
+            {
+                _log.Error("settings.LoginAttribute is null or empty.");
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR, Resource.LdapSettingsErrorCantGetLdapSettings);
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_IS_COMPLETED, true);
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(settings.UserFilter))
+                settings.UserFilter = settings.UserFilter.Trim();
+
+            if (!string.IsNullOrWhiteSpace(settings.FirstNameAttribute))
+                settings.FirstNameAttribute = settings.FirstNameAttribute.Trim();
+
+            if (!string.IsNullOrWhiteSpace(settings.SecondNameAttribute))
+                settings.SecondNameAttribute = settings.SecondNameAttribute.Trim();
+
+            if (!string.IsNullOrWhiteSpace(settings.MailAttribute))
+                settings.MailAttribute = settings.MailAttribute.Trim();
+
+            if (!string.IsNullOrWhiteSpace(settings.TitleAttribute))
+                settings.TitleAttribute = settings.TitleAttribute.Trim();
+
+            if (!string.IsNullOrWhiteSpace(settings.MobilePhoneAttribute))
+                settings.MobilePhoneAttribute = settings.MobilePhoneAttribute.Trim();
+
+            if (settings.GroupMembership)
+            {
+                if (!string.IsNullOrWhiteSpace(settings.GroupDN))
+                    settings.GroupDN = settings.GroupDN.Trim();
                 else
                 {
-                    log.Error("settings.Server is null or empty.");
-                    AscCache.Default.Insert("SaveLdapSettingTaskError", Resource.LdapSettingsErrorCantGetLdapSettings, TimeSpan.FromMinutes(15));
-                    AscCache.Default.Insert("SaveLdapSettingTaskIsCompleted", true, TimeSpan.FromMinutes(15));
+                    _log.Error("settings.GroupDN is null or empty.");
+                    SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR, Resource.LdapSettingsErrorCantGetLdapSettings);
+                    SetProggressInfo(Constants.LDAP_SETTING_TASK_IS_COMPLETED, true);
                     return;
                 }
-                if (!settings.Server.StartsWith("LDAP://"))
-                {
-                    settings.Server = "LDAP://" + settings.Server;
-                }
-                if (!string.IsNullOrWhiteSpace(settings.UserDN))
-                {
-                    settings.UserDN = settings.UserDN.Trim();
-                }
+
+                if (!string.IsNullOrWhiteSpace(settings.GroupFilter))
+                    settings.GroupFilter = settings.GroupFilter.Trim();
+
+                if (!string.IsNullOrWhiteSpace(settings.GroupAttribute))
+                    settings.GroupAttribute = settings.GroupAttribute.Trim();
                 else
                 {
-                    log.Error("settings.UserDN is null or empty.");
-                    AscCache.Default.Insert("SaveLdapSettingTaskError", Resource.LdapSettingsErrorCantGetLdapSettings, TimeSpan.FromMinutes(15));
-                    AscCache.Default.Insert("SaveLdapSettingTaskIsCompleted", true, TimeSpan.FromMinutes(15));
+                    _log.Error("settings.GroupAttribute is null or empty.");
+                    SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR, Resource.LdapSettingsErrorCantGetLdapSettings);
+                    SetProggressInfo(Constants.LDAP_SETTING_TASK_IS_COMPLETED, true);
                     return;
                 }
-                if (!string.IsNullOrWhiteSpace(settings.LoginAttribute))
-                {
-                    settings.LoginAttribute = settings.LoginAttribute.Trim();
-                }
+
+                if (!string.IsNullOrWhiteSpace(settings.UserAttribute))
+                    settings.UserAttribute = settings.UserAttribute.Trim();
                 else
                 {
-                    log.Error("settings.LoginAttribute is null or empty.");
-                    AscCache.Default.Insert("SaveLdapSettingTaskError", Resource.LdapSettingsErrorCantGetLdapSettings, TimeSpan.FromMinutes(15));
-                    AscCache.Default.Insert("SaveLdapSettingTaskIsCompleted", true, TimeSpan.FromMinutes(15));
+                    _log.Error("settings.UserAttribute is null or empty.");
+                    SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR, Resource.LdapSettingsErrorCantGetLdapSettings);
+                    SetProggressInfo(Constants.LDAP_SETTING_TASK_IS_COMPLETED, true);
                     return;
-                }
-                if (!string.IsNullOrWhiteSpace(settings.UserFilter))
-                {
-                    settings.UserFilter = settings.UserFilter.Trim();
-                }
-                else
-                {
-                    log.Error("settings.UserFilter is null or empty.");
-                    AscCache.Default.Insert("SaveLdapSettingTaskError", Resource.LdapSettingsErrorCantGetLdapSettings, TimeSpan.FromMinutes(15));
-                    AscCache.Default.Insert("SaveLdapSettingTaskIsCompleted", true, TimeSpan.FromMinutes(15));
-                    return;
-                }
-                if (!string.IsNullOrWhiteSpace(settings.FirstNameAttribute))
-                {
-                    settings.FirstNameAttribute = settings.FirstNameAttribute.Trim();
-                }
-                if (!string.IsNullOrWhiteSpace(settings.SecondNameAttribute))
-                {
-                    settings.SecondNameAttribute = settings.SecondNameAttribute.Trim();
-                }
-                if (!string.IsNullOrWhiteSpace(settings.MailAttribute))
-                {
-                    settings.MailAttribute = settings.MailAttribute.Trim();
-                }
-                if (!string.IsNullOrWhiteSpace(settings.TitleAttribute))
-                {
-                    settings.TitleAttribute = settings.TitleAttribute.Trim();
-                }
-                if (!string.IsNullOrWhiteSpace(settings.MobilePhoneAttribute))
-                {
-                    settings.MobilePhoneAttribute = settings.MobilePhoneAttribute.Trim();
-                }
-                if (settings.GroupMembership)
-                {
-                    if (!string.IsNullOrWhiteSpace(settings.GroupDN))
-                    {
-                        settings.GroupDN = settings.GroupDN.Trim();
-                    }
-                    else
-                    {
-                        log.Error("settings.GroupDN is null or empty.");
-                        AscCache.Default.Insert("SaveLdapSettingTaskError", Resource.LdapSettingsErrorCantGetLdapSettings, TimeSpan.FromMinutes(15));
-                        AscCache.Default.Insert("SaveLdapSettingTaskIsCompleted", true, TimeSpan.FromMinutes(15));
-                        return;
-                    }
-                    if (!string.IsNullOrWhiteSpace(settings.GroupFilter))
-                    {
-                        settings.GroupFilter = settings.GroupFilter.Trim();
-                    }
-                    else
-                    {
-                        log.Error("settings.GroupFilter is null or empty.");
-                        AscCache.Default.Insert("SaveLdapSettingTaskError", Resource.LdapSettingsErrorCantGetLdapSettings, TimeSpan.FromMinutes(15));
-                        AscCache.Default.Insert("SaveLdapSettingTaskIsCompleted", true, TimeSpan.FromMinutes(15));
-                        return;
-                    }
-                    if (!string.IsNullOrWhiteSpace(settings.GroupAttribute))
-                    {
-                        settings.GroupAttribute = settings.GroupAttribute.Trim();
-                    }
-                    else
-                    {
-                        log.Error("settings.GroupAttribute is null or empty.");
-                        AscCache.Default.Insert("SaveLdapSettingTaskError", Resource.LdapSettingsErrorCantGetLdapSettings, TimeSpan.FromMinutes(15));
-                        AscCache.Default.Insert("SaveLdapSettingTaskIsCompleted", true, TimeSpan.FromMinutes(15));
-                        return;
-                    }
-                    if (!string.IsNullOrWhiteSpace(settings.UserAttribute))
-                    {
-                        settings.UserAttribute = settings.UserAttribute.Trim();
-                    }
-                    else
-                    {
-                        log.Error("settings.UserAttribute is null or empty.");
-                        AscCache.Default.Insert("SaveLdapSettingTaskError", Resource.LdapSettingsErrorCantGetLdapSettings, TimeSpan.FromMinutes(15));
-                        AscCache.Default.Insert("SaveLdapSettingTaskIsCompleted", true, TimeSpan.FromMinutes(15));
-                        return;
-                    }
-                }
-                if (WorkContext.IsMono)
-                {
-                    settings.Authentication = true;
-                }
-                if (settings.Authentication)
-                {
-                    if (!string.IsNullOrWhiteSpace(settings.Login))
-                    {
-                        settings.Login = settings.Login.Trim();
-                    }
-                    else
-                    {
-                        log.Error("settings.Login is null or empty.");
-                        AscCache.Default.Insert("SaveLdapSettingTaskError", Resource.LdapSettingsErrorCantGetLdapSettings, TimeSpan.FromMinutes(15));
-                        AscCache.Default.Insert("SaveLdapSettingTaskIsCompleted", true, TimeSpan.FromMinutes(15));
-                        return;
-                    }
-                    if (!string.IsNullOrEmpty(settings.Password))
-                    {
-                        settings.PasswordBytes = InstanceCrypto.Encrypt(new UnicodeEncoding().GetBytes(settings.Password));
-                    }
-                    else
-                    {
-                        log.Error("settings.Password is null or empty.");
-                        AscCache.Default.Insert("SaveLdapSettingTaskError", Resource.LdapSettingsErrorCantGetLdapSettings, TimeSpan.FromMinutes(15));
-                        AscCache.Default.Insert("SaveLdapSettingTaskIsCompleted", true, TimeSpan.FromMinutes(15));
-                        return;
-                    }
                 }
             }
+
+            if (WorkContext.IsMono)
+                settings.Authentication = true;
+
+            if (!settings.Authentication)
+            {
+                settings.Password = string.Empty;
+                return;
+            }
+
+            if (!string.IsNullOrWhiteSpace(settings.Login))
+                settings.Login = settings.Login.Trim();
+            else
+            {
+                _log.Error("settings.Login is null or empty.");
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR, Resource.LdapSettingsErrorCantGetLdapSettings);
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_IS_COMPLETED, true);
+                return;
+            }
+
+            if (settings.PasswordBytes == null || !settings.PasswordBytes.Any())
+            {
+                if (!string.IsNullOrEmpty(settings.Password))
+                {
+                    settings.PasswordBytes =
+                        InstanceCrypto.Encrypt(new UnicodeEncoding().GetBytes(settings.Password));
+                }
+                else
+                {
+                    _log.Error("settings.Password is null or empty.");
+                    SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR,
+                                     Resource.LdapSettingsErrorCantGetLdapSettings);
+                    SetProggressInfo(Constants.LDAP_SETTING_TASK_IS_COMPLETED, true);
+                    return;
+                }
+            }
+
             settings.Password = string.Empty;
         }
 
-        private void ResolveCulture()
+        private static void ResolveCulture()
         {
             CultureInfo culture = null;
 
@@ -359,7 +397,7 @@ namespace ASC.Web.Studio.Core.Import
             }
         }
 
-        private string GetError(byte result)
+        private static string GetError(byte result)
         {
             switch (result)
             {
@@ -402,197 +440,390 @@ namespace ASC.Web.Studio.Core.Import
             }
         }
 
-        private void AddLToSids()
+        /// <summary>
+        /// Remove old workaround: Add L to sid for invalidate cookie
+        /// </summary>
+        private static void RemoveOldWorkaroundOnLogoutLDAPUsers()
         {
-            var users = CoreContext.UserManager.GetUsers().Where(u => u.Sid != null).ToArray();
-            for (int i = 0; i < users.Length; i++)
+            var users = CoreContext.UserManager.GetUsers().Where(u => u.Sid != null && u.Sid.StartsWith("l")).ToArray();
+            foreach (var userInfo in users)
             {
-                if (!users[i].Sid.StartsWith("l"))
-                {
-                    users[i].Sid = "l" + users[i].Sid;
-                    CoreContext.UserManager.SaveUserInfo(users[i]);
-                }
+                userInfo.Sid = userInfo.Sid.Remove(0, 1);
+                CoreContext.UserManager.SaveUserInfo(userInfo);
             }
         }
 
-        private UserInfo CreateUsersAndGroups(LDAPSupportSettings settings)
+        private static void RemoveOldDbUsers(List<UserInfo> ldapUsers)
         {
-            AscCache.Default.Insert("SaveLdapSettingTaskStatus", Resource.LdapSettingsStatusGettingGroupsFromLdap, TimeSpan.FromMinutes(15));
-            List<GroupInfo> existingGroups;
-            var groups = importer.GetDiscoveredGroupsByAttributes(settings, out existingGroups);
-            if (groups != null && groups.Count == 0 && existingGroups.Count == 0)
+            var dbLdapUsers = CoreContext.UserManager.GetUsers().Where(u => u.Sid != null && !u.IsOwner()).ToList();
+
+            if (!dbLdapUsers.Any())
+                return;
+
+            var removedUsers =
+                dbLdapUsers
+                    .Where(u => ldapUsers
+                                    .FirstOrDefault(lu =>
+                                                    u.Sid.Equals(lu.Sid)) == null)
+                    .ToList();
+
+            if (!removedUsers.Any())
+                return;
+
+            const double percents = 10;
+
+            var step = percents / removedUsers.Count;
+
+            var percentage = Convert.ToDouble(AscCache.Default.Get<object>(Constants.LDAP_SETTING_TASK_PERCENTAGE) ?? "0");
+
+            foreach (var removedUser in removedUsers)
             {
-                log.Error("Not found any group which would contain users. groups.Count == 0.");
-                throw new GroupsNotFoundException();
-            }
-            AscCache.Default.Insert("SaveLdapSettingTaskPercentage", 15, TimeSpan.FromMinutes(15));
-            AscCache.Default.Insert("SaveLdapSettingTaskStatus", Resource.LdapSettingsStatusGettingUsersFromLdap, TimeSpan.FromMinutes(15));
-            var users = importer.GetDiscoveredUsersByAttributes(settings);
-            AscCache.Default.Insert("SaveLdapSettingTaskPercentage", 20, TimeSpan.FromMinutes(15));
-            AscCache.Default.Insert("SaveLdapSettingTaskStatus", Resource.LdapSettingsStatusSavingGroups, TimeSpan.FromMinutes(15));
-            AddGroupsToCore(groups);
-            AscCache.Default.Insert("SaveLdapSettingTaskPercentage", 40, TimeSpan.FromMinutes(15));
-            AscCache.Default.Insert("SaveLdapSettingTaskStatus", Resource.LdapSettingsStatusSavingUsers, TimeSpan.FromMinutes(15));
-            double percents = 35;
-            var step = percents / users.Count;
-            double percentage = Convert.ToDouble(AscCache.Default.Get<string>("SaveLdapSettingTaskPercentage") ?? "0");
-            if (users != null && users.Count != 0)
-            {
-                for (int i = 0; i < users.Count; i++)
-                {
-                    if (users[i].FirstName == string.Empty)
-                    {
-                        users[i].FirstName = Resource.FirstName;
-                    }
-                    if (users[i].LastName == string.Empty)
-                    {
-                        users[i].LastName = Resource.LastName;
-                    }
-                }
-                users = users.SortByUserName();
-                for (int i = 0; i < users.Count; i++)
-                {
-                    if (!CheckEmail(users[i].Email))
-                    {
-                        return users[i];
-                    }
-                }
-                for (int i = 0; i < users.Count; i++)
-                {
-                    importer.CheckEmailIsNew(users[i]);
-                    if (TenantStatisticsProvider.GetUsersCount() < TenantExtra.GetTenantQuota().ActiveUsers)
-                    {
-                        users[i] = UserManagerWrapper.AddUser(users[i], UserManagerWrapper.GeneratePassword(), true, false);
-                    }
-                    else
-                    {
-                        users[i] = UserManagerWrapper.AddUser(users[i], UserManagerWrapper.GeneratePassword(), true, false, true);
-                    }
-                    percentage += step;
-                    AscCache.Default.Insert("SaveLdapSettingTaskPercentage", Convert.ToInt32(percentage), TimeSpan.FromMinutes(15));
-                }
-            }
-            AscCache.Default.Insert("SaveLdapSettingTaskPercentage", 75, TimeSpan.FromMinutes(15));
-            var allLdapUsers = CoreContext.UserManager.GetUsers().Where(u => u.Sid != null).ToArray();
-            percents = 15;
-            step = percents / allLdapUsers.Length;
-            percentage = Convert.ToDouble(AscCache.Default.Get<string>("SaveLdapSettingTaskPercentage") ?? "0");
-            for (int i = 0; i < allLdapUsers.Length; i++)
-            {
-                importer.AddUserIntoGroups(allLdapUsers[i], settings);
+                CoreContext.UserManager.DeleteUser(removedUser.ID);
+
                 percentage += step;
-                AscCache.Default.Insert("SaveLdapSettingTaskPercentage", Convert.ToInt32(percentage), TimeSpan.FromMinutes(15));
+
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, Convert.ToInt32(percentage));
             }
-            AscCache.Default.Insert("SaveLdapSettingTaskPercentage", 90, TimeSpan.FromMinutes(15));
-            AddUsersInCacheGroups();
-            RemoveEmptyGroups();
-            return null;
+
+            dbLdapUsers.RemoveAll(removedUsers.Contains);
+
+            ldapUsers.RemoveAll(u => removedUsers.Exists(ru => ru.Sid.Equals(u.Sid)));
         }
 
-        private bool CheckEmail(string email)
+        private static void RemoveOldDbGroups(List<GroupInfo> ldapGroups)
         {
-            try
+            var percentage = Convert.ToDouble(AscCache.Default.Get<object>(Constants.LDAP_SETTING_TASK_PERCENTAGE) ?? "0");
+
+            var removedDbLdapGroups =
+                CoreContext.UserManager.GetGroups()
+                    .Where(g => g.Sid != null && ldapGroups.FirstOrDefault(lg => g.Sid.Equals(lg.Sid)) == null)
+                    .ToList();
+
+            if (!removedDbLdapGroups.Any())
+                return;
+
+            const double percents = 10;
+
+            var step = percents / removedDbLdapGroups.Count;
+
+            foreach (var groupInfo in removedDbLdapGroups)
             {
-                new MailAddress(email);
-                return true;
-            }
-            catch
-            {
-                log.ErrorFormat("Wrong email format: {0}", email);
-                return false;
+                CoreContext.UserManager.DeleteGroup(groupInfo.ID);
+
+                percentage += step;
+
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, Convert.ToInt32(percentage));
             }
         }
 
-        private void RemoveEmptyGroups()
+        private static void SyncDbUsers(List<UserInfo> ldapUsers)
         {
-            foreach (var group in CoreContext.UserManager.GetGroups().Where(g => !string.IsNullOrEmpty(g.Sid)).ToList())
+            const double percents = 35;
+
+            var step = percents / ldapUsers.Count;
+
+            var percentage = Convert.ToDouble(AscCache.Default.Get<object>(Constants.LDAP_SETTING_TASK_PERCENTAGE) ?? "0");
+
+            if (!ldapUsers.Any()) 
+                return;
+
+            foreach (var userInfo in ldapUsers)
             {
-                if (CoreContext.UserManager.GetUsersByGroup(group.ID).Length == 0)
+                UserManagerWrapper.SyncUserLDAP(userInfo);
+
+                percentage += step;
+
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, Convert.ToInt32(percentage));
+            }
+        }
+
+        private static void RemoveOldDbGroupMembers(GroupInfo groupInfo, IEnumerable<UserInfo> dbGroupMembers, IEnumerable<UserInfo> ldapGroupMembers)
+        {
+            var removedGroupMembers =
+                    dbGroupMembers.Where(
+                        dbUser => ldapGroupMembers
+                                      .FirstOrDefault(lu => dbUser.Sid.Equals(lu.Sid)) == null);
+
+            foreach (var dbUser in removedGroupMembers)
+            {
+                CoreContext.UserManager.RemoveUserFromGroup(dbUser.ID, groupInfo.ID);
+            }
+        }
+
+        private static void RemoveDbGroupIfEmpty(GroupInfo groupInfo)
+        {
+            var dbGroupMembers = CoreContext.UserManager.GetUsersByGroup(groupInfo.ID).ToList();
+
+            if (!dbGroupMembers.Any())
+                CoreContext.UserManager.DeleteGroup(groupInfo.ID);
+        }
+
+        private static UserInfo SearchDbUserBySid(string sid)
+        {
+            if (string.IsNullOrEmpty(sid))
+                return ASC.Core.Users.Constants.LostUser;
+            
+            var foundUser = CoreContext.UserManager.GetUserBySid(sid);
+
+            return foundUser;
+        }
+
+        private void SyncDbGroups(Dictionary<GroupInfo, List<UserInfo>> ldapGroupsWithUsers)
+        {
+            const double percents = 20;
+
+            var step = percents / ldapGroupsWithUsers.Count;
+
+            var percentage = Convert.ToDouble(AscCache.Default.Get<object>(Constants.LDAP_SETTING_TASK_PERCENTAGE) ?? "0");
+
+            if (!ldapGroupsWithUsers.Any())
+                return;
+
+            foreach (var ldapGroupWithUsers in ldapGroupsWithUsers)
+            {
+                var ldapGroup = ldapGroupWithUsers.Key;
+
+                var ldapGroupUsers = ldapGroupWithUsers.Value;
+
+                var dbLdapGroup = CoreContext.UserManager.GetGroupInfoBySid(ldapGroup.Sid);
+
+                IEnumerable<UserInfo> groupMembersToAdd;
+
+                if (Equals(dbLdapGroup, ASC.Core.Users.Constants.LostGroupInfo))
                 {
-                    CoreContext.UserManager.DeleteGroup(group.ID);
-                }
-            }
-        }
-
-        private void AddUsersInCacheGroups()
-        {
-            var cache = importer.GetCache();
-            if (cache != null && cache.Count != 0)
-            {
-                double percents = 10;
-                double step = percents / cache.Count;
-                double percentage = Convert.ToDouble(AscCache.Default.Get<string>("SaveLdapSettingTaskPercentage") ?? "0");
-                foreach (var pair in cache)
-                {
-                    var childDomainGroup = GetLDAPGroup(pair.Key);
-                    if (childDomainGroup != null)
+                    if (ldapGroupUsers.Any()) // Skip empty groups
                     {
-                        string childDomainGroupSid = childDomainGroup.Sid;
-                        var childGroup = CoreContext.UserManager.GetGroupInfoBySid(childDomainGroupSid);
-                        if (childGroup != ASC.Core.Users.Constants.LostGroupInfo)
+                        groupMembersToAdd = ldapGroupUsers.Select(ldapGroupUser => SearchDbUserBySid(ldapGroupUser.Sid))
+                                                          .Where(
+                                                              userBySid =>
+                                                              !Equals(userBySid, ASC.Core.Users.Constants.LostUser))
+                                                              .ToList();
+
+                        if (groupMembersToAdd.Any())
                         {
-                            foreach (var user in CoreContext.UserManager.GetUsersByGroup(childGroup.ID))
+                            ldapGroup = CoreContext.UserManager.SaveGroupInfo(ldapGroup);
+
+                            foreach (var userBySid in groupMembersToAdd)
                             {
-                                foreach (var sid in pair.Value)
-                                {
-                                    var group = CoreContext.UserManager.GetGroupInfoBySid(sid);
-                                    if (group != ASC.Core.Users.Constants.LostGroupInfo)
-                                    {
-                                        CoreContext.UserManager.AddUserIntoGroup(user.ID, group.ID);
-                                    }
-                                }
+                                CoreContext.UserManager.AddUserIntoGroup(userBySid.ID, ldapGroup.ID);
                             }
                         }
                     }
-                    percentage += step;
-                    AscCache.Default.Insert("SaveLdapSettingTaskPercentage", Convert.ToInt32(percentage), TimeSpan.FromMinutes(15));
                 }
-            }
-        }
-
-        private LDAPObject GetLDAPGroup(string distinguishedName)
-        {
-            if (importer.DomainGroups != null)
-            {
-                for (int i = 0; i < importer.DomainGroups.Count; i++)
+                else
                 {
-                    if (importer.DomainGroups[i].DistinguishedName.Equals(
-                        distinguishedName, StringComparison.InvariantCultureIgnoreCase))
+                    if (!dbLdapGroup.Name.Equals(ldapGroup.Name, StringComparison.InvariantCultureIgnoreCase))
                     {
-                        return importer.DomainGroups[i];
+                        // Update group name
+                        dbLdapGroup.Name = ldapGroup.Name;
+
+                        CoreContext.UserManager.SaveGroupInfo(dbLdapGroup);
                     }
+
+                    var dbGroupMembers =
+                        CoreContext.UserManager.GetUsersByGroup(dbLdapGroup.ID).Where(u => u.Sid != null).ToList();
+
+                    RemoveOldDbGroupMembers(dbLdapGroup, dbGroupMembers, ldapGroupUsers);
+
+                    groupMembersToAdd = from ldapGroupUser in ldapGroupUsers
+                                        let dbUser = dbGroupMembers.FirstOrDefault(
+                                            u =>
+                                            u.Sid.Equals(ldapGroupUser.Sid))
+                                        where dbUser == null
+                                        select SearchDbUserBySid(ldapGroupUser.Sid)
+                                        into userBySid
+                                        where !Equals(userBySid, ASC.Core.Users.Constants.LostUser)
+                                        select userBySid;
+
+                    foreach (var userInfo in groupMembersToAdd)
+                    {
+                        CoreContext.UserManager.AddUserIntoGroup(userInfo.ID, dbLdapGroup.ID);
+                    }
+
+                    RemoveDbGroupIfEmpty(dbLdapGroup);
                 }
+
+                percentage += step;
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, Convert.ToInt32(percentage));
             }
-            return null;
         }
 
-        private void AddGroupsToCore(List<GroupInfo> groups)
+        private void SyncLDAPUsers()
         {
-            var percents = 30;
-            double percentage = Convert.ToDouble(AscCache.Default.Get<string>("SaveLdapSettingTaskPercentage") ?? "0");
-            if (groups != null && groups.Count != 0)
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, 15);
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_STATUS, Resource.LdapSettingsStatusGettingUsersFromLdap);
+
+            var ldapUsers = _importer.GetDiscoveredUsersByAttributes()
+                                 .ConvertAll(u =>
+                                 {
+                                     if (u.FirstName == string.Empty)
+                                         u.FirstName = Resource.FirstName;
+
+                                     if (u.LastName == string.Empty)
+                                         u.LastName = Resource.LastName;
+
+                                     return u;
+                                 })
+                                 .SortByUserName()
+                                 .ToList();
+
+            if (!ldapUsers.Any())
             {
-                var step = percents / groups.Count;
-                foreach (var group in groups)
-                {
-                    if (CoreContext.UserManager.GetGroupInfoBySid(group.Sid).ID == ASC.Core.Users.Constants.LostGroupInfo.ID)
-                    {
-                        CoreContext.UserManager.SaveGroupInfo(group);
-                    }
-                    percentage += step;
-                    AscCache.Default.Insert("SaveLdapSettingTaskPercentage", Convert.ToInt32(percentage), TimeSpan.FromMinutes(15));
-                }
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR, Resource.LdapSettingsErrorUsersNotFound);
+                return;
             }
-            AscCache.Default.Insert("SaveLdapSettingTaskPercentage", 45, TimeSpan.FromMinutes(15));
+
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, 20);
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_STATUS, Resource.LdapSettingsStatusRemovingOldUsers);
+
+            RemoveOldDbUsers(ldapUsers);
+
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, 30);
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_STATUS, Resource.LdapSettingsStatusSavingUsers);
+
+            SyncDbUsers(ldapUsers);
+
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, 70);
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_STATUS, Resource.LdapSettingsStatusRemovingOldGroups);
+
+            RemoveOldDbGroups(new List<GroupInfo>()); // Remove all db groups with sid
         }
 
-        public object Clone()
+        private void SyncLDAPUsersInGroups()
         {
-            return MemberwiseClone();
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, 15);
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_STATUS, Resource.LdapSettingsStatusGettingGroupsFromLdap);
+
+            var ldapGroups = _importer.GetDiscoveredGroupsByAttributes();
+
+            if (!ldapGroups.Any())
+            {
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR, Resource.LdapSettingsErrorGroupsNotFound);
+                return;
+            }
+
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, 20);
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_STATUS, Resource.LdapSettingsStatusGettingUsersFromLdap);
+
+            //Get All found groups users
+            List<UserInfo> uniqueLdapGroupUsers;
+
+            var ldapGroupsUsers = GetGroupsUsers(ldapGroups, out uniqueLdapGroupUsers);
+
+            uniqueLdapGroupUsers = uniqueLdapGroupUsers
+                .ConvertAll(u =>
+                {
+                    if (u.FirstName == string.Empty)
+                        u.FirstName = Resource.FirstName;
+
+                    if (u.LastName == string.Empty)
+                        u.LastName = Resource.LastName;
+
+                    return u;
+                })
+                .SortByUserName()
+                .ToList();
+
+            if (!uniqueLdapGroupUsers.Any())
+            {
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_ERROR, Resource.LdapSettingsErrorUsersNotFound);
+                return;
+            }
+
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, 30);
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_STATUS, Resource.LdapSettingsStatusSavingUsers);
+
+            SyncGroupsUsers(uniqueLdapGroupUsers);
+
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, 60);
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_STATUS, Resource.LdapSettingsStatusSavingGroups);
+
+            SyncDbGroups(ldapGroupsUsers);
+
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, 80);
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_STATUS, Resource.LdapSettingsStatusRemovingOldGroups);
+
+            RemoveOldDbGroups(ldapGroups);
+
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, 90);
+            SetProggressInfo(Constants.LDAP_SETTING_TASK_STATUS, Resource.LdapSettingsStatusRemovingOldUsers);
+
+            RemoveOldDbUsers(uniqueLdapGroupUsers);
         }
 
-        private class GroupsNotFoundException : Exception
+        private void SyncGroupsUsers(List<UserInfo> uniqueLdapGroupUsers)
         {
+            const double percents = 30;
+
+            var step = percents / uniqueLdapGroupUsers.Count;
+
+            var percentage = Convert.ToDouble(AscCache.Default.Get<object>(Constants.LDAP_SETTING_TASK_PERCENTAGE) ?? "0");
+
+            int i, len;
+            for (i = 0, len = uniqueLdapGroupUsers.Count; i < len; i++)
+            {
+                var ldapGroupUser = uniqueLdapGroupUsers[i];
+                uniqueLdapGroupUsers[i] = UserManagerWrapper.SyncUserLDAP(ldapGroupUser);
+
+                percentage += step;
+                SetProggressInfo(Constants.LDAP_SETTING_TASK_PERCENTAGE, Convert.ToInt32(percentage));
+            }
         }
+
+        private Dictionary<GroupInfo, List<UserInfo>> GetGroupsUsers(List<GroupInfo> ldapGroups, out List<UserInfo> uniqueLdapGroupUsers)
+        {
+            uniqueLdapGroupUsers = new List<UserInfo>();
+
+            var listGroupsUsers = new Dictionary<GroupInfo, List<UserInfo>>();
+
+            int i, len;
+            for (i = 0, len = ldapGroups.Count; i < len; i++)
+            {
+                var ldapGroup = ldapGroups[i];
+
+                var ldapGroupUsers = _importer.GetGroupUsers(ldapGroup);
+
+                listGroupsUsers.Add(ldapGroup, ldapGroupUsers);
+
+                List<UserInfo> groupUsers = uniqueLdapGroupUsers;
+                var users = ldapGroupUsers.Where(u => !groupUsers.Contains(u)).ToList();
+                if(users.Any())
+                    uniqueLdapGroupUsers.AddRange(users);
+            }
+
+            return listGroupsUsers;
+        }
+
+
+        private void SyncLDAP()
+        {
+            if (!_settings.GroupMembership)
+            {
+                SyncLDAPUsers();
+            }
+            else
+            {
+                SyncLDAPUsersInGroups();
+            }
+        }
+
+        public static class Constants
+        {
+            public const string LDAP_SETTING_TASK_ID = "SaveLdapSettingTaskId";
+            public const string LDAP_SETTING_TASK_STATUS = "SaveLdapSettingTaskStatus";
+            public const string LDAP_SETTING_TASK_ACCEPT_CERTIFICATE = "SaveLdapSettingTaskAcceptCertificate";
+            public const string LDAP_SETTING_TASK_PERCENTAGE = "SaveLdapSettingTaskPercentage";
+            public const string LDAP_SETTING_TASK_IS_COMPLETED = "SaveLdapSettingTaskIsCompleted";
+            public const string LDAP_SETTING_TASK_ERROR = "SaveLdapSettingTaskError";
+            public const string LDAP_SETTING_TASK_STARTED = "SaveLdapSettingTaskStarted";
+            public const string NOVELL_LDAP_CERTIFICATE_CONFIRM_REQUEST = "NovellLdapCertificateConfirmRequest";
+        }
+
+        private static void SetProggressInfo<T>(string key, T value)
+        {
+            AscCache.Default.Insert(key, value, CacheExpired);
+        }
+
+        #endregion
     }
 }

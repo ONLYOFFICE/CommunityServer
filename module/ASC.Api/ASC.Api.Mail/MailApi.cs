@@ -146,6 +146,17 @@ namespace ASC.Api.Mail
             }
         }
 
+        /// <summary>
+        /// Protocol log path (if not empty then enabled)
+        /// </summary>
+        private string ProtocolLogPath
+        {
+            get
+            {
+                return ConfigurationManager.AppSettings["mail.protocol-log-path"] ?? "";
+            }
+        }
+
         ///<summary>
         /// Constructor
         ///</summary>

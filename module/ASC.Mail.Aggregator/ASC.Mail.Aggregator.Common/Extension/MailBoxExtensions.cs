@@ -107,7 +107,7 @@ namespace ASC.Mail.Aggregator.Common.Extension
                 }
                 catch (InvalidCredentialException)
                 {
-                    SecurityContext.AuthenticateMe(mailbox.UserId);
+                    SecurityContext.AuthenticateMe(new Guid(mailbox.UserId));
                 }
 
                 var apiHelper = new ApiHelper(httpContextScheme);
@@ -116,7 +116,7 @@ namespace ASC.Mail.Aggregator.Common.Extension
             catch (Exception ex)
             {
                 log.Error("GetTenantStatus(Tenant={0}, User='{1}') Exception: {2}",
-                    mailbox.TenantId, mailbox.UserId, ex.Message);
+                    mailbox.TenantId, mailbox.UserId, ex.InnerException != null ? ex.InnerException.Message : ex.Message);
                 type = Defines.TariffType.Active;
             }
 
@@ -146,6 +146,34 @@ namespace ASC.Mail.Aggregator.Common.Extension
             }
 
             return quotaEnded;
+        }
+
+        public static bool IsCrmAvailable(this MailBox mailbox,
+            string httpContextScheme, ILogger log = null)
+        {
+            log = log ?? new NullLogger();
+
+            try
+            {
+                CoreContext.TenantManager.SetCurrentTenant(mailbox.TenantId);
+
+                var tenantInfo = CoreContext.TenantManager.GetCurrentTenant();
+
+                if (tenantInfo.Status == TenantStatus.RemovePending)
+                    return false;
+
+                SecurityContext.AuthenticateMe(new Guid(mailbox.UserId));
+
+                var apiHelper = new ApiHelper(httpContextScheme);
+                return apiHelper.IsCrmModuleAvailable();
+            }
+            catch (Exception ex)
+            {
+                log.Error("GetTenantStatus(Tenant={0}, User='{1}') Exception: {2}",
+                    mailbox.TenantId, mailbox.UserId, ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+            }
+
+            return true;
         }
     }
 }

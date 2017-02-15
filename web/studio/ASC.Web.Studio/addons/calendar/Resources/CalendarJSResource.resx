@@ -598,4 +598,10 @@ portal users or use any other email to invite people to your event.</value>
   <data name="calendarEventEditor_requiredParticipant" xml:space="preserve">
     <value>Required</value>
   </data>
+  <data name="deleteSettings_singleBody" xml:space="preserve">
+    <value>The deleted event cannot be restored. Are you sure you want to continue?</value>
+  </data>
+  <data name="deleteSettings_singleHeader" xml:space="preserve">
+    <value>Delete event</value>
+  </data>
 </root>

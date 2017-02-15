@@ -25,64 +25,54 @@
 
 
 using System;
-using System.Collections.Generic;
-using System.Threading;
+using System.Collections.Concurrent;
 
 namespace ASC.Xmpp.Server.Streams
 {
-	public class XmppStreamManager
-	{
-        private readonly IDictionary<string, XmppStream> streams = new Dictionary<string, XmppStream>();
+    public class XmppStreamManager
+    {
+        private readonly ConcurrentDictionary<string, XmppStream> streams = new ConcurrentDictionary<string, XmppStream>();
 
-        private readonly ReaderWriterLockSlim locker = new ReaderWriterLockSlim(LockRecursionPolicy.SupportsRecursion);
+        public XmppStream GetStream(string connectionId)
+        {
+            if (string.IsNullOrEmpty(connectionId))
+            {
+                throw new ArgumentNullException("connectionId");
+            }
 
-		public XmppStream GetStream(string connectionId)
-		{
-			if (string.IsNullOrEmpty(connectionId)) throw new ArgumentNullException("connectionId");
-			try
-			{
-				locker.EnterReadLock();
-				return streams.ContainsKey(connectionId) ? streams[connectionId] : null;
-			}
-			finally
-			{
-				locker.ExitReadLock();
-			}
-		}
+            XmppStream stream;
+            streams.TryGetValue(connectionId, out stream);
+            return stream;
+        }
 
-		public XmppStream GetOrCreateNewStream(string connectionId)
-		{
-			if (string.IsNullOrEmpty(connectionId)) throw new ArgumentNullException("connectionId");
-			try
-			{
-                locker.EnterWriteLock();
-				var stream = new XmppStream(connectionId);
-				if (streams.ContainsKey(connectionId))
-				{
-					var oldStream = streams[connectionId];
-					if (oldStream.Authenticated) stream.Authenticate(oldStream.User);
-				}
-				streams[connectionId] = stream;
-				return stream;
-			}
-			finally
-			{
-				locker.ExitWriteLock();
-			}
-		}
+        public XmppStream GetOrCreateNewStream(string connectionId)
+        {
+            if (string.IsNullOrEmpty(connectionId))
+            {
+                throw new ArgumentNullException("connectionId");
+            }
 
-		public void RemoveStream(string connectionId)
-		{
-			if (string.IsNullOrEmpty(connectionId)) throw new ArgumentNullException("connectionId");
-			try
-			{
-				locker.EnterWriteLock();
-				streams.Remove(connectionId);
-			}
-			finally
-			{
-				locker.ExitWriteLock();
-			}
-		}
-	}
+            var stream = new XmppStream(connectionId);
+            streams.AddOrUpdate(connectionId, stream, (id, old) =>
+            {
+                if (old.Authenticated)
+                {
+                    stream.Authenticate(old.User);
+                }
+                return stream;
+            });
+            return stream;
+        }
+
+        public void RemoveStream(string connectionId)
+        {
+            if (string.IsNullOrEmpty(connectionId))
+            {
+                throw new ArgumentNullException("connectionId");
+            }
+
+            XmppStream stream;
+            streams.TryRemove(connectionId, out stream);
+        }
+    }
 }

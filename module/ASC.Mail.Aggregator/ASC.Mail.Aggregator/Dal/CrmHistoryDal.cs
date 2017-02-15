@@ -26,6 +26,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.IO;
 using ASC.Core;
 using ASC.CRM.Core;
 using ASC.CRM.Core.Dao;
@@ -82,13 +83,28 @@ namespace ASC.Mail.Aggregator.Dal
 
                 foreach (var attachment in message.Attachments.FindAll(attach => !attach.isEmbedded))
                 {
-                    using (var file = AttachmentManager.GetAttachmentStream(attachment))
+                    if (attachment.dataStream != null)
                     {
-                        var uploadedFileId = apiHelper.UploadToCrm(file.FileStream, file.FileName,
-                                                                       attachment.contentType, contactEntity);
+                        attachment.dataStream.Seek(0, SeekOrigin.Begin);
+
+                        var uploadedFileId = apiHelper.UploadToCrm(attachment.dataStream, attachment.fileName,
+                            attachment.contentType, contactEntity);
+
                         if (uploadedFileId > 0)
                         {
                             fileIds.Add(uploadedFileId);
+                        }
+                    }
+                    else
+                    {
+                        using (var file = AttachmentManager.GetAttachmentStream(attachment))
+                        {
+                            var uploadedFileId = apiHelper.UploadToCrm(file.FileStream, file.FileName,
+                                attachment.contentType, contactEntity);
+                            if (uploadedFileId > 0)
+                            {
+                                fileIds.Add(uploadedFileId);
+                            }
                         }
                     }
                 }

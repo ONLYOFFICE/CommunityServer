@@ -1,18 +1,25 @@
 [Unit]
 Description=FastCGI Mono server
-After=syslog.target
+After=network.target syslog.target mysql.service redis.service
 
 [Service]
-ExecStart=/usr/bin/fastcgi-mono-server4 /applications=/:/var/www/onlyoffice/WebStudio/ /socket=tcp:127.0.0.1:9000 /logfile=/var/log/onlyoffice/onlyoffice.log
-Environment=MONO_IOMAP=all MONO_ASPNET_WEBCONFIG_CACHESIZE=2000 MONO_THREADS_PER_CPU=2000 MONO_GC_PARAMS=nursery-size=64m
+PermissionsStartOnly=true
+ExecStartPre=/bin/bash -c 'test -e /var/run/onlyoffice || install -m 755 -o onlyoffice -g nginx -d /var/run/onlyoffice'
+ExecStart=/var/www/onlyoffice/onlyoffice.service start onlyoffice
+ExecStop=/var/www/onlyoffice/onlyoffice.service stop onlyoffice
+Environment=LD_LIBRARY_PATH=/usr/lib MONO_IOMAP=all MONO_ASPNET_WEBCONFIG_CACHESIZE=2000 MONO_THREADS_PER_CPU=2000 MONO_OPTIONS="--server" MONO_GC_PARAMS=nursery-size=64m
 
 User=onlyoffice
 Group=onlyoffice
 # Give up if ping don't get an answer
-TimeoutSec=600
+TimeoutStartSec=600
+TimeoutStopSec=15
+
+# Auto-Restart every 24 hours
+WatchdogSec=24h
 
 Restart=always
-PrivateTmp=true
+PrivateTmp=false
 
 [Install]
 WantedBy=multi-user.target

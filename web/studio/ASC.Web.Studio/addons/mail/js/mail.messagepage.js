@@ -1815,7 +1815,10 @@ window.messagePage = (function ($) {
         var needRemember = true;
 
         $.each(messages, function (i, m) {
-            sanitizeMessage(m, params.loadImages);
+            var senderAddress = ASC.Mail.Utility.ParseAddress(m.from);
+            var loadImages = senderAddress.isValid ? trustedAddresses.isTrusted(senderAddress.email) : params.loadImages;
+
+            sanitizeMessage(m, loadImages);
 
             if (isMessageExpanded(m) && m.isBodyCorrupted) {
                 needRemember = false;

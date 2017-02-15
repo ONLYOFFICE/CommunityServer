@@ -40,7 +40,7 @@ namespace ASC.ActiveDirectory.BuiltIn
 {
     public class SystemLdapHelper : LdapHelper
     {
-        private readonly SystemLdapSearcher systemLdapSearcher = new SystemLdapSearcher();
+        private readonly SystemLdapSearcher _systemLdapSearcher = new SystemLdapSearcher();
 
         #region common methods
 
@@ -58,19 +58,20 @@ namespace ASC.ActiveDirectory.BuiltIn
                 {
                     password = string.Empty;
                 }
-                if (settings.PortNumber == Constants.SSL_LDAP_PORT)
-                {
-                    type |= AuthenticationTypes.SecureSocketsLayer;
-                }
-                var entry = settings.Authentication ?
-                    new DirectoryEntry(settings.Server + ":" + settings.PortNumber, settings.Login, password, type) :
-                    new DirectoryEntry(settings.Server + ":" + settings.PortNumber);
 
-                return new LDAPObjectFactory().CreateObject(entry);
+                if (settings.PortNumber == Constants.SSL_LDAP_PORT)
+                    type |= AuthenticationTypes.SecureSocketsLayer;
+
+                var entry = settings.Authentication
+                                ? new DirectoryEntry(settings.Server + ":" + settings.PortNumber, settings.Login, password,
+                                                     type)
+                                : new DirectoryEntry(settings.Server + ":" + settings.PortNumber);
+
+                return LDAPObjectFactory.CreateObject(entry);
             }
             catch (Exception e)
             {
-                log.WarnFormat("Can't get current domain. May be current user has not needed permissions. {0}", e);
+                Log.WarnFormat("Can't get current domain. May be current user has not needed permissions. {0}", e);
                 return null;
             }
         }
@@ -79,26 +80,56 @@ namespace ASC.ActiveDirectory.BuiltIn
         {
             try
             {
+                if (string.IsNullOrEmpty(server) || portNumber < 0)
+                    return null;
+
                 using (HostingEnvironment.Impersonate())
                 {
-                    return new DirectoryEntry(server + ":" + portNumber).InvokeGet(Constants.ADSchemaAttributes.DistinguishedName).ToString();
+                    return
+                        new DirectoryEntry(server + ":" + portNumber).InvokeGet(
+                            Constants.ADSchemaAttributes.DISTINGUISHED_NAME).ToString();
                 }
             }
-            catch (Exception e)
+            catch
             {
-                log.WarnFormat("Can't get Domain DistinguishedName. May be current user has not needed permissions. {0}", e);
                 return null;
             }
         }
 
-        public override void CheckCredentials(string login, string password, string server, int portNumber, bool startTls)
+        public override void CheckCredentials(string login, string password, string server, int portNumber,
+                                              bool startTls)
         {
-            var domainName = server.Split('/').Last() + ":" + portNumber;
+            var domain = server.Split('/').Last();
+            var serverConnection = domain + ":" + portNumber;
+
             // if login with domain
-            login = login.Split('@')[0];
-            using (var ldap = new LdapConnection(domainName))
+            string loginDomain = null;
+            var loginLocalPart = login;
+
+            if (login.Contains("\\"))
             {
-                var networkCredential = new NetworkCredential(login, password, domainName);
+                var splited = login.Split('\\');
+                loginLocalPart = splited[1];
+                loginDomain = splited[0];
+            }
+            else if (login.Contains("@"))
+            {
+                var splited = login.Split('@');
+                loginLocalPart = splited[0];
+                loginDomain = splited[1];
+            }
+
+            if (!string.IsNullOrEmpty(loginDomain))
+            {
+                if (!domain.StartsWith(loginDomain, StringComparison.InvariantCultureIgnoreCase))
+                {
+                    throw new LdapException(string.Format("Domain '{0}' from login '{1}' not found", loginDomain, login));
+                }
+            }
+
+            using (var ldap = new LdapConnection(serverConnection))
+            {
+                var networkCredential = new NetworkCredential(loginLocalPart, password, domain);
                 ldap.SessionOptions.VerifyServerCertificate = (con, cer) => true;
                 ldap.SessionOptions.SecureSocketLayer = (portNumber == Constants.SSL_LDAP_PORT);
                 ldap.SessionOptions.ProtocolVersion = Constants.LDAP_V3;
@@ -114,10 +145,12 @@ namespace ASC.ActiveDirectory.BuiltIn
         public override List<LDAPObject> GetUsersByAttributes(LDAPSupportSettings settings)
         {
             var distinguishedName = settings.Server + ":" + settings.PortNumber + "/" + settings.UserDN;
+            
             try
             {
-                return systemLdapSearcher.Search(distinguishedName, Criteria.All(Expression.Exists(settings.LoginAttribute)),
-                    settings.UserFilter, settings);
+                return _systemLdapSearcher.Search(distinguishedName,
+                                                  Criteria.All(Expression.Exists(settings.LoginAttribute)),
+                                                  settings.UserFilter, settings);
             }
             catch (ArgumentException)
             {
@@ -125,61 +158,70 @@ namespace ASC.ActiveDirectory.BuiltIn
             }
             catch (Exception e)
             {
-                log.ErrorFormat("Can not access to directory: {0}. {1}", distinguishedName, e);
+                Log.ErrorFormat("Can not access to directory: {0}. {1}", distinguishedName, e);
             }
+            
             return null;
         }
 
         public override List<LDAPObject> GetUsersByAttributesAndFilter(LDAPSupportSettings settings, string filter)
         {
             var distinguishedName = settings.Server + ":" + settings.PortNumber + "/" + settings.UserDN;
-            if (!string.IsNullOrEmpty(settings.UserFilter) && !settings.UserFilter.StartsWith("(") && !settings.UserFilter.EndsWith(")"))
+            
+            if (!string.IsNullOrEmpty(settings.UserFilter) && !settings.UserFilter.StartsWith("(") &&
+                !settings.UserFilter.EndsWith(")"))
             {
                 settings.UserFilter = "(" + settings.UserFilter + ")";
             }
+            
             filter = "(&" + settings.UserFilter + filter + ")";
+            
             try
             {
-                return systemLdapSearcher.Search(distinguishedName, null, filter, settings);
+                return _systemLdapSearcher.Search(distinguishedName, null, filter, settings);
             }
             catch (Exception e)
             {
-                log.ErrorFormat("Can not access to directory: {0}. {1}", distinguishedName, e);
+                Log.ErrorFormat("Can not access to directory: {0}. {1}", distinguishedName, e);
             }
+            
             return null;
         }
 
-        public override List<LDAPObject> GetUsersFromPrimaryGroup(LDAPSupportSettings settings, string primaryGroupID)
+        public override List<LDAPObject> GetUsersFromPrimaryGroup(LDAPSupportSettings settings, string primaryGroupId)
         {
             var distinguishedName = settings.Server + ":" + settings.PortNumber + "/" + settings.UserDN;
+            
             try
             {
-                return systemLdapSearcher.Search(distinguishedName, Criteria.All(Expression.Equal(
-                    Constants.ADSchemaAttributes.PrimaryGroupID, primaryGroupID)), settings.UserFilter, settings);
+               return _systemLdapSearcher.Search(distinguishedName, Criteria.All(Expression.Equal(
+                    Constants.ADSchemaAttributes.PRIMARY_GROUP_ID, primaryGroupId)), settings.UserFilter, settings);
             }
             catch (Exception e)
             {
-                log.ErrorFormat("Can not access to directory: {0}. {1}", distinguishedName, e);
+                Log.ErrorFormat("Can not access to directory: {0}. {1}", distinguishedName, e);
             }
+            
             return null;
         }
 
         public override LDAPObject GetUserBySid(LDAPSupportSettings settings, string sid)
         {
             var distinguishedName = settings.Server + ":" + settings.PortNumber + "/" + settings.UserDN;
+            
             try
             {
-                var list = systemLdapSearcher.Search(distinguishedName, Criteria.All(
-                    Expression.Equal(Constants.ADSchemaAttributes.ObjectSid, sid)), settings.UserFilter, settings);
+                var list = _systemLdapSearcher.Search(distinguishedName, Criteria.All(
+                    Expression.Equal(Constants.ADSchemaAttributes.OBJECT_SID, sid)), settings.UserFilter, settings);
+
                 if (list.Count != 0)
-                {
                     return list[0];
-                }
             }
             catch (Exception e)
             {
-                log.ErrorFormat("Can not access to directory: {0}. {1}", distinguishedName, e);
+                Log.ErrorFormat("Can not access to directory: {0}. {1}", distinguishedName, e);
             }
+
             return null;
         }
 
@@ -187,18 +229,20 @@ namespace ASC.ActiveDirectory.BuiltIn
             int portNumber, bool authentication, string login, string password, bool startTls)
         {
             var type = AuthenticationTypes.ReadonlyServer | AuthenticationTypes.Secure;
+
             if (portNumber == Constants.SSL_LDAP_PORT)
-            {
                 type |= AuthenticationTypes.SecureSocketsLayer;
-            }
+
             var userEntry = authentication ?
                 new DirectoryEntry(server + ":" + portNumber + "/" + userDN, login, password, type) :
                 new DirectoryEntry(server + ":" + portNumber + "/" + userDN);
+            
             if (userEntry.SchemaClassName == string.Empty)
             {
-                log.ErrorFormat("Wrong User DN parameter: {0}", userDN);
+                Log.ErrorFormat("Wrong User DN parameter: {0}", userDN);
                 return false;
             }
+            
             return true;
         }
 
@@ -210,18 +254,20 @@ namespace ASC.ActiveDirectory.BuiltIn
             int portNumber, bool authentication, string login, string password, bool startTls)
         {
             var type = AuthenticationTypes.ReadonlyServer | AuthenticationTypes.Secure;
+            
             if (portNumber == Constants.SSL_LDAP_PORT)
-            {
                 type |= AuthenticationTypes.SecureSocketsLayer;
-            }
+ 
             var userEntry = authentication ?
                 new DirectoryEntry(server + ":" + portNumber + "/" + groupDN, login, password, type) :
                 new DirectoryEntry(server + ":" + portNumber + "/" + groupDN);
+
             if (userEntry.SchemaClassName == string.Empty)
             {
-                log.ErrorFormat("Wrong GroupDN DN parameter: {0}", groupDN);
+                Log.ErrorFormat("Wrong GroupDN DN parameter: {0}", groupDN);
                 return false;
             }
+
             return true;
         }
 
@@ -229,15 +275,16 @@ namespace ASC.ActiveDirectory.BuiltIn
         {
             try
             {
-                List<LDAPObject> groups = systemLdapSearcher.Search(
+                var groups = _systemLdapSearcher.Search(
                     settings.Server + ":" + settings.PortNumber + "/" + settings.GroupDN, null, settings.GroupFilter, settings);
                 return groups;
             }
             catch (Exception ex)
             {
-                log.ErrorFormat("Wrong Group DN or Group Filter parameter: GroupDN = {0}, GroupFilter = {1}, {2}",
+                Log.ErrorFormat("Wrong Group DN or Group Filter parameter: GroupDN = {0}, GroupFilter = {1}, {2}",
                     settings.GroupDN, settings.GroupFilter, ex);
             }
+
             return null;
         }
         

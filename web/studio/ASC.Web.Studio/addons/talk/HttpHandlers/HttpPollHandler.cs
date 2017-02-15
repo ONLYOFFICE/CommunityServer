@@ -88,9 +88,6 @@ namespace ASC.Web.Talk.HttpHandlers
             {
                 CopyStream(respStream, context.Response.OutputStream);               
             }
-
-            context.Response.Flush();
-
         }
     }
        

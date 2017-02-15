@@ -115,7 +115,7 @@ ASC.Files.Common = (function () {
     };
 
     var replaceInXml = function (str) {
-        return str.replace(/&/gim, "&amp;").replace(/</gim, "&gt;").replace(/>/gim, "&lt;");
+        return str.replace(/&/gim, "&amp;").replace(/</gim, "&lt;").replace(/>/gim, "&gt;");
     };
 
     var getSitePath = function () {

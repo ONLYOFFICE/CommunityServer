@@ -40,7 +40,7 @@ namespace ASC.Web.Studio.UserControls.Management.IpSecurity
 
         protected bool Enabled
         {
-            get { return SetupInfo.IsVisibleSettings("IpSecurity"); }
+            get { return IPSecurity.IPSecurity.IpSecurityEnabled; }
         }
 
         protected IPRestrictionsSettings RestrictionsSettings = SettingsManager.Instance.LoadSettings<IPRestrictionsSettings>(TenantProvider.CurrentTenantID);

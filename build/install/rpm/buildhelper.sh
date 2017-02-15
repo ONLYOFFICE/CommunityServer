@@ -8,6 +8,7 @@ BUILDMODE=-bb
 PUBLISHMODE=develop
 VERSION=1
 CHECKPERMISSION=1
+REDISTDIR=$DIR/redistdir
 
 while [ "$1" != "" ]; do
 	case $1 in
@@ -82,6 +83,11 @@ if [ "$REPO" = "1" ]; then
 	rm -rfv $REPODIR
 	mkdir -p $REPODIR/main
 	mkdir $REPODIR/$VERSION
+	
+	if [ -d $REDISTDIR ]; then
+		cp `find $REDISTDIR -name "*.rpm"` $BUILDDIR/RPMS/noarch/
+	fi
+	
 	for F in $BUILDDIR/RPMS/*; do
 		ARCH=$(basename $F)
 		echo "Creating repository ($ARCH)... "
@@ -103,5 +109,5 @@ if [ "$PUBLISH" = "1" ]; then
 		S3PATH=s3://static.teamlab.com/repo/centos/
 	fi
 
-	[ "$S3PATH" != "" ] && s3cmd --delete-removed --acl-public sync $REPODIR/ $S3PATH
+	[ "$S3PATH" != "" ] && s3cmd --delete-removed --acl-public --cf-invalidate sync $REPODIR/ $S3PATH
 fi

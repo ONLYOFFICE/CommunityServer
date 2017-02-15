@@ -418,11 +418,12 @@
         <div id="fc_delete_settings">
 	        <div class="header">
 		        <div class="inner">
-			        <span>${dialogHeader}</span>
+			        <span class="repeat-content">${dialogHeader}</span>
+                    <span class="single-content">${dialogSingleHeader}</span>
 			        <div class="close-btn">&times;</div>
 		        </div>
 	        </div>
-	        <div class="delete-selector">
+	        <div class="delete-selector repeat-content">
 		        <input class="delete-this" type="radio" name="delete-radio" value="" checked>&nbsp;
                 <span class="delete-this-label">${dialogDeleteOnlyThisLabel}</span>
                 <br/>
@@ -432,6 +433,7 @@
 		        <input class="delete-all" type="radio" name="delete-radio" value="">&nbsp;
                 <span class="delete-all-label">${dialogDeleteAllLabel}</span>
 	        </div>
+            <div class="delete-text single-content">${dialogSingleBody}</div>
 	        <div class="buttons">
 		        <a class="save-btn button blue middle" href="#">${dialogButtonSave}</a>
 		        <a class="cancel-btn button gray middle" href="#">${dialogButtonCancel}</a>
@@ -666,7 +668,7 @@
                             </div>
                             <div class="users-list attendees-user-list"></div>
                             <div class="attendees-noaccount">
-                                <a href="<%= VirtualPathUtility.ToAbsolute("~/addons/mail") %>">
+                                <a href="<%= VirtualPathUtility.ToAbsolute("~/addons/mail/default.aspx") %>">
                                     <%=Resources.CalendarJSResource.attendeesNoAccountLink%>
                                 </a>
                                 <%=Resources.CalendarJSResource.attendeesNoAccountText%>

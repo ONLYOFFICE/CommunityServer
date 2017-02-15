@@ -81,6 +81,33 @@ namespace ASC.Common.Data
             RegisterDatabase(databaseId, connectionString.ProviderName, connectionString.ConnectionString);
         }
 
+        public static void UnRegisterDatabase(string databaseId)
+        {
+            if (string.IsNullOrEmpty(databaseId)) throw new ArgumentNullException("databaseId");
+
+            if (providers.ContainsKey(databaseId))
+            {
+                lock (syncRoot)
+                {
+                    if (providers.ContainsKey(databaseId))
+                    {
+                        providers.Remove(databaseId);
+                    }
+                }
+            }
+
+            if (connnectionStrings.ContainsKey(databaseId))
+            {
+                lock (syncRoot)
+                {
+                    if (connnectionStrings.ContainsKey(databaseId))
+                    {
+                        connnectionStrings.Remove(databaseId);
+                    }
+                }
+            }
+        }
+
         public static bool IsDatabaseRegistered(string databaseId)
         {
             lock (syncRoot)
