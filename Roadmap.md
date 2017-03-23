@@ -6,21 +6,20 @@
 
 ### General
 
-* Modularity support
 * Allow to add administrator to the People module
-* CKEditors/MediaWiki update
 * Session time limit
 * Separate settings for Mail Server within the portal
-* Integration with CPanel, Plesk, APS STANDART
 
 ### Documents module
 
-* Integration with DocuSign, adobe sign
+* Integration with DocuSign
+* Change work with DropBox to use official SDK instead of SharpBox
 * Sharing menu and dialog window redesign
-* Sharing of documents with a password
-* Sharing of documents with a limited time
-* Document copying, downloading and printing denial
 * Changing of document owner by administrator
+
+### Projects module
+
+* Task copy creation
 
 ### Mail module
 
@@ -29,66 +28,42 @@
 ### CRM
 
 * IP-telephony integration
-* Reports with export to document editors
+
+### Backend
+
+* Switch to jQuery 3.1
+* Discontinue support for IE 8 and earlier versions
+* ApiSystem service fuctionality for hosted solutions
+
 
 ## Version 9.5
 
 ### General
 
+* Modularity support
+* CKEditors/MediaWiki update
 * Inactive portal data removal
 * Creating user with login/password combination
-* Creating operating system image (CoreOS)
-* Interface adaptation for mobile devices
 * Portal registration using email only
-* Two-factor authentication using disposable password generation
-* Generation of demo data for new users
+* Talk redesign
+* Support for push notifications
 
 ### Control Panel
 
-* Customization of editors
-
-### Documents module
-
-* Adding watermarks to documents
-* Integration with SyncThing (DropBox analog)
-* Document digital signature
-* Full-text search by the document contents
-
-### Mail module
-
-* Integration with Microsoft Exchange
-* Mail message templates
-* Possibility to create mail boxes at the custom domain during the user creation
-* Mail message read notification
-* Mail server IMAP synchronization support
-* Possibility to create own mail folders
-* Possibility to create own rules for the automated mail sorting
-* Mail Server API
-
-### CRM
-
-* SMS messaging to the contacts
-* Task templates
-* Integration with accounting software (e.g., 1C)
-* Invoice templates for the editors
-* Extended search
-* Mobile application
-* Customized user report generator
-
-## Version 10.0
-
-### General
-
-* Possibility to use tags for the search in Feed
-* Possibility to centrally manage user subscriptions
-* Video/audio connection for the portal users
-* Export of poll results to a spreadsheet
-* Smart polls (possibility to create up to 50 questions in a single poll)
-* Possibility to create private rooms in Talk with the access by password
+* SSO: support for shibboleth and other providers
 
 ### Documents module
 
 * Video view in browser
+* Integration with Sharepoint
+
+### Mail module
+
+* Possibility to create mail boxes at the mail server for mass mailing with the portal
+
+### CRM
+
+* Reports with export to document editors
 
 
 ## Project Information
